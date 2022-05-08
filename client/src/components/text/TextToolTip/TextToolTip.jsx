@@ -8,7 +8,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 //  - [ ] Add stories when completed refactoring
 //  assignees: jameskokoska
 
-export function TextToolTip({ description, children, width, placement }) {
+const TextToolTip = ({ description, children, width, placement }) => {
   if (description === '' || description === undefined) {
     return children;
   } else if (width === undefined) {
@@ -43,7 +43,7 @@ export function TextToolTip({ description, children, width, placement }) {
       </OverlayTrigger>
     );
   }
-}
+};
 
 TextToolTip.propTypes = {
   description: PropTypes.string || PropTypes.node || undefined,
