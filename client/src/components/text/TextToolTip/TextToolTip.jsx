@@ -2,6 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
+/*
+  TODO: refactor TextToolTip component
+  - [ ] Props like `description` should not be as many types.
+  - [ ] Missing required props for `OverlayTrigger` should be provided
+  - [ ] Add stories when completed refactoring
+  assignees: jameskokoska
+ */
+
 export function TextToolTip({ description, children, width, placement }) {
   if (description === '' || description === undefined) {
     return children;
