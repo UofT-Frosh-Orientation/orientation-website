@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "format": "prettier --write \"**/*.+(js|json|yml|yaml)\"",
+        "format": "prettier --write \"**/*.+(js|json)\"",
         "lint": "eslint src",
         "test": "echo \"Error: no test specified\" && exit 1",
         "start:dev": "set NODE_ENV=development && nodemon src/server.js"

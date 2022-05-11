@@ -1,0 +1,52 @@
+@import '../../../scssStyles/mixins';
+
+p,
+.text-paragraph {
+  font-size: 20px;
+  color: black;
+
+  @include devices(tablet) {
+    font-size: 16px;
+  }
+}
+
+.text-info {
+  height: auto;
+  text-align: left;
+  font-size: 16px;
+  white-space: normal;
+  color: #1a1a1a;
+  padding-right: 10px;
+  margin-right: -10px;
+  padding-top: 1px;
+  overflow: auto;
+  text-overflow: ellipsis;
+
+  @include devices(tablet) {
+    font-size: 14px;
+  }
+}
+
+h4,
+.text-accent {
+  color: #6f1e88;
+  font-size: 22px !important;
+  filter: drop-shadow(0.1vw 0.1vw 0.1vw rgba(0, 0, 0, 0.24));
+}
+
+.text-accent-secondary {
+  @extend .text-accent;
+  color: #ffc112;
+}
+
+.text-accent-small {
+  @extend .text-accent;
+  font-size: 17px !important;
+  line-height: 1.4;
+  padding-bottom: 3px;
+}
+
+.text-accent-small-secondary {
+  @extend .text-accent-small;
+  @extend .text-accent-secondary;
+}
