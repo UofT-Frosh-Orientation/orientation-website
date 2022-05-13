@@ -3,30 +3,30 @@ This repository holds the source code for UofT Engineering's Orientation Website
 split into two "packages". First, there is the frontend package, `client`, and second there is the backend
 package `server`.
 ## Getting started
-To get started, you need to install all the necessary dependencies. This project uses [pnpm](https://pnpm.io/)
+To get started, you need to install all the necessary dependencies. This project uses yarn
 for dependency management, so the first step is to install pnpm.
-### Installing pnpm
+### Installing yarn
  ```shell
- npm install -g pnpm
+ npm install -g yarn
 ```
-After installing pnpm, we are now ready to install the remaining dependencies.
+After installing yarn, we are now ready to install the remaining dependencies.
 ### Installing root dependencies
 First, we will install the dependencies in the root directory. To do this, navigate to the root directory of
 the repository in your terminal and run:
 ```shell
-pnpm install
+yarn install
 ```
 ### Installing frontend dependencies
 Next, we will install the frontend dependencies. To do this, navigate to the `client` directory in your 
 terminal and run:
 ```shell
-pnpm install
+yarn install
 ```
 ### Installing backend dependencies
 Finally, we need to install the backend dependencies. To do this, navigate to the `server` directory in 
 your terminal and run:
 ```shell
-pnpm install
+yarn install
 ```
 ## Running the code
 When running the code, you can choose whether you want to run just the frontend, just the backend, or both
@@ -35,20 +35,20 @@ run all the stories for the frontend React components. All of these scenarios ar
 ### Running the full app
 To run the full app, go the root directory of the repository in your terminal and run:
 ```shell
-pnpm start:dev
+yarn start:dev
 ```
 ### Running just the frontend
 To run just the frontend, navigate to the `client` directory in your terminal and run:
 ```shell
-pnpm dev
+yarn dev
 ```
 ### Running just the backend
 To run just the backend, navigate to the `server` directory in your terminal and run:
 ```shell
-pnpm start:dev
+yarn start:dev
 ```
 ### Building all the component stories
 To build the stories, navigate to the `client` directory in your terminal and run:
 ```shell
-pnpm ladle serve
+yarn ladle serve
 ```
