@@ -1,0 +1,110 @@
+@import '../../../scssStyles/mixins';
+
+.section-title-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: calc(3px + 0.4vw);
+    background-color: #ffc112;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px #6f1e882b;
+  }
+
+  &:before {
+    margin-left: 4%;
+  }
+
+  &:after {
+    margin-right: 4%;
+  }
+
+  @include devices(tablet) {
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    &:before,
+    &:after {
+      width: 0;
+    }
+
+    &:before {
+      margin-left: -95%;
+    }
+
+    &:after {
+      margin-right: -95%;
+    }
+  }
+}
+
+// TODO: Add font family to Headers
+// assignees: jameskokoska
+
+.header-section {
+  font-size: calc(20px + 2vw);
+  color: #6f1e88;
+  padding-left: 4vw;
+  padding-right: 4vw;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+
+  @include devices(tablet) {
+    width: 90vw;
+    font-size: 42px;
+    white-space: normal;
+    line-height: 1;
+    border-bottom: 3px solid #ffc112;
+    border-top: 2px solid #ffc112;
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+}
+
+h1,
+.header-fancy {
+  filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.384));
+  color: #ffc112;
+  font-size: 100px;
+
+  @include devices(tablet) {
+    font-size: 55px;
+  }
+}
+
+h2,
+.header-paragraph {
+  font-size: 40px !important;
+  color: #6f1e88;
+  font-weight: 500;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  @include devices(tablet) {
+    font-size: 34px !important;
+    padding-top: 1px;
+    padding-bottom: 1px;
+  }
+}
+
+h3,
+.header-bold {
+  color: #6f1e88;
+  font-weight: 700;
+  font-size: 32px !important;
+  padding-top: 2px;
+  padding-bottom: 2px;
+
+  @include devices(tablet) {
+    font-size: 28px !important;
+    line-height: 1.2;
+  }
+}
