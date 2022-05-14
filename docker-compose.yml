@@ -3,17 +3,19 @@ version: '3.8'
 services:
   mongo:
     image: mongo
-    restart: always
+    container_name: mongo
+    restart: unless-stopped
+    env_file: ./.env
     environment:
-      MONGO_INITDB_ROOT_USERNAME: $MONGODB_USER
-      MONGO_INITDB_ROOT_PASSWORD: $MONGODB_PASSWORD
-      MONGO_INITDB_DATABASE: $MONGODB_DBNAME
+      - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD
     ports:
       - "27017:27017"
     volumes:
       - ./mongo-volume:/data/db
   server:
     build: ./server
+    env_file: ./.env
     depends_on:
       - mongo
     environment:

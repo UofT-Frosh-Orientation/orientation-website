@@ -1,7 +1,6 @@
-FROM node:17-alpine
+FROM node:16-alpine
 WORKDIR /app
-RUN npm install -g pnpm
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install
+COPY package.json yarn.lock ./
+RUN yarn install
 COPY ./ ./
-CMD ["node", "src/server.js"]
+CMD ["yarn", "start:dev"]
