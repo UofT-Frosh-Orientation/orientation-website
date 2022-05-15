@@ -40,6 +40,7 @@ services:
       - REDIS_PASSWORD=$REDIS_PASSWORD
   server:
     build: ./server
+    container_name: server
     depends_on:
       - mongodb
     environment:
@@ -52,4 +53,10 @@ services:
       - "5001:5001"
     volumes:
       - ./server/src:/app/src
-
+  client:
+    build: ./client
+    container_name: client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client/src:/app/src
