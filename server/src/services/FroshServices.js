@@ -1,17 +1,11 @@
 const EmailValidator = require('email-validator');
 const bcrypt = require('bcrypt');
-const frosh = require('../models/FroshModel');
-const FroshModel = frosh.FroshModel;
+const FroshModel = require('../models/FroshModel');
 const FroshGroupModel = require('../models/FroshGroupModel');
-const requiredFields = frosh.requiredFields;
+const newUserSubscription = require('../subscribers/newUserSubscription');
 
 const FroshServices = {
   async validateNewFrosh(froshData) {
-    for (const field of Object.keys(froshData)) {
-      if (requiredFields.includes(field) && (froshData[field] === undefined || froshData[field] === null)) {
-        throw new Error('INCOMPLETE_FIELDS');
-      }
-    }
     if (!EmailValidator.validate(froshData.email)) {
       throw new Error('INVALID_EMAIL');
     }
@@ -48,25 +42,19 @@ const FroshServices = {
     return froshGroup;
   },
 
-  async hashPassword(password) {
-    bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(password, salt, async(err, hash) => {
-        return hash;
-      })
-    })
+  hashPassword(password) {
+    return bcrypt.hashSync(password, 10);
   },
 
   async saveNewFrosh(froshRecord) {
-    const newFrosh = FroshModel.create(froshRecord, () => {
-      throw new Error('INTERNAL_ERROR');
-    })
+    const newFrosh = new FroshModel(froshRecord)
+    await newFrosh.save();
     const froshGroup = await FroshGroupModel.findOne({name: froshRecord.froshGroup});
     froshGroup.totalNum++;
     froshGroup[froshRecord.discipline]++;
     froshGroup[froshRecord.pronouns]++;
-    await froshGroup.save(() => {
-      throw new Error('INTERNAL_ERROR')
-    })
+    await froshGroup.save();
+    await newUserSubscription.add(froshRecord);
   }
 
 }

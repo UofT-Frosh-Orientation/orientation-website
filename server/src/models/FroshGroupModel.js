@@ -11,19 +11,19 @@ const FroshGroupSchema = new mongoose.Schema({
 		default: 0
     },
 
-	"They/Them": {
+	"they/them": {
 		type: Number,
 		default: 0
 	},
-	"He/Him": {
+	"he/him": {
 		type: Number,
 		default: 0
 	},
-	"She/Her": {
+	"she/ser": {
 		type: Number,
 		default: 0
 	},
-	Other: {
+	other: {
 		type: Number,
 		default: 0
     },

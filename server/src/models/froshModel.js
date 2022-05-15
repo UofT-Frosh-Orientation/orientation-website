@@ -20,7 +20,7 @@ const FroshSchema = new mongoose.Schema({
   },
   discipline: {
     type: String,
-    enum: ['EngSci', 'ECE', 'Civ'], //TODO: extend frosh model to support all disciplines
+    enum: ['Engineering Science', 'ECE', 'Civ'], //TODO: extend frosh model to support all disciplines
     required: true,
   },
   medicalInfo: {
@@ -53,6 +53,7 @@ const FroshSchema = new mongoose.Schema({
   shirtSize: {
     type: String,
     enum: ['Small', 'Medium', 'Large'],
+    required: true,
   },
   isMeetup: {
     type: Boolean,
@@ -72,7 +73,7 @@ const FroshSchema = new mongoose.Schema({
   },
   froshGroup: {
     type: String,
-    enum: ['alpha'], //TODO: Update frosh groups list in frosh model
+    enum: ['alpha', 'Phi'], //TODO: Update frosh groups list in frosh model
     required: true,
   },
   balance: {
@@ -104,11 +105,7 @@ const FroshSchema = new mongoose.Schema({
   },
 });
 
-const requiredFields = Object.keys(FroshSchema.obj).filter(field => FroshSchema[field].isRequired);
 
 const FroshModel = mongoose.model('Frosh', FroshSchema);
 
-module.exports = {
-  FroshModel,
-  requiredFields
-};
+module.exports = FroshModel
