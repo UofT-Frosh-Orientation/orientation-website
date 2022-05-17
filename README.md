@@ -3,8 +3,8 @@ This repository holds the source code for UofT Engineering's Orientation Website
 split into two "packages". First, there is the frontend package, `client`, and second there is the backend
 package `server`.
 ## Getting started
-To get started, you need to install all the necessary dependencies. This project uses yarn
-for dependency management, so the first step is to install pnpm.
+To get started, you need to install all the necessary dependencies, and then you need to install docker. This project uses yarn
+for dependency management, so the first step is to install yarn.
 ### Installing yarn
  ```shell
  npm install -g yarn
@@ -28,14 +28,17 @@ your terminal and run:
 ```shell
 yarn install
 ```
+### Installing docker
+The easiest way to install docker is to follow the instructions at https://www.docker.com/products/docker-desktop/
 ## Running the code
 When running the code, you can choose whether you want to run just the frontend, just the backend, or both
 at the same time. For most purposes, it is recommended to run both. Another common way to run the code is 
 run all the stories for the frontend React components. All of these scenarios are explained below.
-### Running the full app
-To run the full app, go the root directory of the repository in your terminal and run:
+### Running both the frontend and the backend
+To run both the frontend and the backend, you will need docker installed. With docker installed,
+navigate to the **root directory** of the repository, then run:
 ```shell
-yarn start:dev
+docker-compose up --build
 ```
 ### Running just the frontend
 To run just the frontend, navigate to the `client` directory in your terminal and run:

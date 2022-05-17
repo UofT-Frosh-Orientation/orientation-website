@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongo-dev
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD
+      - MONGO_INITDB_DATABASE=$MONGODB_DBNAME
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo-volume:/data/db
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    depends_on:
+      mongodb:
+        condition: service_started
+      server:
+        condition: service_started
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=$MONGODB_USER
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=$MONGODB_PASSWORD
+      - ME_CONFIG_MONGODB_SERVER=mongo-dev
+      - ME_CONFIG_BASICAUTH_USERNAME=$MONGO_WEB_USERNAME
+      - ME_CONFIG_BASICAUTH_PASSWORD=$MONGO_WEB_PASSWORD
+    ports:
+      - "8081:8081"
+  redis:
+    image: redis
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "7000:7000"
+    environment:
+      - REDIS_PORT_NUMBER=$REDIS_PORT
+      - REDIS_PASSWORD=$REDIS_PASSWORD
+  server:
+    build: ./server
+    container_name: server
+    depends_on:
+      - mongodb
+    environment:
+      - NODE_ENV=$API_NODE_ENV
+      - PORT=$API_PORT
+      - MONGODB_USER=$MONGODB_USER
+      - MONGODB_PASSWORD=$MONGODB_PASSWORD
+      - MONGODB_DBNAME=$MONGODB_DBNAME
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./server/src:/app/src
+  client:
+    build: ./client
+    container_name: client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client/src:/app/src
