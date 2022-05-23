@@ -20,7 +20,11 @@ function App() {
         {/* Registration Info */}
         <div className="info">
           <a href="https://www.instagram.com/froshweek/" target="_blank" rel="noreferrer">
-            <img src={InstagramLogo} className="instagram-logo" />
+            <img
+              src={InstagramLogo}
+              className="instagram-logo"
+              alt="Instagram logo links to F!rosh Instagram page"
+            />
           </a>
           <p className="info-text">
             Registration for F!rosh Week will open around the end of June. Follow us on Instagram
