@@ -20,28 +20,23 @@
       #621790 100%
     ),
     #935ebf;
-  /*background-attachment: fixed;*/
 
   color: #ffffff;
 }
 
 /* TITLE SECTION */
-.lp-title {
+.title {
   display: flex;
   flex-direction: column;
 
   justify-content: center;
   align-items: center;
-
-  /*  max-width property defines the maximum width of an element
-	if content is too large, height will change 
-	max-width: 851px; */
-  margin: 0 auto; /* centers title block */
+  margin: 0 auto;
 
   text-align: center;
   padding-top: 10%;
 }
-.title {
+.title-text {
   font-size: 64px;
   font-style: bold;
   letter-spacing: 0.1em;
@@ -59,25 +54,21 @@ hr.line {
 .subtitle {
   font-size: 20px;
   letter-spacing: 0.05em;
-  /*margin-bottom: 20px;*/
 }
 
 /* REGISTRATION INFO SECTION */
-.lp-info {
+.info {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 100px 0;
 
-  /* max-width property defines the maximum width of an element
-	if content is too large, height will change */
   max-width: 851px;
-  margin: 0 auto; /* centers title block */
+  margin: 0 auto;
 
   padding-top: 5%;
 }
-.instagram-svg-icon {
-  fill: #ffffff;
+.instagram-logo {
   width: 58px;
   vertical-align: middle;
 }
@@ -92,7 +83,7 @@ hr.line {
 }
 
 /* FOOTER */
-.lp-footer {
+.footer {
   position: absolute;
   bottom: 10px;
   right: 0;
@@ -114,22 +105,21 @@ hr.line {
   /*	CSS for screens that are 428 pixels or less 
 		i.e. the largest screen width is an iphone 13 pro max thing
 	*/
-  .lp-title {
+
+  .title {
     display: flex;
     flex-direction: column;
 
     justify-content: center;
     align-items: center;
 
-    /* max-width property defines the maximum width of an element
-		if content is too large, height will change */
     max-width: 274px;
-    margin: 0 auto; /* centers title block */
+    margin: 0 auto;
 
     text-align: center;
     padding-top: 60%;
   }
-  .title {
+  .title-text {
     font-style: bold;
     font-size: 20px;
     letter-spacing: 0.1em;
@@ -151,16 +141,14 @@ hr.line {
     letter-spacing: 0.03em;
   }
 
-  .lp-info {
+  .info {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 100px 0;
 
-    /* max-width property defines the maximum width of an element
-		if content is too large, height will change */
     max-width: 274px;
-    margin: 0 auto; /* centers title block */
+    margin: 0 auto;
 
     padding-top: 10%;
   }
