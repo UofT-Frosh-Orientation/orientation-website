@@ -1,0 +1,74 @@
+components:
+  schemas:
+    NewFrosh:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: The name of the user
+          example: John Doe
+        preferredName:
+          type: string,
+          description: The preferred name of the frosh
+          example: Johnny
+        birthDate:
+          type: string
+          description: Birth date of the Frosh
+          example: "2004-01-01"
+          format: date
+        pronouns:
+          type: string
+          description: Pronouns of the Frosh
+          example: he/him
+        discipline:
+          type: string
+          enum:
+            - ECE
+            - CIV
+            - Engineering Science
+            - Track One
+            - Mech
+            - Min
+            - Indy
+            - Chem
+          example: Engineering Science
+        medicalInfo:
+          type: string
+          example: "Allergic to peanuts"
+        email:
+          type: string
+          example: john.doe@gmail.com
+        password:
+          type: string
+          format: password
+          example: SecurePassword123
+        phoneNumber:
+          type: string
+          example: 123-456-7890
+        emergencyContact:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Jane Doe
+            phoneNumber:
+              type: string
+              example: 0987-654-321
+        shirtSize:
+          type: string
+          enum: [Small, Medium, Large]
+          example: Medium
+        isMeetup:
+          type: boolean
+          example: true
+        isScunt:
+          type: boolean
+          example: false
+        isAgreeTerms:
+          type: boolean
+          example: true
+        isMediaConsent:
+          type: boolean
+          required: true

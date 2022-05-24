@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const FroshSchema = new mongoose.Schema({
-  fullName: {
+  name: {
     type: String,
     required: true,
   },
