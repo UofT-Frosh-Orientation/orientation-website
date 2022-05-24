@@ -55,8 +55,27 @@ const FroshServices = {
     froshGroup[froshRecord.pronouns]++;
     await froshGroup.save();
     await newUserSubscription.add(froshRecord);
-  }
+  },
 
+  async updateFroshDataField(email) {
+    let errors = [];
+    FroshModel.findOne({ email }).then((frosh) => {
+      if (!frosh) {
+        console.log("error");
+        errors.push('The frosh doesn\'t exist');
+      } else {
+        if (errors.length === 0) {
+          /*Update the field */
+          frosh[field] = value;
+          // frosh["lastUpdatedAcct"] = new Date();
+          // frosh["lastUpdatedFields"].push(field);
+          frosh.save();
+          console.log("frosh edited");
+        }
+		  }
+	  });
+    return errors;
+  }
 }
 
 module.exports = FroshServices;
