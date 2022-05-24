@@ -1,8 +1,28 @@
+:root {
+  --purple: #935ebf;
+  --light-purple: #ecd6ff;
+  --purple-shades-dark: #3c0a5a;
+  --purple-shades-original: #6f1e88;
+  --purple-shades-muted: #b297c7;
+  --purple-shades-light: #ecd6ff;
+  --yellow: #ffe76a;
+  --white: #ffffff;
+  --on-white: #f3f3f3;
+  --black: #000000;
+  --gray: #989898;
+  --shadow: #959da533 0px 8px 24px; /* box-shadow: var(--shadow); */
+  --green-success: #93bd84;
+  --text-link: #2680c1;
+  --text-dark: #000000;
+  --text-light: #f3f3f3;
+  --text-muted: #c2c2c2;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Inter';
+  font-family: 'Helvetica';
   font-style: normal;
 }
 
@@ -22,6 +42,7 @@
     #935ebf;
 
   color: #ffffff;
+  padding: 20px;
 }
 
 /* TITLE SECTION */
