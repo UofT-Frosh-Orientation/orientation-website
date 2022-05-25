@@ -1,43 +1,61 @@
 import { useState } from 'react';
 import InstagramLogo from './instagram_icon.png';
 import './App.css';
+import { Button } from './components/button/Button/Button';
+import { ButtonOutlined } from './components/button/ButtonOutlined/ButtonOutlined';
+import { ButtonBubble } from './components/button/ButtonBubble/ButtonBubble';
 
 function App() {
   return (
-    <div className="App">
-      <div className="container">
-        {/* Title Section */}
-        <div className="title">
-          <h1 className="title-text">
-            SOMETHING AWESOME<br></br>IS IN THE WORKS
-          </h1>
-          <hr className="line"></hr>
-          <p className="subtitle">
-            Hey F!rosh! We are working hard to give you the best experience, check back soon!
-          </p>
-        </div>
+    <>
+      <Button label="Primary"></Button>
+      <Button label="Secondary" isSecondary></Button>
+      <Button label="Disabled" isSecondary isDisabled></Button>
+      <ButtonOutlined label="Outlined"></ButtonOutlined>
+      <ButtonOutlined label="Secondary" isSecondary></ButtonOutlined>
+      <ButtonOutlined label="Disabled" isDisabled></ButtonOutlined>
+      <ButtonBubble label="Primary Bubble"></ButtonBubble>
+      <ButtonBubble label="Secondary Bubble" isSecondary></ButtonBubble>
 
-        {/* Registration Info */}
-        <div className="info">
-          <a href="https://www.instagram.com/froshweek/" target="_blank" rel="noreferrer">
-            <img
-              src={InstagramLogo}
-              className="instagram-logo"
-              alt="Instagram logo links to F!rosh Instagram page"
-            />
-          </a>
-          <p className="info-text">
-            Registration for F!rosh Week will open around the end of June. Follow us on Instagram
-            for more updates!
-          </p>
-        </div>
+      <br />
+      <br />
+      <br />
 
-        {/* Footer */}
-        <div className="footer">
-          <h2 className="footer-text">Made with 💜 by the F!rosh Week 2T2 Tech Team</h2>
+      <div className="App">
+        <div className="container">
+          {/* Title Section */}
+          <div className="title">
+            <h1 className="title-text">
+              SOMETHING AWESOME<br></br>IS IN THE WORKS
+            </h1>
+            <hr className="line"></hr>
+            <p className="subtitle">
+              Hey F!rosh! We are working hard to give you the best experience, check back soon!
+            </p>
+          </div>
+
+          {/* Registration Info */}
+          <div className="info">
+            <a href="https://www.instagram.com/froshweek/" target="_blank" rel="noreferrer">
+              <img
+                src={InstagramLogo}
+                className="instagram-logo"
+                alt="Instagram logo links to F!rosh Instagram page"
+              />
+            </a>
+            <p className="info-text">
+              Registration for F!rosh Week will open around the end of June. Follow us on Instagram
+              for more updates!
+            </p>
+          </div>
+
+          {/* Footer */}
+          <div className="footer">
+            <h2 className="footer-text">Made with 💜 by the F!rosh Week 2T2 Tech Team</h2>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -1,0 +1,63 @@
+@import '../../../scssStyles/_mixins.scss';
+
+.button-outlined {
+  margin: 15px 10px;
+  background-color: var(--purple-shades-light);
+  color: var(--text-dark);
+  display: inline-block;
+  border-radius: 14px;
+  padding: 16px 44px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 200ms;
+  user-select: none;
+  border-width: 4px;
+  border-color: var(--purple);
+  border-style: solid;
+
+  @include devices(tablet) {
+    font-size: 16px;
+    padding: 12px 34px;
+    border-width: 3px;
+    margin: 8px 6px;
+  }
+}
+
+.button-outlined-secondary {
+  background-color: var(--on-white);
+  border-color: var(--purple-shades-muted);
+  color: var(--text-dark);
+  font-weight: unset;
+  transition: transform 200ms, background-color 200ms, border-color 200ms;
+}
+
+.button-outlined:hover {
+  transform: scale(1.02);
+  transition: transform 200ms;
+}
+
+.button-outlined:active {
+  transform: scale(0.97);
+  transition: transform 150ms;
+}
+
+.button-outlined-secondary:hover {
+  transition: transform 200ms, background-color 200ms, border-color 200ms;
+  background-color: var(--purple-shades-light);
+  border-color: var(--purple);
+}
+
+.button-outlined-disabled {
+  opacity: 0.6;
+  cursor: unset;
+  background-color: var(--on-white);
+  border-color: var(--gray);
+  font-weight: unset;
+}
+
+.button-outlined-disabled:hover {
+  transform: scale(1);
+}

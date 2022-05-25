@@ -1,0 +1,48 @@
+@import '../../../scssStyles/mixins';
+
+.button {
+  margin: 15px 10px;
+  background-color: var(--purple);
+  color: var(--text-light);
+  display: inline-block;
+  border-radius: 14px;
+  padding: 20px 48px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 200ms;
+  user-select: none;
+
+  @include devices(tablet) {
+    font-size: 16px;
+    padding: 15px 38px;
+    margin: 8px 6px;
+  }
+}
+
+.button-secondary {
+  background-color: var(--yellow);
+  color: var(--text-dark);
+}
+
+.button:hover {
+  transform: scale(1.02);
+  transition: transform 200ms;
+}
+
+.button:active {
+  transform: scale(0.97);
+  transition: transform 150ms;
+}
+
+.button-disabled {
+  opacity: 0.6;
+  cursor: unset;
+  background-color: var(--gray);
+}
+
+.button-disabled:hover {
+  transform: scale(1);
+}
