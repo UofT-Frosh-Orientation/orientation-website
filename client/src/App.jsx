@@ -2,25 +2,11 @@ import { useState } from 'react';
 import InstagramLogo from './instagram_icon.png';
 import './App.css';
 import { Button } from './components/button/Button/Button';
-import { ButtonOutlined } from './components/button/ButtonOutlined/ButtonOutlined';
-import { ButtonBubble } from './components/button/ButtonBubble/ButtonBubble';
+import { ButtonOutlined } from './components/button/Button/Button';
 
 function App() {
   return (
     <>
-      <Button label="Primary"></Button>
-      <Button label="Secondary" isSecondary></Button>
-      <Button label="Disabled" isSecondary isDisabled></Button>
-      <ButtonOutlined label="Outlined"></ButtonOutlined>
-      <ButtonOutlined label="Secondary" isSecondary></ButtonOutlined>
-      <ButtonOutlined label="Disabled" isDisabled></ButtonOutlined>
-      <ButtonBubble label="Primary Bubble"></ButtonBubble>
-      <ButtonBubble label="Secondary Bubble" isSecondary></ButtonBubble>
-
-      <br />
-      <br />
-      <br />
-
       <div className="App">
         <div className="container">
           {/* Title Section */}
