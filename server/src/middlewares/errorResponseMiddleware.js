@@ -1,6 +1,6 @@
 function errorResponseMiddleware (err, req, res, next ) {
 
-    var statusCode, errorMessage;
+    let statusCode, errorMessage;
 
     if (err.message === "INVALID_EMAIL") {
         statusCode = 400;
