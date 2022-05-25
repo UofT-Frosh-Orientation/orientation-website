@@ -105,7 +105,6 @@ const FroshSchema = new mongoose.Schema({
   },
 });
 
-
 const FroshModel = mongoose.model('Frosh', FroshSchema);
 
-module.exports = FroshModel
+module.exports = FroshModel;
