@@ -18,6 +18,16 @@
   border-color: var(--purple);
   border-style: solid;
 
+  &:hover {
+    transform: scale(1.02);
+    transition: transform 200ms;
+  }
+
+  &:active {
+    transform: scale(0.97);
+    transition: transform 150ms;
+  }
+
   @include devices(tablet) {
     font-size: 16px;
     padding: 12px 34px;
@@ -32,22 +42,12 @@
   color: var(--text-dark);
   font-weight: unset;
   transition: transform 200ms, background-color 200ms, border-color 200ms;
-}
 
-.button-outlined:hover {
-  transform: scale(1.02);
-  transition: transform 200ms;
-}
-
-.button-outlined:active {
-  transform: scale(0.97);
-  transition: transform 150ms;
-}
-
-.button-outlined-secondary:hover {
-  transition: transform 200ms, background-color 200ms, border-color 200ms;
-  background-color: var(--purple-shades-light);
-  border-color: var(--purple);
+  &:hover {
+    transition: transform 200ms, background-color 200ms, border-color 200ms;
+    background-color: var(--purple-shades-light);
+    border-color: var(--purple);
+  }
 }
 
 .button-outlined-disabled {
@@ -56,8 +56,11 @@
   background-color: var(--on-white);
   border-color: var(--gray);
   font-weight: unset;
-}
 
-.button-outlined-disabled:hover {
-  transform: scale(1);
+  &:hover {
+    transform: scale(1);
+  }
+  &:active {
+    transform: scale(1);
+  }
 }

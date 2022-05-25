@@ -30,12 +30,12 @@
   color: var(--text-dark);
   font-weight: unset;
   transition: background-color 200ms, border-color 200ms;
-}
 
-.button-bubble-secondary:hover {
-  transition: background-color 200ms, border-color 200ms;
-  background-color: var(--purple-shades-light);
-  border-color: var(--purple);
+  &:hover {
+    transition: background-color 200ms, border-color 200ms;
+    background-color: var(--purple-shades-light);
+    border-color: var(--purple);
+  }
 }
 
 .button-bubble-disabled {
@@ -43,9 +43,9 @@
   cursor: unset;
   background-color: var(--on-white);
   border-color: var(--gray);
-}
 
-.button-bubble-secondary:active {
-  transition: background-color 100ms;
-  background-color: var(--on-white);
+  &:active {
+    transition: background-color 100ms;
+    background-color: var(--on-white);
+  }
 }
