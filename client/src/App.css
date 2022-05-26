@@ -18,178 +18,55 @@
   --text-muted: #c2c2c2;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Helvetica';
-  font-style: normal;
-}
-
-.App {
-  width: 100vw;
-  height: 100vh;
-
-  overflow-y: hidden;
+html {
+  scroll-behavior: smooth;
   overflow-x: hidden;
-
-  background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(221, 204, 231, 0.21875) 38.02%,
-      #621790 100%
-    ),
-    #935ebf;
-
-  color: #ffffff;
-  padding: 20px;
 }
 
-/* TITLE SECTION */
-.title {
-  display: flex;
-  flex-direction: column;
-
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-
-  text-align: center;
-  padding-top: 10%;
-}
-.title-text {
-  font-size: 64px;
-  font-style: bold;
-  letter-spacing: 0.1em;
-  margin-bottom: 24px;
-  text-shadow: 0px 7px 10px rgba(0, 0, 0, 0.25);
-}
-hr.line {
-  top: 10px;
-  width: 851px;
-  height: 0px;
-  border: 2px solid #ffe76a;
-  border-radius: 100px;
-  margin-bottom: 24px;
-}
-.subtitle {
-  font-size: 20px;
-  letter-spacing: 0.05em;
-}
-
-/* REGISTRATION INFO SECTION */
-.info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 100px 0;
-
-  max-width: 851px;
-  margin: 0 auto;
-
-  padding-top: 5%;
-}
-.instagram-logo {
-  width: 58px;
-  vertical-align: middle;
-}
-.info-text {
-  font-size: 20px;
-  letter-spacing: 0.05em;
-  padding-top: 0;
-  padding-left: 5%;
-  max-width: 751px;
-  text-align: left;
-  display: inline-block;
-}
-
-/* FOOTER */
-.footer {
+.page {
   position: absolute;
-  bottom: 10px;
-  right: 0;
-  left: 0;
-  justify-content: center;
-  align-items: center;
-  color: #d68fff;
-}
-.footer-text {
-  text-align: center;
-  font-size: 20px;
-  font-style: normal;
-  letter-spacing: 0.1em;
+  left: 15px;
+  right: 15px;
 }
 
-/***************** MOBILE VIEW *******************/
+.page-enter {
+  opacity: 0;
+  transform: scale(1.08);
+}
 
-@media screen and (max-width: 428px) {
-  /*	CSS for screens that are 428 pixels or less 
-		i.e. the largest screen width is an iphone 13 pro max thing
-	*/
+.page-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
 
-  .title {
-    display: flex;
-    flex-direction: column;
+.page-exit {
+  opacity: 1;
+  transform: scale(1);
+}
 
-    justify-content: center;
-    align-items: center;
+.page-exit-active {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 300ms, transform 300ms;
+}
 
-    max-width: 274px;
-    margin: 0 auto;
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
 
-    text-align: center;
-    padding-top: 60%;
-  }
-  .title-text {
-    font-style: bold;
-    font-size: 20px;
-    letter-spacing: 0.1em;
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(97, 97, 97);
+}
 
-    text-align: center;
-    text-shadow: 0px 7px 10px rgba(0, 0, 0, 0.25);
+::-webkit-scrollbar-thumb {
+  background-color: rgb(124, 124, 124);
+  background: rgb(124, 124, 124);
+  border-radius: 3px;
+}
 
-    margin-bottom: 10px;
-  }
-  hr.line {
-    width: 274px;
-    border: 1px solid #ffe76a;
-    border-radius: 100px;
-    margin-bottom: 10px;
-  }
-  .subtitle {
-    font-size: 12px;
-    max-width: 274px;
-    letter-spacing: 0.03em;
-  }
-
-  .info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 100px 0;
-
-    max-width: 274px;
-    margin: 0 auto;
-
-    padding-top: 10%;
-  }
-  .svg-icon {
-    fill: #ffffff;
-    width: 58px;
-    vertical-align: middle;
-  }
-  .info-text {
-    font-size: 12px;
-    max-width: 274px;
-    letter-spacing: 0.03em;
-    padding-top: 0;
-    padding-left: 10%;
-    text-align: left;
-    display: inline-block;
-  }
-
-  .footer-text {
-    font-size: 8px;
-    letter-spacing: 0.1em;
-  }
+::-webkit-scrollbar-track {
+  background: #d3d3d3fd;
+  border-radius: 3px;
 }
