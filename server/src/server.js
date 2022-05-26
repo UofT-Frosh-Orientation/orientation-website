@@ -8,11 +8,11 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.get('*', (req, res) => {
-  res.status(200).send('Hello, Luke!');
-});
-
 app.use('/frosh', froshRouter);
+
+app.get('*', (req, res) => {
+  res.status(200).send('Hello, Calum!!');
+});
 
 mongoLoader().then(() => {
   app.listen(process.env.PORT || 5001, () => {

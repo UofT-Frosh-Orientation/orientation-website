@@ -57,24 +57,70 @@ const FroshServices = {
     await newUserSubscription.add(froshRecord);
   },
 
-  async updateFroshDataField(email) {
-    let errors = [];
-    FroshModel.findOne({ email }).then((frosh) => {
-      if (!frosh) {
-        console.log("error");
-        errors.push('The frosh doesn\'t exist');
-      } else {
-        if (errors.length === 0) {
-          /*Update the field */
-          frosh[field] = value;
-          // frosh["lastUpdatedAcct"] = new Date();
-          // frosh["lastUpdatedFields"].push(field);
-          frosh.save();
-          console.log("frosh edited");
-        }
-		  }
-	  });
-    return errors;
+  // async updateFroshDataField(email) {
+  //   let errors = [];
+  //   FroshModel.findOne({ email }).then((frosh) => {
+  //     if (!frosh) {
+  //       console.log("error");
+  //       errors.push('The frosh doesn\'t exist');
+  //     } else {
+  //       if (errors.length === 0) {
+  //         /*Update the field */
+  //         frosh[field] = value;
+  //         // frosh["lastUpdatedAcct"] = new Date();
+  //         // frosh["lastUpdatedFields"].push(field);
+  //         frosh.save();
+  //         console.log("frosh edited");
+  //       }
+	// 	  }
+	//   });
+  //   return errors;
+  // },
+
+  // async emailRegExpFindFrosh(froshEmail) {
+  //   return (Frosh.findOne({
+  //     email: new RegExp(`^${froshEmail}$`, 'i')
+  //   }));
+  // },
+
+  // async resetPassTokenFindFrosh(token) {
+  //   return (Frosh.findOne({
+  //     resetPasswordToken: token,
+  //   }));
+  // },
+  
+  async initFroshGroups(groups) {
+    const defaultVals = {
+      "totalNum": 0,
+			"They/Them": 0,
+			"He/Him": 0,
+			"She/Her": 0,
+			"Other": 0,
+			"Chemical Engineering": 0,
+			"Civil Engineering": 0,
+			"Computer Engineering": 0,
+			"Electrical Engineering": 0,
+			"Engineering Science": 0,
+			"Industrial Engineering": 0,
+			"Materials Engineering": 0,
+			"Mechanical Engineering": 0,
+			"Mineral Engineering": 0,
+			"Track One (Undeclared)": 0
+    }
+    try {
+      for(const group of groups) {
+        FroshGroupModel.create({...defaultVals, ...group})
+      }
+      res.send({
+        status: OK,
+        errorMsg: ""
+      })
+    } catch (err) {
+      res.send({
+        status: INTERNAL_ERROR,
+        errorMsg: "Could not initialize all frosh groups"
+      })
+    }
   }
 }
 
