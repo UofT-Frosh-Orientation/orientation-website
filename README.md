@@ -51,8 +51,8 @@ To run just the backend, navigate to the `server` directory in your terminal and
 ```shell
 yarn start:dev
 ```
-### Building all the component stories
-To build the stories, navigate to the `client` directory in your terminal and run:
+### View all the component stories
+To view the stories, navigate to the `client` directory in your terminal and run:
 ```shell
-yarn ladle serve
+yarn storybook
 ```
