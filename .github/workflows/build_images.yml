@@ -1,4 +1,4 @@
-name: 'Build Images'
+name: build_images
 
 on:
   workflow_call:
@@ -16,9 +16,9 @@ on:
 
 env:
   REGISTRY: ${{ secrets.DIGITALOCEAN_CONTAINER_URL }}
+  TAG: ${{ github.event.inputs.tag }}
   SERVER_IMAGE_NAME: "orientation-server"
   CLIENT_IMAGE_NAME: "orientation-client"
-  TAG: ${{ inputs.tag }}
 
 jobs:
   build_and_push:
@@ -31,7 +31,7 @@ jobs:
         run: cd server && docker build -t $(echo $REGISTRY)/$(echo $SERVER_IMAGE_NAME):$(echo $TAG) .
 
       - name: Build client image
-        run: cd client && docker build -t ($echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):(echo $TAG) .
+        run: cd client && docker build -t $(echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):$(echo $TAG) .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -39,7 +39,7 @@ jobs:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
       - name: Log in to DigitalOcean Container Registry
-        run: doctl registy login --expiry-seconds 600
+        run: doctl registry login --expiry-seconds 600
 
       - name: Remove all old server images
         run: if [ ! -z "$(doctl registry repository list | grep "$(echo $SERVER_IMAGE_NAME)")" ]; then doctl registry repository delete-manifest $(echo $SERVER_IMAGE_NAME) $(doctl registry repository list-tags $(echo $SERVER_IMAGE_NAME) | grep -o "$(echo $TAG)") --force; else echo "No repository"; fi
