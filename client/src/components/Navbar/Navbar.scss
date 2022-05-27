@@ -1,0 +1,80 @@
+// * {
+//     z-index: 10;
+//     position: 'fixed';
+//     background-color: 'gray';
+//     width: '100%';
+//     font-size: '25px';
+// }
+
+.container {
+  display: flex;
+  //justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  position: fixed;
+  background-color: #ebebeb;
+  width: 100%;
+  height: 40px;
+
+  font-size: '10px';
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+}
+
+// .main-pages {
+//     justify-content: flex-start;
+//     display: flex;
+//     align-items: center;
+// }
+
+.navbar-link {
+  justify-content: flex-start;
+  color: gray;
+  margin-right: 60px;
+  //font-size: 25px;
+}
+
+.navbar-link:hover {
+  background: red;
+}
+
+.frosh-logo {
+  width: 15px;
+}
+
+.icon-logo {
+  background: purple;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+
+  margin-left: 15px;
+  margin-right: 60px;
+}
+
+// .registration-pages {
+//     flex-wrap: nowrap;
+//     justify-content: flex-end;
+//     display: flex;
+//     align-items: center;
+//     background-color: green;
+// }
+
+.icon-profile {
+  background: #935ebf;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+
+  margin-left: auto;
+  margin-right: 15px;
+
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+  color: #ffe76a;
+}
