@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build server image
-        run: echo $TAG && cd server && docker build -t ${{ secrets.DIGITALOCEAN_CONTAINER_URL }}/$(echo $SERVER_IMAGE_NAME):${{ inputs.tag }} .
+        run: echo {{inputs.tag}} && cd server && docker build -t ${{ secrets.DIGITALOCEAN_CONTAINER_URL }}/$SERVER_IMAGE_NAME:${{ inputs.tag }} .
 
       - name: Build client image
         run: cd client && docker build -t ${{ secrets.DIGITALOCEAN_CONTAINER_URL }}/$(echo $CLIENT_IMAGE_NAME):${{ inputs.tag }} .
