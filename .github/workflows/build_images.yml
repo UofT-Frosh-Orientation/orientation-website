@@ -39,7 +39,7 @@ jobs:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
       - name: Log in to DigitalOcean Container Registry
-        run: doctl registy login --expiry-seconds 600
+        run: doctl registry login --expiry-seconds 600
 
       - name: Remove all old server images
         run: if [ ! -z "$(doctl registry repository list | grep "$(echo $SERVER_IMAGE_NAME)")" ]; then doctl registry repository delete-manifest $(echo $SERVER_IMAGE_NAME) $(doctl registry repository list-tags $(echo $SERVER_IMAGE_NAME) | grep -o "$(echo $TAG)") --force; else echo "No repository"; fi
