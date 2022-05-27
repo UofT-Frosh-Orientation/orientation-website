@@ -16,8 +16,7 @@ on:
 
 env:
   REGISTRY: ${{ secrets.DIGITALOCEAN_CONTAINER_URL }}
-  TAG: ${{ inputs.tag }}
-
+  TAG: "${{ inputs.tag }}"
   SERVER_IMAGE_NAME: "orientation-server"
   CLIENT_IMAGE_NAME: "orientation-client"
 
@@ -29,7 +28,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build server image
-        run: echo "$TAG" && cd server && docker build -t "$REGISTRY/$SERVER_IMAGE_NAME:$TAG" .
+        run: echo $TAG && cd server && docker build -t "$REGISTRY/$SERVER_IMAGE_NAME:$TAG" .
 
       - name: Build client image
         run: cd client && docker build -t ${{ secrets.DIGITALOCEAN_CONTAINER_URL }}/$(echo $CLIENT_IMAGE_NAME):${{ inputs.tag }} .
