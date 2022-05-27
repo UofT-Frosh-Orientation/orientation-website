@@ -2,23 +2,22 @@ name: build_images
 
 on:
   workflow_call:
-#    inputs:
-#      tag:
-#        required: true
-#        type: string
-#        description: "Tag for the image"
+    inputs:
+      tag:
+        required: true
+        type: string
+        description: "Tag for the image"
   workflow_dispatch:
-#    inputs:
-#      tag:
-#        required: true
-#        type: string
-#        description: "Tag for the image"
+    inputs:
+      tag:
+        required: true
+        type: string
+        description: "Tag for the image"
 
 env:
   REGISTRY: ${{ secrets.DIGITALOCEAN_CONTAINER_URL }}
   SERVER_IMAGE_NAME: "orientation-server"
   CLIENT_IMAGE_NAME: "orientation-client"
-  TAG: "test" #${{ inputs.tag }}
 
 jobs:
   build_and_push:
@@ -28,10 +27,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build server image
-        run: echo $TAG && cd server && docker build -t ${{ secrets.DIGITALOCEAN_CONTAINER_URL }}/$(echo $SERVER_IMAGE_NAME):$(echo $TAG) .
+        run: echo $TAG && cd server && docker build -t ${{ secrets.DIGITALOCEAN_CONTAINER_URL }}/$(echo $SERVER_IMAGE_NAME):${{ inputs.tag }} .
 
       - name: Build client image
-        run: cd client && docker build -t ${{ secrets.DIGITALOCEAN_CONTAINER_URL }}/$(echo $CLIENT_IMAGE_NAME):$(echo $TAG) .
+        run: cd client && docker build -t ${{ secrets.DIGITALOCEAN_CONTAINER_URL }}/$(echo $CLIENT_IMAGE_NAME):${{ inputs.tag }} .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
