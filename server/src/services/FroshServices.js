@@ -16,17 +16,17 @@ const FroshServices = {
   },
 
   async checkFroshExists(email) {
-    return FroshModel.findOne({email});
+    return FroshModel.findOne({ email });
   },
 
-  async getNewFroshGroup(discipline, pronouns){
+  async getNewFroshGroup(discipline, pronouns) {
     const froshGroupList = await FroshGroupModel.find();
     let minNumber = 10000;
     let minScore = 10000;
     let froshGroup = '';
     let froshGroupIdx = -1;
     for (let i = 0; i < froshGroupList.length; i++) {
-      const score = (0.5 * ((froshGroupList[i])[discipline])) + 0.5*((froshGroupList[i])[pronouns]);
+      const score = 0.5 * froshGroupList[i][discipline] + 0.5 * froshGroupList[i][pronouns];
       if (froshGroupList[i].totalNum < minNumber) {
         minNumber = froshGroupList[i].totalNum;
         froshGroup = froshGroupList[i].name;
@@ -47,9 +47,9 @@ const FroshServices = {
   },
 
   async saveNewFrosh(froshRecord) {
-    const newFrosh = new FroshModel(froshRecord)
+    const newFrosh = new FroshModel(froshRecord);
     await newFrosh.save();
-    const froshGroup = await FroshGroupModel.findOne({name: froshRecord.froshGroup});
+    const froshGroup = await FroshGroupModel.findOne({ name: froshRecord.froshGroup });
     froshGroup.totalNum++;
     froshGroup[froshRecord.discipline]++;
     froshGroup[froshRecord.pronouns]++;
@@ -122,6 +122,6 @@ const FroshServices = {
       })
     }
   }
-}
+};
 
 module.exports = FroshServices;

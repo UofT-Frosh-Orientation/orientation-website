@@ -1,5 +1,3 @@
-const express = require('express');
-const bodyParser = require('body-parser');
 const mongoLoader = require('./loaders/mongoLoader');
 
 const froshRouter = require('./routes/froshRoutes');
@@ -13,6 +11,8 @@ app.use('/frosh', froshRouter);
 app.get('*', (req, res) => {
   res.status(200).send('Hello, Calum!!');
 });
+
+const app = require('./app');
 
 mongoLoader().then(() => {
   app.listen(process.env.PORT || 5001, () => {
