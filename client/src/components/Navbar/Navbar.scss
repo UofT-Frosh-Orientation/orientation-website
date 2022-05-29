@@ -9,19 +9,27 @@
 .container {
   display: flex;
   //justify-content: space-between;
+
   align-items: center;
   z-index: 10;
   position: fixed;
   background-color: #ebebeb;
   width: 100%;
-  height: 40px;
+  height: 45px;
 
-  font-size: '10px';
-  font-weight: bold;
+  //font-size: '10px';
+  //font-weight: bold;
 }
 
 a {
   text-decoration: none;
+
+  // &:active {
+
+  //   .underline {
+  //     background-color: #935ebf;
+  //   }
+  // }
 }
 
 // .main-pages {
@@ -29,16 +37,105 @@ a {
 //     display: flex;
 //     align-items: center;
 // }
+.sub-container {
+  //flex-direction: column;
+  display: flex;
+  //display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+
+  //background-color: pink;
+  margin-right: 25px;
+  height: 35px;
+  width: 80px;
+
+  border-radius: 5px;
+
+  //transition: background-color 500ms;
+  //transition: background-color 500ms height 200ms;
+  // transition-timing-function: ease-out;
+
+  a:link {
+    .underline {
+      background-color: #935ebf;
+    }
+  }
+
+  // &:visited {
+  //   .underline {
+  //     background-color: #935ebf;
+  //   }
+  // }
+
+  &:hover {
+    //border-bottom: #935ebf solid 5px ;
+    //transition: 200ms;
+    .underline {
+      //background: #935ebf;
+      background-color: #935ebf;
+      transition: background-color 200ms;
+      //transition-timing-function: ease-in;
+    }
+
+    color: #935ebf;
+    transition: color 200ms;
+    //transition-timing-function: ease-in;
+
+    // &:active {
+    //   //border-bottom: #935ebf solid 5px ;
+    //   //transition: 200ms;
+    //   //transition-timing-function: ease-in;
+    //   .underline {
+    //     //background: #935ebf;
+    //     background-color: #935ebf;
+    //     //transition: background-color 200ms;
+    //     //transition-timing-function: ease-in;
+    //   }
+    // }
+  }
+
+  .underline {
+    //background: #935ebf;
+    transition: background-color 200ms;
+    //transition-timing-function: ease-in;
+  }
+}
+
+// PROBLEM WITH TRANSITION -- text moves too T_T
 
 .navbar-link {
-  justify-content: flex-start;
+  position: absolute;
+  //align-items: center;
+  //justify-content: center;
+  //text-align: center;
   color: gray;
-  margin-right: 60px;
+  font-size: 16px;
+  font-weight: 700;
+
+  //margin-right: 60px;
   //font-size: 25px;
 }
 
-.navbar-link:hover {
-  background: red;
+// .navbar-link:hover {
+//   background: red;
+// }
+
+.underline {
+  //display: flex;
+  //position: absolute;
+  //align-items: flex-end;
+  align-self: flex-end;
+  width: 80px;
+  height: 3px;
+  //background-color: red;
+  //padding-bottom: 0%;
+  //padding-top: 50px;
+  //position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  //perspective: 1px;
+  //margin-bottom: 0%;
 }
 
 .frosh-logo {
@@ -64,14 +161,17 @@ a {
 // }
 
 .icon-profile {
+  align-items: flex-end;
+  flex-direction: row;
+  align-self: flex-end;
   background: #935ebf;
   border-radius: 50%;
   width: 35px;
   height: 35px;
   line-height: 35px;
 
-  margin-left: auto;
-  margin-right: 15px;
+  //margin-left: auto;
+  //margin-right: 15px;
 
   text-align: center;
   font-weight: bold;
