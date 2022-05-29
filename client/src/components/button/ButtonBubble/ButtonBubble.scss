@@ -1,0 +1,51 @@
+@import '../../../scssStyles/_mixins.scss';
+
+.button-bubble {
+  margin: 10px;
+  background-color: var(--purple-shades-light);
+  color: var(--text-dark);
+  border-radius: 14px;
+  padding: 16px 28px;
+  box-shadow: var(--shadow);
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 200ms;
+  user-select: none;
+  border-width: 4px;
+  border-color: var(--purple);
+  border-style: solid;
+
+  @include devices(tablet) {
+    font-size: 16px;
+    padding: 12px 22px;
+    border-width: 3px;
+    margin: 6px;
+  }
+}
+
+.button-bubble-secondary {
+  background-color: var(--on-white);
+  border-color: var(--purple-shades-muted);
+  color: var(--text-dark);
+  font-weight: unset;
+  transition: background-color 200ms, border-color 200ms;
+
+  &:hover {
+    transition: background-color 200ms, border-color 200ms;
+    background-color: var(--purple-shades-light);
+    border-color: var(--purple);
+  }
+}
+
+.button-bubble-disabled {
+  opacity: 0.6;
+  cursor: unset;
+  background-color: var(--on-white);
+  border-color: var(--gray);
+
+  &:active {
+    transition: background-color 100ms;
+    background-color: var(--on-white);
+  }
+}

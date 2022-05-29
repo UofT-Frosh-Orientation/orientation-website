@@ -4,30 +4,30 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: 'module',
     ecmaFeatures: {
-      jsx: true,
-    },
+      jsx: true
+    }
   },
   settings: {
     react: {
-      version: 'detect',
+      version: 'detect'
     },
     'import/resolver': {
       node: {
         paths: ['src'],
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      },
-    },
+        extensions: ['.js', '.jsx', '.ts', '.tsx']
+      }
+    }
   },
   env: {
     browser: true,
     amd: true,
-    node: true,
+    node: true
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:storybook/recommended'],
   rules: {
     'react/react-in-jsx-scope': 'off',
     'no-unused-vars': 'off',
-    'no-prototype-builtins': 'off',
+    'no-prototype-builtins': 'off'
   },
   globals: {
     describe: 'readonly',
@@ -35,6 +35,6 @@ module.exports = {
     cy: 'readonly',
     Cypress: 'readonly',
     beforeEach: 'readonly',
-    before: 'readonly',
-  },
+    before: 'readonly'
+  }
 };
