@@ -3,66 +3,49 @@ import PropTypes from 'prop-types';
 import './Navbar.scss';
 import { pages } from '../../util/pages';
 import { Link } from 'react-router-dom';
-import froshlogo from '../../assets/social/Instagram_icon.png';
 
 const Navbar = ({ onClick }) => {
   return (
     <div className="container">
-      {/* <img className="frosh-logo" src={froshlogo} alt="F!rosh Logo"></img> */}
-
-      {/* circle placeholder for main F!rosh icon */}
-      <div className="icon-logo"></div>
-
-      <div className="main"></div>
-      {/* MAIN PAGES */}
-      {pages.main.map((page) => {
-        // pages.main -> array containing Home, About, FAQ objects
-        // map loops through the array
-        return (
-          <Link to={page.path} key={page.path}>
-            <div onClick={onClick} className="sub-container">
-              <div className="navbar-link"> {page.label} </div>
-              <div className="underline"></div>
-            </div>
-          </Link>
-        );
-        // note key is unique!
-      })}
-
-      {/* SPECIAL PAGES */}
-      {pages.special.map((page) => {
-        // pages.main -> array containing Home, About, FAQ objects
-        // map loops through the array
-        if (page.label === 'Profile') {
+      <div className="main">
+        <div className="icon-logo"></div>
+        {/* MAIN PAGES - Home, About, FAQ */}
+        {pages.main.map((page) => {
           return (
             <Link to={page.path} key={page.path}>
-              <div className="icon-profile"> AA </div>
+              <div onClick={onClick} className="sub-container">
+                <div className="navbar-link"> {page.label} </div>
+                <div className="underline"></div>
+              </div>
             </Link>
           );
-        }
-        // else if (page.label === 'Register') {
-        //   return (
-        //     <Link to={page.path} key={page.path}>
-        //       {/* TODO */}
-        //       <div className="icon-profile">AA</div>
-        //     </Link>
-        //   );
-        // }
-        // else if (page.label === 'Login') {
-        //   return (
-        //     <Link to={page.path} key={page.path}>
-        //       {/* TODO */}
-        //       <div className="icon-profile">AA</div>
-        //     </Link>
-        //   );
-        // }
+        })}
+      </div>
 
-        // note key is unique!
-      })}
-
-      {/* <Link to={pages.special.path} key={pages.special.path}>
-        <div className="icon-profile">AA</div>
-      </Link> */}
+      <div className="special">
+        {/* SPECIAL PAGES - Profile, Register, Login*/}
+        {pages.special.map((page) => {
+          if (page.label === 'profile') {
+            return (
+              <Link to={page.path} key={page.path}>
+                <div className="icon-profile"> AA </div>
+              </Link>
+            );
+          } else if (page.label === 'Register') {
+            return (
+              <Link to={page.path} key={page.path}>
+                <div className="register">{page.label}</div>
+              </Link>
+            );
+          } else if (page.label === 'Login') {
+            return (
+              <Link to={page.path} key={page.path}>
+                <div className="login">{page.label}</div>
+              </Link>
+            );
+          }
+        })}
+      </div>
     </div>
   );
 };

@@ -1,14 +1,6 @@
-// * {
-//     z-index: 10;
-//     position: 'fixed';
-//     background-color: 'gray';
-//     width: '100%';
-//     font-size: '25px';
-// }
-
 .container {
   display: flex;
-  //justify-content: space-between;
+  justify-content: space-between;
 
   align-items: center;
   z-index: 10;
@@ -16,126 +8,58 @@
   background-color: #ebebeb;
   width: 100%;
   height: 45px;
-
-  //font-size: '10px';
-  //font-weight: bold;
+}
+.main,
+.special {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 }
 
 a {
   text-decoration: none;
-
-  // &:active {
-
-  //   .underline {
-  //     background-color: #935ebf;
-  //   }
-  // }
 }
 
-// .main-pages {
-//     justify-content: flex-start;
-//     display: flex;
-//     align-items: center;
-// }
 .sub-container {
-  //flex-direction: column;
   display: flex;
-  //display: flex;
   justify-content: center;
   justify-items: center;
   align-items: center;
 
-  //background-color: pink;
   margin-right: 25px;
   height: 35px;
   width: 80px;
 
   border-radius: 5px;
 
-  //transition: background-color 500ms;
-  //transition: background-color 500ms height 200ms;
-  // transition-timing-function: ease-out;
-
-  a:link {
-    .underline {
-      background-color: #935ebf;
-    }
-  }
-
-  // &:visited {
-  //   .underline {
-  //     background-color: #935ebf;
-  //   }
-  // }
-
   &:hover {
-    //border-bottom: #935ebf solid 5px ;
-    //transition: 200ms;
-    .underline {
-      //background: #935ebf;
-      background-color: #935ebf;
-      transition: background-color 200ms;
-      //transition-timing-function: ease-in;
-    }
-
     color: #935ebf;
     transition: color 200ms;
-    //transition-timing-function: ease-in;
 
-    // &:active {
-    //   //border-bottom: #935ebf solid 5px ;
-    //   //transition: 200ms;
-    //   //transition-timing-function: ease-in;
-    //   .underline {
-    //     //background: #935ebf;
-    //     background-color: #935ebf;
-    //     //transition: background-color 200ms;
-    //     //transition-timing-function: ease-in;
-    //   }
-    // }
+    .underline {
+      background-color: #935ebf;
+      transition: background-color 200ms;
+    }
   }
 
   .underline {
-    //background: #935ebf;
     transition: background-color 200ms;
-    //transition-timing-function: ease-in;
   }
 }
 
-// PROBLEM WITH TRANSITION -- text moves too T_T
-
 .navbar-link {
   position: absolute;
-  //align-items: center;
-  //justify-content: center;
-  //text-align: center;
   color: gray;
   font-size: 16px;
   font-weight: 700;
-
-  //margin-right: 60px;
-  //font-size: 25px;
 }
 
-// .navbar-link:hover {
-//   background: red;
-// }
-
 .underline {
-  //display: flex;
-  //position: absolute;
-  //align-items: flex-end;
   align-self: flex-end;
   width: 80px;
   height: 3px;
-  //background-color: red;
-  //padding-bottom: 0%;
-  //padding-top: 50px;
-  //position: relative;
   overflow: hidden;
   border-radius: 15px;
-  //perspective: 1px;
-  //margin-bottom: 0%;
 }
 
 .frosh-logo {
@@ -152,29 +76,65 @@ a {
   margin-right: 60px;
 }
 
-// .registration-pages {
-//     flex-wrap: nowrap;
-//     justify-content: flex-end;
-//     display: flex;
-//     align-items: center;
-//     background-color: green;
-// }
-
 .icon-profile {
-  align-items: flex-end;
-  flex-direction: row;
-  align-self: flex-end;
   background: #935ebf;
   border-radius: 50%;
   width: 35px;
   height: 35px;
   line-height: 35px;
 
-  //margin-left: auto;
-  //margin-right: 15px;
+  margin-left: auto;
+  margin-right: 15px;
 
   text-align: center;
   font-weight: bold;
   font-size: 15px;
   color: #ffe76a;
+}
+
+.register,
+.login {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+
+  margin-right: 15px;
+  height: 35px;
+  border-radius: 10px;
+
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.register {
+  width: 100px;
+  background-color: #935ebf;
+  border-radius: 10px;
+  color: white;
+}
+.login {
+  width: 80px;
+  background-color: #ebebeb;
+  color: #935ebf;
+
+  border: 2px;
+  border-style: solid;
+  border-color: #935ebf;
+  border-radius: 10px;
+}
+
+//animations
+.register,
+.login,
+.icon-profile {
+  &:hover {
+    transform: scale(0.97);
+    transition: transform 150ms;
+  }
+  &:active {
+    transform: scale(0.97);
+    transition: transform 150ms;
+  }
 }
