@@ -4,7 +4,7 @@ import './Navbar.scss';
 import { pages } from '../../util/pages';
 import { Link } from 'react-router-dom';
 
-const Navbar = ({ onClick }) => {
+const Navbar = () => {
   return (
     <div className="container">
       <div className="main">
@@ -13,7 +13,7 @@ const Navbar = ({ onClick }) => {
         {pages.main.map((page) => {
           return (
             <Link to={page.path} key={page.path}>
-              <div onClick={onClick} className="sub-container">
+              <div className="sub-container">
                 <div className="navbar-link"> {page.label} </div>
                 <div className="underline"></div>
               </div>
@@ -50,12 +50,54 @@ const Navbar = ({ onClick }) => {
   );
 };
 
-Navbar.propTypes = {
-  //label: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
-  //isSecondary: PropTypes.bool,
-  //isDisabled: PropTypes.bool,
-  //style: PropTypes.object,
+const NavbarMobile = () => {
+  return (
+    <div className="container">
+      <div className="icon-logo"></div>
+
+      <div className="main">
+        {/* MAIN PAGES - Home, About, FAQ */}
+
+        {pages.main.map((page) => {
+          if (page.label === 'Home') {
+            return (
+              <div className="sub-container">
+                <div className="menu-icon"></div>
+                {/* <FontAwesomeIcon icon="fa-solid fa-house" /> */}
+                <div className="underline"></div>
+              </div>
+            );
+          } else if (page.label === 'About') {
+            return (
+              <div className="sub-container">
+                <div className="menu-icon"></div>
+                {/* <FontAwesomeIcon icon="fa-regular fa-circle-info" /> */}
+                <div className="underline"></div>
+              </div>
+            );
+          } else if (page.label === 'FAQ') {
+            return (
+              <div className="sub-container">
+                <div className="menu-icon"></div>
+                {/* <FontAwesomeIcon icon="fa-solid fa-messages-question" /> */}
+                <div className="underline"></div>
+              </div>
+            );
+          }
+        })}
+      </div>
+
+      {pages.special.map((page) => {
+        if (page.label === 'Login') {
+          return (
+            <Link to={page.path} key={page.path}>
+              <div className="login">{page.label}</div>
+            </Link>
+          );
+        }
+      })}
+    </div>
+  );
 };
 
-export { Navbar };
+export { Navbar, NavbarMobile };
