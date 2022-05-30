@@ -61,27 +61,33 @@ const NavbarMobile = () => {
         {pages.main.map((page) => {
           if (page.label === 'Home') {
             return (
-              <div className="sub-container">
-                <div className="menu-icon"></div>
-                {/* <FontAwesomeIcon icon="fa-solid fa-house" /> */}
-                <div className="underline"></div>
-              </div>
+              <Link to={page.path} key={page.path}>
+                <div className="sub-container">
+                  <div className="menu-icon"></div>
+                  {/* <FontAwesomeIcon icon="fa-solid fa-house" /> */}
+                  <div className="underline"></div>
+                </div>
+              </Link>
             );
           } else if (page.label === 'About') {
             return (
-              <div className="sub-container">
-                <div className="menu-icon"></div>
-                {/* <FontAwesomeIcon icon="fa-regular fa-circle-info" /> */}
-                <div className="underline"></div>
-              </div>
+              <Link to={page.path} key={page.path}>
+                <div className="sub-container">
+                  <div className="menu-icon"></div>
+                  {/* <FontAwesomeIcon icon="fa-regular fa-circle-info" /> */}
+                  <div className="underline"></div>
+                </div>
+              </Link>
             );
           } else if (page.label === 'FAQ') {
             return (
-              <div className="sub-container">
-                <div className="menu-icon"></div>
-                {/* <FontAwesomeIcon icon="fa-solid fa-messages-question" /> */}
-                <div className="underline"></div>
-              </div>
+              <Link to={page.path} key={page.path}>
+                <div className="sub-container">
+                  <div className="menu-icon"></div>
+                  {/* <FontAwesomeIcon icon="fa-solid fa-messages-question" /> */}
+                  <div className="underline"></div>
+                </div>
+              </Link>
             );
           }
         })}
