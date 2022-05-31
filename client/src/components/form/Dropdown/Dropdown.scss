@@ -29,6 +29,12 @@
     height: 100%;
     width: 1em;
     margin: auto 1em auto auto;
+    transition: transform 300ms ease-in-out;
+    transform: rotate(0) translateY(5px);
+
+    &.open {
+      transform: rotate(180deg) translateY(5px);
+    }
   }
 }
 
@@ -52,6 +58,7 @@
 .dropdown-item {
   padding: 0.5em 2em 0.5em 1em;
   cursor: pointer;
+  transition: background-color 300ms ease-in-out;
 
   &:hover {
     background-color: #b297c7;
