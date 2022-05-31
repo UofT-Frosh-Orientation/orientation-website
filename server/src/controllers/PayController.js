@@ -1,7 +1,7 @@
 const PayServices = require('../services/PayServices');
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY || require('../config/secretKeys').stripeSecretKey;
 
-const stripe = require("stripe")('sk_test_Hrs6SAopgFPF0bZXSN3f6ELN');
+const stripe = require("stripe")(stripeSecretKey);
 const express = require('express');
 const app = express();
 app.use(express.static('public'));
