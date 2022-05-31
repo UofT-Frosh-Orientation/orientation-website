@@ -1,0 +1,12 @@
+.navbar-desktop {
+  display: unset;
+  @include devices(tablet) {
+    display: none;
+  }
+}
+.navbar-mobile {
+  display: none;
+  @include devices(tablet) {
+    display: unset;
+  }
+}

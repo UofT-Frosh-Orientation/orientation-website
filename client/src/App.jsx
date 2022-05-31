@@ -6,6 +6,7 @@ import { InitialPage } from './pages/Initial/Initial';
 import { pages } from './util/pages';
 import { Navbar, NavbarMobile } from './components/Navbar/Navbar';
 //import { NavbarMobile } from './components/Navbar/NavbarMobile';
+import { Test } from './components/Navbar/test';
 
 export default function App() {
   const initial = false;
@@ -23,12 +24,7 @@ const TransitionRoutes = () => {
   const location = useLocation();
   return (
     <TransitionGroup>
-      {/* for desktop view */}
       <Navbar></Navbar>
-
-      {/* for mobile view */}
-      {/* <NavbarMobile></NavbarMobile> */}
-
       <ScrollToTop />
       <CSSTransition key={location.key} classNames="page" timeout={300}>
         <Routes location={location}>

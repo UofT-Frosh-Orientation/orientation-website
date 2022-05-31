@@ -4,7 +4,7 @@ import './Navbar.scss';
 import { pages } from '../../util/pages';
 import { Link } from 'react-router-dom';
 
-const Navbar = () => {
+const NavbarDesktop = () => {
   return (
     <div className="container">
       <div className="main">
@@ -106,4 +106,32 @@ const NavbarMobile = () => {
   );
 };
 
-export { Navbar, NavbarMobile };
+const Navbar = () => {
+  return (
+    <>
+      <div className="navbar-desktop">
+        <NavbarDesktop></NavbarDesktop>
+      </div>
+      <div className="navbar-mobile">
+        <NavbarMobile></NavbarMobile>
+      </div>
+    </>
+  );
+};
+
+const propTypes = {
+  // the page the user is on
+  selectedPage: PropTypes.string,
+
+  // button appears if frosh is logged in
+  isLoggedIn: PropTypes.bool,
+
+  // frosh initials used for profile
+  froshInitials: PropTypes.string,
+};
+
+Navbar.propTypes = propTypes;
+NavbarDesktop.propTypes = propTypes;
+NavbarMobile.propTypes = propTypes;
+
+export { Navbar };

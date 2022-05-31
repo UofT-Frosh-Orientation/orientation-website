@@ -1,3 +1,26 @@
+@import '../../scssStyles/mixins.scss';
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+li {
+  list-style-type: none;
+}
+
+.navbar-desktop {
+  display: unset;
+  @include devices(tablet) {
+    display: none;
+  }
+}
+.navbar-mobile {
+  display: none;
+  @include devices(tablet) {
+    display: unset;
+  }
+}
+
 .container {
   display: flex;
   justify-content: space-between;
@@ -6,6 +29,7 @@
   z-index: 10;
   position: fixed;
   background-color: #ebebeb;
+  // background-color: #ebebeb;
   width: 100%;
   height: 45px;
 
@@ -20,6 +44,12 @@
 
 a {
   text-decoration: none;
+
+  &:active {
+    .underline {
+      background-color: #935ebf;
+    }
+  }
 }
 
 .sub-container {
@@ -90,8 +120,18 @@ a {
   color: #ffe76a;
 }
 
+.icon-profile-person {
+  width: 35px;
+  height: 35px;
+  margin-left: auto;
+  margin-right: 15px;
+
+  filter: invert(48%) sepia(16%) saturate(1926%) hue-rotate(230deg) brightness(86%) contrast(84%);
+}
+
 .register,
-.login {
+.login,
+.frosh-profile {
   display: flex;
   justify-content: center;
   justify-items: center;
@@ -113,6 +153,7 @@ a {
   color: white;
 }
 .login {
+  box-sizing: border-box;
   width: 80px;
   background-color: #ebebeb;
   color: #935ebf;
@@ -123,10 +164,23 @@ a {
   border-radius: 10px;
 }
 
+.frosh-profile {
+  width: 150px;
+  background-color: var(--purple);
+  border-radius: 10px;
+  color: white;
+
+  box-sizing: border-box;
+  border: 2px;
+  border-style: solid;
+  border-color: var(--purple);
+  border-radius: 10px;
+}
+
 //animations
 .register,
 .login,
-.icon-profile {
+.frosh-profile {
   &:hover {
     transform: scale(0.97);
     transition: transform 150ms;
@@ -138,7 +192,8 @@ a {
 }
 
 /* MOBILE VIEW */
-@media only screen and (max-width: 599px) {
+// @media only screen and (max-width: 599px)
+@include devices(mobile) {
   .container {
     bottom: 0;
     border-top-left-radius: 10px;
@@ -174,18 +229,19 @@ a {
   }
 
   .menu-icon {
-    background: #935ebf;
+    //background: #935ebf;
     align-self: center;
-    width: 28px;
-    height: 28px;
+    width: 25px;
+    height: 25px;
+  }
 
-    &:hover {
-      transform: scale(0.97);
-      transition: transform 150ms;
-    }
-    &:active {
-      transform: scale(0.97);
-      transition: transform 150ms;
+  .sub-container:hover {
+    transform: scale(0.97);
+    transition: transform 150ms;
+
+    .svg-icon {
+      filter: invert(48%) sepia(16%) saturate(1926%) hue-rotate(230deg) brightness(86%)
+        contrast(84%);
     }
   }
 
@@ -194,5 +250,13 @@ a {
     bottom: 0;
     width: 40px;
     height: 3px;
+  }
+
+  .svg-icon {
+    margin-top: 3px;
+    // width: 20px;
+    // height: 20px;
+    align-self: center;
+    filter: invert(43%) sepia(0%) saturate(0%) hue-rotate(189deg) brightness(100%) contrast(88%);
   }
 }
