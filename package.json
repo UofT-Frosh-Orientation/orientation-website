@@ -16,6 +16,7 @@
     "lint-staged": "^12.4.1"
   },
   "dependencies": {
-    "concurrently": "^7.1.0"
+    "concurrently": "^7.1.0",
+    "stripe": "^9.5.0"
   }
 }
