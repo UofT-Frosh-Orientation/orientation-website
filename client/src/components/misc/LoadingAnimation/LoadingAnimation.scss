@@ -1,0 +1,58 @@
+.loadingAnimationContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingAnimation{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-border {
+  display: inline-block;
+  width: 30vmin;
+  height: 30vmin;
+  vertical-align: -0.125em;
+  border: 0.25em solid #ECD6FF;
+  border-right-color: #935EBF;
+  border-radius: 50%;
+  -webkit-animation: 1s linear infinite spinner-border;
+  animation: 1s linear infinite spinner-border;
+}
+
+@-webkit-keyframes spinner-border {
+  to {
+    transform: rotate(360deg) /* rtl:ignore */;
+  }
+}
+
+@keyframes spinner-border {
+  to {
+    transform: rotate(360deg) /* rtl:ignore */;
+  }
+}
+
+.logo {
+  position:absolute;
+  height: 25vmin;
+}
+
+/* Remove everything under this to stop logo spinning */
+
+@media (prefers-reduced-motion: no-preference) {
+  .logo {
+    animation: logo-spin infinite 1.5s linear;
+  }
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
