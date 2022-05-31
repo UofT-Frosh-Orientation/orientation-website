@@ -2,20 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import './Dropdown.scss';
-
-const useWrapperRef = (onClickOutside) => {
-  const ref = useRef(null);
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        onClickOutside(event);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-  }, [ref]);
-  return ref;
-};
+import { useWrapperRef } from '../../../hooks/useWrapperRef';
 
 const Dropdown = ({ items, onSelect, label, selected, isDisabled }) => {
   const [isOpen, setIsOpen] = useState(false);

@@ -19,7 +19,7 @@
 .dropdown-selected {
   cursor: pointer;
   border-radius: 6px;
-  border: 2px solid #b297c7;
+  border: 2px solid var(--purple-shades-muted);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -40,9 +40,9 @@
 
 .dropdown-selected-disabled {
   @extend .dropdown-selected;
-  border: 2px solid #989898;
-  background-color: #ebebeb;
-  color: #989898;
+  border: 2px solid var(--gray);
+  background-color: var(--white);
+  color: var(--gray);
 }
 
 .dropdown-selected-label {
@@ -50,7 +50,7 @@
 }
 
 .dropdown-list-container {
-  border: 2px solid #b297c7;
+  border: 2px solid var(--purple-shades-muted);
   border-radius: 6px;
   margin-top: 0.2em;
 }
@@ -61,6 +61,6 @@
   transition: background-color 300ms ease-in-out;
 
   &:hover {
-    background-color: #b297c7;
+    background-color: var(--purple-shades-muted);
   }
 }
