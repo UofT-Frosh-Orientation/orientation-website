@@ -1,0 +1,59 @@
+@import '../../../scssStyles/mixins';
+
+.dropdown-container {
+  width: 30%;
+  margin: 0 auto;
+  max-width: 500px;
+  min-width: 150px;
+
+  @include devices(mobile) {
+    width: 70%;
+  }
+}
+
+.dropdown-header {
+  padding-left: 1em;
+  margin-top: 0.5em;
+}
+
+.dropdown-selected {
+  cursor: pointer;
+  border-radius: 6px;
+  border: 2px solid #b297c7;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+
+  .dropdown-image {
+    height: 100%;
+    width: 1em;
+    margin: auto 1em auto auto;
+  }
+}
+
+.dropdown-selected-disabled {
+  @extend .dropdown-selected;
+  border: 2px solid #989898;
+  background-color: #ebebeb;
+  color: #989898;
+}
+
+.dropdown-selected-label {
+  margin: 0.5em 2em 0.5em 1em;
+}
+
+.dropdown-list-container {
+  border: 2px solid #b297c7;
+  border-radius: 6px;
+  margin-top: 0.2em;
+}
+
+.dropdown-item {
+  padding: 0.5em 2em 0.5em 1em;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #b297c7;
+  }
+}
