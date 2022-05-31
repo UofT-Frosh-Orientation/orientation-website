@@ -30,6 +30,11 @@ const PayController = {
         res.status(200).send(amount); 
     },
     
+    async calculateOrderAmount(req, res, next){
+        const amount = 60.00;
+        res.status(200).send(amount); 
+    },
+    
     async paymentIntent(req, res, next) {
       const { items } = req.body;
     
