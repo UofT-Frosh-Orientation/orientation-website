@@ -1,10 +1,4 @@
-const { response } = require('express');
-const { route } = require('./payRoutes');
-
-
-router.use(express.static("public"));
-router.use(express.json());
-
+const express = require('express')
 const router = express.Router();
 const {
 	getPrice,
