@@ -1,3 +1,10 @@
+@import '../../scssStyles/mixins.scss';
+
+* {
+  font-size: large;
+  font-weight: bold;
+}
+
 .navbar-desktop {
   display: unset;
   @include devices(tablet) {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import './test.scss';
 
-const Test = () => {
+const TestComponent = () => {
   return (
     <>
       <div className="navbar-desktop">
@@ -16,11 +16,11 @@ const Test = () => {
 };
 
 const NavbarDesktop = () => {
-  return <h1>hello</h1>;
+  return <div>hello</div>;
 };
 
 const NavbarMobile = () => {
-  return <h1>bye</h1>;
+  return <div>bye</div>;
 };
 
-export { Test };
+export { TestComponent };
