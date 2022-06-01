@@ -57,24 +57,3 @@ const TransitionRoutes = () => {
   );
 };
 
-// const Navbar = () => {
-//   return (
-//     <div
-//       style={{
-//         zIndex: 10,
-//         position: 'fixed',
-//         backgroundColor: 'gray',
-//         width: '100%',
-//         fontSize: '25px',
-//       }}
-//     >
-//       {pages.main.map((page) => {
-//         return (
-//           <Link to={page.path} key={page.path}>
-//             {page.label}
-//           </Link>
-//         );
-//       })}
-//     </div>
-//   );
-// };
