@@ -10,3 +10,17 @@
     }
   }
 }
+
+.mobile-only {
+  display: none;
+  @include devices(tablet) {
+    display: unset;
+  }
+}
+
+.desktop-only {
+  display: unset;
+  @include devices(tablet) {
+    display: none;
+  }
+}

@@ -20,22 +20,48 @@ const TaskAnnouncement = ({ tasks, onDone }) => {
                   alignItems: 'center',
                 }}
               >
-                <div>
-                  <div className="task-name">{task.name}</div>
-                  <div className="task-date">{'Created: ' + formattedDate}</div>
+                <div style={{ flexGrow: 1 }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                    }}
+                  >
+                    <div>
+                      <div className="task-name">{task.name}</div>
+                      <div className="task-date">{'Created: ' + formattedDate}</div>
+                    </div>
+                    <div className="mobile-only">
+                      <div
+                        onClick={() => {
+                          onDone(task);
+                        }}
+                        className={
+                          'task-check task-check-mobile' +
+                          (task.completed ? '' : ' task-check-incomplete')
+                        }
+                      >
+                        <img src={Check} className={'task-img'} />
+                      </div>
+                    </div>
+                  </div>
                   {task.description ? (
                     <div className="task-description">{task.description}</div>
                   ) : (
                     <></>
                   )}
                 </div>
-                <div
-                  onClick={() => {
-                    onDone(task);
-                  }}
-                  className={'task-check' + (task.completed ? '' : ' task-check-incomplete')}
-                >
-                  <img src={Check} className={'task-img'} />
+                <div className="desktop-only">
+                  <div
+                    onClick={() => {
+                      onDone(task);
+                    }}
+                    className={'task-check' + (task.completed ? '' : ' task-check-incomplete')}
+                  >
+                    <img src={Check} className={'task-img'} />
+                  </div>
                 </div>
               </div>
             </div>
