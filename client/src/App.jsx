@@ -4,6 +4,7 @@ import ScrollToTop from './components/misc/ScrollToTop/ScrollToTop';
 import './App.css';
 import { InitialPage } from './pages/Initial/Initial';
 import { pages } from './util/pages';
+import { Footer } from './components/footer/Footer';
 
 export default function App() {
   const initial = false;
@@ -22,6 +23,7 @@ const TransitionRoutes = () => {
   return (
     <TransitionGroup>
       <Navbar />
+      <Footer />
       <ScrollToTop />
       <CSSTransition key={location.key} classNames="page" timeout={300}>
         <Routes location={location}>

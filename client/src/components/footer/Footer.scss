@@ -1,0 +1,28 @@
+.container {
+  position: absolute;
+  bottom: 0;
+  background-color: var(--purple);
+
+  width: 100%;
+  height: 150px;
+
+  display: flex;
+  flex-direction: column;
+
+  font-size: 18px;
+  font-style: bold;
+  color: var(--white);
+}
+
+.sitemap {
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.socials {
+  flex-direction: row;
+}
+
+.icons {
+  flex-direction: row;
+}
