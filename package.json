@@ -16,7 +16,6 @@
     "lint-staged": "^12.4.1"
   },
   "dependencies": {
-    "babel-plugin-macros": "^3.1.0",
     "concurrently": "^7.1.0"
   }
 }
