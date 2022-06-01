@@ -16,6 +16,9 @@
   --text-dark: #000000;
   --text-light: #f3f3f3;
   --text-muted: #c2c2c2;
+
+  --navbar-bg: #ebebeb;
+  --navbar-underline: #e2e2e2;
 }
 
 html {

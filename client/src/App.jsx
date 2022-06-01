@@ -4,6 +4,12 @@ import ScrollToTop from './components/misc/ScrollToTop/ScrollToTop';
 import './App.css';
 import { InitialPage } from './pages/Initial/Initial';
 import { pages } from './util/pages';
+//import { Navbar, NavbarMobile, NavbarDesktop } from './components/Navbar/Navbar';
+import { Button } from './components/button/Button/Button';
+import { Navbar } from './components/Navbar/Navbar';
+import { NavbarDesktop } from './components/Navbar/Navbar';
+import { NavbarStorybook } from './components/Navbar/NavbarStorybook';
+import { TestComponent } from './components/Navbar/test';
 
 export default function App() {
   const initial = false;
@@ -21,7 +27,7 @@ const TransitionRoutes = () => {
   const location = useLocation();
   return (
     <TransitionGroup>
-      <Navbar />
+      <Navbar></Navbar>
       <ScrollToTop />
       <CSSTransition key={location.key} classNames="page" timeout={300}>
         <Routes location={location}>
@@ -46,24 +52,3 @@ const TransitionRoutes = () => {
   );
 };
 
-const Navbar = () => {
-  return (
-    <div
-      style={{
-        zIndex: 10,
-        position: 'fixed',
-        backgroundColor: 'gray',
-        width: '100%',
-        fontSize: '25px',
-      }}
-    >
-      {pages.main.map((page) => {
-        return (
-          <Link to={page.path} key={page.path}>
-            {page.label}
-          </Link>
-        );
-      })}
-    </div>
-  );
-};

@@ -27,17 +27,17 @@ export const pages = {
   ],
   special: [
     {
-      label: 'Register',
-      component: <div />,
-      path: '/register',
-    },
-    {
       label: 'Login',
       component: <div />,
       path: '/login',
     },
     {
-      label: 'Profile',
+      label: 'Register',
+      component: <div />,
+      path: '/register',
+    },
+    {
+      label: 'profile',
       component: <div />,
       path: '/profile',
     },
