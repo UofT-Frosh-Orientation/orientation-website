@@ -28,11 +28,6 @@ const TransitionRoutes = () => {
   return (
     <TransitionGroup>
       <Navbar></Navbar>
-      {/* <Button></Button> */}
-      {/* <NavbarDesktop></NavbarDesktop> */}
-      {/* <NavbarStorybook></NavbarStorybook> */}
-      {/* <TestComponent></TestComponent> */}
-
       <ScrollToTop />
       <CSSTransition key={location.key} classNames="page" timeout={300}>
         <Routes location={location}>
