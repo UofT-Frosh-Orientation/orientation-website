@@ -44,12 +44,6 @@ li {
 
 a {
   text-decoration: none;
-
-  &:active {
-    .underline {
-      background-color: #935ebf;
-    }
-  }
 }
 
 .sub-container {
@@ -64,7 +58,8 @@ a {
 
   border-radius: 5px;
 
-  &:hover {
+  &:hover,
+  &:active {
     color: #935ebf;
     transition: color 200ms;
 
@@ -87,6 +82,15 @@ a {
 }
 
 .underline {
+  align-self: flex-end;
+  width: 80px;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.underline-selected {
+  background-color: var(--purple);
   align-self: flex-end;
   width: 80px;
   height: 3px;
@@ -181,10 +185,7 @@ a {
 .register,
 .login,
 .frosh-profile {
-  &:hover {
-    transform: scale(0.97);
-    transition: transform 150ms;
-  }
+  &:hover,
   &:active {
     transform: scale(0.97);
     transition: transform 150ms;
@@ -252,11 +253,33 @@ a {
     height: 3px;
   }
 
+  .underline-selected {
+    background-color: #935ebf;
+    bottom: 0;
+    width: 40px;
+    height: 3px;
+  }
+
   .svg-icon {
     margin-top: 3px;
     // width: 20px;
     // height: 20px;
     align-self: center;
     filter: invert(43%) sepia(0%) saturate(0%) hue-rotate(189deg) brightness(100%) contrast(88%);
+  }
+
+  .svg-icon-selected {
+    filter: invert(48%) sepia(16%) saturate(1926%) hue-rotate(230deg) brightness(86%) contrast(84%);
+  }
+
+  .icon-profile {
+    margin-right: 10px;
+    margin-left: 30px;
+    font-size: 14px;
+
+    &:hover {
+      transform: scale(0.97);
+      transition: transform 150ms;
+    }
   }
 }

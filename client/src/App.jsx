@@ -4,9 +4,10 @@ import ScrollToTop from './components/misc/ScrollToTop/ScrollToTop';
 import './App.css';
 import { InitialPage } from './pages/Initial/Initial';
 import { pages } from './util/pages';
-import { Navbar, NavbarMobile } from './components/Navbar/Navbar';
+//import { Navbar, NavbarMobile } from './components/Navbar/Navbar';
 //import { NavbarMobile } from './components/Navbar/NavbarMobile';
 import { Test } from './components/Navbar/test';
+import { NavbarDesktop, NavbarMobile } from './components/Navbar/NavbarStorybook';
 
 export default function App() {
   const initial = false;
@@ -24,7 +25,9 @@ const TransitionRoutes = () => {
   const location = useLocation();
   return (
     <TransitionGroup>
-      <Navbar></Navbar>
+      {/* <Navbar></Navbar> */}
+      {/* <NavbarMobile></NavbarMobile> */}
+      <Test></Test>
       <ScrollToTop />
       <CSSTransition key={location.key} classNames="page" timeout={300}>
         <Routes location={location}>
