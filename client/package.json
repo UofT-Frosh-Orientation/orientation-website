@@ -16,12 +16,18 @@
     "*.{js, jsx, css, scss}": "prettier --write"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-regular-svg-icons": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "@ladle/react": "^0.15.0",
+    "font-awesome": "^4.7.0",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.3.1",
     "react-dom": "^17.0.2",
-    "react-router-dom": "6",
+    "react-fontawesome": "^1.7.1",
+    "react-router-dom": "^6.3.0",
     "react-transition-group": "^4.4.2"
   },
   "devDependencies": {
