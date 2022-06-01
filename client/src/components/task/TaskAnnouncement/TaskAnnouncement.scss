@@ -33,14 +33,15 @@
 }
 
 .task-check {
+  box-sizing: border-box;
   background-color: var(--green-success);
   width: 56px;
   height: 56px;
   flex-shrink: 0;
   margin: 0px 0px 0px 20px;
   border-radius: 15px;
-  outline: 2px solid #ffffff00;
-  transition: outline 500ms, box-shadow 500ms, background-color 500ms, transform 500ms;
+  border: 2px solid var(--green-success);
+  transition: border 500ms, box-shadow 500ms, background-color 500ms, transform 500ms;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,6 +50,8 @@
 
 .task-check-incomplete {
   background-color: var(--red-error);
+  border: 2ox solid var(--red-error);
+  transition: border 500ms, box-shadow: 500ms;
   .task-img {
     opacity: 0;
     transform: scale(0.7);
@@ -59,8 +62,8 @@
 .task-check:active {
   box-shadow: var(--shadow);
   cursor: pointer;
-  outline: 2px solid var(--purple);
-  transition: outline 500ms, box-shadow 500ms;
+  border: 2px solid var(--purple);
+  transition: border 500ms, box-shadow 500ms;
 }
 
 .task-img {
