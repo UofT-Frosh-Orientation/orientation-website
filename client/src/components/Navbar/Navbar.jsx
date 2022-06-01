@@ -5,8 +5,8 @@ import HomeIcon from '../../assets/navbar/house-solid.svg';
 import AboutIcon from '../../assets/navbar/circle-info-solid.svg';
 import MessageIcon from '../../assets/navbar/message-solid.svg';
 import ProfileIcon from '../../assets/navbar/circle-user-solid.svg';
-import pages from '../../util/pages';
 import { Link } from 'react-router-dom';
+import { pages } from '../../util/pages';
 
 const Navbar = ({ selectedPage, isLoggedIn, froshInitials }) => {
   return (
