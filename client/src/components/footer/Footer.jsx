@@ -17,7 +17,10 @@ const Footer = () => {
       <div className="socials">
         <div className="icons">
           <a href="https://www.instagram.com/froshweek/">
-            <img alt="discord" src={InstagramLogo}></img>
+            <img alt="instagram" src={InstagramLogo}></img>
+          </a>
+          <a href="https://discord.gg/BPR8V5zSwB">
+            <img alt="discord" src={DiscordLogo}></img>
           </a>
         </div>
         <div className="message">Made with 💜 by the F!rosh Week 2T2 Tech Team</div>
