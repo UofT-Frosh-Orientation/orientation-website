@@ -1,39 +1,82 @@
-const AWS = require('aws-sdk');
+const {
+  SESv2Client,
+  CreateEmailTemplateCommand,
+  SendBulkEmailCommand,
+  SendEmailCommand,
+} = require('@aws-sdk/client-sesv2');
+var toUint8Array = require('base64-to-uint8array');
 
-var SES = new AWS.SESV2({ region: 'us-east-1' });
+const SES = new SESv2Client({ region: 'ca-central-1' });
 
 const EmailServices = {
   /**
-   * Send normal html email
-   * @param {object} emailContent filling guide: https://docs.aws.amazon.com/goto/WebAPI/sesv2-2019-09-27/SendEmail
-   * @param {list} toAddresses list of strings containing emails
-   * @returns AWS.Request promise
+   * Send a simple text/html email
+   * @param {String[]} toAddresses an array of email addresses the email should be sent to
+   * @param {String} html a message string comprised of html
+   * @param {String} text a message string comprised of text
+   * @param {String} subject the subject of the email
+   * @param {String} fromAddress the email adress the email is being sent from
+   * @returns {Promise} promise
    */
-  async sendSimpleEmail(emailContent, toAddresses) {
-    const params = {
-      Content: {
-        Simple: emailContent,
-      },
-      Destination: {
-        ToAddresses: toAddresses,
-      },
+  async sendSimpleEmail(toAddresses, html, text, subject, fromAddress) {
+    if (html) {
+      const params = {
+        Content: {
+          Simple: {
+            Body: {
+              Html: {
+                Data: html,
+              },
+            },
+            Subject: {
+              Data: subject,
+            },
+          },
+        },
+        Destination: {
+          ToAddresses: toAddresses,
+        },
 
-      FromEmailAddress: 'FROSHEMAIL',
-    };
+        FromEmailAddress: fromAddress,
+      };
+      const command = new SendEmailCommand(params);
+      return SES.send(command);
+    } else {
+      const params = {
+        Content: {
+          Simple: {
+            Body: {
+              Text: {
+                Data: text,
+              },
+            },
+            Subject: {
+              Data: subject,
+            },
+          },
+        },
+        Destination: {
+          ToAddresses: toAddresses,
+        },
 
-    return SES.sendEmail(params).promise();
+        FromEmailAddress: fromAddress,
+      };
+      const command = new SendEmailCommand(params);
+
+      return SES.send(command);
+    }
   },
 
   /**
    * Create and save an email template
-   * @param {string} templateName
-   * @param {string} html
-   * @param {string} subject
-   * @param {string} text
-   * @returns AWS.Request promise
+   * @param {String} templateName name of the new template
+   * @param {String} html html body
+   * @param {String} subject subject of the email
+   * @param {String} text text body
+   * @see {@link https://aws.amazon.com/blogs/messaging-and-targeting/introducing-email-templates-and-bulk-sending/} for the filling of `html` and `text`
+   * @returns {Promise} promise
    */
   async createTemplate(templateName, html, subject, text) {
-    /* Template Creation Guild: https://aws.amazon.com/blogs/messaging-and-targeting/introducing-email-templates-and-bulk-sending/ */
     const params = {
       TemplateContent: {
         Html: html,
@@ -43,19 +86,20 @@ const EmailServices = {
       TemplateName: templateName,
     };
 
-    return SES.createTemplate(params).promise();
+    const command = new CreateEmailTemplateCommand(params);
+
+    return SES.send(command);
   },
 
   /**
    * Send a tempalted email with fillable variables
-   * @param {string} templateData example: "{ \"name\":\"Alejandro\", \"favoriteanimal\": \"zebra\" }"
-   * @param {string} templateName
-   * @param {list} toAddresses list of strings containing emails
-   * @returns AWS.Request promise
+   * @param {String} templateData data to be filled in the template example: "{ \"name\":\"Alejandro\", \"favoriteanimal\": \"zebra\" }"
+   * @param {String} templateName name of the template used
+   * @param {String[]} toAddresses list of strings containing emails
+   * @param {String} fromAddress the email adress the email is being sent from
+   * @returns {Promise} promise
    */
-  async sendTemplateEmail(templateData, templateName, toAddresses) {
-    // const { templateData, templateName, toAddresses } = req.body;
-
+  async sendTemplateEmail(templateData, templateName, toAddresses, fromAddress) {
     const params = {
       Content: {
         Template: {
@@ -64,67 +108,79 @@ const EmailServices = {
         },
       },
       Destination: {
-        ToAddresses: toAddresses /* must be list */,
+        ToAddresses: toAddresses,
       },
 
-      FromEmailAddress: 'FROSHEMAIL',
-
-      ReplyToAddresses: [
-        'FROSHEMAIL',
-        /* more items */
-      ],
+      FromEmailAddress: fromAddress,
     };
 
-    return SES.sendEmail(params).promise();
-    // SES.sendEmail(params, function (err, data) {
-    //   if (err) next(err); // an error occurred
-    //   else res.status(200).send({ message: 'Email Sent!', respondeData: data }); // successful response
-    // });
+    const command = new SendEmailCommand(params);
+
+    return SES.send(command);
   },
 
   /**
    * Send bulk personalized template emails
-   * @param {object} bulkEmailEntries filling guide: https://docs.aws.amazon.com/goto/WebAPI/sesv2-2019-09-27/SendBulkEmail
-   * @param {string} templateName
-   * @param {string} templateData defult template data to be filled in
-   * @returns AWS.Request promise
+   * @param {Object[]} bulkEmailEntries an array of objects each containing an array of email addresses and a string of template data
+   * @param {String} templateName name of template used
+   * @param {String} defaultTemplateData defult data to be filled in the template
+   * @param {String} fromAddress the email adress the email is being sent from
+   * @returns {Promise} promise
    */
-  async sendBulkTemplateEmail(bulkEmailEntries, templateName, templateData) {
+  async sendBulkTemplateEmail(bulkEmailEntries, templateName, defaultTemplateData, fromAddress) {
+
     const params = {
-      BulkEmailEntries: bulkEmailEntries,
+      BulkEmailEntries: bulkEmailEntries.map((entry) => {
+        return {
+          Destination: {
+            ToAddresses: entry.toAddresses,
+          },
+          ReplacementEmailContent: {
+            ReplacementTemplate: {
+              ReplacementTemplateData: entry.templateData,
+            },
+          },
+        };
+      }),
       DefaultContent: {
         Template: {
-          TemplateData: templateData,
+          TemplateData: defaultTemplateData,
           TemplateName: templateName,
         },
       },
 
-      FromEmailAddress: 'FROSHEMAIL',
+      FromEmailAddress: fromAddress,
     };
-    return SES.sendBulkEmail(params).promise();
+
+    const command = new SendBulkEmailCommand(params);
+
+    return SES.send(command);
   },
 
   /**
    * Send raw MIME format email which can include attachments
-   * @param {string} MIMEstring Base64 encoded MIME format message
-   * @param {list} toAddresses list of email addresses to send to
-   * @returns AWS.Request promise
+   * @param {String} MIMEstring Base64 encoded MIME format message
+   * @param {String[]} toAddresses list of email addresses to send to
+   * @param {String} fromAddress the email adress the email is being sent from
+   * @returns {Promise} promise
    */
-  async sendRawEmail(MIMEstring, toAddresses) {
+  async sendRawEmail(MIMEstring, toAddresses, fromAddress) {
     const params = {
       Content: {
         Raw: {
-          Data: Buffer.from(MIMEstring),
+          Data: toUint8Array(MIMEstring),
         },
       },
       Destination: {
-        ToAddresses: toAddresses /* must be list */,
+        ToAddresses: toAddresses,
       },
 
-      FromEmailAddress: 'FROSHEMAIL',
+      FromEmailAddress: fromAddress,
     };
 
-    return SES.sendEmail(params).promise();
+    const command = new SendEmailCommand(params);
+
+    return SES.send(command);
   },
 };
 
