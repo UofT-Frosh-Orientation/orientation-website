@@ -7,6 +7,5 @@ export default {
   component: FooterStorybook,
 };
 
-const Template = (args) => <FooterStorybook {...args} />;
-
-export const Primary = Template.bind({});
+export const Template = (args) => <FooterStorybook {...args} />;
+Template.storyName = 'Footer';

@@ -9,7 +9,7 @@ import DiscordLogo from '../../assets/social/discord-brands.svg';
 
 const Footer = () => {
   return (
-    <div className="container">
+    <div className="footer-container">
       <div className="sitemap">
         <div className="sitemap-text">Site Map</div>
         <div className="sitemap-links">
