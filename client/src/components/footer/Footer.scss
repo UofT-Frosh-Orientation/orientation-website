@@ -22,14 +22,22 @@ a {
   justify-content: center;
 }
 
+ul {
+  text-decoration: underline;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 .links {
+  z-index: 10;
   font-size: 14px;
   color: var(--purple-shades-muted);
 
   &:hover,
   &:active {
-    color: var(--white);
-    transition: color 200ms;
+    color: var(--white) !important;
+    transition: color 200ms !important;
   }
 }
 
@@ -47,6 +55,7 @@ a {
   flex-direction: row;
   justify-content: space-between;
   padding: 15px;
+  pointer-events: none;
   //align-items: center;
 }
 
@@ -54,9 +63,11 @@ a {
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
+  pointer-events: none;
 }
 
 .svg-icons {
+  z-index: 11;
   align-self: center;
   width: 30px;
   height: 30px;
@@ -65,12 +76,12 @@ a {
   filter: invert(100%) sepia(96%) saturate(15%) hue-rotate(212deg) brightness(104%) contrast(104%);
 
   &:hover {
-    transform: scale(1.02);
-    transition: transform 200ms;
+    transform: scale(1.02) !important;
+    transition: transform 200ms !important;
   }
   &:active {
-    transform: scale(0.97);
-    transition: transform 150ms;
+    transform: scale(0.97) !important;
+    transition: transform 150ms !important;
   }
 }
 

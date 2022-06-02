@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { Footer } from './Footer';
+import { FooterStorybook } from './FooterStorybook';
 
 export default {
   title: 'Footer',
-  component: Footer,
+  component: FooterStorybook,
 };
 
-const Template = (args) => <Footer {...args} />;
+const Template = (args) => <FooterStorybook {...args} />;
 
 export const Primary = Template.bind({});
