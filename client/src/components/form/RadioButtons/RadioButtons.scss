@@ -48,3 +48,13 @@ input[type='radio']::before {
 input[type='radio']:checked::before {
   transform: scale(1);
 }
+
+.form-control-disabled input[type='radio']:disabled {
+  color: var(--text-muted);
+  border: 3px solid var(--text-muted);
+  opacity: 0.8;
+}
+
+.form-control-disabled {
+  color: var(--text-muted);
+}

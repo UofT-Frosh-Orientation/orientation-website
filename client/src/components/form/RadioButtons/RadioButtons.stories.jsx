@@ -10,9 +10,10 @@ export default {
 export const RadioButtonsStory = (args) => <RadioButtons {...args} />;
 RadioButtonsStory.storyName = 'RadioButtons';
 RadioButtonsStory.args = {
-  values: ['hello', 'hi'],
+  values: ['hello', 'hi', '1', '2'],
   initialSelectedIndex: 1,
   onSelected: (value) => {
     console.log(value);
   },
+  disabledIndices: [3],
 };
