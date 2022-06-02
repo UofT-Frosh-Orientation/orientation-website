@@ -1,23 +1,30 @@
 const basicAuth = (req, res, next) => {
   const reject = () => {
-    res.setHeader('www-authenticate', 'Basic')
-    res.sendStatus(401)
-  }
+    res.setHeader('www-authenticate', 'Basic');
+    res.sendStatus(401);
+  };
 
-  const {authorization} = req.headers
+  const { authorization } = req.headers;
 
   if (!authorization) {
-    return reject()
+    return reject();
   }
 
-  const [username, password] = Buffer.from(authorization.replace('Basic ', ''), 'base64').toString().split(':')
+  const [username, password] = Buffer.from(authorization.replace('Basic ', ''), 'base64')
+    .toString()
+    .split(':');
 
-  if(!(secureCompare(username, process.env.BASIC_AUTH_USER) && secureCompare(password, process.env.BASIC_AUTH_PASS))) {
-    return reject()
+  if (
+    !(
+      secureCompare(username, process.env.BASIC_AUTH_USER) &&
+      secureCompare(password, process.env.BASIC_AUTH_PASS)
+    )
+  ) {
+    return reject();
   }
 
-  next()
-}
+  next();
+};
 
 const secureCompare = (a, b) => {
   let areEqual = true;
@@ -30,6 +37,6 @@ const secureCompare = (a, b) => {
     }
   }
   return areEqual;
-}
+};
 
 module.exports = basicAuth;

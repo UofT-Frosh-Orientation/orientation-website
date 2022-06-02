@@ -4,7 +4,6 @@ const {
   SendBulkEmailCommand,
   SendEmailCommand,
 } = require('@aws-sdk/client-sesv2');
-var toUint8Array = require('base64-to-uint8array');
 
 const SES = new SESv2Client({ region: 'ca-central-1' });
 
@@ -121,23 +120,24 @@ const EmailServices = {
 
   /**
    * Send bulk personalized template emails
-   * @param {Object[]} bulkEmailEntries an array of objects each containing an array of email addresses and a string of template data
+   * @param {Object} bulkEmailEntries an object containing objects with an email as a key and template data as the value
    * @param {String} templateName name of template used
    * @param {String} defaultTemplateData defult data to be filled in the template
    * @param {String} fromAddress the email adress the email is being sent from
    * @returns {Promise} promise
    */
-  async sendBulkTemplateEmail(bulkEmailEntries, templateName, defaultTemplateData, fromAddress) {
+  async sendBulkTemplateEmail(bulkEmailEntries, templateName, defaultTemplateData, fromAddres) {
+    const entries = Object.entries(bulkEmailEntries);
 
     const params = {
-      BulkEmailEntries: bulkEmailEntries.map((entry) => {
+      BulkEmailEntries: entries.map((entry) => {
         return {
           Destination: {
-            ToAddresses: entry.toAddresses,
+            ToAddresses: [entry[0]],
           },
           ReplacementEmailContent: {
             ReplacementTemplate: {
-              ReplacementTemplateData: entry.templateData,
+              ReplacementTemplateData: JSON.stringify(entry[1]),
             },
           },
         };
@@ -168,7 +168,7 @@ const EmailServices = {
     const params = {
       Content: {
         Raw: {
-          Data: toUint8Array(MIMEstring),
+          Data: Buffer.from(MIMEstring, 'base64'),
         },
       },
       Destination: {
