@@ -47,7 +47,7 @@ export const pages = {
     {
       label: 'Permission Request',
       component: <div />,
-      path: '/permission request',
+      path: '/permission_request',
     },
     {
       label: 'Maintenance',

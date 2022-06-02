@@ -9,7 +9,8 @@ const PageMaintenance = () => {
       <img className="gear-icon" src={GearIcon} alt="gear"></img>
       <div className="maintenance-title">UNDER MAINTENANCE</div>
       <div className="maintenance-subtitle">
-        We apologize for the inconvenience, we will be back soon! Check back here in a few minutes.
+        We apologize for the inconvenience, we will be back soon! Please check back here in a few
+        minutes.
       </div>
     </div>
   );
