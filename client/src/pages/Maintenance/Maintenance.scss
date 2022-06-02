@@ -13,12 +13,11 @@
     #935ebf;
 }
 
-.box {
+.maintenance-box {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: fit-content;
   width: fit-content;
 
   display: flex;
@@ -36,7 +35,7 @@
   margin-bottom: 30px;
 
   // colouring image white
-  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(160deg) brightness(105%) contrast(101%);
+  filter: invert(1);
 
   @include devices(mobile) {
     width: 75px;
@@ -45,10 +44,8 @@
 }
 
 // spinning animation
-@media (prefers-reduced-motion) {
-  .gear-icon {
-    animation: icon-spin infinite 15s linear;
-  }
+.gear-icon {
+  animation: icon-spin infinite 15s linear;
 }
 @keyframes icon-spin {
   from {
@@ -59,7 +56,7 @@
   }
 }
 
-.title {
+.maintenance-title {
   padding: 0;
   color: var(--white);
   text-align: center;
@@ -73,13 +70,13 @@
   }
 }
 
-.subtitle {
+.maintenance-subtitle {
   color: var(--white);
   font-size: 20px;
   text-align: center;
 
   @include devices(mobile) {
     font-size: 12px;
-    width: 70%;
+    width: 65%;
   }
 }

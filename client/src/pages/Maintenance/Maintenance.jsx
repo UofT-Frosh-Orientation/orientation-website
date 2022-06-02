@@ -6,11 +6,12 @@ import GearIcon from '../../assets/misc/gear-solid.svg';
 const MaintenancePage = () => {
   return (
     <div className="full-page">
-      <div className="box">
+      <div className="maintenance-box">
         <img className="gear-icon" src={GearIcon} alt="gear"></img>
-        <div className="title">UNDER MAINTENANCE</div>
-        <div className="subtitle">
-          We apologize for the inconvenience, we will be back in five minutes!
+        <div className="maintenance-title">UNDER MAINTENANCE</div>
+        <div className="maintenance-subtitle">
+          We apologize for the inconvenience, we will be back soon! Check back here in a few
+          minutes.
         </div>
       </div>
     </div>
