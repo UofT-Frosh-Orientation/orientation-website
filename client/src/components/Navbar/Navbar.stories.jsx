@@ -7,21 +7,5 @@ export default {
   component: NavbarStorybook,
 };
 
-const Template = (args) => <NavbarStorybook {...args} />;
-export const Primary = Template.bind({});
-
-// Primary.args = {
-//   label: 'Button',
-// };
-
-// export const Secondary = Template.bind({});
-// Secondary.args = {
-//   label: 'Secondary',
-//   isSecondary: true,
-// };
-
-// export const Disabled = Template.bind({});
-// Disabled.args = {
-//   label: 'Disabled',
-//   isDisabled: true,
-// };
+export const Template = (args) => <NavbarStorybook {...args} />;
+Template.storyName = 'Navbar';

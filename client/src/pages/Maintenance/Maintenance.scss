@@ -1,0 +1,84 @@
+@import '../../scssStyles/mixins.scss';
+
+.full-page {
+  width: 100000vh;
+  height: 100000vh;
+
+  background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(221, 204, 231, 0.21875) 38.02%,
+      #621790 100%
+    ),
+    #935ebf;
+}
+
+.box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: fit-content;
+  width: fit-content;
+
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  padding-top: 0;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.gear-icon {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 30px;
+
+  // colouring image white
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(160deg) brightness(105%) contrast(101%);
+
+  @include devices(mobile) {
+    width: 75px;
+    height: 75px;
+  }
+}
+
+// spinning animation
+@media (prefers-reduced-motion) {
+  .gear-icon {
+    animation: icon-spin infinite 15s linear;
+  }
+}
+@keyframes icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.title {
+  padding: 0;
+  color: var(--white);
+  text-align: center;
+  font-size: 64px;
+  font-weight: bold;
+  text-shadow: 0px 7px 10px rgba(0, 0, 0, 0.25);
+  margin-bottom: 10px;
+
+  @include devices(mobile) {
+    font-size: 20px;
+  }
+}
+
+.subtitle {
+  color: var(--white);
+  font-size: 20px;
+  text-align: center;
+
+  @include devices(mobile) {
+    font-size: 12px;
+  }
+}
