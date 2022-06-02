@@ -1,26 +1,21 @@
 import { React, useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import faAngleDown from '../../../assets/accordion/angle-up-solid.svg';
 import './SingleAccordion.scss';
 
-const SingleAccordion = ({ header, children, toggle }) => {
-  const [isActive, setActive] = useState('active');
+const SingleAccordion = ({ header, children, isOpen, setIsOpen }) => {
   const [Height, setHeight] = useState('0px');
   const [Rotate, setRotate] = useState('accordIcon');
 
   const content = useRef(null);
 
   useEffect(() => {
-    setActive(isActive === '' ? 'active' : '');
-    setHeight(isActive === 'active' ? '0px' : `${content.current.scrollHeight}px`);
-    setRotate(isActive === 'active' ? 'accordIcon' : 'accordIcon rotate');
-  }, [toggle]);
+    setHeight(isOpen ? `${content.current.scrollHeight}px` : '0px');
+    setRotate(isOpen ? 'accordIcon rotate' : 'accordIcon');
+  }, [isOpen]);
 
   function toggleAccordion() {
-    setActive(isActive === '' ? 'active' : '');
-    setHeight(isActive === 'active' ? '0px' : `${content.current.scrollHeight}px`);
-    setRotate(isActive === 'active' ? 'accordIcon' : 'accordIcon rotate');
+    setIsOpen(!isOpen);
   }
 
   return (
@@ -28,7 +23,7 @@ const SingleAccordion = ({ header, children, toggle }) => {
       <div className="accordHeader">
         <span>{header}</span>
         <span style={{ marginLeft: 'auto' }} className={'accordText'}>
-          <FontAwesomeIcon icon={faAngleDown} className={`${Rotate}`} />
+          <img src={faAngleDown} className={`${Rotate}`} alt="Accordion Button" width="15px" />
         </span>
       </div>
       <div ref={content} style={{ maxHeight: `${Height}` }} className={'accordContent'}>
@@ -41,7 +36,8 @@ const SingleAccordion = ({ header, children, toggle }) => {
 SingleAccordion.propTypes = {
   header: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired,
-  toggle: PropTypes.bool,
+  isOpen: PropTypes.bool.isRequired,
+  setIsOpen: PropTypes.func.isRequired,
 };
 
 export { SingleAccordion };
