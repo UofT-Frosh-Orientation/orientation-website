@@ -56,39 +56,13 @@ const FroshServices = {
     await froshGroup.save();
     await newUserSubscription.add(froshRecord);
   },
-
-  // async updateFroshDataField(email) {
-  //   let errors = [];
-  //   FroshModel.findOne({ email }).then((frosh) => {
-  //     if (!frosh) {
-  //       console.log("error");
-  //       errors.push('The frosh doesn\'t exist');
-  //     } else {
-  //       if (errors.length === 0) {
-  //         /*Update the field */
-  //         frosh[field] = value;
-  //         // frosh["lastUpdatedAcct"] = new Date();
-  //         // frosh["lastUpdatedFields"].push(field);
-  //         frosh.save();
-  //         console.log("frosh edited");
-  //       }
-	// 	  }
-	//   });
-  //   return errors;
-  // },
-
-  // async emailRegExpFindFrosh(froshEmail) {
-  //   return (Frosh.findOne({
-  //     email: new RegExp(`^${froshEmail}$`, 'i')
-  //   }));
-  // },
-
-  // async resetPassTokenFindFrosh(token) {
-  //   return (Frosh.findOne({
-  //     resetPasswordToken: token,
-  //   }));
-  // },
   
+  /**
+ * Initializes a list of frosh groups with default values in the database.
+ * @constructor
+ * @param {groups} groups - List of frosh groups as javascript objects
+ */
+
   async initFroshGroups(groups) {
     const defaultVals = {
       "totalNum": 0,
