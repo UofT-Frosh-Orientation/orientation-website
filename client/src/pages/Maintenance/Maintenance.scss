@@ -1,9 +1,7 @@
 @import '../../scssStyles/mixins.scss';
 
-.full-page {
-  width: 100000vh;
-  height: 100000vh;
-
+.maintenance-box {
+  height: 100vh;
   background: linear-gradient(
       180deg,
       rgba(255, 255, 255, 0) 0%,
@@ -11,17 +9,7 @@
       #621790 100%
     ),
     #935ebf;
-}
-
-.maintenance-box {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: fit-content;
-
   display: flex;
-  margin: auto;
   flex-direction: column;
   padding-top: 0;
 

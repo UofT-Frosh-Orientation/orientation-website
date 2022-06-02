@@ -26,7 +26,7 @@ const TransitionRoutes = () => {
       <ScrollToTop />
       <CSSTransition key={location.key} classNames="page" timeout={300}>
         <Routes location={location}>
-          {pages.main.map((page) => {
+          {[...pages.main, ...pages.hidden].map((page) => {
             return (
               <Route
                 path={page.path}
