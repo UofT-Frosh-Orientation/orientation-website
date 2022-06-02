@@ -7,9 +7,5 @@ export default {
   component: MaintenancePage,
 };
 
-// const Template = (args) => <MaintenancePage {...args} />;
-
-// export const Primary = Template.bind({});
-
 export const MaintenanceStory = (args) => <MaintenancePage {...args} />;
 MaintenanceStory.storyName = 'Maintenance Page';
