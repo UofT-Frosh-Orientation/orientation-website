@@ -80,5 +80,6 @@
 
   @include devices(mobile) {
     font-size: 12px;
+    width: 70%;
   }
 }
