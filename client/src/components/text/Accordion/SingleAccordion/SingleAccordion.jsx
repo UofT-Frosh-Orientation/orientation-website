@@ -19,7 +19,7 @@ const SingleAccordion = ({ header, children, isOpen, setIsOpen }) => {
   }
 
   return (
-    <div className="accordian" onClick={toggleAccordion}>
+    <div className="accordion" onClick={toggleAccordion}>
       <div className="accordHeader">
         <span>{header}</span>
         <span style={{ marginLeft: 'auto' }} className={'accordText'}>
