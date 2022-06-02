@@ -12,10 +12,13 @@
   --gray: #989898;
   --shadow: #959da533 0px 8px 24px; /* box-shadow: var(--shadow); */
   --green-success: #93bd84;
+  --red-error: #dd4343;
   --text-link: #2680c1;
   --text-dark: #000000;
   --text-light: #f3f3f3;
   --text-muted: #696969;
+  --navbar-bg: #ebebeb;
+  --navbar-underline: #e2e2e2;
 }
 
 html {
