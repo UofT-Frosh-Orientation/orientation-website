@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { MaintenancePage } from './Maintenance';
+import { PageMaintenance } from './Maintenance';
 
 export default {
   title: 'Maintenance Page',
-  component: MaintenancePage,
+  component: PageMaintenance,
 };
 
-export const MaintenanceStory = (args) => <MaintenancePage {...args} />;
+export const MaintenanceStory = (args) => <PageMaintenance {...args} />;
 MaintenanceStory.storyName = 'Maintenance Page';
