@@ -126,7 +126,7 @@ const EmailServices = {
    * @param {String} fromAddress the email adress the email is being sent from
    * @returns {Promise} promise
    */
-  async sendBulkTemplateEmail(bulkEmailEntries, templateName, defaultTemplateData, fromAddres) {
+  async sendBulkTemplateEmail(bulkEmailEntries, templateName, defaultTemplateData, fromAddress) {
     const entries = Object.entries(bulkEmailEntries);
 
     const params = {
