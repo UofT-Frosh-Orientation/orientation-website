@@ -4,7 +4,10 @@ const {
   SendBulkEmailCommand,
   SendEmailCommand,
 } = require('@aws-sdk/client-sesv2');
-
+const mime = require('mime');
+const mimemessage = require('mimemessage');
+const fs = require('fs').promises;
+const path = require('path');
 const SES = new SESv2Client({ region: 'ca-central-1' });
 
 const EmailServices = {
@@ -92,9 +95,9 @@ const EmailServices = {
 
   /**
    * Send a tempalted email with fillable variables
-   * @param {String} templateData data to be filled in the template example: "{ \"name\":\"Alejandro\", \"favoriteanimal\": \"zebra\" }"
+   * @param {Object} templateData data to be filled in the template
    * @param {String} templateName name of the template used
-   * @param {String[]} toAddresses list of strings containing emails
+   * @param {String[]} toAddresses array of strings containing emails
    * @param {String} fromAddress the email adress the email is being sent from
    * @returns {Promise} promise
    */
@@ -102,7 +105,7 @@ const EmailServices = {
     const params = {
       Content: {
         Template: {
-          TemplateData: templateData,
+          TemplateData: JSON.stringify(templateData),
           TemplateName: templateName,
         },
       },
@@ -122,7 +125,7 @@ const EmailServices = {
    * Send bulk personalized template emails
    * @param {Object} bulkEmailEntries an object containing objects with an email as a key and template data as the value
    * @param {String} templateName name of template used
-   * @param {String} defaultTemplateData defult data to be filled in the template
+   * @param {Object} defaultTemplateData defult data to be filled in the template
    * @param {String} fromAddress the email adress the email is being sent from
    * @returns {Promise} promise
    */
@@ -144,7 +147,7 @@ const EmailServices = {
       }),
       DefaultContent: {
         Template: {
-          TemplateData: defaultTemplateData,
+          TemplateData: JSON.stringify(defaultTemplateData),
           TemplateName: templateName,
         },
       },
@@ -158,17 +161,64 @@ const EmailServices = {
   },
 
   /**
-   * Send raw MIME format email which can include attachments
-   * @param {String} MIMEstring Base64 encoded MIME format message
-   * @param {String[]} toAddresses list of email addresses to send to
+   *
+   * @param {String} html html part of the message
+   * @param {String} text text part of the message
+   * @param {String} subject subject of the email
+   * @param {String[]} attachments an array of file paths
+   * @param {String[]} toAddresses array of email addresses to send to
    * @param {String} fromAddress the email adress the email is being sent from
    * @returns {Promise} promise
    */
-  async sendRawEmail(MIMEstring, toAddresses, fromAddress) {
+  async sendRawEmail(html, text, subject, attachments, toAddresses, fromAddress) {
+    let msg = mimemessage.factory({
+      contentType: 'multipart/mixed',
+      body: [],
+    });
+    msg.header('From', fromAddress);
+    msg.header('To', toAddresses);
+    msg.header('Subject', subject);
+    let alternateEntity = mimemessage.factory({
+      contentType: 'multipart/alternate',
+      body: [],
+    });
+
+    let htmlEntity = mimemessage.factory({
+      contentType: 'text/html;charset=utf-8',
+      body: html,
+    });
+
+    let plainEntity = mimemessage.factory({
+      body: text,
+    });
+
+    alternateEntity.body.push(htmlEntity);
+    alternateEntity.body.push(plainEntity);
+
+    msg.body.push(alternateEntity);
+
+    for (let filePath of attachments) {
+      const filemime = mime.getType(path.basename(filePath));
+
+      const fileData = await fs.readFile(filePath, {
+        encoding: 'base64',
+      });
+
+      let attachment = mimemessage.factory({
+        contentType: filemime,
+        contentTransferEncoding: 'base64',
+        body: fileData,
+      });
+
+      attachment.header('Content-Disposition', `attachment ;filename="${path.basename(filePath)}"`);
+
+      msg.body.push(attachment);
+    }
+
     const params = {
       Content: {
         Raw: {
-          Data: Buffer.from(MIMEstring, 'base64'),
+          Data: Buffer.from(msg.toString(), 'ascii'),
         },
       },
       Destination: {
