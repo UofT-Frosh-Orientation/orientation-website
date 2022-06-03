@@ -19,19 +19,20 @@ env:
   TAG: ${{ github.event.inputs.tag }}
   SERVER_IMAGE_NAME: "orientation-server"
   CLIENT_IMAGE_NAME: "orientation-client"
+  DIGITALOCEAN_API_KEY: ${{ secrets.DIGITALOCEAN_API_KEY }}
+  USER_DATA: ${{ secrets.CLOUD_INIT }}
+  NAME: beta-droplet
+  REGION: ${{ secrets.REGION }}
 
 jobs:
-  build_and_push:
+  build_server:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Build server image
-        run: cd server && docker build -t $(echo $REGISTRY)/$(echo $SERVER_IMAGE_NAME):$(echo $TAG) .
-
-      - name: Build client image
-        run: cd client && docker build -t $(echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):$(echo $TAG) .
+        run: cd server && docker build -t $(echo $REGISTRY)/$(echo $SERVER_IMAGE_NAME):beta -f beta.Dockerfile .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -41,14 +42,43 @@ jobs:
       - name: Log in to DigitalOcean Container Registry
         run: doctl registry login --expiry-seconds 600
 
-      - name: Remove all old server images
-        run: if [ ! -z "$(doctl registry repository list | grep "$(echo $SERVER_IMAGE_NAME)")" ]; then doctl registry repository delete-tag $(echo $SERVER_IMAGE_NAME) $(echo $TAG) --force; else echo "No repository"; fi
-
-      - name: Remove all old client images
-        run: if [ ! -z "$(doctl registry repository list | grep "$(echo $CLIENT_IMAGE_NAME)")" ]; then doctl registry repository delete-tag $(echo $CLIENT_IMAGE_NAME) $(echo $TAG) --force; else echo "No repository"; fi
-
       - name: Push server image to container registry
-        run: docker push $(echo $REGISTRY)/$(echo $SERVER_IMAGE_NAME):$(echo $TAG)
+        run: docker push $(echo $REGISTRY)/$(echo $SERVER_IMAGE_NAME):beta
+
+  build_client:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build client image
+        run: cd client && docker build -t $(echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):beta -f beta.Dockerfile .
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Log in to DigitalOcean Container Registry
+        run: doctl registry login --expiry-seconds 600
 
       - name: Push client image to container registry
-        run: docker push $(echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):$(echo $TAG)
+        run: docker push $(echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):beta
+
+  deploy:
+    runs-on: ubuntu-20.04
+    needs: [build_server, build_client]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.18.3'
+      - name: Install go dependencies
+        run: |
+          cd deploy
+          go version
+          go get -d ./...
+          go run main.go
