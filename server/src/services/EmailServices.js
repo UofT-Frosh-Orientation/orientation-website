@@ -161,7 +161,7 @@ const EmailServices = {
   },
 
   /**
-   *
+   * Send raw MIME format email which can include attachments
    * @param {String} html html part of the message
    * @param {String} text text part of the message
    * @param {String} subject subject of the email
