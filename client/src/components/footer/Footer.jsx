@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import './Footer.scss';
 import { pages } from '../../util/pages';
 import { Link } from 'react-router-dom';
-
-import InstagramLogo from '../../assets/social/instagram-brands.svg';
-import DiscordLogo from '../../assets/social/discord-brands.svg';
+import { socials } from '../../util/socials';
 
 const Footer = () => {
   return (
@@ -27,14 +25,15 @@ const Footer = () => {
 
       <div className="socials">
         <div className="icons">
-          <a href="https://www.instagram.com/froshweek/" target="_blank" rel="noreferrer">
-            <img className="svg-icons" alt="instagram" src={InstagramLogo}></img>
-          </a>
-          <a href="https://discord.gg/BPR8V5zSwB" target="_blank" rel="noreferrer">
-            <img className="svg-icons" alt="discord" src={DiscordLogo}></img>
-          </a>
+          {socials.map((social) => {
+            return (
+              <a href={social.label} target="_blank" rel="noreferrer" key={social.label}>
+                <img className="svg-icons" alt={social.label} src={social.icon}></img>
+              </a>
+            );
+          })}
         </div>
-        <div className="message">Made with 💜 by the F!rosh Week 2T2 Tech Team</div>
+        <div className="footer-message">Made with 💜 by the F!rosh Week 2T2 Tech Team</div>
       </div>
     </div>
   );

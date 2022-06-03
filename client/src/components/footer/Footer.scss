@@ -35,16 +35,15 @@ ul {
 }
 
 .links {
-  z-index: 10;
   font-size: 14px;
   color: var(--purple-shades-muted);
 
-  transition: color 200ms !important;
+  transition: color 200ms;
 
   &:hover,
   &:active {
-    color: var(--white) !important;
-    transition: color 200ms !important;
+    color: var(--white);
+    transition: color 200ms;
   }
 }
 
@@ -67,29 +66,28 @@ ul {
 .icons {
   display: flex;
   flex-direction: row;
-  pointer-events: none;
 }
 
 .svg-icons {
-  z-index: 1000;
   align-self: center;
   width: 30px;
   height: 30px;
   margin-right: 8px;
 
   filter: invert(1);
+  cursor: pointer;
 
   &:hover {
-    transform: scale(1.02) !important;
-    transition: transform 200ms !important;
+    transform: scale(1.02);
+    transition: transform 200ms;
   }
   &:active {
-    transform: scale(0.97) !important;
-    transition: transform 150ms !important;
+    transform: scale(0.97);
+    transition: transform 150ms;
   }
 }
 
-.message {
+.footer-message {
   align-self: flex-end;
   margin-bottom: 5px;
 }
@@ -114,8 +112,9 @@ ul {
   }
   .icons {
     justify-content: center;
+    margin-bottom: 8px;
   }
-  .message {
+  .footer-message {
     align-self: center;
     font-size: 12px;
     font-weight: 400;
