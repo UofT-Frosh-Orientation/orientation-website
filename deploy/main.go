@@ -13,19 +13,13 @@ func main() {
 	userData := os.Getenv("USER_DATA")
 	region := os.Getenv("REGION")
 	name := os.Getenv("NAME")
-	tag := os.Getenv("TAG")
+	ip := os.Getenv("IP")
 
 	//dropletName := "first-test-droplet"
 
 	opt := &godo.ListOptions{}
 
 	ctx := context.Background()
-
-	floatingIps, _, err := client.FloatingIPs.List(ctx, opt)
-
-	if err != nil {
-		fmt.Printf("There was an error: %s", err)
-	}
 
 	droplets, _, err := client.Droplets.List(ctx, opt)
 
@@ -46,35 +40,6 @@ func main() {
 	}
 	fmt.Printf("New droplet created!\nName: %s\nCreated at: %s\nStatus: %s\n", newDroplet.Name, newDroplet.Created, newDroplet.Status)
 
-	if len(floatingIps) == 0 {
-		floatingIpRequest := &godo.FloatingIPCreateRequest{
-			Region:    region,
-			DropletID: newDroplet.ID,
-		}
-		newFloatingIp, _, err := client.FloatingIPs.Create(ctx, floatingIpRequest)
-
-		if err != nil {
-			fmt.Printf("There was an error making the floating IP: %s", err)
-		}
-
-		floatingIps = append(floatingIps, *newFloatingIp)
-	}
-
-	var floatingIp *godo.FloatingIP
-out:
-	for _, f := range floatingIps {
-		for _, d := range f.Droplet.Tags {
-			if d == tag {
-				floatingIp = &f
-				break out
-			}
-		}
-	}
-
-	if floatingIp == nil {
-		floatingIp = &floatingIps[0]
-	}
-
 	dropletId := newDroplet.ID
 	for {
 		newDroplet, _, err = client.Droplets.Get(ctx, dropletId)
@@ -87,7 +52,7 @@ out:
 		}
 	}
 
-	_, _, err = client.FloatingIPActions.Assign(ctx, floatingIp.IP, newDroplet.ID)
+	_, _, err = client.FloatingIPActions.Assign(ctx, ip, newDroplet.ID)
 
 	if err != nil {
 		fmt.Printf("There was an error assigning the floating IP to the new droplet: %s", err)
