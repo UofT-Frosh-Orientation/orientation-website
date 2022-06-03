@@ -18,46 +18,53 @@
   color: var(--form-control-color);
 }
 
-input[type='radio'] {
-  font: inherit;
+input[type='checkbox'] {
   color: var(--purple);
-  width: 20px;
-  height: 20px;
+  width: 23px;
+  height: 23px;
   border: 3px solid var(--purple);
-  border-radius: 100%;
-  display: grid;
-  place-content: center;
-  cursor: pointer;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   -webkit-appearance: none;
   appearance: none;
-  margin: 2px;
+  background-color: var(--form-background);
+  margin: 0;
+  cursor: pointer;
   transition: transform 220ms;
 }
 
-input[type='radio']:hover {
+input[type='checkbox']:hover {
   transform: scale(1.1);
   transition: transform 220ms;
 }
 
-input[type='radio']::before {
+input[type='checkbox']::before {
   content: '';
-  width: 10px;
-  height: 10px;
-  border-radius: 100%;
-  transform: scale(0);
-  transition: transform 220ms;
+  width: 14px;
+  height: 14px;
+  clip-path: polygon(12% 40%, 0 55%, 43% 95%, 100% 10%, 84% 0%, 40% 65%);
+  transform: scale(
+    0.01
+  ); //0.01 so it is still rendered, avoids jerky animation behavior when rendering back in
   background-color: var(--purple);
+  transition: transform 220ms;
 }
 
-input[type='radio']:checked::before {
+input[type='checkbox']:checked::before {
   transform: scale(1);
 }
 
-input[type='radio']:hover:disabled {
+input[type='checkbox']:hover:disabled {
   transform: unset;
 }
 
-.form-control-disabled input[type='radio']:disabled {
+input[type='checkbox']:disabled::before {
+  background-color: var(--text-muted);
+}
+
+.form-control-disabled input[type='checkbox']:disabled {
   color: var(--text-muted);
   border: 3px solid var(--text-muted);
   opacity: 0.8;
