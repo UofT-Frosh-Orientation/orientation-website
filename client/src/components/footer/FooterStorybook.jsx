@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Footer.scss';
 
-import InstagramLogo from '../../assets/social/instagram-brands.svg';
-import DiscordLogo from '../../assets/social/discord-brands.svg';
+import FacebookIcon from '../../assets/social/facebook-square-brands.svg';
+import InstagramIcon from '../../assets/social/instagram-brands.svg';
+import TwitterIcon from '../../assets/social/twitter-brands.svg';
+import SnapchatIcon from '../../assets/social/snapchat-brands.svg';
+import YoutubeIcon from '../../assets/social/youtube-brands.svg';
 
 const pages = {
   main: [
@@ -21,17 +24,44 @@ const pages = {
     },
   ],
 };
+const socials = [
+  {
+    label: 'Facebook',
+    link: 'https://bit.ly/froshfb',
+    icon: FacebookIcon,
+  },
+  {
+    label: 'Instagram',
+    link: 'https://bit.ly/froshig',
+    icon: InstagramIcon,
+  },
+  {
+    label: 'Twitter',
+    link: 'https://bit.ly/froshweektwitter',
+    icon: TwitterIcon,
+  },
+  {
+    label: 'Snapchat',
+    link: 'https://bit.ly/2N3dlXt',
+    icon: SnapchatIcon,
+  },
+  {
+    label: 'YoutubeIcon',
+    link: 'https://bit.ly/froshtube',
+    icon: YoutubeIcon,
+  },
+];
 
 const FooterStorybook = () => {
   return (
-    <div className="container">
+    <div className="footer-container">
       <div className="sitemap">
         <div className="sitemap-text">Site Map</div>
         <div className="sitemap-links">
           {pages.main.map((page, index) => {
             return (
               <div key={page.path}>
-                <ul className="links" to={page.path} key={page.path}>
+                <ul className="links" key={page.path}>
                   {page.label}
                 </ul>
               </div>
@@ -42,14 +72,19 @@ const FooterStorybook = () => {
 
       <div className="socials">
         <div className="icons">
-          <a href="https://www.instagram.com/froshweek/" target="_blank" rel="noreferrer">
-            <img className="svg-icons" alt="instagram" src={InstagramLogo}></img>
-          </a>
-          <a href="https://discord.gg/BPR8V5zSwB" target="_blank" rel="noreferrer">
-            <img className="svg-icons" alt="discord" src={DiscordLogo}></img>
-          </a>
+          {socials.map((social) => {
+            return (
+              <img
+                key={social.label}
+                className="svg-icons"
+                alt={social.label}
+                src={social.icon}
+              ></img>
+            );
+          })}
+          {/* <img className="svg-icons" alt="instagram" src={InstagramLogo}></img> */}
         </div>
-        <div className="message">Made with 💜 by the F!rosh Week 2T2 Tech Team</div>
+        <div className="footer-message">Made with 💜 by the F!rosh Week 2T2 Tech Team</div>
       </div>
     </div>
   );

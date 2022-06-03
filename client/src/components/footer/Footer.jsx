@@ -27,7 +27,7 @@ const Footer = () => {
         <div className="icons">
           {socials.map((social) => {
             return (
-              <a href={social.label} target="_blank" rel="noreferrer" key={social.label}>
+              <a href={social.link} target="_blank" rel="noreferrer" key={social.label}>
                 <img className="svg-icons" alt={social.label} src={social.icon}></img>
               </a>
             );
