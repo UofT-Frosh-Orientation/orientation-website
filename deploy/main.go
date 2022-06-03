@@ -56,6 +56,8 @@ func main() {
 		if err != nil {
 			fmt.Printf("There was an error making the floating IP: %s", err)
 		}
+
+		floatingIps = append(floatingIps, *newFloatingIp)
 	}
 
 	var floatingIp *godo.FloatingIP
