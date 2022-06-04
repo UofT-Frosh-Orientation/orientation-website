@@ -23,6 +23,7 @@ env:
   USER_DATA: ${{ secrets.CLOUD_INIT }}
   NAME: beta-droplet
   REGION: ${{ secrets.REGION }}
+  IP: ${{ secrets.BETA_IP }}
 
 jobs:
   build_server:
