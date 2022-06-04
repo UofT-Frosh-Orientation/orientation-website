@@ -1,22 +1,13 @@
 name: build_images
 
 on:
-  workflow_call:
-    inputs:
-      tag:
-        required: true
-        type: string
-        description: "Tag for the image"
-  workflow_dispatch:
-    inputs:
-      tag:
-        required: true
-        type: string
-        description: "Tag for the image"
+  push:
+    branches:
+      - dev
 
 env:
   REGISTRY: ${{ secrets.DIGITALOCEAN_CONTAINER_URL }}
-  TAG: ${{ github.event.inputs.tag }}
+  TAG: beta
   SERVER_IMAGE_NAME: "orientation-server"
   CLIENT_IMAGE_NAME: "orientation-client"
   DIGITALOCEAN_API_KEY: ${{ secrets.DIGITALOCEAN_API_KEY }}
@@ -43,6 +34,10 @@ jobs:
       - name: Log in to DigitalOcean Container Registry
         run: doctl registry login --expiry-seconds 600
 
+      - name: Remove old server image
+        run: if [ ! -z "$(doctl registry repository list | grep "$(echo $SERVER_IMAGE_NAME)")" ]; then doctl registry repository delete-tag $(echo $SERVER_IMAGE_NAME) $(echo $TAG) --force; else echo "No repository"; fi
+
+
       - name: Push server image to container registry
         run: docker push $(echo $REGISTRY)/$(echo $SERVER_IMAGE_NAME):beta
 
@@ -62,6 +57,9 @@ jobs:
 
       - name: Log in to DigitalOcean Container Registry
         run: doctl registry login --expiry-seconds 600
+
+      - name: Remove old client image
+        run: if [ ! -z "$(doctl registry repository list | grep "$(echo $CLIENT_IMAGE_NAME)")" ]; then doctl registry repository delete-tag $(echo $CLIENT_IMAGE_NAME) $(echo $TAG) --force; else echo "No repository"; fi
 
       - name: Push client image to container registry
         run: docker push $(echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):beta
