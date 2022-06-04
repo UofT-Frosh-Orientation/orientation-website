@@ -4,7 +4,9 @@
   position: absolute;
   bottom: 0;
   background-color: var(--purple);
-  box-sizing: content-box;
+  box-sizing: border-box;
+
+  padding: 15px;
 
   width: 100%;
   height: auto;
@@ -37,7 +39,6 @@ ul {
 .links {
   font-size: 14px;
   color: var(--purple-shades-muted);
-
   transition: color 200ms;
 
   &:hover,
@@ -49,7 +50,7 @@ ul {
 
 .sitemap {
   flex-direction: column;
-  padding: 15px;
+  padding-bottom: 15px;
 }
 .sitemap-text {
   margin-bottom: 4px;
@@ -57,10 +58,10 @@ ul {
 
 .socials {
   display: flex;
-  flex-wrap: nowrap;
+  //flex-wrap: nowrap;
   flex-direction: row;
   justify-content: space-between;
-  padding: 15px;
+  //padding: 15px;
 }
 
 .icons {
@@ -75,7 +76,6 @@ ul {
   margin-right: 8px;
 
   filter: invert(1);
-  cursor: pointer;
 
   &:hover {
     transform: scale(1.02);

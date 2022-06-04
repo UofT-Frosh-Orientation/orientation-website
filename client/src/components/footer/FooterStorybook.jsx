@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import './Footer.scss';
 
 import FacebookIcon from '../../assets/social/facebook-square-brands.svg';
-import InstagramIcon from '../../assets/social/instagram-brands.svg';
-import TwitterIcon from '../../assets/social/twitter-brands.svg';
-import SnapchatIcon from '../../assets/social/snapchat-brands.svg';
-import YoutubeIcon from '../../assets/social/youtube-brands.svg';
+import InstagramIcon from '../../assets/social/instagram-square-brands.svg';
+import TwitterIcon from '../../assets/social/twitter-square-brands.svg';
+import SnapchatIcon from '../../assets/social/snapchat-square-brands.svg';
+import YoutubeIcon from '../../assets/social/youtube-square-brands.svg';
 
 const pages = {
   main: [
