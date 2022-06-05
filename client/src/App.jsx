@@ -22,7 +22,7 @@ const TransitionRoutes = () => {
   const location = useLocation();
   return (
     <TransitionGroup>
-      <Navbar></Navbar>
+      <Navbar />
       <ScrollToTop />
       <CSSTransition key={location.key} classNames="page" timeout={300}>
         <Routes location={location}>
