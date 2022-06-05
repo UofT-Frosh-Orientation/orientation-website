@@ -12,8 +12,8 @@ RadioButtonsStory.storyName = 'RadioButtons';
 RadioButtonsStory.args = {
   values: ['hello', 'hi', '1', '2'],
   initialSelectedIndex: 1,
-  onSelected: (value) => {
-    console.log(value);
+  onSelected: (value, index) => {
+    console.log(value, index);
   },
   disabledIndices: [3],
 };

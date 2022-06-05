@@ -19,7 +19,7 @@ const RadioButtons = ({ values, initialSelectedIndex, onSelected, disabledIndice
                 name="radio"
                 defaultChecked={initialSelectedIndex === index ? true : false}
                 onClick={() => {
-                  onSelected(value);
+                  onSelected(value, index);
                 }}
                 disabled={isDisabled}
               />
