@@ -5,6 +5,8 @@ on:
     branches:
       - dev
 
+concurrency: beta-deployment
+
 env:
   REGISTRY: ${{ secrets.DIGITALOCEAN_CONTAINER_URL }}
   TAG: beta
