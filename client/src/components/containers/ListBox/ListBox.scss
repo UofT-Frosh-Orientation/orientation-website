@@ -1,0 +1,44 @@
+@import '../../../scssStyles/mixins';
+
+.list-box-container {
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow);
+  border-radius: 15px;
+}
+
+.list-box-container-click {
+  .list-box-label p {
+    transition: transform 500ms;
+  }
+}
+
+.list-box-container-click:hover {
+  cursor: pointer;
+  user-select: none;
+  .list-box-label p {
+    transform: scale(1.1);
+  }
+}
+
+.list-box-title {
+  border-radius: 10px 10px 0px 0px;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 5px 20px;
+  text-align: center;
+  background-color: var(--on-white);
+  color: var(--text-muted);
+}
+
+.list-box-label {
+  border-radius: 0px 0px 10px 10px;
+  padding: 10px 20px;
+  text-align: center;
+  background-color: var(--white);
+}
+
+.list-box-label p {
+  font-size: 25px;
+  margin: 0px;
+}

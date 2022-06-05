@@ -1,0 +1,282 @@
+@import '../../scssStyles/mixins.scss';
+
+li {
+  list-style-type: none;
+}
+
+.navbar-desktop {
+  display: unset;
+  @include devices(tablet) {
+    display: none;
+  }
+}
+.navbar-mobile {
+  display: none;
+  @include devices(tablet) {
+    display: unset;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+
+  align-items: center;
+  z-index: 10;
+  position: fixed;
+  background-color: var(--navbar-bg);
+  width: 100%;
+  height: 45px;
+
+  filter: drop-shadow(0px -2px 5px rgba(0, 0, 0, 0.25));
+}
+.main,
+.special {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+a {
+  text-decoration: none;
+}
+
+.sub-container {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+
+  margin-right: 25px;
+  height: 35px;
+  width: 80px;
+
+  border-radius: 5px;
+
+  &:hover,
+  &:active {
+    color: var(--purple);
+    transition: color 200ms;
+
+    .underline {
+      background-color: var(--purple);
+      transition: background-color 200ms;
+    }
+  }
+
+  .underline {
+    transition: background-color 200ms;
+  }
+}
+
+.navbar-link {
+  position: absolute;
+  color: gray;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.underline {
+  align-self: flex-end;
+  width: 80px;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.underline-selected {
+  background-color: var(--purple);
+  align-self: flex-end;
+  width: 80px;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.icon-logo {
+  // actual frosh-like purple, placeholder for actual icon
+  background: purple;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+
+  margin-left: 15px;
+  margin-right: 40px;
+}
+
+.icon-profile {
+  background: var(--purple);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+
+  margin-left: auto;
+  margin-right: 15px;
+
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+  color: var(--yellow);
+}
+
+.icon-profile-person {
+  width: 35px;
+  height: 35px;
+  margin-left: auto;
+  margin-right: 15px;
+
+  filter: invert(48%) sepia(16%) saturate(1926%) hue-rotate(230deg) brightness(86%) contrast(84%);
+}
+
+.register,
+.login,
+.frosh-profile {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+
+  margin-right: 15px;
+  height: 35px;
+  border-radius: 10px;
+
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.register {
+  width: 100px;
+  background-color: var(--purple);
+  border-radius: 10px;
+  color: var(--text-light);
+}
+.login {
+  box-sizing: border-box;
+  width: 80px;
+  background-color: var(--navbar-bg);
+  color: var(--purple);
+
+  border: 2px;
+  border-style: solid;
+  border-color: var(--purple);
+  border-radius: 10px;
+}
+
+.frosh-profile {
+  width: 150px;
+  background-color: var(--purple);
+  border-radius: 10px;
+  color: var(--text-light);
+
+  box-sizing: border-box;
+  border: 2px;
+  border-style: solid;
+  border-color: var(--purple);
+  border-radius: 10px;
+}
+
+//animations
+.register,
+.login,
+.frosh-profile {
+  &:hover,
+  &:active {
+    transform: scale(0.97);
+    transition: transform 150ms;
+  }
+}
+
+/* MOBILE VIEW */
+@include devices(mobile) {
+  .container {
+    bottom: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    filter: drop-shadow(0px -2px 5px rgba(0, 0, 0, 0.25));
+  }
+
+  .icon-logo {
+    margin-left: 10px;
+    margin-right: 30px;
+  }
+
+  .main {
+    width: 150px;
+    margin: auto;
+    align-self: center;
+    justify-content: space-between;
+  }
+
+  .login {
+    font-size: 14px;
+    border-radius: 8px;
+    margin-right: 10px;
+    width: 65px;
+  }
+
+  .sub-container {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-right: 5px;
+    margin-left: 5px;
+    width: 40px;
+  }
+
+  .menu-icon {
+    //background: #935ebf;
+    align-self: center;
+    width: 25px;
+    height: 25px;
+  }
+
+  .sub-container:hover {
+    transform: scale(0.97);
+    transition: transform 150ms;
+
+    .svg-icon {
+      filter: invert(48%) sepia(16%) saturate(1926%) hue-rotate(230deg) brightness(86%)
+        contrast(84%);
+    }
+  }
+
+  .underline {
+    background-color: var(--navbar-underline);
+    bottom: 0;
+    width: 40px;
+    height: 3px;
+  }
+
+  .underline-selected {
+    background-color: var(--purple);
+    bottom: 0;
+    width: 40px;
+    height: 3px;
+  }
+
+  .svg-icon {
+    margin-top: 3px;
+    width: 25px;
+    height: 25px;
+    align-self: center;
+    filter: invert(43%) sepia(0%) saturate(0%) hue-rotate(189deg) brightness(100%) contrast(88%);
+  }
+
+  .svg-icon-selected {
+    filter: invert(48%) sepia(16%) saturate(1926%) hue-rotate(230deg) brightness(86%) contrast(84%);
+  }
+
+  .icon-profile {
+    margin-right: 10px;
+    margin-left: 30px;
+    font-size: 14px;
+
+    &:hover {
+      transform: scale(0.97);
+      transition: transform 150ms;
+    }
+  }
+}
