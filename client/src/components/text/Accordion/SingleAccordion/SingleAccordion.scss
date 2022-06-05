@@ -1,0 +1,31 @@
+@import '../../../../scssStyles/mixins';
+
+.accordion {
+  padding: 0px 20px 0px 20px;
+  background-color: #ecd6ff;
+  border-radius: 12px;
+}
+
+.accordHeader {
+  display: flex;
+  align-items: center;
+}
+
+.accordContent {
+  color: #000000;
+  overflow: hidden;
+  transition: max-height 0.2s ease;
+}
+
+.accordText {
+  padding: 10px 0px 10px 0px;
+  color: #000000;
+}
+
+.accordIcon {
+  transition: transform 0.2s ease;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}

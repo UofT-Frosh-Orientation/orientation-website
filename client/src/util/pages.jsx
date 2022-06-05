@@ -2,6 +2,7 @@ import { Page404 } from '../pages/404/404';
 import { PageAbout } from '../pages/About/About';
 import { PageFAQ } from '../pages/FAQ/FAQ';
 import { PageHome } from '../pages/Home/Home';
+import { MaintenancePage } from '../pages/Maintenance/Maintenance';
 
 export const pages = {
   404: {
@@ -27,17 +28,17 @@ export const pages = {
   ],
   special: [
     {
-      label: 'Register',
-      component: <div />,
-      path: '/register',
-    },
-    {
       label: 'Login',
       component: <div />,
       path: '/login',
     },
     {
-      label: 'Profile',
+      label: 'Register',
+      component: <div />,
+      path: '/register',
+    },
+    {
+      label: 'profile',
       component: <div />,
       path: '/profile',
     },
@@ -46,7 +47,12 @@ export const pages = {
     {
       label: 'Permission Request',
       component: <div />,
-      path: '/permission request',
+      path: '/permission_request',
+    },
+    {
+      label: 'Maintenance',
+      component: <MaintenancePage />,
+      path: '/maintenance',
     },
   ],
 };
