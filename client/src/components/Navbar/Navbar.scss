@@ -59,7 +59,7 @@ a {
     transition: color 200ms;
 
     .underline {
-      background-color: #935ebf;
+      background-color: var(--purple);
       transition: background-color 200ms;
     }
   }
@@ -189,7 +189,6 @@ a {
 }
 
 /* MOBILE VIEW */
-// @media only screen and (max-width: 599px)
 @include devices(mobile) {
   .container {
     bottom: 0;
@@ -200,7 +199,7 @@ a {
 
   .icon-logo {
     margin-left: 10px;
-    margin-right: 0;
+    margin-right: 30px;
   }
 
   .main {
@@ -260,8 +259,8 @@ a {
 
   .svg-icon {
     margin-top: 3px;
-    // width: 20px;
-    // height: 20px;
+    width: 25px;
+    height: 25px;
     align-self: center;
     filter: invert(43%) sepia(0%) saturate(0%) hue-rotate(189deg) brightness(100%) contrast(88%);
   }
