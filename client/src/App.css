@@ -21,9 +21,51 @@
   --navbar-underline: #e2e2e2;
 }
 
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/Inter-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Inter-Bold';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../assets/fonts/Inter-Bold.ttf');
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Inter-Bold', sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-link);
+  transition: text-decoration-color 250ms;
+  cursor: pointer;
+  background: linear-gradient(to left, var(--text-link), var(--text-link));
+  background-size: 100% 2px, 0 2px;
+  background-position: 0% 100%, 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 400ms;
+}
+
+a:hover {
+  transition: background-size 400ms;
+  background-size: 0% 2px, 100% 2px;
 }
 
 .page {

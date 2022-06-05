@@ -22,7 +22,7 @@ const Timeline = ({ dates, onClick }) => {
                 date.description ? onClick(date, formattedDate) : 0;
               }}
             >
-              <div className="timeline-date-container-date">{formattedDate}</div>
+              <h1 className="timeline-date-container-date">{formattedDate}</h1>
               <div className="timeline-date-container-name">{date.name}</div>
               {date.description ? <div className="timeline-read-more">Read more</div> : <></>}
             </div>

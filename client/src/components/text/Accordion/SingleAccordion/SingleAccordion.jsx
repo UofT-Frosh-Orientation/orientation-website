@@ -1,6 +1,6 @@
 import { React, useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import faAngleDown from '../../../assets/accordion/angle-up-solid.svg';
+import faAngleDown from '../../../../assets/accordion/angle-up-solid.svg';
 import './SingleAccordion.scss';
 
 const SingleAccordion = ({ header, children, isOpen, setIsOpen }) => {
