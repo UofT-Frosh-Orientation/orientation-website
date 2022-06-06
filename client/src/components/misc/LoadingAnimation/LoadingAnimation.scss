@@ -1,41 +1,41 @@
-.loadingAnimationContainer{
+$primary-dark: #935ebf;
+$primary-light: #ecd6ff;
+
+@mixin center-div {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.loadingAnimation{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.loadingAnimationContainer {
+  @include center-div;
 }
-
-.spinner-border {
-  display: inline-block;
-  width: 30vmin;
-  height: 30vmin;
-  vertical-align: -0.125em;
-  border: 0.25em solid #ECD6FF;
-  border-right-color: #935EBF;
-  border-radius: 50%;
-  -webkit-animation: 1s linear infinite spinner-border;
-  animation: 1s linear infinite spinner-border;
-}
-
-@-webkit-keyframes spinner-border {
-  to {
-    transform: rotate(360deg) /* rtl:ignore */;
+@media (prefers-reduced-motion: no-preference) {
+  .loadingAnimation {
+    @include center-div;
+    $size: 28vmin;
+    animation: 0.9s linear infinite spinner;
+    animation-play-state: inherit;
+    border: solid 5px #{$primary-light} {
+      bottom-color: #{$primary-dark};
+      radius: 50%;
+    }
+    height: $size;
+    width: $size;
   }
 }
 
-@keyframes spinner-border {
-  to {
-    transform: rotate(360deg) /* rtl:ignore */;
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 
 .logo {
-  position:absolute;
+  position: absolute;
   height: 25vmin;
 }
 
@@ -48,11 +48,10 @@
 }
 
 @keyframes logo-spin {
-  from {
+  0% {
     transform: rotate(360deg);
   }
-  to {
+  100% {
     transform: rotate(0deg);
   }
 }
-
