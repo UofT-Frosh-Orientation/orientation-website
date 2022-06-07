@@ -4,7 +4,7 @@
   position: absolute;
   width: calc(100% - 5vw - 5vw);
   height: 10px;
-  background-color: var(--yellow);
+  background-color: var(--yellow-light);
   border-radius: 15px;
   margin-left: 5vw;
   margin-right: 5vw;
@@ -40,12 +40,16 @@
 .timeline-date-container-date {
   font-size: 30px;
   text-align: center;
+
+  color: var(--text-dark);
 }
 
 .timeline-date-container-name {
   margin-top: 5px;
   font-size: 20px;
   text-align: center;
+
+  color: var(--text-dark);
 }
 
 .timeline-read-more {

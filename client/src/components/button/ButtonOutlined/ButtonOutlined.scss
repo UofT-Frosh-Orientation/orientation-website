@@ -15,7 +15,7 @@
   transition: transform 200ms;
   user-select: none;
   border-width: 4px;
-  border-color: var(--purple);
+  border-color: var(--light-purple);
   border-style: solid;
 
   &:hover {
@@ -46,7 +46,7 @@
   &:hover {
     transition: transform 200ms, background-color 200ms, border-color 200ms;
     background-color: var(--purple-shades-light);
-    border-color: var(--purple);
+    border-color: var(--light-purple);
   }
 }
 

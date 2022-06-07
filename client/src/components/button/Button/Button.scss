@@ -2,8 +2,8 @@
 
 .button {
   margin: 15px 10px;
-  background-color: var(--purple);
-  color: var(--text-light);
+  background-color: var(--light-purple);
+  color: var(--white);
   display: inline-block;
   border-radius: 14px;
   padding: 20px 48px;
@@ -33,7 +33,7 @@
 
 .button-secondary {
   background-color: var(--yellow);
-  color: var(--text-dark);
+  color: var(--white);
 }
 
 .button-disabled {

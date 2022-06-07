@@ -5,6 +5,7 @@ import HomeIcon from '../../assets/navbar/house-solid.svg';
 import AboutIcon from '../../assets/navbar/circle-info-solid.svg';
 import MessageIcon from '../../assets/navbar/message-solid.svg';
 import ProfileIcon from '../../assets/navbar/circle-user-solid.svg';
+import MainFroshLogo from '../../assets/logo/main-frosh-logo.png';
 import { Link } from 'react-router-dom';
 import { pages } from '../../util/pages';
 
@@ -33,7 +34,7 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
   return (
     <div className="container">
       <div className="main">
-        <div className="icon-logo"></div>
+        <img className="icon-logo" alt="frosh logo" src={MainFroshLogo}></img>
         {/* MAIN PAGES - Home, About, FAQ */}
         {pages.main.map((page) => {
           return (
@@ -84,7 +85,7 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
 const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
   return (
     <div className="container">
-      <div className="icon-logo"></div>
+      <img className="icon-logo" alt="frosh logo" src={MainFroshLogo}></img>
 
       <div className="main">
         {/* MAIN PAGES - Home, About, FAQ */}

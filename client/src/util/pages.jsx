@@ -2,7 +2,7 @@ import { Page404 } from '../pages/404/404';
 import { PageAbout } from '../pages/About/About';
 import { PageFAQ } from '../pages/FAQ/FAQ';
 import { PageHome } from '../pages/Home/Home';
-import { MaintenancePage } from '../pages/Maintenance/Maintenance';
+import { PageMaintenance } from '../pages/Maintenance/Maintenance';
 
 export const pages = {
   404: {
@@ -51,7 +51,7 @@ export const pages = {
     },
     {
       label: 'Maintenance',
-      component: <MaintenancePage />,
+      component: <PageMaintenance />,
       path: '/maintenance',
     },
   ],
