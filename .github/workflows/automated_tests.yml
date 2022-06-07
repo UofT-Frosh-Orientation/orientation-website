@@ -1,0 +1,17 @@
+name: automated_tests
+
+on:
+  pull_request:
+    branches:
+      - dev
+      - main
+
+jobs:
+  build_frontend:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build client
+        run: cd client && yarn install && yarn build
