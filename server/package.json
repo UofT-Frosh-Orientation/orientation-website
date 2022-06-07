@@ -10,6 +10,9 @@
     "start:dev": "set NODE_ENV=development && nodemon src/server.js",
     "start": "set NODE_ENV=production && node src/server.js"
   },
+  "lint-staged": {
+    "*.js": "eslint --quiet --fix && prettier --write"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
