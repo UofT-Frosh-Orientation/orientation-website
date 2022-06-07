@@ -1,55 +1,101 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import './tabs.scss';
-import { pages } from './util';
+import PropTypes from 'prop-types';
 
-const Tabs = () => {
+const Tabs = ({ tabs }) => {
   return (
-    <>
-      <div className="Tabs-desktop">
-        <TabsDesktop />
-      </div>
-      <div className="Tabs-mobile">
-        <TabsMobile />
-      </div>
-    </>
+    <div className="Tabs-desktop">
+      <TabsDesktop tabs={tabs} />
+    </div>
   );
 };
 
-const TabsDesktop = () => {
+const TabsDesktop = ({ tabs }) => {
   // const location = useLocation();
-  const current_page = window.location.pathname;
-  const CurrentIndex = getIndex(current_page, pages.tabs, 'path');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  console.log(currentIndex);
   return (
     <div className="main">
       <div className="container center">
         <div className="center relative">
-          {pages.tabs.map((tab, index) => {
+          {tabs.map((tab, index) => {
             {
               var css_class =
-                tab.path == pages.tabs[CurrentIndex]['path']
+                index == currentIndex
                   ? 'btn nav-btn inline-block active_link'
                   : 'btn nav-btn inline-block non_active_link';
             }
             return (
-              <div className={css_class} key={index}>
-                <a className="nav-link link center vertical-center " href={tab.path}>
-                  <div>{tab.label}</div>
-                </a>
-              </div>
+              <button
+                className={css_class}
+                onClick={() => setCurrentIndex(index)}
+                type="button"
+                key={index}
+              >
+                <div className="link">{tab.tabTitle}</div>
+              </button>
             );
           })}
         </div>
         <div className="content block">
-          {pages.tabs[CurrentIndex]['component']}
+          {tabs[currentIndex]['component']}
 
           <div className="inline-block footer">
-            <div className="btn-left">
-              {CurrentIndex > 0 && <Buttons Direction="left" CurrentIndex={CurrentIndex} />}
+            <div className="btn btn-left">
+              {currentIndex > 0 && (
+                <button
+                  className="btn arrow-link link center vertical-center"
+                  onClick={() => setCurrentIndex(nextIndex(currentIndex, 'left'))}
+                  type="button"
+                >
+                  <div className="link">{tabs[currentIndex]['tabTitle']}</div>
+                  <div className="icon_container inline-block">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{ width: 'inherit', height: 'inherit' }}
+                      className="h-1 w-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              )}
             </div>
-            <div className="btn-right">
-              {CurrentIndex < pages.tabs.length - 1 && (
-                <Buttons Direction="right" CurrentIndex={CurrentIndex} />
+            <div className="btn btn-right">
+              {currentIndex < tabs.length - 1 && (
+                <button
+                  className="btn arrow-link link center vertical-center"
+                  onClick={() => setCurrentIndex(nextIndex(currentIndex, 'right'))}
+                  type="button"
+                >
+                  {console.log(currentIndex)}
+                  <div className="link">{tabs[currentIndex]['tabTitle']}</div>
+                  <div className="icon_container inline-block">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{ width: 'inherit', height: 'inherit' }}
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      />
+                    </svg>
+                  </div>
+                </button>
               )}
             </div>
           </div>
@@ -61,57 +107,12 @@ const TabsDesktop = () => {
 
 const TabsMobile = () => {};
 
-const Buttons = ({ Direction, CurrentIndex }) => {
-  const NextIndex = nextIndex(CurrentIndex, Direction);
-  return (
-    <div className="arrow-btn btn inline-block center yellow">
-      <a className="arrow-link link center vertical-center" href={pages.tabs[NextIndex]['path']}>
-        <div>
-          {pages.tabs[NextIndex]['label']}
-          <div className="icon_container inline-block">
-            {Direction == 'right' && (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                style={{ width: 'inherit', height: 'inherit' }}
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            )}
-            {Direction == 'left' && (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                style={{ width: 'inherit', height: 'inherit' }}
-                className="h-1 w-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                />
-              </svg>
-            )}
-          </div>
-        </div>
-      </a>
-    </div>
-  );
-};
-
-function nextIndex(CurrentIndex, Direction) {
+function nextIndex(currentIndex, Direction) {
   var NextIndex = 0;
   if (Direction == 'right') {
-    NextIndex = CurrentIndex + 1;
+    NextIndex = currentIndex + 1;
   } else {
-    NextIndex = CurrentIndex - 1;
+    NextIndex = currentIndex - 1;
   }
   return NextIndex;
 }
@@ -125,24 +126,31 @@ function getIndex(value, arr, prop) {
   return -1; //to handle the case where the value doesn't exist
 }
 
-Buttons.propTypes = {
-  Direction: PropTypes.string,
-  CurrentIndex: PropTypes.number,
+Tabs.propTypes = {
+  tabs: PropTypes.arrayOf(
+    PropTypes.shape({
+      tabTitle: PropTypes.string,
+      component: PropTypes.object,
+    }),
+  ),
+};
+
+TabsDesktop.propTypes = {
+  tabs: PropTypes.arrayOf(
+    PropTypes.shape({
+      tabTitle: PropTypes.string,
+      component: PropTypes.object,
+    }),
+  ),
 };
 
 nextIndex.propTypes = {
-  CurrentIndex: PropTypes.number,
+  currentIndex: PropTypes.number,
   Direction: PropTypes.string,
 };
 
-getIndex.propTypes = {
-  value: PropTypes.number,
-  arr: PropTypes.array,
-  prop: PropTypes.string,
-};
-
-// Tabs.propTypes = propTypes;
+Tabs.propTypes = PropTypes;
 TabsDesktop.propTypes = PropTypes;
 TabsMobile.propTypes = PropTypes;
 
-export { TabsDesktop, TabsMobile };
+export { Tabs, TabsDesktop, TabsMobile };
