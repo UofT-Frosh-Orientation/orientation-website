@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const FroshSchema = new mongoose.Schema({
-  fullName: {
+  name: {
     type: String,
     required: true,
   },
@@ -105,7 +105,6 @@ const FroshSchema = new mongoose.Schema({
   },
 });
 
-
 const FroshModel = mongoose.model('Frosh', FroshSchema);
 
-module.exports = FroshModel
+module.exports = FroshModel;

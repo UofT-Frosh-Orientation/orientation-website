@@ -1,42 +1,117 @@
-.App {
-  text-align: center;
+:root {
+  --purple: #935ebf;
+  --light-purple: #ecd6ff;
+  --purple-shades-dark: #3c0a5a;
+  --purple-shades-original: #6f1e88;
+  --purple-shades-muted: #b297c7;
+  --purple-shades-light: #ecd6ff;
+  --yellow: #ffe76a;
+  --white: #ffffff;
+  --on-white: #f3f3f3;
+  --black: #000000;
+  --gray: #989898;
+  --shadow: #959da533 0px 8px 24px; /* box-shadow: var(--shadow); */
+  --green-success: #93bd84;
+  --red-error: #dd4343;
+  --text-link: #2680c1;
+  --text-dark: #000000;
+  --text-light: #f3f3f3;
+  --text-muted: #696969;
+  --navbar-bg: #ebebeb;
+  --navbar-underline: #e2e2e2;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/Inter-Regular.ttf');
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@font-face {
+  font-family: 'Inter-Bold';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../assets/fonts/Inter-Bold.ttf');
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
 }
 
-.App-link {
-  color: #61dafb;
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Inter-Bold', sans-serif;
+  margin: 0px;
+  padding: 0px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+a {
+  text-decoration: none;
+  color: var(--text-link);
+  transition: text-decoration-color 250ms;
+  cursor: pointer;
+  background: linear-gradient(to left, var(--text-link), var(--text-link));
+  background-size: 100% 2px, 0 2px;
+  background-position: 0% 100%, 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 400ms;
 }
 
-button {
-  font-size: calc(10px + 2vmin);
+a:hover {
+  transition: background-size 400ms;
+  background-size: 0% 2px, 100% 2px;
+}
+
+.page {
+  position: absolute;
+  left: 15px;
+  right: 15px;
+}
+
+.page-enter {
+  opacity: 0;
+  transform: scale(1.08);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 300ms, transform 300ms;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(97, 97, 97);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(124, 124, 124);
+  background: rgb(124, 124, 124);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d3d3d3fd;
+  border-radius: 3px;
 }
