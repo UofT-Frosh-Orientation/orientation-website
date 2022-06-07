@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LoadingAnimation } from './LoadingAnimation';
+import LoadingAnimation from './LoadingAnimation';
 
 export default {
   title: 'LoadingAnimation',

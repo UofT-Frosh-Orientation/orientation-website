@@ -1,7 +1,7 @@
 // Importing React, css, frosh logo
 import React, { Component } from 'react';
 import './LoadingAnimation.scss';
-import logo from '../../../assets/icons/dino_test.svg'; // Change later: dino_test.svg is just placeholder for now
+import logo from '../../../assets/misc/dino_test.svg'; // Change later: dino_test.svg is just placeholder for now
 
 // Loading Animation class
 // Note: If we don't want logo spinning, remove animation in css
