@@ -3,7 +3,7 @@ import './Maintenance.scss';
 
 import GearIcon from '../../assets/misc/gear-solid.svg';
 
-const MaintenancePage = () => {
+const PageMaintenance = () => {
   return (
     <div className="maintenance-box">
       <img className="gear-icon" src={GearIcon} alt="gear"></img>
@@ -16,4 +16,4 @@ const MaintenancePage = () => {
   );
 };
 
-export { MaintenancePage };
+export { PageMaintenance };
