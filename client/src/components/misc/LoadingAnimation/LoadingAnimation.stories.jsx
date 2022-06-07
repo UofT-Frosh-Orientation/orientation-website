@@ -9,6 +9,3 @@ export default {
 
 export const LoadingAnimationStory = (args) => <LoadingAnimation {...args} />;
 LoadingAnimationStory.storyName = 'LoadingAnimation';
-LoadingAnimationStory.args = {
-  animate: true,
-};

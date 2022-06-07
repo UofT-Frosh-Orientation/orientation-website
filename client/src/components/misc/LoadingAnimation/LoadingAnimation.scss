@@ -1,28 +1,22 @@
-$primary-dark: #935ebf;
-$primary-light: #ecd6ff;
-
-@mixin center-div {
+.loading-animation-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.loadingAnimationContainer {
-  @include center-div;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .loadingAnimation {
-    @include center-div;
-    $size: 28vmin;
-    animation: 0.9s linear infinite spinner;
-    animation-play-state: inherit;
-    border: solid 5px #{$primary-light} {
-      bottom-color: #{$primary-dark};
-      radius: 50%;
-    }
-    height: $size;
-    width: $size;
+.loading-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  $size: 28vmin;
+  animation: 0.9s linear infinite spinner;
+  animation-play-state: inherit;
+  border: solid 5px var(--light-purple) {
+    bottom-color: var(--purple);
+    radius: 50%;
   }
+  height: $size;
+  width: $size;
 }
 
 @keyframes spinner {
@@ -41,10 +35,8 @@ $primary-light: #ecd6ff;
 
 /* Remove everything under this to stop logo spinning */
 
-@media (prefers-reduced-motion: no-preference) {
-  .logo {
-    animation: logo-spin infinite 1.5s linear;
-  }
+.logo {
+  animation: logo-spin infinite 1.5s linear;
 }
 
 @keyframes logo-spin {

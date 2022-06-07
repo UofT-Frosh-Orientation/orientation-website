@@ -8,8 +8,8 @@ import logo from '../../../assets/misc/dino_test.svg'; // Change later: dino_tes
 class LoadingAnimation extends Component {
   render() {
     return (
-      <div className="loadingAnimationContainer">
-        <div className="loadingAnimation"></div>
+      <div className="loading-animation-container">
+        <div className="loading-animation"></div>
         <img src={logo} className="logo" alt="logo" />
       </div>
     );
