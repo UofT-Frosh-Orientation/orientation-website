@@ -1,5 +1,3 @@
-// TODO: Select appropriate mobile & tablet breakpoints
-
 @mixin devices($breakpoint) {
   @if $breakpoint == tablet {
     @media only screen and (max-width: 767px) {
@@ -7,8 +5,22 @@
     }
   }
   @if $breakpoint == mobile {
-    @media only screen and (max-width: 599px) {
+    @media only screen and (max-width: 767px) {
       @content;
     }
+  }
+}
+
+.mobile-only {
+  display: none;
+  @include devices(tablet) {
+    display: unset;
+  }
+}
+
+.desktop-only {
+  display: unset;
+  @include devices(tablet) {
+    display: none;
   }
 }

@@ -1,44 +1,48 @@
-import { useState } from 'react';
-import InstagramLogo from './instagram_icon.png';
+import { BrowserRouter, Link, useLocation, Route, Routes } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import ScrollToTop from './components/misc/ScrollToTop/ScrollToTop';
 import './App.css';
+import { InitialPage } from './pages/Initial/Initial';
+import { pages } from './util/pages';
+import { Navbar } from './components/Navbar/Navbar';
 
-function App() {
+export default function App() {
+  const initial = false;
+  if (initial) {
+    return <InitialPage />;
+  }
   return (
-    <div className="App">
-      <div className="container">
-        {/* Title Section */}
-        <div className="title">
-          <h1 className="title-text">
-            SOMETHING AWESOME<br></br>IS IN THE WORKS
-          </h1>
-          <hr className="line"></hr>
-          <p className="subtitle">
-            Hey F!rosh! We are working hard to give you the best experience, check back soon!
-          </p>
-        </div>
-
-        {/* Registration Info */}
-        <div className="info">
-          <a href="https://www.instagram.com/froshweek/" target="_blank" rel="noreferrer">
-            <img
-              src={InstagramLogo}
-              className="instagram-logo"
-              alt="Instagram logo links to F!rosh Instagram page"
-            />
-          </a>
-          <p className="info-text">
-            Registration for F!rosh Week will open around the end of June. Follow us on Instagram
-            for more updates!
-          </p>
-        </div>
-
-        {/* Footer */}
-        <div className="footer">
-          <h2 className="footer-text">Made with 💜 by the F!rosh Week 2T2 Tech Team</h2>
-        </div>
-      </div>
-    </div>
+    <BrowserRouter>
+      <TransitionRoutes />
+    </BrowserRouter>
   );
 }
 
-export default App;
+const TransitionRoutes = () => {
+  const location = useLocation();
+  return (
+    <TransitionGroup>
+      <Navbar />
+      <ScrollToTop />
+      <CSSTransition key={location.key} classNames="page" timeout={300}>
+        <Routes location={location}>
+          {[...pages.main, ...pages.hidden].map((page) => {
+            return (
+              <Route
+                path={page.path}
+                key={page.path}
+                element={
+                  <div style={{ position: 'absolute', right: 0, left: 0, bottom: 0, top: 0 }}>
+                    <div style={{ minHeight: '100vh' }}>{page.component}</div>
+                    {/* <Footer/> */}
+                  </div>
+                }
+              />
+            );
+          })}
+          <Route path="*" element={pages['404'].component} />
+        </Routes>
+      </CSSTransition>
+    </TransitionGroup>
+  );
+};

@@ -1,0 +1,97 @@
+@import '../../../scssStyles/mixins';
+
+.text-input-container {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+
+  p {
+    margin: 0;
+  }
+}
+
+.text-input {
+  font-size: 17px;
+  background-color: var(--on-white);
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  transition: background-color 400ms, box-shadow 400ms;
+  padding: 12px 20px;
+  margin: 4px;
+  width: 100%;
+  &:hover {
+    background-color: var(--white);
+    box-shadow: 0px 0px 6px 1px var(--light-purple);
+    transition: background-color 500ms, box-shadow 500ms;
+  }
+  &:focus {
+    background-color: var(--white);
+    box-shadow: 0px 0px 15px -3px var(--purple);
+    transition: background-color 500ms, box-shadow 500ms;
+  }
+}
+
+.text-input-area {
+  height: 105px;
+  min-height: 45px;
+  min-width: calc(50% - 10px);
+}
+
+.text-input-error {
+  border: var(--red-error) 2.5px solid;
+}
+
+.text-input-title {
+  font-size: 20px;
+}
+
+.text-input-title-container {
+  padding-left: 6px;
+  display: flex;
+  flex-direction: row;
+}
+
+.text-input-description {
+  margin-top: 2px;
+  padding-left: 6px;
+  font-size: 13px;
+}
+
+.text-input-error-message {
+  margin-top: 1px;
+  margin-bottom: 3px;
+  padding-left: 6px;
+  font-size: 15px;
+  color: var(--red-error);
+}
+
+.text-input-required-star {
+  color: var(--red-error);
+  display: inline-block;
+  font-size: 20px;
+  margin-bottom: -10px;
+  font-weight: 600;
+  padding-right: 5px;
+}
+
+.text-input-disabled {
+  opacity: 0.8;
+  &:hover {
+    background-color: var(--on-white);
+    box-shadow: none;
+    cursor: no-drop;
+  }
+}
+
+.text-input-password-eye {
+  transition: transform 0.3s;
+  width: 26px;
+  right: 17px;
+  top: 15px;
+  position: absolute;
+  &:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+}
