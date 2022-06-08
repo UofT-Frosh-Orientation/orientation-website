@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Navbar.scss';
-import HomeIcon from '../../assets/navbar/house-solid.svg';
-import AboutIcon from '../../assets/navbar/circle-info-solid.svg';
-import MessageIcon from '../../assets/navbar/message-solid.svg';
-import ProfileIcon from '../../assets/navbar/circle-user-solid.svg';
+import HomeIconPurple from '../../assets/navbar/house-solid-purple.svg';
+import AboutIconPurple from '../../assets/navbar/circle-info-solid-purple.svg';
+import MessageIconPurple from '../../assets/navbar/message-solid-purple.svg';
+import HomeIconGrey from '../../assets/navbar/house-solid-grey.svg';
+import AboutIconGrey from '../../assets/navbar/circle-info-solid-grey.svg';
+import MessageIconGrey from '../../assets/navbar/message-solid-grey.svg';
+import ProfileIcon from '../../assets/navbar/circle-user-solid-purple.svg';
 import { Link } from 'react-router-dom';
 import { pages } from '../../util/pages';
 
@@ -98,11 +101,9 @@ const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
                 <div className="navbar-sub-container">
                   <div className="menu-icon">
                     <img
-                      className={`svg-icon ${
-                        selectedPage === page.label ? 'svg-icon-selected' : ''
-                      }`}
+                      className="svg-icon"
                       alt="home"
-                      src={HomeIcon}
+                      src={selectedPage === page.label ? HomeIconPurple : HomeIconGrey}
                     ></img>
                   </div>
                   <div
@@ -123,7 +124,7 @@ const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
                         selectedPage === page.label ? 'svg-icon-selected' : ''
                       }`}
                       alt="about"
-                      src={AboutIcon}
+                      src={selectedPage === page.label ? AboutIconPurple : AboutIconGrey}
                     ></img>
                   </div>
                   <div
@@ -144,7 +145,7 @@ const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
                         selectedPage === page.label ? 'svg-icon-selected' : ''
                       }`}
                       alt="faq"
-                      src={MessageIcon}
+                      src={selectedPage === page.label ? MessageIconPurple : MessageIconGrey}
                     ></img>
                   </div>
                   <div

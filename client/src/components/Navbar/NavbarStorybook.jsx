@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Navbar.scss';
-import HomeIcon from '../../assets/navbar/house-solid.svg';
-import AboutIcon from '../../assets/navbar/circle-info-solid.svg';
-import MessageIcon from '../../assets/navbar/message-solid.svg';
-import ProfileIcon from '../../assets/navbar/circle-user-solid.svg';
+import ProfileIcon from '../../assets/navbar/circle-user-solid-purple.svg';
+import HomeIconPurple from '../../assets/navbar/house-solid-purple.svg';
+import AboutIconPurple from '../../assets/navbar/circle-info-solid-purple.svg';
+import MessageIconPurple from '../../assets/navbar/message-solid-purple.svg';
+import HomeIconGrey from '../../assets/navbar/house-solid-grey.svg';
+import AboutIconGrey from '../../assets/navbar/circle-info-solid-grey.svg';
+import MessageIconGrey from '../../assets/navbar/message-solid-grey.svg';
 
 const pages = {
   main: [
@@ -126,66 +129,54 @@ const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
         {pages.main.map((page) => {
           if (page.label === 'Home') {
             return (
-              // <Link to={page.path} key={page.path}>
               <div className="navbar-sub-container">
                 <div className="menu-icon">
                   <img
-                    className={`svg-icon ${selectedPage === page.label ? 'svg-icon-selected' : ''}`}
+                    className="svg-icon"
                     alt="home"
-                    src={HomeIcon}
+                    src={selectedPage === page.label ? HomeIconPurple : HomeIconGrey}
                   ></img>
                 </div>
-                {/* <div className="underline"></div> */}
                 <div
                   className={`navbar-underline ${
                     selectedPage === page.label ? 'underline-selected' : ''
                   }`}
                 ></div>
               </div>
-              // </Link>
             );
           } else if (page.label === 'About') {
             return (
-              // <Link to={page.path} key={page.path}>
               <div className="navbar-sub-container">
                 <div className="menu-icon">
                   <img
                     className={`svg-icon ${selectedPage === page.label ? 'svg-icon-selected' : ''}`}
                     alt="about"
-                    src={AboutIcon}
+                    src={selectedPage === page.label ? AboutIconPurple : AboutIconGrey}
                   ></img>
-                  {/* <div className={`svg-icon ${(selectedPage === page.label) ? 'svg-icon-selected' : ''}` }></div> */}
                 </div>
-                {/* <FontAwesomeIcon icon="fa-regular fa-circle-info" /> */}
-                {/* <div className="underline"></div> */}
                 <div
                   className={`navbar-underline ${
                     selectedPage === page.label ? 'underline-selected' : ''
                   }`}
                 ></div>
               </div>
-              // </Link>
             );
           } else if (page.label === 'FAQ') {
             return (
-              // <Link to={page.path} key={page.path}>
               <div className="navbar-sub-container">
                 <div className="menu-icon">
                   <img
                     className={`svg-icon ${selectedPage === page.label ? 'svg-icon-selected' : ''}`}
                     alt="faq"
-                    src={MessageIcon}
+                    src={selectedPage === page.label ? MessageIconPurple : MessageIconGrey}
                   ></img>
                 </div>
-                {/* <FontAwesomeIcon icon="fa-solid fa-messages-question" /> */}
-                {/* <div className="underline"></div> */}
                 <div
                   className={`navbar-underline ${
                     selectedPage === page.label ? 'underline-selected' : ''
                   }`}
                 ></div>
               </div>
-              // </Link>
             );
           }
         })}
@@ -194,11 +185,7 @@ const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
       {pages.special.map((page) => {
         if (page.label === 'Login') {
           if (!isLoggedIn) {
-            return (
-              // <Link to={page.path} key={page.path}>
-              <div className="login">{page.label}</div>
-              // </Link>
-            );
+            return <div className="login">{page.label}</div>;
           } else if (isLoggedIn) {
             return (
               // mobile: profile icon -> link to frosh profile
