@@ -32,17 +32,19 @@ const Navbar = ({ selectedPage, isLoggedIn, froshInitials }) => {
 
 const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
   return (
-    <div className="container">
-      <div className="main">
-        <img className="icon-logo" alt="frosh logo" src={MainFroshLogo}></img>
+    <div className="navbar-container">
+      <div className="navbar-main">
+        <div className="icon-logo"></div>
         {/* MAIN PAGES - Home, About, FAQ */}
         {pages.main.map((page) => {
           return (
             <Link to={page.path} key={page.path}>
-              <div className="sub-container">
+              <div className="navbar-sub-container">
                 <div className="navbar-link"> {page.label} </div>
                 <div
-                  className={`underline ${selectedPage === page.label ? 'underline-selected' : ''}`}
+                  className={`navbar-underline ${
+                    selectedPage === page.label ? 'underline-selected' : ''
+                  }`}
                 ></div>
               </div>
             </Link>
@@ -50,7 +52,7 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
         })}
       </div>
 
-      <div className="special">
+      <div className="navbar-special">
         {/* SPECIAL PAGES - Profile, Register, Login*/}
         {pages.special.map((page) => {
           if (page.label === 'profile') {
@@ -84,17 +86,17 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
 
 const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
   return (
-    <div className="container">
-      <img className="icon-logo" alt="frosh logo" src={MainFroshLogo}></img>
+    <div className="navbar-container">
+      <div className="icon-logo"></div>
 
-      <div className="main">
+      <div className="navbar-main">
         {/* MAIN PAGES - Home, About, FAQ */}
 
         {pages.main.map((page) => {
           if (page.label === 'Home') {
             return (
               <Link to={page.path} key={page.path}>
-                <div className="sub-container">
+                <div className="navbar-sub-container">
                   <div className="menu-icon">
                     <img
                       className={`svg-icon ${
@@ -105,7 +107,7 @@ const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
                     ></img>
                   </div>
                   <div
-                    className={`underline ${
+                    className={`navbar-underline ${
                       selectedPage === page.label ? 'underline-selected' : ''
                     }`}
                   ></div>
@@ -115,7 +117,7 @@ const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
           } else if (page.label === 'About') {
             return (
               <Link to={page.path} key={page.path}>
-                <div className="sub-container">
+                <div className="navbar-sub-container">
                   <div className="menu-icon">
                     <img
                       className={`svg-icon ${
@@ -126,7 +128,7 @@ const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
                     ></img>
                   </div>
                   <div
-                    className={`underline ${
+                    className={`navbar-underline ${
                       selectedPage === page.label ? 'underline-selected' : ''
                     }`}
                   ></div>
@@ -136,7 +138,7 @@ const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
           } else if (page.label === 'FAQ') {
             return (
               <Link to={page.path} key={page.path}>
-                <div className="sub-container">
+                <div className="navbar-sub-container">
                   <div className="menu-icon">
                     <img
                       className={`svg-icon ${
@@ -147,7 +149,7 @@ const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
                     ></img>
                   </div>
                   <div
-                    className={`underline ${
+                    className={`navbar-underline ${
                       selectedPage === page.label ? 'underline-selected' : ''
                     }`}
                   ></div>
