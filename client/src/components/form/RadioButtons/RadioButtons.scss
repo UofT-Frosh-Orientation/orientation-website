@@ -67,3 +67,8 @@ input[type='radio']:hover:disabled {
 .form-control-disabled {
   color: var(--text-muted);
 }
+
+.radio-input-title {
+  font-size: 16px;
+  padding-left: 5px;
+}

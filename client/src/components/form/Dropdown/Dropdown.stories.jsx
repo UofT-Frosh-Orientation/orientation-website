@@ -7,20 +7,17 @@ export default {
   component: Dropdown,
 };
 
-const items = [
-  { label: 'Option 1', value: '1', isSelected: false },
-  { label: 'Option 2', value: '2', isSelected: false },
-];
+const items = ['Option 1', 'Option 2', 'Option 3'];
 
 export const Enabled = () => {
-  const [selected, setSelected] = useState(items[0]);
-
   return (
     <Dropdown
-      selected={selected}
+      initialSelectedIndex={0}
       label={'Label'}
       items={items}
-      onSelect={setSelected}
+      onSelect={(value) => {
+        console.log(value);
+      }}
       isDisabled={false}
     />
   );

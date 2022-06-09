@@ -1,10 +1,8 @@
 @import '../../../scssStyles/mixins';
 
 .dropdown-container {
-  width: 30%;
-  margin: 0 auto;
-  max-width: 500px;
-  min-width: 150px;
+  width: fit-content;
+  padding-left: 5px;
 
   @include devices(mobile) {
     width: 70%;
@@ -12,7 +10,7 @@
 }
 
 .dropdown-header {
-  padding-left: 1em;
+  padding-left: 5px;
   margin-top: 0.5em;
 }
 
