@@ -1,0 +1,57 @@
+@import '../../scssStyles/mixins';
+
+.profile-page-header {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  background-color: var(--purple);
+  padding: 0% 9%;
+  padding-top: 45px;
+  padding-bottom: 25px;
+  h1 {
+    color: var(--text-light);
+    font-size: 85px;
+  }
+  h2 {
+    color: var(--text-light);
+    font-size: 65px;
+  }
+  .profile-page-name-title {
+    color: var(--text-light);
+    font-size: 55px;
+  }
+  p {
+    color: var(--text-light);
+    font-size: 18px;
+  }
+}
+
+.profile-page-header-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 5%;
+  text-align: center;
+}
+
+.profile-page-header-info-wrap {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+}
+
+.profile-page-header-info {
+  p {
+    margin-top: 1px;
+    margin-bottom: 3px;
+  }
+}
+
+.profile-page-header-class {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
