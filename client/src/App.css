@@ -1,24 +1,37 @@
 :root {
-  --purple: #935ebf;
-  --light-purple: #ecd6ff;
+  --purple: #6f1e88;
+  --light-purple: #a04fb9;
   --purple-shades-dark: #3c0a5a;
   --purple-shades-original: #6f1e88;
   --purple-shades-muted: #b297c7;
   --purple-shades-light: #ecd6ff;
-  --yellow: #ffe76a;
+  --yellow: #ffc423;
+  --yellow-light: #ffe76a;
   --white: #ffffff;
   --on-white: #f3f3f3;
   --black: #000000;
   --gray: #989898;
   --shadow: #959da533 0px 8px 24px; /* box-shadow: var(--shadow); */
-  --green-success: #93bd84;
+  --green-success: #aad0a3;
   --red-error: #dd4343;
-  --text-link: #2680c1;
-  --text-dark: #000000;
+  --text-link: #90caf9;
+  --text-dark: #20002e;
   --text-light: #f3f3f3;
   --text-muted: #696969;
   --navbar-bg: #ebebeb;
   --navbar-underline: #e2e2e2;
+  --page-bg: #f6f3fb; /* very light purple */
+
+  /* filters for icons -- filter: --var(purple-icon-filter) */
+  --purple-icon-filter: invert(19%) sepia(69%) saturate(2461%) hue-rotate(270deg) brightness(82%)
+    contrast(101%);
+  --grey-icon-filter: invert(43%) sepia(0%) saturate(0%) hue-rotate(189deg) brightness(100%)
+    contrast(88%);
+
+  /* misc. */
+  --lavender: #ecd6ff;
+  --blue-grey-light: #cfc9e5;
+  --periwinkle: #9fa8da;
 }
 
 @font-face {
