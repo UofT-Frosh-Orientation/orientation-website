@@ -6,10 +6,10 @@
   color: var(--white);
   display: inline-block;
   border-radius: 14px;
-  padding: 20px 48px;
+  padding: 14px 30px;
   box-shadow: var(--shadow);
   text-align: center;
-  font-size: 22px;
+  font-size: 17px;
   font-weight: 600;
   cursor: pointer;
   transition: transform 200ms;
@@ -33,7 +33,7 @@
 
 .button-secondary {
   background-color: var(--yellow);
-  color: var(--white);
+  color: var(--black);
 }
 
 .button-disabled {
