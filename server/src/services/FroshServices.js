@@ -56,13 +56,11 @@ const FroshServices = {
     await froshGroup.save();
     await newUserSubscription.add(froshRecord);
   },
-
+  
   /**
- * Initialize a list of frosh groups with default values into the database
+ * Initializes a list of frosh groups with default values in the database.
  * @constructor
- * @param {list} groups - List of frosh groups, which may be javascript objects
- */
-
+ * @param {groups} groups - List of frosh groups as javascript objects
   async initFroshGroups(groups) {
     const defaultVals = {
       "totalNum": 0,

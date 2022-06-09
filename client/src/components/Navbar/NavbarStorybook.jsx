@@ -5,6 +5,7 @@ import HomeIcon from '../../assets/navbar/house-solid.svg';
 import AboutIcon from '../../assets/navbar/circle-info-solid.svg';
 import MessageIcon from '../../assets/navbar/message-solid.svg';
 import ProfileIcon from '../../assets/navbar/circle-user-solid.svg';
+import MainFroshLogo from '../../assets/logo/main-frosh-logo.png';
 
 const pages = {
   main: [

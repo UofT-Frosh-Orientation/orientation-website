@@ -53,8 +53,12 @@ const TextInput = ({
   return (
     <div className="text-input-container">
       <div className="text-input-title-container">
-        {isRequiredInput ? <p className="text-input-required-star">*</p> : <></>}
-        {label ? <p className="text-input-title">{label}</p> : <></>}
+        {label !== undefined ? <p className="text-input-title">{label}</p> : <></>}
+        {isRequiredInput !== undefined && label !== undefined ? (
+          <p className="text-input-required-star">*</p>
+        ) : (
+          <></>
+        )}
       </div>
       <div style={{ position: 'relative', display: 'flex', width: '100%' }}>
         {inputType == 'textArea' ? (
