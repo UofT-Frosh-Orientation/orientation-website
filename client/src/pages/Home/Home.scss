@@ -1,0 +1,140 @@
+@import '../../scssStyles/mixins';
+
+.home-page-header {
+  position: relative;
+  height: 80vh;
+  min-height: 500px;
+  background-image: linear-gradient(
+    to right,
+    var(--purple-transparent) 20%,
+    var(--purple-transparent-more)
+  );
+  display: flex;
+  align-items: center;
+  @include devices(tablet) {
+    justify-content: center;
+  }
+}
+
+.home-page-header-text {
+  padding-left: 5%;
+  h1 {
+    font-size: 110px;
+    color: var(--text-light);
+  }
+  h2 {
+    font-size: 50px;
+    color: var(--text-light);
+    line-height: 0.7;
+  }
+  p {
+    font-size: 12px;
+    color: var(--text-light);
+  }
+  @include devices(tablet) {
+    padding-left: 0%;
+    padding: 0px 25px;
+    h1 {
+      font-size: 100px;
+      text-align: center;
+    }
+    h2 {
+      font-size: 32px;
+      text-align: center;
+      line-height: 1;
+    }
+    p {
+      padding: 0px 20px;
+      text-align: center;
+    }
+  }
+}
+
+.home-page-header-register-button {
+  margin-top: 15px;
+  @include devices(tablet) {
+    text-align: center;
+  }
+}
+
+.home-page-top-wave-image {
+  position: absolute;
+  bottom: 0px;
+  filter: drop-shadow(-10px -10px 8px #23232342);
+}
+
+.home-page-landing-image {
+  position: absolute;
+  z-index: -1;
+  height: 80vh;
+  width: 100vw;
+  min-height: 500px;
+  object-fit: cover;
+}
+
+.wave-image {
+  width: 100vw;
+  height: 10vh;
+  object-fit: fill;
+  @include devices(tablet) {
+    height: 6vh;
+  }
+}
+
+.home-page-timeline {
+  background-color: var(--purple);
+  padding-bottom: 24px;
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--gray);
+    background: var(--gray);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--purple);
+    border-radius: 3px;
+  }
+  @include devices(tablet) {
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+  }
+}
+
+.home-page-schedule {
+  background-color: var(--purple);
+}
+
+.home-page-section-header {
+  font-size: 45px;
+  color: var(--white);
+  padding-left: 3.5%;
+  padding-top: 35px;
+  margin-bottom: 24px;
+  @include devices(tablet) {
+    padding-top: 30px;
+    margin-bottom: 10px;
+    font-size: 35px;
+  }
+}
+
+.home-page-bottom-wave-image {
+  filter: drop-shadow(-10px 10px 8px #23232342);
+}
+
+.home-page-sponsors {
+  text-align: center;
+  h2 {
+    font-size: 40px;
+    @include devices(tablet) {
+      padding-top: 20px;
+    }
+  }
+}

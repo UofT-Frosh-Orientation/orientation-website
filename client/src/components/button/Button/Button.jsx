@@ -6,6 +6,7 @@ const Button = ({ label, onClick, isSecondary, isDisabled, style }) => {
   return (
     <div
       onClick={onClick}
+      style={style}
       className={`button ${isSecondary ? 'button-secondary' : ''} ${
         isDisabled ? 'button-disabled' : ''
       }`}
