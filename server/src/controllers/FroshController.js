@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 const FroshServices = require('../services/FroshServices');
 
 const FroshController = {
