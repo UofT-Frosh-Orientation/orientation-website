@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import './Dropdown.scss';
 import { useWrapperRef } from '../../../hooks/useWrapperRef';
+import Arrow from '../../../../assets/icons/angle-down-solid.svg';
 
 const Dropdown = ({ values, onSelect, label, isDisabled, initialSelectedIndex }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,10 +36,14 @@ const Dropdown = ({ values, onSelect, label, isDisabled, initialSelectedIndex })
         >
           <div className={'dropdown-selected-label'}>{selected}</div>
           <div className={`dropdown-image${isOpen ? ' open' : ''}`}>
-            <img alt={'arrow'} src={'../../../assets/icons/angle-down-solid.svg'} />
+            <img alt={'arrow'} src={Arrow} />
           </div>
         </div>
-        {isOpen && <div className={'dropdown-list-container'}>{dropdownItems}</div>}
+        <div
+          className={'dropdown-list-container' + (isOpen ? ' dropdown-list-container-open' : '')}
+        >
+          {dropdownItems}
+        </div>
       </div>
     </>
   );

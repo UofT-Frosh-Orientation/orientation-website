@@ -1,14 +1,14 @@
 @import '../../../scssStyles/mixins';
 
-.form-control {
-  font-size: 22px;
-  line-height: 1;
-  display: flex;
-  align-items: flex-start;
-  margin: 10px;
-  gap: 10px;
-  user-select: none;
-}
+// .form-control {
+//   font-size: 18px;
+//   line-height: 1;
+//   display: flex;
+//   align-items: flex-start;
+//   margin: 10px;
+//   gap: 10px;
+//   user-select: none;
+// }
 
 .form-control + .form-control {
   margin-top: 13px;
@@ -20,8 +20,8 @@
 
 input[type='checkbox'] {
   color: var(--purple);
-  width: 23px;
-  height: 23px;
+  width: 20px;
+  height: 20px;
   border: 3px solid var(--purple);
   border-radius: 3px;
   display: flex;
@@ -42,8 +42,8 @@ input[type='checkbox']:hover {
 
 input[type='checkbox']::before {
   content: '';
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   clip-path: polygon(12% 40%, 0 55%, 43% 95%, 100% 10%, 84% 0%, 40% 65%);
   transform: scale(
     0.01
