@@ -8,21 +8,37 @@
   padding: 0% 9%;
   padding-top: 45px;
   padding-bottom: 25px;
+  @include devices(tablet) {
+    padding: 4% 5%;
+    justify-content: space-around;
+  }
   h1 {
     color: var(--text-light);
     font-size: 85px;
+    @include devices(tablet) {
+      font-size: 65px;
+    }
   }
   h2 {
     color: var(--text-light);
     font-size: 65px;
+    @include devices(tablet) {
+      font-size: 40px;
+    }
   }
   .profile-page-name-title {
     color: var(--text-light);
     font-size: 55px;
+    @include devices(tablet) {
+      font-size: 30px;
+    }
   }
   p {
     color: var(--text-light);
     font-size: 18px;
+    @include devices(tablet) {
+      font-size: 15px;
+    }
   }
 }
 
@@ -40,6 +56,10 @@
   flex-direction: row;
   align-items: center;
   flex: 1;
+  @include devices(tablet) {
+    flex: unset;
+    text-align: right;
+  }
 }
 
 .profile-page-header-info {
@@ -54,4 +74,146 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+}
+
+.profile-page-announcements {
+  margin-left: 50px;
+  margin-right: 2%;
+  flex: 1;
+  max-width: 1000px;
+  @include devices(tablet) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.profile-page-schedule {
+  margin-left: 50px;
+  margin-right: 2%;
+  flex: 1;
+  max-width: 1000px;
+  margin-top: 20px;
+  @include devices(tablet) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.profile-page-section-header {
+  padding-top: 15px;
+  font-size: 42px;
+  color: var(--black);
+  padding-bottom: 5px;
+  @include devices(tablet) {
+    margin-left: 2%;
+    font-size: 26px;
+    padding-top: 25px;
+  }
+}
+
+.profile-page-qr-code {
+  max-width: 350px;
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 15px;
+  @include devices(tablet) {
+    max-width: 90vw;
+    width: 90vw;
+    margin-top: 20px;
+  }
+  p {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+}
+
+.profile-info-row {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0% 5%;
+  @include devices(tablet) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.profile-page-resources {
+  max-width: 350px;
+  margin-top: 20px;
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  overflow: hidden;
+  flex: 0;
+  flex-shrink: 1;
+  padding: 25px 30px;
+  h2 {
+    font-size: 32px;
+  }
+  @include devices(tablet) {
+    max-width: 90vw;
+    width: 90vw;
+    h2 {
+      font-size: 26px;
+    }
+  }
+}
+
+.profile-page-schedule-buttons {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.profile-page-accordion-container {
+  margin: 15px 0px;
+  cursor: pointer;
+}
+
+.profile-page-accordion-header {
+  padding: 20px 10px;
+  user-select: none;
+  h3 {
+    font-size: 24px;
+    text-transform: capitalize;
+  }
+  h4 {
+    font-size: 17px;
+    text-transform: capitalize;
+  }
+  @include devices(tablet) {
+    padding: 15px 5px;
+    h3 {
+      font-size: 19px;
+    }
+    h4 {
+      font-size: 15px;
+    }
+  }
+}
+
+.profile-page-accordion-content {
+  padding: 0px 10px;
+  padding-bottom: 5px;
+  margin-top: -12px;
+  p {
+    font-size: 17px;
+  }
+  @include devices(tablet) {
+    padding: 0px 5px;
+    padding-bottom: 5px;
+    font-size: 16px;
+  }
 }
