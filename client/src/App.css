@@ -20,7 +20,7 @@
   --text-muted: #696969;
   --navbar-bg: #ebebeb;
   --navbar-underline: #e2e2e2;
-  --page-bg: #f6f3fb; /* very light purple */
+  --page-bg: #efe9f8; /* very light purple */
   --purple-transparent: #7b33a8d6;
   --purple-transparent-more: #7b33a830;
 
@@ -51,6 +51,7 @@
 }
 
 html {
+  background-color: var(--page-bg);
   scroll-behavior: smooth;
   overflow-x: hidden;
   font-family: 'Inter', sans-serif;
