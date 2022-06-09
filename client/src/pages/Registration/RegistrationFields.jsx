@@ -3,7 +3,7 @@ export const fields = {
     medicalInfo: {
       type: 'text',
       inputType: 'textArea',
-      label: 'Allergies and/or medical condistions',
+      label: 'Allergies and/or medical conditions',
       placeholder: 'Nut allergy',
       hasRestrictedInput: true,
       isRequiredInput: false,
