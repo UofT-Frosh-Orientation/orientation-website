@@ -4,51 +4,51 @@ import PropTypes from 'prop-types';
 import './Dropdown.scss';
 import { useWrapperRef } from '../../../hooks/useWrapperRef';
 
-const Dropdown = ({ items, onSelect, label, selected, isDisabled }) => {
+const Dropdown = ({ values, onSelect, label, isDisabled, initialSelectedIndex }) => {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useWrapperRef(() => setIsOpen(false));
+  const [selected, setSelected] = useState(
+    initialSelectedIndex == undefined ? values[0] : values[initialSelectedIndex],
+  );
 
-  const dropdownItems = items.map((item, index) => (
+  const dropdownItems = values.map((value, index) => (
     <div
       className={'dropdown-item'}
       onClick={() => {
-        onSelect(item);
+        onSelect(value);
+        setSelected(value);
         setIsOpen(false);
       }}
-      key={`dropdownItem-${index}`}
+      key={`dropdownItem-${value}`}
     >
-      {item.label}
+      {value}
     </div>
   ));
 
   return (
-    <div className={'dropdown-container'} ref={wrapperRef}>
+    <>
       <div className={'dropdown-header'}>{label}</div>
-      <div
-        onClick={() => !isDisabled && setIsOpen(!isOpen)}
-        className={`dropdown-selected${isDisabled ? '-disabled' : ''}`}
-      >
-        <div className={'dropdown-selected-label'}>{selected.label}</div>
-        <div className={`dropdown-image${isOpen ? ' open' : ''}`}>
-          <img alt={'arrow'} src={'../../../assets/icons/angle-down-solid.svg'} />
+      <div className={'dropdown-container'} ref={wrapperRef}>
+        <div
+          onClick={() => !isDisabled && setIsOpen(!isOpen)}
+          className={`dropdown-selected${isDisabled ? '-disabled' : ''}`}
+        >
+          <div className={'dropdown-selected-label'}>{selected}</div>
+          <div className={`dropdown-image${isOpen ? ' open' : ''}`}>
+            <img alt={'arrow'} src={'../../../assets/icons/angle-down-solid.svg'} />
+          </div>
         </div>
+        {isOpen && <div className={'dropdown-list-container'}>{dropdownItems}</div>}
       </div>
-      {isOpen && <div className={'dropdown-list-container'}>{dropdownItems}</div>}
-    </div>
+    </>
   );
 };
 
 Dropdown.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string,
-      value: PropTypes.string,
-      isSelected: PropTypes.bool,
-    }),
-  ),
+  values: PropTypes.arrayOf(PropTypes.string),
   onSelect: PropTypes.func,
   label: PropTypes.string,
-  selected: PropTypes.object,
+  initialSelectedIndex: PropTypes.number,
   isDisabled: PropTypes.bool,
 };
 
