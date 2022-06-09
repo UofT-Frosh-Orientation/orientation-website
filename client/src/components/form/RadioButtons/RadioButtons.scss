@@ -1,7 +1,14 @@
 @import '../../../scssStyles/mixins';
 
+.radio-buttons {
+  form {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
 .form-control {
-  font-size: 22px;
+  font-size: 18px;
   line-height: 1;
   display: flex;
   align-items: flex-start;
@@ -19,10 +26,9 @@
 }
 
 input[type='radio'] {
-  font: inherit;
   color: var(--purple);
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border: 3px solid var(--purple);
   border-radius: 100%;
   display: grid;
@@ -30,7 +36,6 @@ input[type='radio'] {
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
-  margin: 2px;
   transition: transform 220ms;
 }
 
@@ -41,8 +46,8 @@ input[type='radio']:hover {
 
 input[type='radio']::before {
   content: '';
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 100%;
   transform: scale(0);
   transition: transform 220ms;

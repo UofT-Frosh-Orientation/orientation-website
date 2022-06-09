@@ -6,7 +6,7 @@ const RadioButtons = ({ values, initialSelectedIndex, onSelected, disabledIndice
   return (
     <>
       {label !== undefined ? <p className="radio-input-title">{label}</p> : <></>}
-      <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start' }} className={'radio-buttons'}>
         <form action="">
           {values.map((value, index) => {
             let isDisabled = false;
