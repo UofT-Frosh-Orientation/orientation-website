@@ -5,8 +5,8 @@ import './Login.scss';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
 
-import BrachioR from '../../assets/login/brachiosaurus-1.svg';
-import BrachioL from '../../assets/login/brachiosaurus-2.svg';
+import BrachioR from '../../assets/login/brachiosaurus-ground-right.svg';
+import BrachioL from '../../assets/login/brachiosaurus-ground-left.svg';
 import Ground from '../../assets/login/ground.svg';
 import MountainB from '../../assets/login/mountain-back.svg';
 import MountainFL from '../../assets/login/mountain-front-left.svg';
@@ -37,24 +37,23 @@ const PageLogin = ({ incorrectEntry }) => {
       </div>
 
       <div className="login-bg-images">
+        <img className="mountain-back" src={MountainB} alt="mountain"></img>
+        <img className="mountain-front-right" src={MountainFR} alt="mountain"></img>
+        <img className="mountain-mid" src={MountainM} alt="mountain"></img>
+        <img className="mountain-front-left" src={MountainFL} alt="mountain"></img>
+
         <img className="ground" src={Ground} alt="ground"></img>
         <img className="brachio-left" src={BrachioL} alt="brachiosaurus"></img>
         <img className="brachio-right" src={BrachioR} alt="brachiosaurus"></img>
-        <img className="mountain-back" src={MountainB} alt="mountain"></img>
-        <img className="mountain-front-left" src={MountainFL} alt="mountain"></img>
-        <img className="mountain-front-right" src={MountainFR} alt="mountain"></img>
-        <img className="mountain-mid" src={MountainM} alt="mountain"></img>
       </div>
     </div>
   );
 };
 
-const propTypes = {
+PageLogin.propTypes = {
   // if username/email/password are invalid
   incorrectEntry: PropTypes.bool,
 };
-
-PageLogin.propTypes = propTypes;
 
 PageLogin.defaultProps = {
   incorrectEntry: false,

@@ -14,7 +14,7 @@ export const pages = {
   main: [
     {
       label: 'Home',
-      component: <PageLogin />,
+      component: <PageHome />,
       path: '/',
     },
     {

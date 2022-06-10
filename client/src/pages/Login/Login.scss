@@ -16,7 +16,7 @@
 
 .login-container {
   width: 50vw;
-  z-index: 100;
+  z-index: 9;
 }
 
 .login-title {
@@ -45,7 +45,7 @@
 }
 .forgot-message {
   margin: 4px;
-  color: var(--purple-shades-light);
+  color: var(--light-purple);
   font-weight: 600;
 }
 
@@ -95,18 +95,18 @@
 
 .brachio-left {
   position: absolute;
-  bottom: 1vw;
+  bottom: 0;
   width: 40vw;
   z-index: 8;
-  left: 5vw;
+  left: 0;
 }
 
 .brachio-right {
   position: absolute;
-  bottom: 10vw;
+  bottom: 0;
   z-index: 8;
-  width: 40vw;
-  left: 60vw;
+  width: 50vw;
+  right: -2vw;
 }
 
 .ground {
@@ -115,14 +115,13 @@
   bottom: -20vh;
   width: 100vw;
   z-index: 9;
-  // rotate: -30;
 }
 
 .mountain-back {
   position: absolute;
-  bottom: 10vh;
-  left: -40vw;
-  width: 100vw;
+  bottom: -50vh;
+  left: -25vw;
+  width: 80vw;
   z-index: -10;
 }
 
@@ -131,7 +130,7 @@
   position: absolute;
   left: 0;
   bottom: -10vh;
-  height: 50vh;
+  height: 100vh;
 }
 
 .mountain-front-right {
@@ -139,49 +138,45 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  height: 90vh;
+  height: 140vh;
 }
 
 .mountain-mid {
   position: absolute;
   overflow: hidden;
-  bottom: 0;
+  bottom: -65vh;
   width: 90vw;
-  left: 8vw;
-  z-index: -1;
+  left: 4vw;
 }
 
 @include devices(tablet) {
   .login-bg-images {
     height: 100vh;
+    width: 100vw;
+    overflow: hidden;
   }
 
   .brachio-left {
-    position: absolute;
-    bottom: 13vw;
+    bottom: 12vw;
     width: 25vw;
     z-index: 8;
-    left: 5vw;
+    left: 0;
   }
 
   .brachio-right {
-    position: absolute;
     bottom: 22vw;
     z-index: 8;
     width: 40vw;
-    left: 60vw;
+    right: 0;
   }
 
   .ground {
-    overflow: hidden;
-    position: absolute;
     bottom: 0;
     width: 100vw;
     z-index: 9;
   }
 
   .mountain-back {
-    position: absolute;
     bottom: 10vh;
     left: -40vw;
     width: 100vw;
@@ -189,27 +184,22 @@
   }
 
   .mountain-front-left {
-    overflow: hidden;
-    position: absolute;
     left: 0;
     bottom: -10vh;
     height: 50vh;
   }
 
   .mountain-front-right {
-    overflow: hidden;
-    position: absolute;
     bottom: 0;
     right: 0;
-    height: 90vh;
+    height: 95vh;
+    z-index: -1;
   }
 
   .mountain-mid {
-    position: absolute;
-    overflow: hidden;
     bottom: 0;
     width: 90vw;
     left: 8vw;
-    z-index: -1;
+    z-index: 0;
   }
 }
