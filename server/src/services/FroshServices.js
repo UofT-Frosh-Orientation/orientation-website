@@ -61,8 +61,6 @@ const FroshServices = {
  * Initializes a list of frosh groups with default values in the database.
  * @constructor
  * @param {groups} groups - List of frosh groups as javascript objects
- */
-
   async initFroshGroups(groups) {
     const defaultVals = {
       "totalNum": 0,
