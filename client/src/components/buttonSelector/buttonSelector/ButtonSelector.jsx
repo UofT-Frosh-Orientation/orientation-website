@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './ButtonSelector.scss';
 import { ButtonOutlined } from '../../button/ButtonOutlined/ButtonOutlined';
 
-const ButtonSelector = ({ buttonList, activeIndex, setActiveIndex, maxWidthButton }) => {
+const ButtonSelector = ({ buttonList, activeIndex, setActiveIndex, maxWidthButton, style }) => {
   function setActiveButton(index) {
     setActiveIndex(index);
   }
@@ -13,7 +13,12 @@ const ButtonSelector = ({ buttonList, activeIndex, setActiveIndex, maxWidthButto
       key={index}
       onClick={() => setActiveButton(index)}
       label={item.name}
-      style={{ backgroundColor: `${item.buttonColor}`, flex: 1, maxWidth: maxWidthButton }}
+      style={{
+        backgroundColor: `${item.buttonColor}`,
+        flex: 1,
+        maxWidth: maxWidthButton,
+        ...style,
+      }}
       isSecondary={index == activeIndex ? false : true}
     ></ButtonOutlined>
   ));
@@ -26,6 +31,7 @@ ButtonSelector.propTypes = {
   activeIndex: PropTypes.number.isRequired,
   setActiveIndex: PropTypes.func.isRequired,
   maxWidthButton: PropTypes.number,
+  style: PropTypes.object,
 };
 
 export { ButtonSelector };
