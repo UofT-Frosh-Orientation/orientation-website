@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Navbar.scss';
+
 import ProfileIcon from '../../assets/navbar/circle-user-solid-purple.svg';
 import HomeIconPurple from '../../assets/navbar/house-solid-purple.svg';
 import AboutIconPurple from '../../assets/navbar/circle-info-solid-purple.svg';

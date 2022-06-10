@@ -1,12 +1,10 @@
 @import '../../scssStyles/_mixins.scss';
 
 .footer-container {
-  position: absolute;
-  bottom: 0;
   background-color: var(--purple);
   box-sizing: border-box;
 
-  padding: 15px;
+  padding: 0% 4% 2% 4%;
 
   width: 100%;
   height: auto;
@@ -17,9 +15,6 @@
   font-size: 18px;
   font-weight: bold;
   color: var(--white);
-
-  filter: drop-shadow(0px -2px 5px rgba(0, 0, 0, 0.25));
-
   z-index: 10;
 }
 
@@ -52,6 +47,7 @@ ul {
 .sitemap {
   flex-direction: column;
   padding-bottom: 15px;
+  padding-top: 15px;
 }
 .sitemap-text {
   margin-bottom: 4px;
@@ -78,8 +74,9 @@ ul {
 
   filter: invert(1);
 
+  transition: transform 200ms;
   &:hover {
-    transform: scale(1.02);
+    transform: scale(1.1);
     transition: transform 200ms;
   }
   &:active {
@@ -104,7 +101,7 @@ ul {
   .sitemap {
     flex-direction: column;
     justify-content: center;
-    padding-top: 15px;
+    padding-top: 25px;
     padding-bottom: 15px;
   }
 
@@ -119,10 +116,16 @@ ul {
     align-self: center;
     font-size: 12px;
     font-weight: 400;
+    margin-bottom: 55px;
   }
 
   .svg-icon {
     margin-left: 4px;
     margin-right: 4px;
   }
+}
+
+.wave-image-footer {
+  margin-bottom: -5px;
+  filter: drop-shadow(-10px -10px 8px #23232342);
 }

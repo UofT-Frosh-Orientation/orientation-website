@@ -2,8 +2,10 @@
 
 .accordion {
   padding: 0px 20px 0px 20px;
-  background-color: #ecd6ff;
+  background-color: var(--purple-shades-light);
   border-radius: 12px;
+
+  color: var(--text-dark);
 }
 
 .accordHeader {
@@ -12,14 +14,14 @@
 }
 
 .accordContent {
-  color: #000000;
+  color: var(--text-dark);
   overflow: hidden;
   transition: max-height 0.2s ease;
 }
 
 .accordText {
   padding: 10px 0px 10px 0px;
-  color: #000000;
+  color: var(--text-dark);
 }
 
 .accordIcon {
