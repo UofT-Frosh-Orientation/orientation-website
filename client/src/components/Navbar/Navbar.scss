@@ -123,9 +123,6 @@ li {
   height: 35px;
   margin-left: auto;
   margin-right: 15px;
-
-  // filter: invert(48%) sepia(16%) saturate(1926%) hue-rotate(230deg) brightness(86%) contrast(84%);
-  filter: var(--purple-icon-filter);
 }
 
 .register,
@@ -215,6 +212,12 @@ li {
     width: 65px;
   }
 
+  .menu-icon {
+    align-self: center;
+    width: 25px;
+    height: 25px;
+  }
+
   .navbar-sub-container {
     flex-direction: column;
     justify-content: space-between;
@@ -223,22 +226,6 @@ li {
     margin-right: 5px;
     margin-left: 5px;
     width: 40px;
-  }
-
-  .menu-icon {
-    //background: #935ebf;
-    align-self: center;
-    width: 25px;
-    height: 25px;
-  }
-
-  .sub-container:hover {
-    transform: scale(0.97);
-    transition: transform 150ms;
-
-    .svg-icon {
-      filter: var(--purple-icon-filter);
-    }
   }
 
   .navbar-underline {
@@ -260,14 +247,6 @@ li {
     width: 25px;
     height: 25px;
     align-self: center;
-
-    // unselected grey filter
-    filter: var(--grey-icon-filter);
-  }
-
-  .svg-icon-selected {
-    // selected purple filter
-    filter: var(--purple-icon-filter);
   }
 
   .icon-profile {
