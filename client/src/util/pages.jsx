@@ -4,6 +4,7 @@ import { PageFAQ } from '../pages/FAQ/FAQ';
 import { PageHome } from '../pages/Home/Home';
 import { PageMaintenance } from '../pages/Maintenance/Maintenance';
 import { PageRegistrationForm } from '../pages/Registration/RegistrationForm';
+import { PageLogin } from '../pages/Login/Login';
 
 export const pages = {
   404: {
@@ -13,7 +14,7 @@ export const pages = {
   main: [
     {
       label: 'Home',
-      component: <PageHome />,
+      component: <PageLogin />,
       path: '/',
     },
     {
@@ -30,7 +31,7 @@ export const pages = {
   special: [
     {
       label: 'Login',
-      component: <div />,
+      component: <PageLogin />,
       path: '/login',
     },
     {

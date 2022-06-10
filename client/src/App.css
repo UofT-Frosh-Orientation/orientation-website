@@ -34,6 +34,9 @@
   --lavender: #ecd6ff;
   --blue-grey-light: #cfc9e5;
   --periwinkle: #9fa8da;
+
+  /* login page */
+  --login-bg: #e8e0eb;
 }
 
 @font-face {

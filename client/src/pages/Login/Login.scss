@@ -1,0 +1,215 @@
+@import '../../scssStyles/mixins';
+
+.login-entire-page {
+  height: 150vh;
+  width: 100vw;
+}
+
+.login-bg {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  width: 50vw;
+  z-index: 100;
+}
+
+.login-title {
+  text-align: center;
+  color: var(--purple);
+
+  padding: 3.5%;
+}
+
+.login-error-message {
+  margin: 4px;
+  padding-left: 20px;
+  font-size: 13px;
+
+  color: var(--red-error);
+}
+.no-error-message {
+  display: none;
+}
+
+.login-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.forgot-message {
+  margin: 4px;
+  color: var(--purple-shades-light);
+  font-weight: 600;
+}
+
+@include devices(tablet) {
+  .login-entire-page {
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .login-container {
+    width: 70vw;
+  }
+
+  .login-error-message {
+    margin: 4px;
+    padding-left: 0;
+    font-size: 13px;
+    text-align: center;
+    color: var(--red-error);
+  }
+
+  .login-button-container {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .forgot-message {
+    margin: 4px;
+    color: var(--purple-shades-light);
+    font-weight: 600;
+  }
+}
+
+// BACKGROUND IMAGES
+
+.login-bg-images {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 150vh;
+  bottom: 100vh;
+  flex-direction: none;
+  justify-content: none;
+  align-items: none;
+}
+
+.brachio-left {
+  position: absolute;
+  bottom: 1vw;
+  width: 40vw;
+  z-index: 8;
+  left: 5vw;
+}
+
+.brachio-right {
+  position: absolute;
+  bottom: 10vw;
+  z-index: 8;
+  width: 40vw;
+  left: 60vw;
+}
+
+.ground {
+  overflow: hidden;
+  position: absolute;
+  bottom: -20vh;
+  width: 100vw;
+  z-index: 9;
+  // rotate: -30;
+}
+
+.mountain-back {
+  position: absolute;
+  bottom: 10vh;
+  left: -40vw;
+  width: 100vw;
+  z-index: -10;
+}
+
+.mountain-front-left {
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  bottom: -10vh;
+  height: 50vh;
+}
+
+.mountain-front-right {
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 90vh;
+}
+
+.mountain-mid {
+  position: absolute;
+  overflow: hidden;
+  bottom: 0;
+  width: 90vw;
+  left: 8vw;
+  z-index: -1;
+}
+
+@include devices(tablet) {
+  .login-bg-images {
+    height: 100vh;
+  }
+
+  .brachio-left {
+    position: absolute;
+    bottom: 13vw;
+    width: 25vw;
+    z-index: 8;
+    left: 5vw;
+  }
+
+  .brachio-right {
+    position: absolute;
+    bottom: 22vw;
+    z-index: 8;
+    width: 40vw;
+    left: 60vw;
+  }
+
+  .ground {
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    z-index: 9;
+  }
+
+  .mountain-back {
+    position: absolute;
+    bottom: 10vh;
+    left: -40vw;
+    width: 100vw;
+    z-index: -10;
+  }
+
+  .mountain-front-left {
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    bottom: -10vh;
+    height: 50vh;
+  }
+
+  .mountain-front-right {
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 90vh;
+  }
+
+  .mountain-mid {
+    position: absolute;
+    overflow: hidden;
+    bottom: 0;
+    width: 90vw;
+    left: 8vw;
+    z-index: -1;
+  }
+}
