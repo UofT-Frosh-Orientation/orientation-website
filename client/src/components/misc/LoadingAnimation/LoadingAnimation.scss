@@ -8,42 +8,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  $size: 28vmin;
-  animation: 0.9s linear infinite spinner;
+  animation: 0.9s linear infinite spinner-loading;
   animation-play-state: inherit;
   border: solid 5px var(--light-purple) {
     bottom-color: var(--purple);
     radius: 50%;
   }
-  height: $size;
-  width: $size;
 }
 
-@keyframes spinner {
+@keyframes spinner-loading {
   0% {
     transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
-  }
-}
-
-.logo {
-  position: absolute;
-  height: 25vmin;
-}
-
-/* Remove everything under this to stop logo spinning */
-
-.logo {
-  animation: logo-spin infinite 1.5s linear;
-}
-
-@keyframes logo-spin {
-  0% {
-    transform: rotate(360deg);
-  }
-  100% {
-    transform: rotate(0deg);
   }
 }

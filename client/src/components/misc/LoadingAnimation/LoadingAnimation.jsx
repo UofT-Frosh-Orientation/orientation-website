@@ -1,20 +1,20 @@
-// Importing React, css, frosh logo
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import './LoadingAnimation.scss';
-import logo from '../../../assets/misc/dino_test.svg'; // Change later: dino_test.svg is just placeholder for now
 
-// Loading Animation class
-// Note: If we don't want logo spinning, remove animation in css
-class LoadingAnimation extends Component {
-  render() {
-    return (
-      <div className="loading-animation-container">
-        <div className="loading-animation"></div>
-        <img src={logo} className="logo" alt="logo" />
-      </div>
-    );
+const LoadingAnimation = ({ size }) => {
+  if (size == undefined) {
+    size = '30px';
   }
-}
+  return (
+    <div className="loading-animation-container">
+      <div className="loading-animation" style={{ width: size, height: size }}></div>
+    </div>
+  );
+};
 
-// Exporting Loading Animation
 export default LoadingAnimation;
+
+LoadingAnimation.propTypes = {
+  size: PropTypes.number,
+};
