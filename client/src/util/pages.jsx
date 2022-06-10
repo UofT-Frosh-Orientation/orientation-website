@@ -16,16 +16,19 @@ export const pages = {
       label: 'Home',
       component: <PageHome />,
       path: '/',
+      includeFooter: true,
     },
     {
       label: 'About',
       component: <PageAbout />,
       path: '/about',
+      includeFooter: true,
     },
     {
       label: 'FAQ',
       component: <PageFAQ />,
       path: '/faq',
+      includeFooter: true,
     },
   ],
   special: [
@@ -33,16 +36,19 @@ export const pages = {
       label: 'Login',
       component: <PageLogin />,
       path: '/login',
+      includeFooter: false,
     },
     {
       label: 'Register',
       component: <div />,
       path: '/register',
+      includeFooter: true,
     },
     {
       label: 'profile',
       component: <div />,
       path: '/profile',
+      includeFooter: true,
     },
   ],
   hidden: [
@@ -50,16 +56,19 @@ export const pages = {
       label: 'Permission Request',
       component: <div />,
       path: '/permission_request',
+      includeFooter: true,
     },
     {
       label: 'Maintenance',
       component: <PageMaintenance />,
       path: '/maintenance',
+      includeFooter: false,
     },
     {
       label: 'Registration',
       component: <PageRegistrationForm />,
       path: '/registration',
+      includeFooter: true,
     },
   ],
 };

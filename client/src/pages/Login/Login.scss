@@ -114,7 +114,7 @@
   position: absolute;
   bottom: -20vh;
   width: 100vw;
-  z-index: 9;
+  z-index: 7;
 }
 
 .mountain-back {
@@ -139,6 +139,7 @@
   bottom: 0;
   right: 0;
   height: 140vh;
+  z-index: -1;
 }
 
 .mountain-mid {
@@ -147,6 +148,7 @@
   bottom: -65vh;
   width: 90vw;
   left: 4vw;
+  z-index: 0;
 }
 
 @include devices(tablet) {
@@ -159,13 +161,11 @@
   .brachio-left {
     bottom: 12vw;
     width: 25vw;
-    z-index: 8;
     left: 0;
   }
 
   .brachio-right {
     bottom: 22vw;
-    z-index: 8;
     width: 40vw;
     right: 0;
   }
@@ -173,14 +173,12 @@
   .ground {
     bottom: 0;
     width: 100vw;
-    z-index: 9;
   }
 
   .mountain-back {
     bottom: 10vh;
     left: -40vw;
     width: 100vw;
-    z-index: -10;
   }
 
   .mountain-front-left {
@@ -193,13 +191,11 @@
     bottom: 0;
     right: -5vw;
     height: 80vh;
-    z-index: -1;
   }
 
   .mountain-mid {
     bottom: 0;
     width: 90vw;
     left: 8vw;
-    z-index: 0;
   }
 }

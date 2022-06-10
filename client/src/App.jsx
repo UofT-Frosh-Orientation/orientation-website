@@ -27,7 +27,7 @@ const TransitionRoutes = () => {
       <ScrollToTop />
       <CSSTransition key={location.key} classNames="page" timeout={300}>
         <Routes location={location}>
-          {[...pages.main, ...pages.hidden].map((page) => {
+          {[...pages.main, ...pages.hidden, ...pages.special].map((page) => {
             return (
               <Route
                 path={page.path}
@@ -35,7 +35,7 @@ const TransitionRoutes = () => {
                 element={
                   <div style={{ position: 'absolute', right: 0, left: 0, bottom: 0, top: 0 }}>
                     <div style={{ minHeight: '100vh' }}>{page.component}</div>
-                    <Footer />
+                    {page.includeFooter ? <Footer /> : <></>}
                   </div>
                 }
               />

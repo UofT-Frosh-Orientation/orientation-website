@@ -18,12 +18,12 @@ const PageLogin = ({ incorrectEntry }) => {
     <div className="login-entire-page">
       <div className="login-bg">
         <div className="login-container">
-          <h2 className="login-title">Login</h2>
-          <TextInput inputType={'text'} placeholder={'Username or Email'}></TextInput>
+          <h1 className="login-title">Login</h1>
+          <TextInput inputType={'text'} placeholder={'Email'}></TextInput>
           <TextInput
             inputType={'password'}
             placeholder={'Password'}
-            errorFeedback={'Invalid username or password. Please try again!'}
+            errorFeedback={'Invalid email or password. Please try again!'}
           ></TextInput>
 
           {/* Invalid Username or Password */}
