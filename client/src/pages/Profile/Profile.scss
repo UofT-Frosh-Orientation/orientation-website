@@ -66,6 +66,10 @@
   p {
     margin-top: 1px;
     margin-bottom: 3px;
+    font-size: 18px;
+    @include devices(tablet) {
+      font-size: 11px;
+    }
   }
 }
 
@@ -105,10 +109,14 @@
   color: var(--black);
   padding-bottom: 5px;
   @include devices(tablet) {
-    margin-left: 2%;
-    font-size: 26px;
+    margin-left: 1%;
+    font-size: 34px;
     padding-top: 25px;
   }
+}
+
+.profile-page-section-header-schedule {
+  padding-bottom: 15px;
 }
 
 .profile-page-qr-code {
@@ -171,10 +179,11 @@
   }
 }
 
-.profile-page-schedule-buttons {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+.profile-page-schedule-accordions {
+  margin-top: -8px;
+  @include devices(tablet) {
+    margin-top: -13px;
+  }
 }
 
 .profile-page-accordion-container {

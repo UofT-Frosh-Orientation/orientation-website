@@ -15,6 +15,7 @@ import { ButtonBubble } from '../../components/button/ButtonBubble/ButtonBubble'
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import SingleAccordionStories from '../../components/text/Accordion/SingleAccordion/SingleAccordion.stories';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
+import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
 
 const PageProfile = () => {
   return (
@@ -112,6 +113,9 @@ const ProfilePageResources = () => {
 
 const ProfilePageSchedule = () => {
   let days = getDaysFroshSchedule();
+  let buttonList = days.map((item) => {
+    return { name: item };
+  });
   let scheduleData = getFroshScheduleData();
   const today = new Date();
   const options = { weekday: 'long' };
@@ -123,40 +127,35 @@ const ProfilePageSchedule = () => {
     }
     count++;
   }
-  if (count > scheduleData.length) {
-    count--;
+  if (count >= scheduleData.length) {
+    count = 0;
   }
   const [selectedDayIndex, setSelectedDayIndex] = useState(count);
   const [closeAll, setCloseAll] = useState(0);
   return (
     <div className="profile-page-schedule">
-      <h2 className="profile-page-section-header">Schedule</h2>
-      <div className="profile-page-schedule-buttons">
-        {days.map((item, index) => {
+      <h2 className="profile-page-section-header profile-page-section-header-schedule">Schedule</h2>
+      <ButtonSelector
+        buttonList={buttonList}
+        activeIndex={selectedDayIndex}
+        setActiveIndex={(index) => {
+          setSelectedDayIndex(index);
+          setCloseAll(!closeAll);
+        }}
+        style={{ maxWidth: '250px', marginTop: '0px', marginBottom: '10px', padding: '11px 15px' }}
+      />
+      <div className="profile-page-schedule-accordions">
+        {scheduleData[selectedDayIndex].events.map((scheduleDateObj, index) => {
           return (
-            <ButtonBubble
-              key={item + index}
-              label={item}
-              isSecondary={selectedDayIndex !== index}
-              style={{ flexGrow: 1, textAlign: 'center', maxWidth: '250px' }}
-              onClick={() => {
-                setSelectedDayIndex(index);
-                setCloseAll(!closeAll);
-              }}
+            <ProfilePageAccordionWrapper
+              key={scheduleDateObj.time + index}
+              closeAll={closeAll}
+              scheduleDateObj={scheduleDateObj}
+              index={index}
             />
           );
         })}
       </div>
-      {scheduleData[selectedDayIndex].events.map((scheduleDateObj, index) => {
-        return (
-          <ProfilePageAccordionWrapper
-            key={scheduleDateObj.time + index}
-            closeAll={closeAll}
-            scheduleDateObj={scheduleDateObj}
-            index={index}
-          />
-        );
-      })}
     </div>
   );
 };
