@@ -9,6 +9,8 @@ import MessageIconPurple from '../../assets/navbar/message-solid-purple.svg';
 import HomeIconGrey from '../../assets/navbar/house-solid-grey.svg';
 import AboutIconGrey from '../../assets/navbar/circle-info-solid-grey.svg';
 import MessageIconGrey from '../../assets/navbar/message-solid-grey.svg';
+import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
+
 
 const pages = {
   main: [
@@ -60,7 +62,7 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
   return (
     <div className="navbar-container">
       <div className="navbar-main">
-        <div className="icon-logo"></div>
+        <img className="icon-logo" src={MainFroshLogo}></img>
         {/* MAIN PAGES - Home, About, FAQ */}
         {pages.main.map((page) => {
           return (
@@ -122,7 +124,7 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
 const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
   return (
     <div className="navbar-container">
-      <div className="icon-logo"></div>
+      <img className="icon-logo" src={MainFroshLogo}></img>
 
       <div className="navbar-main">
         {/* MAIN PAGES - Home, About, FAQ */}
