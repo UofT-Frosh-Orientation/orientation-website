@@ -15,7 +15,6 @@
 
 .tab-main {
   width: 100%;
-  background: rgb(240, 240, 240);
   position: absolute;
   top: 0px;
   right: 0px;
@@ -33,7 +32,7 @@
 }
 
 .tab-content {
-  background-color: var(--purple);
+  background-color: var(--light-purple);
   width: 100%;
   height: 75%;
   position: relative;
@@ -58,7 +57,7 @@
 .nav-btn {
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
-  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 .btn-left {
@@ -86,13 +85,14 @@
 }
 
 .active_link {
-  background-color: --purple-shades-muted;
+  background-color: var(--light-purple);
+  border: 2px solid var(--light-purple);
 }
 
 .non_active_link {
-  background-color: var(--purple);
-  border-width: 2px;
-  border-color: var(--white);
+  background-color: transparent;
+  border: 2px solid var(--white);
+  border-bottom: none;
 }
 
 .tabs-center {
