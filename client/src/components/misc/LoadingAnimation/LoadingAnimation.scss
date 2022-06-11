@@ -1,0 +1,26 @@
+.loading-animation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: 0.9s linear infinite spinner-loading;
+  animation-play-state: inherit;
+  border: solid 5px var(--light-purple) {
+    bottom-color: var(--purple);
+    radius: 50%;
+  }
+}
+
+@keyframes spinner-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
