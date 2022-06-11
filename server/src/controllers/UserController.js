@@ -10,17 +10,17 @@ const UserController = {
    */
   async signup(req, res, next) {
     try {
-      const {email, password, name} = req.body;
-      await UserServices.validateUser(email, password, name)
-      const user = await UserServices.createUser(email, password, name)
+      const { email, password, name } = req.body;
+      await UserServices.validateUser(email, password, name);
+      const user = await UserServices.createUser(email, password, name);
       req.logIn(user, (err) => {
         if (err) {
-          return next(err)
+          return next(err);
         }
-        return res.status(200).send({message: 'Success!', user: user.getResponseObject()})
-      })
+        return res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
+      });
     } catch (e) {
-      next (e)
+      next(e);
     }
   },
   /**
@@ -31,8 +31,8 @@ const UserController = {
    */
   async getInfo(req, res) {
     const user = req.user.getResponseObject();
-    res.status(200).send({user})
-  }
-}
+    res.status(200).send({ user });
+  },
+};
 
-module.exports = UserController
+module.exports = UserController;

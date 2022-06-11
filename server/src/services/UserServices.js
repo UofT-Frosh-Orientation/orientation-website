@@ -1,10 +1,10 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 const EmailValidator = require('email-validator');
 
 const UserModel = require('../models/userModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
 
-const passwordValidator = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/
+const passwordValidator = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/;
 
 const UserServices = {
   /**
@@ -16,13 +16,13 @@ const UserServices = {
    */
   async validateUser(email, password, name) {
     if (name === '' || name === undefined || name === null) {
-      throw new Error('MISSING_NAME')
+      throw new Error('MISSING_NAME');
     }
     if (!EmailValidator.validate(email)) {
-      throw new Error('INVALID_EMAIL')
+      throw new Error('INVALID_EMAIL');
     }
     if (!passwordValidator.test(password)) {
-      throw new Error('INVALID_PASSWORD')
+      throw new Error('INVALID_PASSWORD');
     }
   },
 
@@ -35,22 +35,23 @@ const UserServices = {
    */
   async createUser(email, password, name) {
     return new Promise((resolve, reject) => {
-      bcrypt.hash(password, 10)
+      bcrypt
+        .hash(password, 10)
         .then((hashedPassword) => {
-          UserModel.create({email, hashedPassword, name}, (err, newUser) => {
+          UserModel.create({ email, hashedPassword, name }, (err, newUser) => {
             if (err) {
-               reject(err)
+              reject(err);
             } else {
-              newUserSubscription.add(newUser)
-              resolve(newUser)
+              newUserSubscription.add(newUser);
+              resolve(newUser);
             }
-          })
+          });
         })
         .catch((err) => {
-          reject(err)
-        })
-    })
-  }
-}
+          reject(err);
+        });
+    });
+  },
+};
 
-module.exports = UserServices
+module.exports = UserServices;

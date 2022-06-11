@@ -1,10 +1,10 @@
-const express = require('express')
+const express = require('express');
 
 const UserController = require('../controllers/UserController');
 const passport = require('../services/passport');
-const checkLoggedIn = require("../middlewares/checkLoggedIn")
+const checkLoggedIn = require('../middlewares/checkLoggedIn');
 
-const router = express.Router()
+const router = express.Router();
 
 /**
  * @swagger
@@ -31,7 +31,7 @@ const router = express.Router()
  *                 user:
  *                   $ref: '#components/schemas/User'
  */
-router.post('/signup', UserController.signup)
+router.post('/signup', UserController.signup);
 
 /**
  * @swagger
@@ -66,8 +66,11 @@ router.post('/signup', UserController.signup)
  *                 user:
  *                   $ref: '#components/schemas/User'
  */
-router.post('/login', passport.authenticate('local', {failureRedirect: '/login'}), UserController.getInfo)
-
+router.post(
+  '/login',
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  UserController.getInfo,
+);
 
 /**
  * @swagger
@@ -95,6 +98,6 @@ router.post('/login', passport.authenticate('local', {failureRedirect: '/login'}
  *                   type: string
  *                   example: Please sign in to access this route!
  */
-router.get('/info', checkLoggedIn, UserController.getInfo)
+router.get('/info', checkLoggedIn, UserController.getInfo);
 
-module.exports = router
+module.exports = router;

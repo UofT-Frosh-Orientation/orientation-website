@@ -5,19 +5,31 @@
  */
 const hasAuthScopes = (scopes) => {
   return (req, res, next) => {
-    const {authScopes} = req.user;
+    const { authScopes } = req.user;
     let unauthorized = authScopes.length === 0;
-    if (authScopes.find(authScope => authScope.scope === "admin" && authScope.approved.includes("all"))) {
+    if (
+      authScopes.find(
+        (authScope) => authScope.scope === 'admin' && authScope.approved.includes('all'),
+      )
+    ) {
       return next();
     }
-    scopes.forEach(s => {
-      const [scope, permission] = s.split(':')
-      if (!authScopes.find(authScope => (authScope.scope === scope && (authScope.approved.includes('all') || authScope.approved.includes(permission))))) {
+    scopes.forEach((s) => {
+      const [scope, permission] = s.split(':');
+      if (
+        !authScopes.find(
+          (authScope) =>
+            authScope.scope === scope &&
+            (authScope.approved.includes('all') || authScope.approved.includes(permission)),
+        )
+      ) {
         unauthorized = true;
       }
     });
-    return unauthorized ? res.status(403).send({message: "You are not authorized to access this resource"}) : next()
-  }
-}
+    return unauthorized
+      ? res.status(403).send({ message: 'You are not authorized to access this resource' })
+      : next();
+  };
+};
 
 module.exports = hasAuthScopes;

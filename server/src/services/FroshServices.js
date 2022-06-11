@@ -37,12 +37,12 @@ const FroshServices = {
    * @return {Promise<Object>}
    */
   async upgradeToFrosh(user, newInfo) {
-    console.log(user.userType)
-    const frosh = FroshModel.hydrate({...user.toObject(), ...newInfo, userType: 'frosh'})
-    frosh.markModified('userType')
-    console.log(frosh)
-    return await frosh.save()
-  }
+    console.log(user.userType);
+    const frosh = FroshModel.hydrate({ ...user.toObject(), ...newInfo, userType: 'frosh' });
+    frosh.markModified('userType');
+    console.log(frosh);
+    return await frosh.save();
+  },
 };
 
 module.exports = FroshServices;

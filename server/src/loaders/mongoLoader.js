@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const session = require('express-session')
-const MongoStore = require("connect-mongo");
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 const loadMongo = async (app) => {
   console.log('Loading mongo...');
@@ -10,12 +10,14 @@ const loadMongo = async (app) => {
   }:27017/orientation?authSource=admin`;
   await mongoose.connect(mongoURI);
   console.log('Connected to mongo!');
-  app.use(session({
-    resave: false,
-    saveUninitialized: true,
-    secret: 'something cryptic',
-    store: new MongoStore({ mongoUrl: mongoURI, crypto: {secret: process.env.SESSION_SECRET }})
-  }))
+  app.use(
+    session({
+      resave: false,
+      saveUninitialized: true,
+      secret: 'something cryptic',
+      store: new MongoStore({ mongoUrl: mongoURI, crypto: { secret: process.env.SESSION_SECRET } }),
+    }),
+  );
 };
 
 module.exports = loadMongo;
