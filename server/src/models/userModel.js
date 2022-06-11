@@ -60,8 +60,12 @@ const UserSchema = new mongoose.Schema({
   }
 }, { discriminatorKey: 'userType' });
 
+/**
+ * Removes all fields from the user document which should not be sent in a response from the server.
+ * @return {Object}
+ */
 UserSchema.methods.getResponseObject = function() {
-  const {_id, __v, hashedPassword, authScopes, isDeleted, accountCreatedAt, lastUpdatedAt, lastUpdatedFields, ...user} = this.toObject()
+  const {_id, __v, hashedPassword, authScopes, canEmail, isDeleted, accountCreatedAt, lastUpdatedAt, lastUpdatedFields, ...user} = this.toObject()
   return {...user, id: _id}
 }
 

@@ -1,6 +1,13 @@
 const FroshServices = require('../services/FroshServices');
 
 const FroshController = {
+  /**
+   * Upgrades the existing user account into a frosh account.
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @return {Promise<void>}
+   */
   async registerFrosh(req, res, next) {
     try {
       const user = req.user

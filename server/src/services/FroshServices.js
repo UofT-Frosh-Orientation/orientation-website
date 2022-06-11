@@ -2,6 +2,12 @@ const FroshModel = require('../models/FroshModel');
 const FroshGroupModel = require('../models/FroshGroupModel');
 
 const FroshServices = {
+  /**
+   * Gets the frosh group for a new frosh.
+   * @param {String} discipline - the discipline of the frosh
+   * @param {String} pronouns -  the pronouns of the frosh
+   * @return {Promise<String>} - the name of the frosh group
+   */
   async getNewFroshGroup(discipline, pronouns) {
     const froshGroupList = await FroshGroupModel.find();
     let minNumber = 10000;
@@ -24,7 +30,12 @@ const FroshServices = {
     }
     return froshGroup;
   },
-
+  /**
+   * Upgrades an existing user account to a frosh account.
+   * @param {Object} user - the existing user document
+   * @param {Object} newInfo - the new info required to register the frosh
+   * @return {Promise<Object>}
+   */
   async upgradeToFrosh(user, newInfo) {
     console.log(user.userType)
     const frosh = FroshModel.hydrate({...user.toObject(), ...newInfo, userType: 'frosh'})
