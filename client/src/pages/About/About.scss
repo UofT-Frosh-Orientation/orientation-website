@@ -1,0 +1,191 @@
+@import '../../scssStyles/mixins';
+
+.about-contents-container {
+}
+
+.about-page-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background-color: purple;
+}
+
+.landing {
+  position: absolute;
+  width: 100vw;
+  height: auto;
+  z-index: -1;
+  top: 0;
+}
+
+// ABOUT US SECTION
+
+.aboutus-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.aboutus-title {
+  text-align: left;
+  font-size: 48px;
+  color: var(--white);
+}
+
+.aboutus-title-underline {
+  background: var(--yellow);
+  border-radius: 10px;
+  width: 220px;
+  height: 4px;
+  margin-bottom: 20px;
+}
+
+.aboutus-info-title {
+  text-align: left;
+  font-size: 30px;
+  color: var(--white);
+}
+
+.wave-top {
+  width: 100vw;
+  filter: drop-shadow(-10px -10px 8px #23232342);
+}
+
+.wave-bottom {
+  width: 100vw;
+  filter: drop-shadow(-10px 10px 8px #23232342);
+}
+
+.aboutus-subcontainer {
+  background-color: var(--purple);
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  width: 100vw;
+  // justify-content: center;
+  // align-items: center;
+
+  // background-color: var(--purple);
+  // display: flex;
+  // flex-direction: row;
+  // padding: 50px;
+  // width: 100vw;
+  // justify-content: center;
+  // align-items: center;
+}
+
+.aboutus-image-container {
+  background: blueviolet;
+  // background-image: url();
+  // // border-radius: 10px;
+  // width: auto;
+  // height: auto;
+  // max-width: 100%;
+  // max-height: 100%;
+  // display: block;
+  border-radius: 10px;
+  // overflow: auto;
+  // flex-grow: 1;
+  padding-right: 50px;
+  flex: 1 1 auto;
+}
+
+.aboutus-image {
+  object-fit: cover;
+  // overflow: hidden;
+  height: 100%;
+  width: 100%;
+  // max-width: 100%;
+  // max-height: 100%;
+  // display: block;
+  // width: 20vw;
+  // height: auto;
+  // border-radius: 10px;
+  // padding-right: 50px;
+}
+
+.aboutus-info-container {
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.aboutus-info {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 25px;
+  margin-bottom: 25px;
+}
+
+.aboutus-info-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+
+  color: var(--white);
+  text-align: left;
+}
+.aboutus-info-des {
+  font-size: 16px;
+
+  color: var(--white);
+  text-align: left;
+}
+
+// EXEC TEAM SECTIONS
+
+.execteam-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.exec-title {
+  text-align: center;
+  font-size: 48px;
+  color: var(--purple-shades-dark);
+}
+
+.exec-title-underline {
+  background: var(--yellow);
+  border-radius: 10px;
+  width: 220px;
+  height: 4px;
+  margin-bottom: 20px;
+  align-self: center;
+}
+
+.oc-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  padding: 50px;
+}
+.oc-image {
+  background: purple;
+  width: 500px;
+  height: 500px;
+  border-radius: 10px;
+
+  margin-right: 50px;
+}
+
+.oc-title {
+  padding-bottom: 20px;
+}
+
+.oc-info-name {
+  font-size: 24px;
+  color: var(--purple);
+  padding-bottom: 5px;
+}
+
+.oc-info {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+}
