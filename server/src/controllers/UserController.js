@@ -1,4 +1,5 @@
-const UserServices =require('../services/UserServices');
+const UserServices = require('../services/UserServices');
+const passport = require("../services/passport")
 
 const UserController = {
   async signup(req, res, next) {
@@ -6,7 +7,6 @@ const UserController = {
       const {email, password, name} = req.body;
       await UserServices.validateUser(email, password, name)
       const user = await UserServices.createUser(email, password, name)
-      console.log(user)
       req.logIn(user, (err) => {
         if (err) {
           return next(err)
@@ -16,6 +16,12 @@ const UserController = {
     } catch (e) {
       next (e)
     }
+  },
+
+  async login(req, res) {
+    console.log(req.user)
+   const {_id, __v, hashedPassword, authScopes, ...user } = req.user.toObject();
+   res.status(200).send({user})
   }
 }
 

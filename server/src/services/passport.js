@@ -20,11 +20,10 @@ passport.use(new LocalStrategy({usernameField: "email"}, (email, password, done)
       if (!user) {
         return done(null, false, {message: "NO_USER"})
       }
-      bcrypt.compare(password, user.password, (err, isMatch) => {
+      bcrypt.compare(password, user.hashedPassword, (err, isMatch) => {
         if (err) {
           throw err;
         }
-
         if (isMatch) {
           return done(null, user)
         } else {

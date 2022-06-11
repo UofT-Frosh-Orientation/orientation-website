@@ -27,7 +27,7 @@ const UserServices = {
             if (err) {
                reject(err)
             } else {
-              console.log('done creating')
+              newUserSubscription.add(newUser)
               resolve(newUser)
             }
           })
