@@ -5,7 +5,7 @@ const newUserSubscription = new Queue('newUser', {
 });
 
 newUserSubscription.process((job, done) => {
-  console.log(`New Frosh created!`);
+  console.log(`New User created!`);
   console.log(job.data);
   done();
 });
