@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import './tabs.scss';
 import PropTypes from 'prop-types';
+import { Button } from '../button/Button/Button';
+import { Dropdown } from '../form/Dropdown/Dropdown';
 
 const Tabs = ({ tabs }) => {
   return (
-    <div className="Tabs-desktop">
-      <TabsDesktop tabs={tabs} />
+    <div>
+      <div className="Tabs-desktop">
+        <TabsDesktop tabs={tabs} />
+      </div>
+      <div className="Tabs-mobile">
+        <TabsMobile tabs={tabs} />
+      </div>
     </div>
   );
 };
@@ -15,87 +22,90 @@ const TabsDesktop = ({ tabs }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   console.log(currentIndex);
   return (
-    <div className="main">
-      <div className="container center">
-        <div className="center relative">
+    <div className="tab-main">
+      <div className="tab-container tabs-center">
+        <div className="tabs-center relative">
           {tabs.map((tab, index) => {
             {
               var css_class =
-                index == currentIndex
-                  ? 'btn nav-btn inline-block active_link'
-                  : 'btn nav-btn inline-block non_active_link';
+                index == currentIndex ? 'nav-btn active_link' : 'nav-btn non_active_link';
             }
             return (
-              <button
-                className={css_class}
-                onClick={() => setCurrentIndex(index)}
-                type="button"
+              <Button
                 key={index}
-              >
-                <div className="link">{tab.tabTitle}</div>
-              </button>
+                label={tab.tabTitle}
+                onClick={() => setCurrentIndex(index)}
+                style={css_class}
+              />
             );
           })}
         </div>
-        <div className="content block">
+        <div className="tab-content block">
           {tabs[currentIndex]['component']}
 
           <div className="inline-block footer">
-            <div className="btn btn-left">
+            <div className=" btn-left">
               {currentIndex > 0 && (
-                <button
-                  className="btn arrow-link link center vertical-center"
+                <Button
+                  label={
+                    <div>
+                      <div className="inline-block tabs-link ">
+                        {tabs[currentIndex - 1]['tabTitle']}
+                      </div>
+                      <div className="inline-block icon_container ">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          style={{ width: 'inherit', height: 'inherit' }}
+                          className="h-1 w-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  }
                   onClick={() => setCurrentIndex(nextIndex(currentIndex, 'left'))}
-                  type="button"
-                >
-                  <div className="link">{tabs[currentIndex]['tabTitle']}</div>
-                  <div className="icon_container inline-block">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      style={{ width: 'inherit', height: 'inherit' }}
-                      className="h-1 w-1"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                      />
-                    </svg>
-                  </div>
-                </button>
+                  isSecondary={true}
+                />
               )}
             </div>
-            <div className="btn btn-right">
+            <div className="btn-right">
               {currentIndex < tabs.length - 1 && (
-                <button
-                  className="btn arrow-link link center vertical-center"
+                <Button
+                  label={
+                    <div className="tabs-block">
+                      <div className="inline-block tabs-link">
+                        {tabs[currentIndex + 1]['tabTitle']}
+                      </div>
+                      <div className="inline-block icon_container">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          style={{ width: 'inherit', height: 'inherit' }}
+                          className="h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  }
                   onClick={() => setCurrentIndex(nextIndex(currentIndex, 'right'))}
-                  type="button"
-                >
-                  {console.log(currentIndex)}
-                  <div className="link">{tabs[currentIndex]['tabTitle']}</div>
-                  <div className="icon_container inline-block">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      style={{ width: 'inherit', height: 'inherit' }}
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M14 5l7 7m0 0l-7 7m7-7H3"
-                      />
-                    </svg>
-                  </div>
-                </button>
+                  isSecondary={true}
+                />
               )}
             </div>
           </div>
@@ -105,7 +115,26 @@ const TabsDesktop = ({ tabs }) => {
   );
 };
 
-const TabsMobile = () => {};
+const TabsMobile = ({ tabs }) => {
+  var dropDownItemsArr = [];
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  tabs.map((tab, index) => {
+    dropDownItemsArr[index] = { label: tab.tabTitle, value: '1', isSelected: false };
+  });
+
+  return (
+    <div>
+      <Dropdown
+        selected={currentIndex}
+        label={'Label'}
+        items={dropDownItemsArr}
+        onSelect={setCurrentIndex}
+        isDisabled={false}
+      />
+    </div>
+  );
+};
 
 function nextIndex(currentIndex, Direction) {
   var NextIndex = 0;
@@ -136,6 +165,15 @@ Tabs.propTypes = {
 };
 
 TabsDesktop.propTypes = {
+  tabs: PropTypes.arrayOf(
+    PropTypes.shape({
+      tabTitle: PropTypes.string,
+      component: PropTypes.object,
+    }),
+  ),
+};
+
+TabsMobile.propTypes = {
   tabs: PropTypes.arrayOf(
     PropTypes.shape({
       tabTitle: PropTypes.string,
