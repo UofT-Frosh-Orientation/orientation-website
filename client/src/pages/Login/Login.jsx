@@ -12,6 +12,7 @@ import MountainB from '../../assets/login/mountain-back.svg';
 import MountainFL from '../../assets/login/mountain-front-left.svg';
 import MountainFR from '../../assets/login/mountain-front-right.svg';
 import MountainM from '../../assets/login/mountain-mid.svg';
+import Ptero from '../../assets/login/ptero.svg';
 
 const PageLogin = ({ incorrectEntry }) => {
   return (
@@ -45,6 +46,7 @@ const PageLogin = ({ incorrectEntry }) => {
         <img className="ground" src={Ground} alt="ground"></img>
         <img className="brachio-left" src={BrachioL} alt="brachiosaurus"></img>
         <img className="brachio-right" src={BrachioR} alt="brachiosaurus"></img>
+        <img className="ptero" src={Ptero} alt="ptero"></img>
       </div>
     </div>
   );

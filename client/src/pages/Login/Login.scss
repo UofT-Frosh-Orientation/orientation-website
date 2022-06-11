@@ -22,8 +22,10 @@
 .login-title {
   text-align: center;
   color: var(--purple);
+  font-size: 70px;
 
-  padding: 3.5%;
+  padding: 5%;
+  text-shadow: 0px 7px 10px rgba(0, 0, 0, 0.25);
 }
 
 .login-error-message {
@@ -93,6 +95,14 @@
   align-items: none;
 }
 
+.ptero {
+  position: absolute;
+  top: 8vh;
+  left: 5vw;
+  width: 20vw;
+  z-index: 8;
+}
+
 .brachio-left {
   position: absolute;
   bottom: 0;
@@ -156,6 +166,12 @@
     height: 100vh;
     width: 100vw;
     overflow: hidden;
+  }
+
+  .ptero {
+    top: 25vh;
+    left: 10vw;
+    width: 20vw;
   }
 
   .brachio-left {
