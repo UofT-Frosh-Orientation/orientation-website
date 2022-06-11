@@ -1,13 +1,11 @@
 const Queue = require('bull');
 
-const newUserSubscription = new Queue('newUser', {
+const newFroshSubscription = new Queue('newFrosh', {
   redis: { port: process.env.REDIS_PORT, host: 'redis', password: process.env.REDIS_PASSWORD },
 });
 
-newUserSubscription.process((job, done) => {
-  console.log(`New User created!`);
+newFroshSubscription.process((job, done) => {
+  console.log('Registered frosh!');
   console.log(job.data);
   done();
 });
-
-module.exports = newUserSubscription;
