@@ -50,11 +50,12 @@ const FroshServices = {
   async getFroshInfo(id) {
     return FroshModel.findById(id);
   },
-  
+
   /**
- * Initializes a list of frosh groups with default values in the database.
- * @constructor
- * @param {groups} groups - List of frosh groups as javascript objects
+  * Initializes a list of frosh groups with default values in the database.
+  * @constructor
+  * @param {groups} groups - List of frosh groups as javascript objects
+  */
   async initFroshGroups(groups) {
     const defaultVals = {
       "totalNum": 0,

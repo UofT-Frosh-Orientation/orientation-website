@@ -1,8 +1,8 @@
 /**
  * Checks whether the user is signed in.
- * @param {Request} req
- * @param {Response} res
- * @param {NextFunction} next
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Function} next
  * @return {*}
  */
 const checkLoggedIn = (req, res, next) => {

@@ -1,7 +1,7 @@
 /**
  * Checks whether the current user has the required auth scopes to access the route.
  * @param {Array<String>} scopes - An array of strings formatted as "scope:permission"
- * @return {(function(Request, Response, NextFunction))|*} - A middleware which sends a 403 error if the user does not have the correct scope
+ * @return {(function(Object, Object, Function))|*} - A middleware which sends a 403 error if the user does not have the correct scope
  */
 const hasAuthScopes = (scopes) => {
   return (req, res, next) => {
