@@ -17,5 +17,8 @@ router.get("/timeline/:id/edit", editTimelineElement);
 
 router.get("/timeline/add", addTimelineElement);
 
+router.get("/timeline/:id/delete", deleteTimelineElement);
+
+
 
 

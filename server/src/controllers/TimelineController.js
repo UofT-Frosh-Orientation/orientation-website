@@ -44,9 +44,8 @@ const TimelineController = {
     },
 
     addTimeline(req, res, next) {
-      let timelineData = req.body;
+      let timelineId = req.body;
       try {
-        await TimelineServices.validateUser(timelineData);
         timelineRecord = {
           date: timelineData.date,
           name: timelineData.name,
@@ -57,5 +56,22 @@ const TimelineController = {
       } catch (e) {
         next(e);
       }
-  }
+      
+    },
+
+    deleteTimelineElement(req, res, next) {
+      let id = req.params.id;
+      try {
+        timelineElement = TimelineModel.findOne({ id })
+        timelineElement = {
+          date: '',
+          name: '',
+          description: ''
+        }
+        await TimelineServices.saveNewTimelineElement(timelineRecord);
+        res.status(200).send({ message: 'Successfully deleted timeline element!' });
+      } catch (e) {
+        next(e);
+      }
+    }
 };
