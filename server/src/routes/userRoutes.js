@@ -3,6 +3,7 @@ const express = require('express')
 const UserController = require('../controllers/UserController');
 const passport = require('../services/passport');
 const checkLoggedIn = require("../middlewares/checkLoggedIn")
+const hasAuthScopes = require("../middlewares/hasAuthScopes")
 
 const router = express.Router()
 

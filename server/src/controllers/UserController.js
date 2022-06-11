@@ -18,7 +18,7 @@ const UserController = {
   },
 
   async getInfo(req, res) {
-    const {_id, __v, hashedPassword, authScopes, ...user} = req.user.toObject();
+    const user = req.user.getResponseObject();
     res.status(200).send({user})
   }
 }
