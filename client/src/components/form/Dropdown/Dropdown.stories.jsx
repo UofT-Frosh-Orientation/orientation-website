@@ -14,7 +14,7 @@ export const Enabled = () => {
     <Dropdown
       initialSelectedIndex={0}
       label={'Label'}
-      items={items}
+      values={items}
       onSelect={(value) => {
         console.log(value);
       }}
@@ -30,7 +30,7 @@ export const Disabled = () => {
     <Dropdown
       selected={selected}
       label={'Disabled'}
-      items={items}
+      values={items}
       onSelect={setSelected}
       isDisabled={true}
     />
