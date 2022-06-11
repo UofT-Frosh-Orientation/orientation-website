@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const EmailValidator = require('email-validator');
 
-const UserModel = require('../models/userModel');
+const UserModel = require('../models/UserModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
 
 const passwordValidator = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/;
@@ -15,6 +15,11 @@ const UserServices = {
    * @return {Promise<void>}
    */
   async validateUser(email, password, name) {
+    const user = await UserModel.findOne({ email });
+    console.log(user);
+    if (user) {
+      throw new Error('DUPLICATE_EMAIL');
+    }
     if (name === '' || name === undefined || name === null) {
       throw new Error('MISSING_NAME');
     }

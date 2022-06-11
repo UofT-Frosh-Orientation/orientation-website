@@ -37,11 +37,18 @@ const FroshServices = {
    * @return {Promise<Object>}
    */
   async upgradeToFrosh(user, newInfo) {
-    console.log(user.userType);
-    const frosh = FroshModel.hydrate({ ...user.toObject(), ...newInfo, userType: 'frosh' });
-    frosh.markModified('userType');
-    console.log(frosh);
+    const frosh = FroshModel.hydrate(user.toObject());
+    frosh.set({ ...newInfo, userType: 'frosh' });
     return await frosh.save();
+  },
+
+  /**
+   * Get a frosh by their id
+   * @param id
+   * @return {Promise<Object>}
+   */
+  async getFroshInfo(id) {
+    return FroshModel.findById(id);
   },
 };
 

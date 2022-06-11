@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-const UserModel = require('./userModel');
+const UserModel = require('./UserModel');
+const getResponseObject = require('../util/getResponseObject');
 
 const FroshSchema = new mongoose.Schema(
   {
@@ -39,6 +40,8 @@ const FroshSchema = new mongoose.Schema(
   },
   { discriminatorKey: 'userType', strict: true },
 );
+
+FroshSchema.methods.getResponseObject = getResponseObject;
 
 const FroshModel = UserModel.discriminator('frosh', FroshSchema);
 

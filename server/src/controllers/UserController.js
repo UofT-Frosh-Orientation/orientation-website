@@ -33,6 +33,16 @@ const UserController = {
     const user = req.user.getResponseObject();
     res.status(200).send({ user });
   },
+
+  async logout(req, res, next) {
+    req.logout((err) => {
+      if (err) {
+        return next(err);
+      } else {
+        return res.status(200).send({ message: 'Successfully logged out!' });
+      }
+    });
+  },
 };
 
 module.exports = UserController;

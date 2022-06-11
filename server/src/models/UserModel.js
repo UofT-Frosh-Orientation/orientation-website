@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const getResponseObject = require('../util/getResponseObject');
 
 const UserSchema = new mongoose.Schema(
   {
@@ -9,6 +10,7 @@ const UserSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
     },
     hashedPassword: {
       type: String,
@@ -69,21 +71,7 @@ const UserSchema = new mongoose.Schema(
  * Removes all fields from the user document which should not be sent in a response from the server.
  * @return {Object}
  */
-UserSchema.methods.getResponseObject = function () {
-  const {
-    _id,
-    __v,
-    hashedPassword,
-    authScopes,
-    canEmail,
-    isDeleted,
-    accountCreatedAt,
-    lastUpdatedAt,
-    lastUpdatedFields,
-    ...user
-  } = this.toObject();
-  return { ...user, id: _id };
-};
+UserSchema.methods.getResponseObject = getResponseObject;
 
 const UserModel = mongoose.model('User', UserSchema);
 

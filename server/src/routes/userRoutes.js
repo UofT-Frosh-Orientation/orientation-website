@@ -74,6 +74,24 @@ router.post(
 
 /**
  * @swagger
+ * /user/logout:
+ *   post:
+ *     responses:
+ *       '200':
+ *         description: Successfully logged you out
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Successfully logged out!
+ */
+router.post('/logout', UserController.logout);
+
+/**
+ * @swagger
  * /user/info:
  *   get:
  *     summary: Get the info for the currently logged in user

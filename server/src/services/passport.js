@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-const User = require('../models/userModel');
+const User = require('../models/UserModel');
 const LocalStrategy = require('passport-local').Strategy;
 const EmailValidator = require('email-validator');
 
