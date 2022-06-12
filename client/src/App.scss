@@ -1,3 +1,5 @@
+@import './scssStyles/_mixins.scss';
+
 :root {
   --purple: #6f1e88;
   --light-purple: #a04fb9;
@@ -130,4 +132,11 @@ a:hover {
 ::-webkit-scrollbar-track {
   background: #d3d3d3fd;
   border-radius: 3px;
+}
+
+.navbar-space-top {
+  height: 45px;
+  @include devices(tablet) {
+    height: 0px;
+  }
 }
