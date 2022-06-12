@@ -4,7 +4,7 @@
   position: absolute;
   width: calc(100% - 5vw - 5vw);
   height: 10px;
-  background-color: var(--yellow);
+  background-color: var(--yellow-light);
   border-radius: 15px;
   margin-left: 5vw;
   margin-right: 5vw;
@@ -27,8 +27,8 @@
   flex-direction: column;
   justify-content: center;
   border-radius: 15px;
-  padding: 18px 28px;
-  margin: 0px 10px;
+  padding: 15px 25px;
+  margin: 0px 12px;
   max-width: 200px;
   min-width: 200px;
   position: relative;
@@ -39,14 +39,17 @@
 
 .timeline-date-container-date {
   font-size: 25px;
-  font-weight: 600;
   text-align: center;
+
+  color: var(--text-dark);
 }
 
 .timeline-date-container-name {
   margin-top: 5px;
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
+
+  color: var(--text-dark);
 }
 
 .timeline-read-more {
@@ -54,7 +57,7 @@
   text-decoration: underline;
   margin-top: 8px;
   text-align: center;
-  font-size: 15px;
+  font-size: 14px;
   user-select: none;
 }
 

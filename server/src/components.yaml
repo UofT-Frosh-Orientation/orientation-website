@@ -3,12 +3,10 @@ components:
     NewFrosh:
       type: object
       required:
-        - name
+        - birthDate
+        - pronouns
+        - discipline
       properties:
-        name:
-          type: string
-          description: The name of the user
-          example: John Doe
         preferredName:
           type: string,
           description: The preferred name of the frosh
@@ -25,50 +23,47 @@ components:
         discipline:
           type: string
           enum:
-            - ECE
-            - CIV
+            - Chemical Engineering
+            - Civil Engineering
+            - Computer Engineering
+            - Electrical Engineering
             - Engineering Science
-            - Track One
-            - Mech
-            - Min
-            - Indy
-            - Chem
+            - Industrial Engineering
+            - Materials Engineering
+            - Mechanical Engineering
+            - Mineral Engineering
+            - Track One (Undeclared)
           example: Engineering Science
-        medicalInfo:
+    NewUser:
+      type: object
+      required:
+        - name
+        - password
+        - email
+      properties:
+        name:
           type: string
-          example: "Allergic to peanuts"
+          description: Name of the user
+          example: John Doe
         email:
           type: string
-          example: john.doe@gmail.com
+          description: Email of the user
+          example: john.doe@mail.utoronto.ca
+          format: email
         password:
           type: string
+          description: Password of the user
+          example: SecurePassword123!
           format: password
-          example: SecurePassword123
-        phoneNumber:
+    User:
+      type: object
+      properties:
+        name:
           type: string
-          example: 123-456-7890
-        emergencyContact:
-          type: object
-          properties:
-            name:
-              type: string
-              example: Jane Doe
-            phoneNumber:
-              type: string
-              example: 0987-654-321
-        shirtSize:
+          description: Name of the user
+          example: John Doe
+        email:
           type: string
-          enum: [Small, Medium, Large]
-          example: Medium
-        isMeetup:
-          type: boolean
-          example: true
-        isScunt:
-          type: boolean
-          example: false
-        isAgreeTerms:
-          type: boolean
-          example: true
-        isMediaConsent:
-          type: boolean
-          required: true
+          description: Email of the user
+          example: john.doe@mail.utoronto.ca
+          format: email

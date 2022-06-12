@@ -1,0 +1,142 @@
+@import './scssStyles/_mixins.scss';
+
+:root {
+  --purple: #6f1e88;
+  --light-purple: #a04fb9;
+  --purple-shades-dark: #3c0a5a;
+  --purple-shades-original: #6f1e88;
+  --purple-shades-muted: #b297c7;
+  --purple-shades-light: #ecd6ff;
+  --yellow: #ffe863;
+  --yellow-light: #ffe76a;
+  --white: #ffffff;
+  --on-white: #f3f3f3;
+  --black: #000000;
+  --gray: #989898;
+  --shadow: #959da533 0px 8px 24px; /* box-shadow: var(--shadow); */
+  --green-success: #aad0a3;
+  --red-error: #dd4343;
+  --text-link: #4471d9;
+  --text-dark: #20002e;
+  --text-light: #f3f3f3;
+  --text-muted: #696969;
+  --navbar-bg: #ebebeb;
+  --navbar-underline: #e2e2e2;
+  --page-bg: #efe9f8; /* very light purple */
+  --purple-transparent: #7b33a8d6;
+  --purple-transparent-more: #7b33a830;
+
+  /* filters for icons -- filter: --var(purple-icon-filter) */
+  --purple-icon-filter: invert(19%) sepia(69%) saturate(2461%) hue-rotate(270deg) brightness(82%)
+    contrast(101%);
+  --grey-icon-filter: invert(43%) sepia(0%) saturate(0%) hue-rotate(189deg) brightness(100%)
+    contrast(88%);
+
+  /* misc. */
+  --lavender: #ecd6ff;
+  --blue-grey-light: #cfc9e5;
+  --periwinkle: #9fa8da;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/Inter-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Inter-Bold';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../assets/fonts/Inter-Bold.ttf');
+}
+
+html {
+  background-color: var(--page-bg);
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Inter-Bold', sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-link);
+  transition: text-decoration-color 250ms;
+  cursor: pointer;
+  background: linear-gradient(to left, var(--text-link), var(--text-link));
+  background-size: 100% 2px, 0 2px;
+  background-position: 0% 100%, 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 400ms;
+}
+
+a:hover {
+  transition: background-size 400ms;
+  background-size: 0% 2px, 100% 2px;
+}
+
+.page {
+  position: absolute;
+  left: 15px;
+  right: 15px;
+}
+
+.page-enter {
+  opacity: 0;
+  transform: scale(1.08);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 300ms, transform 300ms;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #616161;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #7c7c7c;
+  background: #7c7c7c;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d3d3d3fd;
+  border-radius: 3px;
+}
+
+.navbar-space-top {
+  height: 45px;
+  @include devices(tablet) {
+    height: 0px;
+  }
+}

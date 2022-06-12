@@ -17,7 +17,7 @@ li {
   }
 }
 
-.container {
+.navbar-container {
   display: flex;
   justify-content: space-between;
 
@@ -30,18 +30,19 @@ li {
 
   filter: drop-shadow(0px -2px 5px rgba(0, 0, 0, 0.25));
 }
-.main,
-.special {
+.navbar-main,
+.navbar-special {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
 
-a {
+.navbar-container a {
   text-decoration: none;
+  background: none;
 }
 
-.sub-container {
+.navbar-sub-container {
   display: flex;
   justify-content: center;
   justify-items: center;
@@ -58,25 +59,25 @@ a {
     color: var(--purple);
     transition: color 200ms;
 
-    .underline {
-      background-color: #935ebf;
+    .navbar-underline {
+      background-color: var(--purple);
       transition: background-color 200ms;
     }
   }
 
-  .underline {
+  .navbar-underline {
     transition: background-color 200ms;
   }
 }
 
 .navbar-link {
   position: absolute;
-  color: gray;
+  color: var(--gray);
   font-size: 16px;
   font-weight: 700;
 }
 
-.underline {
+.navbar-underline {
   align-self: flex-end;
   width: 80px;
   height: 3px;
@@ -94,11 +95,8 @@ a {
 }
 
 .icon-logo {
-  // actual frosh-like purple, placeholder for actual icon
-  background: purple;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
+  width: 38px;
+  height: 38px;
 
   margin-left: 15px;
   margin-right: 40px;
@@ -117,7 +115,7 @@ a {
   text-align: center;
   font-weight: bold;
   font-size: 15px;
-  color: var(--yellow);
+  color: var(--yellow-light);
 }
 
 .icon-profile-person {
@@ -125,8 +123,6 @@ a {
   height: 35px;
   margin-left: auto;
   margin-right: 15px;
-
-  filter: invert(48%) sepia(16%) saturate(1926%) hue-rotate(230deg) brightness(86%) contrast(84%);
 }
 
 .register,
@@ -189,9 +185,8 @@ a {
 }
 
 /* MOBILE VIEW */
-// @media only screen and (max-width: 599px)
 @include devices(mobile) {
-  .container {
+  .navbar-container {
     bottom: 0;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -200,10 +195,10 @@ a {
 
   .icon-logo {
     margin-left: 10px;
-    margin-right: 0;
+    margin-right: 30px;
   }
 
-  .main {
+  .navbar-main {
     width: 150px;
     margin: auto;
     align-self: center;
@@ -217,7 +212,13 @@ a {
     width: 65px;
   }
 
-  .sub-container {
+  .menu-icon {
+    align-self: center;
+    width: 25px;
+    height: 25px;
+  }
+
+  .navbar-sub-container {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -227,24 +228,7 @@ a {
     width: 40px;
   }
 
-  .menu-icon {
-    //background: #935ebf;
-    align-self: center;
-    width: 25px;
-    height: 25px;
-  }
-
-  .sub-container:hover {
-    transform: scale(0.97);
-    transition: transform 150ms;
-
-    .svg-icon {
-      filter: invert(48%) sepia(16%) saturate(1926%) hue-rotate(230deg) brightness(86%)
-        contrast(84%);
-    }
-  }
-
-  .underline {
+  .navbar-underline {
     background-color: var(--navbar-underline);
     bottom: 0;
     width: 40px;
@@ -260,14 +244,9 @@ a {
 
   .svg-icon {
     margin-top: 3px;
-    // width: 20px;
-    // height: 20px;
+    width: 25px;
+    height: 25px;
     align-self: center;
-    filter: invert(43%) sepia(0%) saturate(0%) hue-rotate(189deg) brightness(100%) contrast(88%);
-  }
-
-  .svg-icon-selected {
-    filter: invert(48%) sepia(16%) saturate(1926%) hue-rotate(230deg) brightness(86%) contrast(84%);
   }
 
   .icon-profile {

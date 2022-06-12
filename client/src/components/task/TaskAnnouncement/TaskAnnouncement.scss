@@ -1,0 +1,95 @@
+@import '../../../scssStyles/mixins';
+
+.task-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.task-task-container {
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding: 20px 28px;
+  border-radius: 15px;
+}
+
+.task-name {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 3px;
+  flex-grow: 2;
+  @include devices(tablet) {
+    font-size: 20px;
+  }
+}
+
+.task-date {
+  margin-bottom: 10px;
+  color: var(--purple-shades-muted);
+  @include devices(tablet) {
+    font-size: 15px;
+  }
+}
+
+.task-description {
+  font-size: 18px;
+  @include devices(tablet) {
+    font-size: 15px;
+  }
+}
+
+.task-check {
+  box-sizing: border-box;
+  background-color: var(--green-success);
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  margin: 0px 0px 0px 20px;
+  border-radius: 15px;
+  border: 2px solid var(--green-success);
+  transition: border 500ms, box-shadow 500ms, background-color 500ms, transform 500ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(1);
+}
+
+.task-check-mobile {
+  width: 50px;
+  height: 50px;
+}
+
+.task-check-incomplete {
+  background-color: var(--red-error);
+  border: 2px solid var(--red-error);
+  transition: border 500ms, box-shadow 500ms;
+  .task-img {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+}
+
+.task-check:hover,
+.task-check:active {
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  border: 2px solid var(--light-purple);
+  transition: border 500ms, box-shadow 500ms;
+}
+
+.task-img {
+  width: 50%;
+  transition: opacity 500ms, transform 500ms;
+  filter: invert(100%);
+}
+
+.task-check-incomplete:hover {
+  .task-img {
+    transition: opacity 500ms, transform 500ms;
+    opacity: 0.5;
+  }
+}

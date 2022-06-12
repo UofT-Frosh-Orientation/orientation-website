@@ -1,0 +1,57 @@
+@import '../../scssStyles/mixins.scss';
+
+.tabs {
+}
+.tabs-button-selector-container {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.tabs-button-selector {
+  justify-content: center !important;
+}
+
+.tabs-button-tab {
+  border-radius: 15px 15px 0px 0px !important;
+  margin-top: 0px !important;
+  margin-bottom: 0px;
+  @include devices(tablet) {
+    border-radius: 15px !important;
+  }
+}
+
+.tabs-content {
+  background-color: var(--white);
+  border-radius: 25px;
+  padding: 25px;
+  padding-bottom: 10px;
+  margin-top: -15px;
+  box-shadow: var(--shadow);
+  @include devices(tablet) {
+    margin-top: 0px;
+  }
+}
+
+.tabs-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tabs-visible {
+  display: block;
+}
+
+.tabs-hidden {
+  display: none;
+}
+
+.tab-button-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  img {
+    width: 25px;
+    height: 25px;
+  }
+}

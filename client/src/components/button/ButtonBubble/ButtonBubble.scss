@@ -5,19 +5,19 @@
   background-color: var(--purple-shades-light);
   color: var(--text-dark);
   border-radius: 14px;
-  padding: 16px 28px;
+  padding: 13px 20px;
   box-shadow: var(--shadow);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
   cursor: pointer;
   transition: transform 200ms;
   user-select: none;
   border-width: 4px;
-  border-color: var(--purple);
+  border-color: var(--light-purple);
   border-style: solid;
 
   @include devices(tablet) {
-    font-size: 16px;
+    font-size: 15px;
     padding: 12px 22px;
     border-width: 3px;
     margin: 6px;
@@ -34,7 +34,7 @@
   &:hover {
     transition: background-color 200ms, border-color 200ms;
     background-color: var(--purple-shades-light);
-    border-color: var(--purple);
+    border-color: var(--light-purple);
   }
 }
 
