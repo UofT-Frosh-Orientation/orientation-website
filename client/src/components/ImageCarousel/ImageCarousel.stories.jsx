@@ -1,15 +1,15 @@
 import React from 'react';
 import img from '../../assets/social/uoftlogo.png';
-import { Carousel } from './Snackbar';
+import { ImageCarousel } from './ImageCarousel';
 
 export default {
-  title: 'Carousel',
-  component: Carousel,
+  title: 'ImageCarousel',
+  component: ImageCarousel,
 };
 
-export const CarouselStory = (args) => <Carousel {...args} />;
-CarouselStory.storyName = 'Carousel';
-CarouselStory.args = {
+export const ImageCarouselStory = (args) => <ImageCarousel {...args} />;
+ImageCarouselStory.storyName = 'ImageCarousel';
+ImageCarouselStory.args = {
   items: [
     {
       name: 'University of Toronto',
