@@ -49,6 +49,19 @@
   margin: 4px;
   color: var(--light-purple);
   font-weight: 600;
+
+  transition: color 200ms transform 200ms;
+
+  &:hover {
+    color: var(--purple);
+    transform: scale(1.02);
+    transition: transform 200ms;
+  }
+  &:active {
+    color: var(--purple);
+    transform: scale(0.97);
+    transition: transform 150ms;
+  }
 }
 
 @include devices(tablet) {
@@ -214,4 +227,59 @@
     width: 90vw;
     left: 8vw;
   }
+}
+
+// FORGOT PASSWORD POPUP
+.forgot-password-popup {
+  position: absolute;
+  z-index: 9;
+
+  background: rgba(111, 30, 136, 0.75);
+  width: 100vw;
+  height: 150vh;
+
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.forgot-password-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--purple-shades-muted);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 50vw;
+  border-radius: 10px;
+
+  padding: 10px;
+
+  color: var(--white);
+  text-align: center;
+}
+.reset-password-title {
+  padding-top: 14px;
+  padding-bottom: 15px;
+}
+.x-mark {
+  align-self: flex-end;
+  width: 10px;
+  left: 0;
+  margin-right: 3px;
+  margin-left: 3px;
+}
+.reset-password-des {
+  padding: 0 50px 10px 50px;
+}
+.reset-password-message-con {
+  height: 30px;
+  padding-bottom: 5px;
+}
+.reset-password-message {
+  //padding-bottom: 20px
 }
