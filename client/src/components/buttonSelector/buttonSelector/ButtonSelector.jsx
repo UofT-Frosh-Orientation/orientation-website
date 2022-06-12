@@ -3,7 +3,15 @@ import PropTypes from 'prop-types';
 import './ButtonSelector.scss';
 import { ButtonOutlined } from '../../button/ButtonOutlined/ButtonOutlined';
 
-const ButtonSelector = ({ buttonList, activeIndex, setActiveIndex, maxWidthButton, style }) => {
+const ButtonSelector = ({
+  buttonList,
+  activeIndex,
+  setActiveIndex,
+  maxWidthButton,
+  style,
+  classNameButton,
+  classNameSelector,
+}) => {
   function setActiveButton(index) {
     setActiveIndex(index);
   }
@@ -19,11 +27,12 @@ const ButtonSelector = ({ buttonList, activeIndex, setActiveIndex, maxWidthButto
         maxWidth: maxWidthButton,
         ...style,
       }}
+      className={classNameButton}
       isSecondary={index == activeIndex ? false : true}
     ></ButtonOutlined>
   ));
 
-  return <div className="button-selector-items">{buttonItems}</div>;
+  return <div className={`button-selector-items ${classNameSelector}`}>{buttonItems}</div>;
 };
 
 ButtonSelector.propTypes = {
@@ -32,6 +41,8 @@ ButtonSelector.propTypes = {
   setActiveIndex: PropTypes.func.isRequired,
   maxWidthButton: PropTypes.number,
   style: PropTypes.object,
+  classNameButton: PropTypes.string,
+  classNameSelector: PropTypes.string,
 };
 
 export { ButtonSelector };
