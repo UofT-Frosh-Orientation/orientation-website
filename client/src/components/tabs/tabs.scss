@@ -1,108 +1,57 @@
-.main {
-  width: 100%;
-  background: rgb(240, 240, 240);
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
+@import '../../scssStyles/mixins.scss';
+
+.tabs {
 }
-.icon_container {
-  width: 15px;
-  height: 15px;
-}
-.container {
-  width: 75%;
-  padding-top: 5%;
-  height: 100%;
+.tabs-button-selector-container {
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
-.content {
-  background-color: purple;
-  width: 100%;
-  height: 75%;
-  position: relative;
+.tabs-button-selector {
+  justify-content: center !important;
 }
 
-.relative {
-  position: relative;
-}
-.test {
-  background-color: black;
-  width: 50%;
-}
-.btn {
-  border-radius: 10px;
-  height: 40px;
-  width: 100px;
-}
-.arrow-btn {
-  background-color: yellow;
-  color: black;
+.tabs-button-tab {
+  border-radius: 15px 15px 0px 0px !important;
+  margin-top: 0px !important;
+  margin-bottom: 0px;
+  @include devices(tablet) {
+    border-radius: 15px !important;
+  }
 }
 
-.footer {
-  position: absolute;
-  bottom: 60px;
-  width: 100%;
+.tabs-content {
+  background-color: var(--white);
+  border-radius: 25px;
+  padding: 25px;
+  padding-bottom: 10px;
+  margin-top: -15px;
+  box-shadow: var(--shadow);
+  @include devices(tablet) {
+    margin-top: 0px;
+  }
 }
 
-.nav-btn {
-  width: 20%;
-  border-bottom-right-radius: 0px;
-  border-bottom-left-radius: 0px;
-  border-width: thin;
-  border-color: white;
-  margin-left: 5px;
-  padding-top: 10px;
+.tabs-buttons {
+  display: flex;
+  justify-content: space-between;
 }
 
-.btn-left {
-  position: absolute;
-  left: 15px;
+.tabs-visible {
+  display: block;
 }
 
-.btn-right {
-  position: absolute;
-  right: 15px;
+.tabs-hidden {
+  display: none;
 }
 
-.link {
-  width: 100%;
-  text-decoration: none;
-}
+.tab-button-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
-.nav-link {
-  color: white;
-}
-
-.arrow-link {
-  color: black;
-}
-
-.active_link {
-  background-color: purple;
-}
-
-.non_active_link {
-  background-color: rgb(139, 80, 139);
-}
-
-.non_active_link:hover {
-  background-color: rgb(96, 51, 96);
-}
-
-.center {
-  text-align: center;
-  margin: auto;
-}
-
-.inline-block {
-  position: inline-block;
-  float: left;
-}
-
-.block {
-  position: block;
-  float: right;
+  img {
+    width: 25px;
+    height: 25px;
+  }
 }

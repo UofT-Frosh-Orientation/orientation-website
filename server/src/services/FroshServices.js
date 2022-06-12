@@ -56,6 +56,44 @@ const FroshServices = {
     await froshGroup.save();
     await newUserSubscription.add(froshRecord);
   },
+  
+  /**
+ * Initializes a list of frosh groups with default values in the database.
+ * @constructor
+ * @param {groups} groups - List of frosh groups as javascript objects
+  async initFroshGroups(groups) {
+    const defaultVals = {
+      "totalNum": 0,
+			"They/Them": 0,
+			"He/Him": 0,
+			"She/Her": 0,
+			"Other": 0,
+			"Chemical Engineering": 0,
+			"Civil Engineering": 0,
+			"Computer Engineering": 0,
+			"Electrical Engineering": 0,
+			"Engineering Science": 0,
+			"Industrial Engineering": 0,
+			"Materials Engineering": 0,
+			"Mechanical Engineering": 0,
+			"Mineral Engineering": 0,
+			"Track One (Undeclared)": 0
+    }
+    try {
+      for(const group of groups) {
+        FroshGroupModel.create({...defaultVals, ...group})
+      }
+      res.send({
+        status: OK,
+        errorMsg: ""
+      })
+    } catch (err) {
+      res.send({
+        status: INTERNAL_ERROR,
+        errorMsg: "Could not initialize all frosh groups"
+      })
+    }
+  }
 };
 
 module.exports = FroshServices;

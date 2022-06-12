@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"github.com/digitalocean/godo"
-	"time"
 	"os"
+	"time"
 )
 
 func main() {
@@ -14,6 +14,7 @@ func main() {
 	region := os.Getenv("REGION")
 	name := os.Getenv("NAME")
 	ip := os.Getenv("IP")
+	tag := os.Getenv("TAG")
 
 	//dropletName := "first-test-droplet"
 
@@ -21,7 +22,7 @@ func main() {
 
 	ctx := context.Background()
 
-	droplets, _, err := client.Droplets.List(ctx, opt)
+	droplets, _, err := client.Droplets.ListByTag(ctx, tag, opt)
 
 	createRequest := &godo.DropletCreateRequest{
 		Name:   name,
@@ -31,6 +32,7 @@ func main() {
 			Slug: "docker-20-04",
 		},
 		UserData: userData,
+		Tags: []string{tag},
 	}
 
 	newDroplet, _, err := client.Droplets.Create(ctx, createRequest)
@@ -58,9 +60,11 @@ func main() {
 		fmt.Printf("There was an error assigning the floating IP to the new droplet: %s", err)
 	}
 
-	_, err = client.Droplets.Delete(ctx, droplets[0].ID)
+	if len(droplets) > 0 {
+		_, err = client.Droplets.Delete(ctx, droplets[0].ID)
 
-	if err != nil {
-		fmt.Printf("There was an error deleting the droplet: %s", err)
+		if err != nil {
+			fmt.Printf("There was an error deleting the droplet: %s", err)
+		}
 	}
 }

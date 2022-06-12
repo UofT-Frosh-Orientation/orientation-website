@@ -9,20 +9,22 @@ export default {
 
 export const TabsStory = (args) => <Tabs {...args} />;
 
-TabsStory.storyName = 'Steps';
+TabsStory.storyName = 'Tabs';
+
 TabsStory.args = {
   tabs: [
     {
-      tabTitle: 'Step 1',
-      component: <div style={{ height: '100px', backgroundColor: 'red' }}></div>,
+      title: 'Step 1',
+      component: <input style={{ height: '100px', backgroundColor: 'red' }}></input>,
     },
     {
-      tabTitle: 'Step 2',
+      title: 'Step 2',
       component: <div style={{ height: '100px', backgroundColor: 'green' }}></div>,
     },
     {
-      tabTitle: 'Step 3',
+      title: 'Step 3',
       component: <div style={{ height: '100px', backgroundColor: 'black' }}></div>,
     },
   ],
+  maxWidthTab: '85px',
 };
