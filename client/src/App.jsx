@@ -8,7 +8,7 @@ import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/footer/Footer';
 
 export default function App() {
-  const initial = false;
+  const initial = import.meta.env.MODE === 'production';
   if (initial) {
     return <InitialPage />;
   }
