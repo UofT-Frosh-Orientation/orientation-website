@@ -10,12 +10,14 @@ import froshJames from '../../assets/about/froshJames_1000.png';
 import Landing1 from '../../assets/landing/landing-1.jpg';
 import waveTop from '../../assets/misc/wave.png';
 import waveBottom from '../../assets/misc/wave-reverse.png';
+import profileWave from '../../assets/about/wave-about.svg';
 
 const PageAbout = () => {
   return (
     <>
       <AboutUsSection />
-      <ExecTeamSection />
+      <OCSection />
+      <VCSection />
     </>
   );
 };
@@ -57,10 +59,10 @@ const AboutUsSection = () => {
   );
 };
 
-const ExecTeamSection = () => {
+const OCSection = () => {
   return (
     <div className="execteam-container">
-      <h2 className="exec-title">About Us</h2>
+      <h2 className="exec-title">Meet the Exec Team</h2>
       <div className="exec-title-underline"></div>
 
       {[execInfo.oc].map((info) => {
@@ -82,5 +84,30 @@ const ExecTeamSection = () => {
     </div>
   );
 };
+
+const VCSection = () => {
+  return (
+    <div className="vc-section-container">
+      {[execInfo.vcs].map((info) => {
+        return (
+          <div className="exec-profile-container" key={info.role}>
+            <div className="exec-profile-image"></div>
+            <img className="profile-wave" src={profileWave}></img>
+            <div className="exec-profile-title">
+              <h2 className="exec-profile-position">{info.position}</h2>
+              <h2 className="exec-profile-name">{info.name}</h2>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+// const ExecProfile = () => {
+//   return (
+
+//   );
+// };
 
 export { PageAbout };
