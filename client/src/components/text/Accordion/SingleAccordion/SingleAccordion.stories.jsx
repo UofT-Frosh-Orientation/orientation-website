@@ -11,7 +11,12 @@ export const Opened = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <div>
-      <SingleAccordion isOpen={isOpen} setIsOpen={setIsOpen} header={'This is the first header'}>
+      <SingleAccordion
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        header={'This is the first header'}
+        time={'10:00 AM - 11:00 AM'}
+      >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
         labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
         laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
@@ -26,7 +31,12 @@ export const Closed = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div>
-      <SingleAccordion isOpen={isOpen} setIsOpen={setIsOpen} header={'This is the first header'}>
+      <SingleAccordion
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        header={'This is the first header'}
+        time={'10:00 AM - 11:00 AM'}
+      >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
         labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
         laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
