@@ -3,13 +3,12 @@
 .dropdown-container {
   width: fit-content;
   padding-left: 5px;
-  padding-bottom: 13px;
   padding-top: 3px;
 }
 
 .dropdown-header {
   padding-left: 5px;
-  margin-top: 0.5em;
+  margin-top: 17px;
 }
 
 .dropdown-selected {
@@ -33,6 +32,10 @@
     &.open {
       transform: rotate(180deg) translateY(2.5px);
     }
+  }
+  transition: background-color 200ms;
+  &:hover {
+    background-color: var(--on-white);
   }
 }
 

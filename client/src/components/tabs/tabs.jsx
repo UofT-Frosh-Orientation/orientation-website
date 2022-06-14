@@ -5,8 +5,15 @@ import { Button } from '../button/Button/Button';
 import { ButtonSelector } from '../buttonSelector/buttonSelector/ButtonSelector';
 import ArrowRight from '../../assets/steps/arrow-right-solid.svg';
 import ArrowLeft from '../../assets/steps/arrow-left-solid.svg';
+import { useEffect } from 'react';
 
-const Tabs = ({ tabs, maxWidthTab }) => {
+const Tabs = ({ tabs, maxWidthTab, selectedTabPassed, go }) => {
+  useEffect(() => {
+    if (selectedTabPassed !== undefined) {
+      setSelectedTab(selectedTabPassed);
+    }
+  }, [selectedTabPassed, go]);
+
   const tabTitles = tabs.map((tab) => {
     return { name: tab.title };
   });
@@ -75,12 +82,12 @@ Tabs.propTypes = {
   tabs: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
-      component: PropTypes.object,
+      component: PropTypes.instanceOf(Element),
     }),
   ).isRequired,
   maxWidthTab: PropTypes.number,
+  selectedTabPassed: PropTypes.number,
+  go: PropTypes.bool,
 };
-
-Tabs.propTypes = PropTypes;
 
 export { Tabs };
