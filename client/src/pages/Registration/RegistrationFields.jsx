@@ -4,6 +4,7 @@
 // isRequiredInput: if the field can be undefined before submission
 // errorMessage: The message to show if the field is missing but is required
 // onChanged(value, disableFields): disable/enable fields based on a value (dependancies)
+// className: the class name applied around the child form input component
 
 export const fields = {
   General: {
