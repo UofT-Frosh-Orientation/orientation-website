@@ -47,6 +47,8 @@ const PageLogin = ({ incorrectEntry }) => {
           </div>
         </div>
 
+        <PasswordPopUp trigger={showPopUp} setTrigger={setShowPopUp} />
+
         <div className="login-bg-images">
           <img className="mountain-back" src={MountainB} alt="mountain"></img>
           <img className="mountain-front-right" src={MountainFR} alt="mountain"></img>
@@ -59,8 +61,6 @@ const PageLogin = ({ incorrectEntry }) => {
           <img className="ptero" src={Ptero} alt="ptero"></img>
         </div>
       </div>
-
-      {showPopUp ? <PasswordPopUp /> : <></>}
     </>
   );
 };
@@ -73,13 +73,13 @@ PageLogin.defaultProps = {
   incorrectEntry: false,
 };
 
-const PasswordPopUp = () => {
-  const [showPopUp, setShowPopUp] = useState(true);
+const PasswordPopUp = ({ trigger, setTrigger }) => {
+  // const [showPopUp, setShowPopUp] = useState(true);
 
-  return (
+  return trigger ? (
     <div className="forgot-password-popup">
       <div className="forgot-password-container">
-        <img className="x-mark" src={XMark} alt="x-mark"></img>
+        <img className="x-mark" src={XMark} alt="x-mark" onClick={() => setTrigger(false)}></img>
 
         <h2 className="reset-password-title">Reset Password</h2>
         <p className="reset-password-des">{`Enter your email address below, and we'll send you an email to reset your password.`}</p>
@@ -93,11 +93,14 @@ const PasswordPopUp = () => {
         {/* We couldn't find your email, try again!  OR  Email sent successfully */}
       </div>
     </div>
+  ) : (
+    <></>
   );
 };
 
-PasswordPopUp.protoType = {
-  display: PropTypes.bool,
+PasswordPopUp.propTypes = {
+  trigger: PropTypes.bool,
+  setTrigger: PropTypes.func,
 };
 
 export { PageLogin };
