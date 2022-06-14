@@ -15,11 +15,16 @@ import MountainM from '../../assets/login/mountain-mid.svg';
 import Ptero from '../../assets/login/ptero.svg';
 
 import XMark from '../../assets/misc/xmark-solid-white.svg';
+import { login, resetPassword } from './functions';
 
 const PageLogin = ({ incorrectEntry }) => {
   // pop up when clicking forget password
   // deafult -- popup off
   const [showPopUp, setShowPopUp] = useState(false);
+  const [loginError, setLoginError] = useState('');
+
+  let username = '';
+  let password = '';
 
   return (
     <>
@@ -27,22 +32,42 @@ const PageLogin = ({ incorrectEntry }) => {
         <div className="login-bg">
           <div className="login-container">
             <h1 className="login-title">Login</h1>
-            <TextInput inputType={'text'} placeholder={'Email'}></TextInput>
+            <TextInput
+              inputType={'text'}
+              placeholder={'Email'}
+              onChange={(value) => {
+                username = value;
+              }}
+              localStorageKey="email-login"
+            />
             <TextInput
               inputType={'password'}
               placeholder={'Password'}
-              errorFeedback={'Invalid email or password. Please try again!'}
-            ></TextInput>
-
-            {/* Invalid Username or Password */}
-            {/* {incorrectEntry ? <p className="login-error-message">Incorrect Username or Password, please try again!</p> : <></>} */}
+              errorFeedback={loginError}
+              onChange={(value) => {
+                password = value;
+              }}
+            />
 
             <div className="login-button-container">
               <p
                 className="forgot-message"
                 onClick={() => setShowPopUp(true)}
               >{`Forgot Password?`}</p>
-              <Button label={'Log in'}></Button>
+
+              <Button
+                label={'Log in'}
+                onClick={() => {
+                  if (loginError !== '') {
+                    setLoginError('');
+                  }
+                  const result = login(username, password);
+
+                  if (result !== true) {
+                    setLoginError(result);
+                  }
+                }}
+              ></Button>
             </div>
           </div>
         </div>
@@ -74,7 +99,9 @@ PageLogin.defaultProps = {
 };
 
 const PasswordPopUp = ({ trigger, setTrigger }) => {
-  // const [showPopUp, setShowPopUp] = useState(true);
+  const [emailError, setEmailError] = useState('');
+
+  let email = '';
 
   return trigger ? (
     <div className="forgot-password-popup">
@@ -83,14 +110,29 @@ const PasswordPopUp = ({ trigger, setTrigger }) => {
 
         <h2 className="reset-password-title">Reset Password</h2>
         <p className="reset-password-des">{`Enter your email address below, and we'll send you an email to reset your password.`}</p>
-        <TextInput inputType={'text'} placeholder={'Email'}></TextInput>
-        <Button label={'Send'}></Button>
+        <TextInput
+          inputType={'text'}
+          placeholder={'Email'}
+          onChange={(value) => {
+            email = value;
+          }}
+          localStorageKey="email-reset-password"
+          errorFeedback={emailError}
+        />
 
-        {/* when button is clicked message appears */}
-        <div className="reset-password-message-con">
-          <p className="reset-password-message"></p>
-        </div>
-        {/* We couldn't find your email, try again!  OR  Email sent successfully */}
+        <Button
+          label={'Send'}
+          onClick={() => {
+            if (emailError !== '') {
+              setEmailError('');
+            }
+            const result = resetPassword(email);
+
+            if (result !== true) {
+              setEmailError(result);
+            }
+          }}
+        ></Button>
       </div>
     </div>
   ) : (

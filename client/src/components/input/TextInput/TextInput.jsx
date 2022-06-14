@@ -19,6 +19,12 @@ const TextInput = ({
   hasRestrictedInput,
   inputType,
 }) => {
+  useEffect(() => {
+    if (localStorageKey !== undefined) {
+      onChange(localStorage.getItem(localStorageKey));
+    }
+  }, []);
+
   const [value, setValue] = useState(
     localStorageKey
       ? localStorage.getItem(localStorageKey)
