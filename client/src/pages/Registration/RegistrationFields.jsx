@@ -49,6 +49,13 @@ export const fields = {
       values: ['he/him', 'she/her', 'they/them', 'other'],
       initialSelectedIndex: 0,
       className: 'inline-block-remaining',
+      onChanged: (value, disableField) => {
+        if (value === 'other') {
+          disableField(false, 'pronounOther', 'General');
+        } else {
+          disableField(true, 'pronounOther', 'General');
+        }
+      },
     },
     pronounOther: {
       type: 'text',
