@@ -298,13 +298,6 @@
 .reset-password-des {
   padding: 0 50px 25px 50px;
 }
-.reset-password-message-con {
-  height: 30px;
-  padding-bottom: 0px;
-}
-.reset-password-message {
-  //padding-bottom: 20px
-}
 
 @include devices(tablet) {
   .forgot-password-popup {
@@ -312,7 +305,6 @@
   }
 
   .forgot-password-container {
-    // top: 50vh;
     width: 80vw;
     padding: 10px;
   }

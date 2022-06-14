@@ -106,7 +106,15 @@ const PasswordPopUp = ({ trigger, setTrigger }) => {
   return trigger ? (
     <div className="forgot-password-popup">
       <div className="forgot-password-container">
-        <img className="x-mark" src={XMark} alt="x-mark" onClick={() => setTrigger(false)}></img>
+        <img
+          className="x-mark"
+          src={XMark}
+          alt="x-mark"
+          onClick={() => {
+            setTrigger(false);
+            setEmailError('');
+          }}
+        ></img>
 
         <h2 className="reset-password-title">Reset Password</h2>
         <p className="reset-password-des">{`Enter your email address below, and we'll send you an email to reset your password.`}</p>
@@ -116,7 +124,6 @@ const PasswordPopUp = ({ trigger, setTrigger }) => {
           onChange={(value) => {
             email = value;
           }}
-          localStorageKey="email-reset-password"
           errorFeedback={emailError}
         />
 

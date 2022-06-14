@@ -8,7 +8,7 @@ export function resetPassword(email) {
   console.log(email);
 
   // if valid email
-  return 'Success! Check your email to reset your password';
+  return 'Success! Check your email!';
 
   // if invalid email...
   // return ("Invalid Email Address!")
