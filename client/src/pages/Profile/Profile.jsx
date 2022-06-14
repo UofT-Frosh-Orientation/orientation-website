@@ -1,11 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
+  capitalizeFirstLetter,
   getDaysFroshSchedule,
   getFroshScheduleData,
   getQRCodeString,
   getTasks,
   onDoneTask,
+  parseQRCode,
+  searchForFrosh,
+  signInFrosh,
 } from './functions';
 import './Profile.scss';
 import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
@@ -16,8 +20,12 @@ import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import SingleAccordionStories from '../../components/text/Accordion/SingleAccordion/SingleAccordion.stories';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
+import QrScanner from 'qr-scanner';
+import { Button } from '../../components/button/Button/Button';
+import { TextInput } from '../../components/input/TextInput/TextInput';
+import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 
-const PageProfile = () => {
+const PageProfileFrosh = () => {
   return (
     <>
       <div className="navbar-space-top" />
@@ -33,6 +41,161 @@ const PageProfile = () => {
         </div>
       </div>
     </>
+  );
+};
+
+const PageProfile = () => {
+  return (
+    <>
+      <div className="navbar-space-top" />
+      <ProfilePageHeader />
+      <div className="profile-info-row">
+        <div style={{ marginTop: '-40px' }}>
+          <ProfilePageSchedule />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <ProfilePageQRScanner />
+          <div style={{ height: '10px' }} />
+          <ProfilePageQRCode />
+        </div>
+      </div>
+    </>
+  );
+};
+
+const ProfilePageQRScanner = () => {
+  const [isScanned, setIsScanned] = useState(false);
+  const [isScanning, setIsScanning] = useState(false);
+  const [scannedData, setScannedData] = useState('');
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const videoRef = useRef();
+
+  let qrScanner = null;
+  useEffect(() => {
+    if (isScanning) {
+      const videoElement = videoRef.current;
+      qrScanner = new QrScanner(
+        videoElement,
+        (qrCode) => {
+          if (qrCode) {
+            setIsScanned(!isScanned);
+            setScannedData(parseQRCode(qrCode.data));
+          }
+        },
+        {
+          onDecodeError: (error) => {},
+          highlightScanRegion: true,
+          highlightCodeOutline: true,
+        },
+      );
+      qrScanner.setInversionMode('both');
+      qrScanner.start();
+    }
+  }, [isScanning]);
+
+  const [searchFor, setSearchFor] = useState('');
+  const [results, setResults] = useState([]);
+
+  const search = () => {
+    setResults(searchForFrosh(searchFor));
+  };
+
+  return (
+    <div className="profile-page-qr-code">
+      <ButtonOutlined
+        label={isScanning ? 'Stop Scanning' : 'Start Scanning'}
+        onClick={() => {
+          if (isScanning) {
+            qrScanner?.stop();
+            qrScanner?.destroy();
+            qrScanner = null;
+            document.getElementsByClassName('scan-region-highlight-svg')[0].style.display = 'none';
+            document.getElementsByClassName('scan-region-highlight')[0].style.display = 'none';
+            setIsScanning(false);
+          } else {
+            setIsScanning(true);
+          }
+        }}
+      />
+      <video ref={videoRef} style={{ width: '100%', borderRadius: '10px' }}></video>
+
+      <div
+        className={`profile-page-scanned-data ${
+          submitSuccess ? 'profile-page-scanned-data-success' : ''
+        } ${submitError !== false ? 'profile-page-scanned-data-error' : ''}`}
+      >
+        {scannedData === '' ? (
+          'Nothing scanned yet!'
+        ) : (
+          <>
+            {Object.keys(scannedData).map((key) => {
+              return (
+                <div key={key}>
+                  <b>{capitalizeFirstLetter(key) + ': '}</b>
+                  {scannedData[key]}
+                </div>
+              );
+            })}
+          </>
+        )}
+      </div>
+      <Button
+        label={'Submit'}
+        onClick={() => {
+          const result = signInFrosh(scannedData.email);
+          if (result === true) {
+            setScannedData(parseQRCode(''));
+            setSubmitSuccess(true);
+            setTimeout(() => {
+              setSubmitSuccess(false);
+            }, 450);
+            if (submitError !== false) {
+              setSubmitError(false);
+            }
+            if (results != []) {
+              setResults([]);
+            }
+          } else {
+            setSubmitError(result);
+          }
+        }}
+      />
+      <p>
+        <i>{submitError !== false ? 'Error: ' + submitError : ''}</i>
+      </p>
+      <h2 className="profile-page-manual-entry-header">Manual Entry</h2>
+      <div style={{ padding: '0px 10px', width: '100%' }}>
+        <TextInput
+          placeholder={'Frosh Name / Email'}
+          onChange={(value) => {
+            setSearchFor(value);
+          }}
+          onEnterKey={() => {
+            search();
+          }}
+        />
+      </div>
+      <div className="manual-sign-in-frosh-search-result-container">
+        {results.map((frosh, index) => {
+          return (
+            <ButtonOutlined
+              onClick={() => {
+                setScannedData(frosh);
+              }}
+              key={frosh.email + index}
+              label={
+                <div>
+                  <h3>{frosh.name}</h3>
+                  <p>{frosh.email}</p>
+                </div>
+              }
+              className="manual-sign-in-frosh-search-result"
+            />
+          );
+        })}
+      </div>
+    </div>
   );
 };
 
@@ -84,7 +247,7 @@ const ProfilePageQRCode = () => {
         styles={{ svg: { width: '120%', margin: '-10%' } }}
         type="round"
         opacity={100}
-        posType="rect"
+        posType="round"
         otherColor="#320846"
         posColor="#28093A"
         backgroundColor="white"
