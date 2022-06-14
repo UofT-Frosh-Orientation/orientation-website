@@ -1,0 +1,89 @@
+@import '../../scssStyles/mixins.scss';
+
+.registration-form-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0px 20px;
+  margin-top: 20px;
+}
+
+.registration-form {
+  width: 95vw;
+  max-width: 1000px;
+}
+
+.registration-tab-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.half-width-input {
+  width: 50%;
+  @include devices(mobile) {
+    width: 100%;
+  }
+}
+
+.small-width-input {
+  width: 75px;
+}
+
+.fill-remaining-width-input {
+  flex: 1;
+}
+
+.full-width-input {
+  width: 100%;
+}
+
+.register-terms-of-service {
+  font-size: 15px;
+}
+
+.register-terms-of-service-below {
+  font-size: 16px;
+  text-align: center;
+  margin-top: 10px;
+  padding: 0px 10px;
+}
+
+.registration-first-step-title {
+  font-size: 45px;
+  padding: 10px;
+  padding-bottom: 0px;
+  margin-left: 10px;
+  margin-top: 10px;
+  @include devices(mobile) {
+    font-size: 28px;
+  }
+}
+
+.registration-first-step-subtitle {
+  font-size: 25px;
+  margin-bottom: 15px;
+  margin-left: 10px;
+  padding: 10px;
+  padding-top: 2px;
+  @include devices(mobile) {
+    font-size: 18px;
+  }
+}
+
+.registration-icon-logo {
+  width: 100px;
+  @include devices(mobile) {
+    display: none;
+  }
+}
+
+.registration-first-step-header-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.inline-block-remaining {
+  display: inline-block;
+}
