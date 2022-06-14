@@ -1,7 +1,37 @@
 @import '../../scssStyles/mixins';
 
+.aboutus-header {
+  position: relative;
+  height: 80vh;
+  min-height: 500px;
+  background-image: linear-gradient(
+    to right,
+    var(--purple-transparent) 20%,
+    var(--purple-transparent-more)
+  );
+
+  display: flex;
+  align-items: center;
+
+  @include devices(tablet) {
+    justify-content: center;
+  }
+}
+
 .aboutus-main-picture {
+  position: absolute;
+  z-index: -10;
+  height: 80vh;
   width: 100vw;
+  min-height: 500px;
+  object-fit: cover;
+}
+
+.wave-top {
+  position: absolute;
+  bottom: 0px;
+  width: 100vw;
+  filter: drop-shadow(-10px -10px 8px #23232342);
 }
 
 .aboutus-page-components {
@@ -12,6 +42,7 @@
 }
 
 .about-contents-container {
+  margin: 50px;
 }
 
 .about-page-container {
@@ -56,11 +87,6 @@
   color: var(--white);
 }
 
-.wave-top {
-  width: 100vw;
-  filter: drop-shadow(-10px -10px 8px #23232342);
-}
-
 .wave-bottom {
   width: 100vw;
   filter: drop-shadow(-10px 10px 8px #23232342);
@@ -72,16 +98,6 @@
   flex-direction: column;
   padding: 50px;
   width: 100vw;
-  // justify-content: center;
-  // align-items: center;
-
-  // background-color: var(--purple);
-  // display: flex;
-  // flex-direction: row;
-  // padding: 50px;
-  // width: 100vw;
-  // justify-content: center;
-  // align-items: center;
 }
 
 .aboutus-image-container {
