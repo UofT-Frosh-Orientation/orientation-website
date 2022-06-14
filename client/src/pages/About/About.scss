@@ -1,5 +1,16 @@
 @import '../../scssStyles/mixins';
 
+.aboutus-main-picture {
+  width: 100vw;
+}
+
+.aboutus-page-components {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .about-contents-container {
 }
 
@@ -193,4 +204,21 @@
   background: purple;
 
   display: flex;
+}
+
+// OC CONTAINER
+
+////////////////////////////
+// VC GRID
+.aboutus-vc-grid-container {
+  display: grid;
+  width: 100vw;
+  // padding: 50px;
+  grid-template-columns: auto auto;
+
+  justify-content: center;
+}
+
+.vc-grid-item {
+  // margin: 50px;
 }

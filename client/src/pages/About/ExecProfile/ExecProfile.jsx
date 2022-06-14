@@ -2,17 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ExecProfile.scss';
 
-import test from '../../../assets/about/froshJames_1000.png';
 import wave from '../../../assets/about/wave-about.svg';
 import { useState } from 'react';
 
-const ExecProfile = ({ name, role, discipline, roleDescription, favPart }) => {
+const ExecProfile = ({ image, name, role, discipline, roleDescription, favPart }) => {
   // initialize to false, don't show description
   const [showDescription, setShowDescription] = useState(false);
 
   return (
     <div className="exec-container" onClick={() => setShowDescription(!showDescription)}>
-      <img src={test} className="exec-image"></img>
+      <img src={image} className="exec-image"></img>
 
       {showDescription ? (
         <ExecProfileDescription

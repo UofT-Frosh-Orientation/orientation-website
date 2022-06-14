@@ -6,6 +6,8 @@ import { getInformation } from './functions';
 import { aboutUsInfo } from '../../util/about/aboutus';
 import { execInfo } from '../../util/about/execs';
 
+import { ExecProfile } from './ExecProfile/ExecProfile';
+
 import froshJames from '../../assets/about/froshJames_1000.png';
 import Landing1 from '../../assets/landing/landing-1.jpg';
 import waveTop from '../../assets/misc/wave.png';
@@ -15,9 +17,15 @@ import profileWave from '../../assets/about/wave-about.svg';
 const PageAbout = () => {
   return (
     <>
-      <AboutUsSection />
-      <OCSection />
-      <VCSection />
+      <img className="aboutus-main-picture" src={Landing1}></img>
+      <div className="aboutus-page-components">
+        <AboutUsSection />
+        <h2 className="exec-title">Meet the Exec Team</h2>
+        <div className="exec-title-underline"></div>
+
+        <OCSection />
+        <VCSection />
+      </div>
     </>
   );
 };
@@ -59,26 +67,46 @@ const AboutUsSection = () => {
   );
 };
 
+// const OCSection = () => {
+//   return (
+//     <div className="execteam-container">
+//       <h2 className="exec-title">Meet the Exec Team</h2>
+//       <div className="exec-title-underline"></div>
+
+//       {[execInfo.oc].map((info) => {
+//         return (
+//           <div className="oc-container" key={info.name}>
+//             <div className="oc-image"></div>
+//             <div className="oc-info">
+//               <div className="oc-title">
+//                 <h2 className="oc-info-name">{info.name}</h2>
+//                 <h3 className="oc-info-role">{info.role.toUpperCase()}</h3>
+//               </div>
+
+//               <p className="oc-info-des">{info.description}</p>
+//               <p className="oc-info-fav">{info.favPart}</p>
+//             </div>
+//           </div>
+//         );
+//       })}
+//     </div>
+//   );
+// };
+
 const OCSection = () => {
   return (
-    <div className="execteam-container">
-      <h2 className="exec-title">Meet the Exec Team</h2>
-      <div className="exec-title-underline"></div>
-
+    <div className="aboutus-oc-container">
       {[execInfo.oc].map((info) => {
         return (
-          <div className="oc-container" key={info.name}>
-            <div className="oc-image"></div>
-            <div className="oc-info">
-              <div className="oc-title">
-                <h2 className="oc-info-name">{info.name}</h2>
-                <h3 className="oc-info-role">{info.role.toUpperCase()}</h3>
-              </div>
-
-              <p className="oc-info-des">{info.description}</p>
-              <p className="oc-info-fav">{info.favPart}</p>
-            </div>
-          </div>
+          <ExecProfile
+            key={info.name}
+            image={info.image}
+            name={info.name}
+            role={info.role}
+            discipline={info.discipline}
+            roleDescription={info.description}
+            favPart={info.favPart}
+          />
         );
       })}
     </div>
@@ -87,22 +115,44 @@ const OCSection = () => {
 
 const VCSection = () => {
   return (
-    <div className="vc-section-container">
-      {[execInfo.vcs].map((info) => {
+    <div className="aboutus-vc-grid-container">
+      {[...execInfo.vcs].map((info) => {
+        console.log(info.name);
         return (
-          <div className="exec-profile-container" key={info.role}>
-            <div className="exec-profile-image"></div>
-            <img className="profile-wave" src={profileWave}></img>
-            <div className="exec-profile-title">
-              <h2 className="exec-profile-position">{info.position}</h2>
-              <h2 className="exec-profile-name">{info.name}</h2>
-            </div>
-          </div>
+          <ExecProfile
+            className="vc-grid-item"
+            key={info.name}
+            image={info.image}
+            name={info.name}
+            role={info.role}
+            discipline={info.discipline}
+            roleDescription={info.description}
+            favPart={info.favPart}
+          />
         );
       })}
     </div>
   );
 };
+
+// const VCSection = () => {
+//   return (
+//     <div className="vc-section-container">
+//       {[execInfo.vcs].map((info) => {
+//         return (
+//           <div className="exec-profile-container" key={info.role}>
+//             <div className="exec-profile-image"></div>
+//             <img className="profile-wave" src={profileWave}></img>
+//             <div className="exec-profile-title">
+//               <h2 className="exec-profile-position">{info.position}</h2>
+//               <h2 className="exec-profile-name">{info.name}</h2>
+//             </div>
+//           </div>
+//         );
+//       })}
+//     </div>
+//   );
+// };
 
 // const ExecProfile = () => {
 //   return (
