@@ -8,16 +8,15 @@ import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/footer/Footer';
 
 export default function App() {
-  const initial = import.meta.env.PROD;
+  const initial = import.meta.env.MODE === 'production';
   if (initial) {
     return <InitialPage />;
-  } else {
-    return (
-      <BrowserRouter>
-        <TransitionRoutes />
-      </BrowserRouter>
-    );
   }
+  return (
+    <BrowserRouter>
+      <TransitionRoutes />
+    </BrowserRouter>
+  );
 }
 
 const TransitionRoutes = () => {
