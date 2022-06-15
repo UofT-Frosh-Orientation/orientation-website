@@ -8,6 +8,7 @@ import {
   getTasks,
   onDoneTask,
   parseQRCode,
+  qrKeys,
   searchForFrosh,
   signInFrosh,
 } from './functions';
@@ -69,6 +70,8 @@ const ProfilePageQRScanner = () => {
   const [scannedData, setScannedData] = useState('');
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(false);
+  const [searchFor, setSearchFor] = useState('');
+  const [results, setResults] = useState([]);
   const videoRef = useRef();
 
   let qrScanner = null;
@@ -93,9 +96,6 @@ const ProfilePageQRScanner = () => {
       qrScanner.start();
     }
   }, [isScanning]);
-
-  const [searchFor, setSearchFor] = useState('');
-  const [results, setResults] = useState([]);
 
   const search = () => {
     setResults(searchForFrosh(searchFor));
@@ -129,11 +129,12 @@ const ProfilePageQRScanner = () => {
           'Nothing scanned yet!'
         ) : (
           <>
-            {Object.keys(scannedData).map((key) => {
+            {qrKeys().map((keyPassed) => {
+              const key = keyPassed.toString();
               return (
                 <div key={key}>
                   <b>{capitalizeFirstLetter(key) + ': '}</b>
-                  {scannedData[key]}
+                  {scannedData[key]?.toString()}
                 </div>
               );
             })}

@@ -94,6 +94,10 @@ export function getDaysFroshSchedule() {
   return days;
 }
 
+export function qrKeys() {
+  return ['email', 'name', 'pronouns', 'shirtSize', 'froshGroup', 'discipline'];
+}
+
 export function parseQRCode(qrString) {
   try {
     let qrStringSplit = qrString.split('|');
@@ -120,7 +124,7 @@ export function parseQRCode(qrString) {
 export function getQRCodeString() {
   // Keep in this order:
   // email | full name or preferred name | pronouns | shirt size | frosh group | discipline
-  return 'test.email@mail.utoronto.com | James Kokoska | he/him | L | Lambda | Computer Engineering';
+  return 'test.email@mail.utoronto.com|James Kokoska|he/him|L|Lambda|Computer Engineering';
 }
 
 //Return true if successful
