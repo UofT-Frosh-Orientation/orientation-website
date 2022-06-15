@@ -5,7 +5,7 @@ COPY package.json yarn.lock ./
 RUN yarn install --production --frozen-lockfile
 
 COPY ./ ./
-RUN yarn build --mode beta
+RUN yarn build
 
 FROM nginx:alpine
 COPY --from=build /app/dist /var/www/orientation
