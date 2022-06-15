@@ -2,28 +2,31 @@
 
 .accordion {
   padding: 0px 20px 0px 20px;
-  background-color: #ecd6ff;
+  background-color: var(--purple-shades-light);
   border-radius: 12px;
+
+  color: var(--text-dark);
 }
 
-.accordHeader {
+.accord-header {
   display: flex;
   align-items: center;
 }
 
-.accordContent {
-  color: #000000;
+.accord-content {
+  color: var(--text-dark);
   overflow: hidden;
   transition: max-height 0.2s ease;
 }
 
-.accordText {
+.accord-text {
   padding: 10px 0px 10px 0px;
-  color: #000000;
+  color: var(--text-dark);
 }
 
-.accordIcon {
+.accord-icon {
   transition: transform 0.2s ease;
+  user-select: none;
 }
 
 .rotate {

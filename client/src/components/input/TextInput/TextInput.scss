@@ -1,13 +1,17 @@
 @import '../../../scssStyles/mixins';
 
 .text-input-container {
-  margin-bottom: 10px;
+  margin-top: 14px;
   display: flex;
   flex-direction: column;
 
   p {
     margin: 0;
   }
+}
+
+.text-input-container-no-margin {
+  margin-top: 3px;
 }
 
 .text-input {
@@ -43,7 +47,7 @@
 }
 
 .text-input-title {
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .text-input-title-container {
@@ -69,10 +73,10 @@
 .text-input-required-star {
   color: var(--red-error);
   display: inline-block;
-  font-size: 20px;
+  font-size: 13px;
   margin-bottom: -10px;
-  font-weight: 600;
-  padding-right: 5px;
+  font-weight: 800;
+  padding-left: 2px;
 }
 
 .text-input-disabled {
@@ -94,4 +98,13 @@
     transform: scale(1.2);
     cursor: pointer;
   }
+}
+
+.inline-block-remaining {
+  padding: 0px 5px 0px 5px;
+}
+
+.text-input-disabled-container {
+  opacity: 0.7;
+  color: var(--gray);
 }

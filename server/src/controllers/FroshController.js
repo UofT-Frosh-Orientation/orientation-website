@@ -1,20 +1,25 @@
 const FroshServices = require('../services/FroshServices');
 
 const FroshController = {
+  /**
+   * Upgrades the existing user account into a frosh account.
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @return {Promise<void>}
+   */
   async registerFrosh(req, res, next) {
-    let froshData = req.body;
     try {
-      await FroshServices.validateNewFrosh(froshData);
-      froshData.froshGroup = await FroshServices.getNewFroshGroup(
-        froshData.discipline,
-        froshData.pronouns,
+      const user = req.user;
+      const registrationInfo = req.body;
+      registrationInfo.froshGroup = await FroshServices.getNewFroshGroup(
+        registrationInfo.discipline,
+        registrationInfo.pronouns,
       );
-      froshData.accountCreatedAt = new Date(Date.now());
-      froshData.lastUpdatedAt = new Date(Date.now());
-      froshData.balance = 70;
-      froshData.password = FroshServices.hashPassword(froshData.password);
-      await FroshServices.saveNewFrosh(froshData);
-      res.status(200).send({ message: 'Successfully registered new frosh!' });
+      const frosh = (
+        await FroshServices.upgradeToFrosh(user, registrationInfo)
+      ).getResponseObject();
+      res.status(200).send({ message: 'Successfully registered Frosh!', frosh });
     } catch (e) {
       next(e);
     }

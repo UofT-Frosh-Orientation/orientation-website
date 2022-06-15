@@ -5,12 +5,10 @@ const FroshGroupSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
   totalNum: {
     type: Number,
     default: 0,
   },
-
   'they/them': {
     type: Number,
     default: 0,
@@ -19,7 +17,7 @@ const FroshGroupSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  'she/ser': {
+  'she/her': {
     type: Number,
     default: 0,
   },
@@ -27,7 +25,6 @@ const FroshGroupSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-
   'Chemical Engineering': {
     type: Number,
     default: 0,

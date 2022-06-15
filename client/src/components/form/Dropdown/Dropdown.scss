@@ -1,19 +1,14 @@
 @import '../../../scssStyles/mixins';
 
 .dropdown-container {
-  width: 30%;
-  margin: 0 auto;
-  max-width: 500px;
-  min-width: 150px;
-
-  @include devices(mobile) {
-    width: 70%;
-  }
+  width: fit-content;
+  padding-left: 5px;
+  padding-top: 3px;
 }
 
 .dropdown-header {
-  padding-left: 1em;
-  margin-top: 0.5em;
+  padding-left: 5px;
+  margin-top: 17px;
 }
 
 .dropdown-selected {
@@ -24,17 +19,23 @@
   flex-direction: row;
   justify-content: space-between;
   position: relative;
-
+  display: flex;
+  align-items: center;
   .dropdown-image {
+    user-select: none;
     height: 100%;
-    width: 1em;
-    margin: auto 1em auto auto;
+    width: 16px;
+    margin-right: 10px;
+    margin-top: -3px;
     transition: transform 300ms ease-in-out;
-    transform: rotate(0) translateY(5px);
-
+    transform: rotate(0) translateY(2.5px);
     &.open {
-      transform: rotate(180deg) translateY(5px);
+      transform: rotate(180deg) translateY(2.5px);
     }
+  }
+  transition: background-color 200ms;
+  &:hover {
+    background-color: var(--on-white);
   }
 }
 
@@ -53,6 +54,20 @@
   border: 2px solid var(--purple-shades-muted);
   border-radius: 6px;
   margin-top: 0.2em;
+  position: absolute;
+  z-index: 100;
+  background-color: var(--white);
+  opacity: 0;
+  transform: translateY(-30px);
+  transition: opacity 300ms, transform 300ms;
+  pointer-events: none;
+}
+
+.dropdown-list-container-open {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: opacity 300ms, transform 300ms;
+  pointer-events: all;
 }
 
 .dropdown-item {

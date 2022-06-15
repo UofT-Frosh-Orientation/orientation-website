@@ -18,7 +18,18 @@ const TextInput = ({
   initialValue,
   hasRestrictedInput,
   inputType,
+  inputTitle,
+  isPhoneNumber,
+  isInstagram,
 }) => {
+  useEffect(() => {
+    if (localStorageKey !== undefined) {
+      onChange(localStorage.getItem(localStorageKey));
+    } else if (initialValue !== undefined) {
+      onChange(initialValue);
+    }
+  }, []);
+
   const [value, setValue] = useState(
     localStorageKey
       ? localStorage.getItem(localStorageKey)
@@ -43,6 +54,20 @@ const TextInput = ({
     if (hasRestrictedInput) {
       value = value.replace(/[^\w\n!@#$%^&*()\-+={}[\]:";'<>,./?~`\\ ]+/g, '');
     }
+    if (isPhoneNumber) {
+      value = value.replace(/\D/g, '');
+      let cleaned = ('' + value).replace(/\D/g, '');
+      let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+      if (match) {
+        value = '(' + match[1] + ') ' + match[2] + '-' + match[3];
+      }
+    }
+    if (isInstagram) {
+      if (value !== '' && !value.includes('@')) {
+        value = '@' + value;
+      }
+    }
+
     onChange ? onChange(value) : 0;
     setValue(value);
     if (localStorageKey) {
@@ -51,14 +76,23 @@ const TextInput = ({
   };
 
   return (
-    <div className="text-input-container">
+    <div
+      className={`text-input-container ${
+        label === undefined ? 'text-input-container-no-margin' : ''
+      } ${isDisabled === true ? 'text-input-disabled-container' : ''}`}
+    >
       <div className="text-input-title-container">
-        {isRequiredInput ? <p className="text-input-required-star">*</p> : <></>}
-        {label ? <p className="text-input-title">{label}</p> : <></>}
+        {label !== undefined ? <p className="text-input-title">{label}</p> : <></>}
+        {isRequiredInput !== undefined && isRequiredInput === true && label !== undefined ? (
+          <p className="text-input-required-star">*</p>
+        ) : (
+          <></>
+        )}
       </div>
       <div style={{ position: 'relative', display: 'flex', width: '100%' }}>
         {inputType == 'textArea' ? (
           <textarea
+            title={inputTitle}
             className={
               'text-input text-input-area' +
               (errorFeedback ? ' text-input-error' : '') +
@@ -75,6 +109,7 @@ const TextInput = ({
           />
         ) : (
           <input
+            title={inputTitle}
             className={
               'text-input' +
               (errorFeedback ? ' text-input-error' : '') +
@@ -123,6 +158,9 @@ TextInput.propTypes = {
   initialValue: PropTypes.string,
   hasRestrictedInput: PropTypes.bool,
   inputType: PropTypes.oneOf(['text', 'textArea', 'password', 'date']),
+  inputTitle: PropTypes.string,
+  isPhoneNumber: PropTypes.bool,
+  isInstagram: PropTypes.bool,
 };
 
 export { TextInput };

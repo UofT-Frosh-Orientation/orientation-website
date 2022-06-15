@@ -72,7 +72,7 @@ li {
 
 .navbar-link {
   position: absolute;
-  color: gray;
+  color: var(--gray);
   font-size: 16px;
   font-weight: 700;
 }
@@ -95,11 +95,8 @@ li {
 }
 
 .icon-logo {
-  // actual frosh-like purple, placeholder for actual icon
-  background: purple;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
+  width: 38px;
+  height: 38px;
 
   margin-left: 15px;
   margin-right: 40px;
@@ -118,7 +115,7 @@ li {
   text-align: center;
   font-weight: bold;
   font-size: 15px;
-  color: var(--yellow);
+  color: var(--yellow-light);
 }
 
 .icon-profile-person {
@@ -126,8 +123,6 @@ li {
   height: 35px;
   margin-left: auto;
   margin-right: 15px;
-
-  filter: invert(48%) sepia(16%) saturate(1926%) hue-rotate(230deg) brightness(86%) contrast(84%);
 }
 
 .register,
@@ -217,6 +212,12 @@ li {
     width: 65px;
   }
 
+  .menu-icon {
+    align-self: center;
+    width: 25px;
+    height: 25px;
+  }
+
   .navbar-sub-container {
     flex-direction: column;
     justify-content: space-between;
@@ -225,23 +226,6 @@ li {
     margin-right: 5px;
     margin-left: 5px;
     width: 40px;
-  }
-
-  .menu-icon {
-    //background: #935ebf;
-    align-self: center;
-    width: 25px;
-    height: 25px;
-  }
-
-  .sub-container:hover {
-    transform: scale(0.97);
-    transition: transform 150ms;
-
-    .svg-icon {
-      filter: invert(48%) sepia(16%) saturate(1926%) hue-rotate(230deg) brightness(86%)
-        contrast(84%);
-    }
   }
 
   .navbar-underline {
@@ -263,11 +247,6 @@ li {
     width: 25px;
     height: 25px;
     align-self: center;
-    filter: invert(43%) sepia(0%) saturate(0%) hue-rotate(189deg) brightness(100%) contrast(88%);
-  }
-
-  .svg-icon-selected {
-    filter: invert(48%) sepia(16%) saturate(1926%) hue-rotate(230deg) brightness(86%) contrast(84%);
   }
 
   .icon-profile {

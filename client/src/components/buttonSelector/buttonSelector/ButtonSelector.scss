@@ -1,0 +1,6 @@
+@import '../../../scssStyles/mixins';
+.button-selector-items {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}

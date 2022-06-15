@@ -1,10 +1,11 @@
 import { BrowserRouter, Link, useLocation, Route, Routes } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import ScrollToTop from './components/misc/ScrollToTop/ScrollToTop';
-import './App.css';
+import './App.scss';
 import { InitialPage } from './pages/Initial/Initial';
 import { pages } from './util/pages';
 import { Navbar } from './components/Navbar/Navbar';
+import { Footer } from './components/footer/Footer';
 
 export default function App() {
   const initial = false;
@@ -34,7 +35,7 @@ const TransitionRoutes = () => {
                 element={
                   <div style={{ position: 'absolute', right: 0, left: 0, bottom: 0, top: 0 }}>
                     <div style={{ minHeight: '100vh' }}>{page.component}</div>
-                    {/* <Footer/> */}
+                    <Footer />
                   </div>
                 }
               />
