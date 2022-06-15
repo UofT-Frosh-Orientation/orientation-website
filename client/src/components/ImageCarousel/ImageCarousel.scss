@@ -1,0 +1,41 @@
+@import '../../scssStyles/mixins.scss';
+
+.carousel-slide {
+  border-radius: 9px;
+  margin: 0 20px;
+  margin-bottom: 55px;
+  cursor: pointer;
+  @include devices(tablet) {
+    margin: 0 0px;
+    width: 80%;
+    margin-bottom: 40px;
+  }
+  height: calc(35vh - 50px);
+  object-fit: contain;
+}
+
+.control-dots {
+  .dot {
+    background: var(--purple) !important;
+    box-shadow: unset !important;
+    width: 40px !important;
+    height: 6px !important;
+    margin: 0 0px !important;
+    border-radius: 0 !important;
+    @include devices(tablet) {
+      width: 20px !important;
+      height: 5px !important;
+    }
+  }
+}
+
+.carousel-link {
+  background: none;
+  display: block;
+  transition: transform 300ms;
+}
+
+.carousel-link:hover {
+  transform: scale(1.05);
+  transition: transform 300ms;
+}
