@@ -5,77 +5,55 @@ import { Text } from '../text/Text/Text';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-const ImageCarousel = ({ items, redirect }) => {
+const ImageCarousel = ({ items }) => {
   const { innerWidth: width } = window;
-  const dotRefs = useRef(items.map(() => createRef()));
-  const handleClick = (link) => {
-    if (redirect) {
-      window.open(link);
-    }
-  };
-
-  const moveDots = () => {
-    for (let index = 0; index < dotRefs.current.length; index++) {
-      let dotRef = dotRefs.current[index];
-      if (dotRef.current.className == 'dot dotSelected') {
-        dotRef.current.className = 'dot';
-        if (index !== 0) {
-          dotRefs.current[index - 1].current.className = 'dot dotSelected';
-          break;
-        } else {
-          dotRefs.current[dotRefs.current.length - 1].current.className = 'dot dotSelected';
-          break;
-        }
-      }
-    }
-  };
 
   return (
-    <div className="carousel-container">
-      <Text
-        type="info"
-        style={{ fontSize: '25px', textAlign: 'center', display: 'block', 'margin-bottom': '1vh' }}
-      >
-        Our Sponsors
-      </Text>
-      <div className="slide-deck">
+    <div>
+      <div className="desktop-only">
         <Carousel
           showArrows={false}
           showStatus={false}
-          showIndicators={false}
+          showIndicators={true}
           infiniteLoop={true}
-          centerMode={width <= 767 ? false : true}
+          centerMode={true}
           centerSlidePercentage={33}
           autoPlay={true}
           showThumbs={false}
-          interval={3000}
-          onChange={moveDots}
+          interval={4000}
+          emulateTouch={true}
+          stopOnHover={false}
         >
           {items.map((item, index) => {
             return (
-              <div
-                className="carousel-slide"
-                key={index}
-                id={index}
-                onClick={() => handleClick(item.website)}
-                style={{ backgroundColor: `${item.backgroundColor}` }}
-              >
-                <img className="carousel-image" src={item.image} alt={item.name} />
-              </div>
+              <a className="carousel-link" href={item.website} key={item.name + index}>
+                <img className="carousel-slide" src={item.image} alt={item.name} />
+              </a>
             );
           })}
         </Carousel>
       </div>
-      <div className="dot-container">
-        {items.map((item, index) => {
-          return (
-            <span
-              key={index}
-              ref={dotRefs.current[index]}
-              className={index === 0 ? 'dot dotSelected' : 'dot'}
-            />
-          );
-        })}
+      <div className="mobile-only">
+        <Carousel
+          showArrows={false}
+          showStatus={false}
+          showIndicators={true}
+          infiniteLoop={true}
+          centerMode={false}
+          autoPlay={true}
+          showThumbs={false}
+          interval={4000}
+          emulateTouch={true}
+          stopOnHover={false}
+        >
+          {items.map((item, index) => {
+            return (
+              <a className="carousel-link" href={item.website} key={item.name + index}>
+                <img className="carousel-slide" src={item.image} alt={item.name} />
+              </a>
+            );
+          })}
+        </Carousel>
       </div>
     </div>
   );

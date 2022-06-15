@@ -9,6 +9,8 @@ import { Button } from '../../components/button/Button/Button';
 
 import Landing1 from '../../assets/landing/landing-1.jpg';
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
+import { ImageCarousel } from '../../components/ImageCarousel/ImageCarousel';
+import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 
 const PageHome = () => {
   return (
@@ -60,8 +62,31 @@ const HomePageSponsors = () => {
   return (
     <div className="home-page-sponsors">
       <img src={WaveReverse} className="wave-image home-page-bottom-wave-image" />
-      <h2 className="">Our Sponsors</h2>
-      <div style={{ height: '200px', width: '50px', padding: '50px' }}>Placeholder</div>
+      <h2>Our Sponsors</h2>
+      <ImageCarousel
+        items={[
+          {
+            website: 'https://www.utoronto.ca/',
+            image: MainFroshLogo,
+          },
+          {
+            website: 'https://www.utoronto.ca/',
+            image: MainFroshLogo,
+          },
+          {
+            website: 'https://www.utoronto.ca/',
+            image: MainFroshLogo,
+          },
+          {
+            website: 'https://www.utoronto.ca/',
+            image: MainFroshLogo,
+          },
+          {
+            website: 'https://www.utoronto.ca/',
+            image: MainFroshLogo,
+          },
+        ]}
+      />
     </div>
   );
 };
