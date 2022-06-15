@@ -2,11 +2,9 @@
 
 .carousel-slide {
   border-radius: 9px;
-  margin: 0 20px;
   margin-bottom: 55px;
   cursor: pointer;
   @include devices(tablet) {
-    margin: 0 0px;
     width: 80%;
     margin-bottom: 40px;
   }

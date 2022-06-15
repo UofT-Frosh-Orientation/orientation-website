@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getTimelineDates } from './functions';
+import { getSlideshowImages, getTimelineDates } from './functions';
 import './Home.scss';
 import Wave from '../../assets/misc/wave.png';
 import WaveReverse from '../../assets/misc/wave-reverse.png';
@@ -11,6 +11,8 @@ import Landing1 from '../../assets/landing/landing-1.jpg';
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
 import { ImageCarousel } from '../../components/ImageCarousel/ImageCarousel';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
+import 'react-slideshow-image/dist/styles.css';
+import { Slide } from 'react-slideshow-image';
 
 const PageHome = () => {
   return (
@@ -34,9 +36,31 @@ const HomePageHeader = () => {
           <Button label="Register" isSecondary style={{ margin: '0px' }} />
         </div>
       </div>
-      <img src={Landing1} className="home-page-landing-image" />
+      <div className="home-page-landing-image-container">
+        <HomePageSlideshow />
+      </div>
       <img src={Wave} className="wave-image home-page-top-wave-image" />
     </div>
+  );
+};
+
+const HomePageSlideshow = () => {
+  const properties = {
+    duration: 5000,
+    autoplay: true,
+    transitionDuration: 1000,
+    arrows: false,
+    infinite: true,
+    easing: 'cubic',
+  };
+  return (
+    <Slide {...properties}>
+      {getSlideshowImages().map((image, index) => (
+        <div key={index}>
+          <img className="home-page-landing-image" src={image} alt={'slideshow' + index} />
+        </div>
+      ))}
+    </Slide>
   );
 };
 

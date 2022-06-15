@@ -63,13 +63,18 @@
   filter: drop-shadow(-10px -10px 8px #23232342);
 }
 
-.home-page-landing-image {
+.home-page-landing-image-container {
   position: absolute;
   z-index: -1;
   height: 80vh;
   width: 100vw;
   min-height: 500px;
+}
+.home-page-landing-image {
   object-fit: cover;
+  height: 80vh;
+  width: 100vw;
+  min-height: 500px;
 }
 
 .wave-image {
