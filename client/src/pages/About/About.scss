@@ -2,8 +2,8 @@
 
 .aboutus-header {
   position: relative;
-  height: 80vh;
-  min-height: 500px;
+  height: 30vh;
+  min-height: 300px;
   background-image: linear-gradient(
     to right,
     var(--purple-transparent) 20%,
@@ -25,9 +25,14 @@
   width: 100vw;
   min-height: 500px;
   object-fit: cover;
+
+  @include devices(tablet) {
+    justify-content: center;
+    width: 100vw;
+  }
 }
 
-.wave-top {
+.aboutus-wave-top {
   position: absolute;
   bottom: 0px;
   width: 100vw;
@@ -65,12 +70,22 @@
 .aboutus-container {
   display: flex;
   flex-direction: column;
+
+  @include devices(tablet) {
+    align-items: center;
+  }
 }
 
 .aboutus-title {
   text-align: left;
   font-size: 48px;
   color: var(--white);
+
+  @include devices(tablet) {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 30px;
+  }
 }
 
 .aboutus-title-underline {
@@ -79,15 +94,24 @@
   width: 220px;
   height: 4px;
   margin-bottom: 20px;
+
+  @include devices(tablet) {
+    width: 140px;
+  }
 }
 
-.aboutus-info-title {
-  text-align: left;
-  font-size: 30px;
-  color: var(--white);
+.aboutus-subsubcontainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  @include devices(tablet) {
+    flex-direction: column;
+  }
 }
 
-.wave-bottom {
+.aboutus-wave-bottom {
   width: 100vw;
   filter: drop-shadow(-10px 10px 8px #23232342);
 }
@@ -98,6 +122,11 @@
   flex-direction: column;
   padding: 50px;
   width: 100vw;
+
+  @include devices(tablet) {
+    padding: 10px;
+    align-items: center;
+  }
 }
 
 .aboutus-image-container {
@@ -106,6 +135,13 @@
   border-radius: 10px;
   margin-right: 50px;
   flex: 1 1 auto;
+
+  @include devices(tablet) {
+    width: 85vw;
+    height: 85vw;
+    margin-right: 0;
+    margin-bottom: 25px;
+  }
 }
 
 .aboutus-image {
@@ -119,6 +155,10 @@
   display: flex;
   flex-direction: column;
   width: 50vw;
+
+  @include devices(tablet) {
+    width: 85vw;
+  }
 }
 
 .aboutus-info {
@@ -131,6 +171,10 @@
 
   padding: 25px;
   margin: 13px;
+
+  @include devices(tablet) {
+    margin: 0 0 25px 0;
+  }
 }
 
 .aboutus-info-title {
@@ -139,12 +183,21 @@
 
   color: var(--white);
   text-align: left;
+
+  @include devices(tablet) {
+    text-align: center;
+  }
 }
 .aboutus-info-des {
   font-size: 16px;
 
   color: var(--white);
-  text-align: left;
+  // text-align: left;
+  text-align: justify;
+
+  @include devices(tablet) {
+    text-align: justify;
+  }
 }
 
 // EXEC TEAM SECTIONS
@@ -158,6 +211,10 @@
   text-align: center;
   font-size: 48px;
   color: var(--purple-shades-dark);
+
+  @include devices(mobile) {
+    font-size: 30px;
+  }
 }
 
 .exec-title-underline {
@@ -167,74 +224,84 @@
   height: 4px;
   margin-bottom: 20px;
   align-self: center;
+
+  @include devices(mobile) {
+    font-size: 30px;
+    width: 320px;
+  }
 }
 
-.oc-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+// .oc-container {
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+//   align-items: center;
 
-  padding: 50px;
-}
-.oc-image {
-  background: purple;
-  width: 500px;
-  height: 500px;
-  border-radius: 10px;
+//   padding: 50px;
+// }
+// .oc-image {
+//   background: purple;
+//   width: 500px;
+//   height: 500px;
+//   border-radius: 10px;
 
-  margin-right: 50px;
-}
+//   margin-right: 50px;
+// }
 
-.oc-title {
-  padding-bottom: 20px;
-}
+// .oc-title {
+//   padding-bottom: 20px;
+// }
 
-.oc-info-name {
-  font-size: 24px;
-  color: var(--purple);
-  padding-bottom: 5px;
-}
+// .oc-info-name {
+//   font-size: 24px;
+//   color: var(--purple);
+//   padding-bottom: 5px;
+// }
 
-.oc-info {
-  display: flex;
-  flex-direction: column;
-  width: 50vw;
-}
+// .oc-info {
+//   display: flex;
+//   flex-direction: column;
+//   width: 50vw;
+// }
 
-.oc-info-fav {
-  margin-top: 15px;
-}
+// .oc-info-fav {
+//   margin-top: 15px;
+// }
 
-.vc-section-container {
-  padding: 50px;
-  display: flex;
-  flex-direction: column;
-  // grid-template-columns: 38vw;
-}
-.exec-profile-container {
-  border-radius: 10px;
-  aspect-ratio: 1 / 1;
-  width: 30vw;
+// .vc-section-container {
+//   padding: 50px;
+//   display: flex;
+//   flex-direction: column;
+//   // grid-template-columns: 38vw;
+// }
+// .exec-profile-container {
+//   border-radius: 10px;
+//   aspect-ratio: 1 / 1;
+//   width: 30vw;
 
-  background: purple;
+//   background: purple;
 
-  display: flex;
-}
-
-// OC CONTAINER
+//   display: flex;
+// }
 
 ////////////////////////////
 // VC GRID
 .aboutus-vc-grid-container {
   display: grid;
   width: 100vw;
-  // padding: 50px;
   grid-template-columns: auto auto;
-
   justify-content: center;
+  margin-bottom: 25px;
+
+  @include devices(tablet) {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
-.vc-grid-item {
-  // margin: 50px;
-}
+// .vc-grid-item {
+//   // margin: 50px;
+// }

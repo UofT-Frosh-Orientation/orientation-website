@@ -20,9 +20,11 @@ const PageAbout = () => {
       <AboutUsHeader />
       <div className="aboutus-page-components">
         <AboutUsSection />
-        <h2 className="exec-title">Meet the Exec Team</h2>
-        <div className="exec-title-underline"></div>
 
+        <div style={{ paddingTop: '25px' }}>
+          <h2 className="exec-title">Meet the Exec Team</h2>
+          <div className="exec-title-underline"></div>
+        </div>
         <OCSection />
         <VCSection />
       </div>
@@ -34,7 +36,7 @@ const AboutUsHeader = () => {
   return (
     <div className="aboutus-header">
       <img className="aboutus-main-picture" src={Landing1}></img>
-      <img className="wave-top" src={waveTop} alt="wave"></img>
+      <img className="aboutus-wave-top" src={waveTop} alt="wave"></img>
     </div>
   );
 };
@@ -46,14 +48,7 @@ const AboutUsSection = () => {
         <h2 className="aboutus-title">About Us</h2>
         <div className="aboutus-title-underline"></div>
 
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
+        <div className="aboutus-subsubcontainer">
           <div className="aboutus-image-container">
             <img className="aboutus-image" src={froshJames} alt="froshJames"></img>
           </div>
@@ -70,7 +65,7 @@ const AboutUsSection = () => {
           </div>
         </div>
       </div>
-      <img className="wave-bottom" src={waveBottom} alt="wave"></img>
+      <img className="aboutus-wave-bottom" src={waveBottom} alt="wave"></img>
     </div>
   );
 };

@@ -15,12 +15,15 @@ const ExecProfile = ({ image, name, role, discipline, roleDescription, favPart }
 
       {showDescription ? (
         <ExecProfileDescription
+          name={name}
+          role={role}
           discipline={discipline}
           roleDescription={roleDescription}
           favPart={favPart}
         />
       ) : (
-        <ExecProfileTitle name={name} role={role} />
+        <></>
+        // <ExecProfileTitle name={name} role={role} />
       )}
     </div>
   );
@@ -38,12 +41,17 @@ const ExecProfileTitle = ({ name, role }) => {
   );
 };
 
-const ExecProfileDescription = ({ discipline, roleDescription, favPart }) => {
+const ExecProfileDescription = ({ name, role, discipline, roleDescription, favPart }) => {
   return (
     <div className="exec-profile-description">
+      <div className="exec-profile-title-cont">
+        <p className="exec-profile-position">{role.toUpperCase()}</p>
+        <h3 className="exec-profile-name">{name}</h3>
+      </div>
+
       <p className="exec-profile-desctiption-dis">
         <span style={{ fontWeight: 'bold' }}>DISCIPLINE: </span>
-        <br></br>
+        {/* <br></br> */}
         {discipline}
       </p>
 
@@ -79,6 +87,8 @@ ExecProfileTitle.propTypes = {
 };
 
 ExecProfileDescription.propTypes = {
+  name: PropTypes.string,
+  role: PropTypes.string,
   discipline: PropTypes.string,
   roleDescription: PropTypes.string,
   favPart: PropTypes.string,
