@@ -2,14 +2,12 @@
 
 .registration-success-page-container {
   height: calc(100vh - 90px);
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 5%;
-
   h1 {
     font-size: 50px;
   }
@@ -73,12 +71,18 @@
 
 .registration-success-page-step1 {
   position: absolute;
-  animation: zoom-disappear 600ms forwards 7500ms;
+}
+.registration-success-page-step1-1-disappear {
+  animation: up-disappear 600ms forwards 7500ms;
+}
+
+.registration-success-page-step1-2-disappear {
+  animation: down-disappear 600ms forwards 7500ms;
 }
 
 .registration-success-page-step2 {
   transform: scale(0);
-  animation: zoom-appear 1000ms forwards 8000ms;
+  animation: zoom-appear 1000ms forwards 7500ms;
 }
 
 .registration-success-page-step2-disappear {
@@ -102,12 +106,17 @@
 }
 
 .registration-success-page-step4 {
-  margin-top: 20px;
   transform: scale(0);
-  animation: zoom-appear 1000ms forwards 11000ms;
+  animation: zoom-appear 1000ms forwards 13000ms;
 }
 
 .registration-success-page-step5 {
+  margin-top: 20px;
+  transform: scale(0);
+  animation: zoom-appear 1000ms forwards 14000ms;
+}
+
+.registration-success-page-step6 {
   transform: scale(0);
   animation: zoom-appear 1000ms forwards 15000ms;
 }
@@ -118,6 +127,20 @@
   }
   100% {
     transform: scale(0);
+  }
+}
+
+@keyframes up-disappear {
+  100% {
+    transform: translateY(-35vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes down-disappear {
+  100% {
+    transform: translateY(35vh) scale(1.2);
+    opacity: 0;
   }
 }
 
@@ -133,5 +156,50 @@
   100% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+.frosh-group-text-line {
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  animation: dash-stoke 3500ms ease-in-out forwards, fill-end 3500ms ease-in forwards;
+  animation-delay: 9500ms;
+  stroke: var(--purple);
+  stroke-linecap: round;
+  font-size: 240px;
+  height: 300px;
+  width: 100%;
+  margin-bottom: 0px;
+  fill-opacity: 0;
+  margin-bottom: -35px;
+}
+
+.frosh-group-text-line text {
+  font-family: 'Inter-Bold';
+  font-weight: normal;
+  font-style: normal;
+}
+
+@keyframes dash-stoke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fill-end {
+  0% {
+    fill: var(--black);
+    fill-opacity: 0;
+    stroke-width: 8px;
+  }
+  95% {
+    fill: var(--black);
+    fill-opacity: 0;
+    stroke-width: 8px;
+  }
+  100% {
+    fill: var(--black);
+    fill-opacity: 1;
+    stroke-width: 0;
   }
 }

@@ -39,36 +39,51 @@ const PageRegistrationSuccess = () => {
       <div className="navbar-space-top" />
       <div className="registration-success-page-progress-bar" />
       <div className="registration-success-page-progress-bar registration-success-page-progress-bar2" />
-      <div className="registration-success-page-container">
-        <div className="registration-success-page-step1">
-          <h1>Thank you for Registering</h1>
-          <h2>for F!rosh Week 2T2</h2>
-          <p className="registration-success-wait-msg">{data.name + ', your F!rosh group is...'}</p>
-        </div>
-        <div className="registration-success-page-step2-disappear">
-          <div className="registration-success-page-step2">
-            <h1>Welcome to...</h1>
+      <div style={{ padding: '0 5%' }}>
+        <div className="registration-success-page-container">
+          <div className="registration-success-page-step1">
+            <div className="registration-success-page-step1-1-disappear">
+              <h1>Thank you for Registering</h1>
+            </div>
+            <div className="registration-success-page-step1-2-disappear">
+              <h2>for F!rosh Week 2T2</h2>
+              <p className="registration-success-wait-msg">
+                {data.name + ', your F!rosh group is...'}
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="registration-success-page-step3">
-          <h1>{data.froshGroupIcon}</h1>
-          <h2>{data.froshGroup + '!'}</h2>
-          <div className="registration-success-page-step4">
-            <Link to={'/profile'}>
-              <Button label="View My F!rosh Profile" />
-            </Link>
+          <div className="registration-success-page-step2-disappear">
+            <div className="registration-success-page-step2">
+              <h1>Welcome to...</h1>
+            </div>
           </div>
-          <div className="registration-success-page-step5">
-            <Link
-              state={{
-                name: data.name,
-                froshGroup: data.froshGroup,
-                froshGroupIcon: data.froshGroupIcon,
-              }}
-              to={'/registration-success'}
-            >
-              <ButtonOutlined label="Watch Again" isSecondary />
-            </Link>
+          <div className="registration-success-page-step3">
+            <svg className="frosh-group-text-line">
+              <text x="50%" dominantBaseline="middle" textAnchor="middle" y="50%">
+                {data.froshGroupIcon}
+              </text>
+            </svg>
+            {/* <h1>{data.froshGroupIcon}</h1> */}
+            <div className="registration-success-page-step4">
+              <h2>{data.froshGroup + '!'}</h2>
+            </div>
+            <div className="registration-success-page-step5">
+              <Link to={'/profile'}>
+                <Button label="View My F!rosh Profile" />
+              </Link>
+            </div>
+            <div className="registration-success-page-step6">
+              <Link
+                state={{
+                  name: data.name,
+                  froshGroup: data.froshGroup,
+                  froshGroupIcon: data.froshGroupIcon,
+                }}
+                to={'/registration-success'}
+              >
+                <ButtonOutlined label="Watch Again" isSecondary />
+              </Link>
+            </div>
           </div>
         </div>
       </div>
