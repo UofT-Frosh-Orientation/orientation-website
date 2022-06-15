@@ -1,0 +1,137 @@
+@import '../../scssStyles/mixins.scss';
+
+.registration-success-page-container {
+  height: calc(100vh - 90px);
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 5%;
+
+  h1 {
+    font-size: 50px;
+  }
+  h2 {
+    font-size: 30px;
+    margin-top: 10px;
+  }
+  @include devices(tablet) {
+    h1 {
+      font-size: 40px;
+    }
+    h2 {
+      font-size: 25px;
+    }
+  }
+  transform: scale(0);
+  animation: zoom-appear 1000ms forwards 500ms;
+}
+
+.registration-success-page-progress-bar {
+  width: 100vw;
+  background-color: var(--purple);
+  height: 8px;
+  animation: progressbar-move 8000ms forwards 0ms;
+  animation-timing-function: linear;
+  transform-origin: left;
+  position: fixed;
+  z-index: 100;
+}
+
+.registration-success-page-progress-bar2 {
+  transform: scaleX(0);
+  animation: progressbar-move 7500ms forwards 8000ms;
+  animation-timing-function: linear;
+}
+
+.registration-success-wait-msg {
+  font-size: 25px;
+  margin-top: 20px;
+  text-align: center;
+  transform: scale(0);
+  animation: zoom-appear 1000ms forwards 4000ms;
+  @include devices(tablet) {
+    font-size: 15px;
+  }
+}
+
+@keyframes progressbar-move {
+  0% {
+    transform: scaleX(0);
+  }
+  96% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+
+.registration-success-page-step1 {
+  position: absolute;
+  animation: zoom-disappear 600ms forwards 7500ms;
+}
+
+.registration-success-page-step2 {
+  transform: scale(0);
+  animation: zoom-appear 1000ms forwards 8000ms;
+}
+
+.registration-success-page-step2-disappear {
+  position: absolute;
+  animation: zoom-disappear 600ms forwards 9500ms;
+}
+
+.registration-success-page-step3 {
+  transform: scale(0);
+  position: absolute;
+  animation: zoom-appear 1000ms forwards 10000ms;
+
+  h1 {
+    font-size: 250px;
+    text-shadow: var(--shadow);
+  }
+  h2 {
+    font-size: 30px;
+    margin-top: -20px;
+  }
+}
+
+.registration-success-page-step4 {
+  margin-top: 20px;
+  transform: scale(0);
+  animation: zoom-appear 1000ms forwards 11000ms;
+}
+
+.registration-success-page-step5 {
+  transform: scale(0);
+  animation: zoom-appear 1000ms forwards 15000ms;
+}
+
+@keyframes zoom-disappear {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes zoom-appear {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
