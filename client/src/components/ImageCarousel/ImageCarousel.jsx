@@ -6,8 +6,6 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const ImageCarousel = ({ items }) => {
-  const { innerWidth: width } = window;
-
   return (
     <div>
       <div className="desktop-only">

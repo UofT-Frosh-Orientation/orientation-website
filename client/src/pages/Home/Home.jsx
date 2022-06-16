@@ -33,7 +33,24 @@ const HomePageHeader = () => {
         <h1>2T2</h1>
         <p>Organized by the University of Toronto&apos;s Engineering Orientation Commitee</p>
         <div className="home-page-header-register-button">
-          <Button label="Register" isSecondary style={{ margin: '0px' }} />
+          <div className="desktop-only">
+            <Button
+              label="Register"
+              isSecondary
+              style={{
+                margin: '0px',
+                width: '100%',
+                height: '100%',
+                fontSize: 'unset',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            />
+          </div>
+          <div className="mobile-only">
+            <Button label="Register" isSecondary style={{ margin: '0px' }} />
+          </div>
         </div>
       </div>
       <div className="home-page-landing-image-container">
