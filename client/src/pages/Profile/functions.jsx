@@ -157,3 +157,22 @@ export function searchForFrosh(nameOrEmail) {
 export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export function getFroshData() {
+  return {
+    froshGroupIcon: 'λ',
+    froshGroup: 'Lambda',
+    firstName: 'James',
+    lastName: 'Kokoska',
+    discipline: 'Computer Engineering',
+    email: 'test.email@mail.utoronto.com',
+  };
+}
+
+export function canLeaderScanQR() {
+  return false;
+}
+
+export function isLeader() {
+  return false;
+}

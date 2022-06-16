@@ -1,11 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
+  canLeaderScanQR,
   capitalizeFirstLetter,
   getDaysFroshSchedule,
+  getFroshData,
   getFroshScheduleData,
   getQRCodeString,
   getTasks,
+  isLeader,
   onDoneTask,
   parseQRCode,
   qrKeys,
@@ -26,14 +29,30 @@ import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 
-const PageProfileFrosh = () => {
+const PageProfile = () => {
+  const qrCodeLeader = canLeaderScanQR();
+  const leader = isLeader();
+  if (qrCodeLeader) {
+    return <PageProfileQRLeader />;
+  } else if (leader) {
+    return <PageProfileFrosh leader />;
+  } else {
+    return <PageProfileFrosh />;
+  }
+};
+
+const PageProfileFrosh = ({ leader }) => {
   return (
     <>
       <div className="navbar-space-top" />
-      <ProfilePageHeader />
+      <ProfilePageHeader leader={leader} />
       <div className="profile-info-row">
         <div>
-          <ProfilePageAnnouncements />
+          {leader === false || leader === undefined ? (
+            <ProfilePageAnnouncements />
+          ) : (
+            <div style={{ marginTop: '-40px' }} />
+          )}
           <ProfilePageSchedule />
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -45,11 +64,15 @@ const PageProfileFrosh = () => {
   );
 };
 
-const PageProfile = () => {
+PageProfileFrosh.propTypes = {
+  leader: PropTypes.bool,
+};
+
+const PageProfileQRLeader = () => {
   return (
     <>
       <div className="navbar-space-top" />
-      <ProfilePageHeader />
+      <ProfilePageHeader leader />
       <div className="profile-info-row">
         <div style={{ marginTop: '-40px' }}>
           <ProfilePageSchedule />
@@ -58,6 +81,7 @@ const PageProfile = () => {
           <ProfilePageQRScanner />
           <div style={{ height: '10px' }} />
           <ProfilePageQRCode />
+          <ProfilePageResources />
         </div>
       </div>
     </>
@@ -200,35 +224,45 @@ const ProfilePageQRScanner = () => {
   );
 };
 
-const ProfilePageHeader = () => {
+const ProfilePageHeader = ({ leader }) => {
+  const froshData = getFroshData();
   return (
     <>
       <div className="profile-page-header">
         <div className="profile-page-header-group">
-          <h1>λ</h1>
-          <p>Lambda</p>
+          <h1>{froshData['froshGroupIcon']}</h1>
+          <p>{froshData['froshGroup']}</p>
+          {leader === true ? <p>{'(Leader)'}</p> : <></>}
         </div>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-info">
             <p className="profile-page-name-title">
-              <b>James</b> Kokoska
+              <b>{froshData['firstName']}</b> {froshData['lastName']}
             </p>
-            <p>Incoming Computer Engineering student</p>
+            <p>{`Incoming ${froshData['discipline']} student`}</p>
             <p>
-              <u>
-                <b>test.email</b>@mail.utoronto.com
-              </u>
+              <u>{froshData['email']}</u>
             </p>
           </div>
           <div className="profile-page-header-class desktop-only">
-            <p>Class of</p>
-            <h2>2T6</h2>
+            {leader === true ? (
+              <h2>Leader</h2>
+            ) : (
+              <>
+                <p>Class of</p>
+                <h2>2T6</h2>
+              </>
+            )}
           </div>
         </div>
       </div>
       <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
     </>
   );
+};
+
+ProfilePageHeader.propTypes = {
+  leader: PropTypes.bool,
 };
 
 const ProfilePageAnnouncements = () => {
