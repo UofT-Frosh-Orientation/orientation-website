@@ -9,15 +9,18 @@ const {
 
 } = require('../controllers/TimelineController')
 
-// router.post('/timeline', getTimeline);
+router.get('/timeline', getTimeline);
+
 
 router.get("/timeline/:id", getTimelineElement);
 
-router.get("/timeline/:id/edit", editTimelineElement);
+router.post("/timeline/:id/edit", editTimelineElement);
 
-router.get("/timeline/add", addTimelineElement);
+router.put("/timeline/add", addTimelineElement);
 
-router.get("/timeline/:id/delete", deleteTimelineElement);
+router.delete("/timeline/:id/delete", deleteTimelineElement);
+
+router.post("/timeline/changeOrder", changeTimelineOrder);
 
 
 
