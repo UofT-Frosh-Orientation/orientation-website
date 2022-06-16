@@ -23,7 +23,6 @@ const ButtonSelector = ({
       label={item.name}
       style={{
         backgroundColor: `${item.buttonColor}`,
-        flex: 1,
         maxWidth: maxWidthButton,
         ...style,
       }}
