@@ -28,7 +28,7 @@ const PageRegistrationSuccess = () => {
   if (location.state === undefined || location.state === null) {
     return (
       <div className="registration-success-page-container">
-        <h1>An error occured.</h1>
+        <h1>An error occurred.</h1>
       </div>
     );
   }
