@@ -17,6 +17,11 @@ const ScheduleSchema = new mongoose.Schema({
       },
     ],
   },
+  isDeleted: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 
 const ScheduleModel = mongoose.model('schedule', ScheduleSchema);

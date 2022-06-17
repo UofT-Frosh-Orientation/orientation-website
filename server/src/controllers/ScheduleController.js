@@ -6,12 +6,12 @@ const ScheduleController = {
    * @param {Object} req
    * @param {Object} res
    * @param {Function} next
-   * @return {Promise<void>}
+   * @return {Object[]}
    */
   async getGroupSchedule(req, res, next) {
     const { froshGroup } = req.body;
-    const groupSchedule = ScheduleServices.getGroupSchedule(froshGroup);
-    res.status(200).send({ groupSchedule });
+
+    res.status(200).send({ groupSchedule: await ScheduleServices.getGroupSchedule(froshGroup) });
   },
 
   /**
@@ -19,18 +19,35 @@ const ScheduleController = {
    * @param {Object} req
    * @param {Object} res
    * @param {Function} next
-   * @return {Promise<void>}
+   * @return {Object}
    */
-  async editSchedule(req, res, next) {},
+  async editSchedule(req, res, next) {
+    const { id, froshGroup, events, date } = req.body;
+    try {
+      res
+        .status(200)
+        .send({ newSchedule: await ScheduleServices.editSchedule(id, froshGroup, events, date) });
+    } catch (e) {
+      next(e);
+    }
+  },
 
   /**
-   * change a schedule object
+   * reorder a schedule object
    * @param {Object} req
    * @param {Object} res
    * @param {Function} next
    * @return {Promise<void>}
    */
-  async changeSchedule(req, res, next) {},
+  async reorderSchedule(req, res, next) {
+    const { id, order } = req.body;
+
+    try {
+      res.status(200).send({ newSchedule: await ScheduleServices.reorderSchedule(id, order) });
+    } catch (e) {
+      next(e);
+    }
+  },
 
   /**
    * add a schedule object
@@ -44,7 +61,7 @@ const ScheduleController = {
 
     try {
       const newSchedule = await ScheduleServices.addSchedule(froshGroup, date, events);
-      return res.status(200).send({ message: 'Success!', schedule: newSchedule });
+      return res.status(200).send({ schedule: newSchedule });
     } catch (e) {
       next(e);
     }
@@ -57,6 +74,15 @@ const ScheduleController = {
    * @param {Function} next
    * @return {Promise<void>}
    */
-  async deleteSchedule(req, res, next) {},
+  async deleteSchedule(req, res, next) {
+    const { id } = req.body;
+
+    try {
+      const deleted = await ScheduleServices.deleteSchedule(id);
+      return res.status(200).send({ schedule: deleted });
+    } catch (e) {
+      next(e);
+    }
+  },
 };
 module.exports = ScheduleController;
