@@ -107,7 +107,7 @@ const PasswordPopUp = ({ trigger, setTrigger }) => {
     <div className="forgot-password-popup">
       <div className="forgot-password-container">
         <img
-          className="x-mark"
+          className="forgot-password-x-mark"
           src={XMark}
           alt="x-mark"
           onClick={() => {

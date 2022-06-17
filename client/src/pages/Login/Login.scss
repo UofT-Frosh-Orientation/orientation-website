@@ -119,6 +119,19 @@
   left: 5vw;
   width: 20vw;
   z-index: 8;
+
+  animation: ptero-fly infinite 15s ease-in-out;
+}
+@keyframes ptero-fly {
+  0% {
+    transform: translateX(-10px) rotate(-5deg);
+  }
+  50% {
+    transform: translateX(10px) rotate(5deg);
+  }
+  100% {
+    transform: translateX(-10px) rotate(-5deg);
+  }
 }
 
 .brachio-left {
@@ -127,6 +140,8 @@
   width: 40vw;
   z-index: 8;
   left: 0;
+
+  animation: brachio-sway infinite 15s ease-in-out;
 }
 
 .brachio-right {
@@ -135,6 +150,20 @@
   z-index: 8;
   width: 50vw;
   right: -2vw;
+
+  animation: brachio-sway infinite 15s ease-in-out;
+}
+
+@keyframes brachio-sway {
+  0% {
+    transform: translateY(-5px) rotate(-1deg) scale(1);
+  }
+  50% {
+    transform: translateY(5px) rotate(1deg) scale(1.02);
+  }
+  100% {
+    transform: translateY(-5px) rotate(-1deg) scale(1);
+  }
 }
 
 .ground {
@@ -143,6 +172,20 @@
   bottom: -20vh;
   width: 100vw;
   z-index: 7;
+
+  animation: ground-sway infinite 15s ease-in-out;
+}
+
+@keyframes ground-sway {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .mountain-back {
@@ -252,6 +295,26 @@
   align-items: center;
 }
 
+// POPUP ANIMATION
+.forgot-password-container {
+  animation: show-popup-animation 400ms ease-in;
+}
+
+@keyframes show-popup-animation {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.13);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+///
+
 .forgot-password-container {
   position: absolute;
   display: flex;
@@ -275,7 +338,7 @@
   padding-top: 14px;
   padding-bottom: 10px;
 }
-.x-mark {
+.forgot-password-x-mark {
   align-self: flex-end;
   width: 10px;
   left: 0;
