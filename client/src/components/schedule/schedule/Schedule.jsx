@@ -105,14 +105,14 @@ const Schedule = ({ scheduleList }) => {
         }
       >
         <div ref={circleRef}>{outerCircleIcons}</div>
-        <div>{innerCircleIcons}</div>
         <svg
           className={windowDimensions.width > 860 ? 'schedule-circle-line' : 'schedule-hide'}
-          height={115 * (scheduleList.length - 1) + 50}
+          height={115 * (scheduleList.length - 1) + 15 * scheduleList.length}
           strokeWidth="20"
         >
-          <line y1={45} y2={500} stroke="white" />
+          <line y1={45} y2={1000} stroke="#ffe863" />
         </svg>
+        <div>{innerCircleIcons}</div>
       </div>
       <div
         style={{ width: `${windowDimensions.width > 860 ? '25%' : '100%'}` }}
@@ -123,10 +123,9 @@ const Schedule = ({ scheduleList }) => {
             buttonList={days}
             activeIndex={activeIndex}
             setActiveIndex={setActiveIndex}
+            scroll={windowDimensions.width > 860}
             style={{
               width: windowDimensions.width > 860 ? '100%' : '',
-              paddingLeft: windowDimensions.width > 860 ? '30px' : '20px',
-              paddingRight: windowDimensions.width > 860 ? '30px' : '20px',
             }}
           ></ButtonSelector>
         </div>

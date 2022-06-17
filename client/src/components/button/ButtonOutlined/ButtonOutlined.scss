@@ -17,6 +17,7 @@
   border-width: 4px;
   border-color: var(--light-purple);
   border-style: solid;
+  box-sizing: border-box;
 
   &:hover {
     transform: scale(1.02);

@@ -1,4 +1,4 @@
-import { React } from 'react';
+import { React, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './ButtonSelector.scss';
 import { ButtonOutlined } from '../../button/ButtonOutlined/ButtonOutlined';
@@ -11,10 +11,17 @@ const ButtonSelector = ({
   style,
   classNameButton,
   classNameSelector,
+  scroll,
 }) => {
   function setActiveButton(index) {
     setActiveIndex(index);
   }
+
+  const [scrollStatus, setScrollStatus] = useState(true);
+
+  useEffect(() => {
+    setScrollStatus(scroll);
+  }, [scroll]);
 
   const buttonItems = buttonList.map((item, index) => (
     <ButtonOutlined
@@ -31,7 +38,17 @@ const ButtonSelector = ({
     ></ButtonOutlined>
   ));
 
-  return <div className={`button-selector-items ${classNameSelector}`}>{buttonItems}</div>;
+  return (
+    <div
+      className={`button-selector-items ${classNameSelector}`}
+      style={{
+        overflowX: scrollStatus ? '' : 'auto',
+        whiteSpace: scrollStatus ? '' : 'nowrap',
+      }}
+    >
+      <span>{buttonItems}</span>
+    </div>
+  );
 };
 
 ButtonSelector.propTypes = {
@@ -42,6 +59,7 @@ ButtonSelector.propTypes = {
   style: PropTypes.object,
   classNameButton: PropTypes.string,
   classNameSelector: PropTypes.string,
+  scroll: PropTypes.bool,
 };
 
 export { ButtonSelector };
