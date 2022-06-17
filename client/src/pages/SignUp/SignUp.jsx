@@ -11,7 +11,7 @@ const PageSignUp = () => {
   const [errors, setErrors] = useState({});
   const [accountObj, setAccountObj] = useState({});
   const [anyErrors, setAnyErrors] = useState({});
-  const checkErrors = (sendFeedback = true, sendPasswordFeedback = false) => {
+  const checkErrors = (sendFeedback = true, feedbackToSend = []) => {
     let anyErrorsNow = false;
     const errorsCopy = {};
     if (accountObj['email'] === undefined || accountObj['email'] === '') {
@@ -29,6 +29,13 @@ const PageSignUp = () => {
         'Your password is too weak, it should be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter and 1 digit';
       anyErrorsNow = true;
     }
+    if (accountObj['confirmPassword'] === undefined || accountObj['confirmPassword'] === '') {
+      errorsCopy['confirmPassword'] = 'Please confirm your password';
+      anyErrorsNow = true;
+    } else if (accountObj['confirmPassword'] !== accountObj['password']) {
+      errorsCopy['confirmPassword'] = 'Passwords do not match!';
+      anyErrorsNow = true;
+    }
     if (accountObj['firstName'] === undefined || accountObj['firstName'] === '') {
       errorsCopy['firstName'] = 'Please enter a first name';
       anyErrorsNow = true;
@@ -40,8 +47,12 @@ const PageSignUp = () => {
     if (sendFeedback) {
       setErrors(errorsCopy);
     }
-    if (sendPasswordFeedback && sendFeedback === false) {
-      setErrors({ password: errorsCopy['password'] });
+    if (feedbackToSend !== [] && sendFeedback === false) {
+      const errorObject = {};
+      for (let send of feedbackToSend) {
+        errorObject[send] = errorsCopy[send];
+      }
+      setErrors(errorObject);
     }
     setAnyErrors(anyErrorsNow);
     return anyErrorsNow;
@@ -62,7 +73,7 @@ const PageSignUp = () => {
             errorFeedback={errors['email']}
             onChange={(value) => {
               accountObj['email'] = value;
-              checkErrors(false);
+              checkErrors(false, ['email']);
             }}
             localStorageKey={'sign-up-email'}
           />
@@ -76,7 +87,20 @@ const PageSignUp = () => {
             errorFeedback={errors['password']}
             onChange={(value) => {
               accountObj['password'] = value;
-              checkErrors(false, true);
+              checkErrors(false, ['password']);
+            }}
+          />
+        </div>
+        <div className="full-width-input">
+          <TextInput
+            label="Confirm Password"
+            isRequiredInput
+            placeholder={'••••••••••••••'}
+            inputType={'password'}
+            errorFeedback={errors['confirmPassword']}
+            onChange={(value) => {
+              accountObj['confirmPassword'] = value;
+              checkErrors(false, ['password', 'confirmPassword']);
             }}
           />
         </div>
@@ -88,7 +112,6 @@ const PageSignUp = () => {
             errorFeedback={errors['firstName']}
             onChange={(value) => {
               accountObj['firstName'] = value;
-              checkErrors(false);
             }}
             localStorageKey={'sign-up-firstName'}
           />
@@ -101,7 +124,6 @@ const PageSignUp = () => {
             errorFeedback={errors['lastName']}
             onChange={(value) => {
               accountObj['lastName'] = value;
-              checkErrors(false);
             }}
             localStorageKey={'sign-up-lastName'}
           />
