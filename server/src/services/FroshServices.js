@@ -1,24 +1,13 @@
-const EmailValidator = require('email-validator');
-const bcrypt = require('bcrypt');
 const FroshModel = require('../models/FroshModel');
 const FroshGroupModel = require('../models/FroshGroupModel');
-const newUserSubscription = require('../subscribers/newUserSubscription');
 
 const FroshServices = {
-  async validateNewFrosh(froshData) {
-    if (!EmailValidator.validate(froshData.email)) {
-      throw new Error('INVALID_EMAIL');
-    }
-    const froshExists = await this.checkFroshExists(froshData.email);
-    if (froshExists) {
-      throw new Error('DUPLICATE_EMAIL');
-    }
-  },
-
-  async checkFroshExists(email) {
-    return FroshModel.findOne({ email });
-  },
-
+  /**
+   * Gets the frosh group for a new frosh.
+   * @param {String} discipline - the discipline of the frosh
+   * @param {String} pronouns -  the pronouns of the frosh
+   * @return {Promise<String>} - the name of the frosh group
+   */
   async getNewFroshGroup(discipline, pronouns) {
     const froshGroupList = await FroshGroupModel.find();
     let minNumber = 10000;
@@ -41,28 +30,32 @@ const FroshServices = {
     }
     return froshGroup;
   },
-
-  hashPassword(password) {
-    return bcrypt.hashSync(password, 10);
-  },
-
-  async saveNewFrosh(froshRecord) {
-    const newFrosh = new FroshModel(froshRecord);
-    await newFrosh.save();
-    const froshGroup = await FroshGroupModel.findOne({ name: froshRecord.froshGroup });
-    froshGroup.totalNum++;
-    froshGroup[froshRecord.discipline]++;
-    froshGroup[froshRecord.pronouns]++;
-    await froshGroup.save();
-    await newUserSubscription.add(froshRecord);
-  },
-  
   /**
- * Initializes a list of frosh groups with default values in the database.
- * @constructor
- * @param {groups} groups - List of frosh groups as javascript objects
- */
+   * Upgrades an existing user account to a frosh account.
+   * @param {Object} user - the existing user document
+   * @param {Object} newInfo - the new info required to register the frosh
+   * @return {Promise<Object>}
+   */
+  async upgradeToFrosh(user, newInfo) {
+    const frosh = FroshModel.hydrate(user.toObject());
+    frosh.set({ ...newInfo, userType: 'frosh' });
+    return await frosh.save();
+  },
 
+  /**
+   * Get a frosh by their id
+   * @param id
+   * @return {Promise<Object>}
+   */
+  async getFroshInfo(id) {
+    return FroshModel.findById(id);
+  },
+
+  /**
+  * Initializes a list of frosh groups with default values in the database.
+  * @constructor
+  * @param {groups} groups - List of frosh groups as javascript objects
+  */
   async initFroshGroups(groups) {
     const defaultVals = {
       "totalNum": 0,

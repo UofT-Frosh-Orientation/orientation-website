@@ -6,10 +6,16 @@ import { useWrapperRef } from '../../../hooks/useWrapperRef';
 import Arrow from '../../../../assets/icons/angle-down-solid.svg';
 
 const Dropdown = ({ values, onSelect, label, isDisabled, initialSelectedIndex }) => {
+  useEffect(() => {
+    if (initialSelectedIndex !== undefined) {
+      onSelect(values[initialSelectedIndex]);
+    }
+  }, []);
+
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useWrapperRef(() => setIsOpen(false));
   const [selected, setSelected] = useState(
-    initialSelectedIndex == undefined ? values[0] : values[initialSelectedIndex],
+    initialSelectedIndex === undefined ? values[0] : values[initialSelectedIndex],
   );
 
   const dropdownItems = values.map((value, index) => (

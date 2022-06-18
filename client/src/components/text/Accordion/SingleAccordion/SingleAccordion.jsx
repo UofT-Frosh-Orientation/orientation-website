@@ -5,13 +5,13 @@ import './SingleAccordion.scss';
 
 const SingleAccordion = ({ header, children, isOpen, setIsOpen }) => {
   const [Height, setHeight] = useState('0px');
-  const [Rotate, setRotate] = useState('accordIcon');
+  const [Rotate, setRotate] = useState('accord-icon');
 
   const content = useRef(null);
 
   useEffect(() => {
     setHeight(isOpen ? `${content.current.scrollHeight}px` : '0px');
-    setRotate(isOpen ? 'accordIcon rotate' : 'accordIcon');
+    setRotate(isOpen ? 'accord-icon' : 'accord-icon rotate');
   }, [isOpen]);
 
   function toggleAccordion() {
@@ -20,14 +20,14 @@ const SingleAccordion = ({ header, children, isOpen, setIsOpen }) => {
 
   return (
     <div className="accordion" onClick={toggleAccordion}>
-      <div className="accordHeader">
-        <span>{header}</span>
-        <span style={{ marginLeft: 'auto' }} className={'accordText'}>
+      <div className="accord-header">
+        <div>{header}</div>
+        <div style={{ marginLeft: 'auto' }} className={'accord-text'}>
           <img src={faAngleDown} className={`${Rotate}`} alt="Accordion Button" width="15px" />
-        </span>
+        </div>
       </div>
-      <div ref={content} style={{ maxHeight: `${Height}` }} className={'accordContent'}>
-        <div className={'accordText'}>{children}</div>
+      <div ref={content} style={{ maxHeight: `${Height}` }} className={'accord-content'}>
+        <div className={'accord-text'}>{children}</div>
       </div>
     </div>
   );
