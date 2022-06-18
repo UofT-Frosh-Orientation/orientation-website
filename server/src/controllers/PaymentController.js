@@ -1,6 +1,5 @@
-const PayServices = require('../services/PayServices');
-const stripeSecretKey =
-  process.env.STRIPE_SECRET_KEY || require('../config/secretKeys').stripeSecretKey;
+const PayServices = require('../services/PaymentServices');
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
 const stripe = require('stripe')(stripeSecretKey);
 const express = require('express');
@@ -9,7 +8,7 @@ app.use(express.static('public'));
 
 const YOUR_DOMAIN = 'http://localhost:5000';
 
-const PayController = {
+const PaymentController = {
   async getPrice(req, res, next) {
     const listOfFrosh = await Frosh.find();
     const amount = listOfFrosh.length <= 99 ? '56.99' : '61.99'; // need to change prices and early bird??

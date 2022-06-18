@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getPrice, paymentIntent } = require('../controllers/PayController');
+const { getPrice, paymentIntent } = require('../controllers/PaymentController');
 
 router.post('/getPrice', getPrice);
 
