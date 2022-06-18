@@ -5,13 +5,10 @@ import { ButtonSelector } from '../../buttonSelector/buttonSelector/ButtonSelect
 import { SingleAccordion } from '../../text/Accordion/SingleAccordion/SingleAccordion';
 
 const Schedule = ({ scheduleList }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
   const days = [];
   const dayEvents = [];
-  const innerCircleIcons = [];
-  const outerCircleIcons = [];
-  const circleRef = useRef();
 
+  const circleRef = useRef();
   const [x, setX] = useState();
   const [y, setY] = useState();
   const getPosition = () => {
@@ -23,6 +20,17 @@ const Schedule = ({ scheduleList }) => {
 
   useEffect(() => {
     getPosition();
+  });
+
+  const buttonsRef = useRef();
+  const [buttonsWidth, setButtonsWidth] = useState();
+  const getWidth = () => {
+    const curWidth = buttonsRef.current.offsetWidth;
+    setButtonsWidth(curWidth);
+  };
+
+  useEffect(() => {
+    getWidth();
   });
 
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
@@ -42,35 +50,23 @@ const Schedule = ({ scheduleList }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const [closeAll, setCloseAll] = useState(0);
   for (var i = 0; i < scheduleList.length; i++) {
     let day = scheduleList[i].date.slice(0, scheduleList[i].date.indexOf(' '));
     let date = scheduleList[i].date.slice(scheduleList[i].date.indexOf(' '));
-    var buttonDayDate;
-    if (windowDimensions.width > 860) {
-      buttonDayDate = (
-        <div className={'schedule-day-date-desktop'}>
-          <div>{day}</div>
-          <div className={'schedule-date'}>{date}</div>
-        </div>
-      );
-    } else {
-      buttonDayDate = (
-        <div className={'schedule-day-date-mobile'}>
-          <div>{day}</div>
-        </div>
-      );
-    }
+    let buttonDayDate = (
+      <div className={'schedule-day-date'}>
+        <div>{day}</div>
+        <div className={'schedule-date desktop-only'}>{date}</div>
+      </div>
+    );
     var dateVal = { name: [buttonDayDate] };
     days.push(dateVal);
     const dayList = scheduleList[i].events.map((dayData, index) => (
-      <div
-        className={
-          windowDimensions.width > 860 ? 'schedule-events-desktop' : 'schedule-events-mobile'
-        }
-        key={index}
-      >
+      <div className={'schedule-events'} key={index}>
         <ScheduleAccordionWrapper
           scheduleData={dayData}
+          closeAll={closeAll}
           index={index}
           windowDimensions={windowDimensions}
         />
@@ -79,59 +75,78 @@ const Schedule = ({ scheduleList }) => {
     dayEvents.push(dayList);
   }
 
-  for (var j = 0; j < scheduleList.length; j++) {
-    outerCircleIcons.push(
-      <div
-        className={windowDimensions.width > 860 ? 'schedule-circle-outer' : ''}
-        style={{ top: `${115 * j}px` }}
-      ></div>,
-    );
-    innerCircleIcons.push(
-      <div
-        className={windowDimensions.width > 860 ? 'schedule-circle-inner' : ''}
-        style={{ top: `${115 * j}px` }}
-      ></div>,
-    );
-  }
+  const outerCircleIcons = scheduleList.map((data, index) => (
+    <div
+      key={index}
+      className={'schedule-circle-outer desktop-only'}
+      style={{ top: `${122 * index}px` }}
+    ></div>
+  ));
 
-  console.log(days);
+  const innerCircleIcons = scheduleList.map((data, index) => (
+    <div
+      key={index}
+      className={'schedule-circle-inner desktop-only'}
+      style={{ top: `${122 * index}px` }}
+    ></div>
+  ));
+
+  const today = new Date();
+  const options = { weekday: 'long' };
+  const todayString = today.toLocaleDateString('en-US', options).replace(',', '');
+  let count = 0;
+  for (var k = 0; k < scheduleList.length; k++) {
+    if (scheduleList[k].date.slice(0, scheduleList[k].date.indexOf(' ')) === todayString) {
+      break;
+    }
+    count++;
+  }
+  if (count >= scheduleList.length) {
+    count = 0;
+  }
+  console.log(count);
+  const [selectedDayIndex, setSelectedDayIndex] = useState(count);
+
   return (
     <div className={'schedule-container'}>
-      <div
-        className={
-          windowDimensions.width > 860
-            ? 'schedule-circle-container-desktop'
-            : 'schedule-circle-container-mobile'
-        }
-      >
+      <div className={'schedule-circle-container'}>
         <div ref={circleRef}>{outerCircleIcons}</div>
         <svg
-          className={windowDimensions.width > 860 ? 'schedule-circle-line' : 'schedule-hide'}
-          height={115 * (scheduleList.length - 1) + 15 * scheduleList.length}
-          strokeWidth="20"
+          className={'schedule-circle-line desktop-only'}
+          height={122 * (scheduleList.length - 1) + 15 * scheduleList.length}
+          width={12}
+          strokeWidth="10"
         >
-          <line y1={45} y2={1000} stroke="#ffe863" />
+          <line
+            y1={45}
+            y2={122 * (scheduleList.length - 1) + 15 * scheduleList.length}
+            className={'schedule-line'}
+          />
         </svg>
         <div>{innerCircleIcons}</div>
       </div>
-      <div
-        style={{ width: `${windowDimensions.width > 860 ? '25%' : '100%'}` }}
-        id="buttonSelector"
-      >
-        <div>
-          <ButtonSelector
-            buttonList={days}
-            activeIndex={activeIndex}
-            setActiveIndex={setActiveIndex}
-            scroll={windowDimensions.width > 860}
-            style={{
-              width: windowDimensions.width > 860 ? '100%' : '',
-            }}
-          ></ButtonSelector>
-        </div>
+      <div className={'schedule-button-selector'} ref={buttonsRef}>
+        <ButtonSelector
+          buttonList={days}
+          activeIndex={selectedDayIndex}
+          setActiveIndex={(index) => {
+            setSelectedDayIndex(index);
+            setCloseAll(!closeAll);
+          }}
+          scroll={windowDimensions.width > 767}
+          maxWidthButton={buttonsWidth}
+          isScheduleComponent={true}
+          style={{
+            width: windowDimensions.width > 767 ? '100%' : '',
+            paddingLeft: windowDimensions.width > 1100 || windowDimensions.width < 767 ? '' : '3px',
+          }}
+        ></ButtonSelector>
       </div>
-      <div style={{ width: `${windowDimensions.width > 860 ? '70%' : '100%'}` }}>
-        {dayEvents[activeIndex]}
+      <div
+        className={'schedule-accordion'}
+        style={{ width: `${windowDimensions.width > 767 ? '70%' : '100%'}` }}
+      >
+        {dayEvents[selectedDayIndex]}
       </div>
     </div>
   );
@@ -141,24 +156,32 @@ Schedule.propTypes = {
   scheduleList: PropTypes.array.isRequired,
 };
 
-const ScheduleAccordionWrapper = ({ scheduleData, index, windowDimensions }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  var accordionHeader;
-  if (windowDimensions.width > 860) {
-    accordionHeader = (
-      <div>
-        <span>{scheduleData.name}</span>
-        <span className={'schedule-accordion-time-desktop'}>{scheduleData.time}</span>
-      </div>
-    );
-  } else {
-    accordionHeader = (
-      <div>
-        <div>{scheduleData.name}</div>
-        <div className={'schedule-accordion-time-mobile'}>{scheduleData.time}</div>
-      </div>
-    );
-  }
+const ScheduleAccordionWrapper = ({ scheduleData, index, windowDimensions, closeAll }) => {
+  let currentTime = new Date();
+  let hour = currentTime.getHours();
+  const meridian = hour > 12 ? 'PM' : 'AM';
+  hour = hour > 12 ? hour - 12 : hour;
+
+  let scheduleTime = scheduleData.time;
+  const hourScheduleTime = parseInt(scheduleTime.split(':')[0]);
+  const meridianScheduleTime = scheduleTime.split(' ')[1];
+
+  const [isOpen, setIsOpen] = useState(
+    hour === hourScheduleTime && meridian === meridianScheduleTime,
+  );
+
+  console.log(hour === hourScheduleTime);
+
+  useEffect(() => {
+    setIsOpen(hour === hourScheduleTime && meridian === meridianScheduleTime);
+  }, [closeAll]);
+
+  var accordionHeader = (
+    <div className={'schedule-accordion-container'}>
+      <span className={'schedule-accordion-header'}>{scheduleData.name}</span>
+      <span className={'schedule-accordion-time'}>{scheduleData.time}</span>
+    </div>
+  );
   return (
     <SingleAccordion isOpen={isOpen} setIsOpen={setIsOpen} header={accordionHeader}>
       {scheduleData.description}
@@ -170,6 +193,7 @@ ScheduleAccordionWrapper.propTypes = {
   scheduleData: PropTypes.array.isRequired,
   index: PropTypes.number.isRequired,
   windowDimensions: PropTypes.object.isRequired,
+  closeAll: PropTypes.bool,
 };
 
 export { Schedule };

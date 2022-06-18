@@ -12,6 +12,7 @@ const ButtonSelector = ({
   classNameButton,
   classNameSelector,
   scroll,
+  isScheduleComponent,
 }) => {
   function setActiveButton(index) {
     setActiveIndex(index);
@@ -30,6 +31,7 @@ const ButtonSelector = ({
       label={item.name}
       style={{
         backgroundColor: `${item.buttonColor}`,
+        flex: scrollStatus ? 1 : 0,
         maxWidth: maxWidthButton,
         ...style,
       }}
@@ -44,6 +46,7 @@ const ButtonSelector = ({
       style={{
         overflowX: scrollStatus ? '' : 'auto',
         whiteSpace: scrollStatus ? '' : 'nowrap',
+        justifyContent: isScheduleComponent && !scrollStatus ? 'flex-start' : '',
       }}
     >
       <span>{buttonItems}</span>
@@ -60,6 +63,7 @@ ButtonSelector.propTypes = {
   classNameButton: PropTypes.string,
   classNameSelector: PropTypes.string,
   scroll: PropTypes.bool,
+  isScheduleComponent: PropTypes.bool,
 };
 
 export { ButtonSelector };

@@ -6,35 +6,30 @@
   flex-wrap: wrap;
 }
 
-.schedule-events-desktop {
+.schedule-events {
   margin: 15px 0px 20px 20px;
+  @include devices(tablet) {
+    margin: 15px 5px 20px 5px;
+  }
 }
 
-.schedule-events-mobile {
-  margin: 15px 5px 20px 5px;
-}
-
-.schedule-day-date-desktop {
+.schedule-day-date {
   text-align: left;
-}
-
-.schedule-day-date-mobile {
-  text-align: left;
-  font-size: 15px;
+  @include devices(tablet) {
+    font-size: 15px;
+  }
 }
 
 .schedule-date {
   font-size: 15px;
 }
 
-.schedule-circle-container-desktop {
+.schedule-circle-container {
   position: relative;
   width: 5%;
-}
-
-.schedule-circle-container-mobile {
-  position: relative;
-  width: 0%;
+  @include devices(tablet) {
+    width: 0%;
+  }
 }
 
 .schedule-circle-inner {
@@ -65,24 +60,67 @@
 .schedule-circle-line {
   position: absolute;
   left: 50%;
-  margin-left: -10px;
+  margin-left: -8px;
 }
 
-.schedule-accordion-time-desktop {
+.schedule-line {
+  stroke: var(--yellow);
+}
+
+.schedule-accordion {
+  padding-left: 10px;
+
+  @include devices(tablet) {
+    padding-left: 0;
+  }
+}
+
+.schedule-accordion-container {
+  @include devices(tablet) {
+    height: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.schedule-accordion-header {
+  font-weight: bold;
+}
+
+.schedule-accordion-time {
   float: right;
   margin-right: 30px;
   color: var(--gray);
+
+  @include devices(tablet) {
+    float: left;
+    margin-right: 0px;
+    width: 100%;
+  }
 }
 
-.schedule-accordion-time-mobile {
-  color: var(--gray);
-}
-
-.schedule-hide {
-  display: none;
+.schedule-button-selector {
+  width: 20%;
+  @include devices(tablet) {
+    width: 100%;
+  }
 }
 
 .schedule-scroll {
   overflow-x: scroll;
   white-space: nowrap;
+}
+
+.desktop-only {
+  display: unset;
+  @include devices(tablet) {
+    display: none;
+  }
+}
+
+.mobile-only {
+  display: none;
+  @include devices(tablet) {
+    display: unset;
+  }
 }

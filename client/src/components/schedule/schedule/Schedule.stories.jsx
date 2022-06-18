@@ -9,12 +9,12 @@ export default {
 export const schedule = () => {
   const data = [
     {
-      date: 'Monday September 5',
+      date: 'Monday June 18',
       events: [
         {
           name: 'Meet your frosh group',
           description: 'description',
-          time: '10:00 AM - 11:00 AM',
+          time: '2:00 PM  - 3:00 PM',
         },
         {
           name: 'Matriculation',
@@ -24,12 +24,12 @@ export const schedule = () => {
       ],
     },
     {
-      date: 'Tuesday September 6',
+      date: 'Saturday September 6',
       events: [
         {
           name: 'Meet 1',
           description: 'description',
-          time: '10:00 AM - 11:00 AM',
+          time: '2:00 PM - 3:00 PM',
         },
         {
           name: 'Meet 2',
@@ -44,7 +44,7 @@ export const schedule = () => {
         {
           name: 'Meet 778',
           description: 'description',
-          time: '10:00 AM - 12:00 PM',
+          time: '2:00 PM - 12:00 PM',
         },
       ],
     },

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import faAngleDown from '../../../../assets/accordion/angle-up-solid.svg';
 import './SingleAccordion.scss';
 
-const SingleAccordion = ({ header, time, children, isOpen, setIsOpen }) => {
+const SingleAccordion = ({ header, children, isOpen, setIsOpen }) => {
   const [Height, setHeight] = useState('0px');
   const [Rotate, setRotate] = useState('accord-icon');
 
@@ -21,10 +21,8 @@ const SingleAccordion = ({ header, time, children, isOpen, setIsOpen }) => {
   return (
     <div className="accordion" onClick={toggleAccordion}>
       <div className="accord-header">
-        <div>{header}</div>
-        <div style={{ marginLeft: 'auto' }}></div>
+        <div style={{ width: '100%' }}>{header}</div>
         <div style={{ marginLeft: 'auto' }} className={'accord-text'}>
-          <span style={{ marginRight: '30px' }}>{time}</span>
           <img src={faAngleDown} className={`${Rotate}`} alt="Accordion Button" width="15px" />
         </div>
       </div>
