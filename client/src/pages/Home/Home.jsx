@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getTimelineDates, getScheduleData } from './functions';
-import { getSlideshowImages, getTimelineDates } from './functions';
+import { getTimelineDates, getScheduleData, getSlideshowImages} from './functions';
 
 import './Home.scss';
 import Wave from '../../assets/misc/wave.png';
