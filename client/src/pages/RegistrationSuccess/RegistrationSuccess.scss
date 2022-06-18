@@ -1,0 +1,205 @@
+@import '../../scssStyles/mixins.scss';
+
+.registration-success-page-container {
+  height: calc(100vh - 90px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  h1 {
+    font-size: 50px;
+  }
+  h2 {
+    font-size: 30px;
+    margin-top: 10px;
+  }
+  @include devices(tablet) {
+    h1 {
+      font-size: 40px;
+    }
+    h2 {
+      font-size: 25px;
+    }
+  }
+  transform: scale(0);
+  animation: zoom-appear 1000ms forwards 500ms;
+}
+
+.registration-success-page-progress-bar {
+  width: 100vw;
+  background-color: var(--purple);
+  height: 8px;
+  animation: progressbar-move 8000ms forwards 0ms;
+  animation-timing-function: linear;
+  transform-origin: left;
+  position: fixed;
+  z-index: 100;
+}
+
+.registration-success-page-progress-bar2 {
+  transform: scaleX(0);
+  animation: progressbar-move 7500ms forwards 8000ms;
+  animation-timing-function: linear;
+}
+
+.registration-success-wait-msg {
+  font-size: 25px;
+  margin-top: 20px;
+  text-align: center;
+  transform: scale(0);
+  animation: zoom-appear 1000ms forwards 4000ms;
+  @include devices(tablet) {
+    font-size: 15px;
+  }
+}
+
+@keyframes progressbar-move {
+  0% {
+    transform: scaleX(0);
+  }
+  96% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+
+.registration-success-page-step1 {
+  position: absolute;
+}
+.registration-success-page-step1-1-disappear {
+  animation: up-disappear 600ms forwards 7500ms;
+}
+
+.registration-success-page-step1-2-disappear {
+  animation: down-disappear 600ms forwards 7500ms;
+}
+
+.registration-success-page-step2 {
+  transform: scale(0);
+  animation: zoom-appear 1000ms forwards 7500ms;
+}
+
+.registration-success-page-step2-disappear {
+  position: absolute;
+  animation: zoom-disappear 600ms forwards 9500ms;
+}
+
+.registration-success-page-step3 {
+  transform: scale(0);
+  position: absolute;
+  animation: zoom-appear 1000ms forwards 10000ms;
+
+  h1 {
+    font-size: 250px;
+    text-shadow: var(--shadow);
+  }
+  h2 {
+    font-size: 30px;
+    margin-top: -20px;
+  }
+}
+
+.registration-success-page-step4 {
+  transform: scale(0);
+  animation: zoom-appear 1000ms forwards 13000ms;
+}
+
+.registration-success-page-step5 {
+  margin-top: 20px;
+  transform: scale(0);
+  animation: zoom-appear 1000ms forwards 14000ms;
+}
+
+.registration-success-page-step6 {
+  transform: scale(0);
+  animation: zoom-appear 1000ms forwards 15000ms;
+}
+
+@keyframes zoom-disappear {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes up-disappear {
+  100% {
+    transform: translateY(-35vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes down-disappear {
+  100% {
+    transform: translateY(35vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes zoom-appear {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.frosh-group-text-line {
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  animation: dash-stoke 3500ms ease-in-out forwards, fill-end 3500ms ease-in forwards;
+  animation-delay: 9500ms;
+  stroke: var(--purple);
+  stroke-linecap: round;
+  font-size: 240px;
+  height: 300px;
+  width: 100%;
+  margin-bottom: 0px;
+  fill-opacity: 0;
+  margin-bottom: -35px;
+}
+
+.frosh-group-text-line text {
+  font-family: 'Inter-Bold';
+  font-weight: normal;
+  font-style: normal;
+}
+
+@keyframes dash-stoke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fill-end {
+  0% {
+    fill: var(--black);
+    fill-opacity: 0;
+    stroke-width: 8px;
+  }
+  95% {
+    fill: var(--black);
+    fill-opacity: 0;
+    stroke-width: 8px;
+  }
+  100% {
+    fill: var(--black);
+    fill-opacity: 1;
+    stroke-width: 0;
+  }
+}
