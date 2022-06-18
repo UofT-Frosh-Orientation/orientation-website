@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getTimelineDates } from './functions';
+import { getTimelineDates, getScheduleData } from './functions';
 import './Home.scss';
 import Wave from '../../assets/misc/wave.png';
 import WaveReverse from '../../assets/misc/wave-reverse.png';
@@ -9,6 +9,7 @@ import { Button } from '../../components/button/Button/Button';
 
 import Landing1 from '../../assets/landing/landing-1.jpg';
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
+import { Schedule } from '../../components/schedule/schedule/Schedule';
 
 const PageHome = () => {
   return (
@@ -51,7 +52,7 @@ const HomePageSchedule = () => {
   return (
     <div className="home-page-schedule">
       <h2 className="home-page-section-header">Schedule</h2>
-      <div style={{ height: '200px', width: '50px', padding: '50px' }}>Placeholder</div>
+      <Schedule scheduleList={getScheduleData()}></Schedule>
     </div>
   );
 };
