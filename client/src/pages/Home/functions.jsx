@@ -110,6 +110,7 @@ export function getScheduleData() {
       ],
     },
   ];
+}
 
 export function getSlideshowImages() {
   return shuffleArray([
