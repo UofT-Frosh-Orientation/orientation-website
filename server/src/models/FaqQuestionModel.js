@@ -7,7 +7,7 @@ const FaqSchema = new Schema({
     type: String,
     required: true,
   },
-  answer: { type: String, required: true, default: 'Not answered yet.' },
+  answer: { type: String, required: false, default: '' },
   lastUpdated: { type: Date, required: true, default: Date.now },
   category: { type: String, default: 'General' },
 });
