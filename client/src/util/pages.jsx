@@ -5,6 +5,8 @@ import { PageHome } from '../pages/Home/Home';
 import { PageMaintenance } from '../pages/Maintenance/Maintenance';
 import { PageProfile } from '../pages/Profile/Profile';
 import { PageRegistrationForm } from '../pages/Registration/RegistrationForm';
+import { PageRegistrationSuccess } from '../pages/RegistrationSuccess/RegistrationSuccess';
+import { PageSignUp } from '../pages/SignUp/SignUp';
 
 export const pages = {
   404: {
@@ -65,6 +67,16 @@ export const pages = {
       label: 'Profile',
       component: <PageProfile />,
       path: '/profile',
+    },
+    {
+      label: 'Registration Success',
+      component: <PageRegistrationSuccess />,
+      path: '/registration-success',
+    },
+    {
+      label: 'sign-up',
+      component: <PageSignUp />,
+      path: '/sign-up',
     },
   ],
 };

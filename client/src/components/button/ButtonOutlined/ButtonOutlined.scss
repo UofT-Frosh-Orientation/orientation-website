@@ -6,10 +6,10 @@
   color: var(--text-dark);
   display: inline-block;
   border-radius: 14px;
-  padding: 16px 44px;
+  padding: 10px 26px;
   box-shadow: var(--shadow);
   text-align: center;
-  font-size: 22px;
+  font-size: 17px;
   font-weight: 600;
   cursor: pointer;
   transition: transform 200ms;
@@ -31,7 +31,7 @@
 
   @include devices(tablet) {
     font-size: 16px;
-    padding: 12px 34px;
+    padding: 10px 30px;
     border-width: 3px;
     margin: 8px 6px;
   }

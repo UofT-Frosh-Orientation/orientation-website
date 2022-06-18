@@ -5,9 +5,10 @@ COPY package.json yarn.lock ./
 RUN yarn install --production --frozen-lockfile
 
 COPY ./ ./
-RUN yarn build --mode beta
+RUN yarn build
 
-FROM nginx:1.15
+FROM nginx:alpine
 COPY --from=build /app/dist /var/www/orientation
 COPY --from=build /app/nginx.conf /etc/nginx
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

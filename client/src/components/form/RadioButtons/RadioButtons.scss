@@ -11,8 +11,8 @@
   font-size: 18px;
   line-height: 1;
   display: flex;
-  align-items: flex-start;
-  margin: 10px;
+  margin: 12px;
+  margin-bottom: 3px;
   gap: 10px;
   user-select: none;
 }
@@ -76,4 +76,10 @@ input[type='radio']:hover:disabled {
 .radio-input-title {
   font-size: 16px;
   padding-left: 5px;
+  margin-top: 14px;
+}
+
+.radio-input-disabled-container {
+  opacity: 0.7;
+  color: var(--gray);
 }
