@@ -8,7 +8,7 @@ const Button = ({ label, onClick, isSecondary, isDisabled, style, class_options 
       onClick={onClick}
       style={style}
       className={
-        `button ${isSecondary ? 'button-secondary' : ''} ${isDisabled ? 'button-disabled' : ''}` +
+        `button ${isSecondary ? 'button-secondary' : ''} ${isDisabled ? 'button-disabled' : ''} ` +
         class_options
       }
     >
