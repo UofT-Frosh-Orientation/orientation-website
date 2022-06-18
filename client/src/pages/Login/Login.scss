@@ -15,6 +15,7 @@
 }
 
 .login-container {
+  transition: transform 400ms, opacity 400ms;
   width: 50vw;
   z-index: 9;
 }
@@ -46,11 +47,14 @@
   align-items: center;
 }
 .forgot-message {
-  margin: 4px;
+  display: inline-block;
+  margin-left: 10px;
+  margin-bottom: 5px;
+  margin-top: 10px;
   color: var(--light-purple);
   font-weight: 600;
   cursor: pointer;
-  transition: color 200ms transform 200ms;
+  transition: color 200ms, transform 200ms;
 
   &:hover {
     color: var(--purple);
@@ -371,4 +375,28 @@
     width: 80vw;
     padding: 10px;
   }
+}
+
+.login-loading {
+  z-index: 10;
+  position: fixed;
+  top: calc(50vh - 30px);
+  left: calc(50vw - 30px);
+  transition: transform 400ms, opacity 400ms;
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.login-loading-appear {
+  transition: transform 400ms, opacity 400ms;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.login-container-disappear {
+  transform: translateY(-35vh);
+  opacity: 0;
+  transition: transform 1200ms, opacity 1200ms;
+  user-select: none;
+  pointer-events: none;
 }

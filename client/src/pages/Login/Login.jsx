@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Login.scss';
+import { useNavigate } from 'react-router-dom';
 
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
@@ -16,12 +17,19 @@ import Ptero from '../../assets/login/ptero.svg';
 
 import XMark from '../../assets/misc/xmark-solid-white.svg';
 import { login, resetPassword } from './functions';
+import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
+import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
+import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 
 const PageLogin = ({ incorrectEntry }) => {
   // pop up when clicking forget password
   // deafult -- popup off
+  const navigate = useNavigate();
+
   const [showPopUp, setShowPopUp] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
+  const [loginState, setLoginState] = useState('');
 
   let username = '';
   let password = '';
@@ -30,7 +38,7 @@ const PageLogin = ({ incorrectEntry }) => {
     <>
       <div className="login-entire-page">
         <div className="login-bg">
-          <div className="login-container">
+          <div className={`login-container ${isLoading ? 'login-container-disappear' : ''}`}>
             <h1 className="login-title">Login</h1>
             <TextInput
               inputType={'text'}
@@ -43,33 +51,45 @@ const PageLogin = ({ incorrectEntry }) => {
             <TextInput
               inputType={'password'}
               placeholder={'Password'}
-              errorFeedback={loginError}
               onChange={(value) => {
                 password = value;
               }}
             />
-
+            <p
+              className="forgot-message"
+              onClick={() => setShowPopUp(true)}
+            >{`Forgot Password?`}</p>
             <div className="login-button-container">
-              <p
-                className="forgot-message"
-                onClick={() => setShowPopUp(true)}
-              >{`Forgot Password?`}</p>
+              <ButtonOutlined
+                label="Create account"
+                isSecondary
+                onClick={() => {
+                  navigate('/sign-up');
+                }}
+              />
 
               <Button
                 label={'Log in'}
-                onClick={() => {
+                onClick={async () => {
+                  setIsLoading(true);
                   if (loginError !== '') {
                     setLoginError('');
                   }
-                  const result = login(username, password);
-
-                  if (result !== true) {
+                  const result = await login(username, password);
+                  if (result === true) {
+                    navigate('/profile'); //The profile page should redirect the Frosh if they haven't yet registered
+                  } else {
                     setLoginError(result);
+                    setIsLoading(false);
                   }
                 }}
-              ></Button>
+              />
             </div>
+            <ErrorSuccessBox content={loginError} error={true} />
           </div>
+        </div>
+        <div className={`login-loading ${isLoading === true ? 'login-loading-appear' : ''}`}>
+          <LoadingAnimation size={'60px'} />
         </div>
 
         <PasswordPopUp trigger={showPopUp} setTrigger={setShowPopUp} />
