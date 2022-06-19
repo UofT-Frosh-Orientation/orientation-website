@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DinoBones from '../../assets/404/DinoBones.svg';
+import DinoBones from '../../assets/404/dino-bones-new.svg';
 import Grass from '../../assets/404/grass.png';
 import Meteor from '../../assets/404/meteor.png';
 import './404.scss';
