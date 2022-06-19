@@ -1,20 +1,36 @@
 const express = require('express');
-const router = express.Router();
 
 const FaqController = require('../controllers/FaqController');
-const bodyParser = require('body-parser');
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const checkLoggedIn = require('../middlewares/checkLoggedIn');
+const hasAuthScopes = require('../middlewares/hasAuthScopes');
+
+const router = express.Router();
 
 // POST request for creating question
-router.post('/faq/create', FaqController.questionCreate_post);
+router.post(
+  '/faq/create',
+  checkLoggedIn,
+  hasAuthScopes(['faq:create']),
+  FaqController.createQuestion,
+);
 
 // GET request to delete question
-router.delete('/faq/:faq_id', FaqController.questionDelete_get);
+router.delete(
+  '/faq/:faqId',
+  checkLoggedIn,
+  hasAuthScopes(['faq:delete']),
+  FaqController.deleteQuestion,
+);
 
 // GET request to update question
-router.patch('/faq/:faq_id', FaqController.questionUpdate_get);
+router.patch(
+  '/faq/:faqId?',
+  checkLoggedIn,
+  hasAuthScopes(['faq:edit']),
+  FaqController.updateQuestion,
+);
 
 // GET request for list of all questions
-router.get('/faq/all', FaqController.faqList);
+router.get('/faq/all', FaqController.getAnsweredFaqList);
 
 module.exports = router;
