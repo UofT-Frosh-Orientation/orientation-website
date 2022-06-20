@@ -9,7 +9,7 @@ const FaqServices = {
    */
   async getAnsweredQuestions() {
     return new Promise((resolve, reject) => {
-      FaqModel.find({ answer: { $ne: '' } }, (err, faqs) => {
+      FaqModel.find({ answer: { $ne: '' }, deleted: false }, (err, faqs) => {
         if (err) {
           reject(err);
         } else {

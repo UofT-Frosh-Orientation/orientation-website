@@ -7,7 +7,7 @@ const FaqSchema = new Schema(
       type: String,
       required: true,
     },
-    answer: { type: String, required: true, default: '' },
+    answer: { type: String, required: false, default: '' },
     category: { type: String, default: 'General' },
     deleted: {
       type: Boolean,

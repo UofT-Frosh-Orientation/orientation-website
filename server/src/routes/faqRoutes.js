@@ -6,31 +6,98 @@ const hasAuthScopes = require('../middlewares/hasAuthScopes');
 
 const router = express.Router();
 
-// POST request for creating question
-router.post(
-  '/faq/create',
-  checkLoggedIn,
-  hasAuthScopes(['faq:create']),
-  FaqController.createQuestion,
-);
+/**
+ * @swagger
+ * /faq/create:
+ *   post:
+ *     summary: Create a new question for FAQs
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#components/schemas/NewFAQ'
+ *     responses:
+ *       '200':
+ *         description: Successfully created new question
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#components/schemas/FAQ'
+ *       '403':
+ *         $ref: '#components/responses/NotLoggedIn'
+ */
+router.post('/create', checkLoggedIn, hasAuthScopes(['faq:create']), FaqController.createQuestion);
 
-// GET request to delete question
+/**
+ * @swagger
+ * /faq/{faqId}:
+ *   delete:
+ *     parameters:
+ *       - in: path
+ *         name: faqId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: id of the FAQ to delete
+ *     responses:
+ *       '200':
+ *         description: The FAQ was successfully deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#components/schemas/FAQ'
+ *       '403':
+ *         $ref: '#components/responses/NotLoggedIn'
+ */
 router.delete(
-  '/faq/:faqId',
+  '/:faqId',
   checkLoggedIn,
   hasAuthScopes(['faq:delete']),
   FaqController.deleteQuestion,
 );
 
-// GET request to update question
-router.patch(
-  '/faq/:faqId?',
-  checkLoggedIn,
-  hasAuthScopes(['faq:edit']),
-  FaqController.updateQuestion,
-);
+/**
+ * @swagger
+ * /faq/{faqId}:
+ *   patch:
+ *     parameters:
+ *       - in: path
+ *         name: faqId
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: id of the FAQ to delete
+ *     responses:
+ *       '200':
+ *         description: The FAQ was successfully deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#components/schemas/FAQ'
+ *       '403':
+ *         $ref: '#components/responses/NotLoggedIn'
+ */
+router.patch('/:faqId?', checkLoggedIn, hasAuthScopes(['faq:edit']), FaqController.updateQuestion);
 
-// GET request for list of all questions
-router.get('/faq/all', FaqController.getAnsweredFaqList);
+/**
+ * @swagger
+ * /faq/answered:
+ *   get:
+ *     summary: Get all the answered FAQs
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved the answered FAQs
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 faqs:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#components/schemas/FAQ'
+ */
+router.get('/answered', FaqController.getAnsweredFaqList);
 
 module.exports = router;
