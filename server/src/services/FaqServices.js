@@ -20,23 +20,6 @@ const FaqServices = {
   },
 
   /**
-   * Gets all the unanswered questions in mongo.
-   * @async
-   * @return {Promise<Array<Object>>} - all the unanswered questions
-   */
-  async getUnansweredQuestions() {
-    return new Promise((resolve, reject) => {
-      FaqModel.find({ answer: '', deleted: false }, (err, faqs) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(faqs);
-        }
-      });
-    });
-  },
-
-  /**
    * Gets all the answered questions in mongo.
    * @async
    * @return {Promise<Array<Object>>} - all the answered questions
@@ -81,7 +64,7 @@ const FaqServices = {
    */
   async deleteQuestion(faqId) {
     return new Promise((resolve, reject) => {
-      FaqModel.findByIdAndUpdate(faqId, { lastUpdated: Date.now, deleted: true }, (err, faq) => {
+      FaqModel.findByIdAndUpdate(faqId, { deleted: true }, (err, faq) => {
         if (err || !faq) {
           reject('UNABLE_TO_DELETE_FAQ');
         } else {

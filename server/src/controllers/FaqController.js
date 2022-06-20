@@ -19,23 +19,6 @@ const FaqController = {
   },
 
   /**
-   * Gets all unanswered FAQs.
-   * @param {Object} req
-   * @param {Object} res
-   * @param {Function} next
-   * @async
-   * @return {Promise<void>}
-   */
-  async getUnansweredFaqList(req, res, next) {
-    try {
-      const unansweredQuestions = await FaqServices.getUnansweredQuestions();
-      res.status(200).send({ faqs: unansweredQuestions });
-    } catch (err) {
-      next(err);
-    }
-  },
-
-  /**
    * Gets all answered FAQs.
    * @param {Object} req
    * @param {Object} res
@@ -99,7 +82,7 @@ const FaqController = {
   async updateQuestion(req, res, next) {
     try {
       const { faqId } = req.params;
-      const update = req.body; // also add updated time to this? not sure how to do this...
+      const update = req.body;
       const updatedFaq = await FaqServices.updateQuestion(faqId, update);
       res.status(200).send(updatedFaq.toObject());
     } catch (err) {
