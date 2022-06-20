@@ -100,7 +100,6 @@
 
 .home-page-timeline {
   background-color: var(--purple);
-  padding-bottom: 24px;
   ::-webkit-scrollbar {
     width: 12px;
     height: 12px;
@@ -127,6 +126,7 @@
 
 .home-page-schedule {
   background-color: var(--purple);
+  padding-bottom: 30px;
 }
 
 .home-page-section-header {

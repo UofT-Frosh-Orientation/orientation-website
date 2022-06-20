@@ -1,0 +1,139 @@
+@import '../../../scssStyles/mixins';
+
+.schedule-container {
+  display: flex;
+  @include devices(tablet) {
+    flex-direction: column;
+  }
+}
+
+.schedule-container-dates {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-container-left {
+  display: flex;
+  flex-direction: row;
+  margin-left: 20px;
+}
+
+.schedule-container-line {
+  background-color: var(--yellow);
+  width: 8px;
+  height: 105px; //because 85px height and 10px (x2) margin
+  left: 23.5px;
+  position: relative;
+}
+
+.schedule-container-dot {
+  margin-right: 22px;
+  width: 40px;
+  height: 40px;
+  background-color: var(--white);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.schedule-container-dot2 {
+  margin-right: 22px;
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background-color: var(--white);
+  border-radius: 50%;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.schedule-container-dates-container {
+  height: 85px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 15px;
+  background-color: var(--white);
+  padding: 0px 30px;
+  margin: 10px;
+  opacity: 0.5;
+  transition: transform 200ms, opacity 500ms;
+  &:hover {
+    transform: scale(1.03);
+    cursor: pointer;
+  }
+  h1 {
+    font-size: 28px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+}
+
+.schedule-container-dates-container-selected {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.schedule-accordion {
+  margin: 10px;
+  margin-right: 30px;
+  margin-bottom: 18px;
+  @include devices(tablet) {
+    margin: 10px 15px;
+  }
+  margin-left: 15px;
+  h1 {
+    flex: 1;
+    font-size: 24px;
+    padding: 15px 5px;
+    @include devices(tablet) {
+      font-size: 20px;
+      padding: 10px 0px;
+    }
+  }
+  h2 {
+    font-size: 18px;
+    margin-left: 10px;
+    color: var(--gray);
+    @include devices(tablet) {
+      font-size: 15px;
+      padding: 5px 0px;
+    }
+  }
+  p {
+    font-size: 18px;
+    margin: 10px 5px;
+    margin-top: -10px;
+    @include devices(tablet) {
+      margin: 5px 0px;
+      margin-top: -10px;
+      font-size: 15px;
+    }
+  }
+}
+
+.schedule-accordion-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-right: 17px;
+}
+.schedule-background-purple {
+  background-color: var(--purple-bg) !important;
+}
+.schedule-background-yellow {
+  background-color: var(--yellow-bg) !important;
+}
+.schedule-background-dark-purple {
+  background-color: var(--dark-purple-bg);
+}
+.schedule-background-gray {
+  background-color: var(--gray-bg);
+}
+.schedule-background-green {
+  background-color: var(--green-bg);
+}
+.schedule-background-blue {
+  background-color: var(--blue-bg);
+}
