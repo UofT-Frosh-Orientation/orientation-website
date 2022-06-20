@@ -3,6 +3,40 @@ const mongoose = require('mongoose');
 
 const FaqServices = {
   /**
+   * Gets all the questions (answered and unanswered) in mongo.
+   * @async
+   * @return {Promise<Array<Object>>} - all the questions
+   */
+  async getAllQuestions() {
+    return new Promise((resolve, reject) => {
+      FaqModel.find({ deleted: false }, (err, faqs) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(faqs);
+        }
+      });
+    });
+  },
+
+  /**
+   * Gets all the unanswered questions in mongo.
+   * @async
+   * @return {Promise<Array<Object>>} - all the unanswered questions
+   */
+  async getUnansweredQuestions() {
+    return new Promise((resolve, reject) => {
+      FaqModel.find({ answer: '', deleted: false }, (err, faqs) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(faqs);
+        }
+      });
+    });
+  },
+
+  /**
    * Gets all the answered questions in mongo.
    * @async
    * @return {Promise<Array<Object>>} - all the answered questions

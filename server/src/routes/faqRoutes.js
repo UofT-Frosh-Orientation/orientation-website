@@ -100,4 +100,44 @@ router.patch('/:faqId?', checkLoggedIn, hasAuthScopes(['faq:edit']), FaqControll
  */
 router.get('/answered', FaqController.getAnsweredFaqList);
 
+/**
+ * @swagger
+ * /faq/unanswered:
+ *   get:
+ *     summary: Get all the unanswered FAQs
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved the unanswered FAQs
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 faqs:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#components/schemas/FAQ'
+ */
+router.get('/unanswered', FaqController.getUnansweredFaqList);
+
+/**
+ * @swagger
+ * /faq/all:
+ *   get:
+ *     summary: Get all the answered and unanswered FAQs
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved all the FAQs
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 faqs:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#components/schemas/FAQ'
+ */
+router.get('/all', FaqController.getAllFaqList);
+
 module.exports = router;

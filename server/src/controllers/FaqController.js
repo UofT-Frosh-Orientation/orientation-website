@@ -19,6 +19,40 @@ const FaqController = {
   },
 
   /**
+   * Gets all unanswered FAQs.
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @async
+   * @return {Promise<void>}
+   */
+  async getUnansweredFaqList(req, res, next) {
+    try {
+      const unansweredQuestions = await FaqServices.getUnansweredQuestions();
+      res.status(200).send({ faqs: unansweredQuestions });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  /**
+   * Gets all answered FAQs.
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @async
+   * @return {Promise<void>}
+   */
+  async getAllFaqList(req, res, next) {
+    try {
+      const allQuestions = await FaqServices.getAllQuestions();
+      res.status(200).send({ faqs: allQuestions });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  /**
    * Creates a new question in mongo and returns the question to the frontend.
    * @param {Object} req
    * @param {Object} res
@@ -65,7 +99,7 @@ const FaqController = {
   async updateQuestion(req, res, next) {
     try {
       const { faqId } = req.params;
-      const update = req.body;
+      const update = req.body; // also add updated time to this? not sure how to do this...
       const updatedFaq = await FaqServices.updateQuestion(faqId, update);
       res.status(200).send(updatedFaq.toObject());
     } catch (err) {
