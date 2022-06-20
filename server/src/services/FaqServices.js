@@ -81,7 +81,7 @@ const FaqServices = {
    */
   async deleteQuestion(faqId) {
     return new Promise((resolve, reject) => {
-      FaqModel.findByIdAndUpdate(faqId, { deleted: true }, (err, faq) => {
+      FaqModel.findByIdAndUpdate(faqId, { lastUpdated: Date.now, deleted: true }, (err, faq) => {
         if (err || !faq) {
           reject('UNABLE_TO_DELETE_FAQ');
         } else {
