@@ -2,8 +2,11 @@
 
 .schedule-container {
   display: flex;
+  padding: 0 20px;
+
   @include devices(tablet) {
     flex-direction: column;
+    padding: 0px;
   }
 }
 
