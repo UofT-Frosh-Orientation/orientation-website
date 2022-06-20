@@ -1,0 +1,71 @@
+@import '../../scssStyles/mixins';
+
+.popup-background {
+  position: absolute;
+  z-index: 9;
+
+  background: rgba(111, 30, 136, 0.75);
+  // width: 100vw;
+  // height: 150vh;
+
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  // top: 25vh;
+
+  background: var(--purple-shades-muted);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  // width: 50vw;
+  border-radius: 10px;
+
+  padding: 10px;
+
+  color: var(--white);
+  text-align: center;
+}
+.popup-heading {
+  padding-top: 14px;
+  padding-bottom: 10px;
+}
+.popup-x-mark {
+  align-self: flex-end;
+  width: 10px;
+  left: 0;
+  margin-right: 3px;
+  margin-left: 3px;
+  cursor: pointer;
+  transition: transform 200ms;
+
+  &:hover {
+    color: var(--light-purple);
+    transform: scale(1.2);
+    transition: transform 200ms;
+  }
+  &:active {
+    color: var(--light-purple);
+    transform: scale(0.8);
+    transition: transform 150ms;
+  }
+}
+
+@include devices(tablet) {
+  .popup-background {
+    height: 100vh;
+  }
+
+  .popup-container {
+    width: 80vw;
+    padding: 10px;
+  }
+}
