@@ -327,7 +327,7 @@ const FAQAskQuestion = () => {
 
   return (
     <div className={'faq-ask-question-container'}>
-      <h1 className={'faq-ask-question-title'}>Can Find Your Question?</h1>
+      <h1 className={'faq-ask-question-title'}>Can`&apos;`t Find Your Question?</h1>
       <form>
         <label>
           <textarea
