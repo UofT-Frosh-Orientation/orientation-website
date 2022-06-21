@@ -1,20 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './RadioButtons.scss';
 
-const RadioButtons = ({ values, initialSelectedIndex, onSelected, disabledIndices, label }) => {
+const RadioButtons = ({
+  values,
+  initialSelectedIndex,
+  onSelected,
+  disabledIndices,
+  label,
+  isDisabled,
+}) => {
+  useEffect(() => {
+    if (initialSelectedIndex !== undefined) {
+      onSelected(values[initialSelectedIndex]);
+    }
+  }, []);
   return (
-    <>
+    <div className={`${isDisabled ? 'radio-input-disabled-container' : ''}`}>
       {label !== undefined ? <p className="radio-input-title">{label}</p> : <></>}
       <div style={{ display: 'flex', alignItems: 'flex-start' }} className={'radio-buttons'}>
         <form action="">
           {values.map((value, index) => {
-            let isDisabled = false;
-            if (disabledIndices !== undefined) isDisabled = disabledIndices?.includes(index);
+            let isDisabledValue = false;
+            if (disabledIndices !== undefined) isDisabledValue = disabledIndices?.includes(index);
+            if (isDisabled === true) isDisabledValue = true;
             return (
               <>
                 <label
-                  className={'form-control' + (isDisabled ? ' form-control-disabled' : '')}
+                  className={'form-control' + (isDisabledValue ? ' form-control-disabled' : '')}
                   key={value}
                   id={value}
                 >
@@ -25,7 +38,7 @@ const RadioButtons = ({ values, initialSelectedIndex, onSelected, disabledIndice
                     onClick={() => {
                       onSelected(value, index);
                     }}
-                    disabled={isDisabled}
+                    disabled={isDisabledValue}
                   />
                   {value}
                 </label>
@@ -34,7 +47,7 @@ const RadioButtons = ({ values, initialSelectedIndex, onSelected, disabledIndice
           })}
         </form>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -44,6 +57,7 @@ RadioButtons.propTypes = {
   onSelected: PropTypes.func,
   disabledIndices: PropTypes.arrayOf(PropTypes.number),
   label: PropTypes.string,
+  isDisabled: PropTypes.bool,
 };
 
 export { RadioButtons };

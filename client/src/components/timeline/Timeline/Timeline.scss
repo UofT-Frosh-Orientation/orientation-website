@@ -2,12 +2,16 @@
 
 .timeline-line {
   position: absolute;
-  width: calc(100% - 5vw - 5vw);
+  width: calc(100% - min(50px, 5vw) - min(50px, 5vw));
   height: 10px;
   background-color: var(--yellow-light);
   border-radius: 15px;
-  margin-left: 5vw;
-  margin-right: 5vw;
+  margin-left: min(50px, 5vw);
+  margin-right: min(50px, 5vw);
+}
+
+.timeline-space {
+  width: calc(70px - min(40px, 5vw));
 }
 
 .timeline-container {
