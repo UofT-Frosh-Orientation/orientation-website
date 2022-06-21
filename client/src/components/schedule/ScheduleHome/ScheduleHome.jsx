@@ -34,7 +34,6 @@ const ScheduleComponent = () => {
   const buttonList = Object.keys(data).map((item) => {
     return { name: item };
   });
-  console.log(closeAll);
   return (
     <div className="schedule-container">
       <div className="mobile-only">
