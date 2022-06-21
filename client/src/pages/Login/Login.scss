@@ -48,13 +48,12 @@
 }
 .forgot-message {
   display: inline-block;
-  margin-left: 10px;
-  margin-bottom: 5px;
-  margin-top: 10px;
+  margin: 15px 0px 10px 10px;
   color: var(--light-purple);
   font-weight: 600;
   cursor: pointer;
   transition: color 200ms, transform 200ms;
+  font-size: 18px;
 
   &:hover {
     color: var(--purple);
@@ -281,32 +280,6 @@
   }
 }
 
-// FORGOT PASSWORD POPUP
-
-// .forgot-password-popup {
-//   position: fixed;
-//   z-index: 9;
-
-//   background: rgba(111, 30, 136, 0.75);
-//   width: 100vw;
-//   height: 150vh;
-
-//   top: 0;
-
-//   display: flex;
-//   flex-direction: column;
-//   // justify-content: center;
-//   align-items: center;
-// }
-
-// POPUP ANIMATION
-.forgot-password-container {
-  // animation: show-popup-animation 400ms ease-in;
-  // transform: scale(1);
-  // opacity: 1;
-  // transition: all 5s ease-in;
-}
-
 @keyframes show-popup-animation {
   0% {
     transform: scale(0);
@@ -323,20 +296,13 @@
 ///
 
 .forgot-password-container {
-  // position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  // top: 25vh;
-
-  // background: var(--purple-shades-muted);
-  // box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   width: 60vw;
-  // border-radius: 10px;
-
-  // padding: 10px;
+  padding-bottom: 29px;
 
   color: var(--white);
   text-align: center;
@@ -345,10 +311,10 @@
     width: 80vw;
   }
 }
-.reset-password-title {
-  padding-top: 14px;
-  padding-bottom: 10px;
-}
+// .reset-password-title {
+//   padding-top: 14px;
+//   padding-bottom: 10px;
+// }
 .forgot-password-x-mark {
   align-self: flex-end;
   width: 10px;
@@ -371,6 +337,7 @@
 }
 .reset-password-des {
   padding: 0 50px 25px 50px;
+  color: var(--white);
 }
 
 @include devices(tablet) {
@@ -380,7 +347,7 @@
 
   .forgot-password-container {
     width: 80vw;
-    padding: 10px;
+    padding: 10px 10px 29px 10px;
   }
 }
 

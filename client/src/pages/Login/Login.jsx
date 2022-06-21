@@ -99,6 +99,7 @@ const PageLogin = ({ incorrectEntry }) => {
           setTrigger={setShowPopUp}
           bgHeight="150vh"
           containerTop="25vh"
+          heading="Reset Password"
         >
           <ForgotPassword />
         </PopupModal>
@@ -127,96 +128,40 @@ PageLogin.defaultProps = {
   incorrectEntry: false,
 };
 
-// const PasswordPopUp = ({ trigger, setTrigger }) => {
-//   const [emailError, setEmailError] = useState('');
-
-//   let email = '';
-
-//   return trigger ? (
-//     <div className="forgot-password-popup">
-//       <div className="forgot-password-container">
-//         <img
-//           className="forgot-password-x-mark"
-//           src={XMark}
-//           alt="x-mark"
-//           onClick={() => {
-//             setTrigger(false);
-//             setEmailError('');
-//           }}
-//         ></img>
-
-//         <h2 className="reset-password-title">Reset Password</h2>
-//         <p className="reset-password-des">{`Enter your email address below, and we'll send you an email to reset your password.`}</p>
-//         <TextInput
-//           inputType={'text'}
-//           placeholder={'Email'}
-//           onChange={(value) => {
-//             email = value;
-//           }}
-//           errorFeedback={emailError}
-//         />
-
-//         <Button
-//           label={'Send'}
-//           onClick={() => {
-//             if (emailError !== '') {
-//               setEmailError('');
-//             }
-//             const result = resetPassword(email);
-
-//             if (result !== true) {
-//               setEmailError(result);
-//             }
-//           }}
-//         ></Button>
-//       </div>
-//     </div>
-//   ) : (
-//     <></>
-//   );
-// };
-
 const ForgotPassword = () => {
   const [emailError, setEmailError] = useState('');
 
   let email = '';
 
   return (
-    <div className="forgot-password-popup">
-      <div className="forgot-password-container">
-        <h2 className="reset-password-title">Reset Password</h2>
-        <p className="reset-password-des">{`Enter your email address below, and we'll send you an email to reset your password.`}</p>
-        <TextInput
-          inputType={'text'}
-          placeholder={'Email'}
-          onChange={(value) => {
-            email = value;
-          }}
-          errorFeedback={emailError}
-        />
+    <div className="forgot-password-container">
+      {/* <h2 className="reset-password-title">Reset Password</h2> */}
+      <p className="reset-password-des">{`Enter your email address below, and we'll send you an email to reset your password.`}</p>
+      <TextInput
+        inputType={'text'}
+        placeholder={'Email'}
+        onChange={(value) => {
+          email = value;
+        }}
+        errorFeedback={emailError}
+      />
 
-        <Button
-          label={'Send'}
-          onClick={() => {
-            if (emailError !== '') {
-              setEmailError('');
-            }
-            const result = resetPassword(email);
+      <Button
+        label={'Send'}
+        onClick={() => {
+          if (emailError !== '') {
+            setEmailError('');
+          }
+          const result = resetPassword(email);
 
-            if (result !== true) {
-              setEmailError(result);
-            }
-          }}
-          style={{ zIndex: '10' }}
-        ></Button>
-      </div>
+          if (result !== true) {
+            setEmailError(result);
+          }
+        }}
+        style={{ zIndex: '10' }}
+      ></Button>
     </div>
   );
 };
-
-// PasswordPopUp.propTypes = {
-//   trigger: PropTypes.bool,
-//   setTrigger: PropTypes.func,
-// };
 
 export { PageLogin };
