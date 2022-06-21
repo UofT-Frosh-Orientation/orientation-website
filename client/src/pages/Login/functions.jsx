@@ -1,5 +1,4 @@
 export async function login(username, password) {
-  console.log(username, password);
   /*eslint no-undef: 0*/
   let promise = new Promise((res, rej) => {
     setTimeout(() => res('An error occurred. Please try again.'), 1000);
