@@ -5,51 +5,31 @@
 // errorMessage: The message to show if the field is missing but is required
 // onChanged(value, disableFields): disable/enable fields based on a value (dependancies)
 // className: the class name applied around the child form input component
-
 export const fields = {
   General: {
-    // nameLabel: {
-    //   type: 'label',
-    //   label: "Full Name? (First & Last)",
-    //   isRequiredInput: true,
-    // },
-    // firstName: {
-    //   type: 'text',
-    //   inputType: 'text',
-    //   placeholder: 'John',
-    //   hasRestrictedInput: true,
-    //   isRequiredInput: true,
-    //   errorMessage: 'Please enter a valid name',
-    //   localStorageKey: 'registration-firstName',
-    //   className: "half-width-input",
-    // },
-    // lastName: {
-    //   type: 'text',
-    //   inputType: 'text',
-    //   placeholder: 'Doe',
-    //   hasRestrictedInput: true,
-    //   isRequiredInput: true,
-    //   errorMessage: 'Please enter a valid name',
-    //   localStorageKey: 'registration-lastName',
-    //   className: "half-width-input",
-    // },
-    // preferredName: {
-    //   type: 'text',
-    //   inputType: 'text',
-    //   label: 'preferred name?',
-    //   placeholder: 'Joey',
-    //   hasRestrictedInput: true,
-    //   isRequiredInput: false,
-    //   errorMessage: '',
-    //   localStorageKey: 'registration-preferredName',
-    //   className: "half-width-input",
-    // },
+    name: {
+      type: 'text',
+      inputType: 'text',
+      placeholder: 'Best Frosh',
+      label: 'Legal Name',
+      isRequiredInput: true,
+      errorMessage: 'Please enter your legal name',
+      className: 'half-width-input',
+    },
+    preferredname: {
+      type: 'text',
+      inputType: 'text',
+      label: 'Preferred Name',
+      hasRestrictedInput: true,
+      isRequiredInput: false,
+      className: 'fill-remaining-width-input',
+    },
     pronoun: {
       type: 'dropdown',
       label: 'Pronoun',
-      values: ['he/him', 'she/her', 'they/them', 'other'],
+      values: ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'other'],
       initialSelectedIndex: 0,
-      className: 'inline-block-remaining',
+      className: 'half-width-input',
       onChanged: (value, disableField) => {
         if (value === 'other') {
           disableField(false, 'pronounOther', 'General');
@@ -81,7 +61,7 @@ export const fields = {
       type: 'text',
       inputType: 'text',
       label: 'UtorID',
-      placeholder: 'doejohn2',
+      placeholder: 'froshbest123',
       hasRestrictedInput: true,
       isRequiredInput: true,
       errorMessage: 'Please enter a UtorID',
@@ -96,7 +76,7 @@ export const fields = {
         'Civil',
         'Computer',
         'Electrical',
-        'Engineering',
+        'Engineering Science',
         'Industrial',
         'Materials',
         'Mechanical',
@@ -112,26 +92,6 @@ export const fields = {
       initialSelectedIndex: 1,
       className: 'inline-block-remaining',
     },
-    // "email":{
-    //   "type":"text",
-    //   "inputType":"text",
-    //   "label":"Email",
-    //   "placeholder":"Email",
-    //   "hasRestrictedInput":true,
-    //   "isRequiredInput":true,
-    //   "errorMessage":"Missing field",
-    //   "localStorageKey":"registration-email"
-    // },
-    // "password":{
-    //   "type":"text",
-    //   "inputType":"password",
-    //   "label":"Password",
-    //   "placeholder":"Password",
-    //   "hasRestrictedInput":true,
-    //   "isRequiredInput":true,
-    //   "errorMessage":"Missing field"
-    // },
-    //Format the phone number as asked
     phoneNumberLabel: {
       type: 'label',
       label: 'Phone number?',
@@ -150,7 +110,7 @@ export const fields = {
     phoneNumber: {
       type: 'text',
       inputType: 'text',
-      placeholder: '(416) 123-45678',
+      placeholder: '(416) 123-4567',
       hasRestrictedInput: true,
       isRequiredInput: true,
       errorMessage: 'Missing field',
@@ -184,7 +144,7 @@ export const fields = {
       type: 'text',
       inputType: 'text',
       label: 'Emergency contact relationship',
-      placeholder: 'Mother',
+      placeholder: 'Parent / Guardian',
       hasRestrictedInput: true,
       isRequiredInput: true,
       errorMessage: 'Missing field',
@@ -209,7 +169,7 @@ export const fields = {
     emergencyContactNumber: {
       type: 'text',
       inputType: 'text',
-      placeholder: '(416) 123-45678',
+      placeholder: '(416) 123-4567',
       hasRestrictedInput: true,
       isRequiredInput: true,
       errorMessage: 'Missing field',
@@ -218,134 +178,12 @@ export const fields = {
       isPhoneNumber: true,
       inputTitle: 'Phone Number',
     },
-    residencyLineLabel: {
-      type: 'label',
-      label: 'Residency address',
-      isRequiredInput: true,
-    },
-    residencyLine1: {
-      type: 'text',
-      inputType: 'text',
-      placeholder: '123 Park Street',
-      hasRestrictedInput: true,
-      isRequiredInput: true,
-      errorMessage: 'Missing field',
-      className: 'half-width-input',
-      inputTitle: 'Address',
-    },
-    residencyLine2: {
-      type: 'text',
-      inputType: 'text',
-      placeholder: 'Unit 123',
-      hasRestrictedInput: true,
-      errorMessage: 'Missing field',
-      className: 'half-width-input',
-      inputTitle: 'Unit',
-    },
-    residencyCity: {
-      type: 'text',
-      inputType: 'text',
-      placeholder: 'Toronto',
-      hasRestrictedInput: true,
-      isRequiredInput: true,
-      errorMessage: 'Missing field',
-      className: 'half-width-input',
-      inputTitle: 'City',
-    },
-    residencyProvince: {
-      type: 'text',
-      inputType: 'text',
-      placeholder: 'Ontario',
-      hasRestrictedInput: true,
-      isRequiredInput: true,
-      errorMessage: 'Missing field',
-      className: 'half-width-input',
-      inputTitle: 'Province/State',
-    },
-    residencyPostalCode: {
-      type: 'text',
-      inputType: 'text',
-      placeholder: 'M9R2J0',
-      hasRestrictedInput: true,
-      isRequiredInput: true,
-      errorMessage: 'Missing field',
-      className: 'half-width-input',
-      inputTitle: 'Postal Code/Area Code',
-    },
-    residencyPostalCountry: {
-      type: 'text',
-      inputType: 'text',
-      placeholder: 'Canada',
-      hasRestrictedInput: true,
-      isRequiredInput: true,
-      errorMessage: 'Missing field',
-      className: 'half-width-input',
-      inputTitle: 'Country',
-    },
-    shippingLineLabel: {
-      type: 'label',
-      label: 'Shipping Address (if same as Residency address, leave blank)',
-    },
-    shippingLine1: {
-      type: 'text',
-      inputType: 'text',
-      placeholder: '123 Park Street',
-      hasRestrictedInput: true,
-      errorMessage: 'Missing field',
-      className: 'half-width-input',
-      inputTitle: 'Address',
-    },
-    shippingLine2: {
-      type: 'text',
-      inputType: 'text',
-      placeholder: 'Unit 123',
-      hasRestrictedInput: true,
-      errorMessage: 'Missing field',
-      className: 'half-width-input',
-      inputTitle: 'Unit',
-    },
-    shippingCity: {
-      type: 'text',
-      inputType: 'text',
-      placeholder: 'Toronto',
-      hasRestrictedInput: true,
-      errorMessage: 'Missing field',
-      className: 'half-width-input',
-      inputTitle: 'City',
-    },
-    shippingProvince: {
-      type: 'text',
-      inputType: 'text',
-      placeholder: 'Ontario',
-      hasRestrictedInput: true,
-      errorMessage: 'Missing field',
-      className: 'half-width-input',
-      inputTitle: 'Province/State',
-    },
-    shippingPostalCode: {
-      type: 'text',
-      inputType: 'text',
-      placeholder: 'M9R2J0',
-      hasRestrictedInput: true,
-      errorMessage: 'Missing field',
-      className: 'half-width-input',
-      inputTitle: 'Postal Code/Area Code',
-    },
-    shippingPostalCountry: {
-      type: 'text',
-      inputType: 'text',
-      placeholder: 'Canada',
-      hasRestrictedInput: true,
-      errorMessage: 'Missing field',
-      className: 'half-width-input',
-      inputTitle: 'Country',
-    },
   },
-  Misc: {
+  SkulePatrol: {
     medicalInfo: {
       type: 'text',
       inputType: 'textArea',
-      label: 'Allergies and/or medical conditions',
+      label: 'Allergies and/or Medical Conditions',
       placeholder: 'Nut allergy',
       hasRestrictedInput: true,
       isRequiredInput: false,
@@ -356,65 +194,13 @@ export const fields = {
     medication: {
       type: 'text',
       inputType: 'text',
-      label: 'Medication (e.g. Epi-Pen, inhaler, ...)',
+      label: 'Medication (Epi-Pen, inhaler, etc.)',
       placeholder: 'Carries 2 epi-pens',
       hasRestrictedInput: true,
       isRequiredInput: false,
       errorMessage: 'Missing field',
       localStorageKey: 'registration-medication',
       className: 'half-width-input',
-    },
-    torontoIslandTrip: {
-      type: 'radio',
-      label:
-        'Would you be interested in a trip to Toronto Islands on one of the evenings during F!rosh Week? (At a small additional cost)',
-      values: ['Yes', 'No'],
-      initialSelectedIndex: 1,
-    },
-    scunt: {
-      type: 'radio',
-      label:
-        'Would you like to participate in Havenger Scunt? (It will take place on the evening of Wednesday, September 7th)',
-      values: ['Yes', 'No'],
-      initialSelectedIndex: 0,
-    },
-    nightlife: {
-      type: 'radio',
-      label:
-        'Would you be interested in an overnight retreat on September 10th -11th? (at an Additional cost)',
-      values: ['Yes', 'No'],
-      initialSelectedIndex: -1,
-    },
-    summerLocation: {
-      type: 'text',
-      inputType: 'text',
-      label: 'Where will you be located for the majority of the summer?',
-      placeholder: 'Toronto, Canada',
-      hasRestrictedInput: true,
-      isRequiredInput: true,
-      errorMessage: 'Please enter your current city and country.',
-      localStorageKey: 'registration-medication',
-    },
-    moveToToronto: {
-      type: 'dropdown',
-      label:
-        'If you are not in the GTA already, approximately when are you planning to move to Toronto?',
-      values: [
-        'N/A',
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-      ],
-      initialSelectedIndex: 0,
     },
     allergies: {
       type: 'checkbox',
@@ -435,56 +221,97 @@ export const fields = {
       inputType: 'text',
       label:
         'If there are any other restrictions not listed above, please write them in the box below.',
-      placeholder:
-        'If there are any other restrictions not listed above, please write them in the box below.',
+      placeholder: 'Allergic to berries',
       hasRestrictedInput: true,
-      isRequiredInput: true,
+      isRequiredInput: false,
       errorMessage: 'Please enter your current city and country.',
       localStorageKey: 'registration-allergies',
     },
-    commuterProgram: {
+  },
+  Misc: {
+    scunt: {
       type: 'radio',
       label:
-        'Will you take part in the Commuter Program (you can still sign up via links on Instagram and Frosh week website)?',
-      values: ['Yes', 'No', 'Put me on the waitlist'],
-      initialSelectedIndex: 1,
+        'Would you like to participate in Havenger Scunt? (It will take place on the evening of Wednesday, September 7th)',
+      values: ['Yes', 'No'],
+      initialSelectedIndex: 0,
+    },
+    summerLocation: {
+      type: 'text',
+      inputType: 'text',
+      label: 'Where will you be located for the majority of the summer?',
+      placeholder: 'Toronto, Canada',
+      hasRestrictedInput: true,
+      isRequiredInput: true,
+      errorMessage: 'Please enter your current city and country.',
+      localStorageKey: 'registration-medication',
+    },
+    moveToToronto: {
+      type: 'dropdown',
+      label:
+        'If you are not in the GTA already, approximately when are you planning to move to Toronto?',
+      values: ['N/A', 'May', 'June', 'July', 'August', 'September'],
+      initialSelectedIndex: 0,
+    },
+    commuterProgram: {
+      type: 'radio',
+      label: 'Do you plan to commute to campus for Frosh Week and / or the school year?',
+      values: ['Yes', 'No'],
+      initialSelectedIndex: -1,
       onChanged: (value, disableField) => {
         if (value === 'Yes') {
-          disableField(false, 'areaGTA', 'Misc');
-          disableField(false, 'chestnutStay', 'Misc');
+          disableField(false, 'commuterProgramInformation', 'Misc');
         } else {
-          disableField(true, 'areaGTA', 'Misc');
-          disableField(true, 'chestnutStay', 'Misc');
+          disableField(true, 'commuterProgramInformation', 'Misc');
         }
       },
     },
-    areaGTA: {
+    commuterProgramInformation: {
+      type: 'dropdown',
+      label: 'How do you plan on commuting to campus?',
+      values: ['Car', 'Subway', 'Go Train', 'Walking', 'Biking', 'Other'],
+      initialSelectedIndex: 0,
+      className: 'inline-block-remaining',
+      onChanged: (value, disableField) => {
+        if (value === 'Subway' || value === 'Go Train') {
+          disableField(false, 'commuterProgramStop', 'Misc');
+        } else {
+          disableField(true, 'commuterProgramStop', 'Misc');
+        }
+        if (value === 'Other') {
+          disableField(false, 'commuterOther', 'Misc');
+        } else {
+          disableField(true, 'commuterOther', 'Misc');
+        }
+      },
+      isRequiredInput: false,
+    },
+    commuterOther: {
       type: 'text',
       inputType: 'text',
-      label:
-        'What area of the GTA do you live in? Please enter your postal code. (This information is used only to pair you with commuters in your area for the purpose of this program)',
-      placeholder: 'M5S 3K1',
+      label: 'Other Commuter Option',
       hasRestrictedInput: true,
-      isRequiredInput: true,
-      errorMessage: 'Please enter a valid postal code.',
-      localStorageKey: 'registration-areaGTA',
+      isRequiredInput: false,
     },
-    chestnutStay: {
-      type: 'radio',
-      label: 'Would you like to stay up at Chestnut during Frosh week with an additional cost?',
-      values: ['Yes', 'No'],
-      initialSelectedIndex: -1,
+    commuterProgramStop: {
+      type: 'text',
+      inputType: 'text',
+      label: 'Which stop do you get on for the subway or go train?',
+      isRequiredInput: false,
     },
+  },
+  Accomodations: {
     photograph: {
       type: 'radio',
       label: 'Are you okay with being photographed during Frosh Week?',
       values: ['Yes', 'No'],
-      initialSelectedIndex: 1,
+      initialSelectedIndex: 0,
     },
     accessibility: {
       type: 'text',
       inputType: 'text',
-      label: "Do you have any accessibility requirements you'd like to share with us?",
+      label:
+        "Do you have any accessibility requirements or accomodations you'd like to share with us?",
       placeholder:
         'I would like to be able to access a quiet space to relax when the activities get overwhelming',
       hasRestrictedInput: true,
@@ -493,9 +320,9 @@ export const fields = {
       localStorageKey: 'registration-areaGTA',
       onChanged: (value, disableField) => {
         if (value !== '' && value !== undefined) {
-          disableField(false, 'accomadation', 'Misc');
+          disableField(false, 'accomadation', 'Accomodations');
         } else {
-          disableField(true, 'accomadation', 'Misc');
+          disableField(true, 'accomadation', 'Accomodations');
         }
       },
     },
@@ -504,10 +331,37 @@ export const fields = {
       label: 'Would you like us to reach out to you about how we can best accomodate you?',
       values: ['Yes', 'No'],
       initialSelectedIndex: -1,
+      onChanged: (value, disableField) => {
+        if (value === 'Yes') {
+          disableField(false, 'accomodationContact', 'Accomodations');
+        } else {
+          disableField(true, 'accomodationContact', 'Accomodations');
+        }
+      },
+    },
+    accomodationContact: {
+      type: 'dropdown',
+      label: 'Accomodation Contact Information',
+      values: ['Phone', 'Email', 'Other'],
+      initialSelectedIndex: 0,
+      className: 'inline-block-remaining',
+      onChanged: (value, disableField) => {
+        if (value === 'Other') {
+          disableField(false, 'accomodationOther', 'Accomodations');
+        } else {
+          disableField(true, 'accomodationOther', 'Accomodations');
+        }
+      },
+    },
+    accomodationOther: {
+      type: 'text',
+      inputType: 'text',
+      label: 'Other Accomodation Contact Information',
+      hasRestrictedInput: true,
+      isRequiredInput: false,
     },
   },
 };
-
 export const terms = `
 F!rosh Week is collecting your information to help us deliver some of our programming. 
 Notably, we're asking for your contact information so that we can be in contact over the 

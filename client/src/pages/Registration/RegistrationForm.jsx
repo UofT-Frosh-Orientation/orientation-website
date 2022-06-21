@@ -194,7 +194,15 @@ const PageRegistrationForm = () => {
                 ),
               },
               {
-                title: 'Misc',
+                title: 'Skule Patrol',
+                component: generateStepComponent(formFields['SkulePatrol'], 'SkulePatrol'),
+              },
+              {
+                title: 'Accessibility',
+                component: generateStepComponent(formFields['Accomodations'], 'Accomodations'),
+              },
+              {
+                title: 'Extra Events',
                 component: generateStepComponent(formFields['Misc'], 'Misc'),
               },
               {
