@@ -15,6 +15,11 @@
   width: 80%;
 }
 
+.faq-button-selector-container {
+  margin: 15px 10% 20px 10%;
+  width: 80%;
+}
+
 .faq-page-header-text {
   padding-left: 5%;
   h1 {
@@ -71,7 +76,7 @@
   width: 100%;
 }
 
-input:focus {
+.faq-search input:focus {
   outline: none;
 }
 
@@ -122,8 +127,12 @@ input:focus {
   bottom: 0px;
 }
 
+.faq-accordion-container {
+  margin: 50px 0% 100px 0%;
+}
+
 .faq-accordion-wrapper {
-  margin: 15px 20px 20px 20px;
+  margin: 15px 10% 20px 10%;
 }
 
 .faq-hide-accordion {
@@ -147,7 +156,6 @@ input:focus {
   padding: 0px 40px 0px 40px;
   background-color: var(--purple-shades-light);
   border-radius: 12px;
-
   color: var(--text-dark);
 }
 
@@ -163,4 +171,40 @@ input:focus {
   background-color: var(--purple-shades-light);
   border-radius: 12px;
   color: var(--text-dark);
+}
+
+.faq-ask-question-outer-container {
+  width: 40%;
+  margin-left: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include devices(tablet) {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+
+.faq-ask-question-container {
+  width: 100%;
+  text-align: center;
+}
+
+.faq-ask-question-title {
+  width: 100%;
+}
+
+.faq-ask-question-box {
+  font-size: 25px;
+  width: 100%;
+  border: none;
+  outline: none;
+  box-shadow: 0px 0px 20px var(--gray);
+  height: 300px;
+  margin: 20px 0px 20px 0px;
+  padding: 10px;
+  border-radius: 10px;
+  word-wrap: break-word;
+  word-break: break-all;
 }
