@@ -28,7 +28,7 @@ const SingleAccordion = ({ header, children, isOpen, setIsOpen, canOpen, classNa
         {header}
         {canOpen !== false ? (
           <div style={{ marginLeft: 'auto' }} className={'accord-text'}>
-            <img src={faAngleDown} className={`${Rotate}`} alt="Accordion Button" width="15px" />
+            <img src={faAngleDown} className={`${rotate}`} alt="Accordion Button" width="15px" />
           </div>
         ) : (
           <></>
