@@ -8,7 +8,6 @@ export async function login(username, password) {
 }
 
 export function resetPassword(email) {
-  console.log(email);
 
   // if valid email
   return 'Success! Check your email!';
