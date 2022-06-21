@@ -1,5 +1,5 @@
 const express = require('express')
-const router = express.Router();
+
 const {
   getTimeline,
   getTimelineElement,
@@ -9,19 +9,19 @@ const {
 
 } = require('../controllers/TimelineController')
 
-router.get('/timeline', getTimeline);
+const router = express.Router();
 
+router.get('/', getTimeline);
 
-router.get("/timeline/:id", getTimelineElement);
+router.get("/:id", getTimelineElement);
 
-router.post("/timeline/:id/edit", editTimelineElement);
+router.put("/:id/edit", editTimelineElement);
 
-router.put("/timeline/add", addTimelineElement);
+router.post("/add", addTimelineElement);
 
-router.delete("/timeline/:id/delete", deleteTimelineElement);
+router.delete("/:id/delete", deleteTimelineElement);
 
-router.post("/timeline/changeOrder", changeTimelineOrder);
+// router.post("/changeOrder", changeTimelineOrder);
 
-
-
+module.exports = router;
 

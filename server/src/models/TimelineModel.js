@@ -15,6 +15,6 @@ const TimelineSchema = new mongoose.Schema({
   },
 });
 
-const TimelineModel = mongoose.model('Frosh', TimelineSchema);
+const TimelineModel = mongoose.model('Timeline', TimelineSchema);
 
 module.exports = TimelineModel;
