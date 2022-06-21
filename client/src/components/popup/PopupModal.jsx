@@ -15,11 +15,8 @@ const PopupModal = ({
   containerTop,
 }) => {
   return trigger ? (
-    <div className="popup-background" style={{ width: `${bgWidth}`, height: `${bgHeight}` }}>
-      <div
-        className="popup-container"
-        style={{ width: `${containerWidth}`, top: `${containerTop}` }}
-      >
+    <div className="popup-background-show" style={{ width: `${bgWidth}`, height: `${bgHeight}` }}>
+      <div className={'popup-container-show'} style={{ top: `${containerTop}` }}>
         <img
           className="popup-x-mark"
           src={XMark}
@@ -34,7 +31,21 @@ const PopupModal = ({
       </div>
     </div>
   ) : (
-    <></>
+    <div className="popup-background-hide" style={{ width: `${bgWidth}`, height: `${bgHeight}` }}>
+      <div className={'popup-container-hide'} style={{ top: `${containerTop}` }}>
+        <img
+          className="popup-x-mark"
+          src={XMark}
+          alt="x-mark"
+          onClick={() => {
+            setTrigger(false);
+          }}
+        ></img>
+
+        {showHeading ? <h2 className="popup-heading">{heading}</h2> : <></>}
+        <div className="popup-children">{children}</div>
+      </div>
+    </div>
   );
 };
 
@@ -49,10 +60,17 @@ PopupModal.propTypes = {
 
   // this is the page height and width
   bgWidth: PropTypes.string,
-  bgHeight: PropTypes.string,
+  bgHeight: PropTypes.string, // this is for login page
 
   containerWidth: PropTypes.string,
   containerTop: PropTypes.string, // distance from the top of the screen
+};
+
+PopupModal.defaultProps = {
+  bgWidth: '100vw',
+  bgHeight: '100vh',
+
+  containerTop: '50vh',
 };
 
 export { PopupModal };

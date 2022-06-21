@@ -20,6 +20,7 @@ import { login, resetPassword } from './functions';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
+import { PopupModal } from '../../components/popup/PopupModal';
 
 const PageLogin = ({ incorrectEntry }) => {
   // pop up when clicking forget password
@@ -92,7 +93,15 @@ const PageLogin = ({ incorrectEntry }) => {
           <LoadingAnimation size={'60px'} />
         </div>
 
-        <PasswordPopUp trigger={showPopUp} setTrigger={setShowPopUp} />
+        {/* <PasswordPopUp trigger={showPopUp} setTrigger={setShowPopUp} /> */}
+        <PopupModal
+          trigger={showPopUp}
+          setTrigger={setShowPopUp}
+          bgHeight="150vh"
+          containerTop="25vh"
+        >
+          <ForgotPassword />
+        </PopupModal>
 
         <div className="login-bg-images">
           <img className="mountain-back" src={MountainB} alt="mountain"></img>
@@ -118,24 +127,63 @@ PageLogin.defaultProps = {
   incorrectEntry: false,
 };
 
-const PasswordPopUp = ({ trigger, setTrigger }) => {
+// const PasswordPopUp = ({ trigger, setTrigger }) => {
+//   const [emailError, setEmailError] = useState('');
+
+//   let email = '';
+
+//   return trigger ? (
+//     <div className="forgot-password-popup">
+//       <div className="forgot-password-container">
+//         <img
+//           className="forgot-password-x-mark"
+//           src={XMark}
+//           alt="x-mark"
+//           onClick={() => {
+//             setTrigger(false);
+//             setEmailError('');
+//           }}
+//         ></img>
+
+//         <h2 className="reset-password-title">Reset Password</h2>
+//         <p className="reset-password-des">{`Enter your email address below, and we'll send you an email to reset your password.`}</p>
+//         <TextInput
+//           inputType={'text'}
+//           placeholder={'Email'}
+//           onChange={(value) => {
+//             email = value;
+//           }}
+//           errorFeedback={emailError}
+//         />
+
+//         <Button
+//           label={'Send'}
+//           onClick={() => {
+//             if (emailError !== '') {
+//               setEmailError('');
+//             }
+//             const result = resetPassword(email);
+
+//             if (result !== true) {
+//               setEmailError(result);
+//             }
+//           }}
+//         ></Button>
+//       </div>
+//     </div>
+//   ) : (
+//     <></>
+//   );
+// };
+
+const ForgotPassword = () => {
   const [emailError, setEmailError] = useState('');
 
   let email = '';
 
-  return trigger ? (
+  return (
     <div className="forgot-password-popup">
       <div className="forgot-password-container">
-        <img
-          className="forgot-password-x-mark"
-          src={XMark}
-          alt="x-mark"
-          onClick={() => {
-            setTrigger(false);
-            setEmailError('');
-          }}
-        ></img>
-
         <h2 className="reset-password-title">Reset Password</h2>
         <p className="reset-password-des">{`Enter your email address below, and we'll send you an email to reset your password.`}</p>
         <TextInput
@@ -159,17 +207,16 @@ const PasswordPopUp = ({ trigger, setTrigger }) => {
               setEmailError(result);
             }
           }}
+          style={{ zIndex: '10' }}
         ></Button>
       </div>
     </div>
-  ) : (
-    <></>
   );
 };
 
-PasswordPopUp.propTypes = {
-  trigger: PropTypes.bool,
-  setTrigger: PropTypes.func,
-};
+// PasswordPopUp.propTypes = {
+//   trigger: PropTypes.bool,
+//   setTrigger: PropTypes.func,
+// };
 
 export { PageLogin };
