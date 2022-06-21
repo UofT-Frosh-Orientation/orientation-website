@@ -5,6 +5,7 @@ import './FAQ.scss';
 import Wave from '../../assets/misc/wave_bg.png';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
+import { Button } from '../../components/button/Button/Button';
 import SearchIcon from '../../assets/misc/magnifying-glass-solid.svg';
 import DeleteIcon from '../../assets/misc/circle-xmark-solid.svg';
 
@@ -77,13 +78,15 @@ const PageFAQ = () => {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      <FAQButtons
-        activeIndex={activeIndex}
-        setActiveIndex={setActiveIndex}
-        setIsSearch={setIsSearch}
-        setSearchQuery={setSearchQuery}
-      />
-      <div className={`${isSearch ? 'faq-hide-accordion' : ''}`}>
+      <div className={'faq-button-selector-container'}>
+        <FAQButtons
+          activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
+          setIsSearch={setIsSearch}
+          setSearchQuery={setSearchQuery}
+        />
+      </div>
+      <div className={`faq-accordion-container ${isSearch ? 'faq-hide-accordion' : ''}`}>
         <FAQCategoryAccordions
           allQuestions={allQuestions}
           activeIndex={activeIndex}
@@ -96,23 +99,11 @@ const PageFAQ = () => {
           questions={unsortedQuestions}
         />
       </div>
+      <div className={'faq-ask-question-outer-container'}>
+        <FAQAskQuestion />
+      </div>
     </div>
   );
-};
-
-const filterQuestions = (questions, query) => {
-  if (!query) {
-    return questions;
-  }
-  return questions.filter((question) => {
-    const questionName = question.question.toLowerCase();
-    return questionName.includes(query);
-  });
-};
-
-filterQuestions.propTypes = {
-  questions: PropTypes.array.isRequired,
-  query: PropTypes.string.isRequired,
 };
 
 const FAQPageHeader = ({
@@ -122,6 +113,16 @@ const FAQPageHeader = ({
   searchQuery,
   setSearchQuery,
 }) => {
+  const filterQuestions = (questions, query) => {
+    if (!query) {
+      return questions;
+    }
+    return questions.filter((question) => {
+      const questionName = question.question.toLowerCase();
+      return questionName.includes(query.toLowerCase());
+    });
+  };
+
   const filteredQuestions = filterQuestions(questions, searchQuery);
   return (
     <div className={'faq-page-header'}>
@@ -208,7 +209,12 @@ FAQCategoryAccordions.propTypes = {
 const FAQAccordionWrapper = ({ scheduleData, openStatus }) => {
   const [isOpen, setIsOpen] = useState(openStatus);
   return (
-    <SingleAccordion isOpen={isOpen} setIsOpen={setIsOpen} header={scheduleData.question}>
+    <SingleAccordion
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      header={scheduleData.question}
+      style={{ backgroundColor: '#ecd6ff' }}
+    >
       {scheduleData.answer}
     </SingleAccordion>
   );
@@ -240,7 +246,13 @@ const FAQSearchBar = ({
         <div className="faq-data-result">
           {questions.map((value, index) => {
             return (
-              <a key={index} className="faq-data-item" href={value.link} target="_blank" rel="noreferrer">
+              <a
+                key={index}
+                className="faq-data-item"
+                href={value.link}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <FAQSearchResult
                   setIsSearch={setIsSearch}
                   setSelectedQuestion={setSelectedQuestion}
@@ -289,6 +301,52 @@ const FAQDisplaySearchQuestion = ({ selectedQuestion, questions }) => {
 FAQDisplaySearchQuestion.propTypes = {
   selectedQuestion: PropTypes.number.isRequired,
   questions: PropTypes.array.isRequired,
+};
+
+const FAQAskQuestion = () => {
+  const [textValue, updateTextValue] = useState('');
+  const initialFormData = {
+    question: '',
+  };
+  const [formData, updateFormData] = useState(initialFormData);
+  const handleChange = (e) => {
+    updateTextValue(e.target.value);
+    updateFormData({
+      ...formData,
+      [e.target.name]: e.target.value.trim(),
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    updateFormData(initialFormData);
+    updateTextValue('');
+    // ... submit to API or something
+  };
+
+  return (
+    <div className={'faq-ask-question-container'}>
+      <h1 className={'faq-ask-question-title'}>Can Find Your Question?</h1>
+      <form>
+        <label>
+          <textarea
+            className={'faq-ask-question-box'}
+            name="question"
+            value={textValue}
+            wrap="soft"
+            onChange={handleChange}
+            placeholder={'Type your question here'}
+          ></textarea>
+        </label>
+        <div>
+          <Button label={'Submit'} onClick={handleSubmit}>
+            Submit
+          </Button>
+        </div>
+      </form>
+    </div>
+  );
 };
 
 export { PageFAQ };
