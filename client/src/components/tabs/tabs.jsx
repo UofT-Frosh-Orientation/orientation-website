@@ -46,8 +46,7 @@ const Tabs = ({ tabs, maxWidthTab, selectedTabPassed, go }) => {
             <Button
               label={
                 <div className="tab-button-label">
-                  {' '}
-                  <img src={ArrowLeft} style={{ marginRight: '10px', marginLeft: '-7px' }} />{' '}
+                  <img src={ArrowLeft} style={{ marginRight: '10px', marginLeft: '-7px' }} />
                   Previous
                 </div>
               }
@@ -62,7 +61,7 @@ const Tabs = ({ tabs, maxWidthTab, selectedTabPassed, go }) => {
             <Button
               label={
                 <div className="tab-button-label">
-                  Next <img src={ArrowRight} style={{ marginLeft: '10px', marginRight: '-7px' }} />{' '}
+                  Next <img src={ArrowRight} style={{ marginLeft: '10px', marginRight: '-7px' }} />
                 </div>
               }
               onClick={() => {
