@@ -44,6 +44,7 @@ const Tabs = ({ tabs, maxWidthTab, selectedTabPassed, go }) => {
         <div className="tabs-buttons">
           {selectedTab !== 0 ? (
             <Button
+              style={{ marginLeft: '-5px' }}
               label={
                 <div className="tab-button-label">
                   <img src={ArrowLeft} style={{ marginRight: '10px', marginLeft: '-7px' }} />
@@ -59,6 +60,7 @@ const Tabs = ({ tabs, maxWidthTab, selectedTabPassed, go }) => {
           )}
           {selectedTab !== tabs.length - 1 ? (
             <Button
+              style={{ marginRight: '-5px' }}
               label={
                 <div className="tab-button-label">
                   Next <img src={ArrowRight} style={{ marginLeft: '10px', marginRight: '-7px' }} />
