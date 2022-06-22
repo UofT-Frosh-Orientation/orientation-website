@@ -388,7 +388,12 @@ const ProfilePageAccordionWrapper = ({ scheduleDateObj, index, closeAll }) => {
   );
   return (
     <div className="profile-page-accordion-container">
-      <SingleAccordion isOpen={isOpen} setIsOpen={setIsOpen} header={accordionHeader}>
+      <SingleAccordion
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        header={accordionHeader}
+        className={`profile-page-schedule-accordion`}
+      >
         {accordionContent}
       </SingleAccordion>
     </div>
