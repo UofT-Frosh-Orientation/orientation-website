@@ -5,6 +5,8 @@ const app = require('./app');
 const froshRouter = require('./routes/froshRoutes');
 const userRouter = require('./routes/userRoutes');
 const scheduleRouter = require('./routes/scheduleRoutes');
+const faqRouter = require('./routes/faqRoutes');
+
 const swaggerLoader = require('./loaders/swaggerLoader');
 
 mongoLoader(app).then(() => {
@@ -12,6 +14,8 @@ mongoLoader(app).then(() => {
   app.use('/frosh', froshRouter);
   app.use('/user', userRouter);
   app.use('/schedule', scheduleRouter);
+  app.use('/faq', faqRouter);
+
   swaggerLoader(app);
 
   app.get('*', (req, res) => {

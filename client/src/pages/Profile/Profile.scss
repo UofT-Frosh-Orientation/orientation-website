@@ -199,7 +199,7 @@
     text-transform: capitalize;
   }
   h4 {
-    font-size: 17px;
+    font-size: 17px !important;
     text-transform: capitalize;
   }
   @include devices(tablet) {
@@ -208,7 +208,7 @@
       font-size: 19px;
     }
     h4 {
-      font-size: 15px;
+      font-size: 15px !important;
     }
   }
 }
@@ -224,5 +224,63 @@
     padding: 0px 5px;
     padding-bottom: 5px;
     font-size: 16px;
+  }
+}
+
+.scan-region-highlight-svg {
+  stroke: var(--light-purple) !important;
+}
+
+.profile-page-scanned-data {
+  background-color: var(--purple-shades-light);
+  transition: background-color 450ms;
+  padding: 15px 20px;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.profile-page-manual-entry-header {
+  font-size: 25px;
+  margin-top: 25px;
+}
+
+.profile-page-scanned-data-success {
+  background-color: var(--green-success);
+  animation: pulse 350ms forwards;
+}
+
+.profile-page-scanned-data-error {
+  background-color: var(--red-error);
+  animation: pulse 350ms forwards;
+}
+
+.manual-sign-in-frosh-search-result-container {
+  margin-bottom: 12px;
+  h3 {
+    font-size: 22px;
+  }
+  p {
+    font-size: 17px;
+    margin: 0px;
+  }
+}
+
+.manual-sign-in-frosh-search-result {
+  background-color: var(--purple-shades-light);
+  width: 100%;
+  margin: 5px 0px !important;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
   }
 }
