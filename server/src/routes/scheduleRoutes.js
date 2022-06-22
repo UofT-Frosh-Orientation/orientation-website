@@ -33,11 +33,7 @@ const router = express.Router();
  *                      $ref: '#components/schemas/Event'
  *                   }
  */
-router.get(
-  '/read/:froshGroupId',
-  checkLoggedIn,
-  ScheduleController.getGroupSchedule,
-);
+router.get('/read/:froshGroupId', checkLoggedIn, ScheduleController.getGroupSchedule);
 
 /**
  * @swagger
@@ -64,12 +60,7 @@ router.get(
  *                      $ref: '#components/schemas/Event'
  *                   }
  */
-router.post(
-  '/add',
-  checkLoggedIn,
-  hasAuthScopes(['schedule:add']),
-  ScheduleController.addEvent,
-);
+router.post('/add', checkLoggedIn, hasAuthScopes(['schedule:add']), ScheduleController.addEvent);
 
 /**
  * @swagger
@@ -107,7 +98,10 @@ router.post(
  *                 type: string
  *                 description: Description of the event
  *                 example: lorem ipsum
-
+ *               color:
+ *                 type: string
+ *                 description: color of the event
+ *                 example: purple
  *     responses:
  *       '200':
  *         description: Event was successfully edited
@@ -122,12 +116,7 @@ router.post(
  *                      $ref: '#components/schemas/Event'
  *                   }
  */
-router.put(
-  '/edit',
-  checkLoggedIn,
-  hasAuthScopes(['schedule:edit']),
-  ScheduleController.editEvent,
-);
+router.put('/edit', checkLoggedIn, hasAuthScopes(['schedule:edit']), ScheduleController.editEvent);
 
 /**
  * @swagger

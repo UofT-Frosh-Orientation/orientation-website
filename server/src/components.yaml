@@ -86,8 +86,12 @@ components:
         date:
           type: date
           description: Date of the event including starting time
-          example: 2022-05-09T14:00:00.000Z
+          example: 2022-05-09T14:00:00
         endTime:
           type: date
           description: End time of the event
-          example: 2022-05-09T15:00:00.000Z
+          example: 2022-05-09T15:00:00
+        color:
+          type: string
+          description: color of the event
+          example: purple

@@ -5,6 +5,7 @@ const eventSchema = new mongoose.Schema({
   description: { type: String, required: true },
   date: { type: Date, required: true },
   endTime: { type: Date, required: true },
+  color: { type: String, require: true },
   isDeleted: { type: Boolean, required: true, default: false },
 });
 

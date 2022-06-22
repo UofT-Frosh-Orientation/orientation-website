@@ -7,9 +7,86 @@ const ScheduleServices = {
    * @returns {Object[]}
    */
   async getGroupSchedule(froshGroupId) {
-    const group = await FroshGroup.findById(froshGroupId);
+    function formatDate(date) {
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      var strTime = hours + ':' + minutes + ' ' + ampm;
+      return strTime;
+    }
 
-    return group.schedule;
+    const group = await FroshGroup.findById(froshGroupId);
+    let schedule = {
+      'Monday September 5': [],
+      'Tuesday September 6': [],
+      'Wednesday September 7': [],
+      'Thursday September 8': [],
+      'Friday September 9': [],
+    };
+
+    group.schedule.map((event) => {
+      switch (event.date.getDate()) {
+        case 5:
+          schedule['Monday September 5'].push({
+            'Event Name': event.name,
+            'Event Description': event.description,
+            'Start Time': formatDate(event.date),
+            'End Time': formatDate(event.endTime),
+            Color: event.color,
+            'event id': event.id,
+          });
+          break;
+
+        case 6:
+          schedule['Tuesday September 6'].push({
+            'Event Name': event.name,
+            'Event Description': event.description,
+            'Start Time': formatDate(event.date),
+            'End Time': formatDate(event.endTime),
+            Color: event.color,
+            'event id': event.id,
+          });
+          break;
+
+        case 7:
+          schedule['Wednesday September 7'].push({
+            'Event Name': event.name,
+            'Event Description': event.description,
+            'Start Time': formatDate(event.date),
+            'End Time': formatDate(event.endTime),
+            Color: event.color,
+            'event id': event.id,
+          });
+          break;
+
+        case 8:
+          schedule['Thursday September 8'].push({
+            'Event Name': event.name,
+            'Event Description': event.description,
+            'Start Time': formatDate(event.date),
+            'End Time': formatDate(event.endTime),
+            Color: event.color,
+            'event id': event.id,
+          });
+          break;
+
+        case 9:
+          schedule['Friday September 9'].push({
+            'Event Name': event.name,
+            'Event Description': event.description,
+            'Start Time': formatDate(event.date),
+            'End Time': formatDate(event.endTime),
+            Color: event.color,
+            'event id': event.id,
+          });
+          break;
+      }
+    });
+
+    return schedule;
   },
 
   /**
