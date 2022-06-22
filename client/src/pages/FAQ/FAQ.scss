@@ -20,6 +20,11 @@
   width: 80%;
 }
 
+.faq-display-questions-container {
+  margin: 50px 10% 100px 10%;
+  width: 80%;
+}
+
 .faq-page-header-text {
   padding-left: 5%;
   h1 {
@@ -39,7 +44,7 @@
 
 .searchIcon {
   height: 50px;
-  width: 50px;
+  width: 10%;
   color: var(--gray);
   background-color: white;
   display: grid;
@@ -50,7 +55,7 @@
 
 .deleteIcon {
   height: 50px;
-  width: 50px;
+  width: 10%;
   color: var(--gray);
   background-color: white;
   display: grid;
@@ -81,12 +86,16 @@
 }
 
 .faq-data-result {
-  width: 100%;
+  width: 120%;
+  margin-left: -10%;
   height: 200px;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 15px 15px;
   overflow: hidden;
   overflow-y: auto;
+  position: relative;
+  z-index: 2;
+  border-radius: 15px 15px 15px 15px;
 }
 
 .faq-data-result::-webkit-scrollbar {
@@ -105,18 +114,25 @@
   margin-left: 10px;
 }
 
-.faq-data-result a {
+.faq-data-result div {
   text-decoration: none;
 }
 
-.faq-data-result a:hover {
+.faq-data-result div:hover {
   background-color: lightgrey;
+}
+
+.faq-search-result-wrapper {
+  padding-left: 10px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .faq-wave-image {
   width: 100vw;
   height: 10vh;
-  object-fit: fill;
   @include devices(tablet) {
     height: 6vh;
   }
@@ -124,6 +140,7 @@
 
 .faq-page-top-wave-image {
   position: absolute;
+  z-index: 1;
   bottom: 0px;
 }
 
@@ -175,14 +192,15 @@
 
 .faq-ask-question-outer-container {
   width: 40%;
-  margin-left: 10%;
+  margin-left: 30%;
+  margin-right: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
   @include devices(tablet) {
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
   }
 }
 
