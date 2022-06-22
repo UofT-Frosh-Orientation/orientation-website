@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 
+const eventSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: { type: String, required: true },
+  date: { type: Date, required: true },
+  endTime: { type: Date, required: true },
+  isDeleted: { type: Boolean, required: true, default: false },
+});
+
 const FroshGroupSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -65,6 +73,7 @@ const FroshGroupSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  schedule: [eventSchema],
 });
 
 const FroshGroup = mongoose.model('FroshGroup', FroshGroupSchema);

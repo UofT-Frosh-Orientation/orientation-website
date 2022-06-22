@@ -8,22 +8,20 @@ const router = express.Router();
 
 /**
  * @swagger
- * /schedule/read:
+ * /schedule/read/{froshGroupId}:
  *   get:
- *     summary: read a list of schedule objects based on frosh group
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *              froshGroup:
- *                type: string
- *                example: Kappa
+ *     summary: Read a list of events based on frosh group
+ *     parameters:
+ *       - in: path
+ *         name: froshGroupId
+ *         schema:
+ *           type: string
+ *           example: 62abaed97fb4951f642a8ea9
+ *           description: The id of the frosh group document
+ *         required: true
  *     responses:
  *       '200':
- *         description: an array of schedule objects
+ *         description: An array of event objects
  *         content:
  *           application/json:
  *             schema:
@@ -32,37 +30,52 @@ const router = express.Router();
  *                 groupSchedule:
  *                   type: array
  *                   items: {
- *                      $ref: '#components/schemas/Schedule'
+ *                      $ref: '#components/schemas/Event'
  *                   }
  */
-router.get('/read', checkLoggedIn, ScheduleController.getGroupSchedule);
+router.get(
+  '/read/:froshGroupId',
+  checkLoggedIn,
+  ScheduleController.getGroupSchedule,
+);
 
 /**
  * @swagger
  * /schedule/add:
  *   post:
- *     summary: add a new schedule object
+ *     summary: Add a new event object to a frosh groups schedule
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#components/schemas/Schedule'
+ *             $ref: '#components/schemas/Event'
  *     responses:
  *       '200':
- *         description: Schedule was successfully created
+ *         description: Event was successfully created
  *         content:
  *           application/json:
  *             schema:
- *                $ref: '#components/schemas/Schedule'
+ *               type: object
+ *               properties:
+ *                 groupSchedule:
+ *                   type: array
+ *                   items: {
+ *                      $ref: '#components/schemas/Event'
+ *                   }
  */
-router.post('/add', checkLoggedIn, hasAuthScopes(['schedule:add']), ScheduleController.addSchedule);
+router.post(
+  '/add',
+  checkLoggedIn,
+  hasAuthScopes(['schedule:add']),
+  ScheduleController.addEvent,
+);
 
 /**
  * @swagger
  * /schedule/edit:
  *   put:
- *     summary: edit an exisiting schedule object
+ *     summary: Edit an exisiting event object
  *     requestBody:
  *       required: true
  *       content:
@@ -70,60 +83,57 @@ router.post('/add', checkLoggedIn, hasAuthScopes(['schedule:add']), ScheduleCont
  *           schema:
  *             type: object
  *             properties:
- *               id:
+ *               froshGroupId:
  *                 type: string
  *                 example: 62abaed97fb4951f642a8ea9
- *               froshGroup:
+ *                 description: The id of the frosh group document
+ *               eventId:
  *                 type: string
- *                 description: the frosh group the schedule belongs to
- *                 example: Kappa
+ *                 description: The id of the event document
+ *                 example: 62b2037a469fab32f1dd5e12
  *               date:
  *                 type: string
- *                 description: date of events for the schedule
- *                 example: Monday September 5
- *               events:
- *                 type: array
- *                 description: array of events occuring on the date of schedule
- *                 items:
- *                   type: object
- *                   required:
- *                     - name
- *                     - description
- *                     - time
- *                   properties:
- *                     name:
- *                       type: string
- *                       description: name of the event
- *                       example: Matriculation
- *                     description:
- *                       type: string
- *                       description: description of the event
- *                       example: lorem ipsum
- *                     time:
- *                       type: string
- *                       description: time of the event
- *                       example: 1:00 pm - 2:00pm
- *                 minItems: 1
+ *                 description: Date of the event including starting time
+ *                 example: 2022-05-09T14:00:00.000Z
+ *               endTime:
+ *                 type: string
+ *                 example: 2022-05-09T15:00:00.000Z
+ *                 description: End time of the event
+ *               name:
+ *                 type: string
+ *                 description: Name of the event
+ *                 example: Matriculation
+ *               description:
+ *                 type: string
+ *                 description: Description of the event
+ *                 example: lorem ipsum
+
  *     responses:
  *       '200':
- *         description: Schedule was successfully edited
+ *         description: Event was successfully edited
  *         content:
  *           application/json:
  *             schema:
- *                $ref: '#components/schemas/Schedule'
+ *               type: object
+ *               properties:
+ *                 groupSchedule:
+ *                   type: array
+ *                   items: {
+ *                      $ref: '#components/schemas/Event'
+ *                   }
  */
 router.put(
   '/edit',
   checkLoggedIn,
   hasAuthScopes(['schedule:edit']),
-  ScheduleController.editSchedule,
+  ScheduleController.editEvent,
 );
 
 /**
  * @swagger
  * /schedule/reorder:
  *   put:
- *     summary: reorder the events of a schedule object
+ *     summary: Reorder the events of a frosh group schedule
  *     requestBody:
  *       required: true
  *       content:
@@ -131,58 +141,90 @@ router.put(
  *           schema:
  *             type: object
  *             properties:
- *               id:
+ *               froshGroupId:
  *                 type: string
  *                 example: 62abaed97fb4951f642a8ea9
+ *                 description: The id of the frosh group document
  *               order:
  *                 type: array
  *                 items:
- *                   type: number
- *                   minimum: 0
- *                   example: [2,1,3,4,0]
+ *                   type: object
+ *                   properties:
+ *                     eventId:
+ *                       type: string
+ *                       description: The id of the event document
+ *                       example: 62b2037a469fab32f1dd5e12
+ *                       required: true
+ *                     date:
+ *                       type: date
+ *                       description: Date of the event including starting time
+ *                       example: 2022-05-09T13:00:00.000Z
+ *                       required: true
+ *                     endTime:
+ *                       type: date
+ *                       description: End time of the event
+ *                       example: 2022-05-09T14:00:00.000Z
+ *                       required: true
  *     responses:
  *       '200':
  *         description: Schedule was successfully reordered
  *         content:
  *           application/json:
  *             schema:
- *                $ref: '#components/schemas/Schedule'
+ *               type: object
+ *               properties:
+ *                 groupSchedule:
+ *                   type: array
+ *                   items: {
+ *                      $ref: '#components/schemas/Event'
+ *                   }
  */
 router.put(
   '/reorder',
   checkLoggedIn,
   hasAuthScopes(['schedule:edit']),
-  ScheduleController.reorderSchedule,
+  ScheduleController.reorderEvents,
 );
 
 /**
  * @swagger
- * /schedule/delete:
+ * /schedule/delete/{froshGroupId}-{eventId}:
  *   delete:
- *     summary: delete a schedule object
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               id:
- *                 type: string
- *                 example: 62abaed97fb4951f642a8ea9
+ *     summary: Delete an event object in a frosh group schedule
+ *     parameters:
+ *       - in: path
+ *         name: froshGroupId
+ *         schema:
+ *           type: string
+ *           example: 62abaed97fb4951f642a8ea9
+ *         required: true
+ *         description: The id of the frosh group document
+ *       - in: path
+ *         name: eventId
+ *         schema:
+ *           type: string
+ *           example: 62b2037a469fab32f1dd5e12
+ *         required: true
+ *         description: The id of the event document
  *     responses:
  *       '200':
- *         description: Schedule was successfully deleted
+ *         description: Event was successfully deleted
  *         content:
  *           application/json:
  *             schema:
- *                $ref: '#components/schemas/Schedule'
+ *               type: object
+ *               properties:
+ *                 groupSchedule:
+ *                   type: array
+ *                   items: {
+ *                      $ref: '#components/schemas/Event'
+ *                   }
  */
 router.delete(
-  '/delete',
+  '/delete/:froshGroupId-:eventId',
   checkLoggedIn,
   hasAuthScopes(['schedule:delete']),
-  ScheduleController.deleteSchedule,
+  ScheduleController.deleteEvent,
 );
 
 module.exports = router;

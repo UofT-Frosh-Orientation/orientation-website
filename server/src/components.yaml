@@ -67,40 +67,27 @@ components:
           description: Email of the user
           example: john.doe@mail.utoronto.ca
           format: email
-    Schedule:
+    Event:
       type: object
       required:
-        - froshGroup
+        - name
+        - description
         - date
+        - endTime
       properties:
-        froshGroup:
+        name:
           type: string
-          description: the frosh group the schedule belongs to
-          example: Kappa
+          description: Name of the event
+          example: Matriculation
+        description:
+          type: string
+          description: Description of the event
+          example: lorem ipsum
         date:
-          type: string
-          description: date of events for the schedule
-          example: Monday September 5
-        events:
-          type: array
-          description: array of events occuring on the date of schedule
-          items:
-            type: object
-            required:
-              - name
-              - description
-              - time
-            properties:
-              name:
-                type: string
-                description: name of the event
-                example: Matriculation
-              description:
-                type: string
-                description: description of the event
-                example: lorem ipsum
-              time:
-                type: string
-                description: time of the event
-                example: 1:00 pm - 2:00pm
-          minItems: 1
+          type: date
+          description: Date of the event including starting time
+          example: 2022-05-09T14:00:00.000Z
+        endTime:
+          type: date
+          description: End time of the event
+          example: 2022-05-09T15:00:00.000Z

@@ -1,85 +1,108 @@
-const ScheduleModel = require('../models/ScheduleModel');
+const FroshGroup = require('../models/FroshGroupModel');
 
 const ScheduleServices = {
   /**
-   * get a list of schedule objects by frosh group
-   * @param {String} froshGroup the name of the frosh group
-   * @returns {Object[]} array of schedule objects of a frosh group
+   * Get an array of events for a frosh group.
+   * @param {String} froshGroupId the id of the frosh group being accessed
+   * @returns {Object[]}
    */
-  async getGroupSchedule(froshGroup) {
-    return ScheduleModel.find({ froshGroup }).exec();
+  async getGroupSchedule(froshGroupId) {
+    const group = await FroshGroup.findById(froshGroupId);
+
+    return group.schedule;
   },
 
   /**
-   * Add a new schedule object to the database
-   * @param {String} froshGroup name of frosh group the schedule belongs to
-   * @param {String} date date of the events
-   * @param {Object[]} events an array of events
-   * @returns {Object} newly created schedule object
+   * Add an event to a frosh group schedule.
+   * @param {String} froshGroupId the id of the frosh group the event is being added to
+   * @param {Date} date the date of the event, including the starting time
+   * @param {String} name name of the event
+   * @param {String} description description of the event
+   * @param {Date} endTime the finish date of the event, including time
+   * @returns {Object[]}
    */
-  async addSchedule(froshGroup, date, events) {
+  async addEvent(froshGroupId, date, name, description, endTime) {
+    const group = await FroshGroup.findById(froshGroupId);
+
     return new Promise((resolve, reject) => {
-      ScheduleModel.create({ froshGroup, date, events }, (err, newSchedule) => {
+      group.schedule.push({
+        date,
+        name,
+        description,
+        endTime,
+      });
+
+      group.save((err, updatedGroup) => {
         if (err) {
           reject(err);
         } else {
-          resolve(newSchedule);
+          resolve(updatedGroup.schedule);
         }
       });
     });
   },
 
   /**
-   * Edit a pre existing schedule object
-   * @param {String} id the id of the schedule object
-   * @param {String} froshGroup new frosh group
-   * @param {Object[]} events array of events
-   * @param {String} date date of the events
-   * @returns {Object} edited schedule object
+   * Edit an exisiting event in a frosh group schedule.
+   * @param {String} froshGroupId the id of the frosh group
+   * @param {String} eventId the id of the event being edited
+   * @param {Date} date the date of the event, including the starting time
+   * @param {String} name name of the event
+   * @param {String} description description of the event
+   * @param {Date} endTime the finish date of the event, including time
+   * @returns {Object[]}
    */
-  async editSchedule(id, froshGroup, events, date) {
-    const schedule = await ScheduleModel.findById(id);
-    const newSchedule = ScheduleModel.hydrate(schedule.toObject());
+  async editEvent(froshGroupId, eventId, date, name, description, endTime) {
+    const group = await FroshGroup.findById(froshGroupId);
+
+    const updatedEvent = group.schedule.id(eventId);
 
     let newInfo = {};
 
-    if (froshGroup) newInfo.froshGroup = froshGroup;
-    if (events) newInfo.events = events;
+    if (name) newInfo.name = name;
+    if (description) newInfo.description = description;
     if (date) newInfo.date = date;
+    if (endTime) newInfo.endTime = endTime;
 
-    newSchedule.set(newInfo);
-    return await newSchedule.save();
+    updatedEvent.set(newInfo);
+    await group.save();
+    return group.schedule;
   },
 
   /**
-   * reorder the events of a schedule object
-   * @param {String} id id of the schedule object being reordered
-   * @param {Number[]} order an array of indecies of events in the position they should be in
-   * @returns {Object} the reordered schedule object
+   * Reorder the events of a frosh group schedule.
+   * @param {String} froshGroupId the id of the frosh group
+   * @param {Object[]} order an array of objects which contain event id, start date, and end date
+   * @returns {Object[]}
    */
-  async reorderSchedule(id, order) {
-    const schedule = await ScheduleModel.findById(id);
-    const newSchedule = ScheduleModel.hydrate(schedule.toObject());
+  async reorderEvents(froshGroupId, order) {
+    const group = await FroshGroup.findById(froshGroupId);
 
-    const newEvents = schedule.toObject().events.map((event, index, elements) => {
-      return elements[order[index]];
+    order.map((info) => {
+      const updatedEvent = group.schedule.id(info.eventId);
+
+      updatedEvent.set({ date: info.date, endTime: info.endTime });
     });
 
-    newSchedule.set({ events: newEvents });
-    return await newSchedule.save();
+    await group.save();
+
+    return group.schedule;
   },
 
   /**
-   * mark a schedule object as deleted
-   * @param {String} id the id of the schedule object being deleted
-   * @returns {Object} the deleted schedule object
+   * Delete an event from a frosh group schedule.
+   * @param {String} froshGroupId the id of the frosh group
+   * @param {String} eventId the id of the event being deleted
+   * @returns {Object[]}
    */
-  async deleteSchedule(id) {
-    const schedule = await ScheduleModel.findById(id);
-    const newSchedule = ScheduleModel.hydrate(schedule.toObject());
+  async deleteEvent(froshGroupId, eventId) {
+    const group = await FroshGroup.findById(froshGroupId);
 
-    newSchedule.set({ isDeleted: true });
-    return await newSchedule.save();
+    const deletedEvent = group.schedule.id(eventId);
+    deletedEvent.set({ isDeleted: true });
+    await group.save();
+
+    return group.schedule;
   },
 };
 
