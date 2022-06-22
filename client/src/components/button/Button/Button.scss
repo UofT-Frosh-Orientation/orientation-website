@@ -12,7 +12,7 @@
   font-size: 17px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 200ms;
+  transition: transform 200ms, background-color 200ms;
   user-select: none;
 
   &:hover {
@@ -38,9 +38,9 @@
 
 .button-disabled {
   opacity: 0.6;
-  cursor: unset;
+  cursor: not-allowed;
   background-color: var(--gray);
-
+  transition: background-color 200ms;
   &:hover {
     transform: scale(1);
   }

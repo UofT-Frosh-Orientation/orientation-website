@@ -19,7 +19,7 @@ services:
     depends_on:
       mongodb:
         condition: service_started
-      server:
+      api:
         condition: service_started
     environment:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=$MONGODB_USER
@@ -38,9 +38,9 @@ services:
     environment:
       - REDIS_PORT_NUMBER=$REDIS_PORT
       - REDIS_PASSWORD=$REDIS_PASSWORD
-  server:
+  api:
     build: ./server
-    container_name: server
+    container_name: api
     depends_on:
       - mongodb
     environment:

@@ -10,6 +10,12 @@ const Checkboxes = ({
   maxCanSelect,
   label,
 }) => {
+  useEffect(() => {
+    if (initialSelectedIndices !== undefined) {
+      onSelected(initialSelectedIndices);
+    }
+  }, []);
+
   const [selectedIndices, setSelectedIndices] = useState(
     initialSelectedIndices === undefined ? [] : initialSelectedIndices,
   );
