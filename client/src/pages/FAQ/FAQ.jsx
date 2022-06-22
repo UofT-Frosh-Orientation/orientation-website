@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getInformation } from './functions';
+import { getQuestions, getCategories } from './functions';
 import './FAQ.scss';
 import Wave from '../../assets/misc/wave_bg.png';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
@@ -14,44 +14,7 @@ const PageFAQ = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [selectedQuestion, setSelectedQuestion] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
-  const data = [
-    {
-      question: 'Test Question 1',
-      answer: 'Test Answer 1',
-      lastUpdated: '2:00 pm',
-      category: 'General',
-    },
-    {
-      question: 'Test Question 2',
-      answer: 'Test Answer 1',
-      lastUpdated: '2:00 pm',
-      category: 'General',
-    },
-    {
-      question: 'Test Question 3',
-      answer: 'Test Answer 1',
-      lastUpdated: '2:00 pm',
-      category: 'F!rosh Kits',
-    },
-    {
-      question: 'Test Question 4',
-      answer: 'Test Answer 1',
-      lastUpdated: '2:00 pm',
-      category: 'F!rosh Kits',
-    },
-    {
-      question: 'Test Question 5',
-      answer: 'Test Answer 2',
-      lastUpdated: '2:00 pm',
-      category: 'F!rosh Group',
-    },
-    {
-      question: 'Test Question 6',
-      answer: 'Test Answer 3',
-      lastUpdated: '2:00 pm',
-      category: 'F!rosh Group',
-    },
-  ];
+  const data = getQuestions();
   const unsortedQuestions = [];
   const generalQuestions = [];
   const FroshKitsQuestions = [];
@@ -93,7 +56,7 @@ const PageFAQ = () => {
           setActiveIndex={setActiveIndex}
         />
       </div>
-      <div className={`${isSearch ? '' : 'faq-hide-accordion'}`}>
+      <div className={`faq-display-questions-container ${isSearch ? '' : 'faq-hide-accordion'}`}>
         <FAQDisplaySearchQuestion
           selectedQuestion={selectedQuestion}
           questions={unsortedQuestions}
@@ -172,7 +135,7 @@ FAQPageHeader.propTypes = {
 };
 
 const FAQButtons = ({ activeIndex, setActiveIndex, setIsSearch, setSearchQuery }) => {
-  const data = [{ name: 'General' }, { name: 'F!rosh Kits' }, { name: 'F!rosh Group' }];
+  const data = getCategories();
   return (
     <div
       onClick={() => {
@@ -243,22 +206,20 @@ const FAQSearchBar = ({
         />
       </div>
       {searchQuery.length != 0 && (
-        <div className="faq-data-result">
+        <div
+          className="faq-data-result"
+          style={{ height: questions.length * 50 < 200 ? questions.length * 50 : 200 }}
+        >
           {questions.map((value, index) => {
             return (
-              <a
-                key={index}
-                className="faq-data-item"
-                href={value.link}
-                target="_blank"
-                rel="noreferrer"
-              >
+              <div key={index} className="faq-data-item">
                 <FAQSearchResult
                   setIsSearch={setIsSearch}
                   setSelectedQuestion={setSelectedQuestion}
+                  setSearchQuery={setSearchQuery}
                   question={value}
                 />
-              </a>
+              </div>
             );
           })}
         </div>
@@ -275,18 +236,24 @@ FAQSearchBar.propTypes = {
   questions: PropTypes.array.isRequired,
 };
 
-const FAQSearchResult = ({ setIsSearch, setSelectedQuestion, question }) => {
+const FAQSearchResult = ({ setIsSearch, setSelectedQuestion, setSearchQuery, question }) => {
   function FAQReturnQuestions() {
     setIsSearch(true);
     setSelectedQuestion(question.id);
+    setSearchQuery('');
   }
-  return <div onClick={() => FAQReturnQuestions()}>{question.question}</div>;
+  return (
+    <div className={'faq-search-result-wrapper'} onClick={() => FAQReturnQuestions()}>
+      {question.question}
+    </div>
+  );
 };
 
 FAQSearchResult.propTypes = {
   setIsSearch: PropTypes.func.isRequired,
   setSelectedQuestion: PropTypes.func.isRequired,
   question: PropTypes.object.isRequired,
+  setSearchQuery: PropTypes.func.isRequired,
 };
 
 const FAQDisplaySearchQuestion = ({ selectedQuestion, questions }) => {
@@ -327,7 +294,7 @@ const FAQAskQuestion = () => {
 
   return (
     <div className={'faq-ask-question-container'}>
-      <h1 className={'faq-ask-question-title'}>Can`&apos;`t Find Your Question?</h1>
+      <h1 className={'faq-ask-question-title'}>Can&apos;t Find Your Question?</h1>
       <form>
         <label>
           <textarea
