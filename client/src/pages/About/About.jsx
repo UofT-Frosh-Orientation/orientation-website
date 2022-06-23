@@ -8,11 +8,11 @@ import { execInfo } from '../../util/about/execs';
 
 import { ExecProfile } from './ExecProfile/ExecProfile';
 
-import froshJames from '../../assets/about/froshJames_1000.png';
 import Landing1 from '../../assets/landing/landing-1.jpg';
 import waveTop from '../../assets/misc/wave.png';
 import waveBottom from '../../assets/misc/wave-reverse.png';
 import profileWave from '../../assets/about/wave-about.svg';
+import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 
 const PageAbout = () => {
   return (
@@ -50,7 +50,7 @@ const AboutUsSection = () => {
 
         <div className="aboutus-subsubcontainer">
           <div className="aboutus-image-container">
-            <img className="aboutus-image" src={froshJames} alt="froshJames"></img>
+            <img className="aboutus-image" src={MainFroshLogo} alt="logo"></img>
           </div>
 
           <div className="aboutus-info-container">
@@ -94,7 +94,6 @@ const VCSection = () => {
   return (
     <div className="aboutus-vc-grid-container">
       {[...execInfo.vcs].map((info) => {
-        console.log(info.name);
         return (
           <ExecProfile
             className="vc-grid-item"

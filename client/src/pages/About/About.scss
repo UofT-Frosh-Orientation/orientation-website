@@ -128,7 +128,6 @@
   justify-content: center;
 
   align-items: stretch;
-  width: 100%;
 
   @include devices(tablet) {
     align-items: center;
@@ -141,6 +140,8 @@
   margin: 13px 50px 13px 0;
 
   flex: 1;
+  max-width: 500px;
+  max-height: 500px;
 
   @include devices(tablet) {
     width: 85vw;
@@ -162,6 +163,7 @@
   flex-direction: column;
   width: 50vw;
   justify-content: center;
+  max-width: 1000px;
 
   @include devices(tablet) {
     width: 85vw;
@@ -171,7 +173,7 @@
 .aboutus-info {
   background: rgba(255, 255, 255, 0.25);
   border-radius: 10px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow);
 
   display: flex;
   flex-direction: column;
@@ -197,14 +199,7 @@
 }
 .aboutus-info-des {
   font-size: 16px;
-
   color: var(--white);
-  // text-align: left;
-  text-align: justify;
-
-  @include devices(tablet) {
-    text-align: justify;
-  }
 }
 
 // EXEC TEAM SECTIONS
@@ -225,7 +220,7 @@
 }
 
 .exec-title-underline {
-  background: var(--yellow);
+  background: var(--purple-transparent);
   border-radius: 10px;
   width: 480px;
   height: 4px;
@@ -237,59 +232,6 @@
     width: 320px;
   }
 }
-
-// .oc-container {
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: center;
-//   align-items: center;
-
-//   padding: 50px;
-// }
-// .oc-image {
-//   background: purple;
-//   width: 500px;
-//   height: 500px;
-//   border-radius: 10px;
-
-//   margin-right: 50px;
-// }
-
-// .oc-title {
-//   padding-bottom: 20px;
-// }
-
-// .oc-info-name {
-//   font-size: 24px;
-//   color: var(--purple);
-//   padding-bottom: 5px;
-// }
-
-// .oc-info {
-//   display: flex;
-//   flex-direction: column;
-//   width: 50vw;
-// }
-
-// .oc-info-fav {
-//   margin-top: 15px;
-// }
-
-// .vc-section-container {
-//   padding: 50px;
-//   display: flex;
-//   flex-direction: column;
-//   // grid-template-columns: 38vw;
-// }
-// .exec-profile-container {
-//   border-radius: 10px;
-//   aspect-ratio: 1 / 1;
-//   width: 30vw;
-
-//   background: purple;
-
-//   display: flex;
-// }
 
 ////////////////////////////
 // VC GRID
@@ -308,7 +250,3 @@
     align-items: center;
   }
 }
-
-// .vc-grid-item {
-//   // margin: 50px;
-// }
