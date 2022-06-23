@@ -23,6 +23,7 @@
   --page-bg: #efe9f8; /* very light purple */
   --purple-transparent: #7b33a8d6;
   --purple-transparent-more: #7b33a830;
+  --transparent: #00000000;
 
   /* filters for icons -- filter: --var(purple-icon-filter) */
   --purple-icon-filter: invert(19%) sepia(69%) saturate(2461%) hue-rotate(270deg) brightness(82%)

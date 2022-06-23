@@ -12,8 +12,11 @@ const ExecProfile = ({ image, name, role, discipline, roleDescription, favPart }
   return (
     <div className="exec-container" onClick={() => setShowDescription(!showDescription)}>
       <img src={image} className="exec-image"></img>
-
-      {showDescription ? (
+      <div
+        className={` ${
+          showDescription ? 'exec-profile-description-show' : 'exec-profile-description-hide'
+        }`}
+      >
         <ExecProfileDescription
           name={name}
           role={role}
@@ -21,10 +24,7 @@ const ExecProfile = ({ image, name, role, discipline, roleDescription, favPart }
           roleDescription={roleDescription}
           favPart={favPart}
         />
-      ) : (
-        <></>
-        // <ExecProfileTitle name={name} role={role} />
-      )}
+      </div>
     </div>
   );
 };
@@ -49,20 +49,19 @@ const ExecProfileDescription = ({ name, role, discipline, roleDescription, favPa
         <h3 className="exec-profile-name">{name}</h3>
       </div>
 
-      <p className="exec-profile-desctiption-dis">
+      <p className="exec-profile-description-dis">
         <span style={{ fontWeight: 'bold' }}>DISCIPLINE: </span>
-        {/* <br></br> */}
         {discipline}
       </p>
 
-      <p className="exec-profile-desctiption-role">
+      <p className="exec-profile-description-role">
         <span style={{ fontWeight: 'bold' }}>MY ROLE: </span>
         <br></br>
         {roleDescription}
       </p>
 
       <p className="exec-profile-description-fav">
-        <span style={{ fontWeight: 'bold' }}>MY FAVORITE PART: </span>
+        <span style={{ fontWeight: 'bold' }}>MY FAVOURITE PART: </span>
         <br></br>
         {favPart}
       </p>

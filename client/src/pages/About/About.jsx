@@ -17,7 +17,7 @@ import profileWave from '../../assets/about/wave-about.svg';
 const PageAbout = () => {
   return (
     <>
-      <AboutUsHeader />
+      {/* <AboutUsHeader /> */}
       <div className="aboutus-page-components">
         <AboutUsSection />
 
@@ -32,14 +32,14 @@ const PageAbout = () => {
   );
 };
 
-const AboutUsHeader = () => {
-  return (
-    <div className="aboutus-header">
-      <img className="aboutus-main-picture" src={Landing1}></img>
-      <img className="aboutus-wave-top" src={waveTop} alt="wave"></img>
-    </div>
-  );
-};
+// const AboutUsHeader = () => {
+//   return (
+//     <div className="aboutus-header">
+//       <img className="aboutus-main-picture" src={Landing1}></img>
+//       <img className="aboutus-wave-top" src={waveTop} alt="wave"></img>
+//     </div>
+//   );
+// };
 
 const AboutUsSection = () => {
   return (
