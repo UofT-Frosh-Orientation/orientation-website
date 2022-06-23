@@ -3,6 +3,7 @@ import { PageAbout } from '../pages/About/About';
 import { PageFAQ } from '../pages/FAQ/FAQ';
 import { PageHome } from '../pages/Home/Home';
 import { PageMaintenance } from '../pages/Maintenance/Maintenance';
+import { PagePaymentError } from '../pages/PaymentError/PaymentError';
 import { PageProfile } from '../pages/Profile/Profile';
 import { PageProfileEdit } from '../pages/ProfileEdit/ProfileEdit';
 import { PageRegistrationForm } from '../pages/Registration/RegistrationForm';
@@ -83,6 +84,11 @@ export const pages = {
       label: 'profile-edit',
       component: <PageProfileEdit />,
       path: '/profile-edit',
+    },
+    {
+      label: 'payment-error',
+      component: <PagePaymentError />,
+      path: '/payment-error',
     },
   ],
 };
