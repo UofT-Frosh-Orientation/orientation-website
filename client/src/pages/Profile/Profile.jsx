@@ -28,6 +28,8 @@ import QrScanner from 'qr-scanner';
 import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
+import EditIcon from '../../assets/misc/pen-solid.svg';
+import { Link } from 'react-router-dom';
 
 const PageProfile = () => {
   const qrCodeLeader = canLeaderScanQR();
@@ -224,7 +226,7 @@ const ProfilePageQRScanner = () => {
   );
 };
 
-const ProfilePageHeader = ({ leader }) => {
+const ProfilePageHeader = ({ leader, editButton }) => {
   const froshData = getFroshData();
   return (
     <>
@@ -254,6 +256,13 @@ const ProfilePageHeader = ({ leader }) => {
               </>
             )}
           </div>
+          {editButton !== false ? (
+            <Link to={'/profile-edit'} className={'profile-edit-icon-link'}>
+              <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
+            </Link>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
@@ -263,6 +272,7 @@ const ProfilePageHeader = ({ leader }) => {
 
 ProfilePageHeader.propTypes = {
   leader: PropTypes.bool,
+  editButton: PropTypes.bool,
 };
 
 const ProfilePageAnnouncements = () => {
@@ -406,4 +416,4 @@ ProfilePageAccordionWrapper.propTypes = {
   closeAll: PropTypes.bool,
 };
 
-export { PageProfile };
+export { PageProfile, ProfilePageHeader };

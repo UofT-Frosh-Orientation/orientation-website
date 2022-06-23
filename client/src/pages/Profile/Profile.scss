@@ -40,6 +40,35 @@
       font-size: 15px;
     }
   }
+  .profile-edit-icon-link {
+    position: absolute;
+    right: 10px;
+    top: 55px;
+    @include devices(tablet) {
+      right: 5px;
+      top: 5px;
+    }
+  }
+  .profile-edit-icon {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    background-color: var(--yellow);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: transform 200ms;
+    &:hover {
+      transform: scale(1.05);
+    }
+    right: 10px;
+    top: 55px;
+    @include devices(tablet) {
+      width: 35px;
+      height: 35px;
+      padding: 9px;
+    }
+  }
 }
 
 .profile-page-header-group {
