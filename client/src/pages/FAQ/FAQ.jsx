@@ -2,17 +2,21 @@ import { React, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getQuestions, getCategories } from './functions';
 import './FAQ.scss';
-import Wave from '../../assets/misc/wave_bg.png';
+import Wave from '../../assets/misc/wave-reverse.png';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import { Button } from '../../components/button/Button/Button';
+import { TextInput } from '../../components/input/TextInput/TextInput';
 import SearchIcon from '../../assets/misc/magnifying-glass-solid.svg';
 import DeleteIcon from '../../assets/misc/circle-xmark-solid.svg';
 
 const PageFAQ = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isSearch, setIsSearch] = useState(false);
+  const [isMultiSearch, setIsMultiSearch] = useState(false);
+  const [selectedSearchResult, setSelectedSearchResult] = useState(false);
   const [selectedQuestion, setSelectedQuestion] = useState(0);
+  const [selectedQuestions, setSelectedQuestions] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const data = getQuestions();
   const unsortedQuestions = [];
@@ -37,15 +41,21 @@ const PageFAQ = () => {
       <FAQPageHeader
         questions={unsortedQuestions}
         setIsSearch={setIsSearch}
+        setIsMultiSearch={setIsMultiSearch}
         setSelectedQuestion={setSelectedQuestion}
+        setSelectedQuestions={setSelectedQuestions}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+        selectedSearchResult={selectedSearchResult}
+        setSelectedSearchResult={setSelectedSearchResult}
       />
+      <img src={Wave} className={'faq-wave-image faq-page-top-wave-image'} />
       <div className={'faq-button-selector-container'}>
         <FAQButtons
           activeIndex={activeIndex}
           setActiveIndex={setActiveIndex}
           setIsSearch={setIsSearch}
+          setIsMultiSearch={setIsMultiSearch}
           setSearchQuery={setSearchQuery}
         />
       </div>
@@ -57,10 +67,15 @@ const PageFAQ = () => {
         />
       </div>
       <div className={`faq-display-questions-container ${isSearch ? '' : 'faq-hide-accordion'}`}>
-        <FAQDisplaySearchQuestion
-          selectedQuestion={selectedQuestion}
-          questions={unsortedQuestions}
-        />
+        <div className={`${isMultiSearch ? 'faq-hide-accordion' : ''}`}>
+          <FAQDisplaySearchQuestion
+            selectedQuestion={selectedQuestion}
+            questions={unsortedQuestions}
+          />
+        </div>
+        <div className={`${isMultiSearch ? '' : 'faq-hide-accordion'}`}>
+          <FAQDisplayAllSearchQuestion selectedQuestions={selectedQuestions} />
+        </div>
       </div>
       <div className={'faq-ask-question-outer-container'}>
         <FAQAskQuestion />
@@ -75,6 +90,10 @@ const FAQPageHeader = ({
   setSelectedQuestion,
   searchQuery,
   setSearchQuery,
+  selectedSearchResult,
+  setSelectedSearchResult,
+  setSelectedQuestions,
+  setIsMultiSearch,
 }) => {
   const filterQuestions = (questions, query) => {
     if (!query) {
@@ -87,6 +106,10 @@ const FAQPageHeader = ({
   };
 
   const filteredQuestions = filterQuestions(questions, searchQuery);
+  const handleSearchIconClick = () => {
+    setSelectedQuestions(filteredQuestions);
+    setIsMultiSearch(true);
+  };
   return (
     <div className={'faq-page-header'}>
       <div className={'faq-page-header-container'}>
@@ -95,7 +118,16 @@ const FAQPageHeader = ({
           <p>How can we help you?</p>
         </div>
         <div className="faq-page-header-search">
-          <div className="searchIcon">
+          <div
+            className="searchIcon"
+            style={{
+              borderRadius:
+                searchQuery.length > 0 && !selectedSearchResult && filteredQuestions.length > 0
+                  ? '15px 0px 0px 0px'
+                  : '',
+            }}
+            onClick={() => handleSearchIconClick()}
+          >
             <img src={SearchIcon} alt="Search Button" height={30} />
           </div>
           <div className={'faq-page-header-searchbar'}>
@@ -103,11 +135,22 @@ const FAQPageHeader = ({
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
               setIsSearch={setIsSearch}
+              setIsMultiSearch={setIsMultiSearch}
               setSelectedQuestion={setSelectedQuestion}
               questions={filteredQuestions}
+              selectedSearchResult={selectedSearchResult}
+              setSelectedSearchResult={setSelectedSearchResult}
             />
           </div>
-          <div className="deleteIcon">
+          <div
+            className="deleteIcon"
+            style={{
+              borderRadius:
+                searchQuery.length > 0 && !selectedSearchResult && filteredQuestions.length > 0
+                  ? '0px 15px 0px 0px'
+                  : '',
+            }}
+          >
             {searchQuery.length > 0 ? (
               <img
                 onClick={() => setSearchQuery('')}
@@ -121,7 +164,6 @@ const FAQPageHeader = ({
           </div>
         </div>
       </div>
-      <img src={Wave} className="faq-wave-image faq-page-top-wave-image" />
     </div>
   );
 };
@@ -132,6 +174,10 @@ FAQPageHeader.propTypes = {
   setSelectedQuestion: PropTypes.func.isRequired,
   searchQuery: PropTypes.string.isRequired,
   setSearchQuery: PropTypes.func.isRequired,
+  selectedSearchResult: PropTypes.number.isRequired,
+  setSelectedSearchResult: PropTypes.bool.isRequired,
+  setSelectedQuestions: PropTypes.func.isRequired,
+  setIsMultiSearch: PropTypes.func.isRequired,
 };
 
 const FAQButtons = ({ activeIndex, setActiveIndex, setIsSearch, setSearchQuery }) => {
@@ -192,32 +238,41 @@ const FAQSearchBar = ({
   searchQuery,
   setSearchQuery,
   setIsSearch,
+  setIsMultiSearch,
   setSelectedQuestion,
   questions,
+  selectedSearchResult,
+  setSelectedSearchResult,
 }) => {
+  const handleSearchResultSelect = () => {
+    setSelectedSearchResult(false);
+    setIsMultiSearch(false);
+  };
   return (
     <div className={'faq-search'}>
-      <div>
+      <div className={'faq-search-input'}>
         <input
           value={searchQuery}
           onInput={(e) => setSearchQuery(e.target.value)}
+          onClick={() => handleSearchResultSelect}
           type="text"
           placeholder={'Search for a question'}
         />
       </div>
       {searchQuery.length != 0 && (
         <div
-          className="faq-data-result"
+          className={`faq-data-result ${selectedSearchResult ? 'faq-search-results-hide' : ''}`}
           style={{ height: questions.length * 50 < 200 ? questions.length * 50 : 200 }}
         >
           {questions.map((value, index) => {
             return (
-              <div key={index} className="faq-data-item">
+              <div key={index} className={'faq-data-item'}>
                 <FAQSearchResult
                   setIsSearch={setIsSearch}
                   setSelectedQuestion={setSelectedQuestion}
                   setSearchQuery={setSearchQuery}
                   question={value}
+                  setSelectedSearchResult={setSelectedSearchResult}
                 />
               </div>
             );
@@ -232,15 +287,25 @@ FAQSearchBar.propTypes = {
   searchQuery: PropTypes.string.isRequired,
   setSearchQuery: PropTypes.func.isRequired,
   setIsSearch: PropTypes.func.isRequired,
+  setIsMultiSearch: PropTypes.func.isRequired,
   setSelectedQuestion: PropTypes.func.isRequired,
   questions: PropTypes.array.isRequired,
+  selectedSearchResult: PropTypes.bool.isRequired,
+  setSelectedSearchResult: PropTypes.func.isRequired,
 };
 
-const FAQSearchResult = ({ setIsSearch, setSelectedQuestion, setSearchQuery, question }) => {
+const FAQSearchResult = ({
+  setIsSearch,
+  setSelectedQuestion,
+  setSearchQuery,
+  question,
+  setSelectedSearchResult,
+}) => {
   function FAQReturnQuestions() {
     setIsSearch(true);
     setSelectedQuestion(question.id);
-    setSearchQuery('');
+    setSearchQuery(question.question);
+    setSelectedSearchResult(true);
   }
   return (
     <div className={'faq-search-result-wrapper'} onClick={() => FAQReturnQuestions()}>
@@ -254,6 +319,7 @@ FAQSearchResult.propTypes = {
   setSelectedQuestion: PropTypes.func.isRequired,
   question: PropTypes.object.isRequired,
   setSearchQuery: PropTypes.func.isRequired,
+  setSelectedSearchResult: PropTypes.func.isRequired,
 };
 
 const FAQDisplaySearchQuestion = ({ selectedQuestion, questions }) => {
@@ -270,25 +336,37 @@ FAQDisplaySearchQuestion.propTypes = {
   questions: PropTypes.array.isRequired,
 };
 
+const FAQDisplayAllSearchQuestion = ({ selectedQuestions, questions }) => {
+  const allSearchQuestions = selectedQuestions.map((question, index) => (
+    <div key={index} className={'faq-search-result-container'}>
+      <div className={'faq-search-result-question'}>{question.question}</div>
+      <div className={'faq-search-result-answer'}>{question.answer}</div>
+    </div>
+  ));
+  return <div>{allSearchQuestions}</div>;
+};
+
+FAQDisplayAllSearchQuestion.propTypes = {
+  selectedQuestions: PropTypes.array.isRequired,
+  questions: PropTypes.array.isRequired,
+};
+
 const FAQAskQuestion = () => {
   const [textValue, updateTextValue] = useState('');
   const initialFormData = {
     question: '',
   };
   const [formData, updateFormData] = useState(initialFormData);
-  const handleChange = (e) => {
-    updateTextValue(e.target.value);
-    updateFormData({
-      ...formData,
-      [e.target.name]: e.target.value.trim(),
-    });
+  const handleChange = (text) => {
+    console.log(text);
+    updateFormData({ question: text });
+    console.log(formData);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (text) => {
     console.log(formData);
     updateFormData(initialFormData);
-    updateTextValue('');
+    text = '';
     // ... submit to API or something
   };
 
@@ -297,14 +375,14 @@ const FAQAskQuestion = () => {
       <h1 className={'faq-ask-question-title'}>Can&apos;t Find Your Question?</h1>
       <form>
         <label>
-          <textarea
-            className={'faq-ask-question-box'}
-            name="question"
-            value={textValue}
-            wrap="soft"
-            onChange={handleChange}
-            placeholder={'Type your question here'}
-          ></textarea>
+          <div className={'faq-ask-question-box'}>
+            <TextInput
+              value={textValue}
+              onChange={(text) => handleChange(text)}
+              inputType={'textArea'}
+              placeholder={'Type your question here'}
+            />
+          </div>
         </label>
         <div>
           <Button label={'Submit'} onClick={handleSubmit}>

@@ -4,7 +4,7 @@
   position: relative;
   height: 80vh;
   min-height: 500px;
-  background-color: var(--purple-transparent);
+  background-color: var(--purple);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,9 +42,15 @@
   }
 }
 
+.faq-page-header-search {
+  margin-top: 105px;
+  display: grid;
+  grid-template-columns: 50px auto 50px;
+}
+
 .searchIcon {
   height: 50px;
-  width: 10%;
+  width: 50px;
   color: var(--gray);
   background-color: white;
   display: grid;
@@ -55,18 +61,13 @@
 
 .deleteIcon {
   height: 50px;
-  width: 10%;
+  width: 50px;
   color: var(--gray);
   background-color: white;
   display: grid;
   place-items: center;
   padding-right: 10px;
   border-radius: 0px 15px 15px 0px;
-}
-
-.faq-page-header-search {
-  margin-top: 105px;
-  display: flex;
 }
 
 .faq-page-header-searchbar {
@@ -76,7 +77,6 @@
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
   font-size: 18px;
-  padding: 3px;
   height: 50px;
   width: 100%;
 }
@@ -85,9 +85,13 @@
   outline: none;
 }
 
+.faq-search-input {
+  margin-top: 2px;
+}
+
 .faq-data-result {
-  width: 120%;
-  margin-left: -10%;
+  width: calc(100% + 100px);
+  margin-left: -50px;
   height: 200px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 15px 15px;
@@ -95,7 +99,7 @@
   overflow-y: auto;
   position: relative;
   z-index: 2;
-  border-radius: 15px 15px 15px 15px;
+  border-radius: 0px 0px 15px 15px;
 }
 
 .faq-data-result::-webkit-scrollbar {
@@ -119,11 +123,13 @@
 }
 
 .faq-data-result div:hover {
-  background-color: lightgrey;
+  background-color: var(--purple-shades-light);
+  transform: scale(1.005);
+  transition: transform 200ms, background-color 200ms, border-color 200ms;
 }
 
 .faq-search-result-wrapper {
-  padding-left: 10px;
+  padding-left: 30px;
   width: 100%;
   height: 100%;
   display: flex;
@@ -133,15 +139,14 @@
 .faq-wave-image {
   width: 100vw;
   height: 10vh;
+  object-fit: fill;
   @include devices(tablet) {
     height: 6vh;
   }
 }
 
 .faq-page-top-wave-image {
-  position: absolute;
-  z-index: 1;
-  bottom: 0px;
+  filter: drop-shadow(-10px 20px 8px #23232342);
 }
 
 .faq-accordion-container {
@@ -166,6 +171,10 @@
   padding: 15px;
   height: 45px;
   width: 100%;
+}
+
+.faq-search-results-hide {
+  display: none;
 }
 
 .faq-search-result-container {
@@ -214,15 +223,5 @@
 }
 
 .faq-ask-question-box {
-  font-size: 25px;
-  width: 100%;
-  border: none;
-  outline: none;
-  box-shadow: 0px 0px 20px var(--gray);
-  height: 300px;
   margin: 20px 0px 20px 0px;
-  padding: 10px;
-  border-radius: 10px;
-  word-wrap: break-word;
-  word-break: break-all;
 }
