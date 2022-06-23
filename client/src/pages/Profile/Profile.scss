@@ -194,16 +194,25 @@
 .profile-page-accordion-header {
   padding: 20px 10px;
   user-select: none;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
   h3 {
-    font-size: 24px;
+    font-size: 22px;
     text-transform: capitalize;
+    flex: 1;
   }
   h4 {
     font-size: 17px !important;
     text-transform: capitalize;
+    color: var(--purple);
+    margin-right: 10px;
   }
   @include devices(tablet) {
     padding: 15px 5px;
+    flex-direction: column;
+    align-items: flex-start;
     h3 {
       font-size: 19px;
     }
@@ -225,6 +234,9 @@
     padding-bottom: 5px;
     font-size: 16px;
   }
+}
+.profile-page-schedule-accordion {
+  background-color: var(--purple-shades-light);
 }
 
 .scan-region-highlight-svg {
