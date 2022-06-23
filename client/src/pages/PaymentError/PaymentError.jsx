@@ -17,7 +17,7 @@ const PagePaymentError = () => {
               Sorry, we were unable to process your payment.<br></br>Please try again!
             </p>
 
-            <Link to={'/payment'}>
+            <Link to={'/registration'}>
               <Button label={'Back to Payment'} onClick={() => {}} />
             </Link>
           </div>
