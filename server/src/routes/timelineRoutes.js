@@ -3,7 +3,7 @@ const express = require('express')
 const {
   getTimeline,
   getTimelineElement,
-	editTimelineElement,
+	updateTimelineElement,
   addTimelineElement,
   deleteTimelineElement
 
@@ -15,7 +15,7 @@ router.get('/', getTimeline);
 
 router.get("/:id", getTimelineElement);
 
-router.put("/:id/edit", editTimelineElement);
+router.put("/:id/edit", updateTimelineElement);
 
 router.post("/add", addTimelineElement);
 

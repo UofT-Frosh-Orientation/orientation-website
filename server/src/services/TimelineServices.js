@@ -2,22 +2,18 @@ const TimelineModel = require('../models/TimelineModel');
 
 const TimelineServices = {
   //params timelineElement: [Model Element]
-  async updateTimelineElement(timelineElement) {
-    await timelineElement.save();
+  async updateTimelineElement(id, timelineElement) {
+    return await TimelineModel.findOneAndUpdate({_id: id}, timelineElement)
   },
   //params timelineElement: []
-  async saveNewTimelineElement(date, name, description) {
-    const timelineModel = new TimelineModel({
-      date: date,
-      name: name,
-      description: description,
-    });
+  async saveNewTimelineElement(timelineElement) {
+    const timelineModel = new TimelineModel(timelineElement);
 
     return await timelineModel.save();
   },
 
-  async validateUser(timelineData) {
-
+  async deleteTimelineElement(id) {
+    return await TimelineModel.findOneAndDelete({_id: id})
   }
 };
 

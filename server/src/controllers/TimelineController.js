@@ -11,7 +11,7 @@ const TimelineController = {
           .lean()
           .exec((err, items)=>{
             if(!err){
-                return res.json({items: items})
+              return res.json({items: items})
             }
           }); 
     } catch(e) {
@@ -20,65 +20,65 @@ const TimelineController = {
   },
 
   async getTimelineElement(req, res, next) {
-    let timelineData = req.body;
     let id = req.params.id;
     try {
       // have a form that automatically fills out fields with current model information
       // gets corresponding timelineelement informaiton to prefill form -> reroutes to edit form
-      res.render("/:id/edit",
-        {
-          TimelineElement: TimelineModel.findOne({ _id: id })
-        }   
-      )
-    } catch (e) {
+      
+      const timelineElement = await TimelineModel.findOne({_id: id})
+        .exec((err, timelineElement)=>{
+          if(!err){
+            return res.json(timelineElement)
+          }
+        });
+    } catch(e) {
       next(e);
     }
   },
 
-  async editTimelineElement(req, res, next) {
-    let timelineData = req.body;
+  async updateTimelineElement(req, res, next) {
+    let timelineData = req.body;    
+    let id = req.params.id;
+
     try {
-      //need to change for permissions - which users can access
-      // await TimelineServices.validateUser(timelineData);
-      // have a form that automatically fills out fields with current model information
       timelineRecord = {
         date: timelineData.date,
         name: timelineData.name,
         description: timelineData.description
       }
-      await TimelineServices.updateTimelineElement(timelineRecord);
-      res.status(200).send({ message: 'Successfully updated timeline element!' });
-      res.redirect('/timeline/:id');
+
+      await TimelineServices.updateTimelineElement(id, timelineRecord);
+      return res.status(204).send({ message: 'Successfully updated timeline element!' });
     } catch (e) {
       next(e);
     }
   },
 
   async addTimelineElement(req, res, next) {
-    const { date, name, description } = req.body;
+    const timelineData = req.body;
+    
     try {
       //need to change for permissions - which users can access
       // await TimelineServices.validateUser(timelineData);
-      
-      await TimelineServices.saveNewTimelineElement(date, name, description);
-      return res.status(200).send({ message: 'Successfully added new timeline element!' });
+      timelineRecord = {
+        date: timelineData.date,
+        name: timelineData.name,
+        description: timelineData.description
+      }
+
+      await TimelineServices.saveNewTimelineElement(timelineRecord);
+      return res.status(200).send({ message: 'Successfully added timeline element!' });
     } catch (e) {
       next(e);
     }
-    
   },
 
   async deleteTimelineElement(req, res, next) {
     let id = req.params.id;
+    
     try {
-      timelineElement = TimelineModel.findOne({ _id: id })
-      timelineElement.date = ''
-      timelineElement.name = ''
-      timelineElement.description = ''
-
-      await TimelineServices.updateTimelineElement(timelineElement);
-      res.status(200).send({ message: 'Successfully deleted timeline element!' });
-      res.redirect('/timeline/:id');
+      await TimelineServices.deleteTimelineElement(id);
+      return res.status(200).send({ message: 'Successfully deleted timeline element!' });
     } catch (e) {
       next(e);
     }
