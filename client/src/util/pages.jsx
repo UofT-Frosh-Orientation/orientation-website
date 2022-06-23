@@ -3,6 +3,7 @@ import { PageAbout } from '../pages/About/About';
 import { PageFAQ } from '../pages/FAQ/FAQ';
 import { PageHome } from '../pages/Home/Home';
 import { PageMaintenance } from '../pages/Maintenance/Maintenance';
+import { PagePaymentError } from '../pages/PaymentError/PaymentError';
 import { PageProfile } from '../pages/Profile/Profile';
 import { PageRegistrationForm } from '../pages/Registration/RegistrationForm';
 import { PageRegistrationSuccess } from '../pages/RegistrationSuccess/RegistrationSuccess';
@@ -77,6 +78,11 @@ export const pages = {
       label: 'sign-up',
       component: <PageSignUp />,
       path: '/sign-up',
+    },
+    {
+      label: 'payment-error',
+      component: <PagePaymentError />,
+      path: '/payment-error',
     },
   ],
 };
