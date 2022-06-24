@@ -11,7 +11,9 @@ export const PopupModalStory = (args) => <PopupModal {...args} />;
 PopupModalStory.storyName = 'PopupModal';
 
 PopupModalStory.args = {
-  children: <div style={{ height: '100px', width: '100px', background: 'yellow' }}></div>,
+  trigger: true,
+
+  children: <div style={{ height: '200px', width: '200px', background: 'yellow' }}></div>,
 
   showHeading: true,
   heading: 'This is a Popup',

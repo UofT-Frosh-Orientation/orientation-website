@@ -208,7 +208,7 @@ const PopupModalContents = ({ trigger, setTrigger, exitIcon, heading, children }
       ) : (
         <></>
       )}
-      <div className="popup-children">{children}</div>
+      <div className="popup-modal-children">{children}</div>
     </>
   );
 };
@@ -240,6 +240,7 @@ const defaultprops = {
   blurBackground: true,
 
   bgHeightMobile: '100vh',
+  heading: undefined,
 };
 
 PopupModal.propTypes = allprops;

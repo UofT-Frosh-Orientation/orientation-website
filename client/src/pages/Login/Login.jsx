@@ -15,12 +15,12 @@ import MountainFR from '../../assets/login/mountain-front-right.svg';
 import MountainM from '../../assets/login/mountain-mid.svg';
 import Ptero from '../../assets/login/ptero.svg';
 
-import XMark from '../../assets/misc/xmark-solid-white.svg';
 import { login, resetPassword } from './functions';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { PopupModal } from '../../components/popup/PopupModal';
+import { useDeferredValue } from 'react';
 
 const PageLogin = ({ incorrectEntry }) => {
   // pop up when clicking forget password
@@ -31,6 +31,11 @@ const PageLogin = ({ incorrectEntry }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
   const [loginState, setLoginState] = useState('');
+
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
+
+  // if the email is successful, send button disappears
 
   let username = '';
   let password = '';
@@ -98,8 +103,8 @@ const PageLogin = ({ incorrectEntry }) => {
           trigger={showPopUp}
           setTrigger={setShowPopUp}
           bgHeight="150vh"
+          bgHeightMobile="100vh"
           containerTop="25vh"
-          heading="Reset Password"
         >
           <ForgotPassword />
         </PopupModal>
@@ -129,37 +134,80 @@ PageLogin.defaultProps = {
 };
 
 const ForgotPassword = () => {
-  const [emailError, setEmailError] = useState('');
+  const [emailError, setEmailError] = useState(''); // error message returned -- either a success or error
+  const [passwordResetSuccess, setpasswordResetSuccess] = useState('false'); // success or not
+  const [isLoadingPassword, setIsLoadingPassword] = useState(false);
+  const [emailInput, setEmailInput] = useState(''); // email entered by user
 
-  let email = '';
+  // let email = '';
 
   return (
-    <div className="forgot-password-container">
-      {/* <h2 className="reset-password-title">Reset Password</h2> */}
+    <div
+      className={`forgot-password-container ${
+        isLoadingPassword ? 'forgot-password-container-disappear' : ''
+      }`}
+    >
+      <h2 className="reset-password-title">Reset Password</h2>
       <p className="reset-password-des">{`Enter your email address below, and we'll send you an email to reset your password.`}</p>
       <TextInput
         inputType={'text'}
         placeholder={'Email'}
         onChange={(value) => {
-          email = value;
+          setEmailInput(value);
+          // email = value;
         }}
-        errorFeedback={emailError}
+        // errorFeedback={emailError}
       />
 
-      <Button
-        label={'Send'}
-        onClick={() => {
-          if (emailError !== '') {
-            setEmailError('');
-          }
-          const result = resetPassword(email);
+      {/* if email was correct and password email will send, do not display button */}
+      {passwordResetSuccess ? (
+        <Button
+          label={'Send'}
+          onClick={async () => {
+            setIsLoadingPassword(true);
 
-          if (result !== true) {
-            setEmailError(result);
-          }
-        }}
-        style={{ zIndex: '10' }}
-      ></Button>
+            if (emailError !== '') {
+              setEmailError('');
+            }
+            const result = await resetPassword(emailInput);
+
+            if (result === true) {
+              setpasswordResetSuccess(true);
+            } else {
+              setIsLoadingPassword(false);
+              setEmailError(result);
+              setpasswordResetSuccess(false);
+            }
+          }}
+          style={{ zIndex: '10' }}
+        />
+      ) : (
+        <></>
+      )}
+
+      {/* if email was valid display success message, else display errorBox */}
+      {/* { passwordResetSuccess ?  */}
+      <div
+        className={`password-reset-loading ${
+          isLoadingPassword === true ? 'password-reset-loading-appear' : ''
+        }`}
+      >
+        <LoadingAnimation size={'60px'} />
+      </div>
+
+      {/* if email valid, success box appears, else, error box appears */}
+      {passwordResetSuccess ? (
+        <div className="success-password-reset-container-message">
+          <ErrorSuccessBox
+            content={"We didn't recognize that email, please try again!"}
+            success={true}
+          />
+        </div>
+      ) : (
+        <div className="error-password-reset-container-message">
+          <ErrorSuccessBox content={emailError} error={true} />
+        </div>
+      )}
     </div>
   );
 };

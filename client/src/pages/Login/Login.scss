@@ -311,10 +311,22 @@
     width: 80vw;
   }
 }
-// .reset-password-title {
-//   padding-top: 14px;
-//   padding-bottom: 10px;
-// }
+.forgot-password-container-disappear {
+  opacity: 0;
+  transition: opacity 1200ms;
+  user-select: none;
+  pointer-events: none;
+}
+
+.reset-password-title {
+  // padding-top: 10px;
+  padding-bottom: 10px;
+  margin: 10px;
+  color: var(--white);
+  text-align: center;
+  font-size: 30px;
+}
+
 .forgot-password-x-mark {
   align-self: flex-end;
   width: 10px;
@@ -373,4 +385,20 @@
   transition: transform 1200ms, opacity 1200ms;
   user-select: none;
   pointer-events: none;
+}
+
+.password-reset-loading {
+  z-index: 10;
+  // position: fixed;
+  // top: calc(50vh - 30px);
+  // left: calc(50vw - 30px);
+  transition: transform 400ms, opacity 400ms;
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.password-reset-loading-appear {
+  transition: transform 400ms, opacity 400ms;
+  opacity: 1;
+  transform: scale(1);
 }

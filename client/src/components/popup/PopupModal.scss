@@ -22,7 +22,6 @@
   flex-direction: column;
   align-items: center;
 
-  cursor: pointer;
   pointer-events: all; // allows users to click on bg
   animation: fade-in 400ms forwards;
 }
@@ -76,6 +75,7 @@
 .popup-container-hide {
   position: fixed;
   display: flex;
+  // display: block;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -91,43 +91,105 @@
   color: var(--white);
   text-align: center;
   z-index: 10;
+
+  max-height: 50%;
+  // max-width: 70%;
+  overflow-y: scroll;
+
+  // &::-webkit-scrollbar {
+  //   overflow: hidden;
+  //   display: none;
+  //   width: 8px;
+  // }
+  // &::-webkit-scrollbar-thumb,
+  // &::-webkit-scrollbar-track {
+  //   opacity: 0
+  // }
+
+  // &:hover {
+  //   overflow-y: auto;
+  //   &::-webkit-scrollbar-thumb {
+  //     position: absolute;
+  //     background: var(--purple-shades-light);
+  //   }
+  //   &::-webkit-scrollbar-track {
+  //     background: var(--purple-shades-muted);
+
+  //   }
+  // }
+
+  @include devices(tablet) {
+    max-width: 80%;
+  }
+}
+
+.popup-modal-children {
+  // flex-grow: 1;
+  // flex: block;
+  // overflow: auto;
+
+  // &::-webkit-scrollbar {
+  //   position: absolute;
+  //   left: 0;
+  //   opacity: 0;
+  // }
+  // &:hover {
+  //   &::-webkit-scrollbar {
+  //     width: 5px;
+  //   height: 8px;
+  //   background: var(--purple-shades-light);
+  //   }
+  // }
+
+  // &:hover {
+  //   overflow-y: auto;
+  //   &::-webkit-scrollbar-thumb {
+  //     position: absolute;
+  //     background: var(--purple-shades-light);
+  //   }
+  //   &::-webkit-scrollbar-track {
+  //     background: var(--purple-shades-muted);
+
+  //   }
+  // }
 }
 
 .popup-container-show {
-  animation: scale-in 400ms;
+  // animation: scale-in 400ms;
+  animation: fade-in 400ms;
 }
 .popup-container-hide {
   pointer-events: none;
-  animation: scale-out 400ms;
   animation: fade-out 400ms;
   opacity: 0;
 }
 
-@keyframes scale-in {
-  // popup becomes visible
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  70% {
-    transform: scale(1.13);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
+// @keyframes scale-in {
+//   // popup becomes visible
+//   0% {
+//     transform: scale(0);
+//     opacity: 0;
+//   }
+//   70% {
+//     transform: scale(1.13);
+//   }
+//   100% {
+//     transform: scale(1);
+//     opacity: 1;
+//   }
+// }
 
-.popup-heading {
-  padding-top: 14px;
-  padding-bottom: 10px;
-}
+// .popup-heading {
+//   padding-top: 14px;
+//   padding-bottom: 10px;
+// }
 .popup-x-mark {
   align-self: flex-end;
   width: 17px;
   left: 0;
-  margin-right: 3px;
-  margin-left: 3px;
+  // margin-right: 3px;
+  // margin-left: 3px;
+  margin: 7px 10px 3px 0;
 
   pointer-events: all;
   cursor: pointer;
