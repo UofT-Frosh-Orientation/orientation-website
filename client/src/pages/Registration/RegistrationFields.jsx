@@ -10,7 +10,7 @@ export const fields = {
     name: {
       type: 'text',
       inputType: 'text',
-      placeholder: 'Best Frosh',
+      placeholder: 'John Doe',
       label: 'Legal Name',
       isRequiredInput: true,
       errorMessage: 'Please enter your legal name',
