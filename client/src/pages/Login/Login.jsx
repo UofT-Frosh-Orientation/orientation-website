@@ -102,11 +102,23 @@ const PageLogin = ({ incorrectEntry }) => {
         <PopupModal
           trigger={showPopUp}
           setTrigger={setShowPopUp}
-          bgHeight="150vh"
-          bgHeightMobile="100vh"
-          containerTop="25vh"
+          blurBackground={false}
+          exitIcon={true}
+          heading={'hellooooooo'}
+          bodyText={
+            'ashfihdfoenvaoiypbt8wybrhi ogsdrohvnfkl osyn io;sbin inhosgbnioh;gf inoh;g isgoi h;gifh;'
+          }
+          // bgHeight="150vh"
+          // bgHeightMobile="100vh"
+          // containerTop="25vh"
         >
-          <ForgotPassword />
+          <>
+            <ForgotPassword />
+            <div
+              className="hihihihih"
+              style={{ width: '100px', height: '100px', background: 'blue' }}
+            ></div>
+          </>
         </PopupModal>
 
         <div className="login-bg-images">

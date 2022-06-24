@@ -1,7 +1,8 @@
 @import '../../scssStyles/mixins';
 
 .login-entire-page {
-  height: 150vh;
+  height: 100vh;
+  // height: 100%;
   width: 100vw;
 }
 
@@ -108,12 +109,15 @@
 .login-bg-images {
   position: relative;
   overflow: hidden;
-  width: 100vw;
-  height: 150vh;
-  bottom: 100vh;
+  width: 100%;
+  height: 100%;
+  // height: 150vh;
+  bottom: 100%;
   flex-direction: none;
   justify-content: none;
   align-items: none;
+  user-select: none;
+  pointer-events: none;
 }
 
 .ptero {
@@ -139,7 +143,7 @@
 
 .brachio-left {
   position: absolute;
-  bottom: 0;
+  bottom: -7px;
   width: 40vw;
   z-index: 8;
   left: 0;
@@ -149,9 +153,10 @@
 
 .brachio-right {
   position: absolute;
-  bottom: 0;
+  bottom: -10px;
   z-index: 8;
-  width: 50vw;
+  height: 80%;
+  // width: 50vw;
   right: -2vw;
 
   animation: brachio-sway infinite 15s ease-in-out;
@@ -172,7 +177,7 @@
 .ground {
   overflow: hidden;
   position: absolute;
-  bottom: -20vh;
+  bottom: -33%;
   width: 100vw;
   z-index: 7;
 
@@ -212,7 +217,10 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  height: 140vh;
+  margin-top: 40vh;
+  // height: 100vh;
+  width: 35%;
+  // height: 140vh;
   z-index: -1;
 }
 
@@ -239,15 +247,16 @@
   }
 
   .brachio-left {
-    bottom: 12vw;
+    bottom: 35px;
     width: 25vw;
-    left: 0;
+    left: 5px;
   }
 
   .brachio-right {
-    bottom: 22vw;
-    width: 40vw;
+    bottom: 30px;
+    width: 60%;
     right: 0;
+    height: auto;
   }
 
   .ground {
@@ -270,7 +279,8 @@
   .mountain-front-right {
     bottom: 0;
     right: -5vw;
-    height: 80vh;
+    // height: 80vh;
+    width: 80%;
   }
 
   .mountain-mid {
@@ -302,7 +312,7 @@
   align-items: center;
 
   width: 60vw;
-  padding-bottom: 29px;
+  // padding-bottom: 29px;
 
   color: var(--white);
   text-align: center;
