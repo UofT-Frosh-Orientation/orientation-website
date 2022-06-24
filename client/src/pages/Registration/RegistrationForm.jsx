@@ -194,7 +194,11 @@ const PageRegistrationForm = () => {
                 ),
               },
               {
-                title: 'Misc',
+                title: 'Health & Safety',
+                component: generateStepComponent(formFields['HealthSafety'], 'HealthSafety'),
+              },
+              {
+                title: 'Extra Events',
                 component: generateStepComponent(formFields['Misc'], 'Misc'),
               },
               {
