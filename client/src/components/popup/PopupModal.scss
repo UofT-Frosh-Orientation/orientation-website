@@ -30,27 +30,36 @@
 
   z-index: 9;
 }
+
+.popup-modal-background-show {
+  pointer-events: all;
+  opacity: 1;
+  // transition: opacity 300ms;
+  animation: fade-in 500ms forwards;
+}
+.popup-modal-background-color {
+  // displays a purple coloured background
+  background-color: rgba(111, 30, 136, 0.75);
+}
+.popup-modal-background-blur {
+  // displays blurred background
+  backdrop-filter: blur(8px);
+}
+
 .popup-modal-background-hide {
   opacity: 0;
   background-color: rgba(0, 0, 0, 0);
   backdrop-filter: blur(0);
   user-select: none;
   pointer-events: none;
-  transition: opacity 300ms, background-color 300ms, backdrop-filter 300ms;
+  // transition: opacity 300ms, background-color 300ms, backdrop-filter 300ms;
+  animation: fade-out 400ms forwards;
 }
-.popup-modal-background-show {
-  pointer-events: all;
-  opacity: 1;
-  transition: opacity 300ms;
+.popup-modal-background-hide-blur {
+  animation: fade-out-background-blur 400ms forwards;
 }
-.popup-modal-background-color {
-  // displays a purple coloured background
-  z-index: 10 !important;
-  background-color: rgba(111, 30, 136, 0.75);
-}
-.popup-modal-background-blur {
-  // displays blurred background
-  backdrop-filter: blur(8px);
+.popup-modal-background-hide-color {
+  animation: fade-out-background-color 400ms forwards;
 }
 
 //POPUP CONTAINER
@@ -65,7 +74,9 @@
   flex-direction: column;
 
   width: fit-content;
-  height: 50%;
+  height: fit-content;
+  max-width: 80%;
+  max-height: 55%;
   overflow-x: hidden;
   overflow-y: scroll;
 
@@ -76,25 +87,15 @@
     background-color: var(--transparent);
   }
   &::-webkit-scrollbar-thumb {
-    background-color: var(--purple-transparent);
+    background-color: var(--light-purple);
   }
 
   @include devices(tablet) {
     width: 80%;
+    max-height: 70%;
   }
 }
 .popup-modal-container-show {
-  // z-index: 12;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // flex-direction: column;
-
-  // width: 1000px;
-  // max-height: 50%;
-  // overflow-x: hidden;
-  // overflow-y: scroll;
-
   background: var(--purple-shades-muted);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -102,20 +103,8 @@
   margin: 50px;
 
   opacity: 1;
-  transition: opacity 400ms;
-
-  // color: var(--white);
-  // text-align: center;
-
-  // &::-webkit-scrollbar {
-  //   width: 5px;
-  // }
-  // &::-webkit-scrollbar-track {
-  //   background-color: var(--transparent);
-  // }
-  // &::-webkit-scrollbar-thumb {
-  //   background-color: var(--purple-transparent);
-  // }
+  // transition: opacity 400ms;
+  animation: fade-in 400ms forwards;
 
   @include devices(tablet) {
     font-size: 14px;
@@ -124,9 +113,8 @@
 .popup-modal-container-hide {
   position: absolute;
   opacity: 0;
-  transition: opacity 200ms;
-  transition-delay: 0;
   pointer-events: none;
+  animation: fade-out 400ms forwards;
 }
 
 .exit-icon-show {
@@ -150,12 +138,14 @@
 }
 
 .popup-modal-heading {
-  // padding-top: 10px;
-  // padding-bottom: 10px;
   margin-bottom: 15px;
   color: var(--white);
   text-align: center;
   font-size: 30px;
+
+  @include devices(tablet) {
+    font-size: 26px;
+  }
 }
 
 .popup-modal-body-text {
@@ -163,223 +153,43 @@
   text-align: center;
   font-size: 20px;
   margin-bottom: 10px;
+  padding: 0 10%;
 
   @include devices(tablet) {
     font-size: 16px;
+    padding: 0;
   }
 }
 
-// .popup-background-container {
-//   top: 0;
-//   position: absolute;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   width: 100vw;
-// }
-
-// .popup-background-show,
-// .popup-background-show-blur {
-//   position: absolute;
-//   z-index: 9;
-
-//   width: 100vw;
-
-//   top: 0;
-
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-
-//   pointer-events: all; // allows users to click on bg
-//   animation: fade-in 400ms forwards;
-// }
-// .popup-background-show {
-//   background: rgba(111, 30, 136, 0.75);
-// }
-// .popup-background-show-blur {
-//   backdrop-filter: blur(8px);
-// }
-
-// .popup-background-hide {
-//   position: absolute;
-//   z-index: 9;
-
-//   width: 100vw;
-//   top: 0;
-
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-
-//   pointer-events: none;
-//   animation: fade-out 400ms forwards;
-//   opacity: 0;
-// }
-// .popup-background-hide {
-//   background: rgba(111, 30, 136, 0.75);
-// }
-// .popup-background-hide-blur {
-//   backdrop-filter: blur(8px);
-// }
-
-// @keyframes fade-in {
-//   from {
-//     opacity: 0;
-//   }
-//   to {
-//     opacity: 1;
-//   }
-// }
-// @keyframes fade-out {
-//   from {
-//     opacity: 1;
-//   }
-//   to {
-//     opacity: 0;
-//   }
-// }
-
-// .popup-container-show,
-// .popup-container-hide {
-//   position: fixed;
-//   display: flex;
-//   // display: block;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-
-//   // top is a prop
-//   width: fit-content;
-
-//   background: var(--purple-shades-muted);
-//   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-//   border-radius: 10px;
-//   padding: 10px;
-
-//   color: var(--white);
-//   text-align: center;
-//   z-index: 10;
-
-//   max-height: 50%;
-//   // max-width: 70%;
-//   overflow-y: scroll;
-
-//   // &::-webkit-scrollbar {
-//   //   overflow: hidden;
-//   //   display: none;
-//   //   width: 8px;
-//   // }
-//   // &::-webkit-scrollbar-thumb,
-//   // &::-webkit-scrollbar-track {
-//   //   opacity: 0
-//   // }
-
-//   // &:hover {
-//   //   overflow-y: auto;
-//   //   &::-webkit-scrollbar-thumb {
-//   //     position: absolute;
-//   //     background: var(--purple-shades-light);
-//   //   }
-//   //   &::-webkit-scrollbar-track {
-//   //     background: var(--purple-shades-muted);
-
-//   //   }
-//   // }
-
-//   @include devices(tablet) {
-//     max-width: 80%;
-//   }
-// }
-
-// .popup-modal-children {
-//   // flex-grow: 1;
-//   // flex: block;
-//   // overflow: auto;
-
-//   // &::-webkit-scrollbar {
-//   //   position: absolute;
-//   //   left: 0;
-//   //   opacity: 0;
-//   // }
-//   // &:hover {
-//   //   &::-webkit-scrollbar {
-//   //     width: 5px;
-//   //   height: 8px;
-//   //   background: var(--purple-shades-light);
-//   //   }
-//   // }
-
-//   // &:hover {
-//   //   overflow-y: auto;
-//   //   &::-webkit-scrollbar-thumb {
-//   //     position: absolute;
-//   //     background: var(--purple-shades-light);
-//   //   }
-//   //   &::-webkit-scrollbar-track {
-//   //     background: var(--purple-shades-muted);
-
-//   //   }
-//   // }
-// }
-
-// .popup-container-show {
-//   // animation: scale-in 400ms;
-//   animation: fade-in 400ms;
-// }
-// .popup-container-hide {
-//   pointer-events: none;
-//   animation: fade-out 400ms;
-//   opacity: 0;
-// }
-
-// // @keyframes scale-in {
-// //   // popup becomes visible
-// //   0% {
-// //     transform: scale(0);
-// //     opacity: 0;
-// //   }
-// //   70% {
-// //     transform: scale(1.13);
-// //   }
-// //   100% {
-// //     transform: scale(1);
-// //     opacity: 1;
-// //   }
-// // }
-
-// // .popup-heading {
-// //   padding-top: 14px;
-// //   padding-bottom: 10px;
-// // }
-// .popup-x-mark {
-//   align-self: flex-end;
-//   width: 17px;
-//   left: 0;
-//   // margin-right: 3px;
-//   // margin-left: 3px;
-//   margin: 7px 10px 3px 0;
-
-//   pointer-events: all;
-//   cursor: pointer;
-
-//   transition: transform 200ms;
-
-//   &:hover {
-//     transform: rotate(90deg);
-//     transition: transform 200ms;
-//   }
-//   &:active {
-//     transform: rotate(90deg);
-//     transition: transform 150ms;
-//   }
-// }
-
-// .popup-modal-header-container {
-//   margin: 15px;
-// }
-// .popup-modal-heading {
-//   color: var(--white);
-//   text-align: center;
-//   font-size: 30px;
-// }
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fade-out-background-color {
+  from {
+    background-color: rgba(111, 30, 136, 0.75);
+  }
+  to {
+    background-color: rgba(111, 30, 136, 0);
+  }
+}
+@keyframes fade-out-background-blur {
+  from {
+    backdrop-filter: blur(8px);
+  }
+  to {
+    backdrop-filter: blur(0px);
+  }
+}

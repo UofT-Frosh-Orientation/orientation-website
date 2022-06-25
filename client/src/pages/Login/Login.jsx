@@ -22,6 +22,12 @@ import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOut
 import { PopupModal } from '../../components/popup/PopupModal';
 import { useDeferredValue } from 'react';
 
+// Messages!
+const popupTitle = 'Reset Password';
+const popupBodyText = `Enter your email address below, and we'll send you an email to reset your password`;
+const emailSuccessMessage = `Success, an email has been sent!`;
+const emailErrorMessage = `We didn't recognize that email, please try again!`;
+
 const PageLogin = ({ incorrectEntry }) => {
   // pop up when clicking forget password
   // deafult -- popup off
@@ -32,13 +38,23 @@ const PageLogin = ({ incorrectEntry }) => {
   const [loginError, setLoginError] = useState('');
   const [loginState, setLoginState] = useState('');
 
-  // const [username, setUsername] = useState('');
-  // const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  // if the email is successful, send button disappears
-
-  let username = '';
-  let password = '';
+  async function loginButtonPress() {
+    setIsLoading(true);
+    if (loginError !== '') {
+      setLoginError('');
+    }
+    const result = await login(username, password);
+    if (result === true) {
+      navigate('/profile');
+      //The profile page should redirect the Frosh if they haven't yet registered
+    } else {
+      setLoginError(result);
+      setIsLoading(false);
+    }
+  }
 
   return (
     <>
@@ -50,7 +66,7 @@ const PageLogin = ({ incorrectEntry }) => {
               inputType={'text'}
               placeholder={'Email'}
               onChange={(value) => {
-                username = value;
+                setUsername(value);
               }}
               localStorageKey="email-login"
             />
@@ -58,13 +74,15 @@ const PageLogin = ({ incorrectEntry }) => {
               inputType={'password'}
               placeholder={'Password'}
               onChange={(value) => {
-                password = value;
+                setPassword(value);
               }}
+              onEnterKey={loginButtonPress}
             />
             <p
               className="forgot-message"
               onClick={() => setShowPopUp(true)}
             >{`Forgot Password?`}</p>
+
             <div className="login-button-container">
               <ButtonOutlined
                 label="Create account"
@@ -74,22 +92,7 @@ const PageLogin = ({ incorrectEntry }) => {
                 }}
               />
 
-              <Button
-                label={'Log in'}
-                onClick={async () => {
-                  setIsLoading(true);
-                  if (loginError !== '') {
-                    setLoginError('');
-                  }
-                  const result = await login(username, password);
-                  if (result === true) {
-                    navigate('/profile'); //The profile page should redirect the Frosh if they haven't yet registered
-                  } else {
-                    setLoginError(result);
-                    setIsLoading(false);
-                  }
-                }}
-              />
+              <Button label={'Log in'} onClick={loginButtonPress} />
             </div>
             <ErrorSuccessBox content={loginError} error={true} />
           </div>
@@ -98,40 +101,36 @@ const PageLogin = ({ incorrectEntry }) => {
           <LoadingAnimation size={'60px'} />
         </div>
 
-        {/* <PasswordPopUp trigger={showPopUp} setTrigger={setShowPopUp} /> */}
         <PopupModal
           trigger={showPopUp}
           setTrigger={setShowPopUp}
           blurBackground={false}
           exitIcon={true}
-          heading={'hellooooooo'}
-          bodyText={
-            'ashfihdfoenvaoiypbt8wybrhi ogsdrohvnfkl osyn io;sbin inhosgbnioh;gf inoh;g isgoi h;gifh;'
-          }
-          // bgHeight="150vh"
-          // bgHeightMobile="100vh"
-          // containerTop="25vh"
+          heading={popupTitle}
+          bodyText={popupBodyText}
         >
-          <>
-            <ForgotPassword />
-            <div
-              className="hihihihih"
-              style={{ width: '100px', height: '100px', background: 'blue' }}
-            ></div>
-          </>
+          <ForgotPassword trigger={showPopUp} setTrigger={setShowPopUp} />
         </PopupModal>
 
-        <div className="login-bg-images">
-          <img className="mountain-back" src={MountainB} alt="mountain"></img>
-          <img className="mountain-front-right" src={MountainFR} alt="mountain"></img>
-          <img className="mountain-mid" src={MountainM} alt="mountain"></img>
-          <img className="mountain-front-left" src={MountainFL} alt="mountain"></img>
+        <LoginBackgroundImages />
+      </div>
+    </>
+  );
+};
 
-          <img className="ground" src={Ground} alt="ground"></img>
-          <img className="brachio-left" src={BrachioL} alt="brachiosaurus"></img>
-          <img className="brachio-right" src={BrachioR} alt="brachiosaurus"></img>
-          <img className="ptero" src={Ptero} alt="ptero"></img>
-        </div>
+const LoginBackgroundImages = () => {
+  return (
+    <>
+      <div className="login-bg-images">
+        <img className="mountain-back" src={MountainB} alt="mountain"></img>
+        <img className="mountain-front-right" src={MountainFR} alt="mountain"></img>
+        <img className="mountain-mid" src={MountainM} alt="mountain"></img>
+        <img className="mountain-front-left" src={MountainFL} alt="mountain"></img>
+
+        <img className="ground" src={Ground} alt="ground"></img>
+        <img className="brachio-left" src={BrachioL} alt="brachiosaurus"></img>
+        <img className="brachio-right" src={BrachioR} alt="brachiosaurus"></img>
+        <img className="ptero" src={Ptero} alt="ptero"></img>
       </div>
     </>
   );
@@ -145,83 +144,97 @@ PageLogin.defaultProps = {
   incorrectEntry: false,
 };
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ trigger, setTrigger }) => {
   const [emailError, setEmailError] = useState(''); // error message returned -- either a success or error
-  const [passwordResetSuccess, setpasswordResetSuccess] = useState('false'); // success or not
+  const [passwordResetSuccess, setpasswordResetSuccess] = useState(false); // success or not
   const [isLoadingPassword, setIsLoadingPassword] = useState(false);
   const [emailInput, setEmailInput] = useState(''); // email entered by user
+  const [buttonClick, setButtonClick] = useState(0);
 
-  // let email = '';
+  async function resetButtonPress() {
+    setIsLoadingPassword(true);
+    if (emailError !== '') {
+      setEmailError('');
+    }
+    const result = await resetPassword(emailInput);
+    if (result === true) {
+      // this will display success message and change Button to close
+      setpasswordResetSuccess(true);
+      setIsLoadingPassword(false);
+    } else {
+      setEmailError(result);
+      setIsLoadingPassword(false);
+      setpasswordResetSuccess(false);
+    }
+  }
 
   return (
-    <div
-      className={`forgot-password-container ${
-        isLoadingPassword ? 'forgot-password-container-disappear' : ''
-      }`}
-    >
-      <h2 className="reset-password-title">Reset Password</h2>
-      <p className="reset-password-des">{`Enter your email address below, and we'll send you an email to reset your password.`}</p>
-      <TextInput
-        inputType={'text'}
-        placeholder={'Email'}
-        onChange={(value) => {
-          setEmailInput(value);
-          // email = value;
-        }}
-        // errorFeedback={emailError}
-      />
-
-      {/* if email was correct and password email will send, do not display button */}
-      {passwordResetSuccess ? (
-        <Button
-          label={'Send'}
-          onClick={async () => {
-            setIsLoadingPassword(true);
-
-            if (emailError !== '') {
-              setEmailError('');
-            }
-            const result = await resetPassword(emailInput);
-
-            if (result === true) {
-              setpasswordResetSuccess(true);
-            } else {
-              setIsLoadingPassword(false);
-              setEmailError(result);
-              setpasswordResetSuccess(false);
-            }
-          }}
-          style={{ zIndex: '10' }}
-        />
-      ) : (
-        <></>
-      )}
-
-      {/* if email was valid display success message, else display errorBox */}
-      {/* { passwordResetSuccess ?  */}
-      <div
-        className={`password-reset-loading ${
-          isLoadingPassword === true ? 'password-reset-loading-appear' : ''
-        }`}
-      >
-        <LoadingAnimation size={'60px'} />
-      </div>
-
-      {/* if email valid, success box appears, else, error box appears */}
-      {passwordResetSuccess ? (
-        <div className="success-password-reset-container-message">
-          <ErrorSuccessBox
-            content={"We didn't recognize that email, please try again!"}
-            success={true}
+    <>
+      <div className="forgot-password-container">
+        <div className="forgot-password-container-email">
+          <TextInput
+            inputType={'text'}
+            placeholder={'Email'}
+            localStorageKey={'forgot-password-container-email'}
+            onChange={(value) => {
+              setEmailInput(value);
+            }}
+            onEnterKey={resetButtonPress}
           />
         </div>
-      ) : (
-        <div className="error-password-reset-container-message">
-          <ErrorSuccessBox content={emailError} error={true} />
+
+        <div className="password-reset-button-loading-container">
+          {isLoadingPassword ? (
+            // if loading, then display loading animation
+            <div
+              className={`password-reset-loading ${
+                isLoadingPassword === true ? 'password-reset-loading-appear' : ''
+              }`}
+            >
+              <LoadingAnimation size={'60px'} />
+            </div>
+          ) : // if not loading, display the buttons
+          passwordResetSuccess ? (
+            <Button
+              label={'Close'}
+              onClick={() => {
+                setTrigger(false);
+              }}
+            />
+          ) : (
+            <Button
+              label={'Send'}
+              onClick={() => {
+                resetButtonPress();
+                setButtonClick(buttonClick + 1);
+                //console.log(buttonClick);
+              }}
+            />
+          )}
         </div>
-      )}
-    </div>
+
+        <div className="password-reset-result-message">
+          {
+            // added buttonclick, so the message doesn't display immediately
+            buttonClick > 0 && !isLoadingPassword ? (
+              passwordResetSuccess ? (
+                <ErrorSuccessBox content={emailSuccessMessage} success={true} />
+              ) : (
+                <ErrorSuccessBox content={emailErrorMessage} error={true} />
+              )
+            ) : (
+              <></>
+            )
+          }
+        </div>
+      </div>
+    </>
   );
+};
+
+ForgotPassword.propTypes = {
+  trigger: PropTypes.bool,
+  setTrigger: PropTypes.func,
 };
 
 export { PageLogin };
