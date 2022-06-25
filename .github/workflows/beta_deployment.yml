@@ -1,6 +1,8 @@
 name: beta_deployment
 
 on:
+  workflow_dispatch:
+
   push:
     branches:
       - dev
