@@ -8,6 +8,6 @@ COPY ./ ./
 RUN yarn build --mode beta
 
 FROM nginx:1.15
-COPY --from=build /app/dist /var/www/orientation
+COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
