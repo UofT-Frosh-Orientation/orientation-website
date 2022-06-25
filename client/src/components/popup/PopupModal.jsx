@@ -19,18 +19,10 @@ const PopupModal = ({
   return (
     <div className="popup-modal">
       <div
-        className={` popup-modal-background
-            ${
-              trigger
-                ? `popup-modal-background-show ${
-                    blurBackground ? 'popup-modal-background-color' : 'popup-modal-background-blur'
-                  }`
-                : `popup-modal-background-hide ${
-                    blurBackground
-                      ? 'popup-modal-background-hide-blur'
-                      : 'popup-modal-background-hide-color'
-                  }`
-            }`}
+        className={` popup-modal-background ${
+          blurBackground ? 'popup-modal-background-color' : 'popup-modal-background-blur'
+        }
+            ${trigger ? `popup-modal-background-show` : `popup-modal-background-hide`}`}
         onClick={() => {
           setTrigger(false);
         }}

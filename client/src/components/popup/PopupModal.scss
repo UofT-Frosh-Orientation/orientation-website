@@ -34,8 +34,7 @@
 .popup-modal-background-show {
   pointer-events: all;
   opacity: 1;
-  // transition: opacity 300ms;
-  animation: fade-in 500ms forwards;
+  animation: fade-in-background-modal 400ms forwards;
 }
 .popup-modal-background-color {
   // displays a purple coloured background
@@ -47,20 +46,17 @@
 }
 
 .popup-modal-background-hide {
-  opacity: 0;
-  background-color: rgba(0, 0, 0, 0);
-  backdrop-filter: blur(0);
   user-select: none;
   pointer-events: none;
   // transition: opacity 300ms, background-color 300ms, backdrop-filter 300ms;
-  animation: fade-out 400ms forwards;
+  animation: fade-out-background-modal 500ms forwards;
 }
-.popup-modal-background-hide-blur {
-  animation: fade-out-background-blur 400ms forwards;
-}
-.popup-modal-background-hide-color {
-  animation: fade-out-background-color 400ms forwards;
-}
+// .popup-modal-background-hide-blur {
+//   animation: fade-out-background-blur 400ms forwards;
+// }
+// .popup-modal-background-hide-color {
+//   animation: fade-out-background-color 400ms forwards;
+// }
 
 //POPUP CONTAINER
 .popup-modal-container-show,
@@ -80,6 +76,12 @@
   overflow-x: hidden;
   overflow-y: scroll;
 
+  background: var(--purple-shades-muted);
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+  padding: 50px 10px 50px 10px;
+  margin: 50px;
+
   &::-webkit-scrollbar {
     width: 5px;
   }
@@ -96,15 +98,9 @@
   }
 }
 .popup-modal-container-show {
-  background: var(--purple-shades-muted);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  padding: 10px 10px 50px 15px;
-  margin: 50px;
-
   opacity: 1;
   // transition: opacity 400ms;
-  animation: fade-in 400ms forwards;
+  animation: fade-in-modal 400ms forwards;
 
   @include devices(tablet) {
     font-size: 14px;
@@ -114,14 +110,16 @@
   position: absolute;
   opacity: 0;
   pointer-events: none;
-  animation: fade-out 400ms forwards;
+  animation: fade-out-modal 500ms forwards;
 }
 
 .exit-icon-show {
-  align-self: flex-end;
-  width: 40px;
-  height: 40px;
-  padding: 10px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 55px;
+  height: 55px;
+  padding: 15px;
 
   pointer-events: all;
   cursor: pointer;
@@ -161,35 +159,43 @@
   }
 }
 
-@keyframes fade-in {
+@keyframes fade-in-modal {
   from {
     opacity: 0;
+    transform: scale(0.8);
+    visibility: hidden;
   }
   to {
     opacity: 1;
   }
 }
-@keyframes fade-out {
+@keyframes fade-out-modal {
   from {
     opacity: 1;
   }
   to {
     opacity: 0;
+    visibility: hidden;
+    transform: scale(0.9);
   }
 }
-@keyframes fade-out-background-color {
+
+@keyframes fade-out-background-modal {
   from {
-    background-color: rgba(111, 30, 136, 0.75);
+    opacity: 1;
   }
   to {
-    background-color: rgba(111, 30, 136, 0);
+    opacity: 0;
+    visibility: hidden;
   }
 }
-@keyframes fade-out-background-blur {
+
+@keyframes fade-in-background-modal {
   from {
-    backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
   }
   to {
-    backdrop-filter: blur(0px);
+    opacity: 1;
   }
 }
