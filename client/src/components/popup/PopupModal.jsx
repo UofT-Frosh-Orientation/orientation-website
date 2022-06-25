@@ -16,6 +16,13 @@ const PopupModal = ({
   exitIcon,
   blurBackground,
 }) => {
+  const [hasBeenOpened, setHasBeenOpened] = useState(false);
+
+  if (hasBeenOpened === false && trigger === false) {
+    return <div></div>;
+  } else if (hasBeenOpened === false && trigger === true) {
+    setHasBeenOpened(true);
+  }
   return (
     <div className="popup-modal">
       <div
