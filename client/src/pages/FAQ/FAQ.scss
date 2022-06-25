@@ -132,6 +132,10 @@
   text-decoration: none;
 }
 
+.faq-data-item:hover {
+  cursor: pointer;
+}
+
 .faq-data-result div:hover {
   background-color: var(--purple-shades-light);
   transform: scale(1.005);
