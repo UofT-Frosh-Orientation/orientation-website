@@ -63,3 +63,19 @@ jobs:
 
       - name: Push client image to container registry
         run: docker push $(echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):beta
+
+  deploy:
+    runs-on: ubuntu-20.04
+    needs:
+      - build_client
+      - build_server
+
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: beta.orientation.skule.ca
+          username: ${{ secrets.DO_SSH_USER }}
+          key: ${{ secrets.DO_SSH_KEY }}
+          passphrase: ${{ secrets.DO_SSH_PASSCODE }}
+          script: ${{ secrets.BETA_DEPLOYMENT_SCRIPT }}
