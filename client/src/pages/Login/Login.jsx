@@ -153,6 +153,7 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
 
   async function resetButtonPress() {
     setIsLoadingPassword(true);
+    setButtonClick(buttonClick + 1);
     if (emailError !== '') {
       setEmailError('');
     }
@@ -206,7 +207,7 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
               label={'Send'}
               onClick={() => {
                 resetButtonPress();
-                setButtonClick(buttonClick + 1);
+                // setButtonClick(buttonClick + 1);
                 //console.log(buttonClick);
               }}
             />

@@ -14,12 +14,12 @@ export async function resetPassword(email) {
   console.log(email);
   let promise = new Promise((res, rej) => {
     setTimeout(() => res(''), 1000);
-    // currently does not display this ^ response,
+    // currently does not display this ^ response as the display for error message,
 
     // uses the result to check what response to display
     // false -> "We didn't recognize that email, please try again!"
     // true  -> "Success, an email has been sent!"
   });
   let result = await promise;
-  return false;
+  return true;
 }
