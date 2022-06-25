@@ -77,5 +77,5 @@ jobs:
           host: beta.orientation.skule.ca
           username: ${{ secrets.DO_SSH_USER }}
           key: ${{ secrets.DO_SSH_KEY }}
-          passphrase: ${{ secrets.DO_SSH_PASSCODE }}
+          passphrase: ${{ secrets.DO_SSH_KEY_PASSCODE }}
           script: ${{ secrets.BETA_DEPLOYMENT_SCRIPT }}
