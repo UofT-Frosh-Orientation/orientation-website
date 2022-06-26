@@ -1,0 +1,8 @@
+@import '../../scssStyles/mixins';
+
+.edit-form-container {
+  margin-top: -60px;
+  @include devices(tablet) {
+    margin-top: 0px;
+  }
+}

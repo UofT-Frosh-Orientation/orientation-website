@@ -5,6 +5,7 @@ import { PageHome } from '../pages/Home/Home';
 import { PageMaintenance } from '../pages/Maintenance/Maintenance';
 import { PagePaymentError } from '../pages/PaymentError/PaymentError';
 import { PageProfile } from '../pages/Profile/Profile';
+import { PageProfileEdit } from '../pages/ProfileEdit/ProfileEdit';
 import { PageRegistrationForm } from '../pages/Registration/RegistrationForm';
 import { PageLogin } from '../pages/Login/Login';
 import { PageRegistrationSuccess } from '../pages/RegistrationSuccess/RegistrationSuccess';
@@ -88,6 +89,11 @@ export const pages = {
       label: 'sign-up',
       component: <PageSignUp />,
       path: '/sign-up',
+    },
+    {
+      label: 'profile-edit',
+      component: <PageProfileEdit />,
+      path: '/profile-edit',
     },
     {
       label: 'payment-error',
