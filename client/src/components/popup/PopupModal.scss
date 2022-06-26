@@ -34,7 +34,7 @@
 .popup-modal-background-show {
   pointer-events: all;
   opacity: 1;
-  animation: fade-in-background-modal 400ms forwards;
+  animation: fade-in-background-modal 200ms forwards;
 }
 .popup-modal-background-color {
   // displays a purple coloured background
@@ -48,8 +48,7 @@
 .popup-modal-background-hide {
   user-select: none;
   pointer-events: none;
-  // transition: opacity 300ms, background-color 300ms, backdrop-filter 300ms;
-  animation: fade-out-background-modal 500ms forwards;
+  animation: fade-out-background-modal 300ms forwards;
 }
 
 //POPUP CONTAINER
@@ -94,7 +93,7 @@
 .popup-modal-container-show {
   opacity: 1;
   // transition: opacity 400ms;
-  animation: fade-in-modal 400ms forwards;
+  animation: fade-in-modal 200ms forwards;
 
   @include devices(tablet) {
     font-size: 14px;
@@ -104,7 +103,7 @@
   position: absolute;
   opacity: 0;
   pointer-events: none;
-  animation: fade-out-modal 500ms forwards;
+  animation: fade-out-modal 300ms forwards;
 }
 
 .exit-icon-show {
@@ -156,7 +155,7 @@
 @keyframes fade-in-modal {
   from {
     opacity: 0;
-    transform: scale(0.8);
+    transform: scale(0.9);
     visibility: hidden;
   }
   to {
@@ -170,7 +169,7 @@
   to {
     opacity: 0;
     visibility: hidden;
-    transform: scale(0.9);
+    transform: scale(1.07);
   }
 }
 

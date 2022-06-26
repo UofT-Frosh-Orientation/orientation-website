@@ -15,9 +15,7 @@ const PopupModal = ({
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
 
   useEffect(() => {
-    /*if (hasBeenOpened === false && trigger === false) {
-      return (<div></div>);
-    } else */ if (hasBeenOpened === false && trigger === true) {
+    if (hasBeenOpened === false && trigger === true) {
       setHasBeenOpened(true);
     }
   }, [trigger]);
@@ -25,9 +23,6 @@ const PopupModal = ({
   if (hasBeenOpened === false && trigger === false) {
     return <div></div>;
   }
-  // } else if (hasBeenOpened === false && trigger === true) {
-  //   setHasBeenOpened(true);
-  // }
 
   return (
     <div className="popup-modal">
