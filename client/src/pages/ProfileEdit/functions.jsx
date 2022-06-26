@@ -5,6 +5,7 @@ export function getSelectedFroshValues() {
     shirtSize: 3, //Rememeber indices must match those set in RegistrationFields.jsx
     discipline: 2,
     birthdate: '2000-01-01',
+    pronoun: 0,
   };
 }
 

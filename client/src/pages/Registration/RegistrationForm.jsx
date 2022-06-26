@@ -87,7 +87,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   isPhoneNumber={field.isPhoneNumber}
                   isInstagram={field.isInstagram}
                   isDisabled={
-                    editFieldsPage === true && field.isDiabled !== true
+                    editFieldsPage === true && field.isDisabled !== true
                       ? field.noEdit
                       : field.isDisabled
                   }
@@ -111,7 +111,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                     if (field.onChanged) field.onChanged(value, disableField);
                   }}
                   isDisabled={
-                    editFieldsPage === true && field.isDiabled !== true
+                    editFieldsPage === true && field.isDisabled !== true
                       ? field.noEdit
                       : field.isDisabled
                   }
@@ -133,7 +133,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                     if (field.onChanged) field.onChanged(value, disableField);
                   }}
                   isDisabled={
-                    editFieldsPage === true && field.isDiabled !== true
+                    editFieldsPage === true && field.isDisabled !== true
                       ? field.noEdit
                       : field.isDisabled
                   }
