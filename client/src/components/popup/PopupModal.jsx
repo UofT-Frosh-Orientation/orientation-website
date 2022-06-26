@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './PopupModal.scss';
 import XMark from '../../assets/misc/xmark-solid-white.svg';
@@ -8,21 +8,27 @@ const PopupModal = ({
   setTrigger,
   heading,
   children,
-  // bgWidth,
-  // bgHeight,
-  // bgHeightMobile,
-  // containerTop,
   bodyText,
   exitIcon,
   blurBackground,
 }) => {
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
 
+  useEffect(() => {
+    /*if (hasBeenOpened === false && trigger === false) {
+      return (<div></div>);
+    } else */ if (hasBeenOpened === false && trigger === true) {
+      setHasBeenOpened(true);
+    }
+  }, [trigger]);
+
   if (hasBeenOpened === false && trigger === false) {
     return <div></div>;
-  } else if (hasBeenOpened === false && trigger === true) {
-    setHasBeenOpened(true);
   }
+  // } else if (hasBeenOpened === false && trigger === true) {
+  //   setHasBeenOpened(true);
+  // }
+
   return (
     <div className="popup-modal">
       <div
@@ -68,13 +74,11 @@ PopupModal.propTypes = {
   blurBackground: PropTypes.bool,
 };
 
-const defaultprops = {
+PopupModal.defaultProps = {
   exitIcon: true,
   blurBackground: true,
   heading: undefined,
+  bodyText: undefined,
 };
-
-// PopupModal.propTypes = allprops;
-// PopupModal.propTypes = defaultprops;
 
 export { PopupModal };
