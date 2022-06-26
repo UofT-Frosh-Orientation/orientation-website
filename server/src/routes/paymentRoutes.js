@@ -1,8 +1,9 @@
 const express = require('express');
+const PaymentController = require('../controllers/PaymentController');
+const bodyParser = require('body-parser');
+
 const router = express.Router();
-const { getPrice, paymentIntent } = require('../controllers/PaymentController');
 
-router.post('/getPrice', getPrice);
+router.post('/stripe-callback', bodyParser.raw({ type: '*/*' }), PaymentController.handleWebhook);
 
-// router.post('/create-checkout-session', checkoutSession);
-router.post('/create-payment-intent', paymentIntent);
+module.exports = router;
