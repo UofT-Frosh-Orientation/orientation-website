@@ -1,13 +1,16 @@
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 const PaymentServices = {
-  async createCheckoutSession(items) {
-    //TODO: map items onto price ids stored in mongo
-    return await stripe.checkout.sessions.create({
-      success_url: "https://google.com",
-      cancel_url: 'https://google.com',
-      line_items: [],
-      mode: 'payment'
-    })
-  }
-}
+  async decodeWebhookEvent(data, signature) {
+    try {
+      return await stripe.webhooks.constructEventAsync(data, signature, endpointSecret);
+    } catch (err) {
+      console.log('Stripe webhook verification failed', err.message);
+      throw err;
+    }
+  },
+};
+
+module.exports = PaymentServices;
