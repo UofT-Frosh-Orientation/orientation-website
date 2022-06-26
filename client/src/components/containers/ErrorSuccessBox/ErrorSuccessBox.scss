@@ -2,7 +2,7 @@
 
 .error-success-box-container {
   padding: 15px 22px;
-  outline: solid;
+  border: 3px solid var(--red-error);
   outline-width: 3px;
   border-radius: 5px;
   margin: 20px 10px;
@@ -15,5 +15,5 @@
 
 .error-success-box-success {
   background-color: var(--green-success);
-  outline-color: var(--green-success-dark);
+  border-color: var(--green-success-dark);
 }

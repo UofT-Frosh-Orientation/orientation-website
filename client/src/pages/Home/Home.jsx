@@ -13,6 +13,7 @@ import { ImageCarousel } from '../../components/ImageCarousel/ImageCarousel';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import 'react-slideshow-image/dist/styles.css';
 import { Slide } from 'react-slideshow-image';
+import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
 
 const PageHome = () => {
   return (
@@ -94,7 +95,7 @@ const HomePageSchedule = () => {
   return (
     <div className="home-page-schedule">
       <h2 className="home-page-section-header">Schedule</h2>
-      <div style={{ height: '200px', width: '50px', padding: '50px' }}>Placeholder</div>
+      <ScheduleComponent />
     </div>
   );
 };
