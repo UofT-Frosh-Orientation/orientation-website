@@ -28,7 +28,8 @@ const ImageCarousel = ({ items }) => {
                 className="carousel-link"
                 href={item.website}
                 key={item.name + index}
-                target="_blank" rel="noreferrer"
+                target="_blank"
+                rel="noreferrer"
               >
                 <img className="carousel-slide" src={item.image} alt={item.name} />
               </a>
