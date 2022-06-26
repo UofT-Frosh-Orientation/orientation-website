@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getQuestions, getCategories } from './functions';
+import { getQuestions, getCategories, submitQuestion } from './functions';
 import './FAQ.scss';
 import Wave from '../../assets/misc/wave-reverse.png';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
@@ -432,12 +432,12 @@ const FAQAskQuestion = () => {
   };
   const [formData, updateFormData] = useState(initialFormData);
   const handleChange = (text) => {
-    console.log(text);
+    // console.log(text);
     updateFormData({ question: text });
   };
 
   const handleSubmit = (text) => {
-    console.log(formData);
+    console.log(submitQuestion(formData));
     updateFormData(initialFormData);
     text = '';
     // ... submit to API or something
@@ -454,6 +454,7 @@ const FAQAskQuestion = () => {
               onChange={(text) => handleChange(text)}
               inputType={'textArea'}
               placeholder={'Type your question here'}
+              style={{ height: '150px' }}
             />
           </div>
         </label>

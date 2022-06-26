@@ -21,6 +21,7 @@ const TextInput = ({
   inputTitle,
   isPhoneNumber,
   isInstagram,
+  style,
 }) => {
   useEffect(() => {
     if (localStorageKey !== undefined) {
@@ -106,6 +107,7 @@ const TextInput = ({
             type={type}
             onChange={onInputChange}
             {...inputArgs}
+            style={{ ...style }}
           />
         ) : (
           <input
@@ -161,6 +163,7 @@ TextInput.propTypes = {
   inputTitle: PropTypes.string,
   isPhoneNumber: PropTypes.bool,
   isInstagram: PropTypes.bool,
+  style: PropTypes.object,
 };
 
 export { TextInput };
