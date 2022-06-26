@@ -24,6 +24,7 @@ const TextInput = ({
   isUtorID,
   maxLength,
   autocomplete,
+  style,
 }) => {
   useEffect(() => {
     if (localStorageKey !== undefined) {
@@ -137,6 +138,7 @@ const TextInput = ({
             autoComplete={autocomplete}
             onChange={onInputChange}
             {...inputArgs}
+            style={{ ...style }}
           />
         ) : (
           <input
@@ -196,6 +198,7 @@ TextInput.propTypes = {
   isUtorID: PropTypes.bool,
   maxLength: PropTypes.number,
   autocomplete: PropTypes.string,
+  style: PropTypes.object,
 };
 
 export { TextInput };

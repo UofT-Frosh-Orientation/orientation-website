@@ -46,3 +46,13 @@ export function getQuestions() {
 export function getCategories() {
   return [{ name: 'General' }, { name: 'F!rosh Kits' }, { name: 'F!rosh Group' }];
 }
+
+export async function submitQuestion(question) {
+  console.log(question);
+  /*eslint no-undef: 0*/
+  let promise = new Promise((res, rej) => {
+    setTimeout(() => res('An error occured!'), 1000);
+  });
+  let result = await promise;
+  return true; //returns true for now to simulate a successful call to the database
+}
