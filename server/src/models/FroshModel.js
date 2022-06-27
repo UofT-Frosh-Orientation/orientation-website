@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
-
 const UserModel = require('./UserModel');
 const getResponseObject = require('../util/getResponseObject');
-
 const FroshSchema = new mongoose.Schema(
   {
     preferredName: {
@@ -76,16 +74,20 @@ const FroshSchema = new mongoose.Schema(
     },
     allergies: {
       type: String,
-      // enum: [
-      //   'Lactose Intolerance',
-      //   'Gluten Intolerance',
-      //   'Vegetarian',
-      //   'Vegan',
-      //   'Kosher',
-      //   'Dairy-Free',
-      //   'Pork',
-      //   'Nuts',
-      // ], // there's also an other section so this might not be right
+      enum: [
+        'Lactose Intolerance',
+        'Gluten Intolerance',
+        'Vegetarian',
+        'Vegan',
+        'Kosher',
+        'Dairy-Free',
+        'Pork',
+        'Nuts',
+      ], // there's also an other section
+      required: false,
+    },
+    allergiesOther: {
+      type: String,
       required: false,
     },
     photograph: {
@@ -102,10 +104,11 @@ const FroshSchema = new mongoose.Schema(
     },
     accessibilityContact: {
       type: String,
-      // enum: [
-      //   'Phone',
-      //   'Email',
-      // ], // other option
+      enum: ['Phone', 'Email'], // other option
+      required: false,
+    },
+    accessibilityOther: {
+      type: String,
       required: false,
     },
     scunt: {
@@ -131,13 +134,11 @@ const FroshSchema = new mongoose.Schema(
     },
     commuterProgramInformation: {
       type: String,
-      // enum: [
-      //   'Car',
-      //   'Subway',
-      //   'Go Train',
-      //   'Walking',
-      //   'Biking',
-      // ], // also has an other option
+      enum: ['Car', 'Subway', 'Go Train', 'Walking', 'Biking'], // also has an other option
+      required: false,
+    },
+    commuterProgramOther: {
+      type: String,
       required: false,
     },
     commuterPorgramStop: {
@@ -147,9 +148,6 @@ const FroshSchema = new mongoose.Schema(
   },
   { discriminatorKey: 'userType', strict: true },
 );
-
 FroshSchema.methods.getResponseObject = getResponseObject;
-
 const FroshModel = UserModel.discriminator('frosh', FroshSchema);
-
 module.exports = FroshModel;
