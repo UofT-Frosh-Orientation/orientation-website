@@ -55,7 +55,7 @@ export const fields = {
       placeholder: 'doejohn123',
       hasRestrictedInput: true,
       isRequiredInput: true,
-      errorMessage: 'Please enter a UtorID',
+      errorMessage: 'Please enter your UtorID',
       localStorageKey: 'registration-utorid',
       className: 'half-width-input',
     },
@@ -182,8 +182,8 @@ export const fields = {
     medication: {
       type: 'text',
       inputType: 'text',
-      label: 'Medication (EpiPen, inhaler, etc.)',
-      placeholder: 'Carries 2 EpiPcd ens',
+      label: 'Medication (Epi-Pen, inhaler, etc.)',
+      placeholder: 'Carries 2 Epi-Pens',
       hasRestrictedInput: true,
       isRequiredInput: false,
       localStorageKey: 'registration-medication',
@@ -274,6 +274,12 @@ export const fields = {
     },
   },
   Misc: {
+    infoLabel: {
+      type: 'label',
+      label:
+        'The following information will be used to help in the planning and coordination some Frosh Week events including Havenger Scunt, Summer Meetups, and Commuter Buddies.',
+      isRequiredInput: true, // is it possible to bold this?
+    },
     scunt: {
       type: 'radio',
       label:
@@ -306,8 +312,7 @@ export const fields = {
     },
     moveToToronto: {
       type: 'dropdown',
-      label:
-        'If you are not in the GTA already, approximately when are you planning to move to Toronto?',
+      label: 'Approximately when are you planning to move to Toronto?',
       values: ['N/A', 'May', 'June', 'July', 'August', 'September'],
       initialSelectedIndex: 0,
     },
@@ -326,8 +331,8 @@ export const fields = {
     },
     commuterProgramInformation: {
       type: 'dropdown',
-      label: 'How do you plan on commuting to campus?',
-      values: ['Car', 'Subway', 'Go Train', 'Walking', 'Biking', 'Other'],
+      label: 'What is you main method of commuting to campus?',
+      values: ['Car', 'Subway', 'Bus', 'Go Train', 'Walking', 'Biking', 'Other'],
       initialSelectedIndex: 0,
       onChanged: (value, disableField) => {
         if (value === 'Subway' || value === 'Go Train') {
