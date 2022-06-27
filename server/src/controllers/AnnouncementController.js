@@ -1,33 +1,37 @@
 const AnnouncementServices = require('../services/AnnouncementServices');
 
-const AnnouncementModel = require('../models/AnnouncementModel');
-
 const AnnouncementController = {
   async getAnnouncement(req, res, next) {
     try {
-      await AnnouncementModel.find()
-        .lean()
-        .exec((err, items) => {
-          if (!err) {
-            return res.json({ items });
-          }
-        });
+      const allAnnouncements = await AnnouncementServices.getAllAnnouncements();
+      return res.status(200).send({ announcements: allAnnouncements });
     } catch (e) {
       next(e);
     }
   },
 
-  async getAnnouncementElement(req, res, next) {
-    const id = req.params.id;
+  async getCompletedAnnouncements(req, res, next) {
+    const currentUser = req.user;
     try {
-      // have a form that automatically fills out fields with current model information
-      // gets corresponding announcementelement informaiton to prefill form -> reroutes to edit form
+      const completedAnnouncements = await AnnouncementServices.getCompletedAnnouncements(
+        currentUser,
+      );
+      return res.status(200).send({ announcements: completedAnnouncements });
+    } catch (e) {
+      next(e);
+    }
+  },
 
-      await AnnouncementModel.findOne({ _id: id }).exec((err, announcementElement) => {
-        if (!err) {
-          return res.json(announcementElement);
-        }
-      });
+  async completeAnnouncement(req, res, next) {
+    const currentUser = req.user;
+    const announcementId = req.params.id;
+    try {
+      const completedAnnouncements = await AnnouncementServices.completeAnnouncementElement(
+        announcementId,
+        currentUser,
+      );
+      res.status(200).send({ announcements: completedAnnouncements });
+      // res.status(200).send({ message: 'Successfully completed announcement element!' });
     } catch (e) {
       next(e);
     }
@@ -49,7 +53,7 @@ const AnnouncementController = {
     }
   },
 
-  async addAnnouncementElement(req, res, next) {
+  async createAnnouncementElement(req, res, next) {
     const announcementData = req.body;
 
     try {
@@ -76,10 +80,6 @@ const AnnouncementController = {
       next(e);
     }
   },
-
-  // async changeAnnouncementOrder(req, res, next) {
-
-  // }
 };
 
 module.exports = AnnouncementController;

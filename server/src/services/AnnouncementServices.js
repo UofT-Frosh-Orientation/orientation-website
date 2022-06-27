@@ -1,4 +1,5 @@
 const AnnouncementModel = require('../models/AnnouncementModel');
+const UserModel = require('../models/UserModel');
 
 const AnnouncementServices = {
   async getAllAnnouncements() {
@@ -13,15 +14,54 @@ const AnnouncementServices = {
     });
   },
 
-  async getAnnouncementElement(id) {
+  async completeAnnouncementElement(id, currentUser) {
+    var listOfCompleted = currentUser.completedAnnouncements;
     return new Promise((resolve, reject) => {
       AnnouncementModel.findOne({ _id: id }, (err, announcement) => {
         if (err) {
           reject(err);
         } else {
-          resolve(announcement);
+          const index = listOfCompleted.indexOf(id);
+
+          //if announcement is completed -> remove from completed
+          if (index != -1) {
+            listOfCompleted.splice(index, 1);
+          } else {
+            listOfCompleted.push(announcement._id);
+          }
+
+          resolve(
+            UserModel.findOneAndUpdate(
+              { _id: currentUser._id },
+              { completedAnnouncements: listOfCompleted },
+              (err, user) => {
+                if (err || !user) {
+                  reject('UNABLE_TO_UPDATE_USER');
+                } else {
+                  resolve(user);
+                }
+              },
+            ),
+          );
         }
       });
+    });
+  },
+
+  async getCompletedAnnouncements(currentUser) {
+    return new Promise((resolve, reject) => {
+      AnnouncementModel.find(
+        {
+          _id: { $in: currentUser.completedAnnouncements },
+        },
+        (err, announcements) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(announcements);
+          }
+        },
+      );
     });
   },
 
