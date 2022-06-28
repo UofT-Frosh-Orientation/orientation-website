@@ -129,7 +129,7 @@ const FroshSchema = new mongoose.Schema(
     },
     commuterProgramInformation: {
       type: String,
-      enum: ['Car', 'Subway', 'Go Train', 'Walking', 'Biking', 'Other'], // also has an other option
+      enum: ['Car', 'Bus', 'Subway', 'Go Train', 'Walking', 'Biking', 'Other'], // also has an other option
       required: false,
     },
     commuterProgramOther: {
