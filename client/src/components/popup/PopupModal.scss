@@ -38,7 +38,7 @@
 }
 .popup-modal-background-color {
   // displays a purple coloured background
-  background-color: rgba(111, 30, 136, 0.75);
+  background-color: var(--purple);
 }
 .popup-modal-background-blur {
   // displays blurred background
@@ -69,9 +69,9 @@
   overflow-x: hidden;
   overflow-y: scroll;
 
-  background: var(--purple-shades-muted);
+  background: var(--purple-shades-popup);
   box-shadow: var(--shadow);
-  border-radius: 10px;
+  border-radius: 16px;
   padding: 50px 10px 50px 10px;
   margin: 50px;
 
