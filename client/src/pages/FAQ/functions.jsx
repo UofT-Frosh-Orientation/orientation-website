@@ -43,10 +43,6 @@ export function getQuestions() {
   ];
 }
 
-export function getCategories() {
-  return [{ name: 'General' }, { name: 'F!rosh Kits' }, { name: 'F!rosh Group' }];
-}
-
 export async function submitQuestion(question) {
   console.log(question);
   /*eslint no-undef: 0*/
