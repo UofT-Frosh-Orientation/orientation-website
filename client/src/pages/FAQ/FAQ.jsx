@@ -21,18 +21,22 @@ const PageFAQ = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const data = getQuestions();
   const unsortedQuestions = [];
-  const generalQuestions = [];
-  const FroshKitsQuestions = [];
-  const FroshGroupQuestions = [];
+  const questionsObjects = {};
+  const questionCategories = [];
   for (let i = 0; i < data.length; i++) {
-    if (data[i].category == 'General') {
-      generalQuestions.push({ question: data[i].question, answer: data[i].answer });
-    }
-    if (data[i].category == 'F!rosh Kits') {
-      FroshKitsQuestions.push({ question: data[i].question, answer: data[i].answer });
-    }
-    if (data[i].category == 'F!rosh Group') {
-      FroshGroupQuestions.push({ question: data[i].question, answer: data[i].answer });
+    if (!questionsObjects.hasOwnProperty(data[i].category)) {
+      questionsObjects[data[i].category] = [];
+      questionsObjects[data[i].category].push({
+        question: data[i].question,
+        answer: data[i].answer,
+      });
+      questionCategories.push({ name: data[i].category });
+      console.log(data[i].category);
+    } else {
+      questionsObjects[data[i].category].push({
+        question: data[i].question,
+        answer: data[i].answer,
+      });
     }
     unsortedQuestions.push({
       question: data[i].question,
@@ -41,7 +45,10 @@ const PageFAQ = () => {
       category: data[i].category,
     });
   }
-  const allQuestions = [generalQuestions, FroshKitsQuestions, FroshGroupQuestions];
+  const allQuestions = [];
+  for (let i = 0; i < Object.keys(questionsObjects).length; i++) {
+    allQuestions.push(questionsObjects[Object.keys(questionsObjects)[i]]);
+  }
   return (
     <div>
       <FAQPageHeader
@@ -65,6 +72,7 @@ const PageFAQ = () => {
           setIsSearch={setIsSearch}
           setIsMultiSearch={setIsMultiSearch}
           setSearchQuery={setSearchQuery}
+          questionCategories={questionCategories}
         />
       </div>
       <div className={`faq-accordion-container ${isSearch ? 'faq-hide-accordion' : ''}`}>
@@ -208,8 +216,13 @@ FAQPageHeader.propTypes = {
   setActiveIndex: PropTypes.number.isRequired,
 };
 
-const FAQButtons = ({ activeIndex, setActiveIndex, setIsSearch, setSearchQuery }) => {
-  const data = getCategories();
+const FAQButtons = ({
+  activeIndex,
+  setActiveIndex,
+  setIsSearch,
+  setSearchQuery,
+  questionCategories,
+}) => {
   return (
     <div
       onClick={() => {
@@ -218,7 +231,7 @@ const FAQButtons = ({ activeIndex, setActiveIndex, setIsSearch, setSearchQuery }
       }}
     >
       <ButtonSelector
-        buttonList={data}
+        buttonList={questionCategories}
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
         maxWidthButton={200}
@@ -233,6 +246,7 @@ FAQButtons.propTypes = {
   setActiveIndex: PropTypes.func.isRequired,
   setIsSearch: PropTypes.func.isRequired,
   setSearchQuery: PropTypes.func.isRequired,
+  questionCategories: PropTypes.array.isRequired,
 };
 
 const FAQCategoryAccordions = ({ allQuestions, activeIndex }) => {
@@ -434,6 +448,7 @@ const FAQAskQuestion = () => {
     question: '',
   };
   const [formData, updateFormData] = useState(initialFormData);
+  const [clearText, setClearText] = useState(false);
   const handleChange = (text) => {
     // console.log(text);
     updateFormData({ question: text });
@@ -443,6 +458,7 @@ const FAQAskQuestion = () => {
     console.log(submitQuestion(formData));
     updateFormData(initialFormData);
     text = '';
+    setClearText(true);
     // ... submit to API or something
   };
 
@@ -458,6 +474,8 @@ const FAQAskQuestion = () => {
               inputType={'textArea'}
               placeholder={'Type your question here'}
               style={{ height: '150px' }}
+              clearText={clearText}
+              setClearText={setClearText}
             />
           </div>
         </label>

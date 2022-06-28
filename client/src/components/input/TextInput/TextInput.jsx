@@ -25,6 +25,8 @@ const TextInput = ({
   maxLength,
   autocomplete,
   style,
+  clearText,
+  setClearText,
 }) => {
   useEffect(() => {
     if (localStorageKey !== undefined) {
@@ -54,6 +56,14 @@ const TextInput = ({
       ? initialValue
       : '',
   );
+
+  useEffect(() => {
+    if (clearText) {
+      setValue('');
+      setClearText(false);
+    }
+  }, [clearText]);
+
   const [type, setType] = useState(inputType ? inputType : 'text');
 
   const onKeyPress = (target) => {
@@ -199,6 +209,8 @@ TextInput.propTypes = {
   maxLength: PropTypes.number,
   autocomplete: PropTypes.string,
   style: PropTypes.object,
+  clearText: PropTypes.bool,
+  setClearText: PropTypes.func,
 };
 
 export { TextInput };
