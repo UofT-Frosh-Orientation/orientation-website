@@ -12,21 +12,26 @@ const FroshSchema = new mongoose.Schema(
       required: true,
     },
     pronouns: {
-      type: String, // there is multiple choice and an other section this might not be right
+      type: String,
+      enum: ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'],
       required: true,
+    },
+    pronounsOther: {
+      type: String,
+      required: false,
     },
     discipline: {
       type: String,
       enum: [
-        'Chemical Engineering',
-        'Civil Engineering',
-        'Computer Engineering',
-        'Electrical Engineering',
+        'Chemical',
+        'Civil',
+        'Computer',
+        'Electrical',
         'Engineering Science',
-        'Industrial Engineering',
-        'Materials Engineering',
-        'Mechanical Engineering',
-        'Mineral Engineering',
+        'Industrial',
+        'Materials',
+        'Mechanical',
+        'Mineral',
         'Track One (Undeclared)',
       ],
       required: true,
@@ -73,17 +78,7 @@ const FroshSchema = new mongoose.Schema(
       required: false,
     },
     allergies: {
-      type: String,
-      enum: [
-        'Lactose Intolerance',
-        'Gluten Intolerance',
-        'Vegetarian',
-        'Vegan',
-        'Kosher',
-        'Dairy-Free',
-        'Pork',
-        'Nuts',
-      ], // there's also an other section
+      type: [String],
       required: false,
     },
     allergiesOther: {
@@ -102,9 +97,9 @@ const FroshSchema = new mongoose.Schema(
       type: Boolean, // true is want to be contacted, false is not
       required: false,
     },
-    accessibilityContact: {
+    accommodationContact: {
       type: String,
-      enum: ['Phone', 'Email'], // other option
+      enum: ['Phone', 'Email', 'Other'], // other option
       required: false,
     },
     accessibilityOther: {
@@ -134,7 +129,7 @@ const FroshSchema = new mongoose.Schema(
     },
     commuterProgramInformation: {
       type: String,
-      enum: ['Car', 'Subway', 'Go Train', 'Walking', 'Biking'], // also has an other option
+      enum: ['Car', 'Subway', 'Go Train', 'Walking', 'Biking', 'Other'], // also has an other option
       required: false,
     },
     commuterProgramOther: {
