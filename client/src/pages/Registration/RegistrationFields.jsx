@@ -5,7 +5,8 @@
 // errorMessage: The message to show if the field is missing but is required
 // onChanged(value, disableFields): disable/enable fields based on a value (dependancies)
 // className: the class name applied around the child form input component
-
+// noEdit: if set, this field CANNOT be modified AFTER the frosh registers
+//         Note: noEdit does not work for checkboxes
 export const fields = {
   General: {
     // nameLabel: {
@@ -111,6 +112,7 @@ export const fields = {
       values: ['S', 'M', 'L', 'XL'],
       initialSelectedIndex: 1,
       className: 'inline-block-remaining',
+      noEdit: true,
     },
     // "email":{
     //   "type":"text",
