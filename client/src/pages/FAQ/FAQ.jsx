@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getQuestions, getCategories, submitQuestion } from './functions';
+import { getQuestions, submitQuestion } from './functions';
 import './FAQ.scss';
 import Wave from '../../assets/misc/wave-reverse.png';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
