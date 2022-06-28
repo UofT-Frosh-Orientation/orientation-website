@@ -22,6 +22,8 @@ const TextInput = ({
   isPhoneNumber,
   isInstagram,
   style,
+  clearText,
+  setClearText,
 }) => {
   useEffect(() => {
     if (localStorageKey !== undefined) {
@@ -42,6 +44,14 @@ const TextInput = ({
       ? initialValue
       : '',
   );
+
+  useEffect(() => {
+    if (clearText) {
+      setValue('');
+      setClearText(false);
+    }
+  }, [clearText]);
+
   const [type, setType] = useState(inputType ? inputType : 'text');
 
   const onKeyPress = (target) => {
@@ -164,6 +174,8 @@ TextInput.propTypes = {
   isPhoneNumber: PropTypes.bool,
   isInstagram: PropTypes.bool,
   style: PropTypes.object,
+  clearText: PropTypes.bool,
+  setClearText: PropTypes.func,
 };
 
 export { TextInput };
