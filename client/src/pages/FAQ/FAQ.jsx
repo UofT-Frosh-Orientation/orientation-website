@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getQuestions, submitQuestion } from './functions';
 import './FAQ.scss';
@@ -9,6 +9,7 @@ import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import SearchIcon from '../../assets/misc/magnifying-glass-solid.svg';
 import DeleteIcon from '../../assets/misc/circle-xmark-solid.svg';
+import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 
 const PageFAQ = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -62,6 +63,7 @@ const PageFAQ = () => {
         setSelectedSearchResult={setSelectedSearchResult}
         setIsNoMatch={setIsNoMatch}
         setActiveIndex={setActiveIndex}
+        questionCategories={questionCategories}
       />
       <img src={Wave} className={'faq-wave-image faq-page-top-wave-image'} />
       <div className={'faq-button-selector-container'}>
@@ -114,6 +116,7 @@ const FAQPageHeader = ({
   setIsMultiSearch,
   setIsNoMatch,
   setActiveIndex,
+  questionCategories,
 }) => {
   const filterQuestions = (questions, query) => {
     if (!query) {
@@ -172,6 +175,7 @@ const FAQPageHeader = ({
                 setIsNoMatch={setIsNoMatch}
                 setSelectedQuestions={setSelectedQuestions}
                 setActiveIndex={setActiveIndex}
+                questionCategories={questionCategories}
               />
             </div>
             <div
@@ -213,6 +217,7 @@ FAQPageHeader.propTypes = {
   setIsMultiSearch: PropTypes.func.isRequired,
   setIsNoMatch: PropTypes.bool.isRequired,
   setActiveIndex: PropTypes.number.isRequired,
+  questionCategories: PropTypes.array.isRequired,
 };
 
 const FAQButtons = ({
@@ -251,7 +256,7 @@ FAQButtons.propTypes = {
 const FAQCategoryAccordions = ({ allQuestions, activeIndex }) => {
   const questionsAccordion = allQuestions[activeIndex].map((question, index) => (
     <div key={index} className={'faq-accordion-wrapper'}>
-      <FAQAccordionWrapper scheduleData={question} openStatus={false} />
+      <FAQAccordionWrapper scheduleData={question} openStatus={false} activeIndex={activeIndex} />
     </div>
   ));
   return <div>{questionsAccordion}</div>;
@@ -262,8 +267,11 @@ FAQCategoryAccordions.propTypes = {
   activeIndex: PropTypes.number.isRequired,
 };
 
-const FAQAccordionWrapper = ({ scheduleData, openStatus }) => {
+const FAQAccordionWrapper = ({ scheduleData, openStatus, activeIndex }) => {
   const [isOpen, setIsOpen] = useState(openStatus);
+  useEffect(() => {
+    setIsOpen(false);
+  }, [activeIndex]);
   return (
     <SingleAccordion
       isOpen={isOpen}
@@ -279,6 +287,7 @@ const FAQAccordionWrapper = ({ scheduleData, openStatus }) => {
 FAQAccordionWrapper.propTypes = {
   scheduleData: PropTypes.object.isRequired,
   openStatus: PropTypes.bool.isRequired,
+  activeIndex: PropTypes.number.isRequired,
 };
 
 const FAQSearchBar = ({
@@ -293,6 +302,7 @@ const FAQSearchBar = ({
   setIsNoMatch,
   setSelectedQuestions,
   setActiveIndex,
+  questionCategories,
 }) => {
   const handleQueryChange = (e) => {
     setSearchQuery(e.target.value);
@@ -343,6 +353,7 @@ const FAQSearchBar = ({
                   setIsMultiSearch={setIsMultiSearch}
                   setIsNoMatch={setIsNoMatch}
                   setActiveIndex={setActiveIndex}
+                  questionCategories={questionCategories}
                 />
               </div>
             );
@@ -365,6 +376,7 @@ FAQSearchBar.propTypes = {
   setIsNoMatch: PropTypes.bool.isRequired,
   setSelectedQuestions: PropTypes.func.isRequired,
   setActiveIndex: PropTypes.number.isRequired,
+  questionCategories: PropTypes.array.isRequired,
 };
 
 const FAQSearchResult = ({
@@ -376,6 +388,7 @@ const FAQSearchResult = ({
   setIsMultiSearch,
   setIsNoMatch,
   setActiveIndex,
+  questionCategories,
 }) => {
   function FAQReturnQuestions() {
     setIsSearch(true);
@@ -384,14 +397,10 @@ const FAQSearchResult = ({
     setSelectedSearchResult(true);
     setIsMultiSearch(false);
     setIsNoMatch(false);
-    if (question.category == 'General') {
-      setActiveIndex(0);
-    }
-    if (question.category == 'F!rosh Kits') {
-      setActiveIndex(1);
-    }
-    if (question.category == 'F!rosh Group') {
-      setActiveIndex(2);
+    for (let i = 0; i < questionCategories.length; i++) {
+      if (question.category == questionCategories[i].name) {
+        setActiveIndex(i);
+      }
     }
   }
   return (
@@ -410,6 +419,7 @@ FAQSearchResult.propTypes = {
   setIsMultiSearch: PropTypes.func.isRequired,
   setIsNoMatch: PropTypes.func.isRequired,
   setActiveIndex: PropTypes.number.isRequired,
+  questionCategories: PropTypes.array.isRequired,
 };
 
 const FAQDisplaySearchQuestion = ({ selectedQuestion, questions }) => {
@@ -442,7 +452,8 @@ FAQDisplayAllSearchQuestion.propTypes = {
 };
 
 const FAQAskQuestion = () => {
-  const [textValue, updateTextValue] = useState('');
+  const [signUpError, setSignUpError] = useState('');
+  const [errorColor, setErrorColor] = useState(false);
   const initialFormData = {
     question: '',
   };
@@ -453,22 +464,29 @@ const FAQAskQuestion = () => {
     updateFormData({ question: text });
   };
 
-  const handleSubmit = (text) => {
+  async function handleSubmit(text) {
     // console.log(submitQuestion(formData));
-    updateFormData(initialFormData);
-    text = '';
-    setClearText(true);
-    // ... submit to API or something
-  };
+    const result = await submitQuestion(formData);
+    if (result !== true) {
+      setSignUpError(result);
+      setErrorColor(true);
+    } else {
+      updateFormData(initialFormData);
+      text = '';
+      setClearText(true);
+      setSignUpError('Thank you for submitting your question!');
+      setErrorColor(false);
+    }
+  }
 
   return (
     <div className={'faq-ask-question-container'}>
       <h1 className={'faq-ask-question-title'}>Can&apos;t Find Your Question?</h1>
+      <ErrorSuccessBox content={signUpError} error={errorColor} success={!errorColor} />
       <form>
         <label>
           <div className={'faq-ask-question-box'}>
             <TextInput
-              value={textValue}
               onChange={(text) => handleChange(text)}
               inputType={'textArea'}
               placeholder={'Type your question here'}
