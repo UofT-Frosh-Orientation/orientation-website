@@ -95,8 +95,7 @@ export const fields = {
       values: [
         'Chemical',
         'Civil',
-        'Computer',
-        'Electrical',
+        'Electrical & Computer',
         'Engineering',
         'Industrial',
         'Materials',
