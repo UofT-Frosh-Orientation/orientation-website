@@ -222,7 +222,6 @@ const FAQButtons = ({ activeIndex, setActiveIndex, setIsSearch, setSearchQuery }
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
         maxWidthButton={200}
-        classNameSelector={'button-selector-no-stretch'}
       />
     </div>
   );

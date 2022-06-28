@@ -1,0 +1,255 @@
+@import '../../scssStyles/mixins';
+
+.aboutus-header {
+  position: relative;
+  height: 30vh;
+  min-height: 300px;
+  background-image: linear-gradient(
+    to right,
+    var(--purple-transparent) 20%,
+    var(--purple-transparent-more)
+  );
+
+  display: flex;
+  align-items: center;
+
+  @include devices(tablet) {
+    justify-content: center;
+  }
+}
+
+.aboutus-main-picture {
+  position: absolute;
+  z-index: -10;
+  height: 80vh;
+  width: 100vw;
+  min-height: 500px;
+  object-fit: cover;
+
+  @include devices(tablet) {
+    justify-content: center;
+    width: 100vw;
+  }
+}
+
+.aboutus-wave-top {
+  position: absolute;
+  bottom: 0px;
+  width: 100vw;
+  filter: drop-shadow(-10px -10px 8px #23232342);
+}
+
+.aboutus-page-components {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-contents-container {
+  margin: 50px;
+}
+
+.about-page-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background-color: purple;
+}
+
+.landing {
+  position: absolute;
+  width: 100vw;
+  height: auto;
+  z-index: -1;
+  top: 0;
+}
+
+// ABOUT US SECTION
+
+.aboutus-container {
+  display: flex;
+  flex-direction: column;
+
+  @include devices(tablet) {
+    align-items: center;
+  }
+}
+
+.aboutus-title {
+  text-align: left;
+  font-size: 60px;
+  color: var(--white);
+  margin-top: 75px;
+  text-align: center;
+
+  @include devices(tablet) {
+    margin-top: 50px;
+    font-size: 40px;
+  }
+}
+
+.aboutus-title-underline {
+  background: var(--yellow);
+  border-radius: 10px;
+  width: 300px;
+  height: 4px;
+  margin-bottom: 50px;
+  align-self: center;
+
+  @include devices(tablet) {
+    width: 180px;
+    margin-bottom: 20px;
+  }
+}
+
+.aboutus-wave-bottom {
+  width: 100vw;
+  filter: drop-shadow(-10px 10px 8px #23232342);
+}
+
+.aboutus-subcontainer {
+  background-color: var(--purple);
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  width: 100vw;
+
+  @include devices(tablet) {
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.aboutus-subsubcontainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  align-items: stretch;
+
+  @include devices(tablet) {
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+.aboutus-image-container {
+  border-radius: 10px;
+  margin: 13px 50px 13px 0;
+
+  flex: 1;
+  max-width: 500px;
+  max-height: 500px;
+  background-color: var(--white);
+  border-radius: 50%;
+  padding: 10px;
+  overflow: visible;
+
+  @include devices(tablet) {
+    width: 85vw;
+    height: 85vw;
+    margin-right: 0;
+    margin-bottom: 25px;
+  }
+}
+
+.aboutus-image {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.aboutus-info-container {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  justify-content: center;
+  max-width: 1000px;
+
+  @include devices(tablet) {
+    width: 85vw;
+  }
+}
+
+.aboutus-info {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 25px;
+  margin: 13px;
+
+  @include devices(tablet) {
+    margin: 0 0 25px 0;
+  }
+}
+
+.aboutus-info-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+
+  color: var(--white);
+  text-align: left;
+
+  @include devices(tablet) {
+    text-align: center;
+  }
+}
+.aboutus-info-des {
+  font-size: 16px;
+  color: var(--white);
+}
+
+// EXEC TEAM SECTIONS
+
+.execteam-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.exec-title {
+  text-align: center;
+  font-size: 48px;
+  color: var(--purple-shades-dark);
+
+  @include devices(mobile) {
+    font-size: 30px;
+  }
+}
+
+.exec-title-underline {
+  background: var(--purple-transparent);
+  border-radius: 10px;
+  width: 480px;
+  height: 4px;
+  margin-bottom: 20px;
+  align-self: center;
+
+  @include devices(mobile) {
+    font-size: 30px;
+    width: 320px;
+  }
+}
+
+////////////////////////////
+// VC GRID
+.aboutus-vc-grid-container {
+  display: grid;
+  width: 100vw;
+  grid-template-columns: auto auto;
+  justify-content: center;
+  margin-bottom: 25px;
+
+  @include devices(tablet) {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
+    justify-content: center;
+    align-items: center;
+  }
+}

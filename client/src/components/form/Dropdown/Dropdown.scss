@@ -44,6 +44,7 @@
   border: 2px solid var(--gray);
   background-color: var(--white);
   color: var(--gray);
+  cursor: not-allowed;
 }
 
 .dropdown-selected-label {
@@ -55,7 +56,7 @@
   border-radius: 6px;
   margin-top: 0.2em;
   position: absolute;
-  z-index: 100;
+  z-index: 9;
   background-color: var(--white);
   opacity: 0;
   transform: translateY(-30px);

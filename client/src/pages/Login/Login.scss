@@ -1,0 +1,366 @@
+@import '../../scssStyles/mixins';
+
+.login-entire-page {
+  height: 100vh;
+  width: 100vw;
+}
+
+.login-bg {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  transition: transform 400ms, opacity 400ms;
+  width: 50vw;
+  z-index: 9;
+}
+
+.login-title {
+  text-align: center;
+  color: var(--purple);
+  font-size: 70px;
+
+  padding: 5%;
+  text-shadow: 0px 7px 10px rgba(0, 0, 0, 0.25);
+}
+
+.login-error-message {
+  margin: 4px;
+  padding-left: 20px;
+  font-size: 13px;
+
+  color: var(--red-error);
+}
+.no-error-message {
+  display: none;
+}
+
+.login-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.forgot-message {
+  display: inline-block;
+  margin: 15px 0px 10px 10px;
+  color: var(--light-purple);
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 200ms, transform 200ms;
+  font-size: 18px;
+
+  &:hover {
+    color: var(--purple);
+    transform: scale(1.02);
+    transition: transform 200ms;
+  }
+  &:active {
+    color: var(--purple);
+    transform: scale(0.97);
+    transition: transform 150ms;
+  }
+}
+
+@include devices(tablet) {
+  .login-entire-page {
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .login-container {
+    width: 70vw;
+  }
+
+  .login-title {
+    font-size: 40px;
+    margin-bottom: 10px;
+  }
+
+  .login-error-message {
+    margin: 4px;
+    padding-left: 0;
+    font-size: 13px;
+    text-align: center;
+    color: var(--red-error);
+  }
+
+  .login-button-container {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .forgot-message {
+    margin: 4px;
+    color: var(--purple-shades-light);
+    font-weight: 600;
+  }
+}
+
+// BACKGROUND IMAGES
+
+.login-bg-images {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  bottom: 100%;
+  user-select: none;
+  pointer-events: none;
+}
+
+.ptero {
+  position: absolute;
+  top: 8vh;
+  left: 5vw;
+  width: 20vw;
+  z-index: 8;
+
+  animation: ptero-fly infinite 15s ease-in-out;
+}
+@keyframes ptero-fly {
+  0% {
+    transform: translateX(-10px) rotate(-5deg);
+  }
+  50% {
+    transform: translateX(10px) rotate(5deg);
+  }
+  100% {
+    transform: translateX(-10px) rotate(-5deg);
+  }
+}
+
+.brachio-left {
+  position: absolute;
+  bottom: -7px;
+  width: 40vw;
+  z-index: 8;
+  left: 0;
+
+  animation: brachio-sway infinite 15s ease-in-out;
+}
+
+.brachio-right {
+  position: absolute;
+  bottom: -10px;
+  z-index: 8;
+  height: 80%;
+  right: -2vw;
+
+  animation: brachio-sway infinite 15s ease-in-out;
+}
+
+@keyframes brachio-sway {
+  0% {
+    transform: translateY(-5px) rotate(-1deg) scale(1);
+  }
+  50% {
+    transform: translateY(5px) rotate(1deg) scale(1.02);
+  }
+  100% {
+    transform: translateY(-5px) rotate(-1deg) scale(1);
+  }
+}
+
+.ground {
+  overflow: hidden;
+  position: absolute;
+  bottom: -33%;
+  width: 100vw;
+  z-index: 7;
+
+  animation: ground-sway infinite 15s ease-in-out;
+}
+
+@keyframes ground-sway {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.mountain-back {
+  position: absolute;
+  bottom: -50vh;
+  left: -25vw;
+  width: 80vw;
+  z-index: -10;
+}
+
+.mountain-front-left {
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  bottom: -10vh;
+  height: 100vh;
+}
+
+.mountain-front-right {
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-top: 40vh;
+  width: 35%;
+  z-index: -1;
+}
+
+.mountain-mid {
+  position: absolute;
+  overflow: hidden;
+  bottom: -65vh;
+  width: 90vw;
+  left: 4vw;
+  z-index: 0;
+}
+
+@include devices(tablet) {
+  .login-bg-images {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+  }
+
+  .ptero {
+    top: 25vh;
+    left: 10vw;
+    width: 20vw;
+  }
+
+  .brachio-left {
+    bottom: 35px;
+    width: 25vw;
+    left: 5px;
+  }
+
+  .brachio-right {
+    bottom: 30px;
+    width: 60%;
+    right: 0;
+    height: auto;
+  }
+
+  .ground {
+    bottom: 0;
+    width: 100vw;
+  }
+
+  .mountain-back {
+    bottom: 10vh;
+    left: -40vw;
+    width: 100vw;
+  }
+
+  .mountain-front-left {
+    left: 0;
+    bottom: -10vh;
+    height: 50vh;
+  }
+
+  .mountain-front-right {
+    bottom: 0;
+    right: -5vw;
+    // height: 80vh;
+    width: 80%;
+  }
+
+  .mountain-mid {
+    bottom: 0;
+    width: 90vw;
+    left: 8vw;
+  }
+}
+
+@keyframes show-popup-animation {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.13);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// FORGOT PASSWORD CONTAINER -- STUFF INSIDE POPUP
+.forgot-password-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.forgot-password-container-button-fade-out {
+  opacity: 0;
+  transition: opacity 400ms;
+}
+.forgot-password-container-button-fade-in {
+  opacity: 1;
+  transition: opacity 400ms;
+}
+
+.forgot-password-container-email {
+  margin-top: 10px;
+}
+
+.login-loading {
+  z-index: 10;
+  position: fixed;
+  top: calc(50vh - 30px);
+  left: calc(50vw - 30px);
+  transition: transform 400ms, opacity 400ms;
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.login-loading-appear {
+  transition: transform 400ms, opacity 400ms;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.login-container-disappear {
+  transform: translateY(-35vh);
+  opacity: 0;
+  transition: transform 1200ms, opacity 1200ms;
+  user-select: none;
+  pointer-events: none;
+}
+
+.password-reset-loading {
+  z-index: 10;
+  transition: transform 400ms, opacity 400ms;
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.password-reset-loading-appear {
+  transition: transform 400ms, opacity 400ms;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.password-reset-button-loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 50px;
+  margin: 15px 0 0 0;
+}
+
+.password-reset-result-message {
+  text-align: center;
+}

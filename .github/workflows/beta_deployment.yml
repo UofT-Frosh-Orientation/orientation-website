@@ -1,6 +1,8 @@
 name: beta_deployment
 
 on:
+  workflow_dispatch:
+
   push:
     branches:
       - dev
@@ -13,10 +15,6 @@ env:
   SERVER_IMAGE_NAME: "orientation-server"
   CLIENT_IMAGE_NAME: "orientation-client"
   DIGITALOCEAN_API_KEY: ${{ secrets.DIGITALOCEAN_API_KEY }}
-  USER_DATA: ${{ secrets.CLOUD_INIT }}
-  NAME: beta-droplet
-  REGION: ${{ secrets.REGION }}
-  IP: ${{ secrets.BETA_IP }}
 
 jobs:
   build_server:
@@ -68,18 +66,16 @@ jobs:
 
   deploy:
     runs-on: ubuntu-20.04
-    needs: [build_server, build_client]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    needs:
+      - build_client
+      - build_server
 
-      - name: Setup Go
-        uses: actions/setup-go@v2
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v0.1.3
         with:
-          go-version: '1.18.3'
-      - name: Run deployment script
-        run: |
-          cd deploy
-          go version
-          go get -d ./...
-          go run main.go
+          host: beta.orientation.skule.ca
+          username: ${{ secrets.DO_SSH_USER }}
+          key: ${{ secrets.DO_SSH_KEY }}
+          passphrase: ${{ secrets.DO_SSH_KEY_PASSCODE }}
+          script: ${{ secrets.BETA_DEPLOYMENT_SCRIPT }}

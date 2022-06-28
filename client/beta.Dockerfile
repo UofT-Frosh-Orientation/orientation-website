@@ -11,3 +11,4 @@ FROM nginx:1.15
 COPY --from=build /app/dist /var/www/orientation
 COPY --from=build /app/nginx.conf /etc/nginx
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

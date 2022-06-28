@@ -8,7 +8,6 @@ import { data } from '../../../assets/schedule/data';
 function getDaysSchedule() {
   const scheduleData = data;
   const days = [];
-  console.log(Object.keys(scheduleData));
   for (let day of Object.keys(scheduleData)) {
     days.push(day.split(' ')[0]);
   }
@@ -34,7 +33,6 @@ const ScheduleComponent = () => {
   const buttonList = Object.keys(data).map((item) => {
     return { name: item };
   });
-  console.log(closeAll);
   return (
     <div className="schedule-container">
       <div className="mobile-only">

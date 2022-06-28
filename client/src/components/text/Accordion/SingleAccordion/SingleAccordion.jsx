@@ -4,8 +4,8 @@ import faAngleDown from '../../../../assets/accordion/angle-up-solid.svg';
 import './SingleAccordion.scss';
 
 const SingleAccordion = ({ header, children, isOpen, setIsOpen, canOpen, className, style }) => {
-  const [Height, setHeight] = useState('0px');
-  const [Rotate, setRotate] = useState('accord-icon');
+  const [height, setHeight] = useState('0px');
+  const [rotate, setRotate] = useState('accord-icon');
 
   const content = useRef(null);
 
@@ -28,13 +28,13 @@ const SingleAccordion = ({ header, children, isOpen, setIsOpen, canOpen, classNa
         {header}
         {canOpen !== false ? (
           <div style={{ marginLeft: 'auto' }} className={'accord-text'}>
-            <img src={faAngleDown} className={`${Rotate}`} alt="Accordion Button" width="15px" />
+            <img src={faAngleDown} className={`${rotate}`} alt="Accordion Button" width="15px" />
           </div>
         ) : (
           <></>
         )}
       </div>
-      <div ref={content} style={{ maxHeight: `${Height}` }} className={'accord-content'}>
+      <div ref={content} style={{ maxHeight: `${height}` }} className={'accord-content'}>
         <div className={'accord-text'}>{children}</div>
       </div>
     </div>
