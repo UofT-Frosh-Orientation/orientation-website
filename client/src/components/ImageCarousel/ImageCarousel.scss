@@ -2,15 +2,15 @@
 
 .carousel-slide {
   border-radius: 9px;
-  margin: 0 20px;
   margin-bottom: 55px;
   cursor: pointer;
+  height: calc(320px - 50px);
   @include devices(tablet) {
-    margin: 0 0px;
     width: 80%;
     margin-bottom: 40px;
+    height: calc(260px - 50px);
   }
-  height: calc(35vh - 50px);
+
   object-fit: contain;
 }
 

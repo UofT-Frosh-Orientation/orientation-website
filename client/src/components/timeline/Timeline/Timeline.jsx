@@ -8,7 +8,7 @@ const Timeline = ({ dates, onClick }) => {
     <>
       <div className="timeline-container">
         <div className="timeline-line" />
-        <div style={{ width: '2vw' }} />
+        <div className="timeline-space" />
         {dates.map((date) => {
           let formattedDate = new Date(date.date).toLocaleDateString(undefined, options);
           return (
@@ -28,7 +28,7 @@ const Timeline = ({ dates, onClick }) => {
             </div>
           );
         })}
-        <div style={{ width: '2vw' }} />
+        <div className="timeline-space" />
       </div>
     </>
   );

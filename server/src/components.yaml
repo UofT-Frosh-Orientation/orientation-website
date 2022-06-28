@@ -67,3 +67,33 @@ components:
           description: Email of the user
           example: john.doe@mail.utoronto.ca
           format: email
+    NewFAQ:
+      type: object
+      properties:
+        question:
+          type: string
+          description: The question being asked
+          example: When is the registration deadline?
+        category:
+          type: string
+          description: The category of the question
+          example: General
+    FAQ:
+      allOf:
+        - $ref: '#components/schemas/NewFAQ'
+        - type: object
+          properties:
+            answer:
+              type: string
+              description: answer to the question
+              example: The registration deadline is September 2, 2022.
+  responses:
+    NotLoggedIn:
+      description: THe user is not logged in
+      content:
+        application/json:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Please sign in to access this route!

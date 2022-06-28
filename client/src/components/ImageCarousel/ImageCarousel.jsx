@@ -6,8 +6,6 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const ImageCarousel = ({ items }) => {
-  const { innerWidth: width } = window;
-
   return (
     <div>
       <div className="desktop-only">
@@ -26,7 +24,13 @@ const ImageCarousel = ({ items }) => {
         >
           {items.map((item, index) => {
             return (
-              <a className="carousel-link" href={item.website} key={item.name + index}>
+              <a
+                className="carousel-link"
+                href={item.website}
+                key={item.name + index}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <img className="carousel-slide" src={item.image} alt={item.name} />
               </a>
             );

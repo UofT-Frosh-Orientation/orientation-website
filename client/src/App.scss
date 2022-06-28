@@ -15,7 +15,9 @@
   --gray: #989898;
   --shadow: #959da533 0px 8px 24px; /* box-shadow: var(--shadow); */
   --green-success: #aad0a3;
+  --green-success-dark: #56964b;
   --red-error: #dd4343;
+  --red-error-light: #ffacac;
   --text-link: #4471d9;
   --text-dark: #20002e;
   --text-light: #f3f3f3;
@@ -25,6 +27,7 @@
   --page-bg: #efe9f8; /* very light purple */
   --purple-transparent: #7b33a8d6;
   --purple-transparent-more: #7b33a830;
+  --transparent: #00000000;
 
   /* filters for icons -- filter: --var(purple-icon-filter) */
   --purple-icon-filter: invert(19%) sepia(69%) saturate(2461%) hue-rotate(270deg) brightness(82%)
@@ -36,6 +39,17 @@
   --lavender: #ecd6ff;
   --blue-grey-light: #cfc9e5;
   --periwinkle: #9fa8da;
+
+  /* light background colors */
+  --purple-bg: #eed8ff;
+  --yellow-bg: #ffffe4;
+  --dark-purple-bg: #d8c0ff;
+  --gray-bg: #d4d4d4;
+  --green-bg: #e9ffe9;
+  --blue-bg: #d2d9ff;
+
+  /* login page */
+  --login-bg: #e8e0eb;
 }
 
 @font-face {
@@ -95,12 +109,19 @@ a:hover {
 .page-enter {
   opacity: 0;
   transform: scale(1.08);
+  @include devices(tablet) {
+    transform: unset;
+  }
 }
 
 .page-enter-active {
   opacity: 1;
   transform: scale(1);
   transition: opacity 300ms, transform 300ms;
+  @include devices(tablet) {
+    transform: unset;
+    transition: opacity 300ms;
+  }
 }
 
 .page-exit {
@@ -112,6 +133,10 @@ a:hover {
   opacity: 0;
   transform: scale(0.92);
   transition: opacity 300ms, transform 300ms;
+  @include devices(tablet) {
+    transform: unset;
+    transition: opacity 300ms;
+  }
 }
 
 ::-webkit-scrollbar {
