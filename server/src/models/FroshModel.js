@@ -25,8 +25,7 @@ const FroshSchema = new mongoose.Schema(
       enum: [
         'Chemical',
         'Civil',
-        'Computer',
-        'Electrical',
+        'Electrical & Computer',
         'Engineering Science',
         'Industrial',
         'Materials',
