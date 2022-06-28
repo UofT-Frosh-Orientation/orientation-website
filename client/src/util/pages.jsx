@@ -45,13 +45,12 @@ export const pages = {
     },
     {
       label: 'Register',
-      component: <div />,
-      path: '/register',
-      includeFooter: true,
+      component: <PageRegistrationForm />,
+      path: '/registration',
     },
     {
-      label: 'profile',
-      component: <div />,
+      label: 'Profile',
+      component: <PageProfile />,
       path: '/profile',
       includeFooter: true,
     },
