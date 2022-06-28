@@ -131,63 +131,66 @@ const FAQPageHeader = ({
     }
   };
   return (
-    <div className={'faq-page-header'}>
-      <div className={'faq-page-header-container'}>
-        <div className="faq-page-header-text">
-          <h1>FAQ</h1>
-          <p>How can we help you?</p>
-        </div>
-        <div className="faq-page-header-search">
-          <div
-            className="searchIcon"
-            style={{
-              borderRadius:
-                searchQuery.length > 0 && !selectedSearchResult && filteredQuestions.length > 0
-                  ? '15px 0px 0px 0px'
-                  : '',
-            }}
-            onClick={() => handleSearchIconClick()}
-          >
-            <img src={SearchIcon} alt="Search Button" height={30} />
+    <>
+      <div className="navbar-space-top" />
+      <div className={'faq-page-header'}>
+        <div className={'faq-page-header-container'}>
+          <div className="faq-page-header-text">
+            <h1>FAQ</h1>
+            <p>How can we help you?</p>
           </div>
-          <div className={'faq-page-header-searchbar'}>
-            <FAQSearchBar
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              setIsSearch={setIsSearch}
-              setIsMultiSearch={setIsMultiSearch}
-              setSelectedQuestion={setSelectedQuestion}
-              questions={filteredQuestions}
-              selectedSearchResult={selectedSearchResult}
-              setSelectedSearchResult={setSelectedSearchResult}
-              setIsNoMatch={setIsNoMatch}
-              setSelectedQuestions={setSelectedQuestions}
-              setActiveIndex={setActiveIndex}
-            />
-          </div>
-          <div
-            className="deleteIcon"
-            style={{
-              borderRadius:
-                searchQuery.length > 0 && !selectedSearchResult && filteredQuestions.length > 0
-                  ? '0px 15px 0px 0px'
-                  : '',
-            }}
-          >
-            {searchQuery.length > 0 ? (
-              <img
-                onClick={() => setSearchQuery('')}
-                src={DeleteIcon}
-                alt="Search Button"
-                height={30}
+          <div className="faq-page-header-search">
+            <div
+              className="searchIcon"
+              style={{
+                borderRadius:
+                  searchQuery.length > 0 && !selectedSearchResult && filteredQuestions.length > 0
+                    ? '15px 0px 0px 0px'
+                    : '',
+              }}
+              onClick={() => handleSearchIconClick()}
+            >
+              <img src={SearchIcon} alt="Search Button" height={30} />
+            </div>
+            <div className={'faq-page-header-searchbar'}>
+              <FAQSearchBar
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                setIsSearch={setIsSearch}
+                setIsMultiSearch={setIsMultiSearch}
+                setSelectedQuestion={setSelectedQuestion}
+                questions={filteredQuestions}
+                selectedSearchResult={selectedSearchResult}
+                setSelectedSearchResult={setSelectedSearchResult}
+                setIsNoMatch={setIsNoMatch}
+                setSelectedQuestions={setSelectedQuestions}
+                setActiveIndex={setActiveIndex}
               />
-            ) : (
-              ''
-            )}
+            </div>
+            <div
+              className="deleteIcon"
+              style={{
+                borderRadius:
+                  searchQuery.length > 0 && !selectedSearchResult && filteredQuestions.length > 0
+                    ? '0px 15px 0px 0px'
+                    : '',
+              }}
+            >
+              {searchQuery.length > 0 ? (
+                <img
+                  onClick={() => setSearchQuery('')}
+                  src={DeleteIcon}
+                  alt="Search Button"
+                  height={30}
+                />
+              ) : (
+                ''
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -252,10 +255,10 @@ const FAQAccordionWrapper = ({ scheduleData, openStatus }) => {
     <SingleAccordion
       isOpen={isOpen}
       setIsOpen={setIsOpen}
-      header={scheduleData.question}
+      header={<div className={'faq-search-result-question-accordion'}>{scheduleData.question}</div>}
       style={{ backgroundColor: '#ecd6ff' }}
     >
-      {scheduleData.answer}
+      <div className={'faq-search-result-answer-accordion'}>{scheduleData.answer}</div>
     </SingleAccordion>
   );
 };
@@ -458,7 +461,7 @@ const FAQAskQuestion = () => {
             />
           </div>
         </label>
-        <div>
+        <div style={{ textAlign: 'center' }}>
           <Button label={'Submit'} onClick={handleSubmit}>
             Submit
           </Button>
