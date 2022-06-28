@@ -24,6 +24,9 @@ const ButtonSelector = ({
       style={{
         backgroundColor: `${item.buttonColor}`,
         flex: 1,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         maxWidth: maxWidthButton,
         ...style,
       }}
