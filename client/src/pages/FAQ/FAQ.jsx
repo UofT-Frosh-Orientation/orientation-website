@@ -31,7 +31,6 @@ const PageFAQ = () => {
         answer: data[i].answer,
       });
       questionCategories.push({ name: data[i].category });
-      console.log(data[i].category);
     } else {
       questionsObjects[data[i].category].push({
         question: data[i].question,
@@ -454,7 +453,7 @@ const FAQAskQuestion = () => {
   };
 
   const handleSubmit = (text) => {
-    console.log(submitQuestion(formData));
+    // console.log(submitQuestion(formData));
     updateFormData(initialFormData);
     text = '';
     setClearText(true);
