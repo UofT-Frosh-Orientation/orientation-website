@@ -74,24 +74,10 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials, isRegistered }
               );
             }
             // if not logged in
-            return (
-              <Link to="/login" key="/login">
-                <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>;
-              </Link>
-            );
+            return <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>;
           } // Clicking on register button
-          else if (page.label === 'Register') {
-            // if not logged in
-            if (!isLoggedIn) {
-              return (
-                <Link to="/login" key="/login">
-                  <div className="login">Login</div>
-                </Link>
-              );
-            } // if logged in and registered
-            else if (isRegistered) {
-              return <div></div>; // TODO: hide register button
-            } // if logged in but not registered
+          else if (page.label === 'Register' && isLoggedIn && !isRegistered) {
+            // if logged in and not registered
             return (
               <Link to={page.path} key={page.path}>
                 <div className="register">{page.label}</div>
@@ -100,16 +86,11 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials, isRegistered }
           } // Clicking on login button
           else if (page.label === 'Login' && !isLoggedIn) {
             // if not logged in
-            if (!isLoggedIn) {
-              return (
-                <Link to={page.path} key={page.path}>
-                  <div className="login">{page.label}</div>
-                </Link>
-              );
-            } // if logged in
-            else {
-              return <div></div>; // TODO: hide login button
-            }
+            return (
+              <Link to={page.path} key={page.path}>
+                <div className="login">{page.label}</div>
+              </Link>
+            );
           }
         })}
       </div>
@@ -118,7 +99,7 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials, isRegistered }
 };
 
 // TODO: also make changes (done to web) for mobile
-const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials, isRegistered }) => {
+const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
   return (
     <div className="navbar-container">
       <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
