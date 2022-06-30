@@ -11,6 +11,7 @@ import './RegistrationForm.scss';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { Link } from 'react-router-dom';
+import { PopupModal } from '../../components/popup/PopupModal';
 
 const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
   const steps = Object.keys(fields);
@@ -18,6 +19,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   const [formFields, setFormFields] = useState(fields);
   const [selectedTab, setSelectedTab] = useState(0);
   const [selectedTabGo, setSelectedTabGo] = useState(true);
+  const [showPopUp, setShowPopUp] = useState(false);
 
   useEffect(() => {
     for (let step of steps) {
@@ -191,6 +193,23 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   if (editFieldsPage === true) {
     return (
       <div>
+        <PopupModal
+          trigger={showPopUp}
+          setTrigger={setShowPopUp}
+          blurBackground={false}
+          exitIcon={true}
+        >
+          <div className="registration-edit-popup">
+            <h1>Discard changes?</h1>
+            <h2>Any changes will be lost.</h2>
+            <div className="registration-edit-popup-buttons">
+              <Link to={'/profile'}>
+                <Button label="Discard" isSecondary />
+              </Link>
+              <Button label="Keep editing" onClick={() => setShowPopUp(false)} />
+            </div>
+          </div>
+        </PopupModal>
         <div className="navbar-space-top" />
         <div className="registration-form-flex">
           <div className="registration-form">
@@ -208,9 +227,12 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
 
           <div>
             {/* TODO: SHow popup to ask if they would like to discard all changes when editing fields */}
-            <Link to={'/profile'}>
-              <ButtonOutlined label={'Cancel changes'} onClick={() => {}} />
-            </Link>
+            <ButtonOutlined
+              label={'Discard changes'}
+              onClick={() => {
+                setShowPopUp(true);
+              }}
+            />
             <Button
               label={'Save changes'}
               onClick={() => {
@@ -249,7 +271,11 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   ),
                 },
                 {
-                  title: 'Misc',
+                  title: 'Health & Safety',
+                  component: generateStepComponent(formFields['HealthSafety'], 'HealthSafety'),
+                },
+                {
+                  title: 'Extra Events',
                   component: generateStepComponent(formFields['Misc'], 'Misc'),
                 },
                 {
