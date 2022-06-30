@@ -186,12 +186,12 @@
   margin: 25px 0% 50px 0%;
 }
 
-.faq-accordion-container:hover {
-  cursor: pointer;
-}
-
 .faq-accordion-wrapper {
   margin: 15px 10% 20px 10%;
+}
+
+.faq-accordion-wrapper:hover {
+  cursor: pointer;
 }
 
 .faq-hide-accordion {
