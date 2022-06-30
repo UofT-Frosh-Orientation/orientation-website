@@ -75,11 +75,6 @@ export const pages = {
       includeFooter: true,
     },
     {
-      label: 'Profile',
-      component: <PageProfile />,
-      path: '/profile',
-    },
-    {
       label: 'Registration Success',
       component: <PageRegistrationSuccess />,
       path: '/registration-success',
