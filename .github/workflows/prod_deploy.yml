@@ -1,11 +1,13 @@
 name: prod_deployment
 
 on:
+  workflow_dispatch:
+
   push:
     branches:
-      - main
+      - dev
 
-concurrency: beta-deployment
+concurrency: prod-deployment
 
 env:
   REGISTRY: ${{ secrets.DIGITALOCEAN_CONTAINER_URL }}
@@ -13,10 +15,6 @@ env:
   SERVER_IMAGE_NAME: "orientation-server"
   CLIENT_IMAGE_NAME: "orientation-client"
   DIGITALOCEAN_API_KEY: ${{ secrets.DIGITALOCEAN_API_KEY }}
-  USER_DATA: ${{ secrets.CLOUD_INIT }}
-  NAME: prod-droplet
-  REGION: ${{ secrets.REGION }}
-  IP: ${{ secrets.PROD_IP }}
 
 jobs:
   build_server:
@@ -26,7 +24,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build server image
-        run: cd server && docker build -t $(echo $REGISTRY)/$(echo $SERVER_IMAGE_NAME):prod -f beta.Dockerfile .
+        run: cd server && docker build -t $(echo $REGISTRY)/$(echo $SERVER_IMAGE_NAME):prod -f prod.Dockerfile .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -65,21 +63,3 @@ jobs:
 
       - name: Push client image to container registry
         run: docker push $(echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):prod
-
-  deploy:
-    runs-on: ubuntu-20.04
-    needs: [build_server, build_client]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: '1.18.3'
-      - name: Run deployment script
-        run: |
-          cd deploy
-          go version
-          go get -d ./...
-          go run main.go
