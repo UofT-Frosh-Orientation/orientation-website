@@ -19,20 +19,28 @@ export default function App() {
   );
 }
 
-// Functions purely for testing purposes, delete as you will
+// The 3 functions below are purely for testing purposes, delete as you will
 function isLoggedIn() {
-  return true;
+  return false;
 }
 
 function froshInitials() {
   return 'NL';
 }
 
+function isRegistered() {
+  return false;
+}
+
 const TransitionRoutes = () => {
   const location = useLocation();
   return (
     <TransitionGroup>
-      <Navbar isLoggedIn={isLoggedIn()} froshInitials={froshInitials()} />
+      <Navbar
+        isLoggedIn={isLoggedIn()}
+        froshInitials={froshInitials()}
+        isRegistered={isRegistered()}
+      />
       <ScrollToTop />
       <CSSTransition key={location.key} classNames="page" timeout={300}>
         <Routes location={location}>
