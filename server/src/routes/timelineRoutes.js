@@ -1,27 +1,37 @@
-const express = require('express')
+const express = require('express');
+const checkLoggedIn = require('../middlewares/checkLoggedIn');
+const hasAuthScopes = require('../middlewares/hasAuthScopes');
 
 const {
   getTimeline,
-  getTimelineElement,
-	updateTimelineElement,
-  addTimelineElement,
+  updateTimelineElement,
+  createTimelineElement,
   deleteTimelineElement
-
-} = require('../controllers/TimelineController')
+} = require('../controllers/TimelineController');
 
 const router = express.Router();
 
 router.get('/', getTimeline);
 
-router.get("/:id", getTimelineElement);
+router.put(
+  '/:id/edit',
+  checkLoggedIn,
+  hasAuthScopes(['Timeline:edit']),
+  updateTimelineElement,
+);
 
-router.put("/:id/edit", updateTimelineElement);
+router.post(
+  '/create',
+  checkLoggedIn,
+  hasAuthScopes(['Timeline:create']),
+  createTimelineElement,
+);
 
-router.post("/add", addTimelineElement);
-
-router.delete("/:id/delete", deleteTimelineElement);
-
-// router.post("/changeOrder", changeTimelineOrder);
+router.delete(
+  '/:id/delete',
+  checkLoggedIn,
+  hasAuthScopes(['Timeline:delete']),
+  deleteTimelineElement,
+);
 
 module.exports = router;
-

@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const TimelineSchema = new mongoose.Schema({
   date: {
     type: Date,
-    default: Date.now(),
     // required: true,
   },
   name: {
