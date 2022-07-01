@@ -13,9 +13,9 @@ const TimelineServices = {
     });
   },
 
-  async updateTimelineElement(id, TimelineElement) {
+  async updateTimelineElement(id, date, name, description) {
     return new Promise((resolve, reject) => {
-      TimelineModel.findOneAndUpdate({ _id: id }, TimelineElement, (err, Timeline) => {
+      TimelineModel.findOneAndUpdate({ _id: id }, {date, name, description}, (err, Timeline) => {
         if (err || !Timeline) {
           reject('UNABLE_TO_UPDATE_TIMELiNE');
         } else {
@@ -25,9 +25,9 @@ const TimelineServices = {
     });
   },
 
-  async saveNewTimelineElement(TimelineElement) {
+  async saveNewTimelineElement(date, name, description) {
     return new Promise((resolve, reject) => {
-      TimelineModel.create(TimelineElement, (err, newTimeline) => {
+      TimelineModel.create({date, name, description}, (err, newTimeline) => {
         if (err) {
           reject(err);
         } else {
@@ -36,6 +36,7 @@ const TimelineServices = {
       });
     });
   },
+
 
   async deleteTimelineElement(id) {
     return new Promise((resolve, reject) => {
