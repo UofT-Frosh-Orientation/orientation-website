@@ -9,13 +9,17 @@ import { Button } from '../../components/button/Button/Button';
 import { Tabs } from '../../components/tabs/tabs';
 import './RegistrationForm.scss';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
+import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
+import { Link } from 'react-router-dom';
+import { PopupModal } from '../../components/popup/PopupModal';
 
-const PageRegistrationForm = () => {
+const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
   const steps = Object.keys(fields);
   const [froshObject, setFroshObject] = useState({});
   const [formFields, setFormFields] = useState(fields);
   const [selectedTab, setSelectedTab] = useState(0);
   const [selectedTabGo, setSelectedTabGo] = useState(true);
+  const [showPopUp, setShowPopUp] = useState(false);
 
   useEffect(() => {
     for (let step of steps) {
@@ -73,10 +77,10 @@ const PageRegistrationForm = () => {
                   description={field.description}
                   errorFeedback={field.errorFeedback}
                   hasRestrictedInput={field.hasRestrictedInput}
-                  initialValue={field.initialValue}
+                  initialValue={editFieldsPage === true ? initialValues[key] : field.initialValue}
                   inputType={field.inputType}
                   isRequiredInput={field.isRequiredInput}
-                  localStorageKey={field.localStorageKey}
+                  localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
                   placeholder={field.placeholder}
                   onChange={(value) => {
                     froshObject[key] = value;
@@ -84,7 +88,11 @@ const PageRegistrationForm = () => {
                   }}
                   isPhoneNumber={field.isPhoneNumber}
                   isInstagram={field.isInstagram}
-                  isDisabled={field.isDisabled}
+                  isDisabled={
+                    editFieldsPage === true && field.isDisabled !== true
+                      ? field.noEdit
+                      : field.isDisabled
+                  }
                   inputTitle={field.inputTitle}
                 />
               </div>
@@ -96,13 +104,19 @@ const PageRegistrationForm = () => {
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
                   disabledIndices={field.disabledIndices}
-                  initialSelectedIndex={field.initialSelectedIndex}
+                  initialSelectedIndex={
+                    editFieldsPage === true ? initialValues[key] : field.initialSelectedIndex
+                  }
                   values={field.values}
                   onSelected={(value) => {
                     froshObject[key] = value;
                     if (field.onChanged) field.onChanged(value, disableField);
                   }}
-                  isDisabled={field.isDisabled}
+                  isDisabled={
+                    editFieldsPage === true && field.isDisabled !== true
+                      ? field.noEdit
+                      : field.isDisabled
+                  }
                 />
               </div>
             );
@@ -112,13 +126,19 @@ const PageRegistrationForm = () => {
                 <Dropdown
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
-                  initialSelectedIndex={field.initialSelectedIndex}
+                  initialSelectedIndex={
+                    editFieldsPage === true ? initialValues[key] : field.initialSelectedIndex
+                  }
                   values={field.values}
                   onSelect={(value) => {
                     froshObject[key] = value;
                     if (field.onChanged) field.onChanged(value, disableField);
                   }}
-                  isDisabled={field.isDisabled}
+                  isDisabled={
+                    editFieldsPage === true && field.isDisabled !== true
+                      ? field.noEdit
+                      : field.isDisabled
+                  }
                 />
               </div>
             );
@@ -129,7 +149,9 @@ const PageRegistrationForm = () => {
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
                   disabledIndices={field.disabledIndices}
-                  initialSelectedIndices={field.initialSelectedIndices}
+                  initialSelectedIndices={
+                    editFieldsPage === true ? initialValues[key] : field.initialSelectedIndices
+                  }
                   maxCanSelect={field.maxCanSelect}
                   onSelected={(value, index, status, indicesSelected) => {
                     let values = [];
@@ -167,64 +189,130 @@ const PageRegistrationForm = () => {
       </div>
     );
   };
-  return (
-    <div>
-      <div className="navbar-space-top" />
-      <div className="registration-form-flex">
-        <div className="registration-form">
-          <Tabs
-            selectedTabPassed={selectedTab}
-            go={selectedTabGo}
-            tabs={[
-              {
-                title: 'General',
-                component: (
-                  <>
-                    <div className="registration-first-step-header-container">
-                      <img className="registration-icon-logo" src={MainFroshLogo}></img>
-                      <div>
-                        <h1 className="registration-first-step-title">Hello James</h1>
-                        <h2 className="registration-first-step-subtitle">
-                          Let&apos;s register for UofT Engineering&apos;s F!rosh Week 2T2
-                        </h2>
+
+  if (editFieldsPage === true) {
+    return (
+      <div>
+        <PopupModal
+          trigger={showPopUp}
+          setTrigger={setShowPopUp}
+          blurBackground={false}
+          exitIcon={true}
+        >
+          <div className="registration-edit-popup">
+            <h1>Discard changes?</h1>
+            <h2>Any changes will be lost.</h2>
+            <div className="registration-edit-popup-buttons">
+              <Link to={'/profile'}>
+                <Button label="Discard" isSecondary />
+              </Link>
+              <Button label="Keep editing" onClick={() => setShowPopUp(false)} />
+            </div>
+          </div>
+        </PopupModal>
+        <div className="navbar-space-top" />
+        <div className="registration-form-flex">
+          <div className="registration-form">
+            {Object.keys(fields).map((fieldsKey, index) => {
+              return generateStepComponent(formFields[fieldsKey], fieldsKey);
+            })}
+          </div>
+          <Button
+            label={'Check'}
+            onClick={() => {
+              console.log(froshObject);
+              console.log(validateForm());
+            }}
+          />
+
+          <div>
+            {/* TODO: SHow popup to ask if they would like to discard all changes when editing fields */}
+            <ButtonOutlined
+              label={'Discard changes'}
+              onClick={() => {
+                setShowPopUp(true);
+              }}
+            />
+            <Button
+              label={'Save changes'}
+              onClick={() => {
+                onEditSubmit(froshObject);
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <div className="navbar-space-top" />
+        <div className="registration-form-flex">
+          <div className="registration-form">
+            <Tabs
+              selectedTabPassed={selectedTab}
+              go={selectedTabGo}
+              tabs={[
+                {
+                  title: 'General',
+                  component: (
+                    <>
+                      <div className="registration-first-step-header-container">
+                        <img className="registration-icon-logo" src={MainFroshLogo}></img>
+                        <div>
+                          <h1 className="registration-first-step-title">Hello James</h1>
+                          <h2 className="registration-first-step-subtitle">
+                            Let&apos;s register for UofT Engineering&apos;s F!rosh Week 2T2
+                          </h2>
+                        </div>
                       </div>
+                      {generateStepComponent(formFields['General'], 'General')}
+                    </>
+                  ),
+                },
+                {
+                  title: 'Health & Safety',
+                  component: generateStepComponent(formFields['HealthSafety'], 'HealthSafety'),
+                },
+                {
+                  title: 'Extra Events',
+                  component: generateStepComponent(formFields['Misc'], 'Misc'),
+                },
+                {
+                  title: 'Payment',
+                  component: (
+                    <div>
+                      <p className="register-terms-of-service">{terms}</p>
+                      <b>
+                        <p className="register-terms-of-service-below">
+                          By proceeding with your payment, you indicate you accept F!rosh Week using
+                          your submitted information in order to help plan and deliver Orientation
+                          events
+                        </p>
+                      </b>
                     </div>
-                    {generateStepComponent(formFields['General'], 'General')}
-                  </>
-                ),
-              },
-              {
-                title: 'Misc',
-                component: generateStepComponent(formFields['Misc'], 'Misc'),
-              },
-              {
-                title: 'Payment',
-                component: (
-                  <div>
-                    <p className="register-terms-of-service">{terms}</p>
-                    <b>
-                      <p className="register-terms-of-service-below">
-                        By proceeding with your payment, you indicate you accept F!rosh Week using
-                        your submitted information in order to help plan and deliver Orientation
-                        events
-                      </p>
-                    </b>
-                  </div>
-                ),
-              },
-            ]}
+                  ),
+                },
+              ]}
+            />
+          </div>
+          <Button
+            label={'Check'}
+            onClick={() => {
+              console.log(froshObject);
+              console.log(validateForm());
+            }}
           />
         </div>
-        <Button
-          label={'Check'}
-          onClick={() => {
-            console.log(froshObject);
-            console.log(validateForm());
-          }}
-        />
       </div>
-    </div>
-  );
+    );
+  }
+};
+
+PageRegistrationForm.propTypes = {
+  editFieldsPage: PropTypes.bool,
+  initialValues: PropTypes.object,
+  onEditSubmit: PropTypes.func,
 };
 
 export { PageRegistrationForm };

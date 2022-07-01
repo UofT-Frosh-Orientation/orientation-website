@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import faAngleDown from '../../../../assets/accordion/angle-up-solid.svg';
 import './SingleAccordion.scss';
 
-const SingleAccordion = ({ header, children, isOpen, setIsOpen }) => {
-  const [Height, setHeight] = useState('0px');
-  const [Rotate, setRotate] = useState('accord-icon');
+const SingleAccordion = ({ header, children, isOpen, setIsOpen, canOpen, className }) => {
+  const [height, setHeight] = useState('0px');
+  const [rotate, setRotate] = useState('accord-icon');
 
   const content = useRef(null);
 
@@ -15,18 +15,26 @@ const SingleAccordion = ({ header, children, isOpen, setIsOpen }) => {
   }, [isOpen]);
 
   function toggleAccordion() {
-    setIsOpen(!isOpen);
+    if (canOpen !== false) setIsOpen(!isOpen);
   }
 
   return (
-    <div className="accordion" onClick={toggleAccordion}>
+    <div
+      className={`accordion ${className}`}
+      onClick={toggleAccordion}
+      style={{ cursor: canOpen ? 'pointer' : 'unset' }}
+    >
       <div className="accord-header">
-        <div>{header}</div>
-        <div style={{ marginLeft: 'auto' }} className={'accord-text'}>
-          <img src={faAngleDown} className={`${Rotate}`} alt="Accordion Button" width="15px" />
-        </div>
+        {header}
+        {canOpen !== false ? (
+          <div style={{ marginLeft: 'auto' }} className={'accord-text'}>
+            <img src={faAngleDown} className={`${rotate}`} alt="Accordion Button" width="15px" />
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
-      <div ref={content} style={{ maxHeight: `${Height}` }} className={'accord-content'}>
+      <div ref={content} style={{ maxHeight: `${height}` }} className={'accord-content'}>
         <div className={'accord-text'}>{children}</div>
       </div>
     </div>
@@ -38,6 +46,8 @@ SingleAccordion.propTypes = {
   children: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
+  canOpen: PropTypes.bool.isRequired,
+  className: PropTypes.string,
 };
 
 export { SingleAccordion };

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getTimelineDates } from './functions';
+import { getSlideshowImages, getTimelineDates } from './functions';
 import './Home.scss';
 import Wave from '../../assets/misc/wave.png';
 import WaveReverse from '../../assets/misc/wave-reverse.png';
@@ -11,6 +11,9 @@ import Landing1 from '../../assets/landing/landing-1.jpg';
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
 import { ImageCarousel } from '../../components/ImageCarousel/ImageCarousel';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
+import 'react-slideshow-image/dist/styles.css';
+import { Slide } from 'react-slideshow-image';
+import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
 
 const PageHome = () => {
   return (
@@ -31,12 +34,51 @@ const HomePageHeader = () => {
         <h1>2T2</h1>
         <p>Organized by the University of Toronto&apos;s Engineering Orientation Commitee</p>
         <div className="home-page-header-register-button">
-          <Button label="Register" isSecondary style={{ margin: '0px' }} />
+          <div className="desktop-only">
+            <Button
+              label="Register"
+              isSecondary
+              style={{
+                margin: '0px',
+                width: '100%',
+                height: '100%',
+                fontSize: 'unset',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            />
+          </div>
+          <div className="mobile-only">
+            <Button label="Register" isSecondary style={{ margin: '0px' }} />
+          </div>
         </div>
       </div>
-      <img src={Landing1} className="home-page-landing-image" />
+      <div className="home-page-landing-image-container">
+        <HomePageSlideshow />
+      </div>
       <img src={Wave} className="wave-image home-page-top-wave-image" />
     </div>
+  );
+};
+
+const HomePageSlideshow = () => {
+  const properties = {
+    duration: 5000,
+    autoplay: true,
+    transitionDuration: 1000,
+    arrows: false,
+    infinite: true,
+    easing: 'cubic',
+  };
+  return (
+    <Slide {...properties}>
+      {getSlideshowImages().map((image, index) => (
+        <div key={index}>
+          <img className="home-page-landing-image" src={image} alt={'slideshow' + index} />
+        </div>
+      ))}
+    </Slide>
   );
 };
 
@@ -53,7 +95,7 @@ const HomePageSchedule = () => {
   return (
     <div className="home-page-schedule">
       <h2 className="home-page-section-header">Schedule</h2>
-      <div style={{ height: '200px', width: '50px', padding: '50px' }}>Placeholder</div>
+      <ScheduleComponent />
     </div>
   );
 };

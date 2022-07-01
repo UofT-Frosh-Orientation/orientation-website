@@ -1,11 +1,19 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
+  canLeaderScanQR,
+  capitalizeFirstLetter,
   getDaysFroshSchedule,
+  getFroshData,
   getFroshScheduleData,
   getQRCodeString,
   getTasks,
+  isLeader,
   onDoneTask,
+  parseQRCode,
+  qrKeys,
+  searchForFrosh,
+  signInFrosh,
 } from './functions';
 import './Profile.scss';
 import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
@@ -16,15 +24,38 @@ import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import SingleAccordionStories from '../../components/text/Accordion/SingleAccordion/SingleAccordion.stories';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
+import QrScanner from 'qr-scanner';
+import { Button } from '../../components/button/Button/Button';
+import { TextInput } from '../../components/input/TextInput/TextInput';
+import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
+import EditIcon from '../../assets/misc/pen-solid.svg';
+import { Link } from 'react-router-dom';
+import { resources } from '../../util/resources';
 
 const PageProfile = () => {
+  const qrCodeLeader = canLeaderScanQR();
+  const leader = isLeader();
+  if (qrCodeLeader) {
+    return <PageProfileQRLeader />;
+  } else if (leader) {
+    return <PageProfileFrosh leader />;
+  } else {
+    return <PageProfileFrosh />;
+  }
+};
+
+const PageProfileFrosh = ({ leader }) => {
   return (
     <>
       <div className="navbar-space-top" />
-      <ProfilePageHeader />
+      <ProfilePageHeader leader={leader} />
       <div className="profile-info-row">
         <div>
-          <ProfilePageAnnouncements />
+          {leader === false || leader === undefined ? (
+            <ProfilePageAnnouncements />
+          ) : (
+            <div style={{ marginTop: '-40px' }} />
+          )}
           <ProfilePageSchedule />
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -36,35 +67,213 @@ const PageProfile = () => {
   );
 };
 
-const ProfilePageHeader = () => {
+PageProfileFrosh.propTypes = {
+  leader: PropTypes.bool,
+};
+
+const PageProfileQRLeader = () => {
+  return (
+    <>
+      <div className="navbar-space-top" />
+      <ProfilePageHeader leader />
+      <div className="profile-info-row">
+        <div style={{ marginTop: '-40px' }}>
+          <ProfilePageSchedule />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <ProfilePageQRScanner />
+          <div style={{ height: '10px' }} />
+          <ProfilePageQRCode />
+          <ProfilePageResources />
+        </div>
+      </div>
+    </>
+  );
+};
+
+const ProfilePageQRScanner = () => {
+  const [isScanned, setIsScanned] = useState(false);
+  const [isScanning, setIsScanning] = useState(false);
+  const [scannedData, setScannedData] = useState('');
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const [searchFor, setSearchFor] = useState('');
+  const [results, setResults] = useState([]);
+  const videoRef = useRef();
+
+  let qrScanner = null;
+  useEffect(() => {
+    if (isScanning) {
+      const videoElement = videoRef.current;
+      qrScanner = new QrScanner(
+        videoElement,
+        (qrCode) => {
+          if (qrCode) {
+            setIsScanned(!isScanned);
+            setScannedData(parseQRCode(qrCode.data));
+          }
+        },
+        {
+          onDecodeError: (error) => {},
+          highlightScanRegion: true,
+          highlightCodeOutline: true,
+        },
+      );
+      qrScanner.setInversionMode('both');
+      qrScanner.start();
+    }
+  }, [isScanning]);
+
+  const search = () => {
+    setResults(searchForFrosh(searchFor));
+  };
+
+  return (
+    <div className="profile-page-qr-code">
+      <ButtonOutlined
+        label={isScanning ? 'Stop Scanning' : 'Start Scanning'}
+        onClick={() => {
+          if (isScanning) {
+            qrScanner?.stop();
+            qrScanner?.destroy();
+            qrScanner = null;
+            document.getElementsByClassName('scan-region-highlight-svg')[0].style.display = 'none';
+            document.getElementsByClassName('scan-region-highlight')[0].style.display = 'none';
+            setIsScanning(false);
+          } else {
+            setIsScanning(true);
+          }
+        }}
+      />
+      <video ref={videoRef} style={{ width: '100%', borderRadius: '10px' }}></video>
+
+      <div
+        className={`profile-page-scanned-data ${
+          submitSuccess ? 'profile-page-scanned-data-success' : ''
+        } ${submitError !== false ? 'profile-page-scanned-data-error' : ''}`}
+      >
+        {scannedData === '' ? (
+          'Nothing scanned yet!'
+        ) : (
+          <>
+            {qrKeys().map((keyPassed) => {
+              const key = keyPassed.toString();
+              return (
+                <div key={key}>
+                  <b>{capitalizeFirstLetter(key) + ': '}</b>
+                  {scannedData[key]?.toString()}
+                </div>
+              );
+            })}
+          </>
+        )}
+      </div>
+      <Button
+        label={'Submit'}
+        onClick={() => {
+          const result = signInFrosh(scannedData.email);
+          if (result === true) {
+            setScannedData(parseQRCode(''));
+            setSubmitSuccess(true);
+            setTimeout(() => {
+              setSubmitSuccess(false);
+            }, 450);
+            if (submitError !== false) {
+              setSubmitError(false);
+            }
+            if (results != []) {
+              setResults([]);
+            }
+          } else {
+            setSubmitError(result);
+          }
+        }}
+      />
+      <p>
+        <i>{submitError !== false ? 'Error: ' + submitError : ''}</i>
+      </p>
+      <h2 className="profile-page-manual-entry-header">Manual Entry</h2>
+      <div style={{ padding: '0px 10px', width: '100%' }}>
+        <TextInput
+          placeholder={'Frosh Name / Email'}
+          onChange={(value) => {
+            setSearchFor(value);
+          }}
+          onEnterKey={() => {
+            search();
+          }}
+        />
+      </div>
+      <div className="manual-sign-in-frosh-search-result-container">
+        {results.map((frosh, index) => {
+          return (
+            <ButtonOutlined
+              onClick={() => {
+                setScannedData(frosh);
+              }}
+              key={frosh.email + index}
+              label={
+                <div>
+                  <h3>{frosh.name}</h3>
+                  <p>{frosh.email}</p>
+                </div>
+              }
+              className="manual-sign-in-frosh-search-result"
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+const ProfilePageHeader = ({ leader, editButton }) => {
+  const froshData = getFroshData();
   return (
     <>
       <div className="profile-page-header">
         <div className="profile-page-header-group">
-          <h1>λ</h1>
-          <p>Lambda</p>
+          <h1>{froshData['froshGroupIcon']}</h1>
+          <p>{froshData['froshGroup']}</p>
+          {leader === true ? <p>{'(Leader)'}</p> : <></>}
         </div>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-info">
             <p className="profile-page-name-title">
-              <b>James</b> Kokoska
+              <b>{froshData['firstName']}</b> {froshData['lastName']}
             </p>
-            <p>Incoming Computer Engineering student</p>
+            <p>{`Incoming ${froshData['discipline']} student`}</p>
             <p>
-              <u>
-                <b>test.email</b>@mail.utoronto.com
-              </u>
+              <u>{froshData['email']}</u>
             </p>
           </div>
           <div className="profile-page-header-class desktop-only">
-            <p>Class of</p>
-            <h2>2T6</h2>
+            {leader === true ? (
+              <h2>Leader</h2>
+            ) : (
+              <>
+                <p>Class of</p>
+                <h2>2T6</h2>
+              </>
+            )}
           </div>
+          {editButton !== false ? (
+            <Link to={'/profile-edit'} className={'profile-edit-icon-link'}>
+              <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
+            </Link>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
     </>
   );
+};
+
+ProfilePageHeader.propTypes = {
+  leader: PropTypes.bool,
+  editButton: PropTypes.bool,
 };
 
 const ProfilePageAnnouncements = () => {
@@ -84,7 +293,7 @@ const ProfilePageQRCode = () => {
         styles={{ svg: { width: '120%', margin: '-10%' } }}
         type="round"
         opacity={100}
-        posType="rect"
+        posType="round"
         otherColor="#320846"
         posColor="#28093A"
         backgroundColor="white"
@@ -97,16 +306,22 @@ const ProfilePageResources = () => {
   return (
     <div className="profile-page-resources">
       <h2>Resources</h2>
-      <ButtonBubble
-        label="Campus Food Guide"
-        isSecondary
-        style={{ margin: 0, marginTop: '10px' }}
-      />
-      <ButtonBubble
-        label="Mental Health and Wellness Resources"
-        isSecondary
-        style={{ margin: 0, marginTop: '10px' }}
-      />
+      {resources.map((resource, index) => {
+        return (
+          <a
+            key={index + resource.name}
+            href={resource.link}
+            target="_blank"
+            className="no-link-style" rel="noreferrer"
+          >
+            <ButtonBubble
+              label={resource.name}
+              isSecondary
+              style={{ margin: 0, marginTop: '10px' }}
+            />
+          </a>
+        );
+      })}
     </div>
   );
 };
@@ -190,7 +405,12 @@ const ProfilePageAccordionWrapper = ({ scheduleDateObj, index, closeAll }) => {
   );
   return (
     <div className="profile-page-accordion-container">
-      <SingleAccordion isOpen={isOpen} setIsOpen={setIsOpen} header={accordionHeader}>
+      <SingleAccordion
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        header={accordionHeader}
+        className={`profile-page-schedule-accordion`}
+      >
         {accordionContent}
       </SingleAccordion>
     </div>
@@ -203,4 +423,4 @@ ProfilePageAccordionWrapper.propTypes = {
   closeAll: PropTypes.bool,
 };
 
-export { PageProfile };
+export { PageProfile, ProfilePageHeader };

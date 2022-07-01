@@ -1,0 +1,19 @@
+@import '../../../scssStyles/mixins';
+
+.error-success-box-container {
+  padding: 15px 22px;
+  border: 3px solid var(--red-error);
+  outline-width: 3px;
+  border-radius: 5px;
+  margin: 20px 10px;
+}
+
+.error-success-box-error {
+  background-color: var(--red-error-light);
+  outline-color: var(--red-error);
+}
+
+.error-success-box-success {
+  background-color: var(--green-success);
+  border-color: var(--green-success-dark);
+}
