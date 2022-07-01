@@ -14,7 +14,7 @@ components:
         birthDate:
           type: string
           description: Birth date of the Frosh
-          example: "2004-01-01"
+          example: '2004-01-01'
           format: date
         pronouns:
           type: string
@@ -67,6 +67,34 @@ components:
           description: Email of the user
           example: john.doe@mail.utoronto.ca
           format: email
+    Event:
+      type: object
+      required:
+        - name
+        - description
+        - date
+        - endTime
+      properties:
+        name:
+          type: string
+          description: Name of the event
+          example: Matriculation
+        description:
+          type: string
+          description: Description of the event
+          example: lorem ipsum
+        date:
+          type: date
+          description: Date of the event including starting time
+          example: 2022-05-09T14:00:00
+        endTime:
+          type: date
+          description: End time of the event
+          example: 2022-05-09T15:00:00
+        color:
+          type: string
+          description: color of the event
+          example: purple
     NewFAQ:
       type: object
       properties:
@@ -97,3 +125,4 @@ components:
             message:
               type: string
               example: Please sign in to access this route!
+
