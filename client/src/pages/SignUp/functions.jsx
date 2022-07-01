@@ -17,11 +17,40 @@ export function validatePasswordLength(password) {
 }
 
 export async function signUpUser(user) {
-  console.log(signUpUser);
-  /*eslint no-undef: 0*/
-  let promise = new Promise((res, rej) => {
-    setTimeout(() => res('An error occured!'), 1000);
+  // console.log(signUpUser);
+  // /*eslint no-undef: 0*/
+  // let promise = new Promise((res, rej) => {
+  //   setTimeout(() => res('An error occured!'), 1000);
+  // });
+  // let result = await promise;
+  // return true; //return an error message string to be dispayed, if an error
+  const data = {
+    password: user.password,
+    name: user.firstName + ' ' + user.lastName,
+    email: user.email,
+  };
+  const response = fetch('http://localhost:5001/user/signup', {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json',
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data), // body data type must match "Content-Type" header
   });
-  let result = await promise;
-  return true; //return an error message string to be dispayed, if an error
+
+  response.then(
+    (data) => {
+      return true;
+      // console.log(data);
+      // process data.
+    },
+    (error) => {
+      return error;
+    },
+  );
 }

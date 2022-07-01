@@ -16,6 +16,7 @@ const PageSignUp = () => {
   const [anyErrors, setAnyErrors] = useState({});
   const [pageState, setPageState] = useState('form');
   const [signUpError, setSignUpError] = useState('');
+
   const checkErrors = (sendFeedback = true, feedbackToSend = []) => {
     let anyErrorsNow = false;
     const errorsCopy = {};
@@ -65,7 +66,9 @@ const PageSignUp = () => {
     setAnyErrors(anyErrorsNow);
     return anyErrorsNow;
   };
+
   console.log(pageState !== 'form' ? 'sign-up-page-disappear' : '');
+
   return (
     <div>
       <div
