@@ -29,6 +29,16 @@ const PaymentController = {
       next(err);
     }
   },
+
+  async createCheckout(req, res, next) {
+    try {
+      const { email } = req.user;
+      const { url } = await PaymentServices.createCheckoutSession(email, 'orientation');
+      res.redirect(303, url);
+    } catch (err) {
+      next(new Error('UNABLE_TO_CREATE_CHECKOUT'));
+    }
+  },
 };
 
 module.exports = PaymentController;
