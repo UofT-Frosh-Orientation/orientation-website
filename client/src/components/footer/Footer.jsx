@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Footer.scss';
 import { pages } from '../../util/pages';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { socials } from '../../util/socials';
 import Wave from '../../assets/misc/wave.png';
 
@@ -17,7 +17,16 @@ const Footer = () => {
             {pages.main.map((page, index) => {
               return (
                 <div key={page.path}>
-                  <Link className="links" to={page.path} key={page.path}>
+                  <Link
+                    className="links"
+                    to={useLocation().pathname === page.path ? {} : page.path}
+                    key={page.path}
+                    style={
+                      useLocation().pathname === page.path
+                        ? { pointerEvents: 'none', color: 'white' }
+                        : {}
+                    }
+                  >
                     {page.label}
                   </Link>
                 </div>

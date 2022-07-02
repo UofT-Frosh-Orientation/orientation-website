@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Navbar.scss';
 
@@ -11,31 +11,23 @@ import MessageIconGrey from '../../assets/navbar/message-solid-grey.svg';
 import ProfileIcon from '../../assets/navbar/circle-user-solid-purple.svg';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { pages } from '../../util/pages';
 
-const Navbar = ({ selectedPage, isLoggedIn, froshInitials }) => {
+const Navbar = ({ isLoggedIn, froshInitials }) => {
   return (
     <>
       <div className="navbar-desktop">
-        <NavbarDesktop
-          selectedPage={selectedPage}
-          isLoggedIn={isLoggedIn}
-          froshInitials={froshInitials}
-        ></NavbarDesktop>
+        <NavbarDesktop isLoggedIn={isLoggedIn} froshInitials={froshInitials}></NavbarDesktop>
       </div>
       <div className="navbar-mobile">
-        <NavbarMobile
-          selectedPage={selectedPage}
-          isLoggedIn={isLoggedIn}
-          froshInitials={froshInitials}
-        ></NavbarMobile>
+        <NavbarMobile isLoggedIn={isLoggedIn} froshInitials={froshInitials}></NavbarMobile>
       </div>
     </>
   );
 };
 
-const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
+const NavbarDesktop = ({ isLoggedIn, froshInitials }) => {
   return (
     <div className="navbar-container">
       <div className="navbar-main">
@@ -43,14 +35,18 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
         {/* MAIN PAGES - Home, About, FAQ */}
         {pages.main.map((page) => {
           return (
-            <Link to={page.path} key={page.path}>
-              <div className="navbar-sub-container">
+            <Link
+              to={useLocation().pathname === page.path ? {} : page.path}
+              key={page.path}
+              style={useLocation().pathname === page.path ? { pointerEvents: 'none' } : {}}
+            >
+              <div className="navbar-sub-container" key={page.path}>
                 <div className="navbar-link"> {page.label} </div>
-                <div
-                  className={`navbar-underline ${
-                    selectedPage === page.label ? 'underline-selected' : ''
-                  }`}
-                ></div>
+                {useLocation().pathname === page.path ? (
+                  <div className="underline-page-selected"></div>
+                ) : (
+                  <div className="navbar-underline"></div>
+                )}
               </div>
             </Link>
           );
@@ -89,7 +85,7 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
   );
 };
 
-const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
+const NavbarMobile = ({ isLoggedIn, froshInitials }) => {
   return (
     <div className="navbar-container">
       <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
@@ -98,68 +94,48 @@ const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
         {/* MAIN PAGES - Home, About, FAQ */}
 
         {pages.main.map((page) => {
-          if (page.label === 'Home') {
-            return (
-              <Link to={page.path} key={page.path}>
-                <div className="navbar-sub-container">
-                  <div className="menu-icon">
-                    <img
-                      className="svg-icon"
-                      alt="home"
-                      src={selectedPage === page.label ? HomeIconPurple : HomeIconGrey}
-                    ></img>
-                  </div>
-                  <div
-                    className={`navbar-underline ${
-                      selectedPage === page.label ? 'underline-selected' : ''
-                    }`}
-                  ></div>
+          return (
+            <Link to={page.path} key={page.path}>
+              <div className="navbar-sub-container">
+                <div className="navbar-menu-icon">
+                  <img
+                    className="navbar-svg-icon"
+                    alt={
+                      page.label === 'Home'
+                        ? 'home'
+                        : page.label === 'About'
+                        ? 'about'
+                        : page.label === 'FAQ'
+                        ? 'faq'
+                        : ''
+                    }
+                    src={
+                      useLocation().pathname === page.path
+                        ? page.label === 'Home'
+                          ? HomeIconPurple
+                          : page.label === 'About'
+                          ? AboutIconPurple
+                          : page.label === 'FAQ'
+                          ? MessageIconPurple
+                          : {}
+                        : page.label === 'Home'
+                        ? HomeIconGrey
+                        : page.label === 'About'
+                        ? AboutIconGrey
+                        : page.label === 'FAQ'
+                        ? MessageIconGrey
+                        : {}
+                    }
+                  ></img>
                 </div>
-              </Link>
-            );
-          } else if (page.label === 'About') {
-            return (
-              <Link to={page.path} key={page.path}>
-                <div className="navbar-sub-container">
-                  <div className="menu-icon">
-                    <img
-                      className={`svg-icon ${
-                        selectedPage === page.label ? 'svg-icon-selected' : ''
-                      }`}
-                      alt="about"
-                      src={selectedPage === page.label ? AboutIconPurple : AboutIconGrey}
-                    ></img>
-                  </div>
-                  <div
-                    className={`navbar-underline ${
-                      selectedPage === page.label ? 'underline-selected' : ''
-                    }`}
-                  ></div>
-                </div>
-              </Link>
-            );
-          } else if (page.label === 'FAQ') {
-            return (
-              <Link to={page.path} key={page.path}>
-                <div className="navbar-sub-container">
-                  <div className="menu-icon">
-                    <img
-                      className={`svg-icon ${
-                        selectedPage === page.label ? 'svg-icon-selected' : ''
-                      }`}
-                      alt="faq"
-                      src={selectedPage === page.label ? MessageIconPurple : MessageIconGrey}
-                    ></img>
-                  </div>
-                  <div
-                    className={`navbar-underline ${
-                      selectedPage === page.label ? 'underline-selected' : ''
-                    }`}
-                  ></div>
-                </div>
-              </Link>
-            );
-          }
+                {useLocation().pathname === page.path ? (
+                  <div className="underline-page-selected"></div>
+                ) : (
+                  <div className="navbar-underline"></div>
+                )}
+              </div>
+            </Link>
+          );
         })}
       </div>
 
@@ -186,18 +162,20 @@ const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
 };
 
 const propTypes = {
-  // the page the user is on
-  selectedPage: PropTypes.string,
+  isLoggedIn: PropTypes.bool, // button appears if frosh is logged in
+  froshInitials: PropTypes.string, // frosh initials used for profile
+};
 
-  // button appears if frosh is logged in
-  isLoggedIn: PropTypes.bool,
-
-  // frosh initials used for profile
-  froshInitials: PropTypes.string,
+const defaultProps = {
+  isLoggedIn: false,
 };
 
 Navbar.propTypes = propTypes;
 NavbarDesktop.propTypes = propTypes;
 NavbarMobile.propTypes = propTypes;
+
+Navbar.defaultProps = defaultProps;
+NavbarDesktop.defaultProps = defaultProps;
+NavbarMobile.defaultProps = defaultProps;
 
 export { Navbar, NavbarDesktop, NavbarMobile };

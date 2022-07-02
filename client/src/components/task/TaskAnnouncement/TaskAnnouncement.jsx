@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './TaskAnnouncement.scss';
-import Check from '../../../../assets/icons/check-solid.svg';
+import Check from '../../../../assets/icons/check-solid-white.svg';
 
 const TaskAnnouncement = ({ tasks, onDone }) => {
   const options = { weekday: undefined, year: 'numeric', month: 'long', day: 'numeric' };
