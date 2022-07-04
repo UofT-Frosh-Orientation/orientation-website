@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const User = require('../models/UserModel');
 const LocalStrategy = require('passport-local').Strategy;
-const EmailValidator = require('email-validator');
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -16,7 +15,7 @@ passport.deserializeUser((id, done) => {
 
 passport.use(
   new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
-    User.findOne({ email: email })
+    User.findOne({ email: email.toLowerCase() })
       .then((user) => {
         if (!user) {
           return done(null, false, { message: 'NO_USER' });
