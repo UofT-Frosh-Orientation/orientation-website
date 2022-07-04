@@ -7,6 +7,8 @@ const userRouter = require('./routes/userRoutes');
 const timelineRouter = require('./routes/timelineRoutes');
 const faqRouter = require('./routes/faqRoutes');
 
+const announcementRouter = require('./routes/announcementRoutes');
+
 const swaggerLoader = require('./loaders/swaggerLoader');
 
 mongoLoader(app).then(() => {
@@ -15,6 +17,7 @@ mongoLoader(app).then(() => {
   app.use('/user', userRouter);
   app.use('/timeline', timelineRouter);
   app.use('/faq', faqRouter);
+  app.use('/announcements', announcementRouter);
 
   swaggerLoader(app);
 
