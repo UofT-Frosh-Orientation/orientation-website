@@ -67,8 +67,6 @@ const PageSignUp = () => {
     return anyErrorsNow;
   };
 
-  console.log(pageState !== 'form' ? 'sign-up-page-disappear' : '');
-
   return (
     <div>
       <div

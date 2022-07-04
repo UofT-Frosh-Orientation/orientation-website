@@ -16,41 +16,36 @@ export function validatePasswordLength(password) {
   return true;
 }
 
-export async function signUpUser(user) {
-  // console.log(signUpUser);
-  // /*eslint no-undef: 0*/
-  // let promise = new Promise((res, rej) => {
-  //   setTimeout(() => res('An error occured!'), 1000);
-  // });
-  // let result = await promise;
-  // return true; //return an error message string to be dispayed, if an error
-  const data = {
-    password: user.password,
-    name: user.firstName + ' ' + user.lastName,
-    email: user.email,
-  };
-  const response = fetch('http://localhost:5001/user/signup', {
-    method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    mode: 'cors', // no-cors, *cors, same-origin
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: 'same-origin', // include, *same-origin, omit
-    headers: {
-      'Content-Type': 'application/json',
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    redirect: 'follow', // manual, *follow, error
-    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    body: JSON.stringify(data), // body data type must match "Content-Type" header
+import axios from "axios";
+
+
+export function signUpUser(user) {
+
+  const result = axios({
+    method: 'post',
+    url: 'http://localhost:5001/user/signup',
+    data: user
+  }).then(function (response) {
+    if(response.status == 200){
+      return true
+    }
+
+  }).catch((error) => {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      return error.response.data;
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message);
+    }
+    console.log(error.config);
   });
 
-  response.then(
-    (data) => {
-      return true;
-      // console.log(data);
-      // process data.
-    },
-    (error) => {
-      return error;
-    },
-  );
+  return result;
 }

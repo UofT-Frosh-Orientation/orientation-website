@@ -5,10 +5,6 @@ const getResponseObject = require('../util/getResponseObject');
 
 const FroshSchema = new mongoose.Schema(
   {
-    preferredName: {
-      type: String,
-      required: false,
-    },
     birthDate: {
       type: Date,
       required: true,

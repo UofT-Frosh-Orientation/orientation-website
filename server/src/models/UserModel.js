@@ -3,9 +3,17 @@ const getResponseObject = require('../util/getResponseObject');
 
 const UserSchema = new mongoose.Schema(
   {
-    name: {
+    firstName: {
       type: String,
       required: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+    },
+    preferredName: {
+      type: String,
+      required: false,
     },
     email: {
       type: String,
