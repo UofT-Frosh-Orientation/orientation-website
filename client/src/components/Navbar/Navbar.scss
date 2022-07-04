@@ -121,6 +121,7 @@ li {
   font-weight: bold;
   font-size: 15px;
   color: var(--yellow-light);
+  float: right;
 }
 
 .icon-profile-person {
@@ -145,13 +146,14 @@ li {
   text-align: center;
   font-size: 16px;
   font-weight: 700;
+  float: left;
 }
 
 .register {
-  width: 100px;
   background-color: var(--purple);
   border-radius: 10px;
   color: var(--text-light);
+  padding-inline: 15px;
 }
 .login {
   box-sizing: border-box;
@@ -166,7 +168,6 @@ li {
 }
 
 .frosh-profile {
-  width: 150px;
   background-color: var(--purple);
   border-radius: 10px;
   color: var(--text-light);
@@ -176,12 +177,14 @@ li {
   border-style: solid;
   border-color: var(--purple);
   border-radius: 10px;
+  padding-inline: 15px;
 }
 
 //animations
 .register,
 .login,
-.frosh-profile {
+.frosh-profile,
+.icon-profile {
   &:hover,
   &:active {
     transform: scale(0.97);

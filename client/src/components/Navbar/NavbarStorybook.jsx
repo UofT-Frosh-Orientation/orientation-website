@@ -31,12 +31,12 @@ const pages = {
       label: 'Register',
     },
     {
-      label: 'profile',
+      label: 'Profile',
     },
   ],
 };
 
-const NavbarStorybook = ({ selectedPage, isLoggedIn, froshInitials }) => {
+const NavbarStorybook = ({ selectedPage, isLoggedIn, froshInitials, isRegistered }) => {
   return (
     <>
       <div className="navbar-desktop">
@@ -44,6 +44,7 @@ const NavbarStorybook = ({ selectedPage, isLoggedIn, froshInitials }) => {
           selectedPage={selectedPage}
           isLoggedIn={isLoggedIn}
           froshInitials={froshInitials}
+          isRegistered={isRegistered}
         ></NavbarDesktop>
       </div>
       <div className="navbar-mobile">
@@ -51,13 +52,14 @@ const NavbarStorybook = ({ selectedPage, isLoggedIn, froshInitials }) => {
           selectedPage={selectedPage}
           isLoggedIn={isLoggedIn}
           froshInitials={froshInitials}
+          isRegistered={isRegistered}
         ></NavbarMobile>
       </div>
     </>
   );
 };
 
-const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
+const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials, isRegistered }) => {
   return (
     <div className="navbar-container">
       <div className="navbar-main">
@@ -76,9 +78,6 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
                 ></div>
               </div>
             </li>
-            // <Link to={page.path} key={page.path}>
-
-            // </Link>
           );
         })}
       </div>
@@ -86,8 +85,10 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
       <div className="navbar-special">
         {/* SPECIAL PAGES - Profile, Register, Login*/}
         {pages.special.map((page) => {
-          if (page.label === 'profile') {
+          // Clicking on profile button
+          if (page.label === 'Profile') {
             if (isLoggedIn) {
+              // if logged in
               return (
                 <>
                   <div className="frosh-profile">F!rosh Profile</div>
@@ -95,24 +96,15 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
                 </>
               );
             }
-            return (
-              // <Link to={page.path} key={page.path}>
-              <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>
-              // <div className="icon-profile-person"></div>
-              // </Link>
-            );
-          } else if (page.label === 'Register' && !isLoggedIn) {
-            return (
-              // <Link to={page.path} key={page.path}>
-              <div className="register">{page.label}</div>
-              // </Link>
-            );
-          } else if (page.label === 'Login' && !isLoggedIn) {
-            return (
-              // <Link to={page.path} key={page.path}>
-              <div className="login">{page.label}</div>
-              // </Link>
-            );
+            // if not logged in
+            return <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>;
+          } // Clicking on register button
+          else if (page.label === 'Register' && isLoggedIn && !isRegistered) {
+            // if not logged in
+            return <div className="register">{page.label}</div>;
+          } // Clicking on login button
+          else if (page.label === 'Login' && !isLoggedIn) {
+            return <div className="login">{page.label}</div>;
           }
         })}
       </div>
@@ -209,6 +201,9 @@ const propTypes = {
 
   // frosh initials used for profile
   froshInitials: PropTypes.string,
+
+  // register button disappears if frosh is already registered
+  isRegistered: PropTypes.bool,
 };
 
 NavbarStorybook.propTypes = propTypes;

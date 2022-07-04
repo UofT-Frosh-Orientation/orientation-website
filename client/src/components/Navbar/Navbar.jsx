@@ -56,23 +56,30 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials }) => {
       <div className="navbar-special">
         {/* SPECIAL PAGES - Profile, Register, Login*/}
         {pages.special.map((page) => {
-          if (page.label === 'profile') {
+          // Clicking on profile button
+          if (page.label === 'Profile') {
             if (isLoggedIn) {
+              // if logged in
               return (
-                <>
+                <Link to={page.path} key={page.path}>
                   <div className="frosh-profile">F!rosh Profile</div>
                   <div className="icon-profile"> {froshInitials} </div>
-                </>
+                </Link>
               );
             }
+            // if not logged in
             return <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>;
-          } else if (page.label === 'Register' && !isLoggedIn) {
+          } // Clicking on register button
+          else if (page.label === 'Register' && isLoggedIn && !isRegistered) {
+            // if logged in and not registered
             return (
               <Link to={page.path} key={page.path}>
                 <div className="register">{page.label}</div>
               </Link>
             );
-          } else if (page.label === 'Login' && !isLoggedIn) {
+          } // Clicking on login button
+          else if (page.label === 'Login' && !isLoggedIn) {
+            // if not logged in
             return (
               <Link to={page.path} key={page.path}>
                 <div className="login">{page.label}</div>

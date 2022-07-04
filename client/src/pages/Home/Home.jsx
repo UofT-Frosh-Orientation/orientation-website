@@ -6,6 +6,7 @@ import Wave from '../../assets/misc/wave.png';
 import WaveReverse from '../../assets/misc/wave-reverse.png';
 
 import { Button } from '../../components/button/Button/Button';
+import { Link } from 'react-router-dom';
 
 import Landing1 from '../../assets/landing/landing-1.jpg';
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
@@ -33,26 +34,28 @@ const HomePageHeader = () => {
         <h2>F!rosh Week</h2>
         <h1>2T2</h1>
         <p>Organized by the University of Toronto&apos;s Engineering Orientation Commitee</p>
-        <div className="home-page-header-register-button">
-          <div className="desktop-only">
-            <Button
-              label="Register"
-              isSecondary
-              style={{
-                margin: '0px',
-                width: '100%',
-                height: '100%',
-                fontSize: 'unset',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            />
+        <Link key={'/registration'} to={'/registration'} style={{ textDecoration: 'none' }}>
+          <div className="home-page-header-register-button">
+            <div className="desktop-only">
+              <Button
+                label="Register"
+                isSecondary
+                style={{
+                  margin: '0px',
+                  width: '100%',
+                  height: '100%',
+                  fontSize: 'unset',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              />
+            </div>
+            <div className="mobile-only">
+              <Button label="Register" isSecondary style={{ margin: '0px' }} />
+            </div>
           </div>
-          <div className="mobile-only">
-            <Button label="Register" isSecondary style={{ margin: '0px' }} />
-          </div>
-        </div>
+        </Link>
       </div>
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />
