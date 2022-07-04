@@ -14,7 +14,7 @@ import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import { Link } from 'react-router-dom';
 import { pages } from '../../util/pages';
 
-const Navbar = ({ selectedPage, isLoggedIn, froshInitials }) => {
+const Navbar = ({ selectedPage, isLoggedIn, froshInitials, isRegistered }) => {
   return (
     <>
       <div className="navbar-desktop">
@@ -22,6 +22,7 @@ const Navbar = ({ selectedPage, isLoggedIn, froshInitials }) => {
           selectedPage={selectedPage}
           isLoggedIn={isLoggedIn}
           froshInitials={froshInitials}
+          isRegistered={isRegistered}
         ></NavbarDesktop>
       </div>
       <div className="navbar-mobile">
@@ -29,13 +30,14 @@ const Navbar = ({ selectedPage, isLoggedIn, froshInitials }) => {
           selectedPage={selectedPage}
           isLoggedIn={isLoggedIn}
           froshInitials={froshInitials}
+          isRegistered={isRegistered}
         ></NavbarMobile>
       </div>
     </>
   );
 };
 
-const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
+const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials, isRegistered }) => {
   return (
     <div className="navbar-container">
       <div className="navbar-main">
@@ -60,23 +62,30 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
       <div className="navbar-special">
         {/* SPECIAL PAGES - Profile, Register, Login*/}
         {pages.special.map((page) => {
-          if (page.label === 'profile') {
+          // Clicking on profile button
+          if (page.label === 'Profile') {
             if (isLoggedIn) {
+              // if logged in
               return (
-                <>
+                <Link to={page.path} key={page.path}>
                   <div className="frosh-profile">F!rosh Profile</div>
                   <div className="icon-profile"> {froshInitials} </div>
-                </>
+                </Link>
               );
             }
+            // if not logged in
             return <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>;
-          } else if (page.label === 'Register' && !isLoggedIn) {
+          } // Clicking on register button
+          else if (page.label === 'Register' && isLoggedIn && !isRegistered) {
+            // if logged in and not registered
             return (
               <Link to={page.path} key={page.path}>
                 <div className="register">{page.label}</div>
               </Link>
             );
-          } else if (page.label === 'Login' && !isLoggedIn) {
+          } // Clicking on login button
+          else if (page.label === 'Login' && !isLoggedIn) {
+            // if not logged in
             return (
               <Link to={page.path} key={page.path}>
                 <div className="login">{page.label}</div>
@@ -89,6 +98,7 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials }) => {
   );
 };
 
+// TODO: also make changes (done to web) for mobile
 const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
   return (
     <div className="navbar-container">
@@ -194,6 +204,9 @@ const propTypes = {
 
   // frosh initials used for profile
   froshInitials: PropTypes.string,
+
+  // register button disappears if frosh is already registered
+  isRegistered: PropTypes.bool,
 };
 
 Navbar.propTypes = propTypes;
