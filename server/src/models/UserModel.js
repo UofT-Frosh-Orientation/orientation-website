@@ -71,6 +71,16 @@ const UserSchema = new mongoose.Schema(
       required: true,
       default: true,
     },
+    completedAnnouncements: {
+      type: [
+        {
+          announcementID: {
+            type: String,
+          },
+        },
+      ],
+      default: [],
+    },
   },
   { discriminatorKey: 'userType' },
 );
