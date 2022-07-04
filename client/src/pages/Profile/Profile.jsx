@@ -30,6 +30,7 @@ import { TextInput } from '../../components/input/TextInput/TextInput';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import EditIcon from '../../assets/misc/pen-solid.svg';
 import { Link } from 'react-router-dom';
+import { resources } from '../../util/resources';
 
 const PageProfile = () => {
   const qrCodeLeader = canLeaderScanQR();
@@ -305,16 +306,23 @@ const ProfilePageResources = () => {
   return (
     <div className="profile-page-resources">
       <h2>Resources</h2>
-      <ButtonBubble
-        label="Campus Food Guide"
-        isSecondary
-        style={{ margin: 0, marginTop: '10px' }}
-      />
-      <ButtonBubble
-        label="Mental Health and Wellness Resources"
-        isSecondary
-        style={{ margin: 0, marginTop: '10px' }}
-      />
+      {resources.map((resource, index) => {
+        return (
+          <a
+            key={index + resource.name}
+            href={resource.link}
+            target="_blank"
+            className="no-link-style"
+            rel="noreferrer"
+          >
+            <ButtonBubble
+              label={resource.name}
+              isSecondary
+              style={{ margin: 0, marginTop: '10px' }}
+            />
+          </a>
+        );
+      })}
     </div>
   );
 };

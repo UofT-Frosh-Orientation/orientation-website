@@ -2,6 +2,8 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
+console.log(process.env.STRIPE_SECRET_KEY);
+
 const PaymentServices = {
   async decodeWebhookEvent(data, signature) {
     try {

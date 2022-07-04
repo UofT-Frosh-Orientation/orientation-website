@@ -6,6 +6,7 @@ const froshRouter = require('./routes/froshRoutes');
 const userRouter = require('./routes/userRoutes');
 const faqRouter = require('./routes/faqRoutes');
 const paymentRouter = require('./routes/paymentRoutes');
+const announcementRouter = require('./routes/announcementRoutes');
 const swaggerLoader = require('./loaders/swaggerLoader');
 
 mongoLoader(app).then(() => {
@@ -14,6 +15,7 @@ mongoLoader(app).then(() => {
   app.use('/user', userRouter);
   app.use('/faq', faqRouter);
   app.use('/payment', paymentRouter);
+  app.use('/announcements', announcementRouter);
 
   swaggerLoader(app);
 
