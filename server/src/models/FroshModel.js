@@ -76,7 +76,7 @@ const FroshSchema = new mongoose.Schema(
       required: true,
     },
     phoneNumber: {
-      type: Number,
+      type: String,
       required: true,
     },
     instagram: {
@@ -91,9 +91,14 @@ const FroshSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    phoneNumberEmergency: {
-      type: Number,
+    emergencyContactNumber: {
+      type: String,
       required: true,
+    },
+    emergencyContactNumberAreaCode: {
+      type: String,
+      required: false,
+      default: '1',
     },
     medicalInfo: {
       type: String,

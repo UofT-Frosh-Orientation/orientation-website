@@ -17,12 +17,15 @@ const FroshController = {
         registrationInfo.discipline,
         registrationInfo.pronouns,
       );
+      const { url, payment_intent } = await PaymentServices.createCheckoutSession(user.email);
       const frosh = (
-        await FroshServices.upgradeToFrosh(user, registrationInfo)
+        await FroshServices.upgradeToFrosh(user, registrationInfo, payment_intent)
       ).getResponseObject();
-      console.log(frosh);
-      const { url } = await PaymentServices.createCheckoutSession(user.email);
-      res.redirect(303, url);
+
+      // console.log(result)
+      if (frosh) {
+        res.status(200).send({ url });
+      }
     } catch (e) {
       next(e);
     }

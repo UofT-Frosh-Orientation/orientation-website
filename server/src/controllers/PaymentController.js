@@ -7,7 +7,7 @@ const PaymentController = {
     const signature = req.headers['stripe-signature'];
     try {
       event = await PaymentServices.decodeWebhookEvent(req.body, signature);
-      // console.log("event", event)
+      console.log('event', event);
     } catch (err) {
       next(new Error('UNAUTHORIZED'));
     }
@@ -15,10 +15,11 @@ const PaymentController = {
     try {
       switch (event.type) {
         case 'payment_intent.succeeded': {
-          const paymentIntent = event.data.object;
-          console.log(paymentIntent);
+          const { id, amount_received } = event.data.object;
+          // console.log(paymentIntent);
           console.log('Handling payment intent');
           // update frosh model to have paid successfully
+          await PaymentServices.updatePayment(id, amount_received);
           break;
         }
         default:

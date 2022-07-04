@@ -6,7 +6,7 @@ const app = express();
 
 const corsOptions = {
   credentials: true,
-  origin: [process.env.CLIENT_BASE_URL, process.env.API_BASE_URL],
+  origin: [process.env.CLIENT_BASE_URL, process.env.API_BASE_URL, 'https://checkout.stripe.com'],
 };
 
 app.use(cors(corsOptions));

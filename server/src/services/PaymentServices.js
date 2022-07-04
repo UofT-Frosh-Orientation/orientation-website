@@ -1,8 +1,8 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+const FroshModel = require('../models/FroshModel');
 
-console.log(process.env.STRIPE_SECRET_KEY);
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 const PaymentServices = {
   async decodeWebhookEvent(data, signature) {
@@ -13,6 +13,18 @@ const PaymentServices = {
       throw err;
     }
   },
+
+  async updatePayment(paymentId, amountReceived) {
+    try {
+      const frosh = await FroshModel.find({ 'payments.paymentIntent': paymentId });
+      //TODO: update frosh balance
+      console.log(amountReceived);
+      return frosh;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
   async createCheckoutSession(email) {
     try {
       return await stripe.checkout.sessions.create({

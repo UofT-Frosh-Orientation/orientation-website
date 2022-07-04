@@ -55,6 +55,8 @@ services:
       - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
       - STRIPE_WEBHOOK_SECRET=$STRIPE_WEBHOOK_SECRET
       - STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY
+      - CLIENT_BASE_URL=$CLIENT_BASE_URL
+      - API_BASE_URL=$API_BASE_URL
     ports:
       - "5001:5001"
     volumes:
@@ -62,6 +64,8 @@ services:
   client:
     build: ./client
     container_name: client
+    environment:
+      - VITE_API_BASE_URL=$API_BASE_URL
     ports:
       - "3000:3000"
     volumes:
