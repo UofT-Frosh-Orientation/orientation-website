@@ -13,7 +13,6 @@ const TimelineSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-
 });
 
 const TimelineModel = mongoose.model('Timeline', TimelineSchema);
