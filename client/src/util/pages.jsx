@@ -10,6 +10,7 @@ import { PageRegistrationForm } from '../pages/Registration/RegistrationForm';
 import { PageLogin } from '../pages/Login/Login';
 import { PageRegistrationSuccess } from '../pages/RegistrationSuccess/RegistrationSuccess';
 import { PageSignUp } from '../pages/SignUp/SignUp';
+import { PageAccountsApproval } from '../pages/AccountsApproval/AccountsApproval';
 
 export const pages = {
   404: {
@@ -94,6 +95,11 @@ export const pages = {
       label: 'payment-error',
       component: <PagePaymentError />,
       path: '/payment-error',
+    },
+    {
+      label: 'approve-accounts',
+      component: <PageAccountsApproval />,
+      path: '/approve-accounts',
     },
   ],
 };

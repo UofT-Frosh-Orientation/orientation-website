@@ -1,0 +1,40 @@
+// APPROVE/DENY CHECKBOXES
+.approve-deny-checkbox-container {
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  flex-direction: row;
+
+  // margin-left: auto;
+  // margin-right: auto;
+}
+
+.approve-deny-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.approve-gray-checkbox {
+  color: var(--gray);
+  border: 3px solid var(--gray);
+}
+.approve-green-check {
+  background: var(--green-success);
+  border: 3px solid var(--green-success);
+}
+.approve-red-cross {
+  background: var(--red-error);
+  border: 3px solid var(--red-error);
+}
+
+.approve-icon {
+  width: 85%;
+}
+.deny-icon {
+  width: 70%;
+}

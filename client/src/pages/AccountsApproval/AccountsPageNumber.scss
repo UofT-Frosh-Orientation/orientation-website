@@ -1,0 +1,61 @@
+@import '../../scssStyles/mixins';
+
+.accounts-page-number-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: 32px;
+  margin: 20px;
+
+  overflow: hidden;
+  border-radius: 10px;
+  border: 2px solid var(--purple-shades-muted);
+}
+.accounts-page-number-box {
+  text-align: center;
+  font-size: 14px;
+
+  padding: 8px 10px;
+  border-style: solid;
+  border-color: var(--purple-shades-muted);
+  border-right-width: 1px;
+  border-left-width: 1px;
+  border-top-width: 0px;
+  border-bottom-width: 0px;
+}
+
+.page-number-arrow-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //padding: 0px 5px;
+  transition: background-color 200ms;
+
+  &:hover,
+  &:active {
+    background-color: var(--purple-shades-light);
+    transition: background-color 200ms;
+  }
+}
+.page-number-arrow {
+  width: 30px;
+  height: 30px;
+  //padding: 6px;
+  padding: 8px 10px;
+  pointer-events: all;
+  transition: transform 200ms, background-color 200ms;
+
+  &:hover,
+  &:active {
+    transform: scale(1.07);
+    transition: transform 200ms;
+  }
+}
+
+.accounts-page-number-box-current {
+  //height: 34px;
+  background-color: var(--purple-shades-muted);
+  color: var(--white);
+}
