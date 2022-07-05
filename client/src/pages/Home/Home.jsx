@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { getSlideshowImages, getTimelineDates } from './functions';
 import './Home.scss';
@@ -15,6 +15,7 @@ import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import 'react-slideshow-image/dist/styles.css';
 import { Slide } from 'react-slideshow-image';
 import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
+import { PopupModal } from '../../components/popup/PopupModal';
 
 const PageHome = () => {
   return (
@@ -86,10 +87,42 @@ const HomePageSlideshow = () => {
 };
 
 const HomePageTimeline = () => {
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState({});
   return (
     <div className="home-page-timeline">
       <h2 className="home-page-section-header">Timeline</h2>
-      <Timeline dates={getTimelineDates()} />
+      <Timeline
+        dates={getTimelineDates()}
+        onClick={(date) => {
+          setShowPopUp(true);
+          setSelectedEvent(date);
+        }}
+      />
+      <PopupModal
+        trigger={showPopUp}
+        setTrigger={setShowPopUp}
+        blurBackground={false}
+        exitIcon={true}
+      >
+        <div className="home-page-timeline-popup-container">
+          <h1>{selectedEvent.name}</h1>
+          <p>{selectedEvent.description}</p>
+          <div className="home-page-timeline-popup-button">
+            {selectedEvent.link !== undefined ? (
+              <a href={selectedEvent.link} target="_blank" className="no-link-style" rel="noreferrer">
+                <Button
+                  label={selectedEvent.linkLabel}
+                  isSecondary
+                  style={{ margin: 0, float: 'right' }}
+                ></Button>
+              </a>
+            ) : (
+              <></>
+            )}
+          </div>
+        </div>
+      </PopupModal>
     </div>
   );
 };
