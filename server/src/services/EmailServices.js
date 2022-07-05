@@ -90,7 +90,16 @@ const EmailServices = {
 
     const command = new CreateEmailTemplateCommand(params);
 
-    return SES.send(command);
+    // return SES.send(command);
+    SES.send(command).then(
+      (data) => {
+        res.status(200).send({data: data})
+      },
+      (error) => {
+        next(error);
+      }
+    );
+    
   },
 
   /**
@@ -101,7 +110,8 @@ const EmailServices = {
    * @param {String} fromAddress the email adress the email is being sent from
    * @returns {Promise} promise
    */
-  async sendTemplateEmail(templateData, templateName, toAddresses, fromAddress) {
+  async sendTemplateEmail(req,res,next) {
+    const {templateData, templateName, toAddresses, fromAddress} = req.body;
     const params = {
       Content: {
         Template: {
@@ -118,7 +128,16 @@ const EmailServices = {
 
     const command = new SendEmailCommand(params);
 
-    return SES.send(command);
+    // return SES.send(command);
+    SES.send(command).then(
+      (data) => {
+        res.status(200).send({data: data})
+      },
+      (error) => {
+        next(error);
+      }
+    );
+    
   },
 
   /**
