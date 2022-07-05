@@ -58,8 +58,8 @@ const PaymentServices = {
           },
         ],
         mode: 'payment',
-        success_url: 'http://localhost:3000/registration-success',
-        cancel_url: 'http://localhost:3000/payment-error',
+        success_url: `${process.env.CLIENT_BASE_URL}/registration-success`,
+        cancel_url: `${process.env.CLIENT_BASE_URL}/payment-error`,
       });
     } catch (err) {
       console.log('Error creating checkout session', err.message);
