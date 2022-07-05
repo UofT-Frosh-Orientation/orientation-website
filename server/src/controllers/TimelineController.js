@@ -15,9 +15,8 @@ const TimelineController = {
   async updateTimelineElement(req, res, next) {
     const { date, name, description } = req.body;
     const id = req.params.id;
-    
+
     try {
-      
       await TimelineServices.updateTimelineElement(id, date, name, description);
 
       return res.status(200).send({ message: 'Successfully updated Timeline element!' });
@@ -30,7 +29,6 @@ const TimelineController = {
     const { date, name, description } = req.body;
 
     try {
-
       await TimelineServices.saveNewTimelineElement(date, name, description);
 
       return res.status(200).send({ message: 'Successfully added Timeline element!' });
