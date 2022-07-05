@@ -108,19 +108,25 @@ const HomePageTimeline = () => {
         <div className="home-page-timeline-popup-container">
           <h1>{selectedEvent.name}</h1>
           <p>{selectedEvent.description}</p>
-          <div className="home-page-timeline-popup-button">
-            {selectedEvent.link !== undefined ? (
-              <a href={selectedEvent.link} target="_blank" className="no-link-style" rel="noreferrer">
+
+          {selectedEvent.link !== undefined ? (
+            <div className="home-page-timeline-popup-button">
+              <a
+                href={selectedEvent.link}
+                target="_blank"
+                className="no-link-style"
+                rel="noreferrer"
+              >
                 <Button
                   label={selectedEvent.linkLabel}
                   isSecondary
                   style={{ margin: 0, float: 'right' }}
                 ></Button>
               </a>
-            ) : (
-              <></>
-            )}
-          </div>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </PopupModal>
     </div>
