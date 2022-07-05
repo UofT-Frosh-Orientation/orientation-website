@@ -14,20 +14,28 @@ import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import { Link, useLocation } from 'react-router-dom';
 import { pages } from '../../util/pages';
 
-const Navbar = ({ isLoggedIn, froshInitials }) => {
+const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
   return (
     <>
       <div className="navbar-desktop">
-        <NavbarDesktop isLoggedIn={isLoggedIn} froshInitials={froshInitials}></NavbarDesktop>
+        <NavbarDesktop
+          isLoggedIn={isLoggedIn}
+          froshInitials={froshInitials}
+          isRegistered={isRegistered}
+        ></NavbarDesktop>
       </div>
       <div className="navbar-mobile">
-        <NavbarMobile isLoggedIn={isLoggedIn} froshInitials={froshInitials}></NavbarMobile>
+        <NavbarMobile
+          isLoggedIn={isLoggedIn}
+          froshInitials={froshInitials}
+          isRegistered={isRegistered}
+        ></NavbarMobile>
       </div>
     </>
   );
 };
 
-const NavbarDesktop = ({ isLoggedIn, froshInitials }) => {
+const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
   return (
     <div className="navbar-container">
       <div className="navbar-main">
@@ -61,7 +69,11 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials }) => {
             if (isLoggedIn) {
               // if logged in
               return (
-                <Link to={page.path} key={page.path}>
+                <Link
+                  to={page.path}
+                  key={page.path}
+                  style={useLocation().pathname === page.path ? { pointerEvents: 'none' } : {}}
+                >
                   <div className="frosh-profile">F!rosh Profile</div>
                   <div className="icon-profile"> {froshInitials} </div>
                 </Link>
@@ -73,15 +85,23 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials }) => {
           else if (page.label === 'Register' && isLoggedIn && !isRegistered) {
             // if logged in and not registered
             return (
-              <Link to={page.path} key={page.path}>
+              <Link
+                to={page.path}
+                key={page.path}
+                style={useLocation().pathname === page.path ? { pointerEvents: 'none' } : {}}
+              >
                 <div className="register">{page.label}</div>
               </Link>
             );
           } // Clicking on login button
           else if (page.label === 'Login' && !isLoggedIn) {
-            // if not logged in
+            // if not logged in, display login button
             return (
-              <Link to={page.path} key={page.path}>
+              <Link
+                to={page.path}
+                key={page.path}
+                style={useLocation().pathname === page.path ? { pointerEvents: 'none' } : {}}
+              >
                 <div className="login">{page.label}</div>
               </Link>
             );
@@ -92,7 +112,7 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials }) => {
   );
 };
 
-const NavbarMobile = ({ isLoggedIn, froshInitials }) => {
+const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
   return (
     <div className="navbar-container">
       <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
@@ -102,7 +122,11 @@ const NavbarMobile = ({ isLoggedIn, froshInitials }) => {
 
         {pages.main.map((page) => {
           return (
-            <Link to={page.path} key={page.path}>
+            <Link
+              to={page.path}
+              key={page.path}
+              style={useLocation().pathname === page.path ? { pointerEvents: 'none' } : {}}
+            >
               <div className="navbar-sub-container">
                 <div className="navbar-menu-icon">
                   <img
@@ -150,14 +174,22 @@ const NavbarMobile = ({ isLoggedIn, froshInitials }) => {
         if (page.label === 'Login') {
           if (!isLoggedIn) {
             return (
-              <Link to={page.path} key={page.path}>
+              <Link
+                to={page.path}
+                key={page.path}
+                style={useLocation().pathname === page.path ? { pointerEvents: 'none' } : {}}
+              >
                 <div className="login">{page.label}</div>
               </Link>
             );
           } else if (isLoggedIn) {
             return (
               // mobile: profile icon -> link to frosh profile
-              <Link to={page.path} key={page.path}>
+              <Link
+                to={page.path}
+                key={page.path}
+                style={useLocation().pathname === page.path ? { pointerEvents: 'none' } : {}}
+              >
                 <div className="icon-profile"> {froshInitials} </div>
               </Link>
             );
@@ -171,10 +203,12 @@ const NavbarMobile = ({ isLoggedIn, froshInitials }) => {
 const propTypes = {
   isLoggedIn: PropTypes.bool, // button appears if frosh is logged in
   froshInitials: PropTypes.string, // frosh initials used for profile
+  isRegistered: PropTypes.bool,
 };
 
 const defaultProps = {
   isLoggedIn: false,
+  isRegistered: false,
 };
 
 Navbar.propTypes = propTypes;
