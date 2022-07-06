@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getSlideshowImages, getTimelineDates } from './functions';
 import './Home.scss';
@@ -89,16 +89,24 @@ const HomePageSlideshow = () => {
 const HomePageTimeline = () => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState({});
+  const [dates, setDates] = useState();
+  useEffect(async () => {
+    setDates(await getTimelineDates());
+  }, []);
   return (
     <div className="home-page-timeline">
       <h2 className="home-page-section-header">Timeline</h2>
-      <Timeline
-        dates={getTimelineDates()}
-        onClick={(date) => {
-          setShowPopUp(true);
-          setSelectedEvent(date);
-        }}
-      />
+      {dates === undefined ? (
+        <div></div>
+      ) : (
+        <Timeline
+          dates={dates}
+          onClick={(date) => {
+            setShowPopUp(true);
+            setSelectedEvent(date);
+          }}
+        />
+      )}
       <PopupModal
         trigger={showPopUp}
         setTrigger={setShowPopUp}
