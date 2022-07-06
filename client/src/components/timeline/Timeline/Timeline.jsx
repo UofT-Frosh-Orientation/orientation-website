@@ -3,14 +3,22 @@ import PropTypes from 'prop-types';
 import './Timeline.scss';
 
 const Timeline = ({ dates, onClick }) => {
-  const options = { weekday: undefined, year: undefined, month: 'long', day: 'numeric' };
+  const options = {
+    weekday: undefined,
+    year: undefined,
+    month: 'long',
+    day: 'numeric',
+    timezone: 'UTC',
+  };
   return (
     <>
       <div className="timeline-container">
         <div className="timeline-line" />
         <div className="timeline-space" />
         {dates.map((date) => {
-          let formattedDate = new Date(date.date).toLocaleDateString(undefined, options);
+          let formattedDate = new Date(
+            date.date.substring(0, date.date.length - 1),
+          ).toLocaleDateString('en-US', options);
           return (
             <div
               key={formattedDate + date.name}

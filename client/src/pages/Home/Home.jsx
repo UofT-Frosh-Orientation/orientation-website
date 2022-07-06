@@ -94,11 +94,9 @@ const HomePageTimeline = () => {
     setDates(await getTimelineDates());
   }, []);
   return (
-    <div className="home-page-timeline">
-      <h2 className="home-page-section-header">Timeline</h2>
-      {dates === undefined ? (
-        <div></div>
-      ) : (
+    !(dates === undefined || dates?.length === 0) && (
+      <div className="home-page-timeline">
+        <h2 className="home-page-section-header">Timeline</h2>
         <Timeline
           dates={dates}
           onClick={(date) => {
@@ -106,38 +104,39 @@ const HomePageTimeline = () => {
             setSelectedEvent(date);
           }}
         />
-      )}
-      <PopupModal
-        trigger={showPopUp}
-        setTrigger={setShowPopUp}
-        blurBackground={false}
-        exitIcon={true}
-      >
-        <div className="home-page-timeline-popup-container">
-          <h1>{selectedEvent.name}</h1>
-          <p>{selectedEvent.description}</p>
 
-          {selectedEvent.link !== undefined ? (
-            <div className="home-page-timeline-popup-button">
-              <a
-                href={selectedEvent.link}
-                target="_blank"
-                className="no-link-style"
-                rel="noreferrer"
-              >
-                <Button
-                  label={selectedEvent.linkLabel}
-                  isSecondary
-                  style={{ margin: 0, float: 'right' }}
-                ></Button>
-              </a>
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>
-      </PopupModal>
-    </div>
+        <PopupModal
+          trigger={showPopUp}
+          setTrigger={setShowPopUp}
+          blurBackground={false}
+          exitIcon={true}
+        >
+          <div className="home-page-timeline-popup-container">
+            <h1>{selectedEvent.name}</h1>
+            <p>{selectedEvent.description}</p>
+
+            {selectedEvent.link !== undefined ? (
+              <div className="home-page-timeline-popup-button">
+                <a
+                  href={selectedEvent.link}
+                  target="_blank"
+                  className="no-link-style"
+                  rel="noreferrer"
+                >
+                  <Button
+                    label={selectedEvent.linkLabel}
+                    isSecondary
+                    style={{ margin: 0, float: 'right' }}
+                  ></Button>
+                </a>
+              </div>
+            ) : (
+              <></>
+            )}
+          </div>
+        </PopupModal>
+      </div>
+    )
   );
 };
 

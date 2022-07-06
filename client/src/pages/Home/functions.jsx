@@ -6,7 +6,7 @@ export async function getTimelineDates() {
   try {
     const response = await axios.get('/timeline');
     //const response = await axios.get('http://localhost:5001/timeline');
-    return response.data.Timelines;
+    return response.data.timelines;
   } catch (error) {
     if (error.response) {
       // The request was made and the server responded with a status code
