@@ -12,6 +12,7 @@ import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { Link } from 'react-router-dom';
 import { PopupModal } from '../../components/popup/PopupModal';
+import useAxios from '../../hooks/useAxios';
 
 const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
   const steps = Object.keys(fields);
@@ -20,6 +21,33 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   const [selectedTab, setSelectedTab] = useState(0);
   const [selectedTabGo, setSelectedTabGo] = useState(true);
   const [showPopUp, setShowPopUp] = useState(false);
+  const [canRegister, setCanRegister] = useState(true);
+  const [checkoutUrl, setCheckoutUrl] = useState('');
+
+  const { axios } = useAxios();
+
+  const handleRegister = async () => {
+    setCanRegister(false);
+    const isFormValid = validateForm();
+    if (!isFormValid) {
+      return setCanRegister(true);
+    } else {
+      // console.log(froshObject);
+      try {
+        const response = await axios.post('/frosh/register', froshObject);
+        setCheckoutUrl(response.data.url);
+        setShowPopUp(true);
+      } catch (error) {
+        setCanRegister(true);
+      }
+
+      // console.log(result)
+    }
+  };
+
+  const handleCheckout = () => {
+    window.location.href = checkoutUrl;
+  };
 
   useEffect(() => {
     for (let step of steps) {
@@ -109,7 +137,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   }
                   values={field.values}
                   onSelected={(value) => {
-                    froshObject[key] = value;
+                    froshObject[key] = value === 'Yes';
                     if (field.onChanged) field.onChanged(value, disableField);
                   }}
                   isDisabled={
@@ -246,6 +274,22 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   } else {
     return (
       <div>
+        <PopupModal
+          trigger={showPopUp}
+          setTrigger={setShowPopUp}
+          blurBackground={true}
+          exitIcon={true}
+        >
+          <div className="registration-edit-popup">
+            <h1>Pay now?</h1>
+            <h2>
+              We have saved your info, but you must pay to be fully registered for F!rosh Week.
+            </h2>
+            <div className="registration-edit-popup-buttons">
+              <Button label={'Pay Now'} onClick={handleCheckout} />
+            </div>
+          </div>
+        </PopupModal>
         <div className="navbar-space-top" />
         <div className="registration-form-flex">
           <div className="registration-form">
@@ -290,6 +334,12 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                           events
                         </p>
                       </b>
+                      <Button
+                        style={{ margin: '0 auto' }}
+                        label={'Pay Now'}
+                        onClick={handleRegister}
+                        isDisabled={!canRegister}
+                      />
                     </div>
                   ),
                 },

@@ -1,4 +1,5 @@
 const FroshServices = require('../services/FroshServices');
+const PaymentServices = require('../services/PaymentServices');
 
 const FroshController = {
   /**
@@ -16,10 +17,15 @@ const FroshController = {
         registrationInfo.discipline,
         registrationInfo.pronouns,
       );
+      const { url, payment_intent } = await PaymentServices.createCheckoutSession(user.email);
       const frosh = (
-        await FroshServices.upgradeToFrosh(user, registrationInfo)
+        await FroshServices.upgradeToFrosh(user, registrationInfo, payment_intent)
       ).getResponseObject();
-      res.status(200).send({ message: 'Successfully registered Frosh!', frosh });
+
+      // console.log(result)
+      if (frosh) {
+        res.status(200).send({ url });
+      }
     } catch (e) {
       next(e);
     }

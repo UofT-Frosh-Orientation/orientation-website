@@ -1,44 +1,5 @@
 @import '../../scssStyles/mixins';
 
-.aboutus-header {
-  position: relative;
-  height: 30vh;
-  min-height: 300px;
-  background-image: linear-gradient(
-    to right,
-    var(--purple-transparent) 20%,
-    var(--purple-transparent-more)
-  );
-
-  display: flex;
-  align-items: center;
-
-  @include devices(tablet) {
-    justify-content: center;
-  }
-}
-
-.aboutus-main-picture {
-  position: absolute;
-  z-index: -10;
-  height: 80vh;
-  width: 100vw;
-  min-height: 500px;
-  object-fit: cover;
-
-  @include devices(tablet) {
-    justify-content: center;
-    width: 100vw;
-  }
-}
-
-.aboutus-wave-top {
-  position: absolute;
-  bottom: 0px;
-  width: 100vw;
-  filter: drop-shadow(-10px -10px 8px #23232342);
-}
-
 .aboutus-page-components {
   display: flex;
   flex-direction: column;
@@ -55,14 +16,6 @@
   height: 100vh;
   display: flex;
   background-color: purple;
-}
-
-.landing {
-  position: absolute;
-  width: 100vw;
-  height: auto;
-  z-index: -1;
-  top: 0;
 }
 
 // ABOUT US SECTION
@@ -136,20 +89,18 @@
 }
 
 .aboutus-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 10px;
   margin: 13px 50px 13px 0;
 
   flex: 1;
-  max-width: 500px;
-  max-height: 500px;
-  background-color: var(--white);
-  border-radius: 50%;
-  padding: 10px;
   overflow: visible;
 
   @include devices(tablet) {
-    width: 85vw;
-    height: 85vw;
+    width: 70vw;
+    height: fit-content;
     margin-right: 0;
     margin-bottom: 25px;
   }
@@ -159,6 +110,10 @@
   object-fit: cover;
   height: 100%;
   width: 100%;
+
+  @include devices(mobile) {
+    //height: auto;
+  }
 }
 
 .aboutus-info-container {
@@ -206,12 +161,18 @@
 }
 
 // EXEC TEAM SECTIONS
-
 .execteam-container {
   display: flex;
   flex-direction: column;
 }
 
+.exec-title-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px 10px 10px 10px;
+}
 .exec-title {
   text-align: center;
   font-size: 48px;
@@ -230,13 +191,12 @@
   margin-bottom: 20px;
   align-self: center;
 
-  @include devices(mobile) {
+  @include devices(tablet) {
     font-size: 30px;
-    width: 320px;
+    width: 300px;
   }
 }
 
-////////////////////////////
 // VC GRID
 .aboutus-vc-grid-container {
   display: grid;
@@ -251,5 +211,21 @@
     grid-template-columns: none;
     justify-content: center;
     align-items: center;
+  }
+}
+
+//
+.about-attribution-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+
+  padding: 50px;
+  text-align: center;
+  color: var(--purple-shades-dark);
+
+  @include devices(tablet) {
+    width: 85vw;
+    padding: 25px 0;
   }
 }

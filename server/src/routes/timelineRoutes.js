@@ -6,26 +6,16 @@ const {
   getTimeline,
   updateTimelineElement,
   createTimelineElement,
-  deleteTimelineElement
+  deleteTimelineElement,
 } = require('../controllers/TimelineController');
 
 const router = express.Router();
 
 router.get('/', getTimeline);
 
-router.put(
-  '/:id/edit',
-  checkLoggedIn,
-  hasAuthScopes(['Timeline:edit']),
-  updateTimelineElement,
-);
+router.put('/:id/edit', checkLoggedIn, hasAuthScopes(['Timeline:edit']), updateTimelineElement);
 
-router.post(
-  '/create',
-  checkLoggedIn,
-  hasAuthScopes(['Timeline:create']),
-  createTimelineElement,
-);
+router.post('/create', checkLoggedIn, hasAuthScopes(['Timeline:create']), createTimelineElement);
 
 router.delete(
   '/:id/delete',

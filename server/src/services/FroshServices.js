@@ -31,11 +31,16 @@ const FroshServices = {
    * Upgrades an existing user account to a frosh account.
    * @param {Object} user - the existing user document
    * @param {Object} newInfo - the new info required to register the frosh
+   * @param {String} paymentIntent
    * @return {Promise<Object>}
    */
-  async upgradeToFrosh(user, newInfo) {
+  async upgradeToFrosh(user, newInfo, paymentIntent) {
     const frosh = FroshModel.hydrate(user.toObject());
-    frosh.set({ ...newInfo, userType: 'frosh' });
+    frosh.set({
+      ...newInfo,
+      userType: 'frosh',
+      payments: [{ item: 'Orientation Ticket', paymentIntent, amountDue: 13000 }],
+    });
     return await frosh.save();
   },
 

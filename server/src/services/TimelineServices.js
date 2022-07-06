@@ -3,19 +3,21 @@ const TimelineModel = require('../models/TimelineModel');
 const TimelineServices = {
   async getAllTimelines() {
     return new Promise((resolve, reject) => {
-      TimelineModel.find({}).sort({date: 1}).exec(function(err, Timelines) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(Timelines);
-        }
-      });
+      TimelineModel.find({})
+        .sort({ date: 1 })
+        .exec(function (err, Timelines) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(Timelines);
+          }
+        });
     });
   },
 
   async updateTimelineElement(id, date, name, description) {
     return new Promise((resolve, reject) => {
-      TimelineModel.findOneAndUpdate({ _id: id }, {date, name, description}, (err, Timeline) => {
+      TimelineModel.findOneAndUpdate({ _id: id }, { date, name, description }, (err, Timeline) => {
         if (err || !Timeline) {
           reject('UNABLE_TO_UPDATE_TIMELiNE');
         } else {
@@ -27,7 +29,7 @@ const TimelineServices = {
 
   async saveNewTimelineElement(date, name, description) {
     return new Promise((resolve, reject) => {
-      TimelineModel.create({date, name, description}, (err, newTimeline) => {
+      TimelineModel.create({ date, name, description }, (err, newTimeline) => {
         if (err) {
           reject(err);
         } else {
@@ -36,7 +38,6 @@ const TimelineServices = {
       });
     });
   },
-
 
   async deleteTimelineElement(id) {
     return new Promise((resolve, reject) => {

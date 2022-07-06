@@ -1,7 +1,5 @@
 const TimelineServices = require('../services/TimelineServices');
 
-const TimelineModel = require('../models/TimelineModel');
-
 const TimelineController = {
   async getTimeline(req, res, next) {
     try {

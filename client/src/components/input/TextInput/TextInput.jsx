@@ -24,7 +24,16 @@ const TextInput = ({
 }) => {
   useEffect(() => {
     if (localStorageKey !== undefined) {
-      onChange(localStorage.getItem(localStorageKey));
+      const storedString = localStorage.getItem(localStorageKey);
+      if (storedString === null) {
+        if (initialValue !== undefined) {
+          onChange(initialValue);
+        } else {
+          onChange('');
+        }
+      } else {
+        onChange(storedString);
+      }
     } else if (initialValue !== undefined) {
       onChange(initialValue);
     }
