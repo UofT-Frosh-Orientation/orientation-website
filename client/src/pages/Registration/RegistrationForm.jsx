@@ -63,20 +63,35 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     const formFieldsCopy = { ...formFields };
     for (let step of steps) {
       for (let key of Object.keys(formFields[step])) {
+        let localValidated = true;
         if (formFields[step][key].type === 'label') {
           continue;
+        }
+        if (formFields[step][key].validation !== undefined) {
+          const validateResult = formFields[step][key].validation(froshObject[key]);
+          if (validateResult !== true) {
+            formFieldsCopy[step][key].errorFeedback = validateResult;
+            localValidated = false;
+            if (validated === true) {
+              setSelectedTab(steps.indexOf(step, 0));
+              setSelectedTabGo(!selectedTabGo);
+              validated = false;
+            }
+          }
         }
         if (
           (froshObject[key] === undefined || froshObject[key] === '') &&
           formFields[step][key].isRequiredInput === true
         ) {
           formFieldsCopy[step][key].errorFeedback = formFields[step][key].errorMessage;
+          localValidated = false;
           if (validated === true) {
             setSelectedTab(steps.indexOf(step, 0));
             setSelectedTabGo(!selectedTabGo);
             validated = false;
           }
-        } else {
+        }
+        if (localValidated !== false) {
           formFieldsCopy[step][key].errorFeedback = '';
         }
       }
@@ -116,6 +131,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   }}
                   isPhoneNumber={field.isPhoneNumber}
                   isInstagram={field.isInstagram}
+                  isUtorID={field.isUtorID}
+                  maxLength={field.maxLength}
                   isDisabled={
                     editFieldsPage === true && field.isDisabled !== true
                       ? field.noEdit
