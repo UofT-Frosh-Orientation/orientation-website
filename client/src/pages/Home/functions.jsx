@@ -1,11 +1,11 @@
-//import useAxios from '../../hooks/useAxios.jsx';
-//const { axios } = useAxios();
-import axios from 'axios';
+import useAxios from '../../hooks/useAxios.jsx';
+const { axios } = useAxios();
+//import axios from 'axios';
 
 export async function getTimelineDates() {
   try {
-    //const response = await axios.get('/timeline');
-    const response = await axios.get('http://localhost:5001/timeline');
+    const response = await axios.get('/timeline');
+    //const response = await axios.get('http://localhost:5001/timeline');
     return response.data.Timelines;
   } catch (error) {
     if (error.response) {
