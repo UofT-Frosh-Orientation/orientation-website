@@ -22,7 +22,7 @@ router.post('/register', checkLoggedIn, FroshController.registerFrosh);
 /**
  * @swagger
  * /user/info:
- *   get:
+ *   put:
  *     summary: Update existing information of the currently logged in frosh
  *     responses:
  *       '200':
@@ -45,6 +45,6 @@ router.post('/register', checkLoggedIn, FroshController.registerFrosh);
  *                   type: string
  *                   example: Please sign in to access this route!
  */
-router.get('/updateInfo', checkLoggedIn, FroshController.updateInfo);
+router.put('/updateInfo', checkLoggedIn, FroshController.updateInfo);
 
 module.exports = router;
