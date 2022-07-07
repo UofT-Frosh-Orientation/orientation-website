@@ -50,5 +50,5 @@ export async function submitQuestion(question) {
     setTimeout(() => res('An error occured!'), 1000);
   });
   let result = await promise;
-  return true; //returns true for now to simulate a successful call to the database
+  return result; //returns true for now to simulate a successful call to the database
 }
