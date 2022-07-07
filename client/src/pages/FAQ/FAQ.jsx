@@ -10,6 +10,7 @@ import { TextInput } from '../../components/input/TextInput/TextInput';
 import SearchIcon from '../../assets/misc/magnifying-glass-solid.svg';
 import DeleteIcon from '../../assets/misc/circle-xmark-solid.svg';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
+import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 
 const PageFAQ = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -20,6 +21,7 @@ const PageFAQ = () => {
   const [selectedQuestion, setSelectedQuestion] = useState(0);
   const [selectedQuestions, setSelectedQuestions] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [pageState, setPageState] = useState('form');
   const data = getQuestions();
   const unsortedQuestions = [];
   const questionsObjects = {};
@@ -51,54 +53,65 @@ const PageFAQ = () => {
   }
   return (
     <div>
-      <FAQPageHeader
-        questions={unsortedQuestions}
-        setIsSearch={setIsSearch}
-        setIsMultiSearch={setIsMultiSearch}
-        setSelectedQuestion={setSelectedQuestion}
-        setSelectedQuestions={setSelectedQuestions}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        selectedSearchResult={selectedSearchResult}
-        setSelectedSearchResult={setSelectedSearchResult}
-        setIsNoMatch={setIsNoMatch}
-        setActiveIndex={setActiveIndex}
-        questionCategories={questionCategories}
-      />
-      <img src={Wave} className={'faq-wave-image faq-page-top-wave-image'} />
-      <div className={'faq-button-selector-container'}>
-        <FAQButtons
-          activeIndex={activeIndex}
-          setActiveIndex={setActiveIndex}
+      <div className={`${pageState !== 'form' ? 'faq-page-disappear' : 'faq-page-appear'}`}>
+        <FAQPageHeader
+          questions={unsortedQuestions}
           setIsSearch={setIsSearch}
           setIsMultiSearch={setIsMultiSearch}
+          setSelectedQuestion={setSelectedQuestion}
+          setSelectedQuestions={setSelectedQuestions}
+          searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          selectedSearchResult={selectedSearchResult}
+          setSelectedSearchResult={setSelectedSearchResult}
+          setIsNoMatch={setIsNoMatch}
+          setActiveIndex={setActiveIndex}
           questionCategories={questionCategories}
         />
-      </div>
-      <div className={`faq-accordion-container ${isSearch ? 'faq-hide-accordion' : ''}`}>
-        <FAQCategoryAccordions
-          allQuestions={allQuestions}
-          activeIndex={activeIndex}
-          setActiveIndex={setActiveIndex}
-        />
-      </div>
-      <div className={`faq-display-questions-container ${isSearch ? '' : 'faq-hide-accordion'}`}>
-        <div className={`${!isMultiSearch && !isNoMatch ? '' : 'faq-hide-accordion'}`}>
-          <FAQDisplaySearchQuestion
-            selectedQuestion={selectedQuestion}
-            questions={unsortedQuestions}
+        <img src={Wave} className={'faq-wave-image faq-page-top-wave-image'} />
+        <div
+          className={`faq-button-selector-container ${isSearch ? 'faq-hide-button-selector' : ''}`}
+        >
+          <FAQButtons
+            activeIndex={activeIndex}
+            setActiveIndex={setActiveIndex}
+            setIsSearch={setIsSearch}
+            setIsMultiSearch={setIsMultiSearch}
+            setSearchQuery={setSearchQuery}
+            questionCategories={questionCategories}
           />
         </div>
-        <div className={`${isMultiSearch && !isNoMatch ? '' : 'faq-hide-accordion'}`}>
-          <FAQDisplayAllSearchQuestion selectedQuestions={selectedQuestions} />
+        <div className={`faq-accordion-container ${isSearch ? 'faq-hide-accordion' : ''}`}>
+          <FAQCategoryAccordions
+            allQuestions={allQuestions}
+            activeIndex={activeIndex}
+            setActiveIndex={setActiveIndex}
+          />
         </div>
-        <div className={`faq-no-results ${isNoMatch ? '' : 'faq-hide-accordion'}`}>
-          <h1>No results</h1>
+        <div className={`faq-display-questions-container ${isSearch ? '' : 'faq-hide-accordion'}`}>
+          <div className={`${!isMultiSearch && !isNoMatch ? '' : 'faq-hide-accordion'}`}>
+            <FAQDisplaySearchQuestion
+              selectedQuestion={selectedQuestion}
+              questions={unsortedQuestions}
+            />
+          </div>
+          <div className={`${isMultiSearch && !isNoMatch ? '' : 'faq-hide-accordion'}`}>
+            <FAQDisplayAllSearchQuestion selectedQuestions={selectedQuestions} />
+          </div>
+          <div className={`faq-no-results ${isNoMatch ? '' : 'faq-hide-accordion'}`}>
+            <h1>No results</h1>
+          </div>
+        </div>
+        <div className={'faq-ask-question-outer-container'}>
+          <FAQAskQuestion setPageState={setPageState} pageState={pageState} />
         </div>
       </div>
-      <div className={'faq-ask-question-outer-container'}>
-        <FAQAskQuestion />
+      <div
+        className={`faq-loading ${pageState === 'loading' ? 'faq-loading-appear' : ''} ${
+          pageState === 'success' ? 'faq-loading-disappear' : ''
+        }`}
+      >
+        <LoadingAnimation size={'60px'} />
       </div>
     </div>
   );
@@ -139,6 +152,10 @@ const FAQPageHeader = ({
     } else {
       setIsNoMatch(false);
     }
+  };
+  const handleDeleteIconClick = () => {
+    setSearchQuery('');
+    setIsSearch(false);
   };
   return (
     <>
@@ -189,7 +206,7 @@ const FAQPageHeader = ({
             >
               {searchQuery.length > 0 ? (
                 <img
-                  onClick={() => setSearchQuery('')}
+                  onClick={() => handleDeleteIconClick()}
                   src={DeleteIcon}
                   alt="Search Button"
                   height={30}
@@ -306,6 +323,9 @@ const FAQSearchBar = ({
   const handleQueryChange = (e) => {
     setSearchQuery(e.target.value);
     setSelectedSearchResult(false);
+    if (e.target.value == '') {
+      setIsSearch(false);
+    }
   };
   const handleSearchResultSelect = () => {
     setSelectedSearchResult(false);
@@ -450,7 +470,7 @@ FAQDisplayAllSearchQuestion.propTypes = {
   questions: PropTypes.array.isRequired,
 };
 
-const FAQAskQuestion = () => {
+const FAQAskQuestion = ({ setPageState }) => {
   const [signUpError, setSignUpError] = useState('');
   const [errorColor, setErrorColor] = useState(false);
   const initialFormData = {
@@ -465,16 +485,20 @@ const FAQAskQuestion = () => {
 
   async function handleSubmit(text) {
     // console.log(submitQuestion(formData));
+    setPageState('loading');
     const result = await submitQuestion(formData);
     if (result !== true) {
       setSignUpError(result);
       setErrorColor(true);
+      setPageState('form');
     } else {
+      setPageState('success');
       updateFormData(initialFormData);
       text = '';
       setClearText(true);
       setSignUpError('Thank you for submitting your question!');
       setErrorColor(false);
+      setPageState('form');
     }
   }
 
@@ -503,6 +527,10 @@ const FAQAskQuestion = () => {
       </form>
     </div>
   );
+};
+
+FAQAskQuestion.propTypes = {
+  setPageState: PropTypes.string.isRequired,
 };
 
 export { PageFAQ };
