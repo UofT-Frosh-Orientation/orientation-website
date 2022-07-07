@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 import { React, useEffect } from 'react';
 import './ApproveDenyCheckbox.scss';
 
-import GrayCross from '../../../assets/misc/xmark-solid-gray.svg';
-import WhiteCross from '../../../assets/misc/xmark-solid-white.svg';
-import GrayCheck from '../../../assets/misc/check-solid-gray.svg';
-import WhiteCheck from '../../../assets/misc/check-solid-white.svg';
+import GrayCross from '../../assets/misc/xmark-solid-gray.svg';
+import WhiteCross from '../../assets/misc/xmark-solid-white.svg';
+import GrayCheck from '../../assets/misc/check-solid-gray.svg';
+import WhiteCheck from '../../assets/misc/check-solid-white.svg';
 
 const ApproveDenyCheckbox = ({
   style,
-  approveCheck,
-  denyCheck,
+  approve,
+  deny,
+
+  setApprove,
+  setDeny,
+
   approveSingleCheck,
   denySingleCheck,
 }) => {
@@ -20,17 +24,22 @@ const ApproveDenyCheckbox = ({
 
   // states for select all -- purple check
   //const [approve, setApprove] = useState(false);
-  const [approve, setApprove] = useState(false);
-  const [deny, setDeny] = useState(false);
+  //   const [approve, setApprove] = useState(false);
+  //   const [deny, setDeny] = useState(false);
 
-  const [approveAll, setApproveAll] = useState(approveCheck);
-  const [denyAll, setDenyAll] = useState(denyCheck);
+  const getApprove = () => {
+    console.log('jddjd');
+    return approve;
+  };
+
+  const [approveAll, setApproveAll] = useState(approve);
+  const [denyAll, setDenyAll] = useState(deny);
 
   //console.log("DenyAll: ", denyAll);
 
   useEffect(() => {
-    setApproveAll(approveCheck);
-    setDenyAll(denyCheck);
+    setApproveAll(approve);
+    setDenyAll(deny);
 
     //setApprove(approveSingleCheck);
 
@@ -43,7 +52,7 @@ const ApproveDenyCheckbox = ({
     }
 
     // TODO: tell backend to update stuff here?
-  }, [approveCheck, approve, approveAll, denyCheck]);
+  }, [approve, approveAll, deny]);
 
   return (
     <div className="approve-deny-checkbox-container" style={style}>
@@ -107,10 +116,12 @@ const ApproveDenyCheckbox = ({
 
 ApproveDenyCheckbox.propTypes = {
   style: PropTypes.object,
-  approveCheck: PropTypes.bool,
-  denyCheck: PropTypes.bool,
+  approve: PropTypes.bool,
+  deny: PropTypes.bool,
   approveSingleCheck: PropTypes.bool,
   denySingleCheck: PropTypes.bool,
+  setApprove: PropTypes.func,
+  setDeny: PropTypes.func,
 };
 
 export { ApproveDenyCheckbox };

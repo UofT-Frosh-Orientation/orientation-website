@@ -83,7 +83,7 @@ Tabs.propTypes = {
   tabs: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
-      component: PropTypes.instanceOf(Element),
+      component: PropTypes.object,
     }),
   ).isRequired,
   maxWidthTab: PropTypes.number,

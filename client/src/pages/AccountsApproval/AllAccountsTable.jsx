@@ -9,6 +9,7 @@ import './ApproveDenyCheckbox.scss';
 import { TestEmails, sendApprovedEmails } from './functions';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { Button } from '../../components/button/Button/Button';
+import { ApproveDenyCheckbox } from './ApproveDenyCheckbox';
 
 import GrayCross from '../../assets/misc/xmark-solid-gray.svg';
 import WhiteCross from '../../assets/misc/xmark-solid-white.svg';
@@ -84,119 +85,16 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
               numCurrentlyDisplayed >= nthAccount + 1 &&
               numCurrentlyDisplayed <= nthAccount + numResultsDisplayed
             ) {
-              const [approve, setApprove] = useState(account.approved);
-              const [deny, setDeny] = useState(account.deny);
-
-              useEffect(() => {
-                // when the page changes, set everything to false
-                setApprove(false);
-                setDeny(false);
-                setIsApproveVerified(false);
-                setTimeout(() => {
-                  setAccountStatus([]);
-                }, 0);
-                //
-                console.log('jfidhh');
-              }, [currentPage]);
-
-              useEffect(() => {
-                if (isApproveVerified && account.valid) {
-                  setApprove(true);
-                  setDeny(false);
-                } else {
-                  setApprove(false);
-                }
-              }, [isApproveVerified]);
-
-              useEffect(() => {
-                // adding objec to state var array that will be "sent" to the backend
-                // TODO: bug -- initial click of save, has an entry in the accountStatus array, it should be empty...
-                const object = {
-                  key: account.email,
-                  email: account.email,
-                  approve: approve,
-                  deny: deny,
-                };
-
-                if (accountStatus.filter((obj) => obj.email === account.email).length > 0) {
-                  accountStatus.map((e) => {
-                    // if email in array
-                    if (e.email === account.email) {
-                      e.approve = approve;
-                      e.deny = deny;
-                    }
-                  });
-                } else {
-                  // wrapper function as a call-back, found this online?
-                  // TODO: what's the difference between including wrapper function and no wrapper function?
-                  setAccountStatus((accountStatus) => accountStatus.concat(object));
-                }
-              }, [approve, deny]);
-
               return (
-                <tr className="all-accounts-row" key={account.email}>
-                  <td className="all-account-data-verified-container">
-                    {/* verified indication */}
-                    <div
-                      className={`verified-circle ${
-                        account.valid ? 'green-verified-circle' : 'gray-verified-circle'
-                      }`}
-                    ></div>
-                  </td>
-                  <td className="all-account-data">
-                    {/* email */}
-                    <p className="all-account-data-email">{account.email}</p>
-                  </td>
-                  <td className="all-account-data-checkboxes">
-                    {/* approve or deny component */}
-                    <>
-                      <div
-                        className="approve-deny-checkbox-container"
-                        style={{ marginLeft: 'auto', marginRight: 'auto' }}
-                      >
-                        <div
-                          className={`approve-deny-checkbox ${
-                            approve ? 'approve-green-check' : 'approve-gray-checkbox'
-                          }`}
-                          onClick={() => {
-                            if (deny) {
-                              setDeny(false);
-                              setApprove(true);
-                            } else {
-                              setApprove(!approve);
-                            }
-                          }}
-                        >
-                          <img
-                            className="approve-icon"
-                            src={`${approve ? WhiteCheck : GrayCheck}`}
-                            alt="approval check"
-                          />
-                        </div>
-
-                        <div
-                          className={`approve-deny-checkbox ${
-                            deny ? 'approve-red-cross' : 'approve-gray-checkbox'
-                          }`}
-                          onClick={() => {
-                            if (approve) {
-                              setApprove(false);
-                              setDeny(true);
-                            } else {
-                              setDeny(!deny);
-                            }
-                          }}
-                        >
-                          <img
-                            className="deny-icon"
-                            src={`${deny ? WhiteCross : GrayCross}`}
-                            alt="deny cross"
-                          />
-                        </div>
-                      </div>
-                    </>
-                  </td>
-                </tr>
+                <RowComponent
+                  key={account.email}
+                  account={account}
+                  accountStatus={accountStatus}
+                  setAccountStatus={setAccountStatus}
+                  currentPage={currentPage}
+                  isApproveVerified={isApproveVerified}
+                  setIsApproveVerified={setIsApproveVerified}
+                />
               );
             }
           })}
@@ -254,6 +152,146 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
       </div>
     </div>
   );
+};
+
+const RowComponent = ({
+  account,
+  accountStatus,
+  setAccountStatus,
+  currentPage,
+  isApproveVerified,
+  setIsApproveVerified,
+}) => {
+  const [approve, setApprove] = useState(account.approved);
+  const [deny, setDeny] = useState(account.deny);
+
+  useEffect(() => {
+    // when the page changes, set everything to false
+    // setApprove(false);
+    // setDeny(false);
+    setIsApproveVerified(false);
+    setTimeout(() => {
+      setAccountStatus([]);
+    }, 0);
+    //
+    //console.log('jfidhh');
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (isApproveVerified && account.valid) {
+      setApprove(true);
+      setDeny(false);
+    } else {
+      setApprove(false);
+    }
+  }, [isApproveVerified]);
+
+  useEffect(() => {
+    // adding objec to state var array that will be "sent" to the backend
+    // TODO: bug -- initial click of save, has an entry in the accountStatus array, it should be empty...
+    const object = {
+      key: account.email,
+      email: account.email,
+      approve: approve,
+      deny: deny,
+    };
+
+    if (accountStatus.filter((obj) => obj.email === account.email).length > 0) {
+      accountStatus.map((e) => {
+        // if email in array
+        if (e.email === account.email) {
+          e.approve = approve;
+          e.deny = deny;
+        }
+      });
+    } else {
+      // wrapper function as a call-back, found this online?
+      // TODO: what's the difference between including wrapper function and no wrapper function?
+      setAccountStatus((accountStatus) => accountStatus.concat(object));
+    }
+  }, [approve, deny]);
+
+  return (
+    <tr className="all-accounts-row" key={account.email}>
+      <td className="all-account-data-verified-container">
+        {/* verified indication */}
+        <div
+          className={`verified-circle ${
+            account.valid ? 'green-verified-circle' : 'gray-verified-circle'
+          }`}
+        ></div>
+      </td>
+      <td className="all-account-data">
+        {/* email */}
+        <p className="all-account-data-email">{account.email}</p>
+      </td>
+      <td className="all-account-data-checkboxes">
+        {/* approve or deny component */}
+        <ApproveDenyCheckbox
+          style={{ marginLeft: 'auto', marginRight: 'auto' }}
+          approve={approve}
+          deny={deny}
+          setApprove={setApprove}
+          setDeny={setDeny}
+        />
+        {/* <>
+          <div
+            className="approve-deny-checkbox-container"
+            style={{ marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <div
+              className={`approve-deny-checkbox ${
+                approve ? 'approve-green-check' : 'approve-gray-checkbox'
+              }`}
+              onClick={() => {
+                if (deny) {
+                  setDeny(false);
+                  setApprove(true);
+                } else {
+                  setApprove(!approve);
+                }
+              }}
+            >
+              <img
+                className="approve-icon"
+                src={`${approve ? WhiteCheck : GrayCheck}`}
+                alt="approval check"
+              />
+            </div>
+
+            <div
+              className={`approve-deny-checkbox ${
+                deny ? 'approve-red-cross' : 'approve-gray-checkbox'
+              }`}
+              onClick={() => {
+                if (approve) {
+                  setApprove(false);
+                  setDeny(true);
+                } else {
+                  setDeny(!deny);
+                }
+              }}
+            >
+              <img
+                className="deny-icon"
+                src={`${deny ? WhiteCross : GrayCross}`}
+                alt="deny cross"
+              />
+            </div>
+          </div>
+        </> */}
+      </td>
+    </tr>
+  );
+};
+
+RowComponent.propTypes = {
+  account: PropTypes.object,
+  setAccountStatus: PropTypes.func,
+  currentPage: PropTypes.number,
+  isApproveVerified: PropTypes.bool,
+  setIsApproveVerified: PropTypes.func,
+  accountStatus: PropTypes.array,
 };
 
 AllAccountsTable.propTypes = {
