@@ -1,3 +1,6 @@
+import useAxios from '../../hooks/useAxios.jsx';
+const { axios } = useAxios();
+
 export const validateEmail = (email) => {
   return String(email)
     .toLowerCase()
@@ -7,8 +10,7 @@ export const validateEmail = (email) => {
 };
 
 export function validatePassword(password) {
-  const strongPasswordRegex = RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})');
-  return String(password).match('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})');
+  return String(password).match('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}');
 }
 
 export function validatePasswordLength(password) {
@@ -16,15 +18,14 @@ export function validatePasswordLength(password) {
   return true;
 }
 
-import axios from "axios";
 
 
 export function signUpUser(user) {
 
   const result = axios({
     method: 'post',
-    url: 'http://localhost:5001/user/signup',
-    data: user
+    url: '/user/signup',
+    data: user,
   }).then(function (response) {
     if(response.status == 200){
       return true

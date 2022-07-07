@@ -13,6 +13,5 @@ app.use(cors(corsOptions));
 
 app.use('/payment/stripe-callback', bodyParser.raw({ type: '*/*' }));
 app.use(bodyParser.json());
-app.use(cors());
 
 module.exports = app;

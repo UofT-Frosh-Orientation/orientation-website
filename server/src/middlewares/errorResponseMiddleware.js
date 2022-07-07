@@ -4,7 +4,7 @@ function errorResponseMiddleware(err, req, res, next) {
   if (err.message === 'DUPLICATE_EMAIL') {
     statusCode = 400;
     errorMessage = 'This email address has already been used to create an account.';
-  } else if (err.message === 'MISSING_NAME'){
+  } else if (err.errors) { // TODO: finish error handling when implementing proper backend validation 
     statusCode = 400;
     errorMessage = 'Please provide your full name.';
   } else if (err.message === 'INVALID_EMAIL'){
@@ -16,6 +16,9 @@ function errorResponseMiddleware(err, req, res, next) {
   } else if (err.message === 'UNAUTHORIZED') {
     statusCode = 403;
     errorMessage = 'Unauthorized';
+  } else {
+    statusCode = 500;
+    errorMessage = 'whoops we have no idea what happened!?';
   }
   //... for more error messages ...
 

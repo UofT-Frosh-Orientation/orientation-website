@@ -4,7 +4,7 @@ const EmailValidator = require('email-validator');
 const UserModel = require('../models/UserModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
 
-const passwordValidator = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
+const passwordValidator = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
 
 const UserServices = {
   /**
@@ -14,13 +14,10 @@ const UserServices = {
    * @param {String} name
    * @return {Promise<void>}
    */
-  async validateUser(email, password, firstName, lastName) {
-    const user = await UserModel.findOne({ email });
+  async validateUser(email, password) {
+    const user = await UserModel.findOne({ email: email.toLowerCase() });
     if (user) {
       throw new Error('DUPLICATE_EMAIL');
-    }
-    if (firstName === '' || firstName === undefined || firstName === null || lastName === '' || lastName === undefined || lastName === null ) {
-      throw new Error('MISSING_NAME');
     }
     if (!EmailValidator.validate(email)) {
       throw new Error('INVALID_EMAIL');
