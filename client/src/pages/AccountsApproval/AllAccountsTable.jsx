@@ -89,10 +89,14 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
 
               useEffect(() => {
                 // when the page changes, set everything to false
-                setAccountStatus([]);
                 setApprove(false);
                 setDeny(false);
                 setIsApproveVerified(false);
+                setTimeout(() => {
+                  setAccountStatus([]);
+                }, 0);
+                //
+                console.log('jfidhh');
               }, [currentPage]);
 
               useEffect(() => {
