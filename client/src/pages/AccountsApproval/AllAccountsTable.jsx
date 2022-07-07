@@ -32,20 +32,12 @@ const bubbleButtonStyleClick = {
 };
 
 const AllAccountsTable = ({ numResultsDisplayed }) => {
-  //const [isAllChecked, setIsAllChecked] = useState(false); // initialize to false
-  //const [isCheck, setIsCheck] = useState([]); // array to see which checks have been checked
-  const [emailList, setEmailList] = useState(TestEmails); // used state variables so it's easier to change code when email list changes
-
-  const [isApproveVerified, setIsApproveVerified] = useState(false);
-  //const [isSelectedApprove, setIsSelectedApprove] = useState(false);
-  //const [isSelectedDeny, setIsSelectedDeny] = useState(false);
-
-  // this is an array that will store objects -- email and approved and deny status
-  const [accountStatus, setAccountStatus] = useState([]);
+  const [emailList, setEmailList] = useState(TestEmails); // email list that is displayed
+  const [isApproveVerified, setIsApproveVerified] = useState(false); // approve state for emails that match frosh leedur email list
+  const [accountStatus, setAccountStatus] = useState([]); // this is an array that will store objects -- email and approved and deny status
 
   useEffect(() => {
     setEmailList(TestEmails);
-    //console.log("email list", emailList);
   }, [emailList]);
 
   // states for displaying n results per page
@@ -55,8 +47,6 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
   let pageNumber = Math.ceil(emailList.length / numResultsDisplayed); // the number of page numbers you will have
   let numCurrentlyDisplayed = 0;
   let nthAccount = numResultsDisplayed * (currentPage - 1); // the nth account that is the first to be displayed on the page
-
-  //console.log(currentPage);
 
   // make an array that stores page numbers
   let pageNumberList = [];
@@ -74,14 +64,12 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
           isSecondary={true}
           onClick={() => {
             setIsApproveVerified(!isApproveVerified);
-            // setIsSelectedApprove(false);
-            // setIsSelectedDeny(false);
           }}
         />
         <Button
           label="Save"
           onClick={() => {
-            sendApprovedEmails();
+            sendApprovedEmails(accountStatus);
           }}
         />
       </div>
@@ -97,23 +85,56 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
           {emailList.map((account) => {
             numCurrentlyDisplayed++;
 
-            const [approve, setApprove] = useState(account.approved);
-            const [deny, setDeny] = useState(account.deny);
-
-            useEffect(() => {
-              if (isApproveVerified && account.valid) {
-                setApprove(true);
-                setDeny(false);
-              } else {
-                setApprove(false);
-              }
-            }, [isApproveVerified]);
-
-            // only display the account, if the number is between the ranges
+            // only display a certain number of accounts if the number is between the ranges
             if (
               numCurrentlyDisplayed >= nthAccount + 1 &&
               numCurrentlyDisplayed <= nthAccount + numResultsDisplayed
             ) {
+              const [approve, setApprove] = useState(account.approved);
+              const [deny, setDeny] = useState(account.deny);
+
+              useEffect(() => {
+                // when the page changes, set everything to false
+                setAccountStatus([]);
+                setApprove(false);
+                setDeny(false);
+                setIsApproveVerified(false);
+              }, [currentPage]);
+
+              useEffect(() => {
+                if (isApproveVerified && account.valid) {
+                  setApprove(true);
+                  setDeny(false);
+                } else {
+                  setApprove(false);
+                }
+              }, [isApproveVerified]);
+
+              useEffect(() => {
+                // adding objec to state var array that will be "sent" to the backend
+                // TODO: bug -- initial click of save, has an entry in the accountStatus array, it should be empty...
+                const object = {
+                  key: account.email,
+                  email: account.email,
+                  approve: approve,
+                  deny: deny,
+                };
+
+                if (accountStatus.filter((obj) => obj.email === account.email).length > 0) {
+                  accountStatus.map((e) => {
+                    // if email in array
+                    if (e.email === account.email) {
+                      e.approve = approve;
+                      e.deny = deny;
+                    }
+                  });
+                } else {
+                  // wrapper function as a call-back, found this online?
+                  // TODO: what's the difference between including wrapper function and no wrapper function?
+                  setAccountStatus((accountStatus) => accountStatus.concat(object));
+                }
+              }, [approve, deny]);
+
               return (
                 <tr className="all-accounts-row" key={account.email}>
                   <td className="all-account-data-verified-container">
@@ -140,47 +161,12 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
                             approve ? 'approve-green-check' : 'approve-gray-checkbox'
                           }`}
                           onClick={() => {
-                            // TODO: update approve array
-                            console.log('click approve');
                             if (deny) {
                               setDeny(false);
                               setApprove(true);
                             } else {
                               setApprove(!approve);
-                              console.log(approve);
                             }
-
-                            console.log('array old: ', accountStatus);
-
-                            const object = {
-                              key: account.email,
-                              email: account.email,
-                              approve: !approve,
-                              deny: deny,
-                            };
-                            console.log('object: ', object);
-                            // check if the object is in the array, if it is, update it, else, add it
-                            //const isPresent = accountStatus.some(e => account.email === e.email);
-                            //const isPresent = (obj) => obj.email === account.email;
-                            //accountStatus.some(predicate => predicate.email)
-                            //accountStatus.find(obj => obj.email === account.email) !== undefined
-
-                            if (
-                              accountStatus.findIndex((obj) => obj.email === account.email) !== -1
-                            ) {
-                              console.log('in array');
-                              accountStatus.map((e) => {
-                                if (e.email === account.email) {
-                                  e.approve = !approve;
-                                  e.deny = deny;
-                                }
-                              });
-                            } else {
-                              console.log('add to array');
-                              setAccountStatus(accountStatus.push(object));
-                              console.log(accountStatus.isArray);
-                            }
-                            console.log('array new: ', accountStatus);
                           }}
                         >
                           <img
@@ -195,19 +181,12 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
                             deny ? 'approve-red-cross' : 'approve-gray-checkbox'
                           }`}
                           onClick={() => {
-                            // TODO: update account status array
-                            console.log('click deny');
-                            //setIsApproveVerified(false);
                             if (approve) {
                               setApprove(false);
                               setDeny(true);
                             } else {
                               setDeny(!deny);
                             }
-
-                            const object = { email: account.email, approve: approve, deny: deny };
-                            setAccountStatus([...accountStatus, object]);
-                            console.log('array: ', accountStatus);
                           }}
                         >
                           <img
@@ -218,16 +197,6 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
                         </div>
                       </div>
                     </>
-
-                    {/* <ApproveDenyCheckbox
-                      style={{ marginLeft: 'auto', marginRight: 'auto' }}
-                      approveCheck={
-                        // approve verified accounts
-                        isApproveVerified && account.valid
-                        ? true
-                        : false
-                      }
-                    /> */}
                   </td>
                 </tr>
               );
@@ -236,7 +205,6 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
         </tbody>
       </table>
 
-      {/* <AccountsPageNumber pageNumber={pageNumbers} /> */}
       {/* page numbers thing */}
       <div className="accounts-page-number-container">
         <div className="page-number-arrow-container">

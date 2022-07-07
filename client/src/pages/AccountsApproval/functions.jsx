@@ -1,6 +1,7 @@
-export function sendApprovedEmails() {
+export function sendApprovedEmails(array) {
   // parameter: an array of all the approved and denied emails
-  console.log('sendApprovedEmails function');
+  console.log('saving responses');
+  console.log(array);
 
   return;
 }
