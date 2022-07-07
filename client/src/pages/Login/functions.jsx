@@ -1,12 +1,20 @@
-export async function login(username, password) {
-  /*eslint no-undef: 0*/
-  console.log(username, password);
-  let promise = new Promise((res, rej) => {
-    setTimeout(() => res('An error occurred. Please try again.'), 1000);
-  });
+import useAxios from '../../hooks/useAxios';
 
-  let result = await promise;
-  return result; //return an error message string to be displayed, if an error
+const { axios } = useAxios();
+
+export async function login(email, password) {
+  try {
+    const result = await axios.post('/user/login', { email, password });
+    return { data: result.data, error: null };
+  } catch (err) {
+    console.log(err);
+    return {
+      data: err,
+      error:
+        err.response.data.message ??
+        'Something went wrong, please ensure that your username and password are correct.',
+    };
+  }
 }
 
 // function checks if email is valid and sends a reset password email

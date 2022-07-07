@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './About.scss';
 import { getInformation } from './functions';
 
@@ -8,38 +7,38 @@ import { execInfo } from '../../util/about/execs';
 
 import { ExecProfile } from './ExecProfile/ExecProfile';
 
-import Landing1 from '../../assets/landing/landing-1.jpg';
-import waveTop from '../../assets/misc/wave.png';
 import waveBottom from '../../assets/misc/wave-reverse.png';
-import profileWave from '../../assets/about/wave-about.svg';
-import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
+import ExecLogo from '../../assets/about/exec-tshirt-logo.svg';
 
 const PageAbout = () => {
   return (
     <>
-      {/* <AboutUsHeader /> */}
       <div className="aboutus-page-components">
         <AboutUsSection />
 
-        <div style={{ paddingTop: '25px' }}>
+        <div className="exec-title-container">
           <h2 className="exec-title">Meet the Exec Team</h2>
           <div className="exec-title-underline"></div>
         </div>
         <OCSection />
         <VCSection />
+        <div className="about-attribution-container">
+          <p className="about-attribution-message">
+            Thank you to{' '}
+            <a href="https://fontawesome.com/" target="_blank" rel="noreferrer">
+              Font Awesome
+            </a>{' '}
+            and{' '}
+            <a href="https://www.freepik.com/" target="_blank" rel="noreferrer">
+              Freepik
+            </a>{' '}
+            for various icons and graphics used throughout the website!
+          </p>
+        </div>
       </div>
     </>
   );
 };
-
-// const AboutUsHeader = () => {
-//   return (
-//     <div className="aboutus-header">
-//       <img className="aboutus-main-picture" src={Landing1}></img>
-//       <img className="aboutus-wave-top" src={waveTop} alt="wave"></img>
-//     </div>
-//   );
-// };
 
 const AboutUsSection = () => {
   return (
@@ -50,7 +49,7 @@ const AboutUsSection = () => {
 
         <div className="aboutus-subsubcontainer">
           <div className="aboutus-image-container">
-            <img className="aboutus-image" src={MainFroshLogo} alt="logo"></img>
+            <img className="aboutus-image" src={ExecLogo} alt="logo"></img>
           </div>
 
           <div className="aboutus-info-container">

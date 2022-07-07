@@ -46,7 +46,7 @@
     "mongoose": "^6.3.3",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
-    "stripe": "^9.6.0",
+    "stripe": "^9.9.0",
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.4.0"
   }

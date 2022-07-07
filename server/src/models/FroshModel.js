@@ -1,6 +1,32 @@
 const mongoose = require('mongoose');
 const UserModel = require('./UserModel');
 const getResponseObject = require('../util/getResponseObject');
+
+const paymentSchema = new mongoose.Schema({
+  item: {
+    type: String,
+    required: true,
+  },
+  paymentIntent: {
+    type: String,
+    required: true,
+  },
+  amountDue: {
+    type: Number,
+    required: true,
+  },
+  bursaryRequested: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  bursaryApproved: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+});
+
 const FroshSchema = new mongoose.Schema(
   {
     birthDate: {
@@ -35,6 +61,7 @@ const FroshSchema = new mongoose.Schema(
       type: String, //TODO: add enum validation to frosh groups with all valid Frosh Group names
       required: true,
     },
+    payments: [paymentSchema],
     utorid: {
       type: String,
       required: true,
@@ -45,7 +72,7 @@ const FroshSchema = new mongoose.Schema(
       required: true,
     },
     phoneNumber: {
-      type: Number,
+      type: String,
       required: true,
     },
     instagram: {
@@ -60,9 +87,14 @@ const FroshSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    phoneNumberEmergency: {
-      type: Number,
+    emergencyContactNumber: {
+      type: String,
       required: true,
+    },
+    emergencyContactNumberAreaCode: {
+      type: String,
+      required: false,
+      default: '1',
     },
     medicalInfo: {
       type: String,

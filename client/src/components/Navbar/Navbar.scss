@@ -64,7 +64,6 @@ li {
       transition: background-color 200ms;
     }
   }
-
   .navbar-underline {
     transition: background-color 200ms;
   }
@@ -85,13 +84,19 @@ li {
   border-radius: 15px;
 }
 
-.underline-selected {
+.underline-page-selected {
   background-color: var(--purple);
   align-self: flex-end;
   width: 80px;
   height: 3px;
   overflow: hidden;
   border-radius: 15px;
+  transition: background-color 200ms;
+}
+.underline-page-unselected {
+  opacity: 0;
+
+  transition: background-color 200ms;
 }
 
 .icon-logo {
@@ -215,7 +220,7 @@ li {
     width: 65px;
   }
 
-  .menu-icon {
+  .navbar-menu-icon {
     align-self: center;
     width: 25px;
     height: 25px;
@@ -238,18 +243,16 @@ li {
     height: 3px;
   }
 
-  .underline-selected {
+  .underline-page-selected {
     background-color: var(--purple);
     bottom: 0;
     width: 40px;
     height: 3px;
   }
 
-  .svg-icon {
-    margin-top: 3px;
+  .navbar-svg-icon {
     width: 25px;
-    height: 25px;
-    align-self: center;
+    margin: 3px 0 0 0;
   }
 
   .icon-profile {
