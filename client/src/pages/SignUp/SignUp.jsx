@@ -166,7 +166,7 @@ const PageSignUp = () => {
               style={{ margin: 0 }}
               isDisabled={anyErrors}
               onClick={async () => {
-                const anyErrors = false;
+                const anyErrors = checkErrors(true);
                 if (anyErrors === false) {
                   setPageState('loading');
                   const result = await signUpUser(accountObj);
