@@ -6,26 +6,20 @@ import './AccountsApproval.scss';
 import './AccountsPageNumber.scss';
 import './ApproveDenyCheckbox/ApproveDenyCheckbox.scss';
 
-import { TestEmails, TestAuth, sendApprovedEmails } from './functions';
-import { ButtonBubble } from '../../components/button/ButtonBubble/ButtonBubble';
+import { TestEmails, sendApprovedEmails } from './functions';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { Button } from '../../components/button/Button/Button';
-import { Tabs } from '../../components/tabs/tabs';
-import { ApproveDenyCheckbox } from './ApproveDenyCheckbox/ApproveDenyCheckbox';
 
 import GrayCross from '../../assets/misc/xmark-solid-gray.svg';
 import WhiteCross from '../../assets/misc/xmark-solid-white.svg';
-
 import GrayCheck from '../../assets/misc/check-solid-gray.svg';
 import WhiteCheck from '../../assets/misc/check-solid-white.svg';
-
 import ArrowRight from '../../assets/steps/arrow-right-solid-purple.svg';
 import ArrowLeft from '../../assets/steps/arrow-left-solid-purple.svg';
 
 const bubbleButtonStyle = {
   borderWidth: '3px',
 };
-
 const bubbleButtonStyleClick = {
   borderWidth: '3px',
   fontWeight: 'bold',

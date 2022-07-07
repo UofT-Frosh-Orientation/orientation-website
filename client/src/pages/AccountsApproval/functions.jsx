@@ -2,8 +2,13 @@ export function sendApprovedEmails(array) {
   // parameter: an array of all the approved and denied emails
   console.log('saving responses');
   console.log(array);
-
   return;
+}
+
+export function sendAuthRequests(array) {
+  // parameter: an array of emails and approved or denied auth requests
+  console.log('saving responses');
+  console.log(array);
 }
 
 export const TestEmails = [
@@ -50,33 +55,6 @@ export const TestEmails = [
     deny: false,
   },
 ];
-
-// export const AllAccounts = [
-//     {
-//         valid: true,
-//         email: "aaaa@gmail.com",
-//         approved: false,
-//     },
-// ];
-
-// export const AuthScopes = [
-//     {
-//         name: "first last",
-//         email: "aaaaa@gmail.com",
-//         group: 'leedurs',
-//         auth: [
-//             {
-//                 authReq: 'admin',
-//                 approved: 'false',
-//             },
-//             {
-//                 authReq: 'other',
-//                 approved: 'false',
-//             }
-//         ],
-//     }
-// ];
-
 export const TestAuth = [
   {
     id: 1,

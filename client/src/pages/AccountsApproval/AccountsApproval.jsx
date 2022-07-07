@@ -265,7 +265,6 @@ import ArrowLeft from '../../assets/steps/arrow-left-solid-purple.svg';
 // };
 
 const numResultsDisplayedProp = 3;
-const numResultsDisplayedAuth = 4;
 
 const tabs = [
   {
@@ -274,7 +273,7 @@ const tabs = [
   },
   {
     title: 'Authentication Requests',
-    component: <AuthenticationRequests numResultsDisplayed={numResultsDisplayedAuth} />,
+    component: <AuthenticationRequests />,
   },
 ];
 
