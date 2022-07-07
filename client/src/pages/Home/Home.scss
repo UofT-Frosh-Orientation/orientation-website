@@ -124,6 +124,28 @@
   }
 }
 
+.home-page-timeline-popup-container {
+  padding: 0px 50px;
+  color: var(--white);
+  h1 {
+    margin-bottom: 10px;
+    font-size: 34px;
+  }
+  p {
+    font-size: 18px;
+  }
+  .home-page-timeline-popup-button {
+    margin-top: 25px;
+  }
+  @include devices(tablet) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}
+
 .home-page-schedule {
   background-color: var(--purple);
   padding-bottom: 30px;

@@ -1,7 +1,6 @@
 const express = require('express');
 
 const UserController = require('../controllers/UserController');
-const passport = require('../services/passport');
 const checkLoggedIn = require('../middlewares/checkLoggedIn');
 
 const router = express.Router();
@@ -66,11 +65,7 @@ router.post('/signup', UserController.signup);
  *                 user:
  *                   $ref: '#components/schemas/User'
  */
-router.post(
-  '/login',
-  passport.authenticate('local', { failureRedirect: '/login' }),
-  UserController.getInfo,
-);
+router.post('/login', UserController.login);
 
 /**
  * @swagger

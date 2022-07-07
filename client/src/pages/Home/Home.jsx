@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { getSlideshowImages, getTimelineDates } from './functions';
 import './Home.scss';
@@ -6,6 +6,7 @@ import Wave from '../../assets/misc/wave.png';
 import WaveReverse from '../../assets/misc/wave-reverse.png';
 
 import { Button } from '../../components/button/Button/Button';
+import { Link } from 'react-router-dom';
 
 import Landing1 from '../../assets/landing/landing-1.jpg';
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
@@ -14,6 +15,7 @@ import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import 'react-slideshow-image/dist/styles.css';
 import { Slide } from 'react-slideshow-image';
 import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
+import { PopupModal } from '../../components/popup/PopupModal';
 
 const PageHome = () => {
   return (
@@ -33,26 +35,28 @@ const HomePageHeader = () => {
         <h2>F!rosh Week</h2>
         <h1>2T2</h1>
         <p>Organized by the University of Toronto&apos;s Engineering Orientation Commitee</p>
-        <div className="home-page-header-register-button">
-          <div className="desktop-only">
-            <Button
-              label="Register"
-              isSecondary
-              style={{
-                margin: '0px',
-                width: '100%',
-                height: '100%',
-                fontSize: 'unset',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            />
+        <Link key={'/registration'} to={'/registration'} style={{ textDecoration: 'none' }}>
+          <div className="home-page-header-register-button">
+            <div className="desktop-only">
+              <Button
+                label="Register"
+                isSecondary
+                style={{
+                  margin: '0px',
+                  width: '100%',
+                  height: '100%',
+                  fontSize: 'unset',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              />
+            </div>
+            <div className="mobile-only">
+              <Button label="Register" isSecondary style={{ margin: '0px' }} />
+            </div>
           </div>
-          <div className="mobile-only">
-            <Button label="Register" isSecondary style={{ margin: '0px' }} />
-          </div>
-        </div>
+        </Link>
       </div>
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />
@@ -83,10 +87,48 @@ const HomePageSlideshow = () => {
 };
 
 const HomePageTimeline = () => {
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState({});
   return (
     <div className="home-page-timeline">
       <h2 className="home-page-section-header">Timeline</h2>
-      <Timeline dates={getTimelineDates()} />
+      <Timeline
+        dates={getTimelineDates()}
+        onClick={(date) => {
+          setShowPopUp(true);
+          setSelectedEvent(date);
+        }}
+      />
+      <PopupModal
+        trigger={showPopUp}
+        setTrigger={setShowPopUp}
+        blurBackground={false}
+        exitIcon={true}
+      >
+        <div className="home-page-timeline-popup-container">
+          <h1>{selectedEvent.name}</h1>
+          <p>{selectedEvent.description}</p>
+
+          {selectedEvent.link !== undefined ? (
+            <div className="home-page-timeline-popup-button">
+              <a
+                href={selectedEvent.link}
+                target="_blank"
+                className="no-link-style"
+                rel="noreferrer"
+              >
+                <Button
+                  label={selectedEvent.linkLabel}
+                  isSecondary
+                  style={{ margin: 0, float: 'right' }}
+                ></Button>
+              </a>
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
+      </PopupModal>
     </div>
   );
 };
