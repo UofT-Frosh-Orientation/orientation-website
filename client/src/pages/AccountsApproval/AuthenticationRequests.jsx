@@ -4,12 +4,11 @@ import { React, useEffect } from 'react';
 
 import './AccountsApproval.scss';
 import './AccountsPageNumber.scss';
-import './ApproveDenyCheckbox/ApproveDenyCheckbox.scss';
+import './ApproveDenyCheckbox.scss';
 
 import { TestAuth, sendApprovedEmails } from './functions';
 import { Button } from '../../components/button/Button/Button';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
-//import { ApproveDenyCheckbox } from './ApproveDenyCheckbox/ApproveDenyCheckbox';
 
 import GrayCross from '../../assets/misc/xmark-solid-gray.svg';
 import WhiteCross from '../../assets/misc/xmark-solid-white.svg';

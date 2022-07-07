@@ -4,7 +4,7 @@ import { React, useEffect } from 'react';
 
 import './AccountsApproval.scss';
 import './AccountsPageNumber.scss';
-import './ApproveDenyCheckbox/ApproveDenyCheckbox.scss';
+import './ApproveDenyCheckbox.scss';
 
 import { TestEmails, sendApprovedEmails } from './functions';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
