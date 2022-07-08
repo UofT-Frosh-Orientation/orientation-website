@@ -16,7 +16,7 @@ export const TestEmails = [
     id: 1,
     valid: true,
     email: 'abc@gmail.com',
-    approved: false,
+    approved: true,
     deny: false,
   },
   {
@@ -31,7 +31,7 @@ export const TestEmails = [
     valid: false,
     email: 'fgfg@gmail.com',
     approved: false,
-    deny: false,
+    deny: true,
   },
   {
     id: 4,
