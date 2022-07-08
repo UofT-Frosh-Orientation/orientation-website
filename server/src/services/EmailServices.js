@@ -90,16 +90,7 @@ const EmailServices = {
 
     const command = new CreateEmailTemplateCommand(params);
 
-    // return SES.send(command);
-    SES.send(command).then(
-      (data) => {
-        res.status(200).send({data: data})
-      },
-      (error) => {
-        next(error);
-      }
-    );
-    
+    return SES.send(command);
   },
 
   /**
@@ -110,8 +101,7 @@ const EmailServices = {
    * @param {String} fromAddress the email adress the email is being sent from
    * @returns {Promise} promise
    */
-  async sendTemplateEmail(req,res,next) {
-    const {templateData, templateName, toAddresses, fromAddress} = req.body;
+  async sendTemplateEmail(templateData, templateName, toAddresses, fromAddress) {
     const params = {
       Content: {
         Template: {
@@ -128,16 +118,7 @@ const EmailServices = {
 
     const command = new SendEmailCommand(params);
 
-    // return SES.send(command);
-    SES.send(command).then(
-      (data) => {
-        res.status(200).send({data: data})
-      },
-      (error) => {
-        next(error);
-      }
-    );
-    
+    return SES.send(command);
   },
 
   /**
@@ -190,24 +171,24 @@ const EmailServices = {
    * @returns {Promise} promise
    */
   async sendRawEmail(html, text, subject, attachments, toAddresses, fromAddress) {
-    let msg = mimemessage.factory({
+    const msg = mimemessage.factory({
       contentType: 'multipart/mixed',
       body: [],
     });
     msg.header('From', fromAddress);
     msg.header('To', toAddresses);
     msg.header('Subject', subject);
-    let alternateEntity = mimemessage.factory({
+    const alternateEntity = mimemessage.factory({
       contentType: 'multipart/alternate',
       body: [],
     });
 
-    let htmlEntity = mimemessage.factory({
+    const htmlEntity = mimemessage.factory({
       contentType: 'text/html;charset=utf-8',
       body: html,
     });
 
-    let plainEntity = mimemessage.factory({
+    const plainEntity = mimemessage.factory({
       body: text,
     });
 
@@ -216,14 +197,14 @@ const EmailServices = {
 
     msg.body.push(alternateEntity);
 
-    for (let filePath of attachments) {
+    for (const filePath of attachments) {
       const filemime = mime.getType(path.basename(filePath));
 
       const fileData = await fs.readFile(filePath, {
         encoding: 'base64',
       });
 
-      let attachment = mimemessage.factory({
+      const attachment = mimemessage.factory({
         contentType: filemime,
         contentTransferEncoding: 'base64',
         body: fileData,
