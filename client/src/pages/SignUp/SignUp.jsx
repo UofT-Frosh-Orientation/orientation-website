@@ -55,7 +55,7 @@ const PageSignUp = () => {
     if (sendFeedback) {
       setErrors(errorsCopy);
     }
-    if (feedbackToSend !== [] && sendFeedback === false) {
+    if (sendFeedback === false) {
       const errorObject = {};
       for (let send of feedbackToSend) {
         errorObject[send] = errorsCopy[send];
@@ -124,6 +124,7 @@ const PageSignUp = () => {
               errorFeedback={errors['firstName']}
               onChange={(value) => {
                 accountObj['firstName'] = value;
+                checkErrors(false);
               }}
               localStorageKey={'sign-up-firstName'}
             />
@@ -136,6 +137,7 @@ const PageSignUp = () => {
               errorFeedback={errors['lastName']}
               onChange={(value) => {
                 accountObj['lastName'] = value;
+                checkErrors(false);
               }}
               localStorageKey={'sign-up-lastName'}
             />
@@ -152,7 +154,12 @@ const PageSignUp = () => {
               localStorageKey={'sign-up-preferredName'}
             />
           </div>
-          <div className="sign-up-button">
+          <div
+            className="sign-up-button"
+            onMouseOver={() => {
+              checkErrors(true);
+            }}
+          >
             <Button
               label="Create Account"
               style={{ margin: 0 }}

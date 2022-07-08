@@ -4,6 +4,8 @@ export function getTimelineDates() {
       date: new Date('2022-05-31T00:00:00'),
       name: 'Test 1234',
       description: 'Join other frosh and meetup! This is a really long description. ',
+      link: 'http://www.google.ca',
+      linkLabel: 'Click me!',
     },
     {
       date: new Date('2022-06-02T00:00:00'),
