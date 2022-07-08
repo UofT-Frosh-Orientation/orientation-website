@@ -4,11 +4,11 @@ import './Timeline.scss';
 
 const Timeline = ({ dates, onClick }) => {
   const options = {
-    weekday: undefined,
+    weekday: 'short',
     year: undefined,
-    month: 'long',
+    month: 'short',
     day: 'numeric',
-    timezone: 'UTC',
+    timeZone: 'America/Toronto',
   };
   return (
     <>
@@ -18,7 +18,7 @@ const Timeline = ({ dates, onClick }) => {
         {dates.map((date) => {
           let formattedDate = new Date(
             date.date.substring(0, date.date.length - 1),
-          ).toLocaleDateString('en-US', options);
+          ).toLocaleDateString('en-CA', options);
           return (
             <div
               key={formattedDate + date.name}
