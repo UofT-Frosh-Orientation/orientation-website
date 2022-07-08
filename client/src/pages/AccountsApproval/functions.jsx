@@ -1,15 +1,49 @@
-export function sendApprovedEmails(array) {
+export function sendApprovedEmails(object) {
   // parameter: an array of all the approved and denied emails
-  console.log('saving responses');
-  console.log(array);
+  console.log('saving approved emails');
+  console.log(object);
   return;
 }
+// NOTE: object looks like below,
+let approveEmails = {
+  'abd@gmail.com': {
+    approve: false,
+    deny: false,
+  },
+  'new@gmail.com': {
+    approve: false,
+    deny: false,
+  },
+};
 
-export function sendAuthRequests(array) {
+export function sendAuthRequests(object) {
   // parameter: an array of emails and approved or denied auth requests
-  console.log('saving responses');
-  console.log(array);
+  console.log('saving authentication request responses');
+  console.log(object);
 }
+// NOTE: object looks like below,
+let authRequests = {
+  'abd@gmail.com': {
+    other: {
+      approve: false,
+      deny: false,
+    },
+    admin: {
+      approve: false,
+      deny: false,
+    },
+  },
+  'new@gmail.com': {
+    other: {
+      approve: false,
+      deny: false,
+    },
+    admin: {
+      approve: false,
+      deny: false,
+    },
+  },
+};
 
 export const TestEmails = [
   {
@@ -91,39 +125,4 @@ export const TestAuth = [
       },
     ],
   },
-  //   {
-  //     id: 2,
-  //     name: 'aAAAAAAAa',
-  //     email: 'abpc@gmail.com',
-  //     group: 'leedurs',
-  //     auth: ['admin', 'other', 'ggg'],
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'AAAaa',
-  //     email: 'ab0c@gmail.com',
-  //     group: 'leedurs',
-  //     auth: ['admin'],
-  //   },
-  //   {
-  //     id: 4,
-  //     name: 'aaAAAAA',
-  //     email: 'aboc@gmail.com',
-  //     group: 'leodursSSSSSSSS',
-  //     auth: ['admin', 'other'],
-  //   },
-  //   {
-  //     id: 5,
-  //     name: 'aa',
-  //     email: 'ab7c@gmail.com',
-  //     group: 'leedurs',
-  //     auth: ['admin', 'other'],
-  //   },
-  //   {
-  //     id: 6,
-  //     name: 'aa',
-  //     email: 'aaaaaaaaaaa@gmail.com',
-  //     group: 'leedurs',
-  //     auth: ['admin', 'other'],
-  //   },
 ];

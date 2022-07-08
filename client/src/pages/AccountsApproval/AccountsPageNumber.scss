@@ -30,7 +30,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  //padding: 0px 5px;
   transition: background-color 200ms;
 
   &:hover,
@@ -42,7 +41,6 @@
 .page-number-arrow {
   width: 30px;
   height: 30px;
-  //padding: 6px;
   padding: 8px 10px;
   pointer-events: all;
   transition: transform 200ms, background-color 200ms;
@@ -55,7 +53,6 @@
 }
 
 .accounts-page-number-box-current {
-  //height: 34px;
   background-color: var(--purple-shades-muted);
   color: var(--white);
 }

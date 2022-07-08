@@ -5,7 +5,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  // top: 10%;
   width: 100%;
   height: fit-content;
   padding: 10% 1%;
@@ -13,81 +12,20 @@
   @include devices(mobile) {
     padding: 10% 0;
   }
-  // height: 100%;
 }
 
 .accounts-approval-tabs-container {
   width: 90%;
-  // height: fit-content;
 
   @include devices(mobile) {
     width: 100%;
   }
 }
 
-// SOMETHING ELSE?????
-// input[type='checkbox'] {
-//     color: var(--purple);
-//     width: 20px;
-//     height: 20px;
-//     border: 3px solid var(--purple);
-//     border-radius: 3px;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     -webkit-appearance: none;
-//     appearance: none;
-//     background-color: var(--form-background);
-//     margin: 0;
-//     cursor: pointer;
-//     transition: transform 220ms;
-// }
-
 // ALL ACCOUNTS COMPONENT
 .all-accounts-component-container {
   display: flex;
 }
-
-// // APPROVE/DENY CHECKBOXES
-// .approve-deny-checkbox-container {
-//     display: flex;
-//     width: fit-content;
-//     height: fit-content;
-//     flex-direction: row;
-
-//     // margin-left: auto;
-//     // margin-right: auto;
-// };
-
-// .approve-deny-checkbox {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     margin: 2px;
-//     width: 20px;
-//     height: 20px;
-//     border-radius: 3px;
-//     cursor: pointer;
-// }
-// .approve-gray-checkbox {
-//     color: var(--gray);
-//     border: 3px solid var(--gray);
-// }
-// .approve-green-check {
-//     background: var(--green-success);
-//     border: 3px solid var(--green-success);
-// }
-// .approve-red-cross {
-//     background: var(--red-error);
-//     border: 3px solid var(--red-error);
-// }
-
-// .approve-icon {
-//     width: 85%;
-// }
-// .deny-icon {
-//     width: 70%;
-// }
 
 // TABLE
 .all-accounts-container {
@@ -112,15 +50,8 @@
 .all-accounts-table-header-row {
   box-sizing: border-box;
   border-bottom: 4px solid var(--page-bg);
-  //height: 60px;
   vertical-align: bottom;
 }
-// .all-accounts-table-header,
-// .all-accounts-table-header-verified,
-// .all-accounts-table-header-email,
-// .all-accounts-table-header-approvedeny {
-//     padding: 8px;
-// }
 
 .all-accounts-table-header {
   padding: 8px;
@@ -132,22 +63,9 @@
 
 .all-accounts-row {
   border-bottom: 2px solid var(--page-bg);
-
-  // @include devices(tablet) {
-  //     font-size: 12px;
-  // }
 }
-// .all-accounts-table-header-email {
-//     text-align: left;
-//     padding: 8px;
-// }
 .all-account-data {
   padding: 8px;
-
-  // @include devices(tablet) {
-  //     width: 120px;
-  //     overflow-x: scroll;
-  // }
 }
 .verified-circle {
   width: 20px;
