@@ -11,10 +11,6 @@ import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOut
 import { Button } from '../../components/button/Button/Button';
 import { ApproveDenyCheckbox } from './ApproveDenyCheckbox';
 
-import GrayCross from '../../assets/misc/xmark-solid-gray.svg';
-import WhiteCross from '../../assets/misc/xmark-solid-white.svg';
-import GrayCheck from '../../assets/misc/check-solid-gray.svg';
-import WhiteCheck from '../../assets/misc/check-solid-white.svg';
 import ArrowRight from '../../assets/steps/arrow-right-solid-purple.svg';
 import ArrowLeft from '../../assets/steps/arrow-left-solid-purple.svg';
 
@@ -29,8 +25,7 @@ const bubbleButtonStyleClick = {
 const AllAccountsTable = ({ numResultsDisplayed }) => {
   const [emailList, setEmailList] = useState(TestEmails); // email list that is displayed
   const [isApproveVerified, setIsApproveVerified] = useState(false); // approve state for emails that match frosh leedur email list
-  //const [accountStatus, setAccountStatus] = useState([]); // this is an array that will store objects -- email and approved and deny status
-  const [accountStatus, setAccountStatus] = useState({});
+  const [accountStatus, setAccountStatus] = useState({}); // object to send approve deny status to backend
 
   useEffect(() => {
     setEmailList(TestEmails);
@@ -171,6 +166,7 @@ const RowComponent = ({
   useEffect(() => {
     // useEffect that executes when the page changes
     setIsApproveVerified(false);
+    //setAccountStatus({});
     setTimeout(() => {
       setAccountStatus({});
     }, 0);
@@ -199,7 +195,7 @@ const RowComponent = ({
         deny: deny,
       };
     }
-  }, [approve, deny]);
+  }, [approve, deny, currentPage]);
 
   return (
     <tr className="all-accounts-row" key={account.email}>
@@ -232,7 +228,7 @@ RowComponent.propTypes = {
   currentPage: PropTypes.number,
   isApproveVerified: PropTypes.bool,
   setIsApproveVerified: PropTypes.func,
-  accountStatus: PropTypes.array,
+  accountStatus: PropTypes.object,
 };
 
 AllAccountsTable.propTypes = {

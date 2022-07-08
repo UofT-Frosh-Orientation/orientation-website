@@ -55,47 +55,75 @@ export const TestEmails = [
     deny: false,
   },
 ];
+
 export const TestAuth = [
   {
-    id: 1,
     name: 'ahjhjhhjhhjjhjjhjhjhjhjhjhhjhja',
     email: 'akbc@gmail.com',
     group: 'leedurs',
-    auth: ['admin', 'other'],
+    auth: [
+      {
+        authreq: 'admin',
+        approve: false,
+        deny: true,
+      },
+      {
+        authreq: 'blah',
+        approve: true,
+        deny: false,
+      },
+    ],
   },
   {
-    id: 2,
-    name: 'aAAAAAAAa',
-    email: 'abpc@gmail.com',
+    name: 'ahjhjhhjhhjjhjjhjhjhjhjhjhhjhja',
+    email: 'akbddddc@gmail.com',
     group: 'leedurs',
-    auth: ['admin', 'other', 'ggg'],
+    auth: [
+      {
+        authreq: 'hhhhhh',
+        approve: false,
+        deny: false,
+      },
+      {
+        authreq: 'blah',
+        approve: false,
+        deny: false,
+      },
+    ],
   },
-  {
-    id: 3,
-    name: 'AAAaa',
-    email: 'ab0c@gmail.com',
-    group: 'leedurs',
-    auth: ['admin'],
-  },
-  {
-    id: 4,
-    name: 'aaAAAAA',
-    email: 'aboc@gmail.com',
-    group: 'leodursSSSSSSSS',
-    auth: ['admin', 'other'],
-  },
-  {
-    id: 5,
-    name: 'aa',
-    email: 'ab7c@gmail.com',
-    group: 'leedurs',
-    auth: ['admin', 'other'],
-  },
-  {
-    id: 6,
-    name: 'aa',
-    email: 'aaaaaaaaaaa@gmail.com',
-    group: 'leedurs',
-    auth: ['admin', 'other'],
-  },
+  //   {
+  //     id: 2,
+  //     name: 'aAAAAAAAa',
+  //     email: 'abpc@gmail.com',
+  //     group: 'leedurs',
+  //     auth: ['admin', 'other', 'ggg'],
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'AAAaa',
+  //     email: 'ab0c@gmail.com',
+  //     group: 'leedurs',
+  //     auth: ['admin'],
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'aaAAAAA',
+  //     email: 'aboc@gmail.com',
+  //     group: 'leodursSSSSSSSS',
+  //     auth: ['admin', 'other'],
+  //   },
+  //   {
+  //     id: 5,
+  //     name: 'aa',
+  //     email: 'ab7c@gmail.com',
+  //     group: 'leedurs',
+  //     auth: ['admin', 'other'],
+  //   },
+  //   {
+  //     id: 6,
+  //     name: 'aa',
+  //     email: 'aaaaaaaaaaa@gmail.com',
+  //     group: 'leedurs',
+  //     auth: ['admin', 'other'],
+  //   },
 ];
