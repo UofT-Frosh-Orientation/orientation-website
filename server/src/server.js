@@ -8,16 +8,12 @@ const faqRouter = require('./routes/faqRoutes');
 const announcementRouter = require('./routes/announcementRoutes');
 const swaggerLoader = require('./loaders/swaggerLoader');
 
-const EmailServices = require('./services/EmailServices')
-
 mongoLoader(app).then(() => {
   passportLoader(app);
   app.use('/frosh', froshRouter);
   app.use('/user', userRouter);
   app.use('/faq', faqRouter);
   app.use('/announcements', announcementRouter);
-  app.post('/create', EmailServices.createTemplate)
-  app.post('/send', EmailServices.sendTemplateEmail)
   swaggerLoader(app);
 
   app.get('*', (req, res) => {
