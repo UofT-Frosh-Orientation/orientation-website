@@ -187,8 +187,7 @@ const RowComponent = ({
   }, [isApproveVerified]);
 
   useEffect(() => {
-    // adding objec to state var array that will be "sent" to the backend
-    // TODO: bug -- initial click of save, has an entry in the accountStatus array, it should be empty...
+    // adding object to state var array that will be "sent" to the backend
     const object = {
       key: account.email,
       email: account.email,
@@ -233,6 +232,12 @@ const RowComponent = ({
           deny={deny}
           setApprove={setApprove}
           setDeny={setDeny}
+          // isApproveVerified={isApproveVerified}
+          // setIsApproveVerified={setIsApproveVerified}
+          // approveAll={approveAll}
+          // setApproveAll={setApproveAll}
+          // denyAll={denyAll}
+          // setDenyAll={setDenyAll}
         />
         {/* <>
           <div
