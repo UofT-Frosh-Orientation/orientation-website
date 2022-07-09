@@ -53,7 +53,7 @@ const PageFAQ = () => {
   }
   return (
     <div>
-      <div className={`${pageState !== 'form' ? 'faq-page-disappear' : 'faq-page-appear'}`}>
+      <div>
         <FAQPageHeader
           questions={unsortedQuestions}
           setIsSearch={setIsSearch}
@@ -103,15 +103,8 @@ const PageFAQ = () => {
           </div>
         </div>
         <div className={'faq-ask-question-outer-container'}>
-          <FAQAskQuestion setPageState={setPageState} pageState={pageState} />
+          <FAQAskQuestion pageState={pageState} setPageState={setPageState} />
         </div>
-      </div>
-      <div
-        className={`faq-loading ${pageState === 'loading' ? 'faq-loading-appear' : ''} ${
-          pageState === 'success' ? 'faq-loading-disappear' : ''
-        }`}
-      >
-        <LoadingAnimation size={'60px'} />
       </div>
     </div>
   );
@@ -294,7 +287,7 @@ const FAQAccordionWrapper = ({ scheduleData, openStatus, activeIndex }) => {
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       header={<div className={'faq-search-result-question-accordion'}>{scheduleData.question}</div>}
-      style={{ backgroundColor: '#ecd6ff' }}
+      style={{ backgroundColor: '#ecd6ff', padding: '0px 30px 0px 30px' }}
     >
       <div className={'faq-search-result-answer-accordion'}>{scheduleData.answer}</div>
     </SingleAccordion>
@@ -321,6 +314,19 @@ const FAQSearchBar = ({
   setActiveIndex,
   questionCategories,
 }) => {
+  useEffect(() => {
+    setIsSearch(true);
+    setSelectedQuestions(questions);
+    setIsMultiSearch(true);
+    setSelectedSearchResult(true);
+    if (questions.length == 0) {
+      setIsNoMatch(true);
+    } else if (searchQuery == '') {
+      setIsSearch(false);
+    } else {
+      setIsNoMatch(false);
+    }
+  }, [searchQuery]);
   const handleQueryChange = (e) => {
     setSearchQuery(e.target.value);
     setSelectedSearchResult(false);
@@ -328,35 +334,35 @@ const FAQSearchBar = ({
       setIsSearch(false);
     }
   };
-  const handleSearchResultSelect = () => {
-    setSelectedSearchResult(false);
-  };
-  const onKeyPress = (target) => {
-    if (target.charCode === 13) {
-      setIsSearch(true);
-      setSelectedQuestions(questions);
-      setIsMultiSearch(true);
-      setSelectedSearchResult(true);
-      if (questions.length == 0 || searchQuery == '') {
-        setIsNoMatch(true);
-      } else {
-        setIsNoMatch(false);
-      }
-    }
-  };
+  // const handleSearchResultSelect = () => {
+  //   setSelectedSearchResult(false);
+  // };
+  // const onKeyPress = (target) => {
+  //   if (target.charCode === 13) {
+  //     setIsSearch(true);
+  //     setSelectedQuestions(questions);
+  //     setIsMultiSearch(true);
+  //     setSelectedSearchResult(true);
+  //     if (questions.length == 0 || searchQuery == '') {
+  //       setIsNoMatch(true);
+  //     } else {
+  //       setIsNoMatch(false);
+  //     }
+  //   }
+  // };
   return (
     <div className={'faq-search'}>
       <div className={'faq-search-input'}>
         <input
           value={searchQuery}
           onInput={(e) => handleQueryChange(e)}
-          onKeyPress={onKeyPress}
-          onClick={() => handleSearchResultSelect()}
+          // onKeyPress={onKeyPress}
+          // onClick={() => handleSearchResultSelect()}
           type="text"
           placeholder={'Search for a question'}
         />
       </div>
-      {searchQuery.length != 0 && (
+      {/* {searchQuery.length != 0 && (
         <div
           className={`faq-data-result ${selectedSearchResult ? 'faq-search-results-hide' : ''}`}
           style={{ height: questions.length * 50 < 200 ? questions.length * 50 : 200 }}
@@ -379,7 +385,7 @@ const FAQSearchBar = ({
             );
           })}
         </div>
-      )}
+      )} */}
     </div>
   );
 };
@@ -399,48 +405,48 @@ FAQSearchBar.propTypes = {
   questionCategories: PropTypes.array.isRequired,
 };
 
-const FAQSearchResult = ({
-  setIsSearch,
-  setSelectedQuestion,
-  setSearchQuery,
-  question,
-  setSelectedSearchResult,
-  setIsMultiSearch,
-  setIsNoMatch,
-  setActiveIndex,
-  questionCategories,
-}) => {
-  function FAQReturnQuestions() {
-    setIsSearch(true);
-    setSelectedQuestion(question.id);
-    setSearchQuery(question.question);
-    setSelectedSearchResult(true);
-    setIsMultiSearch(false);
-    setIsNoMatch(false);
-    for (let i = 0; i < questionCategories.length; i++) {
-      if (question.category == questionCategories[i].name) {
-        setActiveIndex(i);
-      }
-    }
-  }
-  return (
-    <div className={'faq-search-result-wrapper'} onClick={() => FAQReturnQuestions()}>
-      {question.question}
-    </div>
-  );
-};
+// const FAQSearchResult = ({
+//   setIsSearch,
+//   setSelectedQuestion,
+//   setSearchQuery,
+//   question,
+//   setSelectedSearchResult,
+//   setIsMultiSearch,
+//   setIsNoMatch,
+//   setActiveIndex,
+//   questionCategories,
+// }) => {
+//   function FAQReturnQuestions() {
+//     setIsSearch(true);
+//     setSelectedQuestion(question.id);
+//     setSearchQuery(question.question);
+//     setSelectedSearchResult(true);
+//     setIsMultiSearch(false);
+//     setIsNoMatch(false);
+//     for (let i = 0; i < questionCategories.length; i++) {
+//       if (question.category == questionCategories[i].name) {
+//         setActiveIndex(i);
+//       }
+//     }
+//   }
+//   return (
+//     <div className={'faq-search-result-wrapper'} onClick={() => FAQReturnQuestions()}>
+//       {question.question}
+//     </div>
+//   );
+// };
 
-FAQSearchResult.propTypes = {
-  setIsSearch: PropTypes.func.isRequired,
-  setSelectedQuestion: PropTypes.func.isRequired,
-  question: PropTypes.object.isRequired,
-  setSearchQuery: PropTypes.func.isRequired,
-  setSelectedSearchResult: PropTypes.func.isRequired,
-  setIsMultiSearch: PropTypes.func.isRequired,
-  setIsNoMatch: PropTypes.func.isRequired,
-  setActiveIndex: PropTypes.number.isRequired,
-  questionCategories: PropTypes.array.isRequired,
-};
+// FAQSearchResult.propTypes = {
+//   setIsSearch: PropTypes.func.isRequired,
+//   setSelectedQuestion: PropTypes.func.isRequired,
+//   question: PropTypes.object.isRequired,
+//   setSearchQuery: PropTypes.func.isRequired,
+//   setSelectedSearchResult: PropTypes.func.isRequired,
+//   setIsMultiSearch: PropTypes.func.isRequired,
+//   setIsNoMatch: PropTypes.func.isRequired,
+//   setActiveIndex: PropTypes.number.isRequired,
+//   questionCategories: PropTypes.array.isRequired,
+// };
 
 const FAQDisplaySearchQuestion = ({ selectedQuestion, questions }) => {
   return (
@@ -471,7 +477,7 @@ FAQDisplayAllSearchQuestion.propTypes = {
   questions: PropTypes.array.isRequired,
 };
 
-const FAQAskQuestion = ({ setPageState }) => {
+const FAQAskQuestion = ({ pageState, setPageState }) => {
   const [signUpError, setSignUpError] = useState('');
   const [errorColor, setErrorColor] = useState(false);
   const initialFormData = {
@@ -505,32 +511,47 @@ const FAQAskQuestion = ({ setPageState }) => {
 
   return (
     <div className={'faq-ask-question-container'}>
-      <h1 className={'faq-ask-question-title'}>Can&apos;t Find Your Question?</h1>
-      <ErrorSuccessBox content={signUpError} error={errorColor} success={!errorColor} />
-      <form>
-        <label>
-          <div className={'faq-ask-question-box'}>
-            <TextInput
-              onChange={(text) => handleChange(text)}
-              inputType={'textArea'}
-              placeholder={'Type your question here'}
-              style={{ height: '150px' }}
-              clearText={clearText}
-              setClearText={setClearText}
-            />
-          </div>
-        </label>
-        <div style={{ textAlign: 'center' }}>
-          <Button label={'Submit'} onClick={handleSubmit}>
-            Submit
-          </Button>
+      <div className={'faq-ask-question-stacking'}>
+        <div
+          className={`faq-page-questions ${
+            pageState !== 'form' ? 'faq-page-disappear' : 'faq-page-appear'
+          }`}
+        >
+          <h1 className={'faq-ask-question-title'}>Can&apos;t Find Your Question?</h1>
+          <ErrorSuccessBox content={signUpError} error={errorColor} success={!errorColor} />
+          <form>
+            <label>
+              <div className={'faq-ask-question-box'}>
+                <TextInput
+                  onChange={(text) => handleChange(text)}
+                  inputType={'textArea'}
+                  placeholder={'Type your question here'}
+                  style={{ height: '150px' }}
+                  clearText={clearText}
+                  setClearText={setClearText}
+                />
+              </div>
+            </label>
+            <div style={{ textAlign: 'center' }}>
+              <Button label={'Submit'} onClick={handleSubmit}>
+                Submit
+              </Button>
+            </div>
+          </form>
         </div>
-      </form>
+        <div
+          className={`faq-loading ${pageState === 'loading' ? 'faq-loading-appear' : ''} 
+          ${pageState === 'success' ? 'faq-loading-disappear' : ''}`}
+        >
+          <LoadingAnimation size={'60px'} />
+        </div>
+      </div>
     </div>
   );
 };
 
 FAQAskQuestion.propTypes = {
+  pageState: PropTypes.string.isRequired,
   setPageState: PropTypes.string.isRequired,
 };
 
