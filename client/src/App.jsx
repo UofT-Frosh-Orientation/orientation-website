@@ -6,6 +6,8 @@ import { InitialPage } from './pages/Initial/Initial';
 import { pages } from './util/pages';
 import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/footer/Footer';
+import { useSelector } from 'react-redux';
+import { initialsSelector, loggedInSelector, registeredSelector } from './pages/userSlice';
 
 export default function App() {
   const initial = import.meta.env.MODE === 'production';
@@ -19,28 +21,19 @@ export default function App() {
   );
 }
 
-// The 3 functions below are purely for testing purposes, delete as you will
-function isLoggedIn() {
-  return false;
-}
-
 function froshInitials() {
   return 'NL';
 }
 
-function isRegistered() {
-  return false;
-}
-
 const TransitionRoutes = () => {
   const location = useLocation();
+  const loggedIn = useSelector(loggedInSelector);
+  const registered = useSelector(registeredSelector);
+  const initials = useSelector(initialsSelector);
+  // console.log(loggedIn)
   return (
     <TransitionGroup>
-      <Navbar
-        isLoggedIn={isLoggedIn()}
-        froshInitials={froshInitials()}
-        isRegistered={isRegistered()}
-      />
+      <Navbar isLoggedIn={loggedIn} froshInitials={initials} isRegistered={registered} />
       <ScrollToTop />
       <CSSTransition key={location.key} classNames="page" timeout={300}>
         <Routes location={location}>

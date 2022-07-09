@@ -33,7 +33,8 @@ const userSlice = createSlice({
   },
 });
 
-export const { loginStart, loginFail, loginSuccess, logoutSuccess } = userSlice.actions;
+export const { loginStart, loginFail, loginSuccess, logoutSuccess, setUserInfo } =
+  userSlice.actions;
 
 export default userSlice.reducer;
 
@@ -44,3 +45,15 @@ export const userSelector = createSelector(userReducerSelector, ({ user, loading
   loading,
   error,
 }));
+
+export const loggedInSelector = createSelector(userReducerSelector, ({ user }) => !!user);
+
+export const registeredSelector = createSelector(
+  userReducerSelector,
+  ({ user }) => user?.userType === 'frosh',
+);
+
+export const initialsSelector = createSelector(
+  userReducerSelector,
+  ({ user }) => `${user?.firstName?.toUpperCase()[0]}${user?.lastName?.toUpperCase()[0]}`,
+);
