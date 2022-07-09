@@ -135,17 +135,17 @@ const FAQPageHeader = ({
   };
 
   const filteredQuestions = filterQuestions(questions, searchQuery);
-  const handleSearchIconClick = () => {
-    setIsSearch(true);
-    setSelectedQuestions(filteredQuestions);
-    setIsMultiSearch(true);
-    setSelectedSearchResult(true);
-    if (filteredQuestions.length == 0 || searchQuery == '') {
-      setIsNoMatch(true);
-    } else {
-      setIsNoMatch(false);
-    }
-  };
+  // const handleSearchIconClick = () => {
+  //   setIsSearch(true);
+  //   setSelectedQuestions(filteredQuestions);
+  //   setIsMultiSearch(true);
+  //   setSelectedSearchResult(true);
+  //   if (filteredQuestions.length == 0 || searchQuery == '') {
+  //     setIsNoMatch(true);
+  //   } else {
+  //     setIsNoMatch(false);
+  //   }
+  // };
   const handleDeleteIconClick = () => {
     setSearchQuery('');
     setIsSearch(false);
@@ -168,7 +168,7 @@ const FAQPageHeader = ({
                     ? '15px 0px 0px 0px'
                     : '',
               }}
-              onClick={() => handleSearchIconClick()}
+              // onClick={() => handleSearchIconClick()}
             >
               <img src={SearchIcon} alt="Search Button" height={30} />
             </div>
