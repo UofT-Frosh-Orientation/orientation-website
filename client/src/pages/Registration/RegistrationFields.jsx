@@ -19,7 +19,7 @@ export const fields = {
       errorMessage: 'Please enter your legal name',
       localStorageKey: 'registration-legal-name',
     },
-    pronoun: {
+    pronouns: {
       type: 'dropdown',
       label: 'Pronoun',
       values: ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'],
@@ -42,7 +42,7 @@ export const fields = {
       errorMessage: 'Please enter a pronoun',
       className: 'fill-remaining-width-input',
     },
-    birthdate: {
+    birthDate: {
       type: 'text',
       inputType: 'date',
       label: 'Birthday',

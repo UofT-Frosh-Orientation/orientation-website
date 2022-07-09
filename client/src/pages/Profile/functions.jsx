@@ -139,7 +139,7 @@ export async function getQRCodeString() {
     let allDetails = response.data.user.email;
     return allDetails.concat(
       '|',
-      response.data.user.name,
+      response.data.user.fullName,
       '|',
       response.data.user.pronouns,
       '|',
@@ -188,15 +188,14 @@ export function capitalizeFirstLetter(string) {
 export async function getFroshData() {
   try {
     const response = await axios.get('/user/info');
-    const userData = response.data.user;
-    const splitName = userData.name.trim().split(/\s+/);
+    const { user } = response.data;
     return {
       froshGroupIcon: 'λ',
-      froshGroup: userData.froshGroup, //TODO: add non-static icons that changes depending on froshGroup
-      firstName: splitName[0],
-      lastName: splitName[1],
-      discipline: userData.discipline,
-      email: userData.email,
+      froshGroup: user.froshGroup, //TODO: add non-static icons that changes depending on froshGroup
+      firstName: user.firstName,
+      lastName: user.lastName,
+      discipline: user.discipline,
+      email: user.email,
     };
   } catch (error) {
     console.log(error);

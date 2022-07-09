@@ -26,6 +26,8 @@ const FroshController = {
         res.status(200).send({ url });
       }
     } catch (e) {
+      console.log(req.body);
+      console.log(e);
       next(e);
     }
   },
