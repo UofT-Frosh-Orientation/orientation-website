@@ -12,7 +12,7 @@ newUserSubscription.process((job, done) => {
     // sending user creation email
     const result = EmailServices.sendTemplateEmail(
       {},
-      'signup_conformation',
+      'signup_confirmation',
       [job.data.email],
       'tech@orientation.skule.ca',
     );
