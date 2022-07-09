@@ -1,5 +1,4 @@
 import useAxios from '../../hooks/useAxios';
-
 const { axios } = useAxios();
 
 // function checks if email is valid and sends a reset password email
@@ -25,21 +24,6 @@ export async function getTasks() {
   } catch (error) {
     console.log(error);
   }
-  // return [
-  //   {
-  //     name: 'Welcome to your F!rosh profile page',
-  //     description:
-  //       "Take a look around and explore! You'll find your personalized Frosh group schedule and more information here. You can check this off when you're ready!",
-  //     dateCreated: new Date('2022-05-31T00:00:00'),
-  //     completed: true,
-  //   },
-  //   {
-  //     name: 'Welcome to your F!rosh profile page 2',
-  //     description: 'More talky talk and walky walk text...',
-  //     dateCreated: new Date('2022-05-31T00:00:00'),
-  //     completed: true,
-  //   },
-  // ];
 }
 
 export function onDoneTask(task) {
@@ -204,14 +188,15 @@ export function capitalizeFirstLetter(string) {
 export async function getFroshData() {
   try {
     const response = await axios.get('/user/info');
-    const splitName = response.data.user.name.trim().split(/\s+/);
+    const userData = response.data.user;
+    const splitName = userData.name.trim().split(/\s+/);
     return {
       froshGroupIcon: 'λ',
-      froshGroup: response.data.user.froshGroup,
+      froshGroup: userData.froshGroup, //TODO: add non-static icons that changes depending on froshGroup
       firstName: splitName[0],
       lastName: splitName[1],
-      discipline: response.data.user.discipline,
-      email: response.data.user.email,
+      discipline: userData.discipline,
+      email: userData.email,
     };
   } catch (error) {
     console.log(error);

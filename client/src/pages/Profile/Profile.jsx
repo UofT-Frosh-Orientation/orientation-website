@@ -293,9 +293,9 @@ const ProfilePageAnnouncements = () => {
 };
 
 const ProfilePageQRCode = () => {
-  const [QRCodeString, setSRCodeString] = useState('');
+  const [QRCodeString, setQRCodeString] = useState('');
   useEffect(async () => {
-    setSRCodeString(await getQRCodeString());
+    setQRCodeString(await getQRCodeString());
   }, []);
   return (
     <div className="profile-page-qr-code">
