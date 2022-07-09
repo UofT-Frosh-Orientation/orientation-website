@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { getQuestions, submitQuestion } from './functions';
 import './FAQ.scss';
@@ -6,6 +6,7 @@ import Wave from '../../assets/misc/wave-reverse.png';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import SearchIcon from '../../assets/misc/magnifying-glass-solid.svg';
 import DeleteIcon from '../../assets/misc/circle-xmark-solid.svg';
@@ -51,6 +52,7 @@ const PageFAQ = () => {
   for (let i = 0; i < Object.keys(questionsObjects).length; i++) {
     allQuestions.push(questionsObjects[Object.keys(questionsObjects)[i]]);
   }
+  const questionRef = useRef(null);
   return (
     <div>
       <div>
@@ -70,7 +72,9 @@ const PageFAQ = () => {
         />
         <img src={Wave} className={'faq-wave-image faq-page-top-wave-image'} />
         <div
-          className={`faq-button-selector-container ${isSearch ? 'faq-hide-button-selector' : ''}`}
+          className={`faq-button-selector-container ${
+            isSearch ? 'faq-hide-button-selector' : 'faq-show-button-selector'
+          }`}
         >
           <FAQButtons
             activeIndex={activeIndex}
@@ -81,30 +85,50 @@ const PageFAQ = () => {
             questionCategories={questionCategories}
           />
         </div>
-        <div className={`faq-accordion-container ${isSearch ? 'faq-hide-accordion' : ''}`}>
+        <div
+          className={`faq-accordion-container ${
+            isSearch ? 'faq-hide-accordion' : 'faq-show-accordion'
+          }`}
+        >
           <FAQCategoryAccordions
             allQuestions={allQuestions}
             activeIndex={activeIndex}
             setActiveIndex={setActiveIndex}
           />
         </div>
-        <div className={`faq-display-questions-container ${isSearch ? '' : 'faq-hide-accordion'}`}>
-          <div className={`${!isMultiSearch && !isNoMatch ? '' : 'faq-hide-accordion'}`}>
+        <div
+          ref={questionRef}
+          className={`faq-display-questions-container ${
+            isSearch ? 'faq-show-accordion' : 'faq-hide-accordion'
+          }`}
+        >
+          <div
+            className={`${
+              !isMultiSearch && !isNoMatch ? 'faq-show-accordion' : 'faq-hide-accordion'
+            }`}
+          >
             <FAQDisplaySearchQuestion
               selectedQuestion={selectedQuestion}
               questions={unsortedQuestions}
             />
           </div>
-          <div className={`${isMultiSearch && !isNoMatch ? '' : 'faq-hide-accordion'}`}>
+          <div
+            className={`${
+              isMultiSearch && !isNoMatch ? 'faq-show-accordion' : 'faq-hide-accordion'
+            }`}
+          >
             <FAQDisplayAllSearchQuestion selectedQuestions={selectedQuestions} />
           </div>
-          <div className={`faq-no-results ${isNoMatch ? '' : 'faq-hide-accordion'}`}>
+          <div
+            className={`faq-no-results ${isNoMatch ? 'faq-show-accordion' : 'faq-hide-accordion'}`}
+          >
             <h1>No results</h1>
           </div>
         </div>
         <div className={'faq-ask-question-outer-container'}>
           <FAQAskQuestion pageState={pageState} setPageState={setPageState} />
         </div>
+        <FAQFab questionRef={questionRef} />
       </div>
     </div>
   );
@@ -482,16 +506,28 @@ const FAQAskQuestion = ({ pageState, setPageState }) => {
   const [errorColor, setErrorColor] = useState(false);
   const initialFormData = {
     question: '',
+    email: '',
   };
+  const [emailText, setEmailText] = useState({});
+  const [questionText, setQuestionText] = useState({});
   const [formData, updateFormData] = useState(initialFormData);
   const [clearText, setClearText] = useState(false);
-  const handleChange = (text) => {
-    // console.log(text);
-    updateFormData({ question: text });
+  useEffect(() => {
+    updateFormData({ question: questionText.question, email: emailText.email });
+  }, [emailText, questionText]);
+  const handleChangeEmail = (text) => {
+    let newEmailState = { ...emailText };
+    newEmailState.email = text;
+    setEmailText(newEmailState);
   };
-
+  const handleChangeQuestion = (text) => {
+    let newQuestionState = { ...questionText };
+    newQuestionState.question = text;
+    setQuestionText(newQuestionState);
+  };
   async function handleSubmit(text) {
     // console.log(submitQuestion(formData));
+    //console.log(formData);
     setPageState('loading');
     const result = await submitQuestion(formData);
     if (result !== true) {
@@ -521,9 +557,21 @@ const FAQAskQuestion = ({ pageState, setPageState }) => {
           <ErrorSuccessBox content={signUpError} error={errorColor} success={!errorColor} />
           <form>
             <label>
+              <div className={'faq-ask-question-email-box'}>
+                <TextInput
+                  onChange={(text) => handleChangeEmail(text)}
+                  inputType={'textArea'}
+                  placeholder={'Leave your email'}
+                  style={{ height: '45px' }}
+                  clearText={clearText}
+                  setClearText={setClearText}
+                />
+              </div>
+            </label>
+            <label>
               <div className={'faq-ask-question-box'}>
                 <TextInput
-                  onChange={(text) => handleChange(text)}
+                  onChange={(text) => handleChangeQuestion(text)}
                   inputType={'textArea'}
                   placeholder={'Type your question here'}
                   style={{ height: '150px' }}
@@ -553,6 +601,21 @@ const FAQAskQuestion = ({ pageState, setPageState }) => {
 FAQAskQuestion.propTypes = {
   pageState: PropTypes.string.isRequired,
   setPageState: PropTypes.string.isRequired,
+};
+
+const FAQFab = ({ questionRef }) => {
+  const handleClick = () => {
+    questionRef.current.scrollIntoView();
+  };
+  return (
+    <div className={'faq-fab'}>
+      <ButtonOutlined label={'Ask a Question'} isSecondary onClick={() => handleClick()} />
+    </div>
+  );
+};
+
+FAQFab.propTypes = {
+  questionRef: PropTypes.object.isRequired,
 };
 
 export { PageFAQ };
