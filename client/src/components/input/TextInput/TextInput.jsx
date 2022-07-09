@@ -24,10 +24,21 @@ const TextInput = ({
   style,
   clearText,
   setClearText,
+  isUtorID,
+  maxLength
 }) => {
   useEffect(() => {
     if (localStorageKey !== undefined) {
-      onChange(localStorage.getItem(localStorageKey));
+      const storedString = localStorage.getItem(localStorageKey);
+      if (storedString === null) {
+        if (initialValue !== undefined) {
+          onChange(initialValue);
+        } else {
+          onChange('');
+        }
+      } else {
+        onChange(storedString);
+      }
     } else if (initialValue !== undefined) {
       onChange(initialValue);
     }
@@ -71,11 +82,29 @@ const TextInput = ({
       let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
       if (match) {
         value = '(' + match[1] + ') ' + match[2] + '-' + match[3];
+      } else {
+        if (value.length >= 10) {
+          value = value.substring(0, 10);
+          value = value.replace(/\D/g, '');
+          let cleaned = ('' + value).replace(/\D/g, '');
+          let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+          if (match) {
+            value = '(' + match[1] + ') ' + match[2] + '-' + match[3];
+          }
+        }
       }
     }
     if (isInstagram) {
       if (value !== '' && !value.includes('@')) {
         value = '@' + value;
+      }
+    }
+    if (isUtorID) {
+      value = value.replace(' ', '').toLowerCase();
+    }
+    if (maxLength) {
+      if (value != undefined && maxLength < value.length) {
+        value = value.substring(0, value.length - 1);
       }
     }
 
@@ -176,6 +205,8 @@ TextInput.propTypes = {
   style: PropTypes.object,
   clearText: PropTypes.bool,
   setClearText: PropTypes.func,
+  isUtorID: PropTypes.bool,
+  maxLength: PropTypes.number,
 };
 
 export { TextInput };

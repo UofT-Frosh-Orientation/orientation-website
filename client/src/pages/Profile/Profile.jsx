@@ -312,7 +312,8 @@ const ProfilePageResources = () => {
             key={index + resource.name}
             href={resource.link}
             target="_blank"
-            className="no-link-style" rel="noreferrer"
+            className="no-link-style"
+            rel="noreferrer"
           >
             <ButtonBubble
               label={resource.name}

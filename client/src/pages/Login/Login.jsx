@@ -46,12 +46,12 @@ const PageLogin = ({ incorrectEntry }) => {
     if (loginError !== '') {
       setLoginError('');
     }
-    const result = await login(username, password);
-    if (result === true) {
-      navigate('/profile');
+    const { data, error } = await login(username, password);
+    if (!error) {
+      navigate('/profile', { state: { frosh: data } });
       //The profile page should redirect the Frosh if they haven't yet registered
     } else {
-      setLoginError(result);
+      setLoginError(error);
       setIsLoading(false);
     }
   }

@@ -21,7 +21,8 @@ module.exports = {
   env: {
     browser: true,
     amd: true,
-    node: true
+    node: true,
+    es6: true
   },
   extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:storybook/recommended'],
   rules: {
