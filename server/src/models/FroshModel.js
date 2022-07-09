@@ -29,10 +29,6 @@ const paymentSchema = new mongoose.Schema({
 
 const FroshSchema = new mongoose.Schema(
   {
-    preferredName: {
-      type: String,
-      required: false,
-    },
     birthDate: {
       type: Date,
       required: true,

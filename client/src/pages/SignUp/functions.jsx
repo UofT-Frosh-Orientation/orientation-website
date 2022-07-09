@@ -1,3 +1,6 @@
+import useAxios from '../../hooks/useAxios.jsx';
+const { axios } = useAxios();
+
 export const validateEmail = (email) => {
   return String(email)
     .toLowerCase()
@@ -7,8 +10,7 @@ export const validateEmail = (email) => {
 };
 
 export function validatePassword(password) {
-  const strongPasswordRegex = RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})');
-  return String(password).match('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})');
+  return String(password).match('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}');
 }
 
 export function validatePasswordLength(password) {
@@ -16,12 +18,35 @@ export function validatePasswordLength(password) {
   return true;
 }
 
-export async function signUpUser(user) {
-  console.log(signUpUser);
-  /*eslint no-undef: 0*/
-  let promise = new Promise((res, rej) => {
-    setTimeout(() => res('An error occured!'), 1000);
+
+
+export function signUpUser(user) {
+
+  const result = axios({
+    method: 'post',
+    url: '/user/signup',
+    data: user,
+  }).then(function (response) {
+    if(response.status == 200){
+      return true
+    }
+
+  }).catch((error) => {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      return error.response.data;
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message);
+    }
+    console.log(error.config);
   });
-  let result = await promise;
-  return true; //return an error message string to be dispayed, if an error
+
+  return result;
 }

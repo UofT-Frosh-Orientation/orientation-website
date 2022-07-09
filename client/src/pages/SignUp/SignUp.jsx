@@ -16,6 +16,7 @@ const PageSignUp = () => {
   const [anyErrors, setAnyErrors] = useState({});
   const [pageState, setPageState] = useState('form');
   const [signUpError, setSignUpError] = useState('');
+
   const checkErrors = (sendFeedback = true, feedbackToSend = []) => {
     let anyErrorsNow = false;
     const errorsCopy = {};
@@ -34,7 +35,7 @@ const PageSignUp = () => {
       anyErrorsNow = true;
     } else if (validatePassword(accountObj['password']) === null) {
       errorsCopy['password'] =
-        'Your password is too weak, it should be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter and 1 digit';
+        'Your password is too weak, it should be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter, 1 digit, and one special character';
       anyErrorsNow = true;
     }
     if (accountObj['confirmPassword'] === undefined || accountObj['confirmPassword'] === '') {
@@ -65,7 +66,7 @@ const PageSignUp = () => {
     setAnyErrors(anyErrorsNow);
     return anyErrorsNow;
   };
-  console.log(pageState !== 'form' ? 'sign-up-page-disappear' : '');
+
   return (
     <div>
       <div

@@ -4,7 +4,7 @@ const EmailValidator = require('email-validator');
 const UserModel = require('../models/UserModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
 
-const passwordValidator = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/;
+const passwordValidator = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
 
 const UserServices = {
   /**
@@ -14,14 +14,10 @@ const UserServices = {
    * @param {String} name
    * @return {Promise<void>}
    */
-  async validateUser(email, password, name) {
-    const user = await UserModel.findOne({ email });
-    console.log(user);
+  async validateUser(email, password) {
+    const user = await UserModel.findOne({ email: email.toLowerCase() });
     if (user) {
       throw new Error('DUPLICATE_EMAIL');
-    }
-    if (name === '' || name === undefined || name === null) {
-      throw new Error('MISSING_NAME');
     }
     if (!EmailValidator.validate(email)) {
       throw new Error('INVALID_EMAIL');
@@ -35,15 +31,17 @@ const UserServices = {
    * Creates a new user in mongo
    * @param {String} email
    * @param {String} password
-   * @param {String} name
+   * @param {String} firstName
+   * @param {String} lastName
+   * @param {String} preferredName
    * @return {Promise<Object>}
    */
-  async createUser(email, password, name) {
+  async createUser(email, password, firstName, lastName, preferredName) {
     return new Promise((resolve, reject) => {
       bcrypt
         .hash(password, 10)
         .then((hashedPassword) => {
-          UserModel.create({ email, hashedPassword, name }, (err, newUser) => {
+          UserModel.create({ email, hashedPassword, firstName, lastName, preferredName}, (err, newUser) => {
             if (err) {
               reject(err);
             } else {

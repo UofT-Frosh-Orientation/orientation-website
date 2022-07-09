@@ -1,6 +1,6 @@
 const mongoLoader = require('./loaders/mongoLoader');
 const passportLoader = require('./loaders/passportLoader');
-
+const errorResponseMiddleware = require("./middlewares/errorResponseMiddleware");
 const app = require('./app');
 const froshRouter = require('./routes/froshRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -21,6 +21,8 @@ mongoLoader(app).then(() => {
   app.use('/payment', paymentRouter);
   app.use('/announcements', announcementRouter);
   swaggerLoader(app);
+  
+  app.use(errorResponseMiddleware);
 
   app.get('*', (req, res) => {
     res.status(200).send('Hello, Luke!');
