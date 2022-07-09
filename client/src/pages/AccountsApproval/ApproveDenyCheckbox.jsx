@@ -8,7 +8,8 @@ import WhiteCross from '../../assets/misc/xmark-solid-white.svg';
 import GrayCheck from '../../assets/misc/check-solid-gray.svg';
 import WhiteCheck from '../../assets/misc/check-solid-white.svg';
 
-const ApproveDenyCheckbox = ({ style, approve, deny, setApprove, setDeny }) => {
+const ApproveDenyCheckbox = ({ style, approve, deny, setApprove, setDeny, pointerEvents }) => {
+  //console.log(pointerEvents);
   return (
     <div className="approve-deny-checkbox-container" style={style}>
       {/* approve check checkbox */}
@@ -24,6 +25,7 @@ const ApproveDenyCheckbox = ({ style, approve, deny, setApprove, setDeny }) => {
         className={`approve-deny-checkbox ${
           approve ? 'approve-green-check' : 'approve-gray-checkbox'
         }`}
+        style={pointerEvents}
       >
         <img
           className="approve-icon"
@@ -43,6 +45,7 @@ const ApproveDenyCheckbox = ({ style, approve, deny, setApprove, setDeny }) => {
           }
         }}
         className={`approve-deny-checkbox ${deny ? 'approve-red-cross' : 'approve-gray-checkbox'}`}
+        style={pointerEvents}
       >
         <img className="deny-icon" src={`${deny ? WhiteCross : GrayCross}`} alt="deny cross" />
       </div>
@@ -56,6 +59,7 @@ ApproveDenyCheckbox.propTypes = {
   deny: PropTypes.bool,
   setApprove: PropTypes.func,
   setDeny: PropTypes.func,
+  pointerEvents: PropTypes.object,
 };
 
 export { ApproveDenyCheckbox };

@@ -82,7 +82,7 @@ export const TestEmails = [
     valid: true,
     email: 'aaa@gmail.com',
     approved: false,
-    deny: false,
+    deny: true,
   },
   {
     id: 6,

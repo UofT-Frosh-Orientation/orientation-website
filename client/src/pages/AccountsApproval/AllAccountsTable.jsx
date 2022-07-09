@@ -18,6 +18,7 @@ import ArrowLeft from '../../assets/steps/arrow-left-solid-purple.svg';
 const bubbleButtonStyle = {
   borderWidth: '3px',
   marginBottom: '5px',
+  marginTop: '0px',
 };
 
 const AllAccountsTable = ({ numResultsDisplayed }) => {
@@ -27,6 +28,7 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
   const [isSave, setIsSave] = useState(false); // state for whether the save button is clicked
   const [saveSuccess, setSaveSuccess] = useState(false); // displays error or success box depending on bool
   const [currentPage, setCurrentPage] = useState(1); // default to display page 1
+  const [editMode, setEditMode] = useState(false); // not in adit mode
 
   useEffect(() => {
     setEmailList(TestEmails);
@@ -50,7 +52,30 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
   return (
     <div className="all-accounts-container">
       {/* adding buttons */}
-      <div className="all-accounts-buttons">
+
+      {editMode ? (
+        <AllAccountsEditButton
+          accountStatus={accountStatus}
+          editMode={editMode}
+          setEditMode={setEditMode}
+          isApproveVerified={isApproveVerified}
+          setIsApproveVerified={setIsApproveVerified}
+          isSave={isSave}
+          setIsSave={setIsSave}
+        />
+      ) : (
+        <div className="all-accounts-buttons">
+          <Button
+            label="Enter Edit Mode"
+            style={{ marginTop: '0px' }}
+            onClick={() => {
+              setEditMode(true);
+            }}
+          />
+        </div>
+      )}
+
+      {/* <div className="all-accounts-buttons">
         <div className="all-accounts-approve-ver-button">
           <ButtonOutlined
             label={
@@ -69,13 +94,14 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
 
         <Button
           label="Save"
-          style={{ alignSelf: 'start' }}
+          style={{ alignSelf: 'start', marginTop: '0px' }}
           onClick={() => {
             setSaveSuccess(sendApprovedEmails(accountStatus));
             setIsSave(true);
           }}
         />
-      </div>
+      </div> */}
+
       <table className="all-accounts-table">
         <tbody>
           <tr className="all-accounts-table-header-row">
@@ -83,9 +109,8 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
             <th className="all-accounts-table-header-left-align">Email</th>
             <th className="all-accounts-table-header">Approve/Deny</th>
           </tr>
-
           {emailList.map((account) => {
-            numCurrentlyDisplayed++;
+            numCurrentlyDisplayed = numCurrentlyDisplayed + 1;
 
             // only display a certain number of accounts if the number is between the ranges
             if (
@@ -95,12 +120,14 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
               return (
                 <RowComponent
                   key={account.email}
+                  pointerEvents={editMode ? { pointerEvents: 'all' } : { pointerEvents: 'none' }}
                   account={account}
                   accountStatus={accountStatus}
                   setAccountStatus={setAccountStatus}
                   currentPage={currentPage}
                   isApproveVerified={isApproveVerified}
                   setIsApproveVerified={setIsApproveVerified}
+                  setSaveSuccess={setSaveSuccess}
                 />
               );
             }
@@ -189,25 +216,40 @@ const RowComponent = ({
   currentPage,
   isApproveVerified,
   setIsApproveVerified,
+  pointerEvents,
+  setSaveSuccess,
 }) => {
   // get states from the array with info, is appoved=true or deny=true, it will already "light up"
   const [approve, setApprove] = useState(account.approved);
   const [deny, setDeny] = useState(account.deny);
 
   useEffect(() => {
+    setTimeout(() => {
+      if (approve) {
+        setApprove(true);
+        setDeny(false);
+      } else if (deny) {
+        setDeny(true);
+        setApprove(false);
+      }
+    });
+  }, 0);
+
+  useEffect(() => {
     // useEffect that executes when the page changes
     setIsApproveVerified(false);
-    //setAccountStatus({});
     setTimeout(() => {
       setAccountStatus({});
     }, 0);
   }, [currentPage]);
 
   useEffect(() => {
-    // useEffect that executes when approve button is clicked
     if (isApproveVerified && account.valid) {
       setApprove(true);
       setDeny(false);
+    } else if (!account.valid) {
+      setApprove(approve);
+      setDeny(deny);
     } else {
       setApprove(false);
     }
@@ -247,23 +289,85 @@ const RowComponent = ({
           deny={deny}
           setApprove={setApprove}
           setDeny={setDeny}
+          pointerEvents={pointerEvents}
         />
       </td>
     </tr>
   );
 };
 
+const AllAccountsEditButton = ({
+  editMode,
+  setEditMode,
+  isApproveVerified,
+  setIsApproveVerified,
+  isSave,
+  setIsSave,
+  accountStatus,
+  setSaveSuccess,
+}) => {
+  return (
+    <div className="all-accounts-buttons">
+      <div className="all-accounts-approve-ver-button">
+        <ButtonOutlined
+          label={
+            !isApproveVerified ? 'Approved Verified Accounts' : 'Unapprove All Verified Accounts'
+          }
+          style={bubbleButtonStyle}
+          isSecondary={true}
+          onClick={() => {
+            setIsApproveVerified(!isApproveVerified);
+          }}
+        />
+        <p className="all-accounts-approve-ver-note">
+          This only approves accounts on the current page
+        </p>
+      </div>
+
+      <Button
+        label="Save"
+        style={{ alignSelf: 'start', marginTop: '0px' }}
+        onClick={() => {
+          setSaveSuccess(sendApprovedEmails(accountStatus));
+          setIsSave(true);
+        }}
+      />
+
+      <ButtonOutlined
+        label="Exit Edit Mode"
+        style={{ marginTop: '0px', borderWidth: '3px' }}
+        onClick={() => {
+          setEditMode(false);
+        }}
+      />
+    </div>
+  );
+};
+
 RowComponent.propTypes = {
   account: PropTypes.object,
+  accountStatus: PropTypes.object,
   setAccountStatus: PropTypes.func,
   currentPage: PropTypes.number,
   isApproveVerified: PropTypes.bool,
   setIsApproveVerified: PropTypes.func,
-  accountStatus: PropTypes.object,
+  pointerEvents: PropTypes.object,
+  setSaveSuccess: PropTypes.func,
 };
 
 AllAccountsTable.propTypes = {
   numResultsDisplayed: PropTypes.number,
+};
+
+AllAccountsEditButton.propTypes = {
+  editMode: PropTypes.bool,
+  setEditMode: PropTypes.func,
+  isApproveVerified: PropTypes.bool,
+  setIsApproveVerified: PropTypes.func,
+  isSave: PropTypes.bool,
+  setIsSave: PropTypes.func,
+  accountStatus: PropTypes.object,
+  setSaveSuccess: PropTypes.func,
 };
 
 export { AllAccountsTable };
