@@ -193,6 +193,13 @@ export const fields = {
       isPhoneNumber: true,
       inputTitle: 'Phone Number',
     },
+    bursaryRequested: {
+      type: 'radio',
+      label:
+        'Would you like to be considered for a bursary to cover some or all of your registration cost? Note: if you select yes you will still have to pay in full at this time to be considered registered but you will be contacted later this summer to fill out a bursary application form to become eligable to recieve a partial or full refund of your registration cost on a need basis. If you cannont cover the registration cost at this time please contact us at froshweek@orientation.skule.ca',
+      values: ['Yes', 'No'],
+      initialSelectedIndex: 1,
+    },
   },
   HealthSafety: {
     medicalInfo: {
