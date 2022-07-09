@@ -29,6 +29,24 @@ const FroshController = {
       next(e);
     }
   },
+
+  /**
+   * Updates the info of the currently authenticated user.
+   * @param {Object} req
+   * @param {Object} res
+   * @return {Promise<void>}
+   */
+  async updateInfo(req, res, next) {
+    const userId = req.user.id_;
+    const updateInfo = req.body;
+
+    try {
+      await FroshServices.updateFroshInfo(userId, updateInfo);
+      return res.status(200).send({ message: 'Successfully updated Frosh information!' });
+    } catch (e) {
+      next(e);
+    }
+  },
 };
 
 module.exports = FroshController;
