@@ -4,7 +4,7 @@ const TimelineController = {
   async getTimeline(req, res, next) {
     try {
       const allTimelines = await TimelineServices.getAllTimelines();
-      return res.status(200).send({ Timelines: allTimelines });
+      return res.status(200).send({ timelines: allTimelines });
     } catch (e) {
       next(e);
     }
