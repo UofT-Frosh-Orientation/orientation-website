@@ -228,7 +228,10 @@ const ProfilePageQRScanner = () => {
 };
 
 const ProfilePageHeader = ({ leader, editButton }) => {
-  const froshData = getFroshData();
+  const [froshData, setfroshData] = useState({});
+  useEffect(async () => {
+    setfroshData(await getFroshData());
+  }, []);
   return (
     <>
       <div className="profile-page-header">
@@ -277,19 +280,27 @@ ProfilePageHeader.propTypes = {
 };
 
 const ProfilePageAnnouncements = () => {
+  const [tasks, setTasks] = useState([]);
+  useEffect(async () => {
+    setTasks(await getTasks());
+  }, []);
   return (
     <div className="profile-page-announcements">
       <h2 className="profile-page-section-header">Tasks and Announcements</h2>
-      <TaskAnnouncement tasks={getTasks()} onDone={onDoneTask} />
+      <TaskAnnouncement tasks={tasks} onDone={onDoneTask} />
     </div>
   );
 };
 
 const ProfilePageQRCode = () => {
+  const [QRCodeString, setQRCodeString] = useState('');
+  useEffect(async () => {
+    setQRCodeString(await getQRCodeString());
+  }, []);
   return (
     <div className="profile-page-qr-code">
       <QRNormal
-        value={getQRCodeString()}
+        value={QRCodeString}
         styles={{ svg: { width: '120%', margin: '-10%' } }}
         type="round"
         opacity={100}

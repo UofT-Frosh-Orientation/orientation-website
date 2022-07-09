@@ -21,7 +21,6 @@ const FroshController = {
       const frosh = (
         await FroshServices.upgradeToFrosh(user, registrationInfo, payment_intent)
       ).getResponseObject();
-
       // console.log(result)
       if (frosh) {
         res.status(200).send({ url });
