@@ -26,7 +26,7 @@ const PageAccountsApproval = () => {
   return (
     <div className="accounts-approval-page-container">
       <div className="accounts-approval-tabs-container">
-        <Tabs tabs={tabs} />
+        <Tabs tabs={tabs} displayButtons={false} />
       </div>
     </div>
   );
