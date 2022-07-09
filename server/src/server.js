@@ -20,7 +20,6 @@ mongoLoader(app).then(() => {
   app.use('/faq', faqRouter);
   app.use('/payment', paymentRouter);
   app.use('/announcements', announcementRouter);
-
   swaggerLoader(app);
 
   app.get('*', (req, res) => {
