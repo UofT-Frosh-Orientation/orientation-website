@@ -17,7 +17,7 @@ const tabs = [
     component: <AllAccountsTable numResultsDisplayed={numResultsDisplayedProp} />,
   },
   {
-    title: 'Authentication Requests',
+    title: 'Account Permissions',
     component: <AuthenticationRequests />,
   },
 ];

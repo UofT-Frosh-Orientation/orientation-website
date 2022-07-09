@@ -10,29 +10,31 @@ import { TestEmails, sendApprovedEmails } from './functions';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { Button } from '../../components/button/Button/Button';
 import { ApproveDenyCheckbox } from './ApproveDenyCheckbox';
+import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 
 import ArrowRight from '../../assets/steps/arrow-right-solid-purple.svg';
 import ArrowLeft from '../../assets/steps/arrow-left-solid-purple.svg';
 
 const bubbleButtonStyle = {
   borderWidth: '3px',
-};
-const bubbleButtonStyleClick = {
-  borderWidth: '3px',
-  fontWeight: 'bold',
+  marginBottom: '5px',
 };
 
 const AllAccountsTable = ({ numResultsDisplayed }) => {
   const [emailList, setEmailList] = useState(TestEmails); // email list that is displayed
   const [isApproveVerified, setIsApproveVerified] = useState(false); // approve state for emails that match frosh leedur email list
   const [accountStatus, setAccountStatus] = useState({}); // object to send approve deny status to backend
+  const [isSave, setIsSave] = useState(false); // state for whether the save button is clicked
+  const [saveSuccess, setSaveSuccess] = useState(false); // displays error or success box depending on bool
+  const [currentPage, setCurrentPage] = useState(1); // default to display page 1
 
   useEffect(() => {
     setEmailList(TestEmails);
   }, [emailList]);
 
-  // states for displaying n results per page
-  const [currentPage, setCurrentPage] = useState(1); // default to display page 1
+  useEffect(() => {
+    setIsSave(false);
+  }, [currentPage]);
 
   // numResultsDisplayed = the number of results you want to display per page
   let pageNumber = Math.ceil(emailList.length / numResultsDisplayed); // the number of page numbers you will have
@@ -49,22 +51,31 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
     <div className="all-accounts-container">
       {/* adding buttons */}
       <div className="all-accounts-buttons">
-        <ButtonOutlined
-          label={isApproveVerified ? 'Approved Verified Accounts' : 'Approve All Verified Accounts'}
-          style={isApproveVerified ? bubbleButtonStyleClick : bubbleButtonStyle}
-          isSecondary={true}
-          onClick={() => {
-            setIsApproveVerified(!isApproveVerified);
-          }}
-        />
+        <div className="all-accounts-approve-ver-button">
+          <ButtonOutlined
+            label={
+              !isApproveVerified ? 'Approved Verified Accounts' : 'Unapprove All Verified Accounts'
+            }
+            style={bubbleButtonStyle}
+            isSecondary={true}
+            onClick={() => {
+              setIsApproveVerified(!isApproveVerified);
+            }}
+          />
+          <p className="all-accounts-approve-ver-note">
+            This only approves accounts on the current page
+          </p>
+        </div>
+
         <Button
           label="Save"
+          style={{ alignSelf: 'start' }}
           onClick={() => {
-            sendApprovedEmails(accountStatus);
+            setSaveSuccess(sendApprovedEmails(accountStatus));
+            setIsSave(true);
           }}
         />
       </div>
-
       <table className="all-accounts-table">
         <tbody>
           <tr className="all-accounts-table-header-row">
@@ -99,7 +110,10 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
 
       {/* page numbers thing */}
       <div className="accounts-page-number-container">
-        <div className="page-number-arrow-container">
+        <div
+          className="page-number-arrow-container"
+          style={currentPage > 1 ? {} : { pointerEvents: 'none', cursor: 'default' }}
+        >
           <img
             className="page-number-arrow"
             src={ArrowLeft}
@@ -133,7 +147,10 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
             </div>
           );
         })}
-        <div className="page-number-arrow-container">
+        <div
+          className="page-number-arrow-container"
+          style={currentPage < pageNumber ? {} : { pointerEvents: 'none', cursor: 'default' }}
+        >
           <img
             className="page-number-arrow"
             src={ArrowRight}
@@ -146,6 +163,20 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
           />
         </div>
       </div>
+      <p style={{ fontSize: '12px', color: '#b297c7' }}>
+        {' '}
+        Currently displaying as many as <span>{numResultsDisplayed}</span> results per page
+      </p>
+      {isSave ? (
+        <ErrorSuccessBox
+          style={{ margin: '0px 0px' }}
+          content={saveSuccess ? 'Successfully saved!' : 'Unsuccessful save. Please try again!'}
+          success={saveSuccess}
+          error={!saveSuccess}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
@@ -174,7 +205,7 @@ const RowComponent = ({
 
   useEffect(() => {
     // useEffect that executes when approve button is clicked
-    if ((isApproveVerified && account.valid) || approve) {
+    if (isApproveVerified && account.valid) {
       setApprove(true);
       setDeny(false);
     } else {

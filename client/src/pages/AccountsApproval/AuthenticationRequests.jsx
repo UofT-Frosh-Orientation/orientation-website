@@ -10,6 +10,7 @@ import { TestAuth, sendApprovedEmails } from './functions';
 import { Button } from '../../components/button/Button/Button';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { ApproveDenyCheckbox } from './ApproveDenyCheckbox';
+import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 
 const bubbleButtonStyleAuth = {
   fontSize: '14px',
@@ -22,7 +23,10 @@ const bubbleButtonStyleAuth = {
 const AuthenticationRequests = () => {
   const [emailList, setEmailList] = useState(TestAuth); // email list that is displayed
   const [accountStatus, setAccountStatus] = useState({});
-  let accountCount = 0;
+  const [isSave, setIsSave] = useState(false); // state for whether the save button is clicked
+  const [saveSuccess, setSaveSuccess] = useState(false); // displays error or success box depending on bool
+
+  let accountCount = 0; // this is just used to make sure there are unique keys for map
 
   useEffect(() => {
     setEmailList(TestAuth);
@@ -34,7 +38,8 @@ const AuthenticationRequests = () => {
         <Button
           label="Save"
           onClick={() => {
-            sendApprovedEmails(accountStatus);
+            setSaveSuccess(sendApprovedEmails(accountStatus));
+            setIsSave(true);
           }}
         />
       </div>
@@ -62,6 +67,16 @@ const AuthenticationRequests = () => {
           })}
         </tbody>
       </table>
+      {isSave ? (
+        <ErrorSuccessBox
+          style={{ margin: '0px 0px' }}
+          content={saveSuccess ? 'Successfully saved!' : 'Unsuccessful save. Please try again!'}
+          success={saveSuccess}
+          error={!saveSuccess}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
@@ -84,9 +99,6 @@ const RowComponentAuth = ({ account, accountStatus, setAccountStatus, count }) =
         {account.auth.map((authreq) => {
           const [approve, setApprove] = useState(authreq.approve);
           const [deny, setDeny] = useState(authreq.deny);
-
-          console.log('approve: ', approve);
-          console.log('approve: ', deny);
 
           useEffect(() => {
             if (approveAll) {
@@ -136,7 +148,7 @@ const RowComponentAuth = ({ account, accountStatus, setAccountStatus, count }) =
         })}
 
         <ButtonOutlined
-          label={approveAll ? 'Approved All' : 'Approve All Requested Scopes'}
+          label={approveAll ? 'Unapproved All Scopes' : 'Approve All Scopes'}
           style={bubbleButtonStyleAuth}
           isSecondary={true}
           onClick={() => {

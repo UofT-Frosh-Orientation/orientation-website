@@ -2,7 +2,8 @@ export function sendApprovedEmails(object) {
   // parameter: an array of all the approved and denied emails
   console.log('saving approved emails');
   console.log(object);
-  return;
+
+  return true; // return true for successful save
 }
 // NOTE: object looks like below,
 let approveEmails = {
@@ -20,6 +21,8 @@ export function sendAuthRequests(object) {
   // parameter: an array of emails and approved or denied auth requests
   console.log('saving authentication request responses');
   console.log(object);
+
+  return true; // return true for successful save
 }
 // NOTE: object looks like below,
 let authRequests = {

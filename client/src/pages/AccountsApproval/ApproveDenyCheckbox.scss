@@ -15,18 +15,27 @@
   height: 20px;
   border-radius: 3px;
   cursor: pointer;
+  transition: transform 200ms;
+
+  &:hover {
+    transform: scale(1.07);
+    transition: transform 200ms;
+  }
 }
 .approve-gray-checkbox {
   color: var(--gray);
   border: 3px solid var(--gray);
+  transition: background-color 400ms;
 }
 .approve-green-check {
-  background: var(--green-success);
+  background-color: var(--green-success);
   border: 3px solid var(--green-success);
+  transition: background-color 400ms;
 }
 .approve-red-cross {
-  background: var(--red-error);
+  background-color: var(--red-error);
   border: 3px solid var(--red-error);
+  transition: background-color 400ms;
 }
 
 .approve-icon {

@@ -40,8 +40,18 @@
 .all-accounts-buttons {
   display: flex;
   flex-direction: row;
-  padding: 10px;
+  padding: 10px 10px 15px 10px;
   justify-content: center;
+}
+.all-accounts-approve-ver-button {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+}
+.all-accounts-approve-ver-note {
+  font-size: 12px;
+  text-align: center;
+  color: var(--red-error);
 }
 .all-accounts-table {
   width: 100%;
