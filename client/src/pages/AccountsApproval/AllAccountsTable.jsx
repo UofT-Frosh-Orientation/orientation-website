@@ -29,6 +29,7 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
   const [saveSuccess, setSaveSuccess] = useState(false); // displays error or success box depending on bool
   const [currentPage, setCurrentPage] = useState(1); // default to display page 1
   const [editMode, setEditMode] = useState(false); // not in adit mode
+  const [changesMade, setChangesMade] = useState(false);
 
   useEffect(() => {
     setEmailList(TestEmails);
@@ -62,6 +63,9 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
           setIsApproveVerified={setIsApproveVerified}
           isSave={isSave}
           setIsSave={setIsSave}
+          changesMade={changesMade}
+          setChangesMade={setChangesMade}
+          setSaveSuccess={setSaveSuccess}
         />
       ) : (
         <div className="all-accounts-buttons">
@@ -128,6 +132,8 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
                   isApproveVerified={isApproveVerified}
                   setIsApproveVerified={setIsApproveVerified}
                   setSaveSuccess={setSaveSuccess}
+                  changesMade={changesMade}
+                  setChangesMade={setChangesMade}
                 />
               );
             }
@@ -218,6 +224,8 @@ const RowComponent = ({
   setIsApproveVerified,
   pointerEvents,
   setSaveSuccess,
+  changesMade,
+  setChangesMade,
 }) => {
   // get states from the array with info, is appoved=true or deny=true, it will already "light up"
   const [approve, setApprove] = useState(account.approved);
@@ -290,6 +298,8 @@ const RowComponent = ({
           setApprove={setApprove}
           setDeny={setDeny}
           pointerEvents={pointerEvents}
+          changesMade={changesMade}
+          setChangesMade={setChangesMade}
         />
       </td>
     </tr>
@@ -305,7 +315,13 @@ const AllAccountsEditButton = ({
   setIsSave,
   accountStatus,
   setSaveSuccess,
+  changesMade,
+  setChangesMade,
 }) => {
+  useEffect(() => {
+    setChangesMade(changesMade);
+  }, [changesMade]);
+
   return (
     <div className="all-accounts-buttons">
       <div className="all-accounts-approve-ver-button">
@@ -317,6 +333,7 @@ const AllAccountsEditButton = ({
           isSecondary={true}
           onClick={() => {
             setIsApproveVerified(!isApproveVerified);
+            setChangesMade(true);
           }}
         />
         <p className="all-accounts-approve-ver-note">
@@ -324,22 +341,30 @@ const AllAccountsEditButton = ({
         </p>
       </div>
 
-      <Button
-        label="Save"
-        style={{ alignSelf: 'start', marginTop: '0px' }}
-        onClick={() => {
-          setSaveSuccess(sendApprovedEmails(accountStatus));
-          setIsSave(true);
-        }}
-      />
-
-      <ButtonOutlined
-        label="Exit Edit Mode"
-        style={{ marginTop: '0px', borderWidth: '3px' }}
-        onClick={() => {
-          setEditMode(false);
-        }}
-      />
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <Button
+          label="Save"
+          style={{ alignSelf: 'start', marginTop: '0px', marginBottom: '5px' }}
+          onClick={() => {
+            setIsSave(true);
+            setSaveSuccess(sendApprovedEmails(accountStatus));
+          }}
+        />
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <ButtonOutlined
+            label="Exit Edit Mode"
+            style={{ marginTop: '0px', borderWidth: '3px', marginBottom: '5px' }}
+            onClick={() => {
+              setEditMode(false);
+            }}
+          />
+          {changesMade ? (
+            <p className="all-accounts-approve-ver-note">Please save your changes!</p>
+          ) : (
+            <></>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
@@ -353,6 +378,8 @@ RowComponent.propTypes = {
   setIsApproveVerified: PropTypes.func,
   pointerEvents: PropTypes.object,
   setSaveSuccess: PropTypes.func,
+  changesMade: PropTypes.bool,
+  setChangesMade: PropTypes.func,
 };
 
 AllAccountsTable.propTypes = {
@@ -368,6 +395,8 @@ AllAccountsEditButton.propTypes = {
   setIsSave: PropTypes.func,
   accountStatus: PropTypes.object,
   setSaveSuccess: PropTypes.func,
+  changesMade: PropTypes.bool,
+  setChangesMade: PropTypes.func,
 };
 
 export { AllAccountsTable };
