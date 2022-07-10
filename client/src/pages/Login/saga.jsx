@@ -13,7 +13,7 @@ export function* loginSaga({ payload: { email, password } }) {
     const result = yield call(axios.post, '/user/login', { email, password });
     yield put(loginSuccess(result.data.user));
   } catch (error) {
-    yield put(loginFail(error));
+    yield put(loginFail(error.response.data));
   }
 }
 
@@ -34,8 +34,6 @@ export function* getUserInfoSaga({ payload: navigate }) {
 export const updateUserInfo = createAction('updateUserInfoSaga');
 
 export function* updateUserInfoSaga({ payload: { newInfo, navigate } }) {
-  console.log(newInfo);
-  console.log('Updating');
   const { axios } = useAxios();
   try {
     const result = yield call(axios.put, '/frosh/info', newInfo);
@@ -44,7 +42,21 @@ export function* updateUserInfoSaga({ payload: { newInfo, navigate } }) {
     navigate('/profile');
   } catch (error) {
     console.log(error);
-    yield put(loginFail(error));
+    yield put(loginFail(error.response.data));
+  }
+}
+
+export const signUp = createAction('createUserSaga');
+
+export function* createUserSaga({ payload: user }) {
+  const { axios } = useAxios();
+  try {
+    yield put(loginStart());
+    const result = yield call(axios.post, '/user/signup', user);
+    yield put(loginSuccess(result.data.user));
+  } catch (error) {
+    console.log(error);
+    yield put(loginFail(error.response.data));
   }
 }
 
@@ -52,4 +64,5 @@ export default function* userSaga() {
   yield takeLeading(login.type, loginSaga);
   yield takeLeading(getUserInfo.type, getUserInfoSaga);
   yield takeLeading(updateUserInfo.type, updateUserInfoSaga);
+  yield takeLeading(signUp.type, createUserSaga);
 }

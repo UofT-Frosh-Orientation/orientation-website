@@ -9,6 +9,9 @@ import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSelector } from '../userSlice';
+import { signUp } from '../Login/saga';
 
 const PageSignUp = () => {
   const [errors, setErrors] = useState({});
@@ -16,6 +19,23 @@ const PageSignUp = () => {
   const [anyErrors, setAnyErrors] = useState({});
   const [pageState, setPageState] = useState('form');
   const [signUpError, setSignUpError] = useState('');
+  const { user, loading, error } = useSelector(userSelector);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (loading) {
+      setPageState('loading');
+    } else if (error) {
+      setPageState('form');
+      setErrors(error);
+    } else if (user) {
+      setPageState('success');
+    }
+  }, [user, error, loading]);
+
+  const submitForm = () => {
+    dispatch(signUp(accountObj));
+  };
 
   const checkErrors = (sendFeedback = true, feedbackToSend = []) => {
     let anyErrorsNow = false;
@@ -168,14 +188,15 @@ const PageSignUp = () => {
               onClick={async () => {
                 const anyErrors = checkErrors(true);
                 if (anyErrors === false) {
-                  setPageState('loading');
-                  const result = await signUpUser(accountObj);
-                  if (result !== true) {
-                    setPageState('form');
-                    setSignUpError(result);
-                  } else {
-                    setPageState('success');
-                  }
+                  // setPageState('loading');
+                  // const result = await signUpUser(accountObj);
+                  // if (result !== true) {
+                  //   setPageState('form');
+                  //   setSignUpError(result);
+                  // } else {
+                  //   setPageState('success');
+                  // }
+                  submitForm();
                 }
               }}
             />
