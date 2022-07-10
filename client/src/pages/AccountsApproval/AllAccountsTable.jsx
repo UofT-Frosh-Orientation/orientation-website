@@ -37,6 +37,7 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
 
   useEffect(() => {
     setIsSave(false);
+    setEditMode(false);
   }, [currentPage]);
 
   // numResultsDisplayed = the number of results you want to display per page
@@ -78,34 +79,6 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
           />
         </div>
       )}
-
-      {/* <div className="all-accounts-buttons">
-        <div className="all-accounts-approve-ver-button">
-          <ButtonOutlined
-            label={
-              !isApproveVerified ? 'Approved Verified Accounts' : 'Unapprove All Verified Accounts'
-            }
-            style={bubbleButtonStyle}
-            isSecondary={true}
-            onClick={() => {
-              setIsApproveVerified(!isApproveVerified);
-            }}
-          />
-          <p className="all-accounts-approve-ver-note">
-            This only approves accounts on the current page
-          </p>
-        </div>
-
-        <Button
-          label="Save"
-          style={{ alignSelf: 'start', marginTop: '0px' }}
-          onClick={() => {
-            setSaveSuccess(sendApprovedEmails(accountStatus));
-            setIsSave(true);
-          }}
-        />
-      </div> */}
-
       <table className="all-accounts-table">
         <tbody>
           <tr className="all-accounts-table-header-row">
@@ -134,6 +107,7 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
                   setSaveSuccess={setSaveSuccess}
                   changesMade={changesMade}
                   setChangesMade={setChangesMade}
+                  editMode={editMode}
                 />
               );
             }
@@ -226,10 +200,31 @@ const RowComponent = ({
   setSaveSuccess,
   changesMade,
   setChangesMade,
+  editMode,
 }) => {
   // get states from the array with info, is appoved=true or deny=true, it will already "light up"
   const [approve, setApprove] = useState(account.approved);
   const [deny, setDeny] = useState(account.deny);
+
+  // initial states
+  const initialApprove = account.approved;
+  const initialDeny = account.deny;
+  console.log('approve', initialApprove);
+  console.log('deny', initialDeny);
+
+  useEffect(() => {
+    // if (initialApprove) {
+    //   setApprove(true);
+    //   setDeny(false)
+    // } else if (initialDeny) {
+    //   setDeny(true);
+    //   setApprove(false)
+    // }
+    if (!editMode) {
+      setApprove(initialApprove);
+      setDeny(initialDeny);
+    }
+  });
 
   useEffect(() => {
     setTimeout(() => {
@@ -322,6 +317,15 @@ const AllAccountsEditButton = ({
     setChangesMade(changesMade);
   }, [changesMade]);
 
+  useEffect(() => {
+    setIsSave(isSave);
+  }, [isSave]);
+
+  useEffect(() => {
+    setEditMode(editMode);
+    setChangesMade(false);
+  }, [editMode]);
+
   return (
     <div className="all-accounts-buttons">
       <div className="all-accounts-approve-ver-button">
@@ -358,7 +362,7 @@ const AllAccountsEditButton = ({
               setEditMode(false);
             }}
           />
-          {changesMade ? (
+          {(changesMade && isSave) || changesMade ? (
             <p className="all-accounts-approve-ver-note">Please save your changes!</p>
           ) : (
             <></>
@@ -380,6 +384,7 @@ RowComponent.propTypes = {
   setSaveSuccess: PropTypes.func,
   changesMade: PropTypes.bool,
   setChangesMade: PropTypes.func,
+  editMode: PropTypes.bool,
 };
 
 AllAccountsTable.propTypes = {
