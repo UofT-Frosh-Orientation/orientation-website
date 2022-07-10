@@ -31,6 +31,8 @@ import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOut
 import EditIcon from '../../assets/misc/pen-solid.svg';
 import { Link } from 'react-router-dom';
 import { resources } from '../../util/resources';
+import { useSelector } from 'react-redux';
+import { userSelector } from '../userSlice';
 
 const PageProfile = () => {
   const qrCodeLeader = canLeaderScanQR();
@@ -228,26 +230,23 @@ const ProfilePageQRScanner = () => {
 };
 
 const ProfilePageHeader = ({ leader, editButton }) => {
-  const [froshData, setfroshData] = useState({});
-  useEffect(async () => {
-    setfroshData(await getFroshData());
-  }, []);
+  const { user } = useSelector(userSelector);
   return (
     <>
       <div className="profile-page-header">
         <div className="profile-page-header-group">
-          <h1>{froshData['froshGroupIcon']}</h1>
-          <p>{froshData['froshGroup']}</p>
+          <h1>{user['froshGroupIcon']}</h1>
+          <p>{user['froshGroup']}</p>
           {leader === true ? <p>{'(Leader)'}</p> : <></>}
         </div>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-info">
             <p className="profile-page-name-title">
-              <b>{froshData['firstName']}</b> {froshData['lastName']}
+              <b>{user['firstName']}</b> {user['lastName']}
             </p>
-            <p>{`Incoming ${froshData['discipline']} student`}</p>
+            <p>{`Incoming ${user['discipline']} student`}</p>
             <p>
-              <u>{froshData['email']}</u>
+              <u>{user['email']}</u>
             </p>
           </div>
           <div className="profile-page-header-class desktop-only">

@@ -36,11 +36,16 @@ const FroshServices = {
    */
   async upgradeToFrosh(user, newInfo, paymentIntent) {
     const frosh = FroshModel.hydrate(user.toObject());
+    const { pronouns, discipline } = newInfo;
     frosh.set({
       ...newInfo,
       userType: 'frosh',
       payments: [{ item: 'Orientation Ticket', paymentIntent, amountDue: 13000 }],
     });
+    const froshGroup = await FroshGroupModel.findOne({ name: newInfo.froshGroup });
+    froshGroup[pronouns]++;
+    froshGroup[discipline]++;
+    await froshGroup.save();
     return await frosh.save();
   },
 

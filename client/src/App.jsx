@@ -6,14 +6,21 @@ import { InitialPage } from './pages/Initial/Initial';
 import { pages } from './util/pages';
 import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/footer/Footer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { initialsSelector, loggedInSelector, registeredSelector } from './pages/userSlice';
+import { useEffect } from 'react';
+import { getUserInfo } from './pages/Login/saga';
 
 export default function App() {
   const initial = import.meta.env.MODE === 'production';
+  const dispatch = useDispatch();
   if (initial) {
     return <InitialPage />;
   }
+  useEffect(() => {
+    dispatch(getUserInfo());
+  }, []);
+
   return (
     <BrowserRouter>
       <TransitionRoutes />

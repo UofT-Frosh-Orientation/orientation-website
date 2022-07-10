@@ -10,9 +10,11 @@ import { Tabs } from '../../components/tabs/tabs';
 import './RegistrationForm.scss';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PopupModal } from '../../components/popup/PopupModal';
 import useAxios from '../../hooks/useAxios';
+import { registeredSelector, userSelector } from '../userSlice';
+import { useSelector } from 'react-redux';
 
 const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
   const steps = Object.keys(fields);
@@ -25,6 +27,16 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   const [checkoutUrl, setCheckoutUrl] = useState('');
 
   const { axios } = useAxios();
+
+  const navigate = useNavigate();
+
+  const registered = useSelector(registeredSelector);
+
+  useEffect(() => {
+    if (registered) {
+      navigate('/profile');
+    }
+  }, []);
 
   const handleRegister = async () => {
     setCanRegister(false);
