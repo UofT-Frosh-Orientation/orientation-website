@@ -28,10 +28,6 @@ export default function App() {
   );
 }
 
-function froshInitials() {
-  return 'NL';
-}
-
 const TransitionRoutes = () => {
   const location = useLocation();
   const loggedIn = useSelector(loggedInSelector);
