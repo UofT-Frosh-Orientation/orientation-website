@@ -33,7 +33,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   const registered = useSelector(registeredSelector);
 
   useEffect(() => {
-    if (registered) {
+    if (registered && !editFieldsPage) {
       navigate('/profile');
     }
   }, []);
@@ -162,7 +162,9 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   label={field.label}
                   disabledIndices={field.disabledIndices}
                   initialSelectedIndex={
-                    editFieldsPage === true ? initialValues[key] : field.initialSelectedIndex
+                    editFieldsPage === true
+                      ? field.values.findIndex((val) => (val === 'Yes') === initialValues[key])
+                      : field.initialSelectedIndex
                   }
                   values={field.values}
                   onSelected={(value) => {
@@ -184,7 +186,9 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
                   initialSelectedIndex={
-                    editFieldsPage === true ? initialValues[key] : field.initialSelectedIndex
+                    editFieldsPage === true
+                      ? field.values.findIndex((val) => val === initialValues[key])
+                      : field.initialSelectedIndex
                   }
                   values={field.values}
                   onSelect={(value) => {
@@ -207,12 +211,19 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   label={field.label}
                   disabledIndices={field.disabledIndices}
                   initialSelectedIndices={
-                    editFieldsPage === true ? initialValues[key] : field.initialSelectedIndices
+                    editFieldsPage === true
+                      ? field.values.reduce((prev, curr, index) => {
+                          if (initialValues[key].includes(curr)) {
+                            prev.push(index);
+                          }
+                          return prev;
+                        }, [])
+                      : field.initialSelectedIndices
                   }
                   maxCanSelect={field.maxCanSelect}
                   onSelected={(value, index, status, indicesSelected) => {
                     let values = [];
-                    for (let i = 0; i < indicesSelected.length; i++) {
+                    for (let i = 0; i < indicesSelected?.length ?? 0; i++) {
                       values.push(field.values[i]);
                     }
                     froshObject[key] = values;

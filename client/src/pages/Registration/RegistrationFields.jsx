@@ -10,7 +10,7 @@
 // validation(value): if set, return true for a valid input, return a string as the error message. The check will fail if a string is returned.
 export const fields = {
   General: {
-    name: {
+    legalName: {
       type: 'text',
       inputType: 'text',
       placeholder: 'John Doe',

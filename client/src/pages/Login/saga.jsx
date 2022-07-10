@@ -20,7 +20,6 @@ export function* loginSaga({ payload: { email, password } }) {
 export const getUserInfo = createAction('getUserInfoSaga');
 
 export function* getUserInfoSaga({ payload: navigate }) {
-  console.log('Getting user info');
   const { axios } = useAxios();
   try {
     const result = yield call(axios.get, '/user/info');
@@ -32,7 +31,25 @@ export function* getUserInfoSaga({ payload: navigate }) {
   }
 }
 
+export const updateUserInfo = createAction('updateUserInfoSaga');
+
+export function* updateUserInfoSaga({ payload: { newInfo, navigate } }) {
+  console.log(newInfo);
+  console.log('Updating');
+  const { axios } = useAxios();
+  try {
+    const result = yield call(axios.put, '/frosh/info', newInfo);
+    console.log(result);
+    yield put(setUserInfo(result.data.user));
+    navigate('/profile');
+  } catch (error) {
+    console.log(error);
+    yield put(loginFail(error));
+  }
+}
+
 export default function* userSaga() {
   yield takeLeading(login.type, loginSaga);
   yield takeLeading(getUserInfo.type, getUserInfoSaga);
+  yield takeLeading(updateUserInfo.type, updateUserInfoSaga);
 }

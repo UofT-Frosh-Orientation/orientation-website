@@ -50,7 +50,7 @@ const PageProfileFrosh = ({ leader }) => {
   return (
     <>
       <div className="navbar-space-top" />
-      <ProfilePageHeader leader={leader} />
+      <ProfilePageHeader leader={leader} editButton={true} />
       <div className="profile-info-row">
         <div>
           {leader === false || leader === undefined ? (
@@ -231,6 +231,7 @@ const ProfilePageQRScanner = () => {
 
 const ProfilePageHeader = ({ leader, editButton }) => {
   const { user } = useSelector(userSelector);
+  console.log(`editButton: ${editButton}`);
   return (
     <>
       <div className="profile-page-header">

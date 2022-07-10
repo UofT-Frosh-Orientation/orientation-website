@@ -45,6 +45,6 @@ router.post('/register', checkLoggedIn, FroshController.registerFrosh);
  *                   type: string
  *                   example: Please sign in to access this route!
  */
-router.put('/updateInfo', checkLoggedIn, FroshController.updateInfo);
+router.put('/info', checkLoggedIn, FroshController.updateInfo);
 
 module.exports = router;

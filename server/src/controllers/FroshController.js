@@ -39,13 +39,17 @@ const FroshController = {
    * @return {Promise<void>}
    */
   async updateInfo(req, res, next) {
-    const userId = req.user.id_;
+    const userId = req.user.id;
     const updateInfo = req.body;
 
     try {
-      await FroshServices.updateFroshInfo(userId, updateInfo);
-      return res.status(200).send({ message: 'Successfully updated Frosh information!' });
+      const frosh = await FroshServices.updateFroshInfo(userId, updateInfo);
+      return res.status(200).send({
+        message: 'Successfully updated Frosh information!',
+        user: frosh.getResponseObject(),
+      });
     } catch (e) {
+      console.log(e);
       next(e);
     }
   },

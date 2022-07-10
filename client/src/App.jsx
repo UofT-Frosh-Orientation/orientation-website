@@ -37,7 +37,7 @@ const TransitionRoutes = () => {
   const loggedIn = useSelector(loggedInSelector);
   const registered = useSelector(registeredSelector);
   const initials = useSelector(initialsSelector);
-  // console.log(loggedIn)
+  console.log(loggedIn);
   return (
     <TransitionGroup>
       <Navbar isLoggedIn={loggedIn} froshInitials={initials} isRegistered={registered} />

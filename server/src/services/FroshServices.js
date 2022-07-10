@@ -88,13 +88,19 @@ const FroshServices = {
 
   async updateFroshInfo(userId, updateInfo) {
     return new Promise((resolve, reject) => {
-      FroshModel.findOneAndUpdate({ _id: userId }, { updateInfo }, (err, Frosh) => {
-        if (err || !Frosh) {
-          reject('UNABLE_TO_UPDATE_FROSH');
-        } else {
-          resolve(Frosh);
-        }
-      });
+      FroshModel.findOneAndUpdate(
+        { _id: userId },
+        updateInfo,
+        { returnDocument: 'after' },
+        (err, Frosh) => {
+          if (err || !Frosh) {
+            reject('UNABLE_TO_UPDATE_FROSH');
+          } else {
+            console.log(Frosh);
+            resolve(Frosh);
+          }
+        },
+      );
     });
   },
 };

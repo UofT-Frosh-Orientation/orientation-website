@@ -7,6 +7,7 @@ export const sagaMiddleware = createSagaMiddleware();
 export default function configureAppStore() {
   return configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware),
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({ serializableCheck: false }).concat(sagaMiddleware),
   });
 }

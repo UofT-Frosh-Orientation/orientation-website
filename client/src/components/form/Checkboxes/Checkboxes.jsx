@@ -12,7 +12,15 @@ const Checkboxes = ({
 }) => {
   useEffect(() => {
     if (initialSelectedIndices !== undefined) {
-      onSelected(initialSelectedIndices);
+      values.map((value, index) => {
+        const initialSelectedIndicesCopy = [...initialSelectedIndices];
+        onSelected(
+          value,
+          index,
+          initialSelectedIndices.includes(index),
+          initialSelectedIndicesCopy,
+        );
+      });
     }
   }, []);
 
@@ -49,6 +57,7 @@ const Checkboxes = ({
                       : initialSelectedIndices.includes(index)
                   }
                   onClick={() => {
+                    console.log('Clicked');
                     if (selectedIndices.includes(index)) {
                       let selectedIndicesCopy = [
                         ...selectedIndices.filter((valIndex) => index !== valIndex),
@@ -62,6 +71,8 @@ const Checkboxes = ({
                       let selectedIndicesCopy = [...selectedIndices];
                       selectedIndicesCopy.push(index);
                       setSelectedIndices(selectedIndicesCopy);
+                      console.log(selectedIndicesCopy);
+                      console.log(value, index);
                       onSelected(value, index, true, selectedIndicesCopy);
                       if (selectedIndicesCopy.length >= maxCanSelect) {
                         setIsAllDisabled(true);

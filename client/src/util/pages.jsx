@@ -79,7 +79,11 @@ export const pages = {
     },
     {
       label: 'Registration',
-      component: <PageRegistrationForm />,
+      component: (
+        <AuthorizedPage>
+          <PageRegistrationForm />
+        </AuthorizedPage>
+      ),
       path: '/registration',
       includeFooter: true,
     },

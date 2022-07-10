@@ -167,6 +167,10 @@ const FroshSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    legalName: {
+      type: String,
+      required: true,
+    },
   },
   { discriminatorKey: 'userType', strict: true },
 );
