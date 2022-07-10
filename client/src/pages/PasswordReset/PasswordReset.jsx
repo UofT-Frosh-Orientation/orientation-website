@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
+
 import './PasswordReset.scss';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import { TextInput } from '../../components/input/TextInput/TextInput';
@@ -11,6 +12,7 @@ import { resetPassword } from '../Login/saga';
 import { passwordResetSelector } from '../userSlice';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
+
 
 export const PasswordReset = () => {
   const { token } = useParams();
@@ -63,6 +65,7 @@ export const PasswordReset = () => {
     }
     setAnyErrors(anyErrors);
     return anyErrors;
+
   };
 
   useEffect(() => {
