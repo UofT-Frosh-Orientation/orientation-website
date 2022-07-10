@@ -11,14 +11,17 @@ const UserController = {
    */
   async signup(req, res, next) {
     try {
-
       const { email, password, firstName, lastName, preferredName } = req.body;
-      
-      
-      await UserServices.validateUser(email.toLowerCase(), password, firstName, lastName);  
-      
-      
-      const user = await UserServices.createUser(email.toLowerCase(), password, firstName, lastName, preferredName);
+
+      await UserServices.validateUser(email.toLowerCase(), password, firstName, lastName);
+
+      const user = await UserServices.createUser(
+        email.toLowerCase(),
+        password,
+        firstName,
+        lastName,
+        preferredName,
+      );
 
       req.logIn(user, (err) => {
         if (err) {
@@ -79,6 +82,14 @@ const UserController = {
         return res.status(200).send({ message: 'Successfully logged out!' });
       }
     });
+  },
+
+  async requestPasswordReset(req, res, next) {
+    console.log(req, res);
+  },
+
+  async resetPassword(req, res, next) {
+    console.log(req, res);
   },
 };
 

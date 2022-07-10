@@ -1,10 +1,12 @@
 const bcrypt = require('bcrypt');
 const EmailValidator = require('email-validator');
+const jwt = require('jsonwebtoken');
 
 const UserModel = require('../models/UserModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
 
-const passwordValidator = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
+const passwordValidator =
+  /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
 
 const UserServices = {
   /**
@@ -41,18 +43,55 @@ const UserServices = {
       bcrypt
         .hash(password, 10)
         .then((hashedPassword) => {
-          UserModel.create({ email, hashedPassword, firstName, lastName, preferredName}, (err, newUser) => {
-            if (err) {
-              reject(err);
-            } else {
-              newUserSubscription.add(newUser);
-              resolve(newUser);
-            }
-          });
+          UserModel.create(
+            { email, hashedPassword, firstName, lastName, preferredName },
+            (err, newUser) => {
+              if (err) {
+                reject(err);
+              } else {
+                newUserSubscription.add(newUser);
+                resolve(newUser);
+              }
+            },
+          );
         })
         .catch((err) => {
           reject(err);
         });
+    });
+  },
+
+  async generatePasswordResetToken(email) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOne({ email }, (err, user) => {
+        if (err) {
+          reject(err);
+        } else if (!user) {
+          reject('INVALID_EMAIL');
+        } else {
+          const { email } = user;
+          jwt.sign({ email }, process.env.JWT_RESET_TOKEN, { expiresIn: '7d' }, (err, token) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(token);
+            }
+          });
+        }
+      });
+    });
+  },
+
+  async validatePasswordResetToken(token) {
+    return new Promise((resolve, reject) => {
+      jwt.verify(token, process.env.JWT_RESET_TOKEN, (err, decoded) => {
+        if (err) {
+          reject(err);
+        } else {
+          const { email } = decoded;
+          resolve(email);
+        }
+      });
     });
   },
 };

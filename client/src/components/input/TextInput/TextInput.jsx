@@ -23,6 +23,7 @@ const TextInput = ({
   isInstagram,
   isUtorID,
   maxLength,
+  autocomplete,
 }) => {
   useEffect(() => {
     if (localStorageKey !== undefined) {
@@ -133,6 +134,7 @@ const TextInput = ({
             value={value}
             placeholder={placeholder}
             type={type}
+            autoComplete={autocomplete}
             onChange={onInputChange}
             {...inputArgs}
           />
@@ -150,6 +152,7 @@ const TextInput = ({
             value={value}
             placeholder={placeholder}
             type={type}
+            autoComplete={autocomplete}
             onChange={onInputChange}
             {...inputArgs}
           />
@@ -192,6 +195,7 @@ TextInput.propTypes = {
   isInstagram: PropTypes.bool,
   isUtorID: PropTypes.bool,
   maxLength: PropTypes.number,
+  autocomplete: PropTypes.string,
 };
 
 export { TextInput };
