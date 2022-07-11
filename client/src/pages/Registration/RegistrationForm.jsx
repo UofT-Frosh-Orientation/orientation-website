@@ -223,8 +223,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   maxCanSelect={field.maxCanSelect}
                   onSelected={(value, index, status, indicesSelected) => {
                     let values = [];
-                    for (let i = 0; i < indicesSelected?.length ?? 0; i++) {
-                      values.push(field.values[i]);
+                    for (let index of indicesSelected) {
+                      values.push(field.values[index]);
                     }
                     froshObject[key] = values;
                     if (field.onChanged) field.onChanged(value, disableField);
