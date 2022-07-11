@@ -186,7 +186,7 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
       )}
       <p style={{ fontSize: '12px', color: '#b297c7', marginTop: '10px' }}>
         {' '}
-        Currently displaying as many as <span>{numResultsDisplayed}</span> results per page
+        Displaying as many as <span>{numResultsDisplayed}</span> results per page
       </p>
 
       {showSaveMessage ? (
@@ -221,20 +221,13 @@ const RowComponent = ({
 }) => {
   // get states from the array with info, is appoved=true or deny=true, it will already "light up"
   const [approve, setApprove] = useState(account.approved);
-  const [deny, setDeny] = useState(account.deny);
+  const [deny, setDeny] = useState(!account.approved);
 
   // initial states --- from backend
   const initialApprove = account.approved;
-  const initialDeny = account.deny;
+  const initialDeny = !account.approved;
 
   useEffect(() => {
-    // if (initialApprove) {
-    //   setApprove(true);
-    //   setDeny(false)
-    // } else if (initialDeny) {
-    //   setDeny(true);
-    //   setApprove(false)
-    // }
     if (!editMode && !isSave) {
       // if exiting exit mode, and save button not pressed
       setApprove(initialApprove);
@@ -291,7 +284,7 @@ const RowComponent = ({
         deny: deny,
       };
     }
-  }, [approve, deny, currentPage]);
+  }, [approve, deny, currentPage, editMode]);
 
   return (
     <tr className="all-accounts-row" key={account.email}>

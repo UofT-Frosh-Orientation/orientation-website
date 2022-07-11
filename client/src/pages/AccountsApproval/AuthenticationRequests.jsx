@@ -148,22 +148,10 @@ const RowComponentAuth = ({
       <td className="all-account-data">
         {account.auth.map((authreq) => {
           const [approve, setApprove] = useState(authreq.approve);
-          const [deny, setDeny] = useState(authreq.deny);
+          const [deny, setDeny] = useState(!authreq.approve);
 
           const initialApprove = authreq.approve;
-          const initialDeny = authreq.deny;
-
-          // useEffect(() => {
-          //   setTimeout(() => {
-          //     if (approve) {
-          //       setApprove(true);
-          //       setDeny(false);
-          //     } else if (deny) {
-          //       setDeny(true);
-          //       setApprove(false);
-          //     }
-          //   }, 0);
-          // });
+          const initialDeny = !authreq.approve;
 
           useEffect(() => {
             if (approveAll) {
