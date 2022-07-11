@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, createRef } from 'react';
 import PropTypes from 'prop-types';
 import './ImageCarousel.scss';
-import { Text } from '../text/Text/Text';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
