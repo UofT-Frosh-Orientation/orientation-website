@@ -98,6 +98,7 @@ export const fields = {
         'Track One (Undeclared)',
       ],
       className: 'inline-block-remaining',
+      initialSelectedIndex: 0,
     },
     shirtSize: {
       type: 'dropdown',
