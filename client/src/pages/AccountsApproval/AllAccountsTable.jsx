@@ -29,7 +29,7 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
   const [showSaveMessage, setShowSaveMessage] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false); // displays error or success box depending on bool
   const [currentPage, setCurrentPage] = useState(1); // default to display page 1
-  const [editMode, setEditMode] = useState(false); // not in adit mode
+  const [editMode, setEditMode] = useState(false); // not in edit mode
   const [changesMade, setChangesMade] = useState(false);
 
   useEffect(() => {

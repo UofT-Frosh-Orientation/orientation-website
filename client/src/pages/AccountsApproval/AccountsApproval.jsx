@@ -9,7 +9,7 @@ import { AllAccountsTable } from './AllAccountsTable';
 import { AuthenticationRequests } from './AuthenticationRequests';
 
 // number of results you would like to display on the All Accounts tab
-const numResultsDisplayedProp = 3;
+const numResultsDisplayedProp = 50;
 
 const tabs = [
   {

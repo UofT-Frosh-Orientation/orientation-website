@@ -6,7 +6,7 @@ import './AccountsApproval.scss';
 import './AccountsPageNumber.scss';
 import './ApproveDenyCheckbox.scss';
 
-import { TestAuth, sendApprovedEmails } from './functions';
+import { TestAuth, sendAuthRequests } from './functions';
 import { Button } from '../../components/button/Button/Button';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { ApproveDenyCheckbox } from './ApproveDenyCheckbox';
@@ -26,6 +26,8 @@ const AuthenticationRequests = () => {
   const [isSave, setIsSave] = useState(false); // state for whether the save button is clicked
   const [saveSuccess, setSaveSuccess] = useState(false); // displays error or success box depending on bool
   const [changesMade, setChangesMade] = useState(false);
+  const [showSaveMessage, setShowSaveMessage] = useState(false);
+  const [editMode, setEditMode] = useState(false); // not in edit mode
 
   let accountCount = 0; // this is just used to make sure there are unique keys for map
 
@@ -36,13 +38,45 @@ const AuthenticationRequests = () => {
   return (
     <div className="all-accounts-container">
       <div className="all-accounts-buttons">
-        <Button
-          label="Save"
-          onClick={() => {
-            setSaveSuccess(sendApprovedEmails(accountStatus));
-            setIsSave(true);
-          }}
-        />
+        {editMode ? (
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <Button
+              label="Save"
+              style={{ alignSelf: 'start', marginTop: '0px', marginBottom: '5px' }}
+              onClick={() => {
+                setIsSave(true);
+                setShowSaveMessage(true);
+                setSaveSuccess(sendAuthRequests(accountStatus));
+              }}
+            />
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <ButtonOutlined
+                label="Exit Edit Mode"
+                style={{ marginTop: '0px', borderWidth: '3px', marginBottom: '5px' }}
+                onClick={() => {
+                  setEditMode(false);
+                  setShowSaveMessage(false);
+                }}
+              />
+              {changesMade && !isSave ? (
+                <p className="all-accounts-approve-ver-note">Please save your changes!</p>
+              ) : (
+                <></>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="all-accounts-buttons">
+            <Button
+              label="Enter Edit Mode"
+              style={{ marginTop: '0px', borderWidth: '3px', marginBottom: '5px' }}
+              onClick={() => {
+                setEditMode(true);
+                setShowSaveMessage(false);
+              }}
+            />
+          </div>
+        )}
       </div>
 
       <table className="all-accounts-table">
@@ -59,16 +93,21 @@ const AuthenticationRequests = () => {
             return (
               <RowComponentAuth
                 key={account.email}
+                pointerEvents={editMode ? { pointerEvents: 'all' } : { pointerEvents: 'none' }}
                 account={account}
                 accountStatus={accountStatus}
                 setAccountStatus={setAccountStatus}
                 count={accountCount}
+                setChangesMade={setChangesMade}
+                editMode={editMode}
+                isSave={isSave}
+                setIsSave={setIsSave}
               />
             );
           })}
         </tbody>
       </table>
-      {isSave ? (
+      {showSaveMessage ? (
         <ErrorSuccessBox
           style={{ margin: '0px 0px' }}
           content={saveSuccess ? 'Successfully saved!' : 'Unsuccessful save. Please try again!'}
@@ -82,7 +121,17 @@ const AuthenticationRequests = () => {
   );
 };
 
-const RowComponentAuth = ({ account, accountStatus, setAccountStatus, count }) => {
+const RowComponentAuth = ({
+  account,
+  accountStatus,
+  setAccountStatus,
+  count,
+  setChangesMade,
+  pointerEvents,
+  editMode,
+  isSave,
+  setIsSave,
+}) => {
   const [approveAll, setApproveAll] = useState(false);
 
   return (
@@ -100,6 +149,21 @@ const RowComponentAuth = ({ account, accountStatus, setAccountStatus, count }) =
         {account.auth.map((authreq) => {
           const [approve, setApprove] = useState(authreq.approve);
           const [deny, setDeny] = useState(authreq.deny);
+
+          const initialApprove = authreq.approve;
+          const initialDeny = authreq.deny;
+
+          // useEffect(() => {
+          //   setTimeout(() => {
+          //     if (approve) {
+          //       setApprove(true);
+          //       setDeny(false);
+          //     } else if (deny) {
+          //       setDeny(true);
+          //       setApprove(false);
+          //     }
+          //   }, 0);
+          // });
 
           useEffect(() => {
             if (approveAll) {
@@ -135,6 +199,18 @@ const RowComponentAuth = ({ account, accountStatus, setAccountStatus, count }) =
             }
           }, [approve, deny]);
 
+          useEffect(() => {
+            if (!editMode && !isSave) {
+              // if exiting exit mode, and save button not pressed
+              setApprove(initialApprove);
+              setDeny(initialDeny);
+              setIsSave(false);
+            } else {
+              setApprove(approve);
+              setDeny(deny);
+            }
+          });
+
           return (
             <div className="auth-req-container" key={account.email + '_' + authreq.authreq}>
               <ApproveDenyCheckbox
@@ -142,20 +218,27 @@ const RowComponentAuth = ({ account, accountStatus, setAccountStatus, count }) =
                 deny={deny}
                 setApprove={setApprove}
                 setDeny={setDeny}
+                setChangesMade={setChangesMade}
+                pointerEvents={pointerEvents}
               />
               <p className="auth-req-text">{authreq.authreq}</p>
             </div>
           );
         })}
 
-        <ButtonOutlined
-          label={approveAll ? 'Unapproved All Scopes' : 'Approve All Scopes'}
-          style={bubbleButtonStyleAuth}
-          isSecondary={true}
-          onClick={() => {
-            setApproveAll(!approveAll);
-          }}
-        />
+        {editMode ? (
+          <ButtonOutlined
+            label={approveAll ? 'Unapproved All Scopes' : 'Approve All Scopes'}
+            style={bubbleButtonStyleAuth}
+            isSecondary={true}
+            onClick={() => {
+              setApproveAll(!approveAll);
+              setChangesMade(true);
+            }}
+          />
+        ) : (
+          <></>
+        )}
       </td>
     </tr>
   );
@@ -166,6 +249,11 @@ RowComponentAuth.propTypes = {
   accountStatus: PropTypes.object,
   setAccountStatus: PropTypes.func,
   count: PropTypes.number,
+  setChangesMade: PropTypes.func,
+  pointerEvents: PropTypes.object,
+  editMode: PropTypes.bool,
+  isSave: PropTypes.bool,
+  setIsSave: PropTypes.func,
 };
 
 export { AuthenticationRequests };
