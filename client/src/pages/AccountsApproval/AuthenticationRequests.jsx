@@ -25,6 +25,7 @@ const AuthenticationRequests = () => {
   const [accountStatus, setAccountStatus] = useState({});
   const [isSave, setIsSave] = useState(false); // state for whether the save button is clicked
   const [saveSuccess, setSaveSuccess] = useState(false); // displays error or success box depending on bool
+  const [changesMade, setChangesMade] = useState(false);
 
   let accountCount = 0; // this is just used to make sure there are unique keys for map
 
