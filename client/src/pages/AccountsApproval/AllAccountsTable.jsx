@@ -240,18 +240,6 @@ const RowComponent = ({
   });
 
   useEffect(() => {
-    setTimeout(() => {
-      if (approve) {
-        setApprove(true);
-        setDeny(false);
-      } else if (deny) {
-        setDeny(true);
-        setApprove(false);
-      }
-    }, 0);
-  });
-
-  useEffect(() => {
     // useEffect that executes when the page changes
     setIsApproveVerified(false);
     setTimeout(() => {
