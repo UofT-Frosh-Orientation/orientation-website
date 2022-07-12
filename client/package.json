@@ -54,6 +54,7 @@
     "lint-staged": "^12.3.3",
     "prettier": "^2.6.2",
     "sass": "^1.49.7",
-    "vite": "^2.7.13"
+    "vite": "^2.7.13",
+    "vite-plugin-rewrite-all": "^0.1.2"
   }
 }

@@ -5,6 +5,9 @@ import './PasswordReset.scss';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { validateEmail, validatePassword, validatePasswordLength } from '../SignUp/functions';
+import { Button } from '../../components/button/Button/Button';
+import { useDispatch } from 'react-redux';
+import { resetPassword } from '../Login/saga';
 
 export const PasswordReset = () => {
   const { token } = useParams();
@@ -13,6 +16,7 @@ export const PasswordReset = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [anyErrors, setAnyErrors] = useState(false);
+  const dispatch = useDispatch();
 
   const checkErrors = (sendFeedback = true, feedbackToSend = []) => {
     let anyErrors = false;
@@ -53,6 +57,7 @@ export const PasswordReset = () => {
       setFormErrors(errorObject);
     }
     setAnyErrors(anyErrors);
+    return anyErrors;
   };
 
   useEffect(() => {
@@ -66,6 +71,10 @@ export const PasswordReset = () => {
   useEffect(() => {
     checkErrors(false, ['password', 'confirmPassword']);
   }, [confirmPassword]);
+
+  const submitForm = () => {
+    dispatch(resetPassword({ email, password, token }));
+  };
 
   return (
     <div className={'password-reset-page'}>
@@ -110,6 +119,24 @@ export const PasswordReset = () => {
             autocomplete={'new-password'}
             onChange={(val) => {
               setConfirmPassword(val);
+            }}
+          />
+        </div>
+        <div
+          className="password-reset-button"
+          onMouseOver={() => {
+            checkErrors(true);
+          }}
+        >
+          <Button
+            label="Reset Password"
+            style={{ margin: 0 }}
+            isDisabled={anyErrors}
+            onClick={async () => {
+              const anyErrors = checkErrors(true);
+              if (anyErrors === false) {
+                submitForm();
+              }
             }}
           />
         </div>

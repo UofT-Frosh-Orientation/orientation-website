@@ -16396,6 +16396,13 @@ vite-plugin-mdx@^3.5.6:
     resolve "^1.20.0"
     unified "^9.2.1"
 
+vite-plugin-rewrite-all@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/vite-plugin-rewrite-all/-/vite-plugin-rewrite-all-0.1.2.tgz#312bbcd76c700ceac5153bfc5ad7e3e3e4bc9606"
+  integrity sha512-hBFuG043kbixgZ/ke9SzKhkO6P8a5ryxD0CmZTe+/Cz17RIKi7uSeNUJy79V4FgavZ7pWVRg0tqVwJ7lP/A2/Q==
+  dependencies:
+    connect-history-api-fallback "^1.6.0"
+
 vite-tsconfig-paths@^3.4.1:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/vite-tsconfig-paths/-/vite-tsconfig-paths-3.5.0.tgz#bfdf93f8072eff04125112ea9602fd50ae8cdad9"

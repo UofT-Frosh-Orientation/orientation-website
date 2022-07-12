@@ -6,6 +6,7 @@ export const initialState = {
   error: null,
   user: undefined,
   loggedIn: undefined,
+  resetPasswordSuccess: false,
 };
 
 const userSlice = createSlice({
@@ -36,11 +37,26 @@ const userSlice = createSlice({
       state.user = user;
       state.loggedIn = true;
     },
+    resetPasswordSuccess: (state) => {
+      state.user = null;
+      state.resetPasswordSuccess = true;
+    },
+    resetPasswordFailure: (state) => {
+      state.user = null;
+      state.resetPasswordSuccess = false;
+    },
   },
 });
 
-export const { loginStart, loginFail, loginSuccess, logoutSuccess, setUserInfo } =
-  userSlice.actions;
+export const {
+  loginStart,
+  loginFail,
+  loginSuccess,
+  logoutSuccess,
+  setUserInfo,
+  resetPasswordSuccess,
+  resetPasswordFailure,
+} = userSlice.actions;
 
 export default userSlice.reducer;
 

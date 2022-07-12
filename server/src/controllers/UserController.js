@@ -1,5 +1,6 @@
 const UserServices = require('../services/UserServices');
 const passport = require('../services/passport');
+const passwordResetSubscription = require('../subscribers/passwordResetSubscription');
 
 const UserController = {
   /**
@@ -85,11 +86,41 @@ const UserController = {
   },
 
   async requestPasswordReset(req, res, next) {
-    console.log(req, res);
+    try {
+      const { email } = req.body; //TODO: only send this to emails in our db
+      const existingUser = await UserServices.getUserByEmail(email);
+      if (existingUser) {
+        const token = await UserServices.generatePasswordResetToken(email);
+        passwordResetSubscription.add({ email, token });
+      }
+      res.status(202).send({
+        message:
+          'If we have an account matching your email, we have sent an email to you. Please check there for instructions on how to reset your password',
+      });
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
   },
 
   async resetPassword(req, res, next) {
-    console.log(req, res);
+    try {
+      const { email, password, token } = req.body;
+      const result = await UserServices.validatePasswordResetToken(token);
+      const existingUser = await UserServices.getUserByEmail(email);
+      console.log(existingUser);
+      if (!existingUser || existingUser.email !== result) {
+        next(new Error('INVALID_PASSWORD_RESET_EMAIL'));
+      } else {
+        await UserServices.updatePassword(email, password);
+        res.status(200).send({
+          message:
+            'Successfully updated your password! Please sign in with your email and new password.',
+        });
+      }
+    } catch (err) {
+      next(err);
+    }
   },
 };
 
