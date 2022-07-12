@@ -10,9 +10,11 @@ import { Tabs } from '../../components/tabs/tabs';
 import './RegistrationForm.scss';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PopupModal } from '../../components/popup/PopupModal';
 import useAxios from '../../hooks/useAxios';
+import { registeredSelector, userSelector } from '../userSlice';
+import { useSelector } from 'react-redux';
 
 const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
   const steps = Object.keys(fields);
@@ -25,6 +27,16 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   const [checkoutUrl, setCheckoutUrl] = useState('');
 
   const { axios } = useAxios();
+
+  const navigate = useNavigate();
+
+  const registered = useSelector(registeredSelector);
+
+  useEffect(() => {
+    if (registered && !editFieldsPage) {
+      navigate('/profile');
+    }
+  }, []);
 
   const handleRegister = async () => {
     setCanRegister(false);
@@ -150,7 +162,9 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   label={field.label}
                   disabledIndices={field.disabledIndices}
                   initialSelectedIndex={
-                    editFieldsPage === true ? initialValues[key] : field.initialSelectedIndex
+                    editFieldsPage === true
+                      ? field.values.findIndex((val) => (val === 'Yes') === initialValues[key])
+                      : field.initialSelectedIndex
                   }
                   values={field.values}
                   onSelected={(value) => {
@@ -172,7 +186,9 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
                   initialSelectedIndex={
-                    editFieldsPage === true ? initialValues[key] : field.initialSelectedIndex
+                    editFieldsPage === true
+                      ? field.values.findIndex((val) => val === initialValues[key])
+                      : field.initialSelectedIndex
                   }
                   values={field.values}
                   onSelect={(value) => {
@@ -195,13 +211,20 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   label={field.label}
                   disabledIndices={field.disabledIndices}
                   initialSelectedIndices={
-                    editFieldsPage === true ? initialValues[key] : field.initialSelectedIndices
+                    editFieldsPage === true
+                      ? field.values.reduce((prev, curr, index) => {
+                          if (initialValues[key].includes(curr)) {
+                            prev.push(index);
+                          }
+                          return prev;
+                        }, [])
+                      : field.initialSelectedIndices
                   }
                   maxCanSelect={field.maxCanSelect}
                   onSelected={(value, index, status, indicesSelected) => {
                     let values = [];
-                    for (let i = 0; i < indicesSelected.length; i++) {
-                      values.push(field.values[i]);
+                    for (let index of indicesSelected) {
+                      values.push(field.values[index]);
                     }
                     froshObject[key] = values;
                     if (field.onChanged) field.onChanged(value, disableField);

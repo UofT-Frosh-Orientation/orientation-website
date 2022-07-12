@@ -36,11 +36,16 @@ const FroshServices = {
    */
   async upgradeToFrosh(user, newInfo, paymentIntent) {
     const frosh = FroshModel.hydrate(user.toObject());
+    const { pronouns, discipline } = newInfo;
     frosh.set({
       ...newInfo,
       userType: 'frosh',
       payments: [{ item: 'Orientation Ticket', paymentIntent, amountDue: 13000 }],
     });
+    const froshGroup = await FroshGroupModel.findOne({ name: newInfo.froshGroup });
+    froshGroup[pronouns]++;
+    froshGroup[discipline]++;
+    await froshGroup.save();
     return await frosh.save();
   },
 
@@ -79,6 +84,24 @@ const FroshServices = {
     for (const group of groups) {
       FroshGroupModel.create({ ...defaultVals, ...group });
     }
+  },
+
+  async updateFroshInfo(userId, updateInfo) {
+    return new Promise((resolve, reject) => {
+      FroshModel.findOneAndUpdate(
+        { _id: userId },
+        updateInfo,
+        { returnDocument: 'after' },
+        (err, Frosh) => {
+          if (err || !Frosh) {
+            reject('UNABLE_TO_UPDATE_FROSH');
+          } else {
+            console.log(Frosh);
+            resolve(Frosh);
+          }
+        },
+      );
+    });
   },
 };
 

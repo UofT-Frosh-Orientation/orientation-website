@@ -21,12 +21,35 @@ const FroshController = {
       const frosh = (
         await FroshServices.upgradeToFrosh(user, registrationInfo, payment_intent)
       ).getResponseObject();
-
       // console.log(result)
       if (frosh) {
         res.status(200).send({ url });
       }
     } catch (e) {
+      console.log(req.body);
+      console.log(e);
+      next(e);
+    }
+  },
+
+  /**
+   * Updates the info of the currently authenticated user.
+   * @param {Object} req
+   * @param {Object} res
+   * @return {Promise<void>}
+   */
+  async updateInfo(req, res, next) {
+    const userId = req.user.id;
+    const updateInfo = req.body;
+
+    try {
+      const frosh = await FroshServices.updateFroshInfo(userId, updateInfo);
+      return res.status(200).send({
+        message: 'Successfully updated Frosh information!',
+        user: frosh.getResponseObject(),
+      });
+    } catch (e) {
+      console.log(e);
       next(e);
     }
   },

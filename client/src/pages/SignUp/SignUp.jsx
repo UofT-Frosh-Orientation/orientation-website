@@ -9,6 +9,9 @@ import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSelector } from '../userSlice';
+import { signUp } from '../Login/saga';
 
 const PageSignUp = () => {
   const [errors, setErrors] = useState({});
@@ -16,6 +19,24 @@ const PageSignUp = () => {
   const [anyErrors, setAnyErrors] = useState({});
   const [pageState, setPageState] = useState('form');
   const [signUpError, setSignUpError] = useState('');
+  const { user, loading, error } = useSelector(userSelector);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (loading) {
+      setPageState('loading');
+    } else if (error) {
+      setPageState('form');
+      setErrors(error);
+    } else if (user) {
+      setPageState('success');
+    }
+  }, [user, error, loading]);
+
+  const submitForm = () => {
+    dispatch(signUp(accountObj));
+  };
+
   const checkErrors = (sendFeedback = true, feedbackToSend = []) => {
     let anyErrorsNow = false;
     const errorsCopy = {};
@@ -34,7 +55,7 @@ const PageSignUp = () => {
       anyErrorsNow = true;
     } else if (validatePassword(accountObj['password']) === null) {
       errorsCopy['password'] =
-        'Your password is too weak, it should be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter and 1 digit';
+        'Your password is too weak, it should be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter, 1 digit, and one special character';
       anyErrorsNow = true;
     }
     if (accountObj['confirmPassword'] === undefined || accountObj['confirmPassword'] === '') {
@@ -65,7 +86,7 @@ const PageSignUp = () => {
     setAnyErrors(anyErrorsNow);
     return anyErrorsNow;
   };
-  console.log(pageState !== 'form' ? 'sign-up-page-disappear' : '');
+
   return (
     <div>
       <div
@@ -167,14 +188,15 @@ const PageSignUp = () => {
               onClick={async () => {
                 const anyErrors = checkErrors(true);
                 if (anyErrors === false) {
-                  setPageState('loading');
-                  const result = await signUpUser(accountObj);
-                  if (result !== true) {
-                    setPageState('form');
-                    setSignUpError(result);
-                  } else {
-                    setPageState('success');
-                  }
+                  // setPageState('loading');
+                  // const result = await signUpUser(accountObj);
+                  // if (result !== true) {
+                  //   setPageState('form');
+                  //   setSignUpError(result);
+                  // } else {
+                  //   setPageState('success');
+                  // }
+                  submitForm();
                 }
               }}
             />

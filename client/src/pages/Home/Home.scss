@@ -91,10 +91,10 @@
 
 .wave-image {
   width: 100vw;
-  height: 10vh;
+  height: min(10vh, 80px);
   object-fit: fill;
   @include devices(tablet) {
-    height: 6vh;
+    height: min(10vh, 40px);
   }
 }
 

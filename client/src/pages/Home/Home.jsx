@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getSlideshowImages, getTimelineDates } from './functions';
 import './Home.scss';
@@ -89,47 +89,54 @@ const HomePageSlideshow = () => {
 const HomePageTimeline = () => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState({});
+  const [dates, setDates] = useState();
+  useEffect(async () => {
+    setDates(await getTimelineDates());
+  }, []);
   return (
-    <div className="home-page-timeline">
-      <h2 className="home-page-section-header">Timeline</h2>
-      <Timeline
-        dates={getTimelineDates()}
-        onClick={(date) => {
-          setShowPopUp(true);
-          setSelectedEvent(date);
-        }}
-      />
-      <PopupModal
-        trigger={showPopUp}
-        setTrigger={setShowPopUp}
-        blurBackground={false}
-        exitIcon={true}
-      >
-        <div className="home-page-timeline-popup-container">
-          <h1>{selectedEvent.name}</h1>
-          <p>{selectedEvent.description}</p>
+    !(dates === undefined || dates?.length === 0) && (
+      <div className="home-page-timeline">
+        <h2 className="home-page-section-header">Timeline</h2>
+        <Timeline
+          dates={dates}
+          onClick={(date) => {
+            setShowPopUp(true);
+            setSelectedEvent(date);
+          }}
+        />
 
-          {selectedEvent.link !== undefined ? (
-            <div className="home-page-timeline-popup-button">
-              <a
-                href={selectedEvent.link}
-                target="_blank"
-                className="no-link-style"
-                rel="noreferrer"
-              >
-                <Button
-                  label={selectedEvent.linkLabel}
-                  isSecondary
-                  style={{ margin: 0, float: 'right' }}
-                ></Button>
-              </a>
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>
-      </PopupModal>
-    </div>
+        <PopupModal
+          trigger={showPopUp}
+          setTrigger={setShowPopUp}
+          blurBackground={false}
+          exitIcon={true}
+        >
+          <div className="home-page-timeline-popup-container">
+            <h1>{selectedEvent.name}</h1>
+            <p>{selectedEvent.description}</p>
+
+            {selectedEvent.link !== undefined ? (
+              <div className="home-page-timeline-popup-button">
+                <a
+                  href={selectedEvent.link}
+                  target="_blank"
+                  className="no-link-style"
+                  rel="noreferrer"
+                >
+                  <Button
+                    label={selectedEvent.linkLabel}
+                    isSecondary
+                    style={{ margin: 0, float: 'right' }}
+                  ></Button>
+                </a>
+              </div>
+            ) : (
+              <></>
+            )}
+          </div>
+        </PopupModal>
+      </div>
+    )
   );
 };
 

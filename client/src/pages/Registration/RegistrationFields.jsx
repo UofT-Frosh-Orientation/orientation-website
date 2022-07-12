@@ -10,7 +10,7 @@
 // validation(value): if set, return true for a valid input, return a string as the error message. The check will fail if a string is returned.
 export const fields = {
   General: {
-    name: {
+    legalName: {
       type: 'text',
       inputType: 'text',
       placeholder: 'John Doe',
@@ -19,7 +19,7 @@ export const fields = {
       errorMessage: 'Please enter your legal name',
       localStorageKey: 'registration-legal-name',
     },
-    pronoun: {
+    pronouns: {
       type: 'dropdown',
       label: 'Pronoun',
       values: ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'],
@@ -42,7 +42,7 @@ export const fields = {
       errorMessage: 'Please enter a pronoun',
       className: 'fill-remaining-width-input',
     },
-    birthdate: {
+    birthDate: {
       type: 'text',
       inputType: 'date',
       label: 'Birthday',
@@ -98,6 +98,7 @@ export const fields = {
         'Track One (Undeclared)',
       ],
       className: 'inline-block-remaining',
+      initialSelectedIndex: 0,
     },
     shirtSize: {
       type: 'dropdown',

@@ -47,6 +47,7 @@ const PaymentServices = {
    */
   async createCheckoutSession(email) {
     try {
+      console.log(process.env.STRIPE_EARLY_BIRD_COUPON_ID);
       return await stripe.checkout.sessions.create({
         customer_email: email,
         submit_type: 'pay',
@@ -55,6 +56,11 @@ const PaymentServices = {
           {
             price: process.env.STRIPE_TICKET_PRICE_ID,
             quantity: 1,
+          },
+        ],
+        discounts: [
+          {
+            coupon: process.env.STRIPE_EARLY_BIRD_COUPON_ID,
           },
         ],
         mode: 'payment',

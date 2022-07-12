@@ -16,5 +16,5 @@ const LoadingAnimation = ({ size }) => {
 export default LoadingAnimation;
 
 LoadingAnimation.propTypes = {
-  size: PropTypes.number,
+  size: PropTypes.string,
 };

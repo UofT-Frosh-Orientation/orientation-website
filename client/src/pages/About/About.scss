@@ -59,6 +59,11 @@
 .aboutus-wave-bottom {
   width: 100vw;
   filter: drop-shadow(-10px 10px 8px #23232342);
+  height: min(10vh, 80px);
+  object-fit: fill;
+  @include devices(tablet) {
+    height: min(10vh, 40px);
+  }
 }
 
 .aboutus-subcontainer {
@@ -94,6 +99,7 @@
   align-items: center;
   border-radius: 10px;
   margin: 13px 50px 13px 0;
+  max-width: 650px;
 
   flex: 1;
   overflow: visible;

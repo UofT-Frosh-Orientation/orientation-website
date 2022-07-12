@@ -29,10 +29,6 @@ const paymentSchema = new mongoose.Schema({
 
 const FroshSchema = new mongoose.Schema(
   {
-    preferredName: {
-      type: String,
-      required: false,
-    },
     birthDate: {
       type: Date,
       required: true,
@@ -170,6 +166,10 @@ const FroshSchema = new mongoose.Schema(
     commuterPorgramStop: {
       type: String,
       required: false,
+    },
+    legalName: {
+      type: String,
+      required: true,
     },
   },
   { discriminatorKey: 'userType', strict: true },
