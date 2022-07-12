@@ -4,7 +4,8 @@ const EmailValidator = require('email-validator');
 const UserModel = require('../models/UserModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
 
-const passwordValidator = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
+const passwordValidator =
+  /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
 
 const UserServices = {
   /**
@@ -41,14 +42,17 @@ const UserServices = {
       bcrypt
         .hash(password, 10)
         .then((hashedPassword) => {
-          UserModel.create({ email, hashedPassword, firstName, lastName, preferredName}, (err, newUser) => {
-            if (err) {
-              reject(err);
-            } else {
-              newUserSubscription.add(newUser);
-              resolve(newUser);
-            }
-          });
+          UserModel.create(
+            { email, hashedPassword, firstName, lastName, preferredName },
+            (err, newUser) => {
+              if (err) {
+                reject(err);
+              } else {
+                newUserSubscription.add(newUser);
+                resolve(newUser);
+              }
+            },
+          );
         })
         .catch((err) => {
           reject(err);

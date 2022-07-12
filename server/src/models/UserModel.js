@@ -3,7 +3,7 @@ const getResponseObject = require('../util/getResponseObject');
 
 const validateName = function (name) {
   return !(name === '' || name === null);
-}
+};
 
 const UserSchema = new mongoose.Schema(
   {
@@ -11,17 +11,17 @@ const UserSchema = new mongoose.Schema(
       type: String,
       validate: {
         validator: validateName,
-        message: 'MISSING_NAME'
+        message: 'MISSING_NAME',
       },
-      required: [true, 'MISSING_NAME']
+      required: [true, 'MISSING_NAME'],
     },
     lastName: {
       type: String,
       validate: {
         validator: validateName,
-        message: 'MISSING_NAME'
+        message: 'MISSING_NAME',
       },
-      required: [true, 'MISSING_NAME']
+      required: [true, 'MISSING_NAME'],
     },
     preferredName: {
       type: String,

@@ -11,14 +11,17 @@ const UserController = {
    */
   async signup(req, res, next) {
     try {
-
       const { email, password, firstName, lastName, preferredName } = req.body;
-      
-      
-      await UserServices.validateUser(email.toLowerCase(), password, firstName, lastName);  
-      
-      
-      const user = await UserServices.createUser(email.toLowerCase(), password, firstName, lastName, preferredName);
+
+      await UserServices.validateUser(email.toLowerCase(), password, firstName, lastName);
+
+      const user = await UserServices.createUser(
+        email.toLowerCase(),
+        password,
+        firstName,
+        lastName,
+        preferredName,
+      );
 
       req.logIn(user, (err) => {
         if (err) {
