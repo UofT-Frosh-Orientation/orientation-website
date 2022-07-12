@@ -220,6 +220,7 @@ const RowComponent = ({
   setIsSave,
 }) => {
   // get states from the array with info, is appoved=true or deny=true, it will already "light up"
+  // TODO: Update account approval status (back-end)
   const [approve, setApprove] = useState(account.approved);
   const [deny, setDeny] = useState(!account.approved);
 
@@ -234,8 +235,8 @@ const RowComponent = ({
       setDeny(initialDeny);
       setIsSave(false);
     } else if (!editMode && isSave) {
-      setApprove(approve);
-      setDeny(deny);
+      setApprove(accountStatus[account.email].approve);
+      setDeny(!accountStatus[account.email].approve);
     }
   });
 
@@ -315,17 +316,30 @@ const AllAccountsEditButton = ({
   setChangesMade,
   setShowSaveMessage,
 }) => {
-  useEffect(() => {
-    setChangesMade(changesMade);
-  }, [changesMade]);
+  // useEffect(() => {
+  //   setChangesMade(changesMade);
+  // }, [changesMade]);
+
+  // useEffect(() => {
+  //   setIsSave(isSave);
+  // }, [isSave]);
+
+  // useEffect(() => {
+  //   setEditMode(editMode);
+  //   setChangesMade(false);
+  // }, [editMode]);
 
   useEffect(() => {
-    setIsSave(isSave);
-  }, [isSave]);
+    if (editMode && isSave && !changesMade) {
+      // if in editMode and isSave is clicked, turn off changes made
+      setChangesMade(false);
+    } else if (editMode && !isSave && changesMade) {
+      setChangesMade(true);
+    } else {
+      setChangesMade(false);
+    }
 
-  useEffect(() => {
-    setEditMode(editMode);
-    setChangesMade(false);
+    setIsSave(false);
   }, [editMode]);
 
   return (
@@ -355,6 +369,7 @@ const AllAccountsEditButton = ({
             setIsSave(true);
             setShowSaveMessage(true);
             setSaveSuccess(sendApprovedEmails(accountStatus));
+            setChangesMade(false);
           }}
         />
         <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -364,6 +379,7 @@ const AllAccountsEditButton = ({
             onClick={() => {
               setEditMode(false);
               setShowSaveMessage(false);
+              setChangesMade(false);
             }}
           />
           {changesMade && !isSave ? (
