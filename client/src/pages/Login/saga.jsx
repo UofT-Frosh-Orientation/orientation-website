@@ -76,7 +76,6 @@ export function* resetPasswordSaga({ payload: { email, password, token } }) {
   try {
     yield put(resetPasswordStart());
     const result = yield call(axios.post, '/user/reset-password', { email, password, token });
-    console.log(result);
     yield put(resetPasswordSuccess());
   } catch (err) {
     console.log(err);

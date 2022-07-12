@@ -25,6 +25,7 @@ export const PasswordReset = () => {
 
   const { loading, error, resetPasswordSucceeded } = useSelector(passwordResetSelector);
 
+
   const checkErrors = (sendFeedback = true, feedbackToSend = []) => {
     let anyErrors = false;
     let formErrorsCopy = {};
@@ -65,7 +66,6 @@ export const PasswordReset = () => {
     }
     setAnyErrors(anyErrors);
     return anyErrors;
-
   };
 
   useEffect(() => {
@@ -194,6 +194,24 @@ export const PasswordReset = () => {
               </div>
             </Link>
           </div>
+        </div>
+        <div
+          className="password-reset-button"
+          onMouseOver={() => {
+            checkErrors(true);
+          }}
+        >
+          <Button
+            label="Reset Password"
+            style={{ margin: 0 }}
+            isDisabled={anyErrors}
+            onClick={async () => {
+              const anyErrors = checkErrors(true);
+              if (anyErrors === false) {
+                submitForm();
+              }
+            }}
+          />
         </div>
       </div>
     </div>
