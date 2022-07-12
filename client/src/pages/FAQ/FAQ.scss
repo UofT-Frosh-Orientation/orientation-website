@@ -277,9 +277,9 @@
 }
 
 .faq-ask-question-outer-container {
-  width: 50%;
-  margin-left: 25%;
-  margin-right: 25%;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
   @include devices(tablet) {
     width: 80%;
     margin-left: 10%;
@@ -364,7 +364,17 @@
 }
 
 .faq-fab {
-  top: 50px;
-  right: 10px;
+  bottom: 5%;
+  right: 2%;
   position: fixed;
+  z-index: 5;
+}
+
+.faq-fab-container {
+  display: flex;
+  align-items: center;
+}
+
+.faq-fab-icon {
+  margin-right: 15px;
 }

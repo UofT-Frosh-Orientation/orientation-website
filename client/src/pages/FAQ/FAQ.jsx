@@ -12,6 +12,7 @@ import SearchIcon from '../../assets/misc/magnifying-glass-solid.svg';
 import DeleteIcon from '../../assets/misc/circle-xmark-solid.svg';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
+import QuestionMark from '../../../assets/icons/question-mark-solid.svg';
 
 const PageFAQ = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -559,8 +560,8 @@ const FAQAskQuestion = ({ pageState, setPageState }) => {
               <div className={'faq-ask-question-email-box'}>
                 <TextInput
                   onChange={(text) => handleChangeEmail(text)}
-                  inputType={'textArea'}
-                  placeholder={'Leave your email'}
+                  inputType={'text'}
+                  placeholder={'Email'}
                   style={{ height: '45px' }}
                   clearText={clearText}
                   setClearText={setClearText}
@@ -572,7 +573,7 @@ const FAQAskQuestion = ({ pageState, setPageState }) => {
                 <TextInput
                   onChange={(text) => handleChangeQuestion(text)}
                   inputType={'textArea'}
-                  placeholder={'Type your question here'}
+                  placeholder={'Type your question here...'}
                   style={{ height: '150px' }}
                   clearText={clearText}
                   setClearText={setClearText}
@@ -608,7 +609,17 @@ const FAQFab = ({ questionRef }) => {
   };
   return (
     <div className={'faq-fab'}>
-      <ButtonOutlined label={'Ask a Question'} isSecondary onClick={() => handleClick()} />
+      <Button
+        style={{ boxShadow: '5px 5px 20px #000000' }}
+        label={
+          <div className={'faq-fab-container'}>
+            <img className={'faq-fab-icon'} src={QuestionMark} alt="Question Button" height={30} />
+            <span className={'faq-fab-content'}>Ask a Question</span>
+          </div>
+        }
+        isSecondary
+        onClick={() => handleClick()}
+      />
     </div>
   );
 };
