@@ -257,6 +257,14 @@ const RowComponent = ({
     } else if (!account.valid) {
       setApprove(approve);
       setDeny(deny);
+    } else if (!isApproveVerified) {
+      if (account.valid) {
+        setApprove(false);
+        setDeny(true);
+      } else {
+        setApprove(approve);
+        setDeny(deny);
+      }
     } else {
       setApprove(false);
     }

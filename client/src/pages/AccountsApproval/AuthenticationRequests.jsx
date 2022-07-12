@@ -172,6 +172,7 @@ const RowComponentAuth = ({
               setDeny(false);
             } else {
               setApprove(false);
+              setDeny(true);
             }
           }, [approveAll]);
 
