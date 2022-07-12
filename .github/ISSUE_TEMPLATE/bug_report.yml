@@ -16,7 +16,7 @@ body:
     validations:
       required: true
   - type: textarea
-    id: How To Reproduce
+    id: how_to_reproduce
     attributes:
       label: How To Reproduce
       description: Steps to reproduce the error.
@@ -28,7 +28,7 @@ body:
     validations:
       required: true
   - type: input
-    id: Expected Behaviour
+    id: Expected_Behaviour
     attributes:
       label: Expected behavior
       description: A clear and concise description of what you expected to happen.
@@ -46,7 +46,7 @@ body:
     validations:
       required: true
   - type: dropdown
-    id: operating system
+    id: operating_system
     attributes:
       label: What operating system were you using?
       options:
@@ -57,6 +57,7 @@ body:
     validations:
       required: true
   - type: textarea
+    id: additional_information
     attributes:
       label: Additional Infromation
       description: |
