@@ -1,11 +1,31 @@
 const mongoose = require('mongoose');
 const getResponseObject = require('../util/getResponseObject');
 
+const validateName = function (name) {
+  return !(name === '' || name === null);
+};
+
 const UserSchema = new mongoose.Schema(
   {
-    name: {
+    firstName: {
       type: String,
-      required: true,
+      validate: {
+        validator: validateName,
+        message: 'MISSING_NAME',
+      },
+      required: [true, 'MISSING_NAME'],
+    },
+    lastName: {
+      type: String,
+      validate: {
+        validator: validateName,
+        message: 'MISSING_NAME',
+      },
+      required: [true, 'MISSING_NAME'],
+    },
+    preferredName: {
+      type: String,
+      required: false,
     },
     email: {
       type: String,
@@ -62,6 +82,16 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       required: true,
       default: true,
+    },
+    completedAnnouncements: {
+      type: [
+        {
+          announcementID: {
+            type: String,
+          },
+        },
+      ],
+      default: [],
     },
   },
   { discriminatorKey: 'userType' },

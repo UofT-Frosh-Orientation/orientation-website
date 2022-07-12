@@ -33,8 +33,8 @@
   border-radius: 15px;
   padding: 15px 25px;
   margin: 0px 12px;
-  max-width: 200px;
-  min-width: 200px;
+  max-width: 220px;
+  min-width: 220px;
   position: relative;
   transform: scale(1);
   flex-grow: 2;
@@ -42,7 +42,7 @@
 }
 
 .timeline-date-container-date {
-  font-size: 25px;
+  font-size: 20px;
   text-align: center;
 
   color: var(--text-dark);

@@ -91,10 +91,10 @@
 
 .wave-image {
   width: 100vw;
-  height: 10vh;
+  height: min(10vh, 80px);
   object-fit: fill;
   @include devices(tablet) {
-    height: 6vh;
+    height: min(10vh, 40px);
   }
 }
 
@@ -121,6 +121,28 @@
       width: 5px;
       height: 5px;
     }
+  }
+}
+
+.home-page-timeline-popup-container {
+  padding: 0px 50px;
+  color: var(--white);
+  h1 {
+    margin-bottom: 10px;
+    font-size: 34px;
+  }
+  p {
+    font-size: 18px;
+  }
+  .home-page-timeline-popup-button {
+    margin-top: 25px;
+  }
+  @include devices(tablet) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 }
 

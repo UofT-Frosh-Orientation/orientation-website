@@ -9,6 +9,10 @@ const FroshGroupSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  'Prefer Not to Say': {
+    type: Number,
+    default: 0,
+  },
   'they/them': {
     type: Number,
     default: 0,
@@ -25,19 +29,15 @@ const FroshGroupSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  'Chemical Engineering': {
+  Chemical: {
     type: Number,
     default: 0,
   },
-  'Civil Engineering': {
+  Civil: {
     type: Number,
     default: 0,
   },
-  'Computer Engineering': {
-    type: Number,
-    default: 0,
-  },
-  'Electrical Engineering': {
+  'Electrical & Computer': {
     type: Number,
     default: 0,
   },
@@ -45,19 +45,19 @@ const FroshGroupSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  'Industrial Engineering': {
+  Industrial: {
     type: Number,
     default: 0,
   },
-  'Materials Engineering': {
+  Materials: {
     type: Number,
     default: 0,
   },
-  'Mechanical Engineering': {
+  Mechanical: {
     type: Number,
     default: 0,
   },
-  'Mineral Engineering': {
+  Mineral: {
     type: Number,
     default: 0,
   },

@@ -1,4 +1,5 @@
 function getResponseObject() {
+  /* eslint-disable no-unused-vars*/
   const {
     _id,
     __v,
@@ -9,6 +10,7 @@ function getResponseObject() {
     accountCreatedAt,
     lastUpdatedAt,
     lastUpdatedFields,
+    payments,
     ...user
   } = this.toObject();
   return { ...user, id: _id };

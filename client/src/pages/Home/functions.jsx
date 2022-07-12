@@ -1,25 +1,27 @@
-export function getTimelineDates() {
-  return [
-    {
-      date: new Date('2022-05-31T00:00:00'),
-      name: 'Test 1234',
-      description: 'Join other frosh and meetup! This is a really long description. ',
-    },
-    {
-      date: new Date('2022-06-02T00:00:00'),
-      name: 'Meetups 2',
-      description: 'Join other frosh and meetup!',
-    },
-    {
-      date: new Date('2022-06-04T00:00:00'),
-      name: 'Meetups 2',
-    },
-    {
-      date: new Date('2022-06-07T00:00:00'),
-      name: 'Meetups 2',
-      description: 'Join other frosh and meetup!',
-    },
-  ];
+import useAxios from '../../hooks/useAxios.jsx';
+const { axios } = useAxios();
+
+export async function getTimelineDates() {
+  try {
+    const response = await axios.get('/timeline');
+    return response.data.timelines;
+  } catch (error) {
+    if (error.response) {
+      // The request was made and the server responded with a status code that falls out of the range of 2xx
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of http.ClientRequest in node.js
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message);
+    }
+    console.log(error.config);
+    return [];
+  }
 }
 
 export function getSlideshowImages() {

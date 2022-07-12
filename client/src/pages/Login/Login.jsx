@@ -15,12 +15,14 @@ import MountainFR from '../../assets/login/mountain-front-right.svg';
 import MountainM from '../../assets/login/mountain-mid.svg';
 import Ptero from '../../assets/login/ptero.svg';
 
-import { login, resetPassword } from './functions';
+import { resetPassword } from './functions';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { PopupModal } from '../../components/popup/PopupModal';
-import { useDeferredValue } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSelector } from '../userSlice';
+import { login } from './saga';
 
 // Messages!
 const popupTitle = 'Reset Password';
@@ -32,41 +34,40 @@ const PageLogin = ({ incorrectEntry }) => {
   // pop up when clicking forget password
   // deafult -- popup off
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [showPopUp, setShowPopUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [loginError, setLoginError] = useState('');
-  const [loginState, setLoginState] = useState('');
+  const { loading, error, user } = useSelector(userSelector);
+  console.log(error);
+  // const [loginError, setLoginError] = useState('');
+  // const [loginState, setLoginState] = useState('');
 
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  async function loginButtonPress() {
-    setIsLoading(true);
-    if (loginError !== '') {
-      setLoginError('');
-    }
-    const result = await login(username, password);
-    if (result === true) {
-      navigate('/profile');
-      //The profile page should redirect the Frosh if they haven't yet registered
-    } else {
-      setLoginError(result);
-      setIsLoading(false);
-    }
+  function loginButtonPress() {
+    dispatch(login({ email, password }));
   }
+
+  useEffect(() => {
+    console.log(user);
+    if (user && !error) {
+      navigate('/profile', { state: { frosh: user } });
+    }
+  }, [user]);
 
   return (
     <>
       <div className="login-entire-page">
         <div className="login-bg">
-          <div className={`login-container ${isLoading ? 'login-container-disappear' : ''}`}>
+          <div className={`login-container ${loading ? 'login-container-disappear' : ''}`}>
             <h1 className="login-title">Login</h1>
             <TextInput
               inputType={'text'}
               placeholder={'Email'}
               onChange={(value) => {
-                setUsername(value);
+                setEmail(value);
               }}
               localStorageKey="email-login"
             />
@@ -94,7 +95,7 @@ const PageLogin = ({ incorrectEntry }) => {
 
               <Button label={'Log in'} onClick={loginButtonPress} />
             </div>
-            <ErrorSuccessBox content={loginError} error={true} />
+            <ErrorSuccessBox content={error?.message ?? ''} error={true} />
           </div>
         </div>
         <div className={`login-loading ${isLoading === true ? 'login-loading-appear' : ''}`}>
