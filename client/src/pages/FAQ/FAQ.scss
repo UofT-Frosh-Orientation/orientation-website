@@ -2,6 +2,7 @@
 
 .faq-page-header {
   position: relative;
+  max-height: 700px;
   height: 50vh;
   min-height: 400px;
   background-color: var(--purple);
@@ -13,6 +14,9 @@
 
 .faq-page-header-container {
   width: 80%;
+  @include devices(tablet) {
+    width: 90%;
+  }
 }
 
 .faq-button-selector-container {
@@ -186,10 +190,10 @@
 
 .faq-wave-image {
   width: 100vw;
-  height: 6vh;
+  height: min(10vh, 80px);
   object-fit: fill;
   @include devices(tablet) {
-    height: 5vh;
+    height: min(10vh, 40px);
   }
 }
 
