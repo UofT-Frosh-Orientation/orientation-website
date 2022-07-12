@@ -56,12 +56,12 @@ body:
         - iOS
     validations:
       required: true
-- type: textarea
-  attributes:
-    label: Additional Infromation
-    description: |
-      Links? References? Anything that will give us more context about the issue you are encountering!
+  - type: textarea
+    attributes:
+      label: Additional Infromation
+      description: |
+        Links? References? Anything that will give us more context about the issue you are encountering!
 
-      You can attach images and screenshots by clicking this area to highlight it and then dragging files in.
-  validations:
-    required: false
+        You can attach images and screenshots by clicking this area to highlight it and then dragging files in.
+    validations:
+      required: false
