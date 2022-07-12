@@ -1,14 +1,19 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { getQuestions, getCategories, submitQuestion } from './functions';
+import { getQuestions, submitQuestion } from './functions';
 import './FAQ.scss';
 import Wave from '../../assets/misc/wave-reverse.png';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import SearchIcon from '../../assets/misc/magnifying-glass-solid.svg';
 import DeleteIcon from '../../assets/misc/circle-xmark-solid.svg';
+import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
+import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
+import QuestionMark from '../../../assets/icons/question-mark-solid.svg';
+import { PopupModal } from '../../components/popup/PopupModal';
 
 const PageFAQ = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -19,20 +24,24 @@ const PageFAQ = () => {
   const [selectedQuestion, setSelectedQuestion] = useState(0);
   const [selectedQuestions, setSelectedQuestions] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [pageState, setPageState] = useState('form');
   const data = getQuestions();
   const unsortedQuestions = [];
-  const generalQuestions = [];
-  const FroshKitsQuestions = [];
-  const FroshGroupQuestions = [];
+  const questionsObjects = {};
+  const questionCategories = [];
   for (let i = 0; i < data.length; i++) {
-    if (data[i].category == 'General') {
-      generalQuestions.push({ question: data[i].question, answer: data[i].answer });
-    }
-    if (data[i].category == 'F!rosh Kits') {
-      FroshKitsQuestions.push({ question: data[i].question, answer: data[i].answer });
-    }
-    if (data[i].category == 'F!rosh Group') {
-      FroshGroupQuestions.push({ question: data[i].question, answer: data[i].answer });
+    if (!questionsObjects.hasOwnProperty(data[i].category)) {
+      questionsObjects[data[i].category] = [];
+      questionsObjects[data[i].category].push({
+        question: data[i].question,
+        answer: data[i].answer,
+      });
+      questionCategories.push({ name: data[i].category });
+    } else {
+      questionsObjects[data[i].category].push({
+        question: data[i].question,
+        answer: data[i].answer,
+      });
     }
     unsortedQuestions.push({
       question: data[i].question,
@@ -41,55 +50,83 @@ const PageFAQ = () => {
       category: data[i].category,
     });
   }
-  const allQuestions = [generalQuestions, FroshKitsQuestions, FroshGroupQuestions];
+  const allQuestions = [];
+  for (let i = 0; i < Object.keys(questionsObjects).length; i++) {
+    allQuestions.push(questionsObjects[Object.keys(questionsObjects)[i]]);
+  }
   return (
     <div>
-      <FAQPageHeader
-        questions={unsortedQuestions}
-        setIsSearch={setIsSearch}
-        setIsMultiSearch={setIsMultiSearch}
-        setSelectedQuestion={setSelectedQuestion}
-        setSelectedQuestions={setSelectedQuestions}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        selectedSearchResult={selectedSearchResult}
-        setSelectedSearchResult={setSelectedSearchResult}
-        setIsNoMatch={setIsNoMatch}
-        setActiveIndex={setActiveIndex}
-      />
-      <img src={Wave} className={'faq-wave-image faq-page-top-wave-image'} />
-      <div className={'faq-button-selector-container'}>
-        <FAQButtons
-          activeIndex={activeIndex}
-          setActiveIndex={setActiveIndex}
+      <div>
+        <FAQPageHeader
+          questions={unsortedQuestions}
           setIsSearch={setIsSearch}
           setIsMultiSearch={setIsMultiSearch}
+          setSelectedQuestion={setSelectedQuestion}
+          setSelectedQuestions={setSelectedQuestions}
+          searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
-        />
-      </div>
-      <div className={`faq-accordion-container ${isSearch ? 'faq-hide-accordion' : ''}`}>
-        <FAQCategoryAccordions
-          allQuestions={allQuestions}
-          activeIndex={activeIndex}
+          selectedSearchResult={selectedSearchResult}
+          setSelectedSearchResult={setSelectedSearchResult}
+          setIsNoMatch={setIsNoMatch}
           setActiveIndex={setActiveIndex}
+          questionCategories={questionCategories}
         />
-      </div>
-      <div className={`faq-display-questions-container ${isSearch ? '' : 'faq-hide-accordion'}`}>
-        <div className={`${!isMultiSearch && !isNoMatch ? '' : 'faq-hide-accordion'}`}>
-          <FAQDisplaySearchQuestion
-            selectedQuestion={selectedQuestion}
-            questions={unsortedQuestions}
+        <img src={Wave} className={'faq-wave-image faq-page-top-wave-image'} />
+        <div
+          className={`faq-button-selector-container ${
+            isSearch ? 'faq-hide-button-selector' : 'faq-show-button-selector'
+          }`}
+        >
+          <FAQButtons
+            activeIndex={activeIndex}
+            setActiveIndex={setActiveIndex}
+            setIsSearch={setIsSearch}
+            setIsMultiSearch={setIsMultiSearch}
+            setSearchQuery={setSearchQuery}
+            questionCategories={questionCategories}
           />
         </div>
-        <div className={`${isMultiSearch && !isNoMatch ? '' : 'faq-hide-accordion'}`}>
-          <FAQDisplayAllSearchQuestion selectedQuestions={selectedQuestions} />
+        <div
+          className={`faq-accordion-container ${
+            isSearch ? 'faq-hide-accordion' : 'faq-show-accordion'
+          }`}
+        >
+          <FAQCategoryAccordions
+            allQuestions={allQuestions}
+            activeIndex={activeIndex}
+            setActiveIndex={setActiveIndex}
+          />
         </div>
-        <div className={`faq-no-results ${isNoMatch ? '' : 'faq-hide-accordion'}`}>
-          <h1>No results</h1>
+        <div
+          className={`faq-display-questions-container ${
+            isSearch ? 'faq-show-accordion' : 'faq-hide-accordion'
+          }`}
+        >
+          <div
+            className={`${
+              !isMultiSearch && !isNoMatch ? 'faq-show-accordion' : 'faq-hide-accordion'
+            }`}
+          >
+            <FAQDisplaySearchQuestion
+              selectedQuestion={selectedQuestion}
+              questions={unsortedQuestions}
+            />
+          </div>
+          <div
+            className={`${
+              isMultiSearch && !isNoMatch ? 'faq-show-accordion' : 'faq-hide-accordion'
+            }`}
+          >
+            <h1 className="faq-all-search-results">Search results...</h1>
+            <FAQDisplayAllSearchQuestion selectedQuestions={selectedQuestions} />
+          </div>
+          <div
+            className={`faq-no-results ${isNoMatch ? 'faq-show-accordion' : 'faq-hide-accordion'}`}
+          >
+            <h1>No results</h1>
+          </div>
         </div>
-      </div>
-      <div className={'faq-ask-question-outer-container'}>
-        <FAQAskQuestion />
+        <FAQFab pageState={pageState} setPageState={setPageState} />
       </div>
     </div>
   );
@@ -107,6 +144,7 @@ const FAQPageHeader = ({
   setIsMultiSearch,
   setIsNoMatch,
   setActiveIndex,
+  questionCategories,
 }) => {
   const filterQuestions = (questions, query) => {
     if (!query) {
@@ -119,16 +157,9 @@ const FAQPageHeader = ({
   };
 
   const filteredQuestions = filterQuestions(questions, searchQuery);
-  const handleSearchIconClick = () => {
-    setIsSearch(true);
-    setSelectedQuestions(filteredQuestions);
-    setIsMultiSearch(true);
-    setSelectedSearchResult(true);
-    if (filteredQuestions.length == 0 || searchQuery == '') {
-      setIsNoMatch(true);
-    } else {
-      setIsNoMatch(false);
-    }
+  const handleDeleteIconClick = () => {
+    setSearchQuery('');
+    setIsSearch(false);
   };
   return (
     <>
@@ -148,7 +179,7 @@ const FAQPageHeader = ({
                     ? '15px 0px 0px 0px'
                     : '',
               }}
-              onClick={() => handleSearchIconClick()}
+              // onClick={() => handleSearchIconClick()}
             >
               <img src={SearchIcon} alt="Search Button" height={30} />
             </div>
@@ -165,6 +196,7 @@ const FAQPageHeader = ({
                 setIsNoMatch={setIsNoMatch}
                 setSelectedQuestions={setSelectedQuestions}
                 setActiveIndex={setActiveIndex}
+                questionCategories={questionCategories}
               />
             </div>
             <div
@@ -178,7 +210,7 @@ const FAQPageHeader = ({
             >
               {searchQuery.length > 0 ? (
                 <img
-                  onClick={() => setSearchQuery('')}
+                  onClick={() => handleDeleteIconClick()}
                   src={DeleteIcon}
                   alt="Search Button"
                   height={30}
@@ -206,10 +238,16 @@ FAQPageHeader.propTypes = {
   setIsMultiSearch: PropTypes.func.isRequired,
   setIsNoMatch: PropTypes.bool.isRequired,
   setActiveIndex: PropTypes.number.isRequired,
+  questionCategories: PropTypes.array.isRequired,
 };
 
-const FAQButtons = ({ activeIndex, setActiveIndex, setIsSearch, setSearchQuery }) => {
-  const data = getCategories();
+const FAQButtons = ({
+  activeIndex,
+  setActiveIndex,
+  setIsSearch,
+  setSearchQuery,
+  questionCategories,
+}) => {
   return (
     <div
       onClick={() => {
@@ -218,11 +256,10 @@ const FAQButtons = ({ activeIndex, setActiveIndex, setIsSearch, setSearchQuery }
       }}
     >
       <ButtonSelector
-        buttonList={data}
+        buttonList={questionCategories}
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
         maxWidthButton={200}
-        classNameSelector={'button-selector-no-stretch'}
       />
     </div>
   );
@@ -233,12 +270,13 @@ FAQButtons.propTypes = {
   setActiveIndex: PropTypes.func.isRequired,
   setIsSearch: PropTypes.func.isRequired,
   setSearchQuery: PropTypes.func.isRequired,
+  questionCategories: PropTypes.array.isRequired,
 };
 
 const FAQCategoryAccordions = ({ allQuestions, activeIndex }) => {
   const questionsAccordion = allQuestions[activeIndex].map((question, index) => (
     <div key={index} className={'faq-accordion-wrapper'}>
-      <FAQAccordionWrapper scheduleData={question} openStatus={false} />
+      <FAQAccordionWrapper scheduleData={question} openStatus={false} activeIndex={activeIndex} />
     </div>
   ));
   return <div>{questionsAccordion}</div>;
@@ -249,14 +287,17 @@ FAQCategoryAccordions.propTypes = {
   activeIndex: PropTypes.number.isRequired,
 };
 
-const FAQAccordionWrapper = ({ scheduleData, openStatus }) => {
+const FAQAccordionWrapper = ({ scheduleData, openStatus, activeIndex }) => {
   const [isOpen, setIsOpen] = useState(openStatus);
+  useEffect(() => {
+    setIsOpen(false);
+  }, [activeIndex]);
   return (
     <SingleAccordion
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       header={<div className={'faq-search-result-question-accordion'}>{scheduleData.question}</div>}
-      style={{ backgroundColor: '#ecd6ff' }}
+      style={{ backgroundColor: '#ecd6ff', padding: '0px 30px 0px 30px' }}
     >
       <div className={'faq-search-result-answer-accordion'}>{scheduleData.answer}</div>
     </SingleAccordion>
@@ -266,6 +307,7 @@ const FAQAccordionWrapper = ({ scheduleData, openStatus }) => {
 FAQAccordionWrapper.propTypes = {
   scheduleData: PropTypes.object.isRequired,
   openStatus: PropTypes.bool.isRequired,
+  activeIndex: PropTypes.number.isRequired,
 };
 
 const FAQSearchBar = ({
@@ -280,62 +322,39 @@ const FAQSearchBar = ({
   setIsNoMatch,
   setSelectedQuestions,
   setActiveIndex,
+  questionCategories,
 }) => {
+  useEffect(() => {
+    setIsSearch(true);
+    setSelectedQuestions(questions);
+    setIsMultiSearch(true);
+    setSelectedSearchResult(true);
+    if (questions.length == 0) {
+      setIsNoMatch(true);
+    } else if (searchQuery == '') {
+      setIsSearch(false);
+    } else {
+      setIsNoMatch(false);
+    }
+  }, [searchQuery]);
   const handleQueryChange = (e) => {
     setSearchQuery(e.target.value);
     setSelectedSearchResult(false);
-  };
-  const handleSearchResultSelect = () => {
-    setSelectedSearchResult(false);
-  };
-  const onKeyPress = (target) => {
-    if (target.charCode === 13) {
-      setIsSearch(true);
-      setSelectedQuestions(questions);
-      setIsMultiSearch(true);
-      setSelectedSearchResult(true);
-      if (questions.length == 0 || searchQuery == '') {
-        setIsNoMatch(true);
-      } else {
-        setIsNoMatch(false);
-      }
+    if (e.target.value == '') {
+      setIsSearch(false);
     }
   };
+
   return (
     <div className={'faq-search'}>
       <div className={'faq-search-input'}>
         <input
           value={searchQuery}
           onInput={(e) => handleQueryChange(e)}
-          onKeyPress={onKeyPress}
-          onClick={() => handleSearchResultSelect()}
           type="text"
           placeholder={'Search for a question'}
         />
       </div>
-      {searchQuery.length != 0 && (
-        <div
-          className={`faq-data-result ${selectedSearchResult ? 'faq-search-results-hide' : ''}`}
-          style={{ height: questions.length * 50 < 200 ? questions.length * 50 : 200 }}
-        >
-          {questions.map((value, index) => {
-            return (
-              <div key={index} className={'faq-data-item'}>
-                <FAQSearchResult
-                  setIsSearch={setIsSearch}
-                  setSelectedQuestion={setSelectedQuestion}
-                  setSearchQuery={setSearchQuery}
-                  question={value}
-                  setSelectedSearchResult={setSelectedSearchResult}
-                  setIsMultiSearch={setIsMultiSearch}
-                  setIsNoMatch={setIsNoMatch}
-                  setActiveIndex={setActiveIndex}
-                />
-              </div>
-            );
-          })}
-        </div>
-      )}
     </div>
   );
 };
@@ -352,51 +371,7 @@ FAQSearchBar.propTypes = {
   setIsNoMatch: PropTypes.bool.isRequired,
   setSelectedQuestions: PropTypes.func.isRequired,
   setActiveIndex: PropTypes.number.isRequired,
-};
-
-const FAQSearchResult = ({
-  setIsSearch,
-  setSelectedQuestion,
-  setSearchQuery,
-  question,
-  setSelectedSearchResult,
-  setIsMultiSearch,
-  setIsNoMatch,
-  setActiveIndex,
-}) => {
-  function FAQReturnQuestions() {
-    setIsSearch(true);
-    setSelectedQuestion(question.id);
-    setSearchQuery(question.question);
-    setSelectedSearchResult(true);
-    setIsMultiSearch(false);
-    setIsNoMatch(false);
-    if (question.category == 'General') {
-      setActiveIndex(0);
-    }
-    if (question.category == 'F!rosh Kits') {
-      setActiveIndex(1);
-    }
-    if (question.category == 'F!rosh Group') {
-      setActiveIndex(2);
-    }
-  }
-  return (
-    <div className={'faq-search-result-wrapper'} onClick={() => FAQReturnQuestions()}>
-      {question.question}
-    </div>
-  );
-};
-
-FAQSearchResult.propTypes = {
-  setIsSearch: PropTypes.func.isRequired,
-  setSelectedQuestion: PropTypes.func.isRequired,
-  question: PropTypes.object.isRequired,
-  setSearchQuery: PropTypes.func.isRequired,
-  setSelectedSearchResult: PropTypes.func.isRequired,
-  setIsMultiSearch: PropTypes.func.isRequired,
-  setIsNoMatch: PropTypes.func.isRequired,
-  setActiveIndex: PropTypes.number.isRequired,
+  questionCategories: PropTypes.array.isRequired,
 };
 
 const FAQDisplaySearchQuestion = ({ selectedQuestion, questions }) => {
@@ -428,47 +403,153 @@ FAQDisplayAllSearchQuestion.propTypes = {
   questions: PropTypes.array.isRequired,
 };
 
-const FAQAskQuestion = () => {
-  const [textValue, updateTextValue] = useState('');
+const FAQAskQuestion = ({ pageState, setPageState }) => {
+  const [signUpError, setSignUpError] = useState('');
+  const [errorColor, setErrorColor] = useState(false);
   const initialFormData = {
     question: '',
+    email: '',
   };
+  const [emailText, setEmailText] = useState({});
+  const [questionText, setQuestionText] = useState({});
   const [formData, updateFormData] = useState(initialFormData);
-  const handleChange = (text) => {
-    // console.log(text);
-    updateFormData({ question: text });
+  const [clearText, setClearText] = useState(false);
+  useEffect(() => {
+    updateFormData({ question: questionText.question, email: emailText.email });
+  }, [emailText, questionText]);
+  const handleChangeEmail = (text) => {
+    let newEmailState = { ...emailText };
+    newEmailState.email = text;
+    setEmailText(newEmailState);
   };
-
-  const handleSubmit = (text) => {
-    console.log(submitQuestion(formData));
-    updateFormData(initialFormData);
-    text = '';
-    // ... submit to API or something
+  const handleChangeQuestion = (text) => {
+    let newQuestionState = { ...questionText };
+    newQuestionState.question = text;
+    setQuestionText(newQuestionState);
   };
+  async function handleSubmit(text) {
+    // console.log(submitQuestion(formData));
+    //console.log(formData);
+    setPageState('loading');
+    const result = await submitQuestion(formData);
+    if (result !== true) {
+      setSignUpError(result);
+      setErrorColor(true);
+      setPageState('form');
+    } else {
+      setPageState('success');
+      updateFormData(initialFormData);
+      text = '';
+      setClearText(true);
+      setSignUpError('Thank you for submitting your question!');
+      setErrorColor(false);
+      setPageState('form');
+    }
+  }
 
   return (
     <div className={'faq-ask-question-container'}>
-      <h1 className={'faq-ask-question-title'}>Can&apos;t Find Your Question?</h1>
-      <form>
-        <label>
-          <div className={'faq-ask-question-box'}>
-            <TextInput
-              value={textValue}
-              onChange={(text) => handleChange(text)}
-              inputType={'textArea'}
-              placeholder={'Type your question here'}
-              style={{ height: '150px' }}
-            />
-          </div>
-        </label>
-        <div style={{ textAlign: 'center' }}>
-          <Button label={'Submit'} onClick={handleSubmit}>
-            Submit
-          </Button>
+      <div className={'faq-ask-question-stacking'}>
+        <div
+          className={`faq-page-questions ${
+            pageState !== 'form' ? 'faq-page-disappear' : 'faq-page-appear'
+          }`}
+        >
+          <h1 className={'faq-ask-question-title'}>Can&apos;t Find Your Question?</h1>
+          <ErrorSuccessBox content={signUpError} error={errorColor} success={!errorColor} />
+          <form>
+            <label>
+              <div className={'faq-ask-question-email-box'}>
+                <TextInput
+                  onChange={(text) => handleChangeEmail(text)}
+                  inputType={'text'}
+                  placeholder={'Email'}
+                  style={{ height: '45px' }}
+                  clearText={clearText}
+                  setClearText={setClearText}
+                />
+              </div>
+            </label>
+            <label>
+              <div className={'faq-ask-question-box'}>
+                <TextInput
+                  onChange={(text) => handleChangeQuestion(text)}
+                  inputType={'textArea'}
+                  placeholder={'Type your question here...'}
+                  style={{ height: '150px', resize: 'vertical' }}
+                  clearText={clearText}
+                  setClearText={setClearText}
+                />
+              </div>
+            </label>
+            <div style={{ textAlign: 'center' }}>
+              <Button label={'Submit'} onClick={handleSubmit}>
+                Submit
+              </Button>
+            </div>
+          </form>
         </div>
-      </form>
+        <div
+          className={`faq-loading ${pageState === 'loading' ? 'faq-loading-appear' : ''} 
+          ${pageState === 'success' ? 'faq-loading-disappear' : ''}`}
+        >
+          <LoadingAnimation size={'60px'} />
+        </div>
+      </div>
     </div>
   );
+};
+
+FAQAskQuestion.propTypes = {
+  pageState: PropTypes.string.isRequired,
+  setPageState: PropTypes.string.isRequired,
+};
+
+const FAQFab = ({ pageState, setPageState }) => {
+  const [showPopUp, setShowPopUp] = useState(false);
+
+  return (
+    <>
+      <PopupModal
+        trigger={showPopUp}
+        setTrigger={setShowPopUp}
+        blurBackground={false}
+        exitIcon={true}
+      >
+        <div className="ask-question-popup">
+          <div className={'faq-ask-question-outer-container'}>
+            <FAQAskQuestion pageState={pageState} setPageState={setPageState} />
+          </div>
+        </div>
+      </PopupModal>
+      <div className={'faq-fab'}>
+        <Button
+          style={{ boxShadow: '5px 5px 20px #13131362' }}
+          class_options={'faq-fab-button'}
+          label={
+            <div className={'faq-fab-container'}>
+              <img
+                className={'faq-fab-icon'}
+                src={QuestionMark}
+                alt="Question Button"
+                height={30}
+              />
+              <span className={'faq-fab-content'}>Ask a Question</span>
+            </div>
+          }
+          isSecondary
+          onClick={() => {
+            setShowPopUp(true);
+          }}
+        />
+      </div>
+    </>
+  );
+};
+
+FAQFab.propTypes = {
+  pageState: PropTypes.string.isRequired,
+  setPageState: PropTypes.string.isRequired,
 };
 
 export { PageFAQ };

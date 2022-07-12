@@ -1,6 +1,7 @@
 const express = require('express');
 
 const FroshController = require('../controllers/FroshController');
+const checkLoggedIn = require('../middlewares/checkLoggedIn');
 
 const router = express.Router();
 /**
@@ -16,6 +17,6 @@ const router = express.Router();
  *             $ref: '#/components/schemas/NewFrosh'
  *
  */
-router.post('/register', FroshController.registerFrosh);
+router.post('/register', checkLoggedIn, FroshController.registerFrosh);
 
 module.exports = router;
