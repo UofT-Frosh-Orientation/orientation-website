@@ -21,6 +21,9 @@ const TextInput = ({
   inputTitle,
   isPhoneNumber,
   isInstagram,
+  style,
+  clearText,
+  setClearText,
   isUtorID,
   maxLength,
 }) => {
@@ -52,6 +55,14 @@ const TextInput = ({
       ? initialValue
       : '',
   );
+
+  useEffect(() => {
+    if (clearText) {
+      setValue('');
+      setClearText(false);
+    }
+  }, [clearText]);
+
   const [type, setType] = useState(inputType ? inputType : 'text');
 
   const onKeyPress = (target) => {
@@ -135,6 +146,7 @@ const TextInput = ({
             type={type}
             onChange={onInputChange}
             {...inputArgs}
+            style={{ ...style }}
           />
         ) : (
           <input
@@ -190,6 +202,9 @@ TextInput.propTypes = {
   inputTitle: PropTypes.string,
   isPhoneNumber: PropTypes.bool,
   isInstagram: PropTypes.bool,
+  style: PropTypes.object,
+  clearText: PropTypes.bool,
+  setClearText: PropTypes.func,
   isUtorID: PropTypes.bool,
   maxLength: PropTypes.number,
 };
