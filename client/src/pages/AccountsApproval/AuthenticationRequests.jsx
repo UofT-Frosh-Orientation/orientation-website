@@ -35,6 +35,17 @@ const AuthenticationRequests = () => {
     setEmailList(TestAuth);
   }, [emailList]);
 
+  useEffect(() => {
+    if (editMode && isSave && !changesMade) {
+      // if in editMode and isSave is clicked, turn off changes made
+      setChangesMade(false);
+    } else if (editMode && !isSave && changesMade) {
+      setChangesMade(true);
+    } else {
+      setChangesMade(false);
+    }
+  }, [editMode]);
+
   return (
     <div className="all-accounts-container">
       <div className="all-accounts-buttons">
@@ -47,6 +58,7 @@ const AuthenticationRequests = () => {
                 setIsSave(true);
                 setShowSaveMessage(true);
                 setSaveSuccess(sendAuthRequests(accountStatus));
+                setChangesMade(false);
               }}
             />
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -73,6 +85,7 @@ const AuthenticationRequests = () => {
               onClick={() => {
                 setEditMode(true);
                 setShowSaveMessage(false);
+                setIsSave(false);
               }}
             />
           </div>
@@ -189,13 +202,16 @@ const RowComponentAuth = ({
 
           useEffect(() => {
             if (!editMode && !isSave) {
+              console.log('aaaa');
               // if exiting exit mode, and save button not pressed
               setApprove(initialApprove);
               setDeny(initialDeny);
               setIsSave(false);
-            } else {
-              setApprove(approve);
-              setDeny(deny);
+            } else if (!editMode && isSave) {
+              console.log('eeeeee');
+              // use the states from the state object so backend has time to change the actual account array
+              setApprove(accountStatus[account.email][authreq.authreq].approve);
+              setDeny(!accountStatus[account.email][authreq.authreq].approve);
             }
           });
 

@@ -231,10 +231,12 @@ const RowComponent = ({
   useEffect(() => {
     if (!editMode && !isSave) {
       // if exiting exit mode, and save button not pressed
+      console.log('bbbbbbb');
       setApprove(initialApprove);
       setDeny(initialDeny);
       setIsSave(false);
     } else if (!editMode && isSave) {
+      console.log('sssssssss');
       setApprove(accountStatus[account.email].approve);
       setDeny(!accountStatus[account.email].approve);
     }
@@ -316,19 +318,6 @@ const AllAccountsEditButton = ({
   setChangesMade,
   setShowSaveMessage,
 }) => {
-  // useEffect(() => {
-  //   setChangesMade(changesMade);
-  // }, [changesMade]);
-
-  // useEffect(() => {
-  //   setIsSave(isSave);
-  // }, [isSave]);
-
-  // useEffect(() => {
-  //   setEditMode(editMode);
-  //   setChangesMade(false);
-  // }, [editMode]);
-
   useEffect(() => {
     if (editMode && isSave && !changesMade) {
       // if in editMode and isSave is clicked, turn off changes made
