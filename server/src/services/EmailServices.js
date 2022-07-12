@@ -171,24 +171,24 @@ const EmailServices = {
    * @returns {Promise} promise
    */
   async sendRawEmail(html, text, subject, attachments, toAddresses, fromAddress) {
-    let msg = mimemessage.factory({
+    const msg = mimemessage.factory({
       contentType: 'multipart/mixed',
       body: [],
     });
     msg.header('From', fromAddress);
     msg.header('To', toAddresses);
     msg.header('Subject', subject);
-    let alternateEntity = mimemessage.factory({
+    const alternateEntity = mimemessage.factory({
       contentType: 'multipart/alternate',
       body: [],
     });
 
-    let htmlEntity = mimemessage.factory({
+    const htmlEntity = mimemessage.factory({
       contentType: 'text/html;charset=utf-8',
       body: html,
     });
 
-    let plainEntity = mimemessage.factory({
+    const plainEntity = mimemessage.factory({
       body: text,
     });
 
@@ -197,14 +197,14 @@ const EmailServices = {
 
     msg.body.push(alternateEntity);
 
-    for (let filePath of attachments) {
+    for (const filePath of attachments) {
       const filemime = mime.getType(path.basename(filePath));
 
       const fileData = await fs.readFile(filePath, {
         encoding: 'base64',
       });
 
-      let attachment = mimemessage.factory({
+      const attachment = mimemessage.factory({
         contentType: filemime,
         contentTransferEncoding: 'base64',
         body: fileData,

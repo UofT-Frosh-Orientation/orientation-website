@@ -1,19 +1,29 @@
-export function getTasks() {
-  return [
-    {
-      name: 'Welcome to your F!rosh profile page',
-      description:
-        "Take a look around and explore! You'll find your personalized Frosh group schedule and more information here. You can check this off when you're ready!",
-      dateCreated: new Date('2022-05-31T00:00:00'),
-      completed: true,
-    },
-    {
-      name: 'Welcome to your F!rosh profile page 2',
-      description: 'More talky talk and walky walk text...',
-      dateCreated: new Date('2022-05-31T00:00:00'),
-      completed: true,
-    },
-  ];
+import useAxios from '../../hooks/useAxios';
+const { axios } = useAxios();
+
+// function checks if email is valid and sends a reset password email
+export async function resetPassword(email) {
+  console.log(email);
+  let promise = new Promise((res, rej) => {
+    setTimeout(() => res(''), 1000);
+    // currently does not display this ^ response as the display for error message,
+
+    // uses the result to check what response to display
+    // false -> "We didn't recognize that email, please try again!"
+    // true  -> "Success, an email has been sent!"
+  });
+  let result = await promise;
+  return true;
+}
+
+export async function getTasks() {
+  try {
+    const response = await axios.get('/announcements');
+    console.log(response);
+    return response.data.announcements;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export function onDoneTask(task) {
@@ -121,10 +131,27 @@ export function parseQRCode(qrString) {
   }
 }
 
-export function getQRCodeString() {
+export async function getQRCodeString() {
   // Keep in this order:
   // email | full name or preferred name | pronouns | shirt size | frosh group | discipline
-  return 'test.email@mail.utoronto.com|James Kokoska|he/him|L|Lambda|Computer Engineering';
+  try {
+    const response = await axios.get('/user/info');
+    let allDetails = response.data.user.email;
+    return allDetails.concat(
+      '|',
+      response.data.user.fullName,
+      '|',
+      response.data.user.pronouns,
+      '|',
+      response.data.user.shirtSize,
+      '|',
+      response.data.user.froshGroup,
+      '|',
+      response.data.user.discipline,
+    );
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 //Return true if successful
@@ -158,15 +185,21 @@ export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export function getFroshData() {
-  return {
-    froshGroupIcon: 'λ',
-    froshGroup: 'Lambda',
-    firstName: 'James',
-    lastName: 'Kokoska',
-    discipline: 'Computer Engineering',
-    email: 'test.email@mail.utoronto.com',
-  };
+export async function getFroshData() {
+  try {
+    const response = await axios.get('/user/info');
+    const { user } = response.data;
+    return {
+      froshGroupIcon: 'λ',
+      froshGroup: user.froshGroup, //TODO: add non-static icons that changes depending on froshGroup
+      firstName: user.firstName,
+      lastName: user.lastName,
+      discipline: user.discipline,
+      email: user.email,
+    };
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export function canLeaderScanQR() {

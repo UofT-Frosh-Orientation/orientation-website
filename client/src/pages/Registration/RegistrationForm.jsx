@@ -10,8 +10,11 @@ import { Tabs } from '../../components/tabs/tabs';
 import './RegistrationForm.scss';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PopupModal } from '../../components/popup/PopupModal';
+import useAxios from '../../hooks/useAxios';
+import { registeredSelector, userSelector } from '../userSlice';
+import { useSelector } from 'react-redux';
 
 const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
   const steps = Object.keys(fields);
@@ -20,6 +23,43 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   const [selectedTab, setSelectedTab] = useState(0);
   const [selectedTabGo, setSelectedTabGo] = useState(true);
   const [showPopUp, setShowPopUp] = useState(false);
+  const [canRegister, setCanRegister] = useState(true);
+  const [checkoutUrl, setCheckoutUrl] = useState('');
+
+  const { axios } = useAxios();
+
+  const navigate = useNavigate();
+
+  const registered = useSelector(registeredSelector);
+
+  useEffect(() => {
+    if (registered && !editFieldsPage) {
+      navigate('/profile');
+    }
+  }, []);
+
+  const handleRegister = async () => {
+    setCanRegister(false);
+    const isFormValid = validateForm();
+    if (!isFormValid) {
+      return setCanRegister(true);
+    } else {
+      // console.log(froshObject);
+      try {
+        const response = await axios.post('/frosh/register', froshObject);
+        setCheckoutUrl(response.data.url);
+        setShowPopUp(true);
+      } catch (error) {
+        setCanRegister(true);
+      }
+
+      // console.log(result)
+    }
+  };
+
+  const handleCheckout = () => {
+    window.location.href = checkoutUrl;
+  };
 
   useEffect(() => {
     for (let step of steps) {
@@ -35,20 +75,35 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     const formFieldsCopy = { ...formFields };
     for (let step of steps) {
       for (let key of Object.keys(formFields[step])) {
+        let localValidated = true;
         if (formFields[step][key].type === 'label') {
           continue;
+        }
+        if (formFields[step][key].validation !== undefined) {
+          const validateResult = formFields[step][key].validation(froshObject[key]);
+          if (validateResult !== true) {
+            formFieldsCopy[step][key].errorFeedback = validateResult;
+            localValidated = false;
+            if (validated === true) {
+              setSelectedTab(steps.indexOf(step, 0));
+              setSelectedTabGo(!selectedTabGo);
+              validated = false;
+            }
+          }
         }
         if (
           (froshObject[key] === undefined || froshObject[key] === '') &&
           formFields[step][key].isRequiredInput === true
         ) {
           formFieldsCopy[step][key].errorFeedback = formFields[step][key].errorMessage;
+          localValidated = false;
           if (validated === true) {
             setSelectedTab(steps.indexOf(step, 0));
             setSelectedTabGo(!selectedTabGo);
             validated = false;
           }
-        } else {
+        }
+        if (localValidated !== false) {
           formFieldsCopy[step][key].errorFeedback = '';
         }
       }
@@ -88,6 +143,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   }}
                   isPhoneNumber={field.isPhoneNumber}
                   isInstagram={field.isInstagram}
+                  isUtorID={field.isUtorID}
+                  maxLength={field.maxLength}
                   isDisabled={
                     editFieldsPage === true && field.isDisabled !== true
                       ? field.noEdit
@@ -105,11 +162,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   label={field.label}
                   disabledIndices={field.disabledIndices}
                   initialSelectedIndex={
-                    editFieldsPage === true ? initialValues[key] : field.initialSelectedIndex
+                    editFieldsPage === true
+                      ? field.values.findIndex((val) => (val === 'Yes') === initialValues[key])
+                      : field.initialSelectedIndex
                   }
                   values={field.values}
                   onSelected={(value) => {
-                    froshObject[key] = value;
+                    froshObject[key] = value === 'Yes';
                     if (field.onChanged) field.onChanged(value, disableField);
                   }}
                   isDisabled={
@@ -127,7 +186,9 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
                   initialSelectedIndex={
-                    editFieldsPage === true ? initialValues[key] : field.initialSelectedIndex
+                    editFieldsPage === true
+                      ? field.values.findIndex((val) => val === initialValues[key])
+                      : field.initialSelectedIndex
                   }
                   values={field.values}
                   onSelect={(value) => {
@@ -150,12 +211,19 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   label={field.label}
                   disabledIndices={field.disabledIndices}
                   initialSelectedIndices={
-                    editFieldsPage === true ? initialValues[key] : field.initialSelectedIndices
+                    editFieldsPage === true
+                      ? field.values.reduce((prev, curr, index) => {
+                          if (initialValues[key].includes(curr)) {
+                            prev.push(index);
+                          }
+                          return prev;
+                        }, [])
+                      : field.initialSelectedIndices
                   }
                   maxCanSelect={field.maxCanSelect}
                   onSelected={(value, index, status, indicesSelected) => {
                     let values = [];
-                    for (let i = 0; i < indicesSelected.length; i++) {
+                    for (let i = 0; i < indicesSelected?.length ?? 0; i++) {
                       values.push(field.values[i]);
                     }
                     froshObject[key] = values;
@@ -246,6 +314,22 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   } else {
     return (
       <div>
+        <PopupModal
+          trigger={showPopUp}
+          setTrigger={setShowPopUp}
+          blurBackground={true}
+          exitIcon={true}
+        >
+          <div className="registration-edit-popup">
+            <h1>Pay now?</h1>
+            <h2>
+              We have saved your info, but you must pay to be fully registered for F!rosh Week.
+            </h2>
+            <div className="registration-edit-popup-buttons">
+              <Button label={'Pay Now'} onClick={handleCheckout} />
+            </div>
+          </div>
+        </PopupModal>
         <div className="navbar-space-top" />
         <div className="registration-form-flex">
           <div className="registration-form">
@@ -290,6 +374,12 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                           events
                         </p>
                       </b>
+                      <Button
+                        style={{ margin: '0 auto' }}
+                        label={'Pay Now'}
+                        onClick={handleRegister}
+                        isDisabled={!canRegister}
+                      />
                     </div>
                   ),
                 },

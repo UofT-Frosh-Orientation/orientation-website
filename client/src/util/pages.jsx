@@ -11,6 +11,7 @@ import { PageLogin } from '../pages/Login/Login';
 import { PageRegistrationSuccess } from '../pages/RegistrationSuccess/RegistrationSuccess';
 import { PageSignUp } from '../pages/SignUp/SignUp';
 import { PageAccountsApproval } from '../pages/AccountsApproval/AccountsApproval';
+import AuthorizedPage from './AuthorizedPage';
 
 export const pages = {
   404: {
@@ -46,13 +47,20 @@ export const pages = {
     },
     {
       label: 'Register',
-      component: <div />,
-      path: '/register',
-      includeFooter: true,
+      component: (
+        <AuthorizedPage>
+          <PageRegistrationForm />
+        </AuthorizedPage>
+      ),
+      path: '/registration',
     },
     {
-      label: 'profile',
-      component: <PageProfile />,
+      label: 'Profile',
+      component: (
+        <AuthorizedPage>
+          <PageProfile />
+        </AuthorizedPage>
+      ),
       path: '/profile',
       includeFooter: true,
     },
@@ -72,7 +80,11 @@ export const pages = {
     },
     {
       label: 'Registration',
-      component: <PageRegistrationForm />,
+      component: (
+        <AuthorizedPage>
+          <PageRegistrationForm />
+        </AuthorizedPage>
+      ),
       path: '/registration',
       includeFooter: true,
     },
@@ -88,7 +100,11 @@ export const pages = {
     },
     {
       label: 'profile-edit',
-      component: <PageProfileEdit />,
+      component: (
+        <AuthorizedPage>
+          <PageProfileEdit />
+        </AuthorizedPage>
+      ),
       path: '/profile-edit',
     },
     {

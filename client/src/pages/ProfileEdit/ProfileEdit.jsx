@@ -1,24 +1,26 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import './ProfileEdit.scss';
 import { ProfilePageHeader } from '../Profile/Profile';
-import { fields, terms } from '../Registration/RegistrationFields';
 import { PageRegistrationForm } from '../Registration/RegistrationForm';
-import { getSelectedFroshValues, submitEdits } from './functions';
+import { submitEdits } from './functions';
+import { userSelector } from '../userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserInfo } from '../Login/saga';
+import { useNavigate } from 'react-router-dom';
 
 const PageProfileEdit = () => {
+  const { user } = useSelector(userSelector);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const submit = (newInfo) => {
+    dispatch(updateUserInfo({ newInfo, navigate }));
+  };
   return (
     <>
       <div className="navbar-space-top" />
       <ProfilePageHeader leader={false} editButton={false} />
       <div className="edit-form-container">
-        <PageRegistrationForm
-          editFieldsPage={true}
-          initialValues={getSelectedFroshValues()}
-          onEditSubmit={(froshObject) => {
-            submitEdits(froshObject);
-          }}
-        />
+        <PageRegistrationForm editFieldsPage={true} initialValues={user} onEditSubmit={submit} />
       </div>
     </>
   );

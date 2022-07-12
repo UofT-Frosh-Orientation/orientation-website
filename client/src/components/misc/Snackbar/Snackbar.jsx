@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './Snackbar.scss';
-import { Text } from '../../text/Text/Text';
 
 const Snackbar = ({ label, closeAfter, isActive }) => {
   /* Make sure that the snackbar is open when its active and closed when its not */
@@ -34,9 +33,9 @@ const Snackbar = ({ label, closeAfter, isActive }) => {
       }
     >
       <div className="spacer">&#x2716;</div>
-      <Text type="info" style={{ color: 'white', 'text-align': 'center', margin: 'auto' }}>
+      <p type="info" style={{ color: 'white', 'text-align': 'center', margin: 'auto' }}>
         {label}
-      </Text>
+      </p>
       <div className="close" onClick={handleClick}>
         &#x2716;
       </div>

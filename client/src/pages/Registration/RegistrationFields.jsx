@@ -7,17 +7,19 @@
 // className: the class name applied around the child form input component
 // noEdit: if set, this field CANNOT be modified AFTER the frosh registers
 //         Note: noEdit does not work for checkboxes
+// validation(value): if set, return true for a valid input, return a string as the error message. The check will fail if a string is returned.
 export const fields = {
   General: {
-    name: {
+    legalName: {
       type: 'text',
       inputType: 'text',
       placeholder: 'John Doe',
       label: 'Legal Name',
       isRequiredInput: true,
       errorMessage: 'Please enter your legal name',
+      localStorageKey: 'registration-legal-name',
     },
-    pronoun: {
+    pronouns: {
       type: 'dropdown',
       label: 'Pronoun',
       values: ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'],
@@ -40,7 +42,7 @@ export const fields = {
       errorMessage: 'Please enter a pronoun',
       className: 'fill-remaining-width-input',
     },
-    birthdate: {
+    birthDate: {
       type: 'text',
       inputType: 'date',
       label: 'Birthday',
@@ -49,17 +51,37 @@ export const fields = {
       isRequiredInput: true,
       errorMessage: 'Please enter a valid date',
       className: 'half-width-input',
+      validation: (value) => {
+        if (
+          value !== undefined &&
+          value.split('-')[0] !== undefined &&
+          parseInt(value.split('-')[0]) >= 1920 &&
+          parseInt(value.split('-')[0]) <= 2020
+        ) {
+          return true;
+        } else {
+          return 'Please ensure your birthday is between 1920 and 2020';
+        }
+      },
     },
     utorid: {
       type: 'text',
       inputType: 'text',
       label: 'UtorID',
-      placeholder: 'doejohn123',
+      placeholder: 'doejohn1',
       hasRestrictedInput: true,
       isRequiredInput: true,
       errorMessage: 'Please enter your UtorID',
       localStorageKey: 'registration-utorid',
       className: 'half-width-input',
+      validation: (value) => {
+        if (value !== undefined && value.toString().length === 8) {
+          return true;
+        } else {
+          return 'Your UtorID should be 8 characters long';
+        }
+      },
+      isUtorID: true,
     },
     discipline: {
       type: 'dropdown',
@@ -67,8 +89,7 @@ export const fields = {
       values: [
         'Chemical',
         'Civil',
-        'Computer',
-        'Electrical',
+        'Electrical & Computer',
         'Engineering Science',
         'Industrial',
         'Materials',
@@ -77,6 +98,7 @@ export const fields = {
         'Track One (Undeclared)',
       ],
       className: 'inline-block-remaining',
+      initialSelectedIndex: 0,
     },
     shirtSize: {
       type: 'dropdown',
@@ -99,6 +121,7 @@ export const fields = {
       localStorageKey: 'registration-phoneNumberAreaCode',
       className: 'small-width-input',
       inputTitle: 'Area Code',
+      maxLength: 3,
     },
     phoneNumber: {
       type: 'text',
@@ -157,6 +180,7 @@ export const fields = {
       localStorageKey: 'registration-emergencyContactNumberAreaCode',
       className: 'small-width-input',
       inputTitle: 'Area Code',
+      maxLength: 3,
     },
     emergencyContactNumber: {
       type: 'text',
