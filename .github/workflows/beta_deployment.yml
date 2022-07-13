@@ -52,7 +52,7 @@ jobs:
         with:
           envkey_VITE_API_BASE_URL: "https://api.beta.orientation.skule.ca"
           file_name: .env
-          directory: ${{ env.GITHUB_WORKSPACE }}/client
+          directory: $GITHUB_WORKSPACE/client
 
       - name: Build client image
         run: cd client && docker build -t $(echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):beta -f beta.Dockerfile .
