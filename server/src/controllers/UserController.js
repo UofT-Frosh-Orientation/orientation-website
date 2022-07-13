@@ -106,7 +106,9 @@ const UserController = {
   async resetPassword(req, res, next) {
     try {
       const { email, password, token } = req.body;
+      console.log(req.body);
       const result = await UserServices.validatePasswordResetToken(token);
+      console.log(result);
       const existingUser = await UserServices.getUserByEmail(email);
       console.log(existingUser);
       if (!existingUser || existingUser.email !== result) {

@@ -9,6 +9,7 @@ import {
   logoutSuccess,
   resetPasswordSuccess,
   resetPasswordFailure,
+  resetPasswordStart,
 } from '../userSlice';
 import useAxios from '../../hooks/useAxios';
 
@@ -73,8 +74,9 @@ export const resetPassword = createAction('resetPasswordSaga');
 export function* resetPasswordSaga({ payload: { email, password, token } }) {
   const { axios } = useAxios();
   try {
-    yield put(logoutSuccess());
+    yield put(resetPasswordStart());
     const result = yield call(axios.post, '/user/reset-password', { email, password, token });
+    console.log(result);
     yield put(resetPasswordSuccess());
   } catch (err) {
     console.log(err);

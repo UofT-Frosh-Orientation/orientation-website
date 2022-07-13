@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 import './PasswordReset.scss';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { validateEmail, validatePassword, validatePasswordLength } from '../SignUp/functions';
 import { Button } from '../../components/button/Button/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { resetPassword } from '../Login/saga';
+import { passwordResetSelector } from '../userSlice';
+import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
+import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 
 export const PasswordReset = () => {
   const { token } = useParams();
@@ -17,6 +20,8 @@ export const PasswordReset = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [anyErrors, setAnyErrors] = useState(false);
   const dispatch = useDispatch();
+
+  const { loading, error, resetPasswordSucceeded } = useSelector(passwordResetSelector);
 
   const checkErrors = (sendFeedback = true, feedbackToSend = []) => {
     let anyErrors = false;
@@ -76,69 +81,116 @@ export const PasswordReset = () => {
     dispatch(resetPassword({ email, password, token }));
   };
 
+  const isForm = useMemo(() => {
+    return !loading && !resetPasswordSucceeded;
+  }, [loading, resetPasswordSucceeded]);
+
   return (
-    <div className={'password-reset-page'}>
-      <div className={'navbar-space-top'} />
-      <div className={'password-reset-container'}>
-        <img className={'password-reset-logo'} src={MainFroshLogo} alt={'Frosh week logo'} />
-        <h1>Reset your password</h1>
-        <h3>For F!rosh Week 2T2, UofT Engineering</h3>
-        <div className={'full-width-input'}>
-          <TextInput
-            label={'Email'}
-            isRequiredInput
-            placeholder={'john.doe@email.com'}
-            errorFeedback={formErrors['email']}
-            autocomplete={'email'}
-            onChange={(val) => {
-              setEmail(val);
+    <div>
+      <div
+        className={`password-reset-page ${!isForm ? 'password-reset-page-disappear' : ''}`}
+        style={{ display: resetPasswordSucceeded ? 'none' : '' }}
+      >
+        <div className={'navbar-space-top'} />
+        <div className={'password-reset-container'}>
+          <img className={'password-reset-logo'} src={MainFroshLogo} alt={'Frosh week logo'} />
+          <h1>Reset your password</h1>
+          <h3>For F!rosh Week 2T2, UofT Engineering</h3>
+          <div className={'full-width-input'}>
+            <TextInput
+              label={'Email'}
+              isRequiredInput
+              placeholder={'john.doe@email.com'}
+              errorFeedback={formErrors['email']}
+              autocomplete={'email'}
+              onChange={(val) => {
+                setEmail(val);
+              }}
+              localStorageKey={'email-login'}
+            />
+          </div>
+          <div className={'full-width-input'}>
+            <TextInput
+              label={'Password'}
+              isRequiredInput
+              placeholder={'••••••••••••••'}
+              inputType={'password'}
+              errorFeedback={formErrors['password']}
+              autocomplete={'new-password'}
+              onChange={(val) => {
+                setPassword(val);
+              }}
+            />
+          </div>
+          <div className={'full-width-input'}>
+            <TextInput
+              label={'Confirm Password'}
+              isRequiredInput
+              placeholder={'••••••••••••••'}
+              inputType={'password'}
+              errorFeedback={formErrors['confirmPassword']}
+              autocomplete={'new-password'}
+              onChange={(val) => {
+                setConfirmPassword(val);
+              }}
+            />
+          </div>
+          <div
+            className="password-reset-button"
+            onMouseOver={() => {
+              checkErrors(true);
             }}
-            localStorageKey={'email-login'}
-          />
-        </div>
-        <div className={'full-width-input'}>
-          <TextInput
-            label={'Password'}
-            isRequiredInput
-            placeholder={'••••••••••••••'}
-            inputType={'password'}
-            errorFeedback={formErrors['password']}
-            autocomplete={'new-password'}
-            onChange={(val) => {
-              setPassword(val);
-            }}
-          />
-        </div>
-        <div className={'full-width-input'}>
-          <TextInput
-            label={'Confirm Password'}
-            isRequiredInput
-            placeholder={'••••••••••••••'}
-            inputType={'password'}
-            errorFeedback={formErrors['confirmPassword']}
-            autocomplete={'new-password'}
-            onChange={(val) => {
-              setConfirmPassword(val);
-            }}
-          />
-        </div>
-        <div
-          className="password-reset-button"
-          onMouseOver={() => {
-            checkErrors(true);
-          }}
-        >
-          <Button
-            label="Reset Password"
-            style={{ margin: 0 }}
-            isDisabled={anyErrors}
-            onClick={async () => {
-              const anyErrors = checkErrors(true);
-              if (anyErrors === false) {
-                submitForm();
+          >
+            <Button
+              label="Reset Password"
+              style={{ margin: 0 }}
+              isDisabled={anyErrors}
+              onClick={async () => {
+                const anyErrors = checkErrors(true);
+                if (anyErrors === false) {
+                  submitForm();
+                }
+              }}
+            />
+          </div>
+          <div style={{ width: '100%' }}>
+            <ErrorSuccessBox
+              content={
+                error
+                  ? 'Something went wrong. Please ensure that your email matches the one you made your account with.'
+                  : ''
               }
-            }}
-          />
+              error
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className={`password-reset-loading ${loading ? 'password-reset-loading-appear' : ''} ${
+          resetPasswordSucceeded ? 'password-reset-loading-disappear' : ''
+        }`}
+      >
+        <LoadingAnimation size={'60px'} />
+      </div>
+      <div>
+        <div
+          className={`password-reset-success ${
+            resetPasswordSucceeded ? 'password-reset-success-appear' : ''
+          }`}
+        >
+          <div style={{ margin: 'auto auto' }}>
+            <div className={'navbar-space-top'} />
+            <h2>You&apos;ve successfully reset your password!</h2>
+            <h3> To access your account, please sign in with your updated password.</h3>
+            <Link to={'/login'}>
+              <div>
+                <Button
+                  label={'Login'}
+                  style={{ padding: '25px 60px', fontSize: '20px', borderRadius: '20px' }}
+                />
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

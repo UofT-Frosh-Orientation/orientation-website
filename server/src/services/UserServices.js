@@ -89,6 +89,8 @@ const UserServices = {
   async validatePasswordResetToken(token) {
     return new Promise((resolve, reject) => {
       jwt.verify(token, process.env.JWT_RESET_TOKEN, (err, decoded) => {
+        console.log(err);
+        console.log(decoded);
         if (err) {
           reject(err);
         } else {
