@@ -5,6 +5,7 @@ const FroshGroupSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  symbol: {},
   totalNum: {
     type: Number,
     default: 0,

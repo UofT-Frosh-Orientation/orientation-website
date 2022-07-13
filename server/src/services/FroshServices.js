@@ -61,29 +61,27 @@ const FroshServices = {
   /**
    * Initializes a list of frosh groups with default values in the database.
    * @constructor
-   * @param {groups} groups - List of frosh groups as javascript objects
+   * @param {Array<Object>} groups - List of frosh groups as javascript objects
    */
   async initFroshGroups(groups) {
-    const defaultVals = {
-      'Prefer Not to Say': 0,
-      'he/him': 0,
-      'she/her': 0,
-      'they/them': 0,
-      Other: 0,
-      Chemical: 0,
-      Civil: 0,
-      'Electrical & Computer': 0,
-      'Engineering Science': 0,
-      Industrial: 0,
-      Materials: 0,
-      Mechanical: 0,
-      Mineral: 0,
-      'Track One (Undeclared)': 0,
-    };
-
-    for (const group of groups) {
-      FroshGroupModel.create({ ...defaultVals, ...group });
-    }
+    return await Promise.all(
+      groups.map((group) => {
+        return new Promise((resolve, reject) => {
+          FroshGroupModel.findOneAndUpdate(
+            { name: group.name },
+            { ...group },
+            { upsert: true },
+            (err, result) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(result);
+              }
+            },
+          );
+        });
+      }),
+    );
   },
 
   async updateFroshInfo(userId, updateInfo) {
