@@ -14,6 +14,8 @@ import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/Err
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import QuestionMark from '../../../assets/icons/question-mark-solid.svg';
 
+import { PopupModal } from '../../components/popup/PopupModal';
+
 const PageFAQ = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isSearch, setIsSearch] = useState(false);
@@ -53,7 +55,7 @@ const PageFAQ = () => {
   for (let i = 0; i < Object.keys(questionsObjects).length; i++) {
     allQuestions.push(questionsObjects[Object.keys(questionsObjects)[i]]);
   }
-  const questionRef = useRef(null);
+
   return (
     <div>
       <div>
@@ -98,7 +100,6 @@ const PageFAQ = () => {
           />
         </div>
         <div
-          ref={questionRef}
           className={`faq-display-questions-container ${
             isSearch ? 'faq-show-accordion' : 'faq-hide-accordion'
           }`}
@@ -118,6 +119,7 @@ const PageFAQ = () => {
               isMultiSearch && !isNoMatch ? 'faq-show-accordion' : 'faq-hide-accordion'
             }`}
           >
+            <h1 className="faq-all-search-results">Search results...</h1>
             <FAQDisplayAllSearchQuestion selectedQuestions={selectedQuestions} />
           </div>
           <div
@@ -126,10 +128,7 @@ const PageFAQ = () => {
             <h1>No results</h1>
           </div>
         </div>
-        <div className={'faq-ask-question-outer-container'}>
-          <FAQAskQuestion pageState={pageState} setPageState={setPageState} />
-        </div>
-        <FAQFab questionRef={questionRef} />
+        <FAQFab pageState={pageState} setPageState={setPageState} />
       </div>
     </div>
   );
@@ -160,17 +159,6 @@ const FAQPageHeader = ({
   };
 
   const filteredQuestions = filterQuestions(questions, searchQuery);
-  // const handleSearchIconClick = () => {
-  //   setIsSearch(true);
-  //   setSelectedQuestions(filteredQuestions);
-  //   setIsMultiSearch(true);
-  //   setSelectedSearchResult(true);
-  //   if (filteredQuestions.length == 0 || searchQuery == '') {
-  //     setIsNoMatch(true);
-  //   } else {
-  //     setIsNoMatch(false);
-  //   }
-  // };
   const handleDeleteIconClick = () => {
     setSearchQuery('');
     setIsSearch(false);
@@ -274,7 +262,6 @@ const FAQButtons = ({
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
         maxWidthButton={200}
-        classNameSelector={'button-selector-no-stretch'}
       />
     </div>
   );
@@ -359,58 +346,17 @@ const FAQSearchBar = ({
       setIsSearch(false);
     }
   };
-  // const handleSearchResultSelect = () => {
-  //   setSelectedSearchResult(false);
-  // };
-  // const onKeyPress = (target) => {
-  //   if (target.charCode === 13) {
-  //     setIsSearch(true);
-  //     setSelectedQuestions(questions);
-  //     setIsMultiSearch(true);
-  //     setSelectedSearchResult(true);
-  //     if (questions.length == 0 || searchQuery == '') {
-  //       setIsNoMatch(true);
-  //     } else {
-  //       setIsNoMatch(false);
-  //     }
-  //   }
-  // };
+
   return (
     <div className={'faq-search'}>
       <div className={'faq-search-input'}>
         <input
           value={searchQuery}
           onInput={(e) => handleQueryChange(e)}
-          // onKeyPress={onKeyPress}
-          // onClick={() => handleSearchResultSelect()}
           type="text"
           placeholder={'Search for a question'}
         />
       </div>
-      {/* {searchQuery.length != 0 && (
-        <div
-          className={`faq-data-result ${selectedSearchResult ? 'faq-search-results-hide' : ''}`}
-          style={{ height: questions.length * 50 < 200 ? questions.length * 50 : 200 }}
-        >
-          {questions.map((value, index) => {
-            return (
-              <div key={index} className={'faq-data-item'}>
-                <FAQSearchResult
-                  setIsSearch={setIsSearch}
-                  setSelectedQuestion={setSelectedQuestion}
-                  setSearchQuery={setSearchQuery}
-                  question={value}
-                  setSelectedSearchResult={setSelectedSearchResult}
-                  setIsMultiSearch={setIsMultiSearch}
-                  setIsNoMatch={setIsNoMatch}
-                  setActiveIndex={setActiveIndex}
-                  questionCategories={questionCategories}
-                />
-              </div>
-            );
-          })}
-        </div>
-      )} */}
     </div>
   );
 };
@@ -429,49 +375,6 @@ FAQSearchBar.propTypes = {
   setActiveIndex: PropTypes.number.isRequired,
   questionCategories: PropTypes.array.isRequired,
 };
-
-// const FAQSearchResult = ({
-//   setIsSearch,
-//   setSelectedQuestion,
-//   setSearchQuery,
-//   question,
-//   setSelectedSearchResult,
-//   setIsMultiSearch,
-//   setIsNoMatch,
-//   setActiveIndex,
-//   questionCategories,
-// }) => {
-//   function FAQReturnQuestions() {
-//     setIsSearch(true);
-//     setSelectedQuestion(question.id);
-//     setSearchQuery(question.question);
-//     setSelectedSearchResult(true);
-//     setIsMultiSearch(false);
-//     setIsNoMatch(false);
-//     for (let i = 0; i < questionCategories.length; i++) {
-//       if (question.category == questionCategories[i].name) {
-//         setActiveIndex(i);
-//       }
-//     }
-//   }
-//   return (
-//     <div className={'faq-search-result-wrapper'} onClick={() => FAQReturnQuestions()}>
-//       {question.question}
-//     </div>
-//   );
-// };
-
-// FAQSearchResult.propTypes = {
-//   setIsSearch: PropTypes.func.isRequired,
-//   setSelectedQuestion: PropTypes.func.isRequired,
-//   question: PropTypes.object.isRequired,
-//   setSearchQuery: PropTypes.func.isRequired,
-//   setSelectedSearchResult: PropTypes.func.isRequired,
-//   setIsMultiSearch: PropTypes.func.isRequired,
-//   setIsNoMatch: PropTypes.func.isRequired,
-//   setActiveIndex: PropTypes.number.isRequired,
-//   questionCategories: PropTypes.array.isRequired,
-// };
 
 const FAQDisplaySearchQuestion = ({ selectedQuestion, questions }) => {
   return (
@@ -575,7 +478,7 @@ const FAQAskQuestion = ({ pageState, setPageState }) => {
                   onChange={(text) => handleChangeQuestion(text)}
                   inputType={'textArea'}
                   placeholder={'Type your question here...'}
-                  style={{ height: '150px' }}
+                  style={{ height: '150px', resize: 'vertical' }}
                   clearText={clearText}
                   setClearText={setClearText}
                 />
@@ -604,29 +507,51 @@ FAQAskQuestion.propTypes = {
   setPageState: PropTypes.string.isRequired,
 };
 
-const FAQFab = ({ questionRef }) => {
-  const handleClick = () => {
-    questionRef.current.scrollIntoView();
-  };
+const FAQFab = ({ pageState, setPageState }) => {
+  const [showPopUp, setShowPopUp] = useState(false);
+
   return (
-    <div className={'faq-fab'}>
-      <Button
-        style={{ boxShadow: '5px 5px 20px #000000' }}
-        label={
-          <div className={'faq-fab-container'}>
-            <img className={'faq-fab-icon'} src={QuestionMark} alt="Question Button" height={30} />
-            <span className={'faq-fab-content'}>Ask a Question</span>
+    <>
+      <PopupModal
+        trigger={showPopUp}
+        setTrigger={setShowPopUp}
+        blurBackground={false}
+        exitIcon={true}
+      >
+        <div className="ask-question-popup">
+          <div className={'faq-ask-question-outer-container'}>
+            <FAQAskQuestion pageState={pageState} setPageState={setPageState} />
           </div>
-        }
-        isSecondary
-        onClick={() => handleClick()}
-      />
-    </div>
+        </div>
+      </PopupModal>
+      <div className={'faq-fab'}>
+        <Button
+          style={{ boxShadow: '5px 5px 20px #13131362' }}
+          class_options={'faq-fab-button'}
+          label={
+            <div className={'faq-fab-container'}>
+              <img
+                className={'faq-fab-icon'}
+                src={QuestionMark}
+                alt="Question Button"
+                height={30}
+              />
+              <span className={'faq-fab-content'}>Ask a Question</span>
+            </div>
+          }
+          isSecondary
+          onClick={() => {
+            setShowPopUp(true);
+          }}
+        />
+      </div>
+    </>
   );
 };
 
 FAQFab.propTypes = {
-  questionRef: PropTypes.object.isRequired,
+  pageState: PropTypes.string.isRequired,
+  setPageState: PropTypes.string.isRequired,
 };
 
 export { PageFAQ };

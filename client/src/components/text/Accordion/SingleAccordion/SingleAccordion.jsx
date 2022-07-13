@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import faAngleDown from '../../../../assets/accordion/angle-up-solid.svg';
 import './SingleAccordion.scss';
 
-
 const SingleAccordion = ({ header, children, isOpen, setIsOpen, canOpen, className, style }) => {
-  const [Height, setHeight] = useState('0px');
-  const [Rotate, setRotate] = useState('accord-icon');
+  const [height, setHeight] = useState('0px');
+  const [rotate, setRotate] = useState('accord-icon');
 
   const content = useRef(null);
 

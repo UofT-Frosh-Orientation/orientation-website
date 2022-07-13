@@ -20,22 +20,15 @@
 }
 
 .faq-button-selector-container {
-  margin: 0px 10% 0px 10%;
-  width: 80%;
-  display: flex;
-  justify-content: center;
+  margin: 0px 5% 0px 5%;
 }
 
 .faq-hide-button-selector {
-  opacity: 0;
-  transition: transform 1500ms, opacity 1500ms;
-  visibility: hidden;
-  height: 0px;
+  display: none;
 }
 
 .faq-show-button-selector {
-  opacity: 1;
-  transition: transform 1500ms, opacity 1500ms;
+  display: block;
 }
 
 .faq-display-questions-container {
@@ -77,14 +70,6 @@
   padding-left: 10px;
   border-radius: 15px 0px 0px 15px;
 }
-
-// .searchIcon:hover {
-//   cursor: pointer;
-//   img {
-//     opacity: 1;
-//     transition: 200ms opacity;
-//   }
-// }
 
 .searchIcon img {
   height: 18px;
@@ -213,16 +198,17 @@
   cursor: pointer;
 }
 
+.faq-all-search-results {
+  margin-top: -30px;
+  margin-bottom: 20px;
+}
+
 .faq-show-accordion {
-  opacity: 1;
-  transition: transform 1500ms, opacity 1500ms;
+  display: block;
 }
 
 .faq-hide-accordion {
-  opacity: 0;
-  transition: transform 1500ms, opacity 1500ms;
-  visibility: hidden;
-  height: 0px;
+  display: none;
 }
 
 .faq-search input {
@@ -284,13 +270,11 @@
 }
 
 .faq-ask-question-outer-container {
-  width: 500px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   @include devices(tablet) {
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
+    width: 100%;
   }
 }
 
@@ -371,10 +355,20 @@
 }
 
 .faq-fab {
-  bottom: 5%;
-  right: 2%;
+  bottom: 8px;
+  right: 10px;
   position: fixed;
   z-index: 5;
+  @include devices(tablet) {
+    bottom: 50px;
+    right: 5px;
+  }
+}
+
+.faq-fab-button {
+  @include devices(tablet) {
+    padding: 10px 15px !important;
+  }
 }
 
 .faq-fab-container {
@@ -384,4 +378,14 @@
 
 .faq-fab-icon {
   margin-right: 15px;
+}
+
+.ask-question-popup {
+  padding: 0px 50px;
+  h1 {
+    color: var(--white);
+  }
+  @include devices(tablet) {
+    padding: 0px 20px;
+  }
 }

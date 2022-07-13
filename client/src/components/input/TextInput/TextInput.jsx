@@ -21,12 +21,12 @@ const TextInput = ({
   inputTitle,
   isPhoneNumber,
   isInstagram,
-  isUtorID,
-  maxLength,
-  autocomplete,
   style,
   clearText,
   setClearText,
+  isUtorID,
+  maxLength,
+  autocomplete,
 }) => {
   useEffect(() => {
     if (localStorageKey !== undefined) {
@@ -104,7 +104,7 @@ const TextInput = ({
       value = value.replace(' ', '').toLowerCase();
     }
     if (maxLength) {
-      if (value != undefined && maxLength < value.length) {
+      if (value !== undefined && maxLength < value.length) {
         value = value.substring(0, value.length - 1);
       }
     }
