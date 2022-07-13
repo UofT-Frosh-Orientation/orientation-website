@@ -12,7 +12,6 @@ import { getUserInfo } from './pages/Login/saga';
 
 export default function App() {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getUserInfo());
   }, []);
