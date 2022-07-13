@@ -12,11 +12,8 @@ import { useEffect } from 'react';
 import { getUserInfo } from './pages/Login/saga';
 
 export default function App() {
-  const initial = import.meta.env.MODE === 'production';
   const dispatch = useDispatch();
-  if (initial) {
-    return <InitialPage />;
-  }
+
   useEffect(() => {
     dispatch(getUserInfo());
   }, []);
@@ -26,10 +23,6 @@ export default function App() {
       <TransitionRoutes />
     </BrowserRouter>
   );
-}
-
-function froshInitials() {
-  return 'NL';
 }
 
 const TransitionRoutes = () => {
