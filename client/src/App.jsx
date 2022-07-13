@@ -1,8 +1,7 @@
-import { BrowserRouter, Link, useLocation, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, useLocation, Route, Routes } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import ScrollToTop from './components/misc/ScrollToTop/ScrollToTop';
 import './App.scss';
-import { InitialPage } from './pages/Initial/Initial';
 import { pages } from './util/pages';
 import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/footer/Footer';

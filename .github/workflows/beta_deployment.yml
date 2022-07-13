@@ -48,7 +48,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build client image
-        run: cd client && docker build -t $(echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):beta -f beta.Dockerfile .
+        run: cd client && docker build --build-arg VITE_API_BASE_URL=https://api.beta.orientation.skule.ca -t $(echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):beta -f beta.Dockerfile .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
