@@ -66,6 +66,7 @@ const PageLogin = ({ incorrectEntry }) => {
             <TextInput
               inputType={'text'}
               placeholder={'Email'}
+              autocomplete={'email'}
               onChange={(value) => {
                 setEmail(value);
               }}
@@ -74,6 +75,7 @@ const PageLogin = ({ incorrectEntry }) => {
             <TextInput
               inputType={'password'}
               placeholder={'Password'}
+              autocomplete={'current-password'}
               onChange={(value) => {
                 setPassword(value);
               }}

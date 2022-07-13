@@ -26,6 +26,7 @@ const TextInput = ({
   setClearText,
   isUtorID,
   maxLength,
+  autocomplete,
 }) => {
   useEffect(() => {
     if (localStorageKey !== undefined) {
@@ -103,7 +104,7 @@ const TextInput = ({
       value = value.replace(' ', '').toLowerCase();
     }
     if (maxLength) {
-      if (value != undefined && maxLength < value.length) {
+      if (value !== undefined && maxLength < value.length) {
         value = value.substring(0, value.length - 1);
       }
     }
@@ -144,6 +145,7 @@ const TextInput = ({
             value={value}
             placeholder={placeholder}
             type={type}
+            autoComplete={autocomplete}
             onChange={onInputChange}
             {...inputArgs}
             style={{ ...style }}
@@ -162,6 +164,7 @@ const TextInput = ({
             value={value}
             placeholder={placeholder}
             type={type}
+            autoComplete={autocomplete}
             onChange={onInputChange}
             {...inputArgs}
           />
@@ -202,11 +205,12 @@ TextInput.propTypes = {
   inputTitle: PropTypes.string,
   isPhoneNumber: PropTypes.bool,
   isInstagram: PropTypes.bool,
+  isUtorID: PropTypes.bool,
+  maxLength: PropTypes.number,
+  autocomplete: PropTypes.string,
   style: PropTypes.object,
   clearText: PropTypes.bool,
   setClearText: PropTypes.func,
-  isUtorID: PropTypes.bool,
-  maxLength: PropTypes.number,
 };
 
 export { TextInput };

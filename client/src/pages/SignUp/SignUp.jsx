@@ -1,10 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import './SignUp.scss';
 import { Button } from '../../components/button/Button/Button';
-import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
-import { signUpUser, validateEmail, validatePassword, validatePasswordLength } from './functions';
+import { validateEmail, validatePassword, validatePasswordLength } from './functions';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
@@ -104,6 +102,7 @@ const PageSignUp = () => {
               isRequiredInput
               placeholder={'john.doe@email.com'}
               errorFeedback={errors['email']}
+              autocomplete={'email'}
               onChange={(value) => {
                 accountObj['email'] = value;
                 checkErrors(false, ['email']);
@@ -118,6 +117,7 @@ const PageSignUp = () => {
               placeholder={'••••••••••••••'}
               inputType={'password'}
               errorFeedback={errors['password']}
+              autocomplete={'new-password'}
               onChange={(value) => {
                 accountObj['password'] = value;
                 checkErrors(false, ['password']);
@@ -131,6 +131,7 @@ const PageSignUp = () => {
               placeholder={'••••••••••••••'}
               inputType={'password'}
               errorFeedback={errors['confirmPassword']}
+              autocomplete={'new-password'}
               onChange={(value) => {
                 accountObj['confirmPassword'] = value;
                 checkErrors(false, ['password', 'confirmPassword']);
@@ -188,14 +189,6 @@ const PageSignUp = () => {
               onClick={async () => {
                 const anyErrors = checkErrors(true);
                 if (anyErrors === false) {
-                  // setPageState('loading');
-                  // const result = await signUpUser(accountObj);
-                  // if (result !== true) {
-                  //   setPageState('form');
-                  //   setSignUpError(result);
-                  // } else {
-                  //   setPageState('success');
-                  // }
                   submitForm();
                 }
               }}

@@ -6,6 +6,7 @@ export const initialState = {
   error: null,
   user: undefined,
   loggedIn: undefined,
+  resetPasswordSucceeded: false,
 };
 
 const userSlice = createSlice({
@@ -36,11 +37,34 @@ const userSlice = createSlice({
       state.user = user;
       state.loggedIn = true;
     },
+    resetPasswordStart: (state) => {
+      state.loading = true;
+      state.user = null;
+      state.resetPasswordSucceeded = false;
+    },
+    resetPasswordSuccess: (state) => {
+      state.resetPasswordSucceeded = true;
+      state.loading = false;
+      state.error = false;
+    },
+    resetPasswordFailure: (state) => {
+      state.resetPasswordSucceeded = false;
+      state.loading = false;
+      state.error = true;
+    },
   },
 });
 
-export const { loginStart, loginFail, loginSuccess, logoutSuccess, setUserInfo } =
-  userSlice.actions;
+export const {
+  loginStart,
+  loginFail,
+  loginSuccess,
+  logoutSuccess,
+  setUserInfo,
+  resetPasswordStart,
+  resetPasswordSuccess,
+  resetPasswordFailure,
+} = userSlice.actions;
 
 export default userSlice.reducer;
 
@@ -62,4 +86,9 @@ export const registeredSelector = createSelector(
 export const initialsSelector = createSelector(
   userReducerSelector,
   ({ user }) => `${user?.firstName?.toUpperCase()[0]}${user?.lastName?.toUpperCase()[0]}`,
+);
+
+export const passwordResetSelector = createSelector(
+  userReducerSelector,
+  ({ loading, error, resetPasswordSucceeded }) => ({ loading, error, resetPasswordSucceeded }),
 );
