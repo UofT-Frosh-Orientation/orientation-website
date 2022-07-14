@@ -176,5 +176,34 @@
     @include devices(tablet) {
       padding-top: 20px;
     }
+    text-align: center;
+  }
+  h3 {
+    font-size: 30px;
+    padding-bottom: 10px;
+    text-align: center;
+  }
+  h4 {
+    font-size: 25px;
+    text-align: center;
+  }
+  a {
+    user-select: all;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+  }
+  .please-sponsor {
+    padding-top: 20px;
+    background-color: var(--purple-shades-light);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    transition: transform 500ms;
+    transform: scale(1);
+  }
+  .please-sponsor:hover {
+    transition: transform 500ms;
+    transform: scale(1.05);
   }
 }
