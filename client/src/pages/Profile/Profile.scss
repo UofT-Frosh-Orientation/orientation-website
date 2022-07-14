@@ -325,3 +325,22 @@
     transform: scale(1);
   }
 }
+
+.profile-schedule-background-purple {
+  background-color: var(--purple-bg) !important;
+}
+.profile-schedule-background-yellow {
+  background-color: var(--yellow-bg) !important;
+}
+.profile-schedule-background-dark-purple {
+  background-color: var(--dark-purple-bg);
+}
+.profile-schedule-background-gray {
+  background-color: var(--gray-bg);
+}
+.profile-schedule-background-green {
+  background-color: var(--green-bg);
+}
+.profile-schedule-background-blue {
+  background-color: var(--blue-bg);
+}

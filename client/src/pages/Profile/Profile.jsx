@@ -416,12 +416,16 @@ const ProfilePageAccordionWrapper = ({ scheduleDateObj, index, closeAll }) => {
     </div>
   );
   return (
-    <div className="profile-page-accordion-container">
+    <div
+      className="profile-page-accordion-container"
+      style={scheduleDateObj.description === undefined ? { pointerEvents: 'none' } : {}}
+    >
       <SingleAccordion
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         header={accordionHeader}
-        className={`profile-page-schedule-accordion`}
+        className={`profile-page-schedule-accordion ${`profile-schedule-background-${scheduleDateObj.Color}`}`}
+        canOpen={scheduleDateObj.description !== undefined}
       >
         {accordionContent}
       </SingleAccordion>
