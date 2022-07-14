@@ -36,14 +36,52 @@ export function getFroshScheduleData() {
       date: 'Monday September 5', //This date format must be followed!
       events: [
         {
-          name: 'Meet your frosh group',
-          description: 'description',
-          time: '10:00 AM - 11:00 AM', //This time format must be followed!
+          name: 'Meet your F! group!',
+          time: '8:00 AM - 9:00 AM', //This time format must be followed!
+          Color: 'purple',
         },
         {
           name: 'Matriculation',
-          description: 'description',
-          time: '10:00 AM - 12:00 PM',
+          description:
+            'Our kickoff the frosh week, and introduction to all things SKULE™. We all gather in to Convocation Hall',
+          time: '9:00 AM - 11:00 AM',
+          Color: 'yellow',
+        },
+        {
+          name: 'Lunch',
+          time: '11:00 AM - 12:00 PM',
+          Color: 'green',
+        },
+        {
+          name: 'Frosh Games / Dye',
+          description:
+            'Frosh Games: Compete against other frosh groups in the craziest competitions imaginable\nDye: When I say purple you say purple! Where F!rosh and Leedurs alike dye their bodies (or parts thereof) purple. The colour purple represents great significance in the traditions of engineering schools across Canada.',
+          time: '12:00 PM - 3:00 PM',
+          Color: 'yellow',
+        },
+        {
+          name: 'Group Time',
+          time: '3:00 PM - 3:30 PM',
+          Color: 'purple',
+        },
+        {
+          name: 'Downtown Walkaround',
+          description:
+            'Join us for a lovely tour of Toronto’s downtown with 1000 of your newest friends and classmates',
+          time: '3:30 PM - 5:30 PM',
+          Color: 'yellow',
+        },
+        {
+          name: 'Break / Dinner',
+          time: '5:30 PM - 6:30 PM',
+          Color: 'blue',
+        },
+        {
+          name: 'Nitelife',
+          description:
+            'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+          time: '6:30 PM - Late',
+          Color: 'dark-purple',
         },
       ],
     },
@@ -51,14 +89,57 @@ export function getFroshScheduleData() {
       date: 'Tuesday September 6',
       events: [
         {
-          name: 'Meet 1',
-          description: 'description',
-          time: '10:00 AM - 11:00 AM',
+          name: 'Group Time',
+          time: '8:00 AM - 9:00 AM',
+          Color: 'purple',
         },
         {
-          name: 'Meet 2',
-          description: 'description',
-          time: '10:00 AM - 12:00 PM',
+          name: 'Engineering Success Seminar',
+          time: '9:00 AM - 10:30 AM',
+          Color: 'gray',
+        },
+        {
+          name: 'Campus Tour / E4TW',
+          description:
+            'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW: Your first design challenge at UofT Engineering, except it’s probably the best one you’ll do',
+          time: '10:30 AM - 1:00 PM',
+          Color: 'yellow',
+        },
+        {
+          name: 'Lunch',
+          description:
+            'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW: Your first design challenge at UofT Engineering, except it’s probably the best one you’ll do',
+          time: '1:00 PM - 2:00 PM',
+          Color: 'green',
+        },
+        {
+          name: 'Campus Tour / E4TW',
+          description:
+            'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW: Your first design challenge at UofT Engineering, except it’s probably the best one you’ll do',
+          time: '2:00 PM - 3:30 PM',
+          Color: 'yellow',
+        },
+        {
+          name: 'Group Time',
+          time: '3:30 PM - 4:30 PM',
+          Color: 'purple',
+        },
+        {
+          name: 'Cheer Off',
+          time: '4:30 PM - 5:30 PM',
+          Color: 'purple',
+        },
+        {
+          name: 'Break / Dinner',
+          time: '5:30 PM - 6:30 PM',
+          Color: 'blue',
+        },
+        {
+          name: 'Nitelife',
+          description:
+            'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+          time: '6:30 PM - Late',
+          Color: 'dark-purple',
         },
       ],
     },
@@ -66,14 +147,16 @@ export function getFroshScheduleData() {
       date: 'Wednesday September 7',
       events: [
         {
-          name: 'Meet 1',
-          description: 'description',
-          time: '10:00 AM - 11:00 AM',
+          name: 'Faculty Events',
+          time: '8:00 AM - 6:00 PM',
+          Color: 'gray',
         },
         {
-          name: 'Meet 2',
-          description: 'description',
-          time: '10:00 AM - 12:00 PM',
+          name: 'Havenger Scunt / Nitelife',
+          description:
+            'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+          time: '6:00 PM - Late',
+          Color: 'dark-purple',
         },
       ],
     },
@@ -81,14 +164,33 @@ export function getFroshScheduleData() {
       date: 'Thursday September 8',
       events: [
         {
-          name: 'Meet 1',
-          description: 'description',
-          time: '10:00 AM - 11:00 AM',
+          name: 'Class Starts',
+          time: '8:00 AM - 6:00 PM',
+          Color: 'gray',
         },
         {
-          name: 'Meet 2',
-          description: 'description',
-          time: '10:00 AM - 12:00 PM',
+          name: 'Nitelife',
+          description:
+            'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+          time: '6:00 PM - Late',
+          Color: 'dark-purple',
+        },
+      ],
+    },
+    {
+      date: 'Friday September 9',
+      events: [
+        {
+          name: 'Class Starts',
+          time: '8:00 AM - 6:00 PM',
+          Color: 'gray',
+        },
+        {
+          name: 'Nitelife',
+          description:
+            'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+          time: '6:00 PM - Late',
+          Color: 'dark-purple',
         },
       ],
     },
