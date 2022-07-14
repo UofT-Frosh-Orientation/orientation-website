@@ -98,7 +98,7 @@ const UserController = {
           'If we have an account matching your email, we have sent an email to you. Please check there for instructions on how to reset your password',
       });
     } catch (err) {
-      console.log(err);
+      console.log('Error in password reset request', err);
       next(err);
     }
   },

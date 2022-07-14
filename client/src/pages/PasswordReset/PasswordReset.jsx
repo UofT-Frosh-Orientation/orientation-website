@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-
 import './PasswordReset.scss';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import { TextInput } from '../../components/input/TextInput/TextInput';
@@ -13,7 +12,6 @@ import { passwordResetSelector } from '../userSlice';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 
-
 export const PasswordReset = () => {
   const { token } = useParams();
   const [formErrors, setFormErrors] = useState({});
@@ -24,7 +22,6 @@ export const PasswordReset = () => {
   const dispatch = useDispatch();
 
   const { loading, error, resetPasswordSucceeded } = useSelector(passwordResetSelector);
-
 
   const checkErrors = (sendFeedback = true, feedbackToSend = []) => {
     let anyErrors = false;
@@ -194,24 +191,6 @@ export const PasswordReset = () => {
               </div>
             </Link>
           </div>
-        </div>
-        <div
-          className="password-reset-button"
-          onMouseOver={() => {
-            checkErrors(true);
-          }}
-        >
-          <Button
-            label="Reset Password"
-            style={{ margin: 0 }}
-            isDisabled={anyErrors}
-            onClick={async () => {
-              const anyErrors = checkErrors(true);
-              if (anyErrors === false) {
-                submitForm();
-              }
-            }}
-          />
         </div>
       </div>
     </div>

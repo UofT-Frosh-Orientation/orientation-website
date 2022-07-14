@@ -10,6 +10,9 @@ import {
   resetPasswordSuccess,
   resetPasswordFailure,
   resetPasswordStart,
+  requestPasswordResetStart,
+  requestPasswordResetSuccess,
+  requestPasswordResetFailure,
 } from '../userSlice';
 import useAxios from '../../hooks/useAxios';
 
@@ -83,10 +86,24 @@ export function* resetPasswordSaga({ payload: { email, password, token } }) {
   }
 }
 
+export const requestPasswordReset = createAction('requestPasswordResetSaga');
+
+export function* requestPasswordResetSaga({ payload: email }) {
+  const { axios } = useAxios();
+  try {
+    yield put(requestPasswordResetStart());
+    const result = yield call(axios.post, '/user/request-password-reset', { email });
+    yield put(requestPasswordResetSuccess());
+  } catch (err) {
+    console.log(err);
+    yield put(requestPasswordResetFailure());
+  }
+}
 export default function* userSaga() {
   yield takeLeading(login.type, loginSaga);
   yield takeLeading(getUserInfo.type, getUserInfoSaga);
   yield takeLeading(updateUserInfo.type, updateUserInfoSaga);
   yield takeLeading(signUp.type, createUserSaga);
   yield takeLeading(resetPassword.type, resetPasswordSaga);
+  yield takeLeading(requestPasswordReset.type, requestPasswordResetSaga);
 }

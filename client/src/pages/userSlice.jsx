@@ -7,6 +7,7 @@ export const initialState = {
   user: undefined,
   loggedIn: undefined,
   resetPasswordSucceeded: false,
+  passwordResetRequest: false,
 };
 
 const userSlice = createSlice({
@@ -52,6 +53,20 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = true;
     },
+    requestPasswordResetStart: (state) => {
+      state.loading = true;
+      state.error = false;
+    },
+    requestPasswordResetSuccess: (state) => {
+      state.loading = false;
+      state.error = false;
+      state.passwordResetRequest = true;
+    },
+    requestPasswordResetFailure: (state, { payload: error }) => {
+      state.loading = false;
+      state.error = error;
+      state.passwordResetRequest = false;
+    },
   },
 });
 
@@ -64,6 +79,9 @@ export const {
   resetPasswordStart,
   resetPasswordSuccess,
   resetPasswordFailure,
+  requestPasswordResetStart,
+  requestPasswordResetFailure,
+  requestPasswordResetSuccess,
 } = userSlice.actions;
 
 export default userSlice.reducer;
@@ -91,4 +109,9 @@ export const initialsSelector = createSelector(
 export const passwordResetSelector = createSelector(
   userReducerSelector,
   ({ loading, error, resetPasswordSucceeded }) => ({ loading, error, resetPasswordSucceeded }),
+);
+
+export const requestPasswordResetSelector = createSelector(
+  userReducerSelector,
+  ({ loading, error, passwordResetRequest }) => ({ loading, error, passwordResetRequest }),
 );
