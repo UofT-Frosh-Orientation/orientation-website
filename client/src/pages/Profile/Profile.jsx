@@ -231,7 +231,7 @@ const ProfilePageQRScanner = () => {
 
 const ProfilePageHeader = ({ leader, editButton }) => {
   const { user } = useSelector(userSelector);
-  console.log(`editButton: ${editButton}`);
+  // console.log(`editButton: ${editButton}`);
   return (
     <>
       <div className="profile-page-header">
@@ -261,7 +261,7 @@ const ProfilePageHeader = ({ leader, editButton }) => {
             )}
           </div>
           {editButton !== false ? (
-            <Link to={'/profile-edit'} className={'profile-edit-icon-link'}>
+            <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
               <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
             </Link>
           ) : (

@@ -13,7 +13,7 @@ import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOut
 import { Link, useNavigate } from 'react-router-dom';
 import { PopupModal } from '../../components/popup/PopupModal';
 import useAxios from '../../hooks/useAxios';
-import { registeredSelector, userSelector } from '../userSlice';
+import { initialsSelector, registeredSelector, userSelector } from '../userSlice';
 import { useSelector } from 'react-redux';
 
 const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
@@ -259,6 +259,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     );
   };
 
+  const user = useSelector(userSelector)?.user;
+
   if (editFieldsPage === true) {
     return (
       <div>
@@ -286,13 +288,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
               return generateStepComponent(formFields[fieldsKey], fieldsKey);
             })}
           </div>
-          <Button
+          {/* <Button
             label={'Check'}
             onClick={() => {
               console.log(froshObject);
               console.log(validateForm());
             }}
-          />
+          /> */}
 
           <div>
             {/* TODO: SHow popup to ask if they would like to discard all changes when editing fields */}
@@ -345,7 +347,12 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       <div className="registration-first-step-header-container">
                         <img className="registration-icon-logo" src={MainFroshLogo}></img>
                         <div>
-                          <h1 className="registration-first-step-title">Hello James</h1>
+                          <h1 className="registration-first-step-title">
+                            {'Hello ' +
+                              (user?.preferredName === '' || !user?.preferredName
+                                ? user?.firstName
+                                : user?.preferredName)}
+                          </h1>
                           <h2 className="registration-first-step-subtitle">
                             Let&apos;s register for UofT Engineering&apos;s F!rosh Week 2T2
                           </h2>
