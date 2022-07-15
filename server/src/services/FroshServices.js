@@ -24,6 +24,7 @@ const FroshServices = {
       }
       if (froshGroupList[i].totalNum === minNumber && score < minScore) {
         froshGroup = froshGroupList[i].name;
+        froshGroupIcon = froshGroupList[i].icon;
         minScore = score;
       }
     }
