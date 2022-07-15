@@ -299,17 +299,12 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
             <></>
           )}
           {!editButton && true ? (
-            <div className="profile-logout-button">
-              {' '}
-              <Button
-                style={{ margin: '0px', height: '35px', padding: '9px 20px', borderRadius: '10px' }}
-                isSecondary={true}
-                label="Logout"
-                onClick={() => {
-                  setShowLogoutPopup(true);
-                }}
-              />{' '}
-            </div>
+            <div
+              className="profile-logout-button"
+              onClick={() => {
+                setShowLogoutPopup(true);
+              }}
+            ></div>
           ) : (
             <></>
           )}
