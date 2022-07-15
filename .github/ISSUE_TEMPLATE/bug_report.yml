@@ -35,31 +35,31 @@ body:
       placeholder: "I expected the page to load the images."
     validations:
       required: true
-  - type: dropdown
+  - type: input
     id: device
     attributes:
       label: What device were you using when you encountered the error?
-      description: 
-      options:
-        - Desktop/Laptop
-        - Smartphone/Tablet
+      placeholder: "iPhone 12 Pro"
     validations:
       required: true
-  - type: dropdown
+  - type: input
+    id: browser
+    attributes:
+      label: What browser were you using when you encountered the error?
+      placeholder: Safari
+    validations:
+      required: true
+  - type: input
     id: operating_system
     attributes:
       label: What operating system were you using?
-      options:
-        - Windows
-        - macOS
-        - Android
-        - iOS
+      placeholder: iOS 15.5
     validations:
       required: true
   - type: textarea
     id: additional_information
     attributes:
-      label: Additional Infromation
+      label: Additional Information
       description: |
         Links? References? Anything that will give us more context about the issue you are encountering!
 
