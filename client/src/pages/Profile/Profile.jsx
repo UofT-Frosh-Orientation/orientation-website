@@ -32,7 +32,7 @@ import EditIcon from '../../assets/misc/pen-solid.svg';
 import { Link } from 'react-router-dom';
 import { resources } from '../../util/resources';
 import { useSelector } from 'react-redux';
-import { userSelector } from '../userSlice';
+import { registeredSelector, userSelector } from '../userSlice';
 
 const PageProfile = () => {
   const qrCodeLeader = canLeaderScanQR();
@@ -231,6 +231,7 @@ const ProfilePageQRScanner = () => {
 
 const ProfilePageHeader = ({ leader, editButton }) => {
   const { user } = useSelector(userSelector);
+  const isRegistered = useSelector(registeredSelector);
   // console.log(`editButton: ${editButton}`);
   return (
     <>
@@ -260,7 +261,7 @@ const ProfilePageHeader = ({ leader, editButton }) => {
               </>
             )}
           </div>
-          {editButton !== false ? (
+          {editButton !== false && isRegistered ? (
             <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
               <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
             </Link>
