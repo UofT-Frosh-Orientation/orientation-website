@@ -1,5 +1,13 @@
 @import './scssStyles/_mixins.scss';
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica';
+  font-style: normal;
+}
+
 :root {
   --purple: #6f1e88;
   --light-purple: #a04fb9;

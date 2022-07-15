@@ -9,6 +9,11 @@
 .dropdown-header {
   padding-left: 5px;
   margin-top: 17px;
+  color: var(--black);
+}
+.dropdown-header-disabled {
+  opacity: 0.7;
+  color: var(--gray);
 }
 
 .dropdown-selected {

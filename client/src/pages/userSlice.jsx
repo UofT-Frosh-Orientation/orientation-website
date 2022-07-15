@@ -6,6 +6,8 @@ export const initialState = {
   error: null,
   user: undefined,
   loggedIn: undefined,
+  resetPasswordSucceeded: false,
+  passwordResetRequest: false,
 };
 
 const userSlice = createSlice({
@@ -36,11 +38,51 @@ const userSlice = createSlice({
       state.user = user;
       state.loggedIn = true;
     },
+    resetPasswordStart: (state) => {
+      state.loading = true;
+      state.user = null;
+      state.resetPasswordSucceeded = false;
+    },
+    resetPasswordSuccess: (state) => {
+      state.resetPasswordSucceeded = true;
+      state.loading = false;
+      state.error = false;
+    },
+    resetPasswordFailure: (state) => {
+      state.resetPasswordSucceeded = false;
+      state.loading = false;
+      state.error = true;
+    },
+    requestPasswordResetStart: (state) => {
+      state.loading = true;
+      state.error = false;
+    },
+    requestPasswordResetSuccess: (state) => {
+      state.loading = false;
+      state.error = false;
+      state.passwordResetRequest = true;
+    },
+    requestPasswordResetFailure: (state, { payload: error }) => {
+      state.loading = false;
+      state.error = error;
+      state.passwordResetRequest = false;
+    },
   },
 });
 
-export const { loginStart, loginFail, loginSuccess, logoutSuccess, setUserInfo } =
-  userSlice.actions;
+export const {
+  loginStart,
+  loginFail,
+  loginSuccess,
+  logoutSuccess,
+  setUserInfo,
+  resetPasswordStart,
+  resetPasswordSuccess,
+  resetPasswordFailure,
+  requestPasswordResetStart,
+  requestPasswordResetFailure,
+  requestPasswordResetSuccess,
+} = userSlice.actions;
 
 export default userSlice.reducer;
 
@@ -56,10 +98,20 @@ export const loggedInSelector = createSelector(userReducerSelector, ({ loggedIn 
 
 export const registeredSelector = createSelector(
   userReducerSelector,
-  ({ user }) => user?.userType === 'frosh',
+  ({ user }) => user?.isRegistered ?? false,
 );
 
 export const initialsSelector = createSelector(
   userReducerSelector,
   ({ user }) => `${user?.firstName?.toUpperCase()[0]}${user?.lastName?.toUpperCase()[0]}`,
+);
+
+export const passwordResetSelector = createSelector(
+  userReducerSelector,
+  ({ loading, error, resetPasswordSucceeded }) => ({ loading, error, resetPasswordSucceeded }),
+);
+
+export const requestPasswordResetSelector = createSelector(
+  userReducerSelector,
+  ({ loading, error, passwordResetRequest }) => ({ loading, error, passwordResetRequest }),
 );

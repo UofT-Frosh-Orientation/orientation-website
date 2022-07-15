@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Login.scss';
 import { useNavigate } from 'react-router-dom';
@@ -21,8 +21,8 @@ import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/Err
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { PopupModal } from '../../components/popup/PopupModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { userSelector } from '../userSlice';
-import { login } from './saga';
+import { requestPasswordResetSelector, userSelector } from '../userSlice';
+import { login, requestPasswordReset } from './saga';
 
 // Messages!
 const popupTitle = 'Reset Password';
@@ -66,6 +66,7 @@ const PageLogin = ({ incorrectEntry }) => {
             <TextInput
               inputType={'text'}
               placeholder={'Email'}
+              autocomplete={'email'}
               onChange={(value) => {
                 setEmail(value);
               }}
@@ -74,6 +75,7 @@ const PageLogin = ({ incorrectEntry }) => {
             <TextInput
               inputType={'password'}
               placeholder={'Password'}
+              autocomplete={'current-password'}
               onChange={(value) => {
                 setPassword(value);
               }}
@@ -146,29 +148,11 @@ PageLogin.defaultProps = {
 };
 
 const ForgotPassword = ({ trigger, setTrigger }) => {
-  const [emailError, setEmailError] = useState(''); // error message returned -- either a success or error
-  const [passwordResetSuccess, setpasswordResetSuccess] = useState(false); // success or not
-  const [isLoadingPassword, setIsLoadingPassword] = useState(false);
-  const [emailInput, setEmailInput] = useState(''); // email entered by user
+  const [email, setEmailInput] = useState(''); // email entered by user
   const [buttonClick, setButtonClick] = useState(0);
-
-  async function resetButtonPress() {
-    setIsLoadingPassword(true);
-    setButtonClick(buttonClick + 1);
-    if (emailError !== '') {
-      setEmailError('');
-    }
-    const result = await resetPassword(emailInput);
-    if (result === true) {
-      // this will display success message and change Button to close
-      setpasswordResetSuccess(true);
-      setIsLoadingPassword(false);
-    } else {
-      setEmailError(result);
-      setIsLoadingPassword(false);
-      setpasswordResetSuccess(false);
-    }
-  }
+  const { loading, error, passwordResetRequest } = useSelector(requestPasswordResetSelector);
+  const dispatch = useDispatch();
+  console.log(passwordResetRequest && !loading);
 
   return (
     <>
@@ -179,24 +163,26 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
             placeholder={'Email'}
             localStorageKey={'forgot-password-container-email'}
             onChange={(value) => {
+              console.log('Email', value);
               setEmailInput(value);
             }}
-            onEnterKey={resetButtonPress}
+            onEnterKey={() => {
+              setButtonClick(buttonClick + 1);
+              dispatch(requestPasswordReset(email));
+            }}
           />
         </div>
 
         <div className="password-reset-button-loading-container">
-          {isLoadingPassword ? (
+          {loading ? (
             // if loading, then display loading animation
             <div
-              className={`password-reset-loading ${
-                isLoadingPassword === true ? 'password-reset-loading-appear' : ''
-              }`}
+              className={`password-reset-loading ${loading ? 'password-reset-loading-appear' : ''}`}
             >
               <LoadingAnimation size={'60px'} />
             </div>
           ) : // if not loading, display the buttons
-          passwordResetSuccess ? (
+          passwordResetRequest ? (
             <Button
               label={'Close'}
               onClick={() => {
@@ -207,7 +193,8 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
             <Button
               label={'Send'}
               onClick={() => {
-                resetButtonPress();
+                setButtonClick(buttonClick + 1);
+                dispatch(requestPasswordReset(email));
                 // setButtonClick(buttonClick + 1);
                 //console.log(buttonClick);
               }}
@@ -218,11 +205,21 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
         <div className="password-reset-result-message">
           {
             // added buttonclick, so the message doesn't display immediately
-            buttonClick > 0 && !isLoadingPassword ? (
-              passwordResetSuccess ? (
-                <ErrorSuccessBox content={emailSuccessMessage} success={true} />
+            buttonClick > 0 && !loading ? (
+              passwordResetRequest ? (
+                <ErrorSuccessBox
+                  content={
+                    passwordResetRequest
+                      ? 'We have sent an email to the address you provided. Please follow the instructions there to reset your password.'
+                      : ''
+                  }
+                  success={true}
+                />
               ) : (
-                <ErrorSuccessBox content={emailErrorMessage} error={true} />
+                <ErrorSuccessBox
+                  content={error ? 'Something went wrong. Please try again later.' : ''}
+                  error={true}
+                />
               )
             ) : (
               <></>

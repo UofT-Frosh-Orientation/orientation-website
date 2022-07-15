@@ -13,6 +13,7 @@ import DeleteIcon from '../../assets/misc/circle-xmark-solid.svg';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import QuestionMark from '../../../assets/icons/question-mark-solid.svg';
+
 import { PopupModal } from '../../components/popup/PopupModal';
 
 const PageFAQ = () => {
@@ -54,6 +55,7 @@ const PageFAQ = () => {
   for (let i = 0; i < Object.keys(questionsObjects).length; i++) {
     allQuestions.push(questionsObjects[Object.keys(questionsObjects)[i]]);
   }
+
   return (
     <div>
       <div>

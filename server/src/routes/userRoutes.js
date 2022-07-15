@@ -113,4 +113,8 @@ router.post('/logout', UserController.logout);
  */
 router.get('/info', checkLoggedIn, UserController.getInfo);
 
+router.post('/request-password-reset', UserController.requestPasswordReset);
+
+router.post('/reset-password', UserController.resetPassword);
+
 module.exports = router;

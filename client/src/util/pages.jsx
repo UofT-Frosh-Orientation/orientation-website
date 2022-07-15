@@ -11,6 +11,7 @@ import { PageLogin } from '../pages/Login/Login';
 import { PageRegistrationSuccess } from '../pages/RegistrationSuccess/RegistrationSuccess';
 import { PageSignUp } from '../pages/SignUp/SignUp';
 import AuthorizedPage from './AuthorizedPage';
+import { PasswordReset } from '../pages/PasswordReset/PasswordReset';
 
 export const pages = {
   404: {
@@ -110,6 +111,11 @@ export const pages = {
       label: 'payment-error',
       component: <PagePaymentError />,
       path: '/payment-error',
+    },
+    {
+      label: 'password-reset',
+      component: <PasswordReset />,
+      path: '/password-reset/:token',
     },
   ],
 };

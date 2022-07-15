@@ -47,7 +47,7 @@ export const execInfo = {
       of SubComs that work on all things from the website you’re reading this on, to the sign in on day one 
       of Frosh Week. So if you’re commuting in with a Frosh paired friend, asking a question to our Frosh 
       email, reading all about Frosh Week on this site, or just signing up for Frosh Week then think of me 
-      and make sure to be thankful to our incredible volunteers that make this all happen!',
+      and make sure to be thankful to our incredible volunteers that make this all happen!
       `,
       favPart: `The truth is I’m not much of a cheers, chants, and running around dyed purple kinda guy so my 
       favourite part of Frosh Week is a little more low key. For me it’s all about welcoming a new group of 

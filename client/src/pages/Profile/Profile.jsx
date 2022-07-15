@@ -241,6 +241,7 @@ const ProfilePageQRScanner = () => {
 
 const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) => {
   const { user } = useSelector(userSelector);
+
   console.log(`editButton: ${editButton}`);
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
 
@@ -291,7 +292,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
           </div>
 
           {editButton !== false ? (
-            <Link to={'/profile-edit'} className={'profile-edit-icon-link'}>
+            <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
               <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
             </Link>
           ) : (
@@ -463,12 +464,16 @@ const ProfilePageAccordionWrapper = ({ scheduleDateObj, index, closeAll }) => {
     </div>
   );
   return (
-    <div className="profile-page-accordion-container">
+    <div
+      className="profile-page-accordion-container"
+      style={scheduleDateObj.description === undefined ? { pointerEvents: 'none' } : {}}
+    >
       <SingleAccordion
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         header={accordionHeader}
-        className={`profile-page-schedule-accordion`}
+        className={`profile-page-schedule-accordion ${`profile-schedule-background-${scheduleDateObj.Color}`}`}
+        canOpen={scheduleDateObj.description !== undefined}
       >
         {accordionContent}
       </SingleAccordion>

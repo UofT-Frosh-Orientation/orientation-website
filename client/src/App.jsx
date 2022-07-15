@@ -1,8 +1,7 @@
-import { BrowserRouter, Link, useLocation, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, useLocation, Route, Routes } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import ScrollToTop from './components/misc/ScrollToTop/ScrollToTop';
 import './App.scss';
-import { InitialPage } from './pages/Initial/Initial';
 import { pages } from './util/pages';
 import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/footer/Footer';
@@ -12,11 +11,7 @@ import { useEffect } from 'react';
 import { getUserInfo } from './pages/Login/saga';
 
 export default function App() {
-  const initial = import.meta.env.MODE === 'production';
   const dispatch = useDispatch();
-  if (initial) {
-    return <InitialPage />;
-  }
   useEffect(() => {
     dispatch(getUserInfo());
   }, []);
@@ -26,10 +21,6 @@ export default function App() {
       <TransitionRoutes />
     </BrowserRouter>
   );
-}
-
-function froshInitials() {
-  return 'NL';
 }
 
 const TransitionRoutes = () => {

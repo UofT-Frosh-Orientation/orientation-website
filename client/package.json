@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
+    "build:beta": "VITE_API_BASE_URL=https://api.beta.orientation.skule.ca vite build",
     "preview": "vite preview",
     "lint": "eslint src",
     "format": "prettier --write \"**/*.+(js|jsx|css|scss|json)\"",
@@ -52,6 +53,7 @@
     "lint-staged": "^12.3.3",
     "prettier": "^2.6.2",
     "sass": "^1.49.7",
-    "vite": "^2.7.13"
+    "vite": "^2.7.13",
+    "vite-plugin-rewrite-all": "^0.1.2"
   }
 }

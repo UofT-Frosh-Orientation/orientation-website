@@ -154,6 +154,7 @@ const HomePageSponsors = () => {
     <div className="home-page-sponsors">
       <img src={WaveReverse} className="wave-image home-page-bottom-wave-image" />
       <h2>Our Sponsors</h2>
+      <PleaseSponsor />
       <ImageCarousel
         items={[
           {
@@ -178,6 +179,16 @@ const HomePageSponsors = () => {
           },
         ]}
       />
+    </div>
+  );
+};
+
+const PleaseSponsor = () => {
+  return (
+    <div className="please-sponsor">
+      <h3>Want to sponsor F!rosh Week?</h3>
+      <h4>Please contact:</h4>
+      <a href="mailto:sponsorship@orientation.skule.ca">sponsorship@orientation.skule.ca</a>
     </div>
   );
 };
