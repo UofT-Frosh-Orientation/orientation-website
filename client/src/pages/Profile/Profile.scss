@@ -10,6 +10,7 @@
   padding-bottom: 25px;
   @include devices(tablet) {
     padding: 4% 5%;
+    padding-top: 12%;
     justify-content: space-around;
   }
   h1 {
@@ -68,6 +69,19 @@
       height: 35px;
       padding: 9px;
     }
+  }
+}
+.profile-logout-button {
+  display: none;
+
+  @include devices(tablet) {
+    display: unset;
+    position: absolute;
+    top: 0px;
+    right: 112px;
+    width: 35px;
+    height: 35px;
+    padding: 5px;
   }
 }
 

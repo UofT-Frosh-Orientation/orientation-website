@@ -31,8 +31,11 @@ import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOut
 import EditIcon from '../../assets/misc/pen-solid.svg';
 import { Link } from 'react-router-dom';
 import { resources } from '../../util/resources';
+
 import { useSelector } from 'react-redux';
 import { userSelector } from '../userSlice';
+
+import { PopupModal } from '../../components/popup/PopupModal';
 
 const PageProfile = () => {
   const qrCodeLeader = canLeaderScanQR();
@@ -46,11 +49,16 @@ const PageProfile = () => {
   }
 };
 
-const PageProfileFrosh = ({ leader }) => {
+const PageProfileFrosh = ({ leader, isLoggedIn, setIsLoggedIn }) => {
   return (
     <>
       <div className="navbar-space-top" />
-      <ProfilePageHeader leader={leader} editButton={true} />
+      <ProfilePageHeader
+        leader={leader}
+        editButton={true}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+      />
       <div className="profile-info-row">
         <div>
           {leader === false || leader === undefined ? (
@@ -71,6 +79,8 @@ const PageProfileFrosh = ({ leader }) => {
 
 PageProfileFrosh.propTypes = {
   leader: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
+  setIsLoggedIn: PropTypes.func,
 };
 
 const PageProfileQRLeader = () => {
@@ -229,11 +239,30 @@ const ProfilePageQRScanner = () => {
   );
 };
 
-const ProfilePageHeader = ({ leader, editButton }) => {
+const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) => {
   const { user } = useSelector(userSelector);
   console.log(`editButton: ${editButton}`);
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
+
   return (
     <>
+      {/* calum, please log out in the popups! */}
+      <PopupModal
+        trigger={showLogoutPopup}
+        setTrigger={setShowLogoutPopup}
+        exitIcon={true}
+        blurBackground={false}
+        heading={'Would you like to logout?'}
+      >
+        <Button
+          isSecondary={true}
+          label="Logout"
+          onClick={() => {
+            console.log('logging out');
+          }}
+        />
+      </PopupModal>
+
       <div className="profile-page-header">
         <div className="profile-page-header-group">
           <h1>{user['froshGroupIcon']}</h1>
@@ -260,10 +289,26 @@ const ProfilePageHeader = ({ leader, editButton }) => {
               </>
             )}
           </div>
+
           {editButton !== false ? (
             <Link to={'/profile-edit'} className={'profile-edit-icon-link'}>
               <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
             </Link>
+          ) : (
+            <></>
+          )}
+          {!editButton && true ? (
+            <div className="profile-logout-button">
+              {' '}
+              <Button
+                style={{ margin: '0px', height: '35px', padding: '9px 20px', borderRadius: '10px' }}
+                isSecondary={true}
+                label="Logout"
+                onClick={() => {
+                  setShowLogoutPopup(true);
+                }}
+              />{' '}
+            </div>
           ) : (
             <></>
           )}
@@ -277,6 +322,8 @@ const ProfilePageHeader = ({ leader, editButton }) => {
 ProfilePageHeader.propTypes = {
   leader: PropTypes.bool,
   editButton: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
+  setIsLoggedIn: PropTypes.func,
 };
 
 const ProfilePageAnnouncements = () => {
