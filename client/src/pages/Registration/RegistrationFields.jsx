@@ -26,7 +26,7 @@ export const fields = {
       initialSelectedIndex: 0,
       className: 'half-width-input',
       onChanged: (value, disableField) => {
-        if (value === 'other') {
+        if (value === 'Other') {
           disableField(false, 'pronounOther', 'General');
         } else {
           disableField(true, 'pronounOther', 'General');
