@@ -13,10 +13,12 @@ const FroshController = {
     try {
       const user = req.user;
       const registrationInfo = req.body;
-      registrationInfo.froshGroup = await FroshServices.getNewFroshGroup(
+      const { froshGroup, froshGroupIcon } = await FroshServices.getNewFroshGroup(
         registrationInfo.discipline,
         registrationInfo.pronouns,
       );
+      registrationInfo.froshGroup = froshGroup;
+      registrationInfo.froshGroupIcon = froshGroupIcon;
       const { url, payment_intent } = await PaymentServices.createCheckoutSession(user.email);
       const frosh = (
         await FroshServices.upgradeToFrosh(user, registrationInfo, payment_intent)

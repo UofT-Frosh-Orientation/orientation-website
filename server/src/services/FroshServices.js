@@ -6,18 +6,20 @@ const FroshServices = {
    * Gets the frosh group for a new frosh.
    * @param {String} discipline - the discipline of the frosh
    * @param {String} pronouns -  the pronouns of the frosh
-   * @return {Promise<String>} - the name of the frosh group
+   * @return {Promise<Object>} - the name of the frosh group
    */
   async getNewFroshGroup(discipline, pronouns) {
     const froshGroupList = await FroshGroupModel.find();
     let minNumber = 10000;
     let minScore = 10000;
     let froshGroup = '';
+    let froshGroupIcon = '';
     for (let i = 0; i < froshGroupList.length; i++) {
       const score = 0.5 * froshGroupList[i][discipline] + 0.5 * froshGroupList[i][pronouns];
       if (froshGroupList[i].totalNum < minNumber) {
         minNumber = froshGroupList[i].totalNum;
         froshGroup = froshGroupList[i].name;
+        froshGroupIcon = froshGroupList[i].icon;
         minScore = score;
       }
       if (froshGroupList[i].totalNum === minNumber && score < minScore) {
@@ -25,7 +27,7 @@ const FroshServices = {
         minScore = score;
       }
     }
-    return froshGroup;
+    return { froshGroup, froshGroupIcon };
   },
   /**
    * Upgrades an existing user account to a frosh account.

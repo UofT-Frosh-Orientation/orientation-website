@@ -7,83 +7,83 @@ const FroshServices = require('../services/FroshServices');
 const froshGroups = [
   {
     name: 'Alpha',
-    symbol: 'α',
+    icon: 'α',
   },
   {
     name: 'Beta',
-    symbol: 'β',
+    icon: 'β',
   },
   {
     name: 'Iota',
-    symbol: 'ι',
+    icon: 'ι',
   },
   {
     name: 'Phi',
-    symbol: 'φ',
+    icon: 'φ',
   },
   {
     name: 'Psi',
-    symbol: 'ψ',
+    icon: 'ψ',
   },
   {
     name: 'Rho',
-    symbol: 'ρ',
+    icon: 'ρ',
   },
   {
     name: 'Zeta',
-    symbol: 'ζ',
+    icon: 'ζ',
   },
   {
     name: 'Gamma',
-    symbol: 'γ',
+    icon: 'γ',
   },
   {
     name: 'Omega',
-    symbol: 'ω',
+    icon: 'ω',
   },
   {
     name: 'Chi',
-    symbol: 'χ',
+    icon: 'χ',
   },
   {
     name: 'Upsilon',
-    symbol: 'υ',
+    icon: 'υ',
   },
   {
     name: 'Pi',
-    symbol: 'π',
+    icon: 'π',
   },
   {
     name: 'Nu',
-    symbol: 'ν',
+    icon: 'ν',
   },
   {
     name: 'Delta',
-    symbol: 'δ',
+    icon: 'δ',
   },
   {
     name: 'Sigma',
-    symbol: 'σ',
+    icon: 'σ',
   },
   {
     name: 'Tau',
-    symbol: 'τ',
+    icon: 'τ',
   },
   {
     name: 'Kappa',
-    symbol: 'κ',
+    icon: 'κ',
   },
   {
     name: 'Theta',
-    symbol: 'θ',
+    icon: 'θ',
   },
   {
     name: 'Lambda',
-    symbol: 'λ',
+    icon: 'λ',
   },
   {
     name: 'Omicron',
-    symbol: 'ο',
+    icon: 'ο',
   },
 ];
 

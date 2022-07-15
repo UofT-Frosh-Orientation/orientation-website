@@ -181,6 +181,11 @@ const FroshSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    froshGroupIcon: {
+      type: String,
+      required: true,
+      default: '',
+    },
   },
   { discriminatorKey: 'userType', strict: true },
 );
