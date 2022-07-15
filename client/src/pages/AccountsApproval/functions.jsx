@@ -1,7 +1,13 @@
-export function sendApprovedEmails(object) {
+export async function sendApprovedEmails(object) {
   // parameter: an array of all the approved and denied emails
   console.log('saving approved emails');
   console.log(object);
+
+  /*eslint no-undef: 0*/
+  let promise = new Promise((res, rej) => {
+    setTimeout(() => res(''), 1000);
+  });
+  let result = await promise;
 
   return true; // return true for successful save
 }
@@ -17,12 +23,18 @@ let approveEmails = {
   },
 };
 
-export function sendAuthRequests(object) {
+export async function sendAuthRequests(object) {
   // parameter: an array of emails and approved or denied auth requests
   console.log('saving authentication request responses');
   console.log(object);
 
-  return true; // return true for successful save
+  /*eslint no-undef: 0*/
+  let promise = new Promise((res, rej) => {
+    setTimeout(() => res(''), 1000);
+  });
+  let result = await promise;
+
+  return true; // true for successful save
 }
 // NOTE: object looks like below,
 let authRequests = {
@@ -48,6 +60,7 @@ let authRequests = {
   },
 };
 
+// test emails for accounts approval
 export const TestEmails = [
   {
     id: 1,

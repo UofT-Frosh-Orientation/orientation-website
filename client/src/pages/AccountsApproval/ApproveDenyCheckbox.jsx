@@ -18,12 +18,6 @@ const ApproveDenyCheckbox = ({
   changesMade,
   setChangesMade,
 }) => {
-  // initial states
-  // const initialApprove = approve;
-  // const initialDeny = deny;
-  // console.log(initialApprove, initialDeny);
-
-  //console.log(pointerEvents);
   return (
     <div className="approve-deny-checkbox-container" style={style}>
       {/* approve check checkbox */}

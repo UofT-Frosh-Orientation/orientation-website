@@ -102,7 +102,6 @@ const AuthenticationRequests = () => {
           </tr>
           {emailList.map((account) => {
             accountCount++;
-            //console.log(account);
             return (
               <RowComponentAuth
                 key={account.email}
@@ -203,13 +202,13 @@ const RowComponentAuth = ({
 
           useEffect(() => {
             if (!editMode && !isSave) {
-              console.log('aaaa');
-              // if exiting exit mode, and save button not pressed
-              setApprove(initialApprove);
+              -(
+                // if exiting exit mode, and save button not pressed
+                setApprove(initialApprove)
+              );
               setDeny(initialDeny);
               setIsSave(false);
             } else if (!editMode && isSave) {
-              console.log('eeeeee');
               // use the states from the state object so backend has time to change the actual account array
               setApprove(accountStatus[account.email][authreq.authreq].approve);
               setDeny(!accountStatus[account.email][authreq.authreq].approve);

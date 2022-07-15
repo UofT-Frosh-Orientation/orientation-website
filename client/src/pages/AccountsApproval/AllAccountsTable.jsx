@@ -231,12 +231,10 @@ const RowComponent = ({
   useEffect(() => {
     if (!editMode && !isSave) {
       // if exiting exit mode, and save button not pressed
-      console.log('bbbbbbb');
       setApprove(initialApprove);
       setDeny(initialDeny);
       setIsSave(false);
     } else if (!editMode && isSave) {
-      console.log('sssssssss');
       setApprove(accountStatus[account.email].approve);
       setDeny(!accountStatus[account.email].approve);
     }
