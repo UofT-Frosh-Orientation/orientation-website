@@ -1,3 +1,6 @@
+import useAxios from '../../hooks/useAxios';
+const { axios } = useAxios();
+
 export function getInformation() {
   return 'FAQ';
 }
@@ -57,11 +60,20 @@ export function getQuestions() {
 }
 
 export async function submitQuestion(question) {
-  console.log(question);
-  /*eslint no-undef: 0*/
-  let promise = new Promise((res, rej) => {
-    setTimeout(() => res('An error occured!'), 1000);
-  });
-  let result = await promise;
-  return result; //returns true for now to simulate a successful call to the database
+  try {
+    const response = await axios.post('/faq/create', question);
+    // console.log(response);
+    return true;
+  } catch (error) {
+    console.log(error);
+    console.log(error.response.data.message);
+    return error.response.data.message;
+  }
+  // console.log(question);
+  // /*eslint no-undef: 0*/
+  // let promise = new Promise((res, rej) => {
+  //   setTimeout(() => res('An error occured!'), 1000);
+  // });
+  // let result = await promise;
+  // return result; //returns true for now to simulate a successful call to the database
 }
