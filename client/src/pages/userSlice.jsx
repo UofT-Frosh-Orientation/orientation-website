@@ -98,7 +98,7 @@ export const loggedInSelector = createSelector(userReducerSelector, ({ loggedIn 
 
 export const registeredSelector = createSelector(
   userReducerSelector,
-  ({ user }) => user?.userType === 'frosh',
+  ({ user }) => user?.isRegistered ?? false,
 );
 
 export const initialsSelector = createSelector(

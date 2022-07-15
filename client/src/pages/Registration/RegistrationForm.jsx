@@ -47,8 +47,9 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
       // console.log(froshObject);
       try {
         const response = await axios.post('/frosh/register', froshObject);
-        setCheckoutUrl(response.data.url);
-        setShowPopUp(true);
+        window.location.href = response.data.url;
+        // setCheckoutUrl(response.data.url);
+        // setShowPopUp(true);
       } catch (error) {
         setCanRegister(true);
       }

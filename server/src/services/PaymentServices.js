@@ -32,6 +32,7 @@ const PaymentServices = {
       console.log(frosh);
       const idx = frosh.payments.findIndex((p) => p.paymentIntent === paymentId);
       frosh.payments[idx].amountDue = frosh.payments[idx].amountDue - amountReceived;
+      frosh.isRegistered = true;
       //TODO: update frosh balance
       await frosh.save();
       return frosh;

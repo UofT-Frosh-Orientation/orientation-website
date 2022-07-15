@@ -171,6 +171,16 @@ const FroshSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    bursaryRequested: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    isRegistered: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   { discriminatorKey: 'userType', strict: true },
 );

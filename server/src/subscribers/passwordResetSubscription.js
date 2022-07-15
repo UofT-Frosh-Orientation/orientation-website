@@ -23,6 +23,7 @@ passwordResetSubscription.process(async (job, done) => {
     done(result);
   } catch (err) {
     console.log(err);
+    done(err);
   }
 });
 
