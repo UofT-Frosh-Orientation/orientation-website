@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useState } from 'react';
 import './About.scss';
 import { getInformation } from './functions';
 
@@ -9,19 +9,22 @@ import { ExecProfile } from './ExecProfile/ExecProfile';
 
 import waveBottom from '../../assets/misc/wave-reverse.png';
 import ExecLogo from '../../assets/about/exec-tshirt-logo.svg';
+import { useEffect } from 'react';
 
 const PageAbout = () => {
   return (
     <>
       <div className="aboutus-page-components">
         <AboutUsSection />
+        <AboutUsTeamsTab />
 
-        <div className="exec-title-container">
+        {/* <div className="exec-title-container">
           <h2 className="exec-title">Meet the Exec Team</h2>
           <div className="exec-title-underline"></div>
         </div>
         <OCSection />
-        <VCSection />
+        <VCSection /> */}
+
         <div className="about-attribution-container">
           <p className="about-attribution-message">
             Thank you to{' '}
@@ -107,6 +110,93 @@ const VCSection = () => {
         );
       })}
     </div>
+  );
+};
+
+const AboutUsExecTeam = () => {
+  return (
+    <>
+      <OCSection />
+      <VCSection />
+    </>
+  );
+};
+
+const tabs = [
+  {
+    title: 'Exec Team',
+    component: <AboutUsExecTeam />,
+  },
+  {
+    title: 'Tech Team',
+  },
+  {
+    title: 'Subcoms',
+  },
+  {
+    title: 'HLs',
+  },
+];
+
+const AboutUsTeamsTab = () => {
+  const [currentTab, setCurrentTab] = useState('Exec Team');
+
+  let tabsCounter = 0;
+  let numTabs = tabs.length;
+  let tabComponent;
+
+  return (
+    <>
+      <div className="aboutus-teams-all-tabs">
+        <div className="aboutus-teams-all-tabs-scroll">
+          {tabs.map((tab) => {
+            tabsCounter++;
+            //console.log(tabsCounter);
+            return (
+              <div key={tab.title} className="aboutus-teams-tabs">
+                <div
+                  className="aboutus-teams-tabs-container"
+                  onClick={() => {
+                    setCurrentTab(tab.title);
+                  }}
+                >
+                  {tabsCounter > 1 ? <div className="aboutus-short-vertical-line"></div> : <></>}
+                  <div
+                    style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}
+                  >
+                    <h1
+                      className="aboutus-teams-tabs-title"
+                      style={
+                        currentTab === tab.title
+                          ? { color: 'var(--purple-shades-dark)', transition: 'color 200ms' }
+                          : {}
+                      }
+                    >
+                      {tab.title}
+                    </h1>
+                    <div
+                      className={`aboutus-yellow-bubble ${
+                        currentTab === tab.title
+                          ? 'aboutus-yellow-bubble-show'
+                          : 'aboutus-yellow-bubble-noshow'
+                      }`}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="aboutus-tabs-component">
+        {tabs.map((tab) => {
+          if (currentTab === tab.title) {
+            return tab.component;
+          }
+        })}
+      </div>
+    </>
   );
 };
 
