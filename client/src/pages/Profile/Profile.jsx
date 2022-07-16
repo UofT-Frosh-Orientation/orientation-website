@@ -246,7 +246,7 @@ const ProfilePageHeader = ({ leader, editButton }) => {
             <p className="profile-page-name-title">
               <b>{user['firstName']}</b> {user['lastName']}
             </p>
-            <p>{`Incoming ${user['discipline']} student`}</p>
+            {user?.discipline && <p>{`Incoming ${user['discipline']} student`}</p>}
             <p>
               <u>{user['email']}</u>
             </p>
