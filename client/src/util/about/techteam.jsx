@@ -44,8 +44,6 @@ export const techTeam = {
       quote: "I don't like bugs, both physical and digital ones",
       img: neo,
     },
-  ],
-  second: [
     {
       fullName: 'Natalie Chan',
       discipline: 'ECE 2T4',
