@@ -15,6 +15,7 @@ import { PopupModal } from '../../components/popup/PopupModal';
 import useAxios from '../../hooks/useAxios';
 import { initialsSelector, registeredSelector, userSelector } from '../userSlice';
 import { useSelector } from 'react-redux';
+import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 
 const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
   const steps = Object.keys(fields);
@@ -25,6 +26,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   const [showPopUp, setShowPopUp] = useState(false);
   const [canRegister, setCanRegister] = useState(true);
   const [checkoutUrl, setCheckoutUrl] = useState('');
+  const [errorAfterEdit, setErrorAfterEdit] = useState(false);
 
   const { axios } = useAxios();
 
@@ -307,10 +309,20 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             <Button
               label={'Save changes'}
               onClick={() => {
+                setErrorAfterEdit(false);
                 if (validateForm() === true) onEditSubmit(froshObject);
+                else setErrorAfterEdit(true);
               }}
             />
           </div>
+          {errorAfterEdit == true ? (
+            <ErrorSuccessBox
+              content={'Please make sure you have completed all necessary fields.'}
+              error={true}
+            />
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     );
