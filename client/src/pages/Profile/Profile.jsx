@@ -29,10 +29,14 @@ import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import EditIcon from '../../assets/misc/pen-solid.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { resources } from '../../util/resources';
-import { useSelector } from 'react-redux';
+
+import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../userSlice';
+
+import { PopupModal } from '../../components/popup/PopupModal';
+import { logout } from '../Login/saga';
 
 const PageProfile = () => {
   const qrCodeLeader = canLeaderScanQR();
@@ -46,11 +50,16 @@ const PageProfile = () => {
   }
 };
 
-const PageProfileFrosh = ({ leader }) => {
+const PageProfileFrosh = ({ leader, isLoggedIn, setIsLoggedIn }) => {
   return (
     <>
       <div className="navbar-space-top" />
-      <ProfilePageHeader leader={leader} editButton={true} />
+      <ProfilePageHeader
+        leader={leader}
+        editButton={true}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+      />
       <div className="profile-info-row">
         <div>
           {leader === false || leader === undefined ? (
@@ -71,6 +80,8 @@ const PageProfileFrosh = ({ leader }) => {
 
 PageProfileFrosh.propTypes = {
   leader: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
+  setIsLoggedIn: PropTypes.func,
 };
 
 const PageProfileQRLeader = () => {
@@ -229,12 +240,34 @@ const ProfilePageQRScanner = () => {
   );
 };
 
-const ProfilePageHeader = ({ leader, editButton }) => {
+const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) => {
   const { user } = useSelector(userSelector);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
+
   const isRegistered = useSelector(registeredSelector);
   // console.log(`editButton: ${editButton}`);
   return (
     <>
+      {/* calum, please log out in the popups! */}
+      <PopupModal
+        trigger={showLogoutPopup}
+        setTrigger={setShowLogoutPopup}
+        exitIcon={true}
+        blurBackground={false}
+        heading={'Would you like to logout?'}
+      >
+        <Button
+          isSecondary={true}
+          label="Logout"
+          onClick={() => {
+            dispatch(logout({ navigate, setShowLogoutPopup }));
+          }}
+        />
+      </PopupModal>
+
       <div className="profile-page-header">
         <div className="profile-page-header-group">
           <h1>{user['froshGroupIcon']}</h1>
@@ -268,6 +301,19 @@ const ProfilePageHeader = ({ leader, editButton }) => {
           ) : (
             <></>
           )}
+          {editButton !== false ? (
+            <div
+              style={{ right: !isRegistered ? '10px' : 'unset' }}
+              className="profile-logout-button"
+              onClick={() => {
+                setShowLogoutPopup(true);
+              }}
+            >
+              Logout
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
@@ -278,6 +324,8 @@ const ProfilePageHeader = ({ leader, editButton }) => {
 ProfilePageHeader.propTypes = {
   leader: PropTypes.bool,
   editButton: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
+  setIsLoggedIn: PropTypes.func,
 };
 
 const ProfilePageAnnouncements = () => {

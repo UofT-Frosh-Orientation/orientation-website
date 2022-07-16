@@ -6,10 +6,11 @@
   flex-direction: row;
   background-color: var(--purple);
   padding: 0% 9%;
-  padding-top: 45px;
+  padding-top: 60px;
   padding-bottom: 25px;
   @include devices(tablet) {
     padding: 4% 5%;
+    padding-top: 12%;
     justify-content: space-around;
   }
   h1 {
@@ -343,4 +344,40 @@
 }
 .profile-schedule-background-blue {
   background-color: var(--blue-bg);
+}
+
+.profile-logout-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+
+  top: 55px;
+  right: 60px;
+  width: 100px;
+  height: 40px;
+  padding: 5px;
+
+  text-align: center;
+  font-size: 17px;
+  font-weight: 600;
+
+  background-color: var(--yellow);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+
+  cursor: pointer;
+  transition: transform 200ms;
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  @include devices(tablet) {
+    display: unset;
+    position: absolute;
+    top: 5px;
+    right: 50px;
+    height: 35px;
+    padding: 7px 0px 0px 0px;
+  }
 }
