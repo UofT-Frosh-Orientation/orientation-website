@@ -19,6 +19,23 @@ const FaqController = {
   },
 
   /**
+   * Gets all unanswered FAQs.
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @async
+   * @return {Promise<void>}
+   */
+  async getUnansweredFaqList(req, res, next) {
+    try {
+      const unansweredQuestions = await FaqServices.getUnansweredQuestions();
+      res.status(200).send({ faqs: unansweredQuestions });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  /**
    * Gets all answered FAQs.
    * @param {Object} req
    * @param {Object} res
