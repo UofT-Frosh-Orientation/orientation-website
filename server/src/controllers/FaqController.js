@@ -45,8 +45,8 @@ const FaqController = {
    */
   async createQuestion(req, res, next) {
     try {
-      const { question, category } = req.body;
-      const newFaq = await FaqServices.createNewQuestion(question, category);
+      const { email, question, category } = req.body;
+      const newFaq = await FaqServices.createNewQuestion(email, question, category);
       res.status(200).send(newFaq.toObject());
     } catch (err) {
       next(err);
