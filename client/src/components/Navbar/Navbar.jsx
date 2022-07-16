@@ -11,10 +11,12 @@ import MessageIconGrey from '../../assets/navbar/message-solid-grey.svg';
 import ProfileIcon from '../../assets/navbar/circle-user-solid-purple.svg';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { pages } from '../../util/pages';
 import { PopupModal } from '../popup/PopupModal';
 import { Button } from '../button/Button/Button';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../pages/Login/saga';
 
 const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
   return (
@@ -39,6 +41,8 @@ const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
 
 const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
   const [showlogoutPopup, setShowLogoutPopup] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     // add log out onClick here in popup !
@@ -54,7 +58,8 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
           isSecondary={true}
           label={'Logout'}
           onClick={() => {
-            console.log('logging out');
+            console.log('Logging out');
+            dispatch(logout({ navigate, setShowLogoutPopup }));
           }}
         />
       </PopupModal>

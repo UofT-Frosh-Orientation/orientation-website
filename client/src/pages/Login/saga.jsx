@@ -13,6 +13,8 @@ import {
   requestPasswordResetStart,
   requestPasswordResetSuccess,
   requestPasswordResetFailure,
+  logoutStart,
+  logoutFailure,
 } from '../userSlice';
 import useAxios from '../../hooks/useAxios';
 
@@ -99,6 +101,25 @@ export function* requestPasswordResetSaga({ payload: email }) {
     yield put(requestPasswordResetFailure());
   }
 }
+
+export const logout = createAction('logoutSaga');
+
+export function* logoutSaga({ payload: { navigate, setShowLogoutPopup } }) {
+  console.log('Logging out p2');
+  const { axios } = useAxios();
+
+  try {
+    yield put(logoutStart());
+    const result = yield call(axios.post, '/user/logout');
+    yield put(logoutSuccess());
+    setShowLogoutPopup(false);
+    yield call(navigate, '/');
+  } catch (err) {
+    console.log(err);
+    yield put(logoutFailure(err));
+  }
+}
+
 export default function* userSaga() {
   yield takeLeading(login.type, loginSaga);
   yield takeLeading(getUserInfo.type, getUserInfoSaga);
@@ -106,4 +127,5 @@ export default function* userSaga() {
   yield takeLeading(signUp.type, createUserSaga);
   yield takeLeading(resetPassword.type, resetPasswordSaga);
   yield takeLeading(requestPasswordReset.type, requestPasswordResetSaga);
+  yield takeLeading(logout.type, logoutSaga);
 }

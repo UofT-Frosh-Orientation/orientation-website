@@ -29,13 +29,14 @@ import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import EditIcon from '../../assets/misc/pen-solid.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { resources } from '../../util/resources';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userSelector } from '../userSlice';
 
 import { PopupModal } from '../../components/popup/PopupModal';
+import { logout } from '../Login/saga';
 
 const PageProfile = () => {
   const qrCodeLeader = canLeaderScanQR();
@@ -241,8 +242,9 @@ const ProfilePageQRScanner = () => {
 
 const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) => {
   const { user } = useSelector(userSelector);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  console.log(`editButton: ${editButton}`);
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
 
   return (
@@ -259,7 +261,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
           isSecondary={true}
           label="Logout"
           onClick={() => {
-            console.log('logging out');
+            dispatch(logout({ navigate, setShowLogoutPopup }));
           }}
         />
       </PopupModal>
@@ -298,13 +300,15 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
           ) : (
             <></>
           )}
-          {!editButton && true ? (
+          {editButton !== false ? (
             <div
               className="profile-logout-button"
               onClick={() => {
                 setShowLogoutPopup(true);
               }}
-            ></div>
+            >
+              Logout
+            </div>
           ) : (
             <></>
           )}
