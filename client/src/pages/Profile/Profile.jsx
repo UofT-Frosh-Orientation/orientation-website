@@ -279,7 +279,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
             <p className="profile-page-name-title">
               <b>{user?.firstName}</b> {user?.lastName}
             </p>
-            {user?.discipline && <p>{`Incoming ${user['discipline']} student`}</p>}
+            {user?.discipline && <p>{`Incoming ${user['discipline']} Engineering student`}</p>}
             <p>
               <u>{user?.email}</u>
             </p>
