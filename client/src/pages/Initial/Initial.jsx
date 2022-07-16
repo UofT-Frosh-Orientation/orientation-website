@@ -29,8 +29,8 @@ const InitialPage = () => {
               />
             </a>
             <p className="info-text">
-              Registration for F!rosh Week will open around the end of June. Follow us on Instagram
-              for more updates!
+              Registration for F!rosh Week will open around the middle of July. Follow us on
+              Instagram for more updates!
             </p>
           </div>
 
