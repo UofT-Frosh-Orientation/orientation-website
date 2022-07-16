@@ -213,7 +213,23 @@
 .aboutus-vc-grid-container {
   display: grid;
   width: 100vw;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
+  justify-content: center;
+  margin-bottom: 25px;
+
+  @include devices(tablet) {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.aboutus-techteam-grid-container {
+  display: grid;
+  width: 100vw;
+  grid-template-columns: auto auto auto;
   justify-content: center;
   margin-bottom: 25px;
 
@@ -246,7 +262,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  //width: 100%;
   width: 80%;
   padding: 50px;
   align-items: center;
@@ -254,8 +269,6 @@
   @include devices(tablet) {
     width: 85%;
     padding: 0px;
-    //margin: 10px;
-    //overflow-x: scroll;
   }
 }
 .aboutus-teams-all-tabs-scroll {
@@ -265,17 +278,10 @@
   align-items: center;
 
   @include devices(tablet) {
-    //transform: translateX(150px);
     justify-content: flex-start;
     width: 100%;
     padding: 10px;
-    //margin: 10px;
-    //overflow: hidden;
     overflow-x: scroll;
-    //transition: transform 2s ease;
-
-    //animation: aboutus-bobble 1s ease-in 10s infinite;
-
     &::-webkit-scrollbar {
       height: 3px;
       width: 50%;
@@ -284,28 +290,10 @@
       background: var(--transparent);
     }
     &::-webkit-scrollbar-thumb {
-      //background-color: var(--purple-shades-muted);
-      //transition: background-color 200ms;
       background: var(--transparent);
     }
   }
-
-  // &::-webkit-scrollbar-thumb {
-  //   transition: background-color 200ms;
-  // }
 }
-
-// @keyframes aboutus-bobble {
-//   0% {
-//     transform: translateX(0);
-//   }
-//   70% {
-//     transform: translateX(5px);
-//   }
-//   100% {
-//     transform: translateX(0);
-//   }
-// }
 
 .aboutus-teams-tabs {
   color: var(--purple-shades-muted);
@@ -313,8 +301,6 @@
   transition: color 200ms;
 
   &:hover {
-    //color: var(--purple-shades-dark);
-    //transition: color 200ms;
     cursor: pointer;
 
     .aboutus-yellow-bubble {
@@ -377,4 +363,9 @@
   width: 0%;
   opacity: var(--transparent);
   transition: width 400ms ease-out;
+}
+
+.check-back-message {
+  text-align: center;
+  padding: 5%;
 }

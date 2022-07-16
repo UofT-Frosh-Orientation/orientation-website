@@ -4,6 +4,7 @@ import { getInformation } from './functions';
 
 import { aboutUsInfo } from '../../util/about/aboutus';
 import { execInfo } from '../../util/about/execs';
+import { techTeam } from '../../util/about/techteam';
 
 import { ExecProfile } from './ExecProfile/ExecProfile';
 
@@ -122,6 +123,42 @@ const AboutUsExecTeam = () => {
   );
 };
 
+const AboutUsTechTeam = () => {
+  return (
+    <div className="aboutus-techteam-grid-container">
+      {techTeam.map((info) => {
+        return (
+          <ExecProfile
+            className="vc-grid-item"
+            key={info.fillName}
+            image={info.img}
+            name={info.fullName}
+            discipline={info.discipline}
+            quote={info.quote}
+            exec={false}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+const AboutUsSubcom = () => {
+  return (
+    <div className="check-back-message">
+      <h2>Check back to see all the subcoms that make F!rosh week possible!</h2>
+    </div>
+  );
+};
+
+const AboutUsHL = () => {
+  return (
+    <div className="check-back-message">
+      <h2>Check back to see the head leedurs that run each F!rosh group!</h2>
+    </div>
+  );
+};
+
 const tabs = [
   {
     title: 'Exec Team',
@@ -129,12 +166,15 @@ const tabs = [
   },
   {
     title: 'Tech Team',
+    component: <AboutUsTechTeam />,
   },
   {
     title: 'Subcoms',
+    component: <AboutUsSubcom />,
   },
   {
     title: 'HLs',
+    component: <AboutUsHL />,
   },
 ];
 

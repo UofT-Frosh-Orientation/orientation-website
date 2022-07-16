@@ -5,7 +5,7 @@ import './ExecProfile.scss';
 import wave from '../../../assets/about/wave-about.svg';
 import { useState } from 'react';
 
-const ExecProfile = ({ image, name, role, discipline, roleDescription, favPart }) => {
+const ExecProfile = ({ image, name, role, discipline, roleDescription, favPart, exec, quote }) => {
   // initialize to false, don't show description
   const [showDescription, setShowDescription] = useState(false);
 
@@ -17,13 +17,17 @@ const ExecProfile = ({ image, name, role, discipline, roleDescription, favPart }
           showDescription ? 'exec-profile-description-show' : 'exec-profile-description-hide'
         }`}
       >
-        <ExecProfileDescription
-          name={name}
-          role={role}
-          discipline={discipline}
-          roleDescription={roleDescription}
-          favPart={favPart}
-        />
+        {exec ? (
+          <ExecProfileDescription
+            name={name}
+            role={role}
+            discipline={discipline}
+            roleDescription={roleDescription}
+            favPart={favPart}
+          />
+        ) : (
+          <NonexecProfileDescription name={name} discipline={discipline} quote={quote} />
+        )}
       </div>
     </div>
   );
@@ -69,6 +73,29 @@ const ExecProfileDescription = ({ name, role, discipline, roleDescription, favPa
   );
 };
 
+const NonexecProfileDescription = ({ name, discipline, quote }) => {
+  return (
+    <div className={`exec-profile-description ${'nonexec-profile-description'}`}>
+      <div className="exec-profile-title-cont">
+        <h3 className="exec-profile-name">{name}</h3>
+      </div>
+
+      <p className="exec-profile-description-dis">
+        <span style={{ fontWeight: 'bold' }}>DISCIPLINE: </span>
+        {discipline}
+      </p>
+
+      <p className="exec-profile-description-role">{quote}</p>
+    </div>
+  );
+};
+
+NonexecProfileDescription.propTypes = {
+  name: PropTypes.string,
+  discipline: PropTypes.string,
+  quote: PropTypes.string,
+};
+
 ExecProfile.propTypes = {
   name: PropTypes.string,
   role: PropTypes.string,
@@ -78,6 +105,9 @@ ExecProfile.propTypes = {
   discipline: PropTypes.string,
   roleDescription: PropTypes.string,
   favPart: PropTypes.string,
+  quote: PropTypes.string,
+
+  exec: PropTypes.bool, // if true display bio for exec, if false, display bio for nonexec
 };
 
 ExecProfileTitle.propTypes = {
