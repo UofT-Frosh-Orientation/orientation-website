@@ -367,10 +367,14 @@ const ProfilePageAnnouncements = () => {
 };
 
 const ProfilePageQRCode = () => {
+  const isRegistered = useSelector(registeredSelector);
   const [QRCodeString, setQRCodeString] = useState('');
   useEffect(async () => {
     setQRCodeString(await getQRCodeString());
   }, []);
+  if (!isRegistered) {
+    return <></>;
+  }
   return (
     <div className="profile-page-qr-code">
       <QRNormal
