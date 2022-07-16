@@ -5,6 +5,7 @@ import { getInformation } from './functions';
 import { aboutUsInfo } from '../../util/about/aboutus';
 import { execInfo } from '../../util/about/execs';
 import { techTeam } from '../../util/about/techteam';
+import { headLeedurs } from '../../util/about/headleedurs';
 
 import { ExecProfile } from './ExecProfile/ExecProfile';
 
@@ -153,9 +154,19 @@ const AboutUsSubcom = () => {
 
 const AboutUsHL = () => {
   return (
-    <div className="check-back-message">
-      <h2>Check back to see the head leedurs that run each F!rosh group!</h2>
-    </div>
+    <>
+      <div className="aboutus-hl-grid-container">
+        {headLeedurs.map((info) => {
+          return (
+            <div key={info.group} className="aboutus-hl-container">
+              <h1 className="aboutus-hl-frosh-group">{info.group}</h1>
+              <p className="aboutus-leedur">{info.leedur1}</p>
+              <p className="aboutus-leedur">{info.leedur2}</p>
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

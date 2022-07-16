@@ -369,3 +369,56 @@
   text-align: center;
   padding: 5%;
 }
+
+// HL Grid
+.aboutus-hl-grid-container {
+  display: grid;
+  width: 100vw;
+  grid-template-columns: auto auto auto auto auto;
+  justify-content: center;
+  margin-bottom: 25px;
+
+  @include devices(tablet) {
+    grid-template-columns: auto auto;
+  }
+}
+
+.aboutus-hl-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+
+  .aboutus-hl-frosh-group {
+    transform: rotateY(0deg);
+    transition: transform 400ms;
+  }
+
+  @include devices(mobile) {
+    width: 160px;
+    height: 160px;
+    margin: 5px;
+  }
+
+  &:hover {
+    .aboutus-hl-frosh-group {
+      transform: rotateY(360deg);
+      transition: transform 400ms;
+    }
+  }
+}
+
+.aboutus-hl-frosh-group {
+  font-size: 40px;
+  margin-bottom: 15px;
+  color: var(--purple);
+}
+
+.aboutus-leedur {
+  text-align: center;
+  margin: 3px;
+}
