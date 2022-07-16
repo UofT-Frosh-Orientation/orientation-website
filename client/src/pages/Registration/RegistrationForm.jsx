@@ -394,13 +394,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
               ]}
             />
           </div>
-          <Button
+          {/* <Button
             label={'Check'}
             onClick={() => {
               console.log(froshObject);
               console.log(validateForm());
             }}
-          />
+          /> */}
         </div>
       </div>
     );

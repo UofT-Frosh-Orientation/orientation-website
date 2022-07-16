@@ -33,7 +33,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { resources } from '../../util/resources';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { userSelector } from '../userSlice';
+import { registeredSelector, userSelector } from '../userSlice';
 
 import { PopupModal } from '../../components/popup/PopupModal';
 import { logout } from '../Login/saga';
@@ -247,6 +247,8 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
 
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
 
+  const isRegistered = useSelector(registeredSelector);
+  // console.log(`editButton: ${editButton}`);
   return (
     <>
       {/* calum, please log out in the popups! */}
@@ -292,8 +294,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
               </>
             )}
           </div>
-
-          {editButton !== false ? (
+          {editButton !== false && isRegistered ? (
             <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
               <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
             </Link>

@@ -27,7 +27,7 @@ const router = express.Router();
  *       '403':
  *         $ref: '#components/responses/NotLoggedIn'
  */
-router.post('/create', checkLoggedIn, FaqController.createQuestion);
+router.post('/create', FaqController.createQuestion);
 
 /**
  * @swagger
