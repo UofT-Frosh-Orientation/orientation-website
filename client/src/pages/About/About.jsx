@@ -141,21 +141,6 @@ const AboutUsTechTeam = () => {
           );
         })}
       </div>
-      <div className="aboutus-oc-container" style={{ marginBottom: '25px' }}>
-        {techTeam.second.map((info) => {
-          return (
-            <ExecProfile
-              key={info.fullName}
-              className="vc-grid-item"
-              image={info.img}
-              name={info.fullName}
-              discipline={info.discipline}
-              quote={info.quote}
-              exec={false}
-            />
-          );
-        })}
-      </div>
     </>
   );
 };

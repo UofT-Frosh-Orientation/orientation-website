@@ -93,9 +93,15 @@ ul {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
+  @include devices(tablet) {
+    align-items: center;
+    justify-content: center;
+  }
 }
 .footer-bug {
+  margin-left: 10px;
+  margin-right: -5px;
   width: 30px;
 }
 
@@ -123,10 +129,10 @@ ul {
 .footer-bug-container {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
   width: 300px;
+  align-items: flex-end;
+  justify-content: flex-end;
+
   padding: 5px;
   margin: 0px 0px 10px 0px;
 
@@ -146,9 +152,12 @@ ul {
 .footer-bug-message {
   font-size: 14px;
   color: var(--purple-shades-muted);
-  text-align: center;
+  text-align: right;
   transition: color 200ms;
-  width: auto;
+  margin-bottom: -3px;
+  @include devices(tablet) {
+    text-align: center;
+  }
 }
 
 .footer-bug-message-underline {

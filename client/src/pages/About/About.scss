@@ -212,8 +212,10 @@
 }
 .aboutus-vc-grid-container {
   display: grid;
-  width: 100vw;
-  grid-template-columns: auto auto auto;
+  width: 90vw;
+  grid-template-columns: repeat(auto-fit, 450px);
+  align-items: center;
+  justify-items: center;
   justify-content: center;
   margin-bottom: 25px;
 
@@ -228,8 +230,10 @@
 
 .aboutus-techteam-grid-container {
   display: grid;
-  width: 100vw;
-  grid-template-columns: auto auto auto;
+  width: 90vw;
+  grid-template-columns: repeat(auto-fit, 450px);
+  align-items: center;
+  justify-items: center;
   justify-content: center;
   margin-bottom: 25px;
 
@@ -374,9 +378,12 @@
 // HL Grid
 .aboutus-hl-grid-container {
   display: grid;
-  width: 100vw;
-  grid-template-columns: auto auto auto auto auto;
+  width: 90vw;
+  grid-template-columns: repeat(auto-fit, 450px);
+  align-items: center;
+  justify-items: center;
   justify-content: center;
+  place-items: center;
   margin-bottom: 25px;
 
   @include devices(tablet) {
@@ -434,8 +441,10 @@
 
 .aboutus-subcom-grid-container {
   display: grid;
-  width: 100vw;
-  grid-template-columns: auto auto auto;
+  width: 90vw;
+  grid-template-columns: repeat(auto-fit, 450px);
+  align-items: center;
+  justify-items: center;
   justify-content: center;
   margin-bottom: 25px;
 

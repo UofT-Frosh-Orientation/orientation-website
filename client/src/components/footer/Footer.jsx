@@ -48,17 +48,17 @@ const Footer = () => {
           </div>
           <div className="footer-message-container">
             <a
-              className={`footer-bug-link ${'no-link-style'}`}
+              className={`footer-bug-link no-link-style`}
               href="https://github.com/UofT-Frosh-Orientation/orientation-website/issues/new?assignees=&labels=bug&template=bug_report.yml&title=%5BBug%5D%3A+"
               target="_blank"
               rel="noreferrer"
             >
               <div className="footer-bug-container">
-                <img className="footer-bug" src={bug} alt="bug icon"></img>
                 <p className="footer-bug-message">
                   File bugs reports <span className="footer-bug-message-underline">here</span> using
                   your GitHub account!
                 </p>
+                <img className="footer-bug desktop-only" src={bug} alt="bug icon"></img>
               </div>
             </a>
 
