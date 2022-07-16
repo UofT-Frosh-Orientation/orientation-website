@@ -69,11 +69,4 @@ export async function submitQuestion(question) {
     console.log(error.response.data.message);
     return error.response.data.message;
   }
-  // console.log(question);
-  // /*eslint no-undef: 0*/
-  // let promise = new Promise((res, rej) => {
-  //   setTimeout(() => res('An error occured!'), 1000);
-  // });
-  // let result = await promise;
-  // return result; //returns true for now to simulate a successful call to the database
 }
