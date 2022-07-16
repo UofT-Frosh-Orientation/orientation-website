@@ -274,7 +274,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             <h1>Discard changes?</h1>
             <h2>Any changes will be lost.</h2>
             <div className="registration-edit-popup-buttons">
-              <Link to={'/profile'}>
+              <Link to={'/profile'} className="no-link-style">
                 <Button label="Discard" isSecondary />
               </Link>
               <Button label="Keep editing" onClick={() => setShowPopUp(false)} />

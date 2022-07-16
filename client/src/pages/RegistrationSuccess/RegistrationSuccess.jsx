@@ -85,7 +85,7 @@ const PageRegistrationSuccess = () => {
                   <h2>{user.froshGroup + '!'}</h2>
                 </div>
                 <div className="registration-success-page-step5">
-                  <Link to={'/profile'}>
+                  <Link to={'/profile'} className="no-link-style">
                     <Button label="View My F!rosh Profile" />
                   </Link>
                 </div>
@@ -97,6 +97,7 @@ const PageRegistrationSuccess = () => {
                       froshGroupIcon: user.froshGroupIcon,
                     }}
                     to={'/registration-success'}
+                    className="no-link-style"
                   >
                     <ButtonOutlined label="Watch Again" isSecondary />
                   </Link>
