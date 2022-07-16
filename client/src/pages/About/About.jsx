@@ -211,14 +211,14 @@ const tabs = [
     title: 'Tech Team',
     component: <AboutUsTechTeam />,
   },
-  {
-    title: 'Subcoms',
-    component: <AboutUsSubcom />,
-  },
-  {
-    title: 'HLs',
-    component: <AboutUsHL />,
-  },
+  // {
+  //   title: 'Subcoms',
+  //   component: <AboutUsSubcom />,
+  // },
+  // {
+  //   title: 'HLs',
+  //   component: <AboutUsHL />,
+  // },
 ];
 
 const AboutUsTeamsTab = () => {
