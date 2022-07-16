@@ -21,10 +21,25 @@ const TextInput = ({
   inputTitle,
   isPhoneNumber,
   isInstagram,
+  style,
+  clearText,
+  setClearText,
+  isUtorID,
+  maxLength,
+  autocomplete,
 }) => {
   useEffect(() => {
     if (localStorageKey !== undefined) {
-      onChange(localStorage.getItem(localStorageKey));
+      const storedString = localStorage.getItem(localStorageKey);
+      if (storedString === null) {
+        if (initialValue !== undefined) {
+          onChange(initialValue);
+        } else {
+          onChange('');
+        }
+      } else {
+        onChange(storedString);
+      }
     } else if (initialValue !== undefined) {
       onChange(initialValue);
     }
@@ -41,6 +56,14 @@ const TextInput = ({
       ? initialValue
       : '',
   );
+
+  useEffect(() => {
+    if (clearText) {
+      setValue('');
+      setClearText(false);
+    }
+  }, [clearText]);
+
   const [type, setType] = useState(inputType ? inputType : 'text');
 
   const onKeyPress = (target) => {
@@ -60,11 +83,29 @@ const TextInput = ({
       let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
       if (match) {
         value = '(' + match[1] + ') ' + match[2] + '-' + match[3];
+      } else {
+        if (value.length >= 10) {
+          value = value.substring(0, 10);
+          value = value.replace(/\D/g, '');
+          let cleaned = ('' + value).replace(/\D/g, '');
+          let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+          if (match) {
+            value = '(' + match[1] + ') ' + match[2] + '-' + match[3];
+          }
+        }
       }
     }
     if (isInstagram) {
       if (value !== '' && !value.includes('@')) {
         value = '@' + value;
+      }
+    }
+    if (isUtorID) {
+      value = value.replace(' ', '').toLowerCase();
+    }
+    if (maxLength) {
+      if (value !== undefined && maxLength < value.length) {
+        value = value.substring(0, value.length - 1);
       }
     }
 
@@ -104,8 +145,10 @@ const TextInput = ({
             value={value}
             placeholder={placeholder}
             type={type}
+            autoComplete={autocomplete}
             onChange={onInputChange}
             {...inputArgs}
+            style={{ ...style }}
           />
         ) : (
           <input
@@ -121,6 +164,7 @@ const TextInput = ({
             value={value}
             placeholder={placeholder}
             type={type}
+            autoComplete={autocomplete}
             onChange={onInputChange}
             {...inputArgs}
           />
@@ -161,6 +205,12 @@ TextInput.propTypes = {
   inputTitle: PropTypes.string,
   isPhoneNumber: PropTypes.bool,
   isInstagram: PropTypes.bool,
+  isUtorID: PropTypes.bool,
+  maxLength: PropTypes.number,
+  autocomplete: PropTypes.string,
+  style: PropTypes.object,
+  clearText: PropTypes.bool,
+  setClearText: PropTypes.func,
 };
 
 export { TextInput };

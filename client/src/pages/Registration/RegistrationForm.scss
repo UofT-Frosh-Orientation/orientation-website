@@ -87,3 +87,25 @@
 .inline-block-remaining {
   display: inline-block;
 }
+
+.registration-edit-popup {
+  padding: 10px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  h1 {
+    margin-bottom: 5px;
+    color: var(--white);
+  }
+  h2 {
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+}
+.registration-edit-popup-buttons {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: -10px;
+}

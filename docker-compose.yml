@@ -19,7 +19,7 @@ services:
     depends_on:
       mongodb:
         condition: service_started
-      server:
+      api:
         condition: service_started
     environment:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=$MONGODB_USER
@@ -38,9 +38,9 @@ services:
     environment:
       - REDIS_PORT_NUMBER=$REDIS_PORT
       - REDIS_PASSWORD=$REDIS_PASSWORD
-  server:
+  api:
     build: ./server
-    container_name: server
+    container_name: api
     depends_on:
       - mongodb
     environment:
@@ -53,6 +53,13 @@ services:
       - BASIC_AUTH_PASS=$BASIC_AUTH_PASS
       - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+      - STRIPE_WEBHOOK_SECRET=$STRIPE_WEBHOOK_SECRET
+      - STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY
+      - CLIENT_BASE_URL=$CLIENT_BASE_URL
+      - API_BASE_URL=$API_BASE_URL
+      - STRIPE_TICKET_PRICE_ID=$STRIPE_TICKET_PRICE_ID
+      - STRIPE_EARLY_BIRD_COUPON_ID=$STRIPE_EARLY_BIRD_COUPON_ID
+      - JWT_RESET_TOKEN=$JWT_RESET_TOKEN
     ports:
       - "5001:5001"
     volumes:
@@ -60,6 +67,8 @@ services:
   client:
     build: ./client
     container_name: client
+    environment:
+      - VITE_API_BASE_URL=$API_BASE_URL
     ports:
       - "3000:3000"
     volumes:

@@ -1,7 +1,6 @@
 const express = require('express');
 
 const UserController = require('../controllers/UserController');
-const passport = require('../services/passport');
 const checkLoggedIn = require('../middlewares/checkLoggedIn');
 
 const router = express.Router();
@@ -66,11 +65,7 @@ router.post('/signup', UserController.signup);
  *                 user:
  *                   $ref: '#components/schemas/User'
  */
-router.post(
-  '/login',
-  passport.authenticate('local', { failureRedirect: '/login' }),
-  UserController.getInfo,
-);
+router.post('/login', UserController.login);
 
 /**
  * @swagger
@@ -117,5 +112,9 @@ router.post('/logout', UserController.logout);
  *                   example: Please sign in to access this route!
  */
 router.get('/info', checkLoggedIn, UserController.getInfo);
+
+router.post('/request-password-reset', UserController.requestPasswordReset);
+
+router.post('/reset-password', UserController.resetPassword);
 
 module.exports = router;

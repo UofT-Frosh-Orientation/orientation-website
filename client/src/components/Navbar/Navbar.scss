@@ -22,7 +22,7 @@ li {
   justify-content: space-between;
 
   align-items: center;
-  z-index: 10;
+  z-index: 100;
   position: fixed;
   background-color: var(--navbar-bg);
   width: 100%;
@@ -64,7 +64,6 @@ li {
       transition: background-color 200ms;
     }
   }
-
   .navbar-underline {
     transition: background-color 200ms;
   }
@@ -85,13 +84,19 @@ li {
   border-radius: 15px;
 }
 
-.underline-selected {
+.underline-page-selected {
   background-color: var(--purple);
   align-self: flex-end;
   width: 80px;
   height: 3px;
   overflow: hidden;
   border-radius: 15px;
+  transition: background-color 200ms;
+}
+.underline-page-unselected {
+  opacity: 0;
+
+  transition: background-color 200ms;
 }
 
 .icon-logo {
@@ -116,6 +121,7 @@ li {
   font-weight: bold;
   font-size: 15px;
   color: var(--yellow-light);
+  float: right;
 }
 
 .icon-profile-person {
@@ -127,7 +133,8 @@ li {
 
 .register,
 .login,
-.frosh-profile {
+.frosh-profile,
+.navbar-logout-button {
   display: flex;
   justify-content: center;
   justify-items: center;
@@ -140,15 +147,17 @@ li {
   text-align: center;
   font-size: 16px;
   font-weight: 700;
+  float: left;
 }
 
 .register {
-  width: 100px;
   background-color: var(--purple);
   border-radius: 10px;
   color: var(--text-light);
+  padding-inline: 15px;
 }
-.login {
+.login,
+.navbar-logout-button {
   box-sizing: border-box;
   width: 80px;
   background-color: var(--navbar-bg);
@@ -161,7 +170,6 @@ li {
 }
 
 .frosh-profile {
-  width: 150px;
   background-color: var(--purple);
   border-radius: 10px;
   color: var(--text-light);
@@ -171,12 +179,15 @@ li {
   border-style: solid;
   border-color: var(--purple);
   border-radius: 10px;
+  padding-inline: 15px;
 }
 
 //animations
 .register,
 .login,
-.frosh-profile {
+.frosh-profile,
+.icon-profile,
+.navbar-logout-button {
   &:hover,
   &:active {
     transform: scale(0.97);
@@ -212,7 +223,7 @@ li {
     width: 65px;
   }
 
-  .menu-icon {
+  .navbar-menu-icon {
     align-self: center;
     width: 25px;
     height: 25px;
@@ -235,18 +246,16 @@ li {
     height: 3px;
   }
 
-  .underline-selected {
+  .underline-page-selected {
     background-color: var(--purple);
     bottom: 0;
     width: 40px;
     height: 3px;
   }
 
-  .svg-icon {
-    margin-top: 3px;
+  .navbar-svg-icon {
     width: 25px;
-    height: 25px;
-    align-self: center;
+    margin: 3px 0 0 0;
   }
 
   .icon-profile {

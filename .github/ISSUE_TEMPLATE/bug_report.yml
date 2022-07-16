@@ -1,0 +1,68 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: input
+    id: Description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+      placeholder: Tell us what you saw!
+    validations:
+      required: true
+  - type: textarea
+    id: how_to_reproduce
+    attributes:
+      label: How To Reproduce
+      description: Steps to reproduce the error.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error"
+    validations:
+      required: true
+  - type: input
+    id: Expected_Behaviour
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
+      placeholder: "I expected the page to load the images."
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: What device were you using when you encountered the error?
+      placeholder: "iPhone 12 Pro"
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: What browser were you using when you encountered the error?
+      placeholder: Safari
+    validations:
+      required: true
+  - type: input
+    id: operating_system
+    attributes:
+      label: What operating system were you using?
+      placeholder: iOS 15.5
+    validations:
+      required: true
+  - type: textarea
+    id: additional_information
+    attributes:
+      label: Additional Information
+      description: |
+        Links? References? Anything that will give us more context about the issue you are encountering!
+
+        You can attach images and screenshots by clicking this area to highlight it and then dragging files in.
+    validations:
+      required: false
