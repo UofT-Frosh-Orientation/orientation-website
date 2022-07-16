@@ -1,6 +1,6 @@
 import calum from '../../assets/about/techteam/calum.jpg';
 import emily from '../../assets/about/techteam/emily.jpg';
-import farbod from '../../assets/misc/dino-placeholder.svg';
+import farbod from '../../assets/about/techteam/farbod.jpg';
 import james from '../../assets/about/techteam/james.jpg';
 import luke from '../../assets/about/techteam/luke.jpg';
 import neo from '../../assets/about/techteam/neo.jpg';
