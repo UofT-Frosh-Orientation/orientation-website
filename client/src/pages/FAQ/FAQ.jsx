@@ -15,6 +15,8 @@ import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnim
 import QuestionMark from '../../../assets/icons/question-mark-solid.svg';
 
 import { PopupModal } from '../../components/popup/PopupModal';
+import { userSelector } from '../userSlice';
+import { useSelector } from 'react-redux';
 
 const PageFAQ = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -30,6 +32,7 @@ const PageFAQ = () => {
   const unsortedQuestions = [];
   const questionsObjects = {};
   const questionCategories = [];
+  const { user } = useSelector(userSelector);
   for (let i = 0; i < data.length; i++) {
     if (!questionsObjects.hasOwnProperty(data[i].category)) {
       questionsObjects[data[i].category] = [];
@@ -128,7 +131,7 @@ const PageFAQ = () => {
             <h1>No results</h1>
           </div>
         </div>
-        <FAQFab pageState={pageState} setPageState={setPageState} />
+        <FAQFab pageState={pageState} setPageState={setPageState} user={user} />
       </div>
     </div>
   );
@@ -405,14 +408,14 @@ FAQDisplayAllSearchQuestion.propTypes = {
   questions: PropTypes.array.isRequired,
 };
 
-const FAQAskQuestion = ({ pageState, setPageState }) => {
+const FAQAskQuestion = ({ pageState, setPageState, user }) => {
   const [signUpError, setSignUpError] = useState('');
   const [errorColor, setErrorColor] = useState(false);
   const initialFormData = {
     question: '',
-    email: '',
+    email: user?.email ?? '',
   };
-  const [emailText, setEmailText] = useState({});
+  const [emailText, setEmailText] = useState({ email: user ? user.email : '' });
   const [questionText, setQuestionText] = useState({});
   const [formData, updateFormData] = useState(initialFormData);
   const [clearText, setClearText] = useState(false);
@@ -441,7 +444,6 @@ const FAQAskQuestion = ({ pageState, setPageState }) => {
     } else {
       setPageState('success');
       updateFormData(initialFormData);
-      text = '';
       setClearText(true);
       setSignUpError('Thank you for submitting your question!');
       setErrorColor(false);
@@ -466,6 +468,7 @@ const FAQAskQuestion = ({ pageState, setPageState }) => {
                   onChange={(text) => handleChangeEmail(text)}
                   inputType={'text'}
                   placeholder={'Email'}
+                  initialValue={emailText.email}
                   style={{ height: '45px' }}
                   clearText={clearText}
                   setClearText={setClearText}
@@ -505,9 +508,10 @@ const FAQAskQuestion = ({ pageState, setPageState }) => {
 FAQAskQuestion.propTypes = {
   pageState: PropTypes.string.isRequired,
   setPageState: PropTypes.string.isRequired,
+  user: PropTypes.object,
 };
 
-const FAQFab = ({ pageState, setPageState }) => {
+const FAQFab = ({ pageState, setPageState, user }) => {
   const [showPopUp, setShowPopUp] = useState(false);
 
   return (
@@ -520,7 +524,7 @@ const FAQFab = ({ pageState, setPageState }) => {
       >
         <div className="ask-question-popup">
           <div className={'faq-ask-question-outer-container'}>
-            <FAQAskQuestion pageState={pageState} setPageState={setPageState} />
+            <FAQAskQuestion pageState={pageState} setPageState={setPageState} user={user} />
           </div>
         </div>
       </PopupModal>
@@ -552,6 +556,7 @@ const FAQFab = ({ pageState, setPageState }) => {
 FAQFab.propTypes = {
   pageState: PropTypes.string.isRequired,
   setPageState: PropTypes.string.isRequired,
+  user: PropTypes.object,
 };
 
 export { PageFAQ };
