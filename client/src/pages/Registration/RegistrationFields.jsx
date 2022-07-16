@@ -77,8 +77,14 @@ export const fields = {
       validation: (value) => {
         if (value !== undefined && value.toString().length === 8) {
           return true;
+        } else if (value !== undefined && value.toString().length === 7) {
+          return true;
+        } else if (value !== undefined && value.toString().length === 6) {
+          return true;
+        } else if (value !== undefined && value.toString().length === 9) {
+          return true;
         } else {
-          return 'Your UtorID should be 8 characters long';
+          return 'Your UtorID should be 6 or 7 or 8 or 9 characters long';
         }
       },
       isUtorID: true,
