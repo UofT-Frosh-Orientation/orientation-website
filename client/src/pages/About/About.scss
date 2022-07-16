@@ -204,10 +204,32 @@
 }
 
 // VC GRID
+.aboutus-oc-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  justify-self: center;
+}
 .aboutus-vc-grid-container {
   display: grid;
   width: 100vw;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
+  justify-content: center;
+  margin-bottom: 25px;
+
+  @include devices(tablet) {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.aboutus-techteam-grid-container {
+  display: grid;
+  width: 100vw;
+  grid-template-columns: auto auto auto;
   justify-content: center;
   margin-bottom: 25px;
 
@@ -233,5 +255,191 @@
   @include devices(tablet) {
     width: 85vw;
     padding: 25px 0;
+  }
+}
+
+.aboutus-teams-all-tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 80%;
+  padding: 50px;
+  align-items: center;
+
+  @include devices(tablet) {
+    width: 85%;
+    padding: 0px;
+  }
+}
+.aboutus-teams-all-tabs-scroll {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  @include devices(tablet) {
+    justify-content: flex-start;
+    width: 100%;
+    padding: 10px;
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+      height: 3px;
+      width: 50%;
+    }
+    &::-webkit-scrollbar-track {
+      background: var(--transparent);
+    }
+    &::-webkit-scrollbar-thumb {
+      background: var(--transparent);
+    }
+  }
+}
+
+.aboutus-teams-tabs {
+  color: var(--purple-shades-muted);
+  padding: 15px;
+  transition: color 200ms;
+
+  &:hover {
+    cursor: pointer;
+
+    .aboutus-yellow-bubble {
+      background-color: var(--purple-shades-muted);
+      width: 100%;
+      transition: width 400ms, background-color 400ms;
+    }
+  }
+}
+
+.aboutus-teams-tabs-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  @include devices(tablet) {
+    text-align: center;
+    width: max-content;
+  }
+}
+
+.aboutus-short-vertical-line {
+  height: 35px;
+  width: 3px;
+  background-color: var(--purple-shades-muted);
+  margin-right: 20px;
+  border-radius: 5px;
+
+  @include devices(tablet) {
+    height: 26px;
+    width: 2px;
+    margin-right: 8px;
+    align-self: start;
+  }
+}
+
+.aboutus-teams-tabs-title {
+  transition: color 200ms;
+
+  @include devices(tablet) {
+    font-size: 20px;
+  }
+}
+
+.aboutus-yellow-bubble {
+  margin-top: 10px;
+  opacity: 0;
+  width: 0%;
+  height: 4px;
+  border-radius: 80px;
+  background-color: var(--purple-shades-muted);
+  transition: width 400ms, opacity 400ms;
+}
+.aboutus-yellow-bubble-show {
+  width: 100%;
+  background-color: var(--light-purple) !important;
+  opacity: 1;
+  transition: width 500ms, opacity 500ms;
+}
+.aboutus-yellow-bubble-noshow {
+  width: 0%;
+  opacity: var(--transparent);
+  transition: width 400ms ease-out;
+}
+
+.check-back-message {
+  text-align: center;
+  padding: 2%;
+}
+
+// HL Grid
+.aboutus-hl-grid-container {
+  display: grid;
+  width: 100vw;
+  grid-template-columns: auto auto auto auto auto;
+  justify-content: center;
+  margin-bottom: 25px;
+
+  @include devices(tablet) {
+    grid-template-columns: auto auto;
+  }
+}
+
+.aboutus-hl-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+
+  .aboutus-hl-frosh-group {
+    transform: rotateY(0deg);
+    transition: transform 400ms;
+  }
+
+  @include devices(mobile) {
+    width: 160px;
+    height: 160px;
+    margin: 5px;
+  }
+
+  &:hover {
+    .aboutus-hl-frosh-group {
+      transform: rotateY(360deg);
+      transition: transform 400ms;
+    }
+  }
+}
+
+.aboutus-hl-frosh-group {
+  font-size: 40px;
+  margin-bottom: 15px;
+  color: var(--purple);
+}
+
+.aboutus-leedur {
+  text-align: center;
+  margin: 3px;
+}
+
+.aboutus-commitee-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.aboutus-subcom-grid-container {
+  display: grid;
+  width: 100vw;
+  grid-template-columns: auto auto auto;
+  justify-content: center;
+  margin-bottom: 25px;
+
+  @include devices(tablet) {
+    grid-template-columns: auto auto;
   }
 }
