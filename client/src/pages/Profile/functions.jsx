@@ -152,9 +152,9 @@ export function getFroshScheduleData() {
           Color: 'gray',
         },
         {
-          name: 'Havenger Scunt / Nitelife',
+          name: 'Havenger Scunt',
           description:
-            'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+            'The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!',
           time: '6:00 PM - Late',
           Color: 'dark-purple',
         },
