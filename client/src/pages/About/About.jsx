@@ -21,14 +21,6 @@ const PageAbout = () => {
       <div className="aboutus-page-components">
         <AboutUsSection />
         <AboutUsTeamsTab />
-
-        {/* <div className="exec-title-container">
-          <h2 className="exec-title">Meet the Exec Team</h2>
-          <div className="exec-title-underline"></div>
-        </div>
-        <OCSection />
-        <VCSection /> */}
-
         <div className="about-attribution-container">
           <p className="about-attribution-message">
             Thank you to{' '}
@@ -129,22 +121,42 @@ const AboutUsExecTeam = () => {
 };
 
 const AboutUsTechTeam = () => {
+  let count = 0;
+  let members = techTeam.length;
+
   return (
-    <div className="aboutus-techteam-grid-container">
-      {techTeam.map((info) => {
-        return (
-          <ExecProfile
-            key={info.fullName}
-            className="vc-grid-item"
-            image={info.img}
-            name={info.fullName}
-            discipline={info.discipline}
-            quote={info.quote}
-            exec={false}
-          />
-        );
-      })}
-    </div>
+    <>
+      <div className="aboutus-techteam-grid-container" style={{ marginBottom: '0px' }}>
+        {techTeam.first.map((info) => {
+          return (
+            <ExecProfile
+              key={info.fullName}
+              className="vc-grid-item"
+              image={info.img}
+              name={info.fullName}
+              discipline={info.discipline}
+              quote={info.quote}
+              exec={false}
+            />
+          );
+        })}
+      </div>
+      <div className="aboutus-oc-container" style={{ marginBottom: '25px' }}>
+        {techTeam.second.map((info) => {
+          return (
+            <ExecProfile
+              key={info.fullName}
+              className="vc-grid-item"
+              image={info.img}
+              name={info.fullName}
+              discipline={info.discipline}
+              quote={info.quote}
+              exec={false}
+            />
+          );
+        })}
+      </div>
+    </>
   );
 };
 
