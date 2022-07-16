@@ -108,6 +108,11 @@
   }
 }
 
+.nonexec-profile-description {
+  padding: 10%;
+  text-align: left;
+}
+
 .exec-profile-description-dis,
 .exec-profile-description-role {
   margin-bottom: 25px;
@@ -122,4 +127,21 @@
   transition: opacity 200ms;
   user-select: none;
   pointer-events: none;
+}
+
+.cochairs-list {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 50px;
+}
+.profile-subcom-people {
+  margin: 3px;
+}
+
+.subcom-container {
+  @include devices(tablet) {
+    width: 45vw;
+    height: 45vw;
+  }
 }

@@ -18,6 +18,11 @@ const FaqSchema = new Schema(
       required: true,
       default: false,
     },
+    isAnswered: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   { strict: true },
 );
