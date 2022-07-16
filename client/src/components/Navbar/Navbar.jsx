@@ -46,7 +46,6 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
   const { pathname } = useLocation();
 
   return (
-    // add log out onClick here in popup !
     <>
       <PopupModal
         trigger={showlogoutPopup}
@@ -90,6 +89,7 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
         <div className="navbar-special">
           {isLoggedIn ? (
             <div
+              style={{ cursor: 'pointer' }}
               className="navbar-logout-button"
               onClick={() => {
                 setShowLogoutPopup(true);
@@ -112,7 +112,7 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
                     key={page.path}
                     style={pathname === page.path ? { pointerEvents: 'none' } : {}}
                   >
-                    <div className="frosh-profile">F!rosh Profile</div>
+                    <div className="frosh-profile">Profile</div>
                     <div className="icon-profile"> {froshInitials} </div>
                   </Link>
                 );

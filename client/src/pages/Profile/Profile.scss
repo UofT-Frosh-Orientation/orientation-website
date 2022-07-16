@@ -71,19 +71,6 @@
     }
   }
 }
-.profile-logout-button {
-  display: none;
-
-  @include devices(tablet) {
-    display: unset;
-    position: absolute;
-    top: 0px;
-    right: 112px;
-    width: 35px;
-    height: 35px;
-    padding: 5px;
-  }
-}
 
 .profile-page-header-group {
   display: flex;

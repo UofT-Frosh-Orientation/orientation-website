@@ -303,6 +303,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
           )}
           {editButton !== false ? (
             <div
+              style={{ right: !isRegistered ? '10px' : 'unset' }}
               className="profile-logout-button"
               onClick={() => {
                 setShowLogoutPopup(true);
