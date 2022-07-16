@@ -18,10 +18,10 @@ export default function App() {
   }, []);
 
   return (
-    <InitialPage />
-    // <BrowserRouter>
-    //   <TransitionRoutes />
-    // </BrowserRouter>
+    // <InitialPage />
+    <BrowserRouter>
+      <TransitionRoutes />
+    </BrowserRouter>
   );
 }
 
