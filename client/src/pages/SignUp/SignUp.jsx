@@ -221,7 +221,7 @@ const PageSignUp = () => {
             }.`}</h2>
             <h1>You aren&apos;t done just yet!</h1>
             <h3>You still need to register and pay for the F!rosh Week event.</h3>
-            <Link to="/registration">
+            <Link to="/registration" className="no-link-style">
               <div>
                 <Button
                   label="Register"
