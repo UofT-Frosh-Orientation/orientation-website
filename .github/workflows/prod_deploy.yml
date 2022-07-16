@@ -1,11 +1,13 @@
 name: prod_deployment
 
 on:
+  workflow_dispatch:
+
   push:
     branches:
       - main
 
-concurrency: beta-deployment
+concurrency: prod-deployment
 
 env:
   REGISTRY: ${{ secrets.DIGITALOCEAN_CONTAINER_URL }}
@@ -22,7 +24,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build server image
-        run: cd server && docker build -t $(echo $REGISTRY)/$(echo $SERVER_IMAGE_NAME):prod -f beta.Dockerfile .
+        run: cd server && docker build -t $(echo $REGISTRY)/$(echo $SERVER_IMAGE_NAME):prod -f prod.Dockerfile .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
