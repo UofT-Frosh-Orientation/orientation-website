@@ -21,7 +21,7 @@ export const techTeam = [
   {
     fullName: 'Farbod Mohammadzadeh',
     discipline: 'EngSci 2T5',
-    quote: 'tech team best subcom!',
+    quote: "Hey there! I'm using the F!rosh week 2T2 website",
     img: farbod,
   },
   {
