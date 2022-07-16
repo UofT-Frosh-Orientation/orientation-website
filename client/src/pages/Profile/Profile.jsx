@@ -318,16 +318,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
       </div>
       <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
       {!isRegistered ? (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-            marginBottom: '50px',
-            marginTop: '25px',
-          }}
-        >
+        <div className={'profile-not-registered'}>
           <h1>You are not registered!</h1>
           <h2>You will not be able to participate in F!rosh week events until you register.</h2>
           <Link

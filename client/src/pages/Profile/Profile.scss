@@ -256,7 +256,7 @@
   padding: 0px 10px;
   padding-bottom: 5px;
   margin-top: -12px;
-  width: 100vw;
+  width: 100%;
   p {
     font-size: 17px;
   }
@@ -264,6 +264,7 @@
     padding: 0px 5px;
     padding-bottom: 5px;
     font-size: 16px;
+    width: unset;
   }
 }
 .profile-page-schedule-accordion {
@@ -381,4 +382,15 @@
     height: 35px;
     padding: 7px 0px 0px 0px;
   }
+}
+
+.profile-not-registered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 50px;
+  margin-top: 25px;
+  text-align: center;
+  padding: 0px 20px;
 }
