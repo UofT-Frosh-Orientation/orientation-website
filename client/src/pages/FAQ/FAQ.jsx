@@ -435,19 +435,21 @@ const FAQAskQuestion = ({ pageState, setPageState, user }) => {
   async function handleSubmit(text) {
     // console.log(submitQuestion(formData));
     //console.log(formData);
-    setPageState('loading');
-    const result = await submitQuestion(formData);
-    if (result !== true) {
-      setSignUpError(result);
-      setErrorColor(true);
-      setPageState('form');
-    } else {
-      setPageState('success');
-      updateFormData(initialFormData);
-      setClearText(true);
-      setSignUpError('Thank you for submitting your question!');
-      setErrorColor(false);
-      setPageState('form');
+    if (formData?.question?.length > 0 && formData?.email?.length > 0) {
+      setPageState('loading');
+      const result = await submitQuestion(formData);
+      if (result !== true) {
+        setSignUpError(result);
+        setErrorColor(true);
+        setPageState('form');
+      } else {
+        setPageState('success');
+        updateFormData(initialFormData);
+        setClearText(true);
+        setSignUpError('Thank you for submitting your question!');
+        setErrorColor(false);
+        setPageState('form');
+      }
     }
   }
 
