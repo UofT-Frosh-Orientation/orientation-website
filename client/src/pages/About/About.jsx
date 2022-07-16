@@ -6,12 +6,14 @@ import { aboutUsInfo } from '../../util/about/aboutus';
 import { execInfo } from '../../util/about/execs';
 import { techTeam } from '../../util/about/techteam';
 import { headLeedurs } from '../../util/about/headleedurs';
+import { subComs } from '../../util/about/subcoms';
 
 import { ExecProfile } from './ExecProfile/ExecProfile';
 
 import waveBottom from '../../assets/misc/wave-reverse.png';
 import ExecLogo from '../../assets/about/exec-tshirt-logo.svg';
 import { useEffect } from 'react';
+import { object } from 'prop-types';
 
 const PageAbout = () => {
   return (
@@ -87,6 +89,7 @@ const OCSection = () => {
             discipline={info.discipline}
             roleDescription={info.description}
             favPart={info.favPart}
+            exec={true}
           />
         );
       })}
@@ -100,14 +103,15 @@ const VCSection = () => {
       {[...execInfo.vcs].map((info) => {
         return (
           <ExecProfile
-            className="vc-grid-item"
             key={info.name}
+            className="vc-grid-item"
             image={info.image}
             name={info.name}
             role={info.role}
             discipline={info.discipline}
             roleDescription={info.description}
             favPart={info.favPart}
+            exec={true}
           />
         );
       })}
@@ -130,8 +134,8 @@ const AboutUsTechTeam = () => {
       {techTeam.map((info) => {
         return (
           <ExecProfile
+            key={info.fullName}
             className="vc-grid-item"
-            key={info.fillName}
             image={info.img}
             name={info.fullName}
             discipline={info.discipline}
@@ -145,10 +149,38 @@ const AboutUsTechTeam = () => {
 };
 
 const AboutUsSubcom = () => {
+  let subcomGroups = Object.keys(subComs);
+
   return (
-    <div className="check-back-message">
-      <h2>Check back to see all the subcoms that make F!rosh week possible!</h2>
-    </div>
+    <>
+      <div className="check-back-message">
+        <h2>Check back to see our photos and our roles in F!rosh Week!</h2>
+      </div>
+      {subcomGroups.map((com) => {
+        return (
+          <div key={com} className="aboutus-commitee-container">
+            <h1 className="aboutus-hl-frosh-group">{com}</h1>
+            <div className="aboutus-subcom-grid-container">
+              {subComs[com].map((subcom) => {
+                //console.log(subcom.coChair);
+                return (
+                  <ExecProfile
+                    key={subcom.subcom}
+                    className="vc-grid-item"
+                    name={subcom.subcom}
+                    exec={false}
+                    subcom={true}
+                    roleDescription={subcom.description}
+                    cochairs={subcom.coChair}
+                    image={subcom.img}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+    </>
   );
 };
 

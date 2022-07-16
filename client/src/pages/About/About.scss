@@ -333,6 +333,7 @@
     height: 26px;
     width: 2px;
     margin-right: 8px;
+    align-self: start;
   }
 }
 
@@ -367,7 +368,7 @@
 
 .check-back-message {
   text-align: center;
-  padding: 5%;
+  padding: 2%;
 }
 
 // HL Grid
@@ -421,4 +422,24 @@
 .aboutus-leedur {
   text-align: center;
   margin: 3px;
+}
+
+.aboutus-commitee-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.aboutus-subcom-grid-container {
+  display: grid;
+  width: 100vw;
+  grid-template-columns: auto auto auto;
+  justify-content: center;
+  margin-bottom: 25px;
+
+  @include devices(tablet) {
+    grid-template-columns: auto auto;
+  }
 }

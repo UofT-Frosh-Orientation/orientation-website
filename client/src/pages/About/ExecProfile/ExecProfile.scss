@@ -128,3 +128,20 @@
   user-select: none;
   pointer-events: none;
 }
+
+.cochairs-list {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 50px;
+}
+.profile-subcom-people {
+  margin: 3px;
+}
+
+.subcom-container {
+  @include devices(tablet) {
+    width: 45vw;
+    height: 45vw;
+  }
+}
