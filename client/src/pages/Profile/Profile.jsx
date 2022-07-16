@@ -270,18 +270,18 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
 
       <div className="profile-page-header">
         <div className="profile-page-header-group">
-          <h1>{user['froshGroupIcon']}</h1>
-          <p>{user['froshGroup']}</p>
+          <h1>{user?.froshGroupIcon}</h1>
+          <p>{user?.froshGroup}</p>
           {leader === true ? <p>{'(Leader)'}</p> : <></>}
         </div>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-info">
             <p className="profile-page-name-title">
-              <b>{user['firstName']}</b> {user['lastName']}
+              <b>{user?.firstName}</b> {user?.lastName}
             </p>
-            <p>{`Incoming ${user['discipline']} student`}</p>
+            <p>{`Incoming ${user?.discipline} student`}</p>
             <p>
-              <u>{user['email']}</u>
+              <u>{user?.email}</u>
             </p>
           </div>
           <div className="profile-page-header-class desktop-only">
@@ -303,7 +303,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
           )}
           {editButton !== false ? (
             <div
-              style={{ right: !isRegistered ? '10px' : 'unset' }}
+              style={{ right: !isRegistered ? '10px' : '60px' }}
               className="profile-logout-button"
               onClick={() => {
                 setShowLogoutPopup(true);
@@ -336,7 +336,7 @@ const ProfilePageAnnouncements = () => {
   return (
     <div className="profile-page-announcements">
       <h2 className="profile-page-section-header">Tasks and Announcements</h2>
-      <TaskAnnouncement tasks={tasks} onDone={onDoneTask} />
+      {tasks == undefined ? <></> : <TaskAnnouncement tasks={tasks} onDone={onDoneTask} />}
     </div>
   );
 };

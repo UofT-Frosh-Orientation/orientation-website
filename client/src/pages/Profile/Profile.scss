@@ -127,9 +127,15 @@
   flex: 1;
   max-width: 1000px;
   margin-top: 20px;
+  width: 100%;
+  @media screen and (max-width: 1480px) {
+    padding-right: 5%;
+  }
+
   @include devices(tablet) {
     margin-left: 0;
     margin-right: 0;
+    padding-right: 0;
   }
 }
 
