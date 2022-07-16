@@ -307,7 +307,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             <Button
               label={'Save changes'}
               onClick={() => {
-                onEditSubmit(froshObject);
+                if (validateForm() === true) onEditSubmit(froshObject);
               }}
             />
           </div>
