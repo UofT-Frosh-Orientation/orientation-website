@@ -75,6 +75,10 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     let validated = true;
     const formFieldsCopy = { ...formFields };
     for (let step of steps) {
+      if (step === 'EditFieldsOnly') {
+        continue;
+      }
+
       for (let key of Object.keys(formFields[step])) {
         let localValidated = true;
         if (formFields[step][key].type === 'label') {
