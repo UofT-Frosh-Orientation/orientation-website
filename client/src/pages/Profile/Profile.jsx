@@ -277,7 +277,13 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-info">
             <p className="profile-page-name-title">
-              <b>{user?.firstName}</b> {user?.lastName}
+              {user?.preferredName === '' || !user?.preferredName ? (
+                <>
+                  <b>{user?.firstName}</b> {user?.lastName}
+                </>
+              ) : (
+                <b>{user?.preferredName}</b>
+              )}
             </p>
             {user?.discipline && <p>{`Incoming ${user['discipline']} Engineering student`}</p>}
             <p>
