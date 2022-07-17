@@ -10,6 +10,32 @@
 // validation(value): if set, return true for a valid input, return a string as the error message. The check will fail if a string is returned.
 export const fields = {
   EditFieldsOnly: {
+    email: {
+      type: 'text',
+      inputType: 'text',
+      placeholder: 'john.doe@email.com',
+      label: 'Email',
+      isRequiredInput: true,
+      noEdit: true,
+    },
+    firstName: {
+      type: 'text',
+      inputType: 'text',
+      placeholder: 'John',
+      label: 'First Name',
+      className: 'half-width-input',
+      isRequiredInput: true,
+      noEdit: true,
+    },
+    lastName: {
+      type: 'text',
+      inputType: 'text',
+      placeholder: 'Doe',
+      label: 'Last Name',
+      className: 'half-width-input',
+      isRequiredInput: true,
+      noEdit: true,
+    },
     preferredName: {
       type: 'text',
       inputType: 'text',
