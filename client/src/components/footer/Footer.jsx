@@ -5,6 +5,7 @@ import { pages } from '../../util/pages';
 import { Link, useLocation } from 'react-router-dom';
 import { socials } from '../../util/socials';
 import Wave from '../../assets/misc/wave.png';
+import bug from '../../assets/misc/bug-solid.svg';
 
 const Footer = () => {
   return (
@@ -45,7 +46,24 @@ const Footer = () => {
               );
             })}
           </div>
-          <div className="footer-message">Made with 💜 by the F!rosh Week 2T2 Tech Team</div>
+          <div className="footer-message-container">
+            <a
+              className={`footer-bug-link no-link-style`}
+              href="https://github.com/UofT-Frosh-Orientation/orientation-website/issues/new?assignees=&labels=bug&template=bug_report.yml&title=%5BBug%5D%3A+"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div className="footer-bug-container">
+                <p className="footer-bug-message">
+                  File bugs reports <span className="footer-bug-message-underline">here</span> using
+                  your GitHub account!
+                </p>
+                <img className="footer-bug desktop-only" src={bug} alt="bug icon"></img>
+              </div>
+            </a>
+
+            <div className="footer-message">Made with 💜 by the F!rosh Week 2T2 Tech Team</div>
+          </div>
         </div>
       </div>
     </>

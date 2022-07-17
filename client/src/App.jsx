@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { initialsSelector, loggedInSelector, registeredSelector } from './pages/userSlice';
 import { useEffect } from 'react';
 import { getUserInfo } from './pages/Login/saga';
+import { InitialPage } from './pages/Initial/Initial';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ export default function App() {
   }, []);
 
   return (
+    // <InitialPage />
     <BrowserRouter>
       <TransitionRoutes />
     </BrowserRouter>

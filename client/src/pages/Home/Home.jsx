@@ -35,7 +35,12 @@ const HomePageHeader = () => {
         <h2>F!rosh Week</h2>
         <h1>2T2</h1>
         <p>Organized by the University of Toronto&apos;s Engineering Orientation Commitee</p>
-        <Link key={'/registration'} to={'/registration'} style={{ textDecoration: 'none' }}>
+        <Link
+          key={'/registration'}
+          to={'/registration'}
+          style={{ textDecoration: 'none' }}
+          className="no-link-style"
+        >
           <div className="home-page-header-register-button">
             <div className="desktop-only">
               <Button

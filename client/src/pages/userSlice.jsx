@@ -30,9 +30,19 @@ const userSlice = createSlice({
       state.user = user;
       state.loggedIn = true;
     },
+    logoutStart: (state) => {
+      state.loading = true;
+      state.error = false;
+    },
+    logoutFailure: (state, { payload: error }) => {
+      state.loading = false;
+      state.error = error;
+    },
     logoutSuccess: (state) => {
-      state.user = undefined;
+      state.user = null;
       state.loggedIn = false;
+      state.loading = false;
+      state.error = null;
     },
     setUserInfo: (state, { payload: user }) => {
       state.user = user;
@@ -74,6 +84,8 @@ export const {
   loginStart,
   loginFail,
   loginSuccess,
+  logoutStart,
+  logoutFailure,
   logoutSuccess,
   setUserInfo,
   resetPasswordStart,

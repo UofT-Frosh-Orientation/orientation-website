@@ -9,6 +9,41 @@
 //         Note: noEdit does not work for checkboxes
 // validation(value): if set, return true for a valid input, return a string as the error message. The check will fail if a string is returned.
 export const fields = {
+  EditFieldsOnly: {
+    email: {
+      type: 'text',
+      inputType: 'text',
+      placeholder: 'john.doe@email.com',
+      label: 'Email',
+      isRequiredInput: true,
+      noEdit: true,
+    },
+    firstName: {
+      type: 'text',
+      inputType: 'text',
+      placeholder: 'John',
+      label: 'First Name',
+      className: 'half-width-input',
+      isRequiredInput: true,
+      noEdit: true,
+    },
+    lastName: {
+      type: 'text',
+      inputType: 'text',
+      placeholder: 'Doe',
+      label: 'Last Name',
+      className: 'half-width-input',
+      isRequiredInput: true,
+      noEdit: true,
+    },
+    preferredName: {
+      type: 'text',
+      inputType: 'text',
+      placeholder: 'Joey',
+      label: 'Preferred Name',
+      localStorageKey: 'registration-preferred-name',
+    },
+  },
   General: {
     legalName: {
       type: 'text',
@@ -26,7 +61,7 @@ export const fields = {
       initialSelectedIndex: 0,
       className: 'half-width-input',
       onChanged: (value, disableField) => {
-        if (value === 'other') {
+        if (value === 'Other') {
           disableField(false, 'pronounOther', 'General');
         } else {
           disableField(true, 'pronounOther', 'General');
@@ -75,10 +110,10 @@ export const fields = {
       localStorageKey: 'registration-utorid',
       className: 'half-width-input',
       validation: (value) => {
-        if (value !== undefined && value.toString().length === 8) {
+        if (value !== undefined && value.toString().length <= 9 && value.toString().length >= 5) {
           return true;
         } else {
-          return 'Your UtorID should be 8 characters long';
+          return 'Your UtorID should be 5 - 9 characters long';
         }
       },
       isUtorID: true,

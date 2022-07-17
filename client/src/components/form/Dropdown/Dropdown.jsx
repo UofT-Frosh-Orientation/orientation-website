@@ -34,7 +34,9 @@ const Dropdown = ({ values, onSelect, label, isDisabled, initialSelectedIndex })
 
   return (
     <>
-      <div className={'dropdown-header'}>{label}</div>
+      <div className={`dropdown-header ${isDisabled === true ? 'dropdown-header-disabled' : ''}`}>
+        {label}
+      </div>
       <div className={'dropdown-container'} ref={wrapperRef}>
         <div
           onClick={() => !isDisabled && setIsOpen(!isOpen)}

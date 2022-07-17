@@ -133,7 +133,8 @@ li {
 
 .register,
 .login,
-.frosh-profile {
+.frosh-profile,
+.navbar-logout-button {
   display: flex;
   justify-content: center;
   justify-items: center;
@@ -155,7 +156,8 @@ li {
   color: var(--text-light);
   padding-inline: 15px;
 }
-.login {
+.login,
+.navbar-logout-button {
   box-sizing: border-box;
   width: 80px;
   background-color: var(--navbar-bg);
@@ -184,7 +186,8 @@ li {
 .register,
 .login,
 .frosh-profile,
-.icon-profile {
+.icon-profile,
+.navbar-logout-button {
   &:hover,
   &:active {
     transform: scale(0.97);

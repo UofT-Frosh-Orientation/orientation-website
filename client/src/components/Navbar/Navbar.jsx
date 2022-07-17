@@ -11,8 +11,12 @@ import MessageIconGrey from '../../assets/navbar/message-solid-grey.svg';
 import ProfileIcon from '../../assets/navbar/circle-user-solid-purple.svg';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { pages } from '../../util/pages';
+import { PopupModal } from '../popup/PopupModal';
+import { Button } from '../button/Button/Button';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../pages/Login/saga';
 
 const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
   return (
@@ -36,83 +40,119 @@ const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
 };
 
 const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
-  return (
-    <div className="navbar-container">
-      <div className="navbar-main">
-        <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
-        {/* MAIN PAGES - Home, About, FAQ */}
-        {pages.main.map((page) => {
-          return (
-            <Link
-              to={useLocation().pathname === page.path ? {} : page.path}
-              key={page.path}
-              style={useLocation().pathname === page.path ? { pointerEvents: 'none' } : {}}
-            >
-              <div className="navbar-sub-container" key={page.path}>
-                <div className="navbar-link"> {page.label} </div>
-                {useLocation().pathname === page.path ? (
-                  <div className="underline-page-selected"></div>
-                ) : (
-                  <div className="navbar-underline"></div>
-                )}
-              </div>
-            </Link>
-          );
-        })}
-      </div>
+  const [showlogoutPopup, setShowLogoutPopup] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
-      <div className="navbar-special">
-        {/* SPECIAL PAGES - Profile, Register, Login*/}
-        {pages.special.map((page) => {
-          // Clicking on profile button
-          if (page.label === 'Profile') {
-            if (isLoggedIn) {
-              // if logged in
+  return (
+    <>
+      <PopupModal
+        trigger={showlogoutPopup}
+        setTrigger={setShowLogoutPopup}
+        heading={'Are you sure you want to logout?'}
+        exitIcon={true}
+        blurBackground={false}
+      >
+        <Button
+          isSecondary={true}
+          label={'Logout'}
+          onClick={() => {
+            console.log('Logging out');
+            dispatch(logout({ navigate, setShowLogoutPopup }));
+          }}
+        />
+      </PopupModal>
+      <div className="navbar-container">
+        <div className="navbar-main">
+          <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
+          {/* MAIN PAGES - Home, About, FAQ */}
+          {pages.main.map((page) => {
+            return (
+              <Link
+                to={pathname === page.path ? {} : page.path}
+                key={page.path}
+                style={pathname === page.path ? { pointerEvents: 'none' } : {}}
+              >
+                <div className="navbar-sub-container" key={page.path}>
+                  <div className="navbar-link"> {page.label} </div>
+                  {pathname === page.path ? (
+                    <div className="underline-page-selected"></div>
+                  ) : (
+                    <div className="navbar-underline"></div>
+                  )}
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+        <div className="navbar-special">
+          {isLoggedIn ? (
+            <div
+              style={{ cursor: 'pointer' }}
+              className="navbar-logout-button"
+              onClick={() => {
+                setShowLogoutPopup(true);
+              }}
+            >
+              Logout
+            </div>
+          ) : (
+            <></>
+          )}
+          {/* SPECIAL PAGES - Profile, Register, Login*/}
+          {pages.special.map((page) => {
+            // Clicking on profile button
+            if (page.label === 'Profile') {
+              if (isLoggedIn) {
+                // if logged in
+                return (
+                  <Link
+                    to={page.path}
+                    key={page.path}
+                    style={pathname === page.path ? { pointerEvents: 'none' } : {}}
+                  >
+                    <div className="frosh-profile">Profile</div>
+                    <div className="icon-profile"> {froshInitials} </div>
+                  </Link>
+                );
+              }
+              // if not logged in
+              return <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>;
+            } // Clicking on register button
+            else if (page.label === 'Register' && isLoggedIn && !isRegistered) {
+              // if logged in and not registered
+              return (
+                <Link
+                  to={page.path}
+                  key={page.path}
+                  style={pathname === page.path ? { pointerEvents: 'none' } : {}}
+                >
+                  <div className="register">{page.label}</div>
+                </Link>
+              );
+            } // Clicking on login button
+            else if (page.label === 'Login' && !isLoggedIn) {
+              // if not logged in, display login button
               return (
                 <Link
                   to={page.path}
                   key={page.path}
                   style={useLocation().pathname === page.path ? { pointerEvents: 'none' } : {}}
                 >
-                  <div className="frosh-profile">F!rosh Profile</div>
-                  <div className="icon-profile"> {froshInitials} </div>
+                  <div className="login">{page.label}</div>
                 </Link>
               );
             }
-            // if not logged in
-            return <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>;
-          } // Clicking on register button
-          else if (page.label === 'Register' && isLoggedIn && !isRegistered) {
-            // if logged in and not registered
-            return (
-              <Link
-                to={page.path}
-                key={page.path}
-                style={useLocation().pathname === page.path ? { pointerEvents: 'none' } : {}}
-              >
-                <div className="register">{page.label}</div>
-              </Link>
-            );
-          } // Clicking on login button
-          else if (page.label === 'Login' && !isLoggedIn) {
-            // if not logged in, display login button
-            return (
-              <Link
-                to={page.path}
-                key={page.path}
-                style={useLocation().pathname === page.path ? { pointerEvents: 'none' } : {}}
-              >
-                <div className="login">{page.label}</div>
-              </Link>
-            );
-          }
-        })}
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
 const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
+  const { pathname } = useLocation().pathname;
   return (
     <div className="navbar-container">
       <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
@@ -125,7 +165,7 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
             <Link
               to={page.path}
               key={page.path}
-              style={useLocation().pathname === page.path ? { pointerEvents: 'none' } : {}}
+              style={pathname === page.path ? { pointerEvents: 'none' } : {}}
             >
               <div className="navbar-sub-container">
                 <div className="navbar-menu-icon">
@@ -141,7 +181,7 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                         : ''
                     }
                     src={
-                      useLocation().pathname === page.path
+                      pathname === page.path
                         ? page.label === 'Home'
                           ? HomeIconPurple
                           : page.label === 'About'
@@ -159,7 +199,7 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                     }
                   ></img>
                 </div>
-                {useLocation().pathname === page.path ? (
+                {pathname === page.path ? (
                   <div className="underline-page-selected"></div>
                 ) : (
                   <div className="navbar-underline"></div>
@@ -177,7 +217,7 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
               <Link
                 to={page.path}
                 key={page.path}
-                style={useLocation().pathname === page.path ? { pointerEvents: 'none' } : {}}
+                style={pathname === page.path ? { pointerEvents: 'none' } : {}}
               >
                 <div className="login">{page.label}</div>
               </Link>
@@ -188,7 +228,7 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
               <Link
                 to={page.path}
                 key={page.path}
-                style={useLocation().pathname === page.path ? { pointerEvents: 'none' } : {}}
+                style={pathname === page.path ? { pointerEvents: 'none' } : {}}
               >
                 <div className="icon-profile"> {froshInitials} </div>
               </Link>

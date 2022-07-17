@@ -133,6 +133,8 @@
   color: var(--white);
   text-align: center;
   font-size: 30px;
+  margin-right: 1%;
+  margin-left: 1%;
 
   @include devices(tablet) {
     font-size: 26px;

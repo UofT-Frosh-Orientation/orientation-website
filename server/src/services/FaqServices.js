@@ -26,7 +26,24 @@ const FaqServices = {
    */
   async getAnsweredQuestions() {
     return new Promise((resolve, reject) => {
-      FaqModel.find({ answer: { $ne: '' }, deleted: false }, (err, faqs) => {
+      FaqModel.find({ isAnswered: true, deleted: false }, (err, faqs) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(faqs);
+        }
+      });
+    });
+  },
+
+  /**
+   * Gets all the unanswered questions in mongo.
+   * @async
+   * @return {Promise<Array<Object>>} - all the unanswered questions
+   */
+  async getUnansweredQuestions() {
+    return new Promise((resolve, reject) => {
+      FaqModel.find({ isAnswered: false, deleted: false }, (err, faqs) => {
         if (err) {
           reject(err);
         } else {
@@ -43,9 +60,9 @@ const FaqServices = {
    * @async
    * @return {Promise<Object>} - the new question
    */
-  async createNewQuestion(question, category) {
+  async createNewQuestion(email, question, category) {
     return new Promise((resolve, reject) => {
-      const doc = category ? { question, category } : { question };
+      const doc = category ? { email, question, category } : { email, question };
       FaqModel.create(doc, (err, newFaq) => {
         if (err) {
           reject(err);

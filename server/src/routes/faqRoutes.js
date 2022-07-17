@@ -27,7 +27,7 @@ const router = express.Router();
  *       '403':
  *         $ref: '#components/responses/NotLoggedIn'
  */
-router.post('/create', checkLoggedIn, FaqController.createQuestion);
+router.post('/create', FaqController.createQuestion);
 
 /**
  * @swagger
@@ -99,6 +99,26 @@ router.patch('/:faqId?', checkLoggedIn, hasAuthScopes(['faq:edit']), FaqControll
  *                     $ref: '#components/schemas/FAQ'
  */
 router.get('/answered', FaqController.getAnsweredFaqList);
+
+/**
+ * @swagger
+ * /faq/unanswered:
+ *   get:
+ *     summary: Get all the unanswered FAQs
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved the unanswered FAQs
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 faqs:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#components/schemas/FAQ'
+ */
+router.get('/unanswered', FaqController.getUnansweredFaqList);
 
 /**
  * @swagger

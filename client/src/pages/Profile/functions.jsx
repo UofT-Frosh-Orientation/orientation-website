@@ -101,21 +101,21 @@ export function getFroshScheduleData() {
         {
           name: 'Campus Tour / E4TW',
           description:
-            'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW: Your first design challenge at UofT Engineering, except it’s probably the best one you’ll do',
+            'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW (Engineers 4 The World) is your very first design challenge here at U of T Engineering!',
           time: '10:30 AM - 1:00 PM',
           Color: 'yellow',
         },
         {
           name: 'Lunch',
           description:
-            'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW: Your first design challenge at UofT Engineering, except it’s probably the best one you’ll do',
+            'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW (Engineers 4 The World) is your very first design challenge here at U of T Engineering!',
           time: '1:00 PM - 2:00 PM',
           Color: 'green',
         },
         {
           name: 'Campus Tour / E4TW',
           description:
-            'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW: Your first design challenge at UofT Engineering, except it’s probably the best one you’ll do',
+            'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW (Engineers 4 The World) is your very first design challenge here at U of T Engineering!',
           time: '2:00 PM - 3:30 PM',
           Color: 'yellow',
         },
@@ -152,9 +152,9 @@ export function getFroshScheduleData() {
           Color: 'gray',
         },
         {
-          name: 'Havenger Scunt / Nitelife',
+          name: 'Havenger Scunt',
           description:
-            'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+            'The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!',
           time: '6:00 PM - Late',
           Color: 'dark-purple',
         },
