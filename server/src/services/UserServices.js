@@ -113,6 +113,18 @@ const UserServices = {
     });
   },
 
+  async getAllUsers() {
+    return new Promise((resolve, reject) => {
+      UserModel.find({}, (err, users) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(users);
+        }
+      });
+    });
+  },
+
   async updatePassword(email, password) {
     if (!passwordValidator.test(password)) {
       throw new Error('INVALID_PASSWORD');
