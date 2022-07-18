@@ -92,7 +92,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             formFieldsCopy[step][key].errorFeedback = validateResult;
             localValidated = false;
             if (validated === true) {
-              setSelectedTab(steps.indexOf(step, 0));
+              //We subtract one because the first key, which is EditFieldsOnly is skipped by the registration form
+              setSelectedTab(steps.indexOf(step, 0) - 1);
               setSelectedTabGo(!selectedTabGo);
               validated = false;
             }
@@ -105,7 +106,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
           formFieldsCopy[step][key].errorFeedback = formFields[step][key].errorMessage;
           localValidated = false;
           if (validated === true) {
-            setSelectedTab(steps.indexOf(step, 0));
+            //We subtract one because the first key, which is EditFieldsOnly is skipped by the registration form
+            setSelectedTab(steps.indexOf(step, 0) - 1);
             setSelectedTabGo(!selectedTabGo);
             validated = false;
           }
