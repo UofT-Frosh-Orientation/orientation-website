@@ -77,7 +77,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     let validated = true;
     const formFieldsCopy = { ...formFields };
     for (let step of steps) {
-      if (step === 'EditFieldsOnly') {
+      if (step === 'EditFieldsOnly' && !editFieldsPage) {
         continue;
       }
 
@@ -250,7 +250,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
               <div className="text-input-container" style={{ width: '100%' }}>
                 <div className="text-input-title-container">
                   {field.label !== undefined ? (
-                    <p className="text-input-title">{field.label}</p>
+                    field.bold === true ? (
+                      <b>
+                        <p className="text-input-title">{field.label}</p>
+                      </b>
+                    ) : (
+                      <p className="text-input-title">{field.label}</p>
+                    )
                   ) : (
                     <></>
                   )}
@@ -307,7 +313,16 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             }}
           /> */}
 
-          <div style={{ marginBottom: '40px' }}>
+          <div
+            style={{
+              marginBottom: '55px',
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             {/* TODO: SHow popup to ask if they would like to discard all changes when editing fields */}
             <ButtonOutlined
               label={'Discard changes'}

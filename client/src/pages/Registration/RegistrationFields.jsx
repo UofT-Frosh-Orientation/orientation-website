@@ -8,8 +8,16 @@
 // noEdit: if set, this field CANNOT be modified AFTER the frosh registers
 //         Note: noEdit does not work for checkboxes
 // validation(value): if set, return true for a valid input, return a string as the error message. The check will fail if a string is returned.
+// isBold: field.type of label! (bolds the label)
+
 export const fields = {
   EditFieldsOnly: {
+    emailLabel: {
+      type: 'label',
+      label:
+        'Please ensure your email is correct, if changed. An incorrect email can get you locked out of your account!',
+      isBold: true,
+    },
     email: {
       type: 'text',
       inputType: 'text',
@@ -357,7 +365,8 @@ export const fields = {
       type: 'label',
       label:
         'The following information will be used to help in the planning and coordination some Frosh Week events including Havenger Scunt, Summer Meetups, and Commuter Buddies.',
-      isRequiredInput: true, // is it possible to bold this?
+      isRequiredInput: true,
+      isBold: true,
     },
     scunt: {
       type: 'radio',
