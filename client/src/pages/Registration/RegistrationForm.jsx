@@ -41,12 +41,12 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   }, []);
 
   const handleRegister = async () => {
+    console.log(froshObject);
     setCanRegister(false);
     const isFormValid = validateForm();
     if (!isFormValid) {
       return setCanRegister(true);
     } else {
-      // console.log(froshObject);
       try {
         const response = await axios.post('/frosh/register', froshObject);
         window.location.href = response.data.url;
@@ -185,6 +185,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       ? field.noEdit
                       : field.isDisabled
                   }
+                  localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
                 />
               </div>
             );
@@ -209,6 +210,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       ? field.noEdit
                       : field.isDisabled
                   }
+                  localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
                 />
               </div>
             );
@@ -239,6 +241,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                     if (field.onChanged) field.onChanged(value, disableField);
                   }}
                   values={field.values}
+                  localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
                 />
               </div>
             );
@@ -304,7 +307,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             }}
           /> */}
 
-          <div>
+          <div style={{ marginBottom: '40px' }}>
             {/* TODO: SHow popup to ask if they would like to discard all changes when editing fields */}
             <ButtonOutlined
               label={'Discard changes'}
@@ -335,7 +338,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   } else {
     return (
       <div>
-        <PopupModal
+        {/* <PopupModal
           trigger={showPopUp}
           setTrigger={setShowPopUp}
           blurBackground={true}
@@ -350,11 +353,12 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
               <Button label={'Pay Now'} onClick={handleCheckout} />
             </div>
           </div>
-        </PopupModal>
+        </PopupModal> */}
         <div className="navbar-space-top" />
         <div className="registration-form-flex">
           <div className="registration-form">
             <Tabs
+              scrollToTopAfterChange={true}
               selectedTabPassed={selectedTab}
               go={selectedTabGo}
               tabs={[
@@ -391,7 +395,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                 {
                   title: 'Payment',
                   component: (
-                    <div>
+                    <div className="registration-payment-page">
                       <p className="register-terms-of-service">{terms}</p>
                       <b>
                         <p className="register-terms-of-service-below">
@@ -401,7 +405,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                         </p>
                       </b>
                       <Button
-                        style={{ margin: '0 auto' }}
+                        style={{ margin: '0 auto', marginTop: '15px' }}
                         label={'Pay Now'}
                         onClick={handleRegister}
                         isDisabled={!canRegister}
