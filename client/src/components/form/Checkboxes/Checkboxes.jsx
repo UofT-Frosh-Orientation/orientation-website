@@ -9,9 +9,39 @@ const Checkboxes = ({
   disabledIndices,
   maxCanSelect,
   label,
+  localStorageKey,
 }) => {
   useEffect(() => {
-    if (initialSelectedIndices !== undefined) {
+    if (localStorageKey !== undefined) {
+      try {
+        const storedString = localStorage.getItem(localStorageKey);
+        if (storedString === null) {
+          if (initialSelectedIndices !== undefined) {
+            values.map((value, index) => {
+              const initialSelectedIndicesCopy = [...initialSelectedIndices];
+              onSelected(
+                value,
+                index,
+                initialSelectedIndices.includes(index),
+                initialSelectedIndicesCopy,
+              );
+            });
+          }
+        } else {
+          JSON.parse(storedString).map((value, index) => {
+            onSelected(
+              value,
+              index,
+              JSON.parse(storedString).includes(index),
+              JSON.parse(storedString),
+            );
+          });
+          setSelectedIndices(JSON.parse(storedString));
+        }
+      } catch (e) {
+        localStorage.setItem(localStorageKey, '[]');
+      }
+    } else if (initialSelectedIndices !== undefined) {
       values.map((value, index) => {
         const initialSelectedIndicesCopy = [...initialSelectedIndices];
         onSelected(
@@ -56,8 +86,8 @@ const Checkboxes = ({
                       ? false
                       : initialSelectedIndices.includes(index)
                   }
+                  checked={selectedIndices.includes(index)}
                   onClick={() => {
-                    console.log('Clicked');
                     if (selectedIndices.includes(index)) {
                       let selectedIndicesCopy = [
                         ...selectedIndices.filter((valIndex) => index !== valIndex),
@@ -67,17 +97,23 @@ const Checkboxes = ({
                       if (isAllDisabled) {
                         setIsAllDisabled(false);
                       }
+                      if (localStorageKey) {
+                        localStorage.setItem(localStorageKey, JSON.stringify(selectedIndicesCopy));
+                      }
                     } else {
                       let selectedIndicesCopy = [...selectedIndices];
                       selectedIndicesCopy.push(index);
                       setSelectedIndices(selectedIndicesCopy);
-                      console.log(selectedIndicesCopy);
-                      console.log(value, index);
+                      // console.log(selectedIndicesCopy);
+                      // console.log(value, index);
                       onSelected(value, index, true, selectedIndicesCopy);
                       if (selectedIndicesCopy.length >= maxCanSelect) {
                         setIsAllDisabled(true);
                       } else if (isAllDisabled) {
                         setIsAllDisabled(false);
+                      }
+                      if (localStorageKey) {
+                        localStorage.setItem(localStorageKey, JSON.stringify(selectedIndicesCopy));
                       }
                     }
                   }}
@@ -100,6 +136,7 @@ Checkboxes.propTypes = {
   disabledIndices: PropTypes.arrayOf(PropTypes.number),
   maxCanSelect: PropTypes.number,
   label: PropTypes.string,
+  localStorageKey: PropTypes.string,
 };
 
 export { Checkboxes };
