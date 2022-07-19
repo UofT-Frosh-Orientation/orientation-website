@@ -250,7 +250,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
               <div className="text-input-container" style={{ width: '100%' }}>
                 <div className="text-input-title-container">
                   {field.label !== undefined ? (
-                    field.bold === true ? (
+                    field.isBold === true ? (
                       <b>
                         <p className="text-input-title">{field.label}</p>
                       </b>
@@ -312,41 +312,41 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
               console.log(validateForm());
             }}
           /> */}
-
-          <div
-            style={{
-              marginBottom: '55px',
-              display: 'flex',
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            {/* TODO: SHow popup to ask if they would like to discard all changes when editing fields */}
-            <ButtonOutlined
-              label={'Discard changes'}
-              onClick={() => {
-                setShowPopUp(true);
+          <div style={{ marginBottom: '55px' }}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
-            />
-            <Button
-              label={'Save changes'}
-              onClick={() => {
-                setErrorAfterEdit(false);
-                if (validateForm() === true) onEditSubmit(froshObject);
-                else setErrorAfterEdit(true);
-              }}
-            />
+            >
+              {/* TODO: SHow popup to ask if they would like to discard all changes when editing fields */}
+              <ButtonOutlined
+                label={'Discard changes'}
+                onClick={() => {
+                  setShowPopUp(true);
+                }}
+              />
+              <Button
+                label={'Save changes'}
+                onClick={() => {
+                  setErrorAfterEdit(false);
+                  if (validateForm() === true) onEditSubmit(froshObject);
+                  else setErrorAfterEdit(true);
+                }}
+              />
+            </div>
+            {errorAfterEdit == true ? (
+              <ErrorSuccessBox
+                content={'Please make sure you have completed all necessary fields.'}
+                error={true}
+              />
+            ) : (
+              <></>
+            )}
           </div>
-          {errorAfterEdit == true ? (
-            <ErrorSuccessBox
-              content={'Please make sure you have completed all necessary fields.'}
-              error={true}
-            />
-          ) : (
-            <></>
-          )}
         </div>
       </div>
     );
