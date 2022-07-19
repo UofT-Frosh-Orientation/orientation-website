@@ -5,10 +5,33 @@ import './Dropdown.scss';
 import { useWrapperRef } from '../../../hooks/useWrapperRef';
 import Arrow from '../../../../assets/icons/angle-down-solid.svg';
 
-const Dropdown = ({ values, onSelect, label, isDisabled, initialSelectedIndex }) => {
+const Dropdown = ({
+  values,
+  onSelect,
+  label,
+  isDisabled,
+  initialSelectedIndex,
+  localStorageKey,
+}) => {
   useEffect(() => {
-    if (initialSelectedIndex !== undefined) {
+    if (localStorageKey !== undefined) {
+      const storedString = localStorage.getItem(localStorageKey);
+      if (storedString === null) {
+        if (initialSelectedIndex !== undefined) {
+          onSelect(values[initialSelectedIndex]);
+        } else {
+          onSelect(values[0]);
+        }
+      } else {
+        if (initialSelectedIndex !== undefined) {
+          onSelect(storedString);
+          setSelected(storedString);
+        }
+      }
+    } else if (initialSelectedIndex !== undefined) {
       onSelect(values[initialSelectedIndex]);
+    } else {
+      onSelect(values[0]);
     }
   }, []);
 
@@ -24,6 +47,9 @@ const Dropdown = ({ values, onSelect, label, isDisabled, initialSelectedIndex })
       onClick={() => {
         onSelect(value);
         setSelected(value);
+        if (localStorageKey) {
+          localStorage.setItem(localStorageKey, value);
+        }
         setIsOpen(false);
       }}
       key={`dropdownItem-${value}`}
@@ -63,6 +89,7 @@ Dropdown.propTypes = {
   label: PropTypes.string,
   initialSelectedIndex: PropTypes.number,
   isDisabled: PropTypes.bool,
+  localStorageKey: PropTypes.string,
 };
 
 export { Dropdown };

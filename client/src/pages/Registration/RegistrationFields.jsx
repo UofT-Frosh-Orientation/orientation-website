@@ -16,7 +16,7 @@ export const fields = {
       placeholder: 'john.doe@email.com',
       label: 'Email',
       isRequiredInput: true,
-      noEdit: true,
+      // noEdit: true,
     },
     firstName: {
       type: 'text',
@@ -25,7 +25,7 @@ export const fields = {
       label: 'First Name',
       className: 'half-width-input',
       isRequiredInput: true,
-      noEdit: true,
+      // noEdit: true,
     },
     lastName: {
       type: 'text',
@@ -34,7 +34,7 @@ export const fields = {
       label: 'Last Name',
       className: 'half-width-input',
       isRequiredInput: true,
-      noEdit: true,
+      // noEdit: true,
     },
     preferredName: {
       type: 'text',
@@ -67,6 +67,7 @@ export const fields = {
           disableField(true, 'pronounOther', 'General');
         }
       },
+      localStorageKey: 'registration-pronouns',
     },
     pronounOther: {
       type: 'text',
@@ -76,6 +77,7 @@ export const fields = {
       isRequiredInput: false,
       errorMessage: 'Please enter a pronoun',
       className: 'fill-remaining-width-input',
+      localStorageKey: 'registration-other-pronoun',
     },
     birthDate: {
       type: 'text',
@@ -134,6 +136,7 @@ export const fields = {
       ],
       className: 'inline-block-remaining',
       initialSelectedIndex: 0,
+      localStorageKey: 'registration-discipline',
     },
     shirtSize: {
       type: 'dropdown',
@@ -142,6 +145,7 @@ export const fields = {
       initialSelectedIndex: 1,
       className: 'inline-block-remaining',
       noEdit: true,
+      localStorageKey: 'registration-shirtSize',
     },
     phoneNumberLabel: {
       type: 'label',
@@ -235,6 +239,7 @@ export const fields = {
         'Would you like to be considered for a bursary to cover some or all of your registration cost? Note: if you select yes you will still have to pay in full at this time to be considered registered but you will be contacted later this summer to fill out a bursary application form to become eligable to recieve a partial or full refund of your registration cost on a need basis. If you cannont cover the registration cost at this time please contact us at froshweek@orientation.skule.ca',
       values: ['Yes', 'No'],
       initialSelectedIndex: 1,
+      localStorageKey: 'registration-bursaryRequested',
     },
   },
   HealthSafety: {
@@ -271,6 +276,7 @@ export const fields = {
         'Pork',
         'Nuts',
       ],
+      localStorageKey: 'registration-allergies',
     },
     allergiesMore: {
       type: 'text',
@@ -280,13 +286,14 @@ export const fields = {
       placeholder: 'Allergic to berries',
       hasRestrictedInput: true,
       isRequiredInput: false,
-      localStorageKey: 'registration-allergies',
+      localStorageKey: 'registration-allergiesMore',
     },
     photograph: {
       type: 'radio',
       label: 'Are you okay with being photographed during Frosh Week?',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
+      localStorageKey: 'registration-photograph',
     },
     accessibility: {
       type: 'text',
@@ -318,6 +325,7 @@ export const fields = {
           disableField(true, 'accommodationContact', 'HealthSafety');
         }
       },
+      localStorageKey: 'registration-accommodation',
     },
     accommodationContact: {
       type: 'dropdown',
@@ -332,6 +340,7 @@ export const fields = {
         }
       },
       className: 'half-width-input',
+      localStorageKey: 'registration-accommodationContact',
     },
     accommodationOther: {
       type: 'text',
@@ -340,6 +349,7 @@ export const fields = {
       hasRestrictedInput: true,
       isRequiredInput: false,
       className: 'fill-remaining-width-input',
+      localStorageKey: 'registration-accommodationOther',
     },
   },
   Misc: {
@@ -355,6 +365,7 @@ export const fields = {
         'Would you like to participate in Havenger Scunt? (It will take place on the evening of Wednesday, September 7th)',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
+      localStorageKey: 'registration-scunt',
     },
     summerLocation: {
       type: 'radio',
@@ -370,6 +381,7 @@ export const fields = {
           disableField(false, 'summerLocationOther', 'Misc');
         }
       },
+      localStorageKey: 'registration-summerLocation',
     },
     summerLocationOther: {
       type: 'text',
@@ -378,12 +390,14 @@ export const fields = {
       placeholder: 'Vancouver',
       hasRestrictedInput: true,
       isRequiredInput: false,
+      localStorageKey: 'registration-summerLocationOther',
     },
     moveToToronto: {
       type: 'dropdown',
       label: 'Approximately when are you planning to move to Toronto?',
       values: ['N/A', 'May', 'June', 'July', 'August', 'September'],
       initialSelectedIndex: 0,
+      localStorageKey: 'registration-moveToToronto',
     },
     commuterProgram: {
       type: 'radio',
@@ -397,6 +411,7 @@ export const fields = {
           disableField(true, 'commuterProgramInformation', 'Misc');
         }
       },
+      localStorageKey: 'registration-commuter',
     },
     commuterProgramInformation: {
       type: 'dropdown',
@@ -417,6 +432,7 @@ export const fields = {
       },
       isRequiredInput: false,
       className: 'half-width-input',
+      localStorageKey: 'registration-commuterProgramInfo',
     },
     commuterOther: {
       type: 'text',
@@ -425,12 +441,14 @@ export const fields = {
       hasRestrictedInput: true,
       isRequiredInput: false,
       className: 'fill-remaining-width-input',
+      localStorageKey: 'registration-commuterOther',
     },
     commuterProgramStop: {
       type: 'text',
       inputType: 'text',
       label: 'Which stop do you get on for the subway or go train?',
       isRequiredInput: false,
+      localStorageKey: 'registration-commuterProgramStop',
     },
   },
 };
