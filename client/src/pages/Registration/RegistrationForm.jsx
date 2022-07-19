@@ -307,7 +307,16 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             }}
           /> */}
 
-          <div style={{ marginBottom: '40px' }}>
+          <div
+            style={{
+              marginBottom: '55px',
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             {/* TODO: SHow popup to ask if they would like to discard all changes when editing fields */}
             <ButtonOutlined
               label={'Discard changes'}
