@@ -205,6 +205,24 @@ ul {
 }
 
 .wave-image-footer {
+  display: unset;
+  width: 100%;
   margin-bottom: -5px;
   filter: drop-shadow(-10px -10px 8px #23232342);
+
+  @media (prefers-color-scheme: dark) {
+    display: none;
+  }
+}
+
+.wave-image-footer-darkmode {
+  display: none;
+
+  @media (prefers-color-scheme: dark) {
+    display: unset;
+    width: 100%;
+    margin-bottom: -5px;
+    //margin-bottom: -5px;
+    filter: drop-shadow(-10px -10px 8px #23232342);
+  }
 }
