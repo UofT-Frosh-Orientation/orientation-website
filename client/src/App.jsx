@@ -7,9 +7,11 @@ import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { initialsSelector, loggedInSelector, registeredSelector } from './pages/userSlice';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { getUserInfo } from './pages/Login/saga';
 import { InitialPage } from './pages/Initial/Initial';
+import { AskQuestionButton } from './components/button/AskQuestionButton/AskQuestionButton';
+import { userSelector } from '../src/pages/userSlice';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -54,6 +56,7 @@ const TransitionRoutes = () => {
           <Route path="*" element={pages['404'].component} />
         </Routes>
       </CSSTransition>
+      <AskQuestionButton />
     </TransitionGroup>
   );
 };
