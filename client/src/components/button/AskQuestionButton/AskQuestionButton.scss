@@ -99,7 +99,7 @@
   bottom: 8px;
   right: 10px;
   position: fixed;
-  z-index: 5;
+  z-index: 10;
   @include devices(tablet) {
     bottom: 50px;
     right: 5px;
