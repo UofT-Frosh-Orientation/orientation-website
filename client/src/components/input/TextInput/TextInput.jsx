@@ -4,6 +4,9 @@ import './TextInput.scss';
 import EyeSolid from '../../../../assets/icons/eye-solid.svg';
 import EyeSlash from '../../../../assets/icons/eye-slash-solid.svg';
 
+import EyeSolidDarkMode from '../../../assets/darkmode/icons/eye-solid.svg';
+import EyeSlashDarkMode from '../../../assets/darkmode/icons/eye-slash-solid.svg';
+
 const TextInput = ({
   label,
   placeholder,
@@ -170,14 +173,24 @@ const TextInput = ({
           />
         )}
         {inputType == 'password' ? (
-          <img
-            className={'text-input-password-eye'}
-            onClick={() => {
-              type === 'text' ? setType('password') : setType('text');
-            }}
-            src={type === 'text' ? EyeSolid : EyeSlash}
-            alt="show password"
-          />
+          <>
+            <img
+              className={'text-input-password-eye'}
+              onClick={() => {
+                type === 'text' ? setType('password') : setType('text');
+              }}
+              src={type === 'text' ? EyeSolid : EyeSlash}
+              alt="show password"
+            />
+            <img
+              className={'text-input-password-eye-darkmode'}
+              onClick={() => {
+                type === 'text' ? setType('password') : setType('text');
+              }}
+              src={type === 'text' ? EyeSolidDarkMode : EyeSlashDarkMode}
+              alt="show password"
+            />
+          </>
         ) : (
           <></>
         )}

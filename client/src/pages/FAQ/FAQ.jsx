@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { getQuestions, submitQuestion } from './functions';
 import './FAQ.scss';
 import Wave from '../../assets/misc/wave-reverse.png';
+import WaveDarkMode from '../../assets/darkmode/misc/wave-reverse.png';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import { Button } from '../../components/button/Button/Button';
@@ -77,6 +78,7 @@ const PageFAQ = () => {
           questionCategories={questionCategories}
         />
         <img src={Wave} className={'faq-wave-image faq-page-top-wave-image'} />
+        <img src={WaveDarkMode} className={'faq-wave-image faq-page-top-wave-image-darkmode'} />
         <div
           className={`faq-button-selector-container ${
             isSearch ? 'faq-hide-button-selector' : 'faq-show-button-selector'

@@ -57,12 +57,31 @@
 }
 
 .aboutus-wave-bottom {
+  display: unset;
   width: 100vw;
   filter: drop-shadow(-10px 10px 8px #23232342);
   height: min(10vh, 80px);
   object-fit: fill;
   @include devices(tablet) {
     height: min(10vh, 40px);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    display: none;
+  }
+}
+.aboutus-wave-bottom-darkmode {
+  display: none;
+
+  @media (prefers-color-scheme: dark) {
+    display: unset;
+    width: 100vw;
+    filter: drop-shadow(-10px 10px 8px #23232342);
+    height: min(10vh, 80px);
+    object-fit: fill;
+    @include devices(tablet) {
+      height: min(10vh, 40px);
+    }
   }
 }
 
@@ -147,6 +166,10 @@
 
   @include devices(tablet) {
     margin: 0 0 25px 0;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background: var(--light-purple);
   }
 }
 
@@ -260,6 +283,10 @@
     width: 85vw;
     padding: 25px 0;
   }
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--white);
+  }
 }
 
 .aboutus-teams-all-tabs {
@@ -349,6 +376,19 @@
   }
 }
 
+.aboutus-teams-tabs-title-selected {
+  color: var(--purple-shades-dark);
+  transition: color 200ms;
+
+  @include devices(tablet) {
+    font-size: 20px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--white);
+  }
+}
+
 .aboutus-yellow-bubble {
   margin-top: 10px;
   opacity: 0;
@@ -363,6 +403,10 @@
   background-color: var(--light-purple) !important;
   opacity: 1;
   transition: width 500ms, opacity 500ms;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--yellow) !important;
+  }
 }
 .aboutus-yellow-bubble-noshow {
   width: 0%;
