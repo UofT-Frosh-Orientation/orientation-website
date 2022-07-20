@@ -118,7 +118,17 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
                 );
               }
               // if not logged in
-              return <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>;
+              return (
+                <Link
+                  to={page.path}
+                  key={page.path}
+                  style={
+                    pathname === page.path || pathname === '/login' ? { pointerEvents: 'none' } : {}
+                  }
+                >
+                  <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>
+                </Link>
+              );
             } // Clicking on register button
             else if (page.label === 'Register' && isLoggedIn && !isRegistered) {
               // if logged in and not registered
