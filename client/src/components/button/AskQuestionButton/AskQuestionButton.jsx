@@ -140,7 +140,9 @@ const AskQuestionButton = () => {
                 alt="Question Button"
                 height={30}
               />
-              <span className={'faq-fab-content'}>Ask a Question</span>
+              <div className="desktop-only">
+                <span className={'faq-fab-content'}>Ask a Question</span>
+              </div>
             </div>
           }
           isSecondary
