@@ -119,4 +119,7 @@
 
 .faq-fab-icon {
   margin-right: 15px;
+  @include devices(tablet) {
+    margin-right: 0px;
+  }
 }

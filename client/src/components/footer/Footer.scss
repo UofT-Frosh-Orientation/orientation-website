@@ -10,12 +10,18 @@
   height: auto;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
 
   font-size: 18px;
   font-weight: bold;
   color: var(--white);
   z-index: 10;
+  @include devices(tablet) {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .footer-container a {
@@ -57,6 +63,7 @@ ul {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
 .icons {
@@ -94,6 +101,7 @@ ul {
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
+  margin-top: 1.5%;
   @include devices(tablet) {
     align-items: center;
     justify-content: center;
@@ -176,7 +184,7 @@ ul {
     flex-direction: column;
     justify-content: center;
     padding-top: 25px;
-    padding-bottom: 15px;
+    padding-bottom: 0px;
   }
 
   .socials {
@@ -193,6 +201,8 @@ ul {
     font-size: 12px;
     font-weight: 400;
     margin-bottom: 55px;
+    margin-top: 0px;
+    padding-top: 0px;
   }
   .footer-bug-message {
     color: var(--white);
