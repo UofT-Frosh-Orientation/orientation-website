@@ -32,19 +32,10 @@ const TransitionRoutes = () => {
   const loggedIn = useSelector(loggedInSelector);
   const registered = useSelector(registeredSelector);
   const initials = useSelector(initialsSelector);
-  const [pageState, setPageState] = useState('form');
-  const [showPopUp, setShowPopUp] = useState(false);
-  const { user } = useSelector(userSelector);
   console.log(loggedIn);
   return (
     <TransitionGroup>
-      <div
-        onClick={() => {
-          setShowPopUp(false);
-        }}
-      >
-        <Navbar isLoggedIn={loggedIn} froshInitials={initials} isRegistered={registered} />
-      </div>
+      <Navbar isLoggedIn={loggedIn} froshInitials={initials} isRegistered={registered} />
       <ScrollToTop />
       <CSSTransition key={location.key} classNames="page" timeout={300}>
         <Routes location={location}>
@@ -65,13 +56,7 @@ const TransitionRoutes = () => {
           <Route path="*" element={pages['404'].component} />
         </Routes>
       </CSSTransition>
-      <AskQuestionButton
-        showPopUp={showPopUp}
-        setShowPopUp={setShowPopUp}
-        pageState={pageState}
-        setPageState={setPageState}
-        user={user}
-      />
+      <AskQuestionButton />
     </TransitionGroup>
   );
 };

@@ -8,8 +8,13 @@ import LoadingAnimation from '../../misc/LoadingAnimation/LoadingAnimation';
 import QuestionMark from '../../../../assets/icons/question-mark-solid.svg';
 import { submitQuestion } from './functions';
 import { PopupModal } from '../../popup/PopupModal';
+import { userSelector } from '../../../pages/userSlice';
+import { useSelector } from 'react-redux';
 
-const FAQAskQuestion = ({ pageState, setPageState, user }) => {
+const FAQAskQuestion = () => {
+  const { user } = useSelector(userSelector);
+
+  const [pageState, setPageState] = useState('form');
   const [signUpError, setSignUpError] = useState('');
   const [errorColor, setErrorColor] = useState(false);
   const initialFormData = {
@@ -62,7 +67,8 @@ const FAQAskQuestion = ({ pageState, setPageState, user }) => {
             pageState !== 'form' ? 'faq-page-disappear' : 'faq-page-appear'
           }`}
         >
-          <h1 className={'faq-ask-question-title'}>Can&apos;t Find Your Question?</h1>
+          <h1 className={'faq-ask-question-title'}>Ask a Question</h1>
+          <p className="faq-ask-question-paragraph">We will get back to you in an email soon!</p>
           <ErrorSuccessBox content={signUpError} error={errorColor} success={!errorColor} />
           <form>
             <label>
@@ -73,8 +79,6 @@ const FAQAskQuestion = ({ pageState, setPageState, user }) => {
                   placeholder={'Email'}
                   initialValue={emailText.email}
                   style={{ height: '45px' }}
-                  clearText={clearText}
-                  setClearText={setClearText}
                 />
               </div>
             </label>
@@ -108,13 +112,8 @@ const FAQAskQuestion = ({ pageState, setPageState, user }) => {
   );
 };
 
-FAQAskQuestion.propTypes = {
-  pageState: PropTypes.string.isRequired,
-  setPageState: PropTypes.string.isRequired,
-  user: PropTypes.object,
-};
-
-const AskQuestionButton = ({ showPopUp, setShowPopUp, pageState, setPageState, user }) => {
+const AskQuestionButton = () => {
+  const [showPopUp, setShowPopUp] = useState(false);
   return (
     <>
       <PopupModal
@@ -125,7 +124,7 @@ const AskQuestionButton = ({ showPopUp, setShowPopUp, pageState, setPageState, u
       >
         <div className="ask-question-popup">
           <div className={'faq-ask-question-outer-container'}>
-            <FAQAskQuestion pageState={pageState} setPageState={setPageState} user={user} />
+            <FAQAskQuestion />
           </div>
         </div>
       </PopupModal>
@@ -152,14 +151,6 @@ const AskQuestionButton = ({ showPopUp, setShowPopUp, pageState, setPageState, u
       </div>
     </>
   );
-};
-
-AskQuestionButton.propTypes = {
-  showPopUp: PropTypes.bool.isRequired,
-  setShowPopUp: PropTypes.func.isRequired,
-  pageState: PropTypes.string.isRequired,
-  setPageState: PropTypes.string.isRequired,
-  user: PropTypes.object,
 };
 
 export { AskQuestionButton };
