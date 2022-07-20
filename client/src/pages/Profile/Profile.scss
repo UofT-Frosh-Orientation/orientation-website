@@ -207,6 +207,11 @@
       font-size: 26px;
     }
   }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--purple);
+    color: var(--white);
+  }
 }
 
 .profile-page-schedule-accordions {
@@ -393,4 +398,8 @@
   margin-top: 25px;
   text-align: center;
   padding: 0px 20px;
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--white);
+  }
 }

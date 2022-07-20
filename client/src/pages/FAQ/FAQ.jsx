@@ -356,6 +356,7 @@ const FAQSearchBar = ({
     <div className={'faq-search'}>
       <div className={'faq-search-input'}>
         <input
+          className="faq-search-input-container"
           value={searchQuery}
           onInput={(e) => handleQueryChange(e)}
           type="text"

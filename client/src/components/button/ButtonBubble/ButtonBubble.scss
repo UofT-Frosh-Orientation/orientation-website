@@ -35,6 +35,17 @@
     transition: background-color 200ms, border-color 200ms;
     background-color: var(--purple-shades-light);
     border-color: var(--light-purple);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--purple-shades-muted);
+      border-color: var(--purple-buttonoutline-border);
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--purple-buttonoutline-border);
+    color: var(--white);
+    border-color: var(--purple-buttonoutline-border);
   }
 }
 

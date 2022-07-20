@@ -233,7 +233,7 @@ li {
   padding-inline: 15px;
 
   @media (prefers-color-scheme: dark) {
-    color: var(--light-purple);
+    background-color: var(--light-purple);
     border-color: var(--light-purple);
   }
 }
