@@ -11,11 +11,11 @@ import { Link } from 'react-router-dom';
 import Landing1 from '../../assets/landing/landing-1.jpg';
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
 import { ImageCarousel } from '../../components/ImageCarousel/ImageCarousel';
-import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
 import 'react-slideshow-image/dist/styles.css';
 import { Slide } from 'react-slideshow-image';
 import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
 import { PopupModal } from '../../components/popup/PopupModal';
+import { sponsors } from '../../util/sponsors';
 
 const PageHome = () => {
   return (
@@ -160,30 +160,7 @@ const HomePageSponsors = () => {
       <img src={WaveReverse} className="wave-image home-page-bottom-wave-image" />
       <h2>Our Sponsors</h2>
       <PleaseSponsor />
-      <ImageCarousel
-        items={[
-          {
-            website: 'https://www.utoronto.ca/',
-            image: MainFroshLogo,
-          },
-          {
-            website: 'https://www.utoronto.ca/',
-            image: MainFroshLogo,
-          },
-          {
-            website: 'https://www.utoronto.ca/',
-            image: MainFroshLogo,
-          },
-          {
-            website: 'https://www.utoronto.ca/',
-            image: MainFroshLogo,
-          },
-          {
-            website: 'https://www.utoronto.ca/',
-            image: MainFroshLogo,
-          },
-        ]}
-      />
+      <ImageCarousel items={sponsors} />
     </div>
   );
 };
