@@ -1,5 +1,10 @@
 @import '../../scssStyles/mixins.scss';
 
+.carousel .slide {
+  display: flex;
+  justify-content: center;
+}
+
 .carousel-slide {
   border-radius: 9px;
   margin-bottom: 55px;
@@ -11,6 +16,7 @@
     height: calc(260px - 50px);
   }
 
+  filter: drop-shadow(5px 5px 10px #23232342);
   object-fit: contain;
 }
 
