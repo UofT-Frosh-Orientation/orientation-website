@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import './Dropdown.scss';
 import { useWrapperRef } from '../../../hooks/useWrapperRef';
 import Arrow from '../../../../assets/icons/angle-down-solid.svg';
+import ArrowDarkMode from '../../../assets/darkmode/icons/angle-down-solid.svg';
 
 const Dropdown = ({ values, onSelect, label, isDisabled, initialSelectedIndex }) => {
   useEffect(() => {
@@ -44,7 +45,8 @@ const Dropdown = ({ values, onSelect, label, isDisabled, initialSelectedIndex })
         >
           <div className={'dropdown-selected-label'}>{selected}</div>
           <div className={`dropdown-image${isOpen ? ' open' : ''}`}>
-            <img alt={'arrow'} src={Arrow} />
+            <img alt={'arrow'} src={Arrow} className="dropdown-arrow-default" />
+            <img alt={'arrow'} src={ArrowDarkMode} className="dropdown-arrow-darkmode" />
           </div>
         </div>
         <div
