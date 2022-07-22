@@ -43,7 +43,9 @@ const FroshServices = {
     frosh.set({
       ...newInfo,
       userType: 'frosh',
-      payments: [{ item: 'Orientation Ticket', paymentIntent, amountDue: 13000 }],
+      payments: user.payments
+        ? [...user.payments, { item: 'Orientation Ticket', paymentIntent, amountDue: 13000 }]
+        : [{ item: 'Orientation Ticket', paymentIntent, amountDue: 13000 }],
     });
     const froshGroup = await FroshGroupModel.findOne({ name: newInfo.froshGroup });
     froshGroup[pronouns]++;

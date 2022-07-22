@@ -36,36 +36,35 @@ const Footer = () => {
               );
             })}
           </div>
+          <div className="socials">
+            <div className="icons">
+              {socials.map((social) => {
+                return (
+                  <a href={social.link} target="_blank" rel="noreferrer" key={social.label}>
+                    <img className="svg-icons" alt={social.label} src={social.icon}></img>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
         </div>
+        <div className="footer-message-container">
+          <a
+            className={`footer-bug-link no-link-style`}
+            href="https://github.com/UofT-Frosh-Orientation/orientation-website/issues/new?assignees=&labels=bug&template=bug_report.yml&title=%5BBug%5D%3A+"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div className="footer-bug-container">
+              <p className="footer-bug-message">
+                File bugs reports <span className="footer-bug-message-underline">here</span> using
+                your GitHub account!
+              </p>
+              <img className="footer-bug desktop-only" src={bug} alt="bug icon"></img>
+            </div>
+          </a>
 
-        <div className="socials">
-          <div className="icons">
-            {socials.map((social) => {
-              return (
-                <a href={social.link} target="_blank" rel="noreferrer" key={social.label}>
-                  <img className="svg-icons" alt={social.label} src={social.icon}></img>
-                </a>
-              );
-            })}
-          </div>
-          <div className="footer-message-container">
-            <a
-              className={`footer-bug-link no-link-style`}
-              href="https://github.com/UofT-Frosh-Orientation/orientation-website/issues/new?assignees=&labels=bug&template=bug_report.yml&title=%5BBug%5D%3A+"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div className="footer-bug-container">
-                <p className="footer-bug-message">
-                  File bugs reports <span className="footer-bug-message-underline">here</span> using
-                  your GitHub account!
-                </p>
-                <img className="footer-bug desktop-only" src={bug} alt="bug icon"></img>
-              </div>
-            </a>
-
-            <div className="footer-message">Made with 💜 by the F!rosh Week 2T2 Tech Team</div>
-          </div>
+          <div className="footer-message">Made with 💜 by the F!rosh Week 2T2 Tech Team</div>
         </div>
       </div>
     </>

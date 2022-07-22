@@ -128,14 +128,20 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
               }
               // if not logged in
               return (
-                <>
+                <Link
+                  to={page.path}
+                  key={page.path}
+                  style={
+                    pathname === page.path || pathname === '/login' ? { pointerEvents: 'none' } : {}
+                  }
+                >
                   <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>
                   <img
                     className="icon-profile-person-darkmode"
                     alt="profile"
                     src={ProfileIconDarkMode}
                   ></img>
-                </>
+                </Link>
               );
             } // Clicking on register button
             else if (page.label === 'Register' && isLoggedIn && !isRegistered) {

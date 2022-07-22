@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './RadioButtons.scss';
 
@@ -9,12 +9,34 @@ const RadioButtons = ({
   disabledIndices,
   label,
   isDisabled,
+  localStorageKey,
 }) => {
   useEffect(() => {
-    if (initialSelectedIndex !== undefined) {
+    if (localStorageKey !== undefined) {
+      const storedString = localStorage.getItem(localStorageKey);
+      if (storedString === null) {
+        if (initialSelectedIndex !== undefined) {
+          onSelected(values[initialSelectedIndex]);
+        } else {
+          onSelected(values[0]);
+        }
+      } else {
+        if (initialSelectedIndex !== undefined) {
+          onSelected(values[parseInt(storedString)]);
+          setSelectedIndex(parseInt(storedString));
+        }
+      }
+    } else if (initialSelectedIndex !== undefined) {
       onSelected(values[initialSelectedIndex]);
+    } else {
+      onSelected(values[0]);
     }
   }, []);
+
+  const [selectedIndex, setSelectedIndex] = useState(
+    initialSelectedIndex === undefined ? 0 : initialSelectedIndex,
+  );
+
   return (
     <div className={`${isDisabled ? 'radio-input-disabled-container' : ''}`}>
       {label !== undefined ? <p className="radio-input-title">{label}</p> : <></>}
@@ -37,8 +59,13 @@ const RadioButtons = ({
                     defaultChecked={initialSelectedIndex === index ? true : false}
                     onClick={() => {
                       onSelected(value, index);
+                      setSelectedIndex(index);
+                      if (localStorageKey) {
+                        localStorage.setItem(localStorageKey, JSON.stringify(index));
+                      }
                     }}
                     disabled={isDisabledValue}
+                    checked={selectedIndex === index}
                   />
                   {value}
                 </label>
@@ -58,6 +85,7 @@ RadioButtons.propTypes = {
   disabledIndices: PropTypes.arrayOf(PropTypes.number),
   label: PropTypes.string,
   isDisabled: PropTypes.bool,
+  localStorageKey: PropTypes.string,
 };
 
 export { RadioButtons };

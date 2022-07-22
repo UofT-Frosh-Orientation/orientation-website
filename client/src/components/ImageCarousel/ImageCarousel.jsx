@@ -5,6 +5,9 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const ImageCarousel = ({ items }) => {
+  const [currentLabel, setCurrentLabel] = useState(0);
+  const [currentLabelMobile, setCurrentLabelMobile] = useState(0);
+
   return (
     <div>
       <div className="desktop-only">
@@ -20,18 +23,40 @@ const ImageCarousel = ({ items }) => {
           interval={4000}
           emulateTouch={true}
           stopOnHover={false}
+          onChange={(number, item) => {
+            setCurrentLabel(number);
+          }}
         >
           {items.map((item, index) => {
             return (
-              <a
-                className="carousel-link"
-                href={item.website}
-                key={item.name + index}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img className="carousel-slide" src={item.image} alt={item.name} />
-              </a>
+              <div key={item.name + index}>
+                <a
+                  className="carousel-link"
+                  href={item.website}
+                  key={item.name + index}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <div style={{ transform: `scale(${item.scale})` }}>
+                    <img className="carousel-slide" src={item.image} alt={item.name} />
+                  </div>
+                </a>
+                <p
+                  style={{
+                    userSelect: 'all',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    left: 0,
+                    right: 0,
+                    position: 'absolute',
+                    transform: 'translateY(-40px)',
+                    bottom: '0px',
+                    textAlign: 'center',
+                  }}
+                >
+                  {currentLabel == index ? item.label : ''}
+                </p>
+              </div>
             );
           })}
         </Carousel>
@@ -46,14 +71,37 @@ const ImageCarousel = ({ items }) => {
           autoPlay={true}
           showThumbs={false}
           interval={4000}
-          emulateTouch={true}
           stopOnHover={false}
+          onChange={(number, item) => {
+            setCurrentLabelMobile(number);
+          }}
+          preventMovementUntilSwipeScrollTolerance={true}
+          swipeScrollTolerance={50}
         >
           {items.map((item, index) => {
             return (
-              <a className="carousel-link" href={item.website} key={item.name + index}>
-                <img className="carousel-slide" src={item.image} alt={item.name} />
-              </a>
+              <div key={item.name + index}>
+                <a className="carousel-link" href={item.website}>
+                  <div style={{ transform: `scale(${item.scale})` }}>
+                    <img className="carousel-slide" src={item.image} alt={item.name} />
+                  </div>
+                </a>
+                <p
+                  style={{
+                    userSelect: 'all',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    left: 0,
+                    right: 0,
+                    position: 'absolute',
+                    transform: 'translateY(-30px)',
+                    bottom: '0px',
+                    textAlign: 'center',
+                  }}
+                >
+                  {item.label}
+                </p>
+              </div>
             );
           })}
         </Carousel>

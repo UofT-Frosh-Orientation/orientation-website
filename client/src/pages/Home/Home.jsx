@@ -17,6 +17,7 @@ import 'react-slideshow-image/dist/styles.css';
 import { Slide } from 'react-slideshow-image';
 import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
 import { PopupModal } from '../../components/popup/PopupModal';
+import { sponsors } from '../../util/sponsors';
 
 const PageHome = () => {
   return (
@@ -163,30 +164,7 @@ const HomePageSponsors = () => {
       <img src={WaveDarkMode} className="home-page-bottom-wave-image-dark" />
       <h2 className="home-page-sponsors">Our Sponsors</h2>
       <PleaseSponsor />
-      <ImageCarousel
-        items={[
-          {
-            website: 'https://www.utoronto.ca/',
-            image: MainFroshLogo,
-          },
-          {
-            website: 'https://www.utoronto.ca/',
-            image: MainFroshLogo,
-          },
-          {
-            website: 'https://www.utoronto.ca/',
-            image: MainFroshLogo,
-          },
-          {
-            website: 'https://www.utoronto.ca/',
-            image: MainFroshLogo,
-          },
-          {
-            website: 'https://www.utoronto.ca/',
-            image: MainFroshLogo,
-          },
-        ]}
-      />
+      <ImageCarousel items={sponsors} />
     </div>
   );
 };
