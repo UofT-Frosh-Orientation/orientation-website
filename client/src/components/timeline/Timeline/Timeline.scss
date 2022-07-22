@@ -45,7 +45,7 @@
   box-shadow: var(--shadow);
 
   @media (prefers-color-scheme: dark) {
-    background-color: var(--purple-light);
+    background-color: var(--light-purple) !important;
     color: var(--white);
   }
 }
@@ -55,6 +55,10 @@
   text-align: center;
 
   color: var(--text-dark);
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--white);
+  }
 }
 
 .timeline-date-container-name {
@@ -99,10 +103,6 @@
   border-radius: 15px;
   opacity: 0;
   right: 0px;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--purple-light);
-  }
 }
 
 .timeline-date-container-description {

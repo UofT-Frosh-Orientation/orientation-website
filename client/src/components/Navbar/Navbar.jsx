@@ -171,7 +171,6 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
 
 const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
   let pathname = useLocation().pathname;
-  console.log(pathname);
   return (
     <div className="navbar-container">
       <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>

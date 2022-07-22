@@ -109,6 +109,22 @@
 
 // BACKGROUND IMAGES
 
+.login-darkmode {
+  display: none;
+
+  @media (prefers-color-scheme: dark) {
+    display: unset;
+  }
+}
+
+.login-nodarkmode {
+  display: unset;
+
+  @media (prefers-color-scheme: dark) {
+    display: none;
+  }
+}
+
 .login-bg-images {
   position: relative;
   overflow: hidden;
