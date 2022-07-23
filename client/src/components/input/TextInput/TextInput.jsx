@@ -79,20 +79,19 @@ const TextInput = ({
     }
     if (isPhoneNumber) {
       value = value.replace(/\D/g, '');
-      let cleaned = ('' + value).replace(/\D/g, '');
-      let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-      if (match) {
-        value = '(' + match[1] + ') ' + match[2] + '-' + match[3];
-      } else {
-        if (value.length >= 10) {
-          value = value.substring(0, 10);
-          value = value.replace(/\D/g, '');
-          let cleaned = ('' + value).replace(/\D/g, '');
-          let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-          if (match) {
-            value = '(' + match[1] + ') ' + match[2] + '-' + match[3];
-          }
-        }
+      // let cleaned = ('' + value).replace(/\D/g, '');
+      // let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+      // if (match) {
+      //   value = '(' + match[1] + ') ' + match[2] + '-' + match[3];
+      // }
+      let size = value.length;
+      if (size < 4 && size > 0) {
+        value = '(' + value;
+      } else if (size < 7) {
+        value = '(' + value.substring(0, 3) + ') ' + value.substring(3, 6);
+      } else if (size <= 10) {
+        value =
+          '(' + value.substring(0, 3) + ') ' + value.substring(3, 6) + '-' + value.substring(6, 10);
       }
     }
     if (isInstagram) {

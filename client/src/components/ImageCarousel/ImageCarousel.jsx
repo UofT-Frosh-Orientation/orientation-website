@@ -23,7 +23,6 @@ const ImageCarousel = ({ items }) => {
           interval={4000}
           emulateTouch={true}
           stopOnHover={false}
-          labels={{ item: 'hello' }}
           onChange={(number, item) => {
             setCurrentLabel(number);
           }}
@@ -76,6 +75,8 @@ const ImageCarousel = ({ items }) => {
           onChange={(number, item) => {
             setCurrentLabelMobile(number);
           }}
+          preventMovementUntilSwipeScrollTolerance={true}
+          swipeScrollTolerance={50}
         >
           {items.map((item, index) => {
             return (
@@ -98,7 +99,7 @@ const ImageCarousel = ({ items }) => {
                     textAlign: 'center',
                   }}
                 >
-                  {currentLabelMobile == index ? item.label : ''}
+                  {item.label}
                 </p>
               </div>
             );
