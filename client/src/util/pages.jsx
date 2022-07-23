@@ -1,6 +1,7 @@
 import { Page404 } from '../pages/404/404';
 import { PageAbout } from '../pages/About/About';
 import { PageFAQ } from '../pages/FAQ/FAQ';
+import { PageFAQLeaders } from '../pages/FAQLeaders/FAQLeaders';
 import { PageHome } from '../pages/Home/Home';
 import { PageMaintenance } from '../pages/Maintenance/Maintenance';
 import { PagePaymentError } from '../pages/PaymentError/PaymentError';
@@ -116,6 +117,12 @@ export const pages = {
       label: 'password-reset',
       component: <PasswordReset />,
       path: '/password-reset/:token',
+    },
+    {
+      label: 'FAQLeaders',
+      component: <PageFAQLeaders />,
+      path: '/faqleaders',
+      includeFooter: true,
     },
   ],
 };
