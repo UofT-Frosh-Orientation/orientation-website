@@ -32,6 +32,9 @@
       width: 20px !important;
       height: 5px !important;
     }
+    @media (prefers-color-scheme: dark) {
+      background: var(--light-purple) !important;
+    }
   }
 }
 

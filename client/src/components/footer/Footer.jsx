@@ -4,13 +4,15 @@ import './Footer.scss';
 import { pages } from '../../util/pages';
 import { Link, useLocation } from 'react-router-dom';
 import { socials } from '../../util/socials';
-import Wave from '../../assets/misc/wave.png';
+import Wave from '../../assets/misc/wave.svg';
+import WaveDarkMode from '../../assets/darkmode/misc/wave.svg';
 import bug from '../../assets/misc/bug-solid.svg';
 
 const Footer = () => {
   return (
     <>
-      <img src={Wave} className="wave-image wave-image-footer" />
+      <img src={Wave} className="wave-image-footer" />
+      <img src={WaveDarkMode} className="wave-image-footer-darkmode" />
       <div className="footer-container">
         <div className="sitemap">
           <div className="sitemap-text">Site Map</div>

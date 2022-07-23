@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { getQuestions } from './functions';
 import './FAQ.scss';
 import Wave from '../../assets/misc/wave-reverse.png';
+import WaveDarkMode from '../../assets/darkmode/misc/wave-reverse.png';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import SearchIcon from '../../assets/misc/magnifying-glass-solid.svg';
@@ -63,6 +64,7 @@ const PageFAQ = () => {
           questionCategories={questionCategories}
         />
         <img src={Wave} className={'faq-wave-image faq-page-top-wave-image'} />
+        <img src={WaveDarkMode} className={'faq-wave-image faq-page-top-wave-image-darkmode'} />
         <div
           className={`faq-button-selector-container ${
             isSearch ? 'faq-hide-button-selector' : 'faq-show-button-selector'
@@ -320,6 +322,7 @@ const FAQSearchBar = ({
     <div className={'faq-search'}>
       <div className={'faq-search-input'}>
         <input
+          className="faq-search-input-container"
           value={searchQuery}
           onInput={(e) => handleQueryChange(e)}
           type="text"

@@ -11,6 +11,7 @@ import { subComs } from '../../util/about/subcoms';
 import { ExecProfile } from './ExecProfile/ExecProfile';
 
 import waveBottom from '../../assets/misc/wave-reverse.png';
+import waveBottomDarkMode from '../../assets/darkmode/misc/wave-reverse.png';
 import ExecLogo from '../../assets/about/exec-tshirt-logo.svg';
 import { useEffect } from 'react';
 import { object } from 'prop-types';
@@ -64,6 +65,7 @@ const AboutUsSection = () => {
         </div>
       </div>
       <img className="aboutus-wave-bottom" src={waveBottom} alt="wave"></img>
+      <img className="aboutus-wave-bottom-darkmode" src={waveBottomDarkMode} alt="wave"></img>
     </div>
   );
 };
@@ -245,11 +247,10 @@ const AboutUsTeamsTab = () => {
                     style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}
                   >
                     <h1
-                      className="aboutus-teams-tabs-title"
-                      style={
+                      className={
                         currentTab === tab.title
-                          ? { color: 'var(--purple-shades-dark)', transition: 'color 200ms' }
-                          : {}
+                          ? 'aboutus-teams-tabs-title-selected'
+                          : 'aboutus-teams-tabs-title'
                       }
                     >
                       {tab.title}

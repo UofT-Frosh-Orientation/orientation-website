@@ -15,6 +15,15 @@ import MountainFR from '../../assets/login/mountain-front-right.svg';
 import MountainM from '../../assets/login/mountain-mid.svg';
 import Ptero from '../../assets/login/ptero.svg';
 
+import BrachioRDarkMode from '../../assets/darkmode/login/brachiosaurus-ground-right.svg';
+import BrachioLDarkMode from '../../assets/darkmode/login/brachiosaurus-ground-left.svg';
+import GroundDarkMode from '../../assets/darkmode/login/ground.svg';
+import MountainBDarkMode from '../../assets/darkmode/login/mountain-back.svg';
+import MountainFLDarkMode from '../../assets/darkmode/login/mountain-front-left.svg';
+import MountainFRDarkMode from '../../assets/darkmode/login/mountain-front-right.svg';
+import MountainMDarkMode from '../../assets/darkmode/login/mountain-mid.svg';
+import PteroDarkMode from '../../assets/darkmode/login/ptero.svg';
+
 import { resetPassword } from './functions';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
@@ -125,15 +134,49 @@ const LoginBackgroundImages = () => {
   return (
     <>
       <div className="login-bg-images">
-        <img className="mountain-back" src={MountainB} alt="mountain"></img>
-        <img className="mountain-front-right" src={MountainFR} alt="mountain"></img>
-        <img className="mountain-mid" src={MountainM} alt="mountain"></img>
-        <img className="mountain-front-left" src={MountainFL} alt="mountain"></img>
+        <img className="mountain-back login-nodarkmode" src={MountainB} alt="mountain"></img>
+        <img className="mountain-back login-darkmode" src={MountainBDarkMode} alt="mountain"></img>
 
-        <img className="ground" src={Ground} alt="ground"></img>
-        <img className="brachio-left" src={BrachioL} alt="brachiosaurus"></img>
-        <img className="brachio-right" src={BrachioR} alt="brachiosaurus"></img>
-        <img className="ptero" src={Ptero} alt="ptero"></img>
+        <img
+          className="mountain-front-right login-nodarkmode"
+          src={MountainFR}
+          alt="mountain"
+        ></img>
+        <img
+          className="mountain-front-right login-darkmode"
+          src={MountainFRDarkMode}
+          alt="mountain"
+        ></img>
+
+        <img className="mountain-mid login-nodarkmode" src={MountainM} alt="mountain"></img>
+        <img className="mountain-mid login-darkmode" src={MountainMDarkMode} alt="mountain"></img>
+
+        <img className="mountain-front-left login-nodarkmode" src={MountainFL} alt="mountain"></img>
+        <img
+          className="mountain-front-left login-darkmode"
+          src={MountainFLDarkMode}
+          alt="mountain"
+        ></img>
+
+        <img className="ground login-nodarkmode" src={Ground} alt="ground"></img>
+        <img className="ground login-darkmode" src={GroundDarkMode} alt="ground"></img>
+
+        <img className="brachio-left login-nodarkmode" src={BrachioL} alt="brachiosaurus"></img>
+        <img
+          className="brachio-left login-darkmode"
+          src={BrachioLDarkMode}
+          alt="brachiosaurus"
+        ></img>
+
+        <img className="brachio-right login-nodarkmode" src={BrachioR} alt="brachiosaurus"></img>
+        <img
+          className="brachio-right login-darkmode"
+          src={BrachioRDarkMode}
+          alt="brachiosaurus"
+        ></img>
+
+        <img className="ptero login-nodarkmode" src={Ptero} alt="ptero"></img>
+        <img className="ptero login-darkmode" src={PteroDarkMode} alt="ptero"></img>
       </div>
     </>
   );

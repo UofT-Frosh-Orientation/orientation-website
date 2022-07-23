@@ -34,6 +34,12 @@
     border-width: 3px;
     margin: 8px 6px;
   }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--purple-shades-muted);
+    color: var(--white);
+    border-color: var(--purple-buttonoutline-border);
+  }
 }
 
 .button-outlined-secondary {
@@ -47,6 +53,16 @@
     transition: transform 200ms, background-color 200ms, border-color 200ms;
     background-color: var(--purple-shades-light);
     border-color: var(--light-purple);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--purple-shades-muted);
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--purple-buttonoutline-border);
+    color: var(--white);
+    border-color: var(--purple-buttonoutline-border);
   }
 }
 
