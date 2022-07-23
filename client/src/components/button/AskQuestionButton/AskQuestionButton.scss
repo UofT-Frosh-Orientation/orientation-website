@@ -37,11 +37,9 @@
 
 .faq-ask-question-title {
   text-align: center;
-  width: 100%;
 }
 .faq-ask-question-paragraph {
   text-align: center;
-  width: 100%;
   color: var(--white);
 }
 
@@ -77,19 +75,17 @@
 }
 
 .ask-question-popup {
-  padding: 0px 50px;
   h1 {
     color: var(--white);
   }
+  width: 45vw;
+  max-width: 500px;
   @include devices(tablet) {
-    padding: 0px 20px;
+    width: 100%;
   }
 }
 
 .faq-ask-question-outer-container {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
   @include devices(tablet) {
     width: 100%;
   }
