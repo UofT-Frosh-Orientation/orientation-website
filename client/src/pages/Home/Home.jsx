@@ -4,6 +4,8 @@ import { getSlideshowImages, getTimelineDates } from './functions';
 import './Home.scss';
 import Wave from '../../assets/misc/wave.png';
 import WaveReverse from '../../assets/misc/wave-reverse.png';
+import WaveDarkMode from '../../assets/darkmode/misc/wave.png';
+import WaveReverseDarkmode from '../../assets/darkmode/misc/wave-reverse.png';
 
 import { Button } from '../../components/button/Button/Button';
 import { Link } from 'react-router-dom';
@@ -11,6 +13,7 @@ import { Link } from 'react-router-dom';
 import Landing1 from '../../assets/landing/landing-1.jpg';
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
 import { ImageCarousel } from '../../components/ImageCarousel/ImageCarousel';
+import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
 import 'react-slideshow-image/dist/styles.css';
 import { Slide } from 'react-slideshow-image';
 import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
@@ -67,6 +70,7 @@ const HomePageHeader = () => {
         <HomePageSlideshow />
       </div>
       <img src={Wave} className="wave-image home-page-top-wave-image" />
+      <img src={WaveDarkMode} className="wave-image home-page-top-wave-image-dark" />
     </div>
   );
 };
@@ -158,7 +162,8 @@ const HomePageSponsors = () => {
   return (
     <div className="home-page-sponsors">
       <img src={WaveReverse} className="wave-image home-page-bottom-wave-image" />
-      <h2>Our Sponsors</h2>
+      <img src={WaveReverseDarkmode} className="wave-image home-page-bottom-wave-image-dark" />
+      <h2 className="home-page-sponsors">Our Sponsors</h2>
       <PleaseSponsor />
       <ImageCarousel items={sponsors} />
     </div>

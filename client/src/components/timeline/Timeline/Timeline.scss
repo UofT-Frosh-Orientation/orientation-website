@@ -8,6 +8,10 @@
   border-radius: 15px;
   margin-left: min(50px, 5vw);
   margin-right: min(50px, 5vw);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--yellow);
+  }
 }
 
 .timeline-space {
@@ -39,6 +43,11 @@
   transform: scale(1);
   flex-grow: 2;
   box-shadow: var(--shadow);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--light-purple) !important;
+    color: var(--white);
+  }
 }
 
 .timeline-date-container-date {
@@ -46,6 +55,10 @@
   text-align: center;
 
   color: var(--text-dark);
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--white);
+  }
 }
 
 .timeline-date-container-name {
@@ -54,6 +67,10 @@
   text-align: center;
 
   color: var(--text-dark);
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--white);
+  }
 }
 
 .timeline-read-more {

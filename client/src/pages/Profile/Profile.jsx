@@ -17,6 +17,7 @@ import {
 } from './functions';
 import './Profile.scss';
 import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
+import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
 import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnnouncement';
 import { QRNormal } from 'react-qrbtf';
 import { ButtonBubble } from '../../components/button/ButtonBubble/ButtonBubble';
@@ -323,6 +324,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
         </div>
       </div>
       <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
+      <img src={WaveReverseFlipDarkMode} className="wave-image home-page-bottom-wave-image-dark" />
       {!isRegistered ? (
         <div className={'profile-not-registered'}>
           <h1>You are not registered!</h1>

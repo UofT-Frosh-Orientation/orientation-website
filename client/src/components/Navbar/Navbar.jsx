@@ -8,8 +8,17 @@ import MessageIconPurple from '../../assets/navbar/message-solid-purple.svg';
 import HomeIconGrey from '../../assets/navbar/house-solid-grey.svg';
 import AboutIconGrey from '../../assets/navbar/circle-info-solid-grey.svg';
 import MessageIconGrey from '../../assets/navbar/message-solid-grey.svg';
+
+import HomeIconHighlightDarkMode from '../../assets/darkmode/navbar/house-solid-purple.svg';
+import AboutIconHighlightDarkMode from '../../assets/darkmode/navbar/circle-info-solid-purple.svg';
+import MessageIconHighlightDarkMode from '../../assets/darkmode/navbar/message-solid-purple.svg';
+import HomeIconDefaultDarkMode from '../../assets/darkmode/navbar/house-solid-grey.svg';
+import AboutIconDefaultDarkMode from '../../assets/darkmode/navbar/circle-info-solid-grey.svg';
+import MessageIconDefaultDarkMode from '../../assets/darkmode/navbar/message-solid-grey.svg';
+
 import ProfileIcon from '../../assets/navbar/circle-user-solid-purple.svg';
-import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
+import ProfileIconDarkMode from '../../assets/darkmode/navbar/circle-user-solid-purple.svg';
+import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { pages } from '../../util/pages';
@@ -127,6 +136,11 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
                   }
                 >
                   <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>
+                  <img
+                    className="icon-profile-person-darkmode"
+                    alt="profile"
+                    src={ProfileIconDarkMode}
+                  ></img>
                 </Link>
               );
             } // Clicking on register button
@@ -162,7 +176,7 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
 };
 
 const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
-  const { pathname } = useLocation().pathname;
+  let pathname = useLocation().pathname;
   return (
     <div className="navbar-container">
       <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
@@ -205,6 +219,35 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                         ? AboutIconGrey
                         : page.label === 'FAQ'
                         ? MessageIconGrey
+                        : {}
+                    }
+                  ></img>
+                  <img
+                    className="navbar-svg-icon-darkmode"
+                    alt={
+                      page.label === 'Home'
+                        ? 'home'
+                        : page.label === 'About'
+                        ? 'about'
+                        : page.label === 'FAQ'
+                        ? 'faq'
+                        : ''
+                    }
+                    src={
+                      pathname === page.path
+                        ? page.label === 'Home'
+                          ? HomeIconHighlightDarkMode
+                          : page.label === 'About'
+                          ? AboutIconHighlightDarkMode
+                          : page.label === 'FAQ'
+                          ? MessageIconHighlightDarkMode
+                          : {}
+                        : page.label === 'Home'
+                        ? HomeIconDefaultDarkMode
+                        : page.label === 'About'
+                        ? AboutIconDefaultDarkMode
+                        : page.label === 'FAQ'
+                        ? MessageIconDefaultDarkMode
                         : {}
                     }
                   ></img>

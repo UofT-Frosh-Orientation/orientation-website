@@ -73,6 +73,20 @@
   position: absolute;
   bottom: 0px;
   filter: drop-shadow(-10px -10px 8px #23232342);
+
+  @media (prefers-color-scheme: dark) {
+    display: none;
+  }
+}
+.home-page-top-wave-image-dark {
+  display: none;
+
+  @media (prefers-color-scheme: dark) {
+    display: unset;
+    position: absolute;
+    bottom: 0px;
+    filter: drop-shadow(-10px -10px 8px #23232342);
+  }
 }
 
 .home-page-landing-image-container {
@@ -122,6 +136,16 @@
       height: 5px;
     }
   }
+  @media (prefers-color-scheme: dark) {
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--light-purple);
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--purple-shades-muted);
+      background: var(--purple-shades-muted);
+      border-radius: 3px;
+    }
+  }
 }
 
 .home-page-timeline-popup-container {
@@ -164,10 +188,26 @@
 }
 
 .home-page-bottom-wave-image {
+  display: unset;
   filter: drop-shadow(-10px 10px 8px #23232342);
+
+  @media (prefers-color-scheme: dark) {
+    display: none;
+  }
+}
+
+.home-page-bottom-wave-image-dark {
+  display: none;
+
+  @media (prefers-color-scheme: dark) {
+    display: unset;
+    filter: drop-shadow(10px -10px -8px #23232342);
+  }
 }
 
 .home-page-sponsors {
+  color: var(--black);
+
   text-align: center;
   h2 {
     font-size: 40px;
@@ -200,6 +240,10 @@
     margin-bottom: 20px;
     transition: transform 500ms;
     transform: scale(1);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--light-purple);
+    }
   }
   .please-sponsor:hover {
     transition: transform 500ms;
