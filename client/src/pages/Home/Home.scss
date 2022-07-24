@@ -83,22 +83,9 @@
 
   @media (prefers-color-scheme: dark) {
     display: unset;
-    width: 100%;
     position: absolute;
-    bottom: -20px;
+    bottom: 0px;
     filter: drop-shadow(-10px -10px 8px #23232342);
-  }
-}
-
-.home-page-bottom-wave-image-dark {
-  display: none;
-
-  @media (prefers-color-scheme: dark) {
-    transform: scaleY(-1);
-    display: unset;
-    width: 100%;
-    //margin-bottom: 10px;
-    filter: drop-shadow(10px -10px -8px #23232342);
   }
 }
 
@@ -122,10 +109,6 @@
   object-fit: fill;
   @include devices(tablet) {
     height: min(10vh, 40px);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    display: none;
   }
 }
 
@@ -206,7 +189,21 @@
 }
 
 .home-page-bottom-wave-image {
+  display: unset;
   filter: drop-shadow(-10px 10px 8px #23232342);
+
+  @media (prefers-color-scheme: dark) {
+    display: none;
+  }
+}
+
+.home-page-bottom-wave-image-dark {
+  display: none;
+
+  @media (prefers-color-scheme: dark) {
+    display: unset;
+    filter: drop-shadow(10px -10px -8px #23232342);
+  }
 }
 
 .home-page-sponsors {
