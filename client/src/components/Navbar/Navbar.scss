@@ -22,7 +22,7 @@ li {
   justify-content: space-between;
 
   align-items: center;
-  z-index: 100;
+  z-index: 90;
   position: fixed;
   background-color: var(--navbar-bg);
   width: 100%;
@@ -144,9 +144,15 @@ li {
   color: var(--yellow);
   float: right;
 
+  cursor: pointer;
+
   @media (prefers-color-scheme: dark) {
     background: var(--light-purple);
   }
+}
+
+.icon-profile-person-container {
+  cursor: pointer;
 }
 
 .icon-profile-person {
@@ -155,6 +161,7 @@ li {
   height: 35px;
   margin-left: auto;
   margin-right: 15px;
+  cursor: pointer;
 
   @media (prefers-color-scheme: dark) {
     display: none;

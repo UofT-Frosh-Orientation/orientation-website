@@ -235,3 +235,19 @@ a:hover {
     height: 0px;
   }
 }
+
+.show-darkmode {
+  display: none;
+
+  @media (prefers-color-scheme: dark) {
+    display: unset;
+  }
+}
+
+.hide-darkmode {
+  display: unset;
+
+  @media (prefers-color-scheme: dark) {
+    display: none;
+  }
+}

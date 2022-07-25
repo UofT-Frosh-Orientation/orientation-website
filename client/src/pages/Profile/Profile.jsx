@@ -252,8 +252,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
   // console.log(`editButton: ${editButton}`);
   return (
     <>
-      {/* calum, please log out in the popups! */}
-      <PopupModal
+      {/* <PopupModal
         trigger={showLogoutPopup}
         setTrigger={setShowLogoutPopup}
         exitIcon={true}
@@ -267,7 +266,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
             dispatch(logout({ navigate, setShowLogoutPopup }));
           }}
         />
-      </PopupModal>
+      </PopupModal> */}
 
       <div className="profile-page-header">
         <div className="profile-page-header-group">
@@ -308,7 +307,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
           ) : (
             <></>
           )}
-          {editButton !== false ? (
+          {/* {editButton !== false ? (
             <div
               style={{ right: !isRegistered ? '10px' : '60px' }}
               className="profile-logout-button"
@@ -320,7 +319,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
             </div>
           ) : (
             <></>
-          )}
+          )} */}
         </div>
       </div>
       <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
