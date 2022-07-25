@@ -1,24 +1,37 @@
 import { React, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getAnsweredQuestions, sortQuestions, getUnansweredQuestions } from './functions';
+import {
+  getAnsweredQuestions,
+  sortQuestions,
+  getUnansweredQuestions,
+  deleteQuestion,
+  submitEdit,
+  submitQuestion,
+} from './functions';
 import './FAQLeaders.scss';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
-import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
+import { Button } from '../../components/button/Button/Button';
+import { TextInput } from '../../components/input/TextInput/TextInput';
 
 const PageFAQLeaders = () => {
   const [isUnanswered, setIsUnanswered] = useState(false);
-  // <FAQLeadersAnsweredQuestions/>
   return (
     <div className={'faq-leaders-page'}>
+      <div className={'faq-leaders-titles'}>Create a new question:</div>
+      <FAQLeadersNewPost />
+      <div className={'faq-leaders-titles'}>Toggle for answered and unanwered questions:</div>
       <Checkboxes
         values={['Unanswered']}
         onSelected={() => {
           setIsUnanswered(!isUnanswered);
         }}
       />
-      <div className={`${!isUnanswered ? 'faq-leaders-hide-questions' : ''}`}>HELLO</div>
+      <div className={'faq-leaders-titles'}>Questions:</div>
       <div className={`${isUnanswered ? 'faq-leaders-hide-questions' : ''}`}>
+        <FAQLeadersAnsweredQuestions />
+      </div>
+      <div className={`${!isUnanswered ? 'faq-leaders-hide-questions' : ''}`}>
         <FAQLeadersUnansweredQuestions />
       </div>
     </div>
@@ -27,19 +40,17 @@ const PageFAQLeaders = () => {
 
 const FAQLeadersAnsweredQuestions = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const answeredQuestions = getAnsweredQuestions();
-  console.log(answeredQuestions);
+  const answeredQuestions = getAnsweredQuestions(); //TODO: link with backend
   const questionCategories = [];
-  const processedAnsweredQuestions = {};
+  const questionsObject = {};
   const allQuestions = [];
-  sortQuestions(answeredQuestions, questionCategories, processedAnsweredQuestions);
-  for (let i = 0; i < Object.keys(processedAnsweredQuestions).length; i++) {
-    allQuestions.push(processedAnsweredQuestions[Object.keys(processedAnsweredQuestions)[i]]);
+  sortQuestions(answeredQuestions, questionCategories, questionsObject);
+  for (let i = 0; i < Object.keys(questionsObject).length; i++) {
+    allQuestions.push(questionsObject[Object.keys(questionsObject)[i]]);
   }
   const selectedQuestions = allQuestions[activeIndex].map((question, index) => (
-    <div key={index} className={'faq-leaders-questions-container'}>
-      <div className={'faq-leaders-questions'}>{question.question}</div>
-      <div className={'faq-leaders-answers'}>{question.answer}</div>
+    <div key={index}>
+      <FAQLeadersQuestionWrapper question={question} />
     </div>
   ));
   return (
@@ -56,18 +67,17 @@ const FAQLeadersAnsweredQuestions = () => {
 
 const FAQLeadersUnansweredQuestions = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const unansweredQuestions = getUnansweredQuestions();
-  console.log(unansweredQuestions);
+  const unansweredQuestions = getUnansweredQuestions(); //TODO: Link with backend
   const questionCategories = [];
-  const processedAnsweredQuestions = {};
+  const questionsObject = {};
   const allQuestions = [];
-  sortQuestions(unansweredQuestions, questionCategories, processedAnsweredQuestions);
-  for (let i = 0; i < Object.keys(processedAnsweredQuestions).length; i++) {
-    allQuestions.push(processedAnsweredQuestions[Object.keys(processedAnsweredQuestions)[i]]);
+  sortQuestions(unansweredQuestions, questionCategories, questionsObject);
+  for (let i = 0; i < Object.keys(questionsObject).length; i++) {
+    allQuestions.push(questionsObject[Object.keys(questionsObject)[i]]);
   }
   const selectedQuestions = allQuestions[activeIndex].map((question, index) => (
-    <div key={index} className={'faq-leaders-questions-container'}>
-      <div className={'faq-leaders-questions-smaller'}>{question.question}</div>
+    <div key={index}>
+      <FAQLeadersQuestionWrapper question={question} />
     </div>
   ));
   return (
@@ -80,6 +90,84 @@ const FAQLeadersUnansweredQuestions = () => {
       {selectedQuestions}
     </div>
   );
+};
+
+const FAQLeadersQuestionWrapper = ({ question }) => {
+  const [isEdit, setIsEdit] = useState(false);
+  const [editButtonText, setEditButtonText] = useState('Edit');
+  const [questionText, setQuestionText] = useState(question.question);
+  const [answerText, setAnswerText] = useState(question.answer);
+  const initialFormData = {
+    question: '',
+    answer: '',
+  };
+  const [formData, updateFormData] = useState(initialFormData);
+  useEffect(() => {
+    updateFormData({ question: questionText, answer: answerText });
+  }, [questionText, answerText]);
+  const handleEditQuestion = (text) => {
+    setQuestionText(text);
+  };
+  const handleEditAnswer = (text) => {
+    setAnswerText(text);
+  };
+  const handleSubmit = (id) => {
+    submitEdit(id, formData); //TODO: Link with backend
+  };
+  return (
+    <div className={'faq-leaders-questions-container'}>
+      <div className={'faq-leaders-questions'}>{question.question}</div>
+      <div className={'faq-leaders-answers'}>{question.answer}</div>
+      <div className={`${!isEdit ? 'faq-leaders-hide-questions' : ''}`}>
+        <div className={'faq-leaders-edit-title'}>Edit</div>
+        <form>
+          <label>
+            <div className={''}>
+              <TextInput
+                onChange={(text) => handleEditQuestion(text)}
+                inputType={'text'}
+                placeholder={'Question'}
+                initialValue={question.question}
+                style={{ height: '45px' }}
+              />
+            </div>
+          </label>
+          <label>
+            <div className={''}>
+              <TextInput
+                onChange={(text) => handleEditAnswer(text)}
+                inputType={'textArea'}
+                placeholder={'Answer'}
+                initialValue={question.answer}
+                style={{ height: '150px', resize: 'vertical' }}
+              />
+            </div>
+          </label>
+          <div style={{ textAlign: 'center' }}>
+            <Button label={'Save'} onClick={() => handleSubmit(question.id)} />
+          </div>
+        </form>
+      </div>
+
+      <Button
+        label={'Delete'}
+        onClick={() => {
+          deleteQuestion(question.id); //TODO: Link to backend
+        }}
+      />
+      <Button
+        label={editButtonText}
+        onClick={() => {
+          setIsEdit(!isEdit);
+          setEditButtonText(`${isEdit ? 'Edit' : 'Stop Edit'}`);
+        }}
+      />
+    </div>
+  );
+};
+
+FAQLeadersQuestionWrapper.propTypes = {
+  question: PropTypes.object.isRequired,
 };
 
 const FAQLeadersButtons = ({ activeIndex, setActiveIndex, questionCategories }) => {
@@ -99,6 +187,73 @@ FAQLeadersButtons.propTypes = {
   activeIndex: PropTypes.number.isRequired,
   setActiveIndex: PropTypes.func.isRequired,
   questionCategories: PropTypes.array.isRequired,
+};
+
+const FAQLeadersNewPost = () => {
+  const [questionText, setQuestionText] = useState('');
+  const [answerText, setAnswerText] = useState('');
+  const [categoryText, setCategoryText] = useState('');
+  const initialFormData = {
+    question: '',
+    answer: '',
+    category: '',
+  };
+  const [formData, updateFormData] = useState(initialFormData);
+  useEffect(() => {
+    updateFormData({ question: questionText, answer: answerText, category: categoryText });
+  }, [questionText, answerText, categoryText]);
+  const handleEditQuestion = (text) => {
+    setQuestionText(text);
+  };
+  const handleEditAnswer = (text) => {
+    setAnswerText(text);
+  };
+  const handleEditCategory = (text) => {
+    setCategoryText(text);
+  };
+  const handleSubmit = () => {
+    submitQuestion(formData); //TODO: Link with backend
+  };
+  return (
+    <form>
+      <label>
+        <div className={''}>
+          <TextInput
+            onChange={(text) => handleEditQuestion(text)}
+            inputType={'text'}
+            placeholder={'Question'}
+            initialValue={''}
+            style={{ height: '45px' }}
+          />
+        </div>
+      </label>
+      <label>
+        <div className={''}>
+          <TextInput
+            onChange={(text) => handleEditAnswer(text)}
+            inputType={'textArea'}
+            placeholder={'Answer'}
+            initialValue={''}
+            style={{ height: '150px', resize: 'vertical' }}
+          />
+        </div>
+      </label>
+      <label>
+        <div className={''}>
+          <TextInput
+            onChange={(text) => handleEditCategory(text)}
+            inputType={'text'}
+            placeholder={'Category'}
+            initialValue={''}
+            style={{ height: '45px' }}
+          />
+        </div>
+      </label>
+      <div>
+        <Button label={'Create Question and Answer'} onClick={() => handleSubmit()} />
+      </div>
+    </form>
+  );
 };
 
 export { PageFAQLeaders };

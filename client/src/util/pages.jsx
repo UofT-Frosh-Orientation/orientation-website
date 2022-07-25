@@ -119,9 +119,9 @@ export const pages = {
       path: '/password-reset/:token',
     },
     {
-      label: 'FAQLeaders',
+      label: 'FAQAdmin',
       component: <PageFAQLeaders />,
-      path: '/faqleaders',
+      path: '/faqadmin',
       includeFooter: true,
     },
   ],

@@ -26,6 +26,17 @@
   }
 }
 
+.faq-leaders-titles {
+  margin-top: 50px;
+  margin-bottom: 7px;
+  font-size: 26px;
+  font-weight: bold;
+  color: var(--text-dark);
+  @include devices(tablet) {
+    font-size: 22px;
+  }
+}
+
 .faq-leaders-questions-smaller {
   background-color: var(--purple-shades-light);
   border-radius: 12px;
@@ -42,6 +53,17 @@
   color: var(--text-dark);
   @include devices(tablet) {
     font-size: 16px;
+  }
+}
+
+.faq-leaders-edit-title {
+  padding-top: 20px;
+  margin-bottom: 7px;
+  font-size: 26px;
+  font-weight: bold;
+  color: var(--text-dark);
+  @include devices(tablet) {
+    font-size: 22px;
   }
 }
 
