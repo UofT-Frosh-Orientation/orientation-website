@@ -1,0 +1,66 @@
+@import '../../scssStyles/mixins';
+
+.scunt-mission-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  p {
+    text-align: center;
+    color: var(--text-dark);
+    @media (prefers-color-scheme: dark) {
+      color: var(--text-light);
+    }
+  }
+}
+
+.scunt-mission-list-max-width {
+  max-width: 900px;
+  width: min(900px, 95%);
+  margin: auto;
+}
+
+.scunt-mission-qr-code {
+  max-width: 350px;
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  margin: auto;
+  margin-top: 15px;
+
+  @include devices(tablet) {
+    max-width: 90vw;
+    width: 90vw;
+    margin-top: 15px;
+  }
+}
+
+.scunt-missions-header {
+  color: var(--text-dark);
+  @media (prefers-color-scheme: dark) {
+    color: var(--text-light);
+  }
+  text-align: center;
+  margin: 0px 10px;
+}
+.scunt-missions-header-link {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+.scunt-mission-category-separator {
+  h3 {
+    margin: 0px 2%;
+    margin-top: 15px;
+    margin-bottom: 3px;
+    font-size: 18px;
+    color: var(--text-dark);
+    @media (prefers-color-scheme: dark) {
+      color: var(--text-light);
+    }
+  }
+}

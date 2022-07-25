@@ -12,6 +12,8 @@ import { PageRegistrationSuccess } from '../pages/RegistrationSuccess/Registrati
 import { PageSignUp } from '../pages/SignUp/SignUp';
 import AuthorizedPage from './AuthorizedPage';
 import { PasswordReset } from '../pages/PasswordReset/PasswordReset';
+import { PageScuntJudgeForm } from '../pages/ScuntJudgeForm/ScuntJudgeForm';
+import { PageScuntMissionsList } from '../pages/ScuntMissionsList/ScuntMissionsList';
 
 export const pages = {
   404: {
@@ -70,6 +72,18 @@ export const pages = {
       label: 'Permission Request',
       component: <div />,
       path: '/permission_request',
+      includeFooter: true,
+    },
+    {
+      label: 'Scunt Judge Form',
+      component: <PageScuntJudgeForm />,
+      path: '/scunt-judge-form',
+      includeFooter: true,
+    },
+    {
+      label: 'Scunt Missions List',
+      component: <PageScuntMissionsList />,
+      path: '/scunt-missions',
       includeFooter: true,
     },
     {
