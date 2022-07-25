@@ -23,18 +23,9 @@ const FaqSchema = new Schema(
       required: true,
       default: false,
     },
-    dateAsked: {
-      type: Date,
-      required: true,
-      default: new Date(),
-    },
-    lastUpdated: {
-      type: Date,
-      required: true,
-      default: new Date(),
-    },
   },
   { strict: true },
+  { timestamps: true },
 );
 
 const FaqModel = mongoose.model('FAQ', FaqSchema);
