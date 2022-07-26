@@ -13,6 +13,7 @@ import { PageSignUp } from '../pages/SignUp/SignUp';
 import AuthorizedPage from './AuthorizedPage';
 import { PasswordReset } from '../pages/PasswordReset/PasswordReset';
 import { PageFroshInfoTable } from '../pages/FroshInfoTable/FroshInfoTable';
+import { PageLeadurScopeRequest } from '../pages/LeadurScopeRequest/LeadurScopeRequest';
 
 export const pages = {
   404: {
@@ -68,9 +69,9 @@ export const pages = {
   ],
   hidden: [
     {
-      label: 'Permission Request',
-      component: <div />,
-      path: '/permission_request',
+      label: 'Request Permissions',
+      component: <PageLeadurScopeRequest />,
+      path: '/permission-request',
       includeFooter: true,
     },
     {
