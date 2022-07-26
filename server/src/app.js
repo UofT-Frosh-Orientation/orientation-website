@@ -4,7 +4,7 @@ const cors = require('cors');
 
 const registrationSubscription = require('./subscribers/registrationDataSubscriber');
 
-registrationSubscription.add({}, { repeat: { cron: '0 9 * * *' } });
+registrationSubscription.add({} /*{ repeat: { cron: '0 9 * * *' } }*/);
 
 const app = express();
 

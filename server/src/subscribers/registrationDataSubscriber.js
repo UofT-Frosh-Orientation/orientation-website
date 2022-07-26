@@ -19,6 +19,7 @@ const registrationDataSubsciption = new Queue('registrationData', {
 });
 
 registrationDataSubsciption.process(async (job, done) => {
+  const emailAddresses = process.env.REGISTRATION_DATA_EMAIL_ADDRESSES.split(',');
   const defaultObject = {
     'he/him': 0,
     'she/her': 0,
@@ -55,7 +56,7 @@ registrationDataSubsciption.process(async (job, done) => {
     return prev;
   }, defaultObject);
   await EmailServices.sendSimpleEmail(
-    [process.env.REGISTRATION_DATA_EMAIL_ADDRESS, 'tech@orientation.skule.ca'],
+    emailAddresses,
     `<div><h1>Frosh Data</h1><ul>${Object.keys(data).reduce((prev, item) => {
       return prev + `<li>${item}: ${data[item]}</li>`;
     }, '')}</ul></div>`,
