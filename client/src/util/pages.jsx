@@ -119,6 +119,7 @@ export const pages = {
       component: <PageAccountsApproval />,
       path: '/approve-accounts',
     },
+    {
       label: 'password-reset',
       component: <PasswordReset />,
       path: '/password-reset/:token',
