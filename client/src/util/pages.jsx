@@ -10,6 +10,7 @@ import { PageRegistrationForm } from '../pages/Registration/RegistrationForm';
 import { PageLogin } from '../pages/Login/Login';
 import { PageRegistrationSuccess } from '../pages/RegistrationSuccess/RegistrationSuccess';
 import { PageSignUp } from '../pages/SignUp/SignUp';
+import { PageAccountsApproval } from '../pages/AccountsApproval/AccountsApproval';
 import AuthorizedPage from './AuthorizedPage';
 import { PasswordReset } from '../pages/PasswordReset/PasswordReset';
 import { PageFroshInfoTable } from '../pages/FroshInfoTable/FroshInfoTable';
@@ -116,6 +117,11 @@ export const pages = {
       label: 'payment-error',
       component: <PagePaymentError />,
       path: '/payment-error',
+    },
+    {
+      label: 'approve-accounts',
+      component: <PageAccountsApproval />,
+      path: '/approve-accounts',
     },
     {
       label: 'password-reset',
