@@ -13,6 +13,7 @@ const Dropdown = ({
   isDisabled,
   initialSelectedIndex,
   localStorageKey,
+  maxLetters,
 }) => {
   useEffect(() => {
     if (localStorageKey !== undefined) {
@@ -69,7 +70,11 @@ const Dropdown = ({
           onClick={() => !isDisabled && setIsOpen(!isOpen)}
           className={`dropdown-selected${isDisabled ? '-disabled' : ''}`}
         >
-          <div className={'dropdown-selected-label'}>{selected}</div>
+          <div className={'dropdown-selected-label'}>
+            {maxLetters
+              ? selected.substring(0, maxLetters) + (selected.length > maxLetters ? '...' : '')
+              : selected}
+          </div>
           <div className={`dropdown-image${isOpen ? ' open' : ''}`}>
             <img alt={'arrow'} src={Arrow} className="dropdown-arrow-default" />
             <img alt={'arrow'} src={ArrowDarkMode} className="dropdown-arrow-darkmode" />
@@ -92,6 +97,7 @@ Dropdown.propTypes = {
   initialSelectedIndex: PropTypes.number,
   isDisabled: PropTypes.bool,
   localStorageKey: PropTypes.string,
+  maxLetters: PropTypes.number,
 };
 
 export { Dropdown };

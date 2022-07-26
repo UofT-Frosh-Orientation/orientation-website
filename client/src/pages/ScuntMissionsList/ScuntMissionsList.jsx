@@ -7,20 +7,61 @@ import { TextInput } from '../../components/input/TextInput/TextInput';
 import { ScuntMissionEntry } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { QRNormal } from 'react-qrbtf';
 import { Link } from 'react-router-dom';
+import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
+import { Dropdown } from '../../components/form/Dropdown/Dropdown';
+
+function getMissionCategories() {
+  const missions = list;
+  let currentCategory = '';
+  let output = ['All Categories'];
+  for (let mission of missions) {
+    if (mission?.category !== currentCategory) {
+      output.push(mission.category);
+    }
+    currentCategory = mission?.category;
+  }
+  return output;
+}
 
 export const PageScuntMissionsList = () => {
   const missions = list;
   const [mission, setMission] = useState(undefined);
   const [searchedMissions, setSearchedMissions] = useState(missions);
   const [clearText, setClearText] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('All Categories');
+  const [selectedSort, setSelectedSort] = useState('ID');
+
+  useEffect(() => {
+    setMission(undefined);
+    getMissionSearchName('');
+  }, [selectedCategory, selectedSort]);
 
   const getMissionSearchName = (searchName) => {
-    if (searchName === '') {
-      setSearchedMissions(missions);
+    const sortedMissions = [...missions];
+    if (selectedSort !== 'ID') {
+      sortedMissions.sort(function (a, b) {
+        if (selectedSort === 'Greatest to Least Points') {
+          if (parseInt(a?.points) < parseInt(b?.points)) return 1;
+          if (parseInt(a?.points) > parseInt(b?.points)) return -1;
+        } else if (selectedSort === 'Least to Greatest Points') {
+          if (parseInt(a?.points) < parseInt(b?.points)) return -1;
+          if (parseInt(a?.points) > parseInt(b?.points)) return 1;
+        }
+
+        return 0;
+      });
+    }
+    if (searchName === '' && selectedCategory === 'All Categories') {
+      setSearchedMissions(sortedMissions);
       return;
     }
     const output = [];
-    for (let mission of missions) {
+    for (let mission of sortedMissions) {
+      if (selectedCategory !== 'All Categories') {
+        if (mission?.category !== selectedCategory) {
+          continue;
+        }
+      }
       if (mission?.name?.toLowerCase().includes(searchName.toLowerCase())) {
         output.push(mission);
       }
@@ -42,18 +83,26 @@ export const PageScuntMissionsList = () => {
   let previousCategory = '';
   return (
     <div>
-      <div className="navbar-space-top"></div>
       <Header text={'Missions'}>
-        <div className="scunt-missions-header">
-          <h2>Want another way to earn points?</h2>
-          <div className="scunt-missions-header-link">
-            <Link to={'/scunt-judges'}>Don&apos;t forget to bribe the judges!</Link>
-          </div>
-        </div>
+        <ScuntLinks />
       </Header>
+      <div className="scunt-missions-header">
+        <h2>Want another way to earn points?</h2>
+        <div className="scunt-missions-header-link">
+          <Link to={'/scunt-judges'}>Don&apos;t forget to bribe the judges!</Link>
+        </div>
+      </div>
+
       <div className="scunt-mission-list">
         <div style={{ zIndex: 10 }} className="scunt-mission-list-max-width">
-          <div style={{ display: 'flex' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
             <div className="small-width-input">
               <TextInput
                 clearText={clearText}
@@ -82,6 +131,28 @@ export const PageScuntMissionsList = () => {
                 onEnterKey={(value) => {
                   setMission(searchedMissions[0]);
                 }}
+              />
+            </div>
+            <div className="scunt-missions-filters">
+              <Dropdown
+                initialSelectedIndex={0}
+                values={getMissionCategories()}
+                onSelect={(value) => {
+                  setSelectedCategory(value);
+                }}
+                isDisabled={false}
+                localStorageKey={'scunt-selected-category-choice'}
+                maxLetters={window.innerWidth <= 767 ? 13 : 40}
+              />
+              <Dropdown
+                initialSelectedIndex={0}
+                values={['ID', 'Greatest to Least Points', 'Least to Greatest Points']}
+                onSelect={(value) => {
+                  setSelectedSort(value);
+                }}
+                isDisabled={false}
+                localStorageKey={'scunt-selected-sort-choice'}
+                maxLetters={window.innerWidth <= 767 ? 5 : 40}
               />
             </div>
           </div>

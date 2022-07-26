@@ -64,3 +64,11 @@
     }
   }
 }
+
+.scunt-missions-filters {
+  display: flex;
+  @include devices(tablet) {
+    width: 100%;
+    justify-content: center;
+  }
+}

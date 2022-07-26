@@ -9,6 +9,8 @@ import WaveDarkMode from '../../assets/darkmode/misc/wave.svg';
 import bug from '../../assets/misc/bug-solid.svg';
 
 const Footer = () => {
+  const { pathname } = useLocation();
+
   return (
     <>
       <img src={Wave} className="wave-image-footer" />
@@ -22,13 +24,9 @@ const Footer = () => {
                 <div key={page.path}>
                   <Link
                     className="links"
-                    to={useLocation().pathname === page.path ? {} : page.path}
+                    to={pathname === page.path ? {} : page.path}
                     key={page.path}
-                    style={
-                      useLocation().pathname === page.path
-                        ? { pointerEvents: 'none', color: 'white' }
-                        : {}
-                    }
+                    style={pathname === page.path ? { pointerEvents: 'none', color: 'white' } : {}}
                   >
                     {page.label}
                   </Link>

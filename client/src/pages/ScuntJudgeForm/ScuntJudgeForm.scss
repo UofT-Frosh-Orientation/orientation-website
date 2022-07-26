@@ -67,16 +67,19 @@
     flex: 1;
     margin: 0px;
     margin-right: 14px;
+    font-size: 20px;
   }
   .mission-name {
     text-align: left;
     width: 100%;
     margin: 0px;
+    font-size: 18px;
   }
   .mission-points {
     flex: 1;
     margin: 0px;
     margin-left: 14px;
+    font-size: 20px;
   }
   &:hover {
     background-color: var(--light-purple);
