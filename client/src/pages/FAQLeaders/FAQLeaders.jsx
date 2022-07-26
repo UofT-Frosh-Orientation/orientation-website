@@ -7,6 +7,7 @@ import {
   deleteQuestion,
   submitEdit,
   submitQuestion,
+  getQuestionCategories,
 } from './functions';
 import './FAQLeaders.scss';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
@@ -40,14 +41,12 @@ const PageFAQLeaders = () => {
 
 const FAQLeadersAnsweredQuestions = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const answeredQuestions = getAnsweredQuestions(); //TODO: link with backend
-  const questionCategories = [];
-  const questionsObject = {};
-  const allQuestions = [];
-  sortQuestions(answeredQuestions, questionCategories, questionsObject);
-  for (let i = 0; i < Object.keys(questionsObject).length; i++) {
-    allQuestions.push(questionsObject[Object.keys(questionsObject)[i]]);
-  }
+  const [allQuestions, setAnsweredQuestions] = useState([]);
+  const [questionCategories, setQuestionCategories] = useState([]);
+  useEffect(async () => {
+    setAnsweredQuestions(await getAnsweredQuestions());
+    setQuestionCategories(await getQuestionCategories()); //TODO: link with backend
+  }, []);
   const selectedQuestions = allQuestions[activeIndex].map((question, index) => (
     <div key={index}>
       <FAQLeadersQuestionWrapper question={question} />
@@ -67,10 +66,14 @@ const FAQLeadersAnsweredQuestions = () => {
 
 const FAQLeadersUnansweredQuestions = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const unansweredQuestions = getUnansweredQuestions(); //TODO: Link with backend
+  //const [unansweredQuestions, setUnansweredQuestions] = useState();
   const questionCategories = [];
   const questionsObject = {};
   const allQuestions = [];
+  // useEffect(async () => {
+  //   setUnansweredQuestions(await getUnansweredQuestions()); //TODO: link with backend
+  // }, []);
+  const unansweredQuestions = getUnansweredQuestions();
   sortQuestions(unansweredQuestions, questionCategories, questionsObject);
   for (let i = 0; i < Object.keys(questionsObject).length; i++) {
     allQuestions.push(questionsObject[Object.keys(questionsObject)[i]]);
@@ -111,7 +114,7 @@ const FAQLeadersQuestionWrapper = ({ question }) => {
   const handleEditAnswer = (text) => {
     setAnswerText(text);
   };
-  const handleSubmit = (id) => {
+  const handleSubmit = async (id) => {
     submitEdit(id, formData); //TODO: Link with backend
   };
   return (
@@ -151,7 +154,7 @@ const FAQLeadersQuestionWrapper = ({ question }) => {
 
       <Button
         label={'Delete'}
-        onClick={() => {
+        onClick={async () => {
           deleteQuestion(question.id); //TODO: Link to backend
         }}
       />
@@ -211,7 +214,7 @@ const FAQLeadersNewPost = () => {
   const handleEditCategory = (text) => {
     setCategoryText(text);
   };
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     submitQuestion(formData); //TODO: Link with backend
   };
   return (

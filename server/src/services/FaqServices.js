@@ -60,9 +60,21 @@ const FaqServices = {
    * @async
    * @return {Promise<Object>} - the new question
    */
-  async createNewQuestion(email, question, category) {
+  async createNewQuestion(email, question, answer, category) {
     return new Promise((resolve, reject) => {
-      const doc = category ? { email, question, category } : { email, question };
+      let doc = {};
+      if (answer) {
+        if (category) {
+          doc = { email, question, answer, category, isAnswered: true };
+        } else {
+          doc = { email, question, answer, isAnswered: true };
+        }
+      } else if (category) {
+        doc = { email, question, category };
+      } else {
+        doc = { email, question };
+      }
+      //const doc = category ? { email, question, category } : { email, question };
       FaqModel.create(doc, (err, newFaq) => {
         if (err) {
           reject(err);
