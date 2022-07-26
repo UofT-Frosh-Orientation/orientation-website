@@ -12,6 +12,7 @@ import { PageRegistrationSuccess } from '../pages/RegistrationSuccess/Registrati
 import { PageSignUp } from '../pages/SignUp/SignUp';
 import AuthorizedPage from './AuthorizedPage';
 import { PasswordReset } from '../pages/PasswordReset/PasswordReset';
+import { PageFroshInfoTable } from '../pages/FroshInfoTable/FroshInfoTable';
 import { PageScuntJudgeForm } from '../pages/ScuntJudgeForm/ScuntJudgeForm';
 import { PageScuntMissionsList } from '../pages/ScuntMissionsList/ScuntMissionsList';
 import { PageScuntHome } from '../pages/ScuntHome/ScuntHome';
@@ -120,6 +121,11 @@ export const pages = {
       label: 'password-reset',
       component: <PasswordReset />,
       path: '/password-reset/:token',
+    },
+    {
+      label: 'frosh-info-table',
+      component: <PageFroshInfoTable />,
+      path: '/frosh-info-table',
     },
   ],
   scunt: [
