@@ -1,0 +1,140 @@
+@import '../../scssStyles/mixins';
+
+.scunt-judge-form-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.scunt-judge-form-container {
+  background-color: var(--white);
+  border-radius: 15px;
+  padding: 40px min(150px, 5%);
+  margin: 50px;
+  box-shadow: var(--shadow);
+  width: 95vw;
+  max-width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  h1 {
+    text-align: center;
+    font-size: 40px;
+    width: 100%;
+  }
+  h3 {
+    font-size: 17px;
+    text-align: center;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  p {
+    font-size: 15px;
+    text-align: left;
+    width: 100%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--purple-shades-dark);
+    color: var(--white);
+  }
+}
+
+.judge-dashboatd-header {
+  text-align: center;
+  @media (prefers-color-scheme: dark) {
+    color: var(--white);
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scunt-mission-entry {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  margin: 2px 5px;
+  background-color: var(--purple-shades-popup);
+  color: var(--black);
+  border-radius: 8px;
+  padding: 5px 15px;
+  width: 100%;
+  transition: background-color 300ms;
+  .mission-id {
+    flex: 1;
+    margin: 0px;
+    margin-right: 14px;
+    font-size: 20px;
+  }
+  .mission-name {
+    text-align: left;
+    width: 100%;
+    margin: 0px;
+    font-size: 18px;
+  }
+  .mission-points {
+    flex: 1;
+    margin: 0px;
+    margin-left: 14px;
+    font-size: 20px;
+  }
+  &:hover {
+    background-color: var(--light-purple);
+    transition: background-color 300ms;
+  }
+  font-size: 18px;
+  @include devices(tablet) {
+    font-size: 16px;
+  }
+}
+
+.scunt-mission-entry-selected {
+  background-color: var(--light-purple);
+}
+
+.slider-thumb {
+  cursor: pointer;
+  position: absolute;
+  z-index: 100;
+  border: 10px solid var(--light-purple);
+  background-color: var(--light-purple);
+  border-radius: 500px;
+  display: block;
+  box-shadow: var(--shadow);
+  transition: border 500ms;
+}
+.slider-thumb.active {
+  border: 10px solid var(--purple-shades-muted);
+  background-color: var(--purple-shades-muted);
+  transition: border 500ms;
+}
+.slider-track {
+  position: relative;
+  background: var(--white);
+}
+.slider-track.slider-track-0 {
+  background: var(--purple-shades-muted);
+}
+.horizontal-slider .slider-track {
+  top: 17px;
+  height: 7px;
+  border-radius: 15px;
+}
+.horizontal-slider .slider-thumb {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.separator {
+  width: 100%;
+  height: 1px;
+  background-color: var(--white);
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

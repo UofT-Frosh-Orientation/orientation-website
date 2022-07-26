@@ -13,6 +13,10 @@ import { PageSignUp } from '../pages/SignUp/SignUp';
 import AuthorizedPage from './AuthorizedPage';
 import { PasswordReset } from '../pages/PasswordReset/PasswordReset';
 import { PageFroshInfoTable } from '../pages/FroshInfoTable/FroshInfoTable';
+import { PageScuntJudgeForm } from '../pages/ScuntJudgeForm/ScuntJudgeForm';
+import { PageScuntMissionsList } from '../pages/ScuntMissionsList/ScuntMissionsList';
+import { PageScuntHome } from '../pages/ScuntHome/ScuntHome';
+import { PageScuntRules } from '../pages/ScuntRules/ScuntRules';
 
 export const pages = {
   404: {
@@ -122,6 +126,51 @@ export const pages = {
       label: 'frosh-info-table',
       component: <PageFroshInfoTable />,
       path: '/frosh-info-table',
+    },
+  ],
+  scunt: [
+    {
+      label: 'Scunt',
+      scuntLabel: 'Home',
+      component: <PageScuntHome />,
+      path: '/scunt',
+      includeFooter: true,
+    },
+    {
+      label: 'Judges',
+      scuntLabel: 'Judges',
+      component: <div />,
+      path: '/scunt-judges',
+      includeFooter: true,
+    },
+    {
+      label: 'Missions',
+      scuntLabel: 'Missions',
+      component: <PageScuntMissionsList />,
+      path: '/scunt-missions',
+      includeFooter: true,
+    },
+    {
+      label: 'Leaderboard',
+      scuntLabel: 'Leaderboard',
+      component: <div />,
+      path: '/scunt-leaderboard',
+      includeFooter: true,
+    },
+    {
+      label: 'Rules',
+      scuntLabel: 'Rules',
+      component: <PageScuntRules />,
+      path: '/scunt-rules',
+      includeFooter: true,
+    },
+  ],
+  scuntHidden: [
+    {
+      label: 'Scunt Judge Form',
+      component: <PageScuntJudgeForm />,
+      path: '/scunt-judge-form',
+      includeFooter: true,
     },
   ],
 };
