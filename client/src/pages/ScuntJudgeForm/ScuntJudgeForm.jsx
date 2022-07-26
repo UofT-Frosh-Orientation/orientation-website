@@ -12,6 +12,7 @@ import ReactSlider from 'react-slider';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import { Button } from '../../components/button/Button/Button';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
+import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 
 export const PageScuntJudgeForm = () => {
   const { user } = useSelector(userSelector);
@@ -151,13 +152,14 @@ ScuntBribePoints.propTypes = {
 const ScuntMissionSelection = ({ missions, teams }) => {
   const extraPointsFactor = 0.3;
   const minPointsFactor = 0.3;
-  const [mission, setMission] = useState(undefined);
+  const [assignedMission, setAssignedMission] = useState(undefined);
   const [searchedMissions, setSearchedMissions] = useState([]);
   const [assignedPoints, setAssignedPoints] = useState(0);
   const [assignedTeam, setAssignedTeam] = useState('');
   const [clearText, setClearText] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [hasQRScanned, setHasQRScanned] = useState(false);
   const timerRef = useRef(null);
 
   const getMissionSearchName = (searchName) => {
@@ -178,7 +180,7 @@ const ScuntMissionSelection = ({ missions, teams }) => {
     for (let mission of missions) {
       if (mission?.number?.toString() === searchNumber.toString()) {
         setSearchedMissions([mission]);
-        setMission(mission);
+        setAssignedMission(mission);
         setAssignedPoints(mission?.points);
         return;
       }
@@ -188,6 +190,20 @@ const ScuntMissionSelection = ({ missions, teams }) => {
 
   return (
     <>
+      <QRScannerDisplay
+        setScannedData={(data) => {
+          const missionID = data.split('|')[1];
+          for (let mission of missions) {
+            if (mission?.number.toString() === missionID.toString()) {
+              setAssignedMission(undefined);
+              setAssignedMission(mission);
+            }
+          }
+          const team = data.split('|')[0];
+          setAssignedTeam(team);
+          setHasQRScanned(true);
+        }}
+      />
       <h2>Mission Points</h2>
       <p className="text-input-title">{'Search for a mission'}</p>
       <div className="small-width-input">
@@ -197,11 +213,13 @@ const ScuntMissionSelection = ({ missions, teams }) => {
           placeholder={'#'}
           errorFeedback={''}
           onChange={(value) => {
-            setMission(undefined);
+            if (hasQRScanned === true) setHasQRScanned(false);
+            setAssignedMission(undefined);
             getMissionSearchID(value);
           }}
           onEnterKey={(value) => {
-            setMission(searchedMissions[0]);
+            if (hasQRScanned === true) setHasQRScanned(false);
+            setAssignedMission(searchedMissions[0]);
             setAssignedPoints(searchedMissions[0]?.points);
           }}
         />
@@ -213,25 +231,27 @@ const ScuntMissionSelection = ({ missions, teams }) => {
           placeholder={'Search by name'}
           errorFeedback={''}
           onChange={(value) => {
-            setMission(undefined);
+            if (hasQRScanned === true) setHasQRScanned(false);
+            setAssignedMission(undefined);
             getMissionSearchName(value);
           }}
           onEnterKey={(value) => {
-            setMission(searchedMissions[0]);
+            if (hasQRScanned === true) setHasQRScanned(false);
+            setAssignedMission(searchedMissions[0]);
             setAssignedPoints(searchedMissions[0]?.points);
           }}
         />
       </div>
-      {mission !== undefined ? (
+      {assignedMission !== undefined ? (
         <div
           style={{ width: '100%', cursor: 'pointer', marginRight: '9px' }}
           onClick={() => {
-            setMission(undefined);
+            setAssignedMission(undefined);
             setSearchedMissions([]);
             setClearText(true);
           }}
         >
-          <ScuntMissionEntry mission={mission} selected />
+          <ScuntMissionEntry mission={assignedMission} selected />
         </div>
       ) : (
         searchedMissions.map((mission) => {
@@ -240,7 +260,7 @@ const ScuntMissionSelection = ({ missions, teams }) => {
               key={mission?.number}
               style={{ width: '100%', cursor: 'pointer', marginRight: '9px' }}
               onClick={() => {
-                setMission(mission);
+                setAssignedMission(mission);
                 setAssignedPoints(mission?.points);
                 window.scrollTo(0, 0);
               }}
@@ -250,36 +270,48 @@ const ScuntMissionSelection = ({ missions, teams }) => {
           );
         })
       )}
-      {mission !== undefined ? (
+      {assignedMission !== undefined ? (
         <div style={{ width: '100%', marginRight: '2px', marginTop: '20px' }}>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginLeft: '5px',
-            }}
-          >
-            <h2 style={{ fontSize: '18px', marginRight: '5px' }}>Team:</h2>
-            <Dropdown
-              initialSelectedIndex={0}
-              values={teams}
-              onSelect={(value) => {
-                setAssignedTeam(value);
+          {hasQRScanned === false ? (
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginLeft: '5px',
               }}
-              isDisabled={false}
-              localStorageKey={'scunt-team-choice'}
-            />
-          </div>
+            >
+              <h2 style={{ fontSize: '18px', marginRight: '5px' }}>Team:</h2>
+              <Dropdown
+                initialSelectedIndex={0}
+                values={teams}
+                onSelect={(value) => {
+                  setAssignedTeam(value);
+                }}
+                isDisabled={false}
+                localStorageKey={'scunt-team-choice'}
+              />
+            </div>
+          ) : (
+            <>
+              <h2>{assignedTeam}</h2>
+            </>
+          )}
           <div style={{ height: '15px' }} />
           <p>
             <b>This mission has already been completed by this team.</b>
           </p>
           <div style={{ height: '15px' }} />
           <ReactSlider
-            defaultValue={parseInt(mission?.points)}
-            max={parseInt(mission?.points) + parseInt(mission?.points * extraPointsFactor)}
-            min={parseInt(mission?.points) - parseInt(mission?.points * minPointsFactor)}
+            defaultValue={parseInt(assignedMission?.points)}
+            max={
+              parseInt(assignedMission?.points) +
+              parseInt(assignedMission?.points * extraPointsFactor)
+            }
+            min={
+              parseInt(assignedMission?.points) -
+              parseInt(assignedMission?.points * minPointsFactor)
+            }
             className="horizontal-slider"
             thumbClassName="slider-thumb"
             trackClassName="slider-track"
@@ -305,8 +337,9 @@ const ScuntMissionSelection = ({ missions, teams }) => {
                 setErrorMessage('');
                 setSuccessMessage('');
                 setClearText(true);
-                setMission(undefined);
+                setAssignedMission(undefined);
                 setSearchedMissions([]);
+                setHasQRScanned(false);
                 window.scrollTo(0, 0);
                 //Submit points here
                 setSuccessMessage(`Added ${assignedPoints} points to ${assignedTeam}`);
@@ -319,7 +352,7 @@ const ScuntMissionSelection = ({ missions, teams }) => {
           </div>
           <h2 style={{ textAlign: 'center' }}>{assignedTeam}</h2>
           <h3 style={{ textAlign: 'center' }}>
-            Mission {mission?.number} - {assignedPoints} Points
+            Mission {assignedMission?.number} - {assignedPoints} Points
           </h3>
         </div>
       ) : (
