@@ -14,30 +14,29 @@ const disciplines = [
   'Track One (Undeclared)',
 ];
 
-const defaultObject = {
-  'he/him': 0,
-  'she/her': 0,
-  'they/them': 0,
-  'Prefer Not to Say': 0,
-  Other: 0,
-  Chemical: 0,
-  Civil: 0,
-  'Electrical & Computer': 0,
-  'Engineering Science': 0,
-  Industrial: 0,
-  Mechanical: 0,
-  Mineral: 0,
-  'Track One (Undeclared)': 0,
-  bursaryRequested: 0,
-  isRegistered: 0,
-  totalUsers: 0,
-};
-
 const registrationDataSubsciption = new Queue('registrationData', {
   redis: { port: process.env.REDIS_PORT, host: 'redis', password: process.env.REDIS_PASSWORD },
 });
 
 registrationDataSubsciption.process(async (job, done) => {
+  const defaultObject = {
+    'he/him': 0,
+    'she/her': 0,
+    'they/them': 0,
+    'Prefer Not to Say': 0,
+    Other: 0,
+    Chemical: 0,
+    Civil: 0,
+    'Electrical & Computer': 0,
+    'Engineering Science': 0,
+    Industrial: 0,
+    Mechanical: 0,
+    Mineral: 0,
+    'Track One (Undeclared)': 0,
+    bursaryRequested: 0,
+    isRegistered: 0,
+    totalUsers: 0,
+  };
   const users = await UserServices.getAllUsers();
   const data = users.reduce((prev, curr) => {
     if (pronouns.includes(curr.pronouns)) {
