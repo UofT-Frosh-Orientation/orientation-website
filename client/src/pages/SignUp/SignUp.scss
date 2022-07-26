@@ -11,6 +11,11 @@
   width: 140px;
   height: 140px;
   margin-bottom: 10px;
+  transition: transform 500ms;
+}
+
+.sign-up-logo-expand {
+  transform: scale(0.6);
 }
 
 .sign-up-container {
