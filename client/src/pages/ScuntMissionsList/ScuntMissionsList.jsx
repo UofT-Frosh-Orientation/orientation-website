@@ -71,7 +71,7 @@ export const PageScuntMissionsList = () => {
 
   const getMissionSearchID = (searchNumber) => {
     for (let mission of missions) {
-      if (mission?.id?.toString() === searchNumber.toString()) {
+      if (mission?.number?.toString() === searchNumber.toString()) {
         setSearchedMissions([mission]);
         setMission(mission);
         return;
@@ -172,7 +172,7 @@ export const PageScuntMissionsList = () => {
             searchedMissions.map((mission) => {
               const missionEntry = (
                 <div
-                  key={mission?.id}
+                  key={mission?.number}
                   style={{ width: '100%', cursor: 'pointer', paddingRight: '9px' }}
                   onClick={() => {
                     setMission(mission);
@@ -209,7 +209,7 @@ export const PageScuntMissionsList = () => {
       {mission !== undefined ? (
         <div className="scunt-mission-qr-code">
           <QRNormal
-            value={'Team 1' + '|' + mission?.id}
+            value={'Team 1' + '|' + mission?.number}
             styles={{ svg: { width: '120%', margin: '-10%', zIndex: 0 } }}
             type="round"
             opacity={100}

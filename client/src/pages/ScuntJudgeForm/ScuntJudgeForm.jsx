@@ -16,7 +16,18 @@ import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/Err
 export const PageScuntJudgeForm = () => {
   const { user } = useSelector(userSelector);
   const [remainingBribePoints, setRemainingBribePoints] = useState(500);
-
+  const teams = [
+    'Team 1',
+    'Team 2',
+    'Team 3',
+    'Team 4',
+    'Team 5',
+    'Team 6',
+    'Team 7',
+    'Team 8',
+    'Team 9',
+    'Team 10',
+  ];
   return (
     <>
       {/* <Header text={"Missions"}/> */}
@@ -30,37 +41,12 @@ export const PageScuntJudgeForm = () => {
               ? user?.firstName
               : user?.preferredName}
           </h3>
-          <ScuntMissionSelection
-            teams={[
-              'Team 1',
-              'Team 2',
-              'Team 3',
-              'Team 4',
-              'Team 5',
-              'Team 6',
-              'Team 7',
-              'Team 8',
-              'Team 9',
-              'Team 10',
-            ]}
-            missions={list}
-          />
+          <ScuntMissionSelection teams={teams} missions={list} />
           <div className="separator" />
           <ScuntBribePoints
             setRemainingBribePoints={setRemainingBribePoints}
             remainingBribePoints={remainingBribePoints}
-            teams={[
-              'Team 1',
-              'Team 2',
-              'Team 3',
-              'Team 4',
-              'Team 5',
-              'Team 6',
-              'Team 7',
-              'Team 8',
-              'Team 9',
-              'Team 10',
-            ]}
+            teams={teams}
           />
         </div>
       </div>
@@ -190,7 +176,7 @@ const ScuntMissionSelection = ({ missions, teams }) => {
 
   const getMissionSearchID = (searchNumber) => {
     for (let mission of missions) {
-      if (mission?.id?.toString() === searchNumber.toString()) {
+      if (mission?.number?.toString() === searchNumber.toString()) {
         setSearchedMissions([mission]);
         setMission(mission);
         setAssignedPoints(mission?.points);
@@ -251,7 +237,7 @@ const ScuntMissionSelection = ({ missions, teams }) => {
         searchedMissions.map((mission) => {
           return (
             <div
-              key={mission?.id}
+              key={mission?.number}
               style={{ width: '100%', cursor: 'pointer', marginRight: '9px' }}
               onClick={() => {
                 setMission(mission);
@@ -333,7 +319,7 @@ const ScuntMissionSelection = ({ missions, teams }) => {
           </div>
           <h2 style={{ textAlign: 'center' }}>{assignedTeam}</h2>
           <h3 style={{ textAlign: 'center' }}>
-            Mission {mission?.id} - {assignedPoints} Points
+            Mission {mission?.number} - {assignedPoints} Points
           </h3>
         </div>
       ) : (
@@ -355,7 +341,7 @@ ScuntMissionSelection.propTypes = {
 export const ScuntMissionEntry = ({ mission, selected }) => {
   return (
     <div className={`scunt-mission-entry ${selected ? 'scunt-mission-entry-selected' : ''}`}>
-      <h3 className="mission-id">{mission?.id}</h3>
+      <h3 className="mission-id">{mission?.number}</h3>
       <p className="mission-name">{mission?.name}</p>
       <h3 className="mission-points">{mission?.points}</h3>
     </div>
