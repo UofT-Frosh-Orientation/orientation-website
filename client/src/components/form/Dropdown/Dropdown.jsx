@@ -14,6 +14,7 @@ const Dropdown = ({
   initialSelectedIndex,
   localStorageKey,
   filterLabel,
+  maxLetters,
 }) => {
   useEffect(() => {
     if (localStorageKey !== undefined) {
@@ -71,7 +72,9 @@ const Dropdown = ({
           className={`dropdown-selected${isDisabled ? '-disabled' : ''}`}
         >
           <div className={'dropdown-selected-label'}>
-            {filterLabel ? filterLabel(selected.toString()) : selected.toString()}
+            {maxLetters
+              ? (filterLabel ? filterLabel(selected.toString()) : selected.toString()).substring(0, maxLetters) + ((filterLabel ? filterLabel(selected.toString()) : selected.toString()).length > maxLetters ? '...' : '')
+              : (filterLabel ? filterLabel(selected.toString()) : selected.toString())}
           </div>
           <div className={`dropdown-image${isOpen ? ' open' : ''}`}>
             <img alt={'arrow'} src={Arrow} className="dropdown-arrow-default" />
@@ -96,6 +99,7 @@ Dropdown.propTypes = {
   isDisabled: PropTypes.bool,
   localStorageKey: PropTypes.string,
   filterLabel: PropTypes.func,
+  maxLetters: PropTypes.number,
 };
 
 export { Dropdown };

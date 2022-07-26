@@ -15,6 +15,7 @@ import waveBottomDarkMode from '../../assets/darkmode/misc/wave-reverse.png';
 import ExecLogo from '../../assets/about/exec-tshirt-logo.svg';
 import { useEffect } from 'react';
 import { object } from 'prop-types';
+import { Header } from '../../components/text/Header/Header';
 
 const PageAbout = () => {
   return (
@@ -42,31 +43,24 @@ const PageAbout = () => {
 
 const AboutUsSection = () => {
   return (
-    <div className="aboutus-container">
-      <div className="aboutus-subcontainer">
-        <h2 className="aboutus-title">About Us</h2>
-        <div className="aboutus-title-underline"></div>
+    <Header text="About Us">
+      <div className="aboutus-subsubcontainer">
+        <div className="aboutus-image-container">
+          <img className="aboutus-image" src={ExecLogo} alt="logo"></img>
+        </div>
 
-        <div className="aboutus-subsubcontainer">
-          <div className="aboutus-image-container">
-            <img className="aboutus-image" src={ExecLogo} alt="logo"></img>
-          </div>
-
-          <div className="aboutus-info-container">
-            {aboutUsInfo.map((info) => {
-              return (
-                <div className="aboutus-info" key={info.title}>
-                  <h2 className="aboutus-info-title">{info.title}</h2>
-                  <p className="aboutus-info-des">{info.description}</p>
-                </div>
-              );
-            })}
-          </div>
+        <div className="aboutus-info-container">
+          {aboutUsInfo.map((info) => {
+            return (
+              <div className="aboutus-info" key={info.title}>
+                <h2 className="aboutus-info-title">{info.title}</h2>
+                <p className="aboutus-info-des">{info.description}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
-      <img className="aboutus-wave-bottom" src={waveBottom} alt="wave"></img>
-      <img className="aboutus-wave-bottom-darkmode" src={waveBottomDarkMode} alt="wave"></img>
-    </div>
+    </Header>
   );
 };
 
