@@ -10,12 +10,18 @@
   height: auto;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
 
   font-size: 18px;
   font-weight: bold;
   color: var(--white);
   z-index: 10;
+  @include devices(tablet) {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .footer-container a {
@@ -55,15 +61,15 @@ ul {
 
 .socials {
   display: flex;
-  //flex-wrap: nowrap;
   flex-direction: row;
   justify-content: space-between;
-  //padding: 15px;
+  margin-top: 20px;
 }
 
 .icons {
   display: flex;
   flex-direction: row;
+  align-self: flex-end;
 }
 
 .svg-icons {
@@ -90,6 +96,82 @@ ul {
   margin-bottom: 5px;
 }
 
+.footer-message-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: 1.5%;
+  @include devices(tablet) {
+    align-items: center;
+    justify-content: center;
+  }
+}
+.footer-bug {
+  margin-left: 10px;
+  margin-right: -5px;
+  width: 30px;
+}
+
+@keyframes bug-wiggle {
+  0% {
+    transform: rotate(-5deg);
+  }
+  15% {
+    transform: rotate(-5deg);
+  }
+  30% {
+    transform: rotate(0);
+  }
+  45% {
+    transform: rotate(5deg);
+  }
+  60% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+.footer-bug-container {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  align-items: flex-end;
+  justify-content: flex-end;
+
+  padding: 5px;
+  margin: 0px 0px 10px 0px;
+
+  &:hover,
+  &:active {
+    .footer-bug {
+      animation: bug-wiggle 300ms infinite;
+    }
+
+    .footer-bug-message {
+      color: var(--white);
+      transition: color 200ms;
+    }
+  }
+}
+
+.footer-bug-message {
+  font-size: 14px;
+  color: var(--purple-shades-muted);
+  text-align: right;
+  transition: color 200ms;
+  margin-bottom: -3px;
+  @include devices(tablet) {
+    text-align: center;
+  }
+}
+
+.footer-bug-message-underline {
+  text-decoration: underline;
+}
+
 @include devices(mobile) {
   .footer-container {
     width: 100%;
@@ -102,21 +184,28 @@ ul {
     flex-direction: column;
     justify-content: center;
     padding-top: 25px;
-    padding-bottom: 15px;
+    padding-bottom: 0px;
   }
 
   .socials {
+    display: flex;
     flex-direction: column;
   }
   .icons {
     justify-content: center;
     margin-bottom: 8px;
+    align-self: center;
   }
   .footer-message {
     align-self: center;
     font-size: 12px;
     font-weight: 400;
     margin-bottom: 55px;
+    margin-top: 0px;
+    padding-top: 0px;
+  }
+  .footer-bug-message {
+    color: var(--white);
   }
 
   .svg-icon {
@@ -126,6 +215,24 @@ ul {
 }
 
 .wave-image-footer {
+  display: unset;
+  width: 100%;
   margin-bottom: -5px;
   filter: drop-shadow(-10px -10px 8px #23232342);
+
+  @media (prefers-color-scheme: dark) {
+    display: none;
+  }
+}
+
+.wave-image-footer-darkmode {
+  display: none;
+
+  @media (prefers-color-scheme: dark) {
+    display: unset;
+    width: 100%;
+    margin-bottom: -5px;
+    //margin-bottom: -5px;
+    filter: drop-shadow(-10px -10px 8px #23232342);
+  }
 }

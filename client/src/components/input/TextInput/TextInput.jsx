@@ -4,6 +4,9 @@ import './TextInput.scss';
 import EyeSolid from '../../../../assets/icons/eye-solid.svg';
 import EyeSlash from '../../../../assets/icons/eye-slash-solid.svg';
 
+import EyeSolidDarkMode from '../../../assets/darkmode/icons/eye-solid.svg';
+import EyeSlashDarkMode from '../../../assets/darkmode/icons/eye-slash-solid.svg';
+
 const TextInput = ({
   label,
   placeholder,
@@ -21,8 +24,12 @@ const TextInput = ({
   inputTitle,
   isPhoneNumber,
   isInstagram,
+  style,
+  clearText,
+  setClearText,
   isUtorID,
   maxLength,
+  autocomplete,
 }) => {
   useEffect(() => {
     if (localStorageKey !== undefined) {
@@ -52,6 +59,14 @@ const TextInput = ({
       ? initialValue
       : '',
   );
+
+  useEffect(() => {
+    if (clearText) {
+      setValue('');
+      setClearText(false);
+    }
+  }, [clearText]);
+
   const [type, setType] = useState(inputType ? inputType : 'text');
 
   const onKeyPress = (target) => {
@@ -67,20 +82,19 @@ const TextInput = ({
     }
     if (isPhoneNumber) {
       value = value.replace(/\D/g, '');
-      let cleaned = ('' + value).replace(/\D/g, '');
-      let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-      if (match) {
-        value = '(' + match[1] + ') ' + match[2] + '-' + match[3];
-      } else {
-        if (value.length >= 10) {
-          value = value.substring(0, 10);
-          value = value.replace(/\D/g, '');
-          let cleaned = ('' + value).replace(/\D/g, '');
-          let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-          if (match) {
-            value = '(' + match[1] + ') ' + match[2] + '-' + match[3];
-          }
-        }
+      // let cleaned = ('' + value).replace(/\D/g, '');
+      // let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+      // if (match) {
+      //   value = '(' + match[1] + ') ' + match[2] + '-' + match[3];
+      // }
+      let size = value.length;
+      if (size < 4 && size > 0) {
+        value = '(' + value;
+      } else if (size < 7) {
+        value = '(' + value.substring(0, 3) + ') ' + value.substring(3, 6);
+      } else if (size <= 10) {
+        value =
+          '(' + value.substring(0, 3) + ') ' + value.substring(3, 6) + '-' + value.substring(6, 10);
       }
     }
     if (isInstagram) {
@@ -92,7 +106,7 @@ const TextInput = ({
       value = value.replace(' ', '').toLowerCase();
     }
     if (maxLength) {
-      if (value != undefined && maxLength < value.length) {
+      if (value !== undefined && maxLength < value.length) {
         value = value.substring(0, value.length - 1);
       }
     }
@@ -133,8 +147,10 @@ const TextInput = ({
             value={value}
             placeholder={placeholder}
             type={type}
+            autoComplete={autocomplete}
             onChange={onInputChange}
             {...inputArgs}
+            style={{ ...style }}
           />
         ) : (
           <input
@@ -150,19 +166,30 @@ const TextInput = ({
             value={value}
             placeholder={placeholder}
             type={type}
+            autoComplete={autocomplete}
             onChange={onInputChange}
             {...inputArgs}
           />
         )}
         {inputType == 'password' ? (
-          <img
-            className={'text-input-password-eye'}
-            onClick={() => {
-              type === 'text' ? setType('password') : setType('text');
-            }}
-            src={type === 'text' ? EyeSolid : EyeSlash}
-            alt="show password"
-          />
+          <>
+            <img
+              className={'text-input-password-eye'}
+              onClick={() => {
+                type === 'text' ? setType('password') : setType('text');
+              }}
+              src={type === 'text' ? EyeSolid : EyeSlash}
+              alt="show password"
+            />
+            <img
+              className={'text-input-password-eye-darkmode'}
+              onClick={() => {
+                type === 'text' ? setType('password') : setType('text');
+              }}
+              src={type === 'text' ? EyeSolidDarkMode : EyeSlashDarkMode}
+              alt="show password"
+            />
+          </>
         ) : (
           <></>
         )}
@@ -192,6 +219,10 @@ TextInput.propTypes = {
   isInstagram: PropTypes.bool,
   isUtorID: PropTypes.bool,
   maxLength: PropTypes.number,
+  autocomplete: PropTypes.string,
+  style: PropTypes.object,
+  clearText: PropTypes.bool,
+  setClearText: PropTypes.func,
 };
 
 export { TextInput };

@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 const FaqSchema = new Schema(
   {
+    email: {
+      type: String,
+      required: true,
+    },
     question: {
       type: String,
       required: true,
@@ -14,8 +18,13 @@ const FaqSchema = new Schema(
       required: true,
       default: false,
     },
+    isAnswered: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
-  { strict: true },
+  { strict: true, timestamps: true },
 );
 
 const FaqModel = mongoose.model('FAQ', FaqSchema);

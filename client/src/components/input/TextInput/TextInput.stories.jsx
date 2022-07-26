@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { TextInput } from './TextInput';
-import '../../../App.css';
+import '../../../App.scss';
 
 export default {
   title: 'Text Input',

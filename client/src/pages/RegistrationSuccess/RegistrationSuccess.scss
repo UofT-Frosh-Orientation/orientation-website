@@ -25,6 +25,10 @@
   }
   transform: scale(0);
   animation: zoom-appear 1000ms forwards 500ms;
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--white);
+  }
 }
 
 .registration-success-page-progress-bar {
@@ -171,7 +175,7 @@
   width: 100%;
   margin-bottom: 0px;
   fill-opacity: 0;
-  margin-bottom: -35px;
+  margin-bottom: -10px;
 }
 
 .frosh-group-text-line text {

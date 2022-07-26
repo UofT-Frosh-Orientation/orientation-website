@@ -6,10 +6,11 @@
   flex-direction: row;
   background-color: var(--purple);
   padding: 0% 9%;
-  padding-top: 45px;
+  padding-top: 60px;
   padding-bottom: 25px;
   @include devices(tablet) {
     padding: 4% 5%;
+    padding-top: 12%;
     justify-content: space-around;
   }
   h1 {
@@ -206,6 +207,11 @@
       font-size: 26px;
     }
   }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--purple);
+    color: var(--white);
+  }
 }
 
 .profile-page-schedule-accordions {
@@ -255,6 +261,7 @@
   padding: 0px 10px;
   padding-bottom: 5px;
   margin-top: -12px;
+  width: 100%;
   p {
     font-size: 17px;
   }
@@ -262,6 +269,7 @@
     padding: 0px 5px;
     padding-bottom: 5px;
     font-size: 16px;
+    width: unset;
   }
 }
 .profile-page-schedule-accordion {
@@ -323,5 +331,75 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+.profile-schedule-background-purple {
+  background-color: var(--purple-bg) !important;
+}
+.profile-schedule-background-yellow {
+  background-color: var(--yellow-bg) !important;
+}
+.profile-schedule-background-dark-purple {
+  background-color: var(--dark-purple-bg);
+}
+.profile-schedule-background-gray {
+  background-color: var(--gray-bg);
+}
+.profile-schedule-background-green {
+  background-color: var(--green-bg);
+}
+.profile-schedule-background-blue {
+  background-color: var(--blue-bg);
+}
+
+.profile-logout-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+
+  top: 55px;
+  right: 60px;
+  width: 100px;
+  height: 40px;
+  padding: 5px;
+
+  text-align: center;
+  font-size: 17px;
+  font-weight: 600;
+
+  background-color: var(--yellow);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+
+  cursor: pointer;
+  transition: transform 200ms;
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  @include devices(tablet) {
+    display: unset;
+    position: absolute;
+    top: 5px;
+    right: 50px;
+    height: 35px;
+    padding: 7px 0px 0px 0px;
+  }
+}
+
+.profile-not-registered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 50px;
+  margin-top: 25px;
+  text-align: center;
+  padding: 0px 20px;
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--white);
   }
 }

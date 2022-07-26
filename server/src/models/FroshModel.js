@@ -137,12 +137,12 @@ const FroshSchema = new mongoose.Schema(
       type: Boolean, // true is attending scunt, false is not attending
       required: false,
     },
-    summerLocationGTA: {
+    summerLocation: {
       type: Boolean, // true is in GTA, false is out of GTA
       required: false,
     },
     summerLocationOther: {
-      type: Boolean,
+      type: String,
       required: false,
     },
     moveToToronto: {
@@ -150,7 +150,7 @@ const FroshSchema = new mongoose.Schema(
       enum: ['N/A', 'May', 'June', 'July', 'August', 'September'],
       required: false,
     },
-    commuterPorgram: {
+    commuterProgram: {
       type: Boolean,
       required: false,
     },
@@ -163,13 +163,28 @@ const FroshSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    commuterPorgramStop: {
+    commuterProgramStop: {
       type: String,
       required: false,
     },
     legalName: {
       type: String,
       required: true,
+    },
+    bursaryRequested: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    isRegistered: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    froshGroupIcon: {
+      type: String,
+      required: true,
+      default: '',
     },
   },
   { discriminatorKey: 'userType', strict: true },

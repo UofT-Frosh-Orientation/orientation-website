@@ -73,7 +73,7 @@
     {
       'Event Name': 'Campus Tour / E4TW',
       'Event Description':
-        'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW: Your first design challenge at UofT Engineering, except it’s probably the best one you’ll do',
+        'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW (Engineers 4 The World) is your very first design challenge here at U of T Engineering!',
       'Start Time': '10:30 AM',
       'End Time': '1:00 PM',
       Color: 'yellow',
@@ -87,7 +87,7 @@
     {
       'Event Name': 'Campus Tour / E4TW',
       'Event Description':
-        'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW: Your first design challenge at UofT Engineering, except it’s probably the best one you’ll do',
+        'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW (Engineers 4 The World) is your very first design challenge here at U of T Engineering!',
       'Start Time': '2:00 PM',
       'End Time': '3:30 PM',
       Color: 'yellow',
@@ -127,9 +127,9 @@
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Havenger Scunt',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'dark-purple',

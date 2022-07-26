@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const EmailValidator = require('email-validator');
+const jwt = require('jsonwebtoken');
 
 const UserModel = require('../models/UserModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
@@ -12,7 +13,6 @@ const UserServices = {
    * Validates the fields for a user.
    * @param {String} email
    * @param {String} password
-   * @param {String} name
    * @return {Promise<void>}
    */
   async validateUser(email, password) {
@@ -57,6 +57,95 @@ const UserServices = {
         .catch((err) => {
           reject(err);
         });
+    });
+  },
+
+  async generatePasswordResetToken(email) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOne({ email }, (err, user) => {
+        if (err) {
+          reject(err);
+        } else if (!user) {
+          reject('INVALID_EMAIL');
+        } else {
+          const { email } = user;
+          jwt.sign(
+            { email, timestamp: Date.now() },
+            process.env.JWT_RESET_TOKEN,
+            { expiresIn: '7d' },
+            (err, token) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(token);
+              }
+            },
+          );
+        }
+      });
+    });
+  },
+
+  async validatePasswordResetToken(token) {
+    return new Promise((resolve, reject) => {
+      jwt.verify(token, process.env.JWT_RESET_TOKEN, (err, decoded) => {
+        console.log(err);
+        console.log(decoded);
+        if (err) {
+          reject(err);
+        } else {
+          const { email } = decoded;
+          resolve(email);
+        }
+      });
+    });
+  },
+
+  async getUserByEmail(email) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOne({ email }, (err, user) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(user);
+        }
+      });
+    });
+  },
+
+  async getAllUsers() {
+    return new Promise((resolve, reject) => {
+      UserModel.find({}, (err, users) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(users);
+        }
+      });
+    });
+  },
+
+  async updatePassword(email, password) {
+    if (!passwordValidator.test(password)) {
+      throw new Error('INVALID_PASSWORD');
+    }
+    return new Promise((resolve, reject) => {
+      bcrypt.hash(password, 10).then((hashedPassword) => {
+        UserModel.findOneAndUpdate(
+          { email },
+          { hashedPassword },
+          { returnDocument: 'after' },
+          (err, updatedUser) => {
+            if (err) {
+              reject(err);
+            } else if (!updatedUser) {
+              reject('INVALID_EMAIL');
+            } else {
+              resolve(updatedUser);
+            }
+          },
+        );
+      });
     });
   },
 };

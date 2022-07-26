@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Login.scss';
 import { useNavigate } from 'react-router-dom';
@@ -15,14 +15,23 @@ import MountainFR from '../../assets/login/mountain-front-right.svg';
 import MountainM from '../../assets/login/mountain-mid.svg';
 import Ptero from '../../assets/login/ptero.svg';
 
+import BrachioRDarkMode from '../../assets/darkmode/login/brachiosaurus-ground-right.svg';
+import BrachioLDarkMode from '../../assets/darkmode/login/brachiosaurus-ground-left.svg';
+import GroundDarkMode from '../../assets/darkmode/login/ground.svg';
+import MountainBDarkMode from '../../assets/darkmode/login/mountain-back.svg';
+import MountainFLDarkMode from '../../assets/darkmode/login/mountain-front-left.svg';
+import MountainFRDarkMode from '../../assets/darkmode/login/mountain-front-right.svg';
+import MountainMDarkMode from '../../assets/darkmode/login/mountain-mid.svg';
+import PteroDarkMode from '../../assets/darkmode/login/ptero.svg';
+
 import { resetPassword } from './functions';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { PopupModal } from '../../components/popup/PopupModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { userSelector } from '../userSlice';
-import { login } from './saga';
+import { requestPasswordResetSelector, userSelector } from '../userSlice';
+import { login, requestPasswordReset } from './saga';
 
 // Messages!
 const popupTitle = 'Reset Password';
@@ -66,6 +75,7 @@ const PageLogin = ({ incorrectEntry }) => {
             <TextInput
               inputType={'text'}
               placeholder={'Email'}
+              autocomplete={'email'}
               onChange={(value) => {
                 setEmail(value);
               }}
@@ -74,6 +84,7 @@ const PageLogin = ({ incorrectEntry }) => {
             <TextInput
               inputType={'password'}
               placeholder={'Password'}
+              autocomplete={'current-password'}
               onChange={(value) => {
                 setPassword(value);
               }}
@@ -123,15 +134,49 @@ const LoginBackgroundImages = () => {
   return (
     <>
       <div className="login-bg-images">
-        <img className="mountain-back" src={MountainB} alt="mountain"></img>
-        <img className="mountain-front-right" src={MountainFR} alt="mountain"></img>
-        <img className="mountain-mid" src={MountainM} alt="mountain"></img>
-        <img className="mountain-front-left" src={MountainFL} alt="mountain"></img>
+        <img className="mountain-back login-nodarkmode" src={MountainB} alt="mountain"></img>
+        <img className="mountain-back login-darkmode" src={MountainBDarkMode} alt="mountain"></img>
 
-        <img className="ground" src={Ground} alt="ground"></img>
-        <img className="brachio-left" src={BrachioL} alt="brachiosaurus"></img>
-        <img className="brachio-right" src={BrachioR} alt="brachiosaurus"></img>
-        <img className="ptero" src={Ptero} alt="ptero"></img>
+        <img
+          className="mountain-front-right login-nodarkmode"
+          src={MountainFR}
+          alt="mountain"
+        ></img>
+        <img
+          className="mountain-front-right login-darkmode"
+          src={MountainFRDarkMode}
+          alt="mountain"
+        ></img>
+
+        <img className="mountain-mid login-nodarkmode" src={MountainM} alt="mountain"></img>
+        <img className="mountain-mid login-darkmode" src={MountainMDarkMode} alt="mountain"></img>
+
+        <img className="mountain-front-left login-nodarkmode" src={MountainFL} alt="mountain"></img>
+        <img
+          className="mountain-front-left login-darkmode"
+          src={MountainFLDarkMode}
+          alt="mountain"
+        ></img>
+
+        <img className="ground login-nodarkmode" src={Ground} alt="ground"></img>
+        <img className="ground login-darkmode" src={GroundDarkMode} alt="ground"></img>
+
+        <img className="brachio-left login-nodarkmode" src={BrachioL} alt="brachiosaurus"></img>
+        <img
+          className="brachio-left login-darkmode"
+          src={BrachioLDarkMode}
+          alt="brachiosaurus"
+        ></img>
+
+        <img className="brachio-right login-nodarkmode" src={BrachioR} alt="brachiosaurus"></img>
+        <img
+          className="brachio-right login-darkmode"
+          src={BrachioRDarkMode}
+          alt="brachiosaurus"
+        ></img>
+
+        <img className="ptero login-nodarkmode" src={Ptero} alt="ptero"></img>
+        <img className="ptero login-darkmode" src={PteroDarkMode} alt="ptero"></img>
       </div>
     </>
   );
@@ -146,29 +191,11 @@ PageLogin.defaultProps = {
 };
 
 const ForgotPassword = ({ trigger, setTrigger }) => {
-  const [emailError, setEmailError] = useState(''); // error message returned -- either a success or error
-  const [passwordResetSuccess, setpasswordResetSuccess] = useState(false); // success or not
-  const [isLoadingPassword, setIsLoadingPassword] = useState(false);
-  const [emailInput, setEmailInput] = useState(''); // email entered by user
+  const [email, setEmailInput] = useState(''); // email entered by user
   const [buttonClick, setButtonClick] = useState(0);
-
-  async function resetButtonPress() {
-    setIsLoadingPassword(true);
-    setButtonClick(buttonClick + 1);
-    if (emailError !== '') {
-      setEmailError('');
-    }
-    const result = await resetPassword(emailInput);
-    if (result === true) {
-      // this will display success message and change Button to close
-      setpasswordResetSuccess(true);
-      setIsLoadingPassword(false);
-    } else {
-      setEmailError(result);
-      setIsLoadingPassword(false);
-      setpasswordResetSuccess(false);
-    }
-  }
+  const { loading, error, passwordResetRequest } = useSelector(requestPasswordResetSelector);
+  const dispatch = useDispatch();
+  console.log(passwordResetRequest && !loading);
 
   return (
     <>
@@ -179,24 +206,26 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
             placeholder={'Email'}
             localStorageKey={'forgot-password-container-email'}
             onChange={(value) => {
+              console.log('Email', value);
               setEmailInput(value);
             }}
-            onEnterKey={resetButtonPress}
+            onEnterKey={() => {
+              setButtonClick(buttonClick + 1);
+              dispatch(requestPasswordReset(email));
+            }}
           />
         </div>
 
         <div className="password-reset-button-loading-container">
-          {isLoadingPassword ? (
+          {loading ? (
             // if loading, then display loading animation
             <div
-              className={`password-reset-loading ${
-                isLoadingPassword === true ? 'password-reset-loading-appear' : ''
-              }`}
+              className={`password-reset-loading ${loading ? 'password-reset-loading-appear' : ''}`}
             >
               <LoadingAnimation size={'60px'} />
             </div>
           ) : // if not loading, display the buttons
-          passwordResetSuccess ? (
+          passwordResetRequest ? (
             <Button
               label={'Close'}
               onClick={() => {
@@ -207,7 +236,8 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
             <Button
               label={'Send'}
               onClick={() => {
-                resetButtonPress();
+                setButtonClick(buttonClick + 1);
+                dispatch(requestPasswordReset(email));
                 // setButtonClick(buttonClick + 1);
                 //console.log(buttonClick);
               }}
@@ -218,11 +248,21 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
         <div className="password-reset-result-message">
           {
             // added buttonclick, so the message doesn't display immediately
-            buttonClick > 0 && !isLoadingPassword ? (
-              passwordResetSuccess ? (
-                <ErrorSuccessBox content={emailSuccessMessage} success={true} />
+            buttonClick > 0 && !loading ? (
+              passwordResetRequest ? (
+                <ErrorSuccessBox
+                  content={
+                    passwordResetRequest
+                      ? 'We have sent an email to the address you provided. Please follow the instructions there to reset your password.'
+                      : ''
+                  }
+                  success={true}
+                />
               ) : (
-                <ErrorSuccessBox content={emailErrorMessage} error={true} />
+                <ErrorSuccessBox
+                  content={error ? 'Something went wrong. Please try again later.' : ''}
+                  error={true}
+                />
               )
             ) : (
               <></>

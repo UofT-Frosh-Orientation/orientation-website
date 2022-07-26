@@ -1,5 +1,4 @@
 # Orientation Website
-HELLO HELLO ! 
 This repository holds the source code for UofT Engineering's Orientation Website! This fullstack website is 
 split into two "packages". First, there is the frontend package, `client`, and second there is the backend
 package `server`.

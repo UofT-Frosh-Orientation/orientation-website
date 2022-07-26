@@ -40,6 +40,10 @@
 
 .register-terms-of-service {
   font-size: 15px;
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--white);
+  }
 }
 
 .register-terms-of-service-below {
@@ -47,6 +51,10 @@
   text-align: center;
   margin-top: 10px;
   padding: 0px 10px;
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--white);
+  }
 }
 
 .registration-first-step-title {
@@ -58,6 +66,10 @@
   @include devices(mobile) {
     font-size: 28px;
   }
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--white);
+  }
 }
 
 .registration-first-step-subtitle {
@@ -68,6 +80,9 @@
   padding-top: 2px;
   @include devices(mobile) {
     font-size: 18px;
+  }
+  @media (prefers-color-scheme: dark) {
+    color: var(--white);
   }
 }
 
@@ -89,7 +104,6 @@
 }
 
 .registration-edit-popup {
-  padding: 10px 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -108,4 +122,10 @@
   display: flex;
   flex-direction: row;
   margin-bottom: -10px;
+}
+.registration-payment-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

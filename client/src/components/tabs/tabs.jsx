@@ -7,7 +7,9 @@ import ArrowRight from '../../assets/steps/arrow-right-solid.svg';
 import ArrowLeft from '../../assets/steps/arrow-left-solid.svg';
 import { useEffect } from 'react';
 
-const Tabs = ({ tabs, maxWidthTab, selectedTabPassed, go, displayButtons }) => {
+
+const Tabs = ({ tabs, maxWidthTab, selectedTabPassed, go, displayButtons, scrollToTopAfterChange }) => {
+
   useEffect(() => {
     if (selectedTabPassed !== undefined) {
       setSelectedTab(selectedTabPassed);
@@ -54,6 +56,7 @@ const Tabs = ({ tabs, maxWidthTab, selectedTabPassed, go, displayButtons }) => {
                 }
                 onClick={() => {
                   setSelectedTab(selectedTab - 1);
+                  if (scrollToTopAfterChange) window.scrollTo(0, 0);
                 }}
               />
             ) : (
@@ -70,6 +73,7 @@ const Tabs = ({ tabs, maxWidthTab, selectedTabPassed, go, displayButtons }) => {
                 }
                 onClick={() => {
                   setSelectedTab(selectedTab + 1);
+                  if (scrollToTopAfterChange) window.scrollTo(0, 0);
                 }}
               />
             ) : (
@@ -95,6 +99,7 @@ Tabs.propTypes = {
   selectedTabPassed: PropTypes.number,
   go: PropTypes.bool,
   displayButtons: PropTypes.bool,
+  scrollToTopAfterChange: PropTypes.bool,
 };
 
 Tabs.defaultProps = {

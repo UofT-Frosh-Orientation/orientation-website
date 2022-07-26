@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import faAngleDown from '../../../../assets/accordion/angle-up-solid.svg';
 import './SingleAccordion.scss';
 
-const SingleAccordion = ({ header, children, isOpen, setIsOpen, canOpen, className }) => {
+const SingleAccordion = ({ header, children, isOpen, setIsOpen, canOpen, className, style }) => {
   const [height, setHeight] = useState('0px');
   const [rotate, setRotate] = useState('accord-icon');
 
@@ -22,7 +22,7 @@ const SingleAccordion = ({ header, children, isOpen, setIsOpen, canOpen, classNa
     <div
       className={`accordion ${className}`}
       onClick={toggleAccordion}
-      style={{ cursor: canOpen ? 'pointer' : 'unset' }}
+      style={{ cursor: canOpen ? 'pointer' : 'unset', ...style }}
     >
       <div className="accord-header">
         {header}
@@ -48,6 +48,7 @@ SingleAccordion.propTypes = {
   setIsOpen: PropTypes.func.isRequired,
   canOpen: PropTypes.bool.isRequired,
   className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 export { SingleAccordion };

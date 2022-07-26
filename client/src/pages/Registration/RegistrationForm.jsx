@@ -8,13 +8,14 @@ import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import { Button } from '../../components/button/Button/Button';
 import { Tabs } from '../../components/tabs/tabs';
 import './RegistrationForm.scss';
-import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
+import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { Link, useNavigate } from 'react-router-dom';
 import { PopupModal } from '../../components/popup/PopupModal';
 import useAxios from '../../hooks/useAxios';
-import { registeredSelector, userSelector } from '../userSlice';
+import { initialsSelector, registeredSelector, userSelector } from '../userSlice';
 import { useSelector } from 'react-redux';
+import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 
 const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
   const steps = Object.keys(fields);
@@ -25,6 +26,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   const [showPopUp, setShowPopUp] = useState(false);
   const [canRegister, setCanRegister] = useState(true);
   const [checkoutUrl, setCheckoutUrl] = useState('');
+  const [errorAfterEdit, setErrorAfterEdit] = useState(false);
 
   const { axios } = useAxios();
 
@@ -39,16 +41,17 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   }, []);
 
   const handleRegister = async () => {
+    console.log(froshObject);
     setCanRegister(false);
     const isFormValid = validateForm();
     if (!isFormValid) {
       return setCanRegister(true);
     } else {
-      // console.log(froshObject);
       try {
         const response = await axios.post('/frosh/register', froshObject);
-        setCheckoutUrl(response.data.url);
-        setShowPopUp(true);
+        window.location.href = response.data.url;
+        // setCheckoutUrl(response.data.url);
+        // setShowPopUp(true);
       } catch (error) {
         setCanRegister(true);
       }
@@ -74,6 +77,10 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     let validated = true;
     const formFieldsCopy = { ...formFields };
     for (let step of steps) {
+      if (step === 'EditFieldsOnly' && !editFieldsPage) {
+        continue;
+      }
+
       for (let key of Object.keys(formFields[step])) {
         let localValidated = true;
         if (formFields[step][key].type === 'label') {
@@ -85,7 +92,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             formFieldsCopy[step][key].errorFeedback = validateResult;
             localValidated = false;
             if (validated === true) {
-              setSelectedTab(steps.indexOf(step, 0));
+              //We subtract one because the first key, which is EditFieldsOnly is skipped by the registration form
+              setSelectedTab(steps.indexOf(step, 0) - 1);
               setSelectedTabGo(!selectedTabGo);
               validated = false;
             }
@@ -98,7 +106,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
           formFieldsCopy[step][key].errorFeedback = formFields[step][key].errorMessage;
           localValidated = false;
           if (validated === true) {
-            setSelectedTab(steps.indexOf(step, 0));
+            //We subtract one because the first key, which is EditFieldsOnly is skipped by the registration form
+            setSelectedTab(steps.indexOf(step, 0) - 1);
             setSelectedTabGo(!selectedTabGo);
             validated = false;
           }
@@ -176,6 +185,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       ? field.noEdit
                       : field.isDisabled
                   }
+                  localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
                 />
               </div>
             );
@@ -200,6 +210,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       ? field.noEdit
                       : field.isDisabled
                   }
+                  localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
                 />
               </div>
             );
@@ -223,13 +234,14 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   maxCanSelect={field.maxCanSelect}
                   onSelected={(value, index, status, indicesSelected) => {
                     let values = [];
-                    for (let i = 0; i < indicesSelected?.length ?? 0; i++) {
-                      values.push(field.values[i]);
+                    for (let index of indicesSelected) {
+                      values.push(field.values[index]);
                     }
                     froshObject[key] = values;
                     if (field.onChanged) field.onChanged(value, disableField);
                   }}
                   values={field.values}
+                  localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
                 />
               </div>
             );
@@ -238,7 +250,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
               <div className="text-input-container" style={{ width: '100%' }}>
                 <div className="text-input-title-container">
                   {field.label !== undefined ? (
-                    <p className="text-input-title">{field.label}</p>
+                    field.isBold === true ? (
+                      <b>
+                        <p className="text-input-title">{field.label}</p>
+                      </b>
+                    ) : (
+                      <p className="text-input-title">{field.label}</p>
+                    )
                   ) : (
                     <></>
                   )}
@@ -258,6 +276,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     );
   };
 
+  const user = useSelector(userSelector)?.user;
+
   if (editFieldsPage === true) {
     return (
       <div>
@@ -271,7 +291,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             <h1>Discard changes?</h1>
             <h2>Any changes will be lost.</h2>
             <div className="registration-edit-popup-buttons">
-              <Link to={'/profile'}>
+              <Link to={'/profile'} className="no-link-style">
                 <Button label="Discard" isSecondary />
               </Link>
               <Button label="Keep editing" onClick={() => setShowPopUp(false)} />
@@ -285,28 +305,47 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
               return generateStepComponent(formFields[fieldsKey], fieldsKey);
             })}
           </div>
-          <Button
+          {/* <Button
             label={'Check'}
             onClick={() => {
               console.log(froshObject);
               console.log(validateForm());
             }}
-          />
-
-          <div>
-            {/* TODO: SHow popup to ask if they would like to discard all changes when editing fields */}
-            <ButtonOutlined
-              label={'Discard changes'}
-              onClick={() => {
-                setShowPopUp(true);
+          /> */}
+          <div style={{ marginBottom: '55px' }}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
-            />
-            <Button
-              label={'Save changes'}
-              onClick={() => {
-                onEditSubmit(froshObject);
-              }}
-            />
+            >
+              {/* TODO: SHow popup to ask if they would like to discard all changes when editing fields */}
+              <ButtonOutlined
+                label={'Discard changes'}
+                onClick={() => {
+                  setShowPopUp(true);
+                }}
+              />
+              <Button
+                label={'Save changes'}
+                onClick={() => {
+                  setErrorAfterEdit(false);
+                  if (validateForm() === true) onEditSubmit(froshObject);
+                  else setErrorAfterEdit(true);
+                }}
+              />
+            </div>
+            {errorAfterEdit == true ? (
+              <ErrorSuccessBox
+                content={'Please make sure you have completed all necessary fields.'}
+                error={true}
+              />
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>
@@ -314,7 +353,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   } else {
     return (
       <div>
-        <PopupModal
+        {/* <PopupModal
           trigger={showPopUp}
           setTrigger={setShowPopUp}
           blurBackground={true}
@@ -329,11 +368,12 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
               <Button label={'Pay Now'} onClick={handleCheckout} />
             </div>
           </div>
-        </PopupModal>
+        </PopupModal> */}
         <div className="navbar-space-top" />
         <div className="registration-form-flex">
           <div className="registration-form">
             <Tabs
+              scrollToTopAfterChange={true}
               selectedTabPassed={selectedTab}
               go={selectedTabGo}
               tabs={[
@@ -344,7 +384,12 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       <div className="registration-first-step-header-container">
                         <img className="registration-icon-logo" src={MainFroshLogo}></img>
                         <div>
-                          <h1 className="registration-first-step-title">Hello James</h1>
+                          <h1 className="registration-first-step-title">
+                            {'Hello ' +
+                              (user?.preferredName === '' || !user?.preferredName
+                                ? user?.firstName
+                                : user?.preferredName)}
+                          </h1>
                           <h2 className="registration-first-step-subtitle">
                             Let&apos;s register for UofT Engineering&apos;s F!rosh Week 2T2
                           </h2>
@@ -365,7 +410,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                 {
                   title: 'Payment',
                   component: (
-                    <div>
+                    <div className="registration-payment-page">
                       <p className="register-terms-of-service">{terms}</p>
                       <b>
                         <p className="register-terms-of-service-below">
@@ -375,7 +420,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                         </p>
                       </b>
                       <Button
-                        style={{ margin: '0 auto' }}
+                        style={{ margin: '0 auto', marginTop: '15px' }}
                         label={'Pay Now'}
                         onClick={handleRegister}
                         isDisabled={!canRegister}
@@ -386,13 +431,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
               ]}
             />
           </div>
-          <Button
+          {/* <Button
             label={'Check'}
             onClick={() => {
               console.log(froshObject);
               console.log(validateForm());
             }}
-          />
+          /> */}
         </div>
       </div>
     );

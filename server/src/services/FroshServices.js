@@ -6,26 +6,29 @@ const FroshServices = {
    * Gets the frosh group for a new frosh.
    * @param {String} discipline - the discipline of the frosh
    * @param {String} pronouns -  the pronouns of the frosh
-   * @return {Promise<String>} - the name of the frosh group
+   * @return {Promise<Object>} - the name of the frosh group
    */
   async getNewFroshGroup(discipline, pronouns) {
     const froshGroupList = await FroshGroupModel.find();
     let minNumber = 10000;
     let minScore = 10000;
     let froshGroup = '';
+    let froshGroupIcon = '';
     for (let i = 0; i < froshGroupList.length; i++) {
       const score = 0.5 * froshGroupList[i][discipline] + 0.5 * froshGroupList[i][pronouns];
       if (froshGroupList[i].totalNum < minNumber) {
         minNumber = froshGroupList[i].totalNum;
         froshGroup = froshGroupList[i].name;
+        froshGroupIcon = froshGroupList[i].icon;
         minScore = score;
       }
       if (froshGroupList[i].totalNum === minNumber && score < minScore) {
         froshGroup = froshGroupList[i].name;
+        froshGroupIcon = froshGroupList[i].icon;
         minScore = score;
       }
     }
-    return froshGroup;
+    return { froshGroup, froshGroupIcon };
   },
   /**
    * Upgrades an existing user account to a frosh account.
@@ -40,7 +43,9 @@ const FroshServices = {
     frosh.set({
       ...newInfo,
       userType: 'frosh',
-      payments: [{ item: 'Orientation Ticket', paymentIntent, amountDue: 13000 }],
+      payments: user.payments
+        ? [...user.payments, { item: 'Orientation Ticket', paymentIntent, amountDue: 13000 }]
+        : [{ item: 'Orientation Ticket', paymentIntent, amountDue: 13000 }],
     });
     const froshGroup = await FroshGroupModel.findOne({ name: newInfo.froshGroup });
     froshGroup[pronouns]++;
@@ -61,29 +66,27 @@ const FroshServices = {
   /**
    * Initializes a list of frosh groups with default values in the database.
    * @constructor
-   * @param {groups} groups - List of frosh groups as javascript objects
+   * @param {Array<Object>} groups - List of frosh groups as javascript objects
    */
   async initFroshGroups(groups) {
-    const defaultVals = {
-      'Prefer Not to Say': 0,
-      'he/him': 0,
-      'she/her': 0,
-      'they/them': 0,
-      Other: 0,
-      Chemical: 0,
-      Civil: 0,
-      'Electrical & Computer': 0,
-      'Engineering Science': 0,
-      Industrial: 0,
-      Materials: 0,
-      Mechanical: 0,
-      Mineral: 0,
-      'Track One (Undeclared)': 0,
-    };
-
-    for (const group of groups) {
-      FroshGroupModel.create({ ...defaultVals, ...group });
-    }
+    return await Promise.all(
+      groups.map((group) => {
+        return new Promise((resolve, reject) => {
+          FroshGroupModel.findOneAndUpdate(
+            { name: group.name },
+            { ...group },
+            { upsert: true },
+            (err, result) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(result);
+              }
+            },
+          );
+        });
+      }),
+    );
   },
 
   async updateFroshInfo(userId, updateInfo) {

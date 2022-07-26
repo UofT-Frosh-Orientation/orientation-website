@@ -4,6 +4,8 @@ import { getSlideshowImages, getTimelineDates } from './functions';
 import './Home.scss';
 import Wave from '../../assets/misc/wave.png';
 import WaveReverse from '../../assets/misc/wave-reverse.png';
+import WaveDarkMode from '../../assets/darkmode/misc/wave.png';
+import WaveReverseDarkmode from '../../assets/darkmode/misc/wave-reverse.png';
 
 import { Button } from '../../components/button/Button/Button';
 import { Link } from 'react-router-dom';
@@ -11,11 +13,12 @@ import { Link } from 'react-router-dom';
 import Landing1 from '../../assets/landing/landing-1.jpg';
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
 import { ImageCarousel } from '../../components/ImageCarousel/ImageCarousel';
-import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
+import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
 import 'react-slideshow-image/dist/styles.css';
 import { Slide } from 'react-slideshow-image';
 import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
 import { PopupModal } from '../../components/popup/PopupModal';
+import { sponsors } from '../../util/sponsors';
 
 const PageHome = () => {
   return (
@@ -35,7 +38,12 @@ const HomePageHeader = () => {
         <h2>F!rosh Week</h2>
         <h1>2T2</h1>
         <p>Organized by the University of Toronto&apos;s Engineering Orientation Commitee</p>
-        <Link key={'/registration'} to={'/registration'} style={{ textDecoration: 'none' }}>
+        <Link
+          key={'/registration'}
+          to={'/registration'}
+          style={{ textDecoration: 'none' }}
+          className="no-link-style"
+        >
           <div className="home-page-header-register-button">
             <div className="desktop-only">
               <Button
@@ -62,6 +70,7 @@ const HomePageHeader = () => {
         <HomePageSlideshow />
       </div>
       <img src={Wave} className="wave-image home-page-top-wave-image" />
+      <img src={WaveDarkMode} className="wave-image home-page-top-wave-image-dark" />
     </div>
   );
 };
@@ -153,31 +162,20 @@ const HomePageSponsors = () => {
   return (
     <div className="home-page-sponsors">
       <img src={WaveReverse} className="wave-image home-page-bottom-wave-image" />
-      <h2>Our Sponsors</h2>
-      <ImageCarousel
-        items={[
-          {
-            website: 'https://www.utoronto.ca/',
-            image: MainFroshLogo,
-          },
-          {
-            website: 'https://www.utoronto.ca/',
-            image: MainFroshLogo,
-          },
-          {
-            website: 'https://www.utoronto.ca/',
-            image: MainFroshLogo,
-          },
-          {
-            website: 'https://www.utoronto.ca/',
-            image: MainFroshLogo,
-          },
-          {
-            website: 'https://www.utoronto.ca/',
-            image: MainFroshLogo,
-          },
-        ]}
-      />
+      <img src={WaveReverseDarkmode} className="wave-image home-page-bottom-wave-image-dark" />
+      <h2 className="home-page-sponsors">Our Sponsors</h2>
+      <PleaseSponsor />
+      <ImageCarousel items={sponsors} />
+    </div>
+  );
+};
+
+const PleaseSponsor = () => {
+  return (
+    <div className="please-sponsor">
+      <h3>Want to sponsor F!rosh Week?</h3>
+      <h4>Please contact:</h4>
+      <a href="mailto:sponsorship@orientation.skule.ca">sponsorship@orientation.skule.ca</a>
     </div>
   );
 };

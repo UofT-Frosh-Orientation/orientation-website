@@ -1,6 +1,12 @@
 @import '../../../scssStyles/mixins';
 .button-selector-items {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
+}
+
+.button-selector-no-stretch {
+  display: inline-block;
+  margin: auto;
+  text-align: center;
 }

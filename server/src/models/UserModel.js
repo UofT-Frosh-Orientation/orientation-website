@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const getResponseObject = require('../util/getResponseObject');
 
 const validateName = function (name) {
-  return !(name === '' || name === null);
+  return !(name === '' || name === null || name === undefined);
 };
 
 const UserSchema = new mongoose.Schema(

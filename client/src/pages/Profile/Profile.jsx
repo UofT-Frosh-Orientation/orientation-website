@@ -17,6 +17,7 @@ import {
 } from './functions';
 import './Profile.scss';
 import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
+import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
 import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnnouncement';
 import { QRNormal } from 'react-qrbtf';
 import { ButtonBubble } from '../../components/button/ButtonBubble/ButtonBubble';
@@ -29,10 +30,14 @@ import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import EditIcon from '../../assets/misc/pen-solid.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { resources } from '../../util/resources';
-import { useSelector } from 'react-redux';
-import { userSelector } from '../userSlice';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { registeredSelector, userSelector } from '../userSlice';
+
+import { PopupModal } from '../../components/popup/PopupModal';
+import { logout } from '../Login/saga';
 
 const PageProfile = () => {
   const qrCodeLeader = canLeaderScanQR();
@@ -46,11 +51,16 @@ const PageProfile = () => {
   }
 };
 
-const PageProfileFrosh = ({ leader }) => {
+const PageProfileFrosh = ({ leader, isLoggedIn, setIsLoggedIn }) => {
   return (
     <>
       <div className="navbar-space-top" />
-      <ProfilePageHeader leader={leader} editButton={true} />
+      <ProfilePageHeader
+        leader={leader}
+        editButton={true}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+      />
       <div className="profile-info-row">
         <div>
           {leader === false || leader === undefined ? (
@@ -71,6 +81,8 @@ const PageProfileFrosh = ({ leader }) => {
 
 PageProfileFrosh.propTypes = {
   leader: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
+  setIsLoggedIn: PropTypes.func,
 };
 
 const PageProfileQRLeader = () => {
@@ -229,25 +241,54 @@ const ProfilePageQRScanner = () => {
   );
 };
 
-const ProfilePageHeader = ({ leader, editButton }) => {
+const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) => {
   const { user } = useSelector(userSelector);
-  console.log(`editButton: ${editButton}`);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
+
+  const isRegistered = useSelector(registeredSelector);
+  // console.log(`editButton: ${editButton}`);
   return (
     <>
+      {/* calum, please log out in the popups! */}
+      <PopupModal
+        trigger={showLogoutPopup}
+        setTrigger={setShowLogoutPopup}
+        exitIcon={true}
+        blurBackground={false}
+        heading={'Would you like to logout?'}
+      >
+        <Button
+          isSecondary={true}
+          label="Logout"
+          onClick={() => {
+            dispatch(logout({ navigate, setShowLogoutPopup }));
+          }}
+        />
+      </PopupModal>
+
       <div className="profile-page-header">
         <div className="profile-page-header-group">
-          <h1>{user['froshGroupIcon']}</h1>
-          <p>{user['froshGroup']}</p>
+          <h1>{user?.froshGroupIcon}</h1>
+          <p>{user?.froshGroup}</p>
           {leader === true ? <p>{'(Leader)'}</p> : <></>}
         </div>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-info">
             <p className="profile-page-name-title">
-              <b>{user['firstName']}</b> {user['lastName']}
+              {user?.preferredName === '' || !user?.preferredName ? (
+                <>
+                  <b>{user?.firstName}</b> {user?.lastName}
+                </>
+              ) : (
+                <b>{user?.preferredName}</b>
+              )}
             </p>
-            <p>{`Incoming ${user['discipline']} student`}</p>
+            {user?.discipline && <p>{`Incoming ${user['discipline']} Engineering student`}</p>}
             <p>
-              <u>{user['email']}</u>
+              <u>{user?.email}</u>
             </p>
           </div>
           <div className="profile-page-header-class desktop-only">
@@ -260,16 +301,46 @@ const ProfilePageHeader = ({ leader, editButton }) => {
               </>
             )}
           </div>
-          {editButton !== false ? (
-            <Link to={'/profile-edit'} className={'profile-edit-icon-link'}>
+          {editButton !== false && isRegistered ? (
+            <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
               <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
             </Link>
+          ) : (
+            <></>
+          )}
+          {editButton !== false ? (
+            <div
+              style={{ right: !isRegistered ? '10px' : '60px' }}
+              className="profile-logout-button"
+              onClick={() => {
+                setShowLogoutPopup(true);
+              }}
+            >
+              Logout
+            </div>
           ) : (
             <></>
           )}
         </div>
       </div>
       <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
+      <img src={WaveReverseFlipDarkMode} className="wave-image home-page-bottom-wave-image-dark" />
+      {!isRegistered ? (
+        <div className={'profile-not-registered'}>
+          <h1>You are not registered!</h1>
+          <h2>You will not be able to participate in F!rosh week events until you register.</h2>
+          <Link
+            key={'/registration'}
+            to={'/registration'}
+            style={{ textDecoration: 'none' }}
+            className={'no-link-style'}
+          >
+            <Button label="Register" style={{}} />
+          </Link>
+        </div>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
@@ -277,6 +348,8 @@ const ProfilePageHeader = ({ leader, editButton }) => {
 ProfilePageHeader.propTypes = {
   leader: PropTypes.bool,
   editButton: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
+  setIsLoggedIn: PropTypes.func,
 };
 
 const ProfilePageAnnouncements = () => {
@@ -287,16 +360,20 @@ const ProfilePageAnnouncements = () => {
   return (
     <div className="profile-page-announcements">
       <h2 className="profile-page-section-header">Tasks and Announcements</h2>
-      <TaskAnnouncement tasks={tasks} onDone={onDoneTask} />
+      {tasks == undefined ? <></> : <TaskAnnouncement tasks={tasks} onDone={onDoneTask} />}
     </div>
   );
 };
 
 const ProfilePageQRCode = () => {
+  const isRegistered = useSelector(registeredSelector);
   const [QRCodeString, setQRCodeString] = useState('');
   useEffect(async () => {
     setQRCodeString(await getQRCodeString());
   }, []);
+  if (!isRegistered) {
+    return <></>;
+  }
   return (
     <div className="profile-page-qr-code">
       <QRNormal
@@ -416,12 +493,16 @@ const ProfilePageAccordionWrapper = ({ scheduleDateObj, index, closeAll }) => {
     </div>
   );
   return (
-    <div className="profile-page-accordion-container">
+    <div
+      className="profile-page-accordion-container"
+      style={scheduleDateObj.description === undefined ? { pointerEvents: 'none' } : {}}
+    >
       <SingleAccordion
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         header={accordionHeader}
-        className={`profile-page-schedule-accordion`}
+        className={`profile-page-schedule-accordion ${`profile-schedule-background-${scheduleDateObj.Color}`}`}
+        canOpen={scheduleDateObj.description !== undefined}
       >
         {accordionContent}
       </SingleAccordion>

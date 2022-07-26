@@ -23,6 +23,7 @@ newUserSubscription.process((job, done) => {
 
     done();
   } catch (error) {
+    console.log(error);
     done(error);
   }
 });

@@ -2,7 +2,7 @@ export const aboutUsInfo = [
   {
     title: 'What is F!rosh Week?',
     description: `
-      'F!rosh Week is a week-long orientation where students and faculty welcome over 1000 incoming students to the U of T Engineering Community! 
+      F!rosh Week is a week-long orientation where students and faculty welcome over 1000 incoming students to the U of T Engineering Community! 
       Central to the experience at Skule™, F!rosh Week consists of engaging and exciting events designed to introduce students to the community, 
       traditions, and spirit of U of T Engineering. F!rosh Week is anticipated by thousands of students every year and many students become involved 
       to provide a meaningful experience for their new peers.

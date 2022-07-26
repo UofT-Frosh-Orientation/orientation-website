@@ -1,35 +1,30 @@
-import { BrowserRouter, Link, useLocation, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, useLocation, Route, Routes } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import ScrollToTop from './components/misc/ScrollToTop/ScrollToTop';
 import './App.scss';
-import { InitialPage } from './pages/Initial/Initial';
 import { pages } from './util/pages';
 import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { initialsSelector, loggedInSelector, registeredSelector } from './pages/userSlice';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { getUserInfo } from './pages/Login/saga';
+import { InitialPage } from './pages/Initial/Initial';
+import { AskQuestionButton } from './components/button/AskQuestionButton/AskQuestionButton';
+import { userSelector } from '../src/pages/userSlice';
 
 export default function App() {
-  const initial = import.meta.env.MODE === 'production';
   const dispatch = useDispatch();
-  if (initial) {
-    return <InitialPage />;
-  }
   useEffect(() => {
     dispatch(getUserInfo());
   }, []);
 
   return (
+    // <InitialPage />
     <BrowserRouter>
       <TransitionRoutes />
     </BrowserRouter>
   );
-}
-
-function froshInitials() {
-  return 'NL';
 }
 
 const TransitionRoutes = () => {
@@ -61,6 +56,7 @@ const TransitionRoutes = () => {
           <Route path="*" element={pages['404'].component} />
         </Routes>
       </CSSTransition>
+      <AskQuestionButton />
     </TransitionGroup>
   );
 };

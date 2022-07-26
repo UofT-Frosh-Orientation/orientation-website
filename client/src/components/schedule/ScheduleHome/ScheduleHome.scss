@@ -71,6 +71,12 @@
   h2 {
     font-size: 20px;
   }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--light-purple);
+    color: var(--white);
+    opacity: 0.3;
+  }
 }
 
 .schedule-container-dates-container-selected {
