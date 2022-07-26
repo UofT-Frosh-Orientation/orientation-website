@@ -35,11 +35,14 @@ function darkmodefunc() {
 }
 
 function logoutfunction() {
+  //????
   console.log('logging out');
   const navigate = useNavigate();
+  console.log('logging out1');
   const dispatch = useDispatch();
+  console.log('logging out2');
   //let setShowLogoutPopup = true;
-  dispatch(logout({ navigate }));
+  return dispatch(logout({ navigate }));
 }
 
 export const pages = {

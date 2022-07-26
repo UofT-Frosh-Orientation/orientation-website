@@ -28,7 +28,11 @@ const ProfileDropdown = ({ open, setOpen, items }) => {
           setOpen(false);
         }}
       >
-        <div className="profile-dropdown-container">
+        <div
+          className={`profile-dropdown-container ${
+            open ? 'profile-dropdown-container-display' : ''
+          }`}
+        >
           {/* <img src={Triangle} className='profile-dropdown-triangle' alt='triangle' ></img> */}
           {items.map((item) => {
             count++;
