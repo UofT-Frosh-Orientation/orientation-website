@@ -28,7 +28,7 @@ const PageSignUp = () => {
       setPageState('loading');
     } else if (error) {
       setPageState('form');
-      setErrors(error);
+      setSignUpError(error);
     } else if (user) {
       setPageState('success');
     }
