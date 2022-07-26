@@ -30,6 +30,10 @@
   position: relative;
   display: flex;
   align-items: center;
+  background-color: var(--white);
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--purple);
+  }
   .dropdown-image {
     user-select: none;
     height: 100%;

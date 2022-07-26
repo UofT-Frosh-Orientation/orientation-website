@@ -147,6 +147,17 @@ h5 {
   font-family: 'Inter-Bold', sans-serif;
   margin: 0px;
   padding: 0px;
+  color: var(--text-dark);
+  @media (prefers-color-scheme: dark) {
+    color: var(--text-light);
+  }
+}
+
+p {
+  color: var(--text-dark);
+  @media (prefers-color-scheme: dark) {
+    color: var(--text-light);
+  }
 }
 
 a {
