@@ -88,10 +88,6 @@
   @include devices(tablet) {
     margin: 0 0 25px 0;
   }
-
-  @media (prefers-color-scheme: dark) {
-    background: var(--light-purple);
-  }
 }
 
 .aboutus-info-title {
@@ -204,10 +200,6 @@
     width: 85vw;
     padding: 25px 0;
   }
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--white);
-  }
 }
 
 .aboutus-teams-all-tabs {
@@ -304,10 +296,6 @@
   @include devices(tablet) {
     font-size: 20px;
   }
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--white);
-  }
 }
 
 .aboutus-yellow-bubble {
@@ -324,10 +312,6 @@
   background-color: var(--light-purple) !important;
   opacity: 1;
   transition: width 500ms, opacity 500ms;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--yellow) !important;
-  }
 }
 .aboutus-yellow-bubble-noshow {
   width: 0%;

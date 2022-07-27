@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   canLeaderScanQR,
@@ -41,6 +41,7 @@ import { registeredSelector, userSelector } from '../userSlice';
 import { PopupModal } from '../../components/popup/PopupModal';
 import { logout } from '../Login/saga';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
+import { DarkModeContext } from '../../util/DarkModeProvider';
 
 const PageProfile = () => {
   const qrCodeLeader = canLeaderScanQR();
@@ -216,6 +217,8 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
 
   const isRegistered = useSelector(registeredSelector);
   // console.log(`editButton: ${editButton}`);
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
     <>
       <PopupModal
@@ -288,8 +291,11 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
           )}
         </div>
       </div>
-      <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
-      <img src={WaveReverseFlipDarkMode} className="wave-image home-page-bottom-wave-image-dark" />
+      {darkMode ? (
+        <img src={WaveReverseFlipDarkMode} className="wave-image home-page-bottom-wave-image" />
+      ) : (
+        <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
+      )}
       {!isRegistered && leader !== true ? (
         <div className={'profile-not-registered'}>
           <h1>You are not registered!</h1>
@@ -320,6 +326,7 @@ ProfilePageHeader.propTypes = {
 const ProfilePageInstagrams = () => {
   const { user } = useSelector(userSelector);
   const isRegistered = useSelector(registeredSelector);
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   const getInstagramFromLink = (link) => {
     if (link === undefined) return '';
@@ -331,7 +338,11 @@ const ProfilePageInstagrams = () => {
   return isRegistered ? (
     <a href={instagramLink} className="no-link-style">
       <div className="frosh-instagram-container">
-        <img src={InstagramIcon} alt="Instagram" />
+        <img
+          src={InstagramIcon}
+          alt="Instagram"
+          style={{ filter: darkMode ? 'invert(1)' : 'unset' }}
+        />
         <div>
           <p>Go follow your frosh group and meet your Leedurs!</p>
           <h2>@{getInstagramFromLink(instagramLink)}</h2>

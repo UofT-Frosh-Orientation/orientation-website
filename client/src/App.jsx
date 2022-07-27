@@ -7,11 +7,12 @@ import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { initialsSelector, loggedInSelector, registeredSelector } from './pages/userSlice';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { getUserInfo } from './pages/Login/saga';
 import { InitialPage } from './pages/Initial/Initial';
 import { AskQuestionButton } from './components/button/AskQuestionButton/AskQuestionButton';
 import { userSelector } from '../src/pages/userSlice';
+import { DarkModeProvider } from './util/DarkModeProvider';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -20,10 +21,11 @@ export default function App() {
   }, []);
 
   return (
-    // <InitialPage />
-    <BrowserRouter>
-      <TransitionRoutes />
-    </BrowserRouter>
+    <DarkModeProvider>
+      <BrowserRouter>
+        <TransitionRoutes />
+      </BrowserRouter>
+    </DarkModeProvider>
   );
 }
 
@@ -32,9 +34,10 @@ const TransitionRoutes = () => {
   const loggedIn = useSelector(loggedInSelector);
   const registered = useSelector(registeredSelector);
   const initials = useSelector(initialsSelector);
-  console.log(loggedIn);
+  // const {darkMode} = useContext(DarkModeContext);
   return (
     <TransitionGroup>
+      {/* <div className={`${darkMode?"dark-mode-body":"light-mode-body"}`}> */}
       <Navbar isLoggedIn={loggedIn} froshInitials={initials} isRegistered={registered} />
       <ScrollToTop />
       <CSSTransition key={location.key} classNames="page" timeout={300}>
@@ -63,6 +66,7 @@ const TransitionRoutes = () => {
         </Routes>
       </CSSTransition>
       <AskQuestionButton />
+      {/* </div> */}
     </TransitionGroup>
   );
 };

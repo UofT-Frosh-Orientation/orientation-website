@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import './ScuntJudgeForm.scss';
-import waveBottom from '../../assets/misc/wave-reverse.png';
-import waveBottomDarkMode from '../../assets/darkmode/misc/wave-reverse.png';
 import { Header } from '../../components/text/Header/Header';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { useSelector } from 'react-redux';

@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { getQuestions } from './functions';
 import './FAQ.scss';
@@ -8,8 +8,10 @@ import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/B
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import SearchIcon from '../../assets/misc/magnifying-glass-solid.svg';
 import DeleteIcon from '../../assets/misc/circle-xmark-solid.svg';
+import { DarkModeContext } from '../../util/DarkModeProvider';
 
 const PageFAQ = () => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isSearch, setIsSearch] = useState(false);
   const [isMultiSearch, setIsMultiSearch] = useState(false);
@@ -63,8 +65,11 @@ const PageFAQ = () => {
           setActiveIndex={setActiveIndex}
           questionCategories={questionCategories}
         />
-        <img src={Wave} className={'faq-wave-image faq-page-top-wave-image'} />
-        <img src={WaveDarkMode} className={'faq-wave-image faq-page-top-wave-image-darkmode'} />
+        {darkMode ? (
+          <img src={WaveDarkMode} className={'faq-wave-image faq-page-top-wave-image'} />
+        ) : (
+          <img src={Wave} className={'faq-wave-image faq-page-top-wave-image'} />
+        )}
         <div
           className={`faq-button-selector-container ${
             isSearch ? 'faq-hide-button-selector' : 'faq-show-button-selector'

@@ -40,11 +40,6 @@
     margin-bottom: 15px;
     width: 100%;
   }
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--purple-shades-dark);
-    color: var(--white);
-  }
 }
 
 .half-width-input {
@@ -137,11 +132,6 @@
         opacity 1000ms ease-in-out ($i - 1.5) * 700ms;
     }
   }
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--purple-shades-dark);
-    color: var(--white);
-  }
 }
 
 .sign-up-success-appear {
@@ -156,10 +146,5 @@
       transition: transform 1000ms ease-in-out ($i - 1.5) * 700ms,
         opacity 1000ms ease-in-out ($i - 1.5) * 700ms;
     }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--purple-shades-dark);
-    color: var(--white);
   }
 }

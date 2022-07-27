@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import './Footer.scss';
 import { pages } from '../../util/pages';
@@ -7,14 +7,19 @@ import { socials } from '../../util/socials';
 import Wave from '../../assets/misc/wave.svg';
 import WaveDarkMode from '../../assets/darkmode/misc/wave.svg';
 import bug from '../../assets/misc/bug-solid.svg';
+import { DarkModeContext } from '../../util/DarkModeProvider';
 
 const Footer = () => {
   const { pathname } = useLocation();
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   return (
     <>
-      <img src={Wave} className="wave-image-footer" />
-      <img src={WaveDarkMode} className="wave-image-footer-darkmode" />
+      {darkMode ? (
+        <img src={WaveDarkMode} className="wave-image-footer" />
+      ) : (
+        <img src={Wave} className="wave-image-footer" />
+      )}
       <div className="footer-container">
         <div className="sitemap">
           <div className="sitemap-text">Site Map</div>

@@ -28,10 +28,6 @@
   @include devices(tablet) {
     margin-top: 0px;
   }
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--purple-shades-dark);
-  }
 }
 
 .tabs-buttons {
