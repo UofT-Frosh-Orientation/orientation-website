@@ -22,6 +22,7 @@ import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { pages } from '../../util/pages';
+import { profilePages } from '../../util/profile-pages';
 import { PopupModal } from '../popup/PopupModal';
 import { Button } from '../button/Button/Button';
 import { useDispatch } from 'react-redux';
@@ -58,30 +59,26 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
 
   return (
     <>
-      {openProfileDropdown ? (
-        isLoggedIn ? (
-          isRegistered ? (
-            <ProfileDropdown
-              open={openProfileDropdown}
-              setOpen={setOpenProfileDropdown}
-              items={pages.register}
-            />
-          ) : (
-            <ProfileDropdown
-              open={openProfileDropdown}
-              setOpen={setOpenProfileDropdown}
-              items={pages.login}
-            />
-          )
+      {isLoggedIn ? (
+        isRegistered ? (
+          <ProfileDropdown
+            open={openProfileDropdown}
+            setOpen={setOpenProfileDropdown}
+            items={profilePages.register}
+          />
         ) : (
           <ProfileDropdown
             open={openProfileDropdown}
             setOpen={setOpenProfileDropdown}
-            items={pages.notLogin}
+            items={profilePages.login}
           />
         )
       ) : (
-        <></>
+        <ProfileDropdown
+          open={openProfileDropdown}
+          setOpen={setOpenProfileDropdown}
+          items={profilePages.notLogin}
+        />
       )}
 
       <PopupModal
@@ -230,30 +227,26 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
 
   return (
     <>
-      {openProfileDropdown ? (
-        isLoggedIn ? (
-          isRegistered ? (
-            <ProfileDropdown
-              open={openProfileDropdown}
-              setOpen={setOpenProfileDropdown}
-              items={pages.register}
-            />
-          ) : (
-            <ProfileDropdown
-              open={openProfileDropdown}
-              setOpen={setOpenProfileDropdown}
-              items={pages.login}
-            />
-          )
+      {isLoggedIn ? (
+        isRegistered ? (
+          <ProfileDropdown
+            open={openProfileDropdown}
+            setOpen={setOpenProfileDropdown}
+            items={profilePages.register}
+          />
         ) : (
           <ProfileDropdown
             open={openProfileDropdown}
             setOpen={setOpenProfileDropdown}
-            items={pages.notLogin}
+            items={profilePages.login}
           />
         )
       ) : (
-        <></>
+        <ProfileDropdown
+          open={openProfileDropdown}
+          setOpen={setOpenProfileDropdown}
+          items={profilePages.notLogin}
+        />
       )}
 
       <div className="navbar-container">
