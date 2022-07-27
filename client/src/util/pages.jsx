@@ -36,8 +36,8 @@ function darkmodefunc() {
 }
 
 function logoutfunction({ navigate, dispatch }) {
-  //????
-  return dispatch(logout({ navigate }));
+  dispatch(logout({ navigate }));
+  navigate(`/`);
 }
 import { PageFroshInfoTable } from '../pages/FroshInfoTable/FroshInfoTable';
 import { PageLeadurScopeRequest } from '../pages/LeadurScopeRequest/LeadurScopeRequest';
