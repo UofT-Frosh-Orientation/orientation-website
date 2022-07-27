@@ -27,7 +27,7 @@ import { PopupModal } from '../popup/PopupModal';
 import { Button } from '../button/Button/Button';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../pages/Login/saga';
-import { ProfileDropdown } from '../ProfileDropDown/ProfileDropdown';
+import { ProfileDropdown } from '../ProfileDropdown/ProfileDropdown';
 
 const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
   return (
