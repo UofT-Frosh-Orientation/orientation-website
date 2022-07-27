@@ -9,9 +9,6 @@ import { headLeedurs } from '../../util/about/headleedurs';
 import { subComs } from '../../util/about/subcoms';
 
 import { ExecProfile } from './ExecProfile/ExecProfile';
-
-import waveBottom from '../../assets/misc/wave-reverse.png';
-import waveBottomDarkMode from '../../assets/darkmode/misc/wave-reverse.png';
 import ExecLogo from '../../assets/about/exec-tshirt-logo.svg';
 import { useEffect } from 'react';
 import { object } from 'prop-types';

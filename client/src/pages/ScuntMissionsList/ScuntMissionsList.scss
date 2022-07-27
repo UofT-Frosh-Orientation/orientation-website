@@ -8,9 +8,6 @@
   p {
     text-align: center;
     color: var(--text-dark);
-    @media (prefers-color-scheme: dark) {
-      color: var(--text-light);
-    }
   }
 }
 
@@ -42,9 +39,6 @@
 
 .scunt-missions-header {
   color: var(--text-dark);
-  @media (prefers-color-scheme: dark) {
-    color: var(--text-light);
-  }
   text-align: center;
   margin: 0px 10px;
 }
@@ -59,9 +53,6 @@
     margin-bottom: 3px;
     font-size: 18px;
     color: var(--text-dark);
-    @media (prefers-color-scheme: dark) {
-      color: var(--text-light);
-    }
   }
 }
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './Login.scss';
 import { useNavigate } from 'react-router-dom';
@@ -32,6 +32,7 @@ import { PopupModal } from '../../components/popup/PopupModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestPasswordResetSelector, userSelector } from '../userSlice';
 import { login, requestPasswordReset } from './saga';
+import { DarkModeContext } from '../../util/DarkModeProvider';
 
 // Messages!
 const popupTitle = 'Reset Password';
@@ -131,52 +132,58 @@ const PageLogin = ({ incorrectEntry }) => {
 };
 
 const LoginBackgroundImages = () => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
     <>
       <div className="login-bg-images">
-        <img className="mountain-back login-nodarkmode" src={MountainB} alt="mountain"></img>
-        <img className="mountain-back login-darkmode" src={MountainBDarkMode} alt="mountain"></img>
+        {!darkMode ? (
+          <img className="mountain-back" src={MountainB} alt="mountain"></img>
+        ) : (
+          <img className="mountain-back" src={MountainBDarkMode} alt="mountain"></img>
+        )}
 
-        <img
-          className="mountain-front-right login-nodarkmode"
-          src={MountainFR}
-          alt="mountain"
-        ></img>
-        <img
-          className="mountain-front-right login-darkmode"
-          src={MountainFRDarkMode}
-          alt="mountain"
-        ></img>
+        {!darkMode ? (
+          <img className="mountain-front-right" src={MountainFR} alt="mountain"></img>
+        ) : (
+          <img className="mountain-front-right" src={MountainFRDarkMode} alt="mountain"></img>
+        )}
 
-        <img className="mountain-mid login-nodarkmode" src={MountainM} alt="mountain"></img>
-        <img className="mountain-mid login-darkmode" src={MountainMDarkMode} alt="mountain"></img>
+        {!darkMode ? (
+          <img className="mountain-mid" src={MountainM} alt="mountain"></img>
+        ) : (
+          <img className="mountain-mid" src={MountainMDarkMode} alt="mountain"></img>
+        )}
 
-        <img className="mountain-front-left login-nodarkmode" src={MountainFL} alt="mountain"></img>
-        <img
-          className="mountain-front-left login-darkmode"
-          src={MountainFLDarkMode}
-          alt="mountain"
-        ></img>
+        {!darkMode ? (
+          <img className="mountain-front-left" src={MountainFL} alt="mountain"></img>
+        ) : (
+          <img className="mountain-front-left" src={MountainFLDarkMode} alt="mountain"></img>
+        )}
 
-        <img className="ground login-nodarkmode" src={Ground} alt="ground"></img>
-        <img className="ground login-darkmode" src={GroundDarkMode} alt="ground"></img>
+        {!darkMode ? (
+          <img className="ground" src={Ground} alt="ground"></img>
+        ) : (
+          <img className="ground" src={GroundDarkMode} alt="ground"></img>
+        )}
 
-        <img className="brachio-left login-nodarkmode" src={BrachioL} alt="brachiosaurus"></img>
-        <img
-          className="brachio-left login-darkmode"
-          src={BrachioLDarkMode}
-          alt="brachiosaurus"
-        ></img>
+        {!darkMode ? (
+          <img className="brachio-left" src={BrachioL} alt="brachiosaurus"></img>
+        ) : (
+          <img className="brachio-left" src={BrachioLDarkMode} alt="brachiosaurus"></img>
+        )}
 
-        <img className="brachio-right login-nodarkmode" src={BrachioR} alt="brachiosaurus"></img>
-        <img
-          className="brachio-right login-darkmode"
-          src={BrachioRDarkMode}
-          alt="brachiosaurus"
-        ></img>
+        {!darkMode ? (
+          <img className="brachio-right" src={BrachioR} alt="brachiosaurus"></img>
+        ) : (
+          <img className="brachio-right" src={BrachioRDarkMode} alt="brachiosaurus"></img>
+        )}
 
-        <img className="ptero login-nodarkmode" src={Ptero} alt="ptero"></img>
-        <img className="ptero login-darkmode" src={PteroDarkMode} alt="ptero"></img>
+        {!darkMode ? (
+          <img className="ptero" src={Ptero} alt="ptero"></img>
+        ) : (
+          <img className="ptero" src={PteroDarkMode} alt="ptero"></img>
+        )}
       </div>
     </>
   );

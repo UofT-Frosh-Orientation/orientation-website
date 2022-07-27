@@ -1,10 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import './Dropdown.scss';
 import { useWrapperRef } from '../../../hooks/useWrapperRef';
 import Arrow from '../../../../assets/icons/angle-down-solid.svg';
 import ArrowDarkMode from '../../../assets/darkmode/icons/angle-down-solid.svg';
+import { DarkModeContext } from '../../../util/DarkModeProvider';
 
 const Dropdown = ({
   values,
@@ -16,6 +17,8 @@ const Dropdown = ({
   filterLabel,
   maxLetters,
 }) => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   useEffect(() => {
     if (localStorageKey !== undefined) {
       const storedString = localStorage.getItem(localStorageKey);
@@ -73,12 +76,24 @@ const Dropdown = ({
         >
           <div className={'dropdown-selected-label'}>
             {maxLetters
-              ? (filterLabel ? filterLabel(selected.toString()) : selected.toString()).substring(0, maxLetters) + ((filterLabel ? filterLabel(selected.toString()) : selected.toString()).length > maxLetters ? '...' : '')
-              : (filterLabel ? filterLabel(selected.toString()) : selected.toString())}
+              ? (filterLabel ? filterLabel(selected.toString()) : selected.toString()).substring(
+                  0,
+                  maxLetters,
+                ) +
+                ((filterLabel ? filterLabel(selected.toString()) : selected.toString()).length >
+                maxLetters
+                  ? '...'
+                  : '')
+              : filterLabel
+              ? filterLabel(selected.toString())
+              : selected.toString()}
           </div>
           <div className={`dropdown-image${isOpen ? ' open' : ''}`}>
-            <img alt={'arrow'} src={Arrow} className="dropdown-arrow-default" />
-            <img alt={'arrow'} src={ArrowDarkMode} className="dropdown-arrow-darkmode" />
+            {darkMode ? (
+              <img alt={'arrow'} src={ArrowDarkMode} className="dropdown-arrow" />
+            ) : (
+              <img alt={'arrow'} src={Arrow} className="dropdown-arrow" />
+            )}
           </div>
         </div>
         <div

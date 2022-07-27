@@ -14,11 +14,6 @@
   margin: 10px;
   padding: 20px 28px;
   border-radius: 15px;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--light-purple);
-    color: var(--white);
-  }
 }
 
 .task-name {
@@ -84,10 +79,6 @@
   cursor: pointer;
   border: 2px solid var(--light-purple);
   transition: border 500ms, box-shadow 500ms;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--purple-shades-light);
-  }
 }
 
 .task-img {

@@ -36,9 +36,6 @@
   margin-bottom: 0px;
   text-align: center;
   color: var(--text-dark);
-  @media (prefers-color-scheme: dark) {
-    color: var(--text-light);
-  }
   h2 {
     margin-top: 10px;
     font-size: 20px;
