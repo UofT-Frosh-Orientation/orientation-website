@@ -100,6 +100,10 @@
       font-size: 20px;
       padding: 10px 0px;
     }
+    color: var(--text-dark);
+    @media (prefers-color-scheme: dark) {
+      color: var(--text-dark);
+    }
   }
   h2 {
     font-size: 18px;
@@ -118,6 +122,10 @@
       margin: 5px 0px;
       margin-top: -10px;
       font-size: 15px;
+    }
+    color: var(--text-dark);
+    @media (prefers-color-scheme: dark) {
+      color: var(--text-dark);
     }
   }
 }

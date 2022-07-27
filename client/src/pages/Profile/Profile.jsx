@@ -38,6 +38,7 @@ import { registeredSelector, userSelector } from '../userSlice';
 
 import { PopupModal } from '../../components/popup/PopupModal';
 import { logout } from '../Login/saga';
+import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 
 const PageProfile = () => {
   const qrCodeLeader = canLeaderScanQR();
@@ -72,6 +73,7 @@ const PageProfileFrosh = ({ leader, isLoggedIn, setIsLoggedIn }) => {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <ProfilePageQRCode />
+          <ProfilePageQRScanner />
           <ProfilePageResources />
         </div>
       </div>
@@ -106,37 +108,11 @@ const PageProfileQRLeader = () => {
 };
 
 const ProfilePageQRScanner = () => {
-  const [isScanned, setIsScanned] = useState(false);
-  const [isScanning, setIsScanning] = useState(false);
-  const [scannedData, setScannedData] = useState('');
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [searchFor, setSearchFor] = useState('');
   const [results, setResults] = useState([]);
-  const videoRef = useRef();
-
-  let qrScanner = null;
-  useEffect(() => {
-    if (isScanning) {
-      const videoElement = videoRef.current;
-      qrScanner = new QrScanner(
-        videoElement,
-        (qrCode) => {
-          if (qrCode) {
-            setIsScanned(!isScanned);
-            setScannedData(parseQRCode(qrCode.data));
-          }
-        },
-        {
-          onDecodeError: (error) => {},
-          highlightScanRegion: true,
-          highlightCodeOutline: true,
-        },
-      );
-      qrScanner.setInversionMode('both');
-      qrScanner.start();
-    }
-  }, [isScanning]);
+  const [scannedData, setScannedData] = useState('');
 
   const search = () => {
     setResults(searchForFrosh(searchFor));
@@ -144,23 +120,9 @@ const ProfilePageQRScanner = () => {
 
   return (
     <div className="profile-page-qr-code">
-      <ButtonOutlined
-        label={isScanning ? 'Stop Scanning' : 'Start Scanning'}
-        onClick={() => {
-          if (isScanning) {
-            qrScanner?.stop();
-            qrScanner?.destroy();
-            qrScanner = null;
-            document.getElementsByClassName('scan-region-highlight-svg')[0].style.display = 'none';
-            document.getElementsByClassName('scan-region-highlight')[0].style.display = 'none';
-            setIsScanning(false);
-          } else {
-            setIsScanning(true);
-          }
-        }}
-      />
-      <video ref={videoRef} style={{ width: '100%', borderRadius: '10px' }}></video>
-
+      <QRScannerDisplay
+        setScannedData={(data) => setScannedData(parseQRCode(data))}
+      ></QRScannerDisplay>
       <div
         className={`profile-page-scanned-data ${
           submitSuccess ? 'profile-page-scanned-data-success' : ''

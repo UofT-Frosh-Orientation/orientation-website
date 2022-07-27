@@ -6,7 +6,7 @@ const UserModel = require('../models/UserModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
 
 const passwordValidator =
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#+.<>?!@$%^&*-/\\~_=]).{8,}$/;
+  /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
 
 const UserServices = {
   /**

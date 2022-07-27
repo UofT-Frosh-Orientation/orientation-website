@@ -10,7 +10,29 @@ const Checkboxes = ({
   maxCanSelect,
   label,
   localStorageKey,
+  filterLabel,
+  selectAll,
+  setSelectAll,
 }) => {
+  useEffect(() => {
+    if (selectAll) {
+      if (selectedIndices.length > values.length) {
+        setSelectedIndices([]);
+        for (let index = 0; index <= values.length; index++) {
+          onSelected(values[index], index, false, []);
+        }
+      } else {
+        const allIndices = [];
+        for (let index = 0; index <= values.length; index++) {
+          allIndices.push(index);
+          onSelected(values[index], index, true, allIndices);
+        }
+        setSelectedIndices(allIndices);
+      }
+      setSelectAll(false);
+    }
+  }, [selectAll]);
+
   useEffect(() => {
     if (localStorageKey !== undefined) {
       try {
@@ -61,6 +83,35 @@ const Checkboxes = ({
     initialSelectedIndices === undefined ? false : initialSelectedIndices.length >= maxCanSelect,
   );
 
+  const onClickedCheckbox = (value, index) => {
+    if (selectedIndices.includes(index)) {
+      let selectedIndicesCopy = [...selectedIndices.filter((valIndex) => index !== valIndex)];
+      setSelectedIndices(selectedIndicesCopy);
+      onSelected(value, index, false, selectedIndicesCopy);
+      if (isAllDisabled) {
+        setIsAllDisabled(false);
+      }
+      if (localStorageKey) {
+        localStorage.setItem(localStorageKey, JSON.stringify(selectedIndicesCopy));
+      }
+    } else {
+      let selectedIndicesCopy = [...selectedIndices];
+      selectedIndicesCopy.push(index);
+      setSelectedIndices(selectedIndicesCopy);
+      // console.log(selectedIndicesCopy);
+      // console.log(value, index);
+      onSelected(value, index, true, selectedIndicesCopy);
+      if (selectedIndicesCopy.length >= maxCanSelect) {
+        setIsAllDisabled(true);
+      } else if (isAllDisabled) {
+        setIsAllDisabled(false);
+      }
+      if (localStorageKey) {
+        localStorage.setItem(localStorageKey, JSON.stringify(selectedIndicesCopy));
+      }
+    }
+  };
+
   return (
     <>
       {label !== undefined ? <p className="checkbox-input-title">{label}</p> : <></>}
@@ -88,38 +139,11 @@ const Checkboxes = ({
                   }
                   checked={selectedIndices.includes(index)}
                   onClick={() => {
-                    if (selectedIndices.includes(index)) {
-                      let selectedIndicesCopy = [
-                        ...selectedIndices.filter((valIndex) => index !== valIndex),
-                      ];
-                      setSelectedIndices(selectedIndicesCopy);
-                      onSelected(value, index, false, selectedIndicesCopy);
-                      if (isAllDisabled) {
-                        setIsAllDisabled(false);
-                      }
-                      if (localStorageKey) {
-                        localStorage.setItem(localStorageKey, JSON.stringify(selectedIndicesCopy));
-                      }
-                    } else {
-                      let selectedIndicesCopy = [...selectedIndices];
-                      selectedIndicesCopy.push(index);
-                      setSelectedIndices(selectedIndicesCopy);
-                      // console.log(selectedIndicesCopy);
-                      // console.log(value, index);
-                      onSelected(value, index, true, selectedIndicesCopy);
-                      if (selectedIndicesCopy.length >= maxCanSelect) {
-                        setIsAllDisabled(true);
-                      } else if (isAllDisabled) {
-                        setIsAllDisabled(false);
-                      }
-                      if (localStorageKey) {
-                        localStorage.setItem(localStorageKey, JSON.stringify(selectedIndicesCopy));
-                      }
-                    }
+                    onClickedCheckbox(value, index);
                   }}
                   disabled={isDisabled || allDisabled}
                 />
-                {value}
+                {filterLabel ? filterLabel(value) : value}
               </label>
             );
           })}
@@ -137,6 +161,9 @@ Checkboxes.propTypes = {
   maxCanSelect: PropTypes.number,
   label: PropTypes.string,
   localStorageKey: PropTypes.string,
+  filterLabel: PropTypes.func,
+  selectAll: PropTypes.bool,
+  setSelectAll: PropTypes.func,
 };
 
 export { Checkboxes };

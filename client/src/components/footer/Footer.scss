@@ -226,6 +226,7 @@ ul {
 }
 
 .wave-image-footer-darkmode {
+  transform: translateY(1px);
   display: none;
 
   @media (prefers-color-scheme: dark) {

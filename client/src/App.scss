@@ -15,6 +15,7 @@
   --purple-shades-original: #6f1e88;
   --purple-shades-muted: #b297c7;
   --purple-shades-light: #ecd6ff;
+  --purple-shades-light-light: #efdefe;
   --purple-shades-popup: #784786;
   --yellow: #ffe863;
   --yellow-light: #ffe76a;
@@ -60,7 +61,7 @@
   /* login page */
   --login-bg: #e8e0eb;
 
-  color-scheme: only light;
+  // color-scheme: only light;
 
   @media (prefers-color-scheme: dark) {
     --purple: #613480; // #6f1e88;
@@ -146,6 +147,17 @@ h5 {
   font-family: 'Inter-Bold', sans-serif;
   margin: 0px;
   padding: 0px;
+  color: var(--text-dark);
+  @media (prefers-color-scheme: dark) {
+    color: var(--text-light);
+  }
+}
+
+p {
+  color: var(--text-dark);
+  @media (prefers-color-scheme: dark) {
+    color: var(--text-light);
+  }
 }
 
 a {
