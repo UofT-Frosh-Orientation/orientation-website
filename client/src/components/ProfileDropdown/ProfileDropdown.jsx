@@ -1,5 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 import PropTypes from 'prop-types';
 
 import './ProfileDropdown.scss';
@@ -10,13 +12,13 @@ const ProfileDropdown = ({ open, setOpen, items }) => {
   // pass in pages array --> array for when not logged in
   // array for when logged in
 
-  //const [items, setItems] = useState(0);
   let count = 0; // counts which page
   let totalItems = items.length;
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { pathname } = useLocation();
-  //console.log(items);
-  //console.log(pathname);
 
   return (
     <>
@@ -51,7 +53,9 @@ const ProfileDropdown = ({ open, setOpen, items }) => {
                       ? { borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px' }
                       : {}
                   }
-                  onClick={item.function}
+                  onClick={() => {
+                    item.function({ navigate, dispatch });
+                  }}
                 >
                   <img
                     src={item.icon}
