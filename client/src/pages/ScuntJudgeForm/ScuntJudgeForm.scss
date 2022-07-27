@@ -11,7 +11,7 @@
   background-color: var(--white);
   border-radius: 15px;
   padding: 40px min(150px, 5%);
-  margin: 50px;
+  margin: 10px 50px;
   box-shadow: var(--shadow);
   width: 95vw;
   max-width: 1000px;
@@ -129,4 +129,35 @@
   border-radius: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.scunt-exec-dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.scunt-exec-dashboard-popup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    color: var(--white);
+  }
+  h3 {
+    color: var(--white);
+  }
+}
+
+.error-success-box-fixed {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  z-index: 100;
+  @include devices(tablet) {
+    bottom: 35px;
+  }
 }
