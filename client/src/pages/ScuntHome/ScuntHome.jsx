@@ -44,7 +44,7 @@ const AboutScunt = () => {
 };
 
 const ScuntCountdown = () => {
-  const targetDate = new Date('July 25, 2022 16:56:00');
+  const targetDate = new Date('September 25, 2022 16:56:00');
   const countDownDate = new Date(targetDate).getTime();
 
   const [countDown, setCountDown] = useState(countDownDate - new Date().getTime());

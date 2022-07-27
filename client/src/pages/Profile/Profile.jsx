@@ -73,7 +73,6 @@ const PageProfileFrosh = ({ leader, isLoggedIn, setIsLoggedIn }) => {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <ProfilePageQRCode />
-          <ProfilePageQRScanner />
           <ProfilePageResources />
         </div>
       </div>
