@@ -32,6 +32,8 @@ import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOut
 import EditIcon from '../../assets/misc/pen-solid.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { resources } from '../../util/resources';
+import { instagramAccounts } from '../../util/instagramAccounts';
+import InstagramIcon from '../../assets/social/instagram-brands.svg';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../userSlice';
@@ -65,7 +67,10 @@ const PageProfileFrosh = ({ leader, isLoggedIn, setIsLoggedIn }) => {
       <div className="profile-info-row">
         <div>
           {leader === false || leader === undefined ? (
-            <ProfilePageAnnouncements />
+            <>
+              <ProfilePageInstagrams />
+              <ProfilePageAnnouncements />
+            </>
           ) : (
             <div style={{ marginTop: '-40px' }} />
           )}
@@ -213,7 +218,6 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
   // console.log(`editButton: ${editButton}`);
   return (
     <>
-      {/* calum, please log out in the popups! */}
       <PopupModal
         trigger={showLogoutPopup}
         setTrigger={setShowLogoutPopup}
@@ -286,7 +290,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
       </div>
       <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
       <img src={WaveReverseFlipDarkMode} className="wave-image home-page-bottom-wave-image-dark" />
-      {!isRegistered ? (
+      {!isRegistered && leader !== true ? (
         <div className={'profile-not-registered'}>
           <h1>You are not registered!</h1>
           <h2>You will not be able to participate in F!rosh week events until you register.</h2>
@@ -313,6 +317,32 @@ ProfilePageHeader.propTypes = {
   setIsLoggedIn: PropTypes.func,
 };
 
+const ProfilePageInstagrams = () => {
+  const { user } = useSelector(userSelector);
+  const isRegistered = useSelector(registeredSelector);
+
+  const getInstagramFromLink = (link) => {
+    if (link === undefined) return '';
+    return link.replace('https://www.instagram.com', '').replace('/', '');
+  };
+
+  const instagramLink = instagramAccounts[user?.froshGroup];
+
+  return isRegistered ? (
+    <a href={instagramLink} className="no-link-style">
+      <div className="frosh-instagram-container">
+        <img src={InstagramIcon} alt="Instagram" />
+        <div>
+          <p>Go follow your frosh group and meet your Leedurs!</p>
+          <h2>@{getInstagramFromLink(instagramLink)}</h2>
+        </div>
+      </div>
+    </a>
+  ) : (
+    <></>
+  );
+};
+
 const ProfilePageAnnouncements = () => {
   const [tasks, setTasks] = useState([]);
   useEffect(async () => {
@@ -321,7 +351,11 @@ const ProfilePageAnnouncements = () => {
   return (
     <div className="profile-page-announcements">
       <h2 className="profile-page-section-header">Tasks and Announcements</h2>
-      {tasks == undefined ? <></> : <TaskAnnouncement tasks={tasks} onDone={onDoneTask} />}
+      {tasks == undefined || tasks.length <= 0 ? (
+        <h2>There are no announcements yet!</h2>
+      ) : (
+        <TaskAnnouncement tasks={tasks} onDone={onDoneTask} />
+      )}
     </div>
   );
 };
