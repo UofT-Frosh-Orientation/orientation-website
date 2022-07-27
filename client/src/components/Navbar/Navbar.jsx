@@ -33,7 +33,7 @@ const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
 
   return (
     <>
-      <div
+      {/* <div
         onClick={() => {
           setDarkModeStatus(!darkMode);
         }}
@@ -46,7 +46,7 @@ const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
           right: 0,
           zIndex: 100,
         }}
-      ></div>
+      ></div> */}
       <div className="navbar-desktop">
         <NavbarDesktop
           isLoggedIn={isLoggedIn}
