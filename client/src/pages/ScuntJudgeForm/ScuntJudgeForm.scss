@@ -151,13 +151,3 @@
     color: var(--white);
   }
 }
-
-.error-success-box-fixed {
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
-  z-index: 100;
-  @include devices(tablet) {
-    bottom: 35px;
-  }
-}

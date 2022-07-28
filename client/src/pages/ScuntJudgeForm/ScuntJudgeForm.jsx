@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './ScuntJudgeForm.scss';
 import { Header } from '../../components/text/Header/Header';
@@ -13,6 +13,7 @@ import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/Err
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { PopupModal } from '../../components/popup/PopupModal';
+import { SnackbarContext } from '../../util/SnackbarProvider';
 
 export const PageScuntJudgeForm = () => {
   const { user } = useSelector(userSelector);
@@ -54,22 +55,16 @@ export const PageScuntJudgeForm = () => {
 const ScuntExecDashboard = ({ teams }) => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [action, setAction] = useState('');
-  const [actionResultsError, setActionResultsError] = useState('');
-  const [actionResultsSuccess, setActionResultsSuccess] = useState('');
-  const timerRef = useRef(null);
   const [amountOfRefillPoints, setAmountOfRefillPoints] = useState(0);
   const [amountOfRemovePoints, setAmountOfRemovePoints] = useState(0);
+  const { setSnackbar } = useContext(SnackbarContext);
 
   const confirmAction = (action) => {
-    setActionResultsError('');
-    setActionResultsSuccess('');
     setShowPopUp(true);
     setAction(action);
   };
 
   const performAction = async (action) => {
-    clearTimeout(timerRef.current);
-
     if (action === 'Allow Missions Page') {
       console.log('allow missions page');
     } else if (action === 'Hide Missions Page') {
@@ -87,17 +82,8 @@ const ScuntExecDashboard = ({ teams }) => {
     } else if (action === 'Remove Points') {
       console.log(amountOfRemovePoints);
     }
-
-    setActionResultsSuccess('Success: ' + action);
-    setTimeout(() => {
-      setActionResultsError('Error: ' + action);
-    }, 1000);
-
+    setSnackbar('Success: ' + action);
     setShowPopUp(false);
-    timerRef.current = setTimeout(() => {
-      setActionResultsError('');
-      setActionResultsSuccess('');
-    }, 5000);
   };
 
   return (
@@ -171,10 +157,6 @@ const ScuntExecDashboard = ({ teams }) => {
               label={'Hide Leaderboard'}
               onClick={() => confirmAction('Hide Leaderboard')}
             />
-            <div className="error-success-box-fixed">
-              <ErrorSuccessBox content={actionResultsError} error={true} />
-              <ErrorSuccessBox content={actionResultsSuccess} success={true} />
-            </div>
           </div>
         </div>
       </div>
@@ -207,9 +189,7 @@ const ScuntBribePoints = ({ teams }) => {
   const [remainingBribePoints, setRemainingBribePoints] = useState(500);
   const [assignedPoints, setAssignedPoints] = useState(0);
   const [assignedTeam, setAssignedTeam] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const timerRef = useRef(null);
+  const { setSnackbar } = useContext(SnackbarContext);
 
   return (
     <div style={{ width: '100%' }}>
@@ -266,26 +246,15 @@ const ScuntBribePoints = ({ teams }) => {
             <Button
               label={'Submit'}
               onClick={() => {
-                clearTimeout(timerRef.current);
                 setAssignedPoints(0);
-                setErrorMessage('');
-                setSuccessMessage('');
                 //Submit points here
-                setSuccessMessage(`Added ${assignedPoints} points to ${assignedTeam}`);
                 setRemainingBribePoints(remainingBribePoints - assignedPoints);
-                timerRef.current = setTimeout(() => {
-                  setErrorMessage('');
-                  setSuccessMessage('');
-                }, 5000);
+                setSnackbar(`Added ${assignedPoints} points to ${assignedTeam}`);
               }}
             />
           </div>
           <h2 style={{ textAlign: 'center' }}>{assignedTeam}</h2>
           <h3 style={{ textAlign: 'center' }}>{assignedPoints} Points</h3>
-          <div className="error-success-box-fixed">
-            <ErrorSuccessBox content={errorMessage} error={true} />
-            <ErrorSuccessBox content={successMessage} success={true} />
-          </div>
         </>
       )}
     </div>
@@ -304,10 +273,8 @@ const ScuntMissionSelection = ({ missions, teams }) => {
   const [assignedPoints, setAssignedPoints] = useState(0);
   const [assignedTeam, setAssignedTeam] = useState('');
   const [clearText, setClearText] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
   const [hasQRScanned, setHasQRScanned] = useState(false);
-  const timerRef = useRef(null);
+  const { setSnackbar } = useContext(SnackbarContext);
 
   const getMissionSearchName = (searchName) => {
     if (searchName === '') {
@@ -479,21 +446,16 @@ const ScuntMissionSelection = ({ missions, teams }) => {
             <Button
               label={'Submit'}
               onClick={() => {
-                clearTimeout(timerRef.current);
+                window.scrollTo(0, 0);
+                //Submit points here
+                setSnackbar(
+                  `Added ${assignedPoints} points to ${assignedTeam} for ${assignedMission?.name}`,
+                );
                 setAssignedPoints(0);
-                setErrorMessage('');
-                setSuccessMessage('');
                 setClearText(true);
                 setAssignedMission(undefined);
                 setSearchedMissions([]);
                 setHasQRScanned(false);
-                window.scrollTo(0, 0);
-                //Submit points here
-                setSuccessMessage(`Added ${assignedPoints} points to ${assignedTeam}`);
-                timerRef.current = setTimeout(() => {
-                  setErrorMessage('');
-                  setSuccessMessage('');
-                }, 5000);
               }}
             />
           </div>
@@ -505,10 +467,6 @@ const ScuntMissionSelection = ({ missions, teams }) => {
       ) : (
         <></>
       )}
-      <div className="error-success-box-fixed">
-        <ErrorSuccessBox content={errorMessage} error={true} />
-        <ErrorSuccessBox content={successMessage} success={true} />
-      </div>
     </>
   );
 };
