@@ -183,12 +183,19 @@ const AboutUsHL = () => {
       <div className="aboutus-hl-grid-container">
         {headLeedurs.map((info) => {
           const [open, setOpen] = useState(true); // open is set to hl with greek letter page
+          const [clickLink, setClickLink] = useState(false); // icon links have not been clicked
           return (
             <div
               key={info.group}
               className="aboutus-hl-container"
               onClick={() => {
-                setOpen(!open);
+                console.log('clicklink', clickLink);
+                if (!clickLink) {
+                  setOpen(!open);
+                } else {
+                  setOpen(open);
+                }
+                setClickLink(false);
               }}
             >
               <div
@@ -205,18 +212,36 @@ const AboutUsHL = () => {
                 <p className="aboutus-leedur" style={{ fontSize: '12px', padding: '0 10px' }}>
                   Contact Your Head Leedurs!
                 </p>
-                <div className="aboutus-hl-contacts-container">
+                <div
+                  className="aboutus-hl-contacts-container"
+                  onClick={() => {
+                    setClickLink(true);
+                  }}
+                >
                   <a className="no-link-style" href={info.ig} target="_blank" rel="noreferrer">
                     <img
                       className="aboutus-hl-contacts-icon"
                       src={InstagramIcon}
                       alt="instagram-icon"
-                      href={info.ig}
-                      target="_blank"
+                      onClick={() => {
+                        setClickLink(true);
+                      }}
                     ></img>
                   </a>
-                  <a className="no-link-style" href={`mailto:${info.email}`} target="_blank" rel="noreferrer">
-                    <img className="aboutus-hl-contacts-icon" src={MailIcon} alt="email-icon"></img>
+                  <a
+                    className="no-link-style"
+                    href={`mailto:${info.email}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <img
+                      className="aboutus-hl-contacts-icon"
+                      src={MailIcon}
+                      alt="email-icon"
+                      onClick={() => {
+                        setClickLink(true);
+                      }}
+                    ></img>
                   </a>
                 </div>
               </div>
