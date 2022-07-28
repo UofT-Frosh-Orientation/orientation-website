@@ -57,6 +57,9 @@
 
 .dropdown-selected-label {
   margin: 0.5em 2em 0.5em 1em;
+  @include devices(tablet) {
+    margin: 0.5em 1em 0.5em 1em;
+  }
 }
 
 .dropdown-list-container {
@@ -88,6 +91,6 @@
     background-color: var(--purple-shades-muted);
   }
   @include devices(tablet) {
-    padding: 0.5em 0em 0.5em 0.5em;
+    padding: 0.5em 0.5em 0.5em 0.5em;
   }
 }
