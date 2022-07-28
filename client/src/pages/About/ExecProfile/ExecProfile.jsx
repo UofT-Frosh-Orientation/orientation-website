@@ -11,11 +11,14 @@ const ExecProfile = ({
   role,
   discipline,
   roleDescription,
+  description,
   favPart,
   exec,
   quote,
   subcom,
   cochairs,
+  scuntJudge,
+  bribes,
 }) => {
   // initialize to false, don't show description
   const [showDescription, setShowDescription] = useState(false);
@@ -41,6 +44,8 @@ const ExecProfile = ({
           />
         ) : subcom ? (
           <SubcomProfileDescription name={name} description={roleDescription} cochairs={cochairs} />
+        ) : scuntJudge ? (
+          <ScuntJudgeDescription name={name} bribes={bribes} />
         ) : (
           <NonexecProfileDescription name={name} discipline={discipline} quote={quote} />
         )}
@@ -115,7 +120,8 @@ const SubcomProfileDescription = ({ name, description, cochairs }) => {
       <div className="exec-profile-title-cont">
         <h3 className="exec-profile-name">{name}</h3>
       </div>
-      <p className="exec-profile-description-dis">{description}</p>
+
+      <div className="exec-profile-description-dis">{description}</div>
 
       <div className="cochairs-list">
         <span style={{ fontWeight: 'bold', marginBottom: '5px' }}>CO-CHAIRS: </span>
@@ -128,6 +134,34 @@ const SubcomProfileDescription = ({ name, description, cochairs }) => {
         })}
       </div>
     </div>
+  );
+};
+
+const ScuntJudgeDescription = ({ name, bribes }) => {
+  return (
+    <>
+      <div
+        className={`exec-profile-description ${'nonexec-profile-description'}`}
+        style={{ textAlign: 'center' }}
+      >
+        <div className="exec-profile-title-cont">
+          <h3 className="exec-profile-name">{name}</h3>
+        </div>
+
+        <div className="bribes-list">
+          <span style={{ fontWeight: 'bold', marginBottom: '5px' }}>BRIBES: </span>
+          <ul>
+            {bribes.map((bribe) => {
+              return (
+                <li className="scunt-bribe-list-item" key={bribe}>
+                  {bribe}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    </>
   );
 };
 
@@ -157,6 +191,9 @@ ExecProfile.propTypes = {
 
   subcom: PropTypes.bool, // true if a subcom
   exec: PropTypes.bool, // if true display bio for exec, if false, display bio for nonexec
+
+  scuntJudge: PropTypes.bool, // true if a judge
+  bribes: PropTypes.array, // all bribes
 };
 
 ExecProfileTitle.propTypes = {
@@ -170,6 +207,11 @@ ExecProfileDescription.propTypes = {
   discipline: PropTypes.string,
   roleDescription: PropTypes.string,
   favPart: PropTypes.string,
+};
+
+ScuntJudgeDescription.propTypes = {
+  name: PropTypes.string,
+  bribes: PropTypes.array,
 };
 
 ExecProfileTitle.defaultProps = {

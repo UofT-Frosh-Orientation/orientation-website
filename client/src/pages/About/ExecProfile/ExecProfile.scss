@@ -133,10 +133,19 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin-top: 50px;
+  margin-top: 25px;
 }
+
+.bribes-list {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-top: 25px;
+}
+
 .profile-subcom-people {
   margin: 3px;
+  color: var(--white);
 }
 
 .subcom-container {

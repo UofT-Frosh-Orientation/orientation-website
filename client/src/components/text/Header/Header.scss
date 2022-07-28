@@ -54,9 +54,10 @@
 .header-page-title-underline {
   background: var(--yellow);
   border-radius: 10px;
-  width: 300px;
+  // width: 300px;
   height: 4px;
-  margin-bottom: 50px;
+  margin-top: 8px;
+  margin-bottom: 34px; // so that the links are approx in the same place as Home
   align-self: center;
 
   @include devices(tablet) {

@@ -57,7 +57,7 @@
   justify-content: center;
   align-items: center;
   margin: 2px 5px;
-  background-color: var(--purple-shades-popup);
+  background-color: var(--white);
   color: var(--black);
   border-radius: 8px;
   padding: 5px 15px;
@@ -82,12 +82,20 @@
     font-size: 20px;
   }
   &:hover {
-    background-color: var(--light-purple);
+    background-color: var(--purple-shades-light);
     transition: background-color 300ms;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--light-purple);
+    }
   }
   font-size: 18px;
   @include devices(tablet) {
     font-size: 16px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--purple-shades-popup);
   }
 }
 

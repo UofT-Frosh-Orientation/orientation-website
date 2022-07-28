@@ -204,10 +204,10 @@ const tabs = [
     title: 'Tech Team',
     component: <AboutUsTechTeam />,
   },
-  // {
-  //   title: 'Subcoms',
-  //   component: <AboutUsSubcom />,
-  // },
+  {
+    title: 'Subcoms',
+    component: <AboutUsSubcom />,
+  },
   // {
   //   title: 'HLs',
   //   component: <AboutUsHL />,
