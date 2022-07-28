@@ -328,7 +328,8 @@
 .aboutus-hl-grid-container {
   display: grid;
   width: 90vw;
-  grid-template-columns: repeat(auto-fit, 450px);
+  grid-template-columns: repeat(auto-fit, 240px);
+  //grid-template-rows: repeat(auto-fit, 220px);
   align-items: center;
   justify-items: center;
   justify-content: center;
@@ -348,7 +349,14 @@
 
   width: 200px;
   height: 200px;
-  margin: 10px;
+  margin: 20px;
+
+  background-color: var(--purple);
+  border-radius: 10px;
+
+  color: var(--white);
+
+  cursor: pointer;
 
   .aboutus-hl-frosh-group {
     transform: rotateY(0deg);
@@ -369,15 +377,51 @@
   }
 }
 
+.aboutus-hl-container-show {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+.aboutus-hl-container-hide {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
 .aboutus-hl-frosh-group {
+  text-align: center;
   font-size: 40px;
   margin-bottom: 15px;
-  color: var(--purple);
+  //color: var(--purple);
+  color: var(--white);
+}
+
+.aboutus-hl-contacts-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.aboutus-hl-contacts-icon {
+  z-index: 5;
+  width: 50px;
+  margin: 10px;
+
+  transition: transform 300ms;
+  &:hover {
+    transform: scale(1.07);
+    transition: transform 300ms;
+  }
+  &:active {
+    transform: scale(0.97);
+    transition: transform 300ms;
+  }
 }
 
 .aboutus-leedur {
   text-align: center;
   margin: 3px;
+  color: var(--purple-shades-light);
 }
 
 .aboutus-commitee-container {

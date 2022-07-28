@@ -14,6 +14,9 @@ import { useEffect } from 'react';
 import { object } from 'prop-types';
 import { Header } from '../../components/text/Header/Header';
 
+import InstagramIcon from '../../assets/social/instagram-brands.svg';
+import MailIcon from '../../assets/social/envelope-solid.svg';
+
 const PageAbout = () => {
   return (
     <>
@@ -179,11 +182,44 @@ const AboutUsHL = () => {
     <>
       <div className="aboutus-hl-grid-container">
         {headLeedurs.map((info) => {
+          const [open, setOpen] = useState(true); // open is set to hl with greek letter page
           return (
-            <div key={info.group} className="aboutus-hl-container">
-              <h1 className="aboutus-hl-frosh-group">{info.group}</h1>
-              <p className="aboutus-leedur">{info.leedur1}</p>
-              <p className="aboutus-leedur">{info.leedur2}</p>
+            <div
+              key={info.group}
+              className="aboutus-hl-container"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              <div
+                className={`${open ? 'aboutus-hl-container-show' : 'aboutus-hl-container-hide'}`}
+              >
+                <h1 className="aboutus-hl-frosh-group">{info.letter}</h1>
+                <p className="aboutus-leedur">{info.leedur1}</p>
+                <p className="aboutus-leedur">{info.leedur2}</p>
+              </div>
+              <div
+                style={{ position: 'absolute' }}
+                className={`${open ? 'aboutus-hl-container-hide' : 'aboutus-hl-container-show'}`}
+              >
+                <p className="aboutus-leedur" style={{ fontSize: '12px', padding: '0 10px' }}>
+                  Contact Your Head Leedurs!
+                </p>
+                <div className="aboutus-hl-contacts-container">
+                  <a className="no-link-style" href={info.ig} target="_blank" rel="noreferrer">
+                    <img
+                      className="aboutus-hl-contacts-icon"
+                      src={InstagramIcon}
+                      alt="instagram-icon"
+                      href={info.ig}
+                      target="_blank"
+                    ></img>
+                  </a>
+                  <a className="no-link-style" href={`mailto:${info.email}`} target="_blank" rel="noreferrer">
+                    <img className="aboutus-hl-contacts-icon" src={MailIcon} alt="email-icon"></img>
+                  </a>
+                </div>
+              </div>
             </div>
           );
         })}
@@ -205,10 +241,10 @@ const tabs = [
   //   title: 'Subcoms',
   //   component: <AboutUsSubcom />,
   // },
-  // {
-  //   title: 'HLs',
-  //   component: <AboutUsHL />,
-  // },
+  {
+    title: 'HLs',
+    component: <AboutUsHL />,
+  },
 ];
 
 const AboutUsTeamsTab = () => {
