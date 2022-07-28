@@ -60,7 +60,7 @@ li {
     transition: color 200ms;
 
     .navbar-underline {
-      background-color: var(--purple);
+      background-color: var(--navbar-underline-desktop);
       transition: background-color 200ms;
     }
   }
@@ -71,12 +71,12 @@ li {
 
 .navbar-link {
   position: absolute;
-  color: var(--gray);
+  color: var(--navbar-link);
   font-size: 16px;
   font-weight: 700;
 
   .navbar-underline {
-    color: var(--gray);
+    color: var(--navbar-underline-desktop);
     transition: background-color 200ms;
   }
 }
@@ -90,7 +90,7 @@ li {
 }
 
 .underline-page-selected {
-  background-color: var(--purple);
+  background-color: var(--navbar-underline-highlight);
   align-self: flex-end;
   width: 80px;
   height: 3px;
@@ -253,7 +253,7 @@ li {
   }
 
   .underline-page-selected {
-    background-color: var(--purple);
+    background-color: var(--navbar-underline-highlight);
     bottom: 0;
     width: 40px;
     height: 3px;

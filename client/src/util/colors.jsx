@@ -4,7 +4,7 @@ export const colors = {
   '--purple-shades-dark': ['#3c0a5a', '#61347f'],
   '--purple-shades-original': ['#6f1e88', '#6f1e88'],
   '--purple-shades-muted': ['#b297c7', '#b297c7'],
-  '--purple-shades-light': ['#ecd6ff', '#ecd6ff'],
+  '--purple-shades-light': ['#ecd6ff', '#8c60b3'], // PleaseSponsor
   '--purple-shades-light-light': ['#efdefe', '#efdefe'],
   '--purple-shades-popup': ['#784786', '#382159'],
   '--yellow': ['#ffe863', '#ffcc4a'],
@@ -23,8 +23,6 @@ export const colors = {
   '--text-light': ['#f3f3f3', '#f3f3f3'],
   '--text-dynamic': ['#20002e', '#f3f3f3'],
   '--text-muted': ['#696969', '#696969'],
-  '--navbar-bg': ['#ebebeb', '#342153'],
-  '--navbar-underline': ['#e2e2e2', '#'],
   '--page-bg': ['#efe9f8', '#382159'],
   '--purple-transparent': ['#7b33a8d6', '#521f7482'],
   '--purple-transparent-more': ['#7b33a830', '#734e8b5c'],
@@ -47,4 +45,15 @@ export const colors = {
   '--green-bg': ['#e9ffe9', '#e9ffe9'],
   '--blue-bg': ['#d2d9ff', '#d2d9ff'],
   '--login-bg': ['#e8e0eb', '#e8e0eb'],
+
+  // unique colors for each component
+  '--schedule-container': ['#ffffff', '#8c60b3'],
+  '--control-dot': ['#6f1e88', '#8c60b3'],
+
+  //navbar
+  '--navbar-bg': ['#ebebeb', '#342153'],
+  '--navbar-link': ['#989898', '#ffffff'],
+  '--navbar-underline': ['#e2e2e2', '#4F366B'],
+  '--navbar-underline-desktop': ['#6f1e88', '#8c60b3'],
+  '--navbar-underline-highlight': ['#6f1e88', '#8c60b3'],
 };
