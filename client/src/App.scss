@@ -136,3 +136,13 @@ a:hover {
     height: 0px;
   }
 }
+
+.error-success-box-snackbar-fixed {
+  position: fixed;
+  bottom: 20px;
+  left: 0px;
+  z-index: 100;
+  @include devices(tablet) {
+    bottom: 65px;
+  }
+}

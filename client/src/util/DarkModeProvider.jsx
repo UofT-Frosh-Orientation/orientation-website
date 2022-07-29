@@ -39,11 +39,9 @@ function DarkModeProvider({ children }) {
   }, []);
 
   return (
-    <div>
-      <DarkModeContext.Provider value={{ darkMode, setDarkModeStatus }}>
-        {children}
-      </DarkModeContext.Provider>
-    </div>
+    <DarkModeContext.Provider value={{ darkMode, setDarkModeStatus }}>
+      {children}
+    </DarkModeContext.Provider>
   );
 }
 
