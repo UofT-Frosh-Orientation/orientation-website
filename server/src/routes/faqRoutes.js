@@ -50,12 +50,7 @@ router.post('/create', FaqController.createQuestion);
  *       '403':
  *         $ref: '#components/responses/NotLoggedIn'
  */
-router.delete(
-  '/:faqId',
-  checkLoggedIn,
-  hasAuthScopes(['faq:delete']),
-  FaqController.deleteQuestion,
-);
+router.delete('/:faqId', checkLoggedIn, FaqController.deleteQuestion);
 
 /**
  * @swagger
@@ -78,7 +73,7 @@ router.delete(
  *       '403':
  *         $ref: '#components/responses/NotLoggedIn'
  */
-router.patch('/:faqId?', checkLoggedIn, hasAuthScopes(['faq:edit']), FaqController.updateQuestion);
+router.patch('/:faqId?', checkLoggedIn, FaqController.updateQuestion);
 
 /**
  * @swagger

@@ -2,7 +2,6 @@ import { React, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   getAnsweredQuestions,
-  sortQuestions,
   getUnansweredQuestions,
   deleteQuestion,
   submitEdit,
@@ -13,6 +12,12 @@ import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/B
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
+import useAxios from '../../hooks/useAxios';
+const { axios } = useAxios();
+
+export function getInformation() {
+  return 'FAQ';
+}
 
 const PageFAQLeaders = () => {
   const [isUnanswered, setIsUnanswered] = useState(false);
@@ -40,19 +45,45 @@ const PageFAQLeaders = () => {
 
 const FAQLeadersAnsweredQuestions = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const answeredQuestions = getAnsweredQuestions(); //TODO: link with backend
-  const questionCategories = [];
-  const questionsObject = {};
-  const allQuestions = [];
-  sortQuestions(answeredQuestions, questionCategories, questionsObject);
-  for (let i = 0; i < Object.keys(questionsObject).length; i++) {
-    allQuestions.push(questionsObject[Object.keys(questionsObject)[i]]);
-  }
-  const selectedQuestions = allQuestions[activeIndex].map((question, index) => (
-    <div key={index}>
-      <FAQLeadersQuestionWrapper question={question} />
-    </div>
-  ));
+  const tempQuestionCategories = [];
+  const tempQuestionsObject = {};
+  const tempAllQuestions = [];
+  const [allQuestions, setAllQuestions] = useState(undefined);
+  const [questionCategories, setQuestionCategories] = useState([]);
+  const getQuestions = async (questionCategories, questionsObject, allQuestions) => {
+    try {
+      const response = await axios.get('/faq/answered');
+      const questions = await response.data.faqs;
+      for (let i = 0; i < questions.length; i++) {
+        if (!questionsObject.hasOwnProperty(questions[i].category)) {
+          questionsObject[questions[i].category] = [];
+          questionsObject[questions[i].category].push({
+            question: questions[i].question,
+            answer: questions[i].answer,
+            id: questions[i]._id,
+          });
+          questionCategories.push({ name: questions[i].category });
+        } else {
+          questionsObject[questions[i].category].push({
+            question: questions[i].question,
+            answer: questions[i].answer,
+            id: questions[i]._id,
+          });
+        }
+      }
+      for (let i = 0; i < Object.keys(questionsObject).length; i++) {
+        allQuestions.push(questionsObject[Object.keys(questionsObject)[i]]);
+      }
+      setAllQuestions(allQuestions);
+      setQuestionCategories(questionCategories);
+    } catch (error) {
+      console.log(error);
+      setAllQuestions(undefined);
+    }
+  };
+  useEffect(() => {
+    getQuestions(tempQuestionCategories, tempQuestionsObject, tempAllQuestions);
+  }, []);
   return (
     <div>
       <FAQLeadersButtons
@@ -60,26 +91,60 @@ const FAQLeadersAnsweredQuestions = () => {
         setActiveIndex={setActiveIndex}
         questionCategories={questionCategories}
       />
-      {selectedQuestions}
+      {allQuestions === undefined ? (
+        <div></div>
+      ) : (
+        allQuestions[activeIndex].map((question, index) => (
+          <div key={index}>
+            <FAQLeadersQuestionWrapper question={question} />
+          </div>
+        ))
+      )}
     </div>
   );
 };
 
 const FAQLeadersUnansweredQuestions = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const unansweredQuestions = getUnansweredQuestions(); //TODO: Link with backend
-  const questionCategories = [];
-  const questionsObject = {};
-  const allQuestions = [];
-  sortQuestions(unansweredQuestions, questionCategories, questionsObject);
-  for (let i = 0; i < Object.keys(questionsObject).length; i++) {
-    allQuestions.push(questionsObject[Object.keys(questionsObject)[i]]);
-  }
-  const selectedQuestions = allQuestions[activeIndex].map((question, index) => (
-    <div key={index}>
-      <FAQLeadersQuestionWrapper question={question} />
-    </div>
-  ));
+  const tempQuestionCategories = [];
+  const tempQuestionsObject = {};
+  const tempAllQuestions = [];
+  const [allQuestions, setAllQuestions] = useState(undefined);
+  const [questionCategories, setQuestionCategories] = useState([]);
+  const getQuestions = async (questionCategories, questionsObject, allQuestions) => {
+    try {
+      const response = await axios.get('/faq/unanswered');
+      const questions = await response.data.faqs;
+      for (let i = 0; i < questions.length; i++) {
+        if (!questionsObject.hasOwnProperty(questions[i].category)) {
+          questionsObject[questions[i].category] = [];
+          questionsObject[questions[i].category].push({
+            question: questions[i].question,
+            answer: questions[i].answer,
+            id: questions[i]._id,
+          });
+          questionCategories.push({ name: questions[i].category });
+        } else {
+          questionsObject[questions[i].category].push({
+            question: questions[i].question,
+            answer: questions[i].answer,
+            id: questions[i]._id,
+          });
+        }
+      }
+      for (let i = 0; i < Object.keys(questionsObject).length; i++) {
+        allQuestions.push(questionsObject[Object.keys(questionsObject)[i]]);
+      }
+      setAllQuestions(allQuestions);
+      setQuestionCategories(questionCategories);
+    } catch (error) {
+      console.log(error);
+      setAllQuestions(undefined);
+    }
+  };
+  useEffect(() => {
+    getQuestions(tempQuestionCategories, tempQuestionsObject, tempAllQuestions);
+  }, []);
   return (
     <div>
       <FAQLeadersButtons
@@ -87,7 +152,15 @@ const FAQLeadersUnansweredQuestions = () => {
         setActiveIndex={setActiveIndex}
         questionCategories={questionCategories}
       />
-      {selectedQuestions}
+      {allQuestions === undefined ? (
+        <div></div>
+      ) : (
+        allQuestions[activeIndex].map((question, index) => (
+          <div key={index}>
+            <FAQLeadersQuestionWrapper question={question} />
+          </div>
+        ))
+      )}
     </div>
   );
 };
