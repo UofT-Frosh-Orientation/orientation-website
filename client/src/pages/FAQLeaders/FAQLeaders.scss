@@ -59,6 +59,16 @@
   }
 }
 
+.faq-leaders-category {
+  margin-top: 7px;
+  background-color: var(--purple-shades-light);
+  border-radius: 12px;
+  color: var(--text-dark);
+  @include devices(tablet) {
+    font-size: 16px;
+  }
+}
+
 .faq-leaders-edit-title {
   padding-top: 20px;
   margin-bottom: 7px;

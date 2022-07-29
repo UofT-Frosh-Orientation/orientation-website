@@ -62,8 +62,8 @@ const FaqController = {
    */
   async createQuestion(req, res, next) {
     try {
-      const { email, question, category } = req.body;
-      const newFaq = await FaqServices.createNewQuestion(email, question, category);
+      const { email, question, answer, category } = req.body;
+      const newFaq = await FaqServices.createNewQuestion(email, question, answer, category);
       res.status(200).send(newFaq.toObject());
     } catch (err) {
       next(err);
@@ -100,9 +100,10 @@ const FaqController = {
     try {
       const { faqId } = req.params;
       const update = req.body;
-      if (update.answer) {
-        update.isAnswered = true;
-      }
+      console.log(update);
+      // if (update.answer) {
+      //   update.isAnswered = true;
+      // }
       const updatedFaq = await FaqServices.updateQuestion(faqId, update);
       res.status(200).send(updatedFaq.toObject());
     } catch (err) {

@@ -1,13 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {
-  getAnsweredQuestions,
-  getUnansweredQuestions,
-  deleteQuestion,
-  submitEdit,
-  submitQuestion,
-  getQuestionCategories,
-} from './functions';
+import { deleteQuestion, submitEdit, submitQuestion } from './functions';
 import './FAQLeaders.scss';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
@@ -46,11 +39,11 @@ const PageFAQLeaders = () => {
 
 const FAQLeadersAnsweredQuestions = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [allQuestions, setAllQuestions] = useState(undefined);
+  const [questionCategories, setQuestionCategories] = useState([]);
   const tempQuestionCategories = [];
   const tempQuestionsObject = {};
   const tempAllQuestions = [];
-  const [allQuestions, setAllQuestions] = useState(undefined);
-  const [questionCategories, setQuestionCategories] = useState([]);
   const getQuestions = async (questionCategories, questionsObject, allQuestions) => {
     try {
       const response = await axios.get('/faq/answered');
@@ -93,7 +86,7 @@ const FAQLeadersAnsweredQuestions = () => {
         questionCategories={questionCategories}
       />
       {allQuestions === undefined ? (
-        <div></div>
+        <></>
       ) : (
         allQuestions[activeIndex].map((question, index) => (
           <div key={index}>
@@ -107,11 +100,11 @@ const FAQLeadersAnsweredQuestions = () => {
 
 const FAQLeadersUnansweredQuestions = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [allQuestions, setAllQuestions] = useState(undefined);
+  const [questionCategories, setQuestionCategories] = useState([]);
   const tempQuestionCategories = [];
   const tempQuestionsObject = {};
   const tempAllQuestions = [];
-  const [allQuestions, setAllQuestions] = useState(undefined);
-  const [questionCategories, setQuestionCategories] = useState([]);
   const getQuestions = async (questionCategories, questionsObject, allQuestions) => {
     try {
       const response = await axios.get('/faq/unanswered');
@@ -154,7 +147,7 @@ const FAQLeadersUnansweredQuestions = () => {
         questionCategories={questionCategories}
       />
       {allQuestions === undefined ? (
-        <div></div>
+        <></>
       ) : (
         allQuestions[activeIndex].map((question, index) => (
           <div key={index}>
@@ -171,27 +164,33 @@ const FAQLeadersQuestionWrapper = ({ question }) => {
   const [editButtonText, setEditButtonText] = useState('Edit');
   const [questionText, setQuestionText] = useState(question.question);
   const [answerText, setAnswerText] = useState(question.answer);
+  const [categoryText, setCategoryText] = useState(question.category);
   const initialFormData = {
     question: '',
     answer: '',
+    category: '',
   };
   const [formData, updateFormData] = useState(initialFormData);
   useEffect(() => {
-    updateFormData({ question: questionText, answer: answerText });
-  }, [questionText, answerText]);
+    updateFormData({ question: questionText, answer: answerText, category: categoryText });
+  }, [questionText, answerText, categoryText]);
   const handleEditQuestion = (text) => {
     setQuestionText(text);
   };
   const handleEditAnswer = (text) => {
     setAnswerText(text);
   };
+  const handleEditCategory = (text) => {
+    setCategoryText(text);
+  };
   const handleSubmit = async (id) => {
-    submitEdit(id, formData); //TODO: Link with backend
+    submitEdit(id, formData);
   };
   return (
     <div className={'faq-leaders-questions-container'}>
       <div className={'faq-leaders-questions'}>{question.question}</div>
       <div className={'faq-leaders-answers'}>{question.answer}</div>
+      <div className={'faq-leaders-category'}>{question.category}</div>
       <div className={`${!isEdit ? 'faq-leaders-hide-questions' : ''}`}>
         <div className={'faq-leaders-edit-title'}>Edit</div>
         <form>
@@ -217,6 +216,17 @@ const FAQLeadersQuestionWrapper = ({ question }) => {
               />
             </div>
           </label>
+          <label>
+            <div className={''}>
+              <TextInput
+                onChange={(text) => handleEditCategory(text)}
+                inputType={'text'}
+                placeholder={'Category'}
+                initialValue={question.category} //TODO: current category doesn't show, only placeholder shows
+                style={{ height: '45px' }}
+              />
+            </div>
+          </label>
           <div style={{ textAlign: 'center' }}>
             <Button label={'Save'} onClick={() => handleSubmit(question.id)} />
           </div>
@@ -226,7 +236,7 @@ const FAQLeadersQuestionWrapper = ({ question }) => {
       <Button
         label={'Delete'}
         onClick={async () => {
-          deleteQuestion(question.id); //TODO: Link to backend
+          deleteQuestion(question.id);
         }}
       />
       <Button
@@ -273,9 +283,6 @@ const FAQLeadersNewPost = () => {
     category: '',
   };
   const [formData, updateFormData] = useState(initialFormData);
-  useEffect(() => {
-    updateFormData({ question: questionText, answer: answerText, category: categoryText });
-  }, [questionText, answerText, categoryText]);
   const handleEditQuestion = (text) => {
     setQuestionText(text);
   };
@@ -286,8 +293,11 @@ const FAQLeadersNewPost = () => {
     setCategoryText(text);
   };
   const handleSubmit = async () => {
-    submitQuestion(formData); //TODO: Link with backend
+    submitQuestion(formData);
   };
+  useEffect(() => {
+    updateFormData({ question: questionText, answer: answerText, category: categoryText });
+  }, [questionText, answerText, categoryText]);
   return (
     <form>
       <label>

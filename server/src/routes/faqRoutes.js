@@ -2,7 +2,7 @@ const express = require('express');
 
 const FaqController = require('../controllers/FaqController');
 const checkLoggedIn = require('../middlewares/checkLoggedIn');
-const hasAuthScopes = require('../middlewares/hasAuthScopes');
+//const hasAuthScopes = require('../middlewares/hasAuthScopes');
 
 const router = express.Router();
 
@@ -51,6 +51,7 @@ router.post('/create', FaqController.createQuestion);
  *         $ref: '#components/responses/NotLoggedIn'
  */
 router.delete('/:faqId', checkLoggedIn, FaqController.deleteQuestion);
+//hasAuthScopes(['faq:delete'])
 
 /**
  * @swagger
@@ -73,7 +74,8 @@ router.delete('/:faqId', checkLoggedIn, FaqController.deleteQuestion);
  *       '403':
  *         $ref: '#components/responses/NotLoggedIn'
  */
-router.patch('/:faqId?', checkLoggedIn, FaqController.updateQuestion);
+router.patch('/:faqId', checkLoggedIn, FaqController.updateQuestion);
+//hasAuthScopes(['faq:edit'])
 
 /**
  * @swagger
@@ -133,6 +135,6 @@ router.get('/unanswered', FaqController.getUnansweredFaqList);
  *                   items:
  *                     $ref: '#components/schemas/FAQ'
  */
-router.get('/all', checkLoggedIn, hasAuthScopes(['faq:edit']), FaqController.getAllFaqList);
+router.get('/all', checkLoggedIn, FaqController.getAllFaqList);
 
 module.exports = router;
