@@ -140,7 +140,7 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
           })}
         </div>
         <div className="navbar-special">
-          ={/* SPECIAL PAGES - Profile, Register, Login*/}
+          {/* SPECIAL PAGES - Profile, Register, Login*/}
           {pages.special.map((page) => {
             // Clicking on profile button
             if (page.label === 'Profile') {
