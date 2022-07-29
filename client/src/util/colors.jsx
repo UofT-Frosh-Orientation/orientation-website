@@ -10,7 +10,7 @@ export const colors = {
   '--yellow': ['#ffe863', '#ffcc4a'],
   '--yellow-light': ['#ffe76a', '#ffe76a'],
   '--white': ['#ffffff', '#ffffff'],
-  '--on-white': ['#f3f3f3', '#f3f3f3'],
+  '--on-white': ['#f3f3f3', '#b297c7'], // ButtonOutlined
   '--black': ['#000000', '#ffffff'],
   '--gray': ['#989898', '#989898'],
   '--shadow': ['#959da533 0px 8px 24px', '#959da533 0px 8px 24px'],
@@ -56,4 +56,10 @@ export const colors = {
   '--navbar-underline': ['#e2e2e2', '#4F366B'],
   '--navbar-underline-desktop': ['#6f1e88', '#8c60b3'],
   '--navbar-underline-highlight': ['#6f1e88', '#8c60b3'],
+  '--user-icon-bg': ['#6f1e88', '#8c60b3'],
+
+  //button
+  '--button-outlined-border': ['#b297c7', '#8c60b3'],
+  '--button-outlined-font': ['#20002e', '#ffffff'],
+  '--button-outlined-disabled-border': ['#989898', '#8c60b3'],
 };
