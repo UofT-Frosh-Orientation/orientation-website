@@ -125,7 +125,6 @@
 }
 
 .home-page-timeline-popup-container {
-  padding: 0px 50px;
   color: var(--white);
   h1 {
     margin-bottom: 10px;
@@ -169,6 +168,8 @@
 }
 
 .home-page-sponsors {
+  color: var(--black);
+
   text-align: center;
   h2 {
     font-size: 40px;

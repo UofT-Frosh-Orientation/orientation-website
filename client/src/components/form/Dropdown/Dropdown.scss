@@ -26,6 +26,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  background-color: var(--white);
   .dropdown-image {
     user-select: none;
     height: 100%;
@@ -42,6 +43,8 @@
   &:hover {
     background-color: var(--on-white);
   }
+  //background-color: var(--on-white);
+  color: var(--black);
 }
 
 .dropdown-selected-disabled {
@@ -53,7 +56,10 @@
 }
 
 .dropdown-selected-label {
-  margin: 0.5em 2em 0.5em 1em;
+  margin: 0.5em 1.3em 0.5em 1em;
+  @include devices(tablet) {
+    margin: 0.5em 1em 0.5em 1em;
+  }
 }
 
 .dropdown-list-container {
@@ -77,11 +83,14 @@
 }
 
 .dropdown-item {
-  padding: 0.5em 2em 0.5em 1em;
+  padding: 0.5em 1em 0.5em 1em;
   cursor: pointer;
   transition: background-color 300ms ease-in-out;
 
   &:hover {
     background-color: var(--purple-shades-muted);
+  }
+  @include devices(tablet) {
+    padding: 0.5em 0.5em 0.5em 0.5em;
   }
 }

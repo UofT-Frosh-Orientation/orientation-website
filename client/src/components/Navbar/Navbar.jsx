@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './Navbar.scss';
 
@@ -8,8 +8,17 @@ import MessageIconPurple from '../../assets/navbar/message-solid-purple.svg';
 import HomeIconGrey from '../../assets/navbar/house-solid-grey.svg';
 import AboutIconGrey from '../../assets/navbar/circle-info-solid-grey.svg';
 import MessageIconGrey from '../../assets/navbar/message-solid-grey.svg';
+
+import HomeIconHighlightDarkMode from '../../assets/darkmode/navbar/house-solid-purple.svg';
+import AboutIconHighlightDarkMode from '../../assets/darkmode/navbar/circle-info-solid-purple.svg';
+import MessageIconHighlightDarkMode from '../../assets/darkmode/navbar/message-solid-purple.svg';
+import HomeIconDefaultDarkMode from '../../assets/darkmode/navbar/house-solid-grey.svg';
+import AboutIconDefaultDarkMode from '../../assets/darkmode/navbar/circle-info-solid-grey.svg';
+import MessageIconDefaultDarkMode from '../../assets/darkmode/navbar/message-solid-grey.svg';
+
 import ProfileIcon from '../../assets/navbar/circle-user-solid-purple.svg';
-import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
+import ProfileIconDarkMode from '../../assets/darkmode/navbar/circle-user-solid-purple.svg';
+import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { pages } from '../../util/pages';
@@ -17,10 +26,27 @@ import { PopupModal } from '../popup/PopupModal';
 import { Button } from '../button/Button/Button';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../pages/Login/saga';
+import { DarkModeContext } from '../../util/DarkModeProvider';
 
 const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
     <>
+      {/* <div
+        onClick={() => {
+          setDarkModeStatus(!darkMode);
+        }}
+        style={{
+          height: '100px',
+          width: '100px',
+          backgroundColor: 'red',
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          zIndex: 100,
+        }}
+      ></div> */}
       <div className="navbar-desktop">
         <NavbarDesktop
           isLoggedIn={isLoggedIn}
@@ -44,6 +70,7 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   return (
     <>
@@ -126,7 +153,15 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
                     pathname === page.path || pathname === '/login' ? { pointerEvents: 'none' } : {}
                   }
                 >
-                  <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>
+                  {!darkMode ? (
+                    <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>
+                  ) : (
+                    <img
+                      className="icon-profile-person"
+                      alt="profile"
+                      src={ProfileIconDarkMode}
+                    ></img>
+                  )}
                 </Link>
               );
             } // Clicking on register button
@@ -162,7 +197,9 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
 };
 
 const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
-  const { pathname } = useLocation().pathname;
+  let pathname = useLocation().pathname;
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
     <div className="navbar-container">
       <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
@@ -179,35 +216,67 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
             >
               <div className="navbar-sub-container">
                 <div className="navbar-menu-icon">
-                  <img
-                    className="navbar-svg-icon"
-                    alt={
-                      page.label === 'Home'
-                        ? 'home'
-                        : page.label === 'About'
-                        ? 'about'
-                        : page.label === 'FAQ'
-                        ? 'faq'
-                        : ''
-                    }
-                    src={
-                      pathname === page.path
-                        ? page.label === 'Home'
-                          ? HomeIconPurple
+                  {!darkMode ? (
+                    <img
+                      className="navbar-svg-icon"
+                      alt={
+                        page.label === 'Home'
+                          ? 'home'
                           : page.label === 'About'
-                          ? AboutIconPurple
+                          ? 'about'
                           : page.label === 'FAQ'
-                          ? MessageIconPurple
+                          ? 'faq'
+                          : ''
+                      }
+                      src={
+                        pathname === page.path
+                          ? page.label === 'Home'
+                            ? HomeIconPurple
+                            : page.label === 'About'
+                            ? AboutIconPurple
+                            : page.label === 'FAQ'
+                            ? MessageIconPurple
+                            : {}
+                          : page.label === 'Home'
+                          ? HomeIconGrey
+                          : page.label === 'About'
+                          ? AboutIconGrey
+                          : page.label === 'FAQ'
+                          ? MessageIconGrey
                           : {}
-                        : page.label === 'Home'
-                        ? HomeIconGrey
-                        : page.label === 'About'
-                        ? AboutIconGrey
-                        : page.label === 'FAQ'
-                        ? MessageIconGrey
-                        : {}
-                    }
-                  ></img>
+                      }
+                    ></img>
+                  ) : (
+                    <img
+                      className="navbar-svg-icon"
+                      alt={
+                        page.label === 'Home'
+                          ? 'home'
+                          : page.label === 'About'
+                          ? 'about'
+                          : page.label === 'FAQ'
+                          ? 'faq'
+                          : ''
+                      }
+                      src={
+                        pathname === page.path
+                          ? page.label === 'Home'
+                            ? HomeIconHighlightDarkMode
+                            : page.label === 'About'
+                            ? AboutIconHighlightDarkMode
+                            : page.label === 'FAQ'
+                            ? MessageIconHighlightDarkMode
+                            : {}
+                          : page.label === 'Home'
+                          ? HomeIconDefaultDarkMode
+                          : page.label === 'About'
+                          ? AboutIconDefaultDarkMode
+                          : page.label === 'FAQ'
+                          ? MessageIconDefaultDarkMode
+                          : {}
+                      }
+                    ></img>
+                  )}
                 </div>
                 {pathname === page.path ? (
                   <div className="underline-page-selected"></div>

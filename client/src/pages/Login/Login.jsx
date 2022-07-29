@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './Login.scss';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +15,15 @@ import MountainFR from '../../assets/login/mountain-front-right.svg';
 import MountainM from '../../assets/login/mountain-mid.svg';
 import Ptero from '../../assets/login/ptero.svg';
 
+import BrachioRDarkMode from '../../assets/darkmode/login/brachiosaurus-ground-right.svg';
+import BrachioLDarkMode from '../../assets/darkmode/login/brachiosaurus-ground-left.svg';
+import GroundDarkMode from '../../assets/darkmode/login/ground.svg';
+import MountainBDarkMode from '../../assets/darkmode/login/mountain-back.svg';
+import MountainFLDarkMode from '../../assets/darkmode/login/mountain-front-left.svg';
+import MountainFRDarkMode from '../../assets/darkmode/login/mountain-front-right.svg';
+import MountainMDarkMode from '../../assets/darkmode/login/mountain-mid.svg';
+import PteroDarkMode from '../../assets/darkmode/login/ptero.svg';
+
 import { resetPassword } from './functions';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
@@ -23,6 +32,7 @@ import { PopupModal } from '../../components/popup/PopupModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestPasswordResetSelector, userSelector } from '../userSlice';
 import { login, requestPasswordReset } from './saga';
+import { DarkModeContext } from '../../util/DarkModeProvider';
 
 // Messages!
 const popupTitle = 'Reset Password';
@@ -122,18 +132,58 @@ const PageLogin = ({ incorrectEntry }) => {
 };
 
 const LoginBackgroundImages = () => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
     <>
       <div className="login-bg-images">
-        <img className="mountain-back" src={MountainB} alt="mountain"></img>
-        <img className="mountain-front-right" src={MountainFR} alt="mountain"></img>
-        <img className="mountain-mid" src={MountainM} alt="mountain"></img>
-        <img className="mountain-front-left" src={MountainFL} alt="mountain"></img>
+        {!darkMode ? (
+          <img className="mountain-back" src={MountainB} alt="mountain"></img>
+        ) : (
+          <img className="mountain-back" src={MountainBDarkMode} alt="mountain"></img>
+        )}
 
-        <img className="ground" src={Ground} alt="ground"></img>
-        <img className="brachio-left" src={BrachioL} alt="brachiosaurus"></img>
-        <img className="brachio-right" src={BrachioR} alt="brachiosaurus"></img>
-        <img className="ptero" src={Ptero} alt="ptero"></img>
+        {!darkMode ? (
+          <img className="mountain-front-right" src={MountainFR} alt="mountain"></img>
+        ) : (
+          <img className="mountain-front-right" src={MountainFRDarkMode} alt="mountain"></img>
+        )}
+
+        {!darkMode ? (
+          <img className="mountain-mid" src={MountainM} alt="mountain"></img>
+        ) : (
+          <img className="mountain-mid" src={MountainMDarkMode} alt="mountain"></img>
+        )}
+
+        {!darkMode ? (
+          <img className="mountain-front-left" src={MountainFL} alt="mountain"></img>
+        ) : (
+          <img className="mountain-front-left" src={MountainFLDarkMode} alt="mountain"></img>
+        )}
+
+        {!darkMode ? (
+          <img className="ground" src={Ground} alt="ground"></img>
+        ) : (
+          <img className="ground" src={GroundDarkMode} alt="ground"></img>
+        )}
+
+        {!darkMode ? (
+          <img className="brachio-left" src={BrachioL} alt="brachiosaurus"></img>
+        ) : (
+          <img className="brachio-left" src={BrachioLDarkMode} alt="brachiosaurus"></img>
+        )}
+
+        {!darkMode ? (
+          <img className="brachio-right" src={BrachioR} alt="brachiosaurus"></img>
+        ) : (
+          <img className="brachio-right" src={BrachioRDarkMode} alt="brachiosaurus"></img>
+        )}
+
+        {!darkMode ? (
+          <img className="ptero" src={Ptero} alt="ptero"></img>
+        ) : (
+          <img className="ptero" src={PteroDarkMode} alt="ptero"></img>
+        )}
       </div>
     </>
   );

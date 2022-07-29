@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import './Footer.scss';
 import { pages } from '../../util/pages';
 import { Link, useLocation } from 'react-router-dom';
 import { socials } from '../../util/socials';
-import Wave from '../../assets/misc/wave.png';
+import Wave from '../../assets/misc/wave.svg';
+import WaveDarkMode from '../../assets/darkmode/misc/wave.svg';
 import bug from '../../assets/misc/bug-solid.svg';
+import { DarkModeContext } from '../../util/DarkModeProvider';
 
 const Footer = () => {
+  const { pathname } = useLocation();
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
     <>
-      <img src={Wave} className="wave-image wave-image-footer" />
+      {darkMode ? (
+        <img src={WaveDarkMode} className="wave-image-footer" />
+      ) : (
+        <img src={Wave} className="wave-image-footer" />
+      )}
       <div className="footer-container">
         <div className="sitemap">
           <div className="sitemap-text">Site Map</div>
@@ -20,13 +29,9 @@ const Footer = () => {
                 <div key={page.path}>
                   <Link
                     className="links"
-                    to={useLocation().pathname === page.path ? {} : page.path}
+                    to={pathname === page.path ? {} : page.path}
                     key={page.path}
-                    style={
-                      useLocation().pathname === page.path
-                        ? { pointerEvents: 'none', color: 'white' }
-                        : {}
-                    }
+                    style={pathname === page.path ? { pointerEvents: 'none', color: 'white' } : {}}
                   >
                     {page.label}
                   </Link>

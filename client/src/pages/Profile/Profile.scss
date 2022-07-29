@@ -282,7 +282,7 @@
   border-radius: 10px;
   width: 100%;
   text-align: center;
-  margin-top: 15px;
+  margin-top: 5px;
 }
 
 .profile-page-manual-entry-header {
@@ -393,4 +393,41 @@
   margin-top: 25px;
   text-align: center;
   padding: 0px 20px;
+}
+
+.frosh-instagram-container {
+  margin-left: 50px;
+  margin-top: 20px;
+  margin-right: 2%;
+  flex: 1;
+  max-width: 1000px;
+  background-color: var(--light-purple);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 15px;
+  margin-bottom: 23px;
+  img {
+    padding-right: 18px;
+    width: 75px;
+    vertical-align: middle;
+    transition: transform 500ms;
+  }
+  @include devices(tablet) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  h2 {
+    transition: transform 500ms;
+    transform-origin: left;
+  }
+  &:hover {
+    img {
+      transform: scale(1.1);
+    }
+    h2 {
+      transform: scale(1.05);
+    }
+  }
 }

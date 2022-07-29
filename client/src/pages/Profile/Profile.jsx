@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   canLeaderScanQR,
@@ -17,6 +17,7 @@ import {
 } from './functions';
 import './Profile.scss';
 import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
+import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
 import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnnouncement';
 import { QRNormal } from 'react-qrbtf';
 import { ButtonBubble } from '../../components/button/ButtonBubble/ButtonBubble';
@@ -31,12 +32,16 @@ import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOut
 import EditIcon from '../../assets/misc/pen-solid.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { resources } from '../../util/resources';
+import { instagramAccounts } from '../../util/instagramAccounts';
+import InstagramIcon from '../../assets/social/instagram-brands.svg';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../userSlice';
 
 import { PopupModal } from '../../components/popup/PopupModal';
 import { logout } from '../Login/saga';
+import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
+import { DarkModeContext } from '../../util/DarkModeProvider';
 
 const PageProfile = () => {
   const qrCodeLeader = canLeaderScanQR();
@@ -63,7 +68,10 @@ const PageProfileFrosh = ({ leader, isLoggedIn, setIsLoggedIn }) => {
       <div className="profile-info-row">
         <div>
           {leader === false || leader === undefined ? (
-            <ProfilePageAnnouncements />
+            <>
+              <ProfilePageInstagrams />
+              <ProfilePageAnnouncements />
+            </>
           ) : (
             <div style={{ marginTop: '-40px' }} />
           )}
@@ -105,37 +113,11 @@ const PageProfileQRLeader = () => {
 };
 
 const ProfilePageQRScanner = () => {
-  const [isScanned, setIsScanned] = useState(false);
-  const [isScanning, setIsScanning] = useState(false);
-  const [scannedData, setScannedData] = useState('');
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [searchFor, setSearchFor] = useState('');
   const [results, setResults] = useState([]);
-  const videoRef = useRef();
-
-  let qrScanner = null;
-  useEffect(() => {
-    if (isScanning) {
-      const videoElement = videoRef.current;
-      qrScanner = new QrScanner(
-        videoElement,
-        (qrCode) => {
-          if (qrCode) {
-            setIsScanned(!isScanned);
-            setScannedData(parseQRCode(qrCode.data));
-          }
-        },
-        {
-          onDecodeError: (error) => {},
-          highlightScanRegion: true,
-          highlightCodeOutline: true,
-        },
-      );
-      qrScanner.setInversionMode('both');
-      qrScanner.start();
-    }
-  }, [isScanning]);
+  const [scannedData, setScannedData] = useState('');
 
   const search = () => {
     setResults(searchForFrosh(searchFor));
@@ -143,23 +125,9 @@ const ProfilePageQRScanner = () => {
 
   return (
     <div className="profile-page-qr-code">
-      <ButtonOutlined
-        label={isScanning ? 'Stop Scanning' : 'Start Scanning'}
-        onClick={() => {
-          if (isScanning) {
-            qrScanner?.stop();
-            qrScanner?.destroy();
-            qrScanner = null;
-            document.getElementsByClassName('scan-region-highlight-svg')[0].style.display = 'none';
-            document.getElementsByClassName('scan-region-highlight')[0].style.display = 'none';
-            setIsScanning(false);
-          } else {
-            setIsScanning(true);
-          }
-        }}
-      />
-      <video ref={videoRef} style={{ width: '100%', borderRadius: '10px' }}></video>
-
+      <QRScannerDisplay
+        setScannedData={(data) => setScannedData(parseQRCode(data))}
+      ></QRScannerDisplay>
       <div
         className={`profile-page-scanned-data ${
           submitSuccess ? 'profile-page-scanned-data-success' : ''
@@ -249,9 +217,10 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
 
   const isRegistered = useSelector(registeredSelector);
   // console.log(`editButton: ${editButton}`);
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
     <>
-      {/* calum, please log out in the popups! */}
       <PopupModal
         trigger={showLogoutPopup}
         setTrigger={setShowLogoutPopup}
@@ -322,8 +291,12 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
           )}
         </div>
       </div>
-      <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
-      {!isRegistered ? (
+      {darkMode ? (
+        <img src={WaveReverseFlipDarkMode} className="wave-image home-page-bottom-wave-image" />
+      ) : (
+        <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
+      )}
+      {!isRegistered && leader !== true ? (
         <div className={'profile-not-registered'}>
           <h1>You are not registered!</h1>
           <h2>You will not be able to participate in F!rosh week events until you register.</h2>
@@ -350,6 +323,37 @@ ProfilePageHeader.propTypes = {
   setIsLoggedIn: PropTypes.func,
 };
 
+const ProfilePageInstagrams = () => {
+  const { user } = useSelector(userSelector);
+  const isRegistered = useSelector(registeredSelector);
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
+  const getInstagramFromLink = (link) => {
+    if (link === undefined) return '';
+    return link.replace('https://www.instagram.com', '').replace('/', '');
+  };
+
+  const instagramLink = instagramAccounts[user?.froshGroup];
+
+  return isRegistered ? (
+    <a href={instagramLink} className="no-link-style">
+      <div className="frosh-instagram-container">
+        <img
+          src={InstagramIcon}
+          alt="Instagram"
+          style={{ filter: darkMode ? 'invert(1)' : 'unset' }}
+        />
+        <div>
+          <p>Go follow your frosh group and meet your Leedurs!</p>
+          <h2>@{getInstagramFromLink(instagramLink)}</h2>
+        </div>
+      </div>
+    </a>
+  ) : (
+    <></>
+  );
+};
+
 const ProfilePageAnnouncements = () => {
   const [tasks, setTasks] = useState([]);
   useEffect(async () => {
@@ -358,7 +362,11 @@ const ProfilePageAnnouncements = () => {
   return (
     <div className="profile-page-announcements">
       <h2 className="profile-page-section-header">Tasks and Announcements</h2>
-      {tasks == undefined ? <></> : <TaskAnnouncement tasks={tasks} onDone={onDoneTask} />}
+      {tasks == undefined || tasks.length <= 0 ? (
+        <h2>There are no announcements yet!</h2>
+      ) : (
+        <TaskAnnouncement tasks={tasks} onDone={onDoneTask} />
+      )}
     </div>
   );
 };

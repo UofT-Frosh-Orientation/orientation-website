@@ -3,13 +3,14 @@ import { TextInput } from '../../components/input/TextInput/TextInput';
 import './SignUp.scss';
 import { Button } from '../../components/button/Button/Button';
 import { validateEmail, validatePassword, validatePasswordLength } from './functions';
-import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
+import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userSelector } from '../userSlice';
 import { signUp } from '../Login/saga';
+import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 
 const PageSignUp = () => {
   const [errors, setErrors] = useState({});
@@ -17,6 +18,8 @@ const PageSignUp = () => {
   const [anyErrors, setAnyErrors] = useState({});
   const [pageState, setPageState] = useState('form');
   const [signUpError, setSignUpError] = useState('');
+  const [revealLeaderSignup, setRevealLeaderSignup] = useState(0);
+
   const { user, loading, error } = useSelector(userSelector);
   const dispatch = useDispatch();
 
@@ -25,7 +28,7 @@ const PageSignUp = () => {
       setPageState('loading');
     } else if (error) {
       setPageState('form');
-      setErrors(error);
+      setSignUpError(error);
     } else if (user) {
       setPageState('success');
     }
@@ -85,6 +88,10 @@ const PageSignUp = () => {
     return anyErrorsNow;
   };
 
+  const handleLeaderReveal = () => {
+    setRevealLeaderSignup(revealLeaderSignup + 1);
+  };
+
   return (
     <div>
       <div
@@ -93,7 +100,11 @@ const PageSignUp = () => {
       >
         <div className="navbar-space-top" />
         <div className="sign-up-container">
-          <img className="sign-up-logo" src={MainFroshLogo}></img>
+          <img
+            className={`sign-up-logo ${revealLeaderSignup >= 5 ? 'sign-up-logo-expand' : ''}`}
+            src={MainFroshLogo}
+            onClick={handleLeaderReveal}
+          ></img>
           <h1>Create an Account</h1>
           <h3>For F!rosh Week 2T2, UofT Engineering</h3>
           <div className="full-width-input">
@@ -176,6 +187,18 @@ const PageSignUp = () => {
               localStorageKey={'sign-up-preferredName'}
             />
           </div>
+          {revealLeaderSignup >= 5 ? (
+            <div style={{ width: '100%', marginTop: '5px', marginBottom: '5px' }}>
+              <Checkboxes
+                values={['Request Leadur Account']}
+                onSelected={(value, index, state, selectedIndices) => {
+                  accountObj['leadur'] = state;
+                }}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
           <div
             className="sign-up-button"
             onMouseOver={() => {
@@ -219,16 +242,22 @@ const PageSignUp = () => {
                 ? accountObj['firstName']
                 : accountObj['preferredName']
             }.`}</h2>
-            <h1>You aren&apos;t done just yet!</h1>
-            <h3>You still need to register and pay for the F!rosh Week event.</h3>
-            <Link to="/registration" className="no-link-style">
-              <div>
-                <Button
-                  label="Register"
-                  style={{ padding: '25px 60px', fontSize: '20px', borderRadius: '20px' }}
-                />
-              </div>
-            </Link>
+            {accountObj['leadur'] === true ? (
+              <h3>Your account will be reviewed and shortly become an official Leadur account.</h3>
+            ) : (
+              <>
+                <h1>You aren&apos;t done just yet!</h1>
+                <h3>You still need to register and pay for the F!rosh Week event.</h3>
+                <Link to="/registration" className="no-link-style">
+                  <div>
+                    <Button
+                      label="Register"
+                      style={{ padding: '25px 60px', fontSize: '20px', borderRadius: '20px' }}
+                    />
+                  </div>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

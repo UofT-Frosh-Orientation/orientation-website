@@ -215,6 +215,9 @@ ul {
 }
 
 .wave-image-footer {
+  transform: translateY(1px);
+  display: unset;
+  width: 100%;
   margin-bottom: -5px;
   filter: drop-shadow(-10px -10px 8px #23232342);
 }

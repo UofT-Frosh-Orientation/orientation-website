@@ -74,6 +74,11 @@ li {
   color: var(--gray);
   font-size: 16px;
   font-weight: 700;
+
+  .navbar-underline {
+    color: var(--gray);
+    transition: background-color 200ms;
+  }
 }
 
 .navbar-underline {
@@ -120,11 +125,12 @@ li {
   text-align: center;
   font-weight: bold;
   font-size: 15px;
-  color: var(--yellow-light);
+  color: var(--yellow);
   float: right;
 }
 
 .icon-profile-person {
+  display: unset;
   width: 35px;
   height: 35px;
   margin-left: auto;
@@ -254,6 +260,7 @@ li {
   }
 
   .navbar-svg-icon {
+    display: unset;
     width: 25px;
     margin: 3px 0 0 0;
   }

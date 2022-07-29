@@ -1,9 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import './Dropdown.scss';
 import { useWrapperRef } from '../../../hooks/useWrapperRef';
 import Arrow from '../../../../assets/icons/angle-down-solid.svg';
+import ArrowDarkMode from '../../../assets/darkmode/icons/angle-down-solid.svg';
+import { DarkModeContext } from '../../../util/DarkModeProvider';
 
 const Dropdown = ({
   values,
@@ -12,7 +14,11 @@ const Dropdown = ({
   isDisabled,
   initialSelectedIndex,
   localStorageKey,
+  filterLabel,
+  maxLetters,
 }) => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   useEffect(() => {
     if (localStorageKey !== undefined) {
       const storedString = localStorage.getItem(localStorageKey);
@@ -54,23 +60,44 @@ const Dropdown = ({
       }}
       key={`dropdownItem-${value}`}
     >
-      {value}
+      {filterLabel ? filterLabel(value.toString()) : value.toString()}
     </div>
   ));
 
   return (
     <>
-      <div className={`dropdown-header ${isDisabled === true ? 'dropdown-header-disabled' : ''}`}>
-        {label}
-      </div>
+      {label !== undefined ? (
+        <div className={`dropdown-header ${isDisabled === true ? 'dropdown-header-disabled' : ''}`}>
+          {label}
+        </div>
+      ) : (
+        <></>
+      )}
       <div className={'dropdown-container'} ref={wrapperRef}>
         <div
           onClick={() => !isDisabled && setIsOpen(!isOpen)}
           className={`dropdown-selected${isDisabled ? '-disabled' : ''}`}
         >
-          <div className={'dropdown-selected-label'}>{selected}</div>
+          <div className={'dropdown-selected-label'}>
+            {maxLetters
+              ? (filterLabel ? filterLabel(selected.toString()) : selected.toString()).substring(
+                  0,
+                  maxLetters,
+                ) +
+                ((filterLabel ? filterLabel(selected.toString()) : selected.toString()).length >
+                maxLetters
+                  ? '...'
+                  : '')
+              : filterLabel
+              ? filterLabel(selected.toString())
+              : selected.toString()}
+          </div>
           <div className={`dropdown-image${isOpen ? ' open' : ''}`}>
-            <img alt={'arrow'} src={Arrow} />
+            {darkMode ? (
+              <img alt={'arrow'} src={ArrowDarkMode} className="dropdown-arrow" />
+            ) : (
+              <img alt={'arrow'} src={Arrow} className="dropdown-arrow" />
+            )}
           </div>
         </div>
         <div
@@ -90,6 +117,8 @@ Dropdown.propTypes = {
   initialSelectedIndex: PropTypes.number,
   isDisabled: PropTypes.bool,
   localStorageKey: PropTypes.string,
+  filterLabel: PropTypes.func,
+  maxLetters: PropTypes.number,
 };
 
 export { Dropdown };

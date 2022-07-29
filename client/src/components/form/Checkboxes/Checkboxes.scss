@@ -1,15 +1,5 @@
 @import '../../../scssStyles/mixins';
 
-// .form-control {
-//   font-size: 18px;
-//   line-height: 1;
-//   display: flex;
-//   align-items: flex-start;
-//   margin: 10px;
-//   gap: 10px;
-//   user-select: none;
-// }
-
 .form-control + .form-control {
   margin-top: 13px;
 }

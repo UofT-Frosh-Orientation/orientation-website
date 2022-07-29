@@ -9,11 +9,10 @@ import { headLeedurs } from '../../util/about/headleedurs';
 import { subComs } from '../../util/about/subcoms';
 
 import { ExecProfile } from './ExecProfile/ExecProfile';
-
-import waveBottom from '../../assets/misc/wave-reverse.png';
 import ExecLogo from '../../assets/about/exec-tshirt-logo.svg';
 import { useEffect } from 'react';
 import { object } from 'prop-types';
+import { Header } from '../../components/text/Header/Header';
 
 const PageAbout = () => {
   return (
@@ -41,30 +40,24 @@ const PageAbout = () => {
 
 const AboutUsSection = () => {
   return (
-    <div className="aboutus-container">
-      <div className="aboutus-subcontainer">
-        <h2 className="aboutus-title">About Us</h2>
-        <div className="aboutus-title-underline"></div>
+    <Header text="About Us">
+      <div className="aboutus-subsubcontainer">
+        <div className="aboutus-image-container">
+          <img className="aboutus-image" src={ExecLogo} alt="logo"></img>
+        </div>
 
-        <div className="aboutus-subsubcontainer">
-          <div className="aboutus-image-container">
-            <img className="aboutus-image" src={ExecLogo} alt="logo"></img>
-          </div>
-
-          <div className="aboutus-info-container">
-            {aboutUsInfo.map((info) => {
-              return (
-                <div className="aboutus-info" key={info.title}>
-                  <h2 className="aboutus-info-title">{info.title}</h2>
-                  <p className="aboutus-info-des">{info.description}</p>
-                </div>
-              );
-            })}
-          </div>
+        <div className="aboutus-info-container">
+          {aboutUsInfo.map((info) => {
+            return (
+              <div className="aboutus-info" key={info.title}>
+                <h2 className="aboutus-info-title">{info.title}</h2>
+                <p className="aboutus-info-des">{info.description}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
-      <img className="aboutus-wave-bottom" src={waveBottom} alt="wave"></img>
-    </div>
+    </Header>
   );
 };
 
@@ -245,11 +238,10 @@ const AboutUsTeamsTab = () => {
                     style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}
                   >
                     <h1
-                      className="aboutus-teams-tabs-title"
-                      style={
+                      className={
                         currentTab === tab.title
-                          ? { color: 'var(--purple-shades-dark)', transition: 'color 200ms' }
-                          : {}
+                          ? 'aboutus-teams-tabs-title-selected'
+                          : 'aboutus-teams-tabs-title'
                       }
                     >
                       {tab.title}

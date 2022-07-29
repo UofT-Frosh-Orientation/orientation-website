@@ -23,7 +23,7 @@ const FaqSchema = new Schema(
       default: false,
     },
   },
-  { strict: true },
+  { strict: true, timestamps: true },
 );
 
 const FaqModel = mongoose.model('FAQ', FaqSchema);
