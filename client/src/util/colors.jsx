@@ -67,4 +67,9 @@ export const colors = {
   '--aboutus-tabs-color': ['#b297c7', '#b297c7'],
   '--aboutus-tabs-color-selected': ['#3c0a5a', '#ffffff'],
   '--aboutus-tabs-underline-selected': ['#b297c7', '#ffcc4a'],
+
+  //faq page
+  '--faq-answer-containers': ['#ecd6ff', '#ecd6ff'],
+  '--faq-searchbar-bg': ['#ffffff', '#8c60b3'],
+  '--faq-searchbar-placeholder': ['#989898', '#ECD6FF'],
 };

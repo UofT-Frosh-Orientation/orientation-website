@@ -60,6 +60,16 @@ a {
   transition: background-size 400ms;
 }
 
+input {
+  background-color: (--faq-searchbar-bg);
+}
+input[type='text'] {
+  color: var(--black);
+}
+::placeholder {
+  color: var(--faq-searchbar-placeholder);
+}
+
 a:hover {
   transition: background-size 400ms;
   background-size: 0% 2px, 100% 2px;
