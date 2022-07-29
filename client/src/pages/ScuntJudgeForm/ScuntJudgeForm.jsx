@@ -189,6 +189,8 @@ const ScuntBribePoints = ({ teams }) => {
   const [remainingBribePoints, setRemainingBribePoints] = useState(500);
   const [assignedPoints, setAssignedPoints] = useState(0);
   const [assignedTeam, setAssignedTeam] = useState('');
+  const [clearPointsInput, setClearPointsInput] = useState(false);
+
   const { setSnackbar } = useContext(SnackbarContext);
 
   return (
@@ -205,20 +207,42 @@ const ScuntBribePoints = ({ teams }) => {
             style={{
               display: 'flex',
               flexDirection: 'row',
-              alignItems: 'center',
               marginLeft: '5px',
+              justifyContent: 'space-between',
             }}
           >
-            <h2 style={{ fontSize: '18px', marginRight: '5px' }}>Team:</h2>
-            <Dropdown
-              initialSelectedIndex={0}
-              values={teams}
-              onSelect={(value) => {
-                setAssignedTeam(value);
-              }}
-              isDisabled={false}
-              localStorageKey={'scunt-team-choice'}
-            />
+            <div style={{ width: '100%' }}>
+              <Dropdown
+                label={'Team'}
+                initialSelectedIndex={0}
+                values={teams}
+                onSelect={(value) => {
+                  setAssignedTeam(value);
+                }}
+                isDisabled={false}
+                localStorageKey={'scunt-team-choice'}
+              />
+            </div>
+            <div>
+              <TextInput
+                label={'Points'}
+                placeholder={assignedPoints}
+                onChange={(value) => {
+                  if (isNaN(parseInt(value))) {
+                    return;
+                  }
+                  if (value === '' || value === undefined) {
+                    setAssignedPoints(0);
+                  } else if (parseInt(value) >= remainingBribePoints) {
+                    setAssignedPoints(remainingBribePoints);
+                  } else {
+                    setAssignedPoints(parseInt(value));
+                  }
+                }}
+                setClearText={setClearPointsInput}
+                clearText={clearPointsInput}
+              />
+            </div>
           </div>
           <div style={{ height: '10px' }} />
           <ReactSlider
@@ -232,6 +256,7 @@ const ScuntBribePoints = ({ teams }) => {
             renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
             onChange={(value) => {
               setAssignedPoints(value);
+              setClearPointsInput(true);
             }}
           />
           <div style={{ height: '60px' }} />
@@ -273,6 +298,7 @@ const ScuntMissionSelection = ({ missions, teams }) => {
   const [assignedPoints, setAssignedPoints] = useState(0);
   const [assignedTeam, setAssignedTeam] = useState('');
   const [clearText, setClearText] = useState(false);
+  const [clearPointsInput, setClearPointsInput] = useState(false);
   const [hasQRScanned, setHasQRScanned] = useState(false);
   const { setSnackbar } = useContext(SnackbarContext);
 
@@ -307,13 +333,25 @@ const ScuntMissionSelection = ({ missions, teams }) => {
       <QRScannerDisplay
         setScannedData={(data) => {
           const missionID = data.split('|')[1];
+          if (missionID === undefined) {
+            setSnackbar('There was an error with the QR code', true);
+            return;
+          }
           for (let mission of missions) {
             if (mission?.number.toString() === missionID.toString()) {
+              setAssignedPoints(mission?.points);
               setAssignedMission(undefined);
               setAssignedMission(mission);
             }
           }
           const team = data.split('|')[0];
+          if (team === undefined) {
+            setSnackbar('There was an error with the QR code', true);
+            return;
+          } else if (!teams.includes(team)) {
+            setSnackbar('There was an error with the QR code', true);
+            return;
+          }
           setAssignedTeam(team);
           setHasQRScanned(true);
         }}
@@ -386,37 +424,72 @@ const ScuntMissionSelection = ({ missions, teams }) => {
       )}
       {assignedMission !== undefined ? (
         <div style={{ width: '100%', marginRight: '2px', marginTop: '20px' }}>
-          {hasQRScanned === false ? (
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginLeft: '5px',
-              }}
-            >
-              <h2 style={{ fontSize: '18px', marginRight: '5px' }}>Team:</h2>
-              <Dropdown
-                initialSelectedIndex={0}
-                values={teams}
-                onSelect={(value) => {
-                  setAssignedTeam(value);
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              marginLeft: '5px',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            {hasQRScanned === false ? (
+              <div style={{ width: '100%' }}>
+                <Dropdown
+                  label={'Team'}
+                  initialSelectedIndex={0}
+                  values={teams}
+                  onSelect={(value) => {
+                    setAssignedTeam(value);
+                  }}
+                  isDisabled={false}
+                  localStorageKey={'scunt-team-choice'}
+                />
+              </div>
+            ) : (
+              <div style={{ width: '100%' }}>
+                <p style={{ marginBottom: '8px' }}>Team</p>
+                <h2>{assignedTeam}</h2>
+              </div>
+            )}
+            <div>
+              <TextInput
+                label={'Points'}
+                placeholder={assignedPoints}
+                onChange={(value) => {
+                  console.log('VALUE', value);
+                  if (isNaN(parseInt(value))) {
+                    return;
+                  }
+                  const maxPoints =
+                    parseInt(assignedMission?.points) +
+                    parseInt(assignedMission?.points * extraPointsFactor);
+                  const minPoints =
+                    parseInt(assignedMission?.points) -
+                    parseInt(assignedMission?.points * minPointsFactor);
+                  if (value === '' || value === undefined) {
+                    setAssignedPoints(assignedMission?.points);
+                  } else if (parseInt(value) >= maxPoints) {
+                    setAssignedPoints(maxPoints);
+                  } else if (parseInt(value) <= minPoints) {
+                    setAssignedPoints(minPoints);
+                  } else {
+                    setAssignedPoints(parseInt(value));
+                  }
                 }}
-                isDisabled={false}
-                localStorageKey={'scunt-team-choice'}
+                setClearText={setClearPointsInput}
+                clearText={clearPointsInput}
               />
             </div>
-          ) : (
-            <>
-              <h2>{assignedTeam}</h2>
-            </>
-          )}
+          </div>
+
           <div style={{ height: '15px' }} />
-          <p>
+          <p style={{ textAlign: 'center' }}>
             <b>This mission has already been completed by this team.</b>
           </p>
           <div style={{ height: '15px' }} />
           <ReactSlider
+            value={assignedPoints}
             defaultValue={parseInt(assignedMission?.points)}
             max={
               parseInt(assignedMission?.points) +
@@ -432,6 +505,7 @@ const ScuntMissionSelection = ({ missions, teams }) => {
             renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
             onChange={(value) => {
               setAssignedPoints(value);
+              setClearPointsInput(true);
             }}
           />
           <div

@@ -10,7 +10,7 @@
 .scunt-judge-form-container {
   background-color: var(--white);
   border-radius: 15px;
-  padding: 40px min(150px, 5%);
+  padding: 40px min(75px, 5%);
   margin: 10px 50px;
   box-shadow: var(--shadow);
   width: 95vw;
@@ -49,7 +49,7 @@
   justify-content: center;
   align-items: center;
   margin: 2px 5px;
-  background-color: var(--purple-shades-popup);
+  background-color: var(--purple-shades-light-light);
   color: var(--black);
   border-radius: 8px;
   padding: 5px 15px;
@@ -74,7 +74,7 @@
     font-size: 20px;
   }
   &:hover {
-    background-color: var(--light-purple);
+    background-color: var(--white);
     transition: background-color 300ms;
   }
   font-size: 18px;
@@ -84,7 +84,7 @@
 }
 
 .scunt-mission-entry-selected {
-  background-color: var(--light-purple);
+  background-color: var(--purple-shades-light);
 }
 
 .slider-thumb {
@@ -108,7 +108,7 @@
   background: var(--on-white);
 }
 .slider-track.slider-track-0 {
-  background: var(--purple-shades-muted);
+  background-color: var(--purple-shades-muted);
 }
 .horizontal-slider .slider-track {
   top: 17px;
@@ -120,13 +120,18 @@
   height: 40px;
   display: flex;
   justify-content: center;
+  align-items: center;
   color: var(--white);
+  &:focus {
+    outline: 0;
+    outline: none;
+  }
 }
 
 .separator {
   width: 100%;
   height: 1px;
-  background-color: var(--white);
+  background-color: var(--on-white);
   border-radius: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
