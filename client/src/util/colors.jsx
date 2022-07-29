@@ -84,6 +84,6 @@ export const colors = {
   '--textinput-shadow-focus': ['#6f1e88', '#efdefe'],
   '--disabled': ['#989898', '#8c60b3'],
 
-  //signup page
+  //signup page, profile page bubbles
   '--signup-container': ['#ffffff', '#613480'],
 };
