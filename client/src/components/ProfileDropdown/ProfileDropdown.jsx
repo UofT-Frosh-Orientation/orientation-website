@@ -44,9 +44,7 @@ const ProfileDropdown = ({ open, setOpen, items }) => {
                   key={item.label}
                   className="profile-dropdown-item-container"
                   style={
-                    totalItems === 1
-                      ? { borderTopLeftRadius: '5px', borderTopRightRadius: '5px' }
-                      : {}
+                    count === 1 ? { borderTopLeftRadius: '5px', borderTopRightRadius: '5px' } : {}
                   }
                   onClick={() => {
                     item.function({ navigate, dispatch });
@@ -81,9 +79,7 @@ const ProfileDropdown = ({ open, setOpen, items }) => {
                       pathname === item.path ? 'profile-dropdown-item-container-selected' : ''
                     }`}
                     style={
-                      totalItems === 1
-                        ? { borderTopLeftRadius: '5px', borderTopRightRadius: '5px' }
-                        : {}
+                      count === 1 ? { borderTopLeftRadius: '5px', borderTopRightRadius: '5px' } : {}
                     }
                   >
                     {darkMode ? (

@@ -140,36 +140,14 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
           })}
         </div>
         <div className="navbar-special">
-          {/* {isLoggedIn ? (
-            <div
-              style={{ cursor: 'pointer' }}
-              className="navbar-logout-button"
-              onClick={() => {
-                setShowLogoutPopup(true);
-              }}
-            >
-              Logout
-            </div>
-          ) : (
-            <></>
-          )} */}
-          {/* SPECIAL PAGES - Profile, Register, Login*/}
+          ={/* SPECIAL PAGES - Profile, Register, Login*/}
           {pages.special.map((page) => {
             // Clicking on profile button
             if (page.label === 'Profile') {
               if (isLoggedIn) {
                 // if logged in
                 return (
-                  // <Link
-                  //   to={page.path}
-                  //   key={page.path}
-                  //   style={pathname === page.path ? { pointerEvents: 'all' } : {}}
-                  // >
                   <>
-                    {/* <div className="frosh-profile" onClick={()=> {
-                      setOpenProfileDropdown(!openProfileDropdown)
-                    }}>Profile</div> */}
-
                     <div
                       className="icon-profile"
                       onClick={() => {
@@ -180,18 +158,10 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
                       {froshInitials}{' '}
                     </div>
                   </>
-                  // </Link>
                 );
               }
               // if not logged in
               return (
-                // <Link
-                //   to={page.path}
-                //   key={page.path}
-                //   style={
-                //     pathname === page.path || pathname === '/login' ? { pointerEvents: 'none' } : {}
-                //   }
-                // >
                 <div
                   className="icon-profile-person-container"
                   onClick={() => {
@@ -209,31 +179,7 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
                   )}
                 </div>
               );
-            } // Clicking on register button
-            // else if (page.label === 'Register' && isLoggedIn && !isRegistered) {
-            //   // if logged in and not registered
-            //   return (
-            //     <Link
-            //       to={page.path}
-            //       key={page.path}
-            //       style={pathname === page.path ? { pointerEvents: 'none' } : {}}
-            //     >
-            //       <div className="register">{page.label}</div>
-            //     </Link>
-            //   );
-            // } // Clicking on login button
-            // else if (page.label === 'Login' && !isLoggedIn) {
-            //   // if not logged in, display login button
-            //   return (
-            //     <Link
-            //       to={page.path}
-            //       key={page.path}
-            //       style={useLocation().pathname === page.path ? { pointerEvents: 'none' } : {}}
-            //     >
-            //       <div className="login">{page.label}</div>
-            //     </Link>
-            //   );
-            // }
+            }
           })}
         </div>
       </div>
