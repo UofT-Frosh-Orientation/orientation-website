@@ -13,6 +13,7 @@ import { InitialPage } from './pages/Initial/Initial';
 import { AskQuestionButton } from './components/button/AskQuestionButton/AskQuestionButton';
 import { userSelector } from '../src/pages/userSlice';
 import { DarkModeProvider } from './util/DarkModeProvider';
+import { SnackbarProvider } from './util/SnackbarProvider';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -22,9 +23,11 @@ export default function App() {
 
   return (
     <DarkModeProvider>
-      <BrowserRouter>
-        <TransitionRoutes />
-      </BrowserRouter>
+      <SnackbarProvider>
+        <BrowserRouter>
+          <TransitionRoutes />
+        </BrowserRouter>
+      </SnackbarProvider>
     </DarkModeProvider>
   );
 }
