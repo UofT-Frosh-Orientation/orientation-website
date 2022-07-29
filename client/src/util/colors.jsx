@@ -62,4 +62,9 @@ export const colors = {
   '--button-outlined-border': ['#b297c7', '#8c60b3'],
   '--button-outlined-font': ['#20002e', '#ffffff'],
   '--button-outlined-disabled-border': ['#989898', '#8c60b3'],
+
+  //about us teams tab
+  '--aboutus-tabs-color': ['#b297c7', '#b297c7'],
+  '--aboutus-tabs-color-selected': ['#3c0a5a', '#ffffff'],
+  '--aboutus-tabs-underline-selected': ['#b297c7', '#ffcc4a'],
 };

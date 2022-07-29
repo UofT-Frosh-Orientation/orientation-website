@@ -240,7 +240,7 @@
 }
 
 .aboutus-teams-tabs {
-  color: var(--purple-shades-muted);
+  color: var(--aboutus-tabs-color) !important;
   padding: 15px;
   transition: color 200ms;
 
@@ -290,7 +290,7 @@
 }
 
 .aboutus-teams-tabs-title-selected {
-  color: var(--purple-shades-dark);
+  color: var(--aboutus-tabs-color-selected);
   transition: color 200ms;
 
   @include devices(tablet) {
@@ -309,7 +309,7 @@
 }
 .aboutus-yellow-bubble-show {
   width: 100%;
-  background-color: var(--light-purple) !important;
+  background-color: var(--aboutus-tabs-underline-selected) !important;
   opacity: 1;
   transition: width 500ms, opacity 500ms;
 }
