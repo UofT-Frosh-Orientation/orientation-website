@@ -45,7 +45,7 @@ h5 {
 }
 
 p {
-  color: var(--text-dynamic);
+  //color: var(--text-dynamic); // had to remove this, since some paragraphs are on dark backgrounds in light mode
 }
 
 a {
