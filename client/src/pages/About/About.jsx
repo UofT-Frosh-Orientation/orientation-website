@@ -218,11 +218,16 @@ const AboutUsHL = () => {
               <div
                 className={`${open ? 'aboutus-hl-container-show' : 'aboutus-hl-container-hide'}`}
               >
-                <h1
-                  className={`aboutus-hl-frosh-group ${hover ? 'aboutus-hl-frosh-group-spin' : ''}`}
-                >
-                  {info.letter}
-                </h1>
+                <div className="aboutus-hl-frosh-group-container">
+                  <h1
+                    className={`aboutus-hl-frosh-group ${
+                      hover ? 'aboutus-hl-frosh-group-spin' : ''
+                    }`}
+                  >
+                    {info.letter}
+                  </h1>
+                  <h3 className="aboutus-hl-frosh-group-name">{info.group}</h3>
+                </div>
                 <p className="aboutus-leedur">{info.leedur1}</p>
                 <p className="aboutus-leedur">{info.leedur2}</p>
               </div>
@@ -289,7 +294,7 @@ const tabs = [
   //   component: <AboutUsSubcom />,
   // },
   {
-    title: 'HLs',
+    title: 'Head Leedurs',
     component: <AboutUsHL />,
   },
 ];
