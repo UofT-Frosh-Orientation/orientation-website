@@ -1,11 +1,5 @@
 @import '../../../scssStyles/mixins';
 
-.form-control {
-  @media (prefers-color-scheme: dark) {
-    color: var(--white) !important;
-  }
-}
-
 .form-control + .form-control {
   margin-top: 13px;
 }
@@ -29,11 +23,6 @@ input[type='checkbox'] {
   margin: 0;
   cursor: pointer;
   transition: transform 220ms;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--white);
-    border: 3px solid var(--white);
-  }
 }
 
 input[type='checkbox']:hover {
@@ -51,10 +40,6 @@ input[type='checkbox']::before {
   ); //0.01 so it is still rendered, avoids jerky animation behavior when rendering back in
   background-color: var(--purple);
   transition: transform 220ms;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--white);
-  }
 }
 
 input[type='checkbox']:checked::before {
@@ -84,8 +69,4 @@ input[type='checkbox']:disabled::before {
   font-size: 16px;
   padding-left: 5px;
   margin-top: 14px;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--white);
-  }
 }

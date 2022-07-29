@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './ScuntHome.scss';
 import Wave from '../../assets/misc/wave.png';
@@ -11,6 +11,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { pages } from '../../util/pages';
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
+import { DarkModeContext } from '../../util/DarkModeProvider';
 
 export const PageScuntHome = () => {
   return (
@@ -24,10 +25,15 @@ export const PageScuntHome = () => {
 };
 
 const AboutScunt = () => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
     <>
-      <img src={Wave} className="wave-image wave-image-footer" />
-      <img src={WaveDarkMode} className="wave-image wave-image-footer-darkmode" />
+      {darkMode ? (
+        <img src={WaveDarkMode} className="wave-image wave-image-footer" />
+      ) : (
+        <img src={Wave} className="wave-image wave-image-footer" />
+      )}
       <div className="about-scunt-container">
         <div className="home-page-schedule">
           <h2>Scunt</h2>
@@ -37,14 +43,17 @@ const AboutScunt = () => {
           <p>Go find your group</p>
         </div>
       </div>
-      <img className="header-page-wave-bottom" src={waveBottom} alt="wave"></img>
-      <img className="header-page-wave-bottom-darkmode" src={waveBottomDarkMode} alt="wave"></img>
+      {darkMode ? (
+        <img className="header-page-wave-bottom" src={waveBottomDarkMode} alt="wave"></img>
+      ) : (
+        <img className="header-page-wave-bottom" src={waveBottom} alt="wave"></img>
+      )}
     </>
   );
 };
 
 const ScuntCountdown = () => {
-  const targetDate = new Date('July 25, 2022 16:56:00');
+  const targetDate = new Date('September 25, 2022 16:56:00');
   const countDownDate = new Date(targetDate).getTime();
 
   const [countDown, setCountDown] = useState(countDownDate - new Date().getTime());

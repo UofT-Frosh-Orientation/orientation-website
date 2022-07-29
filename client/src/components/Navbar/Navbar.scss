@@ -63,14 +63,6 @@ li {
       background-color: var(--purple);
       transition: background-color 200ms;
     }
-
-    @media (prefers-color-scheme: dark) {
-      color: var(--white);
-
-      .navbar-underline {
-        background-color: var(--light-purple);
-      }
-    }
   }
   .navbar-underline {
     transition: background-color 200ms;
@@ -82,10 +74,6 @@ li {
   color: var(--gray);
   font-size: 16px;
   font-weight: 700;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--white);
-  }
 
   .navbar-underline {
     color: var(--gray);
@@ -109,10 +97,6 @@ li {
   overflow: hidden;
   border-radius: 15px;
   transition: background-color 200ms;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--light-purple);
-  }
 }
 .underline-page-unselected {
   opacity: 0;
@@ -143,12 +127,7 @@ li {
   font-size: 15px;
   color: var(--yellow);
   float: right;
-
   cursor: pointer;
-
-  @media (prefers-color-scheme: dark) {
-    background: var(--light-purple);
-  }
 }
 
 .icon-profile-person-container {
@@ -170,14 +149,6 @@ li {
 
 .icon-profile-person-darkmode {
   display: none;
-
-  @media (prefers-color-scheme: dark) {
-    display: unset;
-    width: 35px;
-    height: 35px;
-    margin-left: auto;
-    margin-right: 15px;
-  }
 }
 
 .register,
@@ -204,10 +175,6 @@ li {
   border-radius: 10px;
   color: var(--text-light);
   padding-inline: 15px;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--light-purple);
-  }
 }
 .login,
 .navbar-logout-button {
@@ -220,11 +187,6 @@ li {
   border-style: solid;
   border-color: var(--purple);
   border-radius: 10px;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--light-purple);
-    border-color: var(--light-purple);
-  }
 }
 
 .frosh-profile {
@@ -238,11 +200,6 @@ li {
   border-color: var(--purple);
   border-radius: 10px;
   padding-inline: 15px;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--light-purple);
-    border-color: var(--light-purple);
-  }
 }
 
 //animations
@@ -307,13 +264,6 @@ li {
     bottom: 0;
     width: 40px;
     height: 3px;
-
-    &:hover,
-    &:active {
-      @media (prefers-color-scheme: dark) {
-        background-color: var(--white) !important;
-      }
-    }
   }
 
   .underline-page-selected {
@@ -321,29 +271,12 @@ li {
     bottom: 0;
     width: 40px;
     height: 3px;
-
-    @media (prefers-color-scheme: dark) {
-      background-color: var(--white);
-    }
   }
 
   .navbar-svg-icon {
     display: unset;
     width: 25px;
     margin: 3px 0 0 0;
-
-    @media (prefers-color-scheme: dark) {
-      display: none;
-    }
-  }
-  .navbar-svg-icon-darkmode {
-    display: none;
-
-    @media (prefers-color-scheme: dark) {
-      display: unset;
-      width: 25px;
-      margin: 3px 0 0 0;
-    }
   }
 
   .icon-profile {

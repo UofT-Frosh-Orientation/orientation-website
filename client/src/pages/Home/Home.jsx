@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { getSlideshowImages, getTimelineDates } from './functions';
 import './Home.scss';
@@ -19,6 +19,7 @@ import { Slide } from 'react-slideshow-image';
 import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
 import { PopupModal } from '../../components/popup/PopupModal';
 import { sponsors } from '../../util/sponsors';
+import { DarkModeContext } from '../../util/DarkModeProvider';
 
 const PageHome = () => {
   return (
@@ -32,6 +33,8 @@ const PageHome = () => {
 };
 
 const HomePageHeader = () => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
     <div className="home-page-header">
       <div className="home-page-header-text">
@@ -69,8 +72,11 @@ const HomePageHeader = () => {
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />
       </div>
-      <img src={Wave} className="wave-image home-page-top-wave-image" />
-      <img src={WaveDarkMode} className="wave-image home-page-top-wave-image-dark" />
+      {darkMode ? (
+        <img src={WaveDarkMode} className="wave-image home-page-top-wave-image" />
+      ) : (
+        <img src={Wave} className="wave-image home-page-top-wave-image" />
+      )}
     </div>
   );
 };
@@ -159,10 +165,15 @@ const HomePageSchedule = () => {
 };
 
 const HomePageSponsors = () => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
     <div className="home-page-sponsors">
-      <img src={WaveReverse} className="wave-image home-page-bottom-wave-image" />
-      <img src={WaveReverseDarkmode} className="wave-image home-page-bottom-wave-image-dark" />
+      {darkMode ? (
+        <img src={WaveReverseDarkmode} className="wave-image home-page-bottom-wave-image" />
+      ) : (
+        <img src={WaveReverse} className="wave-image home-page-bottom-wave-image" />
+      )}
       <h2 className="home-page-sponsors">Our Sponsors</h2>
       <PleaseSponsor />
       <ImageCarousel items={sponsors} />

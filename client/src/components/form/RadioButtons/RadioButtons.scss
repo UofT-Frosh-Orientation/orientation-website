@@ -15,10 +15,6 @@
   margin-bottom: 3px;
   gap: 10px;
   user-select: none;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--white) !important;
-  }
 }
 
 .form-control + .form-control {
@@ -41,11 +37,6 @@ input[type='radio'] {
   -webkit-appearance: none;
   appearance: none;
   transition: transform 220ms;
-
-  @media (prefers-color-scheme: dark) {
-    border: 3px solid var(--white);
-    color: var(--white);
-  }
 }
 
 input[type='radio']:hover {
@@ -61,10 +52,6 @@ input[type='radio']::before {
   transform: scale(0);
   transition: transform 220ms;
   background-color: var(--purple);
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--white);
-  }
 }
 
 input[type='radio']:checked::before {
@@ -90,10 +77,6 @@ input[type='radio']:hover:disabled {
   font-size: 16px;
   padding-left: 5px;
   margin-top: 14px;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--white);
-  }
 }
 
 .radio-input-disabled-container {

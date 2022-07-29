@@ -33,12 +33,12 @@ export const profilePages = {
       iconDark: LoginIconDarkMode,
       path: '/login',
     },
-    {
-      label: 'Dark Mode',
-      icon: DarkModeIcon,
-      iconDark: DarkModeIconDarkMode,
-      function: darkmodefunc,
-    },
+    // {
+    //   label: 'Dark Mode',
+    //   icon: DarkModeIcon,
+    //   iconDark: DarkModeIconDarkMode,
+    //   function: darkmodefunc,
+    // },
   ],
   login: [
     {
@@ -53,13 +53,13 @@ export const profilePages = {
       iconDark: ProfileIconDarkMode,
       path: '/profile',
     },
-    {
-      label: 'Dark Mode',
-      icon: DarkModeIcon,
-      iconDark: DarkModeIconDarkMode,
-      function: darkmodefunc,
-      // add a function here that will be called on onClick
-    },
+    // {
+    //   label: 'Dark Mode',
+    //   icon: DarkModeIcon,
+    //   iconDark: DarkModeIconDarkMode,
+    //   function: darkmodefunc,
+    //   // add a function here that will be called on onClick
+    // },
     {
       label: 'Log Out',
       icon: LogoutIcon,
@@ -73,11 +73,11 @@ export const profilePages = {
       icon: ProfileIcon,
       path: '/profile',
     },
-    {
-      label: 'Dark Mode',
-      icon: DarkModeIcon,
-      function: darkmodefunc,
-    },
+    // {
+    //   label: 'Dark Mode',
+    //   icon: DarkModeIcon,
+    //   function: darkmodefunc,
+    // },
     {
       label: 'Log Out',
       icon: LogoutIcon,

@@ -1,16 +1,16 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
 import PropTypes from 'prop-types';
+import { DarkModeContext } from '../../util/DarkModeProvider';
+
+import DarkModeIcon from '../../assets/profiledropdown/moon-solid.svg';
+import DarkModeIconDarkMode from '../../assets/darkmode/profiledropdown/moon-solid.svg';
 
 import './ProfileDropdown.scss';
 
-//import Triangle from '../../assets/navbar/profiledropdown/triangle.svg'
-
 const ProfileDropdown = ({ open, setOpen, items }) => {
-  // pass in pages array --> array for when not logged in
-  // array for when logged in
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   let count = 0; // counts which page
   let totalItems = items.length;
@@ -35,7 +35,6 @@ const ProfileDropdown = ({ open, setOpen, items }) => {
             open ? 'profile-dropdown-container-display' : ''
           }`}
         >
-          {/* <img src={Triangle} className='profile-dropdown-triangle' alt='triangle' ></img> */}
           {items.map((item) => {
             count++;
 
@@ -46,27 +45,26 @@ const ProfileDropdown = ({ open, setOpen, items }) => {
                   className="profile-dropdown-item-container"
                   style={
                     totalItems === 1
-                      ? { borderRadius: '5px' }
-                      : count === 1
                       ? { borderTopLeftRadius: '5px', borderTopRightRadius: '5px' }
-                      : count === totalItems
-                      ? { borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px' }
                       : {}
                   }
                   onClick={() => {
                     item.function({ navigate, dispatch });
                   }}
                 >
-                  <img
-                    src={item.icon}
-                    alt={item.label}
-                    className="profile-dropdown-item-img hide-darkmode"
-                  />
-                  <img
-                    src={item.iconDark}
-                    alt={item.label}
-                    className="profile-dropdown-item-img show-darkmode"
-                  />
+                  {darkMode ? (
+                    <img
+                      src={item.iconDark}
+                      alt={item.label}
+                      className="profile-dropdown-item-img"
+                    />
+                  ) : (
+                    <img
+                      src={item.icon}
+                      alt={item.label}
+                      className="profile-dropdown-item-img hide-darkmode"
+                    />
+                  )}
                   <p className="profile-dropdown-item-label">{item.label}</p>
                 </div>
               );
@@ -84,30 +82,53 @@ const ProfileDropdown = ({ open, setOpen, items }) => {
                     }`}
                     style={
                       totalItems === 1
-                        ? { borderRadius: '5px' }
-                        : count === 1
                         ? { borderTopLeftRadius: '5px', borderTopRightRadius: '5px' }
-                        : count === totalItems
-                        ? { borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px' }
                         : {}
                     }
                   >
-                    <img
-                      src={item.icon}
-                      alt={item.label}
-                      className="profile-dropdown-item-img hide-darkmode"
-                    />
-                    <img
-                      src={item.iconDark}
-                      alt={item.label}
-                      className="profile-dropdown-item-img show-darkmode"
-                    />
+                    {darkMode ? (
+                      <img
+                        src={item.iconDark}
+                        alt={item.label}
+                        className="profile-dropdown-item-img"
+                      />
+                    ) : (
+                      <img
+                        src={item.icon}
+                        alt={item.label}
+                        className="profile-dropdown-item-img hide-darkmode"
+                      />
+                    )}
+
                     <p className="profile-dropdown-item-label">{item.label}</p>
                   </div>
                 </Link>
               );
             }
           })}
+          <div
+            className="profile-dropdown-item-container"
+            style={{ borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px' }}
+            onClick={() => {
+              setDarkModeStatus(!darkMode);
+            }}
+          >
+            {darkMode ? (
+              <img
+                src={DarkModeIconDarkMode}
+                alt={'dark mode icon'}
+                className="profile-dropdown-item-img"
+              />
+            ) : (
+              <img
+                src={DarkModeIcon}
+                alt={'dark mode icon'}
+                className="profile-dropdown-item-img"
+              />
+            )}
+
+            <p className="profile-dropdown-item-label">Dark Mode</p>
+          </div>
         </div>
       </div>
     </>

@@ -33,11 +33,7 @@
 
 .button-secondary {
   background-color: var(--yellow);
-  color: var(--black);
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--text-dark);
-  }
+  color: var(--text-dark);
 }
 
 .button-disabled {

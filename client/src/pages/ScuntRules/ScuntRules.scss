@@ -8,9 +8,6 @@
   margin: 10px 3%;
   margin-top: 0;
   color: var(--text-dark);
-  @media (prefers-color-scheme: dark) {
-    color: var(--text-light);
-  }
   h3 {
     margin-bottom: 10px;
     font-size: 34px;
