@@ -86,4 +86,9 @@ export const colors = {
 
   //signup page, profile page bubbles
   '--signup-container': ['#ffffff', '#613480'],
+
+  //tasks and announcements
+  '--task-container': ['#ffffff', '#8c60b3'], //also for timeline container
+  '--task-date': ['#b297c7', '#ecd6ff'],
+  '--task-check-border': ['#a04fb9', '#ecd6ff'],
 };
