@@ -137,18 +137,12 @@ a:hover {
   }
 }
 
-.show-darkmode {
-  display: none;
-
-  @media (prefers-color-scheme: dark) {
-    display: unset;
-  }
-}
-
-.hide-darkmode {
-  display: unset;
-
-  @media (prefers-color-scheme: dark) {
-    display: none;
+.error-success-box-snackbar-fixed {
+  position: fixed;
+  bottom: 20px;
+  left: 0px;
+  z-index: 100;
+  @include devices(tablet) {
+    bottom: 65px;
   }
 }

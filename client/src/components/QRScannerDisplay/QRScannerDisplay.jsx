@@ -1,12 +1,14 @@
 import QrScanner from 'qr-scanner';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { ButtonOutlined } from '../button/ButtonOutlined/ButtonOutlined';
 import PropTypes from 'prop-types';
+import { SnackbarContext } from '../../util/SnackbarProvider';
 
 export const QRScannerDisplay = ({ setScannedData }) => {
   const [isScanned, setIsScanned] = useState(false);
   const [isScanning, setIsScanning] = useState(false);
   const videoRef = useRef();
+  const { setSnackbar } = useContext(SnackbarContext);
 
   let qrScanner = null;
 
@@ -22,6 +24,7 @@ export const QRScannerDisplay = ({ setScannedData }) => {
             if (scannedResults !== qrCode.data) {
               setIsScanned(!isScanned);
               setScannedData(qrCode.data);
+              setSnackbar('Scanned QR Code', false);
               scannedResults = qrCode.data;
             }
           }
