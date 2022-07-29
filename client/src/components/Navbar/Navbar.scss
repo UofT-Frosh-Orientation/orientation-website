@@ -22,7 +22,7 @@ li {
   justify-content: space-between;
 
   align-items: center;
-  z-index: 100;
+  z-index: 90;
   position: fixed;
   background-color: var(--navbar-bg);
   width: 100%;
@@ -127,14 +127,33 @@ li {
   font-size: 15px;
   color: var(--yellow);
   float: right;
+  cursor: pointer;
+
+  @include devices(tablet) {
+    margin-right: 10px;
+  }
+}
+
+.icon-profile-person-container {
+  cursor: pointer;
 }
 
 .icon-profile-person {
   display: unset;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   margin-left: auto;
   margin-right: 15px;
+  margin-top: 4px;
+  cursor: pointer;
+  @include devices(tablet) {
+    margin-right: 10px;
+  }
+
+  transition: transform 300ms;
+  &:hover {
+    transform: scale(1.08);
+  }
 }
 
 .register,
