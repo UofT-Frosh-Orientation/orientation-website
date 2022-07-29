@@ -23,20 +23,29 @@ export function submitEdit(id, data) {
   //   console.log(error);
   //   console.log(error.response.data.message);
   //   return error.response.data.message;
-  // }
-  console.log(data);
-  console.log(id);
-}
-
-export function submitQuestion(question) {
+  // // }
+  // console.log(data);
+  // console.log(id);
   // try {
-  //   const response = await axios.post('/faq/create', question);
-  //   // console.log(response);
-  //   return true;
+  //   const response = await axios.patch(`/faq/${id}`, data);
+  //   console.log(response);
+  //   return response.data;
   // } catch (error) {
   //   console.log(error);
   //   console.log(error.response.data.message);
   //   return error.response.data.message;
   // }
-  console.log(question);
+}
+
+export async function submitQuestion(question) {
+  // console.log(question);
+  // try {
+  //   const response = await axios.post('/faq/create', question);
+  //   console.log(response);
+  //   return response.data;
+  // } catch (error) {
+  //   console.log(error);
+  //   console.log(error.response.data.message);
+  //   return error.response.data.message;
+  // }
 }

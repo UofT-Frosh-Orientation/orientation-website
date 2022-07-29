@@ -70,7 +70,7 @@ export const pages = {
     {
       label: 'Permission Request',
       component: <div />,
-      path: '/permission_request',
+      path: '/permission-request',
       includeFooter: true,
     },
     {
@@ -121,7 +121,7 @@ export const pages = {
     {
       label: 'FAQAdmin',
       component: <PageFAQLeaders />,
-      path: '/faqadmin',
+      path: '/faq-admin',
       includeFooter: true,
     },
   ],

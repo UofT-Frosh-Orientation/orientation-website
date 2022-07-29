@@ -6,6 +6,7 @@ import {
   deleteQuestion,
   submitEdit,
   submitQuestion,
+  getQuestionCategories,
 } from './functions';
 import './FAQLeaders.scss';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
@@ -184,7 +185,7 @@ const FAQLeadersQuestionWrapper = ({ question }) => {
   const handleEditAnswer = (text) => {
     setAnswerText(text);
   };
-  const handleSubmit = (id) => {
+  const handleSubmit = async (id) => {
     submitEdit(id, formData); //TODO: Link with backend
   };
   return (
@@ -224,7 +225,7 @@ const FAQLeadersQuestionWrapper = ({ question }) => {
 
       <Button
         label={'Delete'}
-        onClick={() => {
+        onClick={async () => {
           deleteQuestion(question.id); //TODO: Link to backend
         }}
       />
@@ -284,7 +285,7 @@ const FAQLeadersNewPost = () => {
   const handleEditCategory = (text) => {
     setCategoryText(text);
   };
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     submitQuestion(formData); //TODO: Link with backend
   };
   return (
