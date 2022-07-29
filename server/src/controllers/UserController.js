@@ -1,4 +1,5 @@
 const UserServices = require('../services/UserServices');
+const LeadurServices = require('../services/LeadurServices');
 const passport = require('../services/passport');
 const passwordResetSubscription = require('../subscribers/passwordResetSubscription');
 
@@ -12,17 +13,31 @@ const UserController = {
    */
   async signup(req, res, next) {
     try {
-      const { email, password, firstName, lastName, preferredName } = req.body;
+      console.log(req.body);
+      const { email, password, firstName, lastName, preferredName, leadur } = req.body;
 
-      await UserServices.validateUser(email.toLowerCase(), password, firstName, lastName);
+      await UserServices.validateUser(email.toLowerCase(), password);
 
-      const user = await UserServices.createUser(
-        email.toLowerCase(),
-        password,
-        firstName,
-        lastName,
-        preferredName,
-      );
+      let user;
+
+      if (leadur) {
+        console.log(leadur);
+        user = await LeadurServices.createLeadur(
+          email.toLowerCase(),
+          password,
+          firstName,
+          lastName,
+          preferredName,
+        );
+      } else {
+        user = await UserServices.createUser(
+          email.toLowerCase(),
+          password,
+          firstName,
+          lastName,
+          preferredName,
+        );
+      }
 
       req.logIn(user, (err) => {
         if (err) {
@@ -31,6 +46,7 @@ const UserController = {
         return res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
       });
     } catch (e) {
+      console.log(e);
       next(e);
     }
   },
