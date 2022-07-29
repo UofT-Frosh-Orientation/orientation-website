@@ -16,6 +16,7 @@ import { Header } from '../../components/text/Header/Header';
 
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
 import MailIcon from '../../assets/social/envelope-solid.svg';
+import { instagramAccounts } from '../../util/instagramAccounts';
 
 const PageAbout = () => {
   return (
@@ -184,6 +185,7 @@ const AboutUsHL = () => {
         {headLeedurs.map((info) => {
           const [open, setOpen] = useState(true); // open is set to hl with greek letter page
           const [clickLink, setClickLink] = useState(false); // icon links have not been clicked
+          const [hover, setHover] = useState(false);
 
           useEffect(() => {
             console.log(clickLink);
@@ -195,6 +197,13 @@ const AboutUsHL = () => {
 
           return (
             <div
+              onMouseOver={() => {
+                setHover(true);
+                if (hover === false)
+                  setTimeout(() => {
+                    setHover(false);
+                  }, 1000);
+              }}
               key={info.group}
               className="aboutus-hl-container"
               onClick={() => {
@@ -209,7 +218,11 @@ const AboutUsHL = () => {
               <div
                 className={`${open ? 'aboutus-hl-container-show' : 'aboutus-hl-container-hide'}`}
               >
-                <h1 className="aboutus-hl-frosh-group">{info.letter}</h1>
+                <h1
+                  className={`aboutus-hl-frosh-group ${hover ? 'aboutus-hl-frosh-group-spin' : ''}`}
+                >
+                  {info.letter}
+                </h1>
                 <p className="aboutus-leedur">{info.leedur1}</p>
                 <p className="aboutus-leedur">{info.leedur2}</p>
               </div>
@@ -222,22 +235,26 @@ const AboutUsHL = () => {
                   Contact Your Head Leedurs!
                 </p>
                 <div className="aboutus-hl-contacts-container">
-                  <a
-                    className="no-link-style"
-                    href={info.ig}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => {
-                      setClickLink(true);
-                    }}
-                  >
-                    <img
-                      className="aboutus-hl-contacts-icon"
-                      src={InstagramIcon}
-                      alt="instagram-icon"
-                    ></img>
-                  </a>
-                  <a
+                  {instagramAccounts[info.group] ? (
+                    <a
+                      className="no-link-style"
+                      href={instagramAccounts[info.group]}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => {
+                        setClickLink(true);
+                      }}
+                    >
+                      <img
+                        className="aboutus-hl-contacts-icon"
+                        src={InstagramIcon}
+                        alt="instagram-icon"
+                      ></img>
+                    </a>
+                  ) : (
+                    <></>
+                  )}
+                  {/* <a
                     className="no-link-style"
                     href={`mailto:${info.email}`}
                     target="_blank"
@@ -247,7 +264,7 @@ const AboutUsHL = () => {
                     }}
                   >
                     <img className="aboutus-hl-contacts-icon" src={MailIcon} alt="email-icon"></img>
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>

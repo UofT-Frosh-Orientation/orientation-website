@@ -4,7 +4,6 @@ export const headLeedurs = [
     letter: 'Αα',
     leedur1: 'Jasmine Wu',
     leedur2: 'Justin Wang',
-    ig: 'https://www.instagram.com/alpha_frosh_2t2/',
     email: 'alpha@orientation.skule.ca',
   },
   {
@@ -12,7 +11,6 @@ export const headLeedurs = [
     letter: 'Ββ',
     leedur1: 'Nicola Lawford',
     leedur2: 'Ernie Huergo',
-    ig: 'https://www.instagram.com/beta_frosh_2t2/',
     email: 'beta@orientation.skule.ca',
   },
   {
@@ -20,7 +18,6 @@ export const headLeedurs = [
     letter: 'Γγ',
     leedur1: 'Julia Wagner',
     leedur2: 'Chase McDougall',
-    ig: 'https://www.instagram.com/gamma_frosh_2t2/',
     email: 'gamma@orientation.skule.ca',
   },
   {
@@ -28,7 +25,6 @@ export const headLeedurs = [
     letter: 'Δδ',
     leedur1: 'Stephanie Perri',
     leedur2: 'Terry Luan',
-    ig: 'https://www.instagram.com/delta_frosh_2t2/',
     email: 'delta@orientation.skule.ca',
   },
   {
@@ -36,7 +32,6 @@ export const headLeedurs = [
     letter: 'Ζζ',
     leedur1: 'Ammar Vora',
     leedur2: 'Rhythm Loomba',
-    ig: 'https://www.instagram.com/zeta_frosh_2t2/',
     email: 'zeta@orientation.skule.ca',
   },
   {
@@ -44,7 +39,6 @@ export const headLeedurs = [
     letter: 'Θθ',
     leedur1: 'Geoffrey Jiang',
     leedur2: 'Renee Slen',
-    ig: 'https://www.instagram.com/theta_frosh_2t2/',
     email: 'theta@orientation.skule.ca',
   },
   {
@@ -52,7 +46,6 @@ export const headLeedurs = [
     letter: 'Ιι',
     leedur1: 'Cassey Shao',
     leedur2: 'Lincoln Macdonald',
-    ig: 'https://www.instagram.com/iota_frosh_2t2/',
     email: 'iota@orientation.skule.ca',
   },
   {
@@ -60,7 +53,6 @@ export const headLeedurs = [
     letter: 'Κκ',
     leedur1: 'Gianpaolo Povolo',
     leedur2: 'Annie Pham',
-    ig: 'https://www.instagram.com/kappa_frosh_2t2/',
     email: 'kappa@orientation.skule.ca',
   },
   {
@@ -68,15 +60,13 @@ export const headLeedurs = [
     letter: 'Λλ',
     leedur1: 'Dina Aynalem',
     leedur2: 'Navin Vanderwert',
-    ig: 'https://www.instagram.com/lambda_frosh_2t2/',
     email: 'lambda@orientation.skule.ca,',
   },
   {
-    group: 'Nu/Ni',
+    group: 'Nu',
     letter: 'Νν',
     leedur1: 'William Jereza',
     leedur2: 'Olivia Fredrickson',
-    ig: 'https://www.instagram.com/nu_frosh_2t2/',
     email: 'ninu@orientation.skule.ca',
   },
   {
@@ -84,7 +74,6 @@ export const headLeedurs = [
     letter: 'Οο',
     leedur1: 'Nicole Amenta',
     leedur2: 'Mike Cortese',
-    ig: 'https://www.instagram.com/omicron_frosh_2t2/',
     email: 'omicron@orientation.skule.ca',
   },
   {
@@ -92,7 +81,6 @@ export const headLeedurs = [
     letter: 'Ππ',
     leedur1: 'Darsh Jain',
     leedur2: 'Nikkie Bonon',
-    ig: 'https://www.instagram.com/pi_frosh_2t2/',
     email: 'pi@orientation.skule.ca',
   },
   {
@@ -100,7 +88,6 @@ export const headLeedurs = [
     letter: 'Ρρ',
     leedur1: 'Vuk Kliska',
     leedur2: 'Amanda Plotnik',
-    ig: 'https://www.instagram.com/rho_frosh_2t2/',
     email: 'rho@orientation.skule.ca',
   },
   {
@@ -108,7 +95,6 @@ export const headLeedurs = [
     letter: 'Σσ',
     leedur1: 'Sunny Park',
     leedur2: 'Soliman Ali',
-    ig: 'https://www.instagram.com/sigma_frosh_2t2/',
     email: 'sigma@orientation.skule.ca',
   },
   {
@@ -116,7 +102,6 @@ export const headLeedurs = [
     letter: 'Ττ',
     leedur1: 'Katie Stephens',
     leedur2: 'Tudor Sigmund',
-    ig: 'https://www.instagram.com/tau_frosh_2t2/',
     email: 'tau@orientation.skule.ca',
   },
   {
@@ -124,7 +109,6 @@ export const headLeedurs = [
     letter: 'Υυ',
     leedur1: 'Jake Blimkie',
     leedur2: 'Isabella Petrocelli',
-    ig: 'https://www.instagram.com/upsilon_frosh_2t2/',
     email: 'upsilon@orientation.skule.ca',
   },
   {
@@ -132,7 +116,6 @@ export const headLeedurs = [
     letter: 'Φφ',
     leedur1: 'Annam Shamas',
     leedur2: 'Daniel Tykei',
-    ig: 'https://www.instagram.com/phi_frosh_2t2/',
     email: 'phi@orientation.skule.ca',
   },
   {
@@ -140,7 +123,6 @@ export const headLeedurs = [
     letter: 'Χχ',
     leedur1: 'Hazel Fricska',
     leedur2: 'Purushoth Thavendran',
-    ig: 'https://www.instagram.com/chi_frosh_2t2/',
     email: 'chi@orientation.skule.ca',
   },
   {
@@ -148,7 +130,6 @@ export const headLeedurs = [
     letter: 'Ψψ',
     leedur1: 'Justin Chang',
     leedur2: 'Stephanie Lu',
-    ig: 'https://www.instagram.com/psi_frosh_2t2/',
     email: 'psi@orientation.skule.ca',
   },
   {
@@ -156,7 +137,6 @@ export const headLeedurs = [
     letter: 'Ωω',
     leedur1: 'Joy Lai',
     leedur2: 'Anaqi Afendi',
-    ig: 'https://www.instagram.com/omega_frosh_2t2/',
     email: 'omega@orientation.skule.ca',
   },
 ];
