@@ -184,6 +184,15 @@ const AboutUsHL = () => {
         {headLeedurs.map((info) => {
           const [open, setOpen] = useState(true); // open is set to hl with greek letter page
           const [clickLink, setClickLink] = useState(false); // icon links have not been clicked
+
+          useEffect(() => {
+            console.log(clickLink);
+            if (clickLink) {
+              setOpen(false);
+            }
+            setClickLink(false);
+          }, [clickLink]);
+
           return (
             <div
               key={info.group}
@@ -195,7 +204,6 @@ const AboutUsHL = () => {
                 } else {
                   setOpen(open);
                 }
-                setClickLink(false);
               }}
             >
               <div
@@ -205,6 +213,7 @@ const AboutUsHL = () => {
                 <p className="aboutus-leedur">{info.leedur1}</p>
                 <p className="aboutus-leedur">{info.leedur2}</p>
               </div>
+
               <div
                 style={{ position: 'absolute' }}
                 className={`${open ? 'aboutus-hl-container-hide' : 'aboutus-hl-container-show'}`}
@@ -218,14 +227,19 @@ const AboutUsHL = () => {
                     setClickLink(true);
                   }}
                 >
-                  <a className="no-link-style" href={info.ig} target="_blank" rel="noreferrer">
+                  <a
+                    className="no-link-style"
+                    href={info.ig}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => {
+                      setClickLink(true);
+                    }}
+                  >
                     <img
                       className="aboutus-hl-contacts-icon"
                       src={InstagramIcon}
                       alt="instagram-icon"
-                      onClick={() => {
-                        setClickLink(true);
-                      }}
                     ></img>
                   </a>
                   <a
@@ -233,15 +247,11 @@ const AboutUsHL = () => {
                     href={`mailto:${info.email}`}
                     target="_blank"
                     rel="noreferrer"
+                    onClick={() => {
+                      setClickLink(true);
+                    }}
                   >
-                    <img
-                      className="aboutus-hl-contacts-icon"
-                      src={MailIcon}
-                      alt="email-icon"
-                      onClick={() => {
-                        setClickLink(true);
-                      }}
-                    ></img>
+                    <img className="aboutus-hl-contacts-icon" src={MailIcon} alt="email-icon"></img>
                   </a>
                 </div>
               </div>

@@ -378,6 +378,7 @@
 }
 
 .aboutus-hl-container-show {
+  z-index: 5;
   opacity: 1;
   transition: opacity 300ms;
 }
