@@ -22,7 +22,7 @@
 
 .login-title {
   text-align: center;
-  color: var(--purple);
+  color: var(--login-title);
   font-size: 70px;
 
   padding: 5%;
@@ -49,19 +49,19 @@
 .forgot-message {
   display: inline-block;
   margin: 15px 0px 10px 10px;
-  color: var(--light-purple);
+  color: var(--forgot-message);
   font-weight: 600;
   cursor: pointer;
   transition: color 200ms, transform 200ms;
   font-size: 18px;
 
   &:hover {
-    color: var(--purple);
+    color: var(--forgot-message-hover);
     transform: scale(1.02);
     transition: transform 200ms;
   }
   &:active {
-    color: var(--purple);
+    color: var(--forgot-message-hover);
     transform: scale(0.97);
     transition: transform 150ms;
   }

@@ -72,4 +72,18 @@ export const colors = {
   '--faq-answer-containers': ['#ecd6ff', '#ecd6ff'],
   '--faq-searchbar-bg': ['#ffffff', '#8c60b3'],
   '--faq-searchbar-placeholder': ['#989898', '#ECD6FF'],
+
+  //login page
+  '--login-title': ['#6f1e88', '#ffffff'],
+  '--forgot-message': ['#a04fb9', '#b297c7'],
+  '--forgot-message-hover': ['#6f1e88', '#ffffff'],
+
+  //text-input
+  '--textinput-bg': ['#f3f3f3', '#8c60b3'],
+  '--textinput-shadow-hover': ['#a04fb9', '#8c60b3'],
+  '--textinput-shadow-focus': ['#6f1e88', '#efdefe'],
+  '--disabled': ['#989898', '#8c60b3'],
+
+  //signup page
+  '--signup-container': ['#ffffff', '#613480'],
 };

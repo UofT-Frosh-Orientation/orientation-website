@@ -8,11 +8,6 @@
   p {
     margin: 0;
   }
-
-  ::placeholder {
-    color: var(--black);
-    opacity: 0.4;
-  }
 }
 
 .text-input-container-no-margin {
@@ -21,7 +16,7 @@
 
 .text-input {
   font-size: 17px;
-  background-color: var(--on-white);
+  background-color: var(--textinput-bg);
   border-radius: 10px;
   outline: none;
   border: none;
@@ -29,14 +24,16 @@
   padding: 12px 20px;
   margin: 4px;
   width: 100%;
+  color: var(--black);
+
   &:hover {
-    background-color: var(--white);
-    box-shadow: 0px 0px 6px 1px var(--light-purple);
+    background-color: var(--textinput-bg);
+    box-shadow: 0px 0px 6px 1px var(--textinput-shadow-hover);
     transition: background-color 500ms, box-shadow 500ms;
   }
   &:focus {
-    background-color: var(--white);
-    box-shadow: 0px 0px 15px -3px var(--purple);
+    background-color: var(--textinput-bg);
+    box-shadow: 0px 0px 15px -3px var(--textinput-shadow-focus);
     transition: background-color 500ms, box-shadow 500ms;
   }
 }
@@ -53,6 +50,7 @@
 
 .text-input-title {
   font-size: 16px;
+  color: var(--black);
 }
 
 .text-input-title-container {
