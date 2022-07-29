@@ -211,7 +211,7 @@
   align-items: center;
 
   @include devices(tablet) {
-    width: 85%;
+    width: 100%;
     padding: 0px;
   }
 }
@@ -221,14 +221,14 @@
   justify-content: space-around;
   align-items: center;
 
-  @include devices(tablet) {
+  @include devices(mobile) {
     justify-content: flex-start;
     width: 100%;
-    padding: 10px;
+    padding: 0px 30px;
+    padding-bottom: 0px;
     overflow-x: scroll;
     &::-webkit-scrollbar {
       height: 3px;
-      width: 50%;
     }
     &::-webkit-scrollbar-track {
       background: var(--transparent);
@@ -242,6 +242,8 @@
 .aboutus-teams-tabs {
   color: var(--purple-shades-muted);
   padding: 15px;
+  padding-right: 0px;
+  padding-left: 0px;
   transition: color 200ms;
 
   &:hover {
@@ -270,13 +272,12 @@
   height: 35px;
   width: 3px;
   background-color: var(--purple-shades-muted);
-  margin-right: 20px;
   border-radius: 5px;
+  margin: 0px 28px;
 
   @include devices(tablet) {
     height: 26px;
     width: 2px;
-    margin-right: 8px;
     align-self: start;
   }
 }
@@ -328,7 +329,8 @@
 .aboutus-hl-grid-container {
   display: grid;
   width: 90vw;
-  grid-template-columns: repeat(auto-fit, 450px);
+  grid-template-columns: repeat(auto-fit, 240px);
+  //grid-template-rows: repeat(auto-fit, 220px);
   align-items: center;
   justify-items: center;
   justify-content: center;
@@ -348,12 +350,14 @@
 
   width: 200px;
   height: 200px;
-  margin: 10px;
+  margin: 20px;
 
-  .aboutus-hl-frosh-group {
-    transform: rotateY(0deg);
-    transition: transform 400ms;
-  }
+  background-color: var(--purple);
+  border-radius: 10px;
+
+  color: var(--white);
+
+  cursor: pointer;
 
   @include devices(mobile) {
     width: 160px;
@@ -361,23 +365,73 @@
     margin: 5px;
   }
 
-  &:hover {
-    .aboutus-hl-frosh-group {
-      transform: rotateY(360deg);
-      transition: transform 400ms;
-    }
+  .aboutus-hl-frosh-group-spin {
+    transform: rotateY(360deg);
+    transition: transform 1000ms;
   }
+}
+
+.aboutus-hl-container-show {
+  z-index: 5;
+  opacity: 1;
+  transition: opacity 300ms;
+}
+.aboutus-hl-container-hide {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+.aboutus-hl-frosh-group-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 15px;
+  color: var(--white);
 }
 
 .aboutus-hl-frosh-group {
   font-size: 40px;
-  margin-bottom: 15px;
-  color: var(--purple);
+  margin-bottom: 5px;
+}
+
+.aboutus-hl-contacts-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.aboutus-hl-contacts-icon {
+  width: 50px;
+  margin: 10px;
+  transition: transform 300ms;
+  &:hover {
+    transform: scale(1.07);
+    transition: transform 300ms;
+  }
+  &:active {
+    transform: scale(0.97);
+    transition: transform 300ms;
+  }
+
+  @include devices(tablet) {
+    width: 40px;
+    margin: 5px;
+  }
 }
 
 .aboutus-leedur {
   text-align: center;
   margin: 3px;
+  color: var(--purple-shades-light);
+}
+.aboutus-leedur-contact-message {
+  margin: 10px 3% 0 3%;
+
+  @include devices(tablet) {
+    font-size: 12px;
+  }
 }
 
 .aboutus-commitee-container {

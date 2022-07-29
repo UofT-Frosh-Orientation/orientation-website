@@ -256,7 +256,7 @@ export const pages = {
     {
       label: 'Missions',
       scuntLabel: 'Missions',
-      component: <PageScuntMissionsList />,
+      //component: <PageScuntMissionsList />,
       path: '/scunt-missions',
       includeFooter: true,
     },
