@@ -57,11 +57,7 @@ const ProfileDropdown = ({ open, setOpen, items }) => {
                       className="profile-dropdown-item-img"
                     />
                   ) : (
-                    <img
-                      src={item.icon}
-                      alt={item.label}
-                      className="profile-dropdown-item-img hide-darkmode"
-                    />
+                    <img src={item.icon} alt={item.label} className="profile-dropdown-item-img" />
                   )}
                   <p className="profile-dropdown-item-label">{item.label}</p>
                 </div>
@@ -89,11 +85,7 @@ const ProfileDropdown = ({ open, setOpen, items }) => {
                         className="profile-dropdown-item-img"
                       />
                     ) : (
-                      <img
-                        src={item.icon}
-                        alt={item.label}
-                        className="profile-dropdown-item-img hide-darkmode"
-                      />
+                      <img src={item.icon} alt={item.label} className="profile-dropdown-item-img" />
                     )}
 
                     <p className="profile-dropdown-item-label">{item.label}</p>

@@ -128,6 +128,10 @@ li {
   color: var(--yellow);
   float: right;
   cursor: pointer;
+
+  @include devices(tablet) {
+    margin-right: 10px;
+  }
 }
 
 .icon-profile-person-container {
@@ -136,11 +140,20 @@ li {
 
 .icon-profile-person {
   display: unset;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   margin-left: auto;
   margin-right: 15px;
+  margin-top: 4px;
   cursor: pointer;
+  @include devices(tablet) {
+    margin-right: 10px;
+  }
+
+  transition: transform 300ms;
+  &:hover {
+    transform: scale(1.08);
+  }
 }
 
 .register,

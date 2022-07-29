@@ -313,12 +313,15 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                     setOpenProfileDropdown(!openProfileDropdown);
                   }}
                 >
-                  <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>
-                  <img
-                    className="icon-profile-person-darkmode"
-                    alt="profile"
-                    src={ProfileIconDarkMode}
-                  ></img>
+                  {!darkMode ? (
+                    <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>
+                  ) : (
+                    <img
+                      className="icon-profile-person"
+                      alt="profile"
+                      src={ProfileIconDarkMode}
+                    ></img>
+                  )}
                 </div>
                 // </Link>
               );
