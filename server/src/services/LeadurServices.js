@@ -4,6 +4,15 @@ const LeadurModel = require('../models/LeadurModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
 
 const LeadurServices = {
+  /**
+   * Creates a new user with type Leadur.
+   * @param {String} email
+   * @param {String} password
+   * @param {String} firstName
+   * @param {String} lastName
+   * @param {String} preferredName
+   * @return {Promise<unknown>}
+   */
   async createLeadur(email, password, firstName, lastName, preferredName) {
     return new Promise((resolve, reject) => {
       bcrypt

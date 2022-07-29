@@ -13,7 +13,6 @@ const UserController = {
    */
   async signup(req, res, next) {
     try {
-      console.log(req.body);
       const { email, password, firstName, lastName, preferredName, leadur } = req.body;
 
       await UserServices.validateUser(email.toLowerCase(), password);
@@ -21,7 +20,6 @@ const UserController = {
       let user;
 
       if (leadur) {
-        console.log(leadur);
         user = await LeadurServices.createLeadur(
           email.toLowerCase(),
           password,
@@ -46,7 +44,6 @@ const UserController = {
         return res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
       });
     } catch (e) {
-      console.log(e);
       next(e);
     }
   },
