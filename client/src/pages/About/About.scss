@@ -370,7 +370,7 @@
   }
 
   &:hover {
-    .aboutus-hl-frosh-group {
+    .aboutus-hl-frosh-group-container {
       transform: rotateY(360deg);
       transition: transform 400ms;
     }
@@ -388,12 +388,17 @@
   transition: opacity 300ms;
 }
 
-.aboutus-hl-frosh-group {
+.aboutus-hl-frosh-group-container {
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  font-size: 40px;
   margin-bottom: 15px;
-  //color: var(--purple);
   color: var(--white);
+}
+
+.aboutus-hl-frosh-group {
+  font-size: 40px;
+  margin-bottom: 5px;
 }
 
 .aboutus-hl-contacts-container {
