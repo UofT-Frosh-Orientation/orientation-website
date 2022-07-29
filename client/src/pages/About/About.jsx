@@ -218,15 +218,10 @@ const AboutUsHL = () => {
                 style={{ position: 'absolute' }}
                 className={`${open ? 'aboutus-hl-container-hide' : 'aboutus-hl-container-show'}`}
               >
-                <p className="aboutus-leedur" style={{ fontSize: '12px', padding: '0 10px' }}>
+                <p className="aboutus-leedur aboutus-leedur-contact-message">
                   Contact Your Head Leedurs!
                 </p>
-                <div
-                  className="aboutus-hl-contacts-container"
-                  onClick={() => {
-                    setClickLink(true);
-                  }}
-                >
+                <div className="aboutus-hl-contacts-container">
                   <a
                     className="no-link-style"
                     href={info.ig}

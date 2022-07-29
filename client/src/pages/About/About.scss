@@ -221,7 +221,7 @@
   justify-content: space-around;
   align-items: center;
 
-  @include devices(tablet) {
+  @include devices(mobile) {
     justify-content: flex-start;
     width: 100%;
     padding: 10px;
@@ -406,7 +406,6 @@
 .aboutus-hl-contacts-icon {
   width: 50px;
   margin: 10px;
-
   transition: transform 300ms;
   &:hover {
     transform: scale(1.07);
@@ -416,12 +415,24 @@
     transform: scale(0.97);
     transition: transform 300ms;
   }
+
+  @include devices(tablet) {
+    width: 40px;
+    margin: 5px;
+  }
 }
 
 .aboutus-leedur {
   text-align: center;
   margin: 3px;
   color: var(--purple-shades-light);
+}
+.aboutus-leedur-contact-message {
+  margin: 10px 3% 0 3%;
+
+  @include devices(tablet) {
+    font-size: 12px;
+  }
 }
 
 .aboutus-commitee-container {
