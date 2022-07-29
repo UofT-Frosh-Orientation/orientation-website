@@ -211,7 +211,7 @@
   align-items: center;
 
   @include devices(tablet) {
-    width: 85%;
+    width: 100%;
     padding: 0px;
   }
 }
@@ -225,10 +225,10 @@
     justify-content: flex-start;
     width: 100%;
     padding: 10px;
+    padding-bottom: 0px;
     overflow-x: scroll;
     &::-webkit-scrollbar {
       height: 3px;
-      width: 50%;
     }
     &::-webkit-scrollbar-track {
       background: var(--transparent);
@@ -276,7 +276,7 @@
   @include devices(tablet) {
     height: 26px;
     width: 2px;
-    margin-right: 8px;
+    margin-right: 20px;
     align-self: start;
   }
 }
