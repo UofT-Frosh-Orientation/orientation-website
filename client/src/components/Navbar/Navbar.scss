@@ -141,14 +141,6 @@ li {
   margin-left: auto;
   margin-right: 15px;
   cursor: pointer;
-
-  @media (prefers-color-scheme: dark) {
-    display: none;
-  }
-}
-
-.icon-profile-person-darkmode {
-  display: none;
 }
 
 .register,

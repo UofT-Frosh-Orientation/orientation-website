@@ -70,12 +70,7 @@
   &:hover,
   &:active {
     background-color: var(--purple-shades-muted);
-    font-weight: bold;
     transition: background-color 400ms, font-weight 400ms;
-
-    @media (prefers-color-scheme: dark) {
-      background-color: var(--light-purple);
-    }
   }
 }
 
@@ -83,10 +78,6 @@
   pointer-events: none;
   background-color: var(--purple-shades-muted);
   font-weight: bold;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--light-purple);
-  }
 }
 
 .profile-dropdown-item-img {
