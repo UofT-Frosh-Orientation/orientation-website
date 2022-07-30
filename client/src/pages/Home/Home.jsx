@@ -21,7 +21,6 @@ import { PopupModal } from '../../components/popup/PopupModal';
 import { sponsors } from '../../util/sponsors';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const PageHome = () => {
   return (
