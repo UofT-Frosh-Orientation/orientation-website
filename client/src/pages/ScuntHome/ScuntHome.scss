@@ -41,10 +41,24 @@
     font-size: 20px;
   }
 }
-
+.about-scunt-content {
+  width: 100%;
+}
+.about-scunt-token {
+  padding: 20px;
+  float: right;
+}
 .about-scunt-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   background-color: var(--purple);
-  padding-bottom: 15px;
+  padding-bottom: 30px;
+  @include devices(tablet) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
   p {
     padding-left: min(40px, 3.5%);
     font-size: 18px;
