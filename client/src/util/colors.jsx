@@ -114,4 +114,7 @@ export const colors = {
   '--mission-bg': ['#F8F1FF', '#543570'],
   '--mission-bg-hover': ['#E3D4F1', '#835FA3'],
   '--mission-bg-active': ['#CAA9FF', '#704894'],
+
+  //sponsor popup
+  '--sponsor-container': ['#ffffff', '#8c60b3'],
 };
