@@ -67,6 +67,7 @@ export const colors = {
   '--aboutus-tabs-color': ['#b297c7', '#b297c7'],
   '--aboutus-tabs-color-selected': ['#3c0a5a', '#ffffff'],
   '--aboutus-tabs-underline-selected': ['#b297c7', '#ffcc4a'],
+  '--leedur-names': ['#ecd6ff', '#ecd6ff'],
 
   //faq page
   '--faq-answer-containers': ['#ecd6ff', '#ecd6ff'],

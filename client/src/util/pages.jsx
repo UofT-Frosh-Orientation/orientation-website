@@ -98,83 +98,6 @@ export const pages = {
       includeFooter: true,
     },
   ],
-  // notLogin: [
-  //   {
-  //     label: 'Log in',
-  //     icon: LoginIcon,
-  //     iconDark: LoginIconDarkMode,
-  //     component: <PageLogin />,
-  //     path: '/login',
-  //     includeFooter: false,
-  //   },
-  //   {
-  //     label: 'Dark Mode',
-  //     icon: DarkModeIcon,
-  //     iconDark: DarkModeIconDarkMode,
-  //     function: darkmodefunc,
-  //   },
-  // ],
-  // login: [
-  //   {
-  //     label: 'Register',
-  //     icon: RegisterIcon,
-  //     iconDark: RegisterIconDarkMode,
-  //     component: (
-  //       <AuthorizedPage>
-  //         <PageRegistrationForm />
-  //       </AuthorizedPage>
-  //     ),
-  //     path: '/registration',
-  //   },
-  //   {
-  //     label: 'Profile',
-  //     icon: ProfileIcon,
-  //     iconDark: ProfileIconDarkMode,
-  //     component: (
-  //       <AuthorizedPage>
-  //         <PageProfile />
-  //       </AuthorizedPage>
-  //     ),
-  //     path: '/profile',
-  //     includeFooter: true,
-  //   },
-  //   {
-  //     label: 'Dark Mode',
-  //     icon: DarkModeIcon,
-  //     iconDark: DarkModeIconDarkMode,
-  //     function: darkmodefunc,
-  //     // add a function here that will be called on onClick
-  //   },
-  //   {
-  //     label: 'Log Out',
-  //     icon: LogoutIcon,
-  //     iconDark: LogoutIconDarkMode,
-  //     function: logoutfunction,
-  //   },
-  // ],
-  // register: [
-  //   {
-  //     label: 'Profile',
-  //     icon: ProfileIcon,
-  //     component: (
-  //       <AuthorizedPage>
-  //         <PageProfile />
-  //       </AuthorizedPage>
-  //     ),
-  //     path: '/profile',
-  //     includeFooter: true,
-  //   },
-  //   {
-  //     label: 'Dark Mode',
-  //     icon: DarkModeIcon,
-  //     function: darkmodefunc,
-  //   },
-  //   {
-  //     label: 'Log Out',
-  //     icon: LogoutIcon,
-  //     function: logoutfunction,
-  //   },
-  // ],
   hidden: [
     {
       label: 'Request Permissions',
@@ -242,7 +165,7 @@ export const pages = {
     {
       label: 'Scunt',
       scuntLabel: 'Home',
-      component: <PageScuntHome />,
+      //component: <PageScuntHome />,
       path: '/scunt',
       includeFooter: true,
     },
@@ -270,7 +193,7 @@ export const pages = {
     {
       label: 'Rules',
       scuntLabel: 'Rules',
-      component: <PageScuntRules />,
+      //component: <PageScuntRules />,
       path: '/scunt-rules',
       includeFooter: true,
     },

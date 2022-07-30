@@ -227,6 +227,7 @@
     padding: 0px 30px;
     padding-bottom: 0px;
     overflow-x: scroll;
+
     &::-webkit-scrollbar {
       height: 3px;
     }
@@ -234,7 +235,8 @@
       background: var(--transparent);
     }
     &::-webkit-scrollbar-thumb {
-      background: var(--transparent);
+      background: var(--light-purple);
+      cursor: pointer;
     }
   }
 }
@@ -261,9 +263,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  text-align: center;
 
   @include devices(tablet) {
-    text-align: center;
     width: max-content;
   }
 }
@@ -359,7 +361,7 @@
 
   cursor: pointer;
 
-  @include devices(mobile) {
+  @include devices(tablet) {
     width: 160px;
     height: 160px;
     margin: 5px;
@@ -424,7 +426,7 @@
 .aboutus-leedur {
   text-align: center;
   margin: 3px;
-  color: var(--purple-shades-light);
+  color: var(--leedur-names);
 }
 .aboutus-leedur-contact-message {
   margin: 10px 3% 0 3%;
