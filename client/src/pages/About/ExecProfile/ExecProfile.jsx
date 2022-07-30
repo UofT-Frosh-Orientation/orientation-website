@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import './ExecProfile.scss';
 
 import wave from '../../../assets/about/wave-about.svg';
@@ -25,7 +28,8 @@ const ExecProfile = ({
       className={`exec-container ${subcom ? 'subcom-container' : ''}`}
       onClick={() => setShowDescription(!showDescription)}
     >
-      <img src={image} className="exec-image"></img>
+      <LazyLoadImage className="exec-image" alt={name} effect="blur" src={image}></LazyLoadImage>
+      {/* <img src={image} className="exec-image"></img> */}
       <div
         className={` ${
           showDescription ? 'exec-profile-description-show' : 'exec-profile-description-hide'
