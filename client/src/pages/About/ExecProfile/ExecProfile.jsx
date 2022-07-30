@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import './ExecProfile.scss';
 
 import wave from '../../../assets/about/wave-about.svg';
@@ -25,7 +28,10 @@ const ExecProfile = ({
       className={`exec-container ${subcom ? 'subcom-container' : ''}`}
       onClick={() => setShowDescription(!showDescription)}
     >
-      <img src={image} className="exec-image"></img>
+      <div className="exec-image-hover">
+        <LazyLoadImage className="exec-image" alt={name} effect="blur" src={image}></LazyLoadImage>
+      </div>
+      {/* <img src={image} className="exec-image"></img> */}
       <div
         className={` ${
           showDescription ? 'exec-profile-description-show' : 'exec-profile-description-hide'
@@ -91,41 +97,42 @@ const ExecProfileDescription = ({ name, role, discipline, roleDescription, favPa
 
 const NonexecProfileDescription = ({ name, discipline, quote }) => {
   return (
-    <div className={`exec-profile-description ${'nonexec-profile-description'}`}>
-      <div className="exec-profile-title-cont">
-        <h3 className="exec-profile-name">{name}</h3>
+    <div className="nonexec-profile-description-container" style={{ textAlign: 'center' }}>
+      <div className="nonexec-profile-description">
+        <div className="exec-profile-title-cont">
+          <h3 className="exec-profile-name" style={{ textAlign: 'center' }}>
+            {name}
+          </h3>
+          <p className="nonexec-dicipline">{discipline}</p>
+        </div>
+        <p className="exec-profile-description-role" style={{ marginBottom: '0' }}>
+          {quote}
+        </p>
       </div>
-
-      <p className="exec-profile-description-dis">
-        <span style={{ fontWeight: 'bold' }}>DISCIPLINE: </span>
-        {discipline}
-      </p>
-
-      <p className="exec-profile-description-role">{quote}</p>
     </div>
   );
 };
 
 const SubcomProfileDescription = ({ name, description, cochairs }) => {
   return (
-    <div
-      className={`exec-profile-description ${'nonexec-profile-description'}`}
-      style={{ textAlign: 'center' }}
-    >
-      <div className="exec-profile-title-cont">
-        <h3 className="exec-profile-name">{name}</h3>
-      </div>
-      <p className="exec-profile-description-dis">{description}</p>
+    <div className="nonexec-profile-description-container" style={{ textAlign: 'center' }}>
+      <div className="nonexec-profile-description">
+        <div className="exec-profile-title-cont">
+          <h3 className="exec-profile-name" style={{ textAlign: 'center' }}>
+            {name}
+          </h3>
+        </div>
 
-      <div className="cochairs-list">
-        <span style={{ fontWeight: 'bold', marginBottom: '5px' }}>CO-CHAIRS: </span>
-        {cochairs.map((person) => {
-          return (
-            <p key={person.name} className="profile-subcom-people">
-              {person.name}
-            </p>
-          );
-        })}
+        <div className="cochairs-list">
+          <span style={{ fontWeight: 'bold', marginBottom: '5px' }}>CO-CHAIRS: </span>
+          {cochairs.map((person) => {
+            return (
+              <p key={person.name} className="profile-subcom-people">
+                {person.name}
+              </p>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

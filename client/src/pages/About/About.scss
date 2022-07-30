@@ -441,7 +441,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 50px;
+
+  @include devices(tablet) {
+    margin: 25px 0;
+  }
 }
 
 .aboutus-subcom-grid-container {
@@ -456,4 +460,10 @@
   @include devices(tablet) {
     grid-template-columns: auto auto;
   }
+}
+
+.aboutus-subcom {
+  text-align: center;
+  color: var(--black);
+  margin-bottom: 20px;
 }
