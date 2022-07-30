@@ -299,8 +299,10 @@ const ProfilePageHeader = ({ leader, editButton }) => {
       )}
       {!isRegistered && leader !== true ? (
         <div className={'profile-not-registered'}>
-          <h1>You are not registered!</h1>
-          <h2>You will not be able to participate in F!rosh week events until you register.</h2>
+          <h1 style={{ color: 'var(--black)' }}>You are not registered!</h1>
+          <h2 style={{ color: 'var(--black)' }}>
+            You will not be able to participate in F!rosh week events until you register.
+          </h2>
           <Link
             key={'/registration'}
             to={'/registration'}
@@ -362,7 +364,7 @@ const ProfilePageAnnouncements = () => {
     <div className="profile-page-announcements">
       <h2 className="profile-page-section-header">Tasks and Announcements</h2>
       {tasks == undefined || tasks.length <= 0 ? (
-        <h2>There are no announcements yet!</h2>
+        <h2 style={{ color: 'var(--black)' }}>There are no announcements yet!</h2>
       ) : (
         <TaskAnnouncement tasks={tasks} onDone={onDoneTask} />
       )}

@@ -8,6 +8,8 @@ import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/B
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import SearchIcon from '../../assets/misc/magnifying-glass-solid.svg';
 import DeleteIcon from '../../assets/misc/circle-xmark-solid.svg';
+import SearchIconDarkMode from '../../assets/darkmode/misc/magnifying-glass-solid.svg';
+import DeleteIconDarkMode from '../../assets/darkmode/misc/circle-xmark-solid.svg';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 
 const PageFAQ = () => {
@@ -111,7 +113,7 @@ const PageFAQ = () => {
           <div
             className={`faq-no-results ${isNoMatch ? 'faq-show-accordion' : 'faq-hide-accordion'}`}
           >
-            <h1>No results</h1>
+            <h1 style={{ color: 'var(--black)' }}>No results</h1>
           </div>
         </div>
       </div>
@@ -132,6 +134,7 @@ const FAQPageHeader = ({
   setActiveIndex,
   questionCategories,
 }) => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
   const filterQuestions = (questions, query) => {
     if (!query) {
       return questions;
@@ -166,7 +169,11 @@ const FAQPageHeader = ({
                     : '',
               }}
             >
-              <img src={SearchIcon} alt="Search Button" height={30} />
+              {!darkMode ? (
+                <img src={SearchIcon} alt="Search Button" height={30} />
+              ) : (
+                <img src={SearchIconDarkMode} alt="Search Button" height={30} />
+              )}
             </div>
             <div className={'faq-page-header-searchbar'}>
               <FAQSearchBar
@@ -193,12 +200,21 @@ const FAQPageHeader = ({
               }}
             >
               {searchQuery.length > 0 ? (
-                <img
-                  onClick={() => handleDeleteIconClick()}
-                  src={DeleteIcon}
-                  alt="Search Button"
-                  height={30}
-                />
+                !darkMode ? (
+                  <img
+                    onClick={() => handleDeleteIconClick()}
+                    src={DeleteIcon}
+                    alt="Search Button"
+                    height={30}
+                  />
+                ) : (
+                  <img
+                    onClick={() => handleDeleteIconClick()}
+                    src={DeleteIconDarkMode}
+                    alt="Search Button"
+                    height={30}
+                  />
+                )
               ) : (
                 ''
               )}
@@ -280,7 +296,7 @@ const FAQAccordionWrapper = ({ scheduleData, openStatus, activeIndex }) => {
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       header={<div className={'faq-search-result-question-accordion'}>{scheduleData.question}</div>}
-      style={{ backgroundColor: '#ecd6ff', padding: '0px 30px 0px 30px' }}
+      style={{ backgroundColor: 'var(--faq-answer-containers)', padding: '0px 30px 0px 30px' }}
     >
       <div className={'faq-search-result-answer-accordion'}>{scheduleData.answer}</div>
     </SingleAccordion>

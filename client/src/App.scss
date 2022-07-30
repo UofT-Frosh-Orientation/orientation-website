@@ -41,11 +41,6 @@ h5 {
   font-family: 'Inter-Bold', sans-serif;
   margin: 0px;
   padding: 0px;
-  //color: var(--text-dynamic);
-}
-
-p {
-  //color: var(--text-dynamic);
 }
 
 a {
@@ -58,6 +53,16 @@ a {
   background-position: 0% 100%, 0 100%;
   background-repeat: no-repeat;
   transition: background-size 400ms;
+}
+
+input {
+  background-color: (--faq-searchbar-bg);
+}
+input[type='text'] {
+  color: var(--black);
+}
+::placeholder {
+  color: var(--faq-searchbar-placeholder);
 }
 
 a:hover {
