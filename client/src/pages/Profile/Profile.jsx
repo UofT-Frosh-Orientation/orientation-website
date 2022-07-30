@@ -40,6 +40,7 @@ import { registeredSelector, userSelector } from '../userSlice';
 
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
+import { SnackbarContext } from '../../util/SnackbarProvider';
 
 const PageProfile = () => {
   const qrCodeLeader = canLeaderScanQR();
@@ -77,6 +78,7 @@ const PageProfileFrosh = ({ leader, isLoggedIn, setIsLoggedIn }) => {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <ProfilePageQRCode />
+          <ProfilePageScuntToken />
           <ProfilePageResources />
         </div>
       </div>
@@ -88,6 +90,40 @@ PageProfileFrosh.propTypes = {
   leader: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
   setIsLoggedIn: PropTypes.func,
+};
+
+export const ProfilePageScuntToken = () => {
+  const { user } = useSelector(userSelector);
+  const isRegistered = useSelector(registeredSelector);
+  const { setSnackbar } = useContext(SnackbarContext);
+  const [showToken, setShowToken] = useState(false);
+
+  const code = user?.scuntToken;
+  if (code === undefined || !isRegistered) {
+    return <></>;
+  }
+  return (
+    <div className="profile-page-scunt-token profile-page-side-section">
+      <h2
+        style={{ filter: showToken ? '' : 'blur(10px)' }}
+        onClick={() => {
+          setSnackbar('Copied to clipboard');
+          navigator.clipboard.writeText(code);
+        }}
+      >
+        {code}
+      </h2>
+      <p>Scunt Login Token</p>
+      <p style={{ fontSize: '13px' }}>Use this token to login to the Scunt Discord</p>
+      <ButtonOutlined
+        isSecondary={showToken}
+        label={showToken ? 'Hide' : 'Show'}
+        onClick={() => {
+          setShowToken(!showToken);
+        }}
+      />
+    </div>
+  );
 };
 
 const PageProfileQRLeader = () => {
@@ -344,7 +380,7 @@ const ProfilePageQRCode = () => {
     return <></>;
   }
   return (
-    <div className="profile-page-qr-code">
+    <div className="profile-page-qr-code profile-page-side-section">
       <QRNormal
         value={QRCodeString}
         styles={{ svg: { width: '120%', margin: '-10%' } }}
@@ -361,7 +397,7 @@ const ProfilePageQRCode = () => {
 };
 const ProfilePageResources = () => {
   return (
-    <div className="profile-page-resources">
+    <div className="profile-page-resources profile-page-side-section">
       <h2>Resources</h2>
       {resources.map((resource, index) => {
         return (
