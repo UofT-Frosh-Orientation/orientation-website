@@ -221,7 +221,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
 
   return (
     <>
-      <PopupModal
+      {/* <PopupModal
         trigger={showLogoutPopup}
         setTrigger={setShowLogoutPopup}
         exitIcon={true}
@@ -235,7 +235,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
             dispatch(logout({ navigate, setShowLogoutPopup }));
           }}
         />
-      </PopupModal>
+      </PopupModal> */}
 
       <div className="profile-page-header">
         <div className="profile-page-header-group">
@@ -276,7 +276,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
           ) : (
             <></>
           )}
-          {editButton !== false ? (
+          {/* {editButton !== false ? (
             <div
               style={{ right: !isRegistered ? '10px' : '60px' }}
               className="profile-logout-button"
@@ -288,7 +288,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
             </div>
           ) : (
             <></>
-          )}
+          )} */}
         </div>
       </div>
       {darkMode ? (

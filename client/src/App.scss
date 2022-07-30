@@ -41,11 +41,6 @@ h5 {
   font-family: 'Inter-Bold', sans-serif;
   margin: 0px;
   padding: 0px;
-  //color: var(--text-dynamic); // turning off for now...
-}
-
-p {
-  //color: var(--text-dynamic); // had to remove this, since some paragraphs are on dark backgrounds in light mode
 }
 
 a {
@@ -144,5 +139,15 @@ a:hover {
   height: 45px;
   @include devices(tablet) {
     height: 0px;
+  }
+}
+
+.error-success-box-snackbar-fixed {
+  position: fixed;
+  bottom: 20px;
+  left: 0px;
+  z-index: 100;
+  @include devices(tablet) {
+    bottom: 65px;
   }
 }

@@ -14,6 +14,10 @@ import { useEffect } from 'react';
 import { object } from 'prop-types';
 import { Header } from '../../components/text/Header/Header';
 
+import InstagramIcon from '../../assets/social/instagram-brands.svg';
+import MailIcon from '../../assets/social/envelope-solid.svg';
+import { instagramAccounts } from '../../util/instagramAccounts';
+
 const PageAbout = () => {
   return (
     <>
@@ -179,11 +183,95 @@ const AboutUsHL = () => {
     <>
       <div className="aboutus-hl-grid-container">
         {headLeedurs.map((info) => {
+          const [open, setOpen] = useState(true); // open is set to hl with greek letter page
+          const [clickLink, setClickLink] = useState(false); // icon links have not been clicked
+          const [hover, setHover] = useState(false);
+
+          useEffect(() => {
+            console.log(clickLink);
+            if (clickLink) {
+              setOpen(false);
+            }
+            setClickLink(false);
+          }, [clickLink]);
+
           return (
-            <div key={info.group} className="aboutus-hl-container">
-              <h1 className="aboutus-hl-frosh-group">{info.group}</h1>
-              <p className="aboutus-leedur">{info.leedur1}</p>
-              <p className="aboutus-leedur">{info.leedur2}</p>
+            <div
+              onMouseOver={() => {
+                setHover(true);
+                if (hover === false)
+                  setTimeout(() => {
+                    setHover(false);
+                  }, 1000);
+              }}
+              key={info.group}
+              className="aboutus-hl-container"
+              onClick={() => {
+                console.log('clicklink', clickLink);
+                if (!clickLink) {
+                  setOpen(!open);
+                } else {
+                  setOpen(open);
+                }
+              }}
+            >
+              <div
+                className={`${open ? 'aboutus-hl-container-show' : 'aboutus-hl-container-hide'}`}
+              >
+                <div className="aboutus-hl-frosh-group-container">
+                  <h1
+                    className={`aboutus-hl-frosh-group ${
+                      hover ? 'aboutus-hl-frosh-group-spin' : ''
+                    }`}
+                  >
+                    {info.letter}
+                  </h1>
+                  <h3 className="aboutus-hl-frosh-group-name">{info.group}</h3>
+                </div>
+                <p className="aboutus-leedur">{info.leedur1}</p>
+                <p className="aboutus-leedur">{info.leedur2}</p>
+              </div>
+
+              <div
+                style={{ position: 'absolute' }}
+                className={`${open ? 'aboutus-hl-container-hide' : 'aboutus-hl-container-show'}`}
+              >
+                <p className="aboutus-leedur aboutus-leedur-contact-message">
+                  Contact Your Head Leedurs!
+                </p>
+                <div className="aboutus-hl-contacts-container">
+                  {instagramAccounts[info.group] ? (
+                    <a
+                      className="no-link-style"
+                      href={instagramAccounts[info.group]}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => {
+                        setClickLink(true);
+                      }}
+                    >
+                      <img
+                        className="aboutus-hl-contacts-icon"
+                        src={InstagramIcon}
+                        alt="instagram-icon"
+                      ></img>
+                    </a>
+                  ) : (
+                    <></>
+                  )}
+                  {/* <a
+                    className="no-link-style"
+                    href={`mailto:${info.email}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => {
+                      setClickLink(true);
+                    }}
+                  >
+                    <img className="aboutus-hl-contacts-icon" src={MailIcon} alt="email-icon"></img>
+                  </a> */}
+                </div>
+              </div>
             </div>
           );
         })}
@@ -205,10 +293,10 @@ const tabs = [
   //   title: 'Subcoms',
   //   component: <AboutUsSubcom />,
   // },
-  // {
-  //   title: 'HLs',
-  //   component: <AboutUsHL />,
-  // },
+  {
+    title: 'Head Leedurs',
+    component: <AboutUsHL />,
+  },
 ];
 
 const AboutUsTeamsTab = () => {

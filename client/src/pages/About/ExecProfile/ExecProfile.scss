@@ -110,8 +110,15 @@
 }
 
 .nonexec-profile-description {
+  color: var(--white);
   padding: 10%;
   text-align: left;
+}
+
+.exec-profile-description-dis,
+.exec-profile-description-role,
+.exec-profile-description-fav {
+  color: var(--white);
 }
 
 .exec-profile-description-dis,

@@ -98,7 +98,7 @@
   z-index: 10;
   @include devices(tablet) {
     bottom: 50px;
-    right: 5px;
+    left: 5px;
   }
 }
 
