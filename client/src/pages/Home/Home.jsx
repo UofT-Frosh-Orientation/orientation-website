@@ -20,7 +20,6 @@ import { ScheduleComponent } from '../../components/schedule/ScheduleHome/Schedu
 import { PopupModal } from '../../components/popup/PopupModal';
 import { sponsors } from '../../util/sponsors';
 import { DarkModeContext } from '../../util/DarkModeProvider';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const PageHome = () => {
   return (
@@ -95,12 +94,7 @@ const HomePageSlideshow = () => {
     <Slide {...properties}>
       {getSlideshowImages().map((image, index) => (
         <div key={index}>
-          <LazyLoadImage
-            className="home-page-landing-image"
-            alt={'slideshow' + index}
-            src={image}
-          />
-          {/* <img className="home-page-landing-image" src={image} alt={'slideshow' + index} /> */}
+          <img className="home-page-landing-image" src={image} alt={'slideshow' + index} />
         </div>
       ))}
     </Slide>
