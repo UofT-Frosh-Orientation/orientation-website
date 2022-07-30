@@ -116,8 +116,12 @@ const PageLogin = ({ incorrectEntry }) => {
 
               <Button label={'Log in'} onClick={loginButtonPress} />
             </div>
-            <ErrorSuccessBox content={loginError} error={true} />
           </div>
+          <ErrorSuccessBox
+            style={{ zIndex: 10, margin: '10px 20px' }}
+            content={loginError}
+            error={true}
+          />
         </div>
         <div className={`login-loading ${isLoading === true ? 'login-loading-appear' : ''}`}>
           <LoadingAnimation size={'60px'} />
