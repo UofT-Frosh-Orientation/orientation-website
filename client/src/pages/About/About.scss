@@ -194,7 +194,7 @@
 
   padding: 50px;
   text-align: center;
-  color: var(--purple-shades-dark);
+  color: var(--text-dynamic);
 
   @include devices(tablet) {
     width: 85vw;
@@ -227,6 +227,7 @@
     padding: 0px 30px;
     padding-bottom: 0px;
     overflow-x: scroll;
+
     &::-webkit-scrollbar {
       height: 3px;
     }
@@ -234,13 +235,14 @@
       background: var(--transparent);
     }
     &::-webkit-scrollbar-thumb {
-      background: var(--transparent);
+      background: var(--light-purple);
+      cursor: pointer;
     }
   }
 }
 
 .aboutus-teams-tabs {
-  color: var(--purple-shades-muted);
+  color: var(--aboutus-tabs-color) !important;
   padding: 15px;
   padding-right: 0px;
   padding-left: 0px;
@@ -261,9 +263,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  text-align: center;
 
   @include devices(tablet) {
-    text-align: center;
     width: max-content;
   }
 }
@@ -291,7 +293,7 @@
 }
 
 .aboutus-teams-tabs-title-selected {
-  color: var(--purple-shades-dark);
+  color: var(--aboutus-tabs-color-selected);
   transition: color 200ms;
 
   @include devices(tablet) {
@@ -310,7 +312,7 @@
 }
 .aboutus-yellow-bubble-show {
   width: 100%;
-  background-color: var(--light-purple) !important;
+  background-color: var(--aboutus-tabs-underline-selected) !important;
   opacity: 1;
   transition: width 500ms, opacity 500ms;
 }
@@ -359,7 +361,7 @@
 
   cursor: pointer;
 
-  @include devices(mobile) {
+  @include devices(tablet) {
     width: 160px;
     height: 160px;
     margin: 5px;
@@ -424,7 +426,7 @@
 .aboutus-leedur {
   text-align: center;
   margin: 3px;
-  color: var(--purple-shades-light);
+  color: var(--leedur-names);
 }
 .aboutus-leedur-contact-message {
   margin: 10px 3% 0 3%;

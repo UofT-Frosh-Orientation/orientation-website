@@ -105,8 +105,8 @@ const PageSignUp = () => {
             src={MainFroshLogo}
             onClick={handleLeaderReveal}
           ></img>
-          <h1>Create an Account</h1>
-          <h3>For F!rosh Week 2T2, UofT Engineering</h3>
+          <h1 style={{ color: 'var(--black)' }}>Create an Account</h1>
+          <h3 style={{ color: 'var(--black)' }}>For F!rosh Week 2T2, UofT Engineering</h3>
           <div className="full-width-input">
             <TextInput
               label="Email"

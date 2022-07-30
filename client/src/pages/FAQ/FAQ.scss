@@ -64,7 +64,7 @@
   height: 50px;
   width: 50px;
   color: var(--gray);
-  background-color: white;
+  background-color: var(--faq-searchbar-bg);
   display: grid;
   place-items: center;
   padding-left: 10px;
@@ -73,7 +73,7 @@
 
 .searchIcon img {
   height: 18px;
-  opacity: 0.6;
+  //opacity: 0.6;
   transition: 200ms opacity;
 }
 
@@ -81,7 +81,7 @@
   height: 50px;
   width: 50px;
   color: var(--gray);
-  background-color: white;
+  background-color: var(--faq-searchbar-bg);
   display: grid;
   place-items: center;
   padding-right: 10px;
@@ -104,7 +104,7 @@
 }
 
 .faq-page-header-searchbar {
-  background-color: white;
+  background-color: var(--faq-searchbar-bg);
   border: 0;
   border-radius: 0px;
   border-top-right-radius: 0px;
@@ -120,6 +120,10 @@
 
 .faq-search-input {
   margin-top: 2px;
+}
+
+.faq-search-input-container {
+  background-color: var(--faq-searchbar-bg) !important;
 }
 
 .faq-data-result {
@@ -199,6 +203,7 @@
 }
 
 .faq-all-search-results {
+  color: var(--black);
   margin-top: -30px;
   margin-bottom: 20px;
 }
@@ -230,7 +235,7 @@
 .faq-search-result-container {
   margin: 15px 10px 0px 10px;
   padding: 20px 30px 20px 30px;
-  background-color: var(--purple-shades-light);
+  background-color: var(--faq-answer-containers);
   border-radius: 15px;
   color: var(--text-dark);
 }
@@ -247,14 +252,13 @@
 }
 
 .faq-search-result-question-accordion {
-  padding: 20px 0px 20px 0px;
+  padding: 20px 20px 20px 0px;
   margin-bottom: 0px;
 }
 
 .faq-search-result-answer,
 .faq-search-result-answer-accordion {
   margin-top: 7px;
-  background-color: var(--purple-shades-light);
   border-radius: 12px;
   color: var(--text-dark);
   @include devices(tablet) {

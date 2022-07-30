@@ -39,7 +39,7 @@ const PageRegistrationSuccess = () => {
   if (error) {
     return (
       <div className="registration-success-page-container">
-        <h1>An error occurred.</h1>
+        <h1 style={{ color: 'var(--black)' }}>An error occurred.</h1>
       </div>
     );
   }
@@ -56,11 +56,11 @@ const PageRegistrationSuccess = () => {
             <div className="registration-success-page-container">
               <div className="registration-success-page-step1">
                 <div className="registration-success-page-step1-1-disappear">
-                  <h1>Thank you for Registering</h1>
+                  <h1 style={{ color: 'var(--black)' }}>Thank you for Registering</h1>
                 </div>
                 <div className="registration-success-page-step1-2-disappear">
-                  <h2>for F!rosh Week 2T2</h2>
-                  <p className="registration-success-wait-msg">
+                  <h2 style={{ color: 'var(--black)' }}>for F!rosh Week 2T2</h2>
+                  <p style={{ color: 'var(--black)' }} className="registration-success-wait-msg">
                     {`${
                       user.preferredName === '' || !user.preferredName
                         ? user.firstName
@@ -71,7 +71,7 @@ const PageRegistrationSuccess = () => {
               </div>
               <div className="registration-success-page-step2-disappear">
                 <div className="registration-success-page-step2">
-                  <h1>Welcome to...</h1>
+                  <h1 style={{ color: 'var(--black)' }}>Welcome to...</h1>
                 </div>
               </div>
               <div className="registration-success-page-step3">
@@ -82,7 +82,7 @@ const PageRegistrationSuccess = () => {
                 </svg>
                 {/* <h1>{data.froshGroupIcon}</h1> */}
                 <div className="registration-success-page-step4">
-                  <h2>{user.froshGroup + '!'}</h2>
+                  <h2 style={{ color: 'var(--black)' }}>{user.froshGroup + '!'}</h2>
                 </div>
                 <div className="registration-success-page-step5">
                   <Link to={'/profile'} className="no-link-style">
