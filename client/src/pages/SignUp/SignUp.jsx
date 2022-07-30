@@ -24,11 +24,11 @@ const PageSignUp = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loading) {
-      setPageState('loading');
-    } else if (error) {
+    if (error) {
       setPageState('form');
       setSignUpError(error);
+    } else if (loading) {
+      setPageState('loading');
     } else if (user) {
       setPageState('success');
     }

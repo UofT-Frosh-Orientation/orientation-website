@@ -85,7 +85,7 @@ export const colors = {
   '--textinput-bg': ['#f3f3f3', '#8c60b3'],
   '--textinput-shadow-hover': ['#a04fb9', '#8c60b3'],
   '--textinput-shadow-focus': ['#6f1e88', '#8C64AD'],
-  '--disabled': ['#989898', '#300150'],
+  '--disabled': ['#F3F3F3', '#300150'],
 
   //signup page, profile page bubbles, payment error page
   '--container-bg': ['#ffffff', '#613480'],

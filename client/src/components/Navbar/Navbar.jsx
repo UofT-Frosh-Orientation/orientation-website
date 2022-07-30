@@ -68,9 +68,6 @@ const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
 };
 
 const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
-  const [showlogoutPopup, setShowLogoutPopup] = useState(false);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { pathname } = useLocation();
   const [openProfileDropdown, setOpenProfileDropdown] = useState(false);
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
@@ -98,23 +95,6 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
           items={profilePages.notLogin}
         />
       )}
-
-      <PopupModal
-        trigger={showlogoutPopup}
-        setTrigger={setShowLogoutPopup}
-        heading={'Are you sure you want to logout?'}
-        exitIcon={true}
-        blurBackground={false}
-      >
-        <Button
-          isSecondary={true}
-          label={'Logout'}
-          onClick={() => {
-            console.log('Logging out');
-            dispatch(logout({ navigate, setShowLogoutPopup }));
-          }}
-        />
-      </PopupModal>
 
       <div className="navbar-container">
         <div className="navbar-main">

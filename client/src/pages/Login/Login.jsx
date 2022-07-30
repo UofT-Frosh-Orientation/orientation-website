@@ -49,14 +49,14 @@ const PageLogin = ({ incorrectEntry }) => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { loading, error, user } = useSelector(userSelector);
-  console.log(error);
-  // const [loginError, setLoginError] = useState('');
+  const [loginError, setLoginError] = useState('');
   // const [loginState, setLoginState] = useState('');
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   function loginButtonPress() {
+    setIsLoading(true);
     dispatch(login({ email, password }));
   }
 
@@ -64,8 +64,17 @@ const PageLogin = ({ incorrectEntry }) => {
     console.log(user);
     if (user && !error) {
       navigate('/profile', { state: { frosh: user } });
+      setIsLoading(false);
+      setLoginError('');
     }
   }, [user]);
+
+  useEffect(() => {
+    if (error) {
+      setIsLoading(false);
+      setLoginError('Please ensure your credentials are correct.\n' + error);
+    }
+  }, [error]);
 
   return (
     <>
@@ -107,7 +116,7 @@ const PageLogin = ({ incorrectEntry }) => {
 
               <Button label={'Log in'} onClick={loginButtonPress} />
             </div>
-            <ErrorSuccessBox content={error?.message ?? ''} error={true} />
+            <ErrorSuccessBox content={loginError} error={true} />
           </div>
         </div>
         <div className={`login-loading ${isLoading === true ? 'login-loading-appear' : ''}`}>

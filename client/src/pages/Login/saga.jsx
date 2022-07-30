@@ -27,7 +27,7 @@ export function* loginSaga({ payload: { email, password } }) {
     const result = yield call(axios.post, '/user/login', { email, password });
     yield put(loginSuccess(result.data.user));
   } catch (error) {
-    yield put(loginFail(error.response.data));
+    yield put(loginFail(error.toString()));
   }
 }
 

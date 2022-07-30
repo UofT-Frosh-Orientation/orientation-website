@@ -15,9 +15,8 @@ import RegisterIconDarkMode from '../assets/darkmode/profiledropdown/file-invoic
 import ProfileIconDarkMode from '../assets/darkmode/profiledropdown/user-solid.svg';
 import LogoutIconDarkMode from '../assets/darkmode/profiledropdown/arrow-right-from-bracket-solid.svg';
 
-function logoutfunction({ navigate, dispatch }) {
+function logoutFunction({ dispatch, navigate }) {
   dispatch(logout({ navigate }));
-  navigate(`/`);
 }
 
 export const profilePages = {
@@ -59,7 +58,7 @@ export const profilePages = {
       label: 'Log Out',
       icon: LogoutIcon,
       iconDark: LogoutIconDarkMode,
-      function: logoutfunction,
+      function: logoutFunction,
     },
   ],
   register: [
@@ -76,7 +75,7 @@ export const profilePages = {
     {
       label: 'Log Out',
       icon: LogoutIcon,
-      function: logoutfunction,
+      function: logoutFunction,
     },
   ],
 };
