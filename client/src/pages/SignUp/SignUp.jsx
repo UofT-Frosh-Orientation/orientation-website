@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import './SignUp.scss';
 import { Button } from '../../components/button/Button/Button';
@@ -11,22 +11,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userSelector } from '../userSlice';
 import { signUp } from '../Login/saga';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
+import { SnackbarContext } from '../../util/SnackbarProvider';
 
 const PageSignUp = () => {
   const [errors, setErrors] = useState({});
   const [accountObj, setAccountObj] = useState({});
   const [anyErrors, setAnyErrors] = useState({});
   const [pageState, setPageState] = useState('form');
-  const [signUpError, setSignUpError] = useState('');
   const [revealLeaderSignup, setRevealLeaderSignup] = useState(0);
 
+  const { setSnackbar } = useContext(SnackbarContext);
   const { user, loading, error } = useSelector(userSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (error) {
       setPageState('form');
-      setSignUpError(error);
+      setSnackbar('Something happened. ' + error, true);
     } else if (loading) {
       setPageState('loading');
     } else if (user) {
@@ -216,9 +217,6 @@ const PageSignUp = () => {
                 }
               }}
             />
-          </div>
-          <div style={{ width: '100%' }}>
-            <ErrorSuccessBox content={signUpError} error />
           </div>
         </div>
       </div>

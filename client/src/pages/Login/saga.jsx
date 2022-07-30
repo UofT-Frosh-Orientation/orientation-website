@@ -70,7 +70,7 @@ export function* createUserSaga({ payload: user }) {
     yield put(loginSuccess(result.data.user));
   } catch (error) {
     console.log(error);
-    yield put(loginFail(error.response.data));
+    yield put(loginFail(error.toString()));
   }
 }
 
