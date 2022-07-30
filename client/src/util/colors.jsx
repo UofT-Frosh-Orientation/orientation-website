@@ -84,7 +84,7 @@ export const colors = {
   '--textinput-shadow-focus': ['#6f1e88', '#efdefe'],
   '--disabled': ['#989898', '#8c60b3'],
 
-  //signup page, profile page bubbles
+  //signup page, profile page bubbles, payment error page
   '--signup-container': ['#ffffff', '#613480'],
 
   //tasks and announcements
@@ -102,4 +102,10 @@ export const colors = {
 
   //radio button and checkboxes
   '--radio-button': ['#6f1e88', '#ffffff'],
+
+  //payment error page
+  '--payment-error-text': ['#6f1e88', '#efdefe'],
+
+  //registration success
+  '--frosh-group-stroke': ['#6f1e88', '#8c60b3'],
 };
