@@ -38,8 +38,6 @@ import InstagramIcon from '../../assets/social/instagram-brands.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../userSlice';
 
-import { PopupModal } from '../../components/popup/PopupModal';
-import { logout } from '../Login/saga';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 
@@ -208,12 +206,8 @@ const ProfilePageQRScanner = () => {
   );
 };
 
-const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) => {
+const ProfilePageHeader = ({ leader, editButton }) => {
   const { user } = useSelector(userSelector);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
 
   const isRegistered = useSelector(registeredSelector);
   // console.log(`editButton: ${editButton}`);
@@ -221,22 +215,6 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
 
   return (
     <>
-      {/* <PopupModal
-        trigger={showLogoutPopup}
-        setTrigger={setShowLogoutPopup}
-        exitIcon={true}
-        blurBackground={false}
-        heading={'Would you like to logout?'}
-      >
-        <Button
-          isSecondary={true}
-          label="Logout"
-          onClick={() => {
-            dispatch(logout({ navigate, setShowLogoutPopup }));
-          }}
-        />
-      </PopupModal> */}
-
       <div className="profile-page-header">
         <div className="profile-page-header-group">
           <h1>{user?.froshGroupIcon}</h1>
@@ -276,19 +254,6 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
           ) : (
             <></>
           )}
-          {/* {editButton !== false ? (
-            <div
-              style={{ right: !isRegistered ? '10px' : '60px' }}
-              className="profile-logout-button"
-              onClick={() => {
-                setShowLogoutPopup(true);
-              }}
-            >
-              Logout
-            </div>
-          ) : (
-            <></>
-          )} */}
         </div>
       </div>
       {darkMode ? (
@@ -321,8 +286,6 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
 ProfilePageHeader.propTypes = {
   leader: PropTypes.bool,
   editButton: PropTypes.bool,
-  isLoggedIn: PropTypes.bool,
-  setIsLoggedIn: PropTypes.func,
 };
 
 const ProfilePageInstagrams = () => {
