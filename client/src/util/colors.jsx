@@ -59,6 +59,8 @@ export const colors = {
   '--user-icon-bg': ['#6f1e88', '#8c60b3'],
 
   //button
+  '--button-outlined-bg': ['#ecd6ff', '#442066'],
+  '--button-outlined-bg-secondary': ['#f3f3f3', '#654A7E'],
   '--button-outlined-border': ['#b297c7', '#8c60b3'],
   '--button-outlined-font': ['#20002e', '#ffffff'],
   '--button-outlined-disabled-border': ['#989898', '#8c60b3'],
@@ -83,7 +85,7 @@ export const colors = {
   '--textinput-bg': ['#f3f3f3', '#8c60b3'],
   '--textinput-shadow-hover': ['#a04fb9', '#8c60b3'],
   '--textinput-shadow-focus': ['#6f1e88', '#8C64AD'],
-  '--disabled': ['#989898', '#8c60b3'],
+  '--disabled': ['#989898', '#300150'],
 
   //signup page, profile page bubbles, payment error page
   '--container-bg': ['#ffffff', '#613480'],
@@ -96,13 +98,13 @@ export const colors = {
   //dropdown
   '--dropdown-selected-bg': ['#ffffff', '#8c60b3'],
   '--dropdown-hover': ['#f3f3f3', '#8c60b3'],
-  '--disabled-bg': ['#ffffff', '#3c0a5a'],
+  '--disabled-bg': ['#ffffff', '#4F2F64'],
   '--dropdown-list-border': ['#b297c7', '#8c60b3'],
   '--dropdown-list-bg': ['#ffffff', '#613480'],
   '--dropdown-list-selected': ['#b297c7', '#8c60b3'],
 
   //radio button and checkboxes
-  '--radio-button': ['#6f1e88', '#ffffff'],
+  '--radio-button': ['#6f1e88', '#ECE283'],
 
   //payment error page
   '--payment-error-text': ['#6f1e88', '#efdefe'],

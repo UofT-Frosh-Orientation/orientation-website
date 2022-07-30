@@ -2,7 +2,7 @@
 
 .button-outlined {
   margin: 15px 10px;
-  background-color: var(--purple-shades-light);
+  background-color: var(--button-outlined-bg);
   color: var(--button-outlined-font);
   display: inline-block;
   border-radius: 14px;
@@ -37,7 +37,7 @@
 }
 
 .button-outlined-secondary {
-  background-color: var(--on-white);
+  background-color: var(--button-outlined-bg-secondary);
   border-color: var(--button-outlined-border); //--purple-shades-muted
   color: var(--button-outlined-font);
   font-weight: unset;

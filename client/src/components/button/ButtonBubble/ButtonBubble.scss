@@ -2,7 +2,7 @@
 
 .button-bubble {
   margin: 10px;
-  background-color: var(--purple-shades-light);
+  background-color: var(--button-outlined-bg);
   color: var(--button-outlined-font);
   border-radius: 14px;
   padding: 13px 20px;
@@ -25,7 +25,7 @@
 }
 
 .button-bubble-secondary {
-  background-color: var(--on-white);
+  background-color: var(--button-outlined-bg-secondary);
   border-color: var(--button-outlined-border);
   color: var(--button-outlined-font);
   font-weight: unset;

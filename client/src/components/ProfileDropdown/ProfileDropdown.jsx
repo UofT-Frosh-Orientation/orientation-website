@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 
 import DarkModeIcon from '../../assets/profiledropdown/moon-solid.svg';
-import DarkModeIconDarkMode from '../../assets/darkmode/profiledropdown/moon-solid.svg';
+import DarkModeIconDarkMode from '../../assets/darkmode/profiledropdown/sun-solid.svg';
 
 import './ProfileDropdown.scss';
 
@@ -114,8 +114,7 @@ const ProfileDropdown = ({ open, setOpen, items }) => {
                 className="profile-dropdown-item-img"
               />
             )}
-
-            <p className="profile-dropdown-item-label">Dark Mode</p>
+            <p className="profile-dropdown-item-label">{darkMode ? 'Light Mode' : 'Dark Mode'}</p>
           </div>
         </div>
       </div>

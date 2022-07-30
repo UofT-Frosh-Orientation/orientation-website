@@ -194,6 +194,7 @@
   flex-shrink: 1;
   padding: 25px 30px;
   h2 {
+    color: var(--text-dynamic);
     font-size: 32px;
   }
   @include devices(tablet) {

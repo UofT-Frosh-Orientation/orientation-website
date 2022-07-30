@@ -13,12 +13,7 @@ import LogoutIcon from '../assets/profiledropdown/arrow-right-from-bracket-solid
 import LoginIconDarkMode from '../assets/darkmode/profiledropdown/arrow-right-to-bracket-solid.svg';
 import RegisterIconDarkMode from '../assets/darkmode/profiledropdown/file-invoice-dollar-solid.svg';
 import ProfileIconDarkMode from '../assets/darkmode/profiledropdown/user-solid.svg';
-import DarkModeIconDarkMode from '../assets/darkmode/profiledropdown/moon-solid.svg';
 import LogoutIconDarkMode from '../assets/darkmode/profiledropdown/arrow-right-from-bracket-solid.svg';
-
-function darkmodefunc() {
-  console.log('toggle darkmode here');
-}
 
 function logoutfunction({ navigate, dispatch }) {
   dispatch(logout({ navigate }));

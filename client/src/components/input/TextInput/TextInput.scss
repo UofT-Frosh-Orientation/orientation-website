@@ -84,6 +84,7 @@
 
 .text-input-disabled {
   opacity: 0.8;
+  background-color: var(--disabled);
   &:hover {
     background-color: var(--on-white);
     box-shadow: none;
@@ -96,7 +97,7 @@
   transition: transform 0.3s;
   width: 26px;
   right: 17px;
-  top: 15px;
+  top: 17px;
   position: absolute;
   &:hover {
     transform: scale(1.2);

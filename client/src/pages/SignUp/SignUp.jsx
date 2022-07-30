@@ -190,7 +190,7 @@ const PageSignUp = () => {
           {revealLeaderSignup >= 5 ? (
             <div style={{ width: '100%', marginTop: '5px', marginBottom: '5px' }}>
               <Checkboxes
-                values={['Request Leadur Account']}
+                values={['Request Leedur Account']}
                 onSelected={(value, index, state, selectedIndices) => {
                   accountObj['leadur'] = state;
                 }}
@@ -243,7 +243,7 @@ const PageSignUp = () => {
                 : accountObj['preferredName']
             }.`}</h2>
             {accountObj['leadur'] === true ? (
-              <h3>Your account will be reviewed and shortly become an official Leadur account.</h3>
+              <h3>Your account will be reviewed and shortly become an official Leedur account.</h3>
             ) : (
               <>
                 <h1>You aren&apos;t done just yet!</h1>
