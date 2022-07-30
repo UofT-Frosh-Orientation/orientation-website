@@ -28,7 +28,9 @@ const ExecProfile = ({
       className={`exec-container ${subcom ? 'subcom-container' : ''}`}
       onClick={() => setShowDescription(!showDescription)}
     >
-      <LazyLoadImage className="exec-image" alt={name} effect="blur" src={image}></LazyLoadImage>
+      <div className="exec-image-hover">
+        <LazyLoadImage className="exec-image" alt={name} effect="blur" src={image}></LazyLoadImage>
+      </div>
       {/* <img src={image} className="exec-image"></img> */}
       <div
         className={` ${

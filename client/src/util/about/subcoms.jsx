@@ -1,4 +1,4 @@
-import placeholder from '../../assets/misc/dino-placeholder.svg';
+import placeholder from '../../assets/misc/dino-placeholder.png';
 import Commuter from '../../assets/about/subcom/Commuter_Profile.jpg';
 import Content from '../../assets/about/subcom/Content_Profile.jpg';
 import DTW from '../../assets/about/subcom/DT_Walkaround_Profile.jpg';
