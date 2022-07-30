@@ -19,15 +19,16 @@ const PageSignUp = () => {
   const [anyErrors, setAnyErrors] = useState({});
   const [pageState, setPageState] = useState('form');
   const [revealLeaderSignup, setRevealLeaderSignup] = useState(0);
+  const [canShowErrorSnackbar, setCanShowErrorSnackbar] = useState(false);
 
   const { setSnackbar } = useContext(SnackbarContext);
   const { user, loading, error } = useSelector(userSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (error) {
+    if (error && canShowErrorSnackbar) {
       setPageState('form');
-      setSnackbar('Something happened. ' + error, true);
+      setSnackbar('An error occured: ' + error, true);
     } else if (loading) {
       setPageState('loading');
     } else if (user) {
@@ -36,6 +37,7 @@ const PageSignUp = () => {
   }, [user, error, loading]);
 
   const submitForm = () => {
+    setCanShowErrorSnackbar(true);
     dispatch(signUp(accountObj));
   };
 

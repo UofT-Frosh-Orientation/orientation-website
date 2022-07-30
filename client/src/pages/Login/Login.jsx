@@ -53,11 +53,13 @@ const PageLogin = ({ incorrectEntry }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { loading, error, user } = useSelector(userSelector);
   // const [loginState, setLoginState] = useState('');
+  const [canShowErrorSnackbar, setCanShowErrorSnackbar] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   function loginButtonPress() {
+    setCanShowErrorSnackbar(true);
     setIsLoading(true);
     dispatch(login({ email, password }));
   }
@@ -71,7 +73,7 @@ const PageLogin = ({ incorrectEntry }) => {
   }, [user]);
 
   useEffect(() => {
-    if (error) {
+    if (error && canShowErrorSnackbar) {
       setIsLoading(false);
       setSnackbar('Please ensure your credentials are correct.\n' + error, true);
     }
