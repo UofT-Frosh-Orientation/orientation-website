@@ -32,7 +32,7 @@ export const sponsors = [
     label: 'Bronze sponsor: OSPE',
   },
   {
-    website: '',
+    website: 'mailto:sponsorship@orientation.skule.ca',
     image: MainFroshLogo,
     scale: 0.8,
     label: 'sponsorship@orientation.skule.ca',

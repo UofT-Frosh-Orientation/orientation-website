@@ -6,7 +6,9 @@
 }
 
 .carousel-slide {
-  border-radius: 9px;
+  background-color: var(--sponsor-background);
+  padding: 15px;
+  border-radius: 15px;
   margin-bottom: 55px;
   cursor: pointer;
   height: calc(320px - 50px);

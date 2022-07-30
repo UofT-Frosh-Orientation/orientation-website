@@ -196,6 +196,7 @@
     padding-bottom: 0px;
   }
   .please-sponsor {
+    color: (--text-dark);
     padding-top: 20px;
     background-color: var(--purple-shades-light);
     padding-bottom: 20px;
@@ -215,10 +216,13 @@
   justify-content: center;
 }
 .sponsor-container {
+  background-color: var(--sponsor-background);
   width: min(50%, 350px);
   height: 200px;
   transition: transform 500ms;
-  margin: 0 20px;
+  padding: 5px 20px;
+  margin: 5px;
+  border-radius: 10px;
   img {
     width: 100%;
     height: 100%;

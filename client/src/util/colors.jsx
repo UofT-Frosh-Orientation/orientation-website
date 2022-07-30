@@ -117,4 +117,5 @@ export const colors = {
 
   //sponsor popup
   '--sponsor-container': ['#ffffff', '#8c60b3'],
+  '--sponsor-background': ['#FFFFFF00', '#ffffff'],
 };
