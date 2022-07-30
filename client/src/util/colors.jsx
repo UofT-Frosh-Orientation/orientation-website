@@ -10,7 +10,7 @@ export const colors = {
   '--yellow': ['#ffe863', '#ffcc4a'],
   '--yellow-light': ['#ffe76a', '#ffe76a'],
   '--white': ['#ffffff', '#ffffff'],
-  '--on-white': ['#f3f3f3', '#b297c7'], // ButtonOutlined
+  '--on-white': ['#f3f3f3', '#C2ADD3'], // ButtonOutlined
   '--black': ['#000000', '#ffffff'],
   '--gray': ['#989898', '#989898'],
   '--shadow': ['#959da533 0px 8px 24px', '#959da533 0px 8px 24px'],
@@ -51,7 +51,7 @@ export const colors = {
   '--control-dot': ['#6f1e88', '#8c60b3'],
 
   //navbar
-  '--navbar-bg': ['#ebebeb', '#342153'],
+  '--navbar-bg': ['#ebebeb', '#41225A'],
   '--navbar-link': ['#989898', '#ffffff'],
   '--navbar-underline': ['#e2e2e2', '#4F366B'],
   '--navbar-underline-desktop': ['#6f1e88', '#8c60b3'],
@@ -86,7 +86,7 @@ export const colors = {
   '--disabled': ['#989898', '#8c60b3'],
 
   //signup page, profile page bubbles, payment error page
-  '--signup-container': ['#ffffff', '#613480'],
+  '--container-bg': ['#ffffff', '#613480'],
 
   //tasks and announcements
   '--task-container': ['#ffffff', '#8c60b3'], //also for timeline container
@@ -109,4 +109,9 @@ export const colors = {
 
   //registration success
   '--frosh-group-stroke': ['#6f1e88', '#8c60b3'],
+
+  //scunt missions
+  '--mission-bg': ['#F8F1FF', '#543570'],
+  '--mission-bg-hover': ['#E3D4F1', '#835FA3'],
+  '--mission-bg-active': ['#CAA9FF', '#704894'],
 };
