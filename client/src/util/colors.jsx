@@ -47,4 +47,7 @@ export const colors = {
   '--green-bg': ['#e9ffe9', '#e9ffe9'],
   '--blue-bg': ['#d2d9ff', '#d2d9ff'],
   '--login-bg': ['#e8e0eb', '#e8e0eb'],
+
+  //sponsor popup
+  '--sponsor-container': ['#ffffff', '#8c60b3'],
 };

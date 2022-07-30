@@ -166,7 +166,7 @@ const HomePageSchedule = () => {
 
 const HomePageSponsors = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-
+  const [viewAll, setViewAll] = useState(false);
   return (
     <div className="home-page-sponsors">
       {darkMode ? (
@@ -174,9 +174,40 @@ const HomePageSponsors = () => {
       ) : (
         <img src={WaveReverse} className="wave-image home-page-bottom-wave-image" />
       )}
-      <h2 className="home-page-sponsors">Our Sponsors</h2>
+      <h2>Our Sponsors</h2>
       <PleaseSponsor />
-      <ImageCarousel items={sponsors} />
+      {viewAll === false ? (
+        <ImageCarousel items={sponsors} />
+      ) : (
+        <div className="all-sponsors-area">
+          {sponsors.map((item, index) => {
+            return (
+              <div key={item.name + index} className="sponsor-container">
+                <a
+                  href={item.website}
+                  key={item.name + index}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="no-link-style"
+                >
+                  <img src={item.image} alt={item.name} />
+                </a>
+                <p>{item.label}</p>
+              </div>
+            );
+          })}
+        </div>
+      )}
+      {!viewAll ? (
+        <Button
+          label={'View All'}
+          onClick={() => {
+            setViewAll(true);
+          }}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
