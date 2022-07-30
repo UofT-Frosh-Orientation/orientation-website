@@ -91,4 +91,15 @@ export const colors = {
   '--task-container': ['#ffffff', '#8c60b3'], //also for timeline container
   '--task-date': ['#b297c7', '#ecd6ff'],
   '--task-check-border': ['#a04fb9', '#ecd6ff'],
+
+  //dropdown
+  '--dropdown-selected-bg': ['#ffffff', '#8c60b3'],
+  '--dropdown-hover': ['#f3f3f3', '#8c60b3'],
+  '--disabled-bg': ['#ffffff', '#3c0a5a'],
+  '--dropdown-list-border': ['#b297c7', '#8c60b3'],
+  '--dropdown-list-bg': ['#ffffff', '#613480'],
+  '--dropdown-list-selected': ['#b297c7', '#8c60b3'],
+
+  //radio button and checkboxes
+  '--radio-button': ['#6f1e88', '#ffffff'],
 };
