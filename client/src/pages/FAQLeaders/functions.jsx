@@ -30,7 +30,9 @@ export async function submitQuestion(question) {
   try {
     const response = await axios.post('/faq/create', question);
     console.log(response);
+    return true;
   } catch (error) {
     console.log(error);
+    return error;
   }
 }

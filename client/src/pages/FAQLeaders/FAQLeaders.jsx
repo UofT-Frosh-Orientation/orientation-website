@@ -6,6 +6,8 @@ import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/B
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
+import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
+import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
 
@@ -15,29 +17,29 @@ export function getInformation() {
 
 const PageFAQLeaders = () => {
   const [isUnanswered, setIsUnanswered] = useState(false);
+  const [editMade, setEditMade] = useState(false);
   return (
     <div className={'faq-leaders-page'}>
       <div className={'faq-leaders-titles'}>Create a new question:</div>
-      <FAQLeadersNewPost />
-      <div className={'faq-leaders-titles'}>Toggle for answered and unanwered questions:</div>
+      <FAQLeadersNewPost editMade={editMade} setEditMade={setEditMade} />
+      <div className={'faq-leaders-titles'}>Questions:</div>
       <Checkboxes
         values={['Unanswered']}
         onSelected={() => {
           setIsUnanswered(!isUnanswered);
         }}
       />
-      <div className={'faq-leaders-titles'}>Questions:</div>
       <div className={`${isUnanswered ? 'faq-leaders-hide-questions' : ''}`}>
-        <FAQLeadersAnsweredQuestions />
+        <FAQLeadersAnsweredQuestions editMade={editMade} setEditMade={setEditMade} />
       </div>
       <div className={`${!isUnanswered ? 'faq-leaders-hide-questions' : ''}`}>
-        <FAQLeadersUnansweredQuestions />
+        <FAQLeadersUnansweredQuestions editMade={editMade} setEditMade={setEditMade} />
       </div>
     </div>
   );
 };
 
-const FAQLeadersAnsweredQuestions = () => {
+const FAQLeadersAnsweredQuestions = ({ editMade, setEditMade }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [allQuestions, setAllQuestions] = useState(undefined);
   const [questionCategories, setQuestionCategories] = useState([]);
@@ -48,19 +50,26 @@ const FAQLeadersAnsweredQuestions = () => {
     try {
       const response = await axios.get('/faq/answered');
       const questions = await response.data.faqs;
+      //console.log(questions);
       for (let i = 0; i < questions.length; i++) {
         if (!questionsObject.hasOwnProperty(questions[i].category)) {
           questionsObject[questions[i].category] = [];
           questionsObject[questions[i].category].push({
             question: questions[i].question,
+            email: questions[i].email,
             answer: questions[i].answer,
+            category: questions[i].category,
+            isAnswered: questions[i].isAnswered,
             id: questions[i]._id,
           });
           questionCategories.push({ name: questions[i].category });
         } else {
           questionsObject[questions[i].category].push({
             question: questions[i].question,
+            email: questions[i].email,
             answer: questions[i].answer,
+            category: questions[i].category,
+            isAnswered: questions[i].isAnswered,
             id: questions[i]._id,
           });
         }
@@ -68,16 +77,17 @@ const FAQLeadersAnsweredQuestions = () => {
       for (let i = 0; i < Object.keys(questionsObject).length; i++) {
         allQuestions.push(questionsObject[Object.keys(questionsObject)[i]]);
       }
+      //console.log(allQuestions);
       setAllQuestions(allQuestions);
       setQuestionCategories(questionCategories);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       setAllQuestions(undefined);
     }
   };
   useEffect(() => {
     getQuestions(tempQuestionCategories, tempQuestionsObject, tempAllQuestions);
-  }, []);
+  }, [editMade]);
   return (
     <div>
       <FAQLeadersButtons
@@ -85,12 +95,18 @@ const FAQLeadersAnsweredQuestions = () => {
         setActiveIndex={setActiveIndex}
         questionCategories={questionCategories}
       />
-      {allQuestions === undefined ? (
-        <></>
+      {allQuestions === undefined ||
+      allQuestions[activeIndex] === undefined ||
+      allQuestions.length === 0 ? (
+        <div className={'faq-leaders-no-result'}>No results</div>
       ) : (
         allQuestions[activeIndex].map((question, index) => (
-          <div key={index}>
-            <FAQLeadersQuestionWrapper question={question} />
+          <div key={question.id}>
+            <FAQLeadersQuestionWrapper
+              question={question}
+              editMade={editMade}
+              setEditMade={setEditMade}
+            />
           </div>
         ))
       )}
@@ -98,7 +114,12 @@ const FAQLeadersAnsweredQuestions = () => {
   );
 };
 
-const FAQLeadersUnansweredQuestions = () => {
+FAQLeadersAnsweredQuestions.propTypes = {
+  editMade: PropTypes.bool.isRequired,
+  setEditMade: PropTypes.func.isRequired,
+};
+
+const FAQLeadersUnansweredQuestions = ({ editMade, setEditMade }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [allQuestions, setAllQuestions] = useState(undefined);
   const [questionCategories, setQuestionCategories] = useState([]);
@@ -111,17 +132,25 @@ const FAQLeadersUnansweredQuestions = () => {
       const questions = await response.data.faqs;
       for (let i = 0; i < questions.length; i++) {
         if (!questionsObject.hasOwnProperty(questions[i].category)) {
+          //console.log(questions[i]);
           questionsObject[questions[i].category] = [];
           questionsObject[questions[i].category].push({
             question: questions[i].question,
+            email: questions[i].email,
             answer: questions[i].answer,
+            category: questions[i].category,
+            isAnswered: questions[i].isAnswered,
             id: questions[i]._id,
           });
           questionCategories.push({ name: questions[i].category });
         } else {
+          //console.log(questions[i]);
           questionsObject[questions[i].category].push({
             question: questions[i].question,
+            email: questions[i].email,
             answer: questions[i].answer,
+            category: questions[i].category,
+            isAnswered: questions[i].isAnswered,
             id: questions[i]._id,
           });
         }
@@ -132,13 +161,13 @@ const FAQLeadersUnansweredQuestions = () => {
       setAllQuestions(allQuestions);
       setQuestionCategories(questionCategories);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       setAllQuestions(undefined);
     }
   };
   useEffect(() => {
     getQuestions(tempQuestionCategories, tempQuestionsObject, tempAllQuestions);
-  }, []);
+  }, [editMade]);
   return (
     <div>
       <FAQLeadersButtons
@@ -146,12 +175,18 @@ const FAQLeadersUnansweredQuestions = () => {
         setActiveIndex={setActiveIndex}
         questionCategories={questionCategories}
       />
-      {allQuestions === undefined ? (
-        <></>
+      {allQuestions === undefined ||
+      allQuestions[activeIndex] === undefined ||
+      allQuestions.length === 0 ? (
+        <div className={'faq-leaders-no-result'}>No results</div>
       ) : (
         allQuestions[activeIndex].map((question, index) => (
-          <div key={index}>
-            <FAQLeadersQuestionWrapper question={question} />
+          <div key={question.id}>
+            <FAQLeadersQuestionWrapper
+              question={question}
+              editMade={editMade}
+              setEditMade={setEditMade}
+            />
           </div>
         ))
       )}
@@ -159,21 +194,35 @@ const FAQLeadersUnansweredQuestions = () => {
   );
 };
 
-const FAQLeadersQuestionWrapper = ({ question }) => {
+FAQLeadersUnansweredQuestions.propTypes = {
+  editMade: PropTypes.bool.isRequired,
+  setEditMade: PropTypes.func.isRequired,
+};
+
+const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editButtonText, setEditButtonText] = useState('Edit');
   const [questionText, setQuestionText] = useState(question.question);
   const [answerText, setAnswerText] = useState(question.answer);
   const [categoryText, setCategoryText] = useState(question.category);
+  const [isAnswered, setIsAnswered] = useState(!question.isAnswered);
+  // console.log(question.category);
   const initialFormData = {
     question: '',
     answer: '',
     category: '',
+    isAnswered: false,
   };
   const [formData, updateFormData] = useState(initialFormData);
   useEffect(() => {
-    updateFormData({ question: questionText, answer: answerText, category: categoryText });
-  }, [questionText, answerText, categoryText]);
+    //console.log('change is made')
+    updateFormData({
+      question: questionText,
+      answer: answerText,
+      category: categoryText,
+      isAnswered: isAnswered,
+    });
+  }, [questionText, answerText, categoryText, isAnswered]);
   const handleEditQuestion = (text) => {
     setQuestionText(text);
   };
@@ -184,16 +233,26 @@ const FAQLeadersQuestionWrapper = ({ question }) => {
     setCategoryText(text);
   };
   const handleSubmit = async (id) => {
+    //console.log(isAnswered);
+    //console.log(formData);
     submitEdit(id, formData);
+    setIsEdit(false);
+    setEditButtonText('Edit');
+    setEditMade(!editMade);
   };
   return (
     <div className={'faq-leaders-questions-container'}>
-      <div className={'faq-leaders-questions'}>{question.question}</div>
-      <div className={'faq-leaders-answers'}>{question.answer}</div>
-      <div className={'faq-leaders-category'}>{question.category}</div>
+      <div className={`${isEdit ? 'faq-leaders-hide-questions' : ''}`}>
+        <div className={'faq-leaders-questions'}>{questionText}</div>
+        <div className={'faq-leaders-answers'}>{answerText}</div>
+        <div className={'faq-leaders-category'}>Category: {categoryText}</div>
+        <div className={'faq-leaders-email'}>Email: {question.email}</div>
+      </div>
       <div className={`${!isEdit ? 'faq-leaders-hide-questions' : ''}`}>
-        <div className={'faq-leaders-edit-title'}>Edit</div>
         <form>
+          <div className={'faq-leaders-edit-title-container'}>
+            <div className={'faq-leaders-edit-title'}>Edit</div>
+          </div>
           <label>
             <div className={''}>
               <TextInput
@@ -227,31 +286,49 @@ const FAQLeadersQuestionWrapper = ({ question }) => {
               />
             </div>
           </label>
-          <div style={{ textAlign: 'center' }}>
-            <Button label={'Save'} onClick={() => handleSubmit(question.id)} />
-          </div>
         </form>
       </div>
 
-      <Button
-        label={'Delete'}
-        onClick={async () => {
-          deleteQuestion(question.id);
-        }}
-      />
-      <Button
-        label={editButtonText}
-        onClick={() => {
-          setIsEdit(!isEdit);
-          setEditButtonText(`${isEdit ? 'Edit' : 'Stop Edit'}`);
-        }}
-      />
+      <span>
+        <Button
+          label={'Delete'}
+          onClick={async () => {
+            deleteQuestion(question.id);
+            setEditMade(!editMade);
+          }}
+        />
+      </span>
+      <span className={isEdit ? 'faq-leaders-hide' : ''}>
+        <Button
+          label={editButtonText}
+          onClick={() => {
+            setIsEdit(!isEdit);
+            // setEditButtonText(`${isEdit ? 'Edit' : 'Stop Edit'}`);
+          }}
+        />
+      </span>
+      <span className={!isEdit ? 'faq-leaders-hide' : ''}>
+        <Button label={'Save'} onClick={() => handleSubmit(question.id)} />
+      </span>
+      <div className={`${!isEdit ? 'faq-leaders-hide-questions' : ''}`}>
+        <Checkboxes
+          values={['Answered']}
+          onSelected={() => {
+            //console.log(isAnswered);
+            setIsAnswered(!isAnswered);
+            setEditMade(!editMade);
+          }}
+          initialSelectedIndices={!isAnswered ? [0] : []}
+        />
+      </div>
     </div>
   );
 };
 
 FAQLeadersQuestionWrapper.propTypes = {
   question: PropTypes.object.isRequired,
+  editMade: PropTypes.bool.isRequired,
+  setEditMade: PropTypes.func.isRequired,
 };
 
 const FAQLeadersButtons = ({ activeIndex, setActiveIndex, questionCategories }) => {
@@ -273,14 +350,19 @@ FAQLeadersButtons.propTypes = {
   questionCategories: PropTypes.array.isRequired,
 };
 
-const FAQLeadersNewPost = () => {
+const FAQLeadersNewPost = ({ editMade, setEditMade }) => {
   const [questionText, setQuestionText] = useState('');
   const [answerText, setAnswerText] = useState('');
   const [categoryText, setCategoryText] = useState('');
+  const [formState, setFormState] = useState('form');
+  const [newPostError, setNewPostError] = useState('');
+  const [errorColor, setErrorColor] = useState(false);
+  const [clearText, setClearText] = useState(false);
   const initialFormData = {
     question: '',
     answer: '',
     category: '',
+    isAnswered: true,
   };
   const [formData, updateFormData] = useState(initialFormData);
   const handleEditQuestion = (text) => {
@@ -293,13 +375,38 @@ const FAQLeadersNewPost = () => {
     setCategoryText(text);
   };
   const handleSubmit = async () => {
-    submitQuestion(formData);
+    if (
+      formData.question.length > 0 &&
+      formData.answer.length > 0 &&
+      formData.category.length > 0
+    ) {
+      setFormState('loading');
+      const result = await submitQuestion(formData);
+      if (result !== true) {
+        setNewPostError(result);
+        setErrorColor(true);
+        setFormState('form');
+      } else {
+        updateFormData(initialFormData);
+        setClearText(true);
+        setNewPostError('New Question and Answer Submitted Successfully');
+        setErrorColor(false);
+        setFormState('form');
+        setEditMade(!editMade);
+      }
+    }
   };
   useEffect(() => {
-    updateFormData({ question: questionText, answer: answerText, category: categoryText });
+    updateFormData({
+      question: questionText,
+      answer: answerText,
+      category: categoryText,
+      isAnswered: true,
+    });
   }, [questionText, answerText, categoryText]);
   return (
     <form>
+      <ErrorSuccessBox content={newPostError} error={errorColor} success={!errorColor} />
       <label>
         <div className={''}>
           <TextInput
@@ -308,6 +415,8 @@ const FAQLeadersNewPost = () => {
             placeholder={'Question'}
             initialValue={''}
             style={{ height: '45px' }}
+            clearText={clearText}
+            setClearText={setClearText}
           />
         </div>
       </label>
@@ -318,7 +427,9 @@ const FAQLeadersNewPost = () => {
             inputType={'textArea'}
             placeholder={'Answer'}
             initialValue={''}
-            style={{ height: '150px', resize: 'vertical' }}
+            style={{ height: '200px', resize: 'vertical' }}
+            clearText={clearText}
+            setClearText={setClearText}
           />
         </div>
       </label>
@@ -330,14 +441,27 @@ const FAQLeadersNewPost = () => {
             placeholder={'Category'}
             initialValue={''}
             style={{ height: '45px' }}
+            clearText={clearText}
+            setClearText={setClearText}
           />
         </div>
       </label>
-      <div>
-        <Button label={'Create Question and Answer'} onClick={() => handleSubmit()} />
+      <div
+        style={{ textAlign: 'center' }}
+        className={formState === 'form' ? '' : 'faq-leaders-hide'}
+      >
+        <Button label={'Submit'} onClick={() => handleSubmit()} />
+      </div>
+      <div className={formState === 'loading' ? '' : 'faq-leaders-hide'}>
+        <LoadingAnimation size={'60px'} />
       </div>
     </form>
   );
+};
+
+FAQLeadersNewPost.propTypes = {
+  editMade: PropTypes.bool.isRequired,
+  setEditMade: PropTypes.func.isRequired,
 };
 
 export { PageFAQLeaders };
