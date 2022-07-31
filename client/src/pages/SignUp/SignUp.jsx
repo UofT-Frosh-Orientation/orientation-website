@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import './SignUp.scss';
 import { Button } from '../../components/button/Button/Button';
@@ -11,30 +11,33 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userSelector } from '../userSlice';
 import { signUp } from '../Login/saga';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
+import { SnackbarContext } from '../../util/SnackbarProvider';
 
 const PageSignUp = () => {
   const [errors, setErrors] = useState({});
   const [accountObj, setAccountObj] = useState({});
   const [anyErrors, setAnyErrors] = useState({});
   const [pageState, setPageState] = useState('form');
-  const [signUpError, setSignUpError] = useState('');
   const [revealLeaderSignup, setRevealLeaderSignup] = useState(0);
+  const [canShowErrorSnackbar, setCanShowErrorSnackbar] = useState(false);
 
+  const { setSnackbar } = useContext(SnackbarContext);
   const { user, loading, error } = useSelector(userSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loading) {
-      setPageState('loading');
-    } else if (error) {
+    if (error && canShowErrorSnackbar) {
       setPageState('form');
-      setSignUpError(error);
+      setSnackbar('An error occured: ' + error, true);
+    } else if (loading) {
+      setPageState('loading');
     } else if (user) {
       setPageState('success');
     }
   }, [user, error, loading]);
 
   const submitForm = () => {
+    setCanShowErrorSnackbar(true);
     dispatch(signUp(accountObj));
   };
 
@@ -105,8 +108,8 @@ const PageSignUp = () => {
             src={MainFroshLogo}
             onClick={handleLeaderReveal}
           ></img>
-          <h1>Create an Account</h1>
-          <h3>For F!rosh Week 2T2, UofT Engineering</h3>
+          <h1 style={{ color: 'var(--black)' }}>Create an Account</h1>
+          <h3 style={{ color: 'var(--black)' }}>For F!rosh Week 2T2, UofT Engineering</h3>
           <div className="full-width-input">
             <TextInput
               label="Email"
@@ -190,7 +193,7 @@ const PageSignUp = () => {
           {revealLeaderSignup >= 5 ? (
             <div style={{ width: '100%', marginTop: '5px', marginBottom: '5px' }}>
               <Checkboxes
-                values={['Request Leadur Account']}
+                values={['Request Leedur Account']}
                 onSelected={(value, index, state, selectedIndices) => {
                   accountObj['leadur'] = state;
                 }}
@@ -217,9 +220,6 @@ const PageSignUp = () => {
               }}
             />
           </div>
-          <div style={{ width: '100%' }}>
-            <ErrorSuccessBox content={signUpError} error />
-          </div>
         </div>
       </div>
       <div
@@ -243,7 +243,7 @@ const PageSignUp = () => {
                 : accountObj['preferredName']
             }.`}</h2>
             {accountObj['leadur'] === true ? (
-              <h3>Your account will be reviewed and shortly become an official Leadur account.</h3>
+              <h3>Your account will be reviewed and shortly become an official Leedur account.</h3>
             ) : (
               <>
                 <h1>You aren&apos;t done just yet!</h1>

@@ -2,8 +2,8 @@
 
 .button-outlined {
   margin: 15px 10px;
-  background-color: var(--purple-shades-light);
-  color: var(--text-dark);
+  background-color: var(--button-outlined-bg);
+  color: var(--button-outlined-font);
   display: inline-block;
   border-radius: 14px;
   padding: 10px 26px;
@@ -37,9 +37,9 @@
 }
 
 .button-outlined-secondary {
-  background-color: var(--on-white);
-  border-color: var(--purple-shades-muted);
-  color: var(--text-dark);
+  background-color: var(--button-outlined-bg-secondary);
+  border-color: var(--button-outlined-border); //--purple-shades-muted
+  color: var(--button-outlined-font);
   font-weight: unset;
   transition: transform 200ms, background-color 200ms, border-color 200ms;
 
@@ -54,7 +54,7 @@
   opacity: 0.6;
   cursor: unset;
   background-color: var(--on-white);
-  border-color: var(--gray);
+  border-color: var(--button-outlined-disabled-border);
   font-weight: unset;
 
   &:hover {

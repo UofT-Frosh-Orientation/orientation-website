@@ -5,10 +5,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: var(--text-dynamic);
 }
 
 .scunt-judge-form-container {
-  background-color: var(--white);
+  background-color: var(--container-bg);
   border-radius: 15px;
   padding: 40px min(75px, 5%);
   margin: 10px 50px;
@@ -43,38 +44,42 @@
 }
 
 .scunt-mission-entry {
+  color: var(--text-dynamic);
   display: flex;
   flex-direction: row;
   flex-grow: 1;
   justify-content: center;
   align-items: center;
   margin: 2px 5px;
-  background-color: var(--purple-shades-light-light);
+  background-color: var(--mission-bg);
   color: var(--black);
   border-radius: 8px;
   padding: 5px 15px;
   width: 100%;
   transition: background-color 300ms;
   .mission-id {
+    color: var(--text-dynamic);
     flex: 1;
     margin: 0px;
     margin-right: 14px;
     font-size: 20px;
   }
   .mission-name {
+    color: var(--text-dynamic);
     text-align: left;
     width: 100%;
     margin: 0px;
     font-size: 18px;
   }
   .mission-points {
+    color: var(--text-dynamic);
     flex: 1;
     margin: 0px;
     margin-left: 14px;
     font-size: 20px;
   }
   &:hover {
-    background-color: var(--white);
+    background-color: var(--mission-bg-hover);
     transition: background-color 300ms;
   }
   font-size: 18px;
@@ -84,7 +89,7 @@
 }
 
 .scunt-mission-entry-selected {
-  background-color: var(--purple-shades-light);
+  background-color: var(--mission-bg-active);
 }
 
 .slider-thumb {
@@ -108,7 +113,7 @@
   background: var(--on-white);
 }
 .slider-track.slider-track-0 {
-  background-color: var(--purple-shades-muted);
+  background-color: var(--light-purple);
 }
 .horizontal-slider .slider-track {
   top: 17px;
@@ -131,7 +136,7 @@
 .separator {
   width: 100%;
   height: 1px;
-  background-color: var(--on-white);
+  background-color: var(--light-purple);
   border-radius: 10px;
   margin-top: 10px;
   margin-bottom: 10px;

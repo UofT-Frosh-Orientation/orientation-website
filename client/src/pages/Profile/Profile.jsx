@@ -38,10 +38,9 @@ import InstagramIcon from '../../assets/social/instagram-brands.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../userSlice';
 
-import { PopupModal } from '../../components/popup/PopupModal';
-import { logout } from '../Login/saga';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
+import { SnackbarContext } from '../../util/SnackbarProvider';
 
 const PageProfile = () => {
   const qrCodeLeader = canLeaderScanQR();
@@ -79,6 +78,7 @@ const PageProfileFrosh = ({ leader, isLoggedIn, setIsLoggedIn }) => {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <ProfilePageQRCode />
+          <ProfilePageScuntToken />
           <ProfilePageResources />
         </div>
       </div>
@@ -90,6 +90,40 @@ PageProfileFrosh.propTypes = {
   leader: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
   setIsLoggedIn: PropTypes.func,
+};
+
+export const ProfilePageScuntToken = () => {
+  const { user } = useSelector(userSelector);
+  const isRegistered = useSelector(registeredSelector);
+  const { setSnackbar } = useContext(SnackbarContext);
+  const [showToken, setShowToken] = useState(false);
+
+  const code = user?.scuntToken;
+  if (code === undefined || !isRegistered) {
+    return <></>;
+  }
+  return (
+    <div className="profile-page-scunt-token profile-page-side-section">
+      <h2
+        style={{ filter: showToken ? '' : 'blur(10px)' }}
+        onClick={() => {
+          setSnackbar('Copied to clipboard');
+          navigator.clipboard.writeText(code);
+        }}
+      >
+        {code}
+      </h2>
+      <p>Scunt Login Token</p>
+      <p style={{ fontSize: '13px' }}>Use this token to login to the Scunt Discord</p>
+      <ButtonOutlined
+        isSecondary={showToken}
+        label={showToken ? 'Hide' : 'Show'}
+        onClick={() => {
+          setShowToken(!showToken);
+        }}
+      />
+    </div>
+  );
 };
 
 const PageProfileQRLeader = () => {
@@ -208,12 +242,8 @@ const ProfilePageQRScanner = () => {
   );
 };
 
-const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) => {
+const ProfilePageHeader = ({ leader, editButton }) => {
   const { user } = useSelector(userSelector);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
 
   const isRegistered = useSelector(registeredSelector);
   // console.log(`editButton: ${editButton}`);
@@ -221,22 +251,6 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
 
   return (
     <>
-      <PopupModal
-        trigger={showLogoutPopup}
-        setTrigger={setShowLogoutPopup}
-        exitIcon={true}
-        blurBackground={false}
-        heading={'Would you like to logout?'}
-      >
-        <Button
-          isSecondary={true}
-          label="Logout"
-          onClick={() => {
-            dispatch(logout({ navigate, setShowLogoutPopup }));
-          }}
-        />
-      </PopupModal>
-
       <div className="profile-page-header">
         <div className="profile-page-header-group">
           <h1>{user?.froshGroupIcon}</h1>
@@ -276,19 +290,6 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
           ) : (
             <></>
           )}
-          {editButton !== false ? (
-            <div
-              style={{ right: !isRegistered ? '10px' : '60px' }}
-              className="profile-logout-button"
-              onClick={() => {
-                setShowLogoutPopup(true);
-              }}
-            >
-              Logout
-            </div>
-          ) : (
-            <></>
-          )}
         </div>
       </div>
       {darkMode ? (
@@ -298,8 +299,10 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
       )}
       {!isRegistered && leader !== true ? (
         <div className={'profile-not-registered'}>
-          <h1>You are not registered!</h1>
-          <h2>You will not be able to participate in F!rosh week events until you register.</h2>
+          <h1 style={{ color: 'var(--black)' }}>You are not registered!</h1>
+          <h2 style={{ color: 'var(--black)' }}>
+            You will not be able to participate in F!rosh week events until you register.
+          </h2>
           <Link
             key={'/registration'}
             to={'/registration'}
@@ -319,8 +322,6 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
 ProfilePageHeader.propTypes = {
   leader: PropTypes.bool,
   editButton: PropTypes.bool,
-  isLoggedIn: PropTypes.bool,
-  setIsLoggedIn: PropTypes.func,
 };
 
 const ProfilePageInstagrams = () => {
@@ -363,7 +364,7 @@ const ProfilePageAnnouncements = () => {
     <div className="profile-page-announcements">
       <h2 className="profile-page-section-header">Tasks and Announcements</h2>
       {tasks == undefined || tasks.length <= 0 ? (
-        <h2>There are no announcements yet!</h2>
+        <h2 style={{ color: 'var(--black)' }}>There are no announcements yet!</h2>
       ) : (
         <TaskAnnouncement tasks={tasks} onDone={onDoneTask} />
       )}
@@ -381,7 +382,7 @@ const ProfilePageQRCode = () => {
     return <></>;
   }
   return (
-    <div className="profile-page-qr-code">
+    <div className="profile-page-qr-code profile-page-side-section">
       <QRNormal
         value={QRCodeString}
         styles={{ svg: { width: '120%', margin: '-10%' } }}
@@ -398,7 +399,7 @@ const ProfilePageQRCode = () => {
 };
 const ProfilePageResources = () => {
   return (
-    <div className="profile-page-resources">
+    <div className="profile-page-resources profile-page-side-section">
       <h2>Resources</h2>
       {resources.map((resource, index) => {
         return (

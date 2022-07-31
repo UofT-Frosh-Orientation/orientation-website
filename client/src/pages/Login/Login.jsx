@@ -33,6 +33,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { requestPasswordResetSelector, userSelector } from '../userSlice';
 import { login, requestPasswordReset } from './saga';
 import { DarkModeContext } from '../../util/DarkModeProvider';
+import { SnackbarContext } from '../../util/SnackbarProvider';
 
 // Messages!
 const popupTitle = 'Reset Password';
@@ -46,17 +47,20 @@ const PageLogin = ({ incorrectEntry }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const { setSnackbar } = useContext(SnackbarContext);
+
   const [showPopUp, setShowPopUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { loading, error, user } = useSelector(userSelector);
-  console.log(error);
-  // const [loginError, setLoginError] = useState('');
   // const [loginState, setLoginState] = useState('');
+  const [canShowErrorSnackbar, setCanShowErrorSnackbar] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   function loginButtonPress() {
+    setCanShowErrorSnackbar(true);
+    setIsLoading(true);
     dispatch(login({ email, password }));
   }
 
@@ -64,8 +68,16 @@ const PageLogin = ({ incorrectEntry }) => {
     console.log(user);
     if (user && !error) {
       navigate('/profile', { state: { frosh: user } });
+      setIsLoading(false);
     }
   }, [user]);
+
+  useEffect(() => {
+    if (error && canShowErrorSnackbar) {
+      setIsLoading(false);
+      setSnackbar('Please ensure your credentials are correct.\n' + error, true);
+    }
+  }, [error]);
 
   return (
     <>
@@ -107,7 +119,6 @@ const PageLogin = ({ incorrectEntry }) => {
 
               <Button label={'Log in'} onClick={loginButtonPress} />
             </div>
-            <ErrorSuccessBox content={error?.message ?? ''} error={true} />
           </div>
         </div>
         <div className={`login-loading ${isLoading === true ? 'login-loading-appear' : ''}`}>

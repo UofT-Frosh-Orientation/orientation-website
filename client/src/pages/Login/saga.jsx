@@ -27,7 +27,7 @@ export function* loginSaga({ payload: { email, password } }) {
     const result = yield call(axios.post, '/user/login', { email, password });
     yield put(loginSuccess(result.data.user));
   } catch (error) {
-    yield put(loginFail(error.response.data));
+    yield put(loginFail(error.toString()));
   }
 }
 
@@ -104,7 +104,7 @@ export function* requestPasswordResetSaga({ payload: email }) {
 
 export const logout = createAction('logoutSaga');
 
-export function* logoutSaga({ payload: { navigate, setShowLogoutPopup } }) {
+export function* logoutSaga({ payload: { navigate } }) {
   console.log('Logging out p2');
   const { axios } = useAxios();
 
@@ -112,7 +112,6 @@ export function* logoutSaga({ payload: { navigate, setShowLogoutPopup } }) {
     yield put(logoutStart());
     const result = yield call(axios.post, '/user/logout');
     yield put(logoutSuccess());
-    setShowLogoutPopup(false);
     yield call(navigate, '/');
   } catch (err) {
     console.log(err);
