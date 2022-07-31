@@ -51,33 +51,23 @@ const PageLogin = ({ incorrectEntry }) => {
 
   const [showPopUp, setShowPopUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { loading, error, user } = useSelector(userSelector);
+  const { loading, user } = useSelector(userSelector);
   // const [loginState, setLoginState] = useState('');
-  const [canShowErrorSnackbar, setCanShowErrorSnackbar] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   function loginButtonPress() {
-    setCanShowErrorSnackbar(true);
-    setIsLoading(true);
-    dispatch(login({ email, password }));
+    dispatch(login({ setSnackbar, setIsLoading, email, password }));
   }
 
   useEffect(() => {
     console.log(user);
-    if (user && !error) {
+    if (user) {
       navigate('/profile', { state: { frosh: user } });
       setIsLoading(false);
     }
   }, [user]);
-
-  useEffect(() => {
-    if (error && canShowErrorSnackbar) {
-      setIsLoading(false);
-      setSnackbar('Please ensure your credentials are correct.\n' + error, true);
-    }
-  }, [error]);
 
   return (
     <>
@@ -121,7 +111,10 @@ const PageLogin = ({ incorrectEntry }) => {
             </div>
           </div>
         </div>
-        <div className={`login-loading ${isLoading === true ? 'login-loading-appear' : ''}`}>
+        <div
+          style={{ zIndex: 1 }}
+          className={`login-loading ${isLoading === true ? 'login-loading-appear' : ''}`}
+        >
           <LoadingAnimation size={'60px'} />
         </div>
 

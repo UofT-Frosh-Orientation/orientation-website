@@ -21,11 +21,11 @@ export function validatePasswordLength(password) {
   return true;
 }
 
-export function signUpUser(user) {
+export function signUpUser(setSnackbar, setIsLoading, user) {
   const result = axios({
     method: 'post',
     url: '/user/signup',
-    data: user,
+    data: { setSnackbar, setIsLoading, user },
   })
     .then(function (response) {
       if (response.status == 200) {
@@ -33,6 +33,8 @@ export function signUpUser(user) {
       }
     })
     .catch((error) => {
+      setSnackbar(error.toString(), true);
+      setIsLoading(false);
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx

@@ -2,11 +2,13 @@ import useAxios from '../../hooks/useAxios';
 
 const { axios } = useAxios();
 
-export async function login(email, password) {
+export async function login(setSnackbar, setIsLoading, email, password) {
   try {
-    const result = await axios.post('/user/login', { email, password });
+    const result = await axios.post('/user/login', { setSnackbar, email, password });
     return { data: result.data, error: null };
   } catch (err) {
+    setSnackbar(err.toString(), true);
+    setIsLoading(false);
     console.log(err);
     return {
       data: err,

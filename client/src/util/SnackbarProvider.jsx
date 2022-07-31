@@ -42,17 +42,26 @@ const Snackbar = forwardRef((props, ref) => {
 
   useImperativeHandle(ref, () => ({
     setVisible: (content, isError) => {
-      snackbarQueue.push({ content: content, isError: isError ? isError : false });
-      setSnackbarQueue([...snackbarQueue]);
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setAnimateDisappear(true);
         setTimeout(() => {
           setAnimateDisappear(false);
           setSnackbarQueue((snackbarQueue) => [...snackbarQueue.slice(1)]);
         }, 500);
       }, 5000); //Show snackbar for 5000ms
+      snackbarQueue.push({ content: content, isError: isError ? isError : false, timer: timer });
+      setSnackbarQueue([...snackbarQueue]);
     },
   }));
+
+  const removeSnackbarItem = () => {
+    setAnimateDisappear(true);
+    clearTimeout(snackbarQueue[0].timer);
+    setTimeout(() => {
+      setAnimateDisappear(false);
+      setSnackbarQueue((snackbarQueue) => [...snackbarQueue.slice(1)]);
+    }, 500);
+  };
 
   return (
     <div
@@ -61,6 +70,9 @@ const Snackbar = forwardRef((props, ref) => {
         opacity: snackbarQueue.length > 0 ? 1 : 0,
         transform: snackbarQueue.length > 0 ? 'scale(1)' : 'scale(0.7)',
         transition: 'opacity 500ms, transform 500ms',
+      }}
+      onClick={() => {
+        removeSnackbarItem();
       }}
     >
       {snackbarQueue.map((snackbar, index) => {
