@@ -15,7 +15,7 @@ import AuthorizedPage from './AuthorizedPage';
 import { PasswordReset } from '../pages/PasswordReset/PasswordReset';
 
 import { PageFroshInfoTable } from '../pages/FroshInfoTable/FroshInfoTable';
-import { PageLeadurScopeRequest } from '../pages/LeadurScopeRequest/LeadurScopeRequest';
+import { PageScopeRequest } from '../pages/ScopeRequest/ScopeRequest';
 import { PageScuntJudgeForm } from '../pages/ScuntJudgeForm/ScuntJudgeForm';
 import { PageScuntMissionsList } from '../pages/ScuntMissionsList/ScuntMissionsList';
 import { PageScuntHome } from '../pages/ScuntHome/ScuntHome';
@@ -76,7 +76,7 @@ export const pages = {
   hidden: [
     {
       label: 'Request Permissions',
-      component: <PageLeadurScopeRequest />,
+      component: <PageScopeRequest />,
       path: '/permission-request',
       includeFooter: true,
     },

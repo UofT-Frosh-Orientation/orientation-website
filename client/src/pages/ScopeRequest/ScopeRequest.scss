@@ -1,10 +1,6 @@
 @import '../../scssStyles/mixins';
 
-// .class {
-//   @include devices(tablet) {}
-// }
-
-.leadur-scope-request-page {
+.scope-request-page {
   max-width: 900px;
   width: 100%;
   padding: min(50px, 5%) min(50px, 5%);
