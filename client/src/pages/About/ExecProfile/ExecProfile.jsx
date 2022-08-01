@@ -153,12 +153,12 @@ const ScuntJudgeDescription = ({ name, bribes }) => {
         className={`exec-profile-description ${'nonexec-profile-description'}`}
         style={{ textAlign: 'center' }}
       >
-        <div className="exec-profile-title-cont">
+        <div className="exec-profile-title-cont" style={{ marginBottom: '10px' }}>
           <h3 className="exec-profile-name">{name}</h3>
         </div>
 
-        <div className="bribes-list">
-          <span style={{ fontWeight: 'bold', marginBottom: '5px' }}>BRIBES: </span>
+        <p className="scunt-bribes-text">BRIBES:</p>
+        <div className="scunt-bribes-list-all">
           <ul>
             {bribes.map((bribe) => {
               return (

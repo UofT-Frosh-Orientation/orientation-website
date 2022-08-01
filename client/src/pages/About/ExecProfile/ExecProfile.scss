@@ -196,13 +196,6 @@
   //margin-top: 15px;
 }
 
-.bribes-list {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  margin-top: 25px;
-}
-
 .profile-subcom-people {
   margin: 3px;
   color: var(--white);
@@ -213,4 +206,27 @@
     width: 45vw;
     height: 45vw;
   }
+}
+
+// scunt
+.scunt-bribe-list-item {
+  list-style-type: circle;
+  margin: 5px;
+}
+
+.scunt-bribe-list-item ul {
+  text-decoration: none;
+}
+
+.scunt-bribes-list-all {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding-left: 18px;
+}
+
+.scunt-bribes-text {
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-align: left;
 }
