@@ -249,8 +249,8 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
     year: undefined,
     month: 'short',
     day: 'numeric',
-    hour: '2-digit',
-    minutes: '2-digit',
+    hour: 'numeric',
+    minute: '2-digit',
     timeZone: 'America/Toronto',
   };
   let createdDateFormatted = new Date(
@@ -326,6 +326,9 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
         <Button
           label={editButtonText}
           onClick={() => {
+            if (!isEdit) {
+              setEditMade(!editMade);
+            }
             setIsEdit(!isEdit);
             setEditButtonText(`${isEdit ? 'Edit' : 'Stop Edit'}`);
           }}

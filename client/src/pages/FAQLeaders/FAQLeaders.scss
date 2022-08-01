@@ -32,6 +32,7 @@
   border: 2px solid var(--purple-shades-dark);
   border-radius: 15px;
   vertical-align: top;
+  padding-bottom: 10px;
 }
 
 .faq-leaders-unanswered-questions {
@@ -41,6 +42,7 @@
   border: 2px solid var(--purple-shades-dark);
   border-radius: 15px;
   vertical-align: top;
+  padding-bottom: 10px;
 }
 
 .faq-leaders-hide {
@@ -98,10 +100,11 @@
 
 .faq-leaders-description {
   color: var(--text-dark-use);
+  margin-top: 5px;
+  word-wrap: break-word;
   @include devices(tablet) {
     font-size: 16px;
   }
-  margin-top: 5px;
 }
 
 .faq-leaders-edit-title-container {
