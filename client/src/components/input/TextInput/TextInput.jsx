@@ -31,6 +31,8 @@ const TextInput = ({
   isUtorID,
   maxLength,
   autocomplete,
+  cancelEdit,
+  oldValue,
 }) => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
@@ -69,6 +71,10 @@ const TextInput = ({
       setClearText(false);
     }
   }, [clearText]);
+
+  useEffect(() => {
+    setValue(oldValue);
+  }, [cancelEdit]);
 
   const [type, setType] = useState(inputType ? inputType : 'text');
 
@@ -233,6 +239,8 @@ TextInput.propTypes = {
   style: PropTypes.object,
   clearText: PropTypes.bool,
   setClearText: PropTypes.func,
+  cancelEdit: PropTypes.bool,
+  oldValue: PropTypes.string,
 };
 
 export { TextInput };

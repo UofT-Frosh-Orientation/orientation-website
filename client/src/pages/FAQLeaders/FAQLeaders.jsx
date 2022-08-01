@@ -211,6 +211,10 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
   const [questionText, setQuestionText] = useState(question.question);
   const [answerText, setAnswerText] = useState(question.answer);
   const [categoryText, setCategoryText] = useState(question.category);
+  const [oldQuestionText, setOldQuestionText] = useState(question.question);
+  const [oldAnswerText, setOldAnswerText] = useState(question.answer);
+  const [oldCategoryText, setOldCategoryText] = useState(question.category);
+  const [cancelEdit, setCancelEdit] = useState(false);
   const [createdDate, setCreatedDate] = useState(question.createdAt);
   const [updatedDate, setUpdatedDate] = useState(question.updatedAt);
   const initialFormData = {
@@ -292,8 +296,10 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
                 onChange={(text) => handleEditQuestion(text)}
                 inputType={'text'}
                 placeholder={'Question'}
-                initialValue={question.question}
+                initialValue={oldQuestionText}
                 style={{ height: '45px' }}
+                cancelEdit={cancelEdit}
+                oldValue={oldQuestionText}
               />
             </div>
           </label>
@@ -304,8 +310,10 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
                 onChange={(text) => handleEditAnswer(text)}
                 inputType={'textArea'}
                 placeholder={'Answer'}
-                initialValue={question.answer}
+                initialValue={oldAnswerText}
                 style={{ height: '150px', resize: 'vertical' }}
+                cancelEdit={cancelEdit}
+                oldValue={oldAnswerText}
               />
             </div>
           </label>
@@ -316,8 +324,10 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
                 onChange={(text) => handleEditCategory(text)}
                 inputType={'text'}
                 placeholder={'Category'}
-                initialValue={question.category} //TODO: current category doesn't show, only placeholder shows
+                initialValue={oldCategoryText} //TODO: current category doesn't show, only placeholder shows
                 style={{ height: '45px' }}
+                cancelEdit={cancelEdit}
+                oldValue={oldAnswerText}
               />
             </div>
           </label>
@@ -327,11 +337,18 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
         <Button
           label={editButtonText}
           onClick={() => {
-            if (!isEdit) {
-              setEditMade(!editMade);
-            }
             setIsEdit(!isEdit);
             setEditButtonText(`${isEdit ? 'Edit' : 'Stop Edit'}`);
+            if (!isEdit) {
+              setOldQuestionText(questionText);
+              setOldAnswerText(answerText);
+              setOldCategoryText(categoryText);
+            } else {
+              setQuestionText(oldQuestionText);
+              setAnswerText(oldAnswerText);
+              setCategoryText(oldCategoryText);
+              setCancelEdit(!cancelEdit);
+            }
           }}
         />
       </span>
