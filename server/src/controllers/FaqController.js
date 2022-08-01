@@ -101,9 +101,7 @@ const FaqController = {
       const { faqId } = req.params;
       const update = req.body;
       console.log(update);
-      if (update.answer) {
-        update.isAnswered = true;
-      }
+      update.isAnswered = update.answer ? true : false;
       const updatedFaq = await FaqServices.updateQuestion(faqId, update);
       res.status(200).send(updatedFaq.toObject());
     } catch (err) {

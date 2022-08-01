@@ -10,14 +10,14 @@
   }
 }
 
-.faq-leaders-create-question {
+.faq-leaders-create-question-container {
   padding: 10px;
   width: 70vw;
   background-color: var(--purple-shades-light);
   border-radius: 15px;
 }
 
-.faq-leaders-edit-question {
+.faq-leaders-edit-question-container {
   margin-top: 50px;
   padding: 10px;
   width: 70vw;
@@ -31,6 +31,7 @@
   display: inline-block;
   border: 2px solid var(--purple-shades-dark);
   border-radius: 15px;
+  vertical-align: top;
 }
 
 .faq-leaders-unanswered-questions {
@@ -39,6 +40,7 @@
   display: inline-block;
   border: 2px solid var(--purple-shades-dark);
   border-radius: 15px;
+  vertical-align: top;
 }
 
 .faq-leaders-hide {
@@ -53,23 +55,42 @@
   color: var(--text-dark-use);
 }
 
-.faq-leaders-questions {
-  margin-bottom: 7px;
-  font-size: 26px;
+// .faq-leaders-questions {
+//   margin-bottom: 7px;
+//   font-size: 26px;
+//   font-weight: bold;
+//   color: var(--text-dark-use);
+//   @include devices(tablet) {
+//     font-size: 22px;
+//   }
+// }
+
+.faq-leaders-titles {
+  margin: 10px;
+  text-align: center;
+  font-size: 30px;
   font-weight: bold;
   color: var(--text-dark-use);
   @include devices(tablet) {
-    font-size: 22px;
+    font-size: 25px;
   }
 }
 
-.faq-leaders-titles {
+.faq-leaders-subtitles {
   margin: 7px;
-  font-size: 26px;
-  font-weight: bold;
+  font-size: 16px;
   color: var(--text-dark-use);
   @include devices(tablet) {
-    font-size: 22px;
+    font-size: 14px;
+  }
+}
+
+.faq-leaders-questions-subtitles {
+  font-size: 16px;
+  text-align: center;
+  color: var(--text-dark-use);
+  @include devices(tablet) {
+    font-size: 14px;
   }
 }
 
@@ -82,23 +103,27 @@
   }
 }
 
-.faq-leaders-answers {
-  margin-top: 7px;
-  border-radius: 12px;
-  color: var(--text-dark-use);
-  @include devices(tablet) {
-    font-size: 16px;
-  }
+.faq-leaders-attribute {
+  text-decoration: underline var(--purple-shades-dark);
 }
 
-.faq-leaders-category {
-  margin-top: 15px;
-  border-radius: 12px;
+.faq-leaders-description {
   color: var(--text-dark-use);
   @include devices(tablet) {
     font-size: 16px;
   }
+  margin-top: 5px;
+  text-align: justify;
 }
+
+// .faq-leaders-category {
+//   margin-top: 15px;
+//   border-radius: 12px;
+//   color: var(--text-dark-use);
+//   @include devices(tablet) {
+//     font-size: 16px;
+//   }
+// }
 
 .faq-leaders-edit-title-container {
   display: flex;

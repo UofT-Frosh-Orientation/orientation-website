@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { deleteQuestion, submitEdit, submitQuestion } from './functions';
 import './FAQLeaders.scss';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
-import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
+// TODO: implement response with snackbar for both creating and editing questions
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
@@ -16,34 +16,21 @@ export function getInformation() {
 }
 
 const PageFAQLeaders = () => {
-  //const [isUnanswered, setIsUnanswered] = useState(false);
   const [editMade, setEditMade] = useState(false);
   return (
     <div className={'faq-leaders-page'}>
-      <div className={'faq-leaders-create-question'}>
-        <div className={'faq-leaders-titles'}>Create a new question:</div>
+      <div className={'faq-leaders-create-question-container'}>
+        <h1 className={'faq-leaders-titles'}>Create a new question!</h1>
         <FAQLeadersNewPost editMade={editMade} setEditMade={setEditMade} />
       </div>
-      <div className={'faq-leaders-edit-question'}>
-        <div className={'faq-leaders-titles'}>Questions:</div>
+      <div className={'faq-leaders-edit-question-container'}>
+        <h1 className={'faq-leaders-titles'}>Existing questions</h1>
         <div className={'faq-leaders-answered-questions'}>
           <FAQLeadersAnsweredQuestions editMade={editMade} setEditMade={setEditMade} />
         </div>
         <div className={'faq-leaders-unanswered-questions'}>
           <FAQLeadersUnansweredQuestions editMade={editMade} setEditMade={setEditMade} />
         </div>
-        {/* <Checkboxes
-          values={['Unanswered']}
-          onSelected={() => {
-            setIsUnanswered(!isUnanswered);
-          }}
-        />
-        <div className={`${isUnanswered ? 'faq-leaders-hide' : ''}`}>
-          <FAQLeadersAnsweredQuestions editMade={editMade} setEditMade={setEditMade} />
-        </div>
-        <div className={`${!isUnanswered ? 'faq-leaders-hide' : ''}`}>
-          <FAQLeadersUnansweredQuestions editMade={editMade} setEditMade={setEditMade} />
-        </div> */}
       </div>
     </div>
   );
@@ -60,7 +47,6 @@ const FAQLeadersAnsweredQuestions = ({ editMade, setEditMade }) => {
     try {
       const response = await axios.get('/faq/answered');
       const questions = await response.data.faqs;
-      //console.log(questions);
       for (let i = 0; i < questions.length; i++) {
         if (!questionsObject.hasOwnProperty(questions[i].category)) {
           questionsObject[questions[i].category] = [];
@@ -87,11 +73,10 @@ const FAQLeadersAnsweredQuestions = ({ editMade, setEditMade }) => {
       for (let i = 0; i < Object.keys(questionsObject).length; i++) {
         allQuestions.push(questionsObject[Object.keys(questionsObject)[i]]);
       }
-      //console.log(allQuestions);
       setAllQuestions(allQuestions);
       setQuestionCategories(questionCategories);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       setAllQuestions(undefined);
     }
   };
@@ -143,7 +128,6 @@ const FAQLeadersUnansweredQuestions = ({ editMade, setEditMade }) => {
       const questions = await response.data.faqs;
       for (let i = 0; i < questions.length; i++) {
         if (!questionsObject.hasOwnProperty(questions[i].category)) {
-          //console.log(questions[i]);
           questionsObject[questions[i].category] = [];
           questionsObject[questions[i].category].push({
             question: questions[i].question,
@@ -155,7 +139,6 @@ const FAQLeadersUnansweredQuestions = ({ editMade, setEditMade }) => {
           });
           questionCategories.push({ name: questions[i].category });
         } else {
-          //console.log(questions[i]);
           questionsObject[questions[i].category].push({
             question: questions[i].question,
             email: questions[i].email,
@@ -172,7 +155,7 @@ const FAQLeadersUnansweredQuestions = ({ editMade, setEditMade }) => {
       setAllQuestions(allQuestions);
       setQuestionCategories(questionCategories);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       setAllQuestions(undefined);
     }
   };
@@ -217,24 +200,25 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
   const [questionText, setQuestionText] = useState(question.question);
   const [answerText, setAnswerText] = useState(question.answer);
   const [categoryText, setCategoryText] = useState(question.category);
-  const [isAnswered, setIsAnswered] = useState(!question.isAnswered);
-  // console.log(question.category);
+  const [createdDate, setCreatedDate] = useState(question.createdAt);
+  const [updatedDate, setUpdatedDate] = useState(question.updatedAt);
   const initialFormData = {
     question: '',
     answer: '',
     category: '',
-    isAnswered: false,
   };
   const [formData, updateFormData] = useState(initialFormData);
   useEffect(() => {
-    //console.log('change is made')
     updateFormData({
       question: questionText,
       answer: answerText,
       category: categoryText,
-      isAnswered: isAnswered,
     });
-  }, [questionText, answerText, categoryText, isAnswered]);
+  }, [questionText, answerText, categoryText]);
+  useEffect(() => {
+    setCreatedDate(question.createdAt);
+    setUpdatedDate(question.updatedAt);
+  }, [createdDate, updatedDate]);
   const handleEditQuestion = (text) => {
     setQuestionText(text);
   };
@@ -245,8 +229,6 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
     setCategoryText(text);
   };
   const handleSubmit = async (id) => {
-    //console.log(isAnswered);
-    //console.log(formData);
     submitEdit(id, formData);
     setIsEdit(false);
     setEditButtonText('Edit');
@@ -255,18 +237,36 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
   return (
     <div className={'faq-leaders-questions-container'}>
       <div className={`${isEdit ? 'faq-leaders-hide' : ''}`}>
-        <div className={'faq-leaders-questions'}>{questionText}</div>
-        <div className={'faq-leaders-answers'}>{answerText}</div>
-        <div className={'faq-leaders-category'}>Category: {categoryText}</div>
-        <div className={'faq-leaders-email'}>Email: {question.email}</div>
+        <h1 className={'faq-leaders-subtitles'}>{questionText}</h1>
+        <p className={'faq-leaders-description'}>
+          <span className={'faq-leaders-attribute'}>Answer:</span> {answerText}
+        </p>
+        <p className={'faq-leaders-description'}>
+          <span className={'faq-leaders-attribute'}>Category:</span> {categoryText}
+        </p>
+        <p className={'faq-leaders-description'}>
+          <span className={'faq-leaders-attribute'}>Email:</span> {question.email}
+        </p>
+        <p className={'faq-leaders-description'}>
+          <span className={'faq-leaders-text'}>Date created</span>:{' '}
+          {createdDate?.toLocaleString('en-CA', { timezone: 'Canada/Eastern' })}
+        </p>
+        <p className={'faq-leaders-description'}>
+          <span className={'faq-leaders-text'}>Date last updated</span>:{' '}
+          {updatedDate?.toLocaleString('en-CA', { timezone: 'Canada/Eastern' })}
+        </p>{' '}
+        {
+          // TODO: Make date created and updated show up on page (currently it doesn't show)
+        }
       </div>
       <div className={`${!isEdit ? 'faq-leaders-hide' : ''}`}>
         <form>
           <div className={'faq-leaders-edit-title-container'}>
-            <div className={'faq-leaders-edit-title'}>Edit</div>
+            <div className={'faq-leaders-edit-title'}>Editing question:</div>
           </div>
           <label>
             <div className={''}>
+              <h1 className={'faq-leaders-subtitles'}>Question</h1>
               <TextInput
                 onChange={(text) => handleEditQuestion(text)}
                 inputType={'text'}
@@ -278,6 +278,7 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
           </label>
           <label>
             <div className={''}>
+              <h1 className={'faq-leaders-subtitles'}>Answer</h1>
               <TextInput
                 onChange={(text) => handleEditAnswer(text)}
                 inputType={'textArea'}
@@ -289,6 +290,7 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
           </label>
           <label>
             <div className={''}>
+              <h1 className={'faq-leaders-subtitles'}>Category</h1>
               <TextInput
                 onChange={(text) => handleEditCategory(text)}
                 inputType={'text'}
@@ -300,8 +302,16 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
           </label>
         </form>
       </div>
-
       <span>
+        <Button
+          label={editButtonText}
+          onClick={() => {
+            setIsEdit(!isEdit);
+            setEditButtonText(`${isEdit ? 'Edit' : 'Stop Edit'}`);
+          }}
+        />
+      </span>
+      <span className={isEdit ? 'faq-leaders-hide' : ''}>
         <Button
           label={'Delete'}
           onClick={async () => {
@@ -310,29 +320,10 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
           }}
         />
       </span>
-      <span className={isEdit ? 'faq-leaders-hide' : ''}>
-        <Button
-          label={editButtonText}
-          onClick={() => {
-            setIsEdit(!isEdit);
-            // setEditButtonText(`${isEdit ? 'Edit' : 'Stop Edit'}`);
-          }}
-        />
-      </span>
+
       <span className={!isEdit ? 'faq-leaders-hide' : ''}>
         <Button label={'Save'} onClick={() => handleSubmit(question.id)} />
       </span>
-      <div className={`${!isEdit ? 'faq-leaders-hide-questions' : ''}`}>
-        {/* <Checkboxes
-          values={['Answered']}
-          onSelected={() => {
-            //console.log(isAnswered);
-            setIsAnswered(!isAnswered);
-            setEditMade(!editMade);
-          }}
-          initialSelectedIndices={!isAnswered ? [0] : []}
-        /> */}
-      </div>
     </div>
   );
 };
@@ -421,6 +412,7 @@ const FAQLeadersNewPost = ({ editMade, setEditMade }) => {
       <ErrorSuccessBox content={newPostError} error={errorColor} success={!errorColor} />
       <label>
         <div className={''}>
+          <h1 className={'faq-leaders-subtitles'}>Question</h1>
           <TextInput
             onChange={(text) => handleEditQuestion(text)}
             inputType={'text'}
@@ -434,12 +426,13 @@ const FAQLeadersNewPost = ({ editMade, setEditMade }) => {
       </label>
       <label>
         <div className={''}>
+          <h1 className={'faq-leaders-subtitles'}>Answer</h1>
           <TextInput
             onChange={(text) => handleEditAnswer(text)}
             inputType={'textArea'}
             placeholder={'Answer'}
             initialValue={''}
-            style={{ height: '200px', resize: 'vertical' }}
+            style={{ height: '150px', resize: 'vertical' }}
             clearText={clearText}
             setClearText={setClearText}
           />
@@ -447,6 +440,7 @@ const FAQLeadersNewPost = ({ editMade, setEditMade }) => {
       </label>
       <label>
         <div className={''}>
+          <h1 className={'faq-leaders-subtitles'}>Category</h1>
           <TextInput
             onChange={(text) => handleEditCategory(text)}
             inputType={'text'}
