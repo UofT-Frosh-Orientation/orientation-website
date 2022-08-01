@@ -16,24 +16,34 @@ export function getInformation() {
 }
 
 const PageFAQLeaders = () => {
-  const [isUnanswered, setIsUnanswered] = useState(false);
+  //const [isUnanswered, setIsUnanswered] = useState(false);
   const [editMade, setEditMade] = useState(false);
   return (
     <div className={'faq-leaders-page'}>
-      <div className={'faq-leaders-titles'}>Create a new question:</div>
-      <FAQLeadersNewPost editMade={editMade} setEditMade={setEditMade} />
-      <div className={'faq-leaders-titles'}>Questions:</div>
-      <Checkboxes
-        values={['Unanswered']}
-        onSelected={() => {
-          setIsUnanswered(!isUnanswered);
-        }}
-      />
-      <div className={`${isUnanswered ? 'faq-leaders-hide-questions' : ''}`}>
-        <FAQLeadersAnsweredQuestions editMade={editMade} setEditMade={setEditMade} />
+      <div className={'faq-leaders-create-question'}>
+        <div className={'faq-leaders-titles'}>Create a new question:</div>
+        <FAQLeadersNewPost editMade={editMade} setEditMade={setEditMade} />
       </div>
-      <div className={`${!isUnanswered ? 'faq-leaders-hide-questions' : ''}`}>
-        <FAQLeadersUnansweredQuestions editMade={editMade} setEditMade={setEditMade} />
+      <div className={'faq-leaders-edit-question'}>
+        <div className={'faq-leaders-titles'}>Questions:</div>
+        <div className={'faq-leaders-answered-questions'}>
+          <FAQLeadersAnsweredQuestions editMade={editMade} setEditMade={setEditMade} />
+        </div>
+        <div className={'faq-leaders-unanswered-questions'}>
+          <FAQLeadersUnansweredQuestions editMade={editMade} setEditMade={setEditMade} />
+        </div>
+        {/* <Checkboxes
+          values={['Unanswered']}
+          onSelected={() => {
+            setIsUnanswered(!isUnanswered);
+          }}
+        />
+        <div className={`${isUnanswered ? 'faq-leaders-hide' : ''}`}>
+          <FAQLeadersAnsweredQuestions editMade={editMade} setEditMade={setEditMade} />
+        </div>
+        <div className={`${!isUnanswered ? 'faq-leaders-hide' : ''}`}>
+          <FAQLeadersUnansweredQuestions editMade={editMade} setEditMade={setEditMade} />
+        </div> */}
       </div>
     </div>
   );
@@ -99,7 +109,7 @@ const FAQLeadersAnsweredQuestions = ({ editMade, setEditMade }) => {
       allQuestions[activeIndex] === undefined ||
       allQuestions.length === 0 ||
       allQuestions[activeIndex].length === 0 ? (
-        <div className={'faq-leaders-no-result'}>No results</div>
+        <div className={'faq-leaders-no-result'}>No answered questions found.</div>
       ) : (
         allQuestions[activeIndex].map((question, index) => (
           <div key={question.id}>
@@ -180,7 +190,7 @@ const FAQLeadersUnansweredQuestions = ({ editMade, setEditMade }) => {
       allQuestions[activeIndex] === undefined ||
       allQuestions.length === 0 ||
       allQuestions[activeIndex].length === 0 ? (
-        <div className={'faq-leaders-no-result'}>No results</div>
+        <div className={'faq-leaders-no-result'}>No unanswered questions found.</div>
       ) : (
         allQuestions[activeIndex].map((question, index) => (
           <div key={question.id}>
@@ -244,13 +254,13 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
   };
   return (
     <div className={'faq-leaders-questions-container'}>
-      <div className={`${isEdit ? 'faq-leaders-hide-questions' : ''}`}>
+      <div className={`${isEdit ? 'faq-leaders-hide' : ''}`}>
         <div className={'faq-leaders-questions'}>{questionText}</div>
         <div className={'faq-leaders-answers'}>{answerText}</div>
         <div className={'faq-leaders-category'}>Category: {categoryText}</div>
         <div className={'faq-leaders-email'}>Email: {question.email}</div>
       </div>
-      <div className={`${!isEdit ? 'faq-leaders-hide-questions' : ''}`}>
+      <div className={`${!isEdit ? 'faq-leaders-hide' : ''}`}>
         <form>
           <div className={'faq-leaders-edit-title-container'}>
             <div className={'faq-leaders-edit-title'}>Edit</div>
@@ -313,7 +323,7 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
         <Button label={'Save'} onClick={() => handleSubmit(question.id)} />
       </span>
       <div className={`${!isEdit ? 'faq-leaders-hide-questions' : ''}`}>
-        <Checkboxes
+        {/* <Checkboxes
           values={['Answered']}
           onSelected={() => {
             //console.log(isAnswered);
@@ -321,7 +331,7 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
             setEditMade(!editMade);
           }}
           initialSelectedIndices={!isAnswered ? [0] : []}
-        />
+        /> */}
       </div>
     </div>
   );
