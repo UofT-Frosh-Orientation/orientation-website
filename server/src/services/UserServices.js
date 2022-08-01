@@ -1,12 +1,10 @@
 const bcrypt = require('bcrypt');
 const EmailValidator = require('email-validator');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 
 const UserModel = require('../models/UserModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
-
-const passwordValidator =
-  /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
 
 const UserServices = {
   /**
@@ -16,6 +14,8 @@ const UserServices = {
    * @return {Promise<void>}
    */
   async validateUser(email, password) {
+    const passwordValidator =
+      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
     const user = await UserModel.findOne({ email: email.toLowerCase() });
     if (user) {
       throw new Error('DUPLICATE_EMAIL');
@@ -38,6 +38,7 @@ const UserServices = {
    * @return {Promise<Object>}
    */
   async createUser(email, password, firstName, lastName, preferredName) {
+    console.log('Making users');
     return new Promise((resolve, reject) => {
       bcrypt
         .hash(password, 10)
@@ -126,6 +127,8 @@ const UserServices = {
   },
 
   async updatePassword(email, password) {
+    const passwordValidator =
+      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
     if (!passwordValidator.test(password)) {
       throw new Error('INVALID_PASSWORD');
     }
@@ -170,15 +173,20 @@ const UserServices = {
 
   async getUnapprovedUsers() {
     return new Promise((resolve, reject) => {
-      UserModel.find({ approved: { $eq: false } }, (err, users) => {
-        if (err) {
-          reject(err);
-        } else if (!users) {
-          reject('INTERNAL_ERROR');
-        } else {
-          resolve(users);
-        }
-      });
+      UserModel.find(
+        { approved: { $exists: true, $eq: false } },
+        {},
+        { strictQuery: false },
+        (err, users) => {
+          if (err) {
+            reject(err);
+          } else if (!users) {
+            reject('INTERNAL_ERROR');
+          } else {
+            resolve(users);
+          }
+        },
+      );
     });
   },
 
@@ -191,6 +199,8 @@ const UserServices = {
             { 'froshDataFields.requested': { $exists: true, $ne: [] } },
           ],
         },
+        {},
+        { strictQuery: false },
         (err, users) => {
           if (err) {
             reject(err);
@@ -205,30 +215,41 @@ const UserServices = {
   },
 
   async approveAccountsByIds(accountIds) {
+    console.log('accountIds', accountIds);
     return new Promise((resolve, reject) => {
-      UserModel.updateMany({ _id: { $in: accountIds } }, { approved: true }, {}, (err, result) => {
-        if (err) {
-          reject(err);
-        } else if (!result) {
-          reject('INTERNAL_ERROR');
-        } else {
-          resolve(result);
-        }
-      });
+      UserModel.collection.updateMany(
+        { _id: { $in: accountIds.map((id) => mongoose.Types.ObjectId(id)) } },
+        { $set: { approved: true } },
+        { strictQuery: false },
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            reject(err);
+          } else if (!result) {
+            reject('INTERNAL_ERROR');
+          } else {
+            console.log('result', result);
+            resolve(result);
+          }
+        },
+      );
     });
   },
 
   async updateAuthScopes(userAuthScopes) {
+    console.log(userAuthScopes);
     return new Promise((resolve, reject) => {
       UserModel.collection.bulkWrite(
         userAuthScopes.map((user) => {
+          console.log(user.auth);
           return {
             updateOne: {
-              filter: { id: user.id },
+              filter: { _id: { $eq: mongoose.Types.ObjectId(user.id) } },
               update: {
                 $push: {
                   'authScopes.approved': {
                     $each: user.auth.reduce((prev, curr) => {
+                      console.log(prev, curr);
                       if (curr.approve) {
                         prev.push(curr.authreq);
                       }
@@ -253,8 +274,10 @@ const UserServices = {
         }),
         (err, result) => {
           if (err) {
+            console.log(err);
             reject(err);
           } else {
+            console.log(result);
             resolve(result);
           }
         },

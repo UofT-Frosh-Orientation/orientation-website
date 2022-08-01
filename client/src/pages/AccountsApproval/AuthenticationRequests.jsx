@@ -11,6 +11,9 @@ import { Button } from '../../components/button/Button/Button';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { ApproveDenyCheckbox } from './ApproveDenyCheckbox';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAuthRequests, updateAuthRequests } from '../../state/accounts/saga';
+import { authRequestsSelector } from '../../state/accounts/accountSlice';
 
 const bubbleButtonStyleAuth = {
   fontSize: '14px',
@@ -31,9 +34,17 @@ const AuthenticationRequests = () => {
 
   let accountCount = 0; // this is just used to make sure there are unique keys for map
 
+  const dispatch = useDispatch();
+
+  const { authRequests } = useSelector(authRequestsSelector);
+
   useEffect(() => {
-    setEmailList(TestAuth);
-  }, [emailList]);
+    dispatch(getAuthRequests());
+  }, []);
+
+  useEffect(() => {
+    setEmailList(authRequests);
+  }, [authRequests]);
 
   useEffect(() => {
     if (editMode && isSave && !changesMade) {
@@ -55,6 +66,7 @@ const AuthenticationRequests = () => {
               label="Save"
               style={{ alignSelf: 'start', marginTop: '0px', marginBottom: '5px' }}
               onClick={() => {
+                dispatch(updateAuthRequests(emailList));
                 setIsSave(true);
                 setShowSaveMessage(true);
                 setSaveSuccess(sendAuthRequests(accountStatus));
@@ -107,6 +119,24 @@ const AuthenticationRequests = () => {
                 key={account.email}
                 pointerEvents={editMode ? { pointerEvents: 'all' } : { pointerEvents: 'none' }}
                 account={account}
+                onUpdate={(authreq, approve, deny) =>
+                  setEmailList((prev) =>
+                    prev.map((p) => {
+                      if (p.id === account.id) {
+                        return {
+                          ...p,
+                          auth: p.auth.map((a) => {
+                            if (a.authreq === authreq) {
+                              return { authreq, approve, deny };
+                            } else return a;
+                          }),
+                        };
+                      } else {
+                        return p;
+                      }
+                    }),
+                  )
+                }
                 accountStatus={accountStatus}
                 setAccountStatus={setAccountStatus}
                 count={accountCount}
@@ -137,6 +167,7 @@ const RowComponentAuth = ({
   account,
   accountStatus,
   setAccountStatus,
+  onUpdate,
   count,
   setChangesMade,
   pointerEvents,
@@ -183,6 +214,7 @@ const RowComponentAuth = ({
                 // if auth key already in the object, update
                 accountStatus[account.email][authreq.authreq].approve = approve;
                 accountStatus[account.email][authreq.authreq].deny = deny;
+                onUpdate(authreq.authreq, approve, deny);
               } else {
                 // auth key not in the object yet, add it
                 accountStatus[account.email][authreq.authreq] = {
@@ -258,6 +290,7 @@ RowComponentAuth.propTypes = {
   editMode: PropTypes.bool,
   isSave: PropTypes.bool,
   setIsSave: PropTypes.func,
+  onUpdate: PropTypes.func,
 };
 
 export { AuthenticationRequests };

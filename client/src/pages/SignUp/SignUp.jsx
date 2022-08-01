@@ -36,7 +36,7 @@ const PageSignUp = () => {
       if (isLoading) setPageState('loading');
       else setPageState('form');
     };
-    dispatch(signUp({ setSnackbar, setIsLoading, accountObj }));
+    dispatch(signUp({ setSnackbar, setIsLoading, user: accountObj }));
   };
 
   const checkErrors = (sendFeedback = true, feedbackToSend = []) => {

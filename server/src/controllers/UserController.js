@@ -44,6 +44,7 @@ const UserController = {
         return res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
       });
     } catch (e) {
+      console.log(e);
       next(e);
     }
   },
@@ -177,7 +178,7 @@ const UserController = {
       const usersUnapprovedAuthScopes = await UserServices.getUsersUnapprovedAuthScopes();
       return res.status(200).send({
         message: 'Successfully found users!',
-        usersUnapprovedAuthScopes: usersUnapprovedAuthScopes.map((u) => u.getResponseObject()),
+        authRequests: usersUnapprovedAuthScopes.map((u) => u.getResponseObject()),
       });
     } catch (err) {
       next(err);
