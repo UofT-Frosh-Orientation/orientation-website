@@ -48,25 +48,30 @@ const FAQLeadersAnsweredQuestions = ({ editMade, setEditMade }) => {
       const response = await axios.get('/faq/answered');
       const questions = await response.data.faqs;
       for (let i = 0; i < questions.length; i++) {
-        if (!questionsObject.hasOwnProperty(questions[i].category)) {
-          questionsObject[questions[i].category] = [];
-          questionsObject[questions[i].category].push({
-            question: questions[i].question,
-            email: questions[i].email,
-            answer: questions[i].answer,
-            category: questions[i].category,
-            isAnswered: questions[i].isAnswered,
-            id: questions[i]._id,
+        let curQ = questions[i];
+        if (!questionsObject.hasOwnProperty(curQ.category)) {
+          questionsObject[curQ.category] = [];
+          questionsObject[curQ.category].push({
+            question: curQ.question,
+            email: curQ.email,
+            answer: curQ.answer,
+            category: curQ.category,
+            isAnswered: curQ.isAnswered,
+            createdAt: curQ.createdAt,
+            updatedAt: curQ.updatedAt,
+            id: curQ._id,
           });
-          questionCategories.push({ name: questions[i].category });
+          questionCategories.push({ name: curQ.category });
         } else {
-          questionsObject[questions[i].category].push({
-            question: questions[i].question,
-            email: questions[i].email,
-            answer: questions[i].answer,
-            category: questions[i].category,
-            isAnswered: questions[i].isAnswered,
-            id: questions[i]._id,
+          questionsObject[curQ.category].push({
+            question: curQ.question,
+            email: curQ.email,
+            answer: curQ.answer,
+            category: curQ.category,
+            isAnswered: curQ.isAnswered,
+            createdAt: curQ.createdAt,
+            updatedAt: curQ.updatedAt,
+            id: curQ._id,
           });
         }
       }
@@ -127,25 +132,30 @@ const FAQLeadersUnansweredQuestions = ({ editMade, setEditMade }) => {
       const response = await axios.get('/faq/unanswered');
       const questions = await response.data.faqs;
       for (let i = 0; i < questions.length; i++) {
-        if (!questionsObject.hasOwnProperty(questions[i].category)) {
-          questionsObject[questions[i].category] = [];
-          questionsObject[questions[i].category].push({
-            question: questions[i].question,
-            email: questions[i].email,
-            answer: questions[i].answer,
-            category: questions[i].category,
-            isAnswered: questions[i].isAnswered,
-            id: questions[i]._id,
+        let curQ = questions[i];
+        if (!questionsObject.hasOwnProperty(curQ.category)) {
+          questionsObject[curQ.category] = [];
+          questionsObject[curQ.category].push({
+            question: curQ.question,
+            email: curQ.email,
+            answer: curQ.answer,
+            category: curQ.category,
+            isAnswered: curQ.isAnswered,
+            createdAt: curQ.createdAt,
+            updatedAt: curQ.updatedAt,
+            id: curQ._id,
           });
-          questionCategories.push({ name: questions[i].category });
+          questionCategories.push({ name: curQ.category });
         } else {
-          questionsObject[questions[i].category].push({
-            question: questions[i].question,
-            email: questions[i].email,
-            answer: questions[i].answer,
-            category: questions[i].category,
-            isAnswered: questions[i].isAnswered,
-            id: questions[i]._id,
+          questionsObject[curQ.category].push({
+            question: curQ.question,
+            email: curQ.email,
+            answer: curQ.answer,
+            category: curQ.category,
+            isAnswered: curQ.isAnswered,
+            createdAt: curQ.createdAt,
+            updatedAt: curQ.updatedAt,
+            id: curQ._id,
           });
         }
       }
@@ -234,6 +244,21 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
     setEditButtonText('Edit');
     setEditMade(!editMade);
   };
+  const options = {
+    weekday: 'short',
+    year: undefined,
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minutes: '2-digit',
+    timeZone: 'America/Toronto',
+  };
+  let createdDateFormatted = new Date(
+    createdDate.substring(0, createdDate.length - 1),
+  ).toLocaleDateString('en-CA', options);
+  let updatedDateFormatted = new Date(
+    updatedDate.substring(0, updatedDate.length - 1),
+  ).toLocaleDateString('en-CA', options);
   return (
     <div className={'faq-leaders-questions-container'}>
       <div className={`${isEdit ? 'faq-leaders-hide' : ''}`}>
@@ -248,16 +273,11 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
           <span className={'faq-leaders-attribute'}>Email:</span> {question.email}
         </p>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-text'}>Date created</span>:{' '}
-          {createdDate?.toLocaleString('en-CA', { timezone: 'Canada/Eastern' })}
+          <span className={'faq-leaders-attribute'}>Created at:</span> {createdDateFormatted}
         </p>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-text'}>Date last updated</span>:{' '}
-          {updatedDate?.toLocaleString('en-CA', { timezone: 'Canada/Eastern' })}
+          <span className={'faq-leaders-attribute'}>Last updated at:</span> {updatedDateFormatted}
         </p>{' '}
-        {
-          // TODO: Make date created and updated show up on page (currently it doesn't show)
-        }
       </div>
       <div className={`${!isEdit ? 'faq-leaders-hide' : ''}`}>
         <form>

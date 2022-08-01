@@ -2,7 +2,7 @@
 
 .faq-leaders-page {
   margin-top: 100px;
-  width: 800px;
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
   @include devices(tablet) {
@@ -54,17 +54,6 @@
   border-radius: 15px;
   color: var(--text-dark-use);
 }
-
-// .faq-leaders-questions {
-//   margin-bottom: 7px;
-//   font-size: 26px;
-//   font-weight: bold;
-//   color: var(--text-dark-use);
-//   @include devices(tablet) {
-//     font-size: 22px;
-//   }
-// }
-
 .faq-leaders-titles {
   margin: 10px;
   text-align: center;
@@ -113,17 +102,7 @@
     font-size: 16px;
   }
   margin-top: 5px;
-  text-align: justify;
 }
-
-// .faq-leaders-category {
-//   margin-top: 15px;
-//   border-radius: 12px;
-//   color: var(--text-dark-use);
-//   @include devices(tablet) {
-//     font-size: 16px;
-//   }
-// }
 
 .faq-leaders-edit-title-container {
   display: flex;
