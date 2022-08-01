@@ -97,7 +97,8 @@ const FAQLeadersAnsweredQuestions = ({ editMade, setEditMade }) => {
       />
       {allQuestions === undefined ||
       allQuestions[activeIndex] === undefined ||
-      allQuestions.length === 0 ? (
+      allQuestions.length === 0 ||
+      allQuestions[activeIndex].length === 0 ? (
         <div className={'faq-leaders-no-result'}>No results</div>
       ) : (
         allQuestions[activeIndex].map((question, index) => (
@@ -177,7 +178,8 @@ const FAQLeadersUnansweredQuestions = ({ editMade, setEditMade }) => {
       />
       {allQuestions === undefined ||
       allQuestions[activeIndex] === undefined ||
-      allQuestions.length === 0 ? (
+      allQuestions.length === 0 ||
+      allQuestions[activeIndex].length === 0 ? (
         <div className={'faq-leaders-no-result'}>No results</div>
       ) : (
         allQuestions[activeIndex].map((question, index) => (
