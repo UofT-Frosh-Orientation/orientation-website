@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { deleteQuestion, submitEdit, submitQuestion } from './functions';
 import './FAQLeaders.scss';
@@ -6,7 +6,7 @@ import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/B
 import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
-// TODO: implement response with snackbar for both creating and editing questions
+import { SnackbarContext } from '../../util/SnackbarProvider';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
@@ -17,6 +17,7 @@ export function getInformation() {
 
 const PageFAQLeaders = () => {
   const [editMade, setEditMade] = useState(false);
+  // const { setSnackbar } = useContext(SnackbarContext);
   return (
     <div className={'faq-leaders-page'}>
       <div className={'faq-leaders-create-question-container'}>
@@ -381,9 +382,9 @@ const FAQLeadersNewPost = ({ editMade, setEditMade }) => {
   const [answerText, setAnswerText] = useState('');
   const [categoryText, setCategoryText] = useState('');
   const [formState, setFormState] = useState('form');
-  const [newPostError, setNewPostError] = useState('');
-  const [errorColor, setErrorColor] = useState(false);
   const [clearText, setClearText] = useState(false);
+  const { setSnackbar } = useContext(SnackbarContext);
+
   const initialFormData = {
     question: '',
     answer: '',
@@ -409,17 +410,24 @@ const FAQLeadersNewPost = ({ editMade, setEditMade }) => {
       setFormState('loading');
       const result = await submitQuestion(formData);
       if (result !== true) {
-        setNewPostError(result);
-        setErrorColor(true);
         setFormState('form');
+        setSnackbar('Error', true);
       } else {
         updateFormData(initialFormData);
         setClearText(true);
-        setNewPostError('New Question and Answer Submitted Successfully');
-        setErrorColor(false);
         setFormState('form');
         setEditMade(!editMade);
+        setQuestionText('');
+        setAnswerText('');
+        setCategoryText('');
+        setSnackbar('New Question and Answer Submitted Successfully', false);
       }
+    } else if (formData.question.length === 0) {
+      setSnackbar('Question cannot be empty', true);
+    } else if (formData.answer.length === 0) {
+      setSnackbar('Answer cannot be empty', true);
+    } else if (formData.category.length === 0) {
+      setSnackbar('Category cannot be empty', true);
     }
   };
   useEffect(() => {
@@ -432,7 +440,6 @@ const FAQLeadersNewPost = ({ editMade, setEditMade }) => {
   }, [questionText, answerText, categoryText]);
   return (
     <form>
-      <ErrorSuccessBox content={newPostError} error={errorColor} success={!errorColor} />
       <label>
         <div className={''}>
           <h1 className={'faq-leaders-subtitles'}>Question</h1>
