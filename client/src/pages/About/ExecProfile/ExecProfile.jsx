@@ -115,7 +115,10 @@ const NonexecProfileDescription = ({ name, discipline, quote }) => {
 
 const SubcomProfileDescription = ({ name, description, cochairs }) => {
   return (
-    <div className="nonexec-profile-description-container" style={{ textAlign: 'center' }}>
+    <div
+      className="nonexec-profile-description-container subcom-profile-mobile-display"
+      style={{ textAlign: 'center' }}
+    >
       <div className="nonexec-profile-description">
         <div className="exec-profile-title-cont">
           <h3 className="exec-profile-name" style={{ textAlign: 'center' }}>
