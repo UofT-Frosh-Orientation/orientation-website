@@ -19,26 +19,24 @@ const PageSignUp = () => {
   const [anyErrors, setAnyErrors] = useState({});
   const [pageState, setPageState] = useState('form');
   const [revealLeaderSignup, setRevealLeaderSignup] = useState(0);
-  const [canShowErrorSnackbar, setCanShowErrorSnackbar] = useState(false);
 
   const { setSnackbar } = useContext(SnackbarContext);
-  const { user, loading, error } = useSelector(userSelector);
+  const { user } = useSelector(userSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (error && canShowErrorSnackbar) {
-      setPageState('form');
-      setSnackbar('An error occured: ' + error, true);
-    } else if (loading) {
-      setPageState('loading');
-    } else if (user) {
+    if (user) {
       setPageState('success');
     }
-  }, [user, error, loading]);
+  }, [user]);
 
   const submitForm = () => {
-    setCanShowErrorSnackbar(true);
-    dispatch(signUp(accountObj));
+    setPageState('loading');
+    const setIsLoading = (isLoading) => {
+      if (isLoading) setPageState('loading');
+      else setPageState('form');
+    };
+    dispatch(signUp({ setSnackbar, setIsLoading, accountObj }));
   };
 
   const checkErrors = (sendFeedback = true, feedbackToSend = []) => {
