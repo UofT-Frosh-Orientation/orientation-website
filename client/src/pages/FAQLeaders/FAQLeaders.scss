@@ -21,16 +21,16 @@
 .faq-leaders-questions-container {
   margin: 15px 10px 0px 10px;
   padding: 20px 30px 20px 30px;
-  background-color: var(--purple-shades-light);
+  background-color: var(--container-bg);
   border-radius: 15px;
-  color: var(--text-dark);
+  color: var(--text-dark-use);
 }
 
 .faq-leaders-questions {
   margin-bottom: 7px;
   font-size: 26px;
   font-weight: bold;
-  color: var(--text-dark);
+  color: var(--text-dark-use);
   @include devices(tablet) {
     font-size: 22px;
   }
@@ -41,7 +41,7 @@
   margin-bottom: 7px;
   font-size: 26px;
   font-weight: bold;
-  color: var(--text-dark);
+  color: var(--text-dark-use);
   @include devices(tablet) {
     font-size: 22px;
   }
@@ -50,7 +50,7 @@
 .faq-leaders-questions-smaller {
   background-color: var(--purple-shades-light);
   border-radius: 12px;
-  color: var(--text-dark);
+  color: var(--text-dark-use);
   @include devices(tablet) {
     font-size: 16px;
   }
@@ -58,9 +58,8 @@
 
 .faq-leaders-answers {
   margin-top: 7px;
-  background-color: var(--purple-shades-light);
   border-radius: 12px;
-  color: var(--text-dark);
+  color: var(--text-dark-use);
   @include devices(tablet) {
     font-size: 16px;
   }
@@ -68,9 +67,8 @@
 
 .faq-leaders-category {
   margin-top: 15px;
-  background-color: var(--purple-shades-light);
   border-radius: 12px;
-  color: var(--text-dark);
+  color: var(--text-dark-use);
   @include devices(tablet) {
     font-size: 16px;
   }
@@ -86,12 +84,13 @@
   margin-bottom: 7px;
   font-size: 26px;
   font-weight: bold;
-  color: var(--text-dark);
+  color: var(--text-dark-use);
   @include devices(tablet) {
     font-size: 22px;
   }
 }
 
 .faq-leaders-no-result {
+  color: var(--text-dark-use);
   padding-top: 20px;
 }
