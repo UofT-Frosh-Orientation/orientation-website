@@ -32,7 +32,7 @@ export const PageScopeRequest = () => {
     >
       <div className="scope-request-page">
         <div className="navbar-space-top" />
-        <h1>Leedur Permissions Request</h1>
+        <h1>Leadur Permissions Request</h1>
         <h2>General Permissions</h2>
         <Button
           onClick={() => {

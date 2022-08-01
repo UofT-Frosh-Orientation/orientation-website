@@ -36,7 +36,7 @@ import { instagramAccounts } from '../../util/instagramAccounts';
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { registeredSelector, userSelector } from '../userSlice';
+import { registeredSelector, userSelector } from '../../state/user/userSlice';
 
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
@@ -196,7 +196,7 @@ const ProfilePageQRScanner = () => {
             if (submitError !== false) {
               setSubmitError(false);
             }
-            if (results != []) {
+            if (results !== []) {
               setResults([]);
             }
           } else {

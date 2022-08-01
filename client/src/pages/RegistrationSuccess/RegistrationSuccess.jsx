@@ -5,9 +5,9 @@ import { Button } from '../../components/button/Button/Button';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { Link, useLocation } from 'react-router-dom';
 import useAxios from '../../hooks/useAxios';
-import { userSelector } from '../userSlice';
+import { userSelector } from '../../state/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserInfo } from '../Login/saga';
+import { getUserInfo } from '../../state/user/saga';
 
 // To get to this page you need to supply the state when routing
 /* <Link state={{name: "James", froshGroup: "Lambda", froshGroupIcon: "λ"}} to={"/registration-success"}><ButtonOutlined label="Watch" isSecondary/></Link> */
