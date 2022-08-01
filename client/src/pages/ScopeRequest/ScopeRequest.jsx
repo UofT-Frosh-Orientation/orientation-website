@@ -7,6 +7,8 @@ import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import { Button } from '../../components/button/Button/Button';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { SnackbarContext } from '../../util/SnackbarProvider';
+import { useDispatch } from 'react-redux';
+import { requestAuthScopes } from '../../state/user/saga';
 
 function convertCamelToLabel(text) {
   const result = text.replace(/([A-Z])/g, ' $1');
@@ -16,11 +18,12 @@ function convertCamelToLabel(text) {
 export const PageScopeRequest = () => {
   const [selectAllRegistrationScopes, setSelectAllRegistrationScopes] = useState(false);
   const [selectAllGeneralScopes, setSelectAllGeneralScopes] = useState(false);
-  const [requestScopes, setRequestedScopes] = useState({});
-  const [requestRegistrationScopes, setRequestedRegistrationScopes] = useState({});
+  const [requestScopes, setRequestedScopes] = useState({ authScopes: {}, froshDataFields: {} });
+  // const [requestRegistrationScopes, setRequestedRegistrationScopes] = useState({});
   const { setSnackbar } = useContext(SnackbarContext);
   const totalScopes = getTotalScopes();
   const totalRegistrationScopes = getTotalRegistrationScopes();
+  const dispatch = useDispatch();
   return (
     <div
       style={{
@@ -54,7 +57,7 @@ export const PageScopeRequest = () => {
                   onSelected={(label, index, value, allIndices) => {
                     const out = [];
                     allIndices.map((index) => out.push(totalScopes[scope][index]));
-                    requestScopes[scope] = out;
+                    requestScopes.authScopes[scope] = out;
                   }}
                 />
               </div>
@@ -76,18 +79,20 @@ export const PageScopeRequest = () => {
           filterLabel={convertCamelToLabel}
           values={totalRegistrationScopes}
           onSelected={(label, index, value) => {
-            requestRegistrationScopes[label] = value;
+            requestScopes.froshDataFields[label] = value;
           }}
         />
       </div>
       <Button
         onClick={() => {
-          const result = submitScopes(requestScopes, requestRegistrationScopes);
-          if (result === true) {
-            setSnackbar('Success', false);
-          } else {
-            setSnackbar('Error', true);
-          }
+          const froshDataFields = Object.keys(requestScopes.froshDataFields).filter(
+            (k) => requestScopes.froshDataFields[k],
+          );
+          const authScopes = Object.keys(requestScopes.authScopes).reduce((prev, curr) => {
+            prev.push(...requestScopes.authScopes[curr].map((k) => `${curr}:${k}`));
+            return prev;
+          }, []);
+          dispatch(requestAuthScopes({ froshDataFields, authScopes, setSnackbar }));
         }}
         label={'Submit'}
         isSecondary

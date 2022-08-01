@@ -4,7 +4,7 @@ import './ScuntJudgeForm.scss';
 import { Header } from '../../components/text/Header/Header';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { useSelector } from 'react-redux';
-import { userSelector } from '../userSlice';
+import { userSelector } from '../../state/user/userSlice';
 import { list } from './scuntTempData';
 import ReactSlider from 'react-slider';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';

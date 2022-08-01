@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './Navbar.scss';
 
@@ -26,7 +26,7 @@ import { profilePages } from '../../util/profile-pages';
 import { PopupModal } from '../popup/PopupModal';
 import { Button } from '../button/Button/Button';
 import { useDispatch } from 'react-redux';
-import { logout } from '../../pages/Login/saga';
+import { logout } from '../../state/user/saga';
 import { ProfileDropdown } from '../ProfileDropdown/ProfileDropdown';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 
