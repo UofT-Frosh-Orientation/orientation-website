@@ -24,7 +24,6 @@ import MountainFRDarkMode from '../../assets/darkmode/login/mountain-front-right
 import MountainMDarkMode from '../../assets/darkmode/login/mountain-mid.svg';
 import PteroDarkMode from '../../assets/darkmode/login/ptero.svg';
 
-import { resetPassword } from './functions';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
