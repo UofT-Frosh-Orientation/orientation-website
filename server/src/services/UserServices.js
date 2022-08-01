@@ -167,6 +167,100 @@ const UserServices = {
       );
     });
   },
+
+  async getUnapprovedUsers() {
+    return new Promise((resolve, reject) => {
+      UserModel.find({ approved: { $eq: false } }, (err, users) => {
+        if (err) {
+          reject(err);
+        } else if (!users) {
+          reject('INTERNAL_ERROR');
+        } else {
+          resolve(users);
+        }
+      });
+    });
+  },
+
+  async getUsersUnapprovedAuthScopes() {
+    return new Promise((resolve, reject) => {
+      UserModel.find(
+        {
+          $or: [
+            { 'authScopes.requested': { $exists: true, $ne: [] } },
+            { 'froshDataFields.requested': { $exists: true, $ne: [] } },
+          ],
+        },
+        (err, users) => {
+          if (err) {
+            reject(err);
+          } else if (!users) {
+            reject('INTERNAL_ERROR');
+          } else {
+            resolve(users);
+          }
+        },
+      );
+    });
+  },
+
+  async approveAccountsByIds(accountIds) {
+    return new Promise((resolve, reject) => {
+      UserModel.updateMany({ _id: { $in: accountIds } }, { approved: true }, {}, (err, result) => {
+        if (err) {
+          reject(err);
+        } else if (!result) {
+          reject('INTERNAL_ERROR');
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  },
+
+  async updateAuthScopes(userAuthScopes) {
+    return new Promise((resolve, reject) => {
+      UserModel.collection.bulkWrite(
+        userAuthScopes.map((user) => {
+          return {
+            updateOne: {
+              filter: { id: user.id },
+              update: {
+                $push: {
+                  'authScopes.approved': {
+                    $each: user.auth.reduce((prev, curr) => {
+                      if (curr.approve) {
+                        prev.push(curr.authreq);
+                      }
+                      return prev;
+                    }, []),
+                  },
+                },
+                $pull: {
+                  'authScopes.requested': {
+                    $in: user.auth.reduce((prev, curr) => {
+                      if (curr.approve || curr.deny) {
+                        prev.push(curr.authreq);
+                      }
+                      return prev;
+                    }, []),
+                  },
+                },
+              },
+              upsert: false,
+            },
+          };
+        }),
+        (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        },
+      );
+    });
+  },
 };
 
 module.exports = UserServices;
