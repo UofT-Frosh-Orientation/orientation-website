@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './ScuntHome.scss';
 import Wave from '../../assets/misc/wave.png';
@@ -11,6 +11,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { pages } from '../../util/pages';
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
+import { DarkModeContext } from '../../util/DarkModeProvider';
+import { ProfilePageScuntToken } from '../Profile/Profile';
 
 export const PageScuntHome = () => {
   return (
@@ -24,27 +26,52 @@ export const PageScuntHome = () => {
 };
 
 const AboutScunt = () => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
     <>
-      <img src={Wave} className="wave-image wave-image-footer" />
-      <img src={WaveDarkMode} className="wave-image wave-image-footer-darkmode" />
+      {darkMode ? (
+        <img src={WaveDarkMode} className="wave-image wave-image-footer" />
+      ) : (
+        <img src={Wave} className="wave-image wave-image-footer" />
+      )}
       <div className="about-scunt-container">
-        <div className="home-page-schedule">
+        <div className="about-scunt-content">
+          <div className="about-scunt-token">
+            <ProfilePageScuntToken />
+          </div>
           <h2>Scunt</h2>
           <h3>What is Scunt?</h3>
-          <p>This is Scunt</p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel fermentum
+            justo. Praesent ut sapien venenatis, sagittis sapien sit amet, iaculis ante. Aenean
+            elementum laoreet ullamcorper. Aenean odio purus, interdum id consectetur id, tempor
+            quis nisl. Mauris vitae nibh congue, ultrices felis non, dignissim purus. Duis feugiat
+            sed tortor ac faucibus. Mauris ac elementum purus. Etiam pharetra viverra diam eu porta.
+            Fusce nulla magna, posuere vel maximus ut, pharetra ullamcorper enim. Orci varius
+            natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed egestas
+            urna vitae ante tincidunt, quis faucibus leo faucibus. Ut et molestie mi, et fermentum
+            orci. Cras vel purus vulputate, vestibulum massa id, vestibulum magna. Curabitur ante
+            nisl, mattis eu tempor eu, vulputate sed purus. Mauris varius eros ut finibus mattis.
+            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
+            Ut nisi nisl, sodales in ligula at, dapibus dapibus lectus. Aenean vulputate nulla ante,
+            vestibulum rutrum tellus molestie id. Etiam consectetur dui ac sapien faucibus maximus.
+          </p>
           <h3>Group Meetup</h3>
           <p>Go find your group</p>
         </div>
       </div>
-      <img className="header-page-wave-bottom" src={waveBottom} alt="wave"></img>
-      <img className="header-page-wave-bottom-darkmode" src={waveBottomDarkMode} alt="wave"></img>
+      {darkMode ? (
+        <img className="header-page-wave-bottom" src={waveBottomDarkMode} alt="wave"></img>
+      ) : (
+        <img className="header-page-wave-bottom" src={waveBottom} alt="wave"></img>
+      )}
     </>
   );
 };
 
 const ScuntCountdown = () => {
-  const targetDate = new Date('July 25, 2022 16:56:00');
+  const targetDate = new Date('September 25, 2022 16:56:00');
   const countDownDate = new Date(targetDate).getTime();
 
   const [countDown, setCountDown] = useState(countDownDate - new Date().getTime());

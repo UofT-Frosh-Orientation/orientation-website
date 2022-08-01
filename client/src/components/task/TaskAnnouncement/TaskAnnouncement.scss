@@ -7,18 +7,14 @@
 }
 
 .task-task-container {
-  background-color: var(--white);
+  background-color: var(--task-container);
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
   margin: 10px;
   padding: 20px 28px;
   border-radius: 15px;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--light-purple);
-    color: var(--white);
-  }
+  color: var(--black);
 }
 
 .task-name {
@@ -34,7 +30,7 @@
 
 .task-date {
   margin-bottom: 10px;
-  color: var(--purple-shades-muted);
+  color: var(--task-date);
   @include devices(tablet) {
     font-size: 15px;
   }
@@ -84,10 +80,6 @@
   cursor: pointer;
   border: 2px solid var(--light-purple);
   transition: border 500ms, box-shadow 500ms;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--purple-shades-light);
-  }
 }
 
 .task-img {

@@ -73,20 +73,6 @@
   position: absolute;
   bottom: 0px;
   filter: drop-shadow(-10px -10px 8px #23232342);
-
-  @media (prefers-color-scheme: dark) {
-    display: none;
-  }
-}
-.home-page-top-wave-image-dark {
-  display: none;
-
-  @media (prefers-color-scheme: dark) {
-    display: unset;
-    position: absolute;
-    bottom: 0px;
-    filter: drop-shadow(-10px -10px 8px #23232342);
-  }
 }
 
 .home-page-landing-image-container {
@@ -136,16 +122,6 @@
       height: 5px;
     }
   }
-  @media (prefers-color-scheme: dark) {
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--light-purple);
-    }
-    ::-webkit-scrollbar-thumb {
-      background-color: var(--purple-shades-muted);
-      background: var(--purple-shades-muted);
-      border-radius: 3px;
-    }
-  }
 }
 
 .home-page-timeline-popup-container {
@@ -188,21 +164,7 @@
 }
 
 .home-page-bottom-wave-image {
-  display: unset;
   filter: drop-shadow(-10px 10px 8px #23232342);
-
-  @media (prefers-color-scheme: dark) {
-    display: none;
-  }
-}
-
-.home-page-bottom-wave-image-dark {
-  display: none;
-
-  @media (prefers-color-scheme: dark) {
-    display: unset;
-    filter: drop-shadow(10px -10px -8px #23232342);
-  }
 }
 
 .home-page-sponsors {
@@ -234,19 +196,56 @@
     padding-bottom: 0px;
   }
   .please-sponsor {
+    color: (--text-dark);
     padding-top: 20px;
     background-color: var(--purple-shades-light);
     padding-bottom: 20px;
     margin-bottom: 20px;
     transition: transform 500ms;
     transform: scale(1);
-
-    @media (prefers-color-scheme: dark) {
-      background-color: var(--light-purple);
-    }
   }
   .please-sponsor:hover {
     transition: transform 500ms;
     transform: scale(1.05);
+  }
+}
+
+.all-sponsors-area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.sponsor-container {
+  background-color: var(--sponsor-background);
+  width: min(50%, 350px);
+  height: 200px;
+  transition: transform 500ms;
+  padding: 5px 20px;
+  margin: 5px;
+  border-radius: 10px;
+  img {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(5px 5px 10px #23232342);
+    object-fit: contain;
+  }
+  &:hover {
+    transform: scale(1.05);
+    transition: transform 500ms;
+  }
+  @include devices(tablet) {
+    width: min(90%, 350px);
+  }
+  p {
+    opacity: 0;
+    transition: opacity 500ms, transform 500ms;
+    background-color: var(--sponsor-container);
+    padding: 10px 20px;
+    display: inline-block;
+    border-radius: 8px;
+  }
+  &:hover p {
+    transform: translateY(calc(-100% + -10px));
+    opacity: 1;
   }
 }

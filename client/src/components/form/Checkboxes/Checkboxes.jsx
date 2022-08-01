@@ -16,14 +16,14 @@ const Checkboxes = ({
 }) => {
   useEffect(() => {
     if (selectAll) {
-      if (selectedIndices.length > values.length) {
+      if (selectedIndices.length >= values.length) {
         setSelectedIndices([]);
         for (let index = 0; index <= values.length; index++) {
           onSelected(values[index], index, false, []);
         }
       } else {
         const allIndices = [];
-        for (let index = 0; index <= values.length; index++) {
+        for (let index = 0; index < values.length; index++) {
           allIndices.push(index);
           onSelected(values[index], index, true, allIndices);
         }
@@ -143,7 +143,7 @@ const Checkboxes = ({
                   }}
                   disabled={isDisabled || allDisabled}
                 />
-                {filterLabel ? filterLabel(value) : value}
+                {filterLabel ? filterLabel(value.toString()) : value.toString()}
               </label>
             );
           })}

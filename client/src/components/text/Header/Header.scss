@@ -1,31 +1,12 @@
 @import '../../../scssStyles/mixins';
 
 .header-page-wave-bottom {
-  display: unset;
   width: 100vw;
   filter: drop-shadow(-10px 10px 8px #23232342);
   height: min(10vh, 80px);
   object-fit: fill;
   @include devices(tablet) {
     height: min(10vh, 40px);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    display: none;
-  }
-}
-.header-page-wave-bottom-darkmode {
-  display: none;
-
-  @media (prefers-color-scheme: dark) {
-    display: unset;
-    width: 100vw;
-    filter: drop-shadow(-10px 10px 8px #23232342);
-    height: min(10vh, 80px);
-    object-fit: fill;
-    @include devices(tablet) {
-      height: min(10vh, 40px);
-    }
   }
 }
 

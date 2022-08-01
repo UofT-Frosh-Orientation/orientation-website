@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import './Header.scss';
 import waveBottom from '../../../assets/misc/wave-reverse.png';
 import waveBottomDarkMode from '../../../assets/darkmode/misc/wave-reverse.png';
+import { DarkModeContext } from '../../../util/DarkModeProvider';
 
 const Header = ({ text, children, underlineDesktop, underlineMobile }) => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
     <>
       <div className="header-page-container">
@@ -20,8 +23,11 @@ const Header = ({ text, children, underlineDesktop, underlineMobile }) => {
           ></div>
           {children}
         </div>
-        <img className="header-page-wave-bottom" src={waveBottom} alt="wave"></img>
-        <img className="header-page-wave-bottom-darkmode" src={waveBottomDarkMode} alt="wave"></img>
+        {darkMode ? (
+          <img className="header-page-wave-bottom" src={waveBottomDarkMode} alt="wave"></img>
+        ) : (
+          <img className="header-page-wave-bottom" src={waveBottom} alt="wave"></img>
+        )}
       </div>
     </>
   );

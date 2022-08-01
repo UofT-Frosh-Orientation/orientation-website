@@ -33,17 +33,14 @@
 
 .button-secondary {
   background-color: var(--yellow);
-  color: var(--black);
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--text-dark);
-  }
+  color: var(--text-dark);
 }
 
 .button-disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  background-color: var(--gray);
+  background-color: var(--button-disabled);
+  color: var(--white);
   transition: background-color 200ms;
   &:hover {
     transform: scale(1);

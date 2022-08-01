@@ -6,7 +6,9 @@
 }
 
 .carousel-slide {
-  border-radius: 9px;
+  background-color: var(--sponsor-background);
+  padding: 15px;
+  border-radius: 15px;
   margin-bottom: 55px;
   cursor: pointer;
   height: calc(320px - 50px);
@@ -22,7 +24,7 @@
 
 .control-dots {
   .dot {
-    background: var(--purple) !important;
+    background: var(--control-dot) !important;
     box-shadow: unset !important;
     width: 40px !important;
     height: 6px !important;
@@ -31,9 +33,6 @@
     @include devices(tablet) {
       width: 20px !important;
       height: 5px !important;
-    }
-    @media (prefers-color-scheme: dark) {
-      background: var(--light-purple) !important;
     }
   }
 }

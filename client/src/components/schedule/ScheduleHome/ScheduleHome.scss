@@ -11,6 +11,7 @@
 }
 
 .schedule-container-dates {
+  color: var(--black);
   display: flex;
   flex-direction: column;
 }
@@ -56,7 +57,7 @@
   flex-direction: column;
   justify-content: center;
   border-radius: 15px;
-  background-color: var(--white);
+  background-color: var(--schedule-container);
   padding: 0px 30px;
   margin: 10px;
   opacity: 0.5;
@@ -70,12 +71,6 @@
   }
   h2 {
     font-size: 20px;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--light-purple);
-    color: var(--white);
-    opacity: 0.3;
   }
 }
 
@@ -101,9 +96,6 @@
       padding: 10px 0px;
     }
     color: var(--text-dark);
-    @media (prefers-color-scheme: dark) {
-      color: var(--text-dark);
-    }
   }
   h2 {
     font-size: 18px;
@@ -124,9 +116,6 @@
       font-size: 15px;
     }
     color: var(--text-dark);
-    @media (prefers-color-scheme: dark) {
-      color: var(--text-dark);
-    }
   }
 }
 

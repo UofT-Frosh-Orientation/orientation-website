@@ -2,8 +2,8 @@
 
 .button-outlined {
   margin: 15px 10px;
-  background-color: var(--purple-shades-light);
-  color: var(--text-dark);
+  background-color: var(--button-outlined-bg);
+  color: var(--button-outlined-font);
   display: inline-block;
   border-radius: 14px;
   padding: 10px 26px;
@@ -34,18 +34,12 @@
     border-width: 3px;
     margin: 8px 6px;
   }
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--purple-shades-muted);
-    color: var(--white);
-    border-color: var(--purple-buttonoutline-border);
-  }
 }
 
 .button-outlined-secondary {
-  background-color: var(--on-white);
-  border-color: var(--purple-shades-muted);
-  color: var(--text-dark);
+  background-color: var(--button-outlined-bg-secondary);
+  border-color: var(--button-outlined-border); //--purple-shades-muted
+  color: var(--button-outlined-font);
   font-weight: unset;
   transition: transform 200ms, background-color 200ms, border-color 200ms;
 
@@ -53,16 +47,6 @@
     transition: transform 200ms, background-color 200ms, border-color 200ms;
     background-color: var(--purple-shades-light);
     border-color: var(--light-purple);
-
-    @media (prefers-color-scheme: dark) {
-      background-color: var(--purple-shades-muted);
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--purple-buttonoutline-border);
-    color: var(--white);
-    border-color: var(--purple-buttonoutline-border);
   }
 }
 
@@ -70,7 +54,7 @@
   opacity: 0.6;
   cursor: unset;
   background-color: var(--on-white);
-  border-color: var(--gray);
+  border-color: var(--button-outlined-disabled-border);
   font-weight: unset;
 
   &:hover {

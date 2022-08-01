@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './Navbar.scss';
 
@@ -22,14 +22,33 @@ import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { pages } from '../../util/pages';
+import { profilePages } from '../../util/profile-pages';
 import { PopupModal } from '../popup/PopupModal';
 import { Button } from '../button/Button/Button';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../pages/Login/saga';
+import { ProfileDropdown } from '../ProfileDropdown/ProfileDropdown';
+import { DarkModeContext } from '../../util/DarkModeProvider';
 
 const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
     <>
+      {/* <div
+        onClick={() => {
+          setDarkModeStatus(!darkMode);
+        }}
+        style={{
+          height: '100px',
+          width: '100px',
+          backgroundColor: 'red',
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          zIndex: 100,
+        }}
+      ></div> */}
       <div className="navbar-desktop">
         <NavbarDesktop
           isLoggedIn={isLoggedIn}
@@ -49,29 +68,34 @@ const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
 };
 
 const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
-  const [showlogoutPopup, setShowLogoutPopup] = useState(false);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [openProfileDropdown, setOpenProfileDropdown] = useState(false);
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   return (
     <>
-      <PopupModal
-        trigger={showlogoutPopup}
-        setTrigger={setShowLogoutPopup}
-        heading={'Are you sure you want to logout?'}
-        exitIcon={true}
-        blurBackground={false}
-      >
-        <Button
-          isSecondary={true}
-          label={'Logout'}
-          onClick={() => {
-            console.log('Logging out');
-            dispatch(logout({ navigate, setShowLogoutPopup }));
-          }}
+      {isLoggedIn ? (
+        isRegistered ? (
+          <ProfileDropdown
+            open={openProfileDropdown}
+            setOpen={setOpenProfileDropdown}
+            items={profilePages.register}
+          />
+        ) : (
+          <ProfileDropdown
+            open={openProfileDropdown}
+            setOpen={setOpenProfileDropdown}
+            items={profilePages.login}
+          />
+        )
+      ) : (
+        <ProfileDropdown
+          open={openProfileDropdown}
+          setOpen={setOpenProfileDropdown}
+          items={profilePages.notLogin}
         />
-      </PopupModal>
+      )}
+
       <div className="navbar-container">
         <div className="navbar-main">
           <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
@@ -96,19 +120,6 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
           })}
         </div>
         <div className="navbar-special">
-          {isLoggedIn ? (
-            <div
-              style={{ cursor: 'pointer' }}
-              className="navbar-logout-button"
-              onClick={() => {
-                setShowLogoutPopup(true);
-              }}
-            >
-              Logout
-            </div>
-          ) : (
-            <></>
-          )}
           {/* SPECIAL PAGES - Profile, Register, Login*/}
           {pages.special.map((page) => {
             // Clicking on profile button
@@ -116,56 +127,37 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
               if (isLoggedIn) {
                 // if logged in
                 return (
-                  <Link
-                    to={page.path}
-                    key={page.path}
-                    style={pathname === page.path ? { pointerEvents: 'none' } : {}}
-                  >
-                    <div className="frosh-profile">Profile</div>
-                    <div className="icon-profile"> {froshInitials} </div>
-                  </Link>
+                  <>
+                    <div
+                      className="icon-profile"
+                      onClick={() => {
+                        setOpenProfileDropdown(!openProfileDropdown);
+                      }}
+                    >
+                      {' '}
+                      {froshInitials}{' '}
+                    </div>
+                  </>
                 );
               }
               // if not logged in
               return (
-                <Link
-                  to={page.path}
-                  key={page.path}
-                  style={
-                    pathname === page.path || pathname === '/login' ? { pointerEvents: 'none' } : {}
-                  }
+                <div
+                  className="icon-profile-person-container"
+                  onClick={() => {
+                    setOpenProfileDropdown(!openProfileDropdown);
+                  }}
                 >
-                  <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>
-                  <img
-                    className="icon-profile-person-darkmode"
-                    alt="profile"
-                    src={ProfileIconDarkMode}
-                  ></img>
-                </Link>
-              );
-            } // Clicking on register button
-            else if (page.label === 'Register' && isLoggedIn && !isRegistered) {
-              // if logged in and not registered
-              return (
-                <Link
-                  to={page.path}
-                  key={page.path}
-                  style={pathname === page.path ? { pointerEvents: 'none' } : {}}
-                >
-                  <div className="register">{page.label}</div>
-                </Link>
-              );
-            } // Clicking on login button
-            else if (page.label === 'Login' && !isLoggedIn) {
-              // if not logged in, display login button
-              return (
-                <Link
-                  to={page.path}
-                  key={page.path}
-                  style={useLocation().pathname === page.path ? { pointerEvents: 'none' } : {}}
-                >
-                  <div className="login">{page.label}</div>
-                </Link>
+                  {!darkMode ? (
+                    <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>
+                  ) : (
+                    <img
+                      className="icon-profile-person"
+                      alt="profile"
+                      src={ProfileIconDarkMode}
+                    ></img>
+                  )}
+                </div>
               );
             }
           })}
@@ -177,119 +169,159 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
 
 const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
   let pathname = useLocation().pathname;
+  const [openProfileDropdown, setOpenProfileDropdown] = useState(false);
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
-    <div className="navbar-container">
-      <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
+    <>
+      {isLoggedIn ? (
+        isRegistered ? (
+          <ProfileDropdown
+            open={openProfileDropdown}
+            setOpen={setOpenProfileDropdown}
+            items={profilePages.register}
+          />
+        ) : (
+          <ProfileDropdown
+            open={openProfileDropdown}
+            setOpen={setOpenProfileDropdown}
+            items={profilePages.login}
+          />
+        )
+      ) : (
+        <ProfileDropdown
+          open={openProfileDropdown}
+          setOpen={setOpenProfileDropdown}
+          items={profilePages.notLogin}
+        />
+      )}
 
-      <div className="navbar-main">
-        {/* MAIN PAGES - Home, About, FAQ */}
+      <div className="navbar-container">
+        <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
 
-        {pages.main.map((page) => {
-          return (
-            <Link
-              to={page.path}
-              key={page.path}
-              style={pathname === page.path ? { pointerEvents: 'none' } : {}}
-            >
-              <div className="navbar-sub-container">
-                <div className="navbar-menu-icon">
-                  <img
-                    className="navbar-svg-icon"
-                    alt={
-                      page.label === 'Home'
-                        ? 'home'
-                        : page.label === 'About'
-                        ? 'about'
-                        : page.label === 'FAQ'
-                        ? 'faq'
-                        : ''
-                    }
-                    src={
-                      pathname === page.path
-                        ? page.label === 'Home'
-                          ? HomeIconPurple
-                          : page.label === 'About'
-                          ? AboutIconPurple
-                          : page.label === 'FAQ'
-                          ? MessageIconPurple
-                          : {}
-                        : page.label === 'Home'
-                        ? HomeIconGrey
-                        : page.label === 'About'
-                        ? AboutIconGrey
-                        : page.label === 'FAQ'
-                        ? MessageIconGrey
-                        : {}
-                    }
-                  ></img>
-                  <img
-                    className="navbar-svg-icon-darkmode"
-                    alt={
-                      page.label === 'Home'
-                        ? 'home'
-                        : page.label === 'About'
-                        ? 'about'
-                        : page.label === 'FAQ'
-                        ? 'faq'
-                        : ''
-                    }
-                    src={
-                      pathname === page.path
-                        ? page.label === 'Home'
-                          ? HomeIconHighlightDarkMode
-                          : page.label === 'About'
-                          ? AboutIconHighlightDarkMode
-                          : page.label === 'FAQ'
-                          ? MessageIconHighlightDarkMode
-                          : {}
-                        : page.label === 'Home'
-                        ? HomeIconDefaultDarkMode
-                        : page.label === 'About'
-                        ? AboutIconDefaultDarkMode
-                        : page.label === 'FAQ'
-                        ? MessageIconDefaultDarkMode
-                        : {}
-                    }
-                  ></img>
+        <div className="navbar-main">
+          {/* MAIN PAGES - Home, About, FAQ */}
+          {pages.main.map((page) => {
+            return (
+              <Link
+                to={page.path}
+                key={page.path}
+                style={pathname === page.path ? { pointerEvents: 'none' } : {}}
+              >
+                <div className="navbar-sub-container">
+                  <div className="navbar-menu-icon">
+                    {!darkMode ? (
+                      <img
+                        className="navbar-svg-icon"
+                        alt={
+                          page.label === 'Home'
+                            ? 'home'
+                            : page.label === 'About'
+                            ? 'about'
+                            : page.label === 'FAQ'
+                            ? 'faq'
+                            : ''
+                        }
+                        src={
+                          pathname === page.path
+                            ? page.label === 'Home'
+                              ? HomeIconPurple
+                              : page.label === 'About'
+                              ? AboutIconPurple
+                              : page.label === 'FAQ'
+                              ? MessageIconPurple
+                              : {}
+                            : page.label === 'Home'
+                            ? HomeIconGrey
+                            : page.label === 'About'
+                            ? AboutIconGrey
+                            : page.label === 'FAQ'
+                            ? MessageIconGrey
+                            : {}
+                        }
+                      ></img>
+                    ) : (
+                      <img
+                        className="navbar-svg-icon"
+                        alt={
+                          page.label === 'Home'
+                            ? 'home'
+                            : page.label === 'About'
+                            ? 'about'
+                            : page.label === 'FAQ'
+                            ? 'faq'
+                            : ''
+                        }
+                        src={
+                          pathname === page.path
+                            ? page.label === 'Home'
+                              ? HomeIconHighlightDarkMode
+                              : page.label === 'About'
+                              ? AboutIconHighlightDarkMode
+                              : page.label === 'FAQ'
+                              ? MessageIconHighlightDarkMode
+                              : {}
+                            : page.label === 'Home'
+                            ? HomeIconDefaultDarkMode
+                            : page.label === 'About'
+                            ? AboutIconDefaultDarkMode
+                            : page.label === 'FAQ'
+                            ? MessageIconDefaultDarkMode
+                            : {}
+                        }
+                      ></img>
+                    )}
+                  </div>
+                  {pathname === page.path ? (
+                    <div className="underline-page-selected"></div>
+                  ) : (
+                    <div className="navbar-underline"></div>
+                  )}
                 </div>
-                {pathname === page.path ? (
-                  <div className="underline-page-selected"></div>
-                ) : (
-                  <div className="navbar-underline"></div>
-                )}
-              </div>
-            </Link>
-          );
+              </Link>
+            );
+          })}
+        </div>
+
+        {pages.special.map((page) => {
+          if (page.label === 'Login') {
+            if (!isLoggedIn) {
+              return (
+                <div
+                  className="icon-profile-person-container"
+                  onClick={() => {
+                    setOpenProfileDropdown(!openProfileDropdown);
+                  }}
+                >
+                  {!darkMode ? (
+                    <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>
+                  ) : (
+                    <img
+                      className="icon-profile-person"
+                      alt="profile"
+                      src={ProfileIconDarkMode}
+                    ></img>
+                  )}
+                </div>
+                // </Link>
+              );
+            } else if (isLoggedIn) {
+              return (
+                <div
+                  className="icon-profile"
+                  onClick={() => {
+                    setOpenProfileDropdown(!openProfileDropdown);
+                  }}
+                >
+                  {' '}
+                  {froshInitials}{' '}
+                </div>
+              );
+            }
+          }
         })}
       </div>
-
-      {pages.special.map((page) => {
-        if (page.label === 'Login') {
-          if (!isLoggedIn) {
-            return (
-              <Link
-                to={page.path}
-                key={page.path}
-                style={pathname === page.path ? { pointerEvents: 'none' } : {}}
-              >
-                <div className="login">{page.label}</div>
-              </Link>
-            );
-          } else if (isLoggedIn) {
-            return (
-              // mobile: profile icon -> link to frosh profile
-              <Link
-                to={page.path}
-                key={page.path}
-                style={pathname === page.path ? { pointerEvents: 'none' } : {}}
-              >
-                <div className="icon-profile"> {froshInitials} </div>
-              </Link>
-            );
-          }
-        }
-      })}
-    </div>
+    </>
   );
 };
 

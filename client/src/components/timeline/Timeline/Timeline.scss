@@ -8,10 +8,6 @@
   border-radius: 15px;
   margin-left: min(50px, 5vw);
   margin-right: min(50px, 5vw);
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--yellow);
-  }
 }
 
 .timeline-space {
@@ -27,10 +23,24 @@
   overflow-y: hidden;
   overflow-x: scroll;
   padding: 15px 0px;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--transparent);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--light-purple);
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--purple-shades-muted);
+  }
 }
 
 .timeline-date-container {
-  background-color: var(--white);
+  background-color: var(--task-container);
+  color: var(--black);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -43,34 +53,19 @@
   transform: scale(1);
   flex-grow: 2;
   box-shadow: var(--shadow);
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--light-purple) !important;
-    color: var(--white);
-  }
 }
 
 .timeline-date-container-date {
   font-size: 20px;
   text-align: center;
-
-  color: var(--text-dark);
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--white);
-  }
+  color: var(--black);
 }
 
 .timeline-date-container-name {
   margin-top: 5px;
   font-size: 18px;
   text-align: center;
-
-  color: var(--text-dark);
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--white);
-  }
+  color: var(--black);
 }
 
 .timeline-read-more {
@@ -97,7 +92,7 @@
   text-align: center;
   position: absolute;
   max-width: 300px;
-  background-color: var(--white);
+  background-color: var(--task-container);
   padding: 18px 28px;
   margin: 0px 0px;
   border-radius: 15px;

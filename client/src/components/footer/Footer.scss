@@ -78,8 +78,6 @@ ul {
   height: 30px;
   margin-right: 8px;
 
-  filter: invert(1);
-
   transition: transform 200ms;
   &:hover {
     transform: scale(1.1);
@@ -215,25 +213,9 @@ ul {
 }
 
 .wave-image-footer {
+  transform: translateY(1px);
   display: unset;
   width: 100%;
   margin-bottom: -5px;
   filter: drop-shadow(-10px -10px 8px #23232342);
-
-  @media (prefers-color-scheme: dark) {
-    display: none;
-  }
-}
-
-.wave-image-footer-darkmode {
-  transform: translateY(1px);
-  display: none;
-
-  @media (prefers-color-scheme: dark) {
-    display: unset;
-    width: 100%;
-    margin-bottom: -5px;
-    //margin-bottom: -5px;
-    filter: drop-shadow(-10px -10px 8px #23232342);
-  }
 }

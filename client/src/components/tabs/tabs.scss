@@ -19,7 +19,7 @@
 }
 
 .tabs-content {
-  background-color: var(--white);
+  background-color: var(--container-bg);
   border-radius: 25px;
   padding: 25px;
   padding-bottom: 10px;
@@ -27,10 +27,6 @@
   box-shadow: var(--shadow);
   @include devices(tablet) {
     margin-top: 0px;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--purple-shades-dark);
   }
 }
 

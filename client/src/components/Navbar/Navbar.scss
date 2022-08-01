@@ -22,7 +22,7 @@ li {
   justify-content: space-between;
 
   align-items: center;
-  z-index: 100;
+  z-index: 90;
   position: fixed;
   background-color: var(--navbar-bg);
   width: 100%;
@@ -60,16 +60,8 @@ li {
     transition: color 200ms;
 
     .navbar-underline {
-      background-color: var(--purple);
+      background-color: var(--navbar-underline-desktop);
       transition: background-color 200ms;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      color: var(--white);
-
-      .navbar-underline {
-        background-color: var(--light-purple);
-      }
     }
   }
   .navbar-underline {
@@ -79,16 +71,12 @@ li {
 
 .navbar-link {
   position: absolute;
-  color: var(--gray);
+  color: var(--navbar-link);
   font-size: 16px;
   font-weight: 700;
 
-  @media (prefers-color-scheme: dark) {
-    color: var(--white);
-  }
-
   .navbar-underline {
-    color: var(--gray);
+    color: var(--navbar-underline-desktop);
     transition: background-color 200ms;
   }
 }
@@ -102,17 +90,13 @@ li {
 }
 
 .underline-page-selected {
-  background-color: var(--purple);
+  background-color: var(--navbar-underline-highlight);
   align-self: flex-end;
   width: 80px;
   height: 3px;
   overflow: hidden;
   border-radius: 15px;
   transition: background-color 200ms;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--light-purple);
-  }
 }
 .underline-page-unselected {
   opacity: 0;
@@ -129,7 +113,7 @@ li {
 }
 
 .icon-profile {
-  background: var(--purple);
+  background: var(--user-icon-bg);
   border-radius: 50%;
   width: 35px;
   height: 35px;
@@ -143,33 +127,32 @@ li {
   font-size: 15px;
   color: var(--yellow);
   float: right;
+  cursor: pointer;
 
-  @media (prefers-color-scheme: dark) {
-    background: var(--light-purple);
+  @include devices(tablet) {
+    margin-right: 10px;
   }
+}
+
+.icon-profile-person-container {
+  cursor: pointer;
 }
 
 .icon-profile-person {
   display: unset;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   margin-left: auto;
   margin-right: 15px;
-
-  @media (prefers-color-scheme: dark) {
-    display: none;
+  margin-top: 4px;
+  cursor: pointer;
+  @include devices(tablet) {
+    margin-right: 10px;
   }
-}
 
-.icon-profile-person-darkmode {
-  display: none;
-
-  @media (prefers-color-scheme: dark) {
-    display: unset;
-    width: 35px;
-    height: 35px;
-    margin-left: auto;
-    margin-right: 15px;
+  transition: transform 300ms;
+  &:hover {
+    transform: scale(1.08);
   }
 }
 
@@ -197,10 +180,6 @@ li {
   border-radius: 10px;
   color: var(--text-light);
   padding-inline: 15px;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--light-purple);
-  }
 }
 .login,
 .navbar-logout-button {
@@ -213,11 +192,6 @@ li {
   border-style: solid;
   border-color: var(--purple);
   border-radius: 10px;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--light-purple);
-    border-color: var(--light-purple);
-  }
 }
 
 .frosh-profile {
@@ -231,11 +205,6 @@ li {
   border-color: var(--purple);
   border-radius: 10px;
   padding-inline: 15px;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--light-purple);
-    border-color: var(--light-purple);
-  }
 }
 
 //animations
@@ -300,43 +269,19 @@ li {
     bottom: 0;
     width: 40px;
     height: 3px;
-
-    &:hover,
-    &:active {
-      @media (prefers-color-scheme: dark) {
-        background-color: var(--white) !important;
-      }
-    }
   }
 
   .underline-page-selected {
-    background-color: var(--purple);
+    background-color: var(--navbar-underline-highlight);
     bottom: 0;
     width: 40px;
     height: 3px;
-
-    @media (prefers-color-scheme: dark) {
-      background-color: var(--white);
-    }
   }
 
   .navbar-svg-icon {
     display: unset;
     width: 25px;
     margin: 3px 0 0 0;
-
-    @media (prefers-color-scheme: dark) {
-      display: none;
-    }
-  }
-  .navbar-svg-icon-darkmode {
-    display: none;
-
-    @media (prefers-color-scheme: dark) {
-      display: unset;
-      width: 25px;
-      margin: 3px 0 0 0;
-    }
   }
 
   .icon-profile {

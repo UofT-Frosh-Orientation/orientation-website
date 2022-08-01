@@ -25,10 +25,6 @@
   }
   transform: scale(0);
   animation: zoom-appear 1000ms forwards 500ms;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--white);
-  }
 }
 
 .registration-success-page-progress-bar {
@@ -168,7 +164,7 @@
   stroke-dashoffset: 500;
   animation: dash-stoke 3500ms ease-in-out forwards, fill-end 3500ms ease-in forwards;
   animation-delay: 9500ms;
-  stroke: var(--purple);
+  stroke: var(--frosh-group-stroke);
   stroke-linecap: round;
   font-size: 240px;
   height: 300px;

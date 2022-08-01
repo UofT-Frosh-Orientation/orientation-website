@@ -39,25 +39,20 @@
 }
 
 .register-terms-of-service {
+  color: var(--black);
   font-size: 15px;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--white);
-  }
 }
 
 .register-terms-of-service-below {
+  color: var(--black);
   font-size: 16px;
   text-align: center;
   margin-top: 10px;
   padding: 0px 10px;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--white);
-  }
 }
 
 .registration-first-step-title {
+  color: var(--black);
   font-size: 45px;
   padding: 10px;
   padding-bottom: 0px;
@@ -66,13 +61,10 @@
   @include devices(mobile) {
     font-size: 28px;
   }
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--white);
-  }
 }
 
 .registration-first-step-subtitle {
+  color: var(--black);
   font-size: 25px;
   margin-bottom: 15px;
   margin-left: 10px;
@@ -80,9 +72,6 @@
   padding-top: 2px;
   @include devices(mobile) {
     font-size: 18px;
-  }
-  @media (prefers-color-scheme: dark) {
-    color: var(--white);
   }
 }
 

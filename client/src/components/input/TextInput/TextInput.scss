@@ -8,15 +8,6 @@
   p {
     margin: 0;
   }
-
-  ::placeholder {
-    color: var(--black);
-    opacity: 0.4;
-
-    @media (prefers-color-scheme: dark) {
-      color: var(--white);
-    }
-  }
 }
 
 .text-input-container-no-margin {
@@ -25,7 +16,7 @@
 
 .text-input {
   font-size: 17px;
-  background-color: var(--on-white);
+  background-color: var(--textinput-bg);
   border-radius: 10px;
   outline: none;
   border: none;
@@ -33,29 +24,17 @@
   padding: 12px 20px;
   margin: 4px;
   width: 100%;
-  &:hover {
-    background-color: var(--white);
-    box-shadow: 0px 0px 6px 1px var(--light-purple);
-    transition: background-color 500ms, box-shadow 500ms;
+  color: var(--black);
 
-    @media (prefers-color-scheme: dark) {
-      background-color: var(--purple-shades-dark);
-    }
+  &:hover {
+    background-color: var(--textinput-bg);
+    box-shadow: 0px 0px 6px 1px var(--textinput-shadow-hover);
+    transition: background-color 500ms, box-shadow 500ms;
   }
   &:focus {
-    background-color: var(--white);
-    box-shadow: 0px 0px 15px -3px var(--purple);
+    background-color: var(--textinput-bg);
+    box-shadow: 0px 0px 15px -3px var(--textinput-shadow-focus);
     transition: background-color 500ms, box-shadow 500ms;
-
-    @media (prefers-color-scheme: dark) {
-      background-color: var(--purple-shades-dark);
-      box-shadow: 0px 0px 6px 1px var(--light-purple);
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--light-purple);
-    color: var(--white);
   }
 }
 
@@ -71,10 +50,7 @@
 
 .text-input-title {
   font-size: 16px;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--white);
-  }
+  color: var(--black);
 }
 
 .text-input-title-container {
@@ -82,15 +58,14 @@
   display: flex;
   flex-direction: row;
 }
+.text-input-title-container-disabled {
+  opacity: 0.4;
+}
 
 .text-input-description {
   margin-top: 2px;
   padding-left: 6px;
   font-size: 13px;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--white);
-  }
 }
 
 .text-input-error-message {
@@ -111,7 +86,8 @@
 }
 
 .text-input-disabled {
-  opacity: 0.8;
+  opacity: 0.4;
+  background-color: var(--disabled);
   &:hover {
     background-color: var(--on-white);
     box-shadow: none;
@@ -124,31 +100,11 @@
   transition: transform 0.3s;
   width: 26px;
   right: 17px;
-  top: 15px;
+  top: 17px;
   position: absolute;
   &:hover {
     transform: scale(1.2);
     cursor: pointer;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    display: none;
-  }
-}
-.text-input-password-eye-darkmode {
-  display: none;
-
-  @media (prefers-color-scheme: dark) {
-    display: unset;
-    transition: transform 0.3s;
-    width: 26px;
-    right: 17px;
-    top: 15px;
-    position: absolute;
-    &:hover {
-      transform: scale(1.2);
-      cursor: pointer;
-    }
   }
 }
 
