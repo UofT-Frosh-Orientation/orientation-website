@@ -149,7 +149,7 @@ const UserServices = {
     });
   },
 
-  async addRequestedAuthScopes(user, scopes) {
+  async requestAuthScopes(user, scopes) {
     return new Promise((resolve, reject) => {
       UserModel.findByIdAndUpdate(
         user.id,
