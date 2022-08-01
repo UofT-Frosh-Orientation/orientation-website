@@ -5,7 +5,6 @@ import './FAQLeaders.scss';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
 import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
-import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import useAxios from '../../hooks/useAxios';
@@ -17,7 +16,13 @@ export function getInformation() {
 
 const PageFAQLeaders = () => {
   const [editMade, setEditMade] = useState(false);
-  // const { setSnackbar } = useContext(SnackbarContext);
+  const [isAnswered, setIsAnswered] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const buttonList = [{ name: 'Answered' }, { name: 'Unanswered' }];
+  useEffect(() => {
+    setIsAnswered((isAnswered) => !isAnswered);
+  }, [activeIndex]);
+  //  const [toggleText, setToggleText] = useState('Unanswered');
   return (
     <div className={'faq-leaders-page'}>
       <div className={'faq-leaders-create-question-container'}>
@@ -26,11 +31,30 @@ const PageFAQLeaders = () => {
       </div>
       <div className={'faq-leaders-edit-question-container'}>
         <h1 className={'faq-leaders-titles'}>Existing questions</h1>
-        <div className={'faq-leaders-answered-questions'}>
-          <FAQLeadersAnsweredQuestions editMade={editMade} setEditMade={setEditMade} />
+        <div className={'faq-leaders-mobile'}>
+          {/* <Button
+            label={toggleText}
+            onClick={() => {
+              setIsAnswered(!isAnswered);
+              setToggleText(`${isAnswered ? 'Answered' : 'Unanswered'}`);
+            }}
+          /> */}
+          <ButtonSelector
+            buttonList={buttonList}
+            activeIndex={activeIndex}
+            setActiveIndex={setActiveIndex}
+            maxWidthButton={200}
+          />
         </div>
-        <div className={'faq-leaders-unanswered-questions'}>
-          <FAQLeadersUnansweredQuestions editMade={editMade} setEditMade={setEditMade} />
+        <div className={`${!isAnswered ? 'faq-leaders-mobile-hide' : ''}`}>
+          <div className={'faq-leaders-answered-questions'}>
+            <FAQLeadersAnsweredQuestions editMade={editMade} setEditMade={setEditMade} />
+          </div>
+        </div>
+        <div className={`${isAnswered ? 'faq-leaders-mobile-hide' : ''}`}>
+          <div className={'faq-leaders-unanswered-questions'}>
+            <FAQLeadersUnansweredQuestions editMade={editMade} setEditMade={setEditMade} />
+          </div>
         </div>
       </div>
     </div>
@@ -116,11 +140,6 @@ const FAQLeadersAnsweredQuestions = ({ editMade, setEditMade }) => {
   );
 };
 
-FAQLeadersAnsweredQuestions.propTypes = {
-  editMade: PropTypes.bool.isRequired,
-  setEditMade: PropTypes.func.isRequired,
-};
-
 const FAQLeadersUnansweredQuestions = ({ editMade, setEditMade }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [allQuestions, setAllQuestions] = useState(undefined);
@@ -200,11 +219,6 @@ const FAQLeadersUnansweredQuestions = ({ editMade, setEditMade }) => {
   );
 };
 
-FAQLeadersUnansweredQuestions.propTypes = {
-  editMade: PropTypes.bool.isRequired,
-  setEditMade: PropTypes.func.isRequired,
-};
-
 const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editButtonText, setEditButtonText] = useState('Edit');
@@ -246,8 +260,6 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
     setEditMade(!editMade);
   };
   const options = {
-    weekday: 'short',
-    year: undefined,
     month: 'short',
     day: 'numeric',
     hour: 'numeric',
@@ -263,7 +275,7 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
   return (
     <div className={'faq-leaders-questions-container'}>
       <div className={`${isEdit ? 'faq-leaders-hide' : ''}`}>
-        <h1 className={'faq-leaders-subtitles'}>{questionText}</h1>
+        <h1 className={'faq-leaders-questions-titles'}>{questionText}</h1>
         <p className={'faq-leaders-description'}>
           <span className={'faq-leaders-attribute'}>Answer:</span> {answerText}
         </p>
@@ -352,12 +364,6 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
   );
 };
 
-FAQLeadersQuestionWrapper.propTypes = {
-  question: PropTypes.object.isRequired,
-  editMade: PropTypes.bool.isRequired,
-  setEditMade: PropTypes.func.isRequired,
-};
-
 const FAQLeadersButtons = ({ activeIndex, setActiveIndex, questionCategories }) => {
   return (
     <div>
@@ -369,12 +375,6 @@ const FAQLeadersButtons = ({ activeIndex, setActiveIndex, questionCategories }) 
       />
     </div>
   );
-};
-
-FAQLeadersButtons.propTypes = {
-  activeIndex: PropTypes.number.isRequired,
-  setActiveIndex: PropTypes.func.isRequired,
-  questionCategories: PropTypes.array.isRequired,
 };
 
 const FAQLeadersNewPost = ({ editMade, setEditMade }) => {
@@ -496,6 +496,28 @@ const FAQLeadersNewPost = ({ editMade, setEditMade }) => {
 };
 
 FAQLeadersNewPost.propTypes = {
+  editMade: PropTypes.bool.isRequired,
+  setEditMade: PropTypes.func.isRequired,
+};
+
+FAQLeadersAnsweredQuestions.propTypes = {
+  editMade: PropTypes.bool.isRequired,
+  setEditMade: PropTypes.func.isRequired,
+};
+
+FAQLeadersUnansweredQuestions.propTypes = {
+  editMade: PropTypes.bool.isRequired,
+  setEditMade: PropTypes.func.isRequired,
+};
+
+FAQLeadersButtons.propTypes = {
+  activeIndex: PropTypes.number.isRequired,
+  setActiveIndex: PropTypes.func.isRequired,
+  questionCategories: PropTypes.array.isRequired,
+};
+
+FAQLeadersQuestionWrapper.propTypes = {
+  question: PropTypes.object.isRequired,
   editMade: PropTypes.bool.isRequired,
   setEditMade: PropTypes.func.isRequired,
 };

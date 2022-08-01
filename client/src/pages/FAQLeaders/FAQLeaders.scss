@@ -2,11 +2,22 @@
 
 .faq-leaders-page {
   margin-top: 100px;
-  width: 80%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.faq-leaders-mobile {
+  display: none;
   @include devices(tablet) {
-    width: 80%;
+    display: unset;
+  }
+}
+
+.faq-leaders-mobile-hide {
+  display: unset;
+  @include devices(tablet) {
+    display: none;
   }
 }
 
@@ -33,6 +44,9 @@
   border-radius: 15px;
   vertical-align: top;
   padding-bottom: 10px;
+  @include devices(tablet) {
+    width: 90%;
+  }
 }
 
 .faq-leaders-unanswered-questions {
@@ -43,6 +57,9 @@
   border-radius: 15px;
   vertical-align: top;
   padding-bottom: 10px;
+  @include devices(tablet) {
+    width: 90%;
+  }
 }
 
 .faq-leaders-hide {
@@ -70,6 +87,15 @@
 .faq-leaders-subtitles {
   margin: 7px;
   font-size: 16px;
+  color: var(--text-dark-use);
+  @include devices(tablet) {
+    font-size: 14px;
+  }
+}
+
+.faq-leaders-questions-titles {
+  font-size: 23px;
+  margin-bottom: 10px;
   color: var(--text-dark-use);
   @include devices(tablet) {
     font-size: 14px;
