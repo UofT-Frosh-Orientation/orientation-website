@@ -37,26 +37,20 @@ const UserSchema = new mongoose.Schema(
       required: true,
     },
     authScopes: {
-      type: [
-        {
-          scope: {
-            type: String,
-            required: true,
-          },
-          approved: {
-            type: [String],
-            required: true,
-            default: [],
-          },
-          requested: {
-            type: [String],
-            required: true,
-            default: [],
-          },
+      type: {
+        requested: {
+          type: [String],
+          required: true,
+          default: [],
         },
-      ],
+        approved: {
+          type: [String],
+          required: true,
+          default: [],
+        },
+      },
       required: true,
-      default: [],
+      default: { requested: [], approved: [] },
     },
     isDeleted: {
       type: Boolean,

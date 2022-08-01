@@ -16,7 +16,7 @@ export const PageLeadurScopeRequest = () => {
   const [selectAllRegistrationScopes, setSelectAllRegistrationScopes] = useState(false);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
-  const [requestScopes, setRequestedScopes] = useState({});
+  const [requestScopes, setRequestedScopes] = useState({ froshFields: {} });
 
   const totalScopes = getTotalScopes();
   const totalRegistrationScopes = getTotalRegistrationScopes();
@@ -43,7 +43,10 @@ export const PageLeadurScopeRequest = () => {
                   values={totalScopes[scope]}
                   initialSelectedIndex={0}
                   onSelect={(value) => {
-                    requestScopes[scope] = value;
+                    setRequestedScopes((prev) => {
+                      prev[scope] = [value];
+                      return prev;
+                    });
                   }}
                 />
               </div>
@@ -65,12 +68,16 @@ export const PageLeadurScopeRequest = () => {
           filterLabel={convertCamelToLabel}
           values={totalRegistrationScopes}
           onSelected={(label, index, value) => {
-            requestScopes[label] = value;
+            setRequestedScopes((prev) => {
+              prev.froshFields[label] = value;
+              return prev;
+            });
           }}
         />
       </div>
       <Button
         onClick={() => {
+          console.log(requestScopes);
           const result = submitScopes(requestScopes);
           if (result === true) {
             setSuccess('Successfully submitted request');

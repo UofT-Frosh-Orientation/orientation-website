@@ -148,6 +148,25 @@ const UserServices = {
       });
     });
   },
+
+  async addRequestedAuthScopes(user, scopes) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(
+        user.id,
+        { 'authScopes.requested': scopes },
+        { returnDocument: 'after' },
+        (err, updatedUser) => {
+          if (err) {
+            reject(err);
+          } else if (!updatedUser) {
+            reject('INVALID_USER');
+          } else {
+            resolve(updatedUser);
+          }
+        },
+      );
+    });
+  },
 };
 
 module.exports = UserServices;
