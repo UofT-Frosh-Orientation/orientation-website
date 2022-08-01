@@ -41,7 +41,10 @@ const LeadurServices = {
     return new Promise((resolve, reject) => {
       LeadurModel.findByIdAndUpdate(
         user.id,
-        { froshDataFieldsRequested: requestedFields, 'authScopes.requested': requestedAuthScopes },
+        {
+          'froshDataFields.requested': requestedFields,
+          'authScopes.requested': requestedAuthScopes,
+        },
         { returnDocument: 'after' },
         (err, leadur) => {
           if (err) {

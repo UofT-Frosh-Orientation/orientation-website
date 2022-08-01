@@ -44,6 +44,7 @@ const UserController = {
         return res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
       });
     } catch (e) {
+      console.log(e);
       next(e);
     }
   },
@@ -155,6 +156,61 @@ const UserController = {
           .status(200)
           .send({ message: 'Successfully updated user!', user: updatedUser.getResponseObject() });
       }
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  async getUnapprovedUsers(req, res, next) {
+    try {
+      const unapprovedUsers = await UserServices.getUnapprovedUsers();
+      return res.status(200).send({
+        message: 'Successfully found users!',
+        unapprovedUsers: unapprovedUsers.map((u) => u.getResponseObject()),
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  async getUsersUnapprovedAuthScopes(req, res, next) {
+    try {
+      const usersUnapprovedAuthScopes = await UserServices.getUsersUnapprovedAuthScopes();
+      return res.status(200).send({
+        message: 'Successfully found users!',
+        authRequests: usersUnapprovedAuthScopes.map((u) => u.getResponseObject()),
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  async updateAccountStatuses(req, res, next) {
+    try {
+      const { accounts } = req.body;
+      const approvedIds = accounts.reduce((prev, curr) => {
+        if (curr.approved) {
+          prev.push(curr.id);
+        }
+        return prev;
+      }, []);
+      const { modifiedCount } = await UserServices.approveAccountsByIds(approvedIds);
+      //TODO: send email when accounts are rejected
+      if (modifiedCount < approvedIds.length) {
+        res.status(400).send({ message: 'Not all users were successfully updated.' });
+      } else {
+        res.status(200).send({ message: 'Successfully approved users!' });
+      }
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  async updateAuthScopes(req, res, next) {
+    try {
+      const { userAuthScopes } = req.body;
+      await UserServices.updateAuthScopes(userAuthScopes);
+      return res.status(200).send({ message: 'Auth scopes updated!' });
     } catch (err) {
       next(err);
     }
