@@ -147,13 +147,13 @@ const AboutUsSubcom = () => {
 
   return (
     <>
-      <div className="check-back-message">
+      {/* <div className="check-back-message">
         <h2>Check back to see our photos and our roles in F!rosh Week!</h2>
-      </div>
+      </div> */}
       {subcomGroups.map((com) => {
         return (
           <div key={com} className="aboutus-commitee-container">
-            <h1 className="aboutus-hl-frosh-group">{com}</h1>
+            <h1 className="aboutus-subcom">{com}</h1>
             <div className="aboutus-subcom-grid-container">
               {subComs[com].map((subcom) => {
                 //console.log(subcom.coChair);
@@ -289,10 +289,10 @@ const tabs = [
     title: 'Tech Team',
     component: <AboutUsTechTeam />,
   },
-  // {
-  //   title: 'Subcoms',
-  //   component: <AboutUsSubcom />,
-  // },
+  {
+    title: 'Subcoms',
+    component: <AboutUsSubcom />,
+  },
   {
     title: 'Head Leedurs',
     component: <AboutUsHL />,

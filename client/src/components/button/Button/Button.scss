@@ -39,7 +39,7 @@
 .button-disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  background-color: var(--disabled);
+  background-color: var(--button-disabled);
   color: var(--white);
   transition: background-color 200ms;
   &:hover {

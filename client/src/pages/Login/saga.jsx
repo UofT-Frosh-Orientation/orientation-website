@@ -20,14 +20,19 @@ import useAxios from '../../hooks/useAxios';
 
 export const login = createAction('loginSaga');
 
-export function* loginSaga({ payload: { email, password } }) {
+export function* loginSaga({ payload: { setSnackbar, setIsLoading, email, password } }) {
   const { axios } = useAxios();
   try {
     yield put(loginStart());
     const result = yield call(axios.post, '/user/login', { email, password });
     yield put(loginSuccess(result.data.user));
   } catch (error) {
-    yield put(loginFail(error.toString()));
+    setSnackbar(
+      error.response.data.message ? error.response.data.message.toString() : error.toString(),
+      true,
+    );
+    setIsLoading(false);
+    yield put(loginFail(error.response.data));
   }
 }
 
@@ -62,15 +67,21 @@ export function* updateUserInfoSaga({ payload: { newInfo, navigate } }) {
 
 export const signUp = createAction('createUserSaga');
 
-export function* createUserSaga({ payload: user }) {
+export function* createUserSaga({ payload: { setSnackbar, setIsLoading, user } }) {
   const { axios } = useAxios();
   try {
     yield put(loginStart());
     const result = yield call(axios.post, '/user/signup', user);
     yield put(loginSuccess(result.data.user));
   } catch (error) {
+    console.log(user);
+    setSnackbar(
+      error.response.data.message ? error.response.data.message.toString() : error.toString(),
+      true,
+    );
+    setIsLoading(false);
     console.log(error);
-    yield put(loginFail(error.toString()));
+    yield put(loginFail(error.response.data));
   }
 }
 

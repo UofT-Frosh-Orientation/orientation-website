@@ -33,7 +33,8 @@
     "react-slideshow-image": "^3.7.5",
     "react-transition-group": "^4.4.2",
     "redux-saga": "^1.1.3",
-    "reselect": "^4.1.6"
+    "reselect": "^4.1.6",
+    "react-lazy-load-image-component": "1.5.5"
   },
   "devDependencies": {
     "@babel/core": "^7.18.0",

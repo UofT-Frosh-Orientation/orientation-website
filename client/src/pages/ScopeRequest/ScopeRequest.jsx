@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import './LeadurScopeRequest.scss';
+import './ScopeRequest.scss';
 import { getTotalRegistrationScopes, getTotalScopes, submitScopes } from './functions';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import { Button } from '../../components/button/Button/Button';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
+import { SnackbarContext } from '../../util/SnackbarProvider';
 
 function convertCamelToLabel(text) {
   const result = text.replace(/([A-Z])/g, ' $1');
   return result.charAt(0).toUpperCase() + result.slice(1);
 }
 
-export const PageLeadurScopeRequest = () => {
+export const PageScopeRequest = () => {
   const [selectAllRegistrationScopes, setSelectAllRegistrationScopes] = useState(false);
-  const [success, setSuccess] = useState('');
-  const [error, setError] = useState('');
-  const [requestScopes, setRequestedScopes] = useState({ froshFields: {} });
-
+  const [selectAllGeneralScopes, setSelectAllGeneralScopes] = useState(false);
+  const [requestScopes, setRequestedScopes] = useState({});
+  const [requestRegistrationScopes, setRequestedRegistrationScopes] = useState({});
+  const { setSnackbar } = useContext(SnackbarContext);
   const totalScopes = getTotalScopes();
   const totalRegistrationScopes = getTotalRegistrationScopes();
   return (
@@ -29,24 +30,31 @@ export const PageLeadurScopeRequest = () => {
         alignItems: 'center',
       }}
     >
-      <div className="leadur-scope-request-page">
+      <div className="scope-request-page">
         <div className="navbar-space-top" />
-        <h1>Leadur Permissions Request</h1>
+        <h1>Leedur Permissions Request</h1>
         <h2>General Permissions</h2>
+        <Button
+          onClick={() => {
+            setSelectAllGeneralScopes(true);
+          }}
+          label={'Select All'}
+        />
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {Object.keys(totalScopes).map((scope) => {
             return (
               <div key={scope} style={{ paddingRight: '25px' }}>
-                <Dropdown
-                  filterLabel={convertCamelToLabel}
+                <Checkboxes
                   label={convertCamelToLabel(scope)}
+                  initialSelectedIndices={[]}
+                  selectAll={selectAllGeneralScopes}
+                  setSelectAll={setSelectAllGeneralScopes}
+                  filterLabel={convertCamelToLabel}
                   values={totalScopes[scope]}
-                  initialSelectedIndex={0}
-                  onSelect={(value) => {
-                    setRequestedScopes((prev) => {
-                      prev[scope] = [value];
-                      return prev;
-                    });
+                  onSelected={(label, index, value, allIndices) => {
+                    const out = [];
+                    allIndices.map((index) => out.push(totalScopes[scope][index]));
+                    requestScopes[scope] = out;
                   }}
                 />
               </div>
@@ -68,28 +76,22 @@ export const PageLeadurScopeRequest = () => {
           filterLabel={convertCamelToLabel}
           values={totalRegistrationScopes}
           onSelected={(label, index, value) => {
-            setRequestedScopes((prev) => {
-              prev.froshFields[label] = value;
-              return prev;
-            });
+            requestRegistrationScopes[label] = value;
           }}
         />
       </div>
       <Button
         onClick={() => {
-          console.log(requestScopes);
-          const result = submitScopes(requestScopes);
+          const result = submitScopes(requestScopes, requestRegistrationScopes);
           if (result === true) {
-            setSuccess('Successfully submitted request');
+            setSnackbar('Success', false);
           } else {
-            setError(result);
+            setSnackbar('Error', true);
           }
         }}
         label={'Submit'}
         isSecondary
       />
-      <ErrorSuccessBox error content={error} />
-      <ErrorSuccessBox success content={success} />
     </div>
   );
 };

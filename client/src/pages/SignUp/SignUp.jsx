@@ -21,22 +21,22 @@ const PageSignUp = () => {
   const [revealLeaderSignup, setRevealLeaderSignup] = useState(0);
 
   const { setSnackbar } = useContext(SnackbarContext);
-  const { user, loading, error } = useSelector(userSelector);
+  const { user } = useSelector(userSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (error) {
-      setPageState('form');
-      setSnackbar('Something happened. ' + error, true);
-    } else if (loading) {
-      setPageState('loading');
-    } else if (user) {
+    if (user) {
       setPageState('success');
     }
-  }, [user, error, loading]);
+  }, [user]);
 
   const submitForm = () => {
-    dispatch(signUp(accountObj));
+    setPageState('loading');
+    const setIsLoading = (isLoading) => {
+      if (isLoading) setPageState('loading');
+      else setPageState('form');
+    };
+    dispatch(signUp({ setSnackbar, setIsLoading, accountObj }));
   };
 
   const checkErrors = (sendFeedback = true, feedbackToSend = []) => {

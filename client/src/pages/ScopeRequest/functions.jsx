@@ -3,7 +3,7 @@ const { axios } = useAxios();
 import { fields, terms } from '../Registration/RegistrationFields';
 
 export const getTotalScopes = () => {
-  return { faq: ['read', 'edit'], announcements: ['read', 'edit'], signInFrosh: [false, true] };
+  return { faq: ['read', 'edit'], announcements: ['read', 'edit'], signInFrosh: [true] };
 };
 
 export const getTotalRegistrationScopes = () => {
@@ -14,7 +14,8 @@ export const getTotalRegistrationScopes = () => {
   return output;
 };
 
-export const submitScopes = (scopes) => {
+export const submitScopes = (scopes, registrationScopes) => {
   console.log(scopes);
+  console.log(registrationScopes);
   return true; //return a string if error
 };
