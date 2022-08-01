@@ -58,6 +58,7 @@ const PageLogin = ({ incorrectEntry }) => {
   const [password, setPassword] = useState('');
 
   function loginButtonPress() {
+    setIsLoading(true);
     dispatch(login({ setSnackbar, setIsLoading, email, password }));
   }
 
