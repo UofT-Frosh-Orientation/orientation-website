@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import './PaymentError.scss';
 import ArcheologyDig from '../../assets/paymenterror/archeology-dig.svg';
 import { Button } from '../../components/button/Button/Button';

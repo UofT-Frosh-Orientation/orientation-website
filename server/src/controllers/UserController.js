@@ -134,6 +134,31 @@ const UserController = {
       next(err);
     }
   },
+
+  async requestAuthScopes(req, res, next) {
+    try {
+      const user = req.user;
+      const { authScopes, froshDataFields } = req.body;
+      let updatedUser;
+      if (user.userType === 'frosh') {
+        // frosh can't get auth scopes
+        return next(new Error('UNAUTHORIZED'));
+      } else if (user.userType === 'leadur') {
+        updatedUser = await LeadurServices.requestScopesAndData(user, froshDataFields, authScopes);
+      } else {
+        updatedUser = await UserServices.requestAuthScopes(user, authScopes);
+      }
+      if (!user) {
+        return next(new Error('UNABLE_TO_UPDATE_USER'));
+      } else {
+        return res
+          .status(200)
+          .send({ message: 'Successfully updated user!', user: updatedUser.getResponseObject() });
+      }
+    } catch (err) {
+      next(err);
+    }
+  },
 };
 
 module.exports = UserController;

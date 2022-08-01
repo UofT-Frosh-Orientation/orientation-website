@@ -1,4 +1,4 @@
-import { logout } from '../pages/Login/saga';
+import { logout } from '../state/user/saga';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';

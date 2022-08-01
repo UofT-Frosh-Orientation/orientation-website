@@ -4,7 +4,7 @@ import App from './App';
 import './index.css';
 import configureAppStore, { sagaMiddleware } from './store';
 import { Provider } from 'react-redux';
-import userSaga from './pages/Login/saga';
+import userSaga from './state/user/saga';
 
 const store = configureAppStore();
 
