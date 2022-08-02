@@ -277,12 +277,8 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
     minute: '2-digit',
     timeZone: 'America/Toronto',
   };
-  const createdDateFormatted = new Date(
-    createdDate.substring(0, createdDate.length - 1),
-  ).toLocaleDateString('en-CA', options);
-  const updatedDateFormatted = new Date(
-    updatedDate.substring(0, updatedDate.length - 1),
-  ).toLocaleDateString('en-CA', options);
+  const createdDateFormatted = new Date(createdDate).toLocaleDateString('en-CA', options);
+  const updatedDateFormatted = new Date(updatedDate).toLocaleDateString('en-CA', options);
   return (
     <div className={'faq-leaders-questions-container'}>
       <div className={`${isEdit ? 'faq-leaders-hide' : ''}`}>
@@ -377,6 +373,7 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
           onClick={async () => {
             deleteQuestion(question.id);
             setEditMade(!editMade);
+            setSnackbar('Question Deleted Successfully', true);
           }}
         />
       </span>
@@ -466,7 +463,7 @@ const FAQLeadersNewPost = ({ editMade, setEditMade }) => {
   return (
     <form>
       <label>
-        <div className={''}>
+        <div>
           <h1 className={'faq-leaders-subtitles'}>Question</h1>
           <TextInput
             onChange={(text) => handleEditQuestion(text)}
@@ -480,7 +477,7 @@ const FAQLeadersNewPost = ({ editMade, setEditMade }) => {
         </div>
       </label>
       <label>
-        <div className={''}>
+        <div>
           <h1 className={'faq-leaders-subtitles'}>Answer</h1>
           <TextInput
             onChange={(text) => handleEditAnswer(text)}
@@ -494,7 +491,7 @@ const FAQLeadersNewPost = ({ editMade, setEditMade }) => {
         </div>
       </label>
       <label>
-        <div className={''}>
+        <div>
           <h1 className={'faq-leaders-subtitles'}>Category</h1>
           <TextInput
             onChange={(text) => handleEditCategory(text)}
