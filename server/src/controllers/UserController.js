@@ -56,6 +56,9 @@ const UserController = {
    */
   async getInfo(req, res) {
     const user = req.user.getResponseObject();
+
+    await UserServices.checkScuntToken(user.email);
+
     res.status(200).send({ user });
   },
 

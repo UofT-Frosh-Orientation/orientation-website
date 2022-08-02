@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const EmailValidator = require('email-validator');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
+const getScuntToken = require('../middlewares/createScuntToken');
 
 const UserModel = require('../models/UserModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
@@ -87,6 +88,17 @@ const UserServices = {
     });
   },
 
+  async checkScuntToken(email) {
+    const existingUser = await UserServices.getUserByEmail(email);
+
+    if (
+      existingUser.token == null &&
+      existingUser.scunt == true &&
+      existingUser.isRegistered == true
+    ) {
+      await getScuntToken(existingUser.id);
+    }
+  },
   async validatePasswordResetToken(token) {
     return new Promise((resolve, reject) => {
       jwt.verify(token, process.env.JWT_RESET_TOKEN, (err, decoded) => {
@@ -292,6 +304,24 @@ const UserServices = {
           } else {
             console.log(result);
             resolve(result);
+          }
+        },
+      );
+    });
+  },
+
+  async updateUserInfo(userId, updateInfo) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOneAndUpdate(
+        { _id: userId },
+        updateInfo,
+        { returnDocument: 'after' },
+        (err, User) => {
+          if (err || !User) {
+            reject('UNABLE_TO_UPDATE_USER');
+          } else {
+            console.log(User);
+            resolve(User);
           }
         },
       );
