@@ -373,7 +373,7 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
           onClick={async () => {
             deleteQuestion(question.id);
             setEditMade(!editMade);
-            setSnackbar('Question Deleted Successfully', true);
+            setSnackbar('Question Deleted Successfully', false);
           }}
         />
       </span>
