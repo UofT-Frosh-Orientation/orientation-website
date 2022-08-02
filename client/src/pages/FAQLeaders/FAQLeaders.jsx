@@ -32,13 +32,6 @@ const PageFAQLeaders = () => {
       <div className={'faq-leaders-edit-question-container'}>
         <h1 className={'faq-leaders-titles'}>Existing questions</h1>
         <div className={'faq-leaders-mobile'}>
-          {/* <Button
-            label={toggleText}
-            onClick={() => {
-              setIsAnswered(!isAnswered);
-              setToggleText(`${isAnswered ? 'Answered' : 'Unanswered'}`);
-            }}
-          /> */}
           <ButtonSelector
             buttonList={buttonList}
             activeIndex={activeIndex}
@@ -46,16 +39,18 @@ const PageFAQLeaders = () => {
             maxWidthButton={200}
           />
         </div>
-        <div className={`${!isAnswered ? 'faq-leaders-mobile-hide' : ''}`}>
+        <span className={`${!isAnswered ? 'faq-leaders-mobile-hide' : ''}`}>
           <div className={'faq-leaders-answered-questions'}>
+            <h1 className={'faq-leaders-subtitles'}>Answered</h1>
             <FAQLeadersAnsweredQuestions editMade={editMade} setEditMade={setEditMade} />
           </div>
-        </div>
-        <div className={`${isAnswered ? 'faq-leaders-mobile-hide' : ''}`}>
+        </span>
+        <span className={`${isAnswered ? 'faq-leaders-mobile-hide' : ''}`}>
           <div className={'faq-leaders-unanswered-questions'}>
+            <h1 className={'faq-leaders-subtitles'}>Unanswered</h1>
             <FAQLeadersUnansweredQuestions editMade={editMade} setEditMade={setEditMade} />
           </div>
-        </div>
+        </span>
       </div>
     </div>
   );
@@ -247,7 +242,7 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
   useEffect(() => {
     setCreatedDate(question.createdAt);
     setUpdatedDate(question.updatedAt);
-  }, [createdDate, updatedDate]);
+  }, [editMade]);
   const handleEditQuestion = (text) => {
     setQuestionText(text);
   };
@@ -270,10 +265,10 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
     minute: '2-digit',
     timeZone: 'America/Toronto',
   };
-  let createdDateFormatted = new Date(
+  const createdDateFormatted = new Date(
     createdDate.substring(0, createdDate.length - 1),
   ).toLocaleDateString('en-CA', options);
-  let updatedDateFormatted = new Date(
+  const updatedDateFormatted = new Date(
     updatedDate.substring(0, updatedDate.length - 1),
   ).toLocaleDateString('en-CA', options);
   return (
