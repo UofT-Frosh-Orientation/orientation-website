@@ -19,7 +19,7 @@ import { PageScuntJudgeForm } from '../pages/ScuntJudgeForm/ScuntJudgeForm';
 import { PageScuntMissionsList } from '../pages/ScuntMissionsList/ScuntMissionsList';
 import { PageScuntHome } from '../pages/ScuntHome/ScuntHome';
 import { PageScuntRules } from '../pages/ScuntRules/ScuntRules';
-
+import { PageAnnounceDash } from '../pages/AnnouncementDashboard/AnnounceDash';
 export const pages = {
   404: {
     label: '404',
@@ -73,6 +73,12 @@ export const pages = {
     },
   ],
   hidden: [
+    {
+      lable: 'Announcements Dashboard',
+      component: <PageAnnounceDash />,
+      path: '/announcement-dashboard',
+      includeFooter: true,
+    },
     {
       label: 'Request Permissions',
       component: <PageLeadurScopeRequest />,
