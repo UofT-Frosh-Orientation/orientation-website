@@ -425,8 +425,8 @@ const FAQLeadersNewPost = ({ editMade, setEditMade }) => {
   const handleSubmit = async () => {
     if (
       formData.question.length > 0 &&
-      formData.answer.length > 0
-      // && formData.category.length > 0
+      formData.answer.length > 0 &&
+      formData.category.length > 0
     ) {
       setFormState('loading');
       const result = await submitQuestion(formData);
@@ -447,10 +447,9 @@ const FAQLeadersNewPost = ({ editMade, setEditMade }) => {
       setSnackbar('Question cannot be empty', true);
     } else if (formData.answer.length === 0) {
       setSnackbar('Answer cannot be empty', true);
+    } else if (formData.category.length === 0) {
+      setSnackbar('Category cannot be empty', true);
     }
-    //   else if (formData.category.length === 0) {
-    //   setSnackbar('Category cannot be empty', true);
-    // }
   };
   useEffect(() => {
     updateFormData({
