@@ -159,10 +159,14 @@ const ScuntJudgeDescription = ({ name, bribes }) => {
 
         <p className="scunt-bribes-text">BRIBES:</p>
         <div className="scunt-bribes-list-all">
-          <ul>
+          <ul className="scunt-bribe-list" style={{ textDecoration: 'none' }}>
             {bribes.map((bribe) => {
               return (
-                <li className="scunt-bribe-list-item" key={bribe}>
+                <li
+                  className="scunt-bribe-list-item"
+                  style={{ textDecoration: 'none' }}
+                  key={bribe}
+                >
                   {bribe}
                 </li>
               );
