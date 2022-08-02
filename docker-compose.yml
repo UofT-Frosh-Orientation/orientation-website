@@ -63,6 +63,7 @@ services:
       - REGISTRATION_DATA_EMAIL_ADDRESSES=$REGISTRATION_DATA_EMAIL_ADDRESSES
     ports:
       - "5001:5001"
+      - "9229:9229"
     volumes:
       - ./server/src:/app/src
   client:
