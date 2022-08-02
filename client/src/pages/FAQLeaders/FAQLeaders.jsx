@@ -226,6 +226,7 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
   const [cancelEdit, setCancelEdit] = useState(false);
   const [createdDate, setCreatedDate] = useState(question.createdAt);
   const [updatedDate, setUpdatedDate] = useState(question.updatedAt);
+  const { setSnackbar } = useContext(SnackbarContext);
   const initialFormData = {
     question: '',
     answer: '',
@@ -253,10 +254,21 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
     setCategoryText(text);
   };
   const handleSubmit = async (id) => {
-    submitEdit(id, formData);
-    setIsEdit(false);
-    setEditButtonText('Edit');
-    setEditMade(!editMade);
+    if (formData.question.length > 0 && formData.category.length > 0) {
+      const result = await submitEdit(id, formData);
+      if (result !== true) {
+        setSnackbar('Error', true);
+      } else {
+        setIsEdit(false);
+        setEditButtonText('Edit');
+        setEditMade(!editMade);
+        setSnackbar('Question Successfully Edited', false);
+      }
+    } else if (formData.question.length === 0) {
+      setSnackbar('Question cannot be empty', true);
+    } else if (formData.category.length === 0) {
+      setSnackbar('Category cannot be empty', true);
+    }
   };
   const options = {
     month: 'short',
@@ -416,8 +428,8 @@ const FAQLeadersNewPost = ({ editMade, setEditMade }) => {
   const handleSubmit = async () => {
     if (
       formData.question.length > 0 &&
-      formData.answer.length > 0 &&
-      formData.category.length > 0
+      formData.answer.length > 0
+      // && formData.category.length > 0
     ) {
       setFormState('loading');
       const result = await submitQuestion(formData);
@@ -438,9 +450,10 @@ const FAQLeadersNewPost = ({ editMade, setEditMade }) => {
       setSnackbar('Question cannot be empty', true);
     } else if (formData.answer.length === 0) {
       setSnackbar('Answer cannot be empty', true);
-    } else if (formData.category.length === 0) {
-      setSnackbar('Category cannot be empty', true);
     }
+    //   else if (formData.category.length === 0) {
+    //   setSnackbar('Category cannot be empty', true);
+    // }
   };
   useEffect(() => {
     updateFormData({
