@@ -13,6 +13,13 @@ import { pages } from '../../util/pages';
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { ProfilePageScuntToken } from '../Profile/Profile';
+import DiscordIcon from '../../assets/social/discord-brands.svg';
+import {
+  aboutScunt,
+  okayToInviteToScunt,
+  scuntDate,
+  scuntDiscord,
+} from '../../util/scunt-constants';
 
 export const PageScuntHome = () => {
   return (
@@ -20,8 +27,45 @@ export const PageScuntHome = () => {
       <div className="navbar-space-top"></div>
       <ScuntCountdown />
       <ScuntLinks />
+      <ScuntDiscord />
       <AboutScunt />
     </>
+  );
+};
+
+const ScuntDiscord = () => {
+  if (okayToInviteToScunt === false) {
+    return <div />;
+  }
+
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '-20px',
+        overflowWrap: 'anywhere',
+      }}
+    >
+      <a href={scuntDiscord} className="no-link-style" target={'_blank'} rel="noreferrer">
+        <div
+          className="frosh-instagram-container"
+          style={{ padding: '15px 20px', margin: '10px 9px' }}
+        >
+          <img
+            src={DiscordIcon}
+            alt="Discord"
+            style={{ filter: darkMode ? 'unset' : 'invert(1)' }}
+          />
+          <div>
+            <p>Join the discord to chat with your team!</p>
+            <h2 style={{ fontSize: '15px' }}>{scuntDiscord}</h2>
+          </div>
+        </div>
+      </a>
+    </div>
   );
 };
 
@@ -40,25 +84,7 @@ const AboutScunt = () => {
           <div className="about-scunt-token">
             <ProfilePageScuntToken />
           </div>
-          <h2>Scunt</h2>
-          <h3>What is Scunt?</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel fermentum
-            justo. Praesent ut sapien venenatis, sagittis sapien sit amet, iaculis ante. Aenean
-            elementum laoreet ullamcorper. Aenean odio purus, interdum id consectetur id, tempor
-            quis nisl. Mauris vitae nibh congue, ultrices felis non, dignissim purus. Duis feugiat
-            sed tortor ac faucibus. Mauris ac elementum purus. Etiam pharetra viverra diam eu porta.
-            Fusce nulla magna, posuere vel maximus ut, pharetra ullamcorper enim. Orci varius
-            natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed egestas
-            urna vitae ante tincidunt, quis faucibus leo faucibus. Ut et molestie mi, et fermentum
-            orci. Cras vel purus vulputate, vestibulum massa id, vestibulum magna. Curabitur ante
-            nisl, mattis eu tempor eu, vulputate sed purus. Mauris varius eros ut finibus mattis.
-            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-            Ut nisi nisl, sodales in ligula at, dapibus dapibus lectus. Aenean vulputate nulla ante,
-            vestibulum rutrum tellus molestie id. Etiam consectetur dui ac sapien faucibus maximus.
-          </p>
-          <h3>Group Meetup</h3>
-          <p>Go find your group</p>
+          <div dangerouslySetInnerHTML={{ __html: aboutScunt }} />
         </div>
       </div>
       {darkMode ? (
@@ -66,12 +92,13 @@ const AboutScunt = () => {
       ) : (
         <img className="header-page-wave-bottom" src={waveBottom} alt="wave"></img>
       )}
+      <div style={{ height: '30px' }} />
     </>
   );
 };
 
 const ScuntCountdown = () => {
-  const targetDate = new Date('September 25, 2022 16:56:00');
+  const targetDate = new Date(scuntDate);
   const countDownDate = new Date(targetDate).getTime();
 
   const [countDown, setCountDown] = useState(countDownDate - new Date().getTime());

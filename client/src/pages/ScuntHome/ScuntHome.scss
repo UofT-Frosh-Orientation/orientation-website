@@ -42,6 +42,7 @@
   }
 }
 .about-scunt-content {
+  color: var(--text-white);
   width: 100%;
 }
 .about-scunt-token {
@@ -53,21 +54,23 @@
   flex-direction: row;
   justify-content: space-between;
   background-color: var(--purple);
+  padding: 0px min(40px, 3.5%);
   padding-bottom: 30px;
+  margin-top: 1px;
+  color: var(--white);
   @include devices(tablet) {
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
   p {
-    padding-left: min(40px, 3.5%);
-    font-size: 18px;
+    margin-bottom: 10px;
+    font-size: 16x;
     color: var(--white);
   }
   h2 {
     font-size: 45px;
     color: var(--white);
-    padding-left: min(40px, 3.5%);
     padding-top: 35px;
     margin-bottom: 5px;
     @include devices(tablet) {
@@ -79,7 +82,6 @@
   h3 {
     font-size: 28px;
     color: var(--white);
-    padding-left: min(40px, 3.5%);
     padding-top: 5px;
     margin-bottom: 5px;
     @include devices(tablet) {

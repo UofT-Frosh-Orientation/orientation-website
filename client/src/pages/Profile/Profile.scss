@@ -398,13 +398,14 @@
   margin-right: 2%;
   flex: 1;
   max-width: 1000px;
-  background-color: var(--light-purple);
+  background-color: var(--purple-shades-light);
   border-radius: 15px;
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 10px 15px;
   margin-bottom: 23px;
+  color: var(--text-dynamic);
   img {
     padding-right: 18px;
     width: 75px;
@@ -431,6 +432,7 @@
 
 .profile-page-scunt-token {
   text-align: center;
+  padding: 0 30px;
   padding-top: 30px;
   h2 {
     padding: 0px !important;
