@@ -29,8 +29,8 @@ import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/Err
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { PopupModal } from '../../components/popup/PopupModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { requestPasswordResetSelector, userSelector } from '../userSlice';
-import { login, requestPasswordReset } from './saga';
+import { requestPasswordResetSelector, userSelector } from '../../state/user/userSlice';
+import { login, requestPasswordReset } from '../../state/user/saga';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 

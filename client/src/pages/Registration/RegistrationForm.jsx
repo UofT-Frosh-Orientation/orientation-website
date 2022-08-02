@@ -13,7 +13,7 @@ import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOut
 import { Link, useNavigate } from 'react-router-dom';
 import { PopupModal } from '../../components/popup/PopupModal';
 import useAxios from '../../hooks/useAxios';
-import { initialsSelector, registeredSelector, userSelector } from '../userSlice';
+import { initialsSelector, registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useSelector } from 'react-redux';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 
