@@ -2,8 +2,6 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const FroshModel = require('../models/FroshModel');
 
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
 const PaymentServices = {
   /**
    * Decodes a webhook event from stripe and verifies that it was sent by stripe
@@ -12,6 +10,7 @@ const PaymentServices = {
    * @return {Promise<Stripe.Event>}
    */
   async decodeWebhookEvent(data, signature) {
+    const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
     try {
       return await stripe.webhooks.constructEventAsync(data, signature, endpointSecret);
     } catch (err) {

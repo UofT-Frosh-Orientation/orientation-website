@@ -8,8 +8,8 @@ import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnim
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { userSelector } from '../userSlice';
-import { signUp } from '../Login/saga';
+import { userSelector } from '../../state/user/userSlice';
+import { signUp } from '../../state/user/saga';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 
@@ -36,7 +36,7 @@ const PageSignUp = () => {
       if (isLoading) setPageState('loading');
       else setPageState('form');
     };
-    dispatch(signUp({ setSnackbar, setIsLoading, accountObj }));
+    dispatch(signUp({ setSnackbar, setIsLoading, user: accountObj }));
   };
 
   const checkErrors = (sendFeedback = true, feedbackToSend = []) => {

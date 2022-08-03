@@ -77,6 +77,19 @@ const userSlice = createSlice({
       state.error = error;
       state.passwordResetRequest = false;
     },
+    updateUserInfoStart: (state) => {
+      state.loading = true;
+      state.error = false;
+    },
+    updateUserInfoSuccess: (state, { payload: user }) => {
+      state.loading = false;
+      state.error = false;
+      state.user = user;
+    },
+    updateUserInfoFailure: (state, { payload: error }) => {
+      state.loading = false;
+      state.error = error;
+    },
   },
 });
 
@@ -94,6 +107,9 @@ export const {
   requestPasswordResetStart,
   requestPasswordResetFailure,
   requestPasswordResetSuccess,
+  updateUserInfoFailure,
+  updateUserInfoStart,
+  updateUserInfoSuccess,
 } = userSlice.actions;
 
 export default userSlice.reducer;

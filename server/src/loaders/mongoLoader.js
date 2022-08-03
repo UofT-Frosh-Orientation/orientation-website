@@ -94,6 +94,7 @@ const loadMongo = async (app) => {
     process.env.NODE_ENV === 'production' ? MONGODB_HOST : 'mongo-dev'
   }:27017/orientation?authSource=admin`;
   await mongoose.connect(mongoURI);
+  mongoose.set('debug', true);
   console.log('Connected to mongo!');
   app.use(
     session({

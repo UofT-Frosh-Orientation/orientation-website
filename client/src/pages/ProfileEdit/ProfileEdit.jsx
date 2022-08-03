@@ -3,9 +3,9 @@ import './ProfileEdit.scss';
 import { ProfilePageHeader } from '../Profile/Profile';
 import { PageRegistrationForm } from '../Registration/RegistrationForm';
 import { submitEdits } from './functions';
-import { registeredSelector, userSelector } from '../userSlice';
+import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserInfo } from '../Login/saga';
+import { updateUserInfo } from '../../state/user/saga';
 import { useNavigate } from 'react-router-dom';
 
 const PageProfileEdit = () => {

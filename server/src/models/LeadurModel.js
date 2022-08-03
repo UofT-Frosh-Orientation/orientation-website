@@ -9,15 +9,21 @@ const LeadurSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
-    froshDataFieldsRequested: {
-      type: [String],
+    froshDataFields: {
+      type: {
+        requested: {
+          type: [String],
+          required: true,
+          default: [],
+        },
+        approved: {
+          type: [String],
+          required: true,
+          default: [],
+        },
+      },
       required: true,
-      default: [],
-    },
-    froshDataFieldsApproved: {
-      type: [String],
-      required: true,
-      default: [],
+      default: { requested: [], approved: [] },
     },
     froshGroupName: {
       type: String,

@@ -2,6 +2,7 @@ const express = require('express');
 
 const UserController = require('../controllers/UserController');
 const checkLoggedIn = require('../middlewares/checkLoggedIn');
+const hasAuthScopes = require('../middlewares/hasAuthScopes');
 
 const router = express.Router();
 
@@ -116,5 +117,35 @@ router.get('/info', checkLoggedIn, UserController.getInfo);
 router.post('/request-password-reset', UserController.requestPasswordReset);
 
 router.post('/reset-password', UserController.resetPassword);
+
+router.post('/request-auth-scopes', checkLoggedIn, UserController.requestAuthScopes);
+
+router.get(
+  '/unapproved-users',
+  checkLoggedIn,
+  hasAuthScopes(['accounts:read']),
+  UserController.getUnapprovedUsers,
+);
+
+router.get(
+  '/unapproved-auth-scopes',
+  checkLoggedIn,
+  hasAuthScopes(['accounts:read']),
+  UserController.getUsersUnapprovedAuthScopes,
+);
+
+router.put(
+  '/account-statuses',
+  checkLoggedIn,
+  hasAuthScopes(['accounts:edit']),
+  UserController.updateAccountStatuses,
+);
+
+router.put(
+  '/auth-scopes',
+  checkLoggedIn,
+  hasAuthScopes(['accounts:edit']),
+  UserController.updateAuthScopes,
+);
 
 module.exports = router;

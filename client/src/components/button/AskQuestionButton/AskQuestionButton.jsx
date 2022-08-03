@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './AskQuestionButton.scss';
 import { ErrorSuccessBox } from '../../containers/ErrorSuccessBox/ErrorSuccessBox';
@@ -8,7 +8,7 @@ import LoadingAnimation from '../../misc/LoadingAnimation/LoadingAnimation';
 import QuestionMark from '../../../../assets/icons/question-mark-solid.svg';
 import { submitQuestion } from './functions';
 import { PopupModal } from '../../popup/PopupModal';
-import { userSelector } from '../../../pages/userSlice';
+import { userSelector } from '../../../state/user/userSlice';
 import { useSelector } from 'react-redux';
 
 const FAQAskQuestion = () => {

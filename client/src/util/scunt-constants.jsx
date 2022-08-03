@@ -1,3 +1,28 @@
+export const okayToInviteToScunt = false;
+export const scuntDiscord = 'https://discord.gg/mRutbwuCK9';
+export const scuntDate = 'September 7, 2022 17:00:00';
+export const aboutScunt = `
+  <h2>Scunt</h2>
+  <h3>What is Scunt?</h3>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel fermentum
+    justo. Praesent ut sapien venenatis, sagittis sapien sit amet, iaculis ante. Aenean
+    elementum laoreet ullamcorper. Aenean odio purus, interdum id consectetur id, tempor
+    quis nisl. Mauris vitae nibh congue, ultrices felis non, dignissim purus. Duis feugiat
+    sed tortor ac faucibus. Mauris ac elementum purus. Etiam pharetra viverra diam eu porta.
+    Fusce nulla magna, posuere vel maximus ut, pharetra ullamcorper enim. Orci varius
+    natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed egestas
+    urna vitae ante tincidunt, quis faucibus leo faucibus. Ut et molestie mi, et fermentum
+    orci. Cras vel purus vulputate, vestibulum massa id, vestibulum magna. Curabitur ante
+    nisl, mattis eu tempor eu, vulputate sed purus. Mauris varius eros ut finibus mattis.
+    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
+    Ut nisi nisl, sodales in ligula at, dapibus dapibus lectus. Aenean vulputate nulla ante,
+    vestibulum rutrum tellus molestie id. Etiam consectetur dui ac sapien faucibus maximus.
+  </p>
+  <h3>Group Meetup</h3>
+  <p>Go find your group</p>
+        
+`;
 export const rules = {
   start: [
     {
