@@ -123,17 +123,17 @@ a:hover {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #616161;
+  background: var(--scrollbar-thumb-hover);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #7c7c7c;
-  background: #7c7c7c;
+  background-color: var(--scrollbar-thumb);
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #d3d3d3fd;
+  background: var(--scrollbar-track);
   border-radius: 3px;
 }
 

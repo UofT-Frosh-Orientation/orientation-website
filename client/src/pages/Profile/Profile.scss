@@ -214,6 +214,7 @@
 }
 
 .profile-page-accordion-container {
+  color: var(--text-dynamic);
   margin: 15px 0px;
   cursor: pointer;
 }
@@ -229,17 +230,18 @@
     font-size: 22px;
     text-transform: capitalize;
     flex: 1;
+    color: var(--text-dynamic);
   }
   h4 {
     font-size: 17px !important;
     text-transform: capitalize;
-    color: var(--purple);
+    color: var(--gray-time-label);
     margin-right: 10px;
+    text-align: right;
   }
   @include devices(tablet) {
     padding: 15px 5px;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     h3 {
       font-size: 19px;
     }
@@ -255,6 +257,7 @@
   margin-top: -12px;
   width: 100%;
   p {
+    color: var(--text-dynamic);
     font-size: 17px;
   }
   @include devices(tablet) {

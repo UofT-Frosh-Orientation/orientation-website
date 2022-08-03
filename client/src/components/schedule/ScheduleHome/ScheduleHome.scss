@@ -88,6 +88,7 @@
   }
   margin-left: 15px;
   h1 {
+    color: var(--text-dynamic) !important;
     flex: 1;
     font-size: 24px;
     padding: 15px 5px;
@@ -100,13 +101,15 @@
   h2 {
     font-size: 18px;
     margin-left: 10px;
-    color: var(--gray);
+    color: var(--gray-time-label);
+    text-align: right;
     @include devices(tablet) {
       font-size: 15px;
       padding: 5px 0px;
     }
   }
   p {
+    color: var(--text-dynamic) !important;
     font-size: 18px;
     margin: 10px 5px;
     margin-top: -10px;
@@ -122,22 +125,29 @@
 .schedule-accordion-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
   margin-right: 17px;
+  user-select: none;
 }
 .schedule-background-purple {
+  color: var(--text-dynamic);
   background-color: var(--purple-bg) !important;
 }
 .schedule-background-yellow {
+  color: var(--text-dynamic);
   background-color: var(--yellow-bg) !important;
 }
 .schedule-background-dark-purple {
+  color: var(--text-dynamic);
   background-color: var(--dark-purple-bg);
 }
 .schedule-background-gray {
+  color: var(--text-dynamic);
   background-color: var(--gray-bg);
 }
 .schedule-background-green {
+  color: var(--text-dynamic);
   background-color: var(--green-bg);
 }
 .schedule-background-blue {

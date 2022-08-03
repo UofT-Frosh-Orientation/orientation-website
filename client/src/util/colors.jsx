@@ -24,8 +24,8 @@ export const colors = {
   '--text-dynamic': ['#20002e', '#f3f3f3'],
   '--text-muted': ['#696969', '#696969'],
   '--page-bg': ['#efe9f8', '#382159'],
-  '--purple-transparent': ['#7b33a8d6', '#521f7482'],
-  '--purple-transparent-more': ['#7b33a830', '#734e8b5c'],
+  '--purple-transparent': ['#7b33a8d6', '#793DA1B8'],
+  '--purple-transparent-more': ['#7b33a830', '#79409F58'],
   '--transparent': ['#00000000', '#00000000'],
   '--purple-icon-filter': [
     'invert(19%) sepia(69%) saturate(2461%) hue-rotate(270deg) brightness(82%) contrast(101%)',
@@ -35,16 +35,14 @@ export const colors = {
     'invert(43%) sepia(0%) saturate(0%) hue-rotate(189deg) brightness(100%) contrast(88%)',
     'invert(43%) sepia(0%) saturate(0%) hue-rotate(189deg) brightness(100%) contrast(88%)',
   ],
-  '--lavender': ['#ecd6ff', '#ecd6ff'],
-  '--blue-grey-light': ['#cfc9e5', '#cfc9e5'],
-  '--periwinkle': ['#9fa8da', '#9fa8da'],
-  '--purple-bg': ['#eed8ff', '#eed8ff'],
-  '--yellow-bg': ['#ffffe4', '#ffffe4'],
-  '--dark-purple-bg': ['#d8c0ff', '#d8c0ff'],
-  '--gray-bg': ['#d4d4d4', '#d4d4d4'],
-  '--green-bg': ['#e9ffe9', '#e9ffe9'],
-  '--blue-bg': ['#d2d9ff', '#d2d9ff'],
+  '--purple-bg': ['#eed8ff', '#8E6FA7'],
+  '--yellow-bg': ['#ffffe4', '#8B8B4F'],
+  '--dark-purple-bg': ['#d8c0ff', '#2E2145'],
+  '--gray-bg': ['#d4d4d4', '#767676'],
+  '--green-bg': ['#e9ffe9', '#3E723E'],
+  '--blue-bg': ['#d2d9ff', '#3A4688'],
   '--login-bg': ['#e8e0eb', '#e8e0eb'],
+  '--gray-time-label': ['#989898', '#D6D6D6'],
 
   // unique colors for each component
   '--schedule-container': ['#ffffff', '#8c60b3'],
@@ -53,7 +51,7 @@ export const colors = {
   //navbar
   '--navbar-bg': ['#ebebeb', '#41225A'],
   '--navbar-link': ['#989898', '#ffffff'],
-  '--navbar-underline': ['#e2e2e2', '#4F366B'],
+  '--navbar-underline': ['#e2e2e2', '#3C2152'],
   '--navbar-underline-desktop': ['#6f1e88', '#8c60b3'],
   '--navbar-underline-highlight': ['#6f1e88', '#8c60b3'],
   '--user-icon-bg': ['#6f1e88', '#8c60b3'],
@@ -73,7 +71,7 @@ export const colors = {
   '--leedur-names': ['#ecd6ff', '#ecd6ff'],
 
   //faq page
-  '--faq-answer-containers': ['#ecd6ff', '#ecd6ff'],
+  '--faq-answer-containers': ['#ecd6ff', '#522F70'],
   '--faq-searchbar-bg': ['#ffffff', '#8c60b3'],
 
   //login page
@@ -121,4 +119,9 @@ export const colors = {
   //sponsor popup
   '--sponsor-container': ['#ffffff', '#8c60b3'],
   '--sponsor-background': ['#FFFFFF00', '#ffffff'],
+
+  //scrollbar
+  '--scrollbar-thumb-hover': ['#616161', '#7C508C'],
+  '--scrollbar-thumb': ['#7c7c7c', '#966AA3'],
+  '--scrollbar-track': ['#d3d3d3fd', '#4E3155FD'],
 };
