@@ -133,7 +133,11 @@ export const pages = {
     },
     {
       label: 'FAQAdmin',
-      component: <PageFAQLeaders />,
+      component: (
+        <AuthorizedPage>
+          <PageFAQLeaders />
+        </AuthorizedPage>
+      ),
       path: '/faq-admin',
     },
     {

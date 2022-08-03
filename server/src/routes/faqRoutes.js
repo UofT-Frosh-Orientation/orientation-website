@@ -2,7 +2,7 @@ const express = require('express');
 
 const FaqController = require('../controllers/FaqController');
 const checkLoggedIn = require('../middlewares/checkLoggedIn');
-//const hasAuthScopes = require('../middlewares/hasAuthScopes');
+const hasAuthScopes = require('../middlewares/hasAuthScopes');
 
 const router = express.Router();
 
@@ -50,7 +50,7 @@ router.post('/create', FaqController.createQuestion);
  *       '403':
  *         $ref: '#components/responses/NotLoggedIn'
  */
-router.delete('/:faqId', checkLoggedIn, FaqController.deleteQuestion);
+router.delete('/:faqId', checkLoggedIn, hasAuthScopes(['faq:edit']), FaqController.deleteQuestion);
 //hasAuthScopes(['faq:delete'])
 
 /**
@@ -74,8 +74,7 @@ router.delete('/:faqId', checkLoggedIn, FaqController.deleteQuestion);
  *       '403':
  *         $ref: '#components/responses/NotLoggedIn'
  */
-router.patch('/:faqId', checkLoggedIn, FaqController.updateQuestion);
-//hasAuthScopes(['faq:edit'])
+router.patch('/:faqId', checkLoggedIn, hasAuthScopes(['faq:edit']), FaqController.updateQuestion);
 
 /**
  * @swagger
