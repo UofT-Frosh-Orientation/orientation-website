@@ -237,34 +237,58 @@ const UserServices = {
   },
 
   async updateAuthScopes(userAuthScopes) {
-    console.log(userAuthScopes);
     return new Promise((resolve, reject) => {
       UserModel.collection.bulkWrite(
         userAuthScopes.map((user) => {
-          console.log(user.auth);
+          const {
+            authScopesApproved,
+            authScopesApprovedOrDenied,
+            froshDataFieldsApproved,
+            froshDataFieldsApprovedOrDenied,
+          } = user.auth.reduce(
+            (prev, curr) => {
+              if (curr.approve) {
+                if (curr.isFroshData) {
+                  prev.froshDataFieldsApproved.push(curr.authreq);
+                  prev.froshDataFieldsApprovedOrDenied.push(curr.authreq);
+                } else {
+                  prev.authScopesApproved.push(curr.authreq);
+                  prev.authScopesApprovedOrDenied.push(curr.authreq);
+                }
+              } else if (curr.deny) {
+                if (curr.isFroshData) {
+                  prev.froshDataFieldsApprovedOrDenied.push(curr.authreq);
+                } else {
+                  prev.authScopesApprovedOrDenied.push(curr.authreq);
+                }
+              }
+              return prev;
+            },
+            {
+              authScopesApproved: [],
+              authScopesApprovedOrDenied: [],
+              froshDataFieldsApproved: [],
+              froshDataFieldsApprovedOrDenied: [],
+            },
+          );
           return {
             updateOne: {
               filter: { _id: { $eq: mongoose.Types.ObjectId(user.id) } },
               update: {
                 $push: {
                   'authScopes.approved': {
-                    $each: user.auth.reduce((prev, curr) => {
-                      console.log(prev, curr);
-                      if (curr.approve) {
-                        prev.push(curr.authreq);
-                      }
-                      return prev;
-                    }, []),
+                    $each: authScopesApproved,
+                  },
+                  'froshDataFields.approved': {
+                    $each: froshDataFieldsApproved,
                   },
                 },
                 $pull: {
                   'authScopes.requested': {
-                    $in: user.auth.reduce((prev, curr) => {
-                      if (curr.approve || curr.deny) {
-                        prev.push(curr.authreq);
-                      }
-                      return prev;
-                    }, []),
+                    $in: authScopesApprovedOrDenied,
+                  },
+                  'froshDataFields.requested': {
+                    $in: froshDataFieldsApprovedOrDenied,
                   },
                 },
               },

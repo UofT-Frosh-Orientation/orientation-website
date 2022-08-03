@@ -24,7 +24,7 @@ const bubbleButtonStyleAuth = {
 };
 
 const AuthenticationRequests = () => {
-  const [emailList, setEmailList] = useState(TestAuth); // email list that is displayed
+  const [emailList, setEmailList] = useState([]); // email list that is displayed
   const [accountStatus, setAccountStatus] = useState({});
   const [isSave, setIsSave] = useState(false); // state for whether the save button is clicked
   const [saveSuccess, setSaveSuccess] = useState(false); // displays error or success box depending on bool
@@ -45,6 +45,8 @@ const AuthenticationRequests = () => {
   useEffect(() => {
     setEmailList(authRequests);
   }, [authRequests]);
+
+  console.log(emailList);
 
   useEffect(() => {
     if (editMode && isSave && !changesMade) {
@@ -127,7 +129,7 @@ const AuthenticationRequests = () => {
                           ...p,
                           auth: p.auth.map((a) => {
                             if (a.authreq === authreq) {
-                              return { authreq, approve, deny };
+                              return { ...a, authreq, approve, deny };
                             } else return a;
                           }),
                         };

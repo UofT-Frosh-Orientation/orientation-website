@@ -46,12 +46,32 @@ export function* getAuthRequestsSaga() {
     yield put(
       getAuthRequestsSuccess(
         response.data?.authRequests?.map(
-          ({ id, email, firstName, lastName, authScopes: { requested } }) => ({
+          ({
+            id,
+            email,
+            firstName,
+            lastName,
+            authScopes: { requested: requestedAuth = [] },
+            froshDataFields: { requested: requestedFroshData = [] },
+          }) => ({
             id,
             email,
             name: `${firstName} ${lastName}`,
             group: 'default',
-            auth: requested.map((r) => ({ authreq: r, approve: false, deny: false })),
+            auth: [
+              ...requestedAuth.map((r) => ({
+                authreq: r,
+                approve: false,
+                deny: false,
+                isFroshData: false,
+              })),
+              ...requestedFroshData.map((r) => ({
+                authreq: r,
+                approve: false,
+                deny: false,
+                isFroshData: true,
+              })),
+            ],
           }),
         ),
       ),
