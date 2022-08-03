@@ -106,6 +106,20 @@ const FroshServices = {
       );
     });
   },
+
+  async getFilteredFroshInfo(projection) {
+    return new Promise((resolve, reject) => {
+      FroshModel.find({}, projection, {}, (err, frosh) => {
+        if (err) {
+          reject(err);
+        } else if (!frosh) {
+          reject('INTERNAL_ERROR');
+        } else {
+          resolve(frosh);
+        }
+      });
+    });
+  },
 };
 
 module.exports = FroshServices;

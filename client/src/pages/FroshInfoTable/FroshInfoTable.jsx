@@ -5,6 +5,9 @@ import { fields } from '../Registration/RegistrationFields';
 import { getRequestedFroshData } from './functions';
 import { Button } from '../../components/button/Button/Button';
 import exportFromJSON from 'export-from-json';
+import { useDispatch, useSelector } from 'react-redux';
+import { froshSelector } from '../../state/frosh/froshSlice';
+import { getFrosh } from '../../state/frosh/saga';
 
 function getUneditableFields() {
   let noEditFields = [];
@@ -28,7 +31,19 @@ function downloadDataAsXML(data) {
 const PageFroshInfoTable = () => {
   const noEditFields = getUneditableFields();
   const froshData = getRequestedFroshData();
-  const objectKeys = Object.keys(froshData[0]);
+  const { frosh } = useSelector(froshSelector);
+  const [objectKeys, setObjectKeys] = useState([]);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFrosh());
+  }, []);
+
+  useEffect(() => {
+    frosh?.length > 0 && setObjectKeys(Object.keys(frosh[0]));
+  }, [frosh]);
+
   return (
     <div className="frosh-info-table">
       <div className="navbar-space-top" />
@@ -38,7 +53,7 @@ const PageFroshInfoTable = () => {
           <Button
             label="Download XML"
             onClick={() => {
-              downloadDataAsXML(froshData);
+              downloadDataAsXML(frosh);
             }}
           />
         </div>
@@ -56,7 +71,7 @@ const PageFroshInfoTable = () => {
         )}
       </p>
       <div className="table-wrap">
-        {froshData.length >= 0 ? (
+        {frosh.length >= 0 ? (
           <table>
             <tr>
               <th>#</th>
@@ -64,7 +79,7 @@ const PageFroshInfoTable = () => {
                 return <th key={key}>{key}</th>;
               })}
             </tr>
-            {froshData.map((datum, index) => {
+            {frosh.map((datum, index) => {
               return (
                 <tr key={index}>
                   <td>
