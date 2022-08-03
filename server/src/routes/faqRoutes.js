@@ -51,7 +51,6 @@ router.post('/create', FaqController.createQuestion);
  *         $ref: '#components/responses/NotLoggedIn'
  */
 router.delete('/:faqId', checkLoggedIn, hasAuthScopes(['faq:edit']), FaqController.deleteQuestion);
-//hasAuthScopes(['faq:delete'])
 
 /**
  * @swagger

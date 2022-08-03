@@ -134,7 +134,7 @@ export const pages = {
     {
       label: 'FAQAdmin',
       component: (
-        <AuthorizedPage>
+        <AuthorizedPage authScopes={['faq:edit']}>
           <PageFAQLeaders />
         </AuthorizedPage>
       ),
