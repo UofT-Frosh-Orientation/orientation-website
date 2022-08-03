@@ -51,7 +51,7 @@ const ExecProfile = ({
         ) : subcom ? (
           <SubcomProfileDescription name={name} description={roleDescription} cochairs={cochairs} />
         ) : scuntJudge ? (
-          <ScuntJudgeDescription name={name} bribes={bribes} />
+          <ScuntJudgeDescription name={name} bribes={bribes} description={description} />
         ) : (
           <NonexecProfileDescription name={name} discipline={discipline} quote={quote} />
         )}
@@ -146,7 +146,7 @@ const SubcomProfileDescription = ({ name, description, cochairs }) => {
   );
 };
 
-const ScuntJudgeDescription = ({ name, bribes }) => {
+const ScuntJudgeDescription = ({ name, bribes, description }) => {
   return (
     <>
       <div
@@ -156,6 +156,14 @@ const ScuntJudgeDescription = ({ name, bribes }) => {
         <div className="exec-profile-title-cont" style={{ marginBottom: '10px' }}>
           <h3 className="exec-profile-name">{name}</h3>
         </div>
+
+        {description !== undefined ? (
+          <div className="exec-profile-scunt-judges-description">
+            <p>{description}</p>
+          </div>
+        ) : (
+          <></>
+        )}
 
         <p className="scunt-bribes-text">BRIBES:</p>
         <div className="scunt-bribes-list-all">
@@ -225,6 +233,7 @@ ExecProfileDescription.propTypes = {
 ScuntJudgeDescription.propTypes = {
   name: PropTypes.string,
   bribes: PropTypes.array,
+  description: PropTypes.string,
 };
 
 ExecProfileTitle.defaultProps = {
