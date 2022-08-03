@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loggedInSelector } from '../pages/userSlice';
-import { getUserInfo } from '../pages/Login/saga';
+import { loggedInSelector } from '../state/user/userSlice';
+import { getUserInfo } from '../state/user/saga';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 

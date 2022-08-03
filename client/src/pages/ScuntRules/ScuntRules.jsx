@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './ScuntRules.scss';
-import { rules } from '../../util/scunt-rules';
+import { rules } from '../../util/scunt-constants';
 import { Header } from '../../components/text/Header/Header';
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 

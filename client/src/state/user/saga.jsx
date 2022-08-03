@@ -15,7 +15,10 @@ import {
   requestPasswordResetFailure,
   logoutStart,
   logoutFailure,
-} from '../userSlice';
+  updateUserInfoStart,
+  updateUserInfoSuccess,
+  updateUserInfoFailure,
+} from './userSlice';
 import useAxios from '../../hooks/useAxios';
 
 export const login = createAction('loginSaga');
@@ -76,7 +79,11 @@ export function* createUserSaga({ payload: { setSnackbar, setIsLoading, user } }
   } catch (error) {
     console.log(user);
     setSnackbar(
-      error.response.data.message ? error.response.data.message.toString() : error.toString(),
+      error.response.data.message
+        ? error.response.data.message.toString()
+        : error.response.data
+        ? error.response.data.toString()
+        : error.toString(),
       true,
     );
     setIsLoading(false);
@@ -116,7 +123,6 @@ export function* requestPasswordResetSaga({ payload: email }) {
 export const logout = createAction('logoutSaga');
 
 export function* logoutSaga({ payload: { navigate } }) {
-  console.log('Logging out p2');
   const { axios } = useAxios();
 
   try {
@@ -126,7 +132,31 @@ export function* logoutSaga({ payload: { navigate } }) {
     yield call(navigate, '/');
   } catch (err) {
     console.log(err);
-    yield put(logoutFailure(err));
+    yield put(logoutFailure(err.response.data));
+  }
+}
+
+export const requestAuthScopes = createAction('requestAuthScopesSaga');
+
+export function* requestAuthScopesSaga({ payload: { authScopes, froshDataFields, setSnackbar } }) {
+  const { axios } = useAxios();
+  try {
+    yield put(updateUserInfoStart());
+    const result = yield call(axios.post, '/user/request-auth-scopes', {
+      authScopes,
+      froshDataFields,
+    });
+    yield put(updateUserInfoSuccess(result.data.user));
+    setSnackbar('Success!', false);
+  } catch (err) {
+    console.log(err);
+    yield put(updateUserInfoFailure(err.response.data));
+    setSnackbar(
+      err.response.data.message
+        ? err.response.data.message.toString()
+        : 'Uh oh, looks like something went wrong on our end! Please try again later',
+      true,
+    );
   }
 }
 
@@ -138,4 +168,5 @@ export default function* userSaga() {
   yield takeLeading(resetPassword.type, resetPasswordSaga);
   yield takeLeading(requestPasswordReset.type, requestPasswordResetSaga);
   yield takeLeading(logout.type, logoutSaga);
+  yield takeLeading(requestAuthScopes.type, requestAuthScopesSaga);
 }

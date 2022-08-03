@@ -36,11 +36,12 @@ import { instagramAccounts } from '../../util/instagramAccounts';
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { registeredSelector, userSelector } from '../userSlice';
+import { registeredSelector, userSelector } from '../../state/user/userSlice';
 
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
+import { okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
 
 const PageProfile = () => {
   const qrCodeLeader = canLeaderScanQR();
@@ -93,6 +94,10 @@ PageProfileFrosh.propTypes = {
 };
 
 export const ProfilePageScuntToken = () => {
+  if (okayToInviteToScunt === false) {
+    return <div />;
+  }
+
   const { user } = useSelector(userSelector);
   const isRegistered = useSelector(registeredSelector);
   const { setSnackbar } = useContext(SnackbarContext);
@@ -101,6 +106,22 @@ export const ProfilePageScuntToken = () => {
   const code = user?.scuntToken;
   if (code === undefined || !isRegistered) {
     return <></>;
+  }
+  if (!user?.scunt) {
+    return (
+      <div className="profile-page-scunt-token profile-page-side-section">
+        <p>
+          <b>Looking for your Scunt login Token?</b>
+        </p>
+        <p>You have chosen not to participate in Scunt.</p>
+        <br />
+        <p>
+          If you want to participate, please edit your profile <Link to="/profile-edit">here</Link>{' '}
+          and set <em>Would you like to participate in Havenger Scunt?</em> to <b>Yes</b>.{' '}
+        </p>
+        <div style={{ height: '30px' }} />
+      </div>
+    );
   }
   return (
     <div className="profile-page-scunt-token profile-page-side-section">
@@ -114,7 +135,12 @@ export const ProfilePageScuntToken = () => {
         {code}
       </h2>
       <p>Scunt Login Token</p>
-      <p style={{ fontSize: '13px' }}>Use this token to login to the Scunt Discord</p>
+      <p style={{ fontSize: '13px' }}>
+        Use this token to login to the{' '}
+        <a href={scuntDiscord} target="_blank" rel="noreferrer">
+          Scunt Discord
+        </a>
+      </p>
       <ButtonOutlined
         isSecondary={showToken}
         label={showToken ? 'Hide' : 'Show'}
@@ -196,7 +222,7 @@ const ProfilePageQRScanner = () => {
             if (submitError !== false) {
               setSubmitError(false);
             }
-            if (results != []) {
+            if (results !== []) {
               setResults([]);
             }
           } else {
@@ -337,7 +363,7 @@ const ProfilePageInstagrams = () => {
   const instagramLink = instagramAccounts[user?.froshGroup];
 
   return isRegistered ? (
-    <a href={instagramLink} className="no-link-style">
+    <a href={instagramLink} className="no-link-style" target={'_blank'} rel="noreferrer">
       <div className="frosh-instagram-container">
         <img
           src={InstagramIcon}
