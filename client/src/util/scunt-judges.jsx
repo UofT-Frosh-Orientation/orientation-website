@@ -1,10 +1,12 @@
 // for testing!!
 
 import placeholder from '../assets/misc/dino-placeholder.svg';
+import Tech from '../assets/about/subcom/TechTeam_Profile.jpg';
 
 export const scuntJudges = [
   {
     name: 'Tech Team',
+    description: 'Wink wink we made the website... we have unlimited bribe points...',
     content: [
       'Buy (ALL OF) us a lavish dinner (before 8pm please)',
       'Bubble Tea for James Kokoska (or all of us)',
@@ -13,7 +15,7 @@ export const scuntJudges = [
       'Rate the F!rosh App 5 stars on the App Store',
       'Draw something beautiful for Alice',
     ],
-    img: placeholder,
+    img: Tech,
   },
   {
     name: 'Dhruv Sharma',

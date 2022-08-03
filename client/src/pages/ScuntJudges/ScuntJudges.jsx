@@ -4,20 +4,24 @@ import { Header } from '../../components/text/Header/Header';
 import { ExecProfile } from '../About/ExecProfile/ExecProfile';
 import { scuntJudges } from '../../util/scunt-judges';
 import { PopupModal } from '../../components/popup/PopupModal';
+import { Confetti } from '../../components/misc/Confetti/Confetti';
 
 import './ScuntJudges.scss';
 
 const ScuntJudges = () => {
-  let clicks = scuntJudges.length - 1; // only show tech team if all the profiles have been clicked
+  let clicks = 3; // only show tech team if this number of profiles have been clicked
   const [totalClicks, setTotalClicks] = useState(0);
   const [openPopup, setOpenPopup] = useState(true);
+  const [showTechTeam, setShowTechTeam] = useState(false);
 
   useLayoutEffect(() => {
     // do this first!
     console.log('layout');
     const popupdata = window.localStorage.getItem('scunt-judges-popup');
+    const showtechteamdata = window.localStorage.getItem('show-tech-team-secret-judge');
     if (popupdata !== null) {
       setOpenPopup(JSON.parse(popupdata));
+      setShowTechTeam(JSON.parse(showtechteamdata));
     }
   }, []);
 
@@ -31,14 +35,43 @@ const ScuntJudges = () => {
 
   useEffect(() => {
     window.localStorage.setItem('Profile_Clicks_Scunt_Judges', JSON.stringify(totalClicks));
+    window.localStorage.setItem('show-tech-team-secret-judge', JSON.stringify(showTechTeam));
   }, [totalClicks]);
 
   useEffect(() => {
     window.localStorage.setItem('scunt-judges-popup', JSON.stringify(openPopup));
   }, [openPopup]);
 
+  useEffect(() => {
+    if (totalClicks === clicks) {
+      setShowTechTeam(true);
+      window.scrollTo(0, 400);
+    }
+  }, [totalClicks]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowTechTeam(false);
+    }, 5000);
+  }, [totalClicks]);
+
   return (
     <>
+      <>
+        {/* this popup will automatically disapear */}
+        <Confetti animate={showTechTeam} />
+        <PopupModal
+          trigger={showTechTeam}
+          setTrigger={setShowTechTeam}
+          blurBackground={false}
+          exitIcon={false}
+        >
+          <div className="scunt-judges-bribe-message-popup">
+            Secret Judges have been revealed! 🤫
+          </div>
+        </PopupModal>
+      </>{' '}
+      :<></>
       {openPopup ? (
         <PopupModal trigger={openPopup} setTrigger={setOpenPopup} blurBackground={false}>
           <div className="scunt-judges-bribe-message-popup">
@@ -81,6 +114,7 @@ const ScuntJudges = () => {
                     name={judge.name}
                     scuntJudge={true}
                     bribes={judge.content}
+                    description={judge.description}
                   />
                 </div>
               );
