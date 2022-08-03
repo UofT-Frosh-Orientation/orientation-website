@@ -1,24 +1,26 @@
 // for testing!!
 
 import placeholder from '../assets/misc/dino-placeholder.svg';
-import Tech from '../assets/about/subcom/TechTeam_Profile.jpg';
+import Tech from '../assets/judges/TechTeam.jpg';
 
 export const scuntJudges = [
   {
     name: 'Tech Team',
     description: 'Wink wink we made the website... we have unlimited bribe points...',
     content: [
-      'Buy (ALL OF) us a lavish dinner (before 8pm please)',
-      'Bubble Tea for James Kokoska (or all of us)',
-      'Buy Tech Team a Nintendo Switch',
-      'Get 69 People to sign up for NewHacks',
-      'Rate the F!rosh App 5 stars on the App Store',
-      'Draw something beautiful for Alice',
+      'Follow each of us on insta',
+      'Star the website repo on GitHub',
+      'Fix a bug on the website',
+      'Coding takes energy. Energy comes from food. We like food. Enough said...',
+      'Draw a nice pic of our team',
+      'Appreciate the work we have given to Frosh week',
+      'Have a nice convo with us :)',
     ],
     img: Tech,
   },
   {
     name: 'Dhruv Sharma',
+    description: 'This is a description of themselves. One or two sentences',
     content: [
       'Impress me with any talent that you have in 10s.',
       'Make the sickest transitions video you can with your F!rosh kits',
@@ -30,7 +32,6 @@ export const scuntJudges = [
     ],
     img: placeholder,
   },
-
   {
     name: 'Alexandra Hon',
     content: [

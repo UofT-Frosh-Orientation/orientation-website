@@ -57,30 +57,6 @@ const ScuntJudges = () => {
 
   return (
     <>
-      <>
-        {/* this popup will automatically disapear */}
-        <Confetti animate={showTechTeam} />
-        <PopupModal
-          trigger={showTechTeam}
-          setTrigger={setShowTechTeam}
-          blurBackground={false}
-          exitIcon={false}
-        >
-          <div className="scunt-judges-bribe-message-popup">
-            Secret Judges have been revealed! 🤫
-          </div>
-        </PopupModal>
-      </>{' '}
-      :<></>
-      {openPopup ? (
-        <PopupModal trigger={openPopup} setTrigger={setOpenPopup} blurBackground={false}>
-          <div className="scunt-judges-bribe-message-popup">
-            Click the judges to reveal bribes! 😏
-          </div>
-        </PopupModal>
-      ) : (
-        <></>
-      )}
       <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
         <ScuntLinks />
       </Header>
@@ -135,12 +111,37 @@ const ScuntJudges = () => {
                   name={judge.name}
                   scuntJudge={true}
                   bribes={judge.content}
+                  description={judge?.description}
                 />
               </div>
             );
           }
         })}
       </div>
+      <>
+        {/* this popup will automatically disapear */}
+        <Confetti animate={showTechTeam} />
+        <PopupModal
+          trigger={showTechTeam}
+          setTrigger={setShowTechTeam}
+          blurBackground={false}
+          exitIcon={false}
+        >
+          <div className="scunt-judges-bribe-message-popup">
+            Secret Judges have been revealed! 🤫
+          </div>
+        </PopupModal>
+      </>{' '}
+      :<></>
+      {openPopup ? (
+        <PopupModal trigger={openPopup} setTrigger={setOpenPopup} blurBackground={false}>
+          <div className="scunt-judges-bribe-message-popup">
+            Click the judges to reveal bribes! 😏
+          </div>
+        </PopupModal>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
