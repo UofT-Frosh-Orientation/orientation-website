@@ -393,6 +393,7 @@ const FAQLeadersButtons = ({ activeIndex, setActiveIndex, questionCategories }) 
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
         maxWidthButton={200}
+        style={{ minWidth: '200px', wordBreak: 'break-all' }}
       />
     </div>
   );
