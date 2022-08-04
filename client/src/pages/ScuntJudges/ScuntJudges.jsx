@@ -12,11 +12,11 @@ const ScuntJudges = () => {
   let clicks = 3; // only show tech team if this number of profiles have been clicked
   const [totalClicks, setTotalClicks] = useState(0);
   const [openPopup, setOpenPopup] = useState(true);
-  const [showTechTeam, setShowTechTeam] = useState(false);
+  const [showTechTeam, setShowTechTeam] = useState(false); // shows tech team image
+  const [showTechTeamPopup, setShowTechTeamPopup] = useState(false); // shows secret judges revealed popup
 
   useLayoutEffect(() => {
     // do this first!
-    console.log('layout');
     const popupdata = window.localStorage.getItem('scunt-judges-popup');
     const showtechteamdata = window.localStorage.getItem('show-tech-team-secret-judge');
     if (popupdata !== null) {
@@ -26,7 +26,6 @@ const ScuntJudges = () => {
   }, []);
 
   useEffect(() => {
-    console.log('use effect');
     const data = window.localStorage.getItem('Profile_Clicks_Scunt_Judges');
     if (data !== null) {
       setTotalClicks(JSON.parse(data));
@@ -35,7 +34,6 @@ const ScuntJudges = () => {
 
   useEffect(() => {
     window.localStorage.setItem('Profile_Clicks_Scunt_Judges', JSON.stringify(totalClicks));
-    window.localStorage.setItem('show-tech-team-secret-judge', JSON.stringify(showTechTeam));
   }, [totalClicks]);
 
   useEffect(() => {
@@ -43,16 +41,23 @@ const ScuntJudges = () => {
   }, [openPopup]);
 
   useEffect(() => {
-    if (totalClicks === clicks) {
-      setShowTechTeam(true);
-      window.scrollTo(0, 400);
-    }
-  }, [totalClicks]);
+    window.localStorage.setItem('show-tech-team-secret-judge', JSON.stringify(showTechTeam));
+  }, [showTechTeam]);
 
   useEffect(() => {
+    if (totalClicks === clicks) {
+      setShowTechTeam(true);
+
+      if (!showTechTeam) {
+        setShowTechTeamPopup(true);
+        window.scrollTo(0, 0);
+      }
+    }
+
     setTimeout(() => {
-      setShowTechTeam(false);
-    }, 5000);
+      // automatically close popup, or users can click bg to close
+      setShowTechTeamPopup(false);
+    }, 10000);
   }, [totalClicks]);
 
   return (
@@ -82,7 +87,7 @@ const ScuntJudges = () => {
             }
           }, [numClicks]);
           if (judge.name === 'Tech Team') {
-            if (totalClicks >= clicks) {
+            if (showTechTeam) {
               return (
                 <div key={judge.name}>
                   <ExecProfile
@@ -120,10 +125,10 @@ const ScuntJudges = () => {
       </div>
       <>
         {/* this popup will automatically disapear */}
-        <Confetti animate={showTechTeam} />
+        <Confetti animate={showTechTeamPopup} />
         <PopupModal
-          trigger={showTechTeam}
-          setTrigger={setShowTechTeam}
+          trigger={showTechTeamPopup}
+          setTrigger={setShowTechTeamPopup}
           blurBackground={false}
           exitIcon={false}
         >
@@ -132,7 +137,8 @@ const ScuntJudges = () => {
           </div>
         </PopupModal>
       </>{' '}
-      :<></>
+      : <></>
+      {/* wrapping to prevent seeing popup for a split second upon refresh */}
       {openPopup ? (
         <PopupModal trigger={openPopup} setTrigger={setOpenPopup} blurBackground={false}>
           <div className="scunt-judges-bribe-message-popup">
