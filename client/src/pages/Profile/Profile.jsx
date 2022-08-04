@@ -368,11 +368,11 @@ const ProfilePageInstagrams = () => {
         <img
           src={InstagramIcon}
           alt="Instagram"
-          style={{ filter: darkMode ? 'invert(1)' : 'unset' }}
+          style={{ filter: !darkMode ? 'invert(1)' : 'unset' }}
         />
         <div>
           <p>Go follow your frosh group and meet your Leedurs!</p>
-          <h2>@{getInstagramFromLink(instagramLink)}</h2>
+          <h2>@{getInstagramFromLink(instagramLink).slice(0, -1)}</h2>
         </div>
       </div>
     </a>
