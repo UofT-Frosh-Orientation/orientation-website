@@ -17,11 +17,12 @@ const AuthorizedPage = ({ children, authScopes = [] }) => {
       console.log('Not logged in');
       dispatch(getUserInfo(navigate));
     }
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     authScopes.forEach((auth) => {
-      if (!user?.authScopes?.approved?.includes(auth)) {
+      console.log('Checking auth scopes');
+      if (user && !user?.authScopes?.approved?.includes(auth)) {
         navigate('/');
       }
     });
