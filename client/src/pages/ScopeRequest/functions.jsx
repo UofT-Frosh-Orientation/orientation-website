@@ -4,8 +4,10 @@ import { fields, terms } from '../Registration/RegistrationFields';
 
 export const getTotalScopes = () => {
   return {
-    faq: ['read', 'edit'],
-    announcements: ['read', 'edit'],
+    faq: ['delete', 'edit'],
+    announcements: ['create', 'edit', 'delete'],
+    accounts: ['read', 'edit', 'delete'],
+    timeline: ['create', 'edit', 'delete'],
     signInFrosh: ['qr-code registration'],
     scunt: [
       'judge missions',
