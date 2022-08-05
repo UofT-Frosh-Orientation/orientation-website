@@ -42,6 +42,7 @@ import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDis
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
+import { froshGroups } from '../../util/frosh-groups';
 
 const PageProfile = () => {
   const { user } = useSelector(userSelector);
@@ -470,7 +471,13 @@ const ProfilePageResources = () => {
 };
 
 const ProfilePageSchedule = () => {
-  let days = getDaysFroshSchedule();
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
+
+  const [froshGroup, setFroshGroup] = useState(user?.froshGroup);
+  const [closeAll, setCloseAll] = useState(0);
+
+  let days = getDaysFroshSchedule(froshGroup);
   let buttonList = days.map((item) => {
     return { name: item };
   });
@@ -489,10 +496,39 @@ const ProfilePageSchedule = () => {
     count = 0;
   }
   const [selectedDayIndex, setSelectedDayIndex] = useState(count);
-  const [closeAll, setCloseAll] = useState(0);
+
+  const froshGroupNames = [];
+  for (let froshGroup of froshGroups) {
+    froshGroupNames.push(froshGroup?.name);
+  }
   return (
     <div className="profile-page-schedule">
-      <h2 className="profile-page-section-header profile-page-section-header-schedule">Schedule</h2>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <h2 className="profile-page-section-header profile-page-section-header-schedule">
+          Schedule
+        </h2>
+        {leader ? (
+          <div style={{ marginTop: '10px' }}>
+            <Dropdown
+              values={froshGroupNames}
+              initialSelectedIndex={0}
+              onSelect={(froshGroup) => {
+                setFroshGroup(froshGroup);
+              }}
+              localStorageKey={'leader-frosh-group-dropdown'}
+            />
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
       <ButtonSelector
         buttonList={buttonList}
         activeIndex={selectedDayIndex}

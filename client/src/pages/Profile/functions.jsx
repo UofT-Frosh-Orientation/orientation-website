@@ -197,7 +197,8 @@ export function getFroshScheduleData() {
   ];
 }
 
-export function getDaysFroshSchedule() {
+export function getDaysFroshSchedule(froshGroup) {
+  console.log('get schedule for ' + froshGroup);
   let scheduleData = getFroshScheduleData();
   let days = [];
   for (let day of scheduleData) {
