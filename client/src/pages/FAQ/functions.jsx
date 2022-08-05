@@ -5,7 +5,14 @@ export function getInformation() {
   return 'FAQ';
 }
 
-export function getQuestions() {
+export async function getQuestions(setSnackbar) {
+  // await new Promise(r => setTimeout(r, 2000));
+  try {
+    const response = await axios.get('/faq/answered');
+    return response.data.faqs;
+  } catch (e) {
+    setSnackbar(e.toString());
+  }
   return [
     {
       question: 'What is F!rosh week?',

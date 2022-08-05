@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './AskQuestionButton.scss';
 import { ErrorSuccessBox } from '../../containers/ErrorSuccessBox/ErrorSuccessBox';
@@ -10,13 +10,12 @@ import { submitQuestion } from './functions';
 import { PopupModal } from '../../popup/PopupModal';
 import { userSelector } from '../../../state/user/userSlice';
 import { useSelector } from 'react-redux';
+import { SnackbarContext } from '../../../util/SnackbarProvider';
 
 const FAQAskQuestion = () => {
   const { user } = useSelector(userSelector);
 
   const [pageState, setPageState] = useState('form');
-  const [signUpError, setSignUpError] = useState('');
-  const [errorColor, setErrorColor] = useState(false);
   const initialFormData = {
     question: '',
     email: user?.email ?? '',
@@ -25,6 +24,8 @@ const FAQAskQuestion = () => {
   const [questionText, setQuestionText] = useState({});
   const [formData, updateFormData] = useState(initialFormData);
   const [clearText, setClearText] = useState(false);
+  const { setSnackbar } = useContext(SnackbarContext);
+
   useEffect(() => {
     updateFormData({ question: questionText.question, email: emailText.email });
   }, [emailText, questionText]);
@@ -45,17 +46,17 @@ const FAQAskQuestion = () => {
       setPageState('loading');
       const result = await submitQuestion(formData);
       if (result !== true) {
-        setSignUpError(result);
-        setErrorColor(true);
         setPageState('form');
+        setSnackbar('There was an error submitting your question. ' + result, true);
       } else {
         setPageState('success');
         updateFormData(initialFormData);
         setClearText(true);
-        setSignUpError('Thank you for submitting your question!');
-        setErrorColor(false);
+        setSnackbar('Thank you for submitting your question!', false);
         setPageState('form');
       }
+    } else {
+      setSnackbar('Please fill in the form.', true);
     }
   }
 
@@ -69,7 +70,6 @@ const FAQAskQuestion = () => {
         >
           <h1 className={'faq-ask-question-title'}>Ask a Question</h1>
           <p className="faq-ask-question-paragraph">We will get back to you in an email soon!</p>
-          <ErrorSuccessBox content={signUpError} error={errorColor} success={!errorColor} />
           <form>
             <label>
               <div className={'faq-ask-question-email-box'}>

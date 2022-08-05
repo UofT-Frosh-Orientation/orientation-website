@@ -290,7 +290,16 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
           <span className={'faq-leaders-attribute'}>Category:</span> {categoryText}
         </p>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-attribute'}>Email:</span> {question.email}
+          <span className={'faq-leaders-attribute'}>Email:</span>{' '}
+          <p
+            style={{ userSelect: 'all' }}
+            onClick={() => {
+              setSnackbar('Copied to clipboard');
+              navigator.clipboard.writeText(question.email);
+            }}
+          >
+            {question.email}
+          </p>
         </p>
         <p className={'faq-leaders-description'}>
           <span className={'faq-leaders-attribute'}>Created at:</span> {createdDateFormatted}

@@ -3,6 +3,10 @@
 .faq-leaders-page {
   margin: 100px auto;
   width: 80%;
+  @include devices(tablet) {
+    margin: 50px 0;
+    width: 100%;
+  }
 }
 
 .faq-leaders-mobile {
@@ -20,20 +24,32 @@
 }
 
 .faq-leaders-create-question-container {
-  padding: 10px;
+  padding: 10px 40px;
+  max-width: 600px;
   width: 70vw;
-  background-color: var(--purple-shades-light);
+  background-color: var(--container-bg);
   border-radius: 15px;
   margin: 0 auto;
+  @include devices(tablet) {
+    max-width: unset;
+    padding: 10px;
+    width: 100%;
+    margin: 10px 0;
+  }
 }
 
 .faq-leaders-edit-question-container {
   margin-top: 50px;
   padding: 2%;
   width: 70vw;
-  background-color: var(--purple-shades-light);
+  background-color: var(--container-bg);
   border-radius: 15px;
   margin: 50px auto;
+  @include devices(tablet) {
+    padding: 10px;
+    width: 100%;
+    margin: 10px 0;
+  }
 }
 
 .faq-leaders-answered-questions {
@@ -71,7 +87,7 @@
 .faq-leaders-questions-container {
   margin: 15px 10px 0px 10px;
   padding: 20px 30px 20px 30px;
-  background-color: var(--container-bg);
+  background-color: var(--purple-bg);
   border-radius: 15px;
   color: var(--text-dark-use);
 }
@@ -114,7 +130,7 @@
 }
 
 .faq-leaders-questions-smaller {
-  background-color: var(--purple-shades-light);
+  background-color: var(--container-bg);
   border-radius: 12px;
   color: var(--text-dark-use);
   @include devices(tablet) {
