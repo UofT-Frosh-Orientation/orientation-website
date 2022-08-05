@@ -30,7 +30,7 @@ export async function submitEdit(id, data) {
 export async function submitQuestion(question) {
   console.log(question);
   try {
-    const response = await axios.post('/faq/create', question);
+    const response = await axios.post('/faq/create-answer', question);
     console.log(response);
     return true;
   } catch (error) {

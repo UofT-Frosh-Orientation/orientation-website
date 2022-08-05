@@ -28,7 +28,12 @@ const router = express.Router();
  *         $ref: '#components/responses/NotLoggedIn'
  */
 router.post('/create', FaqController.createQuestion);
-
+router.post(
+  '/create-answer',
+  checkLoggedIn,
+  hasAuthScopes(['faq:edit']),
+  FaqController.createQuestionWithAns,
+);
 /**
  * @swagger
  * /faq/{faqId}:
@@ -113,7 +118,12 @@ router.get('/answered', FaqController.getAnsweredFaqList);
  *                   items:
  *                     $ref: '#components/schemas/FAQ'
  */
-router.get('/unanswered', FaqController.getUnansweredFaqList);
+router.get(
+  '/unanswered',
+  checkLoggedIn,
+  hasAuthScopes(['faq:edit']),
+  FaqController.getUnansweredFaqList,
+);
 
 /**
  * @swagger
@@ -133,6 +143,6 @@ router.get('/unanswered', FaqController.getUnansweredFaqList);
  *                   items:
  *                     $ref: '#components/schemas/FAQ'
  */
-router.get('/all', checkLoggedIn, FaqController.getAllFaqList);
+router.get('/all', checkLoggedIn, hasAuthScopes(['faq:edit']), FaqController.getAllFaqList);
 
 module.exports = router;
