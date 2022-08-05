@@ -28,7 +28,12 @@ const router = express.Router();
  *         $ref: '#components/responses/NotLoggedIn'
  */
 router.post('/create', FaqController.createQuestion);
-
+router.post(
+  '/create-answer',
+  checkLoggedIn,
+  hasAuthScopes(['faq:edit']),
+  FaqController.createQuestionWithAns,
+);
 /**
  * @swagger
  * /faq/{faqId}:
@@ -50,12 +55,7 @@ router.post('/create', FaqController.createQuestion);
  *       '403':
  *         $ref: '#components/responses/NotLoggedIn'
  */
-router.delete(
-  '/:faqId',
-  checkLoggedIn,
-  hasAuthScopes(['faq:delete']),
-  FaqController.deleteQuestion,
-);
+router.delete('/:faqId', checkLoggedIn, hasAuthScopes(['faq:edit']), FaqController.deleteQuestion);
 
 /**
  * @swagger
@@ -78,7 +78,7 @@ router.delete(
  *       '403':
  *         $ref: '#components/responses/NotLoggedIn'
  */
-router.patch('/:faqId?', checkLoggedIn, hasAuthScopes(['faq:edit']), FaqController.updateQuestion);
+router.patch('/:faqId', checkLoggedIn, hasAuthScopes(['faq:edit']), FaqController.updateQuestion);
 
 /**
  * @swagger
@@ -118,7 +118,12 @@ router.get('/answered', FaqController.getAnsweredFaqList);
  *                   items:
  *                     $ref: '#components/schemas/FAQ'
  */
-router.get('/unanswered', FaqController.getUnansweredFaqList);
+router.get(
+  '/unanswered',
+  checkLoggedIn,
+  hasAuthScopes(['faq:edit']),
+  FaqController.getUnansweredFaqList,
+);
 
 /**
  * @swagger

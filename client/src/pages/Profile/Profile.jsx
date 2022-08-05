@@ -128,7 +128,8 @@ export const ProfilePageScuntToken = () => {
   }
   return (
     <div className="profile-page-scunt-token profile-page-side-section">
-      <h2
+      <h2>Scunt Team: {user?.scuntTeam ? user?.scuntTeam.toString() : '‽'}</h2>
+      <h3
         style={{ filter: showToken ? '' : 'blur(10px)' }}
         onClick={() => {
           setSnackbar('Copied to clipboard');
@@ -136,7 +137,7 @@ export const ProfilePageScuntToken = () => {
         }}
       >
         {code}
-      </h2>
+      </h3>
       <p>Scunt Login Token</p>
       <p style={{ fontSize: '13px' }}>
         Use this token to login to the{' '}
