@@ -3,7 +3,7 @@
 .frosh-info-table {
   h1 {
     margin-bottom: 10px;
-    color: var(--black);
+    color: var(--text-dynamic);
     font-size: 40px;
     @include devices(tablet) {
       margin-bottom: 0px;
@@ -45,6 +45,7 @@
     overflow-x: auto;
     white-space: nowrap;
     border-radius: 10px;
+    color: var(--text-dynamic);
     @include devices(tablet) {
       margin: auto;
     }

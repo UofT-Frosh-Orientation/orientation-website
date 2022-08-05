@@ -190,13 +190,15 @@ const UserServices = {
     });
   },
 
-  async getUsersUnapprovedAuthScopes() {
+  async getUsersAuthScopes() {
     return new Promise((resolve, reject) => {
       UserModel.find(
         {
           $or: [
             { 'authScopes.requested': { $exists: true, $ne: [] } },
             { 'froshDataFields.requested': { $exists: true, $ne: [] } },
+            { 'authScopes.approved': { $exists: true, $ne: [] } },
+            { 'froshDataFields.approved': { $exists: true, $ne: [] } },
           ],
         },
         {},
@@ -242,57 +244,44 @@ const UserServices = {
         userAuthScopes.map((user) => {
           const {
             authScopesApproved,
-            authScopesApprovedOrDenied,
+            authScopesDenied,
             froshDataFieldsApproved,
-            froshDataFieldsApprovedOrDenied,
+            froshDataFieldsDenied,
           } = user.auth.reduce(
             (prev, curr) => {
               if (curr.approve) {
                 if (curr.isFroshData) {
                   prev.froshDataFieldsApproved.push(curr.authreq);
-                  prev.froshDataFieldsApprovedOrDenied.push(curr.authreq);
                 } else {
                   prev.authScopesApproved.push(curr.authreq);
-                  prev.authScopesApprovedOrDenied.push(curr.authreq);
                 }
-              } else if (curr.deny) {
+              } else {
                 if (curr.isFroshData) {
-                  prev.froshDataFieldsApprovedOrDenied.push(curr.authreq);
+                  prev.froshDataFieldsDenied.push(curr.authreq);
                 } else {
-                  prev.authScopesApprovedOrDenied.push(curr.authreq);
+                  prev.authScopesDenied.push(curr.authreq);
                 }
               }
               return prev;
             },
             {
               authScopesApproved: [],
-              authScopesApprovedOrDenied: [],
+              authScopesDenied: [],
               froshDataFieldsApproved: [],
-              froshDataFieldsApprovedOrDenied: [],
+              froshDataFieldsDenied: [],
             },
           );
           return {
             updateOne: {
               filter: { _id: { $eq: mongoose.Types.ObjectId(user.id) } },
               update: {
-                $push: {
-                  'authScopes.approved': {
-                    $each: authScopesApproved,
-                  },
-                  'froshDataFields.approved': {
-                    $each: froshDataFieldsApproved,
-                  },
-                },
-                $pull: {
-                  'authScopes.requested': {
-                    $in: authScopesApprovedOrDenied,
-                  },
-                  'froshDataFields.requested': {
-                    $in: froshDataFieldsApprovedOrDenied,
-                  },
+                $set: {
+                  'authScopes.approved': [...new Set(authScopesApproved)],
+                  'froshDataFields.approved': [...new Set(froshDataFieldsApproved)],
+                  'authScopes.requested': [...new Set(authScopesDenied)],
+                  'froshDataFields.requested': [...new Set(froshDataFieldsDenied)],
                 },
               },
-              upsert: false,
             },
           };
         }),

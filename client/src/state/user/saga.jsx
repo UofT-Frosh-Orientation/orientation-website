@@ -31,7 +31,11 @@ export function* loginSaga({ payload: { setSnackbar, setIsLoading, email, passwo
     yield put(loginSuccess(result.data.user));
   } catch (error) {
     setSnackbar(
-      error.response.data.message ? error.response.data.message.toString() : error.toString(),
+      error.response?.data?.message
+        ? error.response?.data?.message.toString()
+        : error.response?.data
+        ? error.response?.data.toString()
+        : error.toString(),
       true,
     );
     setIsLoading(false);
@@ -79,10 +83,10 @@ export function* createUserSaga({ payload: { setSnackbar, setIsLoading, user } }
   } catch (error) {
     console.log(user);
     setSnackbar(
-      error.response.data.message
-        ? error.response.data.message.toString()
-        : error.response.data
-        ? error.response.data.toString()
+      error.response?.data?.message
+        ? error.response?.data?.message.toString()
+        : error.response?.data
+        ? error.response?.data.toString()
         : error.toString(),
       true,
     );
