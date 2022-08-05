@@ -8,7 +8,7 @@ import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 export const PageScuntRules = () => {
   return (
     <div className="scunt-rules-page">
-      <Header text={'Rules'}>
+      <Header text={'Rules'} underlineDesktop={'215px'} underlineMobile={'150px'}>
         <ScuntLinks />
       </Header>
       <div className="scunt-rules-container">
