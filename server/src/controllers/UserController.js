@@ -173,12 +173,12 @@ const UserController = {
     }
   },
 
-  async getUsersUnapprovedAuthScopes(req, res, next) {
+  async getUsersAuthScopes(req, res, next) {
     try {
-      const usersUnapprovedAuthScopes = await UserServices.getUsersUnapprovedAuthScopes();
+      const usersAuthScopes = await UserServices.getUsersAuthScopes();
       return res.status(200).send({
         message: 'Successfully found users!',
-        authRequests: usersUnapprovedAuthScopes.map((u) => u.getResponseObject()),
+        authRequests: usersAuthScopes.map((u) => u.getResponseObject()),
       });
     } catch (err) {
       next(err);

@@ -38,6 +38,7 @@ const FroshController = {
    * Updates the info of the currently authenticated user.
    * @param {Object} req
    * @param {Object} res
+   * @param {Function} next
    * @return {Promise<void>}
    */
   async updateInfo(req, res, next) {
@@ -50,6 +51,28 @@ const FroshController = {
         message: 'Successfully updated Frosh information!',
         user: frosh.getResponseObject(),
       });
+    } catch (e) {
+      console.log(e);
+      next(e);
+    }
+  },
+
+  async getFilteredFroshInfo(req, res, next) {
+    try {
+      console.log(req.user.froshDataFields.approved.length);
+      if (!req.user?.froshDataFields?.approved?.length) {
+        console.log('invalid length');
+        return next(new Error('UNAUTHORIZED'));
+      }
+      const filter = req.user?.froshDataFields?.approved.reduce(
+        (prev, curr) => {
+          prev[curr] = 1;
+          return prev;
+        },
+        { _id: 0 },
+      );
+      const frosh = await FroshServices.getFilteredFroshInfo(filter);
+      return res.status(200).send({ frosh });
     } catch (e) {
       console.log(e);
       next(e);

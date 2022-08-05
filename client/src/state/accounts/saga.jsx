@@ -42,16 +42,51 @@ export function* getAuthRequestsSaga() {
   const { axios } = useAxios();
   try {
     yield put(getAuthRequestsStart());
-    const response = yield call(axios.get, '/user/unapproved-auth-scopes');
+    const response = yield call(axios.get, '/user/all-auth-scopes');
     yield put(
       getAuthRequestsSuccess(
         response.data?.authRequests?.map(
-          ({ id, email, firstName, lastName, authScopes: { requested } }) => ({
+          ({
+            id,
+            email,
+            firstName,
+            lastName,
+            authScopes: { requested: requestedAuth = [], approved: approvedAuth = [] },
+            froshDataFields: {
+              requested: requestedFroshData = [],
+              approved: approvedFroshData = [],
+            },
+          }) => ({
             id,
             email,
             name: `${firstName} ${lastName}`,
             group: 'default',
-            auth: requested.map((r) => ({ authreq: r, approve: false, deny: false })),
+            auth: [
+              ...approvedAuth.map((r) => ({
+                authreq: r,
+                approve: true,
+                deny: false,
+                isFroshData: false,
+              })),
+              ...approvedFroshData.map((r) => ({
+                authreq: r,
+                approve: true,
+                deny: false,
+                isFroshData: true,
+              })),
+              ...requestedAuth.map((r) => ({
+                authreq: r,
+                approve: false,
+                deny: false,
+                isFroshData: false,
+              })),
+              ...requestedFroshData.map((r) => ({
+                authreq: r,
+                approve: false,
+                deny: false,
+                isFroshData: true,
+              })),
+            ],
           }),
         ),
       ),
@@ -63,26 +98,44 @@ export function* getAuthRequestsSaga() {
 
 export const updateAccounts = createAction('updateAccountsSaga');
 
-export function* updateAccountsSaga({ payload: accounts }) {
+export function* updateAccountsSaga({ payload: { setSnackbar, accounts } }) {
   const { axios } = useAxios();
   try {
     yield put(updateAccountsAuthStart());
     const response = yield call(axios.put, '/user/account-statuses', { accounts });
+    setSnackbar('Success!');
     yield put(updateAccountsAuthSuccess());
   } catch (e) {
+    setSnackbar(
+      e.response?.data?.message
+        ? e.response?.data?.message.toString()
+        : e.response?.data
+        ? e.response?.data.toString()
+        : e.toString(),
+      true,
+    );
     yield put(updateAccountsAuthFailure(e));
   }
 }
 
 export const updateAuthRequests = createAction('updateAuthRequestsSaga');
 
-export function* updateAuthRequestsSaga({ payload: userAuthScopes }) {
+export function* updateAuthRequestsSaga({ payload: { setSnackbar, userAuthScopes } }) {
   const { axios } = useAxios();
   try {
     yield put(updateAccountsAuthStart());
-    const result = yield call(axios.put('/user/auth-scopes', { userAuthScopes }));
+    const result = yield call(axios.put, '/user/auth-scopes', { userAuthScopes });
+    setSnackbar('Success!');
     yield put(updateAccountsAuthSuccess());
   } catch (e) {
+    setSnackbar(
+      e.response?.data?.message
+        ? e.response?.data?.message.toString()
+        : e.response?.data
+        ? e.response?.data.toString()
+        : e.toString(),
+      true,
+    );
     yield put(updateAccountsAuthFailure(e));
   }
 }

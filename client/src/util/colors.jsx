@@ -125,4 +125,6 @@ export const colors = {
   '--scrollbar-thumb-hover': ['#616161', '#7C508C'],
   '--scrollbar-thumb': ['#7c7c7c', '#966AA3'],
   '--scrollbar-track': ['#d3d3d3fd', '#4E3155FD'],
+
+  '--scunt-counter-bg': ['#a04fb9', '#8c60b3'],
 };

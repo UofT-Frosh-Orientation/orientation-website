@@ -153,3 +153,17 @@ a:hover {
     bottom: 65px;
   }
 }
+
+.display-only-tablet {
+  display: none;
+  @include devices(tablet) {
+    display: unset;
+  }
+}
+
+.display-only-desktop {
+  display: unset;
+  @include devices(tablet) {
+    display: none;
+  }
+}

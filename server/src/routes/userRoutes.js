@@ -128,10 +128,10 @@ router.get(
 );
 
 router.get(
-  '/unapproved-auth-scopes',
+  '/all-auth-scopes',
   checkLoggedIn,
   hasAuthScopes(['accounts:read']),
-  UserController.getUsersUnapprovedAuthScopes,
+  UserController.getUsersAuthScopes,
 );
 
 router.put(
