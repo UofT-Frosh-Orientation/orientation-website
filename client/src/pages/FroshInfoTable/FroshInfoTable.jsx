@@ -59,8 +59,11 @@ const PageFroshInfoTable = () => {
         </div>
       </div>
       <p className="small-print">
-        Note: Frosh are able to edit their information. This data is only accurate to the point it
-        was loaded. Keep in mind, any data extracted from this page may be subject to change.{' '}
+        Note: This info does not contain users who have only created an account. This info contains
+        all Frosh users who have created a FULL Frosh account - not everyone has paid in this list.
+        Paid users have isRegistered set to true. Frosh are able to edit their information. This
+        data is only accurate to the point it was loaded. Keep in mind, any data extracted from this
+        page may be subject to change.{' '}
         {noEditFields.length >= 0 ? (
           <>
             The fields that cannot be edited by the frosh currently:{' '}

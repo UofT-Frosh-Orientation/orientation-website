@@ -5,7 +5,7 @@ import { getUserInfo } from '../state/user/saga';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const AuthorizedPage = ({ children, authScopes = [] }) => {
+const AuthorizedPage = ({ children, authScopes = [], leaderOnly }) => {
   const loggedIn = useSelector(loggedInSelector);
   const { user } = useSelector(userSelector);
   const dispatch = useDispatch();
@@ -28,12 +28,21 @@ const AuthorizedPage = ({ children, authScopes = [] }) => {
     });
   }, [user]);
 
+  useEffect(() => {
+    if (loggedIn && leaderOnly) {
+      if (!user?.userType === 'leadur' || !user?.approved) {
+        navigate('/');
+      }
+    }
+  }, [user]);
+
   return <>{loggedIn && children}</>;
 };
 
 AuthorizedPage.propTypes = {
   children: PropTypes.node.isRequired,
   authScopes: PropTypes.array,
+  leaderOnly: PropTypes.bool,
 };
 
 export default AuthorizedPage;

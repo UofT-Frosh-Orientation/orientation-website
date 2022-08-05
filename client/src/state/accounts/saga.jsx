@@ -62,6 +62,18 @@ export function* getAuthRequestsSaga() {
             name: `${firstName} ${lastName}`,
             group: 'default',
             auth: [
+              ...requestedAuth.map((r) => ({
+                authreq: r,
+                approve: false,
+                deny: true,
+                isFroshData: false,
+              })),
+              ...requestedFroshData.map((r) => ({
+                authreq: r,
+                approve: false,
+                deny: true,
+                isFroshData: true,
+              })),
               ...approvedAuth.map((r) => ({
                 authreq: r,
                 approve: true,
@@ -71,18 +83,6 @@ export function* getAuthRequestsSaga() {
               ...approvedFroshData.map((r) => ({
                 authreq: r,
                 approve: true,
-                deny: false,
-                isFroshData: true,
-              })),
-              ...requestedAuth.map((r) => ({
-                authreq: r,
-                approve: false,
-                deny: false,
-                isFroshData: false,
-              })),
-              ...requestedFroshData.map((r) => ({
-                authreq: r,
-                approve: false,
                 deny: false,
                 isFroshData: true,
               })),

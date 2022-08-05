@@ -59,6 +59,7 @@
     border: none;
     text-align: left;
     padding: 8px 10px;
+    max-width: 150px;
   }
   tr:nth-child(odd) {
     background-color: var(--purple-shades-light-light);
