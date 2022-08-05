@@ -64,8 +64,7 @@ const AuthenticationRequests = () => {
               label="Save"
               style={{ alignSelf: 'start', marginTop: '0px', marginBottom: '5px' }}
               onClick={() => {
-                const userAuthScopes = authList;
-                dispatch(updateAuthRequests({ setSnackbar, userAuthScopes }));
+                dispatch(updateAuthRequests({ setSnackbar, userAuthScopes: authList }));
                 setIsSave(true);
                 setChangesMade(false);
               }}

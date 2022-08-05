@@ -40,7 +40,7 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
   // console.log(accountStatus)
 
   const save = () => {
-    dispatch(updateAccounts({ setSnackbar, emailList }));
+    dispatch(updateAccounts({ setSnackbar, accounts: emailList }));
   };
 
   useEffect(() => {
