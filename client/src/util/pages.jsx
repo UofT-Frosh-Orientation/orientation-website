@@ -13,13 +13,14 @@ import { PageSignUp } from '../pages/SignUp/SignUp';
 import { PageAccountsApproval } from '../pages/AccountsApproval/AccountsApproval';
 import AuthorizedPage from './AuthorizedPage';
 import { PasswordReset } from '../pages/PasswordReset/PasswordReset';
-
 import { PageFroshInfoTable } from '../pages/FroshInfoTable/FroshInfoTable';
 import { PageScopeRequest } from '../pages/ScopeRequest/ScopeRequest';
 import { PageScuntJudgeForm } from '../pages/ScuntJudgeForm/ScuntJudgeForm';
 import { PageScuntMissionsList } from '../pages/ScuntMissionsList/ScuntMissionsList';
 import { PageScuntHome } from '../pages/ScuntHome/ScuntHome';
 import { PageScuntRules } from '../pages/ScuntRules/ScuntRules';
+import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
+import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
 
 export const pages = {
   404: {
@@ -147,7 +148,7 @@ export const pages = {
     {
       label: 'Judges',
       scuntLabel: 'Judges',
-      component: <div />,
+      component: <ScuntJudges />,
       path: '/scunt-judges',
       includeFooter: true,
     },
@@ -161,7 +162,7 @@ export const pages = {
     {
       label: 'Leaderboard',
       scuntLabel: 'Leaderboard',
-      component: <div />,
+      component: <ScuntLeaderboard />,
       path: '/scunt-leaderboard',
       includeFooter: true,
     },

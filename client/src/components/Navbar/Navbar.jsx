@@ -132,6 +132,7 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
                 return (
                   <>
                     <div
+                      key={page.path}
                       className="icon-profile"
                       onClick={() => {
                         setOpenProfileDropdown(!openProfileDropdown);
@@ -146,6 +147,7 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
               // if not logged in
               return (
                 <div
+                  key={page.path}
                   className="icon-profile-person-container"
                   onClick={() => {
                     setOpenProfileDropdown(!openProfileDropdown);
@@ -291,6 +293,7 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
             if (!isLoggedIn) {
               return (
                 <div
+                  key={page.path}
                   className="icon-profile-person-container"
                   onClick={() => {
                     setOpenProfileDropdown(!openProfileDropdown);
@@ -311,6 +314,7 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
             } else if (isLoggedIn) {
               return (
                 <div
+                  key={page.path}
                   className="icon-profile"
                   onClick={() => {
                     setOpenProfileDropdown(!openProfileDropdown);

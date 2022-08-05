@@ -65,6 +65,7 @@ export const profilePages = {
     {
       label: 'Profile',
       icon: ProfileIcon,
+      iconDark: ProfileIconDarkMode,
       path: '/profile',
     },
     // {
@@ -75,6 +76,7 @@ export const profilePages = {
     {
       label: 'Log Out',
       icon: LogoutIcon,
+      iconDark: LogoutIconDarkMode,
       function: logoutFunction,
     },
   ],

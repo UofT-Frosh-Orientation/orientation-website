@@ -81,10 +81,18 @@
   &:hover {
     background-color: var(--mission-bg-hover);
     transition: background-color 300ms;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--light-purple);
+    }
   }
   font-size: 18px;
   @include devices(tablet) {
     font-size: 16px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--purple-shades-popup);
   }
 }
 
