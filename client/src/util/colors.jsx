@@ -5,7 +5,7 @@ export const colors = {
   '--purple-shades-original': ['#6f1e88', '#6f1e88'],
   '--purple-shades-muted': ['#b297c7', '#b297c7'],
   '--purple-shades-light': ['#ecd6ff', '#8c60b3'], // PleaseSponsor
-  '--purple-shades-light-light': ['#efdefe', '#efdefe'],
+  '--purple-shades-light-light': ['#efdefe', '#755096'],
   '--purple-shades-popup': ['#784786', '#382159'],
   '--yellow': ['#ffe863', '#ffcc4a'],
   '--yellow-light': ['#ffe76a', '#ffe76a'],

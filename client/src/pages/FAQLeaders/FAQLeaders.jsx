@@ -284,15 +284,23 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
       <div className={`${isEdit ? 'faq-leaders-hide' : ''}`}>
         <h1 className={'faq-leaders-questions-titles'}>{questionText}</h1>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-attribute'}>Answer:</span> {answerText}
+          <span className={'faq-leaders-attribute'}>
+            <b>Answer:</b>
+          </span>{' '}
+          {answerText}
         </p>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-attribute'}>Category:</span> {categoryText}
+          <span className={'faq-leaders-attribute'}>
+            <b>Category:</b>
+          </span>{' '}
+          {categoryText}
         </p>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-attribute'}>Email:</span>{' '}
+          <span className={'faq-leaders-attribute'}>
+            <b>Email:</b>
+          </span>{' '}
           <p
-            style={{ userSelect: 'all' }}
+            style={{ userSelect: 'all', display: 'inline' }}
             onClick={() => {
               setSnackbar('Copied to clipboard');
               navigator.clipboard.writeText(question.email);
@@ -302,10 +310,16 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
           </p>
         </p>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-attribute'}>Created at:</span> {createdDateFormatted}
+          <span className={'faq-leaders-attribute'}>
+            <b>Created at:</b>
+          </span>{' '}
+          {createdDateFormatted}
         </p>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-attribute'}>Last updated at:</span> {updatedDateFormatted}
+          <span className={'faq-leaders-attribute'}>
+            <b>Last updated at:</b>
+          </span>{' '}
+          {updatedDateFormatted}
         </p>{' '}
       </div>
       <div className={`${!isEdit ? 'faq-leaders-hide' : ''}`}>

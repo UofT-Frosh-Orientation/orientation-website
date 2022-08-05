@@ -78,7 +78,11 @@ export const pages = {
   hidden: [
     {
       label: 'Request Permissions',
-      component: <PageScopeRequest />,
+      component: (
+        <AuthorizedPage leaderOnly>
+          <PageScopeRequest />
+        </AuthorizedPage>
+      ),
       path: '/permission-request',
       includeFooter: true,
     },
@@ -124,7 +128,11 @@ export const pages = {
     },
     {
       label: 'approve-accounts',
-      component: <PageAccountsApproval />,
+      component: (
+        <AuthorizedPage leaderOnly>
+          <PageAccountsApproval />
+        </AuthorizedPage>
+      ),
       path: '/approve-accounts',
     },
     {
@@ -143,7 +151,11 @@ export const pages = {
     },
     {
       label: 'frosh-info-table',
-      component: <PageFroshInfoTable />,
+      component: (
+        <AuthorizedPage leaderOnly>
+          <PageFroshInfoTable />
+        </AuthorizedPage>
+      ),
       path: '/frosh-info-table',
     },
   ],
@@ -187,7 +199,11 @@ export const pages = {
   scuntHidden: [
     {
       label: 'Scunt Judge Form',
-      component: <PageScuntJudgeForm />,
+      component: (
+        <AuthorizedPage leaderOnly>
+          <PageScuntJudgeForm />
+        </AuthorizedPage>
+      ),
       path: '/scunt-judge-form',
       includeFooter: true,
     },
