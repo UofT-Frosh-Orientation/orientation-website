@@ -9,11 +9,14 @@ import { headLeedurs } from '../../util/about/headleedurs';
 import { subComs } from '../../util/about/subcoms';
 
 import { ExecProfile } from './ExecProfile/ExecProfile';
-
-import waveBottom from '../../assets/misc/wave-reverse.png';
 import ExecLogo from '../../assets/about/exec-tshirt-logo.svg';
 import { useEffect } from 'react';
 import { object } from 'prop-types';
+import { Header } from '../../components/text/Header/Header';
+
+import InstagramIcon from '../../assets/social/instagram-brands.svg';
+import MailIcon from '../../assets/social/envelope-solid.svg';
+import { instagramAccounts } from '../../util/instagramAccounts';
 
 const PageAbout = () => {
   return (
@@ -41,30 +44,24 @@ const PageAbout = () => {
 
 const AboutUsSection = () => {
   return (
-    <div className="aboutus-container">
-      <div className="aboutus-subcontainer">
-        <h2 className="aboutus-title">About Us</h2>
-        <div className="aboutus-title-underline"></div>
+    <Header text="About Us">
+      <div className="aboutus-subsubcontainer">
+        <div className="aboutus-image-container">
+          <img className="aboutus-image" src={ExecLogo} alt="logo"></img>
+        </div>
 
-        <div className="aboutus-subsubcontainer">
-          <div className="aboutus-image-container">
-            <img className="aboutus-image" src={ExecLogo} alt="logo"></img>
-          </div>
-
-          <div className="aboutus-info-container">
-            {aboutUsInfo.map((info) => {
-              return (
-                <div className="aboutus-info" key={info.title}>
-                  <h2 className="aboutus-info-title">{info.title}</h2>
-                  <p className="aboutus-info-des">{info.description}</p>
-                </div>
-              );
-            })}
-          </div>
+        <div className="aboutus-info-container">
+          {aboutUsInfo.map((info) => {
+            return (
+              <div className="aboutus-info" key={info.title}>
+                <h2 className="aboutus-info-title">{info.title}</h2>
+                <p className="aboutus-info-des">{info.description}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
-      <img className="aboutus-wave-bottom" src={waveBottom} alt="wave"></img>
-    </div>
+    </Header>
   );
 };
 
@@ -150,13 +147,13 @@ const AboutUsSubcom = () => {
 
   return (
     <>
-      <div className="check-back-message">
+      {/* <div className="check-back-message">
         <h2>Check back to see our photos and our roles in F!rosh Week!</h2>
-      </div>
+      </div> */}
       {subcomGroups.map((com) => {
         return (
           <div key={com} className="aboutus-commitee-container">
-            <h1 className="aboutus-hl-frosh-group">{com}</h1>
+            <h1 className="aboutus-subcom">{com}</h1>
             <div className="aboutus-subcom-grid-container">
               {subComs[com].map((subcom) => {
                 //console.log(subcom.coChair);
@@ -186,11 +183,95 @@ const AboutUsHL = () => {
     <>
       <div className="aboutus-hl-grid-container">
         {headLeedurs.map((info) => {
+          const [open, setOpen] = useState(true); // open is set to hl with greek letter page
+          const [clickLink, setClickLink] = useState(false); // icon links have not been clicked
+          const [hover, setHover] = useState(false);
+
+          useEffect(() => {
+            console.log(clickLink);
+            if (clickLink) {
+              setOpen(false);
+            }
+            setClickLink(false);
+          }, [clickLink]);
+
           return (
-            <div key={info.group} className="aboutus-hl-container">
-              <h1 className="aboutus-hl-frosh-group">{info.group}</h1>
-              <p className="aboutus-leedur">{info.leedur1}</p>
-              <p className="aboutus-leedur">{info.leedur2}</p>
+            <div
+              onMouseOver={() => {
+                setHover(true);
+                if (hover === false)
+                  setTimeout(() => {
+                    setHover(false);
+                  }, 1000);
+              }}
+              key={info.group}
+              className="aboutus-hl-container"
+              onClick={() => {
+                console.log('clicklink', clickLink);
+                if (!clickLink) {
+                  setOpen(!open);
+                } else {
+                  setOpen(open);
+                }
+              }}
+            >
+              <div
+                className={`${open ? 'aboutus-hl-container-show' : 'aboutus-hl-container-hide'}`}
+              >
+                <div className="aboutus-hl-frosh-group-container">
+                  <h1
+                    className={`aboutus-hl-frosh-group ${
+                      hover ? 'aboutus-hl-frosh-group-spin' : ''
+                    }`}
+                  >
+                    {info.letter}
+                  </h1>
+                  <h3 className="aboutus-hl-frosh-group-name">{info.group}</h3>
+                </div>
+                <p className="aboutus-leedur">{info.leedur1}</p>
+                <p className="aboutus-leedur">{info.leedur2}</p>
+              </div>
+
+              <div
+                style={{ position: 'absolute' }}
+                className={`${open ? 'aboutus-hl-container-hide' : 'aboutus-hl-container-show'}`}
+              >
+                <p className="aboutus-leedur aboutus-leedur-contact-message">
+                  Contact Your Head Leedurs!
+                </p>
+                <div className="aboutus-hl-contacts-container">
+                  {instagramAccounts[info.group] ? (
+                    <a
+                      className="no-link-style"
+                      href={instagramAccounts[info.group]}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => {
+                        setClickLink(true);
+                      }}
+                    >
+                      <img
+                        className="aboutus-hl-contacts-icon"
+                        src={InstagramIcon}
+                        alt="instagram-icon"
+                      ></img>
+                    </a>
+                  ) : (
+                    <></>
+                  )}
+                  {/* <a
+                    className="no-link-style"
+                    href={`mailto:${info.email}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => {
+                      setClickLink(true);
+                    }}
+                  >
+                    <img className="aboutus-hl-contacts-icon" src={MailIcon} alt="email-icon"></img>
+                  </a> */}
+                </div>
+              </div>
             </div>
           );
         })}
@@ -208,14 +289,14 @@ const tabs = [
     title: 'Tech Team',
     component: <AboutUsTechTeam />,
   },
-  // {
-  //   title: 'Subcoms',
-  //   component: <AboutUsSubcom />,
-  // },
-  // {
-  //   title: 'HLs',
-  //   component: <AboutUsHL />,
-  // },
+  {
+    title: 'Subcoms',
+    component: <AboutUsSubcom />,
+  },
+  {
+    title: 'Head Leedurs',
+    component: <AboutUsHL />,
+  },
 ];
 
 const AboutUsTeamsTab = () => {
@@ -245,11 +326,10 @@ const AboutUsTeamsTab = () => {
                     style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}
                   >
                     <h1
-                      className="aboutus-teams-tabs-title"
-                      style={
+                      className={
                         currentTab === tab.title
-                          ? { color: 'var(--purple-shades-dark)', transition: 'color 200ms' }
-                          : {}
+                          ? 'aboutus-teams-tabs-title-selected'
+                          : 'aboutus-teams-tabs-title'
                       }
                     >
                       {tab.title}

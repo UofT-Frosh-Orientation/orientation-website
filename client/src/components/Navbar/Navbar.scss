@@ -22,7 +22,7 @@ li {
   justify-content: space-between;
 
   align-items: center;
-  z-index: 100;
+  z-index: 90;
   position: fixed;
   background-color: var(--navbar-bg);
   width: 100%;
@@ -60,7 +60,7 @@ li {
     transition: color 200ms;
 
     .navbar-underline {
-      background-color: var(--purple);
+      background-color: var(--navbar-underline-desktop);
       transition: background-color 200ms;
     }
   }
@@ -71,9 +71,14 @@ li {
 
 .navbar-link {
   position: absolute;
-  color: var(--gray);
+  color: var(--navbar-link);
   font-size: 16px;
   font-weight: 700;
+
+  .navbar-underline {
+    color: var(--navbar-underline-desktop);
+    transition: background-color 200ms;
+  }
 }
 
 .navbar-underline {
@@ -85,7 +90,7 @@ li {
 }
 
 .underline-page-selected {
-  background-color: var(--purple);
+  background-color: var(--navbar-underline-highlight);
   align-self: flex-end;
   width: 80px;
   height: 3px;
@@ -108,7 +113,7 @@ li {
 }
 
 .icon-profile {
-  background: var(--purple);
+  background: var(--user-icon-bg);
   border-radius: 50%;
   width: 35px;
   height: 35px;
@@ -120,15 +125,35 @@ li {
   text-align: center;
   font-weight: bold;
   font-size: 15px;
-  color: var(--yellow-light);
+  color: var(--yellow);
   float: right;
+  cursor: pointer;
+
+  @include devices(tablet) {
+    margin-right: 10px;
+  }
+}
+
+.icon-profile-person-container {
+  cursor: pointer;
 }
 
 .icon-profile-person {
-  width: 35px;
-  height: 35px;
+  display: unset;
+  width: 40px;
+  height: 40px;
   margin-left: auto;
   margin-right: 15px;
+  margin-top: 4px;
+  cursor: pointer;
+  @include devices(tablet) {
+    margin-right: 10px;
+  }
+
+  transition: transform 300ms;
+  &:hover {
+    transform: scale(1.08);
+  }
 }
 
 .register,
@@ -247,13 +272,14 @@ li {
   }
 
   .underline-page-selected {
-    background-color: var(--purple);
+    background-color: var(--navbar-underline-highlight);
     bottom: 0;
     width: 40px;
     height: 3px;
   }
 
   .navbar-svg-icon {
+    display: unset;
     width: 25px;
     margin: 3px 0 0 0;
   }

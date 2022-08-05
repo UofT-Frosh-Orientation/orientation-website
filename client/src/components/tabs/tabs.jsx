@@ -7,7 +7,14 @@ import ArrowRight from '../../assets/steps/arrow-right-solid.svg';
 import ArrowLeft from '../../assets/steps/arrow-left-solid.svg';
 import { useEffect } from 'react';
 
-const Tabs = ({ tabs, maxWidthTab, selectedTabPassed, go, scrollToTopAfterChange }) => {
+const Tabs = ({
+  tabs,
+  maxWidthTab,
+  selectedTabPassed,
+  go,
+  displayButtons,
+  scrollToTopAfterChange,
+}) => {
   useEffect(() => {
     if (selectedTabPassed !== undefined) {
       setSelectedTab(selectedTabPassed);
@@ -41,41 +48,46 @@ const Tabs = ({ tabs, maxWidthTab, selectedTabPassed, go, scrollToTopAfterChange
             </div>
           );
         })}
-        <div className="tabs-buttons">
-          {selectedTab !== 0 ? (
-            <Button
-              style={{ marginLeft: '-5px' }}
-              label={
-                <div className="tab-button-label">
-                  <img src={ArrowLeft} style={{ marginRight: '10px', marginLeft: '-7px' }} />
-                  Previous
-                </div>
-              }
-              onClick={() => {
-                setSelectedTab(selectedTab - 1);
-                if (scrollToTopAfterChange) window.scrollTo(0, 0);
-              }}
-            />
-          ) : (
-            <div />
-          )}
-          {selectedTab !== tabs.length - 1 ? (
-            <Button
-              style={{ marginRight: '-5px' }}
-              label={
-                <div className="tab-button-label">
-                  Next <img src={ArrowRight} style={{ marginLeft: '10px', marginRight: '-7px' }} />
-                </div>
-              }
-              onClick={() => {
-                setSelectedTab(selectedTab + 1);
-                if (scrollToTopAfterChange) window.scrollTo(0, 0);
-              }}
-            />
-          ) : (
-            <></>
-          )}
-        </div>
+        {displayButtons ? (
+          <div className="tabs-buttons">
+            {selectedTab !== 0 ? (
+              <Button
+                style={{ marginLeft: '-5px' }}
+                label={
+                  <div className="tab-button-label">
+                    <img src={ArrowLeft} style={{ marginRight: '10px', marginLeft: '-7px' }} />
+                    Previous
+                  </div>
+                }
+                onClick={() => {
+                  setSelectedTab(selectedTab - 1);
+                  if (scrollToTopAfterChange) window.scrollTo(0, 0);
+                }}
+              />
+            ) : (
+              <div />
+            )}
+            {selectedTab !== tabs.length - 1 ? (
+              <Button
+                style={{ marginRight: '-5px' }}
+                label={
+                  <div className="tab-button-label">
+                    Next{' '}
+                    <img src={ArrowRight} style={{ marginLeft: '10px', marginRight: '-7px' }} />
+                  </div>
+                }
+                onClick={() => {
+                  setSelectedTab(selectedTab + 1);
+                  if (scrollToTopAfterChange) window.scrollTo(0, 0);
+                }}
+              />
+            ) : (
+              <></>
+            )}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
@@ -85,13 +97,18 @@ Tabs.propTypes = {
   tabs: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
-      component: PropTypes.instanceOf(Element),
+      component: PropTypes.object,
     }),
   ).isRequired,
   maxWidthTab: PropTypes.number,
   selectedTabPassed: PropTypes.number,
   go: PropTypes.bool,
+  displayButtons: PropTypes.bool,
   scrollToTopAfterChange: PropTypes.bool,
+};
+
+Tabs.defaultProps = {
+  displayButtons: true,
 };
 
 export { Tabs };

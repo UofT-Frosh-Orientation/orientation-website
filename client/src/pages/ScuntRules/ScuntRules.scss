@@ -1,0 +1,57 @@
+@import '../../scssStyles/mixins';
+
+.scunt-rules-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 3%;
+  margin-top: 0;
+  color: var(--text-dynamic);
+  h3 {
+    margin-bottom: 10px;
+    font-size: 34px;
+    @include devices(tablet) {
+      font-size: 28px;
+    }
+    display: inline-block;
+  }
+}
+
+ol.scunt-rules-list {
+  li {
+    list-style-type: upper-roman;
+    list-style-position: inside;
+    font-size: 34px;
+    @include devices(tablet) {
+      font-size: 28px;
+    }
+  }
+  p {
+    font-size: 20px;
+    margin-bottom: 8px;
+    @include devices(tablet) {
+      font-size: 18px;
+    }
+    margin-left: 15px;
+  }
+}
+
+.scunt-rules-container {
+  padding-top: 15px;
+  max-width: 1000px;
+}
+
+ol.scunt-rules-list-inner {
+  li {
+    font-size: 19px;
+    list-style-type: decimal;
+    list-style-position: outside;
+    margin-bottom: 5px;
+    margin-left: 55px;
+    @include devices(tablet) {
+      font-size: 17px;
+      margin-left: 40px;
+    }
+  }
+}

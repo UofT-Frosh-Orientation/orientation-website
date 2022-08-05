@@ -1,8 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import './TextInput.scss';
 import EyeSolid from '../../../../assets/icons/eye-solid.svg';
 import EyeSlash from '../../../../assets/icons/eye-slash-solid.svg';
+
+import EyeSolidDarkMode from '../../../assets/darkmode/icons/eye-solid.svg';
+import EyeSlashDarkMode from '../../../assets/darkmode/icons/eye-slash-solid.svg';
+import { DarkModeContext } from '../../../util/DarkModeProvider';
 
 const TextInput = ({
   label,
@@ -28,6 +32,8 @@ const TextInput = ({
   maxLength,
   autocomplete,
 }) => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   useEffect(() => {
     if (localStorageKey !== undefined) {
       const storedString = localStorage.getItem(localStorageKey);
@@ -121,7 +127,11 @@ const TextInput = ({
         label === undefined ? 'text-input-container-no-margin' : ''
       } ${isDisabled === true ? 'text-input-disabled-container' : ''}`}
     >
-      <div className="text-input-title-container">
+      <div
+        className={
+          'text-input-title-container' + (isDisabled ? ' text-input-title-container-disabled' : '')
+        }
+      >
         {label !== undefined ? <p className="text-input-title">{label}</p> : <></>}
         {isRequiredInput !== undefined && isRequiredInput === true && label !== undefined ? (
           <p className="text-input-required-star">*</p>
@@ -169,14 +179,27 @@ const TextInput = ({
           />
         )}
         {inputType == 'password' ? (
-          <img
-            className={'text-input-password-eye'}
-            onClick={() => {
-              type === 'text' ? setType('password') : setType('text');
-            }}
-            src={type === 'text' ? EyeSolid : EyeSlash}
-            alt="show password"
-          />
+          <>
+            {!darkMode ? (
+              <img
+                className={'text-input-password-eye'}
+                onClick={() => {
+                  type === 'text' ? setType('password') : setType('text');
+                }}
+                src={type === 'text' ? EyeSolid : EyeSlash}
+                alt="show password"
+              />
+            ) : (
+              <img
+                className={'text-input-password-eye'}
+                onClick={() => {
+                  type === 'text' ? setType('password') : setType('text');
+                }}
+                src={type === 'text' ? EyeSolidDarkMode : EyeSlashDarkMode}
+                alt="show password"
+              />
+            )}
+          </>
         ) : (
           <></>
         )}

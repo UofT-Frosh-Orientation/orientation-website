@@ -11,10 +11,15 @@
   width: 140px;
   height: 140px;
   margin-bottom: 10px;
+  transition: transform 500ms;
+}
+
+.sign-up-logo-expand {
+  transform: scale(0.6);
 }
 
 .sign-up-container {
-  background-color: var(--white);
+  background-color: var(--container-bg);
   border-radius: 15px;
   padding: 40px min(150px, 5%);
   margin: 50px;
@@ -83,6 +88,7 @@
 }
 
 .sign-up-success {
+  color: var(--text-dynamic);
   position: fixed;
   width: 100vw;
   height: 100vh;

@@ -24,7 +24,9 @@
   display: block;
   width: 100%;
   height: auto;
+}
 
+.exec-image-hover {
   cursor: pointer;
   transition: transform 200ms;
 
@@ -65,6 +67,7 @@
 }
 
 .exec-profile-name {
+  text-align: left;
   color: var(--white);
   font-size: 36px;
   font-weight: 400;
@@ -91,7 +94,7 @@
   color: var(--white);
   font-size: 16px;
   font-weight: 300;
-  text-align: justify;
+  //text-align: justify;
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -108,14 +111,71 @@
   }
 }
 
+.nonexec-profile-description-container {
+  position: absolute;
+  background: var(--purple);
+  opacity: 0.95;
+
+  width: 100%;
+  height: 100%;
+
+  top: 0;
+  padding: 5%;
+  overflow-y: scroll;
+  overflow-x: none;
+
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 300;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--transparent);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--light-purple);
+  }
+
+  @include devices(tablet) {
+    font-size: 14px;
+  }
+}
+
+.subcom-profile-mobile-display {
+  @include devices(tablet) {
+    display: block;
+  }
+}
+
 .nonexec-profile-description {
+  display: flex;
+  flex-direction: column;
+  color: var(--white);
   padding: 10%;
-  text-align: left;
+  //text-align: left;
+  align-self: center;
+  justify-self: center;
+}
+
+.exec-profile-description-dis,
+.exec-profile-description-role,
+.exec-profile-description-fav {
+  color: var(--white);
 }
 
 .exec-profile-description-dis,
 .exec-profile-description-role {
   margin-bottom: 25px;
+}
+.nonexec-dicipline {
+  margin-bottom: 10px;
 }
 
 .exec-profile-description-show {
@@ -133,10 +193,12 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin-top: 50px;
+  //margin-top: 15px;
 }
+
 .profile-subcom-people {
   margin: 3px;
+  color: var(--white);
 }
 
 .subcom-container {
@@ -144,4 +206,33 @@
     width: 45vw;
     height: 45vw;
   }
+}
+
+// scunt
+.scunt-bribe-list-item {
+  list-style-type: circle;
+  margin: 5px;
+}
+
+.scunt-bribe-list ul {
+  text-decoration: none;
+}
+
+.scunt-bribes-list-all {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding-left: 18px;
+  text-decoration: none;
+}
+
+.scunt-bribes-text {
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.exec-profile-scunt-judges-description {
+  margin-bottom: 12px;
+  text-align: left;
 }

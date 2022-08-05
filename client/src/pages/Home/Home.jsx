@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { getSlideshowImages, getTimelineDates } from './functions';
 import './Home.scss';
 import Wave from '../../assets/misc/wave.png';
 import WaveReverse from '../../assets/misc/wave-reverse.png';
+import WaveDarkMode from '../../assets/darkmode/misc/wave.png';
+import WaveReverseDarkmode from '../../assets/darkmode/misc/wave-reverse.png';
 
 import { Button } from '../../components/button/Button/Button';
 import { Link } from 'react-router-dom';
@@ -11,11 +13,13 @@ import { Link } from 'react-router-dom';
 import Landing1 from '../../assets/landing/landing-1.jpg';
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
 import { ImageCarousel } from '../../components/ImageCarousel/ImageCarousel';
+import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
 import 'react-slideshow-image/dist/styles.css';
 import { Slide } from 'react-slideshow-image';
 import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
 import { PopupModal } from '../../components/popup/PopupModal';
 import { sponsors } from '../../util/sponsors';
+import { DarkModeContext } from '../../util/DarkModeProvider';
 
 const PageHome = () => {
   return (
@@ -29,6 +33,8 @@ const PageHome = () => {
 };
 
 const HomePageHeader = () => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
     <div className="home-page-header">
       <div className="home-page-header-text">
@@ -66,7 +72,11 @@ const HomePageHeader = () => {
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />
       </div>
-      <img src={Wave} className="wave-image home-page-top-wave-image" />
+      {darkMode ? (
+        <img src={WaveDarkMode} className="wave-image home-page-top-wave-image" />
+      ) : (
+        <img src={Wave} className="wave-image home-page-top-wave-image" />
+      )}
     </div>
   );
 };
@@ -155,12 +165,49 @@ const HomePageSchedule = () => {
 };
 
 const HomePageSponsors = () => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const [viewAll, setViewAll] = useState(false);
   return (
     <div className="home-page-sponsors">
-      <img src={WaveReverse} className="wave-image home-page-bottom-wave-image" />
+      {darkMode ? (
+        <img src={WaveReverseDarkmode} className="wave-image home-page-bottom-wave-image" />
+      ) : (
+        <img src={WaveReverse} className="wave-image home-page-bottom-wave-image" />
+      )}
       <h2>Our Sponsors</h2>
       <PleaseSponsor />
-      <ImageCarousel items={sponsors} />
+      {viewAll === false ? (
+        <ImageCarousel items={sponsors} />
+      ) : (
+        <div className="all-sponsors-area">
+          {sponsors.map((item, index) => {
+            return (
+              <div key={item.name + index} className="sponsor-container">
+                <a
+                  href={item.website}
+                  key={item.name + index}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="no-link-style"
+                >
+                  <img src={item.image} alt={item.name} />
+                </a>
+                <p>{item.label}</p>
+              </div>
+            );
+          })}
+        </div>
+      )}
+      {!viewAll ? (
+        <Button
+          label={'View All'}
+          onClick={() => {
+            setViewAll(true);
+          }}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

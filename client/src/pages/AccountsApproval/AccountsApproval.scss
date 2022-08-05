@@ -1,0 +1,125 @@
+@import '../../scssStyles/mixins';
+
+.accounts-approval-page-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  padding: 10% 1%;
+
+  @include devices(mobile) {
+    padding: 10% 0;
+  }
+}
+
+.accounts-approval-tabs-container {
+  width: 90%;
+
+  @include devices(mobile) {
+    width: 100%;
+  }
+}
+
+// ALL ACCOUNTS COMPONENT
+.all-accounts-component-container {
+  display: flex;
+}
+
+// TABLE
+.all-accounts-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  border-radius: 10px;
+  color: var(--text-dynamic) !important;
+}
+.all-accounts-buttons {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 10px 15px 10px;
+  justify-content: center;
+}
+.all-accounts-approve-ver-button {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+}
+.all-accounts-approve-ver-note {
+  font-size: 12px;
+  text-align: center;
+  color: var(--red-error);
+}
+.all-accounts-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.all-accounts-table-header-row {
+  box-sizing: border-box;
+  border-bottom: 4px solid var(--page-bg);
+  vertical-align: bottom;
+}
+
+.all-accounts-table-header {
+  padding: 8px;
+}
+.all-accounts-table-header-left-align {
+  padding: 8px;
+  text-align: left;
+}
+
+.all-accounts-row {
+  border-bottom: 2px solid var(--page-bg);
+}
+.all-account-data {
+  padding: 8px;
+}
+.verified-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+
+  @include devices(tablet) {
+    width: 15px;
+    height: 15px;
+  }
+}
+.green-verified-circle {
+  background: var(--green-success);
+}
+.gray-verified-circle {
+  background: var(--gray);
+}
+.all-account-data-verified {
+  width: 50px;
+  padding: 0px;
+}
+.all-account-data-verified-container {
+  width: 120px;
+
+  @include devices(tablet) {
+    font-size: 13px;
+  }
+}
+.all-account-data-checkboxes {
+  width: 150px;
+}
+
+/// AUTH SCOPES TAB
+.all-account-data-name {
+  padding: 8px;
+}
+.auth-req-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 3px;
+}
+.auth-req-text {
+  margin-left: 5px;
+}

@@ -7,8 +7,8 @@ import { TextInput } from '../../components/input/TextInput/TextInput';
 import { validateEmail, validatePassword, validatePasswordLength } from '../SignUp/functions';
 import { Button } from '../../components/button/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetPassword } from '../Login/saga';
-import { passwordResetSelector } from '../userSlice';
+import { resetPassword } from '../../state/user/saga';
+import { passwordResetSelector } from '../../state/user/userSlice';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 

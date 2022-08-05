@@ -39,10 +39,12 @@
 }
 
 .register-terms-of-service {
+  color: var(--black);
   font-size: 15px;
 }
 
 .register-terms-of-service-below {
+  color: var(--black);
   font-size: 16px;
   text-align: center;
   margin-top: 10px;
@@ -50,6 +52,7 @@
 }
 
 .registration-first-step-title {
+  color: var(--black);
   font-size: 45px;
   padding: 10px;
   padding-bottom: 0px;
@@ -61,6 +64,7 @@
 }
 
 .registration-first-step-subtitle {
+  color: var(--black);
   font-size: 25px;
   margin-bottom: 15px;
   margin-left: 10px;
@@ -89,7 +93,6 @@
 }
 
 .registration-edit-popup {
-  padding: 10px 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;

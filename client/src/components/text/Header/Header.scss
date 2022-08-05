@@ -1,0 +1,62 @@
+@import '../../../scssStyles/mixins';
+
+.header-page-wave-bottom {
+  width: 100vw;
+  filter: drop-shadow(-10px 10px 8px #23232342);
+  height: min(10vh, 80px);
+  object-fit: fill;
+  @include devices(tablet) {
+    height: min(10vh, 40px);
+  }
+}
+
+.header-page-container {
+  display: flex;
+  flex-direction: column;
+
+  @include devices(tablet) {
+    align-items: center;
+  }
+}
+
+.header-page-title {
+  text-align: left;
+  font-size: 60px;
+  color: var(--white);
+  margin-top: 75px;
+  text-align: center;
+
+  @include devices(tablet) {
+    margin-top: 50px;
+    font-size: 40px;
+  }
+}
+
+.header-page-title-underline {
+  background: var(--yellow);
+  border-radius: 10px;
+  // width: 300px;
+  height: 4px;
+  margin-top: 8px;
+  margin-bottom: 34px; // so that the links are approx in the same place as Home
+  align-self: center;
+
+  @include devices(tablet) {
+    width: 180px;
+    margin-bottom: 20px;
+  }
+}
+
+.header-page-subcontainer {
+  background-color: var(--purple);
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  width: 100vw;
+
+  @include devices(tablet) {
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+}

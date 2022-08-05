@@ -1,38 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import './SignUp.scss';
 import { Button } from '../../components/button/Button/Button';
 import { validateEmail, validatePassword, validatePasswordLength } from './functions';
-import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
+import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { userSelector } from '../userSlice';
-import { signUp } from '../Login/saga';
+import { userSelector } from '../../state/user/userSlice';
+import { signUp } from '../../state/user/saga';
+import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
+import { SnackbarContext } from '../../util/SnackbarProvider';
 
 const PageSignUp = () => {
   const [errors, setErrors] = useState({});
   const [accountObj, setAccountObj] = useState({});
   const [anyErrors, setAnyErrors] = useState({});
   const [pageState, setPageState] = useState('form');
-  const [signUpError, setSignUpError] = useState('');
-  const { user, loading, error } = useSelector(userSelector);
+  const [revealLeaderSignup, setRevealLeaderSignup] = useState(0);
+
+  const { setSnackbar } = useContext(SnackbarContext);
+  const { user } = useSelector(userSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loading) {
-      setPageState('loading');
-    } else if (error) {
-      setPageState('form');
-      setErrors(error);
-    } else if (user) {
+    if (user) {
       setPageState('success');
     }
-  }, [user, error, loading]);
+  }, [user]);
 
   const submitForm = () => {
-    dispatch(signUp(accountObj));
+    setPageState('loading');
+    const setIsLoading = (isLoading) => {
+      if (isLoading) setPageState('loading');
+      else setPageState('form');
+    };
+    dispatch(signUp({ setSnackbar, setIsLoading, user: accountObj }));
   };
 
   const checkErrors = (sendFeedback = true, feedbackToSend = []) => {
@@ -85,6 +89,10 @@ const PageSignUp = () => {
     return anyErrorsNow;
   };
 
+  const handleLeaderReveal = () => {
+    setRevealLeaderSignup(revealLeaderSignup + 1);
+  };
+
   return (
     <div>
       <div
@@ -93,9 +101,13 @@ const PageSignUp = () => {
       >
         <div className="navbar-space-top" />
         <div className="sign-up-container">
-          <img className="sign-up-logo" src={MainFroshLogo}></img>
-          <h1>Create an Account</h1>
-          <h3>For F!rosh Week 2T2, UofT Engineering</h3>
+          <img
+            className={`sign-up-logo ${revealLeaderSignup >= 5 ? 'sign-up-logo-expand' : ''}`}
+            src={MainFroshLogo}
+            onClick={handleLeaderReveal}
+          ></img>
+          <h1 style={{ color: 'var(--black)' }}>Create an Account</h1>
+          <h3 style={{ color: 'var(--black)' }}>For F!rosh Week 2T2, UofT Engineering</h3>
           <div className="full-width-input">
             <TextInput
               label="Email"
@@ -176,6 +188,18 @@ const PageSignUp = () => {
               localStorageKey={'sign-up-preferredName'}
             />
           </div>
+          {revealLeaderSignup >= 5 ? (
+            <div style={{ width: '100%', marginTop: '5px', marginBottom: '5px' }}>
+              <Checkboxes
+                values={['Request Leedur Account']}
+                onSelected={(value, index, state, selectedIndices) => {
+                  accountObj['leadur'] = state;
+                }}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
           <div
             className="sign-up-button"
             onMouseOver={() => {
@@ -193,9 +217,6 @@ const PageSignUp = () => {
                 }
               }}
             />
-          </div>
-          <div style={{ width: '100%' }}>
-            <ErrorSuccessBox content={signUpError} error />
           </div>
         </div>
       </div>
@@ -219,16 +240,22 @@ const PageSignUp = () => {
                 ? accountObj['firstName']
                 : accountObj['preferredName']
             }.`}</h2>
-            <h1>You aren&apos;t done just yet!</h1>
-            <h3>You still need to register and pay for the F!rosh Week event.</h3>
-            <Link to="/registration" className="no-link-style">
-              <div>
-                <Button
-                  label="Register"
-                  style={{ padding: '25px 60px', fontSize: '20px', borderRadius: '20px' }}
-                />
-              </div>
-            </Link>
+            {accountObj['leadur'] === true ? (
+              <h3>Your account will be reviewed and shortly become an official Leedur account.</h3>
+            ) : (
+              <>
+                <h1>You aren&apos;t done just yet!</h1>
+                <h3>You still need to register and pay for the F!rosh Week event.</h3>
+                <Link to="/registration" className="no-link-style">
+                  <div>
+                    <Button
+                      label="Register"
+                      style={{ padding: '25px 60px', fontSize: '20px', borderRadius: '20px' }}
+                    />
+                  </div>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

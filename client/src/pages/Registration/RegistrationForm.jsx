@@ -8,12 +8,12 @@ import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import { Button } from '../../components/button/Button/Button';
 import { Tabs } from '../../components/tabs/tabs';
 import './RegistrationForm.scss';
-import MainFroshLogo from '../../assets/logo/frosh-main-logo.svg';
+import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { Link, useNavigate } from 'react-router-dom';
 import { PopupModal } from '../../components/popup/PopupModal';
 import useAxios from '../../hooks/useAxios';
-import { initialsSelector, registeredSelector, userSelector } from '../userSlice';
+import { initialsSelector, registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useSelector } from 'react-redux';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 

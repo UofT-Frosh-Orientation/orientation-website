@@ -149,14 +149,13 @@
   padding-bottom: 15px;
 }
 
-.profile-page-qr-code {
+.profile-page-side-section {
   max-width: 350px;
-  background-color: var(--white);
+  background-color: var(--container-bg);
   box-shadow: var(--shadow);
   border-radius: 25px;
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-direction: column;
   padding: 15px;
   @include devices(tablet) {
@@ -164,6 +163,11 @@
     width: 90vw;
     margin-top: 20px;
   }
+}
+
+.profile-page-qr-code {
+  background-color: white !important;
+  align-items: center;
   p {
     font-size: 18px;
     margin-bottom: 10px;
@@ -184,20 +188,14 @@
 }
 
 .profile-page-resources {
-  max-width: 350px;
   margin-top: 20px;
-  background-color: var(--white);
-  box-shadow: var(--shadow);
-  border-radius: 25px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   flex-wrap: wrap;
   overflow: hidden;
   flex: 0;
   flex-shrink: 1;
   padding: 25px 30px;
   h2 {
+    color: var(--text-dynamic);
     font-size: 32px;
   }
   @include devices(tablet) {
@@ -217,6 +215,7 @@
 }
 
 .profile-page-accordion-container {
+  color: var(--text-dynamic);
   margin: 15px 0px;
   cursor: pointer;
 }
@@ -232,17 +231,18 @@
     font-size: 22px;
     text-transform: capitalize;
     flex: 1;
+    color: var(--text-dynamic);
   }
   h4 {
     font-size: 17px !important;
     text-transform: capitalize;
-    color: var(--purple);
+    color: var(--gray-time-label);
     margin-right: 10px;
+    text-align: right;
   }
   @include devices(tablet) {
     padding: 15px 5px;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     h3 {
       font-size: 19px;
     }
@@ -258,6 +258,7 @@
   margin-top: -12px;
   width: 100%;
   p {
+    color: var(--text-dynamic);
     font-size: 17px;
   }
   @include devices(tablet) {
@@ -282,7 +283,7 @@
   border-radius: 10px;
   width: 100%;
   text-align: center;
-  margin-top: 15px;
+  margin-top: 5px;
 }
 
 .profile-page-manual-entry-header {
@@ -385,6 +386,7 @@
 }
 
 .profile-not-registered {
+  color: var(--text-dynamic);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -393,4 +395,60 @@
   margin-top: 25px;
   text-align: center;
   padding: 0px 20px;
+}
+
+.frosh-instagram-container {
+  margin-left: 50px;
+  margin-right: 2%;
+  flex: 1;
+  max-width: 1000px;
+  background-color: var(--purple-shades-light);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 15px;
+  margin-bottom: 23px;
+  color: var(--text-dynamic);
+  img {
+    padding-right: 18px;
+    width: 75px;
+    vertical-align: middle;
+    transition: transform 500ms;
+  }
+  @include devices(tablet) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  h2 {
+    transition: transform 500ms;
+    transform-origin: left;
+  }
+  &:hover {
+    img {
+      transform: scale(1.04);
+    }
+    h2 {
+      transform: scale(1.02);
+    }
+  }
+}
+
+.profile-page-scunt-token {
+  text-align: center;
+  padding: 0 30px;
+  padding-top: 30px;
+  h2 {
+    padding: 0px !important;
+    padding-bottom: 5px;
+    margin: 0px;
+    user-select: all;
+    transition: filter 500ms;
+    font-size: 35px !important;
+    color: var(--black) !important;
+  }
+  p {
+    margin-top: 5px;
+    color: var(--black) !important;
+  }
 }

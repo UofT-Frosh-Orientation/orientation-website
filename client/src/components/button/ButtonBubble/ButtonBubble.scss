@@ -2,8 +2,8 @@
 
 .button-bubble {
   margin: 10px;
-  background-color: var(--purple-shades-light);
-  color: var(--text-dark);
+  background-color: var(--button-outlined-bg);
+  color: var(--button-outlined-font);
   border-radius: 14px;
   padding: 13px 20px;
   box-shadow: var(--shadow);
@@ -25,9 +25,9 @@
 }
 
 .button-bubble-secondary {
-  background-color: var(--on-white);
-  border-color: var(--purple-shades-muted);
-  color: var(--text-dark);
+  background-color: var(--button-outlined-bg-secondary);
+  border-color: var(--button-outlined-border);
+  color: var(--button-outlined-font);
   font-weight: unset;
   transition: background-color 200ms, border-color 200ms;
 
@@ -42,10 +42,10 @@
   opacity: 0.6;
   cursor: unset;
   background-color: var(--on-white);
-  border-color: var(--gray);
+  border-color: var(--button-outlined-disabled-border);
 
   &:active {
     transition: background-color 100ms;
-    background-color: var(--on-white);
+    //background-color: var(--on-white);
   }
 }

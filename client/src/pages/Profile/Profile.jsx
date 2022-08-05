@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   canLeaderScanQR,
@@ -17,6 +17,7 @@ import {
 } from './functions';
 import './Profile.scss';
 import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
+import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
 import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnnouncement';
 import { QRNormal } from 'react-qrbtf';
 import { ButtonBubble } from '../../components/button/ButtonBubble/ButtonBubble';
@@ -31,16 +32,23 @@ import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOut
 import EditIcon from '../../assets/misc/pen-solid.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { resources } from '../../util/resources';
+import { instagramAccounts } from '../../util/instagramAccounts';
+import InstagramIcon from '../../assets/social/instagram-brands.svg';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { registeredSelector, userSelector } from '../userSlice';
+import { registeredSelector, userSelector } from '../../state/user/userSlice';
 
-import { PopupModal } from '../../components/popup/PopupModal';
-import { logout } from '../Login/saga';
+import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
+import { DarkModeContext } from '../../util/DarkModeProvider';
+import { SnackbarContext } from '../../util/SnackbarProvider';
+import { okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
+import { froshGroups } from '../../util/frosh-groups';
 
 const PageProfile = () => {
+  const { user } = useSelector(userSelector);
+
   const qrCodeLeader = canLeaderScanQR();
-  const leader = isLeader();
+  const leader = user?.userType === 'leadur';
   if (qrCodeLeader) {
     return <PageProfileQRLeader />;
   } else if (leader) {
@@ -63,14 +71,18 @@ const PageProfileFrosh = ({ leader, isLoggedIn, setIsLoggedIn }) => {
       <div className="profile-info-row">
         <div>
           {leader === false || leader === undefined ? (
-            <ProfilePageAnnouncements />
+            <>
+              <ProfilePageInstagrams />
+              <ProfilePageAnnouncements />
+            </>
           ) : (
-            <div style={{ marginTop: '-40px' }} />
+            <div style={{ marginTop: '-20px' }} />
           )}
           <ProfilePageSchedule />
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <ProfilePageQRCode />
+          <ProfilePageScuntToken />
           <ProfilePageResources />
         </div>
       </div>
@@ -82,6 +94,65 @@ PageProfileFrosh.propTypes = {
   leader: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
   setIsLoggedIn: PropTypes.func,
+};
+
+export const ProfilePageScuntToken = () => {
+  if (okayToInviteToScunt === false) {
+    return <div />;
+  }
+
+  const { user } = useSelector(userSelector);
+  const isRegistered = useSelector(registeredSelector);
+  const { setSnackbar } = useContext(SnackbarContext);
+  const [showToken, setShowToken] = useState(false);
+
+  const code = user?.scuntToken;
+  if (code === undefined || !isRegistered) {
+    return <></>;
+  }
+  if (!user?.scunt) {
+    return (
+      <div className="profile-page-scunt-token profile-page-side-section">
+        <p>
+          <b>Looking for your Scunt login Token?</b>
+        </p>
+        <p>You have chosen not to participate in Scunt.</p>
+        <br />
+        <p>
+          If you want to participate, please edit your profile <Link to="/profile-edit">here</Link>{' '}
+          and set <em>Would you like to participate in Havenger Scunt?</em> to <b>Yes</b>.{' '}
+        </p>
+        <div style={{ height: '30px' }} />
+      </div>
+    );
+  }
+  return (
+    <div className="profile-page-scunt-token profile-page-side-section">
+      <h2
+        style={{ filter: showToken ? '' : 'blur(10px)' }}
+        onClick={() => {
+          setSnackbar('Copied to clipboard');
+          navigator.clipboard.writeText(code);
+        }}
+      >
+        {code}
+      </h2>
+      <p>Scunt Login Token</p>
+      <p style={{ fontSize: '13px' }}>
+        Use this token to login to the{' '}
+        <a href={scuntDiscord} target="_blank" rel="noreferrer">
+          Scunt Discord
+        </a>
+      </p>
+      <ButtonOutlined
+        isSecondary={showToken}
+        label={showToken ? 'Hide' : 'Show'}
+        onClick={() => {
+          setShowToken(!showToken);
+        }}
+      />
+    </div>
+  );
 };
 
 const PageProfileQRLeader = () => {
@@ -105,37 +176,11 @@ const PageProfileQRLeader = () => {
 };
 
 const ProfilePageQRScanner = () => {
-  const [isScanned, setIsScanned] = useState(false);
-  const [isScanning, setIsScanning] = useState(false);
-  const [scannedData, setScannedData] = useState('');
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [searchFor, setSearchFor] = useState('');
   const [results, setResults] = useState([]);
-  const videoRef = useRef();
-
-  let qrScanner = null;
-  useEffect(() => {
-    if (isScanning) {
-      const videoElement = videoRef.current;
-      qrScanner = new QrScanner(
-        videoElement,
-        (qrCode) => {
-          if (qrCode) {
-            setIsScanned(!isScanned);
-            setScannedData(parseQRCode(qrCode.data));
-          }
-        },
-        {
-          onDecodeError: (error) => {},
-          highlightScanRegion: true,
-          highlightCodeOutline: true,
-        },
-      );
-      qrScanner.setInversionMode('both');
-      qrScanner.start();
-    }
-  }, [isScanning]);
+  const [scannedData, setScannedData] = useState('');
 
   const search = () => {
     setResults(searchForFrosh(searchFor));
@@ -143,23 +188,9 @@ const ProfilePageQRScanner = () => {
 
   return (
     <div className="profile-page-qr-code">
-      <ButtonOutlined
-        label={isScanning ? 'Stop Scanning' : 'Start Scanning'}
-        onClick={() => {
-          if (isScanning) {
-            qrScanner?.stop();
-            qrScanner?.destroy();
-            qrScanner = null;
-            document.getElementsByClassName('scan-region-highlight-svg')[0].style.display = 'none';
-            document.getElementsByClassName('scan-region-highlight')[0].style.display = 'none';
-            setIsScanning(false);
-          } else {
-            setIsScanning(true);
-          }
-        }}
-      />
-      <video ref={videoRef} style={{ width: '100%', borderRadius: '10px' }}></video>
-
+      <QRScannerDisplay
+        setScannedData={(data) => setScannedData(parseQRCode(data))}
+      ></QRScannerDisplay>
       <div
         className={`profile-page-scanned-data ${
           submitSuccess ? 'profile-page-scanned-data-success' : ''
@@ -194,7 +225,7 @@ const ProfilePageQRScanner = () => {
             if (submitError !== false) {
               setSubmitError(false);
             }
-            if (results != []) {
+            if (results !== []) {
               setResults([]);
             }
           } else {
@@ -240,39 +271,20 @@ const ProfilePageQRScanner = () => {
   );
 };
 
-const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) => {
+const ProfilePageHeader = ({ leader, editButton }) => {
   const { user } = useSelector(userSelector);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
+  const leaderApproved = user?.approved === true;
 
   const isRegistered = useSelector(registeredSelector);
   // console.log(`editButton: ${editButton}`);
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
     <>
-      {/* calum, please log out in the popups! */}
-      <PopupModal
-        trigger={showLogoutPopup}
-        setTrigger={setShowLogoutPopup}
-        exitIcon={true}
-        blurBackground={false}
-        heading={'Would you like to logout?'}
-      >
-        <Button
-          isSecondary={true}
-          label="Logout"
-          onClick={() => {
-            dispatch(logout({ navigate, setShowLogoutPopup }));
-          }}
-        />
-      </PopupModal>
-
       <div className="profile-page-header">
         <div className="profile-page-header-group">
-          <h1>{user?.froshGroupIcon}</h1>
-          <p>{user?.froshGroup}</p>
-          {leader === true ? <p>{'(Leader)'}</p> : <></>}
+          <h1>{leader === true ? 'ℒ' : user?.froshGroupIcon}</h1>
+          {leader === true ? <p>{'(Leedur)'}</p> : <p>{user?.froshGroup}</p>}
         </div>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-info">
@@ -292,7 +304,7 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
           </div>
           <div className="profile-page-header-class desktop-only">
             {leader === true ? (
-              <h2>Leader</h2>
+              <h2>2T2</h2>
             ) : (
               <>
                 <p>Class of</p>
@@ -307,23 +319,35 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
           ) : (
             <></>
           )}
-          {editButton !== false ? (
-            <div
-              style={{ right: !isRegistered ? '10px' : '60px' }}
-              className="profile-logout-button"
-              onClick={() => {
-                setShowLogoutPopup(true);
-              }}
-            >
-              Logout
-            </div>
-          ) : (
-            <></>
-          )}
         </div>
       </div>
-      <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
-      {!isRegistered ? (
+      {darkMode ? (
+        <img src={WaveReverseFlipDarkMode} className="wave-image home-page-bottom-wave-image" />
+      ) : (
+        <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
+      )}
+      {leader === true && leaderApproved === false ? (
+        <div className={'profile-not-registered'}>
+          <h1>Your Leedur Account is not Approved!</h1>
+          <h2>Please contact a VC to get your account approved.</h2>
+        </div>
+      ) : (
+        <></>
+      )}
+      {leader === true && leaderApproved === true ? (
+        <div className={'profile-not-registered'}>
+          <Link
+            to={'/permission-request'}
+            style={{ textDecoration: 'none' }}
+            className={'no-link-style'}
+          >
+            <Button label="Request Leedur Permissions" style={{}} />
+          </Link>
+        </div>
+      ) : (
+        <></>
+      )}
+      {!isRegistered && leader !== true ? (
         <div className={'profile-not-registered'}>
           <h1>You are not registered!</h1>
           <h2>You will not be able to participate in F!rosh week events until you register.</h2>
@@ -346,8 +370,37 @@ const ProfilePageHeader = ({ leader, editButton, isLoggedIn, setIsLoggedIn }) =>
 ProfilePageHeader.propTypes = {
   leader: PropTypes.bool,
   editButton: PropTypes.bool,
-  isLoggedIn: PropTypes.bool,
-  setIsLoggedIn: PropTypes.func,
+};
+
+const ProfilePageInstagrams = () => {
+  const { user } = useSelector(userSelector);
+  const isRegistered = useSelector(registeredSelector);
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
+  const getInstagramFromLink = (link) => {
+    if (link === undefined) return '';
+    return link.replace('https://www.instagram.com', '').replace('/', '');
+  };
+
+  const instagramLink = instagramAccounts[user?.froshGroup];
+
+  return isRegistered ? (
+    <a href={instagramLink} className="no-link-style" target={'_blank'} rel="noreferrer">
+      <div className="frosh-instagram-container">
+        <img
+          src={InstagramIcon}
+          alt="Instagram"
+          style={{ filter: !darkMode ? 'invert(1)' : 'unset' }}
+        />
+        <div>
+          <p>Go follow your frosh group and meet your Leedurs!</p>
+          <h2>@{getInstagramFromLink(instagramLink).slice(0, -1)}</h2>
+        </div>
+      </div>
+    </a>
+  ) : (
+    <></>
+  );
 };
 
 const ProfilePageAnnouncements = () => {
@@ -358,7 +411,11 @@ const ProfilePageAnnouncements = () => {
   return (
     <div className="profile-page-announcements">
       <h2 className="profile-page-section-header">Tasks and Announcements</h2>
-      {tasks == undefined ? <></> : <TaskAnnouncement tasks={tasks} onDone={onDoneTask} />}
+      {tasks == undefined || tasks.length <= 0 ? (
+        <h2 style={{ color: 'var(--black)' }}>There are no announcements yet!</h2>
+      ) : (
+        <TaskAnnouncement tasks={tasks} onDone={onDoneTask} />
+      )}
     </div>
   );
 };
@@ -373,7 +430,7 @@ const ProfilePageQRCode = () => {
     return <></>;
   }
   return (
-    <div className="profile-page-qr-code">
+    <div className="profile-page-qr-code profile-page-side-section">
       <QRNormal
         value={QRCodeString}
         styles={{ svg: { width: '120%', margin: '-10%' } }}
@@ -390,7 +447,7 @@ const ProfilePageQRCode = () => {
 };
 const ProfilePageResources = () => {
   return (
-    <div className="profile-page-resources">
+    <div className="profile-page-resources profile-page-side-section">
       <h2>Resources</h2>
       {resources.map((resource, index) => {
         return (
@@ -414,7 +471,13 @@ const ProfilePageResources = () => {
 };
 
 const ProfilePageSchedule = () => {
-  let days = getDaysFroshSchedule();
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
+
+  const [froshGroup, setFroshGroup] = useState(user?.froshGroup);
+  const [closeAll, setCloseAll] = useState(0);
+
+  let days = getDaysFroshSchedule(froshGroup);
   let buttonList = days.map((item) => {
     return { name: item };
   });
@@ -433,10 +496,39 @@ const ProfilePageSchedule = () => {
     count = 0;
   }
   const [selectedDayIndex, setSelectedDayIndex] = useState(count);
-  const [closeAll, setCloseAll] = useState(0);
+
+  const froshGroupNames = [];
+  for (let froshGroup of froshGroups) {
+    froshGroupNames.push(froshGroup?.name);
+  }
   return (
     <div className="profile-page-schedule">
-      <h2 className="profile-page-section-header profile-page-section-header-schedule">Schedule</h2>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <h2 className="profile-page-section-header profile-page-section-header-schedule">
+          Schedule
+        </h2>
+        {leader ? (
+          <div style={{ marginTop: '10px' }}>
+            <Dropdown
+              values={froshGroupNames}
+              initialSelectedIndex={0}
+              onSelect={(froshGroup) => {
+                setFroshGroup(froshGroup);
+              }}
+              localStorageKey={'leader-frosh-group-dropdown'}
+            />
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
       <ButtonSelector
         buttonList={buttonList}
         activeIndex={selectedDayIndex}

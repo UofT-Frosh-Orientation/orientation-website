@@ -125,7 +125,6 @@
 }
 
 .home-page-timeline-popup-container {
-  padding: 0px 50px;
   color: var(--white);
   h1 {
     margin-bottom: 10px;
@@ -169,6 +168,8 @@
 }
 
 .home-page-sponsors {
+  color: var(--black);
+
   text-align: center;
   h2 {
     font-size: 40px;
@@ -195,6 +196,7 @@
     padding-bottom: 0px;
   }
   .please-sponsor {
+    color: (--text-dark);
     padding-top: 20px;
     background-color: var(--purple-shades-light);
     padding-bottom: 20px;
@@ -205,5 +207,45 @@
   .please-sponsor:hover {
     transition: transform 500ms;
     transform: scale(1.05);
+  }
+}
+
+.all-sponsors-area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.sponsor-container {
+  background-color: var(--sponsor-background);
+  width: min(50%, 350px);
+  height: 200px;
+  transition: transform 500ms;
+  padding: 5px 20px;
+  margin: 5px;
+  border-radius: 10px;
+  img {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(5px 5px 10px #23232342);
+    object-fit: contain;
+  }
+  &:hover {
+    transform: scale(1.05);
+    transition: transform 500ms;
+  }
+  @include devices(tablet) {
+    width: min(90%, 350px);
+  }
+  p {
+    opacity: 0;
+    transition: opacity 500ms, transform 500ms;
+    background-color: var(--sponsor-container);
+    padding: 10px 20px;
+    display: inline-block;
+    border-radius: 8px;
+  }
+  &:hover p {
+    transform: translateY(calc(-100% + -10px));
+    opacity: 1;
   }
 }
