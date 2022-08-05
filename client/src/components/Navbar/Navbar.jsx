@@ -25,10 +25,11 @@ import { pages } from '../../util/pages';
 import { profilePages } from '../../util/profile-pages';
 import { PopupModal } from '../popup/PopupModal';
 import { Button } from '../button/Button/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../state/user/saga';
 import { ProfileDropdown } from '../ProfileDropdown/ProfileDropdown';
 import { DarkModeContext } from '../../util/DarkModeProvider';
+import { userSelector } from '../../state/user/userSlice';
 
 const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
@@ -71,11 +72,13 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
   const { pathname } = useLocation();
   const [openProfileDropdown, setOpenProfileDropdown] = useState(false);
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
 
   return (
     <>
       {isLoggedIn ? (
-        isRegistered ? (
+        isRegistered === true || leader === true ? (
           <ProfileDropdown
             open={openProfileDropdown}
             setOpen={setOpenProfileDropdown}
@@ -129,6 +132,7 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
                 return (
                   <>
                     <div
+                      key={page.path}
                       className="icon-profile"
                       onClick={() => {
                         setOpenProfileDropdown(!openProfileDropdown);
@@ -143,6 +147,7 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
               // if not logged in
               return (
                 <div
+                  key={page.path}
                   className="icon-profile-person-container"
                   onClick={() => {
                     setOpenProfileDropdown(!openProfileDropdown);
@@ -288,6 +293,7 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
             if (!isLoggedIn) {
               return (
                 <div
+                  key={page.path}
                   className="icon-profile-person-container"
                   onClick={() => {
                     setOpenProfileDropdown(!openProfileDropdown);
@@ -308,6 +314,7 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
             } else if (isLoggedIn) {
               return (
                 <div
+                  key={page.path}
                   className="icon-profile"
                   onClick={() => {
                     setOpenProfileDropdown(!openProfileDropdown);

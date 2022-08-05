@@ -83,7 +83,7 @@ export const PageScuntMissionsList = () => {
   let previousCategory = '';
   return (
     <div>
-      <Header text={'Missions'}>
+      <Header text={'Missions'} underlineDesktop={'300px'} underlineMobile={'210px'}>
         <ScuntLinks />
       </Header>
       <div className="scunt-missions-header">

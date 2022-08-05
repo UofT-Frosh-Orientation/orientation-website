@@ -37,6 +37,7 @@ registrationDataSubsciption.process(async (job, done) => {
     bursaryRequested: 0,
     isRegistered: 0,
     totalUsers: 0,
+    scunt: 0,
   };
   const users = await UserServices.getAllUsers();
   const data = users.reduce((prev, curr) => {
@@ -51,6 +52,9 @@ registrationDataSubsciption.process(async (job, done) => {
     }
     if (curr.isRegistered) {
       prev.isRegistered++;
+    }
+    if (curr.scunt) {
+      prev.scunt++;
     }
     prev.totalUsers++;
     return prev;

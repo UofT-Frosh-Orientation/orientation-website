@@ -2,6 +2,7 @@ const express = require('express');
 
 const FroshController = require('../controllers/FroshController');
 const checkLoggedIn = require('../middlewares/checkLoggedIn');
+const checkUserType = require('../middlewares/checkUserType');
 
 const router = express.Router();
 /**
@@ -46,5 +47,12 @@ router.post('/register', checkLoggedIn, FroshController.registerFrosh);
  *                   example: Please sign in to access this route!
  */
 router.put('/info', checkLoggedIn, FroshController.updateInfo);
+
+router.get(
+  '/filtered-data',
+  checkLoggedIn,
+  checkUserType('leadur'),
+  FroshController.getFilteredFroshInfo,
+);
 
 module.exports = router;

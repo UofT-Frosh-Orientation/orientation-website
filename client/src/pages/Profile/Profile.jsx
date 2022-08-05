@@ -42,10 +42,13 @@ import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDis
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
+import { froshGroups } from '../../util/frosh-groups';
 
 const PageProfile = () => {
+  const { user } = useSelector(userSelector);
+
   const qrCodeLeader = canLeaderScanQR();
-  const leader = isLeader();
+  const leader = user?.userType === 'leadur';
   if (qrCodeLeader) {
     return <PageProfileQRLeader />;
   } else if (leader) {
@@ -73,7 +76,7 @@ const PageProfileFrosh = ({ leader, isLoggedIn, setIsLoggedIn }) => {
               <ProfilePageAnnouncements />
             </>
           ) : (
-            <div style={{ marginTop: '-40px' }} />
+            <div style={{ marginTop: '-20px' }} />
           )}
           <ProfilePageSchedule />
         </div>
@@ -270,6 +273,7 @@ const ProfilePageQRScanner = () => {
 
 const ProfilePageHeader = ({ leader, editButton }) => {
   const { user } = useSelector(userSelector);
+  const leaderApproved = user?.approved === true;
 
   const isRegistered = useSelector(registeredSelector);
   // console.log(`editButton: ${editButton}`);
@@ -279,9 +283,8 @@ const ProfilePageHeader = ({ leader, editButton }) => {
     <>
       <div className="profile-page-header">
         <div className="profile-page-header-group">
-          <h1>{user?.froshGroupIcon}</h1>
-          <p>{user?.froshGroup}</p>
-          {leader === true ? <p>{'(Leader)'}</p> : <></>}
+          <h1>{leader === true ? 'ℒ' : user?.froshGroupIcon}</h1>
+          {leader === true ? <p>{'(Leedur)'}</p> : <p>{user?.froshGroup}</p>}
         </div>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-info">
@@ -301,7 +304,7 @@ const ProfilePageHeader = ({ leader, editButton }) => {
           </div>
           <div className="profile-page-header-class desktop-only">
             {leader === true ? (
-              <h2>Leader</h2>
+              <h2>2T2</h2>
             ) : (
               <>
                 <p>Class of</p>
@@ -323,12 +326,31 @@ const ProfilePageHeader = ({ leader, editButton }) => {
       ) : (
         <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
       )}
+      {leader === true && leaderApproved === false ? (
+        <div className={'profile-not-registered'}>
+          <h1>Your Leedur Account is not Approved!</h1>
+          <h2>Please contact a VC to get your account approved.</h2>
+        </div>
+      ) : (
+        <></>
+      )}
+      {leader === true && leaderApproved === true ? (
+        <div className={'profile-not-registered'}>
+          <Link
+            to={'/permission-request'}
+            style={{ textDecoration: 'none' }}
+            className={'no-link-style'}
+          >
+            <Button label="Request Leedur Permissions" style={{}} />
+          </Link>
+        </div>
+      ) : (
+        <></>
+      )}
       {!isRegistered && leader !== true ? (
         <div className={'profile-not-registered'}>
-          <h1 style={{ color: 'var(--black)' }}>You are not registered!</h1>
-          <h2 style={{ color: 'var(--black)' }}>
-            You will not be able to participate in F!rosh week events until you register.
-          </h2>
+          <h1>You are not registered!</h1>
+          <h2>You will not be able to participate in F!rosh week events until you register.</h2>
           <Link
             key={'/registration'}
             to={'/registration'}
@@ -368,11 +390,11 @@ const ProfilePageInstagrams = () => {
         <img
           src={InstagramIcon}
           alt="Instagram"
-          style={{ filter: darkMode ? 'invert(1)' : 'unset' }}
+          style={{ filter: !darkMode ? 'invert(1)' : 'unset' }}
         />
         <div>
           <p>Go follow your frosh group and meet your Leedurs!</p>
-          <h2>@{getInstagramFromLink(instagramLink)}</h2>
+          <h2>@{getInstagramFromLink(instagramLink).slice(0, -1)}</h2>
         </div>
       </div>
     </a>
@@ -449,7 +471,13 @@ const ProfilePageResources = () => {
 };
 
 const ProfilePageSchedule = () => {
-  let days = getDaysFroshSchedule();
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
+
+  const [froshGroup, setFroshGroup] = useState(user?.froshGroup);
+  const [closeAll, setCloseAll] = useState(0);
+
+  let days = getDaysFroshSchedule(froshGroup);
   let buttonList = days.map((item) => {
     return { name: item };
   });
@@ -468,10 +496,39 @@ const ProfilePageSchedule = () => {
     count = 0;
   }
   const [selectedDayIndex, setSelectedDayIndex] = useState(count);
-  const [closeAll, setCloseAll] = useState(0);
+
+  const froshGroupNames = [];
+  for (let froshGroup of froshGroups) {
+    froshGroupNames.push(froshGroup?.name);
+  }
   return (
     <div className="profile-page-schedule">
-      <h2 className="profile-page-section-header profile-page-section-header-schedule">Schedule</h2>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <h2 className="profile-page-section-header profile-page-section-header-schedule">
+          Schedule
+        </h2>
+        {leader ? (
+          <div style={{ marginTop: '10px' }}>
+            <Dropdown
+              values={froshGroupNames}
+              initialSelectedIndex={0}
+              onSelect={(froshGroup) => {
+                setFroshGroup(froshGroup);
+              }}
+              localStorageKey={'leader-frosh-group-dropdown'}
+            />
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
       <ButtonSelector
         buttonList={buttonList}
         activeIndex={selectedDayIndex}

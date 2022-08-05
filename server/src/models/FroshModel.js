@@ -186,6 +186,11 @@ const FroshSchema = new mongoose.Schema(
       required: true,
       default: '',
     },
+    scuntTeam: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
   },
   { discriminatorKey: 'userType' },
 );

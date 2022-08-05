@@ -5,19 +5,24 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+
   h1 {
+    color: var(--white);
     font-size: 50px;
     font-size: 70px;
     @include devices(tablet) {
       font-size: 30px;
     }
   }
+  h3 {
+    color: var(--white);
+  }
   .scunt-countdown-number {
     margin: 0px 5px;
     margin-top: 15px;
     padding: 10px 10px;
     border-radius: 15px;
-    background-color: var(--purple-shades-light);
+    background-color: var(--scunt-counter-bg);
     min-width: 130px;
     @include devices(tablet) {
       min-width: 80px;
