@@ -20,6 +20,7 @@ import { PageScuntJudgeForm } from '../pages/ScuntJudgeForm/ScuntJudgeForm';
 import { PageScuntMissionsList } from '../pages/ScuntMissionsList/ScuntMissionsList';
 import { PageScuntHome } from '../pages/ScuntHome/ScuntHome';
 import { PageScuntRules } from '../pages/ScuntRules/ScuntRules';
+import { PageTimelineAdmin } from '../pages/TimelineAdmin/TimelineAdmin';
 import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
 import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
 
@@ -148,6 +149,15 @@ export const pages = {
         </AuthorizedPage>
       ),
       path: '/faq-admin',
+    },
+    {
+      label: 'TimelineAdmin',
+      component: (
+        <AuthorizedPage authScopes={['timeline:edit']}>
+          <PageTimelineAdmin />
+        </AuthorizedPage>
+      ),
+      path: '/timeline-admin',
     },
     {
       label: 'frosh-info-table',
