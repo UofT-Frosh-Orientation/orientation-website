@@ -173,79 +173,6 @@ const RowComponentAuth = ({
         <p className="all-account-data-email">{account.group}</p>
       </td>
       <td className="all-account-data">
-        {account.auth.map((authreq) => {
-          const [approve, setApprove] = useState(authreq.approve);
-          const [deny, setDeny] = useState(!authreq.approve);
-
-          const initialApprove = authreq.approve;
-          const initialDeny = !authreq.approve;
-
-          useEffect(() => {
-            if (approveAll) {
-              setApprove(true);
-              setDeny(false);
-            } else {
-              setApprove(false);
-              setDeny(true);
-            }
-          }, [approveAll]);
-
-          // useEffect to update state object to be sent to backend
-          useEffect(() => {
-            // first check if the email is in the object
-            if (accountStatus[account.email] !== undefined) {
-              if (accountStatus[account.email][authreq.authreq] != undefined) {
-                // if auth key already in the object, update
-                accountStatus[account.email][authreq.authreq].approve = approve;
-                accountStatus[account.email][authreq.authreq].deny = deny;
-                onUpdate(authreq.authreq, approve, deny);
-              } else {
-                // auth key not in the object yet, add it
-                accountStatus[account.email][authreq.authreq] = {
-                  approve: approve,
-                  deny: deny,
-                };
-              }
-            } else {
-              // is email key not in object, add the key and the auth key
-              accountStatus[account.email] = {};
-              accountStatus[account.email][authreq.authreq] = {
-                approve: approve,
-                deny: deny,
-              };
-            }
-          }, [approve, deny]);
-
-          useEffect(() => {
-            if (!editMode && !isSave) {
-              -(
-                // if exiting exit mode, and save button not pressed
-                setApprove(initialApprove)
-              );
-              setDeny(initialDeny);
-              setIsSave(false);
-            } else if (!editMode && isSave) {
-              // use the states from the state object so backend has time to change the actual account array
-              setApprove(accountStatus[account.email][authreq.authreq].approve);
-              setDeny(!accountStatus[account.email][authreq.authreq].approve);
-            }
-          });
-
-          return (
-            <div className="auth-req-container" key={account.email + '_' + authreq.authreq}>
-              <ApproveDenyCheckbox
-                approve={approve}
-                deny={deny}
-                setApprove={setApprove}
-                setDeny={setDeny}
-                setChangesMade={setChangesMade}
-                pointerEvents={pointerEvents}
-              />
-              <p className="auth-req-text">{authreq.authreq}</p>
-            </div>
-          );
-        })}
-
         {editMode ? (
           <ButtonOutlined
             label={approveAll ? 'Unapproved All Scopes' : 'Approve All Scopes'}
@@ -259,6 +186,85 @@ const RowComponentAuth = ({
         ) : (
           <></>
         )}
+        {account.auth
+          .filter(
+            (
+              (s) => (o) =>
+                ((k) => !s.has(k) && s.add(k))(['authreq'].map((k) => o[k]).join('|'))
+            )(new Set()),
+          )
+          .map((authreq, index) => {
+            const [approve, setApprove] = useState(authreq.approve);
+            const [deny, setDeny] = useState(authreq.deny);
+
+            const initialApprove = authreq.approve;
+            const initialDeny = authreq.deny;
+
+            useEffect(() => {
+              if (approveAll) {
+                setApprove(true);
+                setDeny(false);
+              } else {
+                setApprove(false);
+                setDeny(true);
+              }
+            }, [approveAll]);
+
+            // useEffect to update state object to be sent to backend
+            useEffect(() => {
+              // first check if the email is in the object
+              if (accountStatus[account.email] !== undefined) {
+                if (accountStatus[account.email][authreq.authreq] != undefined) {
+                  // if auth key already in the object, update
+                  accountStatus[account.email][authreq.authreq].approve = approve;
+                  accountStatus[account.email][authreq.authreq].deny = deny;
+                  onUpdate(authreq.authreq, approve, deny);
+                } else {
+                  // auth key not in the object yet, add it
+                  accountStatus[account.email][authreq.authreq] = {
+                    approve: approve,
+                    deny: deny,
+                  };
+                }
+              } else {
+                // is email key not in object, add the key and the auth key
+                accountStatus[account.email] = {};
+                accountStatus[account.email][authreq.authreq] = {
+                  approve: approve,
+                  deny: deny,
+                };
+              }
+            }, [approve, deny]);
+
+            useEffect(() => {
+              if (!editMode && !isSave) {
+                setApprove(initialApprove);
+                setDeny(initialDeny);
+                setIsSave(false);
+              } else if (!editMode && isSave) {
+                // use the states from the state object so backend has time to change the actual account array
+                setApprove(accountStatus[account.email][authreq.authreq].approve);
+                setDeny(!accountStatus[account.email][authreq.authreq].approve);
+              }
+            });
+
+            return (
+              <div
+                className="auth-req-container"
+                key={account.email + '_' + authreq.authreq + index.toString()}
+              >
+                <ApproveDenyCheckbox
+                  approve={approve}
+                  deny={deny}
+                  setApprove={setApprove}
+                  setDeny={setDeny}
+                  setChangesMade={setChangesMade}
+                  pointerEvents={pointerEvents}
+                />
+                <p className="auth-req-text">{authreq.authreq}</p>
+              </div>
+            );
+          })}
       </td>
     </tr>
   );

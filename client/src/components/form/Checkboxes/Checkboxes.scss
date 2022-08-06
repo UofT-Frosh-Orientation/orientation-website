@@ -75,3 +75,9 @@ input[type='checkbox']:disabled::before {
   padding-left: 5px;
   margin-top: 14px;
 }
+
+.checkbox-highlight {
+  color: var(--green-success);
+  display: inline-block;
+  font-size: 16px;
+}
