@@ -304,11 +304,3 @@ export async function getFroshData() {
     console.log(error);
   }
 }
-
-export function canLeaderScanQR() {
-  return false;
-}
-
-export function isLeader() {
-  return false;
-}

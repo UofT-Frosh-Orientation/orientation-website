@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { froshSelector } from '../../state/frosh/froshSlice';
 import { getFrosh } from '../../state/frosh/saga';
 import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
+import { TextInput } from '../../components/input/TextInput/TextInput';
 
 function getUneditableFields() {
   let noEditFields = [];
@@ -34,7 +35,10 @@ const PageFroshInfoTable = () => {
   const [objectKeys, setObjectKeys] = useState([]);
   const [sortedParam, setSortedParam] = useState();
   const [sortedOrder, setSortedOrder] = useState(1);
-  const [showAllUsers, setShowAllUsers] = useState(false);
+  const [showAllUsers, setShowAllUsers] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortedFrosh, setSortedFrosh] = useState([]);
+  const [searchedFrosh, setSearchedFrosh] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -46,12 +50,13 @@ const PageFroshInfoTable = () => {
     if (frosh.length > 0) {
       setObjectKeys(Object.keys(Object.assign({}, ...frosh)));
     }
+    setSortedFrosh(frosh);
   }, [frosh]);
 
-  const sortFrosh = (froshDataPassed) => {
-    const froshData = [...froshDataPassed];
+  useEffect(() => {
+    const froshData = [...sortedFrosh];
     if (sortedParam === '') return froshData;
-    return froshData.sort((a, b) => {
+    froshData.sort((a, b) => {
       if (a[sortedParam] === undefined) {
         return 1000000000;
       } else if (b[sortedParam] === undefined) {
@@ -63,14 +68,27 @@ const PageFroshInfoTable = () => {
         ? -1 * sortedOrder
         : 0;
     });
-  };
+    if (searchTerm && searchTerm !== '') {
+      const output = [];
+      for (let singleton of froshData) {
+        for (let key of Object.keys(singleton)) {
+          if (singleton[key] !== undefined && singleton[key].toString().includes(searchTerm)) {
+            output.push(singleton);
+          }
+        }
+      }
+      setSearchedFrosh(output);
+    } else {
+      setSortedFrosh(froshData);
+    }
+  }, [sortedParam, sortedOrder, showAllUsers, searchTerm]);
 
   return (
     <div className="frosh-info-table">
       <div className="navbar-space-top" />
       <div className="header">
         <h1>Frosh Data</h1>
-        <div style={{ display: 'block' }}>
+        <div className="buttons-container">
           <Button
             isSecondary
             label={showAllUsers ? 'Complete Frosh Users' : 'All Users'}
@@ -86,10 +104,17 @@ const PageFroshInfoTable = () => {
           />
         </div>
       </div>
+      <div className="search">
+        <TextInput
+          onChange={(text) => setSearchTerm(text)}
+          inputType={'text'}
+          placeholder={'Search...'}
+        />
+      </div>
       <p className="small-print">
         Note: If you want ALL users, including Leadurs and Frosh who haven&apos;t completed the
-        registration form - click &quot;All Users&quot;. In &quot;All Users&quot; mode, it is handy
-        to sort by &quot;userType&quot;. &quot;Complete Frosh Users&quot; (the default) does not
+        registration form - click &quot;All Users&quot; (the default). In &quot;All Users&quot;
+        mode, it is handy to sort by &quot;userType&quot;. &quot;Complete Frosh Users&quot; does not
         contain users who have only created an account. This info only contains all Frosh users who
         have created a FULL Frosh account - not everyone has paid in this list either. Paid users
         have isRegistered set to true. Also, Frosh are able to edit their information. This data is
@@ -112,6 +137,7 @@ const PageFroshInfoTable = () => {
               <th
                 style={{ cursor: 'pointer' }}
                 onClick={() => {
+                  setSortedFrosh(frosh);
                   setSortedParam('');
                 }}
               >
@@ -135,7 +161,7 @@ const PageFroshInfoTable = () => {
                 );
               })}
             </tr>
-            {sortFrosh(frosh).map((datum, index) => {
+            {(searchTerm && searchTerm !== '' ? searchedFrosh : sortedFrosh).map((datum, index) => {
               return (
                 <tr key={index}>
                   <td>

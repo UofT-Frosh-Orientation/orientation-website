@@ -1,14 +1,11 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  canLeaderScanQR,
   capitalizeFirstLetter,
   getDaysFroshSchedule,
-  getFroshData,
   getFroshScheduleData,
   getQRCodeString,
   getTasks,
-  isLeader,
   onDoneTask,
   parseQRCode,
   qrKeys,
@@ -45,32 +42,21 @@ import { okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
 import { froshGroups } from '../../util/frosh-groups';
 
 const PageProfile = () => {
-  const { user } = useSelector(userSelector);
-
-  const qrCodeLeader = canLeaderScanQR();
-  const leader = user?.userType === 'leadur';
-  if (qrCodeLeader) {
-    return <PageProfileQRLeader />;
-  } else if (leader) {
-    return <PageProfileFrosh leader />;
-  } else {
-    return <PageProfileFrosh />;
-  }
+  return <PageProfileFrosh />;
 };
 
-const PageProfileFrosh = ({ leader, isLoggedIn, setIsLoggedIn }) => {
+const PageProfileFrosh = () => {
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
+  const qrCodeLeader = user?.authScopes?.approved.includes('signInFrosh:qr-code registration');
   return (
     <>
       <div className="navbar-space-top" />
-      <ProfilePageHeader
-        leader={leader}
-        editButton={true}
-        isLoggedIn={isLoggedIn}
-        setIsLoggedIn={setIsLoggedIn}
-      />
+      <ProfilePageHeader leader={leader} editButton={true} />
+      {leader === true ? <ProfilePageLeaderPermissionDashboardLinks /> : <></>}
       <div className="profile-info-row">
         <div>
-          {leader === false || leader === undefined ? (
+          {leader === false ? (
             <>
               <ProfilePageInstagrams />
               <ProfilePageAnnouncements />
@@ -82,18 +68,19 @@ const PageProfileFrosh = ({ leader, isLoggedIn, setIsLoggedIn }) => {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <ProfilePageQRCode />
+          {qrCodeLeader === true ? (
+            <>
+              <ProfilePageQRScanner />
+            </>
+          ) : (
+            <></>
+          )}
           <ProfilePageScuntToken />
           <ProfilePageResources />
         </div>
       </div>
     </>
   );
-};
-
-PageProfileFrosh.propTypes = {
-  leader: PropTypes.bool,
-  isLoggedIn: PropTypes.bool,
-  setIsLoggedIn: PropTypes.func,
 };
 
 export const ProfilePageScuntToken = () => {
@@ -156,24 +143,83 @@ export const ProfilePageScuntToken = () => {
   );
 };
 
-const PageProfileQRLeader = () => {
+const ProfilePageLeaderPermissionDashboardLinks = () => {
   return (
-    <>
-      <div className="navbar-space-top" />
-      <ProfilePageHeader leader />
-      <div className="profile-info-row">
-        <div style={{ marginTop: '-40px' }}>
-          <ProfilePageSchedule />
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <ProfilePageQRScanner />
-          <div style={{ height: '10px' }} />
-          <ProfilePageQRCode />
-          <ProfilePageResources />
-        </div>
-      </div>
-    </>
+    <div className={'profile-leader-dashboard-links'}>
+      <ProfilePageDashboardLink
+        link="/approve-accounts"
+        authScopes={['accounts:delete', 'accounts:edit', 'accounts:read']}
+        label="Leedur Account Scope Approval"
+      />
+      <Link
+        to={'/permission-request'}
+        style={{ textDecoration: 'none' }}
+        className={'no-link-style'}
+      >
+        <Button label="Request Leedur Permissions" />
+      </Link>
+      <ProfilePageDashboardLink
+        link="/scunt-judge-form"
+        authScopes={[
+          'scunt:exec allow leaderboard',
+          'scunt:exec allow missions page',
+          'scunt:exec hide leaderboard',
+          'scunt:exec hide missions page',
+          'scunt:exec hide wedding missions',
+          'scunt:exec negative points',
+          'scunt:exec refill bribe points',
+          'scunt:exec show wedding missions',
+          'scunt:judge bribe points',
+          'scunt:judge missions',
+        ]}
+        label="Scunt Judge panel"
+      />
+      <ProfilePageDashboardLink
+        link="/faq-admin"
+        authScopes={['faq:delete', 'faq:edit']}
+        label="FAQ Admin Panel"
+      />
+      <ProfilePageDashboardLink
+        link="/frosh-info-table"
+        anyRegisterScope={true}
+        label="Frosh Info Table"
+      />
+    </div>
   );
+};
+
+// If a user has any of the auth scopes then it will show this button
+const ProfilePageDashboardLink = ({ link, authScopes, anyRegisterScope, label }) => {
+  const { user } = useSelector(userSelector);
+  let hasAuthScope = false;
+  if (authScopes) {
+    for (let authScope of authScopes) {
+      if (user && user?.authScopes?.approved?.includes(authScope)) {
+        hasAuthScope = true;
+        break;
+      }
+    }
+  }
+
+  console.log('STATUS', hasAuthScope);
+
+  const hasAnyRegisterScope = anyRegisterScope && user?.froshDataFields?.approved?.length > 0;
+  if (hasAuthScope || hasAnyRegisterScope) {
+    return (
+      <Link to={link} style={{ textDecoration: 'none' }} className={'no-link-style'}>
+        <Button label={label} />
+      </Link>
+    );
+  } else {
+    return <></>;
+  }
+};
+
+ProfilePageDashboardLink.propTypes = {
+  link: PropTypes.string,
+  authScopes: PropTypes.arrayOf(PropTypes.string),
+  label: PropTypes.string,
+  anyRegisterScope: PropTypes.bool,
 };
 
 const ProfilePageQRScanner = () => {
@@ -188,7 +234,7 @@ const ProfilePageQRScanner = () => {
   };
 
   return (
-    <div className="profile-page-qr-code">
+    <div className="profile-page-qr-code-scanner profile-page-side-section">
       <QRScannerDisplay
         setScannedData={(data) => setScannedData(parseQRCode(data))}
       ></QRScannerDisplay>
@@ -331,19 +377,6 @@ const ProfilePageHeader = ({ leader, editButton }) => {
         <div className={'profile-not-registered'}>
           <h1>Your Leedur Account is not Approved!</h1>
           <h2>Please contact a VC to get your account approved.</h2>
-        </div>
-      ) : (
-        <></>
-      )}
-      {leader === true && leaderApproved === true ? (
-        <div className={'profile-not-registered'}>
-          <Link
-            to={'/permission-request'}
-            style={{ textDecoration: 'none' }}
-            className={'no-link-style'}
-          >
-            <Button label="Request Leedur Permissions" style={{}} />
-          </Link>
         </div>
       ) : (
         <></>
