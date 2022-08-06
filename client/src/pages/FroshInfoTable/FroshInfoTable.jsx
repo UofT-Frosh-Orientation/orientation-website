@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './FroshInfoTable.scss';
 import { fields } from '../Registration/RegistrationFields';
-import { getRequestedFroshData } from './functions';
 import { Button } from '../../components/button/Button/Button';
 import exportFromJSON from 'export-from-json';
 import { useDispatch, useSelector } from 'react-redux';
 import { froshSelector } from '../../state/frosh/froshSlice';
 import { getFrosh } from '../../state/frosh/saga';
+import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
 
 function getUneditableFields() {
   let noEditFields = [];
@@ -30,32 +30,39 @@ function downloadDataAsXML(data) {
 
 const PageFroshInfoTable = () => {
   const noEditFields = getUneditableFields();
-  const froshData = getRequestedFroshData();
   const { frosh } = useSelector(froshSelector);
   const [objectKeys, setObjectKeys] = useState([]);
   const [sortedParam, setSortedParam] = useState();
   const [sortedOrder, setSortedOrder] = useState(1);
+  const [showAllUsers, setShowAllUsers] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getFrosh());
-  }, []);
+    dispatch(getFrosh({ showAllUsers }));
+  }, [showAllUsers]);
 
   useEffect(() => {
-    frosh?.length > 0 && setObjectKeys(Object.keys(frosh[0]));
+    if (frosh.length > 0) {
+      setObjectKeys(Object.keys(Object.assign({}, ...frosh)));
+    }
   }, [frosh]);
 
   const sortFrosh = (froshDataPassed) => {
     const froshData = [...froshDataPassed];
     if (sortedParam === '') return froshData;
-    return froshData.sort((a, b) =>
-      a?.[sortedParam] > b?.[sortedParam]
+    return froshData.sort((a, b) => {
+      if (a[sortedParam] === undefined) {
+        return 1000000000;
+      } else if (b[sortedParam] === undefined) {
+        return -1000000000;
+      }
+      return a?.[sortedParam] > b?.[sortedParam]
         ? sortedOrder
         : b?.[sortedParam] > a?.[sortedParam]
         ? -1 * sortedOrder
-        : 0,
-    );
+        : 0;
+    });
   };
 
   return (
@@ -65,6 +72,13 @@ const PageFroshInfoTable = () => {
         <h1>Frosh Data</h1>
         <div style={{ display: 'block' }}>
           <Button
+            isSecondary
+            label={showAllUsers ? 'Complete Frosh Users' : 'All Users'}
+            onClick={() => {
+              setShowAllUsers(!showAllUsers);
+            }}
+          />
+          <Button
             label="Download XML"
             onClick={() => {
               downloadDataAsXML(frosh);
@@ -73,11 +87,15 @@ const PageFroshInfoTable = () => {
         </div>
       </div>
       <p className="small-print">
-        Note: This info does not contain users who have only created an account. This info contains
-        all Frosh users who have created a FULL Frosh account - not everyone has paid in this list.
-        Paid users have isRegistered set to true. Frosh are able to edit their information. This
-        data is only accurate to the point it was loaded. Keep in mind, any data extracted from this
-        page may be subject to change.{' '}
+        Note: If you want ALL users, including Leadurs and Frosh who haven&apos;t completed the
+        registration form - click &quot;All Users&quot;. In &quot;All Users&quot; mode, it is handy
+        to sort by &quot;userType&quot;. &quot;Complete Frosh Users&quot; (the default) does not
+        contain users who have only created an account. This info only contains all Frosh users who
+        have created a FULL Frosh account - not everyone has paid in this list either. Paid users
+        have isRegistered set to true. Also, Frosh are able to edit their information. This data is
+        only accurate to the point it was loaded. Keep in mind, any data extracted from this page
+        may be subject to change. If you want to filter, click a table header. To reverse the
+        direction, click it again. To clear filters, click the &apos;#&apos; header.{' '}
         {noEditFields.length >= 0 ? (
           <>
             The fields that cannot be edited by the frosh currently:{' '}
@@ -108,7 +126,11 @@ const PageFroshInfoTable = () => {
                       else setSortedParam(key);
                     }}
                   >
-                    {sortedParam === key ? <i>{key}</i> : <>{key}</>}
+                    {sortedParam === key ? (
+                      <i>{convertCamelToLabel(key)}</i>
+                    ) : (
+                      <>{convertCamelToLabel(key)}</>
+                    )}
                   </th>
                 );
               })}
@@ -122,7 +144,7 @@ const PageFroshInfoTable = () => {
                   {objectKeys.map((key) => {
                     return (
                       <td key={key + index} style={{ width: '500px' }}>
-                        {datum?.[key]}
+                        {datum?.[key]?.toString()}
                       </td>
                     );
                   })}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './ScopeRequest.scss';
-import { getTotalRegistrationScopes, getTotalScopes, submitScopes } from './functions';
+import { getTotalRegistrationScopes, getTotalScopes } from './functions';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import { Button } from '../../components/button/Button/Button';
@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { requestAuthScopes } from '../../state/user/saga';
 import { userSelector } from '../../state/user/userSlice';
 
-function convertCamelToLabel(text) {
+export function convertCamelToLabel(text) {
   const result = text.replace(/([A-Z])/g, ' $1');
   return result.charAt(0).toUpperCase() + result.slice(1);
 }
