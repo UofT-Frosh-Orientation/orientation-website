@@ -62,30 +62,39 @@ export function* getAuthRequestsSaga() {
             name: `${firstName} ${lastName}`,
             group: 'default',
             auth: [
-              ...requestedAuth.map((r) => ({
-                authreq: r,
-                approve: false,
-                deny: true,
-                isFroshData: false,
-              })),
-              ...requestedFroshData.map((r) => ({
-                authreq: r,
-                approve: false,
-                deny: true,
-                isFroshData: true,
-              })),
-              ...approvedAuth.map((r) => ({
-                authreq: r,
-                approve: true,
-                deny: false,
-                isFroshData: false,
-              })),
-              ...approvedFroshData.map((r) => ({
-                authreq: r,
-                approve: true,
-                deny: false,
-                isFroshData: true,
-              })),
+              // Should return approved scopes first. the duplicates (which can come after if a leader requests the same perms again) will be removed on the frontend. It's better to show approved scopes only and remove the duplicate unapproved ones.
+              ...approvedAuth
+                .map((r) => ({
+                  authreq: r,
+                  approve: true,
+                  deny: false,
+                  isFroshData: false,
+                }))
+                .sort((a, b) => (a?.authreq > b?.authreq ? 1 : b?.authreq > a?.authreq ? -1 : 0)),
+              ...approvedFroshData
+                .map((r) => ({
+                  authreq: r,
+                  approve: true,
+                  deny: false,
+                  isFroshData: true,
+                }))
+                .sort((a, b) => (a?.authreq > b?.authreq ? 1 : b?.authreq > a?.authreq ? -1 : 0)),
+              ...requestedAuth
+                .map((r) => ({
+                  authreq: r,
+                  approve: false,
+                  deny: true,
+                  isFroshData: false,
+                }))
+                .sort((a, b) => (a?.authreq > b?.authreq ? 1 : b?.authreq > a?.authreq ? -1 : 0)),
+              ...requestedFroshData
+                .map((r) => ({
+                  authreq: r,
+                  approve: false,
+                  deny: true,
+                  isFroshData: true,
+                }))
+                .sort((a, b) => (a?.authreq > b?.authreq ? 1 : b?.authreq > a?.authreq ? -1 : 0)),
             ],
           }),
         ),

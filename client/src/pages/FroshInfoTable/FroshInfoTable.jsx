@@ -33,6 +33,8 @@ const PageFroshInfoTable = () => {
   const froshData = getRequestedFroshData();
   const { frosh } = useSelector(froshSelector);
   const [objectKeys, setObjectKeys] = useState([]);
+  const [sortedParam, setSortedParam] = useState();
+  const [sortedOrder, setSortedOrder] = useState(1);
 
   const dispatch = useDispatch();
 
@@ -43,6 +45,18 @@ const PageFroshInfoTable = () => {
   useEffect(() => {
     frosh?.length > 0 && setObjectKeys(Object.keys(frosh[0]));
   }, [frosh]);
+
+  const sortFrosh = (froshDataPassed) => {
+    const froshData = [...froshDataPassed];
+    if (sortedParam === '') return froshData;
+    return froshData.sort((a, b) =>
+      a?.[sortedParam] > b?.[sortedParam]
+        ? sortedOrder
+        : b?.[sortedParam] > a?.[sortedParam]
+        ? -1 * sortedOrder
+        : 0,
+    );
+  };
 
   return (
     <div className="frosh-info-table">
@@ -77,19 +91,40 @@ const PageFroshInfoTable = () => {
         {frosh.length >= 0 ? (
           <table>
             <tr>
-              <th>#</th>
+              <th
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  setSortedParam('');
+                }}
+              >
+                #
+              </th>
               {objectKeys.map((key) => {
-                return <th key={key}>{key}</th>;
+                return (
+                  <th
+                    key={key}
+                    onClick={() => {
+                      if (sortedParam === key) setSortedOrder(sortedOrder * -1);
+                      else setSortedParam(key);
+                    }}
+                  >
+                    {sortedParam === key ? <i>{key}</i> : <>{key}</>}
+                  </th>
+                );
               })}
             </tr>
-            {frosh.map((datum, index) => {
+            {sortFrosh(frosh).map((datum, index) => {
               return (
                 <tr key={index}>
                   <td>
                     <b>{index}</b>
                   </td>
                   {objectKeys.map((key) => {
-                    return <td key={key + index}>{datum?.[key]}</td>;
+                    return (
+                      <td key={key + index} style={{ width: '500px' }}>
+                        {datum?.[key]}
+                      </td>
+                    );
                   })}
                 </tr>
               );

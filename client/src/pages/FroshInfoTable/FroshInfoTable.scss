@@ -36,30 +36,33 @@
       padding: 15px 1%;
     }
   }
+
   table {
     border-collapse: collapse;
     width: 100%;
     display: block;
-    max-width: -moz-fit-content;
     max-width: fit-content;
     overflow-x: auto;
-    white-space: nowrap;
     border-radius: 10px;
     color: var(--text-dynamic);
     @include devices(tablet) {
       margin: auto;
     }
+    table-layout: fixed;
   }
   th {
     background-color: var(--purple);
     color: var(--white);
+    cursor: pointer;
+  }
+  td {
+    word-wrap: break-word;
   }
   td,
   th {
     border: none;
     text-align: left;
     padding: 8px 10px;
-    max-width: 150px;
   }
   tr:nth-child(odd) {
     background-color: var(--purple-shades-light-light);
