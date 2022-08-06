@@ -174,6 +174,16 @@
   }
 }
 
+.profile-page-qr-code-scanner {
+  margin-top: 20px;
+  color: var(--text-dynamic) !important;
+  align-items: center;
+  p {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+}
+
 .profile-info-row {
   display: flex;
   flex-direction: row-reverse;
@@ -391,10 +401,27 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  text-align: center;
+  padding: 0px 20px;
+}
+
+.profile-leader-dashboard-links {
+  color: var(--text-dynamic);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
   margin-bottom: 50px;
   margin-top: 25px;
   text-align: center;
   padding: 0px 20px;
+  flex-wrap: wrap;
+  @include devices(tablet) {
+    flex-wrap: unset;
+    flex-direction: column;
+  }
 }
 
 .frosh-instagram-container {
