@@ -25,7 +25,7 @@ export const getTotalScopes = () => {
 };
 
 export const getTotalRegistrationScopes = () => {
-  let output = ['isRegistered', 'froshGroup', 'froshGroupIcon'];
+  let output = ['froshGroup', 'froshGroupIcon'];
   for (let key of Object.keys(fields)) {
     if (fields[key].type === 'label') {
       continue;
@@ -33,10 +33,4 @@ export const getTotalRegistrationScopes = () => {
     output = [...output, ...Object.keys(fields[key])];
   }
   return output;
-};
-
-export const submitScopes = (scopes, registrationScopes) => {
-  console.log(scopes);
-  console.log(registrationScopes);
-  return true; //return a string if error
 };

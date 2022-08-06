@@ -5,12 +5,12 @@ import { getFroshFailure, getFroshStart, getFroshSuccess } from './froshSlice';
 
 export const getFrosh = createAction('getFroshSaga');
 
-export function* getFroshSaga() {
+export function* getFroshSaga({ payload: { showAllUsers } }) {
   const { axios } = useAxios();
   try {
     yield put(getFroshStart());
     const result = yield call(axios.get, '/frosh/filtered-data');
-    yield put(getFroshSuccess(result?.data?.frosh));
+    yield put(getFroshSuccess(showAllUsers ? result?.data?.users : result?.data?.frosh));
   } catch (e) {
     console.log(e);
     yield put(getFroshFailure(e));

@@ -72,7 +72,8 @@ const FroshController = {
         { _id: 0 },
       );
       const frosh = await FroshServices.getFilteredFroshInfo(filter);
-      return res.status(200).send({ frosh });
+      const users = await FroshServices.getFilteredUserInfo(filter);
+      return res.status(200).send({ frosh, users });
     } catch (e) {
       console.log(e);
       next(e);
