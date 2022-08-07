@@ -215,6 +215,18 @@ const UserController = {
       next(err);
     }
   },
+
+  async getScuntJudgeUsers(req, res, next) {
+    try {
+      const judgeUsers = await UserServices.getScuntJudgeUsers();
+      return res.status(200).send({
+        message: 'Successfully found users!',
+        authRequests: judgeUsers.map((u) => u.getResponseObject()),
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
 };
 
 module.exports = UserController;

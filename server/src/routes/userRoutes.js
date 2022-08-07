@@ -148,4 +148,6 @@ router.put(
   UserController.updateAuthScopes,
 );
 
+router.get('/scunt-judge-users', UserController.getScuntJudgeUsers);
+
 module.exports = router;

@@ -297,6 +297,30 @@ const UserServices = {
       );
     });
   },
+
+  async getScuntJudgeUsers() {
+    return new Promise((resolve, reject) => {
+      UserModel.find(
+        {
+          $or: [
+            { 'authScopes.approved': 'scunt:bribe points' },
+            { 'authScopes.approved': 'scunt:judge missions' },
+          ],
+        },
+        {},
+        { strictQuery: false },
+        (err, users) => {
+          if (err) {
+            reject(err);
+          } else if (!users) {
+            reject('INTERNAL_ERROR');
+          } else {
+            resolve(users);
+          }
+        },
+      );
+    });
+  },
 };
 
 module.exports = UserServices;

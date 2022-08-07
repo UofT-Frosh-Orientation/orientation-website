@@ -7,8 +7,10 @@ const userRouter = require('./routes/userRoutes');
 const timelineRouter = require('./routes/timelineRoutes');
 const faqRouter = require('./routes/faqRoutes');
 const paymentRouter = require('./routes/paymentRoutes');
-
 const announcementRouter = require('./routes/announcementRoutes');
+const scuntMissionRouter = require('./routes/scuntMissionRoutes');
+const scuntTeamRouter = require('./routes/scuntTeamRoutes');
+const scuntGameSettingsRouter = require('./routes/scuntGameSettingsRoutes');
 
 const swaggerLoader = require('./loaders/swaggerLoader');
 
@@ -20,12 +22,16 @@ mongoLoader(app).then(() => {
   app.use('/faq', faqRouter);
   app.use('/payment', paymentRouter);
   app.use('/announcements', announcementRouter);
+  app.use('/scunt-missions', scuntMissionRouter);
+  app.use('/scunt-teams', scuntTeamRouter);
+  app.use('/scunt-game-controls', scuntGameSettingsRouter);
+
   swaggerLoader(app);
 
   app.use(errorResponseMiddleware);
 
   app.get('*', (req, res) => {
-    res.status(200).send('Hello, Luke!');
+    res.status(200).send('Orientation Backend!');
   });
   app.listen(process.env.PORT || 5001, () => {
     console.log(`Server is running on port: http://localhost:5001`);

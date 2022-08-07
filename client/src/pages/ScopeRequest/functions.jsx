@@ -13,13 +13,12 @@ export const getTotalScopes = () => {
       'judge missions',
       'judge bribe points',
       'exec refill bribe points',
+      'exec game controls',
       'exec negative points',
-      'exec allow missions page',
-      'exec hide missions page',
-      'exec show wedding missions',
-      'exec hide wedding missions',
-      'exec allow leaderboard',
-      'exec hide leaderboard',
+      'exec show missions',
+      'exec hide missions',
+      'exec create missions',
+      'exec delete missions',
     ],
   };
 };

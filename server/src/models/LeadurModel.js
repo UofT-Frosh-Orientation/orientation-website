@@ -40,6 +40,11 @@ const LeadurSchema = new mongoose.Schema(
       required: false,
       default: '',
     },
+    scuntJudgeBribePoints: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
   },
   { discriminatorKey: 'userType' },
 );
