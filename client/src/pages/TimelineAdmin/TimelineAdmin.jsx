@@ -6,14 +6,11 @@ import {
   editTimelineEvent,
   createTimelineEvent,
 } from './functions';
-import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
 import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
-import useAxios from '../../hooks/useAxios';
 import './TimelineAdmin.scss';
-const { axios } = useAxios();
 
 const PageTimelineAdmin = () => {
   const [editMade, setEditMade] = useState(false);
@@ -120,16 +117,14 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
         </div>
       </label>
       <label>
-        {
-          // TODO: needs to check how to format date field
-        }
         <div>
           <h1 className={'timeline-admin-subtitles'}>Date</h1>
           <TextInput
             onChange={(text) => handleEditDate(text)}
-            inputType={'text'}
-            placeholder={'Date'}
-            initialValue={''}
+            inputType={'date'}
+            placeholder={'1852-12-25'}
+            initialValue={'2022-09-01'}
+            hasRestrictedInput={true}
             style={{ height: '45px' }}
             clearText={clearText}
             setClearText={setClearText}
@@ -220,7 +215,8 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
   const [linkText, setLinkText] = useState('');
   const [linkLabelText, setLinkLabelText] = useState('');
   const [oldEventNameText, setOldEventNameText] = useState(event.name);
-  const [oldDateText, setOldDateText] = useState(event.date);
+  const eventDateFormatted = new Date(event.date).toISOString().split('T')[0];
+  const [oldDateText, setOldDateText] = useState(eventDateFormatted);
   const [oldDescriptionText, setOldDescriptionText] = useState(event.description);
   const [oldLinkText, setOldLinkText] = useState(event.link);
   const [oldLinkLabelText, setOldLinkLabelText] = useState(event.linkLabel);
@@ -344,9 +340,10 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
               <TextInput
                 onChange={(text) => handleEditDate(text)}
                 inputType={
-                  'text' // TODO: figure out date format
+                  'date' // TODO: figure out date format
                 }
-                placeholder={'Date'}
+                hasRestrictedInput={true}
+                placeholder={'1852-12-25'}
                 initialValue={oldDateText}
                 style={{ height: '45px' }}
                 cancelEdit={cancelEdit}
@@ -364,7 +361,7 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
                 initialValue={oldDescriptionText}
                 style={{ height: '150px', resize: 'vertical' }}
                 cancelEdit={cancelEdit}
-                oldValue={oldDateText}
+                oldValue={oldDescriptionText}
               />
             </div>
           </label>
@@ -402,6 +399,7 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
         <Button
           label={editButtonText}
           onClick={() => {
+            console.log(event);
             setIsEdit(!isEdit);
             setEditButtonText(`${isEdit ? 'Edit' : 'Stop Edit'}`);
             if (!isEdit) {
@@ -425,6 +423,7 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
         <Button
           label={'Delete'}
           onClick={async () => {
+            console.log(event);
             const result = await deleteTimelineEvent(event.id);
             if (result !== true) {
               setSnackbar('Error', true);
@@ -436,7 +435,13 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
         />
       </span>
       <span className={!isEdit ? 'timeline-admin-hide' : ''}>
-        <Button label={'Save'} onClick={() => handleSubmit(event.id)} />
+        <Button
+          label={'Save'}
+          onClick={() => {
+            console.log(event);
+            handleSubmit(event.id);
+          }}
+        />
       </span>
     </div>
   );

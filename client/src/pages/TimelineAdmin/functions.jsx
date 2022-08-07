@@ -36,7 +36,7 @@ export async function editTimelineEvent(id, data) {
 export async function createTimelineEvent(event) {
   console.log(event);
   try {
-    const response = await axios.post('/timeline/create', event);
+    const response = await axios.post('/timeline', event);
     console.log(response);
     return true;
   } catch (error) {
