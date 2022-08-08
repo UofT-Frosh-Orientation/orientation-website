@@ -11,28 +11,34 @@ const ScuntController = {
   async login(req, res, next) {
     try {
       const { email, code } = req.body;
-      const userId = req.user.id;
+
+      const existingUser = await UserServices.getUserByEmail(email);
+
+      if (!existingUser.scuntToken || existingUser.scuntToken != code) {
+        return res.status(400).send({ message: 'INVALID_CODE' });
+      }
 
       try {
-        const existingUser = await UserServices.getUserByEmail(email);
-
-        if (!existingUser.scuntToken || existingUser.scuntToken != code) {
-          return res.status(400).send({ message: 'INVALID_CODE' });
+        if (existingUser.isScuntDiscordLoggedIn == true) {
+          return res.status(400).send({ message: 'USER_ALREADY_SIGNED_IN' });
         }
+        const updateScuntLogin = { isScuntDiscordLoggedIn: true };
+        await UserServices.updateUserInfo(existingUser.id, updateScuntLogin);
       } catch (err) {
-        res.status(400).send({ message: 'INVALID_EMAIL' });
+        res.status(400).send({ message: 'ERROR_UPDATING_USER' });
         next(err);
       }
 
-      const updateScuntLogin = { isLoggedInOnDiscord: true };
-      await UserServices.updateUserInfo(userId, updateScuntLogin);
+      const userInfo = {
+        name: existingUser.firstName,
+        teamNumber: 'undefined', // existingUser.teamNumber
+        pronouns: existingUser.pronouns,
+        type: 'type',
+      };
 
-      // const scuntTeam = existingUser.scuntTeam
-      const scuntTeam = 'undefined';
-
-      return res.status(200).send({ message: scuntTeam });
+      return res.status(200).send({ message: userInfo });
     } catch (err) {
-      console.log('Error in scunt login', err);
+      res.status(400).send({ message: 'INVALID_EMAIL' });
       next(err);
     }
   },
