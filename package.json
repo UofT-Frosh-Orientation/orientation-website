@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "concurrently": "^7.1.0",
+    "react-full-screen": "^1.1.1",
     "react-lazy-load-image-component": "^1.5.5",
     "react-lazyload": "^3.2.0"
   }

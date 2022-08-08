@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import PropTypes, { number } from 'prop-types';
+import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import './ScuntLeaderboard.scss';
 
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
@@ -8,6 +9,7 @@ import { Header } from '../../components/text/Header/Header';
 import firstPlace from '../../assets/scuntleaderboard/first-medal.svg';
 import secondPlace from '../../assets/scuntleaderboard/second-medal.svg';
 import thirdPlace from '../../assets/scuntleaderboard/third-medal.svg';
+import { Button } from '../../components/button/Button/Button';
 
 const test = [
   {
@@ -42,8 +44,11 @@ const test = [
   },
 ];
 
+const buttonStyle = { width: 'fit-content' };
+
 const ScuntLeaderboard = () => {
   //const [leaderboard, setLeaderboard] = useState([]);
+  const handle = useFullScreenHandle();
 
   // useEffect(() => {
   //   //dispatch(getLeaderboard());
@@ -72,16 +77,47 @@ const ScuntLeaderboard = () => {
       </Header>
 
       <h2 style={{ textAlign: 'center', color: 'var(--text-dark-use)', padding: '25px 4% 0 4%' }}>
-        Leaderboard updates every _ minutes!
+        Leaderboard updates in real time!
       </h2>
 
+      <FullScreen handle={handle}>
+        <ScuntLeaderboardFullScreen arr={leaderboard} />
+      </FullScreen>
+
       <div className="display-only-desktop">
+        <div className="scunt-leaderboard">
+          <Button style={buttonStyle} label="View Fullscreen" onClick={handle.enter} />
+        </div>
         <ScuntLeaderboardDesktop arr={leaderboard} />
       </div>
       <div className="display-only-tablet">
         <ScuntLeaderboardMobile arr={leaderboard} />
       </div>
     </>
+  );
+};
+
+const ScuntLeaderboardFullScreen = ({ arr }) => {
+  return (
+    <div className="scunt-leaderboard-fullscreen">
+      <h1 style={{ color: 'var(--text-dark-use)', textAlign: 'center', margin: '2% 0' }}>
+        Leaderboard
+      </h1>
+      <div className="scunt-leaderboard-fullscreen-container">
+        {arr?.map((item) => {
+          let key = item.name + String(item.number);
+          return (
+            <ScuntLeaderboardBarVertical
+              key={key}
+              name={item.name}
+              number={item.number}
+              points={item.points}
+              barwidth={item.width}
+            />
+          );
+        })}
+      </div>
+    </div>
   );
 };
 
@@ -193,6 +229,31 @@ const ScuntLeaderboardBar = ({ name, number, points, barwidth }) => {
   );
 };
 
+const ScuntLeaderboardBarVertical = ({ name, number, points, barwidth }) => {
+  return (
+    <>
+      <div className="scunt-leaderboard-bar-outer-v">
+        <div className="scunt-leaderboard-bar-container-v">
+          <div className="scunt-leaderboard-bar-v" style={{ height: barwidth }}></div>
+          <h3
+            style={{
+              color: 'var(--payment-error-text)',
+              marginBottom: '20px',
+              textAlign: 'center',
+            }}
+          >
+            {points}pts
+          </h3>
+        </div>
+        <div className="leaderboard-team-info-v">
+          <h3>{name}</h3>
+          <p>Group {number}</p>
+        </div>
+      </div>
+    </>
+  );
+};
+
 // for mobile
 const ScuntLeaderboardBubble = ({ name, number, points, rank, img }) => {
   return (
@@ -232,6 +293,14 @@ ScuntLeaderboardBar.propTypes = {
   // key: PropTypes.string,
 };
 
+ScuntLeaderboardBarVertical.propTypes = {
+  name: PropTypes.string,
+  number: PropTypes.number,
+  points: PropTypes.number,
+  barwidth: PropTypes.string,
+  // key: PropTypes.string,
+};
+
 ScuntLeaderboardBubble.propTypes = {
   name: PropTypes.string,
   number: PropTypes.number,
@@ -247,6 +316,10 @@ ScuntLeaderboardBubble.defaultProps = {
 };
 
 ScuntLeaderboardDesktop.propTypes = {
+  arr: PropTypes.array,
+};
+
+ScuntLeaderboardFullScreen.propTypes = {
   arr: PropTypes.array,
 };
 
