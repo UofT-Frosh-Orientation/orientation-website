@@ -91,6 +91,11 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    isLoggedInOnDiscord: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   { discriminatorKey: 'userType' },
 );
