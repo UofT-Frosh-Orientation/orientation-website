@@ -14,12 +14,10 @@ const ScuntController = {
 
       const existingUser = await UserServices.getUserByEmail(email);
 
-      if (!existingUser.scuntToken || existingUser.scuntToken != code) {
-        return res.status(400).send({ message: 'INVALID_CODE' });
-      }
-
       try {
-        if (existingUser.isScuntDiscordLoggedIn == true) {
+        if (!existingUser.scuntToken || existingUser.scuntToken != code) {
+          return res.status(400).send({ message: 'INVALID_CODE' });
+        } else if (existingUser.isScuntDiscordLoggedIn == true) {
           return res.status(400).send({ message: 'USER_ALREADY_SIGNED_IN' });
         }
         const updateScuntLogin = { isScuntDiscordLoggedIn: true };
