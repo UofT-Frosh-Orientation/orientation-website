@@ -17,10 +17,10 @@ const ScuntController = {
         const existingUser = await UserServices.getUserByEmail(email);
 
         if (!existingUser.scuntToken || existingUser.scuntToken != code) {
-          return res.status(200).send({ message: 'Invalid Code' });
+          return res.status(400).send({ message: 'INVALID_CODE' });
         }
       } catch (err) {
-        res.status(200).send({ message: 'Email Not Found' });
+        res.status(400).send({ message: 'INVALID_EMAIL' });
         next(err);
       }
 
