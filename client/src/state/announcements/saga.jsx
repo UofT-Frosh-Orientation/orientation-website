@@ -17,7 +17,7 @@ import {
   deleteAnnouncementsStart,
   deleteAnnouncementsFailure,
   deleteAnnouncementsSuccess,
-} from './announcementSlice';
+} from './announcementsSlice';
 
 export const getAnnouncements = createAction('getAnnouncementsSaga');
 
