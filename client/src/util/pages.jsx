@@ -1,6 +1,7 @@
 import { Page404 } from '../pages/404/404';
 import { PageAbout } from '../pages/About/About';
 import { PageFAQ } from '../pages/FAQ/FAQ';
+import { PageFAQLeaders } from '../pages/FAQLeaders/FAQLeaders';
 import { PageHome } from '../pages/Home/Home';
 import { PageMaintenance } from '../pages/Maintenance/Maintenance';
 import { PagePaymentError } from '../pages/PaymentError/PaymentError';
@@ -14,12 +15,15 @@ import { PageAccountsApproval } from '../pages/AccountsApproval/AccountsApproval
 import AuthorizedPage from './AuthorizedPage';
 import { PasswordReset } from '../pages/PasswordReset/PasswordReset';
 import { PageFroshInfoTable } from '../pages/FroshInfoTable/FroshInfoTable';
-import { PageLeadurScopeRequest } from '../pages/LeadurScopeRequest/LeadurScopeRequest';
+import { PageScopeRequest } from '../pages/ScopeRequest/ScopeRequest';
 import { PageScuntJudgeForm } from '../pages/ScuntJudgeForm/ScuntJudgeForm';
 import { PageScuntMissionsList } from '../pages/ScuntMissionsList/ScuntMissionsList';
 import { PageScuntHome } from '../pages/ScuntHome/ScuntHome';
 import { PageScuntRules } from '../pages/ScuntRules/ScuntRules';
 import { PageAnnounceDash } from '../pages/AnnouncementDashboard/AnnounceDash';
+import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
+import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
+
 export const pages = {
   404: {
     label: '404',
@@ -81,7 +85,11 @@ export const pages = {
     },
     {
       label: 'Request Permissions',
-      component: <PageLeadurScopeRequest />,
+      component: (
+        <AuthorizedPage leaderOnly>
+          <PageScopeRequest />
+        </AuthorizedPage>
+      ),
       path: '/permission-request',
       includeFooter: true,
     },
@@ -127,7 +135,11 @@ export const pages = {
     },
     {
       label: 'approve-accounts',
-      component: <PageAccountsApproval />,
+      component: (
+        <AuthorizedPage leaderOnly>
+          <PageAccountsApproval />
+        </AuthorizedPage>
+      ),
       path: '/approve-accounts',
     },
     {
@@ -136,8 +148,21 @@ export const pages = {
       path: '/password-reset/:token',
     },
     {
+      label: 'FAQAdmin',
+      component: (
+        <AuthorizedPage authScopes={['faq:edit']}>
+          <PageFAQLeaders />
+        </AuthorizedPage>
+      ),
+      path: '/faq-admin',
+    },
+    {
       label: 'frosh-info-table',
-      component: <PageFroshInfoTable />,
+      component: (
+        <AuthorizedPage leaderOnly>
+          <PageFroshInfoTable />
+        </AuthorizedPage>
+      ),
       path: '/frosh-info-table',
     },
   ],
@@ -152,7 +177,7 @@ export const pages = {
     {
       label: 'Judges',
       scuntLabel: 'Judges',
-      component: <div />,
+      component: <ScuntJudges />,
       path: '/scunt-judges',
       includeFooter: true,
     },
@@ -166,7 +191,7 @@ export const pages = {
     {
       label: 'Leaderboard',
       scuntLabel: 'Leaderboard',
-      component: <div />,
+      component: <ScuntLeaderboard />,
       path: '/scunt-leaderboard',
       includeFooter: true,
     },
@@ -181,7 +206,11 @@ export const pages = {
   scuntHidden: [
     {
       label: 'Scunt Judge Form',
-      component: <PageScuntJudgeForm />,
+      component: (
+        <AuthorizedPage leaderOnly>
+          <PageScuntJudgeForm />
+        </AuthorizedPage>
+      ),
       path: '/scunt-judge-form',
       includeFooter: true,
     },

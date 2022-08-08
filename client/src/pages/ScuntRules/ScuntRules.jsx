@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './ScuntRules.scss';
-import { rules } from '../../util/scunt-rules';
+import { rules } from '../../util/scunt-constants';
 import { Header } from '../../components/text/Header/Header';
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 
 export const PageScuntRules = () => {
   return (
     <div className="scunt-rules-page">
-      <Header text={'Rules'}>
+      <Header text={'Rules'} underlineDesktop={'215px'} underlineMobile={'150px'}>
         <ScuntLinks />
       </Header>
       <div className="scunt-rules-container">

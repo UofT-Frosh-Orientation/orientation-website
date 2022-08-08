@@ -34,8 +34,8 @@
   justify-content: center;
   align-items: center;
   height: fit-content;
-  background: var(--white);
   border-radius: 10px;
+  color: var(--text-dynamic) !important;
 }
 .all-accounts-buttons {
   display: flex;
@@ -122,4 +122,12 @@
 }
 .auth-req-text {
   margin-left: 5px;
+}
+
+.all-account-data {
+  vertical-align: top;
+}
+.all-account-data,
+.all-account-data-verified {
+  vertical-align: top;
 }

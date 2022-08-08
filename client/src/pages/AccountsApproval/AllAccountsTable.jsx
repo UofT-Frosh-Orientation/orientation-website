@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { React, useEffect } from 'react';
 
@@ -6,7 +6,6 @@ import './AccountsApproval.scss';
 import './AccountsPageNumber.scss';
 import './ApproveDenyCheckbox.scss';
 
-import { TestEmails, sendApprovedEmails } from './functions';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { Button } from '../../components/button/Button/Button';
 import { ApproveDenyCheckbox } from './ApproveDenyCheckbox';
@@ -14,6 +13,10 @@ import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/Err
 
 import ArrowRight from '../../assets/steps/arrow-right-solid-purple.svg';
 import ArrowLeft from '../../assets/steps/arrow-left-solid-purple.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAccounts, getAuthRequests, updateAccounts } from '../../state/accounts/saga';
+import { accountsSelector, authRequestsSelector } from '../../state/accounts/accountSlice';
+import { SnackbarContext } from '../../util/SnackbarProvider';
 
 const bubbleButtonStyle = {
   borderWidth: '3px',
@@ -22,29 +25,36 @@ const bubbleButtonStyle = {
 };
 
 const AllAccountsTable = ({ numResultsDisplayed }) => {
-  const [emailList, setEmailList] = useState(TestEmails); // email list that is displayed
+  const [emailList, setEmailList] = useState([]); // email list that is displayed
   const [isApproveVerified, setIsApproveVerified] = useState(false); // approve state for emails that match frosh leedur email list
   const [accountStatus, setAccountStatus] = useState({}); // object to send approve deny status to backend
   const [isSave, setIsSave] = useState(false); // state for whether the save button is clicked
-  const [showSaveMessage, setShowSaveMessage] = useState(false);
-  const [saveSuccess, setSaveSuccess] = useState(false); // displays error or success box depending on bool
   const [currentPage, setCurrentPage] = useState(1); // default to display page 1
   const [editMode, setEditMode] = useState(false); // not in edit mode
   const [changesMade, setChangesMade] = useState(false);
+  const { setSnackbar } = useContext(SnackbarContext);
+  const { accounts } = useSelector(accountsSelector);
+
+  const dispatch = useDispatch();
+
+  // console.log(accountStatus)
+
+  const save = () => {
+    dispatch(updateAccounts({ setSnackbar, accounts: emailList }));
+  };
 
   useEffect(() => {
-    setEmailList(TestEmails);
-  }, [emailList]);
+    dispatch(getAccounts());
+  }, []);
+
+  useEffect(() => {
+    setEmailList(accounts);
+  }, [accounts]);
 
   useEffect(() => {
     setIsSave(false);
     setEditMode(false);
   }, [currentPage]);
-
-  useEffect(() => {
-    // when you leave edit mode, turn off the errorsuccess box
-    setShowSaveMessage(false);
-  }, [editMode]);
 
   // numResultsDisplayed = the number of results you want to display per page
   let pageNumber = Math.ceil(emailList.length / numResultsDisplayed); // the number of page numbers you will have
@@ -72,8 +82,7 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
           setIsSave={setIsSave}
           changesMade={changesMade}
           setChangesMade={setChangesMade}
-          setSaveSuccess={setSaveSuccess}
-          setShowSaveMessage={setShowSaveMessage}
+          onSave={save}
         />
       ) : (
         <div className="all-accounts-buttons">
@@ -82,7 +91,6 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
             style={{ marginTop: '0px' }}
             onClick={() => {
               setEditMode(true);
-              //setShowSaveMessage(false);
             }}
           />
         </div>
@@ -109,12 +117,22 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
                   account={account}
                   accountStatus={accountStatus}
                   setAccountStatus={setAccountStatus}
+                  onUpdate={(approved, deny) =>
+                    setEmailList((prev) =>
+                      prev.map((p) => {
+                        if (p.id === account.id) {
+                          return { ...p, approved, deny };
+                        } else {
+                          return p;
+                        }
+                      }),
+                    )
+                  }
                   currentPage={currentPage}
                   isApproveVerified={isApproveVerified}
                   setIsApproveVerified={setIsApproveVerified}
                   isSave={isSave}
                   setIsSave={setIsSave}
-                  setSaveSuccess={setSaveSuccess}
                   changesMade={changesMade}
                   setChangesMade={setChangesMade}
                   editMode={editMode}
@@ -188,17 +206,6 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
         {' '}
         Displaying as many as <span>{numResultsDisplayed}</span> results per page
       </p>
-
-      {showSaveMessage ? (
-        <ErrorSuccessBox
-          style={{ margin: '0px 0px' }}
-          content={saveSuccess ? 'Successfully saved!' : 'Unsuccessful save. Please try again!'}
-          success={saveSuccess}
-          error={!saveSuccess}
-        />
-      ) : (
-        <></>
-      )}
     </div>
   );
 };
@@ -212,7 +219,7 @@ const RowComponent = ({
   isApproveVerified,
   setIsApproveVerified,
   pointerEvents,
-  setSaveSuccess,
+  onUpdate,
   changesMade,
   setChangesMade,
   editMode,
@@ -220,7 +227,6 @@ const RowComponent = ({
   setIsSave,
 }) => {
   // get states from the array with info, is appoved=true or deny=true, it will already "light up"
-  // TODO: Update account approval status (back-end)
   const [approve, setApprove] = useState(account.approved);
   const [deny, setDeny] = useState(!account.approved);
 
@@ -274,6 +280,7 @@ const RowComponent = ({
       // if the key is already in the object, update contents
       accountStatus[account.email].approve = approve;
       accountStatus[account.email].deny = deny;
+      onUpdate(approve, deny);
     } else {
       // if the key is not in the object, add it to the object
       accountStatus[account.email] = {
@@ -319,10 +326,9 @@ const AllAccountsEditButton = ({
   isSave,
   setIsSave,
   accountStatus,
-  setSaveSuccess,
   changesMade,
   setChangesMade,
-  setShowSaveMessage,
+  onSave,
 }) => {
   useEffect(() => {
     if (editMode && isSave && !changesMade) {
@@ -361,9 +367,8 @@ const AllAccountsEditButton = ({
           label="Save"
           style={{ alignSelf: 'start', marginTop: '0px', marginBottom: '5px' }}
           onClick={() => {
+            onSave();
             setIsSave(true);
-            setShowSaveMessage(true);
-            setSaveSuccess(sendApprovedEmails(accountStatus));
             setChangesMade(false);
           }}
         />
@@ -373,7 +378,6 @@ const AllAccountsEditButton = ({
             style={{ marginTop: '0px', borderWidth: '3px', marginBottom: '5px' }}
             onClick={() => {
               setEditMode(false);
-              setShowSaveMessage(false);
               setChangesMade(false);
             }}
           />
@@ -396,12 +400,12 @@ RowComponent.propTypes = {
   isApproveVerified: PropTypes.bool,
   setIsApproveVerified: PropTypes.func,
   pointerEvents: PropTypes.object,
-  setSaveSuccess: PropTypes.func,
   changesMade: PropTypes.bool,
   setChangesMade: PropTypes.func,
   editMode: PropTypes.bool,
   isSave: PropTypes.bool,
   setIsSave: PropTypes.func,
+  onUpdate: PropTypes.func,
 };
 
 AllAccountsTable.propTypes = {
@@ -416,10 +420,9 @@ AllAccountsEditButton.propTypes = {
   isSave: PropTypes.bool,
   setIsSave: PropTypes.func,
   accountStatus: PropTypes.object,
-  setSaveSuccess: PropTypes.func,
   changesMade: PropTypes.bool,
   setChangesMade: PropTypes.func,
-  setShowSaveMessage: PropTypes.func,
+  onSave: PropTypes.func,
 };
 
 export { AllAccountsTable };

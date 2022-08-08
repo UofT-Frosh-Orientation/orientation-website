@@ -186,8 +186,13 @@ const FroshSchema = new mongoose.Schema(
       required: true,
       default: '',
     },
+    scuntTeam: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
   },
-  { discriminatorKey: 'userType', strict: true },
+  { discriminatorKey: 'userType' },
 );
 FroshSchema.methods.getResponseObject = getResponseObject;
 const FroshModel = UserModel.discriminator('frosh', FroshSchema);

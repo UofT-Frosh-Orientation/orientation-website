@@ -63,7 +63,26 @@ const FaqController = {
   async createQuestion(req, res, next) {
     try {
       const { email, question, category } = req.body;
-      const newFaq = await FaqServices.createNewQuestion(email, question, category);
+      // Don't allow frosh to post an answer - set it to undefined
+      const newFaq = await FaqServices.createNewQuestion(email, question, undefined, category);
+      res.status(200).send(newFaq.toObject());
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  /**
+   * Creates a new question that can be marked as answered in mongo and returns the question to the frontend.
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @async
+   * @return {Promise<void>}
+   */
+  async createQuestionWithAns(req, res, next) {
+    try {
+      const { email, question, answer, category } = req.body;
+      const newFaq = await FaqServices.createNewQuestion(email, question, answer, category);
       res.status(200).send(newFaq.toObject());
     } catch (err) {
       next(err);
@@ -100,6 +119,8 @@ const FaqController = {
     try {
       const { faqId } = req.params;
       const update = req.body;
+      console.log(update);
+      update.isAnswered = update.answer ? true : false;
       const updatedFaq = await FaqServices.updateQuestion(faqId, update);
       res.status(200).send(updatedFaq.toObject());
     } catch (err) {

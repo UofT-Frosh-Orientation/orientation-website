@@ -7,6 +7,8 @@ const Checkboxes = ({
   initialSelectedIndices,
   onSelected,
   disabledIndices,
+  disabledValues,
+  highlightValues,
   maxCanSelect,
   label,
   localStorageKey,
@@ -16,14 +18,18 @@ const Checkboxes = ({
 }) => {
   useEffect(() => {
     if (selectAll) {
-      if (selectedIndices.length > values.length) {
+      if (selectedIndices.length >= values.length) {
         setSelectedIndices([]);
         for (let index = 0; index <= values.length; index++) {
+          if (disabledIndices && disabledIndices.includes(index)) continue;
+          if (disabledValues && disabledValues.includes(values[index])) continue;
           onSelected(values[index], index, false, []);
         }
       } else {
         const allIndices = [];
-        for (let index = 0; index <= values.length; index++) {
+        for (let index = 0; index < values.length; index++) {
+          if (disabledIndices && disabledIndices.includes(index)) continue;
+          if (disabledValues && disabledValues.includes(values[index])) continue;
           allIndices.push(index);
           onSelected(values[index], index, true, allIndices);
         }
@@ -119,7 +125,10 @@ const Checkboxes = ({
         <form action="">
           {values.map((value, index) => {
             let isDisabled = false;
+            let isHighlighted = false;
             if (disabledIndices !== undefined) isDisabled = disabledIndices.includes(index);
+            if (disabledValues !== undefined) isDisabled = disabledValues.includes(value);
+            if (highlightValues !== undefined) isHighlighted = highlightValues.includes(value);
             let allDisabled = isAllDisabled && !selectedIndices.includes(index);
             return (
               <label
@@ -143,7 +152,8 @@ const Checkboxes = ({
                   }}
                   disabled={isDisabled || allDisabled}
                 />
-                {filterLabel ? filterLabel(value) : value}
+                {filterLabel ? filterLabel(value.toString()) : value.toString()}
+                {isHighlighted ? <span className="checkbox-highlight">✔</span> : <></>}
               </label>
             );
           })}
@@ -158,6 +168,8 @@ Checkboxes.propTypes = {
   initialSelectedIndices: PropTypes.arrayOf(PropTypes.number),
   onSelected: PropTypes.func,
   disabledIndices: PropTypes.arrayOf(PropTypes.number),
+  disabledValues: PropTypes.arrayOf(PropTypes.string),
+  highlightValues: PropTypes.arrayOf(PropTypes.string),
   maxCanSelect: PropTypes.number,
   label: PropTypes.string,
   localStorageKey: PropTypes.string,

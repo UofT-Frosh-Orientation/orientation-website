@@ -7,13 +7,14 @@
 }
 
 .task-task-container {
-  background-color: var(--white);
+  background-color: var(--task-container);
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
   margin: 10px;
   padding: 20px 28px;
   border-radius: 15px;
+  color: var(--black);
 }
 
 .task-name {
@@ -29,7 +30,7 @@
 
 .task-date {
   margin-bottom: 10px;
-  color: var(--purple-shades-muted);
+  color: var(--task-date);
   @include devices(tablet) {
     font-size: 15px;
   }

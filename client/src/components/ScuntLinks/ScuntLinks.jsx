@@ -10,7 +10,7 @@ export const ScuntLinks = () => {
       {pages.scunt.map((page) => {
         return (
           <Link key={page.path} to={page.path} className="no-link-style">
-            <ButtonOutlined isSecondary={pathname === page.path} label={page.scuntLabel} />
+            <ButtonOutlined isSecondary={pathname !== page.path} label={page.scuntLabel} />
           </Link>
         );
       })}

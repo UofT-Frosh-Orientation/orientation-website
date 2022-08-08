@@ -31,6 +31,8 @@ const TextInput = ({
   isUtorID,
   maxLength,
   autocomplete,
+  cancelEdit,
+  oldValue,
 }) => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
@@ -69,6 +71,10 @@ const TextInput = ({
       setClearText(false);
     }
   }, [clearText]);
+
+  useEffect(() => {
+    setValue(oldValue);
+  }, [cancelEdit]);
 
   const [type, setType] = useState(inputType ? inputType : 'text');
 
@@ -127,7 +133,11 @@ const TextInput = ({
         label === undefined ? 'text-input-container-no-margin' : ''
       } ${isDisabled === true ? 'text-input-disabled-container' : ''}`}
     >
-      <div className="text-input-title-container">
+      <div
+        className={
+          'text-input-title-container' + (isDisabled ? ' text-input-title-container-disabled' : '')
+        }
+      >
         {label !== undefined ? <p className="text-input-title">{label}</p> : <></>}
         {isRequiredInput !== undefined && isRequiredInput === true && label !== undefined ? (
           <p className="text-input-required-star">*</p>
@@ -229,6 +239,8 @@ TextInput.propTypes = {
   style: PropTypes.object,
   clearText: PropTypes.bool,
   setClearText: PropTypes.func,
+  cancelEdit: PropTypes.bool,
+  oldValue: PropTypes.string,
 };
 
 export { TextInput };

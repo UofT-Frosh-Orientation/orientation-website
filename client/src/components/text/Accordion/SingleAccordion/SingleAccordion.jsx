@@ -1,9 +1,12 @@
-import { React, useState, useRef, useEffect } from 'react';
+import { React, useState, useRef, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import faAngleDown from '../../../../assets/accordion/angle-up-solid.svg';
 import './SingleAccordion.scss';
+import { DarkModeContext } from '../../../../util/DarkModeProvider';
 
 const SingleAccordion = ({ header, children, isOpen, setIsOpen, canOpen, className, style }) => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   const [height, setHeight] = useState('0px');
   const [rotate, setRotate] = useState('accord-icon');
 
@@ -28,7 +31,13 @@ const SingleAccordion = ({ header, children, isOpen, setIsOpen, canOpen, classNa
         {header}
         {canOpen !== false ? (
           <div style={{ marginLeft: 'auto' }} className={'accord-text'}>
-            <img src={faAngleDown} className={`${rotate}`} alt="Accordion Button" width="15px" />
+            <img
+              src={faAngleDown}
+              className={`${rotate}`}
+              style={{ filter: darkMode ? 'invert(1)' : 'unset' }}
+              alt="Accordion Button"
+              width="15px"
+            />
           </div>
         ) : (
           <></>

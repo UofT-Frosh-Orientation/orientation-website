@@ -1,5 +1,9 @@
 @import '../../../scssStyles/mixins';
 
+.form-control {
+  color: var(--black) !important;
+}
+
 .form-control + .form-control {
   margin-top: 13px;
 }
@@ -9,10 +13,10 @@
 }
 
 input[type='checkbox'] {
-  color: var(--purple);
+  color: var(--radio-button);
   width: 20px;
   height: 20px;
-  border: 3px solid var(--purple);
+  border: 3px solid var(--radio-button);
   border-radius: 3px;
   display: flex;
   align-items: center;
@@ -38,7 +42,7 @@ input[type='checkbox']::before {
   transform: scale(
     0.01
   ); //0.01 so it is still rendered, avoids jerky animation behavior when rendering back in
-  background-color: var(--purple);
+  background-color: var(--radio-button);
   transition: transform 220ms;
 }
 
@@ -66,7 +70,14 @@ input[type='checkbox']:disabled::before {
 }
 
 .checkbox-input-title {
+  color: var(--black);
   font-size: 16px;
   padding-left: 5px;
   margin-top: 14px;
+}
+
+.checkbox-highlight {
+  color: var(--green-success);
+  display: inline-block;
+  font-size: 16px;
 }

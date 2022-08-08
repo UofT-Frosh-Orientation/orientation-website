@@ -1,5 +1,6 @@
 const FroshModel = require('../models/FroshModel');
 const FroshGroupModel = require('../models/FroshGroupModel');
+const UserModel = require('../models/UserModel');
 
 const FroshServices = {
   /**
@@ -104,6 +105,34 @@ const FroshServices = {
           }
         },
       );
+    });
+  },
+
+  async getFilteredFroshInfo(projection) {
+    return new Promise((resolve, reject) => {
+      FroshModel.find({}, { ...projection, isRegistered: 1 }, {}, (err, frosh) => {
+        if (err) {
+          reject(err);
+        } else if (!frosh) {
+          reject('INTERNAL_ERROR');
+        } else {
+          resolve(frosh);
+        }
+      });
+    });
+  },
+
+  async getFilteredUserInfo(projection) {
+    return new Promise((resolve, reject) => {
+      UserModel.find({}, { ...projection, isRegistered: 1 }, {}, (err, frosh) => {
+        if (err) {
+          reject(err);
+        } else if (!frosh) {
+          reject('INTERNAL_ERROR');
+        } else {
+          resolve(frosh);
+        }
+      });
     });
   },
 };

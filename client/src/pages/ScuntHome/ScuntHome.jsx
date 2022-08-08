@@ -12,6 +12,14 @@ import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOut
 import { pages } from '../../util/pages';
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 import { DarkModeContext } from '../../util/DarkModeProvider';
+import { ProfilePageScuntToken } from '../Profile/Profile';
+import DiscordIcon from '../../assets/social/discord-brands.svg';
+import {
+  aboutScunt,
+  okayToInviteToScunt,
+  scuntDate,
+  scuntDiscord,
+} from '../../util/scunt-constants';
 
 export const PageScuntHome = () => {
   return (
@@ -19,8 +27,45 @@ export const PageScuntHome = () => {
       <div className="navbar-space-top"></div>
       <ScuntCountdown />
       <ScuntLinks />
+      <ScuntDiscord />
       <AboutScunt />
     </>
+  );
+};
+
+const ScuntDiscord = () => {
+  if (okayToInviteToScunt === false) {
+    return <div />;
+  }
+
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '-20px',
+        overflowWrap: 'anywhere',
+      }}
+    >
+      <a href={scuntDiscord} className="no-link-style" target={'_blank'} rel="noreferrer">
+        <div
+          className="frosh-instagram-container"
+          style={{ padding: '15px 20px', margin: '10px 9px' }}
+        >
+          <img
+            src={DiscordIcon}
+            alt="Discord"
+            style={{ filter: darkMode ? 'unset' : 'invert(1)' }}
+          />
+          <div>
+            <p>Join the discord to chat with your team!</p>
+            <h2 style={{ fontSize: '15px' }}>{scuntDiscord}</h2>
+          </div>
+        </div>
+      </a>
+    </div>
   );
 };
 
@@ -35,12 +80,11 @@ const AboutScunt = () => {
         <img src={Wave} className="wave-image wave-image-footer" />
       )}
       <div className="about-scunt-container">
-        <div className="home-page-schedule">
-          <h2>Scunt</h2>
-          <h3>What is Scunt?</h3>
-          <p>This is Scunt</p>
-          <h3>Group Meetup</h3>
-          <p>Go find your group</p>
+        <div className="about-scunt-content">
+          <div className="about-scunt-token">
+            <ProfilePageScuntToken />
+          </div>
+          <div dangerouslySetInnerHTML={{ __html: aboutScunt }} />
         </div>
       </div>
       {darkMode ? (
@@ -48,12 +92,13 @@ const AboutScunt = () => {
       ) : (
         <img className="header-page-wave-bottom" src={waveBottom} alt="wave"></img>
       )}
+      <div style={{ height: '30px' }} />
     </>
   );
 };
 
 const ScuntCountdown = () => {
-  const targetDate = new Date('September 25, 2022 16:56:00');
+  const targetDate = new Date(scuntDate);
   const countDownDate = new Date(targetDate).getTime();
 
   const [countDown, setCountDown] = useState(countDownDate - new Date().getTime());

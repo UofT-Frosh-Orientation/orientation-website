@@ -5,7 +5,7 @@ import waveBottom from '../../../assets/misc/wave-reverse.png';
 import waveBottomDarkMode from '../../../assets/darkmode/misc/wave-reverse.png';
 import { DarkModeContext } from '../../../util/DarkModeProvider';
 
-const Header = ({ text, children }) => {
+const Header = ({ text, children, underlineDesktop, underlineMobile }) => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   return (
@@ -13,7 +13,14 @@ const Header = ({ text, children }) => {
       <div className="header-page-container">
         <div className="header-page-subcontainer">
           <h2 className="header-page-title">{text}</h2>
-          <div className="header-page-title-underline"></div>
+          <div
+            className="header-page-title-underline display-only-desktop"
+            style={{ width: underlineDesktop }}
+          ></div>
+          <div
+            className="header-page-title-underline display-only-tablet"
+            style={{ width: underlineMobile }}
+          ></div>
           {children}
         </div>
         {darkMode ? (
@@ -29,6 +36,8 @@ const Header = ({ text, children }) => {
 Header.propTypes = {
   text: PropTypes.string,
   children: PropTypes.node,
+  underlineDesktop: PropTypes.string,
+  underlineMobile: PropTypes.string,
 };
 
 export { Header };

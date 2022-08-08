@@ -24,15 +24,15 @@ import MountainFRDarkMode from '../../assets/darkmode/login/mountain-front-right
 import MountainMDarkMode from '../../assets/darkmode/login/mountain-mid.svg';
 import PteroDarkMode from '../../assets/darkmode/login/ptero.svg';
 
-import { resetPassword } from './functions';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { PopupModal } from '../../components/popup/PopupModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { requestPasswordResetSelector, userSelector } from '../userSlice';
-import { login, requestPasswordReset } from './saga';
+import { requestPasswordResetSelector, userSelector } from '../../state/user/userSlice';
+import { login, requestPasswordReset } from '../../state/user/saga';
 import { DarkModeContext } from '../../util/DarkModeProvider';
+import { SnackbarContext } from '../../util/SnackbarProvider';
 
 // Messages!
 const popupTitle = 'Reset Password';
@@ -46,24 +46,26 @@ const PageLogin = ({ incorrectEntry }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const { setSnackbar } = useContext(SnackbarContext);
+
   const [showPopUp, setShowPopUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { loading, error, user } = useSelector(userSelector);
-  console.log(error);
-  // const [loginError, setLoginError] = useState('');
+  const { loading, user } = useSelector(userSelector);
   // const [loginState, setLoginState] = useState('');
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   function loginButtonPress() {
-    dispatch(login({ email, password }));
+    setIsLoading(true);
+    dispatch(login({ setSnackbar, setIsLoading, email, password }));
   }
 
   useEffect(() => {
     console.log(user);
-    if (user && !error) {
+    if (user) {
       navigate('/profile', { state: { frosh: user } });
+      setIsLoading(false);
     }
   }, [user]);
 
@@ -107,10 +109,12 @@ const PageLogin = ({ incorrectEntry }) => {
 
               <Button label={'Log in'} onClick={loginButtonPress} />
             </div>
-            <ErrorSuccessBox content={error?.message ?? ''} error={true} />
           </div>
         </div>
-        <div className={`login-loading ${isLoading === true ? 'login-loading-appear' : ''}`}>
+        <div
+          style={{ zIndex: 1 }}
+          className={`login-loading ${isLoading === true ? 'login-loading-appear' : ''}`}
+        >
           <LoadingAnimation size={'60px'} />
         </div>
 

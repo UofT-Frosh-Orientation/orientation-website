@@ -1,12 +1,10 @@
 const bcrypt = require('bcrypt');
 const EmailValidator = require('email-validator');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 
 const UserModel = require('../models/UserModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
-
-const passwordValidator =
-  /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
 
 const UserServices = {
   /**
@@ -16,6 +14,8 @@ const UserServices = {
    * @return {Promise<void>}
    */
   async validateUser(email, password) {
+    const passwordValidator =
+      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
     const user = await UserModel.findOne({ email: email.toLowerCase() });
     if (user) {
       throw new Error('DUPLICATE_EMAIL');
@@ -38,6 +38,7 @@ const UserServices = {
    * @return {Promise<Object>}
    */
   async createUser(email, password, firstName, lastName, preferredName) {
+    console.log('Making users');
     return new Promise((resolve, reject) => {
       bcrypt
         .hash(password, 10)
@@ -126,6 +127,8 @@ const UserServices = {
   },
 
   async updatePassword(email, password) {
+    const passwordValidator =
+      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
     if (!passwordValidator.test(password)) {
       throw new Error('INVALID_PASSWORD');
     }
@@ -146,6 +149,152 @@ const UserServices = {
           },
         );
       });
+    });
+  },
+
+  async requestAuthScopes(user, scopes) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(
+        user.id,
+        { 'authScopes.requested': scopes },
+        { returnDocument: 'after' },
+        (err, updatedUser) => {
+          if (err) {
+            reject(err);
+          } else if (!updatedUser) {
+            reject('INVALID_USER');
+          } else {
+            resolve(updatedUser);
+          }
+        },
+      );
+    });
+  },
+
+  async getUnapprovedUsers() {
+    return new Promise((resolve, reject) => {
+      UserModel.find(
+        { approved: { $exists: true, $eq: false } },
+        {},
+        { strictQuery: false },
+        (err, users) => {
+          if (err) {
+            reject(err);
+          } else if (!users) {
+            reject('INTERNAL_ERROR');
+          } else {
+            resolve(users);
+          }
+        },
+      );
+    });
+  },
+
+  async getUsersAuthScopes() {
+    return new Promise((resolve, reject) => {
+      UserModel.find(
+        {
+          $or: [
+            { 'authScopes.requested': { $exists: true, $ne: [] } },
+            { 'froshDataFields.requested': { $exists: true, $ne: [] } },
+            { 'authScopes.approved': { $exists: true, $ne: [] } },
+            { 'froshDataFields.approved': { $exists: true, $ne: [] } },
+          ],
+        },
+        {},
+        { strictQuery: false },
+        (err, users) => {
+          if (err) {
+            reject(err);
+          } else if (!users) {
+            reject('INTERNAL_ERROR');
+          } else {
+            resolve(users);
+          }
+        },
+      );
+    });
+  },
+
+  async approveAccountsByIds(accountIds) {
+    console.log('accountIds', accountIds);
+    return new Promise((resolve, reject) => {
+      UserModel.collection.updateMany(
+        { _id: { $in: accountIds.map((id) => mongoose.Types.ObjectId(id)) } },
+        { $set: { approved: true } },
+        { strictQuery: false },
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            reject(err);
+          } else if (!result) {
+            reject('INTERNAL_ERROR');
+          } else {
+            console.log('result', result);
+            resolve(result);
+          }
+        },
+      );
+    });
+  },
+
+  async updateAuthScopes(userAuthScopes) {
+    return new Promise((resolve, reject) => {
+      UserModel.collection.bulkWrite(
+        userAuthScopes.map((user) => {
+          const {
+            authScopesApproved,
+            authScopesDenied,
+            froshDataFieldsApproved,
+            froshDataFieldsDenied,
+          } = user.auth.reduce(
+            (prev, curr) => {
+              if (curr.approve) {
+                if (curr.isFroshData) {
+                  prev.froshDataFieldsApproved.push(curr.authreq);
+                } else {
+                  prev.authScopesApproved.push(curr.authreq);
+                }
+              } else {
+                if (curr.isFroshData) {
+                  prev.froshDataFieldsDenied.push(curr.authreq);
+                } else {
+                  prev.authScopesDenied.push(curr.authreq);
+                }
+              }
+              return prev;
+            },
+            {
+              authScopesApproved: [],
+              authScopesDenied: [],
+              froshDataFieldsApproved: [],
+              froshDataFieldsDenied: [],
+            },
+          );
+          return {
+            updateOne: {
+              filter: { _id: { $eq: mongoose.Types.ObjectId(user.id) } },
+              update: {
+                $set: {
+                  'authScopes.approved': [...new Set(authScopesApproved)],
+                  'froshDataFields.approved': [...new Set(froshDataFieldsApproved)],
+                  'authScopes.requested': [...new Set(authScopesDenied)],
+                  'froshDataFields.requested': [...new Set(froshDataFieldsDenied)],
+                },
+              },
+            },
+          };
+        }),
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            reject(err);
+          } else {
+            console.log(result);
+            resolve(result);
+          }
+        },
+      );
     });
   },
 };

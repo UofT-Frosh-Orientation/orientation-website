@@ -5,7 +5,9 @@
   margin: 0;
   padding: 0;
   font-family: 'Helvetica';
-  font-style: normal;
+  @include devices(tablet) {
+    user-select: none;
+  }
 }
 
 :root {
@@ -41,11 +43,6 @@ h5 {
   font-family: 'Inter-Bold', sans-serif;
   margin: 0px;
   padding: 0px;
-  color: var(--text-dynamic);
-}
-
-p {
-  color: var(--text-dynamic);
 }
 
 a {
@@ -58,6 +55,16 @@ a {
   background-position: 0% 100%, 0 100%;
   background-repeat: no-repeat;
   transition: background-size 400ms;
+}
+
+input {
+  background-color: (--faq-searchbar-bg);
+}
+input[type='text'] {
+  color: var(--black);
+}
+::placeholder {
+  color: var(--placeholder-text);
 }
 
 a:hover {
@@ -116,17 +123,17 @@ a:hover {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #616161;
+  background: var(--scrollbar-thumb-hover);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #7c7c7c;
-  background: #7c7c7c;
+  background-color: var(--scrollbar-thumb);
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #d3d3d3fd;
+  background: var(--scrollbar-track);
   border-radius: 3px;
 }
 
@@ -134,5 +141,29 @@ a:hover {
   height: 45px;
   @include devices(tablet) {
     height: 0px;
+  }
+}
+
+.error-success-box-snackbar-fixed {
+  position: fixed;
+  bottom: 20px;
+  left: 0px;
+  z-index: 100;
+  @include devices(tablet) {
+    bottom: 65px;
+  }
+}
+
+.display-only-tablet {
+  display: none;
+  @include devices(tablet) {
+    display: unset;
+  }
+}
+
+.display-only-desktop {
+  display: unset;
+  @include devices(tablet) {
+    display: none;
   }
 }

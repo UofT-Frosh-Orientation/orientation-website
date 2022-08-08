@@ -6,13 +6,13 @@ import { pages } from './util/pages';
 import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
-import { initialsSelector, loggedInSelector, registeredSelector } from './pages/userSlice';
+import { initialsSelector, loggedInSelector, registeredSelector } from './state/user/userSlice';
 import { useState, useEffect, useContext } from 'react';
-import { getUserInfo } from './pages/Login/saga';
+import { getUserInfo } from './state/user/saga';
 import { InitialPage } from './pages/Initial/Initial';
 import { AskQuestionButton } from './components/button/AskQuestionButton/AskQuestionButton';
-import { userSelector } from '../src/pages/userSlice';
 import { DarkModeProvider } from './util/DarkModeProvider';
+import { SnackbarProvider } from './util/SnackbarProvider';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -22,9 +22,11 @@ export default function App() {
 
   return (
     <DarkModeProvider>
-      <BrowserRouter>
-        <TransitionRoutes />
-      </BrowserRouter>
+      <SnackbarProvider>
+        <BrowserRouter>
+          <TransitionRoutes />
+        </BrowserRouter>
+      </SnackbarProvider>
     </DarkModeProvider>
   );
 }

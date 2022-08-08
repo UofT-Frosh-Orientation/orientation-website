@@ -7,9 +7,14 @@ import ArrowRight from '../../assets/steps/arrow-right-solid.svg';
 import ArrowLeft from '../../assets/steps/arrow-left-solid.svg';
 import { useEffect } from 'react';
 
-
-const Tabs = ({ tabs, maxWidthTab, selectedTabPassed, go, displayButtons, scrollToTopAfterChange }) => {
-
+const Tabs = ({
+  tabs,
+  maxWidthTab,
+  selectedTabPassed,
+  go,
+  displayButtons,
+  scrollToTopAfterChange,
+}) => {
   useEffect(() => {
     if (selectedTabPassed !== undefined) {
       setSelectedTab(selectedTabPassed);

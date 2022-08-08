@@ -8,11 +8,6 @@
   p {
     margin: 0;
   }
-
-  ::placeholder {
-    color: var(--black);
-    opacity: 0.4;
-  }
 }
 
 .text-input-container-no-margin {
@@ -21,7 +16,7 @@
 
 .text-input {
   font-size: 17px;
-  background-color: var(--on-white);
+  background-color: var(--textinput-bg);
   border-radius: 10px;
   outline: none;
   border: none;
@@ -29,14 +24,16 @@
   padding: 12px 20px;
   margin: 4px;
   width: 100%;
+  color: var(--black);
+
   &:hover {
-    background-color: var(--white);
-    box-shadow: 0px 0px 6px 1px var(--light-purple);
+    background-color: var(--textinput-bg);
+    box-shadow: 0px 0px 6px 1px var(--textinput-shadow-hover);
     transition: background-color 500ms, box-shadow 500ms;
   }
   &:focus {
-    background-color: var(--white);
-    box-shadow: 0px 0px 15px -3px var(--purple);
+    background-color: var(--textinput-bg);
+    box-shadow: 0px 0px 15px -3px var(--textinput-shadow-focus);
     transition: background-color 500ms, box-shadow 500ms;
   }
 }
@@ -53,12 +50,16 @@
 
 .text-input-title {
   font-size: 16px;
+  color: var(--black);
 }
 
 .text-input-title-container {
   padding-left: 6px;
   display: flex;
   flex-direction: row;
+}
+.text-input-title-container-disabled {
+  opacity: 0.4;
 }
 
 .text-input-description {
@@ -85,7 +86,8 @@
 }
 
 .text-input-disabled {
-  opacity: 0.8;
+  opacity: 0.4;
+  background-color: var(--disabled);
   &:hover {
     background-color: var(--on-white);
     box-shadow: none;
@@ -98,7 +100,7 @@
   transition: transform 0.3s;
   width: 26px;
   right: 17px;
-  top: 15px;
+  top: 17px;
   position: absolute;
   &:hover {
     transform: scale(1.2);

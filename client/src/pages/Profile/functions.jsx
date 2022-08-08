@@ -197,7 +197,8 @@ export function getFroshScheduleData() {
   ];
 }
 
-export function getDaysFroshSchedule() {
+export function getDaysFroshSchedule(froshGroup) {
+  console.log('get schedule for ' + froshGroup);
   let scheduleData = getFroshScheduleData();
   let days = [];
   for (let day of scheduleData) {
@@ -302,12 +303,4 @@ export async function getFroshData() {
   } catch (error) {
     console.log(error);
   }
-}
-
-export function canLeaderScanQR() {
-  return false;
-}
-
-export function isLeader() {
-  return false;
 }
