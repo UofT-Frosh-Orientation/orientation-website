@@ -100,9 +100,9 @@ const ScuntLeaderboard = () => {
 const ScuntLeaderboardFullScreen = ({ arr }) => {
   return (
     <div className="scunt-leaderboard-fullscreen">
-      <h1 style={{ color: 'var(--text-dark-use)', textAlign: 'center', margin: '2% 0' }}>
+      {/* <h1 style={{ color: 'var(--text-dark-use)', textAlign: 'center', margin: '2% 0' }}>
         Leaderboard
-      </h1>
+      </h1> */}
       <div className="scunt-leaderboard-fullscreen-container">
         {arr?.map((item) => {
           let key = item.name + String(item.number);
