@@ -91,7 +91,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    isLoggedInOnDiscord: {
+    isScuntDiscordLoggedIn: {
       type: Boolean,
       required: true,
       default: false,
