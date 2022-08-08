@@ -1,22 +1,45 @@
-import { React, useState, useEffect } from 'react';
-import { TestAnnouncements } from './functions';
-// import PropTypes from 'prop-types';
+import { React, useState, useEffect, useContext, useRef, createRef } from 'react';
+
 import { TextInput } from '../../components/input/TextInput/TextInput';
+import { SnackbarContext } from '../../util/SnackbarProvider';
 import './EditAnnounce.scss';
 import ChevronUp from '../../assets/misc/chevron-up-solid.svg';
 import ChevronDown from '../../assets/misc/chevron-down-solid.svg';
 import TrashCan from '../../assets/misc/trash-can-solid.svg';
 import EditPen from '../../assets/misc/pen-to-square-solid.svg';
+import Save from '../../assets/misc/floppy-disk-solid.svg';
 import ArrowRight from '../../assets/steps/arrow-right-solid-purple.svg';
 import ArrowLeft from '../../assets/steps/arrow-left-solid-purple.svg';
+
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getAnnouncements,
+  editAnnouncement,
+  deleteAnnouncement,
+} from '../../state/announcements/saga';
+import { announcementsSelector } from '../../state/announcements/announcementsSlice';
+
 const EditAnnounce = () => {
-  const [currentPage, setCurrentPage] = useState(1); // default to display page 1
-  const [announcementList, setAnnouncementList] = useState(TestAnnouncements);
-  const [editMode, setEditMode] = useState(false); // not in edit mode
+  const [currentPage, setCurrentPage] = useState(1);
+  const [announcementList, setAnnouncementList] = useState([]);
+  const announcementRefs = useRef(
+    announcementList.map(() => {
+      createRef();
+    }),
+  );
+  const { announcements } = useSelector(announcementsSelector);
+  const { setSnackbar } = useContext(SnackbarContext);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setAnnouncementList(TestAnnouncements);
-  }, [announcementList]);
+    dispatch(getAnnouncements());
+  }, []);
+
+  useEffect(() => {
+    // console.log(announcements);
+    setAnnouncementList(announcements);
+  }, [announcements]);
 
   let numResultsDisplayed = 10;
   let pageNumber = Math.ceil(announcementList.length / numResultsDisplayed); // the number of page numbers you will have
@@ -37,7 +60,10 @@ const EditAnnounce = () => {
             <th className="all-accounts-table-header-left-align">Description</th>
             <th className="all-accounts-table-header">Operations</th>
           </tr>
-          {announcementList.map((announcement) => {
+          {announcementList.map((announcement, index) => {
+            {
+              /* announcement.editMode = false; */
+            }
             numCurrentlyDisplayed = numCurrentlyDisplayed + 1;
 
             // only display a certain number of accounts if the number is between the ranges
@@ -46,16 +72,19 @@ const EditAnnounce = () => {
               numCurrentlyDisplayed <= nthAccount + numResultsDisplayed
             ) {
               return (
-                <tr className="all-accounts-row" key={announcement.name}>
+                <tr
+                  ref={announcementRefs.current[index]}
+                  className="all-accounts-row"
+                  key={announcement._id}
+                >
                   <td className="all-account-data-verified-container">
                     <div>
-                      {editMode ? (
+                      {announcement.editMode ? (
                         <TextInput
                           onChange={(value) => {
                             announcement.name = value;
                           }}
                           initialValue={announcement.name}
-                          localStorageKey={'edit-announcement-name'}
                         />
                       ) : (
                         <p>{announcement.name}</p>
@@ -63,13 +92,12 @@ const EditAnnounce = () => {
                     </div>
                   </td>
                   <td className="all-account-data">
-                    {editMode ? (
+                    {announcement.editMode ? (
                       <TextInput
                         onChange={(value) => {
                           announcement.description = value;
                         }}
                         initialValue={announcement.description}
-                        localStorageKey={'edit-announcement-description'}
                       />
                     ) : (
                       <p className="all-account-data-email">{announcement.description}</p>
@@ -104,12 +132,23 @@ const EditAnnounce = () => {
 
                       <div
                         onClick={() => {
-                          setEditMode(!editMode);
+                          console.log(announcementRefs.current[index].childern);
+                          // if (announcement.editMode === true) {
+                          //   console.log(announcement);
+                          //   dispatch(editAnnouncement({ setSnackbar, announcement }));
+                          //   announcement.editMode = false;
+                          // } else {
+                          //   announcement.editMode = true;
+                          // }
                         }}
                         className="operation"
                         style={{ pointerEvents: 'all' }}
                       >
-                        <img className="deny-icon" src={EditPen} alt="deny cross" />
+                        <img
+                          className="deny-icon"
+                          src={announcement.editMode ? Save : EditPen}
+                          alt="deny cross"
+                        />
                       </div>
                       {/* delete*/}
 
@@ -132,64 +171,61 @@ const EditAnnounce = () => {
       </table>
 
       {/* page numbers thing */}
-      {!editMode ? (
-        <div className="accounts-page-number-container">
-          <div
-            className="page-number-arrow-container"
-            style={currentPage > 1 ? {} : { pointerEvents: 'none', cursor: 'default' }}
-          >
-            <img
-              className="page-number-arrow"
-              src={ArrowLeft}
-              alt="left arrow"
-              onClick={() => {
-                if (currentPage > 1) {
-                  setCurrentPage(currentPage - 1);
-                }
-              }}
-            />
-          </div>
-          {pageNumberList.map((num) => {
-            return (
-              <div
-                key={num}
-                className={`accounts-page-number-box ${
-                  num === currentPage ? 'accounts-page-number-box-current' : ''
-                }`}
-                style={
-                  num === 1
-                    ? { borderLeftWidth: '2px' }
-                    : num === pageNumber
-                    ? { borderRightWidth: '2px' }
-                    : {}
-                }
-                onClick={() => {
-                  setCurrentPage(num);
-                }}
-              >
-                <p>{num}</p>
-              </div>
-            );
-          })}
-          <div
-            className="page-number-arrow-container"
-            style={currentPage < pageNumber ? {} : { pointerEvents: 'none', cursor: 'default' }}
-          >
-            <img
-              className="page-number-arrow"
-              src={ArrowRight}
-              alt="right arrow"
-              onClick={() => {
-                if (currentPage < pageNumber) {
-                  setCurrentPage(currentPage + 1);
-                }
-              }}
-            />
-          </div>
+
+      <div className="accounts-page-number-container">
+        <div
+          className="page-number-arrow-container"
+          style={currentPage > 1 ? {} : { pointerEvents: 'none', cursor: 'default' }}
+        >
+          <img
+            className="page-number-arrow"
+            src={ArrowLeft}
+            alt="left arrow"
+            onClick={() => {
+              if (currentPage > 1) {
+                setCurrentPage(currentPage - 1);
+              }
+            }}
+          />
         </div>
-      ) : (
-        <></>
-      )}
+        {pageNumberList.map((num) => {
+          return (
+            <div
+              key={num}
+              className={`accounts-page-number-box ${
+                num === currentPage ? 'accounts-page-number-box-current' : ''
+              }`}
+              style={
+                num === 1
+                  ? { borderLeftWidth: '2px' }
+                  : num === pageNumber
+                  ? { borderRightWidth: '2px' }
+                  : {}
+              }
+              onClick={() => {
+                setCurrentPage(num);
+              }}
+            >
+              <p>{num}</p>
+            </div>
+          );
+        })}
+        <div
+          className="page-number-arrow-container"
+          style={currentPage < pageNumber ? {} : { pointerEvents: 'none', cursor: 'default' }}
+        >
+          <img
+            className="page-number-arrow"
+            src={ArrowRight}
+            alt="right arrow"
+            onClick={() => {
+              if (currentPage < pageNumber) {
+                setCurrentPage(currentPage + 1);
+              }
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 };

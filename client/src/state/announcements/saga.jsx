@@ -34,11 +34,21 @@ export function* getAnnouncementsSaga() {
 
 export const createAnnouncements = createAction('createAnnouncementsSaga');
 
-export function* createAnnouncementsSaga({ payload: { setSnackbar, announcementData } }) {
+export function* createAnnouncementsSaga({
+  payload: {
+    setSnackbar,
+    announcementData,
+    // sendAsEmail
+  },
+}) {
   const { axios } = useAxios();
   try {
+    console.log(announcementData);
     yield put(createAnnouncementsStart());
     const response = yield call(axios.post, `/announcements/create`, { announcementData });
+    // if (sendAsEmail) {
+    //   logic to send announcement email
+    // }
     yield put(createAnnouncementsSuccess());
   } catch (e) {
     setSnackbar(
@@ -73,12 +83,15 @@ export const editAnnouncement = createAction('editAnnouncementSaga');
 export function* editAnnouncementSaga({ payload: { setSnackbar, announcementData } }) {
   const { axios } = useAxios();
   try {
+    console.log(announcementData);
+
     yield put(editAnnouncementsStart());
     const response = yield call(axios.put, `/announcements/${announcementData.id}/edit`, {
       announcementData,
     });
     yield put(editAnnouncementsSuccess());
   } catch (e) {
+    console.log(e);
     setSnackbar(
       e.response?.data?.message
         ? e.response?.data?.message.toString()

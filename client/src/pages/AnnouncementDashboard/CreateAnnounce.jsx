@@ -1,10 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { TextInput } from '../../components/input/TextInput/TextInput';
-import './CreateAnnounce.scss';
 import { Button } from '../../components/button/Button/Button';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
+import './CreateAnnounce.scss';
+
+import { useDispatch } from 'react-redux';
+import { createAnnouncements } from '../../state/announcements/saga';
+import { SnackbarContext } from '../../util/SnackbarProvider';
 
 const CreateAnnounce = () => {
+  const [announcementData, setAnnouncementData] = useState({});
+  const { setSnackbar } = useContext(SnackbarContext);
+
+  const dispatch = useDispatch();
+
   return (
     <div className="sign-up-container1">
       <h3>Send an Announcement</h3>
@@ -13,16 +22,18 @@ const CreateAnnounce = () => {
           label="Announcement Name"
           isRequiredInput
           placeholder={'Announcement #1'}
-          onChange={(value) => {}}
-          localStorageKey={'announcement-name'}
+          onChange={(value) => {
+            announcementData['name'] = value;
+          }}
         />
       </div>
       <div className="full-width-input">
         <TextInput
           label="Description"
           placeholder={'Description'}
-          onChange={(value) => {}}
-          localStorageKey={'announcement-description'}
+          onChange={(value) => {
+            announcementData['description'] = value;
+          }}
         />
       </div>
 
@@ -30,25 +41,17 @@ const CreateAnnounce = () => {
         <Checkboxes
           values={['Also Send As Email']}
           onSelected={(value, index, state, selectedIndices) => {
-            //   accountObj['leadur'] = state;
+            announcementData['sendAsEmail'] = state;
           }}
         />
       </div>
 
-      <div
-        className="sign-up-button"
-        onMouseOver={() => {
-          //   checkErrors(true);
-        }}
-      >
+      <div className="sign-up-button">
         <Button
           label="Send Announcement"
           style={{ margin: 0 }}
           onClick={async () => {
-            // const anyErrors = checkErrors(true);
-            // if (anyErrors === false) {
-            //   submitForm();
-            // }
+            dispatch(createAnnouncements({ setSnackbar, announcementData }));
           }}
         />
       </div>
