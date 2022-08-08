@@ -37,6 +37,8 @@ const UserController = {
         );
       }
 
+      await UserServices.getScuntToken(email.toLowerCase());
+
       req.logIn(user, (err) => {
         if (err) {
           return next(err);
@@ -56,8 +58,15 @@ const UserController = {
    */
   async getInfo(req, res) {
     const user = req.user.getResponseObject();
+    const email = req.user.email;
 
-    await UserServices.checkScuntToken(user.email);
+    const existingUser = await UserServices.getUserByEmail(email);
+
+    if (!(await UserServices.checkScuntToken(existingUser))) {
+      await UserServices.getScuntToken(existingUser.email.toLowerCase());
+    }
+
+    console.log(existingUser);
 
     res.status(200).send({ user });
   },
