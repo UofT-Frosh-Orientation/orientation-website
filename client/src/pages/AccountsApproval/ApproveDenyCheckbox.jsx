@@ -28,7 +28,8 @@ const ApproveDenyCheckbox = ({
             setDeny(false);
             setApprove(true);
           } else {
-            setApprove(!approve);
+            setApprove(false);
+            setDeny(true);
           }
         }}
         className={`approve-deny-checkbox ${
@@ -44,7 +45,7 @@ const ApproveDenyCheckbox = ({
       </div>
 
       {/* deny checkbox */}
-      <div
+      {/* <div
         onClick={() => {
           setChangesMade(true);
           if (approve === true) {
@@ -58,7 +59,7 @@ const ApproveDenyCheckbox = ({
         style={pointerEvents}
       >
         <img className="deny-icon" src={`${deny ? WhiteCross : GrayCross}`} alt="deny cross" />
-      </div>
+      </div> */}
     </div>
   );
 };

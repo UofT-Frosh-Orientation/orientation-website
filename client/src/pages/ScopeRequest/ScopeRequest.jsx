@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './ScopeRequest.scss';
-import { getTotalRegistrationScopes, getTotalScopes, submitScopes } from './functions';
+import { getTotalRegistrationScopes, getTotalScopes } from './functions';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import { Button } from '../../components/button/Button/Button';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { SnackbarContext } from '../../util/SnackbarProvider';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { requestAuthScopes } from '../../state/user/saga';
+import { userSelector } from '../../state/user/userSlice';
 
-function convertCamelToLabel(text) {
+export function convertCamelToLabel(text) {
   const result = text.replace(/([A-Z])/g, ' $1');
   return result.charAt(0).toUpperCase() + result.slice(1);
 }
@@ -24,6 +25,8 @@ export const PageScopeRequest = () => {
   const totalScopes = getTotalScopes();
   const totalRegistrationScopes = getTotalRegistrationScopes();
   const dispatch = useDispatch();
+  const { user } = useSelector(userSelector);
+
   return (
     <div
       style={{
@@ -36,6 +39,15 @@ export const PageScopeRequest = () => {
       <div className="scope-request-page">
         <div className="navbar-space-top" />
         <h1>Leadur Permissions Request</h1>
+        {/* {user?.authScopes?.approved?.length <= 0 && user?.authScopes?.froshDataFields?.length <=0 ? <></> : <div className='scope-request-current-permissions'>
+        <h3>You currently have these permissions:</h3>
+        {user?.authScopes?.approved.map((scope)=>{
+          return <p>{convertCamelToLabel(scope.split(":")[0]) + " : " + convertCamelToLabel(scope.split(":")[1])}</p>
+        })}
+        {user?.froshDataFields?.approved.map((scope)=>{
+          return <p>{convertCamelToLabel(scope)}</p>
+        })}</div>
+        } */}
         <h2>General Permissions</h2>
         <Button
           onClick={() => {
@@ -45,9 +57,31 @@ export const PageScopeRequest = () => {
         />
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {Object.keys(totalScopes).map((scope) => {
+            const highlightFields = [];
+            try {
+              for (let authScope of user.authScopes.approved) {
+                if (scope === authScope.split(':')[0]) {
+                  highlightFields.push(authScope.split(':')[1]);
+                }
+              }
+            } catch (e) {
+              console.log(e.toString());
+            }
+            const disabledFields = [...highlightFields];
+            try {
+              for (let authScope of user.authScopes.requested) {
+                if (scope === authScope.split(':')[0]) {
+                  disabledFields.push(authScope.split(':')[1]);
+                }
+              }
+            } catch (e) {
+              console.log(e.toString());
+            }
             return (
               <div key={scope} style={{ paddingRight: '25px' }}>
                 <Checkboxes
+                  highlightValues={highlightFields}
+                  disabledValues={disabledFields}
                   label={convertCamelToLabel(scope)}
                   initialSelectedIndices={[]}
                   selectAll={selectAllGeneralScopes}
@@ -73,6 +107,8 @@ export const PageScopeRequest = () => {
           label={'Select All'}
         />
         <Checkboxes
+          highlightValues={user.froshDataFields.approved}
+          disabledValues={[...user.froshDataFields.approved, ...user.froshDataFields.requested]}
           initialSelectedIndices={[]}
           selectAll={selectAllRegistrationScopes}
           setSelectAll={setSelectAllRegistrationScopes}

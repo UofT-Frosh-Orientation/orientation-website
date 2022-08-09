@@ -176,11 +176,13 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
   let pathname = useLocation().pathname;
   const [openProfileDropdown, setOpenProfileDropdown] = useState(false);
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
 
   return (
     <>
       {isLoggedIn ? (
-        isRegistered ? (
+        isRegistered === true || leader === true ? (
           <ProfileDropdown
             open={openProfileDropdown}
             setOpen={setOpenProfileDropdown}
