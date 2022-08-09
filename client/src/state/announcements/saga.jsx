@@ -43,7 +43,6 @@ export function* createAnnouncementsSaga({
 }) {
   const { axios } = useAxios();
   try {
-    console.log(announcementData);
     yield put(createAnnouncementsStart());
     const response = yield call(axios.post, `/announcements/create`, { announcementData });
     // if (sendAsEmail) {
@@ -84,8 +83,6 @@ export const editAnnouncement = createAction('editAnnouncementSaga');
 export function* editAnnouncementSaga({ payload: { setSnackbar, announcementData } }) {
   const { axios } = useAxios();
   try {
-    console.log(announcementData);
-
     yield put(editAnnouncementsStart());
     const response = yield call(axios.put, `/announcements/${announcementData.id}/edit`, {
       announcementData,
@@ -93,7 +90,6 @@ export function* editAnnouncementSaga({ payload: { setSnackbar, announcementData
     yield put(editAnnouncementsSuccess());
     setSnackbar('Successfully Edited!');
   } catch (e) {
-    console.log(e);
     setSnackbar(
       e.response?.data?.message
         ? e.response?.data?.message.toString()

@@ -47,7 +47,7 @@ const CreateAnnounce = () => {
         />
       </div>
 
-      <div className="sign-up-button">
+      <div className="send-announcement-button">
         <Button
           label="Send Announcement"
           style={{ margin: 0 }}

@@ -77,7 +77,6 @@ const AnnouncementServices = {
 
   async updateAnnouncementElement(id, announcementElement) {
     return new Promise((resolve, reject) => {
-      console.log(announcementElement);
       AnnouncementModel.findOneAndUpdate({ _id: id }, announcementElement, (err, announcement) => {
         if (err || !announcement) {
           reject('UNABLE_TO_UPDATE_ANNOUNCEMENT');

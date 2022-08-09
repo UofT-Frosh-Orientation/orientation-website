@@ -79,7 +79,13 @@ export const pages = {
   hidden: [
     {
       lable: 'Announcements Dashboard',
-      component: <PageAnnounceDash />,
+      component: (
+        <AuthorizedPage
+          authScopes={['announcements:delete', 'announcements:create', 'announcements:edit']}
+        >
+          <PageAnnounceDash />
+        </AuthorizedPage>
+      ),
       path: '/announcement-dashboard',
       includeFooter: true,
     },

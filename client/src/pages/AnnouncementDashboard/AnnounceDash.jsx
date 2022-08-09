@@ -1,7 +1,8 @@
-import { React, useState, useEffect } from 'react';
+import { React } from 'react';
 import { Tabs } from '../../components/tabs/tabs';
 import { EditAnnounce } from './EditAnnounce';
 import { CreateAnnounce } from './CreateAnnounce';
+import './AnnounceDash.scss';
 const PageAnnounceDash = () => {
   const tabs = [
     {
@@ -15,8 +16,8 @@ const PageAnnounceDash = () => {
   ];
 
   return (
-    <div className="accounts-approval-page-container">
-      <div className="accounts-approval-tabs-container">
+    <div className="announcement-dashboard-container">
+      <div className="announcement-dashboard-tabs-container">
         <Tabs tabs={tabs} displayButtons={false} />
       </div>
     </div>

@@ -1,7 +1,6 @@
 @import '../../scssStyles/mixins';
 
-.sign-up-container1 {
-  background-color: var(--white);
+.announcement-creator {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -17,6 +16,6 @@
   width: 100%;
 }
 
-.sign-up-button {
+.send-announcement-button {
   margin-top: 20px;
 }

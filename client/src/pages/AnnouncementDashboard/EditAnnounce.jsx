@@ -1,16 +1,14 @@
-import { React, useState, useEffect, useContext, useRef, createRef } from 'react';
-
-import { TextInput } from '../../components/input/TextInput/TextInput';
-import { SnackbarContext } from '../../util/SnackbarProvider';
 import './EditAnnounce.scss';
 import ChevronUp from '../../assets/misc/chevron-up-solid.svg';
-import ChevronDown from '../../assets/misc/chevron-down-solid.svg';
 import TrashCan from '../../assets/misc/trash-can-solid.svg';
 import EditPen from '../../assets/misc/pen-to-square-solid.svg';
 import Save from '../../assets/misc/floppy-disk-solid.svg';
 import ArrowRight from '../../assets/steps/arrow-right-solid-purple.svg';
 import ArrowLeft from '../../assets/steps/arrow-left-solid-purple.svg';
 
+import { React, useState, useEffect, useContext } from 'react';
+import { TextInput } from '../../components/input/TextInput/TextInput';
+import { SnackbarContext } from '../../util/SnackbarProvider';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getAnnouncements,
@@ -120,23 +118,22 @@ const EditAnnounce = () => {
                             announcementList
                               .map((announcement, childIndex) => {
                                 if (childIndex == parentIndex) {
-                                  announcement.dateCreated = Date.now();
+                                  announcement.dateCreated = new Date();
                                   return announcement;
                                 } else {
                                   return announcement;
                                 }
                               })
                               .sort((a, b) => {
-                                if (a.dateCreated > b.dateCreated) {
+                                if (new Date(a.dateCreated) > new Date(b.dateCreated)) {
                                   return -1;
-                                } else if (a.dateCreated < b.dateCreated) {
+                                } else if (new Date(a.dateCreated) < new Date(b.dateCreated)) {
                                   return 1;
                                 } else {
                                   return 0;
                                 }
                               }),
                           );
-                          console.log(announcementList);
                         }}
                         className="operation"
                         style={{ pointerEvents: 'all' }}
