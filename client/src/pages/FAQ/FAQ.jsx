@@ -95,7 +95,7 @@ const PageFAQ = () => {
         ) : (
           <img src={Wave} className={'faq-wave-image faq-page-top-wave-image'} />
         )}
-        {errorLoading ? <h1>There was an error loading FAQs</h1> : <></>}
+        {errorLoading ? <h1 className="faq-error-text">There was an error loading FAQs</h1> : <></>}
         {loading ? (
           <LoadingAnimation size={'55px'} />
         ) : (
