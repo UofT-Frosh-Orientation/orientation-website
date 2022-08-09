@@ -37,8 +37,10 @@ const EditAnnounce = () => {
       announcements.map((announcement) => {
         return {
           editMode: false,
+          deleteConformation: false,
           id: announcement._id,
           name: announcement.name,
+          dateCreated: announcement.dateCreated,
           description: announcement.description,
         };
       }),
@@ -108,36 +110,55 @@ const EditAnnounce = () => {
                       {/* up */}
                       <div
                         onClick={() => {
-                          console.log('move up');
+                          dispatch(
+                            editAnnouncement({
+                              setSnackbar,
+                              announcementData: { id: announcement.id, dateCreated: Date.now() },
+                            }),
+                          );
+                          setAnnouncementList(
+                            announcementList
+                              .map((announcement, childIndex) => {
+                                if (childIndex == parentIndex) {
+                                  announcement.dateCreated = Date.now();
+                                  return announcement;
+                                } else {
+                                  return announcement;
+                                }
+                              })
+                              .sort((a, b) => {
+                                if (a.dateCreated > b.dateCreated) {
+                                  return -1;
+                                } else if (a.dateCreated < b.dateCreated) {
+                                  return 1;
+                                } else {
+                                  return 0;
+                                }
+                              }),
+                          );
+                          console.log(announcementList);
                         }}
                         className="operation"
                         style={{ pointerEvents: 'all' }}
                       >
-                        <img className="deny-icon" src={ChevronUp} alt="deny cross" />
+                        <img className="operation-icon" src={ChevronUp} />
                       </div>
-                      {/* down */}
-                      <div
-                        onClick={() => {
-                          console.log('move down');
-                        }}
-                        className="operation"
-                        style={{ pointerEvents: 'all' }}
-                      >
-                        <img className="deny-icon" src={ChevronDown} alt="deny cross" />
-                      </div>
-                      {/* edit*/}
 
+                      {/* edit*/}
                       <div
                         onClick={() => {
+                          if (announcement.editMode === true) {
+                            dispatch(
+                              editAnnouncement({
+                                setSnackbar,
+                                announcementData: announcement,
+                              }),
+                            );
+                          }
                           setAnnouncementList(
                             announcementList.map((announcement, childIndex) => {
                               if (childIndex == parentIndex) {
-                                if (announcement.editMode === true) {
-                                  dispatch(editAnnouncement({ setSnackbar, announcement }));
-                                  announcement.editMode = !announcement.editMode;
-                                } else {
-                                  announcement.editMode = !announcement.editMode;
-                                }
+                                announcement.editMode = !announcement.editMode;
 
                                 return announcement;
                               } else {
@@ -150,21 +171,59 @@ const EditAnnounce = () => {
                         style={{ pointerEvents: 'all' }}
                       >
                         <img
-                          className="deny-icon"
+                          className="operation-icon"
                           src={announcement.editMode ? Save : EditPen}
-                          alt="deny cross"
                         />
                       </div>
                       {/* delete*/}
 
                       <div
                         onClick={() => {
-                          console.log('delete');
+                          if (announcement.deleteConformation === true) {
+                            dispatch(
+                              deleteAnnouncement({
+                                setSnackbar,
+                                announcementData: announcement,
+                              }),
+                            );
+                            setAnnouncementList(
+                              announcementList
+                                .map((announcement, childIndex) => {
+                                  if (childIndex != parentIndex) {
+                                    return announcement;
+                                  }
+                                })
+                                .filter((element) => {
+                                  return element !== undefined;
+                                }),
+                            );
+                          } else {
+                            setAnnouncementList(
+                              announcementList.map((announcement, childIndex) => {
+                                if (childIndex == parentIndex) {
+                                  announcement.deleteConformation =
+                                    !announcement.deleteConformation;
+
+                                  return announcement;
+                                } else {
+                                  return announcement;
+                                }
+                              }),
+                            );
+                          }
                         }}
                         className="operation"
                         style={{ pointerEvents: 'all' }}
                       >
-                        <img className="deny-icon" src={TrashCan} alt="deny cross" />
+                        <img
+                          className="operation-icon"
+                          style={
+                            announcement.deleteConformation
+                              ? { backgroundColor: 'red', borderRadius: '3px' }
+                              : {}
+                          }
+                          src={TrashCan}
+                        />
                       </div>
                     </div>
                   </td>

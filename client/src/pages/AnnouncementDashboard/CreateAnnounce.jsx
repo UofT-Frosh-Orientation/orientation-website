@@ -16,7 +16,7 @@ const CreateAnnounce = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="sign-up-container1">
+    <div className="announcement-creator">
       <h3>Send an Announcement</h3>
       <div className="full-width-input">
         <TextInput

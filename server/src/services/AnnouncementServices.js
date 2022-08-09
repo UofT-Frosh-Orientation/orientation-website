@@ -8,7 +8,17 @@ const AnnouncementServices = {
         if (err) {
           reject(err);
         } else {
-          resolve(announcements);
+          resolve(
+            announcements.sort((a, b) => {
+              if (a.dateCreated > b.dateCreated) {
+                return -1;
+              } else if (a.dateCreated < b.dateCreated) {
+                return 1;
+              } else {
+                return 0;
+              }
+            }),
+          );
         }
       });
     });
@@ -67,6 +77,7 @@ const AnnouncementServices = {
 
   async updateAnnouncementElement(id, announcementElement) {
     return new Promise((resolve, reject) => {
+      console.log(announcementElement);
       AnnouncementModel.findOneAndUpdate({ _id: id }, announcementElement, (err, announcement) => {
         if (err || !announcement) {
           reject('UNABLE_TO_UPDATE_ANNOUNCEMENT');
