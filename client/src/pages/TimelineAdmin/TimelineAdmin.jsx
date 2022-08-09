@@ -1,7 +1,7 @@
 import { React, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
-  getTimelineEvents,
+  //getTimelineEvents,
   deleteTimelineEvent,
   editTimelineEvent,
   createTimelineEvent,
@@ -11,6 +11,8 @@ import { TextInput } from '../../components/input/TextInput/TextInput';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import './TimelineAdmin.scss';
+import useAxios from '../../hooks/useAxios';
+const { axios } = useAxios();
 
 const PageTimelineAdmin = () => {
   const [editMade, setEditMade] = useState(false);
@@ -188,8 +190,17 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
 
 const ExistingTimelineEvents = ({ editMade, setEditMade }) => {
   const [existingEvents, setExistingEvents] = useState([]);
-  useEffect(async () => {
-    setExistingEvents(await getTimelineEvents());
+  const getTimelineEvents = async () => {
+    try {
+      const response = await axios.get('/timeline');
+      return response.data.timelines;
+    } catch (error) {
+      console.log('Error', error.message);
+      return [];
+    }
+  };
+  useEffect(() => {
+    getTimelineEvents();
   }, [editMade]);
   return (
     <>
@@ -423,8 +434,7 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
         <Button
           label={'Delete'}
           onClick={async () => {
-            console.log(event);
-            const result = await deleteTimelineEvent(event.id);
+            const result = await deleteTimelineEvent(event._id);
             if (result !== true) {
               setSnackbar('Error', true);
             } else {
