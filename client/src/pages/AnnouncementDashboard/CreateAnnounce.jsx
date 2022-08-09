@@ -5,7 +5,8 @@ import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import './CreateAnnounce.scss';
 
 import { useDispatch } from 'react-redux';
-import { createAnnouncements } from '../../state/announcements/saga';
+import { getAnnouncements, createAnnouncements } from '../../state/announcements/saga';
+
 import { SnackbarContext } from '../../util/SnackbarProvider';
 
 const CreateAnnounce = () => {
@@ -52,6 +53,7 @@ const CreateAnnounce = () => {
           style={{ margin: 0 }}
           onClick={async () => {
             dispatch(createAnnouncements({ setSnackbar, announcementData }));
+            dispatch(getAnnouncements());
           }}
         />
       </div>

@@ -22,11 +22,7 @@ import { announcementsSelector } from '../../state/announcements/announcementsSl
 const EditAnnounce = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [announcementList, setAnnouncementList] = useState([]);
-  const announcementRefs = useRef(
-    announcementList.map(() => {
-      createRef();
-    }),
-  );
+
   const { announcements } = useSelector(announcementsSelector);
   const { setSnackbar } = useContext(SnackbarContext);
 
@@ -37,8 +33,16 @@ const EditAnnounce = () => {
   }, []);
 
   useEffect(() => {
-    // console.log(announcements);
-    setAnnouncementList(announcements);
+    setAnnouncementList(
+      announcements.map((announcement) => {
+        return {
+          editMode: false,
+          id: announcement._id,
+          name: announcement.name,
+          description: announcement.description,
+        };
+      }),
+    );
   }, [announcements]);
 
   let numResultsDisplayed = 10;
@@ -60,10 +64,7 @@ const EditAnnounce = () => {
             <th className="all-accounts-table-header-left-align">Description</th>
             <th className="all-accounts-table-header">Operations</th>
           </tr>
-          {announcementList.map((announcement, index) => {
-            {
-              /* announcement.editMode = false; */
-            }
+          {announcementList.map((announcement, parentIndex) => {
             numCurrentlyDisplayed = numCurrentlyDisplayed + 1;
 
             // only display a certain number of accounts if the number is between the ranges
@@ -72,11 +73,7 @@ const EditAnnounce = () => {
               numCurrentlyDisplayed <= nthAccount + numResultsDisplayed
             ) {
               return (
-                <tr
-                  ref={announcementRefs.current[index]}
-                  className="all-accounts-row"
-                  key={announcement._id}
-                >
+                <tr className="all-accounts-row" key={announcement.id}>
                   <td className="all-account-data-verified-container">
                     <div>
                       {announcement.editMode ? (
@@ -132,14 +129,22 @@ const EditAnnounce = () => {
 
                       <div
                         onClick={() => {
-                          console.log(announcementRefs.current[index].childern);
-                          // if (announcement.editMode === true) {
-                          //   console.log(announcement);
-                          //   dispatch(editAnnouncement({ setSnackbar, announcement }));
-                          //   announcement.editMode = false;
-                          // } else {
-                          //   announcement.editMode = true;
-                          // }
+                          setAnnouncementList(
+                            announcementList.map((announcement, childIndex) => {
+                              if (childIndex == parentIndex) {
+                                if (announcement.editMode === true) {
+                                  dispatch(editAnnouncement({ setSnackbar, announcement }));
+                                  announcement.editMode = !announcement.editMode;
+                                } else {
+                                  announcement.editMode = !announcement.editMode;
+                                }
+
+                                return announcement;
+                              } else {
+                                return announcement;
+                              }
+                            }),
+                          );
                         }}
                         className="operation"
                         style={{ pointerEvents: 'all' }}
