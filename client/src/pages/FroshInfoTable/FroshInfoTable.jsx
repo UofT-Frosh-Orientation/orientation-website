@@ -9,6 +9,7 @@ import { froshSelector } from '../../state/frosh/froshSlice';
 import { getFrosh } from '../../state/frosh/saga';
 import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
 import { TextInput } from '../../components/input/TextInput/TextInput';
+import { userSelector } from '../../state/user/userSlice';
 
 function getUneditableFields() {
   let noEditFields = [];
@@ -39,6 +40,7 @@ const PageFroshInfoTable = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortedFrosh, setSortedFrosh] = useState([]);
   const [searchedFrosh, setSearchedFrosh] = useState([]);
+  const { user } = useSelector(userSelector);
 
   const dispatch = useDispatch();
 
@@ -47,7 +49,7 @@ const PageFroshInfoTable = () => {
   }, [showAllUsers]);
 
   useEffect(() => {
-    if (frosh.length > 0) {
+    if (frosh?.length > 0) {
       setObjectKeys(Object.keys(Object.assign({}, ...frosh)));
     }
     setSortedFrosh(frosh);
@@ -83,19 +85,28 @@ const PageFroshInfoTable = () => {
     }
   }, [sortedParam, sortedOrder, showAllUsers, searchTerm]);
 
+  useEffect(() => {
+    if (user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') === false)
+      setShowAllUsers(false);
+  }, []);
+
   return (
     <div className="frosh-info-table">
       <div className="navbar-space-top" />
       <div className="header">
         <h1>Frosh Data</h1>
         <div className="buttons-container">
-          <Button
-            isSecondary
-            label={!showAllUsers ? 'Showing Complete Frosh Users' : 'Showing All Users'}
-            onClick={() => {
-              setShowAllUsers(!showAllUsers);
-            }}
-          />
+          {user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') ? (
+            <Button
+              isSecondary
+              label={!showAllUsers ? 'Showing Complete Frosh Users' : 'Showing All Users'}
+              onClick={() => {
+                setShowAllUsers(!showAllUsers);
+              }}
+            />
+          ) : (
+            <></>
+          )}
           <Button
             label="Download XML"
             onClick={() => {
@@ -104,6 +115,14 @@ const PageFroshInfoTable = () => {
           />
         </div>
       </div>
+      {user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') === false ? (
+        <p className="small-print" style={{ marginTop: '-14px', marginBottom: '16px' }}>
+          Only showing registered Frosh (Paid users). If you want to see all users, please request
+          &quot;froshData:unRegisteredUsers&quot; permission
+        </p>
+      ) : (
+        <></>
+      )}
       <div className="search">
         <TextInput
           onChange={(text) => setSearchTerm(text)}
@@ -132,7 +151,7 @@ const PageFroshInfoTable = () => {
         )}
       </p>
       <div className="table-wrap">
-        {frosh.length >= 0 ? (
+        {frosh?.length >= 0 ? (
           <table>
             <tr>
               <th
