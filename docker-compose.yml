@@ -34,7 +34,7 @@ services:
     container_name: redis
     restart: unless-stopped
     ports:
-      - "7000:7000"
+      - "7001:7001"
     environment:
       - REDIS_PORT_NUMBER=$REDIS_PORT
       - REDIS_PASSWORD=$REDIS_PASSWORD
