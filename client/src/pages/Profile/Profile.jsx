@@ -1,12 +1,10 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   capitalizeFirstLetter,
   getDaysFroshSchedule,
   getFroshScheduleData,
   getQRCodeString,
-  getTasks,
-  onDoneTask,
   parseQRCode,
   qrKeys,
   searchForFrosh,
@@ -19,22 +17,21 @@ import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnn
 import { QRNormal } from 'react-qrbtf';
 import { ButtonBubble } from '../../components/button/ButtonBubble/ButtonBubble';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
-import SingleAccordionStories from '../../components/text/Accordion/SingleAccordion/SingleAccordion.stories';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
-import QrScanner from 'qr-scanner';
 import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import EditIcon from '../../assets/misc/pen-solid.svg';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { resources } from '../../util/resources';
 import { instagramAccounts } from '../../util/instagramAccounts';
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
-
+import { announcementsSelector } from '../../state/announcements/announcementsSlice';
+import { getAnnouncements, completeAnnouncements } from '../../state/announcements/saga';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
@@ -49,6 +46,7 @@ const PageProfileFrosh = () => {
   const { user } = useSelector(userSelector);
   const leader = user?.userType === 'leadur';
   const qrCodeLeader = user?.authScopes?.approved.includes('signInFrosh:qr-code registration');
+
   return (
     <>
       <div className="navbar-space-top" />
@@ -438,18 +436,48 @@ const ProfilePageInstagrams = () => {
 };
 
 const ProfilePageAnnouncements = () => {
-  const [tasks, setTasks] = useState([]);
-  useEffect(async () => {
-    setTasks(await getTasks());
+  const dispatch = useDispatch();
+  const { announcements } = useSelector(announcementsSelector);
+  const [announcementList, setAnnouncementList] = useState([]);
+
+  useEffect(() => {
+    dispatch(getAnnouncements());
   }, []);
+
+  useEffect(() => {
+    setAnnouncementList(
+      announcements.map((announcement) => {
+        return {
+          editMode: false,
+          deleteConformation: false,
+          id: announcement._id,
+          name: announcement.name,
+          dateCreated: announcement.dateCreated,
+          description: announcement.description,
+        };
+      }),
+    );
+  }, [announcements]);
+
+  const onDoneTask = (task) => {
+    dispatch(completeAnnouncements({ announcementData: { id: task.id } }));
+    announcementList
+      .map((announcement) => {
+        if (announcement.id != task.id) {
+          return announcement;
+        }
+      })
+      .filter((element) => {
+        return element !== undefined;
+      })
+      .unshift(task);
+    setAnnouncementList(announcementList);
+  };
+
   return (
     <div className="profile-page-announcements">
       <h2 className="profile-page-section-header">Tasks and Announcements</h2>
-      {tasks == undefined || tasks.length <= 0 ? (
-        <h2 style={{ color: 'var(--black)' }}>There are no announcements yet!</h2>
-      ) : (
-        <TaskAnnouncement tasks={tasks} onDone={onDoneTask} />
-      )}
+      <TaskAnnouncement tasks={announcementList} onDone={onDoneTask} />
     </div>
   );
 };
