@@ -79,10 +79,14 @@ const FroshController = {
           }
         }
       }
+      let query = { froshGroup: { $in: froshGroupFilters } };
+      const allFroshGroups = req.user?.authScopes?.approved?.includes('froshGroupData:all');
+      if (allFroshGroups) {
+        query = {};
+      }
       const unRegisteredUsers = req.user?.authScopes?.approved?.includes(
         'froshData:unRegisteredUsers',
       );
-      let query = { froshGroup: { $in: froshGroupFilters } };
       if (!unRegisteredUsers) {
         query = { ...query, isRegistered: true };
       }

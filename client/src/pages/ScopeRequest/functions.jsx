@@ -26,7 +26,7 @@ export const getTotalScopes = () => {
       'exec allow leaderboard',
       'exec hide leaderboard',
     ],
-    froshGroupData: froshGroupData,
+    froshGroupData: ['all', ...froshGroupData],
     froshData: ['unRegisteredUsers'], // Can see leader accounts, frosh who haven't finished payment
   };
 };
