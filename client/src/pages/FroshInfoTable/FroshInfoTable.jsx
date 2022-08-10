@@ -125,7 +125,6 @@ const PageFroshInfoTable = () => {
       )}
       {user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') === false &&
       !user?.authScopes?.approved?.find((scope) => {
-        console.log(scope);
         return scope.includes('froshGroupData:');
       }) ? (
         <p className="small-print" style={{ marginTop: '-14px', marginBottom: '16px' }}>
@@ -138,10 +137,7 @@ const PageFroshInfoTable = () => {
       )}
       <div className="search">
         <TextInput
-          onChange={(text) => {
-            setSearchTerm(text);
-            console.log(frosh);
-          }}
+          onChange={(text) => setSearchTerm(text)}
           inputType={'text'}
           placeholder={'Search...'}
         />
