@@ -160,6 +160,7 @@ const ScuntLeaderboardMobile = ({ arr }) => {
                 number={item.number}
                 points={item.points}
                 img={firstPlace}
+                barwidth={item.width}
               />
             );
           } else if (rank === 2) {
@@ -171,6 +172,7 @@ const ScuntLeaderboardMobile = ({ arr }) => {
                 number={item.number}
                 points={item.points}
                 img={secondPlace}
+                barwidth={item.width}
               />
             );
           } else if (rank === 3) {
@@ -181,6 +183,7 @@ const ScuntLeaderboardMobile = ({ arr }) => {
                 number={item.number}
                 points={item.points}
                 img={thirdPlace}
+                barwidth={item.width}
               />
             );
           } else {
@@ -191,6 +194,7 @@ const ScuntLeaderboardMobile = ({ arr }) => {
                 name={item.name}
                 number={item.number}
                 points={item.points}
+                barwidth={item.width}
               />
             );
           }
@@ -255,30 +259,37 @@ const ScuntLeaderboardBarVertical = ({ name, number, points, barwidth }) => {
 };
 
 // for mobile
-const ScuntLeaderboardBubble = ({ name, number, points, rank, img }) => {
+const ScuntLeaderboardBubble = ({ name, number, points, rank, img, barwidth }) => {
   return (
     <>
       <div className="scunt-leaderboard-bubble-outer">
-        {img !== undefined ? (
-          <img className="scunt-leaderboard-bubble-medal" src={img}></img>
-        ) : (
-          <></>
-        )}
-        <div className="scunt-leaderboard-bubble">
-          <div className="scunt-leaderboard-bubble-info">
-            {rank !== undefined ? (
-              <h1 className="scunt-leaderboard-bubble-rank">{rank}</h1>
-            ) : (
-              <h1 className="scunt-leaderboard-bubble-rank"></h1>
-            )}
-            <div className="scunt-leaderboard-bubble-name">
-              <h3 style={{ fontSize: '16px' }}>{name}</h3>
-              <p style={{ fontSize: '14px' }}>Group {number}</p>
+        <div className="scunt-leaderboard-bubble-outer-hover">
+          {img !== undefined ? (
+            <img className="scunt-leaderboard-bubble-medal" src={img}></img>
+          ) : (
+            <></>
+          )}
+          <div
+            className="scunt-leaderboard-bubble"
+            style={{
+              backgroundImage: `linear-gradient(90deg,var(--light-purple) 0%,var(--light-purple) ${barwidth},var(--purple-transparent) ${barwidth},var(--purple-transparent) 100%)`,
+            }}
+          >
+            <div className="scunt-leaderboard-bubble-info">
+              {rank !== undefined ? (
+                <h1 className="scunt-leaderboard-bubble-rank">{rank}</h1>
+              ) : (
+                <h1 className="scunt-leaderboard-bubble-rank"></h1>
+              )}
+              <div className="scunt-leaderboard-bubble-name">
+                <h3 style={{ fontSize: '16px' }}>{name}</h3>
+                <p style={{ fontSize: '14px' }}>Group {number}</p>
+              </div>
             </div>
+            {/* <div className='scunt-leaderboard-bubble-points'> */}
+            <h3 style={{ color: 'var(--white)', marginLeft: '5px' }}>{points + ' pts'}</h3>
+            {/* </div> */}
           </div>
-          {/* <div className='scunt-leaderboard-bubble-points'> */}
-          <h3 style={{ color: 'var(--white)', marginLeft: '5px' }}>{points}pts</h3>
-          {/* </div> */}
         </div>
       </div>
     </>
@@ -307,6 +318,7 @@ ScuntLeaderboardBubble.propTypes = {
   points: PropTypes.number,
   rank: PropTypes.number,
   img: PropTypes.any,
+  barwidth: PropTypes.number,
   // key: PropTypes.string,
 };
 

@@ -20,6 +20,11 @@
 }
 .leaderboard-page-table {
   border-collapse: collapse;
+  @for $i from 1 to 20 {
+    :nth-child(#{$i}) tr td div {
+      animation-delay: ($i - 1.5) * 100ms;
+    }
+  }
 }
 .scunt-leaderboard-row {
   height: '10vh';
@@ -33,11 +38,12 @@
   justify-content: start;
   //margin: 15px;
 
+  transform: scaleX(0);
+  animation-fill-mode: forwards;
   animation-duration: 2s;
   animation-name: slideFromLeft;
   animation-iteration-count: 1;
   animation-direction: ease-out;
-  animation-delay: 1s;
 }
 
 @keyframes slideFromLeft {
@@ -77,10 +83,10 @@
     var(--scunt-leaderboard-bar) 100%
   );
   background-size: 200%;
-  transition: background-position 600ms ease-in-out;
-  transition-delay: 0s, 0.15s;
+  transition: background-position 1900ms ease-out;
 
   &:hover {
+    transition: background-position 400ms ease-out;
     // transform: scaleX(101%);
     background-position: -100% 100%;
   }
@@ -123,13 +129,40 @@
   //margin: 3%;
   border-radius: 15px;
   //box-shadow: var(--shadow);
+  @for $i from 1 to 20 {
+    :nth-child(#{$i}) {
+      animation-delay: ($i - 1.5) * 100ms;
+    }
+  }
 }
 .scunt-leaderboard-bubble-outer {
-  transition: transform 400ms;
+  transform: scale(0);
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+  animation-name: scaleIn;
+  animation-iteration-count: 1;
+  animation-direction: ease-out;
+}
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    transform: unset;
+  }
+}
+.scunt-leaderboard-bubble-outer-hover {
   &:hover {
     transform: scale(1.05);
   }
+  transition: transform 400ms;
 }
+
 .scunt-leaderboard-bubble {
   display: flex;
   margin: 10px;
@@ -144,7 +177,7 @@
 }
 .scunt-leaderboard-bubble-medal {
   position: absolute;
-  height: 10vh;
+  height: 75px;
 }
 .scunt-leaderboard-bubble-info {
   display: flex;
@@ -194,6 +227,11 @@
   //margin: 5%;
   background-color: var(--container-bg);
   border-radius: 20px;
+  @for $i from 1 to 20 {
+    :nth-child(#{$i}) div {
+      animation-delay: ($i - 1.5) * 100ms;
+    }
+  }
 }
 .scunt-leaderboard-bar-container-v {
   display: flex;
@@ -210,9 +248,9 @@
 
   animation-duration: 2s;
   animation-name: slideFromBottom;
-  animation-iteration-count: 1;
+  transform: scaleY(0);
+  animation-fill-mode: forwards;
   animation-direction: ease-out;
-  animation-delay: 1s;
 }
 .leaderboard-team-info-v {
   display: flex;
@@ -263,20 +301,11 @@
     var(--scunt-leaderboard-bar) 100%
   );
   background-size: 100% 200%;
-  transition: background-position 600ms ease-in-out;
-  transition-delay: 0s, 0.15s;
+  transition: background-position 1900ms ease-out;
 
   &:hover {
     // transform: scaleX(101%);
+    transition: background-position 500ms ease-out;
     background-position: -100% 100%;
-  }
-}
-
-@keyframes gradientBackground {
-  0% {
-    background-position: left;
-  }
-  100% {
-    background-position: 50%;
   }
 }
