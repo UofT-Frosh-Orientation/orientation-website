@@ -30,8 +30,15 @@ import InstagramIcon from '../../assets/social/instagram-brands.svg';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
-import { announcementsSelector } from '../../state/announcements/announcementsSlice';
-import { getAnnouncements, completeAnnouncements } from '../../state/announcements/saga';
+import {
+  announcementsSelector,
+  completedAnnouncementsSelector,
+} from '../../state/announcements/announcementsSlice';
+import {
+  getAnnouncements,
+  completeAnnouncements,
+  getCompletedAnnouncements,
+} from '../../state/announcements/saga';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
@@ -438,9 +445,11 @@ const ProfilePageInstagrams = () => {
 const ProfilePageAnnouncements = () => {
   const dispatch = useDispatch();
   const { announcements } = useSelector(announcementsSelector);
+  const { completedAnnouncements } = useSelector(completedAnnouncementsSelector);
   const [announcementList, setAnnouncementList] = useState([]);
 
   useEffect(() => {
+    dispatch(getCompletedAnnouncements());
     dispatch(getAnnouncements());
   }, []);
 
@@ -460,6 +469,7 @@ const ProfilePageAnnouncements = () => {
   }, [announcements]);
 
   const onDoneTask = (task) => {
+    console.log(announcements, completeAnnouncements);
     dispatch(completeAnnouncements({ announcementData: { id: task.id } }));
     announcementList
       .map((announcement) => {

@@ -5,6 +5,9 @@ import {
   getAnnouncementsStart,
   getAnnouncementsSuccess,
   getAnnouncementsFailure,
+  getCompletedAnnouncementsStart,
+  getCompletedAnnouncementsSuccess,
+  getCompletedAnnouncementsFailure,
   createAnnouncementsStart,
   createAnnouncementsFailure,
   createAnnouncementsSuccess,
@@ -29,6 +32,19 @@ export function* getAnnouncementsSaga() {
     yield put(getAnnouncementsSuccess(response.data?.announcements));
   } catch (e) {
     yield put(getAnnouncementsFailure(e));
+  }
+}
+
+export const getCompletedAnnouncements = createAction('getCompletedAnnouncementsSaga');
+
+export function* getCompletedAnnouncementsSaga() {
+  const { axios } = useAxios();
+  try {
+    yield put(getCompletedAnnouncementsStart());
+    const response = yield call(axios.get, '/announcements/completedAnnouncements');
+    yield put(getCompletedAnnouncementsSuccess(response.data?.announcements));
+  } catch (e) {
+    yield put(getCompletedAnnouncementsFailure(e));
   }
 }
 
@@ -114,6 +130,7 @@ export function* deleteAnnouncementSaga({ payload: { setSnackbar, announcementDa
 
 export default function* announcementsSaga() {
   yield takeLeading(getAnnouncements.type, getAnnouncementsSaga);
+  yield takeLeading(getCompletedAnnouncements.type, getCompletedAnnouncementsSaga);
   yield takeLeading(createAnnouncements.type, createAnnouncementsSaga);
   yield takeLeading(completeAnnouncements.type, completeAnnouncementsSaga);
   yield takeLeading(editAnnouncement.type, editAnnouncementSaga);
