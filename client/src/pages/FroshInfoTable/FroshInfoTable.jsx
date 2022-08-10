@@ -168,11 +168,11 @@ const PageFroshInfoTable = () => {
       </p>
       <div className="table-wrap">
         {frosh?.length === 0 ? (
-          <>
+          <div style={{ margin: '5%', textAlign: 'center' }}>
             <h2>It looks a bit empty here...</h2>
             <h2>Please read notes listed above and ensure you have the correct permissions.</h2>
             <br />
-          </>
+          </div>
         ) : (
           <></>
         )}
