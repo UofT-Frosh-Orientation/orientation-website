@@ -1,8 +1,13 @@
 import useAxios from '../../hooks/useAxios.jsx';
+import { froshGroups } from '../../util/frosh-groups.jsx';
 const { axios } = useAxios();
 import { fields, terms } from '../Registration/RegistrationFields';
 
 export const getTotalScopes = () => {
+  let froshGroupData = [];
+  for (let froshGroup of froshGroups) {
+    froshGroupData.push(froshGroup.name);
+  }
   return {
     faq: ['delete', 'edit'],
     announcements: ['create', 'edit', 'delete'],
@@ -21,6 +26,8 @@ export const getTotalScopes = () => {
       'exec allow leaderboard',
       'exec hide leaderboard',
     ],
+    froshGroupData: ['all', ...froshGroupData],
+    froshData: ['unRegisteredUsers'], // Can see leader accounts, frosh who haven't finished payment
   };
 };
 

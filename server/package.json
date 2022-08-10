@@ -7,7 +7,7 @@
     "format": "prettier --write \"**/*.+(js|json)\"",
     "lint": "eslint src",
     "test": "jest --runInBand",
-    "start:dev": "set NODE_ENV=development && nodemon src/server.js",
+    "start:dev": "set NODE_ENV=development && nodemon -L src/server.js",
     "start": "set NODE_ENV=production && node src/server.js"
   },
   "lint-staged": {
