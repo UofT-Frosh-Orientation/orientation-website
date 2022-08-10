@@ -117,15 +117,31 @@ const PageFroshInfoTable = () => {
       </div>
       {user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') === false ? (
         <p className="small-print" style={{ marginTop: '-14px', marginBottom: '16px' }}>
-          Only showing registered Frosh (Paid users). If you want to see all users, please request
-          &quot;froshData:unRegisteredUsers&quot; permission
+          ⚠️ Warning: Only showing registered Frosh (Paid users). If you want to see all users,
+          please request &quot;froshData:unRegisteredUsers&quot; permission.
+        </p>
+      ) : (
+        <></>
+      )}
+      {user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') === false &&
+      !user?.authScopes?.approved?.find((scope) => {
+        console.log(scope);
+        return scope.includes('froshGroupData:');
+      }) ? (
+        <p className="small-print" style={{ marginTop: '-14px', marginBottom: '16px' }}>
+          ⚠️ Warning: You don&apos;t have permission to access any Frosh&apos;s group&apos;s data.
+          If you want to see Frosh data, please request &quot;froshGroupData:FROSHGROUP&quot;
+          permissions.
         </p>
       ) : (
         <></>
       )}
       <div className="search">
         <TextInput
-          onChange={(text) => setSearchTerm(text)}
+          onChange={(text) => {
+            setSearchTerm(text);
+            console.log(frosh);
+          }}
           inputType={'text'}
           placeholder={'Search...'}
         />
@@ -151,6 +167,15 @@ const PageFroshInfoTable = () => {
         )}
       </p>
       <div className="table-wrap">
+        {frosh?.length === 0 ? (
+          <>
+            <h2>It looks a bit empty here...</h2>
+            <h2>Please read notes listed above and ensure you have the correct permissions.</h2>
+            <br />
+          </>
+        ) : (
+          <></>
+        )}
         {frosh?.length >= 0 ? (
           <table>
             <tr>
