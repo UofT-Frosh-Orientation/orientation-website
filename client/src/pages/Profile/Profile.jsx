@@ -444,6 +444,7 @@ const ProfilePageInstagrams = () => {
 
 const ProfilePageAnnouncements = () => {
   const dispatch = useDispatch();
+  const { user } = useSelector(userSelector);
   const { announcements } = useSelector(announcementsSelector);
   const { completedAnnouncements } = useSelector(completedAnnouncementsSelector);
   const [announcementList, setAnnouncementList] = useState([]);
@@ -457,37 +458,39 @@ const ProfilePageAnnouncements = () => {
     setAnnouncementList(
       announcements.map((announcement) => {
         return {
-          editMode: false,
-          deleteConformation: false,
           id: announcement._id,
           name: announcement.name,
           dateCreated: announcement.dateCreated,
+          completed: user?.completedAnnouncements.includes({ _id: announcement.id }) ? true : false,
           description: announcement.description,
         };
       }),
     );
-  }, [announcements]);
+  }, [announcements, completedAnnouncements]);
 
   const onDoneTask = (task) => {
-    console.log(announcements, completeAnnouncements);
     dispatch(completeAnnouncements({ announcementData: { id: task.id } }));
-    announcementList
-      .map((announcement) => {
+
+    setAnnouncementList(
+      announcementList.map((announcement) => {
         if (announcement.id != task.id) {
           return announcement;
+        } else {
+          announcement.completed = true;
+          return announcement;
         }
-      })
-      .filter((element) => {
-        return element !== undefined;
-      })
-      .unshift(task);
-    setAnnouncementList(announcementList);
+      }),
+    );
   };
 
   return (
     <div className="profile-page-announcements">
       <h2 className="profile-page-section-header">Tasks and Announcements</h2>
-      <TaskAnnouncement tasks={announcementList} onDone={onDoneTask} />
+      <TaskAnnouncement
+        tasks={announcementList}
+        done={completedAnnouncements}
+        onDone={onDoneTask}
+      />
     </div>
   );
 };

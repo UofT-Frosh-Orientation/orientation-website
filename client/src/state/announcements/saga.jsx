@@ -85,9 +85,7 @@ export function* completeAnnouncementsSaga({ payload: { announcementData } }) {
   const { axios } = useAxios();
   try {
     yield put(completeAnnouncementsStart());
-    const response = yield call(axios.put, `/announcements/${announcementData.id}/complete`, {
-      announcementData,
-    });
+    const response = yield call(axios.put, `/announcements/${announcementData.id}/complete`);
     yield put(completeAnnouncementsSuccess());
   } catch (e) {
     yield put(completeAnnouncementsFailure(e));

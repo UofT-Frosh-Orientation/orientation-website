@@ -3,12 +3,18 @@ import PropTypes from 'prop-types';
 import './TaskAnnouncement.scss';
 import Check from '../../../../assets/icons/check-solid-white.svg';
 
-const TaskAnnouncement = ({ tasks, onDone }) => {
+const TaskAnnouncement = ({ tasks, done, onDone }) => {
   const options = { weekday: undefined, year: 'numeric', month: 'long', day: 'numeric' };
   return (
     <>
       <div className="task-container">
         {tasks.map((task) => {
+          done.map((x) => {
+            if (x.id === task.id) {
+              onDone(task);
+            }
+          });
+
           let formattedDate = new Date(task.dateCreated).toLocaleDateString(undefined, options);
           return (
             <div key={formattedDate + task.name} className={'task-task-container'}>
@@ -74,6 +80,7 @@ const TaskAnnouncement = ({ tasks, onDone }) => {
 
 TaskAnnouncement.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.object),
+  done: PropTypes.arrayOf(PropTypes.object),
   onDone: PropTypes.func,
 };
 
