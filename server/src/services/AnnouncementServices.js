@@ -8,7 +8,17 @@ const AnnouncementServices = {
         if (err) {
           reject(err);
         } else {
-          resolve(announcements);
+          resolve(
+            announcements.sort((a, b) => {
+              if (a.dateCreated > b.dateCreated) {
+                return -1;
+              } else if (a.dateCreated < b.dateCreated) {
+                return 1;
+              } else {
+                return 0;
+              }
+            }),
+          );
         }
       });
     });

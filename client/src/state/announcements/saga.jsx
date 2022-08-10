@@ -50,12 +50,22 @@ export function* getCompletedAnnouncementsSaga() {
 
 export const createAnnouncements = createAction('createAnnouncementsSaga');
 
-export function* createAnnouncementsSaga({ payload: { setSnackbar, announcementData } }) {
+export function* createAnnouncementsSaga({
+  payload: {
+    setSnackbar,
+    announcementData,
+    // sendAsEmail
+  },
+}) {
   const { axios } = useAxios();
   try {
     yield put(createAnnouncementsStart());
     const response = yield call(axios.post, `/announcements/create`, { announcementData });
+    // if (sendAsEmail) {
+    //   logic to send announcement email
+    // }
     yield put(createAnnouncementsSuccess());
+    setSnackbar('Successfully Created!');
   } catch (e) {
     setSnackbar(
       e.response?.data?.message
@@ -94,6 +104,7 @@ export function* editAnnouncementSaga({ payload: { setSnackbar, announcementData
       announcementData,
     });
     yield put(editAnnouncementsSuccess());
+    setSnackbar('Successfully Edited!');
   } catch (e) {
     setSnackbar(
       e.response?.data?.message
@@ -115,6 +126,7 @@ export function* deleteAnnouncementSaga({ payload: { setSnackbar, announcementDa
     yield put(deleteAnnouncementsStart());
     const response = yield call(axios.delete, `/announcements/${announcementData.id}/delete`);
     yield put(deleteAnnouncementsSuccess());
+    setSnackbar('Successfully Deleted!');
   } catch (e) {
     setSnackbar(
       e.response?.data?.message

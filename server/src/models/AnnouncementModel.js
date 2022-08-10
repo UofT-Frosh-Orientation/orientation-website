@@ -11,11 +11,13 @@ const AnnouncementSchema = new mongoose.Schema({
   },
   dateCreated: {
     type: Date,
-    required: false,
+    required: true,
+    default: Date.now,
   },
   completed: {
     type: Boolean,
-    required: false,
+    required: true,
+    default: false,
   },
 });
 
