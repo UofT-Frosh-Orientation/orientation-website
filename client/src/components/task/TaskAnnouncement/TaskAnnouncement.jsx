@@ -56,7 +56,7 @@ const TaskAnnouncement = ({ tasks, onDone }) => {
                 <div className="desktop-only">
                   <div
                     onClick={() => {
-                      onDone(task);
+                      task.completed ? {} : onDone(task);
                     }}
                     className={'task-check' + (task.completed ? '' : ' task-check-incomplete')}
                   >
