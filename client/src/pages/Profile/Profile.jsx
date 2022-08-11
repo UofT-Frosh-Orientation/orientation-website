@@ -446,33 +446,53 @@ const ProfilePageAnnouncements = () => {
   const dispatch = useDispatch();
   const { user } = useSelector(userSelector);
   const { announcements } = useSelector(announcementsSelector);
-  const { completedAnnouncements } = useSelector(completedAnnouncementsSelector);
   const [announcementList, setAnnouncementList] = useState([]);
 
   useEffect(() => {
-    dispatch(getCompletedAnnouncements());
     dispatch(getAnnouncements());
   }, []);
 
   useEffect(() => {
-    setAnnouncementList(
-      announcements.map((announcement) => {
-        return {
+    let completedAnnouncements = [];
+    let orderedAnnouncements = [];
+
+    announcements.forEach((announcement) => {
+      if (
+        user.completedAnnouncements.every((value) => {
+          return value._id != announcement._id;
+        })
+      ) {
+        orderedAnnouncements.push({
           id: announcement._id,
           name: announcement.name,
           dateCreated: announcement.dateCreated,
-          completed: user?.completedAnnouncements.includes({ _id: announcement.id }) ? true : false,
+          completed: false,
           description: announcement.description,
-        };
-      }),
-    );
-  }, [announcements, completedAnnouncements]);
+        });
+      } else {
+        completedAnnouncements.push({
+          id: announcement._id,
+          name: announcement.name,
+          dateCreated: announcement.dateCreated,
+          completed: true,
+          description: announcement.description,
+        });
+      }
+    });
+    orderedAnnouncements.push(...completedAnnouncements);
+    setAnnouncementList(orderedAnnouncements);
+  }, [announcements]);
 
   const onDoneTask = (task) => {
     dispatch(completeAnnouncements({ announcementData: { id: task.id } }));
+    let orderedAnnouncements = announcementList;
+
+    orderedAnnouncements.push(
+      orderedAnnouncements.splice(orderedAnnouncements.indexOf(task), 1)[0],
+    );
 
     setAnnouncementList(
-      announcementList.map((announcement) => {
+      orderedAnnouncements.map((announcement) => {
         if (announcement.id != task.id) {
           return announcement;
         } else {
@@ -486,11 +506,7 @@ const ProfilePageAnnouncements = () => {
   return (
     <div className="profile-page-announcements">
       <h2 className="profile-page-section-header">Tasks and Announcements</h2>
-      <TaskAnnouncement
-        tasks={announcementList}
-        done={completedAnnouncements}
-        onDone={onDoneTask}
-      />
+      <TaskAnnouncement tasks={announcementList} onDone={onDoneTask} />
     </div>
   );
 };
