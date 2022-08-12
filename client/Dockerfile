@@ -6,7 +6,7 @@ RUN apk --no-cache --virtual build-dependencies add \
         python3 \
         make \
         g++ \
-&& yarn install --production \
+&& yarn install \
 && apk del build-dependencies
 
 COPY ./ ./
