@@ -3,12 +3,15 @@ const ScuntMissionModel = require('../models/ScuntMissionModel');
 const ScuntMissionServices = {
   async getAllScuntMissions() {
     return new Promise((resolve, reject) => {
-      ScuntMissionModel.find({ isHidden: false })
-        .sort({ number: 1 })
+      ScuntMissionModel.find({ isHidden: false }) // finds documents with isHidden property set to false
+        .sort({ number: 1 }) //  sort by number in ascending order (1)
         .exec(function (err, missions) {
+          // executes query --> callback
           if (err) {
+            // if error occurs while exec-uting, reject --> result is null
             reject(err);
           } else {
+            // else error = null, and result is populated with missions
             resolve(missions);
           }
         });
