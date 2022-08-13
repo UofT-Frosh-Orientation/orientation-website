@@ -71,6 +71,11 @@ const FroshSchema = new mongoose.Schema(
       enum: ['S', 'M', 'L', 'XL'],
       required: true,
     },
+    phoneNumberAreaCode: {
+      type: String,
+      required: false,
+      default: '1',
+    },
     phoneNumber: {
       type: String,
       required: true,
@@ -129,7 +134,7 @@ const FroshSchema = new mongoose.Schema(
       enum: ['Phone', 'Email', 'Other'], // other option
       required: false,
     },
-    accessibilityOther: {
+    accommodationOther: {
       type: String,
       required: false,
     },
