@@ -31,7 +31,11 @@ const PaymentServices = {
       console.log(frosh);
       const idx = frosh.payments.findIndex((p) => p.paymentIntent === paymentId);
       frosh.payments[idx].amountDue = frosh.payments[idx].amountDue - amountReceived;
-      frosh.isRegistered = true;
+      if (frosh.payments[idx].item === 'Orientation Ticket') {
+        frosh.isRegistered = true;
+      } else if (frosh.payments[idx].item === 'Retreat Ticket') {
+        frosh.isRetreat = true;
+      }
       //TODO: update frosh balance
       await frosh.save();
       return frosh;
@@ -42,27 +46,34 @@ const PaymentServices = {
 
   /**
    * Creates a checkout session for a user to pay with.
-   * @param {String}email
-   * @return {Promise<Stripe.Checkout.Session & {lastResponse: {headers: {[p: string]: string}, requestId: string, statusCode: number, apiVersion?: string, idempotencyKey?: string, stripeAccount?: string}}>}
+   * @param {String} email
+   * @param {String} type
+   * @return {Promise<Stripe.Checkout.Session & {lastResponse: {headers: {[p: string]: string}; requestId: string; statusCode: number; apiVersion?: string; idempotencyKey?: string; stripeAccount?: string}}>}
    */
-  async createCheckoutSession(email) {
+  async createCheckoutSession(email, type = 'orientation') {
+    const prices = {
+      orientation: process.env.STRIPE_TICKET_PRICE_ID,
+      retreat: process.env.STRIPE_RETREAT_PRICE_ID,
+    };
     try {
-      console.log(process.env.STRIPE_EARLY_BIRD_COUPON_ID);
       return await stripe.checkout.sessions.create({
         customer_email: email,
         submit_type: 'pay',
         billing_address_collection: 'auto',
         line_items: [
           {
-            price: process.env.STRIPE_TICKET_PRICE_ID,
+            price: prices[type] ?? prices['orientation'],
             quantity: 1,
           },
         ],
-        discounts: [
-          {
-            coupon: process.env.STRIPE_EARLY_BIRD_COUPON_ID,
-          },
-        ],
+        discounts:
+          type === 'orientation'
+            ? [
+                {
+                  coupon: process.env.STRIPE_EARLY_BIRD_COUPON_ID,
+                },
+              ]
+            : [],
         mode: 'payment',
         success_url: `${process.env.CLIENT_BASE_URL}/registration-success`,
         cancel_url: `${process.env.CLIENT_BASE_URL}/payment-error`,
@@ -76,7 +87,7 @@ const PaymentServices = {
             billing_address_collection: 'auto',
             line_items: [
               {
-                price: process.env.STRIPE_TICKET_PRICE_ID,
+                price: prices[type] ?? prices['orientation'],
                 quantity: 1,
               },
             ],

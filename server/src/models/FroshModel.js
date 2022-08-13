@@ -191,6 +191,11 @@ const FroshSchema = new mongoose.Schema(
       required: false,
       default: 0,
     },
+    isRetreat: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   { discriminatorKey: 'userType' },
 );

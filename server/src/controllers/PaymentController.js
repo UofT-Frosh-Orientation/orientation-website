@@ -1,4 +1,5 @@
 const PaymentServices = require('../services/PaymentServices');
+const FroshServices = require('../services/FroshServices');
 
 const PaymentController = {
   async handleWebhook(req, res, next) {
@@ -38,6 +39,21 @@ const PaymentController = {
       res.redirect(303, url);
     } catch (err) {
       next(new Error('UNABLE_TO_CREATE_CHECKOUT'));
+    }
+  },
+
+  async froshRetreatPayment(req, res, next) {
+    try {
+      const user = req.user;
+      const { url, payment_intent } = await PaymentServices.createCheckoutSession(
+        user.email,
+        'retreat',
+      );
+      console.log(url, payment_intent);
+      await FroshServices.addRetreatPayment(user, payment_intent);
+      res.status(200).send({ url });
+    } catch (e) {
+      next(e);
     }
   },
 };
