@@ -22,6 +22,7 @@ import { PageScuntHome } from '../pages/ScuntHome/ScuntHome';
 import { PageScuntRules } from '../pages/ScuntRules/ScuntRules';
 import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
 import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
+import { FroshRetreat } from '../pages/FroshRetreat/FroshRetreat';
 
 export const pages = {
   404: {
@@ -125,6 +126,12 @@ export const pages = {
       label: 'payment-error',
       component: <PagePaymentError />,
       path: '/payment-error',
+    },
+    {
+      label: 'frosh-retreat',
+      component: <FroshRetreat />,
+      path: '/frosh-retreat',
+      includeFooter: true,
     },
     {
       label: 'approve-accounts',
