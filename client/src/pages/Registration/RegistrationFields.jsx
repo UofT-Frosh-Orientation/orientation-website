@@ -443,7 +443,7 @@ export const fields = {
       className: 'half-width-input',
       localStorageKey: 'registration-commuterProgramInfo',
     },
-    commuterOther: {
+    commuterProgramOther: {
       type: 'text',
       inputType: 'text',
       label: 'Other Commuter Option',
