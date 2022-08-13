@@ -15,12 +15,12 @@ export const FroshRetreat = () => {
     <div className="frosh-retreat-page">
       <Header text={'Retreat'} underlineDesktop={'260px'} underlineMobile={'185px'}>
         <div className="info-header">
-          <p>
+          <p style={{ color: 'var(--white)' }}>
             Hello hello! Thank you so much for your interest in participating in the Frosh Retreat.
             The retreat is taking place on Saturday September 10th 2022 running overnight into
             Sunday September 11th 2022 at Hart House Farm.{' '}
           </p>
-          <p>
+          <p style={{ color: 'var(--white)' }}>
             Due to limited spaces, we are selling a limited number of tickets so purchase yours
             before they sell out!{' '}
           </p>
