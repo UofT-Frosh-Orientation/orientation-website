@@ -133,7 +133,7 @@ const FroshSchema = new mongoose.Schema(
       enum: ['Phone', 'Email', 'Other'], // other option
       required: false,
     },
-    accessibilityOther: {
+    accommodationOther: {
       type: String,
       required: false,
     },
