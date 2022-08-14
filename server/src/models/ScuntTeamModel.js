@@ -16,7 +16,7 @@ const ScuntTeamSchema = new mongoose.Schema({
         {
           name: { type: String, default: '' },
           points: { type: Number, default: 0 },
-          missionNumber: { type: Number, default: -1 },
+          missionNumber: { type: Number, default: -1, index: true },
         },
         { timestamps: true },
       ),

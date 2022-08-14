@@ -5,6 +5,7 @@ const ScuntMissionSchema = new mongoose.Schema({
     type: Number,
     required: false,
     default: 0,
+    index: true,
   },
   name: {
     type: String,
