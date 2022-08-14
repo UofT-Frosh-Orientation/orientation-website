@@ -7,7 +7,15 @@ const ScuntTeamServices = {
     //Get amount of teams (Scunt Game Settings) and points for each team
     //Add up and calculate all tranactions for each team
     return new Promise((resolve, reject) => {
-      return true;
+      ScuntTeamModel.find({}, { name: 1, number: 1, points: 1 }, {}, (err, teams) => {
+        if (err) {
+          reject(err);
+        } else if (!teams) {
+          reject('UNABLE_TO_GET_TEAM_POINTS');
+        } else {
+          resolve(teams);
+        }
+      });
     });
   },
 
