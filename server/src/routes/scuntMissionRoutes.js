@@ -1,12 +1,18 @@
 const express = require('express');
 const checkLoggedIn = require('../middlewares/checkLoggedIn');
 const hasAuthScopes = require('../middlewares/hasAuthScopes');
+const conditionallyApply = require('../middlewares/conditionallyApply');
 
 const ScuntMissionController = require('../controllers/ScuntMissionController');
 
 const router = express.Router();
 
-router.get('/', checkLoggedIn, ScuntMissionController.getMissions);
+router.get(
+  '/',
+  checkLoggedIn,
+  (req) => conditionallyApply(req.params.showHidden, hasAuthScopes(['scunt:exec show missions'])),
+  ScuntMissionController.getMissions,
+);
 
 /**
  * @swagger

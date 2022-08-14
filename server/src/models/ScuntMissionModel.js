@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const getResponseObject = require('../util/getResponseObject');
 
 const ScuntMissionSchema = new mongoose.Schema({
   number: {
@@ -29,5 +30,5 @@ const ScuntMissionSchema = new mongoose.Schema({
 });
 
 const ScuntMissionModel = mongoose.model('ScuntMission', ScuntMissionSchema);
-
+ScuntMissionSchema.methods.getReponseObject = getResponseObject;
 module.exports = ScuntMissionModel;

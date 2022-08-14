@@ -3,10 +3,11 @@ const ScuntMissionServices = require('../services/ScuntMissionServices');
 const ScuntMissionController = {
   async getMissions(req, res, next) {
     try {
-      const allMissions = await ScuntMissionServices.getAllScuntMissions();
+      const { showHidden = false } = req.params;
+      const allMissions = await ScuntMissionServices.getAllScuntMissions(showHidden);
       return res.status(200).send({
         message: 'Found missions!',
-        missions: allMissions.map((u) => u.getResponseObject()),
+        missions: allMissions.map((m) => m.getResponseObject()),
       });
     } catch (e) {
       next(e);
