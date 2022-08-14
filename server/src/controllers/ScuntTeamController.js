@@ -11,16 +11,16 @@ const ScuntTeamController = {
   },
   async bribeTransaction(req, res, next) {
     try {
-      const team = req.team;
-      const points = req.points;
-      const userId = req.user.id;
-      await ScuntTeamServices.bribeTransaction(team, points, userId);
+      const { teamNumber, points } = req.body;
+      // const userId = req.user.id;
+      const { leadur } = await ScuntTeamServices.bribeTransaction(teamNumber, points, req.user);
       return res.status(200).send({
         message:
-          'Successfully added bribe points for team ' +
-          team.toString() +
+          'Successfully added bribe points for team #' +
+          teamNumber.toString() +
           ' of ' +
           points.toString(),
+        user: leadur,
       });
     } catch (e) {
       next(e);

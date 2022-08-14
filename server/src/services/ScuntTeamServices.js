@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 const ScuntTeamModel = require('../models/ScuntTeamModel');
+const LeadurModel = require('../models/LeadurModel');
 
 const ScuntTeamServices = {
   async getTeamPoints() {
@@ -19,10 +20,47 @@ const ScuntTeamServices = {
     });
   },
 
-  async bribeTransaction(team, points, userId) {
+  async bribeTransaction(teamNumber, points, user) {
     return new Promise((resolve, reject) => {
+      if (!user.scuntJudgeBribePoints || points > user.scuntJudgeBribePoints) {
+        reject('NOT_ENOUGH_BRIBE_POINTS');
+      } else {
+        LeadurModel.findByIdAndUpdate(
+          user.id,
+          { $set: { scuntJudgeBribePoints: user.scuntJudgeBribePoints - points } },
+          { upsert: false, returnDocument: 'after' },
+          (err, leadur) => {
+            if (err) {
+              reject(err);
+            } else if (!leadur) {
+              reject('INTERNAL_ERROR');
+            } else {
+              ScuntTeamModel.findOneAndUpdate(
+                { number: teamNumber },
+                {
+                  $inc: { points },
+                  $push: {
+                    transactions: [
+                      { name: `Bribe from ${user.firstName} ${user.lastName}`, points },
+                    ],
+                  },
+                },
+                { upsert: false },
+                (err, team) => {
+                  if (err) {
+                    reject(err);
+                  } else if (!team) {
+                    reject('INVALID_TEAM_NUMBER');
+                  } else {
+                    resolve({ team, leadur });
+                  }
+                },
+              );
+            }
+          },
+        );
+      }
       // Need to get remaining bribe points of the judge user;
-      return true;
     });
   },
 

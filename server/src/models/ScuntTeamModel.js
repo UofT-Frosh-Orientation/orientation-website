@@ -5,6 +5,8 @@ const ScuntTeamSchema = new mongoose.Schema({
     type: Number,
     required: false,
     default: 0,
+    index: true,
+    unique: true,
   },
   name: {
     type: String,
