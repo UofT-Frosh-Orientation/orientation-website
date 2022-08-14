@@ -12,7 +12,7 @@ router.get('/', checkLoggedIn, ScuntTeamController.getTeamPoints);
 
 /**
  * @swagger
- * /scunt-teams/transaction-bribe:
+ * /scunt-teams/transaction/bribe:
  *   post:
  *     summary: allow a judge to submit a bribe towards a team
  *     requestBody:
@@ -32,7 +32,7 @@ router.get('/', checkLoggedIn, ScuntTeamController.getTeamPoints);
  *                 example: 5
  */
 router.post(
-  '/transaction-bribe',
+  '/transaction/bribe',
   checkLoggedIn,
   hasAuthScopes(['scunt:judge bribe points']),
   ScuntTeamController.bribeTransaction,
@@ -40,7 +40,7 @@ router.post(
 
 /**
  * @swagger
- * /scunt-teams/transaction-refill-bribe:
+ * /scunt-teams/transaction/refill-bribe:
  *   post:
  *     summary: allow an exec to give a judge more bribe points
  *     requestBody:
@@ -63,7 +63,7 @@ router.post(
  *                 description: If true, it will add points to a judges current reamining bribe points, otherwise set it to the 'points' value passed in
  */
 router.post(
-  '/transaction-refill-bribe',
+  '/transaction/refill-bribe',
   checkLoggedIn,
   hasAuthScopes(['scunt:exec refill bribe points']),
   ScuntTeamController.refillBribePoints,
@@ -71,7 +71,7 @@ router.post(
 
 /**
  * @swagger
- * /scunt-teams/transaction-addition:
+ * /scunt-teams/transaction/add:
  *   post:
  *     summary: allow a judge to add points to a team
  *     requestBody:
@@ -95,7 +95,7 @@ router.post(
  *                 example: 100
  */
 router.post(
-  '/transaction-addition',
+  '/transaction/add',
   checkLoggedIn,
   hasAuthScopes(['scunt:judge missions']),
   ScuntTeamController.addTransaction,
@@ -103,7 +103,7 @@ router.post(
 
 /**
  * @swagger
- * /scunt-teams/transaction-subtraction:
+ * /scunt-teams/transaction/subtract:
  *   post:
  *     summary: allow a judge to add points to a team
  *     requestBody:
@@ -123,7 +123,7 @@ router.post(
  *                 example: 100
  */
 router.post(
-  '/transaction-subtraction',
+  '/transaction/subtract',
   checkLoggedIn,
   hasAuthScopes(['scunt:exec negative points']),
   ScuntTeamController.subtractTransaction,
@@ -131,7 +131,7 @@ router.post(
 
 /**
  * @swagger
- * /scunt-teams/transaction-check:
+ * /scunt-teams/transaction/check:
  *   post:
  *     summary: returns if a mission has already been completed and assigned points
  *     requestBody:
@@ -150,6 +150,6 @@ router.post(
  *                 description: The number of the mission
  *                 example: 123456
  */
-router.post('/transaction-check', ScuntTeamController.checkTransaction);
+router.post('/transaction/check', ScuntTeamController.checkTransaction);
 
 module.exports = router;
