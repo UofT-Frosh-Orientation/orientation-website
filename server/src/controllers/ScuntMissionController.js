@@ -16,11 +16,7 @@ const ScuntMissionController = {
 
   async createMission(req, res, next) {
     try {
-      const number = req.number;
-      const name = req.name;
-      const category = req.category;
-      const points = req.points;
-      const isHidden = req.isHidden ? req.isHidden : false;
+      const { name, number, category, points, isHidden = false } = req.body;
       await ScuntMissionServices.createMission(number, name, category, points, isHidden);
       return res.status(200).send({
         message: 'Successfully created mission #' + number.toString() + ' - ' + name.toString(),
@@ -32,9 +28,9 @@ const ScuntMissionController = {
 
   async deleteMission(req, res, next) {
     try {
-      const number = req.number;
-      await ScuntMissionServices.deleteMission(number);
-      return res.status(200).send({ message: 'Successfully deleted mission ' + number.toString() });
+      const { id } = req.params;
+      await ScuntMissionServices.deleteMission(id);
+      return res.status(200).send({ message: `Successfully deleted mission: ${id}` });
     } catch (e) {
       next(e);
     }
@@ -42,22 +38,16 @@ const ScuntMissionController = {
 
   async updateMissionVisibility(req, res, next) {
     try {
-      const startMissionNumber = req.startMissionNumber;
-      const endMissionNumber = req.endMissionNumber;
-      const isHidden = req.isHidden;
+      const { startMissionNumber, endMissionNumber, isHidden } = req.body;
       await ScuntMissionServices.updateMissionVisibility(
         startMissionNumber,
         endMissionNumber,
         isHidden,
       );
       return res.status(200).send({
-        message:
-          'Successfully set visibility of missions ' +
-          startMissionNumber.toString() +
-          ' - ' +
-          endMissionNumber.toString() +
-          ' to ' +
-          (isHidden ? 'hidden' : 'visible'),
+        message: `Successfully set visibility of missions ${startMissionNumber} - ${endMissionNumber} to ${
+          isHidden ? 'hidden' : 'visible'
+        }`,
       });
     } catch (e) {
       next(e);

@@ -10,7 +10,7 @@ const router = express.Router();
 router.get(
   '/',
   checkLoggedIn,
-  (req) => conditionallyApply(req.params.showHidden, hasAuthScopes(['scunt:exec show missions'])),
+  (req) => conditionallyApply(req.query.showHidden, hasAuthScopes(['scunt:exec show missions'])),
   ScuntMissionController.getMissions,
 );
 
@@ -72,7 +72,7 @@ router.post(
  *                 example: 5
  */
 router.delete(
-  '/',
+  '/:id',
   checkLoggedIn,
   hasAuthScopes(['scunt:exec delete missions']),
   ScuntMissionController.deleteMission,
