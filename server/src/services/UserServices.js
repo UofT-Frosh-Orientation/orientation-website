@@ -303,8 +303,10 @@ const UserServices = {
       UserModel.find(
         {
           $or: [
-            { 'authScopes.approved': 'scunt:bribe points' },
+            { 'authScopes.approved': 'scunt:judge bribe points' },
             { 'authScopes.approved': 'scunt:judge missions' },
+            // { 'authScopes.approved': 'scunt:bribe points' }, // this was the wrong scope name i think....
+            // { 'authScopes.approved': 'scunt:judge missions' },
           ],
         },
         {},
