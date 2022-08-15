@@ -89,13 +89,13 @@ const UserServices = {
   },
 
   async checkScuntToken(existingUser) {
-    if (!existingUser.scuntToken && existingUser.isRegistered == true && existingUser.scunt) {
+    if (!existingUser.scuntToken) {
       return false;
     }
     return true;
   },
 
-  async getScuntToken(email) {
+  async addScuntToken(email) {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;

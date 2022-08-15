@@ -37,7 +37,7 @@ const UserController = {
         );
       }
 
-      await UserServices.getScuntToken(email.toLowerCase());
+      await UserServices.addScuntToken(email.toLowerCase());
 
       req.logIn(user, (err) => {
         if (err) {
@@ -57,18 +57,13 @@ const UserController = {
    * @return {Promise<void>}
    */
   async getInfo(req, res) {
-    const user = req.user.getResponseObject();
-    const email = req.user.email;
+    const user = req.user;
 
-    const existingUser = await UserServices.getUserByEmail(email);
-
-    if (!(await UserServices.checkScuntToken(existingUser))) {
-      await UserServices.getScuntToken(existingUser.email.toLowerCase());
+    if (!(await UserServices.checkScuntToken(user))) {
+      await UserServices.addScuntToken(user.email.toLowerCase());
     }
 
-    console.log(existingUser);
-
-    res.status(200).send({ user });
+    res.status(200).send(user.getResponseObject());
   },
 
   /**

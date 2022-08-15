@@ -16,14 +16,13 @@ const ScuntController = {
 
       try {
         if (!existingUser.scuntToken || existingUser.scuntToken != code) {
-          return res.status(400).send({ message: 'INVALID_CODE' });
+          return next(new Error('INVALID_SCUNT_CODE'));
         } else if (existingUser.isScuntDiscordLoggedIn == true) {
-          return res.status(400).send({ message: 'USER_ALREADY_SIGNED_IN' });
+          return next(new Error('USER_ALREADY_SIGNED_INTO_SCUNT_DISCORD'));
         }
         const updateScuntLogin = { isScuntDiscordLoggedIn: true };
         await UserServices.updateUserInfo(existingUser.id, updateScuntLogin);
       } catch (err) {
-        res.status(400).send({ message: 'ERROR_UPDATING_USER' });
         next(err);
       }
 
@@ -36,7 +35,6 @@ const ScuntController = {
 
       return res.status(200).send({ message: userInfo });
     } catch (err) {
-      res.status(400).send({ message: 'INVALID_EMAIL' });
       next(err);
     }
   },
