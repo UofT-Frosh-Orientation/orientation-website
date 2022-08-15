@@ -434,16 +434,16 @@ export const fields = {
           disableField(true, 'commuterProgramStop', 'Misc');
         }
         if (value === 'Other') {
-          disableField(false, 'commuterOther', 'Misc');
+          disableField(false, 'commuterProgramOther', 'Misc');
         } else {
-          disableField(true, 'commuterOther', 'Misc');
+          disableField(true, 'commuterProgramOther', 'Misc');
         }
       },
       isRequiredInput: false,
       className: 'half-width-input',
       localStorageKey: 'registration-commuterProgramInfo',
     },
-    commuterOther: {
+    commuterProgramOther: {
       type: 'text',
       inputType: 'text',
       label: 'Other Commuter Option',
