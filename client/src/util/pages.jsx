@@ -22,6 +22,7 @@ import { PageScuntHome } from '../pages/ScuntHome/ScuntHome';
 import { PageScuntRules } from '../pages/ScuntRules/ScuntRules';
 import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
 import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
+import { ScuntGameSettings } from '../pages/ScuntGameSettings/ScuntGameSettings';
 
 export const pages = {
   404: {
@@ -206,6 +207,15 @@ export const pages = {
       ),
       path: '/scunt-judge-form',
       includeFooter: true,
+    },
+    {
+      label: 'start-scunt',
+      component: (
+        <AuthorizedPage authScopes={['scunt:exec game controls']}>
+          <ScuntGameSettings />
+        </AuthorizedPage>
+      ),
+      path: '/scunt-game-controls',
     },
   ],
 };

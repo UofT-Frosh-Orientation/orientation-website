@@ -1,0 +1,26 @@
+@import '../../scssStyles/mixins';
+
+.scunt-game-settings-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+}
+
+.scunt-game-settings-container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--container-bg);
+  width: 90%;
+  height: fit-content;
+  padding: 2%;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.scunt-game-settings-textbox-container {
+  margin: 10px;
+}
