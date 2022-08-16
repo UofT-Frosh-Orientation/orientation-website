@@ -1,0 +1,44 @@
+@import '../../scssStyles/mixins';
+
+.frosh-retreat-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .info-header {
+    margin: 10px 20px;
+  }
+  h1 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: var(--text-dynamic);
+  }
+  p {
+    color: var(--text-dynamic);
+    max-width: 1000px;
+    margin: auto;
+    margin-bottom: 10px;
+  }
+}
+
+.retreat-registration-form {
+  text-align: center;
+  margin: auto;
+  color: var(--text-dynamic);
+  .display-field {
+    text-align: center;
+  }
+  .radio-buttons-retreat {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+    margin-bottom: 50px;
+  }
+  .radio-buttons {
+    width: fit-content;
+    margin: auto;
+  }
+}

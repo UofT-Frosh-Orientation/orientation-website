@@ -9,6 +9,7 @@ import { froshSelector } from '../../state/frosh/froshSlice';
 import { getFrosh } from '../../state/frosh/saga';
 import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
 import { TextInput } from '../../components/input/TextInput/TextInput';
+import { userSelector } from '../../state/user/userSlice';
 
 function getUneditableFields() {
   let noEditFields = [];
@@ -39,6 +40,7 @@ const PageFroshInfoTable = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortedFrosh, setSortedFrosh] = useState([]);
   const [searchedFrosh, setSearchedFrosh] = useState([]);
+  const { user } = useSelector(userSelector);
 
   const dispatch = useDispatch();
 
@@ -47,7 +49,7 @@ const PageFroshInfoTable = () => {
   }, [showAllUsers]);
 
   useEffect(() => {
-    if (frosh.length > 0) {
+    if (frosh?.length > 0) {
       setObjectKeys(Object.keys(Object.assign({}, ...frosh)));
     }
     setSortedFrosh(frosh);
@@ -83,19 +85,28 @@ const PageFroshInfoTable = () => {
     }
   }, [sortedParam, sortedOrder, showAllUsers, searchTerm]);
 
+  useEffect(() => {
+    if (user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') === false)
+      setShowAllUsers(false);
+  }, []);
+
   return (
     <div className="frosh-info-table">
       <div className="navbar-space-top" />
       <div className="header">
         <h1>Frosh Data</h1>
         <div className="buttons-container">
-          <Button
-            isSecondary
-            label={!showAllUsers ? 'Showing Complete Frosh Users' : 'Showing All Users'}
-            onClick={() => {
-              setShowAllUsers(!showAllUsers);
-            }}
-          />
+          {user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') ? (
+            <Button
+              isSecondary
+              label={!showAllUsers ? 'Showing Complete Frosh Users' : 'Showing All Users'}
+              onClick={() => {
+                setShowAllUsers(!showAllUsers);
+              }}
+            />
+          ) : (
+            <></>
+          )}
           <Button
             label="Download XML"
             onClick={() => {
@@ -104,6 +115,26 @@ const PageFroshInfoTable = () => {
           />
         </div>
       </div>
+      {user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') === false ? (
+        <p className="small-print" style={{ marginTop: '-14px', marginBottom: '16px' }}>
+          ⚠️ Warning: Only showing registered Frosh (Paid users). If you want to see all users,
+          please request &quot;froshData:unRegisteredUsers&quot; permission.
+        </p>
+      ) : (
+        <></>
+      )}
+      {user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') === false &&
+      !user?.authScopes?.approved?.find((scope) => {
+        return scope.includes('froshGroupData:');
+      }) ? (
+        <p className="small-print" style={{ marginTop: '-14px', marginBottom: '16px' }}>
+          ⚠️ Warning: You don&apos;t have permission to access any Frosh&apos;s group&apos;s data.
+          If you want to see Frosh data, please request &quot;froshGroupData:FROSHGROUP&quot;
+          permissions.
+        </p>
+      ) : (
+        <></>
+      )}
       <div className="search">
         <TextInput
           onChange={(text) => setSearchTerm(text)}
@@ -112,16 +143,16 @@ const PageFroshInfoTable = () => {
         />
       </div>
       <p className="small-print">
-        Note: If you want ALL users, including Leadurs and Frosh who haven&apos;t completed the
-        registration form - make sure it says &quot;Showing All Users&quot; (the default). In
-        &quot;All Users&quot; mode, it is handy to sort by &quot;userType&quot;. &quot;Showing
-        Complete Frosh Users&quot; does not contain users who have only created an account. This
-        info only contains all Frosh users who have created a FULL Frosh account - not everyone has
-        paid in this list either. Paid users have isRegistered set to true. Also, Frosh are able to
-        edit their information. This data is only accurate to the point it was loaded. Keep in mind,
-        any data extracted from this page may be subject to change. If you want to filter, click a
-        table header. To reverse the direction, click it again. To clear filters, click the
-        &apos;#&apos; header.{' '}
+        Note: The search is cASe SeNsItIvE! If you want ALL users, including Leadurs and Frosh who
+        haven&apos;t completed the registration form - make sure it says &quot;Showing All
+        Users&quot; (the default). In &quot;All Users&quot; mode, it is handy to sort by
+        &quot;userType&quot;. &quot;Showing Complete Frosh Users&quot; does not contain users who
+        have only created an account. This info only contains all Frosh users who have created a
+        FULL Frosh account - not everyone has paid in this list either. Paid users have isRegistered
+        set to true. Also, Frosh are able to edit their information. This data is only accurate to
+        the point it was loaded. Keep in mind, any data extracted from this page may be subject to
+        change. If you want to filter, click a table header. To reverse the direction, click it
+        again. To clear filters, click the &apos;#&apos; header.{' '}
         {noEditFields.length >= 0 ? (
           <>
             The fields that cannot be edited by the frosh currently:{' '}
@@ -132,7 +163,16 @@ const PageFroshInfoTable = () => {
         )}
       </p>
       <div className="table-wrap">
-        {frosh.length >= 0 ? (
+        {frosh?.length === 0 ? (
+          <div style={{ margin: '5%', textAlign: 'center' }}>
+            <h2>It looks a bit empty here...</h2>
+            <h2>Please read notes listed above and ensure you have the correct permissions.</h2>
+            <br />
+          </div>
+        ) : (
+          <></>
+        )}
+        {frosh?.length >= 0 ? (
           <table>
             <tr>
               <th

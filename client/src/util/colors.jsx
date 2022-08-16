@@ -127,4 +127,6 @@ export const colors = {
   '--scrollbar-track': ['#d3d3d3fd', '#4E3155FD'],
 
   '--scunt-counter-bg': ['#a04fb9', '#8c60b3'],
+
+  '--scunt-leaderboard-bar': ['#6f1e88', '#ffcc4a'],
 };
