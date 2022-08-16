@@ -15,27 +15,34 @@ const TimelineServices = {
     });
   },
 
-  async updateTimelineElement(id, date, name, description) {
+  async updateTimelineElement(id, date, eventName, description, link, linkLabel) {
     return new Promise((resolve, reject) => {
-      TimelineModel.findOneAndUpdate({ _id: id }, { date, name, description }, (err, Timeline) => {
-        if (err || !Timeline) {
-          reject('UNABLE_TO_UPDATE_TIMELiNE');
-        } else {
-          resolve(Timeline);
-        }
-      });
+      TimelineModel.findOneAndUpdate(
+        { _id: id },
+        { date, eventName, description, link, linkLabel },
+        (err, Timeline) => {
+          if (err || !Timeline) {
+            reject('UNABLE_TO_UPDATE_TIMELiNE');
+          } else {
+            resolve(Timeline);
+          }
+        },
+      );
     });
   },
 
-  async saveNewTimelineElement(date, name, description) {
+  async saveNewTimelineElement(date, eventName, description, link, linkLabel) {
     return new Promise((resolve, reject) => {
-      TimelineModel.create({ date, name, description }, (err, newTimeline) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(newTimeline);
-        }
-      });
+      TimelineModel.create(
+        { date, eventName, description, link, linkLabel },
+        (err, newTimeline) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(newTimeline);
+          }
+        },
+      );
     });
   },
 

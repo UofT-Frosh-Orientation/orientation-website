@@ -6,7 +6,7 @@ const TimelineSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-    name: {
+    eventName: {
       type: String,
       required: true,
     },

@@ -75,7 +75,7 @@ router.post('/', checkLoggedIn, hasAuthScopes(['timeline:edit']), createTimeline
  *       '403':
  *         $ref: '#components/responses/NotLoggedIn'
  */
-router.put('/:id', checkLoggedIn, hasAuthScopes(['timeline:edit']), updateTimelineElement);
+router.patch('/:id', checkLoggedIn, hasAuthScopes(['timeline:edit']), updateTimelineElement);
 
 /**
  * @swagger

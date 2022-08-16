@@ -32,7 +32,7 @@ const PageTimelineAdmin = () => {
 
 const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
   const [eventNameText, setEventNameText] = useState('');
-  const [dateText, setDateText] = useState('');
+  const [date, setDate] = useState(new Date());
   const [descriptionText, setDescriptionText] = useState('');
   const [linkText, setLinkText] = useState('');
   const [linkLabelText, setLinkLabelText] = useState('');
@@ -41,7 +41,7 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
   const { setSnackbar } = useContext(SnackbarContext);
   const initialFormData = {
     eventName: '',
-    date: '',
+    date: new Date(),
     description: '',
     link: '',
     linkLabel: '',
@@ -50,8 +50,12 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
   const handleEditEventName = (text) => {
     setEventNameText(text);
   };
-  const handleEditDate = (text) => {
-    setDateText(text);
+  const handleEditDate = (date) => {
+    let year = date.substring(0, 4);
+    let month = date.substring(5, 7);
+    let day = date.substring(8, 10);
+    let newDate = new Date(year, month - 1, day);
+    setDate(newDate);
   };
   const handleEditDescription = (text) => {
     setDescriptionText(text);
@@ -65,7 +69,7 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
   const handleSubmit = async () => {
     if (
       formData.eventName.length > 0 &&
-      formData.date.length > 0 &&
+      // formData.date.length > 0 &&
       formData.description.length > 0
     ) {
       setFormState('loading');
@@ -79,7 +83,7 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
         setFormState('form');
         setEditMade(!editMade);
         setEventNameText('');
-        setDateText('');
+        setDate(new Date());
         setDescriptionText('');
         setLinkText('');
         setLinkLabelText('');
@@ -87,8 +91,8 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
       }
     } else if (formData.eventName.length === 0) {
       setSnackbar('Event Name cannot be empty', true);
-    } else if (formData.date.length === 0) {
-      setSnackbar('Date cannot be empty', true);
+      // } else if (formData.date.length === 0) {
+      //   setSnackbar('Date cannot be empty', true);
     } else if (formData.description.length === 0) {
       setSnackbar('Description cannot be empty', true);
     }
@@ -96,12 +100,12 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
   useEffect(() => {
     updateFormData({
       eventName: eventNameText,
-      date: dateText,
+      date: date,
       description: descriptionText,
       link: linkText,
       linkLabel: linkLabelText,
     });
-  }, [eventNameText, dateText, descriptionText, linkText, linkLabelText]);
+  }, [eventNameText, date, descriptionText, linkText, linkLabelText]);
   return (
     <form>
       <label>
@@ -122,7 +126,7 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
         <div>
           <h1 className={'timeline-admin-subtitles'}>Date</h1>
           <TextInput
-            onChange={(text) => handleEditDate(text)}
+            onChange={(date) => handleEditDate(date)}
             inputType={'date'}
             placeholder={'1852-12-25'}
             initialValue={'2022-09-01'}
@@ -191,12 +195,14 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
 const ExistingTimelineEvents = ({ editMade, setEditMade }) => {
   const [existingEvents, setExistingEvents] = useState([]);
   const getTimelineEvents = async () => {
+    // TODO: fix display after creating and deleting
     try {
       const response = await axios.get('/timeline');
-      return response.data.timelines;
+      const existingEvents = response.data.timelines;
+      console.log(existingEvents);
+      setExistingEvents(existingEvents);
     } catch (error) {
       console.log('Error', error.message);
-      return [];
     }
   };
   useEffect(() => {
@@ -221,11 +227,11 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editButtonText, setEditButtonText] = useState('Edit');
   const [eventNameText, setEventNameText] = useState('');
-  const [dateText, setDateText] = useState('');
+  const [date, setDate] = useState(new Date());
   const [descriptionText, setDescriptionText] = useState('');
   const [linkText, setLinkText] = useState('');
   const [linkLabelText, setLinkLabelText] = useState('');
-  const [oldEventNameText, setOldEventNameText] = useState(event.name);
+  const [oldEventNameText, setOldEventNameText] = useState(event.eventName);
   const eventDateFormatted = new Date(event.date).toISOString().split('T')[0];
   const [oldDateText, setOldDateText] = useState(eventDateFormatted);
   const [oldDescriptionText, setOldDescriptionText] = useState(event.description);
@@ -237,7 +243,7 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
   const { setSnackbar } = useContext(SnackbarContext);
   const initialFormData = {
     eventName: '',
-    date: '',
+    date: new Date(),
     description: '',
     link: '',
     linkLabel: '',
@@ -246,8 +252,12 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
   const handleEditEventName = (text) => {
     setEventNameText(text);
   };
-  const handleEditDate = (text) => {
-    setDateText(text);
+  const handleEditDate = (date) => {
+    let year = date.substring(0, 4);
+    let month = date.substring(5, 7);
+    let day = date.substring(8, 10);
+    let newDate = new Date(year, month - 1, day);
+    setDate(newDate);
   };
   const handleEditDescription = (text) => {
     setDescriptionText(text);
@@ -261,7 +271,7 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
   const handleSubmit = async (id) => {
     if (
       formData.eventName.length > 0 &&
-      formData.date.length > 0 &&
+      // formData.date.length > 0 &&
       formData.description.length > 0
     ) {
       const result = await editTimelineEvent(id, formData);
@@ -275,8 +285,8 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
       }
     } else if (formData.eventName.length === 0) {
       setSnackbar('Event Name cannot be empty', true);
-    } else if (formData.date.length === 0) {
-      setSnackbar('Date cannot be empty', true);
+      // } else if (formData.date.length === 0) {
+      //   setSnackbar('Date cannot be empty', true);
     } else if (formData.description.length === 0) {
       setSnackbar('Description cannot be empty', true);
     }
@@ -293,12 +303,12 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
   useEffect(() => {
     updateFormData({
       eventName: eventNameText,
-      date: dateText,
+      date: date,
       description: descriptionText,
       link: linkText,
       linkLabel: linkLabelText,
     });
-  }, [eventNameText, dateText, descriptionText, linkText, linkLabelText]);
+  }, [eventNameText, date, descriptionText, linkText, linkLabelText]);
   useEffect(() => {
     setCreatedDate(event.createdAt);
     setUpdatedDate(event.updatedAt);
@@ -308,7 +318,7 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
       <div className={`${isEdit ? 'timeline-admin-hide' : ''}`}>
         <h1 className={'timeline-admin-event-titles'}>{eventNameText}</h1>
         <p className={'timeline-admin-text'}>
-          <b>Date:</b> {dateText}
+          <b>Date:</b> {date.toISOString().split('T')[0]}
         </p>
         <p className={'timeline-admin-text'}>
           <b>Description:</b> {descriptionText}
@@ -349,10 +359,8 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
             <div className={''}>
               <h1 className={'timeline-admin-subtitles'}>Date</h1>
               <TextInput
-                onChange={(text) => handleEditDate(text)}
-                inputType={
-                  'date' // TODO: figure out date format
-                }
+                onChange={(date) => handleEditDate(date)}
+                inputType={'date'}
                 hasRestrictedInput={true}
                 placeholder={'1852-12-25'}
                 initialValue={oldDateText}
@@ -415,13 +423,13 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
             setEditButtonText(`${isEdit ? 'Edit' : 'Stop Edit'}`);
             if (!isEdit) {
               setOldEventNameText(eventNameText);
-              setOldDateText(dateText);
+              setOldDateText(date);
               setOldDescriptionText(descriptionText);
               setOldLinkText(linkText);
               setOldLinkLabelText(linkLabelText);
             } else {
               setEventNameText(oldEventNameText);
-              setDateText(oldDateText);
+              setDate(oldDateText);
               setDescriptionText(oldDescriptionText);
               setLinkText(oldLinkText);
               setLinkLabelText(oldLinkLabelText);
@@ -449,7 +457,7 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
           label={'Save'}
           onClick={() => {
             console.log(event);
-            handleSubmit(event.id);
+            handleSubmit(event._id);
           }}
         />
       </span>
