@@ -122,6 +122,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   };
 
   const disableField = (isDisabled, fieldKey, step) => {
+    console.log(fieldKey, 'ISDISABLED');
     const formFieldsCopy = { ...formFields };
     formFieldsCopy[step][fieldKey]['isDisabled'] = isDisabled;
     setFormFields(formFieldsCopy);

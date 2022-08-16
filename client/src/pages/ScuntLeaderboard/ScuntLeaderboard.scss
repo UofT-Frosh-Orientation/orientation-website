@@ -1,0 +1,311 @@
+.scunt-leaderboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaderboard-page-desktop {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+
+  //width: 100%;
+  height: fit-content;
+  padding: 3%;
+  background-color: var(--container-bg);
+  margin: 3%;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+}
+.leaderboard-page-table {
+  border-collapse: collapse;
+  @for $i from 1 to 20 {
+    :nth-child(#{$i}) tr td div {
+      animation-delay: ($i - 1.5) * 100ms;
+    }
+  }
+}
+.scunt-leaderboard-row {
+  height: '10vh';
+}
+
+.scunt-leaderboard-bar-container {
+  //width: 100%; // of the page?
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  //margin: 15px;
+
+  transform: scaleX(0);
+  animation-fill-mode: forwards;
+  animation-duration: 2s;
+  animation-name: slideFromLeft;
+  animation-iteration-count: 1;
+  animation-direction: ease-out;
+}
+
+@keyframes slideFromLeft {
+  0% {
+    transform-origin: left;
+    transform: scaleX(0);
+    //opacity: 0;
+  }
+  100% {
+    transform-origin: left;
+    transform: scaleX(100%);
+    //opacity: 1;
+  }
+}
+
+.scunt-leaderboard-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+
+  color: var(--white);
+  //background-color: var(--light-purple);
+  border-radius: 0px 10px 10px 0px;
+  height: 50px;
+
+  // transform-origin: left;
+  // transform: scaleX(100%);
+  // transition: transform 400ms;
+
+  background-image: linear-gradient(
+    90deg,
+    var(--light-purple) 0%,
+    var(--light-purple) 50%,
+    var(--scunt-leaderboard-bar) 50%,
+    var(--scunt-leaderboard-bar) 100%
+  );
+  background-size: 200%;
+  transition: background-position 1900ms ease-out;
+
+  &:hover {
+    transition: background-position 400ms ease-out;
+    // transform: scaleX(101%);
+    background-position: -100% 100%;
+  }
+}
+
+@keyframes gradientBackground {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: 50%;
+  }
+}
+
+.leaderboard-team-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: var(--text-dark-use);
+  //width: 200px;
+  //justify-content: start;
+}
+
+.leaderboard-team-name {
+  //margin-right: 10px;
+}
+.leaderboard-team-group {
+  //padding-top: 2px;
+}
+
+.leaderboard-page-mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+
+  //width: 100%;
+  height: fit-content;
+  padding: 5%;
+  //background-color: var(--container-bg);
+  //margin: 3%;
+  border-radius: 15px;
+  //box-shadow: var(--shadow);
+  @for $i from 1 to 20 {
+    :nth-child(#{$i}) {
+      animation-delay: ($i - 1.5) * 100ms;
+    }
+  }
+}
+.scunt-leaderboard-bubble-outer {
+  transform: scale(0);
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+  animation-name: scaleIn;
+  animation-iteration-count: 1;
+  animation-direction: ease-out;
+}
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    transform: unset;
+  }
+}
+.scunt-leaderboard-bubble-outer-hover {
+  &:hover {
+    transform: scale(1.05);
+  }
+  transition: transform 400ms;
+}
+
+.scunt-leaderboard-bubble {
+  display: flex;
+  margin: 10px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: var(--light-purple);
+  padding: 15px 20px;
+  border-radius: 10px;
+  height: 75px;
+}
+.scunt-leaderboard-bubble-medal {
+  position: absolute;
+  height: 75px;
+}
+.scunt-leaderboard-bubble-info {
+  display: flex;
+  flex-direction: row;
+}
+.scunt-leaderboard-bubble-rank {
+  align-self: center;
+  width: 40px;
+  text-align: left;
+  margin-right: 10%;
+  color: var(--purple-shades-dark);
+}
+.scunt-leaderboard-bubble-name {
+  display: flex;
+  flex-direction: column;
+  color: var(--white);
+  width: 150px;
+}
+
+.scunt-leaderboard-fullscreen {
+  display: none;
+}
+.fullscreen-enabled .scunt-leaderboard-fullscreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--page-bg);
+  width: 100%;
+  height: 100%;
+  padding: 3%;
+}
+.scunt-leaderboard-bar-outer-v {
+  display: flex;
+  flex-direction: column;
+  width: 10vw;
+}
+.scunt-leaderboard-fullscreen-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+  padding: 2%;
+  //margin: 5%;
+  background-color: var(--container-bg);
+  border-radius: 20px;
+  @for $i from 1 to 20 {
+    :nth-child(#{$i}) div {
+      animation-delay: ($i - 1.5) * 100ms;
+    }
+  }
+}
+.scunt-leaderboard-bar-container-v {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  //align-content: flex-end;
+  //justify-content: end;
+  //margin: 10px;
+  height: 100%; // of the page?
+  // width: 10vw;
+
+  border-collapse: collapse;
+  border-bottom: 3px solid var(--button-outlined-border);
+
+  animation-duration: 2s;
+  animation-name: slideFromBottom;
+  transform: scaleY(0);
+  animation-fill-mode: forwards;
+  animation-direction: ease-out;
+}
+.leaderboard-team-info-v {
+  display: flex;
+  flex-direction: column;
+  //justify-content: start;
+  align-items: center;
+  text-align: center;
+  //align-items: center;
+  color: var(--text-dark-use);
+  height: 90px;
+  margin-top: 10px;
+  //width: 200px;
+  //justify-content: start;
+}
+
+@keyframes slideFromBottom {
+  0% {
+    transform-origin: bottom;
+    transform: scaleY(0);
+  }
+  100% {
+    transform-origin: bottom;
+    transform: scaleY(100%);
+  }
+}
+
+.scunt-leaderboard-bar-v {
+  display: flex;
+  // flex-direction: row;
+  // align-items: center;
+  // justify-content: space-between;
+  //padding: 10px 20px;
+
+  color: var(--white);
+  //background-color: var(--light-purple);
+  border-radius: 10px 10px 0px 0px;
+  width: 60px;
+
+  // transform-origin: left;
+  // transform: scaleX(100%);
+  // transition: transform 400ms;
+
+  background-image: linear-gradient(
+    180deg,
+    var(--light-purple) 0%,
+    var(--light-purple) 50%,
+    var(--scunt-leaderboard-bar) 50%,
+    var(--scunt-leaderboard-bar) 100%
+  );
+  background-size: 100% 200%;
+  transition: background-position 1900ms ease-out;
+
+  &:hover {
+    // transform: scaleX(101%);
+    transition: background-position 500ms ease-out;
+    background-position: -100% 100%;
+  }
+}

@@ -75,6 +75,10 @@ const FroshSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    phoneNumberAreaCode: {
+      type: String,
+      required: false,
+    },
     instagram: {
       type: String, //needs an @ symbol at the beginning
       required: false,
@@ -108,7 +112,7 @@ const FroshSchema = new mongoose.Schema(
       type: [String],
       required: false,
     },
-    allergiesOther: {
+    allergiesMore: {
       type: String,
       required: false,
     },
@@ -129,7 +133,7 @@ const FroshSchema = new mongoose.Schema(
       enum: ['Phone', 'Email', 'Other'], // other option
       required: false,
     },
-    accessibilityOther: {
+    accommodationOther: {
       type: String,
       required: false,
     },
