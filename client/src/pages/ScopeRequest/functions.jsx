@@ -12,6 +12,7 @@ export const getTotalScopes = () => {
     faq: ['delete', 'edit'],
     announcements: ['create', 'edit', 'delete'],
     accounts: ['read', 'edit', 'delete'],
+    email: ['send'],
     timeline: ['create', 'edit', 'delete'],
     signInFrosh: ['qr-code registration'],
     scunt: [
