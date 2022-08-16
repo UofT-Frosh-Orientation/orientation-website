@@ -7,15 +7,17 @@ const AnnouncementSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
+    required: false,
   },
   dateCreated: {
     type: Date,
-    required: false,
+    required: true,
+    default: Date.now,
   },
   completed: {
     type: Boolean,
-    required: false,
+    required: true,
+    default: false,
   },
 });
 

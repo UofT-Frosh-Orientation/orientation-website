@@ -1,0 +1,21 @@
+@import '../../scssStyles/mixins';
+
+.announcement-creator {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  h3 {
+    font-size: 17px;
+    text-align: center;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+}
+
+.full-width-input {
+  width: 100%;
+}
+
+.send-announcement-button {
+  margin-top: 20px;
+}
