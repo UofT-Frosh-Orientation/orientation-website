@@ -20,6 +20,16 @@
     margin: auto;
     margin-bottom: 10px;
   }
+
+  .frosh-retreat-video {
+    width: 95%;
+    max-width: 1000px;
+    height: 524px;
+    @include devices(tablet) {
+      height: 50vh;
+      min-height: 200px;
+    }
+  }
 }
 
 .retreat-registration-form {
