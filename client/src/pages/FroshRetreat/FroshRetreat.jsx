@@ -26,12 +26,16 @@ export const FroshRetreat = () => {
           </p>
         </div>
       </Header>
+      <div style={{ height: '20px' }} />
       <iframe
-        src="https://drive.google.com/file/d/1bRBR7OmgX-KKWSsaysEZ3s4wv6nP3qfW/preview"
-        width="100%"
-        height="100%"
-        allow="autoplay"
+        className="frosh-retreat-video"
+        src="https://www.youtube.com/embed/eGwsNvgroCI?autoplay=1"
+        title="F!rosh Retreat Info"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
       ></iframe>
+      <div style={{ height: '20px' }} />
       <h1>Registration</h1>
       <RetreatRegistration />
     </div>
