@@ -25,6 +25,11 @@ const paymentSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  expired: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 
 const FroshSchema = new mongoose.Schema(
