@@ -22,11 +22,6 @@ const TimelineSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    deleted: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
   },
   { strict: true, timestamps: true },
 );

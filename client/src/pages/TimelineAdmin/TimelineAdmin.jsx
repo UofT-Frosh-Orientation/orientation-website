@@ -195,10 +195,9 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
 const ExistingTimelineEvents = ({ editMade, setEditMade }) => {
   const [existingEvents, setExistingEvents] = useState([]);
   const getTimelineEvents = async () => {
-    // TODO: fix display after creating and deleting
     try {
       const response = await axios.get('/timeline');
-      const existingEvents = response.data.timelines;
+      const existingEvents = await response.data.timelines;
       console.log(existingEvents);
       setExistingEvents(existingEvents);
     } catch (error) {
@@ -214,7 +213,7 @@ const ExistingTimelineEvents = ({ editMade, setEditMade }) => {
         <div className={'timeline-admin-no-result'}>No timeline events found.</div>
       ) : (
         existingEvents.map((event) => (
-          <div key={event.id}>
+          <div key={event._id}>
             <TimelineEventWrapper event={event} editMade={editMade} setEditMade={setEditMade} />
           </div>
         ))
