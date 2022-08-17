@@ -3,8 +3,9 @@ import './PaymentError.scss';
 import ArcheologyDig from '../../assets/paymenterror/archeology-dig.svg';
 import { Button } from '../../components/button/Button/Button';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const PagePaymentError = () => {
+const PagePaymentError = ({ link }) => {
   return (
     <>
       <div className="payment-error-page">
@@ -17,7 +18,7 @@ const PagePaymentError = () => {
               Sorry, we were unable to process your payment.<br></br>Please try again!
             </p>
 
-            <Link to={'/registration'} className="no-link-style">
+            <Link to={link} className="no-link-style">
               <Button label={'Back to Payment'} onClick={() => {}} />
             </Link>
           </div>
@@ -25,6 +26,10 @@ const PagePaymentError = () => {
       </div>
     </>
   );
+};
+
+PagePaymentError.propTypes = {
+  link: PropTypes.string,
 };
 
 export { PagePaymentError };

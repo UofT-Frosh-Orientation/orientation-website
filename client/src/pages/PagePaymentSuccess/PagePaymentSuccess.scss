@@ -1,0 +1,45 @@
+@import '../../scssStyles/mixins';
+
+.payment-success-page {
+  color: var(--text-dynamic);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 40px;
+  h1 {
+    margin-top: 20vh;
+    font-size: 34px;
+  }
+  p {
+    margin-bottom: 30px;
+  }
+  h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  @for $i from 1 to 4 {
+    :nth-child(#{$i}) {
+      transform: translateY(100px) scale(0.8);
+      opacity: 0;
+      animation-fill-mode: forwards;
+      animation-duration: 2s;
+      animation-name: up-appear;
+      animation-iteration-count: 1;
+      animation-direction: ease-out;
+      animation-delay: ($i - 1) * 500ms;
+    }
+  }
+}
+
+@keyframes up-appear {
+  0% {
+    transform: translateY(100px) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
