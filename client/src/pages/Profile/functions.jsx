@@ -255,25 +255,18 @@ export async function signInFrosh(email) {
   }
 }
 
-export function searchForFrosh(nameOrEmail) {
-  return [
-    {
-      email: nameOrEmail,
-      name: nameOrEmail,
-      pronouns: 'he/him',
-      shirtSize: 'L',
-      froshGroup: 'Lambda',
-      discipline: 'Comp eng.',
-    },
-    {
-      email: 'hello@hello.com',
-      name: 'hello there',
-      pronouns: undefined,
-      shirtSize: undefined,
-      froshGroup: undefined,
-      discipline: undefined,
-    },
-  ];
+export async function searchForFrosh(nameOrEmail) {
+  try {
+    const response = await axios.get('/qr/QrSearch', {
+      params: {
+        search: nameOrEmail,
+      },
+    });
+
+    return response.data.QrInfo;
+  } catch (error) {
+    return error;
+  }
 }
 
 export function capitalizeFirstLetter(string) {

@@ -21,7 +21,7 @@ const QrController = {
   },
 
   async getSearchedUser(req, res, next) {
-    const { search } = req.body;
+    const search = req.query.search;
     try {
       const QrInfo = await QrServices.getSearchedUserData(search);
 
