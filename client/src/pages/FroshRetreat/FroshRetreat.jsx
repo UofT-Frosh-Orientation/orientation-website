@@ -50,6 +50,7 @@ const RetreatRegistration = () => {
   const { user } = useSelector(userSelector);
   const { setSnackbar } = useContext(SnackbarContext);
   const { axios } = useAxios();
+  const isRetreat = user?.isRetreat === true;
 
   console.log(user);
   return (
@@ -126,7 +127,9 @@ const RetreatRegistration = () => {
             <></>
           )}
         </div>
-        {viewedWaiver ? (
+        {isRetreat ? (
+          <h2>You have already payed for Frosh Retreat!</h2>
+        ) : viewedWaiver ? (
           <Button
             label={'Continue to Payment'}
             isDisabled={waiverValue !== 'Yes' || buttonClicked}
@@ -157,7 +160,9 @@ const RetreatRegistration = () => {
           <></>
         )}
       </div>
-      {viewedWaiver ? (
+      {isRetreat ? (
+        <ErrorSuccessBox success content="You have already accepted the agreement!" />
+      ) : viewedWaiver ? (
         <></>
       ) : (
         <ErrorSuccessBox error content="Please view the Frosh Retreat Waiver before proceeding!" />
