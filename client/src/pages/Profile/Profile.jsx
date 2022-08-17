@@ -336,8 +336,8 @@ const ProfilePageQRScanner = () => {
   const [results, setResults] = useState([]);
   const [scannedData, setScannedData] = useState('');
 
-  const search = () => {
-    setResults(searchForFrosh(searchFor));
+  const search = async () => {
+    setResults(await searchForFrosh(searchFor));
   };
 
   return (
