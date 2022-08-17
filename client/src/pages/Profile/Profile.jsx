@@ -179,6 +179,10 @@ export const ProfilePageScuntToken = () => {
 };
 
 const ProfilePageLeaderPermissionDashboardLinks = () => {
+  const { user } = useSelector(userSelector);
+
+  const leader = user?.userType === 'leadur';
+  const approved = user?.approved === true;
   return (
     <div className={'profile-leader-dashboard-links'}>
       <ProfilePageDashboardLink
@@ -186,13 +190,17 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
         authScopes={['accounts:delete', 'accounts:edit', 'accounts:read']}
         label="Leedur Account Scope Approval"
       />
-      <Link
-        to={'/permission-request'}
-        style={{ textDecoration: 'none' }}
-        className={'no-link-style'}
-      >
-        <Button label="Request Leedur Permissions" />
-      </Link>
+      {leader && approved ? (
+        <Link
+          to={'/permission-request'}
+          style={{ textDecoration: 'none' }}
+          className={'no-link-style'}
+        >
+          <Button label="Request Leedur Permissions" />
+        </Link>
+      ) : (
+        <></>
+      )}
       <ProfilePageDashboardLink
         link="/scunt-judge-form"
         authScopes={[
