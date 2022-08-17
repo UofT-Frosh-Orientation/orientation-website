@@ -9,6 +9,12 @@ const router = express.Router();
 
 router.post('/stripe-callback', PaymentController.handleWebhook);
 
+router.get(
+  '/frosh-retreat-remaining-tickets',
+  checkLoggedIn,
+  PaymentController.froshRetreatTicketCount,
+);
+
 router.post(
   '/frosh-retreat-payment',
   checkLoggedIn,
