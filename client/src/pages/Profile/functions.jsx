@@ -245,8 +245,14 @@ export async function getQRCodeString() {
 
 //Return true if successful
 //Return an error string if not
-export function signInFrosh(email) {
-  return true;
+export async function signInFrosh(email) {
+  try {
+    await axios.put('/qr/QrScan', { email: email });
+
+    return true;
+  } catch (error) {
+    return error;
+  }
 }
 
 export function searchForFrosh(nameOrEmail) {
