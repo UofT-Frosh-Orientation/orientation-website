@@ -374,8 +374,9 @@ const ProfilePageQRScanner = () => {
       </div>
       <Button
         label={'Submit'}
-        onClick={() => {
-          const result = signInFrosh(scannedData.email);
+        onClick={async () => {
+          const result = await signInFrosh(scannedData.email);
+
           if (result === true) {
             setScannedData(parseQRCode(''));
             setSubmitSuccess(true);
