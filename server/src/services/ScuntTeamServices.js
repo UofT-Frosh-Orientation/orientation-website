@@ -66,7 +66,22 @@ const ScuntTeamServices = {
 
   async refillBribePoints(judgeUserId, points, isAddPoints) {
     return new Promise((resolve, reject) => {
-      return true;
+      LeadurModel.findByIdAndUpdate(
+        judgeUserId,
+        isAddPoints
+          ? { $inc: { scuntJudgeBribePoints: points } }
+          : { $set: { scuntJudgeBribePoints: points } },
+        { upsert: false, returnDocument: 'after' },
+        (err, leadur) => {
+          if (err) {
+            reject(err);
+          } else if (!leadur) {
+            reject('INVALID_LEADUR_ID');
+          } else {
+            resolve(leadur);
+          }
+        },
+      );
     });
   },
 

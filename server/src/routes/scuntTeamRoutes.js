@@ -60,7 +60,7 @@ router.post(
  *                 example: 5
  *               isAddPoints:
  *                 type: bool
- *                 description: If true, it will add points to a judges current reamining bribe points, otherwise set it to the 'points' value passed in
+ *                 description: If true, it will add points to a judges current remaining bribe points, otherwise set it to the 'points' value passed in
  */
 router.post(
   '/transaction/refill-bribe',
