@@ -70,16 +70,45 @@ const ScuntTeamServices = {
     });
   },
 
-  async addTransaction(team, missionNumber, points) {
+  async addTransaction(teamName, missionNumber, points) {
     return new Promise((resolve, reject) => {
+      ScuntTeamModel.findOne({ name: teamName }, (err, team) => {
+        if (err) {
+          reject(err);
+        } else {
+          const prevPoints = team.transactions.reduce((prev, curr) => {
+            if (curr.missionNumber === missionNumber && curr.points > prev) {
+              prev = curr.points;
+            }
+            return prev;
+          }, 0);
+          if (prevPoints < points) {
+            team.points += points - prevPoints;
+          }
+          team.transactions.push({ name: '', missionNumber, points });
+        }
+      });
       // Get max and min possible points by multiplying missionNumber's mission by minAmountPointsPercent and maxAmountPointsPercent from game settings
       return true;
     });
   },
 
-  async subtractTransaction(team, points) {
+  async subtractTransaction(teamName, points) {
     return new Promise((resolve, reject) => {
-      return true;
+      ScuntTeamModel.findOneAndUpdate(
+        { name: teamName },
+        { $inc: { points }, $push: { transactions: [{ name: 'Points subtraction', points }] } },
+        { upsert: false, returnDocument: 'after' },
+        (err, team) => {
+          if (err) {
+            reject(err);
+          } else if (!team) {
+            reject('INVALID_TEAM_NAME');
+          } else {
+            resolve(team);
+          }
+        },
+      );
     });
   },
 
