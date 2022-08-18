@@ -136,6 +136,18 @@ const UserController = {
     }
   },
 
+  async unsubscribeUser(req, res, next) {
+    try {
+      const { email } = req.body;
+      await UserServices.unsubscribeUser(email);
+      res
+        .status(200)
+        .send({ message: 'You have been successfully unsubscribed from announcement emails.' });
+    } catch (error) {
+      next(error);
+    }
+  },
+
   async requestAuthScopes(req, res, next) {
     try {
       const user = req.user;

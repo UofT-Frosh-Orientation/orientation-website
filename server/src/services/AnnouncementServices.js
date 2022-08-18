@@ -1,5 +1,6 @@
 const AnnouncementModel = require('../models/AnnouncementModel');
 const UserModel = require('../models/UserModel');
+const announcementSubscription = require('../subscribers/announcementSubscription');
 
 const AnnouncementServices = {
   async getAllAnnouncements() {
@@ -93,6 +94,9 @@ const AnnouncementServices = {
         if (err) {
           reject(err);
         } else {
+          if (announcementElement.sendAsEmail === true) {
+            announcementSubscription.add(announcementElement);
+          }
           resolve(newAnnouncement);
         }
       });

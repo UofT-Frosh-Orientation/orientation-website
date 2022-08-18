@@ -34,20 +34,11 @@ export function* getAnnouncementsSaga() {
 
 export const createAnnouncements = createAction('createAnnouncementsSaga');
 
-export function* createAnnouncementsSaga({
-  payload: {
-    setSnackbar,
-    announcementData,
-    // sendAsEmail
-  },
-}) {
+export function* createAnnouncementsSaga({ payload: { setSnackbar, announcementData } }) {
   const { axios } = useAxios();
   try {
     yield put(createAnnouncementsStart());
     const response = yield call(axios.post, `/announcements/create`, { announcementData });
-    // if (sendAsEmail) {
-    //   logic to send announcement email
-    // }
     yield put(createAnnouncementsSuccess());
     setSnackbar('Successfully Created!');
   } catch (e) {
