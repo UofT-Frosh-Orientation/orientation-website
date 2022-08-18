@@ -101,6 +101,13 @@ const ScuntTeamServices = {
             team.points += points - prevPoints;
           }
           team.transactions.push({ name: '', missionNumber, points });
+          team.save((err, res) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(res);
+            }
+          });
         }
       });
       // Get max and min possible points by multiplying missionNumber's mission by minAmountPointsPercent and maxAmountPointsPercent from game settings
@@ -127,9 +134,37 @@ const ScuntTeamServices = {
     });
   },
 
-  async checkTransaction(team, missionNumber) {
+  async checkTransaction(teamName, missionNumber) {
     return new Promise((resolve, reject) => {
-      return true;
+      ScuntTeamModel.findOne(
+        { name: teamName },
+        {
+          transactions: {
+            $filter: {
+              input: '$transactions',
+              as: 'transaction',
+              cond: { $eq: ['$$transaction.missionNumber', missionNumber] },
+            },
+          },
+        },
+        {},
+        (err, team) => {
+          if (err) {
+            reject(err);
+          } else if (!team) {
+            reject('INVALID_TEAM');
+          } else {
+            resolve(
+              team.transactions.reduce((prev, curr) => {
+                if (curr.points > prev) {
+                  prev = curr.points;
+                }
+                return prev;
+              }, 0),
+            );
+          }
+        },
+      );
     });
   },
 };
