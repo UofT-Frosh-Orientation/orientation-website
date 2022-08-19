@@ -33,7 +33,7 @@ export const getTotalScopes = () => {
 };
 
 export const getTotalRegistrationScopes = () => {
-  let output = ['froshGroup', 'froshGroupIcon'];
+  let output = ['froshGroup', 'froshGroupIcon', 'isRetreat'];
   for (let key of Object.keys(fields)) {
     if (fields[key].type === 'label') {
       continue;

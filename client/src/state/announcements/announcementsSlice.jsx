@@ -29,10 +29,10 @@ const announcementSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    getCompletedAnnouncementsSuccess: (state, { payload: completeAnnouncement }) => {
+    getCompletedAnnouncementsSuccess: (state, { payload: completedAnnouncements }) => {
       state.loading = false;
       state.error = null;
-      state.completeAnnouncement = completeAnnouncement;
+      state.completedAnnouncements = completedAnnouncements;
     },
     getCompletedAnnouncementsFailure: (state, { payload: error }) => {
       state.loading = false;
@@ -93,6 +93,9 @@ export const {
   getAnnouncementsStart,
   getAnnouncementsSuccess,
   getAnnouncementsFailure,
+  getCompletedAnnouncementsStart,
+  getCompletedAnnouncementsSuccess,
+  getCompletedAnnouncementsFailure,
   createAnnouncementsStart,
   createAnnouncementsFailure,
   createAnnouncementsSuccess,

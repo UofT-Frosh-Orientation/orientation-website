@@ -16,20 +16,6 @@ export async function resetPassword(email) {
   return true;
 }
 
-export async function getTasks() {
-  try {
-    const response = await axios.get('/announcements');
-    console.log(response);
-    return response.data.announcements;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export function onDoneTask(task) {
-  console.log(task);
-}
-
 export function getFroshScheduleData() {
   return [
     {

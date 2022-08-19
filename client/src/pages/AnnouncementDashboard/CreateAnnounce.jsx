@@ -7,12 +7,14 @@ import './CreateAnnounce.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAnnouncements, createAnnouncements } from '../../state/announcements/saga';
 import { userSelector } from '../../state/user/userSlice';
+
 import { SnackbarContext } from '../../util/SnackbarProvider';
 
 const CreateAnnounce = () => {
   const [announcementData, setAnnouncementData] = useState({});
   const { setSnackbar } = useContext(SnackbarContext);
   const { user } = useSelector(userSelector);
+
   const dispatch = useDispatch();
 
   return (
@@ -21,6 +23,7 @@ const CreateAnnounce = () => {
       <div className="full-width-input">
         <TextInput
           label="Announcement Name"
+          isRequiredInput
           placeholder={'Announcement #1'}
           onChange={(value) => {
             announcementData['name'] = value;
@@ -65,6 +68,7 @@ const CreateAnnounce = () => {
             } else {
               setSnackbar('Please provide a name.', true);
             }
+
           }}
         />
       </div>
