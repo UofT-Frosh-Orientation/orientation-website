@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { SnackbarContext } from '../../util/SnackbarProvider';
+import useAxios from '../../hooks/useAxios';
 
 export const FroshRetreat = () => {
   return (
@@ -45,12 +46,15 @@ export const FroshRetreat = () => {
 const RetreatRegistration = () => {
   const [viewedWaiver, setViewedWaiver] = useState(false);
   const [waiverValue, setWaiverValue] = useState();
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const waiverLink =
     'https://drive.google.com/file/u/5/d/1CVXzncOgUCYjbG8raXWagqvtHS89SDyP/view?usp=sharing';
 
   const { user } = useSelector(userSelector);
   const { setSnackbar } = useContext(SnackbarContext);
+  const { axios } = useAxios();
+  const isRetreat = user?.isRetreat === true;
 
   console.log(user);
   return (
@@ -127,12 +131,29 @@ const RetreatRegistration = () => {
             <></>
           )}
         </div>
-        {viewedWaiver ? (
+        {isRetreat ? (
+          <h2>You have already payed for Frosh Retreat!</h2>
+        ) : viewedWaiver ? (
           <Button
             label={'Continue to Payment'}
-            isDisabled={waiverValue !== 'Yes'}
+            isDisabled={waiverValue !== 'Yes' || buttonClicked}
             onClick={() => {
               if (waiverValue === 'Yes') {
+                setButtonClicked(true);
+                axios
+                  .post('/payment/frosh-retreat-payment')
+                  .then((response) => {
+                    const { url } = response.data;
+                    window.location.href = url;
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                    setSnackbar(
+                      'Something went wrong! Please file a bug report on GitHub if this issue persists',
+                      true,
+                    );
+                    setButtonClicked(false);
+                  });
                 // Redirect the user to the payment for Retreat here!
               } else {
                 setSnackbar('Please accept the Frosh Waiver before proceeding!', true);
@@ -143,7 +164,9 @@ const RetreatRegistration = () => {
           <></>
         )}
       </div>
-      {viewedWaiver ? (
+      {isRetreat ? (
+        <ErrorSuccessBox success content="You have already accepted the agreement!" />
+      ) : viewedWaiver ? (
         <></>
       ) : (
         <ErrorSuccessBox error content="Please view the Frosh Retreat Waiver before proceeding!" />

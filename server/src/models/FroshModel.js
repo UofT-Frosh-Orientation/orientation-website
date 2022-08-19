@@ -25,6 +25,11 @@ const paymentSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  expired: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 
 const FroshSchema = new mongoose.Schema(
@@ -194,6 +199,11 @@ const FroshSchema = new mongoose.Schema(
       type: Number,
       required: false,
       default: 0,
+    },
+    isRetreat: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   { discriminatorKey: 'userType' },

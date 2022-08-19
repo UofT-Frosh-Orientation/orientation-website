@@ -87,7 +87,9 @@ const PageProfileFrosh = () => {
 
 export const ProfilePageRetreat = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { user } = useSelector(userSelector);
   const isRegistered = useSelector(registeredSelector);
+  const isRetreat = user?.isRetreat === true;
 
   if (!isRegistered) {
     return <></>;
@@ -96,23 +98,30 @@ export const ProfilePageRetreat = () => {
     <Link to={'/frosh-retreat'} className="no-link-style">
       <div className="retreat-profile-container">
         <img src={CampingIcon} alt="Camping" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            flex: 1,
-            alignItems: 'center',
-          }}
-        >
-          <div>
-            <h2>Want to participate in F!rosh Retreat?</h2>
-            <p>
-              There are only a limited number of tickets, so get yours before it&apos;s too late!{' '}
-            </p>
+        {isRetreat ? (
+          <h2>
+            Thank you for purchasing a Frosh Retreat Ticket! We will reach out with more information
+            soon. Keep an eye on your email!{' '}
+          </h2>
+        ) : (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              flex: 1,
+              alignItems: 'center',
+            }}
+          >
+            <div>
+              <h2>Want to participate in F!rosh Retreat?</h2>
+              <p>
+                There are only a limited number of tickets, so get yours before it&apos;s too late!{' '}
+              </p>
+            </div>
+            <Button label={'Learn More'} isSecondary style={{ margin: 0, marginLeft: '10px' }} />
           </div>
-          <Button label={'Learn More'} isSecondary style={{ margin: 0, marginLeft: '10px' }} />
-        </div>
+        )}
       </div>
     </Link>
   );
