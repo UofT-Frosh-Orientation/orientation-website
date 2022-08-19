@@ -33,14 +33,14 @@ const router = express.Router();
  *                   example: Please sign in to access this route!
  */
 router.put(
-  '/QrScan',
+  '/scan',
   checkLoggedIn,
   hasAuthScopes(['signInFrosh:qr-code registration']),
   QRController.getScannedUser,
 );
 
 router.get(
-  '/QrSearch',
+  '/search',
   checkLoggedIn,
   hasAuthScopes(['signInFrosh:qr-code registration']),
   QRController.getSearchedUser,

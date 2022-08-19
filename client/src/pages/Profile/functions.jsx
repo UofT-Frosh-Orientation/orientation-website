@@ -247,7 +247,7 @@ export async function getQRCodeString() {
 //Return an error string if not
 export async function signInFrosh(email) {
   try {
-    await axios.put('/qr/QrScan', { email: email });
+    await axios.put('/qr/scan', { email: email });
 
     return true;
   } catch (error) {
@@ -257,7 +257,7 @@ export async function signInFrosh(email) {
 
 export async function searchForFrosh(nameOrEmail) {
   try {
-    const response = await axios.get('/qr/QrSearch', {
+    const response = await axios.get('/qr/search', {
       params: {
         search: nameOrEmail,
       },
