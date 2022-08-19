@@ -5,6 +5,13 @@ import Check from '../../../../assets/icons/check-solid-white.svg';
 
 const TaskAnnouncement = ({ tasks, onDone }) => {
   const options = { weekday: undefined, year: 'numeric', month: 'long', day: 'numeric' };
+  if (!tasks || tasks.length <= 0) {
+    return (
+      <div className="task-container">
+        <h2 className="nothing-here">There is nothing here yet!</h2>
+      </div>
+    );
+  }
   return (
     <>
       <div className="task-container">
