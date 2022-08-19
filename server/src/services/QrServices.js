@@ -5,11 +5,7 @@ const QrServices = {
     return new Promise((resolve, reject) => {
       UserModel.find(
         {
-          $or: [
-            { firstName: { $regex: search } },
-            { lastName: { $regex: search } },
-            { email: { $regex: search } },
-          ],
+          $or: [{ email: { $regex: search } }, { isRegistered: true }],
         },
         'email firstName lastName pronouns shirtSize froshGroup discipline',
         (error, data) => {
