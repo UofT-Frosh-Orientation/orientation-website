@@ -41,6 +41,7 @@ import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
 import { froshGroups } from '../../util/frosh-groups';
+import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
 
 const PageProfile = () => {
   return <PageProfileFrosh />;
@@ -90,8 +91,18 @@ export const ProfilePageRetreat = () => {
   const { user } = useSelector(userSelector);
   const isRegistered = useSelector(registeredSelector);
   const isRetreat = user?.isRetreat === true;
+  const { setSnackbar } = useContext(SnackbarContext);
+
+  const [remainingTickets, setRemainingTickets] = useState();
+
+  useEffect(async () => {
+    setRemainingTickets(await getRemainingTickets(setSnackbar));
+  }, []);
 
   if (!isRegistered) {
+    return <></>;
+  }
+  if (remainingTickets <= 0 && !isRetreat) {
     return <></>;
   }
   return (
@@ -99,10 +110,19 @@ export const ProfilePageRetreat = () => {
       <div className="retreat-profile-container">
         <img src={CampingIcon} alt="Camping" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
         {isRetreat ? (
-          <h2>
-            Thank you for purchasing a Frosh Retreat Ticket! We will reach out with more information
-            soon. Keep an eye on your email!{' '}
-          </h2>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              flex: 1,
+            }}
+          >
+            <h2>Thank you for purchasing a Frosh Retreat Ticket!</h2>
+            <p>
+              We will reach out with more information soon. Keep an eye on your email! Please bring
+              a signed copy of the waiver to retreat.
+            </p>
+          </div>
         ) : (
           <div
             style={{
