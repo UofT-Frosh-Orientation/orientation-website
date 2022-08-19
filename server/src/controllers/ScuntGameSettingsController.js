@@ -15,6 +15,7 @@ const ScuntGameSettingsController = {
 
   async setGameSettings(req, res, next) {
     try {
+      const name = req.name;
       const amountOfTeams = req.amountOfTeams;
       const amountOfStarterBribePoints = req.amountOfStarterBribePoints;
       const maxAmountPointsPercent = req.maxAmountPointsPercent;
@@ -25,6 +26,7 @@ const ScuntGameSettingsController = {
       const revealMissions = req.revealMissions;
       const allowJudging = req.allowJudging;
       await ScuntGameSettingsServices.setGameSettings(
+        name,
         amountOfTeams,
         amountOfStarterBribePoints,
         maxAmountPointsPercent,

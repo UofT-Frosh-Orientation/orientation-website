@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
+const getResponseObject = require('../util/getResponseObject');
 
-const ScuntGameSettingsSchema = new mongoose.Schema({
+const ScuntGameSettingSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    default: 'Scunt 2T2 Settings',
   },
   amountOfTeams: {
     type: Number,
@@ -55,6 +57,6 @@ const ScuntGameSettingsSchema = new mongoose.Schema({
   },
 });
 
-const ScuntGameSettingsModel = mongoose.model('ScuntGameSettings', ScuntGameSettingsSchema);
-
-module.exports = ScuntGameSettingsModel;
+ScuntGameSettingSchema.methods.getResponseObject = getResponseObject;
+const ScuntGameSettingModel = mongoose.model('ScuntGameSetting', ScuntGameSettingSchema);
+module.exports = ScuntGameSettingModel;
