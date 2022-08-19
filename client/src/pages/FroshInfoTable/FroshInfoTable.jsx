@@ -125,7 +125,6 @@ const PageFroshInfoTable = () => {
       )}
       {user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') === false &&
       !user?.authScopes?.approved?.find((scope) => {
-        console.log(scope);
         return scope.includes('froshGroupData:');
       }) ? (
         <p className="small-print" style={{ marginTop: '-14px', marginBottom: '16px' }}>
@@ -138,10 +137,7 @@ const PageFroshInfoTable = () => {
       )}
       <div className="search">
         <TextInput
-          onChange={(text) => {
-            setSearchTerm(text);
-            console.log(frosh);
-          }}
+          onChange={(text) => setSearchTerm(text)}
           inputType={'text'}
           placeholder={'Search...'}
         />
@@ -168,11 +164,11 @@ const PageFroshInfoTable = () => {
       </p>
       <div className="table-wrap">
         {frosh?.length === 0 ? (
-          <>
+          <div style={{ margin: '5%', textAlign: 'center' }}>
             <h2>It looks a bit empty here...</h2>
             <h2>Please read notes listed above and ensure you have the correct permissions.</h2>
             <br />
-          </>
+          </div>
         ) : (
           <></>
         )}

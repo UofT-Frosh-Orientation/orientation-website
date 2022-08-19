@@ -127,7 +127,7 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
           {pages.special.map((page) => {
             // Clicking on profile button
             if (page.label === 'Profile') {
-              if (isLoggedIn) {
+              if (isLoggedIn && froshInitials !== 'undefinedundefined') {
                 // if logged in
                 return (
                   <>
@@ -143,27 +143,28 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
                     </div>
                   </>
                 );
+              } else {
+                // if not logged in
+                return (
+                  <div
+                    key={page.path}
+                    className="icon-profile-person-container"
+                    onClick={() => {
+                      setOpenProfileDropdown(!openProfileDropdown);
+                    }}
+                  >
+                    {!darkMode ? (
+                      <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>
+                    ) : (
+                      <img
+                        className="icon-profile-person"
+                        alt="profile"
+                        src={ProfileIconDarkMode}
+                      ></img>
+                    )}
+                  </div>
+                );
               }
-              // if not logged in
-              return (
-                <div
-                  key={page.path}
-                  className="icon-profile-person-container"
-                  onClick={() => {
-                    setOpenProfileDropdown(!openProfileDropdown);
-                  }}
-                >
-                  {!darkMode ? (
-                    <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>
-                  ) : (
-                    <img
-                      className="icon-profile-person"
-                      alt="profile"
-                      src={ProfileIconDarkMode}
-                    ></img>
-                  )}
-                </div>
-              );
             }
           })}
         </div>
@@ -292,7 +293,20 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
 
         {pages.special.map((page) => {
           if (page.label === 'Login') {
-            if (!isLoggedIn) {
+            if (isLoggedIn && froshInitials !== 'undefinedundefined') {
+              return (
+                <div
+                  key={page.path}
+                  className="icon-profile"
+                  onClick={() => {
+                    setOpenProfileDropdown(!openProfileDropdown);
+                  }}
+                >
+                  {' '}
+                  {froshInitials}{' '}
+                </div>
+              );
+            } else {
               return (
                 <div
                   key={page.path}
@@ -312,19 +326,6 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                   )}
                 </div>
                 // </Link>
-              );
-            } else if (isLoggedIn) {
-              return (
-                <div
-                  key={page.path}
-                  className="icon-profile"
-                  onClick={() => {
-                    setOpenProfileDropdown(!openProfileDropdown);
-                  }}
-                >
-                  {' '}
-                  {froshInitials}{' '}
-                </div>
               );
             }
           }
