@@ -116,6 +116,7 @@ const RetreatRegistration = () => {
           <p>
             {!user?.allergies || user?.allergies.length <= 0 ? 'None' : user?.allergies.join(', ')}
           </p>
+          {!user?.allergiesMore ? <p>{user?.allergiesMore}</p> : <></>}
         </div>
         <div className="display-field">
           <h3>Medical Info:</h3>{' '}
