@@ -132,19 +132,50 @@ export const ProfilePageRetreat = () => {
           <div
             style={{
               display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
+              flexDirection: 'column',
               flex: 1,
-              alignItems: 'center',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
             }}
           >
-            <div>
-              <h2>Want to participate in F!rosh Retreat?</h2>
-              <p>
-                There are only a limited number of tickets, so get yours before it&apos;s too late!{' '}
-              </p>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                flex: 1,
+                alignItems: 'center',
+                width: '100%',
+              }}
+            >
+              <div>
+                <h2>Want to participate in F!rosh Retreat?</h2>
+                <p>
+                  There are only a limited number of tickets, so get yours before it&apos;s too
+                  late!{' '}
+                </p>
+              </div>
+              <div className="desktop-only">
+                <Button
+                  label={'Learn More'}
+                  isSecondary
+                  style={{ margin: 0, marginLeft: '10px' }}
+                />
+              </div>
             </div>
-            <Button label={'Learn More'} isSecondary style={{ margin: 0, marginLeft: '10px' }} />
+            <div className="mobile-only" style={{ marginTop: '10px', width: '100%' }}>
+              <Button
+                label={'Learn More'}
+                isSecondary
+                style={{
+                  margin: '0px',
+                  marginLeft: '10px',
+                  display: 'flex',
+                  flex: '1 0 auto',
+                  justifyContent: 'center',
+                }}
+              />
+            </div>
           </div>
         )}
       </div>
