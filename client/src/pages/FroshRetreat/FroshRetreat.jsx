@@ -12,10 +12,18 @@ import { SnackbarContext } from '../../util/SnackbarProvider';
 import useAxios from '../../hooks/useAxios';
 
 export const FroshRetreat = () => {
+  const [remainingTickets, setRemainingTickets] = useState();
+  const { setSnackbar } = useContext(SnackbarContext);
+
+  useEffect(async () => {
+    setRemainingTickets(await getRemainingTickets(setSnackbar));
+  }, []);
+
   return (
     <div className="frosh-retreat-page">
       <Header text={'Retreat'} underlineDesktop={'260px'} underlineMobile={'185px'}>
         <div className="info-header">
+          <h1>Remaining Tickets: {remainingTickets}</h1>
           <p style={{ color: 'var(--white)' }}>
             Hello hello! Thank you so much for your interest in participating in the Frosh Retreat.
             The retreat is taking place on Saturday September 10th 2022 running overnight into
@@ -43,6 +51,18 @@ export const FroshRetreat = () => {
   );
 };
 
+export async function getRemainingTickets(setSnackbar) {
+  try {
+    const { axios } = useAxios();
+    const response = await axios.get('/payment/frosh-retreat-remaining-tickets');
+    console.log('TICKETS!');
+    console.log(response);
+    return response.data.count;
+  } catch (e) {
+    setSnackbar(e.toString(), true);
+  }
+}
+
 const RetreatRegistration = () => {
   const [viewedWaiver, setViewedWaiver] = useState(false);
   const [waiverValue, setWaiverValue] = useState();
@@ -55,6 +75,12 @@ const RetreatRegistration = () => {
   const { setSnackbar } = useContext(SnackbarContext);
   const { axios } = useAxios();
   const isRetreat = user?.isRetreat === true;
+
+  const [outOfTickets, setOutOfTickets] = useState(false);
+
+  useEffect(async () => {
+    setOutOfTickets((await getRemainingTickets(setSnackbar)) <= 0);
+  }, []);
 
   console.log(user);
   return (
@@ -110,6 +136,13 @@ const RetreatRegistration = () => {
             I have read and agree to the Frosh Retreat Waiver. By selecting &apos;Yes&apos; I
             understand the terms laid out by this agreement.
           </h3>
+          <h4>
+            <i>
+              Please bring a signed copy of the waiver to retreat. This can be a digital or physical
+              and must be signed by your parent/guardian if by September 10th, you are still under
+              18.
+            </i>
+          </h4>
           <div style={{ height: '10px' }} />
           <Button
             label="You can read the Frosh Retreat Waiver here"
@@ -125,6 +158,8 @@ const RetreatRegistration = () => {
               values={['Yes', 'No']}
               onSelected={(value) => {
                 setWaiverValue(value);
+                if (value === 'Yes')
+                  setSnackbar('Please bring a signed copy of the waiver to retreat!');
               }}
             />
           ) : (
@@ -133,6 +168,8 @@ const RetreatRegistration = () => {
         </div>
         {isRetreat ? (
           <h2>You have already payed for Frosh Retreat!</h2>
+        ) : outOfTickets ? (
+          <h2>Sorry there are no more tickets available!</h2>
         ) : viewedWaiver ? (
           <Button
             label={'Continue to Payment'}
