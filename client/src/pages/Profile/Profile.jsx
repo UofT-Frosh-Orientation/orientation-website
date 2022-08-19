@@ -394,7 +394,7 @@ const ProfilePageQRScanner = () => {
       <h2 className="profile-page-manual-entry-header">Manual Entry</h2>
       <div style={{ padding: '0px 10px', width: '100%' }}>
         <TextInput
-          placeholder={'Email'}
+          placeholder={'Search by Email'}
           onChange={(value) => {
             setSearchFor(value);
           }}

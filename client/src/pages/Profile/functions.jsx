@@ -255,11 +255,11 @@ export async function signInFrosh(email) {
   }
 }
 
-export async function searchForFrosh(nameOrEmail) {
+export async function searchForFrosh(email) {
   try {
     const response = await axios.get('/qr/search', {
       params: {
-        search: nameOrEmail,
+        search: email,
       },
     });
 
