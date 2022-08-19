@@ -252,6 +252,11 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
         label="FAQ Admin Panel"
       />
       <ProfilePageDashboardLink
+        link="/timeline-admin"
+        authScopes={['timeline:edit']}
+        label="Timeline Admin Panel"
+      />
+      <ProfilePageDashboardLink
         link="/frosh-info-table"
         anyRegisterScope={true}
         label="Frosh Info Table"
