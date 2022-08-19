@@ -257,6 +257,11 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
         label="FAQ Admin Panel"
       />
       <ProfilePageDashboardLink
+        link="/announcement-dashboard"
+        authScopes={['announcements:delete', 'announcements:create', 'announcements:edit']}
+        label="Announcements Admin Panel"
+      />
+      <ProfilePageDashboardLink
         link="/frosh-info-table"
         anyRegisterScope={true}
         label="Frosh Info Table"
@@ -519,6 +524,7 @@ const ProfilePageAnnouncements = () => {
   const { user } = useSelector(userSelector);
   const { announcements } = useSelector(announcementsSelector);
   const [announcementList, setAnnouncementList] = useState([]);
+  const { setSnackbar } = useContext(SnackbarContext);
 
   useEffect(() => {
     dispatch(getAnnouncements());
@@ -573,6 +579,8 @@ const ProfilePageAnnouncements = () => {
         }
       }),
     );
+
+    setSnackbar('Marked ' + task.name + ' as complete!');
   };
 
   return (
