@@ -41,6 +41,7 @@ import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
 import { froshGroups } from '../../util/frosh-groups';
+import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
 
 const PageProfile = () => {
   return <PageProfileFrosh />;
@@ -87,32 +88,60 @@ const PageProfileFrosh = () => {
 
 export const ProfilePageRetreat = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { user } = useSelector(userSelector);
   const isRegistered = useSelector(registeredSelector);
+  const isRetreat = user?.isRetreat === true;
+  const { setSnackbar } = useContext(SnackbarContext);
+
+  const [remainingTickets, setRemainingTickets] = useState();
+
+  useEffect(async () => {
+    setRemainingTickets(await getRemainingTickets(setSnackbar));
+  }, []);
 
   if (!isRegistered) {
+    return <></>;
+  }
+  if (remainingTickets <= 0 && !isRetreat) {
     return <></>;
   }
   return (
     <Link to={'/frosh-retreat'} className="no-link-style">
       <div className="retreat-profile-container">
         <img src={CampingIcon} alt="Camping" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            flex: 1,
-            alignItems: 'center',
-          }}
-        >
-          <div>
-            <h2>Want to participate in F!rosh Retreat?</h2>
+        {isRetreat ? (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              flex: 1,
+            }}
+          >
+            <h2>Thank you for purchasing a Frosh Retreat Ticket!</h2>
             <p>
-              There are only a limited number of tickets, so get yours before it&apos;s too late!{' '}
+              We will reach out with more information soon. Keep an eye on your email! Please bring
+              a signed copy of the waiver to retreat.
             </p>
           </div>
-          <Button label={'Learn More'} isSecondary style={{ margin: 0, marginLeft: '10px' }} />
-        </div>
+        ) : (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              flex: 1,
+              alignItems: 'center',
+            }}
+          >
+            <div>
+              <h2>Want to participate in F!rosh Retreat?</h2>
+              <p>
+                There are only a limited number of tickets, so get yours before it&apos;s too late!{' '}
+              </p>
+            </div>
+            <Button label={'Learn More'} isSecondary style={{ margin: 0, marginLeft: '10px' }} />
+          </div>
+        )}
       </div>
     </Link>
   );
@@ -179,6 +208,10 @@ export const ProfilePageScuntToken = () => {
 };
 
 const ProfilePageLeaderPermissionDashboardLinks = () => {
+  const { user } = useSelector(userSelector);
+
+  const leader = user?.userType === 'leadur';
+  const approved = user?.approved === true;
   return (
     <div className={'profile-leader-dashboard-links'}>
       <ProfilePageDashboardLink
@@ -186,13 +219,17 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
         authScopes={['accounts:delete', 'accounts:edit', 'accounts:read']}
         label="Leedur Account Scope Approval"
       />
-      <Link
-        to={'/permission-request'}
-        style={{ textDecoration: 'none' }}
-        className={'no-link-style'}
-      >
-        <Button label="Request Leedur Permissions" />
-      </Link>
+      {leader && approved ? (
+        <Link
+          to={'/permission-request'}
+          style={{ textDecoration: 'none' }}
+          className={'no-link-style'}
+        >
+          <Button label="Request Leedur Permissions" />
+        </Link>
+      ) : (
+        <></>
+      )}
       <ProfilePageDashboardLink
         link="/scunt-judge-form"
         authScopes={[
