@@ -147,7 +147,11 @@ export const pages = {
     },
     {
       label: 'frosh-retreat',
-      component: <FroshRetreat />,
+      component: (
+        <AuthorizedPage>
+          <FroshRetreat />
+        </AuthorizedPage>
+      ),
       path: '/frosh-retreat',
       includeFooter: true,
     },
