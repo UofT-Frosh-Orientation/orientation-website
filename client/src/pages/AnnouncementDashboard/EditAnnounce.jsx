@@ -21,14 +21,14 @@ const EditAnnounce = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [announcementList, setAnnouncementList] = useState([]);
 
-  const { announcements } = useSelector(announcementsSelector);
+  const { announcements, loading } = useSelector(announcementsSelector);
   const { setSnackbar } = useContext(SnackbarContext);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAnnouncements());
-  }, []);
+  }, [loading]);
 
   useEffect(() => {
     setAnnouncementList(
@@ -74,7 +74,10 @@ const EditAnnounce = () => {
             ) {
               return (
                 <tr className="all-accounts-row" key={announcement.id}>
-                  <td className="all-account-data-verified-container">
+                  <td
+                    className="all-account-data-verified-container"
+                    style={{ 'overflow-wrap': 'anywhere' }}
+                  >
                     <div>
                       {announcement.editMode ? (
                         <TextInput
@@ -88,7 +91,7 @@ const EditAnnounce = () => {
                       )}
                     </div>
                   </td>
-                  <td className="all-account-data">
+                  <td className="all-account-data" style={{ 'overflow-wrap': 'anywhere' }}>
                     {announcement.editMode ? (
                       <TextInput
                         onChange={(value) => {

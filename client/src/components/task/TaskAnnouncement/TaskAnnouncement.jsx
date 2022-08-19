@@ -55,7 +55,9 @@ const TaskAnnouncement = ({ tasks, onDone }) => {
                     </div>
                   </div>
                   {task.description ? (
-                    <div className="task-description">{task.description}</div>
+                    <div className="task-description" style={{ 'overflow-wrap': 'anywhere' }}>
+                      {task.description}
+                    </div>
                   ) : (
                     <></>
                   )}

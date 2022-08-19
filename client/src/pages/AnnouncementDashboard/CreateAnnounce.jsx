@@ -11,6 +11,7 @@ import { SnackbarContext } from '../../util/SnackbarProvider';
 
 const CreateAnnounce = () => {
   const [announcementData, setAnnouncementData] = useState({});
+  const [clear, setClear] = useState(false);
   const { setSnackbar } = useContext(SnackbarContext);
 
   const dispatch = useDispatch();
@@ -21,11 +22,12 @@ const CreateAnnounce = () => {
       <div className="full-width-input">
         <TextInput
           label="Announcement Name"
-          isRequiredInput
           placeholder={'Announcement #1'}
           onChange={(value) => {
             announcementData['name'] = value;
           }}
+          clearText={clear}
+          setClearText={setClear}
         />
       </div>
       <div className="full-width-input">
@@ -35,6 +37,8 @@ const CreateAnnounce = () => {
           onChange={(value) => {
             announcementData['description'] = value;
           }}
+          clearText={clear}
+          setClearText={setClear}
         />
       </div>
 
@@ -52,8 +56,13 @@ const CreateAnnounce = () => {
           label="Send Announcement"
           style={{ margin: 0 }}
           onClick={async () => {
-            dispatch(createAnnouncements({ setSnackbar, announcementData }));
-            dispatch(getAnnouncements());
+            if (announcementData['name']) {
+              dispatch(createAnnouncements({ setSnackbar, announcementData }));
+              dispatch(getAnnouncements());
+              setClear(true);
+            } else {
+              setSnackbar('Please provide a name.', true);
+            }
           }}
         />
       </div>
