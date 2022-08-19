@@ -394,7 +394,7 @@ const ProfilePageQRScanner = () => {
       <h2 className="profile-page-manual-entry-header">Manual Entry</h2>
       <div style={{ padding: '0px 10px', width: '100%' }}>
         <TextInput
-          placeholder={'Frosh Name / Email'}
+          placeholder={'Email'}
           onChange={(value) => {
             setSearchFor(value);
           }}
@@ -404,7 +404,7 @@ const ProfilePageQRScanner = () => {
         />
       </div>
       <div className="manual-sign-in-frosh-search-result-container">
-        {results.map((frosh, index) => {
+        {results.slice(0, 5).map((frosh, index) => {
           return (
             <ButtonOutlined
               onClick={() => {
