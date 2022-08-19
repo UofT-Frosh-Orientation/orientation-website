@@ -31,12 +31,11 @@ const AnnouncementServices = {
         if (err) {
           reject(err);
         } else {
-          const index = listOfCompleted.indexOf(id);
-
-          //if announcement is completed -> remove from completed
-          if (index != -1) {
-            listOfCompleted.splice(index, 1);
-          } else {
+          if (
+            listOfCompleted.every((value) => {
+              return value._id != announcement._id;
+            })
+          ) {
             listOfCompleted.push(announcement._id);
           }
 

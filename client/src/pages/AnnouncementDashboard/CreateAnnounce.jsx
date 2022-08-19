@@ -51,6 +51,7 @@ const CreateAnnounce = () => {
           label="Send Announcement"
           style={{ margin: 0 }}
           onClick={async () => {
+
             if (announcementData['name']) {
               dispatch(createAnnouncements({ setSnackbar, announcementData }));
               dispatch(getAnnouncements());
