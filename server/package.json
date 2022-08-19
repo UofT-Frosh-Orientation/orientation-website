@@ -7,7 +7,7 @@
     "format": "prettier --write \"**/*.+(js|json)\"",
     "lint": "eslint src",
     "test": "jest --runInBand",
-    "start:dev": "set NODE_ENV=development && nodemon src/server.js",
+    "start:dev": "set NODE_ENV=development && nodemon -L src/server.js",
     "start": "set NODE_ENV=production && node src/server.js"
   },
   "lint-staged": {
@@ -47,6 +47,7 @@
     "mongoose": "^6.3.3",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "react-full-screen": "^1.1.1",
     "stripe": "^9.9.0",
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.4.0"

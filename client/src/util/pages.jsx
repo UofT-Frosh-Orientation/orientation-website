@@ -23,6 +23,8 @@ import { PageScuntRules } from '../pages/ScuntRules/ScuntRules';
 import { PageAnnounceDash } from '../pages/AnnouncementDashboard/AnnounceDash';
 import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
 import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
+import { FroshRetreat } from '../pages/FroshRetreat/FroshRetreat';
+import { PagePaymentSuccess } from '../pages/PagePaymentSuccess/PagePaymentSuccess';
 
 export const pages = {
   404: {
@@ -121,6 +123,18 @@ export const pages = {
       path: '/registration-success',
     },
     {
+      label: 'Registration Success Retreat',
+      component: (
+        <PagePaymentSuccess
+          title={'Frosh Retreat'}
+          message={
+            'Thank you for choosing to participate in the Frosh retreat, we will be reaching out to you for next steps and further details!'
+          }
+        />
+      ),
+      path: '/registration-success-retreat',
+    },
+    {
       label: 'sign-up',
       component: <PageSignUp />,
       path: '/sign-up',
@@ -136,8 +150,23 @@ export const pages = {
     },
     {
       label: 'payment-error',
-      component: <PagePaymentError />,
+      component: <PagePaymentError link={'/registration'} />,
       path: '/payment-error',
+    },
+    {
+      label: 'payment-error-retreat',
+      component: <PagePaymentError link={'/frosh-retreat'} />,
+      path: '/payment-error-retreat',
+    },
+    {
+      label: 'frosh-retreat',
+      component: (
+        <AuthorizedPage>
+          <FroshRetreat />
+        </AuthorizedPage>
+      ),
+      path: '/frosh-retreat',
+      includeFooter: true,
     },
     {
       label: 'approve-accounts',

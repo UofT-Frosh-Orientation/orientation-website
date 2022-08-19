@@ -18,6 +18,10 @@
       text-align: center;
     }
   }
+  h2 {
+    color: var(--text-dynamic);
+  }
+
   .header {
     display: flex;
     margin: 20px 5%;
