@@ -524,6 +524,7 @@ const ProfilePageAnnouncements = () => {
   const { user } = useSelector(userSelector);
   const { announcements } = useSelector(announcementsSelector);
   const [announcementList, setAnnouncementList] = useState([]);
+  const { setSnackbar } = useContext(SnackbarContext);
 
   useEffect(() => {
     dispatch(getAnnouncements());
@@ -578,6 +579,8 @@ const ProfilePageAnnouncements = () => {
         }
       }),
     );
+
+    setSnackbar('Marked ' + task.name + ' as complete!');
   };
 
   return (

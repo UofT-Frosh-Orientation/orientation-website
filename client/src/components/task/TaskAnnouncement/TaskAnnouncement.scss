@@ -72,8 +72,8 @@
   border: 2px solid var(--red-error);
   transition: border 500ms, box-shadow 500ms;
   .task-img {
-    opacity: 0;
-    transform: scale(0.7);
+    opacity: 0.5;
+    transform: scale(0.9);
   }
 }
 
@@ -83,6 +83,10 @@
   cursor: pointer;
   border: 2px solid var(--light-purple);
   transition: border 500ms, box-shadow 500ms;
+  .task-img {
+    opacity: 0.5;
+    transform: scale(0.7);
+  }
 }
 
 .task-img {
