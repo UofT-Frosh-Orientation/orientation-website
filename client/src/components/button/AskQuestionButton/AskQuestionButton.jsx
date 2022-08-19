@@ -114,6 +114,12 @@ const FAQAskQuestion = () => {
 
 const AskQuestionButton = () => {
   const [showPopUp, setShowPopUp] = useState(false);
+  const { user } = useSelector(userSelector);
+
+  const leader = user?.userType === 'leadur';
+  if (leader) {
+    return <></>;
+  }
   return (
     <>
       <PopupModal

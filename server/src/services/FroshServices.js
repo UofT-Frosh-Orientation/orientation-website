@@ -55,6 +55,34 @@ const FroshServices = {
     return await frosh.save();
   },
 
+  async addRetreatPayment(user, paymentIntent) {
+    return new Promise((resolve, reject) => {
+      FroshModel.findByIdAndUpdate(
+        user.id,
+        {
+          $push: {
+            payments: [
+              {
+                item: 'Retreat Ticket',
+                paymentIntent,
+                amountDue: 9500,
+              },
+            ],
+          },
+        },
+        {},
+        (err, user) => {
+          if (err) {
+            reject(err);
+          } else if (!user) {
+            reject('INVALID_USER');
+          } else {
+            resolve(user);
+          }
+        },
+      );
+    });
+  },
   /**
    * Get a frosh by their id
    * @param id
@@ -108,31 +136,41 @@ const FroshServices = {
     });
   },
 
-  async getFilteredFroshInfo(projection) {
+  async getFilteredFroshInfo(query, projection) {
     return new Promise((resolve, reject) => {
-      FroshModel.find({}, { ...projection, isRegistered: 1 }, {}, (err, frosh) => {
-        if (err) {
-          reject(err);
-        } else if (!frosh) {
-          reject('INTERNAL_ERROR');
-        } else {
-          resolve(frosh);
-        }
-      });
+      FroshModel.find(
+        query,
+        { ...projection, isRegistered: 1 },
+        { strictQuery: false },
+        (err, frosh) => {
+          if (err) {
+            reject(err);
+          } else if (!frosh) {
+            reject('INTERNAL_ERROR');
+          } else {
+            resolve(frosh);
+          }
+        },
+      );
     });
   },
 
-  async getFilteredUserInfo(projection) {
+  async getFilteredUserInfo(query, projection) {
     return new Promise((resolve, reject) => {
-      UserModel.find({}, { ...projection, isRegistered: 1 }, {}, (err, frosh) => {
-        if (err) {
-          reject(err);
-        } else if (!frosh) {
-          reject('INTERNAL_ERROR');
-        } else {
-          resolve(frosh);
-        }
-      });
+      UserModel.find(
+        query,
+        { ...projection, isRegistered: 1 },
+        { strictQuery: false },
+        (err, frosh) => {
+          if (err) {
+            reject(err);
+          } else if (!frosh) {
+            reject('INTERNAL_ERROR');
+          } else {
+            resolve(frosh);
+          }
+        },
+      );
     });
   },
 };

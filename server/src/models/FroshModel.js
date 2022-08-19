@@ -25,6 +25,11 @@ const paymentSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  expired: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 
 const FroshSchema = new mongoose.Schema(
@@ -75,6 +80,10 @@ const FroshSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    phoneNumberAreaCode: {
+      type: String,
+      required: false,
+    },
     instagram: {
       type: String, //needs an @ symbol at the beginning
       required: false,
@@ -108,7 +117,7 @@ const FroshSchema = new mongoose.Schema(
       type: [String],
       required: false,
     },
-    allergiesOther: {
+    allergiesMore: {
       type: String,
       required: false,
     },
@@ -129,7 +138,7 @@ const FroshSchema = new mongoose.Schema(
       enum: ['Phone', 'Email', 'Other'], // other option
       required: false,
     },
-    accessibilityOther: {
+    accommodationOther: {
       type: String,
       required: false,
     },
@@ -190,6 +199,11 @@ const FroshSchema = new mongoose.Schema(
       type: Number,
       required: false,
       default: 0,
+    },
+    isRetreat: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   { discriminatorKey: 'userType' },
