@@ -135,7 +135,7 @@ export const ProfilePageRetreat = () => {
               flexDirection: 'column',
               flex: 1,
               justifyContent: 'space-between',
-              alignItems: 'center',
+              alignItems: 'flex-start',
             }}
           >
             <div
@@ -145,6 +145,7 @@ export const ProfilePageRetreat = () => {
                 justifyContent: 'space-between',
                 flex: 1,
                 alignItems: 'center',
+                width: '100%',
               }}
             >
               <div>
@@ -167,7 +168,7 @@ export const ProfilePageRetreat = () => {
                 label={'Learn More'}
                 isSecondary
                 style={{
-                  margin: 0,
+                  margin: '0px',
                   marginLeft: '10px',
                   display: 'flex',
                   flex: '1 0 auto',
