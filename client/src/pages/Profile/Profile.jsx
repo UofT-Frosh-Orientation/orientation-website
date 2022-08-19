@@ -1,12 +1,10 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   capitalizeFirstLetter,
   getDaysFroshSchedule,
   getFroshScheduleData,
   getQRCodeString,
-  getTasks,
-  onDoneTask,
   parseQRCode,
   qrKeys,
   searchForFrosh,
@@ -19,15 +17,13 @@ import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnn
 import { QRNormal } from 'react-qrbtf';
 import { ButtonBubble } from '../../components/button/ButtonBubble/ButtonBubble';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
-import SingleAccordionStories from '../../components/text/Accordion/SingleAccordion/SingleAccordion.stories';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
-import QrScanner from 'qr-scanner';
 import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import EditIcon from '../../assets/misc/pen-solid.svg';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { resources } from '../../util/resources';
 import { instagramAccounts } from '../../util/instagramAccounts';
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
@@ -35,7 +31,15 @@ import CampingIcon from '../../assets/misc/camping-tent.png';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
-
+import {
+  announcementsSelector,
+  completedAnnouncementsSelector,
+} from '../../state/announcements/announcementsSlice';
+import {
+  getAnnouncements,
+  completeAnnouncements,
+  getCompletedAnnouncements,
+} from '../../state/announcements/saga';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
@@ -51,6 +55,7 @@ const PageProfileFrosh = () => {
   const { user } = useSelector(userSelector);
   const leader = user?.userType === 'leadur';
   const qrCodeLeader = user?.authScopes?.approved.includes('signInFrosh:qr-code registration');
+
   return (
     <>
       <div className="navbar-space-top" />
@@ -510,18 +515,70 @@ const ProfilePageInstagrams = () => {
 };
 
 const ProfilePageAnnouncements = () => {
-  const [tasks, setTasks] = useState([]);
-  useEffect(async () => {
-    setTasks(await getTasks());
+  const dispatch = useDispatch();
+  const { user } = useSelector(userSelector);
+  const { announcements } = useSelector(announcementsSelector);
+  const [announcementList, setAnnouncementList] = useState([]);
+
+  useEffect(() => {
+    dispatch(getAnnouncements());
   }, []);
+
+  useEffect(() => {
+    let completedAnnouncements = [];
+    let orderedAnnouncements = [];
+
+    announcements.forEach((announcement) => {
+      if (
+        user.completedAnnouncements.every((value) => {
+          return value._id != announcement._id;
+        })
+      ) {
+        orderedAnnouncements.push({
+          id: announcement._id,
+          name: announcement.name,
+          dateCreated: announcement.dateCreated,
+          completed: false,
+          description: announcement.description,
+        });
+      } else {
+        completedAnnouncements.push({
+          id: announcement._id,
+          name: announcement.name,
+          dateCreated: announcement.dateCreated,
+          completed: true,
+          description: announcement.description,
+        });
+      }
+    });
+    orderedAnnouncements.push(...completedAnnouncements);
+    setAnnouncementList(orderedAnnouncements);
+  }, [announcements]);
+
+  const onDoneTask = (task) => {
+    dispatch(completeAnnouncements({ announcementData: { id: task.id } }));
+    let orderedAnnouncements = announcementList;
+
+    orderedAnnouncements.push(
+      orderedAnnouncements.splice(orderedAnnouncements.indexOf(task), 1)[0],
+    );
+
+    setAnnouncementList(
+      orderedAnnouncements.map((announcement) => {
+        if (announcement.id != task.id) {
+          return announcement;
+        } else {
+          announcement.completed = true;
+          return announcement;
+        }
+      }),
+    );
+  };
+
   return (
     <div className="profile-page-announcements">
       <h2 className="profile-page-section-header">Tasks and Announcements</h2>
-      {tasks == undefined || tasks.length <= 0 ? (
-        <h2 style={{ color: 'var(--black)' }}>There are no announcements yet!</h2>
-      ) : (
-        <TaskAnnouncement tasks={tasks} onDone={onDoneTask} />
-      )}
+      <TaskAnnouncement tasks={announcementList} onDone={onDoneTask} />
     </div>
   );
 };

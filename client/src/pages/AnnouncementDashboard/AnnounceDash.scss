@@ -1,0 +1,23 @@
+@import '../../scssStyles/mixins';
+
+.announcement-dashboard-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  padding: 10% 1%;
+
+  @include devices(mobile) {
+    padding: 10% 0;
+  }
+}
+
+.announcement-dashboard-tabs-container {
+  width: 90%;
+
+  @include devices(mobile) {
+    width: 100%;
+  }
+}
