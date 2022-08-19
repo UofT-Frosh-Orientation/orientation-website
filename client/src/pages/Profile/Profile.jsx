@@ -252,6 +252,11 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
         label="FAQ Admin Panel"
       />
       <ProfilePageDashboardLink
+        link="/announcement-dashboard"
+        authScopes={['announcements:delete', 'announcements:create', 'announcements:edit']}
+        label="Announcements Admin Panel"
+      />
+      <ProfilePageDashboardLink
         link="/frosh-info-table"
         anyRegisterScope={true}
         label="Frosh Info Table"
