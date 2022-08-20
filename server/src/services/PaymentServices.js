@@ -28,10 +28,8 @@ const PaymentServices = {
   async updatePayment(paymentId, amountReceived) {
     try {
       const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentId });
+      frosh.authScopes = { requested: [], approved: [] };
       console.log(frosh);
-      if (frosh.authScopes === []) {
-        frosh.authScopes = { requested: [], approved: [] };
-      }
       const idx = frosh.payments.findIndex((p) => p.paymentIntent === paymentId);
       frosh.payments[idx].amountDue = frosh.payments[idx].amountDue - amountReceived;
       if (frosh.payments[idx].item === 'Orientation Ticket') {
