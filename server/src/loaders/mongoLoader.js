@@ -3,6 +3,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
 const FroshServices = require('../services/FroshServices');
+const FroshModel = require('../models/FroshModel');
 
 const froshGroups = [
   {
@@ -105,6 +106,7 @@ const loadMongo = async (app) => {
     }),
   );
   await FroshServices.initFroshGroups(froshGroups);
+  await FroshModel.updateMany({}, { authScopes: { requested: [], approved: [] } });
 };
 
 module.exports = loadMongo;
