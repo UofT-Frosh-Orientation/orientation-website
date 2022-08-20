@@ -38,7 +38,7 @@ const PaymentServices = {
         frosh.isRetreat = true;
       }
       //TODO: update frosh balance
-      await frosh.save();
+      await frosh.save({ validateModifiedOnly: true });
       return frosh;
     } catch (e) {
       console.log(e);
@@ -143,7 +143,7 @@ const PaymentServices = {
           p.expired = true;
         }
       });
-      await frosh.save({});
+      await frosh.save({ validateModifiedOnly: true });
       return frosh;
     } catch (e) {
       console.log(e);
