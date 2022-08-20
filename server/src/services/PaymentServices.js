@@ -137,12 +137,13 @@ const PaymentServices = {
   async expirePayment(paymentIntent) {
     try {
       const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentIntent });
+      frosh.authScopes = { requested: [], approved: [] };
       frosh.payments.forEach((p) => {
         if (p.paymentIntent === paymentIntent) {
           p.expired = true;
         }
       });
-      await frosh.save();
+      await frosh.save({});
       return frosh;
     } catch (e) {
       console.log(e);
