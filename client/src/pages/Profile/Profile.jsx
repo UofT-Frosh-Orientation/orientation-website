@@ -168,7 +168,7 @@ export const ProfilePageRetreat = () => {
                 label={'Learn More'}
                 isSecondary
                 style={{
-                  margin: '0px',
+                  margin: '-1px',
                   marginLeft: '10px',
                   display: 'flex',
                   flex: '1 0 auto',
