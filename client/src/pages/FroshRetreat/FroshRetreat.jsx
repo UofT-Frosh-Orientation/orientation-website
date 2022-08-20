@@ -31,12 +31,6 @@ export const FroshRetreat = () => {
     <div className="frosh-retreat-page">
       <Header text={'Retreat'} underlineDesktop={'260px'} underlineMobile={'185px'}>
         <div className="info-header">
-          <h1>Remaining Tickets: {remainingTickets}</h1>
-          <h1>
-            There is an error with Retreat Payments. Please wait while Tech Team fixes the issue.
-            Sorry for the inconvencience. Please check back at a later time.
-          </h1>
-
           <p style={{ color: 'var(--white)' }}>
             Hello hello! Thank you so much for your interest in participating in the Frosh Retreat.
             The retreat is taking place on Saturday September 10th 2022 running overnight into
