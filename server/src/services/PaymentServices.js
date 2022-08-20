@@ -28,18 +28,21 @@ const PaymentServices = {
   async updatePayment(paymentId, amountReceived) {
     try {
       const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentId });
-      frosh.authScopes = { requested: [], approved: [] };
-      console.log(frosh);
-      const idx = frosh.payments.findIndex((p) => p.paymentIntent === paymentId);
-      frosh.payments[idx].amountDue = frosh.payments[idx].amountDue - amountReceived;
-      if (frosh.payments[idx].item === 'Orientation Ticket') {
-        frosh.isRegistered = true;
-      } else if (frosh.payments[idx].item === 'Retreat Ticket') {
-        frosh.isRetreat = true;
+      if (frosh) {
+        frosh.authScopes = { requested: [], approved: [] };
+        console.log(frosh);
+        const idx = frosh.payments.findIndex((p) => p.paymentIntent === paymentId);
+        frosh.payments[idx].amountDue = frosh.payments[idx].amountDue - amountReceived;
+        if (frosh.payments[idx].item === 'Orientation Ticket') {
+          frosh.isRegistered = true;
+        } else if (frosh.payments[idx].item === 'Retreat Ticket') {
+          frosh.isRetreat = true;
+        }
+        //TODO: update frosh balance
+        await frosh.save({ validateModifiedOnly: true });
+        return frosh;
       }
-      //TODO: update frosh balance
-      await frosh.save({ validateModifiedOnly: true });
-      return frosh;
+      return null;
     } catch (e) {
       console.log(e);
     }
