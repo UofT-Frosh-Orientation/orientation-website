@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import './FroshRetreat.scss';
 import { Header } from '../../components/text/Header/Header';
 import { Button } from '../../components/button/Button/Button';
-import { Link } from 'react-router-dom';
-import { userSelector } from '../../state/user/userSlice';
+import { Link, useNavigate } from 'react-router-dom';
+import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useSelector } from 'react-redux';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
@@ -14,10 +14,18 @@ import useAxios from '../../hooks/useAxios';
 export const FroshRetreat = () => {
   const [remainingTickets, setRemainingTickets] = useState();
   const { setSnackbar } = useContext(SnackbarContext);
+  const navigate = useNavigate();
+  const isRegistered = useSelector(registeredSelector);
 
   useEffect(async () => {
     setRemainingTickets(await getRemainingTickets(setSnackbar));
   }, []);
+
+  useEffect(() => {
+    if (!isRegistered) {
+      navigate('/profile');
+    }
+  }, [isRegistered]);
 
   return (
     <div className="frosh-retreat-page">
