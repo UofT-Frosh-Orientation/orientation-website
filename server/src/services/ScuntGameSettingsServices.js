@@ -32,22 +32,24 @@ const ScuntGameSettingsServices = {
   ) {
     return new Promise((resolve, reject) => {
       console.log('set scunt game settings');
-      ScuntGameSettingModel.create(
+      console.log(minAmountPointsPercent); // printing undef...???
+      ScuntGameSettingModel.updateMany(
+        {},
         {
-          // create a new model with all parameters from schema
-          name,
-          amountOfTeams,
-          amountOfStarterBribePoints,
-          maxAmountPointsPercent,
-          minAmountPointsPercent,
-          revealTeams,
-          discordLink,
-          revealLeaderboard,
-          revealMissions,
-          allowJudging,
+          $set: {
+            name,
+            amountOfTeams,
+            amountOfStarterBribePoints,
+            maxAmountPointsPercent,
+            minAmountPointsPercent,
+            revealTeams,
+            discordLink,
+            revealLeaderboard,
+            revealMissions,
+            allowJudging,
+          },
         },
-        (err, settings) => {
-          // use callback func, to catch errors, else return settings
+        function (err, settings) {
           if (err) {
             reject(err);
           } else if (!settings || settings === []) {
@@ -57,6 +59,31 @@ const ScuntGameSettingsServices = {
           }
         },
       );
+      // ScuntGameSettingModel.create(
+      //   {
+      //     // create a new model with all parameters from schema
+      //     name,
+      //     amountOfTeams,
+      //     amountOfStarterBribePoints,
+      //     maxAmountPointsPercent,
+      //     minAmountPointsPercent,
+      //     revealTeams,
+      //     discordLink,
+      //     revealLeaderboard,
+      //     revealMissions,
+      //     allowJudging,
+      //   },
+      //   (err, settings) => {
+      //     // use callback func, to catch errors, else return settings
+      //     if (err) {
+      //       reject(err);
+      //     } else if (!settings || settings === []) {
+      //       reject('ERROR');
+      //     } else {
+      //       resolve(settings);
+      //     }
+      //   },
+      // );
     });
   },
 };
