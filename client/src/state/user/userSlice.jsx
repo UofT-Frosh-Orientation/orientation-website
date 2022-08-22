@@ -95,7 +95,7 @@ const userSlice = createSlice({
       state.error = false;
     },
     unsubscribeUserSuccess: (state) => {
-      state.loading = true;
+      state.loading = false;
       state.error = false;
     },
     unsubscribeUserFailure: (state, { payload: error }) => {
