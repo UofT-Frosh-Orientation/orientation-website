@@ -13,25 +13,6 @@ import { SnackbarContext } from '../../util/SnackbarProvider';
 import { PopupModal } from '../../components/popup/PopupModal';
 import { getUneditableFields, downloadDataAsXML, deleteUser } from './functions';
 
-// function getUneditableFields() {
-//   let noEditFields = [];
-//   for (let key1 of Object.keys(fields)) {
-//     for (let key2 of Object.keys(fields[key1])) {
-//       if (fields[key1][key2].noEdit) {
-//         noEditFields.push(key2);
-//       }
-//     }
-//   }
-//   return noEditFields;
-// }
-
-// function downloadDataAsXML(data) {
-//   const fileName = 'froshData';
-//   let fields = [];
-//   const exportType = 'xml';
-//   exportFromJSON({ data, fileName, fields, exportType });
-// }
-
 const PageFroshInfoTable = () => {
   const noEditFields = getUneditableFields();
   const { frosh } = useSelector(froshSelector);
@@ -44,14 +25,17 @@ const PageFroshInfoTable = () => {
   const [searchedFrosh, setSearchedFrosh] = useState([]);
   const [showPopUp, setShowPopUp] = useState(false);
   const [selectedUserID, setSelectedUserID] = useState();
+  const [editMade, setEditMade] = useState(false);
+
   const { setSnackbar } = useContext(SnackbarContext);
+
   const { user } = useSelector(userSelector);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getFrosh({ showAllUsers }));
-  }, [showAllUsers]);
+  }, [showAllUsers, editMade]);
 
   useEffect(() => {
     if (frosh?.length > 0) {
@@ -261,9 +245,11 @@ const PageFroshInfoTable = () => {
                 const result = await deleteUser(selectedUserID);
                 if (result !== true) {
                   setSnackbar('Error deleting user', true);
+                  setShowPopUp(false);
                 } else {
-                  // setEditMade(!editMade);
+                  setEditMade(!editMade);
                   setSnackbar('User Successfully Deleted', false);
+                  setShowPopUp(false);
                 }
               }}
             />
