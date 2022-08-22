@@ -143,7 +143,7 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
           <TextInput
             onChange={(text) => handleEditDescription(text)}
             inputType={'textArea'}
-            placeholder={'Description'}
+            placeholder={'This event is fun!'}
             initialValue={''}
             style={{ height: '150px', resize: 'vertical' }}
             clearText={clearText}
@@ -157,7 +157,7 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
           <TextInput
             onChange={(text) => handleEditLink(text)}
             inputType={'text'}
-            placeholder={'Link'}
+            placeholder={'https://www.google.ca'}
             initialValue={''}
             style={{ height: '45px' }}
             clearText={clearText}
@@ -171,7 +171,7 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
           <TextInput
             onChange={(text) => handleEditLinkLabel(text)}
             inputType={'text'}
-            placeholder={'Label for the link'}
+            placeholder={'Google'}
             initialValue={''}
             style={{ height: '45px' }}
             clearText={clearText}
@@ -375,7 +375,7 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
               <TextInput
                 onChange={(text) => handleEditDescription(text)}
                 inputType={'textArea'}
-                placeholder={'Description'}
+                placeholder={'This event is fun!'}
                 initialValue={oldDescriptionText}
                 style={{ height: '150px', resize: 'vertical' }}
                 cancelEdit={cancelEdit}
@@ -389,7 +389,7 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
               <TextInput
                 onChange={(text) => handleEditLink(text)}
                 inputType={'text'}
-                placeholder={'Link'}
+                placeholder={'https://www.google.ca'}
                 initialValue={oldLinkText}
                 style={{ height: '45px' }}
                 cancelEdit={cancelEdit}
@@ -403,7 +403,7 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
               <TextInput
                 onChange={(text) => handleEditLinkLabel(text)}
                 inputType={'text'}
-                placeholder={'Link Label'}
+                placeholder={'Google'}
                 initialValue={oldLinkLabelText}
                 style={{ height: '45px' }}
                 cancelEdit={cancelEdit}

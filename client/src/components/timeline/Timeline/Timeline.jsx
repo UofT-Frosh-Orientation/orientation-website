@@ -31,7 +31,7 @@ const Timeline = ({ dates, onClick }) => {
               }}
             >
               <h1 className="timeline-date-container-date">{formattedDate}</h1>
-              <div className="timeline-date-container-name">{date.name}</div>
+              <div className="timeline-date-container-name">{date.eventName}</div>
               {date.description ? <div className="timeline-read-more">Read more</div> : <></>}
             </div>
           );
