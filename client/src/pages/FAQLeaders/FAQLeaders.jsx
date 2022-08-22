@@ -27,7 +27,7 @@ const PageFAQLeaders = () => {
   }, [activeIndex]);
   //  const [toggleText, setToggleText] = useState('Unanswered');
   return (
-    <div className={'faq-leaders-page'}>
+    <div>
       <PopupModal
         trigger={showPopUp}
         setTrigger={setShowPopUp}
@@ -40,42 +40,44 @@ const PageFAQLeaders = () => {
           <Button label={'Delete'} onClick={() => setTriggerDelete(!triggerDelete)} />
         </span>
       </PopupModal>
-      <div className={'faq-leaders-create-question-container'}>
-        <h1 className={'faq-leaders-titles'}>Create a new question!</h1>
-        <FAQLeadersNewPost editMade={editMade} setEditMade={setEditMade} />
-      </div>
-      <div className={'faq-leaders-edit-question-container'}>
-        <h1 className={'faq-leaders-titles'}>Existing questions</h1>
-        <div className={'faq-leaders-mobile'}>
-          <ButtonSelector
-            buttonList={buttonList}
-            activeIndex={activeIndex}
-            setActiveIndex={setActiveIndex}
-            maxWidthButton={200}
-          />
+      <div className={'faq-leaders-page'}>
+        <div className={'faq-leaders-create-question-container'}>
+          <h1 className={'faq-leaders-titles'}>Create a new question!</h1>
+          <FAQLeadersNewPost editMade={editMade} setEditMade={setEditMade} />
         </div>
-        <span className={`${!isAnswered ? 'faq-leaders-mobile-hide' : ''}`}>
-          <div className={'faq-leaders-answered-questions'}>
-            <h1 className={'faq-leaders-subtitles'}>Answered</h1>
-            <FAQLeadersAnsweredQuestions
-              editMade={editMade}
-              setEditMade={setEditMade}
-              setShowPopUp={setShowPopUp}
-              triggerDelete={triggerDelete}
+        <div className={'faq-leaders-edit-question-container'}>
+          <h1 className={'faq-leaders-titles'}>Existing questions</h1>
+          <div className={'faq-leaders-mobile'}>
+            <ButtonSelector
+              buttonList={buttonList}
+              activeIndex={activeIndex}
+              setActiveIndex={setActiveIndex}
+              maxWidthButton={200}
             />
           </div>
-        </span>
-        <span className={`${isAnswered ? 'faq-leaders-mobile-hide' : ''}`}>
-          <div className={'faq-leaders-unanswered-questions'}>
-            <h1 className={'faq-leaders-subtitles'}>Unanswered</h1>
-            <FAQLeadersUnansweredQuestions
-              editMade={editMade}
-              setEditMade={setEditMade}
-              setShowPopUp={setShowPopUp}
-              triggerDelete={triggerDelete}
-            />
-          </div>
-        </span>
+          <span className={`${!isAnswered ? 'faq-leaders-mobile-hide' : ''}`}>
+            <div className={'faq-leaders-answered-questions'}>
+              <h1 className={'faq-leaders-subtitles'}>Answered</h1>
+              <FAQLeadersAnsweredQuestions
+                editMade={editMade}
+                setEditMade={setEditMade}
+                setShowPopUp={setShowPopUp}
+                triggerDelete={triggerDelete}
+              />
+            </div>
+          </span>
+          <span className={`${isAnswered ? 'faq-leaders-mobile-hide' : ''}`}>
+            <div className={'faq-leaders-unanswered-questions'}>
+              <h1 className={'faq-leaders-subtitles'}>Unanswered</h1>
+              <FAQLeadersUnansweredQuestions
+                editMade={editMade}
+                setEditMade={setEditMade}
+                setShowPopUp={setShowPopUp}
+                triggerDelete={triggerDelete}
+              />
+            </div>
+          </span>
+        </div>
       </div>
     </div>
   );
