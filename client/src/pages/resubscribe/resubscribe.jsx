@@ -2,24 +2,24 @@ import { React, useState, useContext } from 'react';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
 import { SnackbarContext } from '../../util/SnackbarProvider';
-import './unsubscribe.scss';
+import './resubscribe.scss';
 import EmailValidator from 'email-validator';
 import { useDispatch } from 'react-redux';
-import { unsubscribeUser } from '../../state/user/saga';
+import { resubscribeUser } from '../../state/user/saga';
 
-const PageUnsubscribe = () => {
+const PageResubscribe = () => {
   const [email, setEmail] = useState('');
   const { setSnackbar } = useContext(SnackbarContext);
 
   const dispatch = useDispatch();
 
   return (
-    <div className="unsubscribe-page">
-      <div className="unsubscribe-container">
+    <div className="resubscribe-page">
+      <div className="resubscribe-container">
         <h1 style={{ color: 'var(--black)' }}>Hello There!</h1>
 
         <p style={{ color: 'var(--black)' }}>
-          If you wish to unsubscribe from all future announcement emails please input the email
+          If you wish to resubscribe to all future announcement emails please input the email
           associated with your account here.
         </p>
 
@@ -35,16 +35,16 @@ const PageUnsubscribe = () => {
           />
         </div>
 
-        <div className="unsubscribe-button">
+        <div className="resubscribe-button">
           <Button
-            label="Unsubscribe"
+            label="Resubscribe"
             style={{ margin: 0 }}
             isDisabled={email === ''}
             onClick={async () => {
               if (!EmailValidator.validate(email)) {
                 setSnackbar('Please submit a valid email.', true);
               } else {
-                dispatch(unsubscribeUser({ email, setSnackbar }));
+                dispatch(resubscribeUser({ email, setSnackbar }));
               }
             }}
           />
@@ -54,4 +54,4 @@ const PageUnsubscribe = () => {
   );
 };
 
-export { PageUnsubscribe };
+export { PageResubscribe };

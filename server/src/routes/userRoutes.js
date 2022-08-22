@@ -136,6 +136,8 @@ router.get(
 
 router.put('/unsubscribe', UserController.unsubscribeUser);
 
+router.put('/resubscribe', UserController.resubscribeUser);
+
 router.put(
   '/account-statuses',
   checkLoggedIn,

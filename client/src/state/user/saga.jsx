@@ -21,6 +21,9 @@ import {
   unsubscribeUserStart,
   unsubscribeUserSuccess,
   unsubscribeUserFailure,
+  resubscribeUserStart,
+  resubscribeUserSuccess,
+  resubscribeUserFailure,
 } from './userSlice';
 import useAxios from '../../hooks/useAxios';
 
@@ -189,6 +192,28 @@ export function* unsubscribeUserSaga({ payload: { email, setSnackbar } }) {
   }
 }
 
+export const resubscribeUser = createAction('resubscribeUserSaga');
+
+export function* resubscribeUserSaga({ payload: { email, setSnackbar } }) {
+  const { axios } = useAxios();
+  try {
+    yield put(resubscribeUserStart());
+    const result = yield call(axios.put, '/user/resubscribe', {
+      email,
+    });
+    yield put(resubscribeUserSuccess());
+    setSnackbar('You have been successfuly resubscribed!', false);
+  } catch (error) {
+    yield put(resubscribeUserFailure(error));
+    setSnackbar(
+      error.response.data.message
+        ? error.response.data.message.toString()
+        : 'Uh oh, looks like something went wrong on our end! Please try again later',
+      true,
+    );
+  }
+}
+
 export default function* userSaga() {
   yield takeLeading(login.type, loginSaga);
   yield takeLeading(getUserInfo.type, getUserInfoSaga);
@@ -199,4 +224,5 @@ export default function* userSaga() {
   yield takeLeading(logout.type, logoutSaga);
   yield takeLeading(requestAuthScopes.type, requestAuthScopesSaga);
   yield takeLeading(unsubscribeUser.type, unsubscribeUserSaga);
+  yield takeLeading(resubscribeUser.type, resubscribeUserSaga);
 }

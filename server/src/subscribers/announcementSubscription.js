@@ -9,46 +9,63 @@ const announcementSubscription = new Queue('newFrosh', {
 announcementSubscription.process((job, done) => {
   console.log('Announcement Created!');
   console.log(job.data);
-  try {
-    const bulkEmailEntries = [];
 
-    UserServices.getAllUsers().then((users) => {
-      let count = 0;
-      let entries = [];
-      users.forEach((user) => {
-        if (user.canEmail === true) {
-          count++;
-          entries.push(user.email);
-          console.log(entries);
-
-          if (count === 20) {
-            bulkEmailEntries.push(entries);
-            count = 0;
-            entries = [];
-          }
-        }
-      });
-      if (entries.length > 0) {
-        bulkEmailEntries.push(entries);
-      }
-      console.log(bulkEmailEntries);
-
-      const result = EmailServices.sendBulkTemplateEmail(
-        bulkEmailEntries,
-        'announcement',
-        { name: job.name, description: job.description },
+  if (job.data.unsubed === true) {
+    try {
+      const result = EmailServices.sendTemplateEmail(
+        {},
+        'unsubscribed',
+        [job.data.email],
         'tech@orientation.skule.ca',
       );
 
       result.then((response) => {
-        console.log('response:');
         console.log(response);
       });
 
       done();
-    });
-  } catch (error) {
-    done(error);
+    } catch (error) {
+      done(error);
+    }
+  } else {
+    try {
+      const bulkEmailEntries = [];
+
+      UserServices.getAllUsers().then((users) => {
+        let count = 0;
+        let entries = [];
+        users.forEach((user) => {
+          if (user.canEmail === true) {
+            count++;
+            entries.push(user.email);
+
+            if (count === 20) {
+              bulkEmailEntries.push(entries);
+              count = 0;
+              entries = [];
+            }
+          }
+        });
+        if (entries.length > 0) {
+          bulkEmailEntries.push(entries);
+        }
+        const result = EmailServices.sendBulkTemplateEmail(
+          bulkEmailEntries,
+          'announcement',
+          { name: job.data.name, description: job.data.description },
+          'tech@orientation.skule.ca',
+        );
+
+        result.then((response) => {
+          console.log('response:');
+          console.log(response);
+        });
+
+        done();
+      });
+    } catch (error) {
+      done(error);
+    }
   }
 });
 

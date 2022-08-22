@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const UserModel = require('../models/UserModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
+const announcementSubscription = require('../subscribers/announcementSubscription');
 
 const UserServices = {
   /**
@@ -170,11 +171,33 @@ const UserServices = {
       );
     });
   },
+
   async unsubscribeUser(email) {
     return new Promise((resolve, reject) => {
       UserModel.findOneAndUpdate(
         { email },
         { canEmail: false },
+        { returnDocument: 'after' },
+        (err, updatedUser) => {
+          if (err) {
+            reject(err);
+          } else if (!updatedUser) {
+            reject('INVALID_EMAIL');
+          } else {
+            announcementSubscription.add({ unsubed: true, email: updatedUser.email });
+
+            resolve(updatedUser);
+          }
+        },
+      );
+    });
+  },
+
+  async resubscribeUser(email) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOneAndUpdate(
+        { email },
+        { canEmail: true },
         { returnDocument: 'after' },
         (err, updatedUser) => {
           if (err) {
