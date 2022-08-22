@@ -25,7 +25,7 @@ const PopupModal = ({
   }
 
   return (
-    <div className="popup-modal">
+    <div className="popup-modal" style={{ width: '100vw' }}>
       <div
         className={` popup-modal-background ${
           blurBackground ? 'popup-modal-background-color' : 'popup-modal-background-blur'
