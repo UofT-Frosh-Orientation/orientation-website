@@ -4,7 +4,7 @@ const ScuntGameSettingModel = require('../models/ScuntGameSettingsModel');
 
 const ScuntGameSettingsServices = {
   async getGameSettings() {
-    console.log('get scunt game settings');
+    //console.log('get scunt game settings');
     return new Promise((resolve, reject) => {
       ScuntGameSettingModel.find({}, (err, settings) => {
         if (err) {
@@ -31,8 +31,7 @@ const ScuntGameSettingsServices = {
     allowJudging,
   ) {
     return new Promise((resolve, reject) => {
-      console.log('set scunt game settings');
-      console.log(minAmountPointsPercent); // printing undef...???
+      //console.log('set scunt game settings');
       ScuntGameSettingModel.updateMany(
         {},
         {

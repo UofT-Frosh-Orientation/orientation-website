@@ -14,14 +14,14 @@ export const getScuntSettings = createAction('getScuntSettingsSaga');
 
 export function* getScuntSettingsSaga() {
   const { axios } = useAxios();
-  yield call(console.log, 'saga get scunt game settings');
+  //yield call(console.log, 'saga get scunt game settings');
   try {
     yield put(getScuntSettingsStart());
     const result = yield call(axios.get, '/scunt-game-controls');
     //console.log('saga result', result);
     yield put(getScuntSettingsSuccess(result.data.settings));
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     yield put(getScuntSettingsFailure(error.response.data));
   }
 }
@@ -45,7 +45,7 @@ export function* setGameSettingsSaga({
 }) {
   const { axios } = useAxios();
   try {
-    console.log('saga set scunt game settings');
+    //console.log('saga set scunt game settings');
     yield put(setScuntSettingsStart());
     const result = yield call(axios.post, '/scunt-game-controls', {
       name,

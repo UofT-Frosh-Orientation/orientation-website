@@ -6,20 +6,14 @@ import './ScuntGameSettings.scss';
 
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
+import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getScuntSettings, setScuntSettings } from '../../state/scuntSettings/saga';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
-
-// import { getGameSettings, setGameSettings } from './functions';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 
-import useAxios from '../../hooks/useAxios';
-import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
-
 import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
-
-const { axios } = useAxios();
 
 const scuntsettings = [
   {
@@ -92,90 +86,11 @@ const ScuntGameSettings = () => {
   const [newSettings, setNewSettings] = useState(initialSettings);
   const { setSnackbar } = useContext(SnackbarContext);
 
-  const { scuntSettings } = useSelector(scuntSettingsSelector);
-
-  // const handleCheckbox = (objKey) => {
-  //   let newCheckbox = !(newSettings[objKey]);
-  //   newSettings[objKey] = newCheckbox;
-  //   setNewSettings(newSettings);
-
-  //   console.log(newSettings);
-  // }
-
-  // const startScuntButton = async () => {
-  //   console.log(newSettings);
-  //   const result = await setGameSettings(newSettings);
-  //   if (result !== true) {
-  //     setSnackbar('Error', true);
-  //   } else {
-  //     setSnackbar('Starting Scunt!', false);
-  //   }
-  // };
-
-  // const getGameSettings = async () => {
-  //   try {
-  //     // getting stuff from backend
-  //     const response = await axios.get('/scunt-game-controls');
-  //     setSnackbar('Starting Scunt!', false);
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log(error);
-  //     setSnackbar('Error', true);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   dispatch(getScuntSettings());
-  //   //console.log(scuntSettings); // this console.log gets Initial value from saga.jsx
-  //   //console.log(newSettings);
-  // }, []);
-
-  // useEffect(() => {
-  //   // update game settings in the component
-  //   setNewSettings(
-  //     {
-  //       ...newSettings,
-  //       amountOfTeams: scuntSettings.amountOfTeams,
-  //       amountOfStarterBribePoints: scuntSettings.amountOfStarterBribePoints,
-  //       maxAmountPointsPercent: scuntSettings.maxAmountPointsPercent,
-  //       minAmountPointsPercent: scuntSettings.minAmountPointsPercent,
-  //       revealTeams: scuntSettings.revealTeams,
-  //       discordLink: scuntSettings.discordLink,
-  //       revealLeaderboard: scuntSettings.revealLeaderboard,
-  //       revealMissions: scuntSettings.revealMissions,
-  //       allowJudging: scuntSettings.allowJudging,
-  //     }
-  //   )
-  // }, [scuntSettings])
-
-  // useEffect(() => {
-  //   dispatch(setScuntSettings(setSnackbar, amountOfTeams=newSettings.amountOfTeams,
-  //     amountOfStarterBribePoints=newSettings.amountOfStarterBribePoints,
-  //     maxAmountPointsPercent=newSettings.maxAmountPointsPercent,
-  //     minAmountPointsPercent=newSettings.minAmountPointsPercent,
-  //     revealTeams=newSettings.revealTeams,
-  //     discordLink=newSettings.discordLink,
-  //     revealLeaderboard=newSettings.revealLeaderboard,
-  //     revealMissions=newSettings.revealMissions,
-  //     allowJudging=newSettings.allowJudging, ))
-  // }, [newSettings])
-
   return (
     <div className="scunt-game-settings-page">
-      {/* <Button
-        label="Back to Profile"
-        onClick={() => {
-          navigate('/profile');
-        }}
-        style={{ marginBottom: '25px' }}
-      /> */}
-
       <CurrentScuntGameSettings />
 
       <div className="scunt-game-settings-container">
-        {/* <p style={{ color: 'var(--text-dynamic)', textAlign: 'center' }}>
-          Note: placeholder are the default values!
-        </p> */}
         <div style={{ marginBottom: '30px' }}>
           {scuntsettings.map((i) => {
             return (
@@ -194,33 +109,14 @@ const ScuntGameSettings = () => {
         </div>
 
         <div style={{ marginBottom: '30px' }}>
-          {/* <Checkboxes values={scuntsettingbool} initialSelectedIndices={[]} 
-        onSelected={(label, index, value) => {
-          newSettings[label] = value;
-          }} /> */}
-
-          {/* <Checkboxes values={scuntsettingbool} /> */}
           {scuntsettingbool.map((i) => {
             return (
               <div key={i.parameter}>
                 <Checkboxes
                   values={[i.parameter]}
                   initialSelectedIndices={[]}
-                  // onSelected={() => {
-
-                  //   let newCheckbox = !(newSettings[i.key]);
-                  //   console.log(newCheckbox);
-                  //   newSettings[i.key] = newCheckbox;
-                  //   setNewSettings(newSettings);
-
-                  //   console.log(newSettings);
-                  //   console.log(i.key);
-                  // }
-                  // }
-
                   onSelected={(value, index, state, selectedIndices) => {
                     newSettings[i.key] = state;
-                    //console.log(newSettings);
                   }}
                 />
               </div>
@@ -233,8 +129,6 @@ const ScuntGameSettings = () => {
           isSecondary={true}
           style={{ width: '50%', justifySelf: 'center', margin: '0 auto' }}
           onClick={async () => {
-            //dispatch or something here...!
-            console.log('calling dispatch...');
             let name = 'Scunt 2T2 Settings';
             let amountOfTeams = newSettings.amountOfTeams;
             let amountOfStarterBribePoints = newSettings.amountOfStarterBribePoints;
@@ -261,8 +155,6 @@ const ScuntGameSettings = () => {
                 allowJudging,
               }),
             );
-
-            dispatch(getScuntSettings());
           }}
         ></Button>
       </div>
@@ -271,39 +163,15 @@ const ScuntGameSettings = () => {
 };
 
 const CurrentScuntGameSettings = () => {
-  const dispatch = useDispatch();
-
-  //const [keys, setKeys] = useState(Object.keys(scuntSettings[0]));
-
-  //const [settings, setSettings] = useState();
-
-  //retrieving information from the store
   const { scuntSettings } = useSelector(scuntSettingsSelector); // returns an array of scunt settings
-  console.log('store1', scuntSettings);
   const [keys, setKeys] = useState([]);
 
-  // let keys;
-
-  //setKeys(Object.keys(scuntSettings));
-  //const [keys, setKeys] = useState(Object.keys(scuntSettings[0]));
-  //let scuntSettingsObj = scuntSettings[0]; // we only need one scunt setting object
-  //let keys = Object.keys(scuntSettings[0]);
-
   useEffect(() => {
-    //dispatch(getScuntSettings());
-    //console.log('store2', scuntSettings);
-    //console.log('hihii', Object.keys(scuntSettings));
-    //setKeys(Object.keys(scuntSettings[0])); // we only need one object in the array
-    //setKeys(Object.keys(scuntSettings[0]));
-    //console.log('scuntsettings keys', keys);
-    //let keys = Object.keys(scuntSettings);
-
+    // this is to catch the initially undefined settings
     if (scuntSettings !== undefined) {
       setKeys(Object.keys(scuntSettings[0]));
-    } else {
-      setKeys([]);
     }
-  }, [scuntsettings]);
+  }, [scuntSettings]);
 
   return (
     <div className="current-scunt-game-settings-container">
@@ -311,25 +179,18 @@ const CurrentScuntGameSettings = () => {
         Current Scunt Settings
       </h3>
 
-      {keys !== [] ? (
+      {scuntSettings !== undefined ? (
         keys?.map((i) => {
-          // if (i !== 'id' || i !== 'name')
-          // {
-          //console.log('i', i);
-          //console.log('scuntSettings[i]', scuntSettings[i]);
           if (i !== 'name' && i !== 'id') {
-            // no need to show the following parameters
+            // no need to show the parameters above
             return (
-              <p key={i} style={{ color: 'var(--text-dynamic)', marginBottom: '5px' }}>
-                <b>{i}</b>
+              <p key={i} style={{ color: 'var(--text-dynamic)', marginBottom: '8px' }}>
+                <b>{convertCamelToLabel(i)}</b>
                 <span>{': '}</span>
-                {/* {String(scuntSettings[0][i])} */}
                 {String(scuntSettings[0][i])}
               </p>
             );
           }
-
-          // }
         })
       ) : (
         <p style={{ color: 'var(--text-dynamic)', marginBottom: '5px', textAlign: 'center' }}>
@@ -348,21 +209,10 @@ const ScuntGameSettingsTextbox = ({
   newSettings,
   setNewSettings,
 }) => {
-  const [changes, setChanges] = useState(false);
-  const [input, setInput] = useState('');
-
-  //console.log(objKey);
-
-  useEffect(() => {
-    //console.log(newSettings);
-  }, []);
-
   const handleInput = (input, objKey) => {
     let parseInput = parseFloat(input);
     newSettings[objKey] = parseInput;
     setNewSettings(newSettings);
-
-    console.log(newSettings);
   };
 
   // textboxes update the local state!
@@ -373,47 +223,11 @@ const ScuntGameSettingsTextbox = ({
           inputType={'text'}
           label={parameter}
           description={description}
-          onChange={
-            (input) => handleInput(input, objKey)
-            //   {
-
-            //   if (objKey === 'maxAmountPointsPercent' || objKey === 'minAmountPointsPercent') {
-            //     newSettings[objKey] = parseFloat(input);
-            //   } else {
-            //     newSettings[objKey] = parseInt(input);
-            //   }
-
-            //   setNewSettings(newSettings);
-            //   setChanges(false);
-            //   //console.log(newSettings);
-
-            //   setInput(amount);
-            //   setChanges(true);
-
-            //   console.log(input)
-            // }
-          }
+          initialValue={placeholder}
+          onChange={(input) => handleInput(input, objKey)}
           placeholder={String(placeholder)}
-          onEnterKey={
-            (input) => handleInput(input, objKey)
-            //   (amount) => {
-            //   newSettings[objKey] = parseFloat(input);
-            //   setNewSettings(newSettings);
-            //   setChanges(false);
-            //   //console.log(newSettings);
-            // }
-          }
+          onEnterKey={(input) => handleInput(input, objKey)}
         ></TextInput>
-        {/* <Button
-          label="Submit"
-          onClick={() => {
-            newSettings[objKey] = parseFloat(input);
-            setNewSettings(newSettings);
-            console.log(newSettings);
-            setChanges(false);
-          }}
-          isDisabled={!changes}
-        ></Button> */}
       </div>
     </div>
   );
