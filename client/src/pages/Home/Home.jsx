@@ -130,7 +130,7 @@ const HomePageTimeline = () => {
             <h1>{selectedEvent.eventName}</h1>
             <p>{selectedEvent.description}</p>
 
-            {selectedEvent.link !== '' || selectedEvent.linkLabel !== '' ? (
+            {selectedEvent.link !== '' ? (
               <div className="home-page-timeline-popup-button">
                 <a
                   href={selectedEvent.link}

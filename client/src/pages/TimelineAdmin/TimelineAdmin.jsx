@@ -67,11 +67,7 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
     setLinkLabelText(text);
   };
   const handleSubmit = async () => {
-    if (
-      formData.eventName.length > 0 &&
-      // formData.date.length > 0 &&
-      formData.description.length > 0
-    ) {
+    if (formData.eventName.length > 0 && formData.description.length > 0) {
       setFormState('loading');
       const result = await createTimelineEvent(formData);
       if (result !== true) {
@@ -91,20 +87,28 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
       }
     } else if (formData.eventName.length === 0) {
       setSnackbar('Event Name cannot be empty', true);
-      // } else if (formData.date.length === 0) {
-      //   setSnackbar('Date cannot be empty', true);
     } else if (formData.description.length === 0) {
       setSnackbar('Description cannot be empty', true);
     }
   };
   useEffect(() => {
-    updateFormData({
-      eventName: eventNameText,
-      date: date,
-      description: descriptionText,
-      link: linkText,
-      linkLabel: linkLabelText,
-    });
+    if (linkText !== '' && linkLabelText === '') {
+      updateFormData({
+        eventName: eventNameText,
+        date: date,
+        description: descriptionText,
+        link: linkText,
+        linkLabel: 'Click here!',
+      });
+    } else {
+      updateFormData({
+        eventName: eventNameText,
+        date: date,
+        description: descriptionText,
+        link: linkText,
+        linkLabel: linkLabelText,
+      });
+    }
   }, [eventNameText, date, descriptionText, linkText, linkLabelText]);
   return (
     <form>
