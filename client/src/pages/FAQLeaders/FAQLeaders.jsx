@@ -19,10 +19,6 @@ const PageFAQLeaders = () => {
   const [editMade, setEditMade] = useState(false);
   const [isAnswered, setIsAnswered] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [showPopUpAnswered, setShowPopUpAnswered] = useState(false);
-  const [triggerDeleteAnswered, setTriggerDeleteAnswered] = useState(false);
-  const [showPopUpUnanswered, setShowPopUpUnanswered] = useState(false);
-  const [triggerDeleteUnanswered, setTriggerDeleteUnanswered] = useState(false);
   const buttonList = [{ name: 'Answered' }, { name: 'Unanswered' }];
   useEffect(() => {
     setIsAnswered((isAnswered) => !isAnswered);
@@ -30,36 +26,6 @@ const PageFAQLeaders = () => {
   //  const [toggleText, setToggleText] = useState('Unanswered');
   return (
     <div>
-      <PopupModal
-        trigger={showPopUpAnswered}
-        setTrigger={setShowPopUpAnswered}
-        blurBackground={false}
-        exitIcon={true}
-      >
-        <h1 style={{ textAlign: 'center' }}>Confirm delete question?</h1>
-        <span style={{ marginTop: '20px' }}>
-          <Button label={'Cancel'} isSecondary onClick={() => setShowPopUpAnswered(false)} />
-          <Button
-            label={'Delete'}
-            onClick={() => setTriggerDeleteAnswered(!triggerDeleteAnswered)}
-          />
-        </span>
-      </PopupModal>
-      <PopupModal
-        trigger={showPopUpUnanswered}
-        setTrigger={setShowPopUpUnanswered}
-        blurBackground={false}
-        exitIcon={true}
-      >
-        <h1 style={{ textAlign: 'center' }}>Confirm delete question?</h1>
-        <span style={{ marginTop: '20px' }}>
-          <Button label={'Cancel'} isSecondary onClick={() => setShowPopUpUnanswered(false)} />
-          <Button
-            label={'Delete'}
-            onClick={() => setTriggerDeleteUnanswered(!triggerDeleteUnanswered)}
-          />
-        </span>
-      </PopupModal>
       <div className={'faq-leaders-page'}>
         <div className={'faq-leaders-create-question-container'}>
           <h1 className={'faq-leaders-titles'}>Create a new question!</h1>
@@ -78,23 +44,13 @@ const PageFAQLeaders = () => {
           <span className={`${!isAnswered ? 'faq-leaders-mobile-hide' : ''}`}>
             <div className={'faq-leaders-answered-questions'}>
               <h1 className={'faq-leaders-subtitles'}>Answered</h1>
-              <FAQLeadersAnsweredQuestions
-                editMade={editMade}
-                setEditMade={setEditMade}
-                setShowPopUp={setShowPopUpAnswered}
-                triggerDelete={triggerDeleteAnswered}
-              />
+              <FAQLeadersAnsweredQuestions editMade={editMade} setEditMade={setEditMade} />
             </div>
           </span>
           <span className={`${isAnswered ? 'faq-leaders-mobile-hide' : ''}`}>
             <div className={'faq-leaders-unanswered-questions'}>
               <h1 className={'faq-leaders-subtitles'}>Unanswered</h1>
-              <FAQLeadersUnansweredQuestions
-                editMade={editMade}
-                setEditMade={setEditMade}
-                setShowPopUp={setShowPopUpUnanswered}
-                triggerDelete={triggerDeleteUnanswered}
-              />
+              <FAQLeadersUnansweredQuestions editMade={editMade} setEditMade={setEditMade} />
             </div>
           </span>
         </div>
@@ -103,7 +59,7 @@ const PageFAQLeaders = () => {
   );
 };
 
-const FAQLeadersAnsweredQuestions = ({ editMade, setEditMade, setShowPopUp, triggerDelete }) => {
+const FAQLeadersAnsweredQuestions = ({ editMade, setEditMade }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [allQuestions, setAllQuestions] = useState(undefined);
   const [questionCategories, setQuestionCategories] = useState([]);
@@ -174,8 +130,6 @@ const FAQLeadersAnsweredQuestions = ({ editMade, setEditMade, setShowPopUp, trig
               question={question}
               editMade={editMade}
               setEditMade={setEditMade}
-              setShowPopUp={setShowPopUp}
-              triggerDelete={triggerDelete}
             />
           </div>
         ))
@@ -184,7 +138,7 @@ const FAQLeadersAnsweredQuestions = ({ editMade, setEditMade, setShowPopUp, trig
   );
 };
 
-const FAQLeadersUnansweredQuestions = ({ editMade, setEditMade, setShowPopUp, triggerDelete }) => {
+const FAQLeadersUnansweredQuestions = ({ editMade, setEditMade }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [allQuestions, setAllQuestions] = useState(undefined);
   const [questionCategories, setQuestionCategories] = useState([]);
@@ -255,8 +209,6 @@ const FAQLeadersUnansweredQuestions = ({ editMade, setEditMade, setShowPopUp, tr
               question={question}
               editMade={editMade}
               setEditMade={setEditMade}
-              setShowPopUp={setShowPopUp}
-              triggerDelete={triggerDelete}
             />
           </div>
         ))
@@ -265,13 +217,7 @@ const FAQLeadersUnansweredQuestions = ({ editMade, setEditMade, setShowPopUp, tr
   );
 };
 
-const FAQLeadersQuestionWrapper = ({
-  question,
-  editMade,
-  setEditMade,
-  setShowPopUp,
-  triggerDelete,
-}) => {
+const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editButtonText, setEditButtonText] = useState('Edit');
   const [questionText, setQuestionText] = useState(question.question);
@@ -283,7 +229,8 @@ const FAQLeadersQuestionWrapper = ({
   const [cancelEdit, setCancelEdit] = useState(false);
   const [createdDate, setCreatedDate] = useState(question.createdAt);
   const [updatedDate, setUpdatedDate] = useState(question.updatedAt);
-  const isMountRef = useRef(false);
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [triggerDelete, setTriggerDelete] = useState(false);
   const { setSnackbar } = useContext(SnackbarContext);
   const initialFormData = {
     question: '',
@@ -302,15 +249,14 @@ const FAQLeadersQuestionWrapper = ({
     setCreatedDate(question.createdAt);
     setUpdatedDate(question.updatedAt);
   }, [editMade]);
-  useEffect(async () => {
-    if (isMountRef.current) {
-      deleteQuestion(question.id);
-      setEditMade(!editMade);
-      setSnackbar('Question Deleted Successfully', false);
-      setShowPopUp(false);
-    }
-    isMountRef.current = true;
-  }, [triggerDelete]);
+  // async () => {
+  //   if (isMountRef.current) {
+  //     deleteQuestion(question.id);
+  //     setEditMade(!editMade);
+  //     setSnackbar('Question Deleted Successfully', false);
+  //     setShowPopUp(false);
+  //   }
+  //   isMountRef.current = true;
   const handleEditQuestion = (text) => {
     setQuestionText(text);
   };
@@ -348,6 +294,28 @@ const FAQLeadersQuestionWrapper = ({
   const updatedDateFormatted = new Date(updatedDate).toLocaleDateString('en-CA', options);
   return (
     <div className={'faq-leaders-questions-container'}>
+      <PopupModal
+        trigger={showPopUp}
+        setTrigger={setShowPopUp}
+        blurBackground={false}
+        exitIcon={true}
+        style={{ position: 'fixed', left: '0' }}
+      >
+        <h1 style={{ textAlign: 'center' }}>Confirm delete question?</h1>
+        <span style={{ marginTop: '20px' }}>
+          <Button label={'Cancel'} isSecondary onClick={() => setShowPopUp(false)} />
+          <Button
+            label={'Delete'}
+            onClick={async () => {
+              deleteQuestion(question.id);
+              setEditMade(!editMade);
+              setSnackbar('Question Deleted Successfully', false);
+              setShowPopUp(false);
+              setTriggerDelete(!triggerDelete);
+            }}
+          />
+        </span>
+      </PopupModal>
       <div className={`${isEdit ? 'faq-leaders-hide' : ''}`}>
         <h1 className={'faq-leaders-questions-titles'}>{questionText}</h1>
         <p className={'faq-leaders-description'}>
