@@ -293,7 +293,7 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
         exitIcon={true}
         style={{ position: 'fixed', left: '0' }}
       >
-        <h1 style={{ textAlign: 'center' }}>Confirm delete question?</h1>
+        <h1 style={{ textAlign: 'center', color: 'var(--white)' }}>Confirm delete question?</h1>
         <span style={{ marginTop: '20px' }}>
           <Button label={'Cancel'} isSecondary onClick={() => setShowPopUp(false)} />
           <Button
