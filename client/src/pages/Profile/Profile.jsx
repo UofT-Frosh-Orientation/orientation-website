@@ -177,7 +177,7 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
       <ProfilePageDashboardLink
         link="/scunt-game-controls"
         authScopes={['scunt:exec game controls']}
-        label="Start Scunt!"
+        label="Scunt Settings"
       />
       <ProfilePageDashboardLink
         link="/faq-admin"

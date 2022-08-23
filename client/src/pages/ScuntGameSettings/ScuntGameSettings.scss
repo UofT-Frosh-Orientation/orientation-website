@@ -24,3 +24,12 @@
 .scunt-game-settings-textbox-container {
   margin: 10px;
 }
+
+.current-scunt-game-settings-container {
+  width: 50%;
+  padding: 25px;
+  background-color: var(--purple-bg);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 50px;
+}

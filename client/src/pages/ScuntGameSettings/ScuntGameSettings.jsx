@@ -8,8 +8,10 @@ import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { requestPasswordResetSelector, userSelector } from '../../state/user/userSlice';
-import { getGameSettings, setGameSettings } from './functions';
+import { getScuntSettings, setScuntSettings } from '../../state/scuntSettings/saga';
+import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
+
+// import { getGameSettings, setGameSettings } from './functions';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 
 import useAxios from '../../hooks/useAxios';
@@ -44,7 +46,7 @@ const scuntsettings = [
 ];
 
 const ScuntGameSettings = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const initialSettings = {
@@ -63,46 +65,82 @@ const ScuntGameSettings = () => {
   const [newSettings, setNewSettings] = useState(initialSettings);
   const { setSnackbar } = useContext(SnackbarContext);
 
-  const startScuntButton = async () => {
-    console.log(newSettings);
-    const result = await setGameSettings(newSettings);
-    if (result !== true) {
-      setSnackbar('Error', true);
-    } else {
-      setSnackbar('Starting Scunt!', false);
-    }
-  };
+  const { scuntSettings } = useSelector(scuntSettingsSelector);
 
-  const getGameSettings = async () => {
-    try {
-      // getting stuff from backend
-      const response = await axios.get('/scunt-game-controls');
-      setSnackbar('Starting Scunt!', false);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-      setSnackbar('Error', true);
-    }
-  };
+  // const startScuntButton = async () => {
+  //   console.log(newSettings);
+  //   const result = await setGameSettings(newSettings);
+  //   if (result !== true) {
+  //     setSnackbar('Error', true);
+  //   } else {
+  //     setSnackbar('Starting Scunt!', false);
+  //   }
+  // };
+
+  // const getGameSettings = async () => {
+  //   try {
+  //     // getting stuff from backend
+  //     const response = await axios.get('/scunt-game-controls');
+  //     setSnackbar('Starting Scunt!', false);
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setSnackbar('Error', true);
+  //   }
+  // };
 
   useEffect(() => {
-    console.log(newSettings);
+    dispatch(getScuntSettings());
+    console.log(scuntSettings); // this console.log gets Initial value from saga.jsx
+    //console.log(newSettings);
   }, []);
+
+  // useEffect(() => {
+  //   // update game settings in the component
+  //   setNewSettings(
+  //     {
+  //       ...newSettings,
+  //       amountOfTeams: scuntSettings.amountOfTeams,
+  //       amountOfStarterBribePoints: scuntSettings.amountOfStarterBribePoints,
+  //       maxAmountPointsPercent: scuntSettings.maxAmountPointsPercent,
+  //       minAmountPointsPercent: scuntSettings.minAmountPointsPercent,
+  //       revealTeams: scuntSettings.revealTeams,
+  //       discordLink: scuntSettings.discordLink,
+  //       revealLeaderboard: scuntSettings.revealLeaderboard,
+  //       revealMissions: scuntSettings.revealMissions,
+  //       allowJudging: scuntSettings.allowJudging,
+  //     }
+  //   )
+  // }, [scuntSettings])
+
+  // useEffect(() => {
+  //   dispatch(setScuntSettings(setSnackbar, amountOfTeams=newSettings.amountOfTeams,
+  //     amountOfStarterBribePoints=newSettings.amountOfStarterBribePoints,
+  //     maxAmountPointsPercent=newSettings.maxAmountPointsPercent,
+  //     minAmountPointsPercent=newSettings.minAmountPointsPercent,
+  //     revealTeams=newSettings.revealTeams,
+  //     discordLink=newSettings.discordLink,
+  //     revealLeaderboard=newSettings.revealLeaderboard,
+  //     revealMissions=newSettings.revealMissions,
+  //     allowJudging=newSettings.allowJudging, ))
+  // }, [newSettings])
 
   return (
     <div className="scunt-game-settings-page">
-      <Button
+      {/* <Button
         label="Back to Profile"
         onClick={() => {
           navigate('/profile');
         }}
         style={{ marginBottom: '25px' }}
-      />
+      /> */}
+
+      <CurrentScuntGameSettings />
 
       <div className="scunt-game-settings-container">
-        <p style={{ color: 'var(--text-dynamic)', textAlign: 'center' }}>
+        {/* <p style={{ color: 'var(--text-dynamic)', textAlign: 'center' }}>
           Note: placeholder are the default values!
-        </p>
+        </p> */}
 
         {scuntsettings.map((i) => {
           return (
@@ -120,7 +158,7 @@ const ScuntGameSettings = () => {
         })}
 
         <Button
-          label="Start Scunt!"
+          label="Submit"
           isSecondary={true}
           style={{ width: '50%', justifySelf: 'center', margin: '0 auto' }}
           onClick={() => {
@@ -128,6 +166,30 @@ const ScuntGameSettings = () => {
           }}
         ></Button>
       </div>
+    </div>
+  );
+};
+
+const CurrentScuntGameSettings = () => {
+  const { scuntSettings } = useSelector(scuntSettingsSelector);
+
+  let keys = Object.keys(scuntSettings);
+  console.log(keys);
+
+  return (
+    <div className="current-scunt-game-settings-container">
+      <h3 style={{ color: 'var(--text-dynamic)', textAlign: 'center', marginBottom: '20px' }}>
+        Current Scunt Settings
+      </h3>
+      {keys.map((i) => {
+        return (
+          <p key={i} style={{ color: 'var(--text-dynamic)', marginBottom: '5px' }}>
+            <b>{i}</b>
+            <span>{': '}</span>
+            {String(scuntSettings[i])}
+          </p>
+        );
+      })}
     </div>
   );
 };
