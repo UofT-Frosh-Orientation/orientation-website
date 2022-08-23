@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useContext, useRef } from 'react';
+import { React, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { deleteQuestion, submitEdit, submitQuestion } from './functions';
 import './FAQLeaders.scss';
@@ -249,14 +249,6 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
     setCreatedDate(question.createdAt);
     setUpdatedDate(question.updatedAt);
   }, [editMade]);
-  // async () => {
-  //   if (isMountRef.current) {
-  //     deleteQuestion(question.id);
-  //     setEditMade(!editMade);
-  //     setSnackbar('Question Deleted Successfully', false);
-  //     setShowPopUp(false);
-  //   }
-  //   isMountRef.current = true;
   const handleEditQuestion = (text) => {
     setQuestionText(text);
   };
