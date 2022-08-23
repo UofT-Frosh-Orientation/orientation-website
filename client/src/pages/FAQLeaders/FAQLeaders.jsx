@@ -19,8 +19,10 @@ const PageFAQLeaders = () => {
   const [editMade, setEditMade] = useState(false);
   const [isAnswered, setIsAnswered] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [showPopUp, setShowPopUp] = useState(false);
-  const [triggerDelete, setTriggerDelete] = useState(false);
+  const [showPopUpAnswered, setShowPopUpAnswered] = useState(false);
+  const [triggerDeleteAnswered, setTriggerDeleteAnswered] = useState(false);
+  const [showPopUpUnanswered, setShowPopUpUnanswered] = useState(false);
+  const [triggerDeleteUnanswered, setTriggerDeleteUnanswered] = useState(false);
   const buttonList = [{ name: 'Answered' }, { name: 'Unanswered' }];
   useEffect(() => {
     setIsAnswered((isAnswered) => !isAnswered);
@@ -29,15 +31,33 @@ const PageFAQLeaders = () => {
   return (
     <div>
       <PopupModal
-        trigger={showPopUp}
-        setTrigger={setShowPopUp}
+        trigger={showPopUpAnswered}
+        setTrigger={setShowPopUpAnswered}
         blurBackground={false}
         exitIcon={true}
       >
         <h1 style={{ textAlign: 'center' }}>Confirm delete question?</h1>
         <span style={{ marginTop: '20px' }}>
-          <Button label={'Cancel'} isSecondary onClick={() => setShowPopUp(false)} />
-          <Button label={'Delete'} onClick={() => setTriggerDelete(!triggerDelete)} />
+          <Button label={'Cancel'} isSecondary onClick={() => setShowPopUpAnswered(false)} />
+          <Button
+            label={'Delete'}
+            onClick={() => setTriggerDeleteAnswered(!triggerDeleteAnswered)}
+          />
+        </span>
+      </PopupModal>
+      <PopupModal
+        trigger={showPopUpUnanswered}
+        setTrigger={setShowPopUpUnanswered}
+        blurBackground={false}
+        exitIcon={true}
+      >
+        <h1 style={{ textAlign: 'center' }}>Confirm delete question?</h1>
+        <span style={{ marginTop: '20px' }}>
+          <Button label={'Cancel'} isSecondary onClick={() => setShowPopUpUnanswered(false)} />
+          <Button
+            label={'Delete'}
+            onClick={() => setTriggerDeleteUnanswered(!triggerDeleteUnanswered)}
+          />
         </span>
       </PopupModal>
       <div className={'faq-leaders-page'}>
@@ -61,8 +81,8 @@ const PageFAQLeaders = () => {
               <FAQLeadersAnsweredQuestions
                 editMade={editMade}
                 setEditMade={setEditMade}
-                setShowPopUp={setShowPopUp}
-                triggerDelete={triggerDelete}
+                setShowPopUp={setShowPopUpAnswered}
+                triggerDelete={triggerDeleteAnswered}
               />
             </div>
           </span>
@@ -72,8 +92,8 @@ const PageFAQLeaders = () => {
               <FAQLeadersUnansweredQuestions
                 editMade={editMade}
                 setEditMade={setEditMade}
-                setShowPopUp={setShowPopUp}
-                triggerDelete={triggerDelete}
+                setShowPopUp={setShowPopUpUnanswered}
+                triggerDelete={triggerDeleteUnanswered}
               />
             </div>
           </span>
