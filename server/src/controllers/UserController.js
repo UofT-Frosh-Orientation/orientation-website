@@ -2,6 +2,7 @@ const UserServices = require('../services/UserServices');
 const LeadurServices = require('../services/LeadurServices');
 const passport = require('../services/passport');
 const passwordResetSubscription = require('../subscribers/passwordResetSubscription');
+const announcementSubscription = require('../subscribers/announcementSubscription');
 
 const UserController = {
   /**
@@ -133,6 +134,32 @@ const UserController = {
       }
     } catch (err) {
       next(err);
+    }
+  },
+
+  async unsubscribeUser(req, res, next) {
+    try {
+      const { email } = req.body;
+      await UserServices.unsubscribeUser(email);
+      announcementSubscription.add({ unsubed: true, email });
+
+      res
+        .status(200)
+        .send({ message: 'You have been successfully unsubscribed from announcement emails.' });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async resubscribeUser(req, res, next) {
+    try {
+      const { email } = req.body;
+      await UserServices.resubscribeUser(email);
+      res
+        .status(200)
+        .send({ message: 'You have been successfully resubscribed from announcement emails.' });
+    } catch (error) {
+      next(error);
     }
   },
 

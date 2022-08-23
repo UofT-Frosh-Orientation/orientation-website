@@ -171,6 +171,44 @@ const UserServices = {
     });
   },
 
+  async unsubscribeUser(email) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOneAndUpdate(
+        { email },
+        { canEmail: false },
+        { returnDocument: 'after' },
+        (err, updatedUser) => {
+          if (err) {
+            reject(err);
+          } else if (!updatedUser) {
+            reject('INVALID_EMAIL');
+          } else {
+            resolve(updatedUser);
+          }
+        },
+      );
+    });
+  },
+
+  async resubscribeUser(email) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOneAndUpdate(
+        { email },
+        { canEmail: true },
+        { returnDocument: 'after' },
+        (err, updatedUser) => {
+          if (err) {
+            reject(err);
+          } else if (!updatedUser) {
+            reject('INVALID_EMAIL');
+          } else {
+            resolve(updatedUser);
+          }
+        },
+      );
+    });
+  },
+
   async getUnapprovedUsers() {
     return new Promise((resolve, reject) => {
       UserModel.find(
