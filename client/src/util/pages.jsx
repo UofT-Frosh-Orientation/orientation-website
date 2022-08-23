@@ -195,7 +195,7 @@ export const pages = {
     {
       label: 'TimelineAdmin',
       component: (
-        <AuthorizedPage authScopes={['timeline:edit']}>
+        <AuthorizedPage authScopes={['timeline:create', 'timeline:edit', 'timeline:delete']}>
           <PageTimelineAdmin />
         </AuthorizedPage>
       ),
