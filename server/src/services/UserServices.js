@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 
 const UserModel = require('../models/UserModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
-const announcementSubscription = require('../subscribers/announcementSubscription');
 
 const UserServices = {
   /**
@@ -184,8 +183,6 @@ const UserServices = {
           } else if (!updatedUser) {
             reject('INVALID_EMAIL');
           } else {
-            announcementSubscription.add({ unsubed: true, email: updatedUser.email });
-
             resolve(updatedUser);
           }
         },

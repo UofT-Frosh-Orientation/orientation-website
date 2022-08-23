@@ -2,6 +2,7 @@ const UserServices = require('../services/UserServices');
 const LeadurServices = require('../services/LeadurServices');
 const passport = require('../services/passport');
 const passwordResetSubscription = require('../subscribers/passwordResetSubscription');
+const announcementSubscription = require('../subscribers/announcementSubscription');
 
 const UserController = {
   /**
@@ -140,6 +141,8 @@ const UserController = {
     try {
       const { email } = req.body;
       await UserServices.unsubscribeUser(email);
+      announcementSubscription.add({ unsubed: true, email });
+
       res
         .status(200)
         .send({ message: 'You have been successfully unsubscribed from announcement emails.' });
