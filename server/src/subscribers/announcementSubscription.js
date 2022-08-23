@@ -8,7 +8,6 @@ const announcementSubscription = new Queue('newFrosh', {
 
 announcementSubscription.process((job, done) => {
   console.log('Announcement Created!');
-  console.log(job.data);
 
   if (job.data.unsubed === true) {
     try {
@@ -21,9 +20,8 @@ announcementSubscription.process((job, done) => {
 
       result.then((response) => {
         console.log(response);
+        done();
       });
-
-      done();
     } catch (error) {
       done(error);
     }
@@ -59,9 +57,8 @@ announcementSubscription.process((job, done) => {
         result.then((response) => {
           console.log('response:');
           console.log(response);
+          done();
         });
-
-        done();
       });
     } catch (error) {
       done(error);

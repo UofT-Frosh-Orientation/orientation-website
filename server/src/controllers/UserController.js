@@ -154,7 +154,7 @@ const UserController = {
       await UserServices.resubscribeUser(email);
       res
         .status(200)
-        .send({ message: 'You have been successfully unsubscribed from announcement emails.' });
+        .send({ message: 'You have been successfully resubscribed from announcement emails.' });
     } catch (error) {
       next(error);
     }
