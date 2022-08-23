@@ -447,12 +447,18 @@
     vertical-align: middle;
     transition: transform 500ms;
   }
+  h2 {
+    margin-bottom: 4px;
+  }
   @include devices(tablet) {
     margin-left: 0;
     margin-right: 0;
-  }
-  h2 {
-    margin-bottom: 4px;
+    h2 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 14px;
+    }
   }
 }
 .frosh-instagram-container {
@@ -488,6 +494,16 @@
     }
     h2 {
       transform: scale(1.02);
+    }
+  }
+  @include devices(tablet) {
+    margin-left: 0;
+    margin-right: 0;
+    h2 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 15px;
     }
   }
 }

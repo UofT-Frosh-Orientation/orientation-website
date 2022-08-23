@@ -21,6 +21,7 @@ import { PageScuntMissionsList } from '../pages/ScuntMissionsList/ScuntMissionsL
 import { PageScuntHome } from '../pages/ScuntHome/ScuntHome';
 import { PageScuntRules } from '../pages/ScuntRules/ScuntRules';
 import { PageTimelineAdmin } from '../pages/TimelineAdmin/TimelineAdmin';
+import { PageAnnounceDash } from '../pages/AnnouncementDashboard/AnnounceDash';
 import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
 import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
 import { FroshRetreat } from '../pages/FroshRetreat/FroshRetreat';
@@ -79,6 +80,18 @@ export const pages = {
     },
   ],
   hidden: [
+    {
+      lable: 'Announcements Dashboard',
+      component: (
+        <AuthorizedPage
+          authScopes={['announcements:delete', 'announcements:create', 'announcements:edit']}
+        >
+          <PageAnnounceDash />
+        </AuthorizedPage>
+      ),
+      path: '/announcement-dashboard',
+      includeFooter: true,
+    },
     {
       label: 'Request Permissions',
       component: (

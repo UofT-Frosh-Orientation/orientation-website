@@ -5,6 +5,7 @@ function errorResponseMiddleware(err, req, res, next) {
     statusCode = 400;
     errorMessage = 'This email address has already been used to create an account.';
   } else if (err.errors) {
+    console.log(err);
     // TODO: finish error handling when implementing proper backend validation
     statusCode = 400;
     errorMessage = 'Please provide your full name.';

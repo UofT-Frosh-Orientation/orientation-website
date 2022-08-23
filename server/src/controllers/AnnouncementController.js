@@ -38,15 +38,11 @@ const AnnouncementController = {
   },
 
   async updateAnnouncementElement(req, res, next) {
-    const announcementData = req.body;
+    const data = req.body.announcementData;
     const id = req.params.id;
 
     try {
-      const announcementRecord = {
-        description: announcementData.description,
-      };
-
-      await AnnouncementServices.updateAnnouncementElement(id, announcementRecord);
+      await AnnouncementServices.updateAnnouncementElement(id, data);
       return res.status(200).send({ message: 'Successfully updated announcement element!' });
     } catch (e) {
       next(e);
@@ -54,16 +50,10 @@ const AnnouncementController = {
   },
 
   async createAnnouncementElement(req, res, next) {
-    const announcementData = req.body;
+    const data = req.body.announcementData;
 
     try {
-      //need to change for permissions - which users can access
-      // await AnnouncementServices.validateUser(announcementData);
-      const announcementRecord = {
-        description: announcementData.description,
-      };
-
-      await AnnouncementServices.saveNewAnnouncementElement(announcementRecord);
+      await AnnouncementServices.saveNewAnnouncementElement(data);
       return res.status(200).send({ message: 'Successfully added announcement element!' });
     } catch (e) {
       next(e);
