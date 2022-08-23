@@ -87,7 +87,11 @@ export const pages = {
     },
     {
       label: 'Resubscribe',
-      component: <PageResubscribe />,
+      component: (
+        <AuthorizedPage>
+          <PageResubscribe />
+        </AuthorizedPage>
+      ),
       path: '/resubscribe',
       includeFooter: false,
     },
