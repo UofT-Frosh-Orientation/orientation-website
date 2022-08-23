@@ -12,7 +12,7 @@ const ScuntGameSettingsServices = {
         } else if (!settings || settings === []) {
           reject('ERROR');
         } else {
-          resolve(settings); // return game settings?
+          resolve(settings); // return game settings
         }
       });
     });
@@ -24,6 +24,7 @@ const ScuntGameSettingsServices = {
     amountOfStarterBribePoints,
     maxAmountPointsPercent,
     minAmountPointsPercent,
+    revealJudgesAndBribes,
     revealTeams,
     discordLink,
     revealLeaderboard,
@@ -41,6 +42,7 @@ const ScuntGameSettingsServices = {
             amountOfStarterBribePoints,
             maxAmountPointsPercent,
             minAmountPointsPercent,
+            revealJudgesAndBribes,
             revealTeams,
             discordLink,
             revealLeaderboard,
@@ -58,31 +60,6 @@ const ScuntGameSettingsServices = {
           }
         },
       );
-      // ScuntGameSettingModel.create(
-      //   {
-      //     // create a new model with all parameters from schema
-      //     name,
-      //     amountOfTeams,
-      //     amountOfStarterBribePoints,
-      //     maxAmountPointsPercent,
-      //     minAmountPointsPercent,
-      //     revealTeams,
-      //     discordLink,
-      //     revealLeaderboard,
-      //     revealMissions,
-      //     allowJudging,
-      //   },
-      //   (err, settings) => {
-      //     // use callback func, to catch errors, else return settings
-      //     if (err) {
-      //       reject(err);
-      //     } else if (!settings || settings === []) {
-      //       reject('ERROR');
-      //     } else {
-      //       resolve(settings);
-      //     }
-      //   },
-      // );
     });
   },
 };

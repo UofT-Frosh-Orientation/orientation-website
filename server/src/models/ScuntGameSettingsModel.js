@@ -30,6 +30,11 @@ const ScuntGameSettingSchema = new mongoose.Schema({
     required: false,
     default: 0.3,
   },
+  revealJudgesAndBribes: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
   revealTeams: {
     type: Boolean,
     required: false,

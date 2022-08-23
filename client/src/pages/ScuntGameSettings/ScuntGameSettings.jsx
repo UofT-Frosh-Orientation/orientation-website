@@ -45,6 +45,10 @@ const scuntsettings = [
 
 const scuntsettingbool = [
   {
+    parameter: 'Reveal Judges and Bribes',
+    key: 'revealJudgesAndBribes',
+  },
+  {
     parameter: 'Reveal Teams',
     key: 'revealTeams',
   },
@@ -76,6 +80,7 @@ const ScuntGameSettings = () => {
     amountOfStarterBribePoints: 10000,
     maxAmountPointsPercent: 0.3,
     minAmountPointsPercent: 0.3,
+    revealJudgesAndBribes: true,
     revealTeams: true,
     discordLink: true,
     revealLeaderboard: true,
@@ -84,6 +89,7 @@ const ScuntGameSettings = () => {
   };
 
   const [newSettings, setNewSettings] = useState(initialSettings);
+  // const [newSettings, setNewSettings] = useState();
   const { setSnackbar } = useContext(SnackbarContext);
 
   return (
@@ -134,6 +140,7 @@ const ScuntGameSettings = () => {
             let amountOfStarterBribePoints = newSettings.amountOfStarterBribePoints;
             let maxAmountPointsPercent = newSettings.maxAmountPointsPercent;
             let minAmountPointsPercent = newSettings.minAmountPointsPercent;
+            let revealJudgesAndBribes = newSettings.revealJudgesAndBribes;
             let revealTeams = newSettings.revealTeams;
             let discordLink = newSettings.discordLink;
             let revealLeaderboard = newSettings.revealLeaderboard;
@@ -148,6 +155,7 @@ const ScuntGameSettings = () => {
                 amountOfStarterBribePoints,
                 maxAmountPointsPercent,
                 minAmountPointsPercent,
+                revealJudgesAndBribes,
                 revealTeams,
                 discordLink,
                 revealLeaderboard,

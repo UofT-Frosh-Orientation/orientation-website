@@ -5,26 +5,6 @@ export const initialState = {
   loading: false,
   error: null,
   scuntSettings: undefined,
-  // scuntSettings: {
-  //   amountOfTeams: 10,
-  //   amountOfStarterBribePoints: 10000,
-  //   maxAmountPointsPercent: 0.3,
-  //   minAmountPointsPercent: 0.3,
-  //   revealTeams: false,
-  //   discordLink: false,
-  //   revealLeaderboard: false,
-  //   revealMissions: false,
-  //   allowJudging: false,
-  // },
-  // amountOfTeams: 10,
-  // amountOfStarterBribePoints: 10000,
-  // maxAmountPointsPercent: 0.3,
-  // minAmountPointsPercent: 0.3,
-  // revealTeams: false,
-  // discordLink: false,
-  // revealLeaderboard: false,
-  // revealMissions: false,
-  // allowJudging: false,
 };
 
 const scuntSettingsSlice = createSlice({
