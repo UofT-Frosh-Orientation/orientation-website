@@ -7,12 +7,14 @@ import { Provider } from 'react-redux';
 import userSaga from './state/user/saga';
 import accountsSaga from './state/accounts/saga';
 import froshSaga from './state/frosh/saga';
+import scuntSettingsSaga from './state/scuntSettings/saga';
 
 const store = configureAppStore();
 
 sagaMiddleware.run(userSaga);
 sagaMiddleware.run(accountsSaga);
 sagaMiddleware.run(froshSaga);
+sagaMiddleware.run(scuntSettingsSaga);
 
 ReactDOM.render(
   <React.StrictMode>
