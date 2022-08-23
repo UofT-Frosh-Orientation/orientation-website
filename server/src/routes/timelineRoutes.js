@@ -52,7 +52,7 @@ router.get('/', getTimeline);
  *       '403':
  *         $ref: '#components/responses/NotLoggedIn'
  */
-router.post('/', checkLoggedIn, hasAuthScopes(['timeline:edit']), createTimelineElement);
+router.post('/', checkLoggedIn, hasAuthScopes(['timeline:create']), createTimelineElement);
 
 /**
  * @swagger
@@ -98,6 +98,6 @@ router.patch('/:id', checkLoggedIn, hasAuthScopes(['timeline:edit']), updateTime
  *       '403':
  *         $ref: '#components/responses/NotLoggedIn'
  */
-router.delete('/:id', checkLoggedIn, hasAuthScopes(['timeline:edit']), deleteTimelineElement);
+router.delete('/:id', checkLoggedIn, hasAuthScopes(['timeline:delete']), deleteTimelineElement);
 
 module.exports = router;
