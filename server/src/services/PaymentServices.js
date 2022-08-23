@@ -29,9 +29,16 @@ const PaymentServices = {
     try {
       const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentId });
       console.log(frosh);
+      if (frosh.authScopes === []) {
+        frosh.authScopes = { requested: [], approved: [] };
+      }
       const idx = frosh.payments.findIndex((p) => p.paymentIntent === paymentId);
       frosh.payments[idx].amountDue = frosh.payments[idx].amountDue - amountReceived;
-      frosh.isRegistered = true;
+      if (frosh.payments[idx].item === 'Orientation Ticket') {
+        frosh.isRegistered = true;
+      } else if (frosh.payments[idx].item === 'Retreat Ticket') {
+        frosh.isRetreat = true;
+      }
       //TODO: update frosh balance
       await frosh.save();
       return frosh;
@@ -40,32 +47,64 @@ const PaymentServices = {
     }
   },
 
+  async getNonExpiredPaymentsCountForItem(item) {
+    return new Promise((resolve, reject) => {
+      FroshModel.where({ 'payments.expired': false, 'payments.item': item }).count((err, count) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(count);
+        }
+      });
+    });
+  },
+
   /**
    * Creates a checkout session for a user to pay with.
-   * @param {String}email
-   * @return {Promise<Stripe.Checkout.Session & {lastResponse: {headers: {[p: string]: string}, requestId: string, statusCode: number, apiVersion?: string, idempotencyKey?: string, stripeAccount?: string}}>}
+   * @param {String} email
+   * @param {String} type
+   * @return {Promise<Stripe.Checkout.Session & {lastResponse: {headers: {[p: string]: string}; requestId: string; statusCode: number; apiVersion?: string; idempotencyKey?: string; stripeAccount?: string}}>}
    */
-  async createCheckoutSession(email) {
+  async createCheckoutSession(email, type = 'orientation') {
+    const products = {
+      orientation: {
+        priceId: process.env.STRIPE_TICKET_PRICE_ID,
+        relativeUrlSuccess: '/registration-success',
+        relativeUrlFailure: '/payment-error',
+      },
+      retreat: {
+        priceId: process.env.STRIPE_RETREAT_PRICE_ID,
+        relativeUrlSuccess: '/registration-success-retreat',
+        relativeUrlFailure: '/payment-error-retreat',
+      },
+    };
     try {
-      console.log(process.env.STRIPE_EARLY_BIRD_COUPON_ID);
       return await stripe.checkout.sessions.create({
         customer_email: email,
         submit_type: 'pay',
+        expires_at: type === 'retreat' ? Math.floor(Date.now() / 1000 + 30 * 60) : undefined,
         billing_address_collection: 'auto',
         line_items: [
           {
-            price: process.env.STRIPE_TICKET_PRICE_ID,
+            price: products[type]?.priceId ?? products['orientation'].priceId,
             quantity: 1,
           },
         ],
-        discounts: [
-          {
-            coupon: process.env.STRIPE_EARLY_BIRD_COUPON_ID,
-          },
-        ],
+        discounts:
+          type === 'orientation'
+            ? [
+                {
+                  coupon: process.env.STRIPE_EARLY_BIRD_COUPON_ID,
+                },
+              ]
+            : [],
         mode: 'payment',
-        success_url: `${process.env.CLIENT_BASE_URL}/registration-success`,
-        cancel_url: `${process.env.CLIENT_BASE_URL}/payment-error`,
+        success_url: `${process.env.CLIENT_BASE_URL}${
+          products[type]?.relativeUrlSuccess ?? products['orientation'].relativeUrlSuccess
+        }`,
+        cancel_url: `${process.env.CLIENT_BASE_URL}${
+          products[type]?.relativeUrlFailure ?? products['orientation'].relativeUrlFailure
+        }`,
       });
     } catch (err) {
       if (err.raw?.code === 'coupon_expired') {
@@ -73,16 +112,21 @@ const PaymentServices = {
           return await stripe.checkout.sessions.create({
             customer_email: email,
             submit_type: 'pay',
+            expires_at: type === 'retreat' ? Math.floor(Date.now() / 1000 + 30 * 60) : undefined,
             billing_address_collection: 'auto',
             line_items: [
               {
-                price: process.env.STRIPE_TICKET_PRICE_ID,
+                price: products[type]?.priceId ?? products['orientation'].priceId,
                 quantity: 1,
               },
             ],
             mode: 'payment',
-            success_url: `${process.env.CLIENT_BASE_URL}/registration-success`,
-            cancel_url: `${process.env.CLIENT_BASE_URL}/payment-error`,
+            success_url: `${process.env.CLIENT_BASE_URL}${
+              products[type]?.relativeUrlSuccess ?? products['orientation'].relativeUrlSuccess
+            }`,
+            cancel_url: `${process.env.CLIENT_BASE_URL}${
+              products[type]?.relativeUrlFailure ?? products['orientation'].relativeUrlFailure
+            }`,
           });
         } catch (e) {
           console.log('Error creating checkout session', e.message);
@@ -90,6 +134,21 @@ const PaymentServices = {
       }
       console.log('Error creating checkout session', err.message);
       throw err;
+    }
+  },
+  async expirePayment(paymentIntent) {
+    try {
+      const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentIntent });
+      frosh.payments.forEach((p) => {
+        if (p.paymentIntent === paymentIntent) {
+          p.expired = true;
+        }
+      });
+      await frosh.save();
+      return frosh;
+    } catch (e) {
+      console.log(e);
+      throw e;
     }
   },
 };
