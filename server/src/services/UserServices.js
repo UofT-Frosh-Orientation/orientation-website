@@ -307,7 +307,7 @@ const UserServices = {
     return new Promise((resolve, reject) => {
       UserModel.findOneAndDelete({ _id: id }, (err, deletedUser) => {
         if (err || !deletedUser) {
-          reject('UNABLE_TO_DELETE_Timeline');
+          reject('UNABLE_TO_DELETE_USER');
         } else {
           resolve(deletedUser);
         }
