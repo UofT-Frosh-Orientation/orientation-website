@@ -130,41 +130,86 @@ const ScuntGameSettings = () => {
           })}
         </div>
 
-        <Button
-          label="Update Scunt Settings"
-          isSecondary={true}
-          style={{ width: '50%', justifySelf: 'center', margin: '0 auto' }}
-          onClick={async () => {
-            let name = 'Scunt 2T2 Settings';
-            let amountOfTeams = newSettings.amountOfTeams;
-            let amountOfStarterBribePoints = newSettings.amountOfStarterBribePoints;
-            let maxAmountPointsPercent = newSettings.maxAmountPointsPercent;
-            let minAmountPointsPercent = newSettings.minAmountPointsPercent;
-            let revealJudgesAndBribes = newSettings.revealJudgesAndBribes;
-            let revealTeams = newSettings.revealTeams;
-            let discordLink = newSettings.discordLink;
-            let revealLeaderboard = newSettings.revealLeaderboard;
-            let revealMissions = newSettings.revealMissions;
-            let allowJudging = newSettings.allowJudging;
-
-            dispatch(
-              setScuntSettings({
-                setSnackbar,
-                name,
-                amountOfTeams,
-                amountOfStarterBribePoints,
-                maxAmountPointsPercent,
-                minAmountPointsPercent,
-                revealJudgesAndBribes,
-                revealTeams,
-                discordLink,
-                revealLeaderboard,
-                revealMissions,
-                allowJudging,
-              }),
-            );
+        <div
+          style={{
+            width: '50%',
+            justifySelf: 'center',
+            margin: '0 auto',
+            display: 'flex',
+            flexDirection: 'row',
           }}
-        ></Button>
+        >
+          <Button
+            label="Update Settings"
+            style={{ margin: '0 20px' }}
+            onClick={async () => {
+              let name = 'Scunt 2T2 Settings';
+              let amountOfTeams = newSettings.amountOfTeams;
+              let amountOfStarterBribePoints = newSettings.amountOfStarterBribePoints;
+              let maxAmountPointsPercent = newSettings.maxAmountPointsPercent;
+              let minAmountPointsPercent = newSettings.minAmountPointsPercent;
+              let revealJudgesAndBribes = newSettings.revealJudgesAndBribes;
+              let revealTeams = newSettings.revealTeams;
+              let discordLink = newSettings.discordLink;
+              let revealLeaderboard = newSettings.revealLeaderboard;
+              let revealMissions = newSettings.revealMissions;
+              let allowJudging = newSettings.allowJudging;
+
+              dispatch(
+                setScuntSettings({
+                  setSnackbar,
+                  name,
+                  amountOfTeams,
+                  amountOfStarterBribePoints,
+                  maxAmountPointsPercent,
+                  minAmountPointsPercent,
+                  revealJudgesAndBribes,
+                  revealTeams,
+                  discordLink,
+                  revealLeaderboard,
+                  revealMissions,
+                  allowJudging,
+                }),
+              );
+            }}
+          ></Button>
+
+          <Button
+            label="Set Recommended Settings"
+            isSecondary={true}
+            style={{ margin: '0 20px' }}
+            onClick={async () => {
+              let name = 'Scunt 2T2 Settings';
+              let amountOfTeams = newSettings.amountOfTeams;
+              let amountOfStarterBribePoints = newSettings.amountOfStarterBribePoints;
+              let maxAmountPointsPercent = newSettings.maxAmountPointsPercent;
+              let minAmountPointsPercent = newSettings.minAmountPointsPercent;
+              let revealJudgesAndBribes = true;
+              let revealTeams = true;
+              let discordLink = true;
+              let revealLeaderboard = true;
+              let revealMissions = true;
+              let allowJudging = true;
+
+              dispatch(
+                setScuntSettings({
+                  setSnackbar,
+                  name,
+                  amountOfTeams,
+                  amountOfStarterBribePoints,
+                  maxAmountPointsPercent,
+                  minAmountPointsPercent,
+                  revealJudgesAndBribes,
+                  revealTeams,
+                  discordLink,
+                  revealLeaderboard,
+                  revealMissions,
+                  allowJudging,
+                }),
+              );
+            }}
+          />
+        </div>
       </div>
     </div>
   );
