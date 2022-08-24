@@ -75,3 +75,8 @@ export const maxAmountPointsPercentSelector = createSelector(
   scuntSettingsReducerSelector,
   ({ scuntSettings }) => scuntSettings?.maxAmountPointsPercent,
 );
+
+export const discordLinkSelector = createSelector(
+  scuntSettingsReducerSelector,
+  ({ scuntSettings }) => scuntSettings?.discordLink,
+);

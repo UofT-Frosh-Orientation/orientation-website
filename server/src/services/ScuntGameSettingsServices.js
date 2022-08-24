@@ -7,6 +7,7 @@ const ScuntGameSettingsServices = {
     //console.log('get scunt game settings');
     return new Promise((resolve, reject) => {
       ScuntGameSettingModel.find({}, (err, settings) => {
+        console.log(settings);
         if (err) {
           reject(err);
         } else if (!settings || settings === []) {
@@ -26,6 +27,7 @@ const ScuntGameSettingsServices = {
     minAmountPointsPercent,
     revealJudgesAndBribes,
     revealTeams,
+    showDiscordLink,
     discordLink,
     revealLeaderboard,
     revealMissions,
@@ -44,6 +46,7 @@ const ScuntGameSettingsServices = {
             minAmountPointsPercent,
             revealJudgesAndBribes,
             revealTeams,
+            showDiscordLink,
             discordLink,
             revealLeaderboard,
             revealMissions,

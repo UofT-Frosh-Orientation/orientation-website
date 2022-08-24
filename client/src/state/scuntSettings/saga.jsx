@@ -19,6 +19,7 @@ export function* getScuntSettingsSaga() {
     yield put(getScuntSettingsStart());
     const result = yield call(axios.get, '/scunt-game-controls');
     //console.log('saga result', result);
+
     yield put(getScuntSettingsSuccess(result.data.settings));
   } catch (error) {
     //console.log(error);
@@ -38,6 +39,7 @@ export function* setGameSettingsSaga({
     minAmountPointsPercent,
     revealJudgesAndBribes,
     revealTeams,
+    showDiscordLink,
     discordLink,
     revealLeaderboard,
     revealMissions,
@@ -56,11 +58,13 @@ export function* setGameSettingsSaga({
       minAmountPointsPercent,
       revealJudgesAndBribes,
       revealTeams,
+      showDiscordLink,
       discordLink,
       revealLeaderboard,
       revealMissions,
       allowJudging,
     });
+    setSnackbar('Scunt Settings Updated!');
     yield put(setScuntSettingsSuccess(result.data.settings));
   } catch (error) {
     setSnackbar(
