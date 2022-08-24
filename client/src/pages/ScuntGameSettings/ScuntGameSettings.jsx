@@ -19,27 +19,33 @@ const scuntsettings = [
   {
     parameter: 'Amount of Teams',
     key: 'amountOfTeams', // key in the model
-    default: 10,
+    placeholder: 10,
   },
   {
     parameter: 'Amount of Starter Bribe Points',
     key: 'amountOfStarterBribePoints',
     description: 'Set all judges bribe points to this number when the game starts',
-    default: 10000,
+    placeholder: 10000,
   },
   {
     parameter: 'Max Amount of Points',
     key: 'maxAmountPointsPercent',
     description:
       'The max amount of points allowed to be given out over the recommended amount for missions',
-    default: 0.3,
+    placeholder: 0.3,
   },
   {
     parameter: 'Min Amount of Points',
     key: 'minAmountPointsPercent',
     description:
       'The min amount of points allowed to be given out over the recommended amount for missions',
-    default: 0.3,
+    placeholder: 0.3,
+  },
+  {
+    parameter: 'Discord Link',
+    key: 'discordLink',
+    description: 'if blank the discord link will be set to the one in the database',
+    placeholder: 'https://discord.com/',
   },
 ];
 
@@ -54,7 +60,7 @@ const scuntsettingbool = [
   },
   {
     parameter: 'Show Discord Link',
-    key: 'discordLink',
+    key: 'showDiscordLink',
   },
   {
     parameter: 'Reveal Leaderboard',
@@ -73,6 +79,14 @@ const scuntsettingbool = [
 const ScuntGameSettings = () => {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
+  //const { scuntSettings } = useSelector(scuntSettingsSelector);
+  //console.log(scuntSettings);
+
+  useEffect(() => {
+    //dispatch(setScuntSettings());
+    //dispatch(getScuntSettings());
+    //console.log(scuntSettings);
+  }, []);
 
   const initialSettings = {
     name: 'Scunt2T2 Settings',
@@ -82,11 +96,13 @@ const ScuntGameSettings = () => {
     minAmountPointsPercent: 0.3,
     revealJudgesAndBribes: true,
     revealTeams: true,
-    discordLink: true,
+    showDiscordLink: true,
     revealLeaderboard: true,
     revealMissions: true,
     allowJudging: true,
   };
+
+  //dispatch(setScuntSettings(initialSettings));
 
   const [newSettings, setNewSettings] = useState(initialSettings);
   // const [newSettings, setNewSettings] = useState();
@@ -105,9 +121,10 @@ const ScuntGameSettings = () => {
                   objKey={i.key}
                   parameter={i.parameter}
                   description={i.description}
-                  placeholder={i.default}
+                  placeholder={i.placeholder}
                   newSettings={newSettings}
                   setNewSettings={setNewSettings}
+                  initialValue={i.default}
                 />
               </div>
             );
@@ -150,7 +167,9 @@ const ScuntGameSettings = () => {
               let minAmountPointsPercent = newSettings.minAmountPointsPercent;
               let revealJudgesAndBribes = newSettings.revealJudgesAndBribes;
               let revealTeams = newSettings.revealTeams;
+              let showDiscordLink = newSettings.showDiscordLink;
               let discordLink = newSettings.discordLink;
+              console.log(discordLink);
               let revealLeaderboard = newSettings.revealLeaderboard;
               let revealMissions = newSettings.revealMissions;
               let allowJudging = newSettings.allowJudging;
@@ -165,6 +184,7 @@ const ScuntGameSettings = () => {
                   minAmountPointsPercent,
                   revealJudgesAndBribes,
                   revealTeams,
+                  showDiscordLink,
                   discordLink,
                   revealLeaderboard,
                   revealMissions,
@@ -186,7 +206,7 @@ const ScuntGameSettings = () => {
               let minAmountPointsPercent = newSettings.minAmountPointsPercent;
               let revealJudgesAndBribes = true;
               let revealTeams = true;
-              let discordLink = true;
+              let showDiscordLink = true;
               let revealLeaderboard = true;
               let revealMissions = true;
               let allowJudging = true;
@@ -201,7 +221,7 @@ const ScuntGameSettings = () => {
                   minAmountPointsPercent,
                   revealJudgesAndBribes,
                   revealTeams,
-                  discordLink,
+                  showDiscordLink,
                   revealLeaderboard,
                   revealMissions,
                   allowJudging,
@@ -259,11 +279,17 @@ const ScuntGameSettingsTextbox = ({
   parameter,
   description,
   placeholder,
+  initialValue,
   newSettings,
   setNewSettings,
 }) => {
   const handleInput = (input, objKey) => {
-    let parseInput = parseFloat(input);
+    let parseInput;
+    if (typeof input === 'string') {
+      parseInput = input;
+    } else {
+      parseInput = parseFloat(input);
+    }
     newSettings[objKey] = parseInput;
     setNewSettings(newSettings);
   };
@@ -276,7 +302,7 @@ const ScuntGameSettingsTextbox = ({
           inputType={'text'}
           label={parameter}
           description={description}
-          initialValue={placeholder}
+          // initialValue={initialValue}
           onChange={(input) => handleInput(input, objKey)}
           placeholder={String(placeholder)}
           onEnterKey={(input) => handleInput(input, objKey)}
@@ -290,9 +316,10 @@ ScuntGameSettingsTextbox.propTypes = {
   objKey: PropTypes.string,
   parameter: PropTypes.string,
   description: PropTypes.string,
-  placeholder: PropTypes.number,
+  placeholder: PropTypes.any,
   newSettings: PropTypes.object,
   setNewSettings: PropTypes.func,
+  initialValue: PropTypes.string,
 };
 
 export { ScuntGameSettings };
