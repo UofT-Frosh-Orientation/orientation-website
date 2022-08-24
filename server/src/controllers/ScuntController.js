@@ -28,7 +28,7 @@ const ScuntController = {
 
       const userInfo = {
         name: existingUser.firstName,
-        teamNumber: 'undefined', // existingUser.teamNumber
+        teamNumber: undefined, // existingUser.teamNumber
         pronouns: existingUser.pronouns,
         type: 'type',
       };
