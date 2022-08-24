@@ -31,15 +31,9 @@ import CampingIcon from '../../assets/misc/camping-tent.png';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
-import {
-  announcementsSelector,
-  completedAnnouncementsSelector,
-} from '../../state/announcements/announcementsSlice';
-import {
-  getAnnouncements,
-  completeAnnouncements,
-  getCompletedAnnouncements,
-} from '../../state/announcements/saga';
+import { getUserInfo } from '../../state/user/saga';
+import { announcementsSelector } from '../../state/announcements/announcementsSlice';
+import { getAnnouncements, completeAnnouncements } from '../../state/announcements/saga';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
@@ -560,6 +554,8 @@ const ProfilePageAnnouncements = () => {
 
   useEffect(() => {
     dispatch(getAnnouncements());
+    dispatch(getUserInfo());
+    console.log(user);
   }, []);
 
   useEffect(() => {
@@ -618,6 +614,19 @@ const ProfilePageAnnouncements = () => {
   return (
     <div className="profile-page-announcements">
       <h2 className="profile-page-section-header">Tasks and Announcements</h2>
+
+      {user?.canEmail === false ? (
+        <Link
+          key={'/resubscribe'}
+          to={'/resubscribe'}
+          style={{ textDecoration: 'none' }}
+          className={'no-link-style'}
+        >
+          <Button label="Resubscribe To Announcements Emails" />
+        </Link>
+      ) : (
+        <></>
+      )}
       <TaskAnnouncement tasks={announcementList} onDone={onDoneTask} />
     </div>
   );
