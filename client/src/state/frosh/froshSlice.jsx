@@ -34,7 +34,16 @@ export default froshSlice.reducer;
 export const froshReducerSelector = (state) => state[froshSlice.name];
 
 export const froshSelector = createSelector(froshReducerSelector, ({ frosh, loading, error }) => ({
-  frosh,
+  registeredFrosh: frosh,
   loading,
   error,
 }));
+
+export const registeredFroshSelector = createSelector(
+  froshReducerSelector,
+  ({ frosh, loading, error }) => ({
+    registeredFrosh: frosh.filter((f) => f.isRegistered),
+    loading,
+    error,
+  }),
+);

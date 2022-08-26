@@ -41,7 +41,7 @@ import { okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
 import { froshGroups } from '../../util/frosh-groups';
 import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
 import { getFrosh } from '../../state/frosh/saga';
-import { froshSelector } from '../../state/frosh/froshSlice';
+import { froshSelector, registeredFroshSelector } from '../../state/frosh/froshSlice';
 
 const PageProfile = () => {
   return <PageProfileFrosh />;
@@ -345,7 +345,7 @@ const ProfilePageQRScanner = () => {
     },
   ]);
   const [scannedData, setScannedData] = useState('');
-  const { frosh } = useSelector(froshSelector);
+  const { registeredFrosh } = useSelector(registeredFroshSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -364,7 +364,7 @@ const ProfilePageQRScanner = () => {
       // set timeout to wait for them to finish typing before searching
       searchTimeout = setTimeout(() => {
         const lowerCaseSearch = searchFor.toLowerCase();
-        const filteredFrosh = frosh.filter(
+        const filteredFrosh = registeredFrosh.filter(
           (f) =>
             `${f.firstName} ${f.lastName}`.toLowerCase().includes(lowerCaseSearch) ||
             f.email.toLowerCase().includes(lowerCaseSearch) ||
