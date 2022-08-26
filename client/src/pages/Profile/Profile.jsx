@@ -40,6 +40,8 @@ import { SnackbarContext } from '../../util/SnackbarProvider';
 import { okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
 import { froshGroups } from '../../util/frosh-groups';
 import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
+import { getFrosh } from '../../state/frosh/saga';
+import { froshSelector } from '../../state/frosh/froshSlice';
 
 const PageProfile = () => {
   return <PageProfileFrosh />;
@@ -333,12 +335,45 @@ const ProfilePageQRScanner = () => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [searchFor, setSearchFor] = useState('');
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState([
+    {
+      email: 'test@gmail.com',
+      shirtSize: 'small',
+      pronouns: 'he/him',
+      froshGroup: 'iota',
+      discipline: 'ECE',
+    },
+  ]);
   const [scannedData, setScannedData] = useState('');
+  const { frosh } = useSelector(froshSelector);
+  const dispatch = useDispatch();
 
-  const search = async () => {
-    setResults(await searchForFrosh(searchFor));
-  };
+  useEffect(() => {
+    dispatch(getFrosh({ showAllUsers: false }));
+  }, []);
+
+  let searchTimeout;
+
+  // debounce input to improve performance when searching >800 frosh
+  useEffect(() => {
+    // clear timeout if they typed
+    clearTimeout(searchTimeout);
+    if (!searchFor || searchFor === '') {
+      setResults([]);
+    } else {
+      // set timeout to wait for them to finish typing before searching
+      searchTimeout = setTimeout(() => {
+        const lowerCaseSearch = searchFor.toLowerCase();
+        const filteredFrosh = frosh.filter(
+          (f) =>
+            `${f.firstName} ${f.lastName}`.toLowerCase().includes(lowerCaseSearch) ||
+            f.email.toLowerCase().includes(lowerCaseSearch) ||
+            f.preferredName.toLowerCase().includes(lowerCaseSearch),
+        );
+        setResults(filteredFrosh);
+      }, 500);
+    }
+  }, [searchFor]);
 
   return (
     <div className="profile-page-qr-code-scanner profile-page-side-section">
@@ -380,7 +415,7 @@ const ProfilePageQRScanner = () => {
             if (submitError !== false) {
               setSubmitError(false);
             }
-            if (results !== []) {
+            if (!results.length) {
               setResults([]);
             }
           } else {
@@ -398,9 +433,6 @@ const ProfilePageQRScanner = () => {
           onChange={(value) => {
             setSearchFor(value);
           }}
-          onEnterKey={() => {
-            search();
-          }}
         />
       </div>
       <div className="manual-sign-in-frosh-search-result-container">
@@ -413,7 +445,9 @@ const ProfilePageQRScanner = () => {
               key={frosh.email + index}
               label={
                 <div>
-                  <h3>{frosh.name}</h3>
+                  <h3>{`${frosh.preferredName === '' ? frosh.firstName : frosh.preferredName} ${
+                    frosh.lastName
+                  }`}</h3>
                   <p>{frosh.email}</p>
                 </div>
               }
@@ -635,8 +669,9 @@ const ProfilePageAnnouncements = () => {
 const ProfilePageQRCode = () => {
   const isRegistered = useSelector(registeredSelector);
   const [QRCodeString, setQRCodeString] = useState('');
-  useEffect(async () => {
-    setQRCodeString(await getQRCodeString());
+  const { user } = useSelector(userSelector);
+  useEffect(() => {
+    setQRCodeString(getQRCodeString(user));
   }, []);
   if (!isRegistered) {
     return <></>;

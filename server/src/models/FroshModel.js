@@ -204,9 +204,39 @@ const FroshSchema = new mongoose.Schema(
       type: Boolean,
       required: false,
     },
-    isPresent: {
+    signInSunday: {
       type: Boolean,
-      required: true,
+      required: false,
+      default: false,
+    },
+    signInMonday: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    signInTuesday: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    signInWednesday: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    signInThursday: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    signInFriday: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    signInSaturday: {
+      type: Boolean,
+      required: false,
       default: false,
     },
   },

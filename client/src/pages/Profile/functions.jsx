@@ -194,7 +194,16 @@ export function getDaysFroshSchedule(froshGroup) {
 }
 
 export function qrKeys() {
-  return ['email', 'name', 'pronouns', 'shirtSize', 'froshGroup', 'discipline'];
+  return [
+    'email',
+    'firstName',
+    'lastName',
+    'preferredName',
+    'pronouns',
+    'shirtSize',
+    'froshGroup',
+    'discipline',
+  ];
 }
 
 export function parseQRCode(qrString) {
@@ -202,16 +211,20 @@ export function parseQRCode(qrString) {
     let qrStringSplit = qrString.split('|');
     return {
       email: qrStringSplit[0],
-      name: qrStringSplit[1],
-      pronouns: qrStringSplit[2],
-      shirtSize: qrStringSplit[3],
-      froshGroup: qrStringSplit[4],
-      discipline: qrStringSplit[5],
+      firstName: qrStringSplit[1],
+      lastName: qrStringSplit[2],
+      preferredName: qrStringSplit[3],
+      pronouns: qrStringSplit[4],
+      shirtSize: qrStringSplit[5],
+      froshGroup: qrStringSplit[6],
+      discipline: qrStringSplit[7],
     };
   } catch (e) {
     return {
       email: undefined,
-      name: undefined,
+      firstName: undefined,
+      lastName: undefined,
+      preferredName: undefined,
       pronouns: undefined,
       shirtSize: undefined,
       froshGroup: undefined,
@@ -220,23 +233,26 @@ export function parseQRCode(qrString) {
   }
 }
 
-export async function getQRCodeString() {
+export function getQRCodeString(user) {
   // Keep in this order:
   // email | full name or preferred name | pronouns | shirt size | frosh group | discipline
   try {
-    const response = await axios.get('/user/info');
-    let allDetails = response.data.user.email;
+    let allDetails = user.email;
     return allDetails.concat(
       '|',
-      response.data.user.fullName,
+      user.firstName,
       '|',
-      response.data.user.pronouns,
+      user.lastName,
       '|',
-      response.data.user.shirtSize,
+      user.preferredName,
       '|',
-      response.data.user.froshGroup,
+      user.pronouns,
       '|',
-      response.data.user.discipline,
+      user.shirtSize,
+      '|',
+      user.froshGroup,
+      '|',
+      user.discipline,
     );
   } catch (error) {
     console.log(error);
@@ -247,7 +263,12 @@ export async function getQRCodeString() {
 //Return an error string if not
 export async function signInFrosh(email) {
   try {
-    await axios.put('/qr/scan', { email: email });
+    const date = new Date();
+    await axios.put('/qr/scan', {
+      email: email,
+      date: date.toISOString(),
+      tzOffset: date.getTimezoneOffset(),
+    });
 
     return true;
   } catch (error) {

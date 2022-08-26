@@ -39,11 +39,4 @@ router.put(
   QRController.getScannedUser,
 );
 
-router.get(
-  '/search',
-  checkLoggedIn,
-  hasAuthScopes(['signInFrosh:qr-code registration']),
-  QRController.getSearchedUser,
-);
-
 module.exports = router;
