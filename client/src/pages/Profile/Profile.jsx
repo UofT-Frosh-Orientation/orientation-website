@@ -40,6 +40,8 @@ import { SnackbarContext } from '../../util/SnackbarProvider';
 import { okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
 import { froshGroups } from '../../util/frosh-groups';
 import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
+import { getFrosh } from '../../state/frosh/saga';
+import { froshSelector, registeredFroshSelector } from '../../state/frosh/froshSlice';
 
 const PageProfile = () => {
   return <PageProfileFrosh />;
@@ -333,12 +335,45 @@ const ProfilePageQRScanner = () => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [searchFor, setSearchFor] = useState('');
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState([
+    {
+      email: 'test@gmail.com',
+      shirtSize: 'small',
+      pronouns: 'he/him',
+      froshGroup: 'iota',
+      discipline: 'ECE',
+    },
+  ]);
   const [scannedData, setScannedData] = useState('');
+  const { registeredFrosh } = useSelector(registeredFroshSelector);
+  const dispatch = useDispatch();
 
-  const search = () => {
-    setResults(searchForFrosh(searchFor));
-  };
+  useEffect(() => {
+    dispatch(getFrosh({ showAllUsers: false }));
+  }, []);
+
+  let searchTimeout;
+
+  // debounce input to improve performance when searching >800 frosh
+  useEffect(() => {
+    // clear timeout if they typed
+    clearTimeout(searchTimeout);
+    if (!searchFor || searchFor === '') {
+      setResults([]);
+    } else {
+      // set timeout to wait for them to finish typing before searching
+      searchTimeout = setTimeout(() => {
+        const lowerCaseSearch = searchFor.toLowerCase();
+        const filteredFrosh = registeredFrosh.filter(
+          (f) =>
+            `${f.firstName} ${f.lastName}`.toLowerCase().includes(lowerCaseSearch) ||
+            f.email.toLowerCase().includes(lowerCaseSearch) ||
+            f.preferredName.toLowerCase().includes(lowerCaseSearch),
+        );
+        setResults(filteredFrosh);
+      }, 500);
+    }
+  }, [searchFor]);
 
   return (
     <div className="profile-page-qr-code-scanner profile-page-side-section">
@@ -368,8 +403,9 @@ const ProfilePageQRScanner = () => {
       </div>
       <Button
         label={'Submit'}
-        onClick={() => {
-          const result = signInFrosh(scannedData.email);
+        onClick={async () => {
+          const result = await signInFrosh(scannedData.email);
+
           if (result === true) {
             setScannedData(parseQRCode(''));
             setSubmitSuccess(true);
@@ -379,7 +415,7 @@ const ProfilePageQRScanner = () => {
             if (submitError !== false) {
               setSubmitError(false);
             }
-            if (results !== []) {
+            if (!results.length) {
               setResults([]);
             }
           } else {
@@ -393,17 +429,14 @@ const ProfilePageQRScanner = () => {
       <h2 className="profile-page-manual-entry-header">Manual Entry</h2>
       <div style={{ padding: '0px 10px', width: '100%' }}>
         <TextInput
-          placeholder={'Frosh Name / Email'}
+          placeholder={'Search by Email'}
           onChange={(value) => {
             setSearchFor(value);
-          }}
-          onEnterKey={() => {
-            search();
           }}
         />
       </div>
       <div className="manual-sign-in-frosh-search-result-container">
-        {results.map((frosh, index) => {
+        {results.slice(0, 5).map((frosh, index) => {
           return (
             <ButtonOutlined
               onClick={() => {
@@ -412,7 +445,9 @@ const ProfilePageQRScanner = () => {
               key={frosh.email + index}
               label={
                 <div>
-                  <h3>{frosh.name}</h3>
+                  <h3>{`${frosh.preferredName === '' ? frosh.firstName : frosh.preferredName} ${
+                    frosh.lastName
+                  }`}</h3>
                   <p>{frosh.email}</p>
                 </div>
               }
@@ -634,8 +669,9 @@ const ProfilePageAnnouncements = () => {
 const ProfilePageQRCode = () => {
   const isRegistered = useSelector(registeredSelector);
   const [QRCodeString, setQRCodeString] = useState('');
-  useEffect(async () => {
-    setQRCodeString(await getQRCodeString());
+  const { user } = useSelector(userSelector);
+  useEffect(() => {
+    setQRCodeString(getQRCodeString(user));
   }, []);
   if (!isRegistered) {
     return <></>;

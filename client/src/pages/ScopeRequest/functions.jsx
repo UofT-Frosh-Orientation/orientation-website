@@ -38,7 +38,17 @@ export const getTotalRegistrationScopes = () => {
     if (fields[key].type === 'label') {
       continue;
     }
-    output = [...output, ...Object.keys(fields[key])];
+    output = [
+      ...output,
+      ...Object.keys(fields[key]),
+      'signInSunday',
+      'signInMonday',
+      'signInTuesday',
+      'signInWednesday',
+      'signInThursday',
+      'signInFriday',
+      'signInSaturday',
+    ];
   }
   return output;
 };
