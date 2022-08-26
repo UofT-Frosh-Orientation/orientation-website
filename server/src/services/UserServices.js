@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt');
 const EmailValidator = require('email-validator');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
-const getScuntToken = require('../middlewares/createScuntToken');
 
 const UserModel = require('../models/UserModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
