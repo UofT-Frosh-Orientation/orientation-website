@@ -21,7 +21,6 @@ import {
   scuntDiscord,
 } from '../../util/scunt-constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { showDiscordLinkSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 

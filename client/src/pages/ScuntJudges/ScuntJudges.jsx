@@ -8,7 +8,53 @@ import { Confetti } from '../../components/misc/Confetti/Confetti';
 
 import './ScuntJudges.scss';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
+import { getScuntSettings } from '../../state/scuntSettings/saga';
+
 const ScuntJudges = () => {
+  return (
+    <>
+      <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
+        <ScuntLinks />
+      </Header>
+      <ScuntJudgesContent />
+    </>
+  );
+};
+
+const ScuntJudgesContent = () => {
+  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
+  const [revealJudgesAndBribes, setRevealJudgesAndBribes] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // updating the selector
+    dispatch(getScuntSettings());
+  }, [loading]);
+
+  useEffect(() => {
+    if (scuntSettings !== undefined) {
+      if (Array.isArray(scuntSettings)) {
+        // checks above are to access game settings since selector is initialy undef
+        setRevealJudgesAndBribes(scuntSettings[0]?.revealJudgesAndBribes);
+      }
+    }
+  }, [scuntSettings]);
+
+  if (revealJudgesAndBribes !== true) {
+    return (
+      <h1 style={{ color: 'var(--text-dynamic)', textAlign: 'center', margin: '35px' }}>
+        Check back once Scunt has begun!
+      </h1>
+    );
+  } else {
+    return <ScuntJudgesShow />;
+  }
+};
+
+const ScuntJudgesShow = () => {
   let clicks = 3; // only show tech team if this number of profiles have been clicked
   const [totalClicks, setTotalClicks] = useState(0);
   const [openPopup, setOpenPopup] = useState(true);
@@ -16,7 +62,7 @@ const ScuntJudges = () => {
   const [showTechTeamPopup, setShowTechTeamPopup] = useState(false); // shows secret judges revealed popup
   const [profileClicks, setProfileClicks] = useState([{ name: 'test', clicks: 0 }]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     // do this first!
     const popupdata = window.localStorage.getItem('scunt-judges-popup');
     const showtechteamdata = window.localStorage.getItem('show-tech-team-secret-judge');
@@ -70,9 +116,9 @@ const ScuntJudges = () => {
 
   return (
     <>
-      <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
+      {/* <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
         <ScuntLinks />
-      </Header>
+      </Header> */}
       <div className="scunt-judges-container">
         {scuntJudges.map((judge) => {
           const [clickProfile, setClickProfile] = useState(false);
