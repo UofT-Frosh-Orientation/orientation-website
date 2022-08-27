@@ -29,7 +29,6 @@ const ScuntGameSettingsController = {
         revealMissions,
         allowJudging,
       } = req.body;
-      //console.log(req.body);
       await ScuntGameSettingsServices.setGameSettings(
         name,
         amountOfTeams,

@@ -5,15 +5,6 @@ export const initialState = {
   loading: false,
   error: null,
   scuntSettings: undefined,
-  // scuntSettings: {
-  //   revealJudgesAndBribes: false,
-  //   revealTeams: false,
-  //   showDiscordLink: false,
-  //   revealLeaderboard: false,
-  //   revealMissions: false,
-  //   allowJudging: false,
-  //   discordLink: '', //https://discord.gg/mRutbwuCK9
-  // },
 };
 
 const scuntSettingsSlice = createSlice({

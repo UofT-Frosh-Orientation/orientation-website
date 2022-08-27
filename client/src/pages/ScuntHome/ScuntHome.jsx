@@ -38,62 +38,34 @@ export const PageScuntHome = () => {
 };
 
 const ScuntDiscord = () => {
-  // if (okayToInviteToScunt === false) {
-  //   return <div />;
-  // }
   const [showDiscordLink, setShowDiscordLink] = useState(false);
   const [discordLink, setDiscordLink] = useState('');
   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
-  //console.log(scuntSettings);
-  // const [scuntSettings, setScuntSettings] = useState([]);
-  const [localScuntSettings, setLocalScuntSettings] = useState([]);
+  const [revealTeams, setRevealTeams] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // updating the selector
     dispatch(getScuntSettings());
   }, [loading]);
 
   useEffect(() => {
-    // //setScuntSettings(dispatch(getScuntSettings()));
-    // //console.log(showDiscordLink);
-    // dispatch(getScuntSettings());
-
-    // //console.log(scuntSettings);
-
     if (scuntSettings !== undefined) {
       if (Array.isArray(scuntSettings)) {
-        // need to check!
-        //console.log('here!');
-        setLocalScuntSettings(scuntSettings[0]);
+        // checks above are to access game settings since selector is initialy undef
         setShowDiscordLink(scuntSettings[0]?.showDiscordLink);
         setDiscordLink(scuntSettings[0]?.discordLink);
-
-        // console.log(scuntSettings[0]);
-        // console.log('show discord?', showDiscordLink);
-        // console.log('discord link', discordLink);
+        setRevealTeams(scuntSettings[0]?.revealTeams);
       }
-
-      //console.log(scuntSettings[0]);
-      //   console.log('show discord?', showDiscordLink);
-      // console.log('discord link', discordLink);
     }
-
-    // // setShowDiscordLink(scuntSettings.showDiscordLink);
-    // // setDiscordLink(scuntSettings.discordLink);
-
-    // // console.log('show discord?', showDiscordLink);
-    // // console.log('discord link', discordLink);
-    // // console.log(scuntSettings);
   }, [scuntSettings]);
 
-  //console.log(scuntSettings);
-
-  if (showDiscordLink !== true) {
+  if (showDiscordLink !== true && revealTeams !== true) {
+    // catch the undef states of the selector using !== true
     return <div />;
   } else {
     const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-    //console.log(scuntSettings);
     return (
       <div
         style={{
