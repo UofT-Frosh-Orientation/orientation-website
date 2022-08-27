@@ -124,7 +124,7 @@ const ScuntGameSettings = () => {
                   placeholder={i.placeholder}
                   newSettings={newSettings}
                   setNewSettings={setNewSettings}
-                  initialValue={i.default}
+                  // initialValue={i.default}
                 />
               </div>
             );

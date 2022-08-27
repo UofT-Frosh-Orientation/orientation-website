@@ -5,6 +5,15 @@ export const initialState = {
   loading: false,
   error: null,
   scuntSettings: undefined,
+  // scuntSettings: {
+  //   revealJudgesAndBribes: false,
+  //   revealTeams: false,
+  //   showDiscordLink: false,
+  //   revealLeaderboard: false,
+  //   revealMissions: false,
+  //   allowJudging: false,
+  //   discordLink: '', //https://discord.gg/mRutbwuCK9
+  // },
 };
 
 const scuntSettingsSlice = createSlice({
@@ -56,7 +65,7 @@ export const scuntSettingsReducerSelector = (state) => state[scuntSettingsSlice.
 
 export const scuntSettingsSelector = createSelector(
   scuntSettingsReducerSelector,
-  ({ scuntSettings }) => ({ scuntSettings }),
+  ({ scuntSettings, loading, error }) => ({ scuntSettings, loading, error }),
 );
 
 // selectors for individual settings...?
@@ -74,6 +83,11 @@ export const amountOfStarterBribePointsSelector = createSelector(
 export const maxAmountPointsPercentSelector = createSelector(
   scuntSettingsReducerSelector,
   ({ scuntSettings }) => scuntSettings?.maxAmountPointsPercent,
+);
+
+export const showDiscordLinkSelector = createSelector(
+  scuntSettingsReducerSelector,
+  ({ scuntSettings }) => scuntSettings?.showDiscordLink,
 );
 
 export const discordLinkSelector = createSelector(

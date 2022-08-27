@@ -20,6 +20,10 @@ import {
   scuntDate,
   scuntDiscord,
 } from '../../util/scunt-constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { showDiscordLinkSelector } from '../../state/scuntSettings/scuntSettingsSlice';
+import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
+import { getScuntSettings } from '../../state/scuntSettings/saga';
 
 export const PageScuntHome = () => {
   return (
@@ -34,39 +38,90 @@ export const PageScuntHome = () => {
 };
 
 const ScuntDiscord = () => {
-  if (okayToInviteToScunt === false) {
+  // if (okayToInviteToScunt === false) {
+  //   return <div />;
+  // }
+  const [showDiscordLink, setShowDiscordLink] = useState(false);
+  const [discordLink, setDiscordLink] = useState('');
+  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
+  //console.log(scuntSettings);
+  // const [scuntSettings, setScuntSettings] = useState([]);
+  const [localScuntSettings, setLocalScuntSettings] = useState([]);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getScuntSettings());
+  }, [loading]);
+
+  useEffect(() => {
+    // //setScuntSettings(dispatch(getScuntSettings()));
+    // //console.log(showDiscordLink);
+    // dispatch(getScuntSettings());
+
+    // //console.log(scuntSettings);
+
+    if (scuntSettings !== undefined) {
+      if (Array.isArray(scuntSettings)) {
+        // need to check!
+        //console.log('here!');
+        setLocalScuntSettings(scuntSettings[0]);
+        setShowDiscordLink(scuntSettings[0]?.showDiscordLink);
+        setDiscordLink(scuntSettings[0]?.discordLink);
+
+        // console.log(scuntSettings[0]);
+        // console.log('show discord?', showDiscordLink);
+        // console.log('discord link', discordLink);
+      }
+
+      //console.log(scuntSettings[0]);
+      //   console.log('show discord?', showDiscordLink);
+      // console.log('discord link', discordLink);
+    }
+
+    // // setShowDiscordLink(scuntSettings.showDiscordLink);
+    // // setDiscordLink(scuntSettings.discordLink);
+
+    // // console.log('show discord?', showDiscordLink);
+    // // console.log('discord link', discordLink);
+    // // console.log(scuntSettings);
+  }, [scuntSettings]);
+
+  //console.log(scuntSettings);
+
+  if (showDiscordLink !== true) {
     return <div />;
-  }
-
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-
-  return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        marginTop: '-20px',
-        overflowWrap: 'anywhere',
-      }}
-    >
-      <a href={scuntDiscord} className="no-link-style" target={'_blank'} rel="noreferrer">
-        <div
-          className="frosh-instagram-container"
-          style={{ padding: '15px 20px', margin: '10px 9px' }}
-        >
-          <img
-            src={DiscordIcon}
-            alt="Discord"
-            style={{ filter: darkMode ? 'unset' : 'invert(1)' }}
-          />
-          <div>
-            <p>Join the discord to chat with your team!</p>
-            <h2 style={{ fontSize: '15px' }}>{scuntDiscord}</h2>
+  } else {
+    const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+    //console.log(scuntSettings);
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '-20px',
+          overflowWrap: 'anywhere',
+        }}
+      >
+        <a href={scuntDiscord} className="no-link-style" target={'_blank'} rel="noreferrer">
+          <div
+            className="frosh-instagram-container"
+            style={{ padding: '15px 20px', margin: '10px 9px' }}
+          >
+            <img
+              src={DiscordIcon}
+              alt="Discord"
+              style={{ filter: darkMode ? 'unset' : 'invert(1)' }}
+            />
+            <div>
+              <p>Join the discord to chat with your team!</p>
+              <h2 style={{ fontSize: '15px' }}>{discordLink}</h2>
+            </div>
           </div>
-        </div>
-      </a>
-    </div>
-  );
+        </a>
+      </div>
+    );
+  }
 };
 
 const AboutScunt = () => {
