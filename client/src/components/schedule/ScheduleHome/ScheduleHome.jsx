@@ -100,12 +100,23 @@ const ScheduleComponent = () => {
   );
 };
 
-const ScheduleComponentAccordion = ({ scheduleDay, closeAll }) => {
+export const ScheduleComponentAccordion = ({ scheduleDay, closeAll }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     setIsOpen(false);
   }, [closeAll]);
+
+  let startTime = scheduleDay['Start Time'];
+  if (startTime.includes(':00 a1/p1')) {
+    startTime = startTime.replace(':00 a1/p1', '');
+    startTime = convertTime(startTime);
+  }
+  let endTime = scheduleDay['End Time'];
+  if (endTime.includes(':00 a1/p1')) {
+    endTime = endTime.replace(':00 a1/p1', '');
+    endTime = convertTime(endTime);
+  }
 
   return (
     <div className="schedule-accordion">
@@ -114,7 +125,7 @@ const ScheduleComponentAccordion = ({ scheduleDay, closeAll }) => {
         header={
           <div className="schedule-accordion-header" closeAll={closeAll}>
             <h1>{scheduleDay['Event Name']}</h1>
-            <h2>{scheduleDay['Start Time'] + ' - ' + scheduleDay['End Time']}</h2>
+            <h2>{startTime + ' - ' + endTime}</h2>
           </div>
         }
         setIsOpen={setIsOpen}
@@ -133,3 +144,16 @@ ScheduleComponentAccordion.propTypes = {
 };
 
 export { ScheduleComponent };
+
+function convertTime(time) {
+  time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)?$/) || [time];
+
+  if (time.length > 1) {
+    time = time.slice(1);
+    time[5] = +time[0] < 12 ? ' AM' : ' PM';
+    time[0] = +time[0] % 12 || 12;
+  } else {
+    return time + ' AM';
+  }
+  return time.join('');
+}
