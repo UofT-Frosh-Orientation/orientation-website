@@ -9,6 +9,7 @@ import { Confetti } from '../../components/misc/Confetti/Confetti';
 import './ScuntJudges.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 
@@ -24,6 +25,8 @@ const ScuntJudges = () => {
 };
 
 const ScuntJudgesContent = () => {
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
   const [revealJudgesAndBribes, setRevealJudgesAndBribes] = useState(false);
 
@@ -43,7 +46,7 @@ const ScuntJudgesContent = () => {
     }
   }, [scuntSettings]);
 
-  if (revealJudgesAndBribes !== true) {
+  if (revealJudgesAndBribes !== true && !leader) {
     return (
       <h1 style={{ color: 'var(--text-dynamic)', textAlign: 'center', margin: '35px' }}>
         Check back once Scunt has begun!

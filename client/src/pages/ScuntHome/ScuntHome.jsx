@@ -21,6 +21,7 @@ import {
   scuntDiscord,
 } from '../../util/scunt-constants';
 import { useDispatch, useSelector } from 'react-redux';
+import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 
@@ -42,6 +43,9 @@ const ScuntDiscord = () => {
   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
   const [revealTeams, setRevealTeams] = useState(false);
 
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -60,7 +64,7 @@ const ScuntDiscord = () => {
     }
   }, [scuntSettings]);
 
-  if (showDiscordLink !== true && revealTeams !== true) {
+  if (showDiscordLink !== true && revealTeams !== true && !leader) {
     // catch the undef states of the selector using !== true
     return <div />;
   } else {
