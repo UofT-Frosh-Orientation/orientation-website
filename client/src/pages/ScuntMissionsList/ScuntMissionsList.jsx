@@ -10,6 +10,11 @@ import { Link } from 'react-router-dom';
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { registeredSelector, userSelector } from '../../state/user/userSlice';
+import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
+import { getScuntSettings } from '../../state/scuntSettings/saga';
+
 function getMissionCategories() {
   const missions = list;
   let currentCategory = '';
@@ -23,7 +28,51 @@ function getMissionCategories() {
   return output;
 }
 
-export const PageScuntMissionsList = () => {
+const PageScuntMissionsList = () => {
+  return (
+    <>
+      <Header text={'Missions'} underlineDesktop={'300px'} underlineMobile={'210px'}>
+        <ScuntLinks />
+      </Header>
+      <ScuntMissionsListContent />
+    </>
+  );
+};
+
+const ScuntMissionsListContent = () => {
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
+  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
+  const [revealMissions, setRevealMissions] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // updating the selector
+    dispatch(getScuntSettings());
+  }, [loading]);
+
+  useEffect(() => {
+    if (scuntSettings !== undefined) {
+      if (Array.isArray(scuntSettings)) {
+        // checks above are to access game settings since selector is initialy undef
+        setRevealMissions(scuntSettings[0]?.revealMissions);
+      }
+    }
+  }, [scuntSettings]);
+
+  if (revealMissions !== true && !leader) {
+    return (
+      <h1 style={{ color: 'var(--text-dynamic)', textAlign: 'center', margin: '35px' }}>
+        Check back once Scunt has begun!
+      </h1>
+    );
+  } else {
+    return <PageScuntMissionsListShow />;
+  }
+};
+
+const PageScuntMissionsListShow = () => {
   const missions = list;
   const [mission, setMission] = useState(undefined);
   const [searchedMissions, setSearchedMissions] = useState(missions);
@@ -83,9 +132,6 @@ export const PageScuntMissionsList = () => {
   let previousCategory = '';
   return (
     <div>
-      <Header text={'Missions'} underlineDesktop={'300px'} underlineMobile={'210px'}>
-        <ScuntLinks />
-      </Header>
       <div className="scunt-missions-header">
         <h2>Want another way to earn points?</h2>
         <div className="scunt-missions-header-link">
@@ -225,3 +271,5 @@ export const PageScuntMissionsList = () => {
     </div>
   );
 };
+
+export { PageScuntMissionsList };

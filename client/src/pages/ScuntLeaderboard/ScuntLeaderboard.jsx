@@ -11,6 +11,11 @@ import secondPlace from '../../assets/scuntleaderboard/second-medal.svg';
 import thirdPlace from '../../assets/scuntleaderboard/third-medal.svg';
 import { Button } from '../../components/button/Button/Button';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { registeredSelector, userSelector } from '../../state/user/userSlice';
+import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
+import { getScuntSettings } from '../../state/scuntSettings/saga';
+
 const test = [
   {
     name: 'HIHIHI jhjhj',
@@ -47,6 +52,50 @@ const test = [
 const buttonStyle = { width: 'fit-content' };
 
 const ScuntLeaderboard = () => {
+  return (
+    <>
+      <Header text={'Leaderboard'} underlineDesktop={'410px'} underlineMobile={'285px'}>
+        <ScuntLinks />
+      </Header>
+      <ScuntLeaderboardContent />
+    </>
+  );
+};
+
+const ScuntLeaderboardContent = () => {
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
+  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
+  const [revealLeaderboard, setRevealLeaderboard] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // updating the selector
+    dispatch(getScuntSettings());
+  }, [loading]);
+
+  useEffect(() => {
+    if (scuntSettings !== undefined) {
+      if (Array.isArray(scuntSettings)) {
+        // checks above are to access game settings since selector is initialy undef
+        setRevealLeaderboard(scuntSettings[0]?.revealLeaderboard);
+      }
+    }
+  }, [scuntSettings]);
+
+  if (revealLeaderboard !== true && !leader) {
+    return (
+      <h1 style={{ color: 'var(--text-dynamic)', textAlign: 'center', margin: '35px' }}>
+        Check back once Scunt has begun!
+      </h1>
+    );
+  } else {
+    return <ScuntLeaderboardShow />;
+  }
+};
+
+const ScuntLeaderboardShow = () => {
   //const [leaderboard, setLeaderboard] = useState([]);
   const handle = useFullScreenHandle();
 
@@ -72,10 +121,6 @@ const ScuntLeaderboard = () => {
 
   return (
     <>
-      <Header text={'Leaderboard'} underlineDesktop={'410px'} underlineMobile={'285px'}>
-        <ScuntLinks />
-      </Header>
-
       <h2 style={{ textAlign: 'center', color: 'var(--text-dark-use)', padding: '25px 4% 0 4%' }}>
         Leaderboard updates in real time!
       </h2>
