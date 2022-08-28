@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import './FroshRetreat.scss';
 import { Header } from '../../components/text/Header/Header';
 import { Button } from '../../components/button/Button/Button';
-import { Link } from 'react-router-dom';
-import { userSelector } from '../../state/user/userSlice';
+import { Link, useNavigate } from 'react-router-dom';
+import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useSelector } from 'react-redux';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
@@ -14,41 +14,66 @@ import useAxios from '../../hooks/useAxios';
 export const FroshRetreat = () => {
   const [remainingTickets, setRemainingTickets] = useState();
   const { setSnackbar } = useContext(SnackbarContext);
+  const navigate = useNavigate();
+  const isRegistered = useSelector(registeredSelector);
 
   useEffect(async () => {
     setRemainingTickets(await getRemainingTickets(setSnackbar));
   }, []);
+
+  useEffect(() => {
+    if (!isRegistered) {
+      navigate('/profile');
+    }
+  }, [isRegistered]);
 
   return (
     <div className="frosh-retreat-page">
       <Header text={'Retreat'} underlineDesktop={'260px'} underlineMobile={'185px'}>
         <div className="info-header">
           <h1>Remaining Tickets: {remainingTickets}</h1>
-          <p style={{ color: 'var(--white)' }}>
-            Hello hello! Thank you so much for your interest in participating in the Frosh Retreat.
-            The retreat is taking place on Saturday September 10th 2022 running overnight into
-            Sunday September 11th 2022 at Hart House Farm.{' '}
-          </p>
-          <p style={{ color: 'var(--white)' }}>
-            Due to limited spaces, we are selling a limited number of tickets so purchase yours
-            before they sell out!{' '}
-          </p>
+          <br />
+          <h2>
+            There is an error with Retreat Payments. Please wait while Tech Team fixes the issue.
+            Sorry for the inconvencience. Please check back at a later time.
+          </h2>
         </div>
       </Header>
-      <div style={{ height: '20px' }} />
-      <iframe
-        className="frosh-retreat-video"
-        src="https://www.youtube.com/embed/eGwsNvgroCI?autoplay=1"
-        title="F!rosh Retreat Info"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
-      <div style={{ height: '20px' }} />
-      <h1>Registration</h1>
-      <RetreatRegistration />
     </div>
   );
+
+  // return (
+  //   <div className="frosh-retreat-page">
+  //     <Header text={'Retreat'} underlineDesktop={'260px'} underlineMobile={'185px'}>
+  //       <div className="info-header">
+  //         <h1>Remaining Tickets: {remainingTickets}</h1>
+  //         <h1>There is an error with Retreat Payments. Please wait while Tech Team fixes the issue. Sorry for the inconvencience. Please check back at a later time.</h1>
+
+  //         <p style={{ color: 'var(--white)' }}>
+  //           Hello hello! Thank you so much for your interest in participating in the Frosh Retreat.
+  //           The retreat is taking place on Saturday September 10th 2022 running overnight into
+  //           Sunday September 11th 2022 at Hart House Farm.{' '}
+  //         </p>
+  //         <p style={{ color: 'var(--white)' }}>
+  //           Due to limited spaces, we are selling a limited number of tickets so purchase yours
+  //           before they sell out!{' '}
+  //         </p>
+  //       </div>
+  //     </Header>
+  //     <div style={{ height: '20px' }} />
+  //     <iframe
+  //       className="frosh-retreat-video"
+  //       src="https://www.youtube.com/embed/eGwsNvgroCI?autoplay=1"
+  //       title="F!rosh Retreat Info"
+  //       frameBorder="0"
+  //       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  //       allowFullScreen
+  //     ></iframe>
+  //     <div style={{ height: '20px' }} />
+  //     <h1>Registration</h1>
+  //     <RetreatRegistration />
+  //   </div>
+  // );
 };
 
 export async function getRemainingTickets(setSnackbar) {

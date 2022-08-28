@@ -32,7 +32,7 @@ function downloadDataAsXML(data) {
 
 const PageFroshInfoTable = () => {
   const noEditFields = getUneditableFields();
-  const { frosh } = useSelector(froshSelector);
+  const { registeredFrosh } = useSelector(froshSelector);
   const [objectKeys, setObjectKeys] = useState([]);
   const [sortedParam, setSortedParam] = useState();
   const [sortedOrder, setSortedOrder] = useState(1);
@@ -49,11 +49,11 @@ const PageFroshInfoTable = () => {
   }, [showAllUsers]);
 
   useEffect(() => {
-    if (frosh?.length > 0) {
-      setObjectKeys(Object.keys(Object.assign({}, ...frosh)));
+    if (registeredFrosh?.length > 0) {
+      setObjectKeys(Object.keys(Object.assign({}, ...registeredFrosh)));
     }
-    setSortedFrosh(frosh);
-  }, [frosh]);
+    setSortedFrosh(registeredFrosh);
+  }, [registeredFrosh]);
 
   useEffect(() => {
     const froshData = [...sortedFrosh];
@@ -110,7 +110,7 @@ const PageFroshInfoTable = () => {
           <Button
             label="Download XML"
             onClick={() => {
-              downloadDataAsXML(frosh);
+              downloadDataAsXML(registeredFrosh);
             }}
           />
         </div>
@@ -163,7 +163,7 @@ const PageFroshInfoTable = () => {
         )}
       </p>
       <div className="table-wrap">
-        {frosh?.length === 0 ? (
+        {registeredFrosh?.length === 0 ? (
           <div style={{ margin: '5%', textAlign: 'center' }}>
             <h2>It looks a bit empty here...</h2>
             <h2>Please read notes listed above and ensure you have the correct permissions.</h2>
@@ -172,13 +172,13 @@ const PageFroshInfoTable = () => {
         ) : (
           <></>
         )}
-        {frosh?.length >= 0 ? (
+        {registeredFrosh?.length >= 0 ? (
           <table>
             <tr>
               <th
                 style={{ cursor: 'pointer' }}
                 onClick={() => {
-                  setSortedFrosh(frosh);
+                  setSortedFrosh(registeredFrosh);
                   setSortedParam('');
                 }}
               >
