@@ -1,6 +1,6 @@
 const express = require('express');
 
-const QRController = require('../controllers/QRController');
+const QRController = require('../controllers/QrController');
 const checkLoggedIn = require('../middlewares/checkLoggedIn');
 const hasAuthScopes = require('../middlewares/hasAuthScopes');
 
