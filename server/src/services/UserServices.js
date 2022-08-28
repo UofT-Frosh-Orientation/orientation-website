@@ -335,6 +335,23 @@ const UserServices = {
       );
     });
   },
+  /**
+   * Hard deletes a user by id.
+   * @param {ObjectId} id - id of the user to be deleted
+   * @async
+   * @return {Promise<Object>} - the user which was deleted
+   */
+  async deleteUser(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOneAndDelete({ _id: id }, (err, deletedUser) => {
+        if (err || !deletedUser) {
+          reject('UNABLE_TO_DELETE_USER');
+        } else {
+          resolve(deletedUser);
+        }
+      });
+    });
+  },
 };
 
 module.exports = UserServices;

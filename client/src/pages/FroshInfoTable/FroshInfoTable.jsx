@@ -1,34 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect, useContext } from 'react';
 import './FroshInfoTable.scss';
-import { fields } from '../Registration/RegistrationFields';
+// import { fields } from '../Registration/RegistrationFields';
 import { Button } from '../../components/button/Button/Button';
-import exportFromJSON from 'export-from-json';
+// import exportFromJSON from 'export-from-json';
 import { useDispatch, useSelector } from 'react-redux';
 import { froshSelector } from '../../state/frosh/froshSlice';
 import { getFrosh } from '../../state/frosh/saga';
 import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { userSelector } from '../../state/user/userSlice';
-
-function getUneditableFields() {
-  let noEditFields = [];
-  for (let key1 of Object.keys(fields)) {
-    for (let key2 of Object.keys(fields[key1])) {
-      if (fields[key1][key2].noEdit) {
-        noEditFields.push(key2);
-      }
-    }
-  }
-  return noEditFields;
-}
-
-function downloadDataAsXML(data) {
-  const fileName = 'froshData';
-  let fields = [];
-  const exportType = 'xml';
-  exportFromJSON({ data, fileName, fields, exportType });
-}
+import { SnackbarContext } from '../../util/SnackbarProvider';
+import { PopupModal } from '../../components/popup/PopupModal';
+import { getUneditableFields, downloadDataAsXML, deleteUser } from './functions';
 
 const PageFroshInfoTable = () => {
   const noEditFields = getUneditableFields();
@@ -40,13 +23,19 @@ const PageFroshInfoTable = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortedFrosh, setSortedFrosh] = useState([]);
   const [searchedFrosh, setSearchedFrosh] = useState([]);
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [selectedUserID, setSelectedUserID] = useState();
+  const [editMade, setEditMade] = useState(false);
+
+  const { setSnackbar } = useContext(SnackbarContext);
+
   const { user } = useSelector(userSelector);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getFrosh({ showAllUsers }));
-  }, [showAllUsers]);
+  }, [showAllUsers, editMade]);
 
   useEffect(() => {
     if (registeredFrosh?.length > 0) {
@@ -201,6 +190,7 @@ const PageFroshInfoTable = () => {
                   </th>
                 );
               })}
+              <th>Delete Account</th>
             </tr>
             {(searchTerm && searchTerm !== '' ? searchedFrosh : sortedFrosh).map((datum, index) => {
               return (
@@ -215,6 +205,21 @@ const PageFroshInfoTable = () => {
                       </td>
                     );
                   })}
+                  <td style={{ textAlign: 'center' }}>
+                    <Button
+                      label={'X'}
+                      style={{
+                        margin: 0,
+                        padding: '10px 25px',
+                        backgroundColor: 'var(--red-error)',
+                      }}
+                      onClick={() => {
+                        console.log(datum);
+                        setSelectedUserID(datum._id);
+                        setShowPopUp(true);
+                      }}
+                    />
+                  </td>
                 </tr>
               );
             })}
@@ -223,8 +228,40 @@ const PageFroshInfoTable = () => {
           <h2>No data</h2>
         )}
       </div>
+
+      <PopupModal
+        trigger={showPopUp}
+        setTrigger={setShowPopUp}
+        blurBackground={false}
+        exitIcon={true}
+      >
+        <div className="popup-container">
+          <h1 style={{ textAlign: 'center' }}>Permanently delete this account?</h1>
+          <div className="popup-button">
+            <Button
+              label={'Delete'}
+              style={{ backgroundColor: 'var(--red-error)' }}
+              onClick={async () => {
+                const result = await deleteUser(selectedUserID);
+                if (result !== true) {
+                  setSnackbar('Error deleting user', true);
+                  setShowPopUp(false);
+                } else {
+                  setEditMade(!editMade);
+                  setSnackbar('User Successfully Deleted', false);
+                  setShowPopUp(false);
+                }
+              }}
+            />
+          </div>
+        </div>
+      </PopupModal>
     </div>
   );
 };
+
+// const DeleteButton = ({ label, style, onClick }) => {
+//   return <Button label={label} style={style} onClick={onClick()} />;
+// };
 
 export { PageFroshInfoTable };

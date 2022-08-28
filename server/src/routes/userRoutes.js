@@ -152,4 +152,27 @@ router.put(
   UserController.updateAuthScopes,
 );
 
+/**
+ * @swagger
+ * /user/{id}:
+ *   delete:
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: id of the user to delete
+ *     responses:
+ *       '200':
+ *         description: The user was successfully deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#components/schemas/FAQ'
+ *       '403':
+ *         $ref: '#components/responses/NotLoggedIn'
+ */
+router.delete('/:id', checkLoggedIn, hasAuthScopes(['accounts:delete']), UserController.deleteUser);
+
 module.exports = router;
