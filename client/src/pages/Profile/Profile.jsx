@@ -33,7 +33,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { getUserInfo } from '../../state/user/saga';
 import { announcementsSelector } from '../../state/announcements/announcementsSlice';
-import { getAnnouncements, completeAnnouncements } from '../../state/announcements/saga';
+import {
+  getAnnouncements,
+  completeAnnouncements,
+  getCompletedAnnouncements,
+} from '../../state/announcements/saga';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
@@ -42,6 +46,7 @@ import { froshGroups } from '../../util/frosh-groups';
 import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
 import { getFrosh } from '../../state/frosh/saga';
 import { froshSelector, registeredFroshSelector } from '../../state/frosh/froshSlice';
+import { completedAnnouncementsSelector } from '../../state/announcements/announcementsSlice';
 import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHome/ScheduleHome';
 
 const PageProfile = () => {
@@ -582,16 +587,16 @@ const ProfilePageInstagrams = () => {
 
 const ProfilePageAnnouncements = () => {
   const dispatch = useDispatch();
+  const { user } = useSelector(userSelector);
   const { announcements, loading } = useSelector(announcementsSelector);
   const { completedAnnouncements } = useSelector(completedAnnouncementsSelector);
   const [announcementList, setAnnouncementList] = useState([]);
   const { setSnackbar } = useContext(SnackbarContext);
 
   useEffect(() => {
-    dispatch(getAnnouncements()); 
+    dispatch(getAnnouncements());
     dispatch(getCompletedAnnouncements());
   }, [loading]);
-
 
   useEffect(() => {
     let orderedAnnouncements = [];
