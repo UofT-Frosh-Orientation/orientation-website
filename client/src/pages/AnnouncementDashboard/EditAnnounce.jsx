@@ -28,7 +28,7 @@ const EditAnnounce = () => {
 
   useEffect(() => {
     dispatch(getAnnouncements());
-  }, [loading]);
+  }, []);
 
   useEffect(() => {
     setAnnouncementList(
