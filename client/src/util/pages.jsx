@@ -25,6 +25,7 @@ import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
 import { FroshRetreat } from '../pages/FroshRetreat/FroshRetreat';
 import { PagePaymentSuccess } from '../pages/PagePaymentSuccess/PagePaymentSuccess';
 import { ScuntGameSettings } from '../pages/ScuntGameSettings/ScuntGameSettings';
+import { PageScuntMissionsDashboard } from '../pages/ScuntMissionsDashboard/ScuntMissionsDashboard';
 
 export const pages = {
   404: {
@@ -241,6 +242,18 @@ export const pages = {
         </AuthorizedPage>
       ),
       path: '/scunt-game-controls',
+    },
+    {
+      label: 'Scunt Missions Dashboard',
+      component: (
+        // <AuthorizedPage authScopes={['exec show missions',
+        // 'exec hide missions',
+        // 'exec create missions',
+        // 'exec delete missions']}>
+        <PageScuntMissionsDashboard />
+        //</AuthorizedPage>
+      ),
+      path: '/scunt-missions-dashboard',
     },
   ],
 };
