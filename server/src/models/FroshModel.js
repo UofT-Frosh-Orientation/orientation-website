@@ -25,6 +25,11 @@ const paymentSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  expired: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 
 const FroshSchema = new mongoose.Schema(
@@ -194,6 +199,45 @@ const FroshSchema = new mongoose.Schema(
       type: Number,
       required: false,
       default: 0,
+    },
+    isRetreat: {
+      type: Boolean,
+      required: false,
+    },
+    signInSunday: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    signInMonday: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    signInTuesday: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    signInWednesday: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    signInThursday: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    signInFriday: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    signInSaturday: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   { discriminatorKey: 'userType' },

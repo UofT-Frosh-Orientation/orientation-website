@@ -1,0 +1,27 @@
+.operation-container {
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  flex-direction: row;
+}
+
+.operation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: transform 200ms;
+
+  &:hover {
+    transform: scale(1.07);
+    transition: transform 200ms;
+  }
+}
+
+.operation-icon {
+  width: 90%;
+}

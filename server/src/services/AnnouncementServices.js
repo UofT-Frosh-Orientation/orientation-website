@@ -1,5 +1,6 @@
 const AnnouncementModel = require('../models/AnnouncementModel');
 const UserModel = require('../models/UserModel');
+const announcementSubscription = require('../subscribers/announcementSubscription');
 
 const AnnouncementServices = {
   async getAllAnnouncements() {
@@ -8,7 +9,17 @@ const AnnouncementServices = {
         if (err) {
           reject(err);
         } else {
-          resolve(announcements);
+          resolve(
+            announcements.sort((a, b) => {
+              if (a.dateCreated > b.dateCreated) {
+                return -1;
+              } else if (a.dateCreated < b.dateCreated) {
+                return 1;
+              } else {
+                return 0;
+              }
+            }),
+          );
         }
       });
     });
@@ -21,12 +32,11 @@ const AnnouncementServices = {
         if (err) {
           reject(err);
         } else {
-          const index = listOfCompleted.indexOf(id);
-
-          //if announcement is completed -> remove from completed
-          if (index != -1) {
-            listOfCompleted.splice(index, 1);
-          } else {
+          if (
+            listOfCompleted.every((value) => {
+              return value._id != announcement._id;
+            })
+          ) {
             listOfCompleted.push(announcement._id);
           }
 
@@ -83,6 +93,9 @@ const AnnouncementServices = {
         if (err) {
           reject(err);
         } else {
+          if (announcementElement.sendAsEmail === true) {
+            announcementSubscription.add(announcementElement);
+          }
           resolve(newAnnouncement);
         }
       });

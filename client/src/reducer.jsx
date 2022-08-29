@@ -1,6 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import userReducer from './state/user/userSlice';
 import accountsReducer from './state/accounts/accountSlice';
+import announcementsReducer from './state/announcements/announcementsSlice';
 import froshReducer from './state/frosh/froshSlice';
 import scuntSettingsReducer from './state/scuntSettings/scuntSettingsSlice';
 
@@ -9,6 +10,7 @@ const rootReducer = combineReducers({
   accountsReducer,
   froshReducer,
   scuntSettingsReducer,
+  announcementsReducer,
 });
 
 export default rootReducer;

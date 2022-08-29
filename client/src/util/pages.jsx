@@ -20,6 +20,9 @@ import { PageScuntJudgeForm } from '../pages/ScuntJudgeForm/ScuntJudgeForm';
 import { PageScuntMissionsList } from '../pages/ScuntMissionsList/ScuntMissionsList';
 import { PageScuntHome } from '../pages/ScuntHome/ScuntHome';
 import { PageScuntRules } from '../pages/ScuntRules/ScuntRules';
+import { PageAnnounceDash } from '../pages/AnnouncementDashboard/AnnounceDash';
+import { PageUnsubscribe } from '../pages/Unsubscribe/Unsubscribe';
+import { PageResubscribe } from '../pages/Resubscribe/Resubscribe';
 import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
 import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
 import { FroshRetreat } from '../pages/FroshRetreat/FroshRetreat';
@@ -78,8 +81,36 @@ export const pages = {
       path: '/profile',
       includeFooter: true,
     },
+    {
+      label: 'Unsubscribe',
+      component: <PageUnsubscribe />,
+      path: '/unsubscribe',
+      includeFooter: false,
+    },
+    {
+      label: 'Resubscribe',
+      component: (
+        <AuthorizedPage>
+          <PageResubscribe />
+        </AuthorizedPage>
+      ),
+      path: '/resubscribe',
+      includeFooter: false,
+    },
   ],
   hidden: [
+    {
+      lable: 'Announcements Dashboard',
+      component: (
+        <AuthorizedPage
+          authScopes={['announcements:delete', 'announcements:create', 'announcements:edit']}
+        >
+          <PageAnnounceDash />
+        </AuthorizedPage>
+      ),
+      path: '/announcement-dashboard',
+      includeFooter: true,
+    },
     {
       label: 'Request Permissions',
       component: (
@@ -149,7 +180,11 @@ export const pages = {
     },
     {
       label: 'frosh-retreat',
-      component: <FroshRetreat />,
+      component: (
+        <AuthorizedPage>
+          <FroshRetreat />
+        </AuthorizedPage>
+      ),
       path: '/frosh-retreat',
       includeFooter: true,
     },

@@ -12,6 +12,7 @@ export const getTotalScopes = () => {
     faq: ['delete', 'edit'],
     announcements: ['create', 'edit', 'delete'],
     accounts: ['read', 'edit', 'delete'],
+    email: ['send'],
     timeline: ['create', 'edit', 'delete'],
     signInFrosh: ['qr-code registration'],
     scunt: [
@@ -31,12 +32,22 @@ export const getTotalScopes = () => {
 };
 
 export const getTotalRegistrationScopes = () => {
-  let output = ['froshGroup', 'froshGroupIcon'];
+  let output = ['froshGroup', 'froshGroupIcon', 'isRetreat'];
   for (let key of Object.keys(fields)) {
     if (fields[key].type === 'label') {
       continue;
     }
-    output = [...output, ...Object.keys(fields[key])];
+    output = [
+      ...output,
+      ...Object.keys(fields[key]),
+      'signInSunday',
+      'signInMonday',
+      'signInTuesday',
+      'signInWednesday',
+      'signInThursday',
+      'signInFriday',
+      'signInSaturday',
+    ];
   }
   return output;
 };
