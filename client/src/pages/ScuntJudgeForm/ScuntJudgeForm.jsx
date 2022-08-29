@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './ScuntJudgeForm.scss';
 import { Header } from '../../components/text/Header/Header';
 import { TextInput } from '../../components/input/TextInput/TextInput';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userSelector } from '../../state/user/userSlice';
 import { list } from './scuntTempData';
 import ReactSlider from 'react-slider';
@@ -14,6 +14,8 @@ import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDis
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { PopupModal } from '../../components/popup/PopupModal';
 import { SnackbarContext } from '../../util/SnackbarProvider';
+import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
+import { getScuntSettings } from '../../state/scuntSettings/saga';
 
 export const PageScuntJudgeForm = () => {
   const { user } = useSelector(userSelector);
@@ -264,8 +266,25 @@ ScuntBribePoints.propTypes = {
 };
 
 const ScuntMissionSelection = ({ missions, teams }) => {
-  const extraPointsFactor = 0.3;
-  const minPointsFactor = 0.3;
+  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
+  const [maxAmountPointsPercent, setMaxAmountPointsPercent] = useState(0);
+  const [minAmountPointsPercent, setMinAmountPointsPercent] = useState(0);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getScuntSettings());
+  }, [loading]);
+
+  useEffect(() => {
+    if (scuntSettings !== undefined) {
+      if (Array.isArray(scuntSettings)) {
+        setMinAmountPointsPercent(scuntSettings[0]?.minAmountPointsPercent);
+        setMaxAmountPointsPercent(scuntSettings[0]?.maxAmountPointsPercent);
+      }
+    }
+  }, [scuntSettings]);
+
   const [assignedMission, setAssignedMission] = useState(undefined);
   const [searchedMissions, setSearchedMissions] = useState([]);
   const [assignedPoints, setAssignedPoints] = useState(0);
@@ -436,10 +455,10 @@ const ScuntMissionSelection = ({ missions, teams }) => {
                   }
                   const maxPoints =
                     parseInt(assignedMission?.points) +
-                    parseInt(assignedMission?.points * extraPointsFactor);
+                    parseInt(assignedMission?.points * maxAmountPointsPercent);
                   const minPoints =
                     parseInt(assignedMission?.points) -
-                    parseInt(assignedMission?.points * minPointsFactor);
+                    parseInt(assignedMission?.points * minAmountPointsPercent);
                   if (value === '' || value === undefined) {
                     setAssignedPoints(assignedMission?.points);
                   } else if (parseInt(value) >= maxPoints) {
@@ -466,11 +485,11 @@ const ScuntMissionSelection = ({ missions, teams }) => {
             defaultValue={parseInt(assignedMission?.points)}
             max={
               parseInt(assignedMission?.points) +
-              parseInt(assignedMission?.points * extraPointsFactor)
+              parseInt(assignedMission?.points * maxAmountPointsPercent)
             }
             min={
               parseInt(assignedMission?.points) -
-              parseInt(assignedMission?.points * minPointsFactor)
+              parseInt(assignedMission?.points * minAmountPointsPercent)
             }
             className="horizontal-slider"
             thumbClassName="slider-thumb"

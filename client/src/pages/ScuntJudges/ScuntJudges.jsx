@@ -14,6 +14,34 @@ import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSl
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 
 const ScuntJudges = () => {
+  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
+  const [revealJudgesAndBribes, setRevealJudgesAndBribes] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getScuntSettings());
+  }, [loading]);
+
+  useEffect(() => {
+    if (scuntSettings !== undefined) {
+      if (Array.isArray(scuntSettings)) {
+        setRevealJudgesAndBribes(scuntSettings[0]?.revealJudgesAndBribes);
+      }
+    }
+  }, [scuntSettings]);
+
+  if (revealJudgesAndBribes !== true) {
+    return (
+      <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
+        <ScuntLinks />
+        <div className="scunt-check-soon-title">
+          <h1>Check back soon!</h1>
+        </div>
+      </Header>
+    );
+  }
+
   return (
     <>
       <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>

@@ -140,6 +140,16 @@ const ScuntGameSettings = () => {
         <div className="separator" />
         <br />
 
+        <DeleteMission />
+
+        <div className="separator" />
+        <br />
+
+        <HideRevealMissions />
+
+        <div className="separator" />
+        <br />
+
         <div style={{ marginBottom: '30px' }}>
           {scuntsettingbool.map((i) => {
             return (
@@ -288,6 +298,122 @@ const RefillJudgeBribePoints = () => {
   );
 };
 
+const DeleteMission = () => {
+  const [assignedMissionNumber, setAssignedMissionNumber] = useState(-1);
+  const [clearInput, setClearInput] = useState(false);
+
+  const { setSnackbar } = useContext(SnackbarContext);
+
+  return (
+    <div style={{ margin: '0 5px' }}>
+      <h2>Delete Mission</h2>
+      <div style={{ height: '5px' }} />
+      <div>
+        <TextInput
+          placeholder={'Mission # ID'}
+          onChange={(value) => {
+            setAssignedMissionNumber(value);
+          }}
+          setClearText={setClearInput}
+          clearText={clearInput}
+        />
+      </div>
+      <Button
+        label={'Delete Mission'}
+        onClick={() => {
+          if (assignedMissionNumber === -1) {
+            setSnackbar('Please set a mission to delete', true);
+          } else {
+            setSnackbar('Deleted ' + assignedMissionNumber + ' mission');
+            //Delete mission here
+            setAssignedMissionNumber(-1);
+            setClearInput(true);
+          }
+        }}
+      />
+    </div>
+  );
+};
+
+const HideRevealMissions = () => {
+  const [assignedMissionNumberBegin, setAssignedMissionNumberBegin] = useState(-1);
+  const [assignedMissionNumberEnd, setAssignedMissionNumberEnd] = useState(-1);
+
+  const [clearInput, setClearInput] = useState(false);
+
+  const { setSnackbar } = useContext(SnackbarContext);
+
+  return (
+    <div style={{ margin: '0 5px' }}>
+      <h2>Hide/Reveal Missions</h2>
+      <div style={{ height: '5px' }} />
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end' }}>
+        <TextInput
+          label={'Range beginning'}
+          placeholder={'Mission # ID'}
+          onChange={(value) => {
+            setAssignedMissionNumberBegin(value);
+          }}
+          setClearText={setClearInput}
+          clearText={clearInput}
+        />
+        <h1 style={{ margin: '0px 10px', marginBottom: '8px' }}>-</h1>
+        <TextInput
+          label={'Range ending'}
+          placeholder={'Mission # ID'}
+          onChange={(value) => {
+            setAssignedMissionNumberEnd(value);
+          }}
+          setClearText={setClearInput}
+          clearText={clearInput}
+        />
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <Button
+          label={'Hide Missions'}
+          onClick={() => {
+            if (
+              assignedMissionNumberBegin <= -1 ||
+              assignedMissionNumberEnd <= -1 ||
+              assignedMissionNumberBegin > assignedMissionNumberEnd
+            ) {
+              setSnackbar('Please set a proper range of missions', true);
+            } else {
+              setSnackbar(
+                'Hidden missions #' + assignedMissionNumberBegin + ' - ' + assignedMissionNumberEnd,
+              );
+              //hide missions visibility here
+              setAssignedMissionNumberBegin(-1);
+              setAssignedMissionNumberEnd(-1);
+              setClearInput(true);
+            }
+          }}
+        />
+        <Button
+          label={'Reveal Missions'}
+          onClick={() => {
+            if (
+              assignedMissionNumberBegin <= -1 ||
+              assignedMissionNumberEnd <= -1 ||
+              assignedMissionNumberBegin > assignedMissionNumberEnd
+            ) {
+              setSnackbar('Please set a proper range of missions', true);
+            } else {
+              setSnackbar(
+                'Revealed ' + assignedMissionNumberBegin + ' - ' + assignedMissionNumberEnd,
+              );
+              //reveal missions visibility here
+              setAssignedMissionNumberBegin(-1);
+              setAssignedMissionNumberEnd(-1);
+              setClearInput(true);
+            }
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
 const CurrentScuntGameSettings = () => {
   const { scuntSettings } = useSelector(scuntSettingsSelector); // returns an array of scunt settings
   const [keys, setKeys] = useState([]);
@@ -313,7 +439,19 @@ const CurrentScuntGameSettings = () => {
               <p key={i} style={{ color: 'var(--text-dynamic)', marginBottom: '8px' }}>
                 <b>{convertCamelToLabel(i)}</b>
                 <span>{': '}</span>
-                {String(scuntSettings[0][i])}
+                {scuntSettings[0][i] === true || scuntSettings[0][i] === false ? (
+                  <div
+                    style={{
+                      display: 'inline-block',
+                      color:
+                        scuntSettings[0][i] === true ? 'var(--green-success)' : 'var(--red-error)',
+                    }}
+                  >
+                    <b>{scuntSettings[0][i].toString()}</b>
+                  </div>
+                ) : (
+                  scuntSettings[0][i].toString()
+                )}
               </p>
             );
           }
