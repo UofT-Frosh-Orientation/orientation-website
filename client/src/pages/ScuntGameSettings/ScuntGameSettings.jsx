@@ -14,6 +14,7 @@ import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSl
 import { SnackbarContext } from '../../util/SnackbarProvider';
 
 import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
+import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 
 const scuntsettings = [
   {
@@ -113,7 +114,7 @@ const ScuntGameSettings = () => {
       <CurrentScuntGameSettings />
 
       <div className="scunt-game-settings-container">
-        <div style={{ marginBottom: '30px' }}>
+        <div style={{ marginBottom: '10px' }}>
           {scuntsettings.map((i) => {
             return (
               <div key={i.parameter}>
@@ -130,6 +131,14 @@ const ScuntGameSettings = () => {
             );
           })}
         </div>
+
+        <div className="separator" />
+        <br />
+
+        <RefillJudgeBribePoints />
+
+        <div className="separator" />
+        <br />
 
         <div style={{ marginBottom: '30px' }}>
           {scuntsettingbool.map((i) => {
@@ -231,6 +240,50 @@ const ScuntGameSettings = () => {
           />
         </div>
       </div>
+    </div>
+  );
+};
+
+const RefillJudgeBribePoints = () => {
+  const [assignedBribeRefillPoints, setAssignedBribeRefillPoints] = useState(0);
+  const [assignedJudge, setAssignedJudge] = useState('');
+  const [clearPointsInput, setClearPointsInput] = useState(false);
+
+  const { setSnackbar } = useContext(SnackbarContext);
+
+  return (
+    <div style={{ margin: '0 5px' }}>
+      <h2>Refill Bribe Points</h2>
+      <div style={{ height: '5px' }} />
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <Dropdown
+          values={['Judge 1', 'Judge 2']}
+          initialSelectedIndex={0}
+          onSelect={(judge) => {
+            setAssignedJudge(judge);
+          }}
+        />
+        <div style={{ width: '10px' }} />
+        <div className="fill-remaining-width-input">
+          <TextInput
+            placeholder={'# Points'}
+            onChange={(value) => {
+              setAssignedBribeRefillPoints(value);
+            }}
+            setClearText={setClearPointsInput}
+            clearText={clearPointsInput}
+          />
+        </div>
+      </div>
+      <Button
+        label={'Refill Judge Bribe Points'}
+        onClick={() => {
+          setSnackbar('Given ' + assignedBribeRefillPoints + ' bribe points to ' + assignedJudge);
+          //Refill judges bribe points here
+          setAssignedBribeRefillPoints(0);
+          setClearPointsInput(true);
+        }}
+      />
     </div>
   );
 };

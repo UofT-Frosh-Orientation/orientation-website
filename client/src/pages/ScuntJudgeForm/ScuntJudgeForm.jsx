@@ -45,143 +45,116 @@ export const PageScuntJudgeForm = () => {
           <ScuntMissionSelection teams={teams} missions={list} />
           <div className="separator" />
           <ScuntBribePoints teams={teams} />
+          <div className="separator" />
+          <ScuntNegativePoints teams={teams} />
         </div>
       </div>
-      <ScuntExecDashboard teams={teams} />
     </>
   );
 };
 
-const ScuntExecDashboard = ({ teams }) => {
-  const [showPopUp, setShowPopUp] = useState(false);
-  const [action, setAction] = useState('');
-  const [amountOfRefillPoints, setAmountOfRefillPoints] = useState(0);
-  const [amountOfRemovePoints, setAmountOfRemovePoints] = useState(0);
+const ScuntNegativePoints = ({ teams }) => {
+  const [remainingRemovePoints, setRemainingRemovePoints] = useState(500);
+  const [assignedPoints, setAssignedPoints] = useState(0);
+  const [assignedTeam, setAssignedTeam] = useState('');
+  const [clearPointsInput, setClearPointsInput] = useState(false);
+
   const { setSnackbar } = useContext(SnackbarContext);
 
-  const confirmAction = (action) => {
-    setShowPopUp(true);
-    setAction(action);
-  };
-
-  const performAction = async (action) => {
-    if (action === 'Allow Missions Page') {
-      console.log('allow missions page');
-    } else if (action === 'Hide Missions Page') {
-      console.log('hide missions page');
-    } else if (action === 'Show Wedding Missions') {
-      console.log('show wedding missions');
-    } else if (action === 'Hide Wedding Missions') {
-      console.log('hide wedding missions');
-    } else if (action === 'Allow Leaderboard') {
-      console.log('allow leaderboard');
-    } else if (action === 'Hide Leaderboard') {
-      console.log('hide leaderboard');
-    } else if (action === 'Refill') {
-      console.log(amountOfRefillPoints);
-    } else if (action === 'Remove Points') {
-      console.log(amountOfRemovePoints);
-    }
-    setSnackbar('Success: ' + action);
-    setShowPopUp(false);
-  };
-
   return (
-    <>
-      <div className="scunt-judge-form-page">
-        <div className="scunt-judge-form-container">
-          <h1>Exec Dashboard</h1>
-
-          <div className="scunt-exec-dashboard">
-            <div style={{ height: '15px' }} />
-
-            <h2>Refill Bribe Points</h2>
-            <div style={{ height: '5px' }} />
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+    <div style={{ width: '100%' }}>
+      <div style={{ height: '15px' }} />
+      <h2>Remove Points</h2>
+      <h4>Remaining subtraction points: {remainingRemovePoints}</h4>
+      {remainingRemovePoints === 0 ? (
+        <></>
+      ) : (
+        <>
+          <div style={{ height: '10px' }} />
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              marginLeft: '5px',
+              justifyContent: 'space-between',
+            }}
+          >
+            <div style={{ width: '100%' }}>
               <Dropdown
-                values={['Judge 1', 'Judge 2']}
+                label={'Team'}
                 initialSelectedIndex={0}
-                onSelect={() => {}}
+                values={teams}
+                onSelect={(value) => {
+                  setAssignedTeam(value);
+                }}
+                isDisabled={false}
+                localStorageKey={'scunt-team-choice'}
               />
-              <div className="fill-remaining-width-input">
-                <TextInput
-                  placeholder={'# Points'}
-                  onChange={(value) => {
-                    setAmountOfRefillPoints(value);
-                  }}
-                />
-              </div>
             </div>
-            <Button label={'Refill'} onClick={() => confirmAction('Refill')} />
-
-            <div style={{ height: '15px' }} />
-            <h2>Negative Points</h2>
-            <div style={{ height: '5px' }} />
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Dropdown values={teams} initialSelectedIndex={0} onSelect={() => {}} />
-              <div className="fill-remaining-width-input">
-                <TextInput
-                  placeholder={'# Points'}
-                  onChange={(value) => {
-                    setAmountOfRemovePoints(value);
-                  }}
-                />
-              </div>
+            <div>
+              <TextInput
+                label={'Points'}
+                placeholder={assignedPoints}
+                onChange={(value) => {
+                  if (isNaN(parseInt(value))) {
+                    return;
+                  }
+                  if (value === '' || value === undefined) {
+                    setAssignedPoints(0);
+                  } else if (parseInt(value) >= remainingRemovePoints) {
+                    setAssignedPoints(remainingRemovePoints);
+                  } else {
+                    setAssignedPoints(parseInt(value));
+                  }
+                }}
+                setClearText={setClearPointsInput}
+                clearText={clearPointsInput}
+              />
             </div>
-            <Button label={'Remove Points'} onClick={() => confirmAction('Remove Points')} />
-
-            <div style={{ height: '15px' }} />
-            <h2>Controls</h2>
-            <div style={{ height: '5px' }} />
+          </div>
+          <div style={{ height: '10px' }} />
+          <ReactSlider
+            value={assignedPoints}
+            defaultValue={0}
+            max={remainingRemovePoints > 500 ? 500 : remainingRemovePoints}
+            min={0}
+            className="horizontal-slider"
+            thumbClassName="slider-thumb"
+            trackClassName="slider-track"
+            renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
+            onChange={(value) => {
+              setAssignedPoints(value);
+              setClearPointsInput(true);
+            }}
+          />
+          <div style={{ height: '60px' }} />
+          <div
+            style={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: '20px',
+            }}
+          >
             <Button
-              label={'Allow Missions Page'}
-              onClick={() => confirmAction('Allow Missions Page')}
-            />
-            <ButtonOutlined
-              label={'Hide Missions Page'}
-              onClick={() => confirmAction('Hide Missions Page')}
-            />
-            <Button
-              label={'Show Wedding Missions'}
-              onClick={() => confirmAction('Show Wedding Missions')}
-            />
-            <ButtonOutlined
-              label={'Hide Wedding Missions'}
-              onClick={() => confirmAction('Hide Wedding Missions')}
-            />
-            <Button
-              label={'Allow Leaderboard'}
-              onClick={() => confirmAction('Allow Leaderboard')}
-            />
-            <ButtonOutlined
-              label={'Hide Leaderboard'}
-              onClick={() => confirmAction('Hide Leaderboard')}
+              label={'Remove Points'}
+              onClick={() => {
+                setAssignedPoints(0);
+                //Subtract points here
+                setRemainingRemovePoints(remainingRemovePoints - assignedPoints);
+                setSnackbar(`Removed ${assignedPoints} points from ${assignedTeam}`);
+              }}
             />
           </div>
-        </div>
-      </div>
-      <PopupModal
-        trigger={showPopUp}
-        setTrigger={setShowPopUp}
-        blurBackground={false}
-        exitIcon={true}
-      >
-        <div className="scunt-exec-dashboard-popup">
-          <h2>Are you sure?</h2>
-          <h3>{action}</h3>
-          <Button
-            label={'Yes'}
-            onClick={() => {
-              performAction(action);
-            }}
-          ></Button>
-        </div>
-      </PopupModal>
-    </>
+          <h2 style={{ textAlign: 'center' }}>{assignedTeam}</h2>
+          <h3 style={{ textAlign: 'center' }}>-{assignedPoints} Points</h3>
+        </>
+      )}
+    </div>
   );
 };
 
-ScuntExecDashboard.propTypes = {
+ScuntNegativePoints.propTypes = {
   teams: PropTypes.array,
 };
 
@@ -269,7 +242,7 @@ const ScuntBribePoints = ({ teams }) => {
             }}
           >
             <Button
-              label={'Submit'}
+              label={'Give Bribe Points'}
               onClick={() => {
                 setAssignedPoints(0);
                 //Submit points here
@@ -279,7 +252,7 @@ const ScuntBribePoints = ({ teams }) => {
             />
           </div>
           <h2 style={{ textAlign: 'center' }}>{assignedTeam}</h2>
-          <h3 style={{ textAlign: 'center' }}>{assignedPoints} Points</h3>
+          <h3 style={{ textAlign: 'center' }}>+{assignedPoints} Points</h3>
         </>
       )}
     </div>
