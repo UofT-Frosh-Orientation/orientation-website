@@ -70,19 +70,19 @@ const ScuntLeaderboardContent = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // updating the selector
-    dispatch(getScuntSettings());
-  }, [loading]);
+  // useEffect(() => {
+  //   // updating the selector
+  //   dispatch(getScuntSettings());
+  // }, [loading]);
 
-  useEffect(() => {
-    if (scuntSettings !== undefined) {
-      if (Array.isArray(scuntSettings)) {
-        // checks above are to access game settings since selector is initialy undef
-        setRevealLeaderboard(scuntSettings[0]?.revealLeaderboard);
-      }
-    }
-  }, [scuntSettings]);
+  // useEffect(() => {
+  //   if (scuntSettings !== undefined) {
+  //     if (Array.isArray(scuntSettings)) {
+  //       // checks above are to access game settings since selector is initialy undef
+  //       setRevealLeaderboard(scuntSettings[0]?.revealLeaderboard);
+  //     }
+  //   }
+  // }, [scuntSettings]);
 
   if (revealLeaderboard !== true && !leader) {
     return (

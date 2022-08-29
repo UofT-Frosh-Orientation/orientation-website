@@ -19,17 +19,17 @@ const ScuntJudges = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getScuntSettings());
-  }, [loading]);
+  // useEffect(() => {
+  //   dispatch(getScuntSettings());
+  // }, [loading]);
 
-  useEffect(() => {
-    if (scuntSettings !== undefined) {
-      if (Array.isArray(scuntSettings)) {
-        setRevealJudgesAndBribes(scuntSettings[0]?.revealJudgesAndBribes);
-      }
-    }
-  }, [scuntSettings]);
+  // useEffect(() => {
+  //   if (scuntSettings !== undefined) {
+  //     if (Array.isArray(scuntSettings)) {
+  //       setRevealJudgesAndBribes(scuntSettings[0]?.revealJudgesAndBribes);
+  //     }
+  //   }
+  // }, [scuntSettings]);
 
   if (revealJudgesAndBribes !== true) {
     return (

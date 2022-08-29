@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { put, call, takeLeading } from 'redux-saga/effects';
-import useAxios from '../../hooks/useAxios';
+
 import {
   getScuntSettingsStart,
   getScuntSettingsSuccess,
@@ -9,6 +9,7 @@ import {
   setScuntSettingsSuccess,
   setScuntSettingsFailure,
 } from './scuntSettingsSlice';
+import useAxios from '../../hooks/useAxios';
 
 export const getScuntSettings = createAction('getScuntSettingsSaga');
 

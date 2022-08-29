@@ -9,15 +9,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { initialsSelector, loggedInSelector, registeredSelector } from './state/user/userSlice';
 import { useState, useEffect, useContext } from 'react';
 import { getUserInfo } from './state/user/saga';
+
 import { InitialPage } from './pages/Initial/Initial';
 import { AskQuestionButton } from './components/button/AskQuestionButton/AskQuestionButton';
 import { DarkModeProvider } from './util/DarkModeProvider';
 import { SnackbarProvider } from './util/SnackbarProvider';
 
+import { getScuntSettings } from './state/scuntSettings/saga';
+import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
+
 export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserInfo());
+    dispatch(getScuntSettings());
   }, []);
 
   return (
@@ -36,6 +41,9 @@ const TransitionRoutes = () => {
   const loggedIn = useSelector(loggedInSelector);
   const registered = useSelector(registeredSelector);
   const initials = useSelector(initialsSelector);
+  const scuntSettings = useSelector(scuntSettingsSelector);
+
+  console.log(scuntSettings);
   // const {darkMode} = useContext(DarkModeContext);
   return (
     <TransitionGroup>

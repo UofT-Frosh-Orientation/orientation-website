@@ -80,14 +80,49 @@ const scuntsettingbool = [
 const ScuntGameSettings = () => {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
-  //const { scuntSettings } = useSelector(scuntSettingsSelector);
+  const { scuntSettings } = useSelector(scuntSettingsSelector);
   //console.log(scuntSettings);
+
+  const [newSettings, setNewSettings] = useState({});
+  // const [selectedCheck, setSelectedCheck] = useState([]);
+  const { setSnackbar } = useContext(SnackbarContext);
 
   useEffect(() => {
     //dispatch(setScuntSettings());
     //dispatch(getScuntSettings());
     //console.log(scuntSettings);
-  }, []);
+    if (scuntSettings !== undefined) {
+      setNewSettings(scuntSettings[0]);
+      // let index = 0;
+      // let tempSelectedCheck = selectedCheck;
+      // scuntsettingbool.map((key) => {
+      //   if (newSettings[key] === true) {
+      //     tempSelectedCheck.push(index);
+      //     console.log(tempSelectedCheck);
+      //   }
+      //   index = index + 1;
+      // })
+      // setSelectedCheck(tempSelectedCheck);
+    }
+  }, [scuntSettings]);
+
+  // useEffect(() => {
+  //   if (scuntSettings !== undefined) {
+  //     let index = 0;
+  //     let tempSelectedCheck = [];
+  //     scuntsettingbool.map((i) => {
+  //       console.log(i);
+  //       console.log(scuntSettings[0][i.key]);
+  //       if (scuntSettings[0][i.key] === true) {
+  //         tempSelectedCheck.push(index);
+  //       }
+  //       index = index + 1;
+  //     })
+  //     setSelectedCheck(tempSelectedCheck);
+  //     console.log(tempSelectedCheck);
+  //     console.log(selectedCheck);
+  //   }
+  // }, [])
 
   const initialSettings = {
     name: 'Scunt2T2 Settings',
@@ -105,9 +140,24 @@ const ScuntGameSettings = () => {
 
   //dispatch(setScuntSettings(initialSettings));
 
-  const [newSettings, setNewSettings] = useState(initialSettings);
+  // const [newSettings, setNewSettings] = useState(initialSettings);
   // const [newSettings, setNewSettings] = useState();
-  const { setSnackbar } = useContext(SnackbarContext);
+
+  // get the initial selected indices for checkbox
+  // let selectedCheck = [];
+  // let index = 0;
+
+  // scuntsettingbool.map((key) => {
+  //   if (newSettings[key] === true) {
+  //     selectedCheck.push(index);
+  //     console.log(selectedCheck);
+  //   }
+  //   index = index + 1;
+  // })
+
+  /////
+
+  //console.log(newSettings);
 
   return (
     <div className="scunt-game-settings-page">
@@ -152,13 +202,21 @@ const ScuntGameSettings = () => {
 
         <div style={{ marginBottom: '30px' }}>
           {scuntsettingbool.map((i) => {
+            let selectedCheck = [];
+
+            if (newSettings[i.key] === true) {
+              selectedCheck = [1];
+            }
+
             return (
               <div key={i.parameter}>
                 <Checkboxes
                   values={[i.parameter]}
-                  initialSelectedIndices={[]}
+                  initialSelectedIndices={selectedCheck}
                   onSelected={(value, index, state, selectedIndices) => {
-                    newSettings[i.key] = state;
+                    let tempSettings = { ...newSettings }; // create a copy
+                    tempSettings[i.key] = state;
+                    setNewSettings(tempSettings);
                   }}
                 />
               </div>
@@ -170,6 +228,7 @@ const ScuntGameSettings = () => {
           style={{
             width: '50%',
             justifySelf: 'center',
+            alignSelf: 'center',
             margin: '0 auto',
             display: 'flex',
             flexDirection: 'row',
@@ -218,11 +277,13 @@ const ScuntGameSettings = () => {
             isSecondary={true}
             style={{ margin: '0 20px' }}
             onClick={async () => {
+              // setting recommended settings
+
               let name = 'Scunt 2T2 Settings';
-              let amountOfTeams = newSettings.amountOfTeams;
-              let amountOfStarterBribePoints = newSettings.amountOfStarterBribePoints;
-              let maxAmountPointsPercent = newSettings.maxAmountPointsPercent;
-              let minAmountPointsPercent = newSettings.minAmountPointsPercent;
+              let amountOfTeams = initialSettings.amountOfTeams;
+              let amountOfStarterBribePoints = initialSettings.amountOfStarterBribePoints;
+              let maxAmountPointsPercent = initialSettings.maxAmountPointsPercent;
+              let minAmountPointsPercent = initialSettings.minAmountPointsPercent;
               let revealJudgesAndBribes = true;
               let revealTeams = true;
               let showDiscordLink = true;
@@ -476,13 +537,14 @@ const ScuntGameSettingsTextbox = ({
 }) => {
   const handleInput = (input, objKey) => {
     let parseInput;
+    let tempSettings = { ...newSettings };
     if (typeof input === 'string') {
       parseInput = input;
     } else {
       parseInput = parseFloat(input);
     }
-    newSettings[objKey] = parseInput;
-    setNewSettings(newSettings);
+    tempSettings[objKey] = parseInput;
+    setNewSettings(tempSettings);
   };
 
   // textboxes update the local state!
