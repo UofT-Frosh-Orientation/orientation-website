@@ -175,7 +175,9 @@ const ScuntBribePoints = ({ teams }) => {
       if (result !== true) {
         setSnackbar('Error', true);
       } else {
-        setSnackbar('Bribe successfully submitted!', false);
+        setRemainingBribePoints(remainingBribePoints - assignedPoints);
+        setSnackbar(`Added ${assignedPoints} points to ${assignedTeam}`, false);
+        setAssignedPoints(0);
       }
     } else if (points === 0 || points === undefined) {
       setSnackbar('You cannot give 0 points!', true);
@@ -267,9 +269,6 @@ const ScuntBribePoints = ({ teams }) => {
                     : parseInt(str.substring(str.length - 1));
                 submitBribe(assignedTeamNumber, assignedPoints);
                 //Submit points here
-                setRemainingBribePoints(remainingBribePoints - assignedPoints);
-                setSnackbar(`Added ${assignedPoints} points to ${assignedTeam}`);
-                setAssignedPoints(0);
               }}
             />
           </div>
