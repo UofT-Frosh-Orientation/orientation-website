@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   capitalizeFirstLetter,
-  getDaysFroshSchedule,
-  getFroshScheduleData,
+  getDaysSchedule,
+  getFroshGroupSchedule,
   getQRCodeString,
   parseQRCode,
   qrKeys,
@@ -31,21 +31,18 @@ import CampingIcon from '../../assets/misc/camping-tent.png';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
-import {
-  announcementsSelector,
-  completedAnnouncementsSelector,
-} from '../../state/announcements/announcementsSlice';
-import {
-  getAnnouncements,
-  completeAnnouncements,
-  getCompletedAnnouncements,
-} from '../../state/announcements/saga';
+import { getUserInfo } from '../../state/user/saga';
+import { announcementsSelector } from '../../state/announcements/announcementsSlice';
+import { getAnnouncements, completeAnnouncements } from '../../state/announcements/saga';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
 import { froshGroups } from '../../util/frosh-groups';
 import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
+import { getFrosh } from '../../state/frosh/saga';
+import { froshSelector, registeredFroshSelector } from '../../state/frosh/froshSlice';
+import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHome/ScheduleHome';
 
 const PageProfile = () => {
   return <PageProfileFrosh />;
@@ -339,12 +336,45 @@ const ProfilePageQRScanner = () => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [searchFor, setSearchFor] = useState('');
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState([
+    {
+      email: 'test@gmail.com',
+      shirtSize: 'small',
+      pronouns: 'he/him',
+      froshGroup: 'iota',
+      discipline: 'ECE',
+    },
+  ]);
   const [scannedData, setScannedData] = useState('');
+  const { registeredFrosh } = useSelector(registeredFroshSelector);
+  const dispatch = useDispatch();
 
-  const search = () => {
-    setResults(searchForFrosh(searchFor));
-  };
+  useEffect(() => {
+    dispatch(getFrosh({ showAllUsers: false }));
+  }, []);
+
+  let searchTimeout;
+
+  // debounce input to improve performance when searching >800 frosh
+  useEffect(() => {
+    // clear timeout if they typed
+    clearTimeout(searchTimeout);
+    if (!searchFor || searchFor === '') {
+      setResults([]);
+    } else {
+      // set timeout to wait for them to finish typing before searching
+      searchTimeout = setTimeout(() => {
+        const lowerCaseSearch = searchFor.toLowerCase();
+        const filteredFrosh = registeredFrosh.filter(
+          (f) =>
+            `${f.firstName} ${f.lastName}`.toLowerCase().includes(lowerCaseSearch) ||
+            f.email.toLowerCase().includes(lowerCaseSearch) ||
+            f.preferredName.toLowerCase().includes(lowerCaseSearch),
+        );
+        setResults(filteredFrosh);
+      }, 500);
+    }
+  }, [searchFor]);
 
   return (
     <div className="profile-page-qr-code-scanner profile-page-side-section">
@@ -374,8 +404,9 @@ const ProfilePageQRScanner = () => {
       </div>
       <Button
         label={'Submit'}
-        onClick={() => {
-          const result = signInFrosh(scannedData.email);
+        onClick={async () => {
+          const result = await signInFrosh(scannedData.email);
+
           if (result === true) {
             setScannedData(parseQRCode(''));
             setSubmitSuccess(true);
@@ -385,7 +416,7 @@ const ProfilePageQRScanner = () => {
             if (submitError !== false) {
               setSubmitError(false);
             }
-            if (results !== []) {
+            if (!results.length) {
               setResults([]);
             }
           } else {
@@ -399,17 +430,14 @@ const ProfilePageQRScanner = () => {
       <h2 className="profile-page-manual-entry-header">Manual Entry</h2>
       <div style={{ padding: '0px 10px', width: '100%' }}>
         <TextInput
-          placeholder={'Frosh Name / Email'}
+          placeholder={'Search by Email'}
           onChange={(value) => {
             setSearchFor(value);
-          }}
-          onEnterKey={() => {
-            search();
           }}
         />
       </div>
       <div className="manual-sign-in-frosh-search-result-container">
-        {results.map((frosh, index) => {
+        {results.slice(0, 5).map((frosh, index) => {
           return (
             <ButtonOutlined
               onClick={() => {
@@ -418,7 +446,9 @@ const ProfilePageQRScanner = () => {
               key={frosh.email + index}
               label={
                 <div>
-                  <h3>{frosh.name}</h3>
+                  <h3>{`${frosh.preferredName === '' ? frosh.firstName : frosh.preferredName} ${
+                    frosh.lastName
+                  }`}</h3>
                   <p>{frosh.email}</p>
                 </div>
               }
@@ -559,6 +589,8 @@ const ProfilePageAnnouncements = () => {
 
   useEffect(() => {
     dispatch(getAnnouncements());
+    dispatch(getUserInfo());
+    console.log(user);
   }, []);
 
   useEffect(() => {
@@ -617,6 +649,19 @@ const ProfilePageAnnouncements = () => {
   return (
     <div className="profile-page-announcements">
       <h2 className="profile-page-section-header">Tasks and Announcements</h2>
+
+      {user?.canEmail === false ? (
+        <Link
+          key={'/resubscribe'}
+          to={'/resubscribe'}
+          style={{ textDecoration: 'none' }}
+          className={'no-link-style'}
+        >
+          <Button label="Resubscribe To Announcements Emails" />
+        </Link>
+      ) : (
+        <></>
+      )}
       <TaskAnnouncement tasks={announcementList} onDone={onDoneTask} />
     </div>
   );
@@ -625,8 +670,9 @@ const ProfilePageAnnouncements = () => {
 const ProfilePageQRCode = () => {
   const isRegistered = useSelector(registeredSelector);
   const [QRCodeString, setQRCodeString] = useState('');
-  useEffect(async () => {
-    setQRCodeString(await getQRCodeString());
+  const { user } = useSelector(userSelector);
+  useEffect(() => {
+    setQRCodeString(getQRCodeString(user));
   }, []);
   if (!isRegistered) {
     return <></>;
@@ -677,13 +723,11 @@ const ProfilePageSchedule = () => {
   const leader = user?.userType === 'leadur';
 
   const [froshGroup, setFroshGroup] = useState(user?.froshGroup);
-  const [closeAll, setCloseAll] = useState(0);
 
-  let days = getDaysFroshSchedule(froshGroup);
-  let buttonList = days.map((item) => {
-    return { name: item };
-  });
-  let scheduleData = getFroshScheduleData();
+  const scheduleData = getFroshGroupSchedule(froshGroup);
+  console.log(scheduleData);
+  const days = getDaysSchedule(scheduleData);
+
   const today = new Date();
   const options = { weekday: 'long' };
   const todayString = today.toLocaleDateString('en-US', options).replace(',', '');
@@ -694,15 +738,20 @@ const ProfilePageSchedule = () => {
     }
     count++;
   }
-  if (count >= scheduleData.length) {
+  if (count >= Object.keys(scheduleData).length) {
     count = 0;
   }
   const [selectedDayIndex, setSelectedDayIndex] = useState(count);
+  const [closeAll, setCloseAll] = useState(false);
+  const buttonList = Object.keys(scheduleData).map((item) => {
+    return { name: item };
+  });
 
   const froshGroupNames = [];
   for (let froshGroup of froshGroups) {
     froshGroupNames.push(froshGroup?.name);
   }
+
   return (
     <div className="profile-page-schedule">
       <div
@@ -741,71 +790,18 @@ const ProfilePageSchedule = () => {
         style={{ maxWidth: '250px', marginTop: '0px', marginBottom: '10px', padding: '11px 15px' }}
       />
       <div className="profile-page-schedule-accordions">
-        {scheduleData[selectedDayIndex].events.map((scheduleDateObj, index) => {
+        {scheduleData[Object.keys(scheduleData)[selectedDayIndex]].map((scheduleDay, index) => {
           return (
-            <ProfilePageAccordionWrapper
-              key={scheduleDateObj.time + index}
+            <ScheduleComponentAccordion
+              key={Object.keys(scheduleData)[index] + index}
+              scheduleDay={scheduleDay}
               closeAll={closeAll}
-              scheduleDateObj={scheduleDateObj}
-              index={index}
             />
           );
         })}
       </div>
     </div>
   );
-};
-
-const ProfilePageAccordionWrapper = ({ scheduleDateObj, index, closeAll }) => {
-  let currentTime = new Date();
-  let hour = currentTime.getHours();
-  const meridian = hour > 12 ? 'PM' : 'AM';
-  hour = hour > 12 ? hour - 12 : hour;
-
-  let scheduleTime = scheduleDateObj.time;
-  const hourScheduleTime = scheduleTime.split(':')[0];
-  const meridianScheduleTime = scheduleTime.split(' ')[1];
-
-  const [isOpen, setIsOpen] = useState(
-    hour === hourScheduleTime && meridian === meridianScheduleTime,
-  );
-
-  useEffect(() => {
-    setIsOpen(hour === hourScheduleTime && meridian === meridianScheduleTime);
-  }, [closeAll]);
-  let accordionHeader = (
-    <div className="profile-page-accordion-header">
-      <h3>{scheduleDateObj.name}</h3>
-      <h4>{scheduleDateObj.time}</h4>
-    </div>
-  );
-  let accordionContent = (
-    <div className="profile-page-accordion-content">
-      <p>{scheduleDateObj.description}</p>
-    </div>
-  );
-  return (
-    <div
-      className="profile-page-accordion-container"
-      style={scheduleDateObj.description === undefined ? { pointerEvents: 'none' } : {}}
-    >
-      <SingleAccordion
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        header={accordionHeader}
-        className={`profile-page-schedule-accordion ${`profile-schedule-background-${scheduleDateObj.Color}`}`}
-        canOpen={scheduleDateObj.description !== undefined}
-      >
-        {accordionContent}
-      </SingleAccordion>
-    </div>
-  );
-};
-
-ProfilePageAccordionWrapper.propTypes = {
-  scheduleDateObj: PropTypes.object,
-  index: PropTypes.number,
-  closeAll: PropTypes.bool,
 };
 
 export { PageProfile, ProfilePageHeader };

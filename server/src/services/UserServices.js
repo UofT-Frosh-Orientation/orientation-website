@@ -171,6 +171,44 @@ const UserServices = {
     });
   },
 
+  async unsubscribeUser(email) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOneAndUpdate(
+        { email },
+        { canEmail: false },
+        { returnDocument: 'after' },
+        (err, updatedUser) => {
+          if (err) {
+            reject(err);
+          } else if (!updatedUser) {
+            reject('INVALID_EMAIL');
+          } else {
+            resolve(updatedUser);
+          }
+        },
+      );
+    });
+  },
+
+  async resubscribeUser(email) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOneAndUpdate(
+        { email },
+        { canEmail: true },
+        { returnDocument: 'after' },
+        (err, updatedUser) => {
+          if (err) {
+            reject(err);
+          } else if (!updatedUser) {
+            reject('INVALID_EMAIL');
+          } else {
+            resolve(updatedUser);
+          }
+        },
+      );
+    });
+  },
+
   async getUnapprovedUsers() {
     return new Promise((resolve, reject) => {
       UserModel.find(
@@ -295,6 +333,23 @@ const UserServices = {
           }
         },
       );
+    });
+  },
+  /**
+   * Hard deletes a user by id.
+   * @param {ObjectId} id - id of the user to be deleted
+   * @async
+   * @return {Promise<Object>} - the user which was deleted
+   */
+  async deleteUser(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOneAndDelete({ _id: id }, (err, deletedUser) => {
+        if (err || !deletedUser) {
+          reject('UNABLE_TO_DELETE_USER');
+        } else {
+          resolve(deletedUser);
+        }
+      });
     });
   },
 };

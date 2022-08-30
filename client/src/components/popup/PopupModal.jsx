@@ -11,6 +11,7 @@ const PopupModal = ({
   bodyText,
   exitIcon,
   blurBackground,
+  style,
 }) => {
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
 
@@ -25,7 +26,7 @@ const PopupModal = ({
   }
 
   return (
-    <div className="popup-modal">
+    <div className="popup-modal" style={style}>
       <div
         className={` popup-modal-background ${
           blurBackground ? 'popup-modal-background-color' : 'popup-modal-background-blur'
@@ -67,6 +68,7 @@ PopupModal.propTypes = {
 
   exitIcon: PropTypes.bool, // display the 'x' mark
   blurBackground: PropTypes.bool,
+  style: PropTypes.object,
 };
 
 PopupModal.defaultProps = {

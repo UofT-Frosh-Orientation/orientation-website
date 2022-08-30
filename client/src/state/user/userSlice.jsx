@@ -90,6 +90,30 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = error;
     },
+    unsubscribeUserStart: (state) => {
+      state.loading = true;
+      state.error = false;
+    },
+    unsubscribeUserSuccess: (state) => {
+      state.loading = false;
+      state.error = false;
+    },
+    unsubscribeUserFailure: (state, { payload: error }) => {
+      state.loading = false;
+      state.error = error;
+    },
+    resubscribeUserStart: (state) => {
+      state.loading = true;
+      state.error = false;
+    },
+    resubscribeUserSuccess: (state) => {
+      state.loading = false;
+      state.error = false;
+    },
+    resubscribeUserFailure: (state, { payload: error }) => {
+      state.loading = false;
+      state.error = error;
+    },
   },
 });
 
@@ -110,6 +134,12 @@ export const {
   updateUserInfoFailure,
   updateUserInfoStart,
   updateUserInfoSuccess,
+  unsubscribeUserStart,
+  unsubscribeUserSuccess,
+  unsubscribeUserFailure,
+  resubscribeUserStart,
+  resubscribeUserSuccess,
+  resubscribeUserFailure,
 } = userSlice.actions;
 
 export default userSlice.reducer;
