@@ -69,7 +69,7 @@ const FroshController = {
           prev[curr] = 1;
           return prev;
         },
-        { _id: 0 },
+        { _id: 1 },
       );
       const froshGroupFilters = [null];
       if (req.user?.authScopes?.approved) {

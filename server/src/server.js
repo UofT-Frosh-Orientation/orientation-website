@@ -9,6 +9,7 @@ const faqRouter = require('./routes/faqRoutes');
 const paymentRouter = require('./routes/paymentRoutes');
 const announcementRouter = require('./routes/announcementRoutes');
 const scuntRouter = require('./routes/scuntRoutes');
+const qrRouter = require('./routes/qrRoutes');
 
 const swaggerLoader = require('./loaders/swaggerLoader');
 
@@ -21,6 +22,7 @@ mongoLoader(app).then(() => {
   app.use('/payment', paymentRouter);
   app.use('/announcements', announcementRouter);
   app.use('/scunt', scuntRouter);
+  app.use('/qr', qrRouter);
   swaggerLoader(app);
 
   app.use(errorResponseMiddleware);
