@@ -250,6 +250,23 @@ const UserController = {
         message: 'Successfully found users!',
         authRequests: judgeUsers.map((u) => u.getResponseObject()),
       });
+    } catch (e) {
+      next(e);
+    }
+  },
+  /**
+   * Hard deletes a user account from mongo by id.
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @async
+   * @return {Promise<void>}
+   */
+  async deleteUser(req, res, next) {
+    try {
+      const { id } = req.params;
+      await UserServices.deleteUser(id);
+      res.status(200).send({ message: 'Successfully deleted User!', deletedId: id });
     } catch (err) {
       next(err);
     }
