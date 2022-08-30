@@ -38,9 +38,9 @@ export const PageScuntHome = () => {
 };
 
 const ScuntDiscord = () => {
+  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
   const [showDiscordLink, setShowDiscordLink] = useState(false);
   const [discordLink, setDiscordLink] = useState('');
-  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
   const [revealTeams, setRevealTeams] = useState(false);
 
   const { user } = useSelector(userSelector);
@@ -49,20 +49,30 @@ const ScuntDiscord = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // updating the selector
-    dispatch(getScuntSettings());
-  }, [loading]);
-
-  useEffect(() => {
     if (scuntSettings !== undefined) {
-      if (Array.isArray(scuntSettings)) {
-        // checks above are to access game settings since selector is initialy undef
-        setShowDiscordLink(scuntSettings[0]?.showDiscordLink);
-        setDiscordLink(scuntSettings[0]?.discordLink);
-        setRevealTeams(scuntSettings[0]?.revealTeams);
-      }
+      let settings = scuntSettings[0];
+
+      setRevealTeams(settings?.revealTeams);
+      setShowDiscordLink(settings?.showDiscordLink);
+      setDiscordLink(settings?.discordLink);
     }
   }, [scuntSettings]);
+
+  // useEffect(() => {
+  //   // updating the selector
+  //   dispatch(getScuntSettings());
+  // }, [loading]);
+
+  // useEffect(() => {
+  //   if (scuntSettings !== undefined) {
+  //     if (Array.isArray(scuntSettings)) {
+  //       // checks above are to access game settings since selector is initialy undef
+  //       setShowDiscordLink(scuntSettings[0]?.showDiscordLink);
+  //       setDiscordLink(scuntSettings[0]?.discordLink);
+  //       setRevealTeams(scuntSettings[0]?.revealTeams);
+  //     }
+  //   }
+  // }, [scuntSettings]);
 
   if (showDiscordLink !== true && revealTeams !== true && !leader) {
     // catch the undef states of the selector using !== true

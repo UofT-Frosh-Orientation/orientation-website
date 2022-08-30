@@ -52,48 +52,73 @@ const test = [
 const buttonStyle = { width: 'fit-content' };
 
 const ScuntLeaderboard = () => {
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
+  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
+  const [revealJudgesAndBribes, setRevealJudgesAndBribes] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (scuntSettings !== undefined) {
+      setRevealJudgesAndBribes(scuntSettings[0]?.revealJudgesAndBribes);
+    }
+  }, [scuntSettings]);
+
+  if (revealJudgesAndBribes !== true && !leader) {
+    return (
+      <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
+        <ScuntLinks />
+        <div className="scunt-check-soon-title">
+          <h1>Check back soon!</h1>
+        </div>
+      </Header>
+    );
+  }
+
   return (
     <>
       <Header text={'Leaderboard'} underlineDesktop={'410px'} underlineMobile={'285px'}>
         <ScuntLinks />
       </Header>
-      <ScuntLeaderboardContent />
+      <ScuntLeaderboardShow />
     </>
   );
 };
 
-const ScuntLeaderboardContent = () => {
-  const { user } = useSelector(userSelector);
-  const leader = user?.userType === 'leadur';
-  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
-  const [revealLeaderboard, setRevealLeaderboard] = useState(false);
+// const ScuntLeaderboardContent = () => {
+//   const { user } = useSelector(userSelector);
+//   const leader = user?.userType === 'leadur';
+//   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
+//   const [revealLeaderboard, setRevealLeaderboard] = useState(false);
 
-  const dispatch = useDispatch();
+//   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   // updating the selector
-  //   dispatch(getScuntSettings());
-  // }, [loading]);
+//   // useEffect(() => {
+//   //   // updating the selector
+//   //   dispatch(getScuntSettings());
+//   // }, [loading]);
 
-  // useEffect(() => {
-  //   if (scuntSettings !== undefined) {
-  //     if (Array.isArray(scuntSettings)) {
-  //       // checks above are to access game settings since selector is initialy undef
-  //       setRevealLeaderboard(scuntSettings[0]?.revealLeaderboard);
-  //     }
-  //   }
-  // }, [scuntSettings]);
+//   // useEffect(() => {
+//   //   if (scuntSettings !== undefined) {
+//   //     if (Array.isArray(scuntSettings)) {
+//   //       // checks above are to access game settings since selector is initialy undef
+//   //       setRevealLeaderboard(scuntSettings[0]?.revealLeaderboard);
+//   //     }
+//   //   }
+//   // }, [scuntSettings]);
 
-  if (revealLeaderboard !== true && !leader) {
-    return (
-      <h1 style={{ color: 'var(--text-dynamic)', textAlign: 'center', margin: '35px' }}>
-        Check back once Scunt has begun!
-      </h1>
-    );
-  } else {
-    return <ScuntLeaderboardShow />;
-  }
-};
+//   if (revealLeaderboard !== true && !leader) {
+//     return (
+//       <></>
+//       // <h1 style={{ color: 'var(--text-dynamic)', textAlign: 'center', margin: '35px' }}>
+//       //   Check back once Scunt has begun!
+//       // </h1>
+//     );
+//   } else {
+//     return <ScuntLeaderboardShow />;
+//   }
+// };
 
 const ScuntLeaderboardShow = () => {
   //const [leaderboard, setLeaderboard] = useState([]);

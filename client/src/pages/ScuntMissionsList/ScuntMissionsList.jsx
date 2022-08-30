@@ -29,17 +29,6 @@ function getMissionCategories() {
 }
 
 const PageScuntMissionsList = () => {
-  return (
-    <>
-      <Header text={'Missions'} underlineDesktop={'300px'} underlineMobile={'210px'}>
-        <ScuntLinks />
-      </Header>
-      <ScuntMissionsListContent />
-    </>
-  );
-};
-
-const ScuntMissionsListContent = () => {
   const { user } = useSelector(userSelector);
   const leader = user?.userType === 'leadur';
   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
@@ -47,30 +36,67 @@ const ScuntMissionsListContent = () => {
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   // updating the selector
-  //   dispatch(getScuntSettings());
-  // }, [loading]);
-
-  // useEffect(() => {
-  //   if (scuntSettings !== undefined) {
-  //     if (Array.isArray(scuntSettings)) {
-  //       // checks above are to access game settings since selector is initialy undef
-  //       setRevealMissions(scuntSettings[0]?.revealMissions);
-  //     }
-  //   }
-  // }, [scuntSettings]);
+  useEffect(() => {
+    if (scuntSettings !== undefined) {
+      setRevealMissions(scuntSettings[0]?.revealMissions);
+    }
+  }, [scuntSettings]);
 
   if (revealMissions !== true && !leader) {
     return (
-      <h1 style={{ color: 'var(--text-dynamic)', textAlign: 'center', margin: '35px' }}>
-        Check back once Scunt has begun!
-      </h1>
+      <>
+        <Header text={'Missions'} underlineDesktop={'300px'} underlineMobile={'210px'}>
+          <ScuntLinks />
+          <div className="scunt-check-soon-title">
+            <h1>Check back soon!</h1>
+          </div>
+        </Header>
+      </>
     );
-  } else {
-    return <PageScuntMissionsListShow />;
   }
+
+  return (
+    <>
+      <Header text={'Missions'} underlineDesktop={'300px'} underlineMobile={'210px'}>
+        <ScuntLinks />
+      </Header>
+      <PageScuntMissionsListShow />
+    </>
+  );
 };
+
+// const ScuntMissionsListContent = () => {
+//   const { user } = useSelector(userSelector);
+//   const leader = user?.userType === 'leadur';
+//   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
+//   const [revealMissions, setRevealMissions] = useState(false);
+
+//   const dispatch = useDispatch();
+
+//   // useEffect(() => {
+//   //   // updating the selector
+//   //   dispatch(getScuntSettings());
+//   // }, [loading]);
+
+//   // useEffect(() => {
+//   //   if (scuntSettings !== undefined) {
+//   //     if (Array.isArray(scuntSettings)) {
+//   //       // checks above are to access game settings since selector is initialy undef
+//   //       setRevealMissions(scuntSettings[0]?.revealMissions);
+//   //     }
+//   //   }
+//   // }, [scuntSettings]);
+
+//   if (revealMissions !== true && !leader) {
+//     return (
+//       <h1 style={{ color: 'var(--text-dynamic)', textAlign: 'center', margin: '35px' }}>
+//         Check back once Scunt has begun!
+//       </h1>
+//     );
+//   } else {
+//     return <PageScuntMissionsListShow />;
+//   }
+// };
 
 const PageScuntMissionsListShow = () => {
   const missions = list;

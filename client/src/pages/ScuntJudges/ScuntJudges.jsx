@@ -14,7 +14,9 @@ import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSl
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 
 const ScuntJudges = () => {
-  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
+  const { scuntSettings, loading } = useSelector(scuntSettingsSelector); // returns array
   const [revealJudgesAndBribes, setRevealJudgesAndBribes] = useState(false);
 
   const dispatch = useDispatch();
@@ -31,7 +33,13 @@ const ScuntJudges = () => {
   //   }
   // }, [scuntSettings]);
 
-  if (revealJudgesAndBribes !== true) {
+  useEffect(() => {
+    if (scuntSettings !== undefined) {
+      setRevealJudgesAndBribes(scuntSettings[0]?.revealJudgesAndBribes);
+    }
+  }, [scuntSettings]);
+
+  if (revealJudgesAndBribes !== true && !leader) {
     return (
       <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
         <ScuntLinks />

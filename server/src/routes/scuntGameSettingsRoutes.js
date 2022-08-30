@@ -9,7 +9,7 @@ const router = express.Router();
 router.get(
   '/',
   checkLoggedIn,
-  hasAuthScopes(['scunt:exec game controls']),
+  // hasAuthScopes(['scunt:exec game controls']),
   ScuntGameSettingsController.getGameSettings,
 );
 
