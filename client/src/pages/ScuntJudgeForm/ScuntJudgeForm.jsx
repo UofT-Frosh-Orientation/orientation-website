@@ -16,6 +16,7 @@ import { PopupModal } from '../../components/popup/PopupModal';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
+import { submitBribePoints } from './functions';
 
 export const PageScuntJudgeForm = () => {
   const { user } = useSelector(userSelector);
@@ -167,6 +168,21 @@ const ScuntBribePoints = ({ teams }) => {
   const [clearPointsInput, setClearPointsInput] = useState(false);
 
   const { setSnackbar } = useContext(SnackbarContext);
+  const submitBribe = async (teamNumber, points) => {
+    if (points > 0 || points !== undefined) {
+      const req = { teamNumber: teamNumber, points: points };
+      const result = await submitBribePoints(req);
+      if (result !== true) {
+        setSnackbar('Error', true);
+      } else {
+        setRemainingBribePoints(remainingBribePoints - assignedPoints);
+        setSnackbar(`Added ${assignedPoints} points to ${assignedTeam}`, false);
+        setAssignedPoints(0);
+      }
+    } else if (points === 0 || points === undefined) {
+      setSnackbar('You cannot give 0 points!', true);
+    }
+  };
 
   return (
     <div style={{ width: '100%' }}>
@@ -246,10 +262,13 @@ const ScuntBribePoints = ({ teams }) => {
             <Button
               label={'Give Bribe Points'}
               onClick={() => {
-                setAssignedPoints(0);
+                const str = assignedTeam;
+                const assignedTeamNumber =
+                  str == 'Team 10'
+                    ? parseInt(str.substring(str.length - 2))
+                    : parseInt(str.substring(str.length - 1));
+                submitBribe(assignedTeamNumber, assignedPoints);
                 //Submit points here
-                setRemainingBribePoints(remainingBribePoints - assignedPoints);
-                setSnackbar(`Added ${assignedPoints} points to ${assignedTeam}`);
               }}
             />
           </div>

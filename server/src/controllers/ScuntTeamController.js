@@ -10,6 +10,7 @@ const ScuntTeamController = {
     }
   },
   async bribeTransaction(req, res, next) {
+    console.log(req);
     try {
       const { teamNumber, points } = req.body;
       // const userId = req.user.id;
