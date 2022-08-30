@@ -247,7 +247,6 @@ const ScuntGameSettings = () => {
               let revealTeams = newSettings.revealTeams;
               let showDiscordLink = newSettings.showDiscordLink;
               let discordLink = newSettings.discordLink;
-              console.log(discordLink);
               let revealLeaderboard = newSettings.revealLeaderboard;
               let revealMissions = newSettings.revealMissions;
               let allowJudging = newSettings.allowJudging;

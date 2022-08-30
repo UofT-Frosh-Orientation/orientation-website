@@ -18,7 +18,126 @@ import { DarkModeContext } from '../../util/DarkModeProvider';
 
 import useAxios from '../../hooks/useAxios';
 import './ScuntMissionsDashboard.scss';
+import { Button } from '../../components/button/Button/Button';
+import { TextInput } from '../../components/input/TextInput/TextInput';
+
+import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
+
 const { axios } = useAxios();
+
+const missioninput = [
+  {
+    label: 'Name',
+    placeholder: 'Jump into ANY body of water',
+  },
+  {
+    label: 'Category',
+    placeholder: 'The Classics',
+  },
+  {
+    label: 'Points',
+    placeholder: '300',
+  },
+];
+
+const CreateMissions = () => {
+  const { setSnackbar } = useContext(SnackbarContext); // use Snackbar to send messages --> successfull hidden/deleted, etc.
+  const { darkMode } = useContext(DarkModeContext);
+  const [newMission, setNewMission] = useState({
+    number: '',
+    name: '',
+    category: '',
+    points: '',
+    isHidden: true,
+  });
+
+  let keys = Object.keys(newMission);
+
+  return (
+    <>
+      <div className="scunt-create-missions-tab-container">
+        <Button
+          label="Upload CSV File"
+          onClick={() => {
+            // TODO: search up how to upload CSV files!
+          }}
+          isSecondary={true}
+          style={{ width: 'fit-content' }}
+        />
+
+        <div className="separator" />
+        <br />
+
+        <div className="scunt-create-missions-container">
+          <div className="scunt-create-missions-textinput">
+            {missioninput.map((i) => {
+              return (
+                <>
+                  <TextInput
+                    label={i.label}
+                    placeholder={i.label}
+                    isRequiredInput={true}
+                    onChange={() => {
+                      // TODO: update the state var
+                    }}
+                    onEnterKey={() => {
+                      // TODO: update the state var
+                    }}
+                    style={{ width: '100%' }}
+                  />
+                </>
+              );
+            })}
+          </div>
+          <div className="scunt-create-missions-preview-container">
+            <div className="scunt-create-missions-preview">
+              <h3 style={{ marginBottom: '20px' }}>Mission Preview</h3>
+
+              {newMission !== undefined ? (
+                keys?.map((i) => {
+                  return (
+                    <p key={i} style={{ color: 'var(--text-dynamic)', marginBottom: '8px' }}>
+                      <b>{convertCamelToLabel(i)}</b>
+                      <span>{': '}</span>
+                      {newMission[i] === true || newMission[i] === false ? (
+                        <div
+                          style={{
+                            display: 'inline-block',
+                            color:
+                              newMission[i] === true ? 'var(--green-success)' : 'var(--red-error)',
+                          }}
+                        >
+                          <b>{newMission[i].toString()}</b>
+                        </div>
+                      ) : (
+                        newMission[i].toString()
+                      )}
+                    </p>
+                  );
+                })
+              ) : (
+                <p
+                  style={{ color: 'var(--text-dynamic)', marginBottom: '5px', textAlign: 'center' }}
+                >
+                  Settings have not been set yet
+                </p>
+              )}
+            </div>
+
+            <Button
+              label="Create Mission"
+              onClick={() => {
+                // TODO: call backend to submit mission
+              }}
+              isSecondary={true}
+              style={{ width: 'fit-content' }}
+            />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 const ScuntAllMissions = () => {
   const { setSnackbar } = useContext(SnackbarContext); // use Snackbar to send messages --> successfull hidden/deleted, etc.
@@ -113,12 +232,12 @@ const ScuntAllMissions = () => {
 
 const tabs = [
   {
-    title: 'Create/Upload Missions',
-    component: <></>,
-  },
-  {
     title: 'All Missions',
     component: <ScuntAllMissions />,
+  },
+  {
+    title: 'Create/Upload Missions',
+    component: <CreateMissions />,
   },
 ];
 

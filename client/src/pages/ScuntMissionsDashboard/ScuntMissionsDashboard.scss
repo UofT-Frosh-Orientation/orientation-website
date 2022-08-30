@@ -1,0 +1,42 @@
+.scunt-create-missions-tab-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.scunt-create-missions-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+.scunt-create-missions-textinput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+
+  flex: 50%;
+}
+.scunt-create-missions-preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+
+  flex: 50%;
+}
+
+.scunt-create-missions-preview {
+  width: 100%;
+  padding: 25px;
+  background-color: var(--purple-bg);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+
+  color: var(--text-dynamic);
+  text-align: left;
+}
