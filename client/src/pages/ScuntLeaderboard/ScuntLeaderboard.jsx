@@ -86,47 +86,8 @@ const ScuntLeaderboard = () => {
   );
 };
 
-// const ScuntLeaderboardContent = () => {
-//   const { user } = useSelector(userSelector);
-//   const leader = user?.userType === 'leadur';
-//   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
-//   const [revealLeaderboard, setRevealLeaderboard] = useState(false);
-
-//   const dispatch = useDispatch();
-
-//   // useEffect(() => {
-//   //   // updating the selector
-//   //   dispatch(getScuntSettings());
-//   // }, [loading]);
-
-//   // useEffect(() => {
-//   //   if (scuntSettings !== undefined) {
-//   //     if (Array.isArray(scuntSettings)) {
-//   //       // checks above are to access game settings since selector is initialy undef
-//   //       setRevealLeaderboard(scuntSettings[0]?.revealLeaderboard);
-//   //     }
-//   //   }
-//   // }, [scuntSettings]);
-
-//   if (revealLeaderboard !== true && !leader) {
-//     return (
-//       <></>
-//       // <h1 style={{ color: 'var(--text-dynamic)', textAlign: 'center', margin: '35px' }}>
-//       //   Check back once Scunt has begun!
-//       // </h1>
-//     );
-//   } else {
-//     return <ScuntLeaderboardShow />;
-//   }
-// };
-
 const ScuntLeaderboardShow = () => {
-  //const [leaderboard, setLeaderboard] = useState([]);
   const handle = useFullScreenHandle();
-
-  // useEffect(() => {
-  //   //dispatch(getLeaderboard());
-  // }, []);
 
   // for testing
   let testupdate = test;

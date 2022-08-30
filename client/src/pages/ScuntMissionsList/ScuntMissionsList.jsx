@@ -65,39 +65,6 @@ const PageScuntMissionsList = () => {
   );
 };
 
-// const ScuntMissionsListContent = () => {
-//   const { user } = useSelector(userSelector);
-//   const leader = user?.userType === 'leadur';
-//   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
-//   const [revealMissions, setRevealMissions] = useState(false);
-
-//   const dispatch = useDispatch();
-
-//   // useEffect(() => {
-//   //   // updating the selector
-//   //   dispatch(getScuntSettings());
-//   // }, [loading]);
-
-//   // useEffect(() => {
-//   //   if (scuntSettings !== undefined) {
-//   //     if (Array.isArray(scuntSettings)) {
-//   //       // checks above are to access game settings since selector is initialy undef
-//   //       setRevealMissions(scuntSettings[0]?.revealMissions);
-//   //     }
-//   //   }
-//   // }, [scuntSettings]);
-
-//   if (revealMissions !== true && !leader) {
-//     return (
-//       <h1 style={{ color: 'var(--text-dynamic)', textAlign: 'center', margin: '35px' }}>
-//         Check back once Scunt has begun!
-//       </h1>
-//     );
-//   } else {
-//     return <PageScuntMissionsListShow />;
-//   }
-// };
-
 const PageScuntMissionsListShow = () => {
   const missions = list;
   const [mission, setMission] = useState(undefined);

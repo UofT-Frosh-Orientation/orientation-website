@@ -19,20 +19,6 @@ const ScuntJudges = () => {
   const { scuntSettings, loading } = useSelector(scuntSettingsSelector); // returns array
   const [revealJudgesAndBribes, setRevealJudgesAndBribes] = useState(false);
 
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(getScuntSettings());
-  // }, [loading]);
-
-  // useEffect(() => {
-  //   if (scuntSettings !== undefined) {
-  //     if (Array.isArray(scuntSettings)) {
-  //       setRevealJudgesAndBribes(scuntSettings[0]?.revealJudgesAndBribes);
-  //     }
-  //   }
-  // }, [scuntSettings]);
-
   useEffect(() => {
     if (scuntSettings !== undefined) {
       setRevealJudgesAndBribes(scuntSettings[0]?.revealJudgesAndBribes);
@@ -55,42 +41,9 @@ const ScuntJudges = () => {
       <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
         <ScuntLinks />
       </Header>
-      <ScuntJudgesContent />
+      <ScuntJudgesShow />
     </>
   );
-};
-
-const ScuntJudgesContent = () => {
-  const { user } = useSelector(userSelector);
-  const leader = user?.userType === 'leadur';
-  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
-  const [revealJudgesAndBribes, setRevealJudgesAndBribes] = useState(false);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // updating the selector
-    dispatch(getScuntSettings());
-  }, [loading]);
-
-  useEffect(() => {
-    if (scuntSettings !== undefined) {
-      if (Array.isArray(scuntSettings)) {
-        // checks above are to access game settings since selector is initialy undef
-        setRevealJudgesAndBribes(scuntSettings[0]?.revealJudgesAndBribes);
-      }
-    }
-  }, [scuntSettings]);
-
-  if (revealJudgesAndBribes !== true && !leader) {
-    return (
-      <h1 style={{ color: 'var(--text-dynamic)', textAlign: 'center', margin: '35px' }}>
-        Check back once Scunt has begun!
-      </h1>
-    );
-  } else {
-    return <ScuntJudgesShow />;
-  }
 };
 
 const ScuntJudgesShow = () => {
