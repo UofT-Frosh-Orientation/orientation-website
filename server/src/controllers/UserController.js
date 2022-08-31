@@ -58,10 +58,10 @@ const UserController = {
    * @return {Promise<void>}
    */
   async getInfo(req, res) {
-    const user = req.user;
+    let user = req.user;
 
     if (!(await UserServices.checkScuntToken(user))) {
-      await UserServices.addScuntToken(user.email.toLowerCase());
+      user = await UserServices.addScuntToken(user.email.toLowerCase());
     }
 
     res.status(200).send(user.getResponseObject());
