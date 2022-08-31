@@ -28,6 +28,7 @@ import { resources } from '../../util/resources';
 import { instagramAccounts } from '../../util/instagramAccounts';
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
 import CampingIcon from '../../assets/misc/camping-tent.png';
+import NitelifeIcon from '../../assets/misc/nitelife.png';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
@@ -64,6 +65,7 @@ const PageProfileFrosh = () => {
           {leader === false ? (
             <>
               <ProfilePageRetreat />
+              <ProfilePageNitelife />
               <ProfilePageInstagrams />
               <ProfilePageAnnouncements />
             </>
@@ -609,6 +611,34 @@ const ProfilePageHeader = ({ leader, editButton }) => {
 ProfilePageHeader.propTypes = {
   leader: PropTypes.bool,
   editButton: PropTypes.bool,
+};
+
+const ProfilePageNitelife = () => {
+  const isRegistered = useSelector(registeredSelector);
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
+  return isRegistered ? (
+    <a
+      href={'https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'}
+      className="no-link-style"
+      target={'_blank'}
+      rel="noreferrer"
+    >
+      <div className="frosh-instagram-container">
+        <img
+          src={NitelifeIcon}
+          alt="Nitelife"
+          style={{ filter: darkMode ? 'invert(1)' : 'unset' }}
+        />
+        <div>
+          <h2>Nitelife Event Schedule & Map</h2>
+          <p>F!rosh Week doesn&apos;t end at 6:00! Learn more by clicking here.</p>
+        </div>
+      </div>
+    </a>
+  ) : (
+    <></>
+  );
 };
 
 const ProfilePageInstagrams = () => {
