@@ -59,7 +59,7 @@
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -123,7 +123,7 @@
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -137,9 +137,33 @@
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -155,7 +179,7 @@
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -171,7 +195,7 @@
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -239,7 +263,7 @@ export const dataBeta = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -303,7 +327,7 @@ export const dataBeta = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -317,9 +341,33 @@ export const dataBeta = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -335,7 +383,7 @@ export const dataBeta = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -351,7 +399,7 @@ export const dataBeta = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -427,7 +475,7 @@ export const dataChi = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -491,7 +539,7 @@ export const dataChi = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -505,9 +553,33 @@ export const dataChi = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -523,7 +595,7 @@ export const dataChi = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -539,7 +611,7 @@ export const dataChi = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -615,7 +687,7 @@ export const dataDelta = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -679,7 +751,7 @@ export const dataDelta = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -693,9 +765,33 @@ export const dataDelta = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -711,7 +807,7 @@ export const dataDelta = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -727,7 +823,7 @@ export const dataDelta = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -803,7 +899,7 @@ export const dataGamma = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -867,7 +963,7 @@ export const dataGamma = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -881,9 +977,33 @@ export const dataGamma = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -899,7 +1019,7 @@ export const dataGamma = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -915,7 +1035,7 @@ export const dataGamma = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -993,7 +1113,7 @@ export const dataIota = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1057,7 +1177,7 @@ export const dataIota = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -1071,9 +1191,33 @@ export const dataIota = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1089,7 +1233,7 @@ export const dataIota = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1105,7 +1249,7 @@ export const dataIota = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1183,7 +1327,7 @@ export const dataKappa = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1247,7 +1391,7 @@ export const dataKappa = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -1261,9 +1405,33 @@ export const dataKappa = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1279,7 +1447,7 @@ export const dataKappa = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1295,7 +1463,7 @@ export const dataKappa = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1373,7 +1541,7 @@ export const dataLambda = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1437,7 +1605,7 @@ export const dataLambda = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -1451,9 +1619,33 @@ export const dataLambda = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1469,7 +1661,7 @@ export const dataLambda = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1485,7 +1677,7 @@ export const dataLambda = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1563,7 +1755,7 @@ export const dataNu = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1627,7 +1819,7 @@ export const dataNu = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -1641,9 +1833,33 @@ export const dataNu = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1659,7 +1875,7 @@ export const dataNu = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1675,7 +1891,7 @@ export const dataNu = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1751,7 +1967,7 @@ export const dataOmega = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1815,7 +2031,7 @@ export const dataOmega = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -1829,9 +2045,33 @@ export const dataOmega = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1847,7 +2087,7 @@ export const dataOmega = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1863,7 +2103,7 @@ export const dataOmega = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1933,7 +2173,7 @@ export const dataOmicron = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2005,7 +2245,7 @@ export const dataOmicron = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -2019,9 +2259,33 @@ export const dataOmicron = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2037,7 +2301,7 @@ export const dataOmicron = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2053,7 +2317,7 @@ export const dataOmicron = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2129,7 +2393,7 @@ export const dataPhi = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2193,7 +2457,7 @@ export const dataPhi = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -2207,9 +2471,33 @@ export const dataPhi = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2225,7 +2513,7 @@ export const dataPhi = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2241,7 +2529,7 @@ export const dataPhi = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2311,7 +2599,7 @@ export const dataPi = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2383,7 +2671,7 @@ export const dataPi = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -2397,9 +2685,33 @@ export const dataPi = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2415,7 +2727,7 @@ export const dataPi = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2431,7 +2743,7 @@ export const dataPi = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2507,7 +2819,7 @@ export const dataPsi = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2571,7 +2883,7 @@ export const dataPsi = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -2585,9 +2897,33 @@ export const dataPsi = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2603,7 +2939,7 @@ export const dataPsi = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2619,7 +2955,7 @@ export const dataPsi = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2695,7 +3031,7 @@ export const dataRho = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2767,7 +3103,7 @@ export const dataRho = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -2781,9 +3117,33 @@ export const dataRho = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2799,7 +3159,7 @@ export const dataRho = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2815,7 +3175,7 @@ export const dataRho = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2891,7 +3251,7 @@ export const dataSigma = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2963,7 +3323,7 @@ export const dataSigma = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -2977,9 +3337,33 @@ export const dataSigma = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2995,7 +3379,7 @@ export const dataSigma = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3011,7 +3395,7 @@ export const dataSigma = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3087,7 +3471,7 @@ export const dataTau = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3159,7 +3543,7 @@ export const dataTau = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -3173,9 +3557,33 @@ export const dataTau = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3191,7 +3599,7 @@ export const dataTau = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3207,7 +3615,7 @@ export const dataTau = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3285,7 +3693,7 @@ export const dataTheta = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3349,7 +3757,7 @@ export const dataTheta = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -3363,9 +3771,33 @@ export const dataTheta = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3381,7 +3813,7 @@ export const dataTheta = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3397,7 +3829,7 @@ export const dataTheta = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3473,7 +3905,7 @@ export const dataUpsilon = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3537,7 +3969,7 @@ export const dataUpsilon = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -3551,9 +3983,33 @@ export const dataUpsilon = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3569,7 +4025,7 @@ export const dataUpsilon = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3585,7 +4041,7 @@ export const dataUpsilon = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3661,7 +4117,7 @@ export const dataZeta = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 530 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:30:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3725,7 +4181,7 @@ export const dataZeta = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'late',
       Color: 'dark-purple',
@@ -3739,9 +4195,33 @@ export const dataZeta = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt / Nitelife',
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Havenger Scunt',
+      'Event Description':
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3757,7 +4237,7 @@ export const dataZeta = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3773,7 +4253,7 @@ export const dataZeta = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3833,7 +4313,7 @@ export const data = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '6:30 PM',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3895,7 +4375,7 @@ export const data = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '6:30 PM',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3921,7 +4401,7 @@ export const data = {
     {
       'Event Name': 'Departmental Presentations (Various Locations)',
       'Event Description':
-        'See the First Year Hub for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+        'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
       'Start Time': '11:00 AM',
       'End Time': '1:00 PM',
       Color: 'purple',
@@ -3937,7 +4417,7 @@ export const data = {
     {
       'Event Name': 'Havenger Scunt',
       'Event Description':
-        'The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!',
+        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3953,7 +4433,7 @@ export const data = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3969,7 +4449,7 @@ export const data = {
     {
       'Event Name': 'Nitelife',
       'Event Description':
-        'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
+        "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'dark-purple',
