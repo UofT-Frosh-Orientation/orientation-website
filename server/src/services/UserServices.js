@@ -278,8 +278,6 @@ const UserServices = {
 
   async updateAuthScopes(userAuthScopes) {
     return new Promise((resolve, reject) => {
-      console.log('userAuthScopes:');
-      console.log(userAuthScopes);
       UserModel.collection.bulkWrite(
         userAuthScopes.map((user) => {
           const {
