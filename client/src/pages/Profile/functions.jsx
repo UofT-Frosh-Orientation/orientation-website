@@ -93,67 +93,19 @@ export function getFroshGroupSchedule(froshGroup) {
   }
 }
 
-export function qrKeys() {
-  return [
-    'email',
-    'firstName',
-    'lastName',
-    'preferredName',
-    'pronouns',
-    'shirtSize',
-    'froshGroup',
-    'discipline',
-  ];
+export function scannedUserKeys() {
+  return ['email', 'pronouns', 'discipline', 'froshGroup', 'photograph', 'shirtSize'];
 }
 
 export function parseQRCode(qrString) {
-  try {
-    let qrStringSplit = qrString.split('|');
-    return {
-      email: qrStringSplit[0],
-      firstName: qrStringSplit[1],
-      lastName: qrStringSplit[2],
-      preferredName: qrStringSplit[3],
-      pronouns: qrStringSplit[4],
-      shirtSize: qrStringSplit[5],
-      froshGroup: qrStringSplit[6],
-      discipline: qrStringSplit[7],
-    };
-  } catch (e) {
-    return {
-      email: undefined,
-      firstName: undefined,
-      lastName: undefined,
-      preferredName: undefined,
-      pronouns: undefined,
-      shirtSize: undefined,
-      froshGroup: undefined,
-      discipline: undefined,
-    };
-  }
+  return {
+    email: qrString,
+  };
 }
 
 export function getQRCodeString(user) {
-  // Keep in this order:
-  // email | full name or preferred name | pronouns | shirt size | frosh group | discipline
   try {
-    let allDetails = user.email;
-    return allDetails.concat(
-      '|',
-      user.firstName,
-      '|',
-      user.lastName,
-      '|',
-      user.preferredName,
-      '|',
-      user.pronouns,
-      '|',
-      user.shirtSize,
-      '|',
-      user.froshGroup,
-      '|',
-      user.discipline,
-    );
+    return user?.email;
   } catch (error) {
     console.log(error);
   }
@@ -164,13 +116,13 @@ export function getQRCodeString(user) {
 export async function signInFrosh(email) {
   try {
     const date = new Date();
-    await axios.put('/qr/scan', {
+    const result = await axios.put('/qr/scan', {
       email: email,
       date: date.toISOString(),
       tzOffset: date.getTimezoneOffset(),
     });
 
-    return true;
+    return result;
   } catch (error) {
     return error;
   }

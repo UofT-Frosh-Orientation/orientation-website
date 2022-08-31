@@ -32,22 +32,12 @@ export const getTotalScopes = () => {
 };
 
 export const getTotalRegistrationScopes = () => {
-  let output = ['froshGroup', 'froshGroupIcon', 'isRetreat'];
+  let output = ['froshGroup', 'froshGroupIcon', 'isRetreat', 'accountCreatedAt', 'signInDate'];
   for (let key of Object.keys(fields)) {
     if (fields[key].type === 'label') {
       continue;
     }
-    output = [
-      ...output,
-      ...Object.keys(fields[key]),
-      'signInSunday',
-      'signInMonday',
-      'signInTuesday',
-      'signInWednesday',
-      'signInThursday',
-      'signInFriday',
-      'signInSaturday',
-    ];
+    output = [...output, ...Object.keys(fields[key])];
   }
   return output;
 };

@@ -24,6 +24,7 @@ const bubbleButtonStyleAuth = {
 
 const AuthenticationRequests = () => {
   const [authList, setAuthList] = useState([]); // email list that is displayed
+  const [modifiedIds, setModifiedIds] = useState([]);
   const [accountStatus, setAccountStatus] = useState({});
   const [isSave, setIsSave] = useState(false); // state for whether the save button is clicked
   const [changesMade, setChangesMade] = useState(false);
@@ -64,9 +65,15 @@ const AuthenticationRequests = () => {
               label="Save"
               style={{ alignSelf: 'start', marginTop: '0px', marginBottom: '5px' }}
               onClick={() => {
-                dispatch(updateAuthRequests({ setSnackbar, userAuthScopes: authList }));
+                dispatch(
+                  updateAuthRequests({
+                    setSnackbar,
+                    userAuthScopes: authList?.filter((auth) => modifiedIds.includes(auth.id)),
+                  }),
+                );
                 setIsSave(true);
                 setChangesMade(false);
+                setModifiedIds([]);
               }}
             />
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -113,7 +120,7 @@ const AuthenticationRequests = () => {
                 key={account.email}
                 pointerEvents={editMode ? { pointerEvents: 'all' } : { pointerEvents: 'none' }}
                 account={account}
-                onUpdate={(authreq, approve, deny) =>
+                onUpdate={(authreq, approve, deny) => {
                   setAuthList((prev) =>
                     prev.map((p) => {
                       if (p.id === account.id) {
@@ -121,6 +128,9 @@ const AuthenticationRequests = () => {
                           ...p,
                           auth: p.auth.map((a) => {
                             if (a.authreq === authreq) {
+                              if (!modifiedIds.includes(account.id)) {
+                                setModifiedIds((prev) => [...prev, account.id]);
+                              }
                               return { ...a, authreq, approve, deny };
                             } else return a;
                           }),
@@ -129,8 +139,8 @@ const AuthenticationRequests = () => {
                         return p;
                       }
                     }),
-                  )
-                }
+                  );
+                }}
                 accountStatus={accountStatus}
                 setAccountStatus={setAccountStatus}
                 count={accountCount}

@@ -1,6 +1,6 @@
 @import '../../scssStyles/mixins';
 
-.faq-leaders-page {
+.timeline-admin-page {
   margin: 100px auto;
   width: 80%;
   @include devices(tablet) {
@@ -9,21 +9,7 @@
   }
 }
 
-.faq-leaders-mobile {
-  display: none;
-  @include devices(tablet) {
-    display: unset;
-  }
-}
-
-.faq-leaders-mobile-hide {
-  display: unset;
-  @include devices(tablet) {
-    display: none;
-  }
-}
-
-.faq-leaders-create-question-container {
+.timeline-admin-create-question-container {
   padding: 10px 40px;
   max-width: 600px;
   width: 70vw;
@@ -38,7 +24,7 @@
   }
 }
 
-.faq-leaders-edit-question-container {
+.timeline-admin-existing-events-container {
   margin-top: 50px;
   padding: 2%;
   width: 70vw;
@@ -52,46 +38,18 @@
   }
 }
 
-.faq-leaders-answered-questions {
-  width: 47%;
-  margin: 1%;
-  display: inline-block;
-  border: 2px solid var(--purple-shades-dark);
-  border-radius: 15px;
-  vertical-align: top;
-  padding-bottom: 10px;
-  @include devices(tablet) {
-    width: 90%;
-    margin: 5% 5% 15% 5%;
-  }
-}
-
-.faq-leaders-unanswered-questions {
-  width: 47%;
-  margin: 1%;
-  display: inline-block;
-  border: 2px solid var(--purple-shades-dark);
-  border-radius: 15px;
-  vertical-align: top;
-  padding-bottom: 10px;
-  @include devices(tablet) {
-    width: 90%;
-    margin: 5% 5% 15% 5%;
-  }
-}
-
-.faq-leaders-hide {
+.timeline-admin-hide {
   display: none;
 }
 
-.faq-leaders-questions-container {
+.timeline-admin-event-container {
   margin: 15px 10px 0px 10px;
   padding: 20px 30px 20px 30px;
   background-color: var(--purple-bg);
   border-radius: 15px;
   color: var(--text-dark-use);
 }
-.faq-leaders-titles {
+.timeline-admin-titles {
   margin: 10px;
   text-align: center;
   font-size: 30px;
@@ -102,7 +60,7 @@
   }
 }
 
-.faq-leaders-subtitles {
+.timeline-admin-subtitles {
   margin: 7px;
   font-size: 18px;
   color: var(--text-dark-use);
@@ -111,7 +69,7 @@
   }
 }
 
-.faq-leaders-questions-titles {
+.timeline-admin-event-titles {
   font-size: 23px;
   margin-bottom: 10px;
   color: var(--text-dark-use);
@@ -120,7 +78,7 @@
   }
 }
 
-.faq-leaders-description {
+.timeline-admin-text {
   color: var(--text-dark-use);
   margin-top: 5px;
   word-wrap: break-word;
@@ -129,12 +87,12 @@
   }
 }
 
-.faq-leaders-edit-title-container {
+.timeline-admin-edit-title-container {
   display: flex;
   justify-content: space-between;
 }
 
-.faq-leaders-edit-title {
+.timeline-admin-edit-title {
   padding-top: 20px;
   margin-bottom: 7px;
   font-size: 26px;
@@ -145,7 +103,7 @@
   }
 }
 
-.faq-leaders-no-result {
+.timeline-admin-no-result {
   font-weight: bold;
   margin: 10px;
   color: var(--text-dark-use);
