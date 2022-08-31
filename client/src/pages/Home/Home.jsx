@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { getSlideshowImages, getTimelineDates } from './functions';
+import { getSlideshowImages, getTimelineEvents } from './functions';
 import './Home.scss';
 import Wave from '../../assets/misc/wave.png';
 import WaveReverse from '../../assets/misc/wave-reverse.png';
@@ -106,7 +106,7 @@ const HomePageTimeline = () => {
   const [selectedEvent, setSelectedEvent] = useState({});
   const [dates, setDates] = useState();
   useEffect(async () => {
-    setDates(await getTimelineDates());
+    setDates(await getTimelineEvents());
   }, []);
   return (
     !(dates === undefined || dates?.length === 0) && (
@@ -127,10 +127,10 @@ const HomePageTimeline = () => {
           exitIcon={true}
         >
           <div className="home-page-timeline-popup-container">
-            <h1>{selectedEvent.name}</h1>
+            <h1>{selectedEvent.eventName}</h1>
             <p>{selectedEvent.description}</p>
 
-            {selectedEvent.link !== undefined ? (
+            {selectedEvent.link !== '' ? (
               <div className="home-page-timeline-popup-button">
                 <a
                   href={selectedEvent.link}
