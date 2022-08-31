@@ -3904,9 +3904,35 @@ export const data = {
   'Wednesday September 7': [
     {
       'Event Name': 'Faculty Events',
-      'Start Time': '8:00 AM',
-      'End Time': '6:00 PM',
+      'Event Description':
+        'A number of Faculty-run orientation events will take place between 9 a.m. and 4 p.m. These in-person events are free for all incoming first-year engineering students, even if you did not register for F!rosh Week, so please be sure to attend!',
+      'Start Time': '9:00 AM',
+      'End Time': '5:00 PM',
       Color: 'gray',
+    },
+    {
+      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Description':
+        'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'blue',
+    },
+    {
+      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Description':
+        'See the First Year Hub for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
+      'Start Time': '11:00 AM',
+      'End Time': '1:00 PM',
+      Color: 'purple',
+    },
+    {
+      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Description':
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'yellow',
     },
     {
       'Event Name': 'Havenger Scunt',
