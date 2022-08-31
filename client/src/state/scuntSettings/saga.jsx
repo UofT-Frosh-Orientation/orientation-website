@@ -82,7 +82,27 @@ export function* setGameSettingsSaga({
   }
 }
 
+export const shuffleScuntTeams = createAction('shuffleScuntTeamsSaga');
+
+export function* shuffleScuntTeamsSaga({ payload: setSnackbar }) {
+  const { axios } = useAxios();
+  try {
+    yield call(axios.post, '/scunt-teams/shuffle');
+    setSnackbar('Teams shuffled successfully!', false);
+  } catch (error) {
+    setSnackbar(
+      error.response?.data?.message
+        ? error.response?.data?.message.toString()
+        : error.response?.data
+        ? error.response?.data.toString()
+        : error.toString(),
+      true,
+    );
+  }
+}
+
 export default function* scuntSettingsSaga() {
   yield takeLeading(getScuntSettings.type, getScuntSettingsSaga);
   yield takeLeading(setScuntSettings.type, setGameSettingsSaga);
+  yield takeLeading(shuffleScuntTeams.type, shuffleScuntTeamsSaga);
 }

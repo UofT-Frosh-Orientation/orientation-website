@@ -25,6 +25,7 @@ export const getTotalScopes = () => {
       'exec hide missions',
       'exec create missions',
       'exec delete missions',
+      'exec shuffle teams',
     ],
     froshGroupData: ['all', ...froshGroupData],
     froshData: ['unRegisteredUsers'], // Can see leader accounts, frosh who haven't finished payment

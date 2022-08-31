@@ -9,7 +9,11 @@ import { Button } from '../../components/button/Button/Button';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getScuntSettings, setScuntSettings } from '../../state/scuntSettings/saga';
+import {
+  getScuntSettings,
+  setScuntSettings,
+  shuffleScuntTeams,
+} from '../../state/scuntSettings/saga';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 
@@ -262,6 +266,7 @@ const ScuntGameSettings = () => {
 
 const ShuffleTeamsButton = () => {
   const dispatch = useDispatch();
+  const { setSnackbar } = useContext(SnackbarContext);
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const [shuffleTeams, setShuffleTeams] = useState(false);
 
@@ -279,7 +284,7 @@ const ShuffleTeamsButton = () => {
         isDisabled={shuffleTeams}
         style={{ width: 'fit-content' }}
         onClick={() => {
-          console.log('shuffle teams');
+          dispatch(shuffleScuntTeams(setSnackbar));
         }}
       />
     </>

@@ -175,7 +175,7 @@ const ScuntTeamServices = {
       1. Get the number of teams from the scunt game settings
       2. Create the correct number of teams and upsert them into mongo
       3. Assign each frosh to a team based off their froshGroup, discipline, and pronouns
-     */
+    */
     return new Promise((resolve, reject) => {
       ScuntGameSettingsModel.findOne({}, {}, {}, async (err, settings) => {
         if (err) {

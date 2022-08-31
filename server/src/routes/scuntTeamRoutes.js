@@ -150,6 +150,19 @@ router.post(
  *                 description: The number of the mission
  *                 example: 123456
  */
-router.post('/transaction/check', ScuntTeamController.checkTransaction);
+router.post('/transaction/check', checkLoggedIn, ScuntTeamController.checkTransaction);
+
+/**
+ * @swagger
+ * /scunt-teams/shuffle
+ *   post:
+ *     summary: shuffles the teams for scunt
+ */
+router.post(
+  '/shuffle',
+  checkLoggedIn,
+  hasAuthScopes(['scunt:exec shuffle teams']),
+  ScuntTeamController.intializeTeams,
+);
 
 module.exports = router;
