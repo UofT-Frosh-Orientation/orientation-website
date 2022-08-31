@@ -28,20 +28,21 @@ const PaymentServices = {
   async updatePayment(paymentId, amountReceived) {
     try {
       const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentId });
-      console.log(frosh);
-      if (frosh.authScopes === []) {
+      if (frosh) {
         frosh.authScopes = { requested: [], approved: [] };
+        console.log(frosh);
+        const idx = frosh.payments.findIndex((p) => p.paymentIntent === paymentId);
+        frosh.payments[idx].amountDue = frosh.payments[idx].amountDue - amountReceived;
+        if (frosh.payments[idx].item === 'Orientation Ticket') {
+          frosh.isRegistered = true;
+        } else if (frosh.payments[idx].item === 'Retreat Ticket') {
+          frosh.isRetreat = true;
+        }
+        //TODO: update frosh balance
+        await frosh.save({ validateModifiedOnly: true });
+        return frosh;
       }
-      const idx = frosh.payments.findIndex((p) => p.paymentIntent === paymentId);
-      frosh.payments[idx].amountDue = frosh.payments[idx].amountDue - amountReceived;
-      if (frosh.payments[idx].item === 'Orientation Ticket') {
-        frosh.isRegistered = true;
-      } else if (frosh.payments[idx].item === 'Retreat Ticket') {
-        frosh.isRetreat = true;
-      }
-      //TODO: update frosh balance
-      await frosh.save();
-      return frosh;
+      return null;
     } catch (e) {
       console.log(e);
     }
@@ -139,12 +140,13 @@ const PaymentServices = {
   async expirePayment(paymentIntent) {
     try {
       const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentIntent });
+      frosh.authScopes = { requested: [], approved: [] };
       frosh.payments.forEach((p) => {
         if (p.paymentIntent === paymentIntent) {
           p.expired = true;
         }
       });
-      await frosh.save();
+      await frosh.save({ validateModifiedOnly: true });
       return frosh;
     } catch (e) {
       console.log(e);
