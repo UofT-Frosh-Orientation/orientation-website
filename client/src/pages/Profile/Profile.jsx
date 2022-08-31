@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   capitalizeFirstLetter,
-  getDaysFroshSchedule,
-  getFroshScheduleData,
+  getDaysSchedule,
+  getFroshGroupSchedule,
   getQRCodeString,
   parseQRCode,
-  qrKeys,
+  scannedUserKeys,
   searchForFrosh,
   signInFrosh,
 } from './functions';
@@ -28,24 +28,23 @@ import { resources } from '../../util/resources';
 import { instagramAccounts } from '../../util/instagramAccounts';
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
 import CampingIcon from '../../assets/misc/camping-tent.png';
+import NitelifeIcon from '../../assets/misc/nitelife.png';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
-import {
-  announcementsSelector,
-  completedAnnouncementsSelector,
-} from '../../state/announcements/announcementsSlice';
-import {
-  getAnnouncements,
-  completeAnnouncements,
-  getCompletedAnnouncements,
-} from '../../state/announcements/saga';
+import { getUserInfo } from '../../state/user/saga';
+import { announcementsSelector } from '../../state/announcements/announcementsSlice';
+import { getAnnouncements, completeAnnouncements } from '../../state/announcements/saga';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
 import { froshGroups } from '../../util/frosh-groups';
 import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
+import { getFrosh } from '../../state/frosh/saga';
+import { froshSelector, registeredFroshSelector } from '../../state/frosh/froshSlice';
+import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHome/ScheduleHome';
+import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 
 const PageProfile = () => {
   return <PageProfileFrosh />;
@@ -66,6 +65,7 @@ const PageProfileFrosh = () => {
           {leader === false ? (
             <>
               <ProfilePageRetreat />
+              <ProfilePageNitelife />
               <ProfilePageInstagrams />
               <ProfilePageAnnouncements />
             </>
@@ -341,14 +341,58 @@ ProfilePageDashboardLink.propTypes = {
 };
 
 const ProfilePageQRScanner = () => {
+  const { setSnackbar } = useContext(SnackbarContext);
+
+  const [clearText, setClearText] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [searchFor, setSearchFor] = useState('');
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState([
+    {
+      email: 'test@gmail.com',
+    },
+  ]);
   const [scannedData, setScannedData] = useState('');
+  const [scannedUserData, setScannedUserData] = useState('');
+  const { registeredFrosh } = useSelector(registeredFroshSelector);
+  const dispatch = useDispatch();
 
-  const search = () => {
-    setResults(searchForFrosh(searchFor));
+  useEffect(() => {
+    dispatch(getFrosh({ showAllUsers: false }));
+  }, []);
+
+  let searchTimeout;
+
+  // debounce input to improve performance when searching >800 frosh
+  useEffect(() => {
+    // clear timeout if they typed
+    clearTimeout(searchTimeout);
+    if (!searchFor || searchFor === '') {
+      setResults([]);
+    } else {
+      // set timeout to wait for them to finish typing before searching
+      searchTimeout = setTimeout(() => {
+        const lowerCaseSearch = searchFor.toLowerCase();
+        const filteredFrosh = registeredFrosh.filter(
+          (f) =>
+            `${f.firstName} ${f.lastName}`.toLowerCase().includes(lowerCaseSearch) ||
+            f.email.toLowerCase().includes(lowerCaseSearch) ||
+            f.preferredName.toLowerCase().includes(lowerCaseSearch) ||
+            f.utorid.toLowerCase().includes(lowerCaseSearch),
+        );
+        setResults(filteredFrosh);
+      }, 500);
+    }
+  }, [searchFor]);
+
+  const options = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+    hour: 'numeric',
+    minute: 'numeric',
   };
 
   return (
@@ -364,25 +408,70 @@ const ProfilePageQRScanner = () => {
         {scannedData === '' ? (
           'Nothing scanned yet!'
         ) : (
-          <>
-            {qrKeys().map((keyPassed) => {
-              const key = keyPassed.toString();
-              return (
-                <div key={key}>
-                  <b>{capitalizeFirstLetter(key) + ': '}</b>
-                  {scannedData[key]?.toString()}
-                </div>
-              );
-            })}
-          </>
+          <div>
+            <h3>Current Scanned Data</h3>
+            <div style={{ height: '7px' }} />
+            <b>{'Email: '}</b>
+            {scannedData?.email?.toString()}
+          </div>
         )}
       </div>
+      {scannedUserData === '' ? (
+        <></>
+      ) : (
+        <div
+          className={`profile-page-scanned-data ${
+            submitSuccess ? 'profile-page-scanned-data-success' : ''
+          } ${submitError !== false ? 'profile-page-scanned-data-error' : ''}`}
+        >
+          <div>
+            <h3>Scanned User Info</h3>
+            <div style={{ height: '7px' }} />
+            <>
+              <div>
+                <b>Name:</b>
+                {scannedUserData?.preferredName === '' || !scannedUserData?.preferredName
+                  ? scannedUserData?.firstName
+                  : scannedUserData?.preferredName}
+              </div>
+              {scannedUserKeys().map((keyPassed) => {
+                const key = keyPassed.toString();
+                return (
+                  <div key={key}>
+                    <b>{capitalizeFirstLetter(key) + ': '}</b>
+                    {scannedUserData[key]?.toString()}
+                  </div>
+                );
+              })}
+              {scannedUserData['signInDate'] !== undefined ? (
+                <div style={{ color: 'black' }}>
+                  <ErrorSuccessBox
+                    error
+                    content={`User already signed in on ${new Date(
+                      scannedUserData['signInDate'],
+                    )?.toLocaleDateString(undefined, options)}`}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
+            </>
+          </div>
+        </div>
+      )}
       <Button
         label={'Submit'}
-        onClick={() => {
-          const result = signInFrosh(scannedData.email);
-          if (result === true) {
-            setScannedData(parseQRCode(''));
+        onClick={async () => {
+          setClearText(true);
+          if (scannedData === '' || !scannedData) {
+            setSnackbar('Please scan a QR code first!', true);
+            return;
+          }
+          const result = await signInFrosh(scannedData.email);
+          setScannedUserData(result?.data?.returnedUser);
+
+          if (result) {
+            setScannedData('');
             setSubmitSuccess(true);
             setTimeout(() => {
               setSubmitSuccess(false);
@@ -390,7 +479,7 @@ const ProfilePageQRScanner = () => {
             if (submitError !== false) {
               setSubmitError(false);
             }
-            if (results !== []) {
+            if (!results.length) {
               setResults([]);
             }
           } else {
@@ -404,17 +493,19 @@ const ProfilePageQRScanner = () => {
       <h2 className="profile-page-manual-entry-header">Manual Entry</h2>
       <div style={{ padding: '0px 10px', width: '100%' }}>
         <TextInput
-          placeholder={'Frosh Name / Email'}
-          onChange={(value) => {
+          placeholder={'Search by Email, Name, or UtorID'}
+          onEnterKey={(value) => {
             setSearchFor(value);
           }}
-          onEnterKey={() => {
-            search();
+          clearText={clearText}
+          setClearText={(value) => {
+            setClearText(value);
+            setSearchFor('');
           }}
         />
       </div>
       <div className="manual-sign-in-frosh-search-result-container">
-        {results.map((frosh, index) => {
+        {results.slice(0, 5).map((frosh, index) => {
           return (
             <ButtonOutlined
               onClick={() => {
@@ -423,8 +514,11 @@ const ProfilePageQRScanner = () => {
               key={frosh.email + index}
               label={
                 <div>
-                  <h3>{frosh.name}</h3>
+                  <h3>{`${frosh.preferredName === '' ? frosh.firstName : frosh.preferredName} ${
+                    frosh.lastName
+                  }`}</h3>
                   <p>{frosh.email}</p>
+                  <p>{frosh.utorid}</p>
                 </div>
               }
               className="manual-sign-in-frosh-search-result"
@@ -524,6 +618,34 @@ ProfilePageHeader.propTypes = {
   editButton: PropTypes.bool,
 };
 
+const ProfilePageNitelife = () => {
+  const isRegistered = useSelector(registeredSelector);
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
+  return isRegistered ? (
+    <a
+      href={'https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'}
+      className="no-link-style"
+      target={'_blank'}
+      rel="noreferrer"
+    >
+      <div className="frosh-instagram-container">
+        <img
+          src={NitelifeIcon}
+          alt="Nitelife"
+          style={{ filter: darkMode ? 'invert(1)' : 'unset' }}
+        />
+        <div>
+          <h2>Nitelife Event Schedule & Map</h2>
+          <p>F!rosh Week doesn&apos;t end at 6:00! Learn more by clicking here.</p>
+        </div>
+      </div>
+    </a>
+  ) : (
+    <></>
+  );
+};
+
 const ProfilePageInstagrams = () => {
   const { user } = useSelector(userSelector);
   const isRegistered = useSelector(registeredSelector);
@@ -564,6 +686,8 @@ const ProfilePageAnnouncements = () => {
 
   useEffect(() => {
     dispatch(getAnnouncements());
+    dispatch(getUserInfo());
+    console.log(user);
   }, []);
 
   useEffect(() => {
@@ -622,6 +746,19 @@ const ProfilePageAnnouncements = () => {
   return (
     <div className="profile-page-announcements">
       <h2 className="profile-page-section-header">Tasks and Announcements</h2>
+
+      {user?.canEmail === false ? (
+        <Link
+          key={'/resubscribe'}
+          to={'/resubscribe'}
+          style={{ textDecoration: 'none' }}
+          className={'no-link-style'}
+        >
+          <Button label="Resubscribe To Announcements Emails" />
+        </Link>
+      ) : (
+        <></>
+      )}
       <TaskAnnouncement tasks={announcementList} onDone={onDoneTask} />
     </div>
   );
@@ -630,11 +767,19 @@ const ProfilePageAnnouncements = () => {
 const ProfilePageQRCode = () => {
   const isRegistered = useSelector(registeredSelector);
   const [QRCodeString, setQRCodeString] = useState('');
-  useEffect(async () => {
-    setQRCodeString(await getQRCodeString());
+  const { user } = useSelector(userSelector);
+  useEffect(() => {
+    setQRCodeString(getQRCodeString(user));
   }, []);
   if (!isRegistered) {
     return <></>;
+  }
+  if (QRCodeString === undefined) {
+    return (
+      <div className="profile-page-qr-code profile-page-side-section">
+        <p>There is an error with your QR code.</p>
+      </div>
+    );
   }
   return (
     <div className="profile-page-qr-code profile-page-side-section">
@@ -682,13 +827,11 @@ const ProfilePageSchedule = () => {
   const leader = user?.userType === 'leadur';
 
   const [froshGroup, setFroshGroup] = useState(user?.froshGroup);
-  const [closeAll, setCloseAll] = useState(0);
 
-  let days = getDaysFroshSchedule(froshGroup);
-  let buttonList = days.map((item) => {
-    return { name: item };
-  });
-  let scheduleData = getFroshScheduleData();
+  const scheduleData = getFroshGroupSchedule(froshGroup);
+  console.log(scheduleData);
+  const days = getDaysSchedule(scheduleData);
+
   const today = new Date();
   const options = { weekday: 'long' };
   const todayString = today.toLocaleDateString('en-US', options).replace(',', '');
@@ -699,15 +842,20 @@ const ProfilePageSchedule = () => {
     }
     count++;
   }
-  if (count >= scheduleData.length) {
+  if (count >= Object.keys(scheduleData).length) {
     count = 0;
   }
   const [selectedDayIndex, setSelectedDayIndex] = useState(count);
+  const [closeAll, setCloseAll] = useState(false);
+  const buttonList = Object.keys(scheduleData).map((item) => {
+    return { name: item };
+  });
 
   const froshGroupNames = [];
   for (let froshGroup of froshGroups) {
     froshGroupNames.push(froshGroup?.name);
   }
+
   return (
     <div className="profile-page-schedule">
       <div
@@ -746,71 +894,18 @@ const ProfilePageSchedule = () => {
         style={{ maxWidth: '250px', marginTop: '0px', marginBottom: '10px', padding: '11px 15px' }}
       />
       <div className="profile-page-schedule-accordions">
-        {scheduleData[selectedDayIndex].events.map((scheduleDateObj, index) => {
+        {scheduleData[Object.keys(scheduleData)[selectedDayIndex]].map((scheduleDay, index) => {
           return (
-            <ProfilePageAccordionWrapper
-              key={scheduleDateObj.time + index}
+            <ScheduleComponentAccordion
+              key={Object.keys(scheduleData)[index] + index}
+              scheduleDay={scheduleDay}
               closeAll={closeAll}
-              scheduleDateObj={scheduleDateObj}
-              index={index}
             />
           );
         })}
       </div>
     </div>
   );
-};
-
-const ProfilePageAccordionWrapper = ({ scheduleDateObj, index, closeAll }) => {
-  let currentTime = new Date();
-  let hour = currentTime.getHours();
-  const meridian = hour > 12 ? 'PM' : 'AM';
-  hour = hour > 12 ? hour - 12 : hour;
-
-  let scheduleTime = scheduleDateObj.time;
-  const hourScheduleTime = scheduleTime.split(':')[0];
-  const meridianScheduleTime = scheduleTime.split(' ')[1];
-
-  const [isOpen, setIsOpen] = useState(
-    hour === hourScheduleTime && meridian === meridianScheduleTime,
-  );
-
-  useEffect(() => {
-    setIsOpen(hour === hourScheduleTime && meridian === meridianScheduleTime);
-  }, [closeAll]);
-  let accordionHeader = (
-    <div className="profile-page-accordion-header">
-      <h3>{scheduleDateObj.name}</h3>
-      <h4>{scheduleDateObj.time}</h4>
-    </div>
-  );
-  let accordionContent = (
-    <div className="profile-page-accordion-content">
-      <p>{scheduleDateObj.description}</p>
-    </div>
-  );
-  return (
-    <div
-      className="profile-page-accordion-container"
-      style={scheduleDateObj.description === undefined ? { pointerEvents: 'none' } : {}}
-    >
-      <SingleAccordion
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        header={accordionHeader}
-        className={`profile-page-schedule-accordion ${`profile-schedule-background-${scheduleDateObj.Color}`}`}
-        canOpen={scheduleDateObj.description !== undefined}
-      >
-        {accordionContent}
-      </SingleAccordion>
-    </div>
-  );
-};
-
-ProfilePageAccordionWrapper.propTypes = {
-  scheduleDateObj: PropTypes.object,
-  index: PropTypes.number,
-  closeAll: PropTypes.bool,
 };
 
 export { PageProfile, ProfilePageHeader };

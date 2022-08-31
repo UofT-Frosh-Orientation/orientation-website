@@ -203,6 +203,10 @@ const FroshSchema = new mongoose.Schema(
     isRetreat: {
       type: Boolean,
       required: false,
+    },
+    signInDate: {
+      type: Date,
+      required: false,
       default: false,
     },
   },

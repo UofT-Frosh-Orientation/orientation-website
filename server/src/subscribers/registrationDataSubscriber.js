@@ -36,6 +36,7 @@ registrationDataSubsciption.process(async (job, done) => {
     'Track One (Undeclared)': 0,
     bursaryRequested: 0,
     isRegistered: 0,
+    isRetreat: 0,
     totalUsers: 0,
     scunt: 0,
   };
@@ -55,6 +56,9 @@ registrationDataSubsciption.process(async (job, done) => {
     }
     if (curr.scunt) {
       prev.scunt++;
+    }
+    if (curr.isRetreat) {
+      prev.isRetreat++;
     }
     prev.totalUsers++;
     return prev;

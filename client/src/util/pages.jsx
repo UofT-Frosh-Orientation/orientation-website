@@ -22,6 +22,8 @@ import { PageScuntHome } from '../pages/ScuntHome/ScuntHome';
 import { PageScuntRules } from '../pages/ScuntRules/ScuntRules';
 import { PageTimelineAdmin } from '../pages/TimelineAdmin/TimelineAdmin';
 import { PageAnnounceDash } from '../pages/AnnouncementDashboard/AnnounceDash';
+import { PageUnsubscribe } from '../pages/Unsubscribe/Unsubscribe';
+import { PageResubscribe } from '../pages/Resubscribe/Resubscribe';
 import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
 import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
 import { FroshRetreat } from '../pages/FroshRetreat/FroshRetreat';
@@ -77,6 +79,22 @@ export const pages = {
       ),
       path: '/profile',
       includeFooter: true,
+    },
+    {
+      label: 'Unsubscribe',
+      component: <PageUnsubscribe />,
+      path: '/unsubscribe',
+      includeFooter: false,
+    },
+    {
+      label: 'Resubscribe',
+      component: (
+        <AuthorizedPage>
+          <PageResubscribe />
+        </AuthorizedPage>
+      ),
+      path: '/resubscribe',
+      includeFooter: false,
     },
   ],
   hidden: [

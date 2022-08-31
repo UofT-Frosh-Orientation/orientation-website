@@ -61,9 +61,6 @@ export function* createAnnouncementsSaga({
   try {
     yield put(createAnnouncementsStart());
     const response = yield call(axios.post, `/announcements/create`, { announcementData });
-    // if (sendAsEmail) {
-    //   logic to send announcement email
-    // }
     yield put(createAnnouncementsSuccess());
     setSnackbar('Successfully Created!');
   } catch (e) {

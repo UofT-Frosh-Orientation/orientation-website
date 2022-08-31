@@ -2,6 +2,7 @@ const UserServices = require('../services/UserServices');
 const LeadurServices = require('../services/LeadurServices');
 const passport = require('../services/passport');
 const passwordResetSubscription = require('../subscribers/passwordResetSubscription');
+const announcementSubscription = require('../subscribers/announcementSubscription');
 
 const UserController = {
   /**
@@ -136,6 +137,32 @@ const UserController = {
     }
   },
 
+  async unsubscribeUser(req, res, next) {
+    try {
+      const { email } = req.body;
+      await UserServices.unsubscribeUser(email);
+      announcementSubscription.add({ unsubed: true, email });
+
+      res
+        .status(200)
+        .send({ message: 'You have been successfully unsubscribed from announcement emails.' });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async resubscribeUser(req, res, next) {
+    try {
+      const { email } = req.body;
+      await UserServices.resubscribeUser(email);
+      res
+        .status(200)
+        .send({ message: 'You have been successfully resubscribed from announcement emails.' });
+    } catch (error) {
+      next(error);
+    }
+  },
+
   async requestAuthScopes(req, res, next) {
     try {
       const user = req.user;
@@ -211,6 +238,24 @@ const UserController = {
       const { userAuthScopes } = req.body;
       await UserServices.updateAuthScopes(userAuthScopes);
       return res.status(200).send({ message: 'Auth scopes updated!' });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  /**
+   * Hard deletes a user account from mongo by id.
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @async
+   * @return {Promise<void>}
+   */
+  async deleteUser(req, res, next) {
+    try {
+      const { id } = req.params;
+      await UserServices.deleteUser(id);
+      res.status(200).send({ message: 'Successfully deleted User!', deletedId: id });
     } catch (err) {
       next(err);
     }
