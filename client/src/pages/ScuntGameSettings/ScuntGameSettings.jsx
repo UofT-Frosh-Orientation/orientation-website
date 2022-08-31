@@ -78,51 +78,17 @@ const scuntsettingbool = [
 ];
 
 const ScuntGameSettings = () => {
-  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const { scuntSettings } = useSelector(scuntSettingsSelector);
-  //console.log(scuntSettings);
 
   const [newSettings, setNewSettings] = useState({});
-  // const [selectedCheck, setSelectedCheck] = useState([]);
   const { setSnackbar } = useContext(SnackbarContext);
 
   useEffect(() => {
-    //dispatch(setScuntSettings());
-    //dispatch(getScuntSettings());
-    //console.log(scuntSettings);
     if (scuntSettings !== undefined) {
       setNewSettings(scuntSettings[0]);
-      // let index = 0;
-      // let tempSelectedCheck = selectedCheck;
-      // scuntsettingbool.map((key) => {
-      //   if (newSettings[key] === true) {
-      //     tempSelectedCheck.push(index);
-      //     console.log(tempSelectedCheck);
-      //   }
-      //   index = index + 1;
-      // })
-      // setSelectedCheck(tempSelectedCheck);
     }
   }, [scuntSettings]);
-
-  // useEffect(() => {
-  //   if (scuntSettings !== undefined) {
-  //     let index = 0;
-  //     let tempSelectedCheck = [];
-  //     scuntsettingbool.map((i) => {
-  //       console.log(i);
-  //       console.log(scuntSettings[0][i.key]);
-  //       if (scuntSettings[0][i.key] === true) {
-  //         tempSelectedCheck.push(index);
-  //       }
-  //       index = index + 1;
-  //     })
-  //     setSelectedCheck(tempSelectedCheck);
-  //     console.log(tempSelectedCheck);
-  //     console.log(selectedCheck);
-  //   }
-  // }, [])
 
   const initialSettings = {
     name: 'Scunt2T2 Settings',
@@ -137,27 +103,6 @@ const ScuntGameSettings = () => {
     revealMissions: true,
     allowJudging: true,
   };
-
-  //dispatch(setScuntSettings(initialSettings));
-
-  // const [newSettings, setNewSettings] = useState(initialSettings);
-  // const [newSettings, setNewSettings] = useState();
-
-  // get the initial selected indices for checkbox
-  // let selectedCheck = [];
-  // let index = 0;
-
-  // scuntsettingbool.map((key) => {
-  //   if (newSettings[key] === true) {
-  //     selectedCheck.push(index);
-  //     console.log(selectedCheck);
-  //   }
-  //   index = index + 1;
-  // })
-
-  /////
-
-  //console.log(newSettings);
 
   return (
     <div className="scunt-game-settings-page">
@@ -181,6 +126,7 @@ const ScuntGameSettings = () => {
             );
           })}
         </div>
+        <ShuffleTeamsButton />
 
         <div className="separator" />
         <br />
@@ -311,6 +257,32 @@ const ScuntGameSettings = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const ShuffleTeamsButton = () => {
+  const dispatch = useDispatch();
+  const { scuntSettings } = useSelector(scuntSettingsSelector);
+  const [shuffleTeams, setShuffleTeams] = useState(false);
+
+  useEffect(() => {
+    if (scuntSettings !== undefined) {
+      setShuffleTeams(scuntSettings[0]?.revealTeams);
+    }
+  }, [scuntSettings]);
+
+  return (
+    <>
+      <Button
+        label="Shuffle Teams"
+        isSecondary={true}
+        isDisabled={shuffleTeams}
+        style={{ width: 'fit-content' }}
+        onClick={() => {
+          console.log('shuffle teams');
+        }}
+      />
+    </>
   );
 };
 
