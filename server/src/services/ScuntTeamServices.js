@@ -170,6 +170,12 @@ const ScuntTeamServices = {
     });
   },
   async initializeTeams() {
+    /*
+    General approach is to:
+      1. Get the number of teams from the scunt game settings
+      2. Create the correct number of teams and upsert them into mongo
+      3. Assign each frosh to a team based off their froshGroup, discipline, and pronouns
+     */
     return new Promise((resolve, reject) => {
       ScuntGameSettingsModel.findOne({}, {}, {}, async (err, settings) => {
         if (err) {
@@ -185,29 +191,28 @@ const ScuntTeamServices = {
               name: `Team ${i}`,
               froshGroups: {},
               pronouns: {},
-              discipline: {},
+              disciplines: {},
               count: 0,
             });
           }
+          // upsert the scunt teams
           ScuntTeamModel.collection.bulkWrite(
-            [
-              teams.map((t) => ({
-                updateOne: {
-                  filter: {
-                    number: t.number,
-                  },
-                  update: {
-                    $set: {
-                      number: t.number,
-                      name: t.name,
-                      points: 0,
-                      transactions: [],
-                    },
-                  },
-                  upsert: true,
+            teams.map((t) => ({
+              updateOne: {
+                filter: {
+                  number: t.number,
                 },
-              })),
-            ],
+                update: {
+                  $set: {
+                    number: t.number,
+                    name: t.name,
+                    points: 0,
+                    transactions: [],
+                  },
+                },
+                upsert: true,
+              },
+            })),
             {},
             (err) => {
               if (err) {
@@ -218,22 +223,31 @@ const ScuntTeamServices = {
                     reject(err);
                   } else {
                     const maxNum = 85;
-                    frosh.forEach((f) => {
-                      // let minNumber = 100000;
+                    // create an array of promises to save the updated frosh
+                    const updates = frosh.map((f) => {
                       let minScore = 100000;
                       let teamIndex = -1;
                       for (let i = 0; i < teams.length; i++) {
                         const score =
                           0.5 * (teams[i].froshGroups[f.froshGroup] ?? 0) +
                           0.5 * (teams[i].pronouns[f.pronouns] ?? 0) +
-                          0.5 * (teams[i].discipline[f.discipline] ?? 0);
+                          0.5 * (teams[i].disciplines[f.discipline] ?? 0);
                         if (score < minScore && teams[i].count < maxNum) {
                           minScore = score;
                           teamIndex = i;
                         }
                       }
-                      //TODO: update frosh appropriately
+                      const team = teams[teamIndex];
+                      f.scuntTeam = team.number;
+                      team.froshGroups[f.froshGroup] = (team.froshGroups[f.froshGroup] ?? 0) + 1;
+                      team.pronouns[f.pronouns] = (team.pronouns[f.pronouns] ?? 0) + 1;
+                      team.disciplines[f.discipline] = (team.disciplines[f.discipline] ?? 0) + 1;
+                      return f.save({ validateModifiedOnly: true });
                     });
+                    // await the resolution of the full array, and then resolve only if every frosh saved successfully
+                    Promise.all(updates)
+                      .then(() => resolve(teams))
+                      .catch(() => reject('INTERNAL_ERROR'));
                   }
                 });
               }
