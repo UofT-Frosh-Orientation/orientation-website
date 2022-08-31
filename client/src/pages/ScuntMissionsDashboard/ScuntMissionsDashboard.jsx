@@ -24,6 +24,9 @@ import { TextInput } from '../../components/input/TextInput/TextInput';
 import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
 
 import { getMissions, submitMission } from './functions';
+import { useDispatch, useSelector } from 'react-redux';
+import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
+import { getScuntMissions } from '../../state/scuntMissions/saga';
 
 const { axios } = useAxios();
 
@@ -202,9 +205,13 @@ const CreateMissions = () => {
 };
 
 const ScuntAllMissions = () => {
+  const dispatch = useDispatch();
   const { setSnackbar } = useContext(SnackbarContext); // use Snackbar to send messages --> successfull hidden/deleted, etc.
   const { darkMode } = useContext(DarkModeContext);
-  const [missions, setMissions] = useState(list);
+  const { missions } = useSelector(scuntMissionsSelector);
+  useEffect(() => {
+    dispatch(getScuntMissions({ showHidden: true, setSnackbar }));
+  });
 
   // TODO: setMissions( to data from database ? )
 

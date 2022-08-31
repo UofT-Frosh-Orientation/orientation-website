@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './ScuntMissionsList.scss';
 import { Header } from '../../components/text/Header/Header';
@@ -14,9 +14,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
+import { getScuntMissions } from '../../state/scuntMissions/saga';
+import { SnackbarContext } from '../../util/SnackbarProvider';
+import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
 
-function getMissionCategories() {
-  const missions = list;
+function getMissionCategories(missions) {
   let currentCategory = '';
   let output = ['All Categories'];
   for (let mission of missions) {
@@ -30,6 +32,7 @@ function getMissionCategories() {
 
 const PageScuntMissionsList = () => {
   const { user } = useSelector(userSelector);
+  const { setSnackbar } = useContext(SnackbarContext);
   const leader = user?.userType === 'leadur';
   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
   const [revealMissions, setRevealMissions] = useState(false);
@@ -41,6 +44,10 @@ const PageScuntMissionsList = () => {
       setRevealMissions(scuntSettings[0]?.revealMissions);
     }
   }, [scuntSettings]);
+
+  useEffect(() => {
+    dispatch(getScuntMissions({ showHidden: false, setSnackbar }));
+  }, []);
 
   if (revealMissions !== true && !leader) {
     return (
@@ -66,7 +73,7 @@ const PageScuntMissionsList = () => {
 };
 
 const PageScuntMissionsListShow = () => {
-  const missions = list;
+  const { missions } = useSelector(scuntMissionsSelector);
   const [mission, setMission] = useState(undefined);
   const [searchedMissions, setSearchedMissions] = useState(missions);
   const [clearText, setClearText] = useState(false);
@@ -175,7 +182,7 @@ const PageScuntMissionsListShow = () => {
             <div className="scunt-missions-filters">
               <Dropdown
                 initialSelectedIndex={0}
-                values={getMissionCategories()}
+                values={getMissionCategories(missions)}
                 onSelect={(value) => {
                   setSelectedCategory(value);
                 }}

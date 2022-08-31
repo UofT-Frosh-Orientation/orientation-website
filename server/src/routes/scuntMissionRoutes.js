@@ -10,7 +10,10 @@ const router = express.Router();
 router.get(
   '/',
   checkLoggedIn,
-  (req) => conditionallyApply(req.query.showHidden, hasAuthScopes(['scunt:exec show missions'])),
+  conditionallyApply(
+    (req) => req.query.showHidden,
+    hasAuthScopes(['scunt:exec show missions', 'scunt:exec hide missions']),
+  ),
   ScuntMissionController.getMissions,
 );
 

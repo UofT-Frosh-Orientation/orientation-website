@@ -29,7 +29,6 @@ const ScuntMissionSchema = new mongoose.Schema({
     default: false,
   },
 });
-
+ScuntMissionSchema.methods.getResponseObject = getResponseObject;
 const ScuntMissionModel = mongoose.model('ScuntMission', ScuntMissionSchema);
-ScuntMissionSchema.methods.getReponseObject = getResponseObject;
 module.exports = ScuntMissionModel;

@@ -3,7 +3,7 @@ const ScuntMissionServices = require('../services/ScuntMissionServices');
 const ScuntMissionController = {
   async getMissions(req, res, next) {
     try {
-      const { showHidden = false } = req.params;
+      const { showHidden = false } = req.query;
       const allMissions = await ScuntMissionServices.getAllScuntMissions(showHidden);
       return res.status(200).send({
         message: 'Found missions!',

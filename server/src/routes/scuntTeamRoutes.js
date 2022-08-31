@@ -154,7 +154,7 @@ router.post('/transaction/check', checkLoggedIn, ScuntTeamController.checkTransa
 
 /**
  * @swagger
- * /scunt-teams/shuffle
+ * /scunt-teams/shuffle:
  *   post:
  *     summary: shuffles the teams for scunt
  */
