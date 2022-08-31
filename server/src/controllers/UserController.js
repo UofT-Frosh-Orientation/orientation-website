@@ -235,6 +235,8 @@ const UserController = {
 
   async updateAuthScopes(req, res, next) {
     try {
+      console.log('Updating auth scopes');
+      console.log(req.body);
       const { userAuthScopes } = req.body;
       await UserServices.updateAuthScopes(userAuthScopes);
       return res.status(200).send({ message: 'Auth scopes updated!' });
