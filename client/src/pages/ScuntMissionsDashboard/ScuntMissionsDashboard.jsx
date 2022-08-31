@@ -23,35 +23,91 @@ import { TextInput } from '../../components/input/TextInput/TextInput';
 
 import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
 
+import { getMissions, submitMission } from './functions';
+
 const { axios } = useAxios();
 
 const missioninput = [
   {
     label: 'Name',
     placeholder: 'Jump into ANY body of water',
+    key: 'name',
   },
   {
     label: 'Category',
     placeholder: 'The Classics',
+    key: 'category',
   },
   {
     label: 'Points',
     placeholder: '300',
+    key: 'points',
   },
 ];
 
 const CreateMissions = () => {
-  const { setSnackbar } = useContext(SnackbarContext); // use Snackbar to send messages --> successfull hidden/deleted, etc.
-  const { darkMode } = useContext(DarkModeContext);
-  const [newMission, setNewMission] = useState({
+  let initialMission = {
     number: '',
     name: '',
     category: '',
     points: '',
-    isHidden: true,
-  });
+    isHidden: false,
+  };
+
+  const { setSnackbar } = useContext(SnackbarContext); // use Snackbar to send messages --> successfull hidden/deleted, etc.
+  const { darkMode } = useContext(DarkModeContext);
+  const [newMission, setNewMission] = useState(initialMission);
+  const [submit, setSubmit] = useState(false);
+  const [number, setNumber] = useState(1); // sets mission number according to the amount in the database
 
   let keys = Object.keys(newMission);
+
+  useEffect(() => {
+    let temp = { ...newMission };
+    temp.number = number;
+    setNewMission(temp);
+  }, [submit]);
+
+  // get the number of missions... i.e. getMissions -> get the length of the array -> add one = number
+
+  const handleInput = (input, objKey) => {
+    let parseInput;
+    let tempSettings = { ...newMission };
+    if (typeof input === 'string') {
+      parseInput = input;
+    } else {
+      parseInput = parseFloat(input);
+    }
+    tempSettings[objKey] = parseInput;
+    setNewMission(tempSettings);
+  };
+
+  const handleSubmit = async () => {
+    const result = await submitMission(newMission);
+
+    if (result.result) {
+      // display a snack bar
+      // setSubmit to true
+      // reset newMissions to empty obj
+      setSnackbar(result.message);
+      setSubmit(true);
+      setNewMission(initialMission);
+    } else {
+      // display error message
+      // do not setSubmit to true
+      if (result.code === 'ERR_BAD_REQUEST') {
+        setSnackbar('Please Enter Mission Name', true);
+      } else {
+        setSnackbar(result.message, true);
+      }
+
+      setSubmit(false);
+    }
+  };
+
+  // useEffect(() => {
+  //   console.log(newMission)
+  // }, [newMission])
 
   return (
     <>
@@ -77,13 +133,17 @@ const CreateMissions = () => {
                     label={i.label}
                     placeholder={i.label}
                     isRequiredInput={true}
-                    onChange={() => {
-                      // TODO: update the state var
-                    }}
-                    onEnterKey={() => {
-                      // TODO: update the state var
-                    }}
-                    style={{ width: '100%' }}
+                    onChange={
+                      (input) => handleInput(input, i.key)
+                      // TODO: update the state var -- DONE
+                    }
+                    onEnterKey={
+                      (input) => handleInput(input, i.key)
+                      // TODO: update the state var -- DONE
+                    }
+                    style={{ width: '100%', flexGrow: '1' }}
+                    // clearText={submit}
+                    // setClearText={setSubmit}
                   />
                 </>
               );
@@ -116,11 +176,7 @@ const CreateMissions = () => {
                   );
                 })
               ) : (
-                <p
-                  style={{ color: 'var(--text-dynamic)', marginBottom: '5px', textAlign: 'center' }}
-                >
-                  Settings have not been set yet
-                </p>
+                <></>
               )}
             </div>
 
@@ -128,9 +184,15 @@ const CreateMissions = () => {
               label="Create Mission"
               onClick={() => {
                 // TODO: call backend to submit mission
+                // delete the object or set it back to initial state
+
+                handleSubmit();
+
+                //setSubmit(true);
               }}
               isSecondary={true}
               style={{ width: 'fit-content' }}
+              isDisabled={submit}
             />
           </div>
         </div>

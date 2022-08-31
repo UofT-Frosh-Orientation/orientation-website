@@ -280,6 +280,16 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
         label="Scunt Judge panel"
       />
       <ProfilePageDashboardLink
+        link="/scunt-missions-dashboard"
+        authScopes={[
+          'scunt:exec show missions',
+          'scunt:exec hide missions',
+          'scunt:exec create missions',
+          'scunt:exec delete missions',
+        ]}
+        label="Scunt Mission Panel"
+      />
+      <ProfilePageDashboardLink
         link="/scunt-game-controls"
         authScopes={['scunt:exec game controls']}
         label="Scunt Settings"

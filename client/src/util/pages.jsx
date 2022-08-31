@@ -281,12 +281,16 @@ export const pages = {
     {
       label: 'Scunt Missions Dashboard',
       component: (
-        // <AuthorizedPage authScopes={['exec show missions',
-        // 'exec hide missions',
-        // 'exec create missions',
-        // 'exec delete missions']}>
-        <PageScuntMissionsDashboard />
-        //</AuthorizedPage>
+        <AuthorizedPage
+          authScopes={[
+            'scunt:exec show missions',
+            'scunt:exec hide missions',
+            'scunt:exec create missions',
+            'scunt:exec delete missions',
+          ]}
+        >
+          <PageScuntMissionsDashboard />
+        </AuthorizedPage>
       ),
       path: '/scunt-missions-dashboard',
     },
