@@ -288,6 +288,11 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
         label="FAQ Admin Panel"
       />
       <ProfilePageDashboardLink
+        link="/timeline-admin"
+        authScopes={['timeline:create', 'timeline:edit', 'timeline:delete']}
+        label="Timeline Admin Panel"
+      />
+      <ProfilePageDashboardLink
         link="/announcement-dashboard"
         authScopes={['announcements:delete', 'announcements:create', 'announcements:edit']}
         label="Announcements Admin Panel"

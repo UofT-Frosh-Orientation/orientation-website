@@ -11,12 +11,17 @@ const TimelineController = {
   },
 
   async updateTimelineElement(req, res, next) {
-    const { date, name, description } = req.body;
-    const id = req.params.id;
-
+    const { date, eventName, description, link, linkLabel } = req.body;
+    const { id } = req.params;
     try {
-      await TimelineServices.updateTimelineElement(id, date, name, description);
-
+      await TimelineServices.updateTimelineElement(
+        id,
+        date,
+        eventName,
+        description,
+        link,
+        linkLabel,
+      );
       return res.status(200).send({ message: 'Successfully updated Timeline element!' });
     } catch (e) {
       next(e);
@@ -24,11 +29,9 @@ const TimelineController = {
   },
 
   async createTimelineElement(req, res, next) {
-    const { date, name, description } = req.body;
-
+    const { date, eventName, description, link, linkLabel } = req.body;
     try {
-      await TimelineServices.saveNewTimelineElement(date, name, description);
-
+      await TimelineServices.saveNewTimelineElement(date, eventName, description, link, linkLabel);
       return res.status(200).send({ message: 'Successfully added Timeline element!' });
     } catch (e) {
       next(e);

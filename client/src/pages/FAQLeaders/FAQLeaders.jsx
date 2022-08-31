@@ -299,11 +299,16 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
           <Button
             label={'Delete'}
             onClick={async () => {
-              deleteQuestion(question.id);
+                        const result = await deleteQuestion(question.id);
+            if (result !== true) {
+              setSnackbar('Error', true);
+            } else {
               setEditMade(!editMade);
               setSnackbar('Question Deleted Successfully', false);
-              setShowPopUp(false);
+                            setShowPopUp(false);
               setTriggerDelete(!triggerDelete);
+            }
+
             }}
           />
         </span>
@@ -311,21 +316,13 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
       <div className={`${isEdit ? 'faq-leaders-hide' : ''}`}>
         <h1 className={'faq-leaders-questions-titles'}>{questionText}</h1>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-attribute'}>
-            <b>Answer:</b>
-          </span>{' '}
-          {answerText}
+          <b>Answer:</b> {answerText}
         </p>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-attribute'}>
-            <b>Category:</b>
-          </span>{' '}
-          {categoryText}
+          <b>Category:</b> {categoryText}
         </p>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-attribute'}>
-            <b>Email:</b>
-          </span>{' '}
+          <b>Email:</b>{' '}
           <p
             style={{ userSelect: 'all', display: 'inline' }}
             onClick={() => {
@@ -337,16 +334,10 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
           </p>
         </p>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-attribute'}>
-            <b>Created at:</b>
-          </span>{' '}
-          {createdDateFormatted}
+          <b>Created at:</b> {createdDateFormatted}
         </p>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-attribute'}>
-            <b>Last updated at:</b>
-          </span>{' '}
-          {updatedDateFormatted}
+          <b>Last updated at:</b> {updatedDateFormatted}
         </p>{' '}
       </div>
       <div className={`${!isEdit ? 'faq-leaders-hide' : ''}`}>

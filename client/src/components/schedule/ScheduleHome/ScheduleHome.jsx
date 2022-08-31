@@ -132,7 +132,7 @@ export const ScheduleComponentAccordion = ({ scheduleDay, closeAll }) => {
         isOpen={isOpen}
         canOpen={scheduleDay['Event Description'] !== undefined}
       >
-        <p>{scheduleDay['Event Description']}</p>
+        <p dangerouslySetInnerHTML={{ __html: scheduleDay['Event Description'] }} />
       </SingleAccordion>
     </div>
   );
