@@ -6,7 +6,7 @@ import {
   getFroshGroupSchedule,
   getQRCodeString,
   parseQRCode,
-  qrKeys,
+  scannedUserKeys,
   searchForFrosh,
   signInFrosh,
 } from './functions';
@@ -43,6 +43,7 @@ import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
 import { getFrosh } from '../../state/frosh/saga';
 import { froshSelector, registeredFroshSelector } from '../../state/frosh/froshSlice';
 import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHome/ScheduleHome';
+import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 
 const PageProfile = () => {
   return <PageProfileFrosh />;
@@ -333,19 +334,19 @@ ProfilePageDashboardLink.propTypes = {
 };
 
 const ProfilePageQRScanner = () => {
+  const { setSnackbar } = useContext(SnackbarContext);
+
+  const [clearText, setClearText] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [searchFor, setSearchFor] = useState('');
   const [results, setResults] = useState([
     {
       email: 'test@gmail.com',
-      shirtSize: 'small',
-      pronouns: 'he/him',
-      froshGroup: 'iota',
-      discipline: 'ECE',
     },
   ]);
   const [scannedData, setScannedData] = useState('');
+  const [scannedUserData, setScannedUserData] = useState('');
   const { registeredFrosh } = useSelector(registeredFroshSelector);
   const dispatch = useDispatch();
 
@@ -369,12 +370,23 @@ const ProfilePageQRScanner = () => {
           (f) =>
             `${f.firstName} ${f.lastName}`.toLowerCase().includes(lowerCaseSearch) ||
             f.email.toLowerCase().includes(lowerCaseSearch) ||
-            f.preferredName.toLowerCase().includes(lowerCaseSearch),
+            f.preferredName.toLowerCase().includes(lowerCaseSearch) ||
+            f.utorid.toLowerCase().includes(lowerCaseSearch),
         );
         setResults(filteredFrosh);
       }, 500);
     }
   }, [searchFor]);
+
+  const options = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+    hour: 'numeric',
+    minute: 'numeric',
+  };
 
   return (
     <div className="profile-page-qr-code-scanner profile-page-side-section">
@@ -389,26 +401,70 @@ const ProfilePageQRScanner = () => {
         {scannedData === '' ? (
           'Nothing scanned yet!'
         ) : (
-          <>
-            {qrKeys().map((keyPassed) => {
-              const key = keyPassed.toString();
-              return (
-                <div key={key}>
-                  <b>{capitalizeFirstLetter(key) + ': '}</b>
-                  {scannedData[key]?.toString()}
-                </div>
-              );
-            })}
-          </>
+          <div>
+            <h3>Current Scanned Data</h3>
+            <div style={{ height: '7px' }} />
+            <b>{'Email: '}</b>
+            {scannedData?.email?.toString()}
+          </div>
         )}
       </div>
+      {scannedUserData === '' ? (
+        <></>
+      ) : (
+        <div
+          className={`profile-page-scanned-data ${
+            submitSuccess ? 'profile-page-scanned-data-success' : ''
+          } ${submitError !== false ? 'profile-page-scanned-data-error' : ''}`}
+        >
+          <div>
+            <h3>Scanned User Info</h3>
+            <div style={{ height: '7px' }} />
+            <>
+              <div>
+                <b>Name:</b>
+                {scannedUserData?.preferredName === '' || !scannedUserData?.preferredName
+                  ? scannedUserData?.firstName
+                  : scannedUserData?.preferredName}
+              </div>
+              {scannedUserKeys().map((keyPassed) => {
+                const key = keyPassed.toString();
+                return (
+                  <div key={key}>
+                    <b>{capitalizeFirstLetter(key) + ': '}</b>
+                    {scannedUserData[key]?.toString()}
+                  </div>
+                );
+              })}
+              {scannedUserData['signInDate'] !== undefined ? (
+                <div style={{ color: 'black' }}>
+                  <ErrorSuccessBox
+                    error
+                    content={`User already signed in on ${new Date(
+                      scannedUserData['signInDate'],
+                    )?.toLocaleDateString(undefined, options)}`}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
+            </>
+          </div>
+        </div>
+      )}
       <Button
         label={'Submit'}
         onClick={async () => {
+          setClearText(true);
+          if (scannedData === '' || !scannedData) {
+            setSnackbar('Please scan a QR code first!', true);
+            return;
+          }
           const result = await signInFrosh(scannedData.email);
+          setScannedUserData(result?.data?.returnedUser);
 
-          if (result === true) {
-            setScannedData(parseQRCode(''));
+          if (result) {
+            setScannedData('');
             setSubmitSuccess(true);
             setTimeout(() => {
               setSubmitSuccess(false);
@@ -430,9 +486,14 @@ const ProfilePageQRScanner = () => {
       <h2 className="profile-page-manual-entry-header">Manual Entry</h2>
       <div style={{ padding: '0px 10px', width: '100%' }}>
         <TextInput
-          placeholder={'Search by Email'}
-          onChange={(value) => {
+          placeholder={'Search by Email, Name, or UtorID'}
+          onEnterKey={(value) => {
             setSearchFor(value);
+          }}
+          clearText={clearText}
+          setClearText={(value) => {
+            setClearText(value);
+            setSearchFor('');
           }}
         />
       </div>
@@ -450,6 +511,7 @@ const ProfilePageQRScanner = () => {
                     frosh.lastName
                   }`}</h3>
                   <p>{frosh.email}</p>
+                  <p>{frosh.utorid}</p>
                 </div>
               }
               className="manual-sign-in-frosh-search-result"
@@ -676,6 +738,13 @@ const ProfilePageQRCode = () => {
   }, []);
   if (!isRegistered) {
     return <></>;
+  }
+  if (QRCodeString === undefined) {
+    return (
+      <div className="profile-page-qr-code profile-page-side-section">
+        <p>There is an error with your QR code.</p>
+      </div>
+    );
   }
   return (
     <div className="profile-page-qr-code profile-page-side-section">
