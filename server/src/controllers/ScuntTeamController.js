@@ -10,7 +10,6 @@ const ScuntTeamController = {
     }
   },
   async bribeTransaction(req, res, next) {
-    console.log(req);
     try {
       const { teamNumber, points } = req.body;
       // const userId = req.user.id;
@@ -35,6 +34,7 @@ const ScuntTeamController = {
         .status(200)
         .send({ message: 'Successfully refilled bribe points of ' + points.toString() });
     } catch (e) {
+      console.log(e);
       next(e);
     }
   },
@@ -78,6 +78,14 @@ const ScuntTeamController = {
         message: 'Found status for this mission',
         missionStatus: { completed: maxPoints !== 0, points: maxPoints },
       });
+    } catch (e) {
+      next(e);
+    }
+  },
+  async intializeTeams(req, res, next) {
+    try {
+      const createdTeams = await ScuntTeamServices.initializeTeams();
+      res.status(200).send({ message: `Successfully created ${createdTeams.length} teams!` });
     } catch (e) {
       next(e);
     }

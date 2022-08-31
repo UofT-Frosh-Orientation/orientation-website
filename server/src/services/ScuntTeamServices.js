@@ -2,6 +2,8 @@
 
 const ScuntTeamModel = require('../models/ScuntTeamModel');
 const LeadurModel = require('../models/LeadurModel');
+const ScuntGameSettingsModel = require('../models/ScuntGameSettingsModel');
+const FroshModel = require('../models/FroshModel');
 
 const ScuntTeamServices = {
   async getTeamPoints() {
@@ -165,6 +167,80 @@ const ScuntTeamServices = {
           }
         },
       );
+    });
+  },
+  async initializeTeams() {
+    return new Promise((resolve, reject) => {
+      ScuntGameSettingsModel.findOne({}, {}, {}, async (err, settings) => {
+        if (err) {
+          reject(err);
+        } else if (!settings || !settings.amountOfTeams) {
+          reject('INVALID_OR_MISSING_SCUNT_SETTINGS');
+        } else {
+          const numTeams = settings.amountOfTeams;
+          const teams = [];
+          for (let i = 1; i <= numTeams; i++) {
+            teams.push({
+              number: i,
+              name: `Team ${i}`,
+              froshGroups: {},
+              pronouns: {},
+              discipline: {},
+              count: 0,
+            });
+          }
+          ScuntTeamModel.collection.bulkWrite(
+            [
+              teams.map((t) => ({
+                updateOne: {
+                  filter: {
+                    number: t.number,
+                  },
+                  update: {
+                    $set: {
+                      number: t.number,
+                      name: t.name,
+                      points: 0,
+                      transactions: [],
+                    },
+                  },
+                  upsert: true,
+                },
+              })),
+            ],
+            {},
+            (err) => {
+              if (err) {
+                reject(err);
+              } else {
+                FroshModel.find({}, {}, {}, (err, frosh) => {
+                  if (err) {
+                    reject(err);
+                  } else {
+                    const maxNum = 85;
+                    frosh.forEach((f) => {
+                      // let minNumber = 100000;
+                      let minScore = 100000;
+                      let teamIndex = -1;
+                      for (let i = 0; i < teams.length; i++) {
+                        const score =
+                          0.5 * (teams[i].froshGroups[f.froshGroup] ?? 0) +
+                          0.5 * (teams[i].pronouns[f.pronouns] ?? 0) +
+                          0.5 * (teams[i].discipline[f.discipline] ?? 0);
+                        if (score < minScore && teams[i].count < maxNum) {
+                          minScore = score;
+                          teamIndex = i;
+                        }
+                      }
+                      //TODO: update frosh appropriately
+                    });
+                  }
+                });
+              }
+            },
+          );
+        }
+      });
     });
   },
 };
