@@ -145,13 +145,18 @@
   height: 14px;
   margin-top: 3px;
   margin-right: 3px;
-  margin-left: 5px;
 }
 .schedule-accordion-header-location-container {
   display: flex;
   flex-direction: row;
   margin-top: -14px;
   margin-bottom: 5px;
+  margin-left: 5px;
+  @include devices(tablet) {
+    margin-top: -10px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
 }
 .schedule-background-purple {
   color: var(--text-dynamic);
