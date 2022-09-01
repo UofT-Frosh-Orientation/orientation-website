@@ -137,27 +137,30 @@
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -341,27 +344,30 @@ export const dataBeta = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -553,27 +559,30 @@ export const dataChi = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -657,7 +666,7 @@ export const dataDelta = {
       'Event Description':
         'Compete against other frosh groups in the craziest competitions imaginable',
       'Start Time': '12:30:00 a1/p1',
-      'End Time': '13:00:00 PM',
+      'End Time': '13:00:00  PM',
       Color: 'yellow',
     },
     {
@@ -765,27 +774,30 @@ export const dataDelta = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -977,27 +989,30 @@ export const dataGamma = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -1191,27 +1206,30 @@ export const dataIota = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -1405,27 +1423,30 @@ export const dataKappa = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -1619,27 +1640,30 @@ export const dataLambda = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -1833,27 +1857,30 @@ export const dataNu = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -2045,27 +2072,30 @@ export const dataOmega = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -2259,27 +2289,30 @@ export const dataOmicron = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -2471,27 +2504,30 @@ export const dataPhi = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -2685,27 +2721,30 @@ export const dataPi = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -2897,27 +2936,30 @@ export const dataPsi = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -3117,27 +3159,30 @@ export const dataRho = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -3337,27 +3382,30 @@ export const dataSigma = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -3557,27 +3605,30 @@ export const dataTau = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -3771,27 +3822,30 @@ export const dataTheta = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -3983,27 +4037,30 @@ export const dataUpsilon = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -4195,27 +4252,30 @@ export const dataZeta = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
@@ -4264,57 +4324,57 @@ export const data = {
   'Monday September 5': [
     {
       'Event Name': 'Meet your F! group!',
-      'Start Time': '8:00 AM',
-      'End Time': '9:00 AM',
+      'Start Time': '8:00  AM',
+      'End Time': '9:00  AM',
       Color: 'purple',
     },
     {
       'Event Name': 'Matriculation',
       'Event Description':
         'Our kickoff the frosh week, and introduction to all things SKULE™. We all gather in to Convocation Hall',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'yellow',
     },
     {
       'Event Name': 'Lunch',
-      'Start Time': '11:00 AM',
-      'End Time': '12:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '12:00  PM',
       Color: 'green',
     },
     {
       'Event Name': 'Frosh Games / Dye',
       'Event Description':
         'Frosh Games: Compete against other frosh groups in the craziest competitions imaginable\nDye: When I say purple you say purple! Where F!rosh and Leedurs alike dye their bodies (or parts thereof) purple. The colour purple represents great significance in the traditions of engineering schools across Canada.',
-      'Start Time': '12:00 PM',
-      'End Time': '3:00 PM',
+      'Start Time': '12:00  PM',
+      'End Time': '3:00  PM',
       Color: 'yellow',
     },
     {
       'Event Name': 'Group Time',
-      'Start Time': '3:00 PM',
-      'End Time': '3:30 PM',
+      'Start Time': '3:00  PM',
+      'End Time': '3:30  PM',
       Color: 'purple',
     },
     {
       'Event Name': 'Downtown Walkaround',
       'Event Description':
         'Join us for a lovely tour of Toronto’s downtown with 1000 of your newest friends and classmates',
-      'Start Time': '3:30 PM',
-      'End Time': '5:30 PM',
+      'Start Time': '3:30  PM',
+      'End Time': '5:30  PM',
       Color: 'yellow',
     },
     {
       'Event Name': 'Break / Dinner',
-      'Start Time': '5:30 PM',
-      'End Time': '6:30 PM',
+      'Start Time': '5:30  PM',
+      'End Time': '6:30  PM',
       Color: 'blue',
     },
     {
       'Event Name': 'Nitelife',
       'Event Description':
         "You thought F!rosh week stopped at 5:30 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
-      'Start Time': '6:30 PM',
+      'Start Time': '6:30  PM',
       'End Time': 'Late',
       Color: 'dark-purple',
     },
@@ -4322,61 +4382,61 @@ export const data = {
   'Tuesday September 6': [
     {
       'Event Name': 'Group Time',
-      'Start Time': '8:00 AM',
-      'End Time': '9:00 AM',
+      'Start Time': '8:00  AM',
+      'End Time': '9:00  AM',
       Color: 'purple',
     },
     {
       'Event Name': 'Engineering Success Seminar',
-      'Start Time': '9:00 AM',
-      'End Time': '10:30 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '10:30  AM',
       Color: 'gray',
     },
     {
       'Event Name': 'Campus Tour / E4TW',
       'Event Description':
         'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW (Engineers 4 The World) is your very first design challenge here at U of T Engineering!',
-      'Start Time': '10:30 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '10:30  AM',
+      'End Time': '1:00  PM',
       Color: 'yellow',
     },
     {
       'Event Name': 'Lunch',
-      'Start Time': '1:00 PM',
-      'End Time': '2:00 PM',
+      'Start Time': '1:00  PM',
+      'End Time': '2:00  PM',
       Color: 'green',
     },
     {
       'Event Name': 'Campus Tour / E4TW',
       'Event Description':
         'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW (Engineers 4 The World) is your very first design challenge here at U of T Engineering!',
-      'Start Time': '2:00 PM',
-      'End Time': '3:30 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '3:30  PM',
       Color: 'yellow',
     },
     {
       'Event Name': 'Group Time',
-      'Start Time': '3:30 PM',
-      'End Time': '4:30 PM',
+      'Start Time': '3:30  PM',
+      'End Time': '4:30  PM',
       Color: 'purple',
     },
     {
       'Event Name': 'Cheer Off',
-      'Start Time': '4:30 PM',
-      'End Time': '5:30 PM',
+      'Start Time': '4:30  PM',
+      'End Time': '5:30  PM',
       Color: 'purple',
     },
     {
       'Event Name': 'Break / Dinner',
-      'Start Time': '5:30 PM',
-      'End Time': '6:30 PM',
+      'Start Time': '5:30  PM',
+      'End Time': '6:30  PM',
       Color: 'blue',
     },
     {
       'Event Name': 'Nitelife',
       'Event Description':
         "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
-      'Start Time': '6:30 PM',
+      'Start Time': '6:30  PM',
       'End Time': 'Late',
       Color: 'dark-purple',
     },
@@ -4386,39 +4446,42 @@ export const data = {
       'Event Name': 'Faculty Events',
       'Event Description':
         'A number of Faculty-run orientation events will take place between 9 a.m. and 4 p.m. These in-person events are free for all incoming first-year engineering students, even if you did not register for F!rosh Week, so please be sure to attend!',
-      'Start Time': '9:00 AM',
-      'End Time': '5:00 PM',
+      'Start Time': '9:00  AM',
+      'End Time': '5:00  PM',
       Color: 'gray',
     },
     {
-      'Event Name': 'Welcome to Engineering Session (Convocation Hall)',
+      'Event Name': 'Welcome to Engineering Session',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'This welcome session, brought to you by the First Year Office staff and guest speakers will help you to understand the first-year experience and your next steps as a new student. Open to all incoming first-year engineering students.',
-      'Start Time': '9:00 AM',
-      'End Time': '11:00 AM',
+      'Start Time': '9:00  AM',
+      'End Time': '11:00  AM',
       Color: 'blue',
     },
     {
-      'Event Name': 'Departmental Presentations (Various Locations)',
+      'Event Name': 'Departmental Presentations',
+      'Event Location': 'Various Locations',
       'Event Description':
         'See the <a target="_blank" href=\'https://q.utoronto.ca/courses/171530\'>First Year Hub</a> for more details. These presentations will be followed by a free lunch and are brought to you by your department (i.e. ChemE, CivMin, ECE, MIE, MSE and TrackOne). They are a great chance to meet fellow first-year students in your engineering program and connect with key staff and faculty members.',
-      'Start Time': '11:00 AM',
-      'End Time': '1:00 PM',
+      'Start Time': '11:00  AM',
+      'End Time': '1:00  PM',
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
+      'Event Name': 'Engineering Clubs Fair',
+      'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
-      'Start Time': '2:00 PM',
-      'End Time': '5:00 PM',
+      'Start Time': '2:00  PM',
+      'End Time': '5:00  PM',
       Color: 'yellow',
     },
     {
       'Event Name': 'Havenger Scunt',
       'Event Description':
         "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
-      'Start Time': '6:00 PM',
+      'Start Time': '6:00  PM',
       'End Time': 'Late',
       Color: 'dark-purple',
     },
@@ -4426,15 +4489,15 @@ export const data = {
   'Thursday September 8': [
     {
       'Event Name': 'Class Starts',
-      'Start Time': '8:00 AM',
-      'End Time': '6:00 PM',
+      'Start Time': '8:00  AM',
+      'End Time': '6:00  PM',
       Color: 'gray',
     },
     {
       'Event Name': 'Nitelife',
       'Event Description':
         "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
-      'Start Time': '6:00 PM',
+      'Start Time': '6:00  PM',
       'End Time': 'Late',
       Color: 'dark-purple',
     },
@@ -4442,15 +4505,15 @@ export const data = {
   'Friday September 9': [
     {
       'Event Name': 'Class Starts',
-      'Start Time': '8:00 AM',
-      'End Time': '6:00 PM',
+      'Start Time': '8:00  AM',
+      'End Time': '6:00  PM',
       Color: 'gray',
     },
     {
       'Event Name': 'Nitelife',
       'Event Description':
         "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
-      'Start Time': '6:00 PM',
+      'Start Time': '6:00  PM',
       'End Time': 'Late',
       Color: 'dark-purple',
     },
