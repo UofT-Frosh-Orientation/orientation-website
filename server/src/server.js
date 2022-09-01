@@ -1,3 +1,5 @@
+const http = require('http');
+const { Server } = require('socket.io');
 const mongoLoader = require('./loaders/mongoLoader');
 const passportLoader = require('./loaders/passportLoader');
 const errorResponseMiddleware = require('./middlewares/errorResponseMiddleware');
@@ -16,6 +18,8 @@ const scuntGameSettingsRouter = require('./routes/scuntGameSettingsRoutes');
 const swaggerLoader = require('./loaders/swaggerLoader');
 
 mongoLoader(app).then(() => {
+  const server = http.createServer(app);
+  const io = new Server(server);
   passportLoader(app);
   app.use('/frosh', froshRouter);
   app.use('/user', userRouter);
@@ -30,10 +34,17 @@ mongoLoader(app).then(() => {
   swaggerLoader(app);
   app.use(errorResponseMiddleware);
 
+  io.on('connection', (socket) => {
+    console.log('User connected!');
+    socket.on('disconnect', () => {
+      console.log('User disconnected!');
+    });
+  });
+
   app.get('*', (req, res) => {
     res.status(200).send('Orientation Backend!');
   });
-  app.listen(process.env.PORT || 5001, () => {
+  server.listen(process.env.PORT || 5001, () => {
     console.log(`Server is running on port: http://localhost:5001`);
   });
 });
