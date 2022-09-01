@@ -36,3 +36,38 @@
   color: var(--text-dynamic);
   text-align: left;
 }
+
+.scunt-mission-csv-button-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+}
+.scunt-mission-csv-button {
+  position: relative;
+}
+
+.scunt-csv-reader {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+.scunt-browse-file {
+  width: 20%;
+}
+
+.scunt-accepted-file {
+  border: 1px solid var(--white);
+  height: 45px;
+  padding-left: 10px;
+  width: 80%;
+}
+
+.scunt-remove-file {
+  border-radius: 0;
+  padding: 0 20px;
+}
+
+.scunt-progress-bar-background {
+  background-color: var(--yellow);
+}

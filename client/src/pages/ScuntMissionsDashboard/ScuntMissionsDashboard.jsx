@@ -1,6 +1,9 @@
 // this is what the scunt execs will use to edit the missions -- ADMIN PAGE!
 
 import { React, useState, useEffect, useContext } from 'react';
+// import { useCSVReader } from 'react-papaparse';
+//import { CSVReader } from 'react-papaparse';
+//import Papa from 'papaparse'
 import { list } from '../ScuntJudgeForm/scuntTempData';
 import './ScuntMissionsDashboard.scss';
 import '../AccountsApproval/AccountsApproval.scss';
@@ -23,7 +26,7 @@ import { TextInput } from '../../components/input/TextInput/TextInput';
 
 import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
 
-import { getMissions, submitMission } from './functions';
+import { getMissionsAdmin, submitMission } from './functions';
 import { useDispatch, useSelector } from 'react-redux';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
 import { getScuntMissions } from '../../state/scuntMissions/saga';
@@ -32,21 +35,34 @@ const { axios } = useAxios();
 
 const missioninput = [
   {
+    label: 'Number',
+    placeholder: '1',
+    key: 'number',
+    des: 'Numbers must be unique!',
+  },
+  {
     label: 'Name',
     placeholder: 'Jump into ANY body of water',
     key: 'name',
+    des: '',
   },
   {
     label: 'Category',
     placeholder: 'The Classics',
     key: 'category',
+    des: '',
   },
   {
     label: 'Points',
     placeholder: '300',
     key: 'points',
+    des: '',
   },
 ];
+
+// const parseFile = (file) => {
+//   Papa.parse(file);
+// }
 
 const CreateMissions = () => {
   let initialMission = {
@@ -61,15 +77,19 @@ const CreateMissions = () => {
   const { darkMode } = useContext(DarkModeContext);
   const [newMission, setNewMission] = useState(initialMission);
   const [submit, setSubmit] = useState(false);
-  const [number, setNumber] = useState(1); // sets mission number according to the amount in the database
+  const [number, setNumber] = useState(0); // sets mission number according to the amount in the database
+  const [enterInput, setEnterInput] = useState(false);
+
+  //const [submitDisabled, setSubmitDisabled] = useState(true);
 
   let keys = Object.keys(newMission);
 
-  useEffect(() => {
-    let temp = { ...newMission };
-    temp.number = number;
-    setNewMission(temp);
-  }, [submit]);
+  // useEffect(() => {
+
+  //   let temp = { ...newMission };
+  //   temp.number = number;
+  //   setNewMission(temp);
+  // }, [submit]);
 
   // get the number of missions... i.e. getMissions -> get the length of the array -> add one = number
 
@@ -87,24 +107,21 @@ const CreateMissions = () => {
 
   const handleSubmit = async () => {
     const result = await submitMission(newMission);
+    console.log(result);
 
     if (result.result) {
       // display a snack bar
       // setSubmit to true
       // reset newMissions to empty obj
-      setSnackbar(result.message);
+      setSnackbar(result.message, false);
       setSubmit(true);
-      setNewMission(initialMission);
+      //setNewMission(initialMission);
     } else {
-      // display error message
+      // display error message13
       // do not setSubmit to true
-      if (result.code === 'ERR_BAD_REQUEST') {
-        setSnackbar('Please Enter Mission Name', true);
-      } else {
-        setSnackbar(result.message, true);
-      }
+      setSnackbar('Error', true);
 
-      setSubmit(false);
+      setSubmit(true);
     }
   };
 
@@ -115,14 +132,16 @@ const CreateMissions = () => {
   return (
     <>
       <div className="scunt-create-missions-tab-container">
-        <Button
+        {/* <Button
           label="Upload CSV File"
           onClick={() => {
             // TODO: search up how to upload CSV files!
           }}
           isSecondary={true}
           style={{ width: 'fit-content' }}
-        />
+        >  */}
+        <ScuntCSVFileButton />
+        {/* </Button> */}
 
         <div className="separator" />
         <br />
@@ -135,16 +154,22 @@ const CreateMissions = () => {
                   <TextInput
                     label={i.label}
                     placeholder={i.label}
-                    isRequiredInput={true}
+                    isRequiredInput={i.key === 'number' || i.key === 'name' ? true : false}
                     onChange={
-                      (input) => handleInput(input, i.key)
+                      (input) => {
+                        // if (i.key === 'number' || i.key === 'name') {
+                        //   setSubmitDisabled(false);
+                        // }
+                        handleInput(input, i.key);
+                      }
                       // TODO: update the state var -- DONE
                     }
-                    onEnterKey={
-                      (input) => handleInput(input, i.key)
-                      // TODO: update the state var -- DONE
-                    }
+                    // onEnterKey={
+                    //   (input) => handleInput(input, i.key)
+                    //   // TODO: update the state var -- DONE
+                    // }
                     style={{ width: '100%', flexGrow: '1' }}
+                    description={i.des}
                     // clearText={submit}
                     // setClearText={setSubmit}
                   />
@@ -195,11 +220,96 @@ const CreateMissions = () => {
               }}
               isSecondary={true}
               style={{ width: 'fit-content' }}
-              isDisabled={submit}
+              //isDisabled={setSubmitDisabled}
             />
           </div>
         </div>
       </div>
+    </>
+  );
+};
+
+const ScuntCSVFileButton = () => {
+  //const { CSVReader } = useCSVReader();
+  const [CSVFile, setCSVFile] = useState();
+
+  const changeHandler = (event) => {
+    console.log(event.target.files[0]);
+
+    // Papa.parse(event.target.files[0], {
+    //   header: true,
+    //   skipEmptyLines: true,
+    //   complete: function (results) {
+    //     console.log(results.data)
+    //   },});
+  };
+
+  const submit = () => {
+    const file = CSVFile;
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const text = e.target.result;
+      console.log(text);
+    };
+  };
+
+  return (
+    <>
+      <h2 style={{ textAlign: 'center', color: 'var(--text-dynamic)' }}>Upload CSV File</h2>
+      <input
+        className="button"
+        type="file"
+        name="file"
+        accept=".csv"
+        onChange={(e) => {
+          setCSVFile(e.target.files[0]);
+          console.log(CSVFile);
+        }}
+        style={{
+          margin: '15px 10px',
+          backgroundColor: 'var(--light-purple)',
+          color: 'var(--white)',
+        }}
+      />
+      <Button
+        label="Submit"
+        style={{ width: 'fit-content' }}
+        onClick={(e) => {
+          if (CSVFile !== undefined) {
+            submit();
+          }
+        }}
+      />
+      {/* <CSVReader
+      onUploadAccepted={(results: any) => {
+        console.log('---------------------------');
+        console.log(results);
+        console.log('---------------------------');
+      }}
+    >
+      {({
+        getRootProps,
+        acceptedFile,
+        ProgressBar,
+        getRemoveFileProps,
+      }: any) => (
+        <>
+          <div style='scunt-csv-reader'>
+            <button type='button' {...getRootProps()} style={styles.browseFile}>
+              Browse file
+            </button>
+            <div style='scunt-accepted-file'>
+              {acceptedFile && acceptedFile.name}
+            </div>
+            <button {...getRemoveFileProps()} style='scunt-remove-file'>
+              Remove
+            </button>
+          </div>
+          <ProgressBar style='scunt-progress-bar-background' />
+        </>
+      )}
+    </CSVReader> */}
     </>
   );
 };
