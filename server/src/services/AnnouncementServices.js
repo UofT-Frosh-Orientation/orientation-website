@@ -31,7 +31,7 @@ const AnnouncementServices = {
               return value.id != announcement.id;
             })
           ) {
-            listOfCompleted.push(announcement.id);
+            listOfCompleted.push({ _id: announcement.id, announcementName: announcement.name });
           } else {
             listOfCompleted.splice(removeIndex, 1);
           }

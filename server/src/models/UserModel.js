@@ -83,6 +83,9 @@ const UserSchema = new mongoose.Schema(
           announcementID: {
             type: String,
           },
+          announcementName: {
+            type: String,
+          },
         },
       ],
       default: [],
