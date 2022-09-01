@@ -38,6 +38,8 @@ const UserController = {
         );
       }
 
+      await UserServices.addScuntToken(email.toLowerCase());
+
       req.logIn(user, (err) => {
         if (err) {
           return next(err);
@@ -56,8 +58,13 @@ const UserController = {
    * @return {Promise<void>}
    */
   async getInfo(req, res) {
-    const user = req.user.getResponseObject();
-    res.status(200).send({ user });
+    let user = req.user;
+
+    if (!(await UserServices.checkScuntToken(user))) {
+      user = await UserServices.addScuntToken(user.email.toLowerCase());
+    }
+
+    res.status(200).send(user.getResponseObject());
   },
 
   /**

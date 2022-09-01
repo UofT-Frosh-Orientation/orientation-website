@@ -17,6 +17,15 @@ function errorResponseMiddleware(err, req, res, next) {
   } else if (err.message === 'INVALID_PASSWORD') {
     statusCode = 400;
     errorMessage = 'Please submit a valid password.';
+  } else if (err.message === 'USER_ALREADY_SIGNED_INTO_SCUNT_DISCORD') {
+    statusCode = 400;
+    errorMessage = 'User has already signed into discord for scunt.';
+  } else if (err.message === 'INVALID_SCUNT_CODE') {
+    statusCode = 400;
+    errorMessage = 'Incorrect Scunt Token.';
+  } else if (err.message === 'UNABLE_TO_UPDATE_USER') {
+    statusCode = 400;
+    errorMessage = 'Error in updating user.';
   } else if (err.message === 'UNAUTHORIZED') {
     statusCode = 403;
     errorMessage = 'Unauthorized';

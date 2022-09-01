@@ -87,6 +87,32 @@ const UserServices = {
     });
   },
 
+  async checkScuntToken(existingUser) {
+    if (!existingUser.scuntToken) {
+      return false;
+    }
+    return true;
+  },
+
+  async addScuntToken(email) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < 5; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return new Promise((resolve, reject) => {
+      UserModel.findOneAndUpdate({ email }, { scuntToken: result }, (err, user) => {
+        if (err || !user) {
+          reject('UNABLE_TO_UPDATE_SCUNT_TOKEN_FOR_USER');
+        } else {
+          resolve(user);
+        }
+      });
+    });
+  },
+
   async validatePasswordResetToken(token) {
     return new Promise((resolve, reject) => {
       jwt.verify(token, process.env.JWT_RESET_TOKEN, (err, decoded) => {
@@ -335,6 +361,24 @@ const UserServices = {
       );
     });
   },
+
+  async updateUserInfo(userId, updateInfo) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOneAndUpdate(
+        { _id: userId },
+        updateInfo,
+        { returnDocument: 'after' },
+        (err, User) => {
+          if (err || !User) {
+            reject('UNABLE_TO_UPDATE_USER');
+          } else {
+            console.log(User);
+            resolve(User);
+          }
+      });
+    });
+  },
+      
   /**
    * Hard deletes a user by id.
    * @param {ObjectId} id - id of the user to be deleted
