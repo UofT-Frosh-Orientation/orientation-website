@@ -32,35 +32,21 @@ const AnnouncementServices = {
             })
           ) {
             listOfCompleted.push(announcement.id);
-            resolve(
-              UserModel.findOneAndUpdate(
-                { _id: currentUser._id },
-                { completedAnnouncements: listOfCompleted },
-                (err, user) => {
-                  if (err || !user) {
-                    reject('UNABLE_TO_UPDATE_USER');
-                  } else {
-                    resolve(user);
-                  }
-                },
-              ),
-            );
           } else {
             listOfCompleted.splice(removeIndex, 1);
-            resolve(
-              UserModel.findOneAndUpdate(
-                { _id: currentUser._id },
-                { completedAnnouncements: listOfCompleted },
-                (err, user) => {
-                  if (err || !user) {
-                    reject('UNABLE_TO_UPDATE_USER');
-                  } else {
-                    resolve(user);
-                  }
-                },
-              ),
-            );
           }
+
+          UserModel.findOneAndUpdate(
+            { _id: currentUser._id },
+            { completedAnnouncements: listOfCompleted },
+            (err, user) => {
+              if (err || !user) {
+                reject('UNABLE_TO_UPDATE_USER');
+              } else {
+                resolve(user);
+              }
+            },
+          );
         }
       });
     });
