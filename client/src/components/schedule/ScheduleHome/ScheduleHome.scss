@@ -89,7 +89,6 @@
   margin-left: 15px;
   h1 {
     color: var(--text-dynamic) !important;
-    flex: 1;
     font-size: 24px;
     padding: 15px 5px;
     @include devices(tablet) {
@@ -121,14 +120,38 @@
     color: var(--text-dark);
   }
 }
-
+.schedule-accordion-header-container {
+  display: flex;
+  margin-right: 17px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
 .schedule-accordion-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  width: 100%;
-  margin-right: 17px;
+  flex-direction: column;
   user-select: none;
+}
+.schedule-accordion-location {
+  color: var(--gray-time-label);
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+.schedule-accordion-header-location-icon {
+  width: 14px;
+  height: 14px;
+  margin-top: 3px;
+  margin-right: 3px;
+  margin-left: 5px;
+}
+.schedule-accordion-header-location-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: -14px;
+  margin-bottom: 5px;
 }
 .schedule-background-purple {
   color: var(--text-dynamic);
