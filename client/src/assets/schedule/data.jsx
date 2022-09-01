@@ -155,7 +155,7 @@
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -359,7 +359,7 @@ export const dataBeta = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -571,7 +571,7 @@ export const dataChi = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -783,7 +783,7 @@ export const dataDelta = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -995,7 +995,7 @@ export const dataGamma = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -1209,7 +1209,7 @@ export const dataIota = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -1423,7 +1423,7 @@ export const dataKappa = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -1637,7 +1637,7 @@ export const dataLambda = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -1851,7 +1851,7 @@ export const dataNu = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -2063,7 +2063,7 @@ export const dataOmega = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -2277,7 +2277,7 @@ export const dataOmicron = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -2489,7 +2489,7 @@ export const dataPhi = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -2703,7 +2703,7 @@ export const dataPi = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -2915,7 +2915,7 @@ export const dataPsi = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -3135,7 +3135,7 @@ export const dataRho = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -3355,7 +3355,7 @@ export const dataSigma = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -3575,7 +3575,7 @@ export const dataTau = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -3789,7 +3789,7 @@ export const dataTheta = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -4001,7 +4001,7 @@ export const dataUpsilon = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -4213,7 +4213,7 @@ export const dataZeta = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -4409,7 +4409,7 @@ export const data = {
     {
       'Event Name': 'Engineering Clubs Fair (Bahen Lobby)',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved. Event details can be found <a href="https://drive.google.com/file/d/1c3ScimduaMF3qtUlcbK5gA980gWyd-AO/view?usp=sharing">here</a>.',
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
