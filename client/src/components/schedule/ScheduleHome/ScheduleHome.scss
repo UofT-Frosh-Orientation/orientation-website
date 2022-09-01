@@ -145,11 +145,13 @@
   height: 14px;
   margin-top: 3px;
   margin-right: 3px;
+  margin-left: 5px;
 }
 .schedule-accordion-header-location-container {
   display: flex;
   flex-direction: row;
-  margin-top: -9px;
+  margin-top: -14px;
+  margin-bottom: 5px;
 }
 .schedule-background-purple {
   color: var(--text-dynamic);
