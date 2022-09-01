@@ -100,7 +100,7 @@ const loadMongo = async (app) => {
     session({
       resave: false,
       saveUninitialized: true,
-      secret: 'something cryptic',
+      secret: process.env.USER_SESSION_SECRET,
       store: new MongoStore({ mongoUrl: mongoURI, crypto: { secret: process.env.SESSION_SECRET } }),
     }),
   );
