@@ -9,19 +9,9 @@ const AnnouncementServices = {
         if (err) {
           reject(err);
         } else {
-          resolve(
-            announcements.sort((a, b) => {
-              if (a.dateCreated > b.dateCreated) {
-                return -1;
-              } else if (a.dateCreated < b.dateCreated) {
-                return 1;
-              } else {
-                return 0;
-              }
-            }),
-          );
+          resolve(announcements);
         }
-      });
+      }).sort({ dateCreated: -1 });
     });
   },
 
@@ -32,26 +22,30 @@ const AnnouncementServices = {
         if (err) {
           reject(err);
         } else {
+          let removeIndex;
           if (
-            listOfCompleted.every((value) => {
-              return value._id != announcement._id;
+            listOfCompleted.every((value, index) => {
+              if (value.id === announcement.id) {
+                removeIndex = index;
+              }
+              return value.id != announcement.id;
             })
           ) {
-            listOfCompleted.push(announcement._id);
+            listOfCompleted.push(announcement.id);
+          } else {
+            listOfCompleted.splice(removeIndex, 1);
           }
 
-          resolve(
-            UserModel.findOneAndUpdate(
-              { _id: currentUser._id },
-              { completedAnnouncements: listOfCompleted },
-              (err, user) => {
-                if (err || !user) {
-                  reject('UNABLE_TO_UPDATE_USER');
-                } else {
-                  resolve(user);
-                }
-              },
-            ),
+          UserModel.findOneAndUpdate(
+            { _id: currentUser._id },
+            { completedAnnouncements: listOfCompleted },
+            (err, user) => {
+              if (err || !user) {
+                reject('UNABLE_TO_UPDATE_USER');
+              } else {
+                resolve(user);
+              }
+            },
           );
         }
       });
@@ -71,7 +65,7 @@ const AnnouncementServices = {
             resolve(announcements);
           }
         },
-      );
+      ).sort({ dateCreated: -1 });
     });
   },
 
