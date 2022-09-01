@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { initialsSelector, loggedInSelector, registeredSelector } from './state/user/userSlice';
 import { useState, useEffect, useContext } from 'react';
 import { getUserInfo } from './state/user/saga';
+import io from 'socket.io-client';
 
 import { InitialPage } from './pages/Initial/Initial';
 import { AskQuestionButton } from './components/button/AskQuestionButton/AskQuestionButton';
@@ -19,6 +20,17 @@ import { getScuntSettings } from './state/scuntSettings/saga';
 import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
 
 export default function App() {
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    console.log(socket);
+  }, [socket]);
+
+  useEffect(() => {
+    const newSocket = io(`${import.meta.env.VITE_API_BASE_URL}/ws`);
+    setSocket(newSocket);
+    return () => newSocket.close();
+  }, [setSocket]);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserInfo());

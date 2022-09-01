@@ -19,7 +19,9 @@ const swaggerLoader = require('./loaders/swaggerLoader');
 
 mongoLoader(app).then(() => {
   const server = http.createServer(app);
-  const io = new Server(server);
+  const io = new Server(server, {
+    cors: { origin: '*', methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] },
+  });
   passportLoader(app);
   app.use('/frosh', froshRouter);
   app.use('/user', userRouter);
@@ -34,7 +36,8 @@ mongoLoader(app).then(() => {
   swaggerLoader(app);
   app.use(errorResponseMiddleware);
 
-  io.on('connection', (socket) => {
+  const ws = io.of('/ws');
+  ws.on('connection', (socket) => {
     console.log('User connected!');
     socket.on('disconnect', () => {
       console.log('User disconnected!');
