@@ -18,15 +18,18 @@ const ScuntMissionServices = {
     });
   },
 
-  async createMission(number, name, category, points, isHidden) {
+  async createMission(number, name, category, points, isHidden, isJudgingStation) {
     return new Promise((resolve, reject) => {
-      ScuntMissionModel.create({ number, name, category, points, isHidden }, (err, mission) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(mission);
-        }
-      });
+      ScuntMissionModel.create(
+        { number, name, category, points, isHidden, isJudgingStation },
+        (err, mission) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(mission);
+          }
+        },
+      );
     });
   },
 
@@ -42,11 +45,11 @@ const ScuntMissionServices = {
     });
   },
 
-  async updateMissionVisibility(startMissionNumber, endMissionNumber, isHidden) {
+  async updateMissionVisibility(startMissionNumber, endMissionNumber, isHidden, isJudgingStation) {
     return new Promise((resolve, reject) => {
       ScuntMissionModel.updateMany(
         { number: { $gte: startMissionNumber, $lt: endMissionNumber } },
-        { $set: { isHidden } },
+        { $set: { isHidden, isJudgingStation } },
         { strictQuery: false },
         (err, result) => {
           if (err) {

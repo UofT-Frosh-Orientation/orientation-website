@@ -17,6 +17,7 @@ import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { submitBribePoints } from './functions';
+import star from '../../assets/misc/star-solid.svg';
 
 export const PageScuntJudgeForm = () => {
   const { user } = useSelector(userSelector);
@@ -565,7 +566,17 @@ export const ScuntMissionEntry = ({ mission, selected }) => {
   return (
     <div className={`scunt-mission-entry ${selected ? 'scunt-mission-entry-selected' : ''}`}>
       <h3 className="mission-id">{mission?.number}</h3>
+      {mission?.isJudgingStation ? (
+        <img
+          src={star}
+          alt="judging station indication"
+          className="scunt-mission-entry-judging-star"
+        />
+      ) : (
+        <></>
+      )}
       <p className="mission-name">{mission?.name}</p>
+
       <h3 className="mission-points">{mission?.points}</h3>
     </div>
   );
