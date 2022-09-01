@@ -23,7 +23,7 @@ import { TextInput } from '../../components/input/TextInput/TextInput';
 
 import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
 
-import { getMissions, submitMission } from './functions';
+import { submitMission, setVisibility, deleteMission } from './functions';
 import { useDispatch, useSelector } from 'react-redux';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
 import { getScuntMissions } from '../../state/scuntMissions/saga';
@@ -213,8 +213,6 @@ const ScuntAllMissions = () => {
     dispatch(getScuntMissions({ showHidden: true, setSnackbar }));
   });
 
-  // TODO: setMissions( to data from database ? )
-
   return (
     <div className="all-accounts-container">
       <table className="all-accounts-table">
@@ -253,8 +251,13 @@ const ScuntAllMissions = () => {
                   </td>
                   <td className="all-account-data-verified-container" style={{ padding: '8px' }}>
                     <div
-                      onClick={() => {
-                        // TODO: when the eye is toggled make sure to update data in database and missions state variable is updated in useEffect
+                      onClick={async () => {
+                        await setVisibility(
+                          setSnackbar,
+                          mission.number,
+                          mission.number,
+                          mission.isHidden,
+                        );
                       }}
                       style={{ marginRight: 'auto', marginLeft: 'auto', width: 'fit-content' }}
                     >
@@ -280,8 +283,8 @@ const ScuntAllMissions = () => {
                   </td>
                   <td className="all-account-data" style={{ padding: '8px' }}>
                     <div
-                      onClick={() => {
-                        // TODO: delete the corresponding mission from the database
+                      onClick={async () => {
+                        await deleteMission(setSnackbar, mission.number);
                       }}
                       className={'approve-deny-checkbox approve-red-cross'}
                       style={{ marginRight: 'auto', marginLeft: 'auto' }}

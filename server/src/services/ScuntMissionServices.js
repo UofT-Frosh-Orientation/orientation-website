@@ -45,7 +45,7 @@ const ScuntMissionServices = {
   async updateMissionVisibility(startMissionNumber, endMissionNumber, isHidden) {
     return new Promise((resolve, reject) => {
       ScuntMissionModel.updateMany(
-        { number: { $gte: startMissionNumber, $lt: endMissionNumber } },
+        { number: { $gte: startMissionNumber, $lte: endMissionNumber } },
         { $set: { isHidden } },
         { strictQuery: false },
         (err, result) => {
