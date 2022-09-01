@@ -20,17 +20,6 @@ import { getScuntSettings } from './state/scuntSettings/saga';
 import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
 
 export default function App() {
-  const [socket, setSocket] = useState(null);
-
-  useEffect(() => {
-    console.log(socket);
-  }, [socket]);
-
-  useEffect(() => {
-    const newSocket = io(`${import.meta.env.VITE_API_BASE_URL}/ws`);
-    setSocket(newSocket);
-    return () => newSocket.close();
-  }, [setSocket]);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserInfo());

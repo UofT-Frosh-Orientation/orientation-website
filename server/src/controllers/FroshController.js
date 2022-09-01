@@ -59,7 +59,6 @@ const FroshController = {
 
   async getFilteredFroshInfo(req, res, next) {
     try {
-      console.log(req.user.froshDataFields.approved.length);
       if (!req.user?.froshDataFields?.approved?.length) {
         console.log('invalid length');
         return next(new Error('UNAUTHORIZED'));
