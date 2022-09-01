@@ -207,7 +207,6 @@ const FroshSchema = new mongoose.Schema(
     signInDate: {
       type: Date,
       required: false,
-      default: false,
     },
   },
   { discriminatorKey: 'userType' },
