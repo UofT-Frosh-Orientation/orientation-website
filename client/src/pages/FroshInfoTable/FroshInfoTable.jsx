@@ -79,6 +79,7 @@ const PageFroshInfoTable = () => {
       setShowAllUsers(false);
   }, []);
 
+  const dataToDisplay = searchTerm && searchTerm !== '' ? searchedFrosh : sortedFrosh;
   return (
     <div className="frosh-info-table">
       <div className="navbar-space-top" />
@@ -99,7 +100,8 @@ const PageFroshInfoTable = () => {
           <Button
             label="Download XML"
             onClick={() => {
-              downloadDataAsXML(registeredFrosh);
+              downloadDataAsXML(dataToDisplay);
+              setSnackbar('Downloading data as shown in the table below...');
             }}
           />
         </div>
@@ -192,7 +194,7 @@ const PageFroshInfoTable = () => {
               })}
               <th>Delete Account</th>
             </tr>
-            {(searchTerm && searchTerm !== '' ? searchedFrosh : sortedFrosh).map((datum, index) => {
+            {dataToDisplay.map((datum, index) => {
               return (
                 <tr key={index}>
                   <td>
