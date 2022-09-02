@@ -50,13 +50,15 @@ const PaymentServices = {
 
   async getNonExpiredPaymentsCountForItem(item) {
     return new Promise((resolve, reject) => {
-      FroshModel.where({ 'payments.expired': false, 'payments.item': item }).count((err, count) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(count);
-        }
-      });
+      FroshModel.where({ payments: { $elemMatch: { item, expired: false } } }).count(
+        (err, count) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(count);
+          }
+        },
+      );
     });
   },
 
