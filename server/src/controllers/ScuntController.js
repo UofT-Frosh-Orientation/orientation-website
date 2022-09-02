@@ -15,9 +15,9 @@ const ScuntController = {
       const existingUser = await UserServices.getUserByEmail(email);
 
       try {
-        if (!existingUser.scuntToken || existingUser.scuntToken != code) {
+        if (!existingUser.scuntToken || existingUser.scuntToken !== code) {
           return next(new Error('INVALID_SCUNT_CODE'));
-        } else if (existingUser.isScuntDiscordLoggedIn == true) {
+        } else if (existingUser.isScuntDiscordLoggedIn === true) {
           return next(new Error('USER_ALREADY_SIGNED_INTO_SCUNT_DISCORD'));
         }
         const updateScuntLogin = { isScuntDiscordLoggedIn: true };
