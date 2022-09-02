@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { initialsSelector, loggedInSelector, registeredSelector } from './state/user/userSlice';
 import { useState, useEffect, useContext } from 'react';
 import { getUserInfo } from './state/user/saga';
+import io from 'socket.io-client';
 
 import { InitialPage } from './pages/Initial/Initial';
 import { AskQuestionButton } from './components/button/AskQuestionButton/AskQuestionButton';

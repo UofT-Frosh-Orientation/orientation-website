@@ -83,8 +83,13 @@ const ScuntDiscord = () => {
               style={{ filter: darkMode ? 'unset' : 'invert(1)' }}
             />
             <div>
+              {!leader && user.scunt === true ? (
+                <h2 style={{ fontSize: '15px' }}>You are in team {user.scuntTeam}!</h2>
+              ) : (
+                <></>
+              )}
               <p>Join the discord to chat with your team!</p>
-              <h2 style={{ fontSize: '15px' }}>{discordLink}</h2>
+              <p>{discordLink}</p>
             </div>
           </div>
         </a>

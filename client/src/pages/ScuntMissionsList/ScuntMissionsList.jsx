@@ -18,6 +18,8 @@ import { getScuntMissions } from '../../state/scuntMissions/saga';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
 
+import star from '../../assets/misc/star-solid.svg';
+
 function getMissionCategories(missions) {
   let currentCategory = '';
   let output = ['All Categories'];
@@ -136,6 +138,10 @@ const PageScuntMissionsListShow = () => {
         <h2>Want another way to earn points?</h2>
         <div className="scunt-missions-header-link">
           <Link to={'/scunt-judges'}>Don&apos;t forget to bribe the judges!</Link>
+        </div>
+        <div className="scunt-missions-judging-station-info">
+          <img src={star} className="judging-station-info-star" alt="judging station indication" />
+          <p>These indicate Judging Stations, photo/video evidence is not accepted!</p>
         </div>
       </div>
 
