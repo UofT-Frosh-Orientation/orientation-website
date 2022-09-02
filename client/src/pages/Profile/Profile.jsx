@@ -685,7 +685,7 @@ const ProfilePageInstagrams = () => {
 const ProfilePageAnnouncements = () => {
   const dispatch = useDispatch();
   const { user } = useSelector(userSelector);
-  const { announcements, loading } = useSelector(announcementsSelector);
+  const { announcements } = useSelector(announcementsSelector);
   const { completedAnnouncements } = useSelector(completedAnnouncementsSelector);
   const [announcementList, setAnnouncementList] = useState([]);
   const { setSnackbar } = useContext(SnackbarContext);
@@ -693,7 +693,7 @@ const ProfilePageAnnouncements = () => {
   useEffect(() => {
     dispatch(getAnnouncements());
     dispatch(getCompletedAnnouncements());
-  }, [loading]);
+  }, []);
 
   useEffect(() => {
     let orderedAnnouncements = [];
@@ -701,7 +701,7 @@ const ProfilePageAnnouncements = () => {
     announcements.forEach((announcement) => {
       if (
         completedAnnouncements.every((value) => {
-          return value._id != announcement._id;
+          return value._id !== announcement._id;
         })
       ) {
         orderedAnnouncements.push({
