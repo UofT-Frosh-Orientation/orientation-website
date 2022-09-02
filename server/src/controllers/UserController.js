@@ -64,7 +64,7 @@ const UserController = {
       user = await UserServices.addScuntToken(user.email.toLowerCase());
     }
 
-    res.status(200).send(user.getResponseObject());
+    res.status(200).send({ user: user.getResponseObject() });
   },
 
   /**
