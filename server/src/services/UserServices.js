@@ -6,6 +6,16 @@ const mongoose = require('mongoose');
 const UserModel = require('../models/UserModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
 
+function createScuntToken() {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  for (let i = 0; i < 5; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
 const UserServices = {
   /**
    * Validates the fields for a user.
@@ -39,12 +49,13 @@ const UserServices = {
    */
   async createUser(email, password, firstName, lastName, preferredName) {
     console.log('Making users');
+    const scuntToken = createScuntToken();
     return new Promise((resolve, reject) => {
       bcrypt
         .hash(password, 10)
         .then((hashedPassword) => {
           UserModel.create(
-            { email, hashedPassword, firstName, lastName, preferredName },
+            { email, hashedPassword, firstName, lastName, preferredName, scuntToken },
             (err, newUser) => {
               if (err) {
                 reject(err);
@@ -92,15 +103,10 @@ const UserServices = {
   },
 
   async addScuntToken(userId) {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const charactersLength = characters.length;
-    for (let i = 0; i < 5; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
+    const scuntToken = createScuntToken();
 
     return new Promise((resolve, reject) => {
-      UserModel.findByIdAndUpdate(userId, { scuntToken: result }, (err, user) => {
+      UserModel.findByIdAndUpdate(userId, { scuntToken }, (err, user) => {
         if (err || !user) {
           reject('UNABLE_TO_UPDATE_SCUNT_TOKEN_FOR_USER');
         } else {

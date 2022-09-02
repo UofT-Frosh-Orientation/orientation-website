@@ -38,8 +38,6 @@ const UserController = {
         );
       }
 
-      await UserServices.addScuntToken(email.toLowerCase());
-
       req.logIn(user, (err) => {
         if (err) {
           return next(err);
