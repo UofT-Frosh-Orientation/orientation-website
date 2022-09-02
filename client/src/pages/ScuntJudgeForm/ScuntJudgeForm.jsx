@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './ScuntJudgeForm.scss';
-import { Header } from '../../components/text/Header/Header';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { userSelector } from '../../state/user/userSlice';
@@ -9,10 +8,7 @@ import { list } from './scuntTempData';
 import ReactSlider from 'react-slider';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import { Button } from '../../components/button/Button/Button';
-import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
-import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
-import { PopupModal } from '../../components/popup/PopupModal';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
@@ -294,7 +290,7 @@ const ScuntMissionSelection = ({ missions, teams }) => {
 
   useEffect(() => {
     dispatch(getScuntSettings());
-  }, [loading]);
+  }, []);
 
   useEffect(() => {
     if (scuntSettings !== undefined) {

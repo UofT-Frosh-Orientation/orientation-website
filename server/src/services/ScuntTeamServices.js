@@ -4,6 +4,7 @@ const ScuntTeamModel = require('../models/ScuntTeamModel');
 const LeadurModel = require('../models/LeadurModel');
 const ScuntGameSettingsModel = require('../models/ScuntGameSettingsModel');
 const FroshModel = require('../models/FroshModel');
+const LeaderboardSubscription = require('../subscribers/leaderboardSubscriber');
 
 const ScuntTeamServices = {
   async getTeamPoints() {
@@ -47,13 +48,14 @@ const ScuntTeamServices = {
                     ],
                   },
                 },
-                { upsert: false },
+                { upsert: false, returnDocument: 'after' },
                 (err, team) => {
                   if (err) {
                     reject(err);
                   } else if (!team) {
                     reject('INVALID_TEAM_NUMBER');
                   } else {
+                    LeaderboardSubscription.add({ team: team.number, score: team.points });
                     resolve({ team, leadur });
                   }
                 },
