@@ -2,6 +2,7 @@ const AnnouncementServices = require('../services/AnnouncementServices');
 
 const AnnouncementController = {
   async getAnnouncement(req, res, next) {
+    console.log('Getting announcement');
     try {
       const allAnnouncements = await AnnouncementServices.getAllAnnouncements();
       return res.status(200).send({ announcements: allAnnouncements });
