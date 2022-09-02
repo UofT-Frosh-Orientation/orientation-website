@@ -4654,6 +4654,14 @@ export const data = {
       Color: 'gray',
     },
     {
+      'Event Name': 'Bed Races',
+      'Event Description':
+        'Teams from various colleges and faculties boast a magnificent, self-made "vehicle" that is human-powered/heaved towards the finish line! For the winning team, this culminates at the speediest of speeds in the Blue and Gold Committee’s highest distinction, the most prestigious of all awards, the top of all honours and prizes, The Bed Races SLEEPER’S CUP!!!',
+      'Start Time': '16:30:00 a1/p1',
+      'End Time': '17:30:00 a1/p1',
+      Color: 'blue',
+    },
+    {
       'Event Name': 'Nitelife',
       'Event Description':
         "You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! The Nitelife event schedule can be found <a href='https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'>here</a>.",
