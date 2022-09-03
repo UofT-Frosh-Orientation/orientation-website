@@ -17,15 +17,15 @@ class ScuntLeaderboardSocketManager {
     socket.join('leaderboard');
     socket.on('getScores', () => this.getScores(socket));
     socket.on('disconnect', () => this.sockets.delete(socket.id));
+    console.log(this.sockets.size);
   }
 
-  sendUpdate(team, score) {
-    const update = {};
-    update[team] = score;
-    this.io.to('leaderboard').emit('update', update);
+  sendUpdate(team, points) {
+    this.io.to('leaderboard').emit('update', { team, points });
   }
 
   async getScores(socket) {
+    console.log('Getting scores!');
     const scores = await ScuntTeamServices.getTeamPoints();
     socket.emit('scores', scores);
   }
