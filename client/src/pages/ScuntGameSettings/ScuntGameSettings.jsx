@@ -20,6 +20,9 @@ import { SnackbarContext } from '../../util/SnackbarProvider';
 import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 
+import useAxios from '../../hooks/useAxios';
+const { axios } = useAxios();
+
 const scuntsettings = [
   {
     parameter: 'Amount of Teams',
@@ -292,22 +295,64 @@ const ShuffleTeamsButton = () => {
 };
 
 const RefillJudgeBribePoints = () => {
+  const { setSnackbar } = useContext(SnackbarContext);
+
   const [assignedBribeRefillPoints, setAssignedBribeRefillPoints] = useState(0);
   const [assignedJudge, setAssignedJudge] = useState('');
   const [clearPointsInput, setClearPointsInput] = useState(false);
+  const [judges, setJudges] = useState([]);
 
-  const { setSnackbar } = useContext(SnackbarContext);
+  const getJudgeUsers = async () => {
+    try {
+      const response = await axios.get('/scunt-teams/judges');
+      const { users } = response.data;
+      console.log(users);
+      if (users.length <= 0 || !users) setJudges([]);
+      else setJudges(users);
+    } catch (e) {
+      setJudges([]);
+    }
+  };
+
+  useEffect(async () => {
+    getJudgeUsers();
+  }, []);
 
   return (
     <div style={{ margin: '0 5px' }}>
+      <h2>Judge Status</h2>
+      <div style={{ height: '8px' }} />
+      {judges.map((judge) => {
+        return (
+          <p key={judge?._id}>
+            <b>{judge?.firstName + ' ' + judge?.lastName}</b>
+            {' - ' + judge?.scuntJudgeBribePoints + ' bribe points left'}
+          </p>
+        );
+      })}
+      <div style={{ height: '20px' }} />
       <h2>Refill Bribe Points</h2>
       <div style={{ height: '5px' }} />
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <Dropdown
-          values={['Judge 1', 'Judge 2']}
+          values={
+            judges.length <= 0 || !judges
+              ? ['Select Judge']
+              : judges.map((judge) => {
+                  return judge?.firstName + ' ' + judge?.lastName;
+                })
+          }
           initialSelectedIndex={0}
-          onSelect={(judge) => {
-            setAssignedJudge(judge);
+          onSelect={(judgeName) => {
+            if (judges.length <= 0 || !judges) {
+              return 0;
+            } else {
+              setAssignedJudge(
+                judges.filter((judge) => {
+                  return judge?.firstName + ' ' + judge?.lastName === judgeName;
+                })[0],
+              );
+            }
           }}
         />
         <div style={{ width: '10px' }} />
@@ -323,12 +368,22 @@ const RefillJudgeBribePoints = () => {
         </div>
       </div>
       <Button
-        label={'Refill Judge Bribe Points'}
-        onClick={() => {
-          setSnackbar('Given ' + assignedBribeRefillPoints + ' bribe points to ' + assignedJudge);
-          //Refill judges bribe points here
-          setAssignedBribeRefillPoints(0);
-          setClearPointsInput(true);
+        label={'Add Judge Bribe Points'}
+        onClick={async () => {
+          if (!assignedBribeRefillPoints) {
+            setSnackbar('Please set a points value', true);
+          } else {
+            //Refill judges bribe points here
+            const response = await axios.post('/scunt-teams/transaction/refill-bribe', {
+              judgeUserId: assignedJudge?._id,
+              points: assignedBribeRefillPoints,
+              isAddPoints: true,
+            });
+            setSnackbar(response?.data?.message + ' to ' + assignedJudge?.firstName);
+            getJudgeUsers();
+            setAssignedBribeRefillPoints(0);
+            setClearPointsInput(true);
+          }
         }}
       />
     </div>

@@ -41,9 +41,9 @@ const ScuntTeamController = {
     try {
       const { judgeUserId, points, isAddPoints = false } = req.body;
       await ScuntTeamServices.refillBribePoints(judgeUserId, points, isAddPoints);
-      return res
-        .status(200)
-        .send({ message: 'Successfully refilled bribe points of ' + points.toString() });
+      return res.status(200).send({
+        message: (isAddPoints ? 'Added ' : 'Set ') + points?.toString() + ' bribe points',
+      });
     } catch (e) {
       console.log(e);
       next(e);
