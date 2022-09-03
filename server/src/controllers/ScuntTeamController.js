@@ -26,6 +26,17 @@ const ScuntTeamController = {
       next(e);
     }
   },
+
+  async getScuntJudges(req, res, next) {
+    try {
+      const judgeUsers = await ScuntTeamServices.getScuntJudges();
+      return res.status(200).send({ message: 'Successfuly found judge users', users: judgeUsers });
+    } catch (e) {
+      console.log(e);
+      next(e);
+    }
+  },
+
   async refillBribePoints(req, res, next) {
     try {
       const { judgeUserId, points, isAddPoints = false } = req.body;

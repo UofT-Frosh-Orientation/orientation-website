@@ -38,6 +38,13 @@ router.post(
   ScuntTeamController.bribeTransaction,
 );
 
+router.get(
+  '/judges',
+  checkLoggedIn,
+  hasAuthScopes(['scunt:judge missions']),
+  ScuntTeamController.getScuntJudges,
+);
+
 /**
  * @swagger
  * /scunt-teams/transaction/refill-bribe:

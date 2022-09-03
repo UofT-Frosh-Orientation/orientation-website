@@ -68,6 +68,21 @@ const ScuntTeamServices = {
     });
   },
 
+  async getScuntJudges() {
+    return new Promise((resolve, reject) => {
+      LeadurModel.find(
+        { 'authScopes.approved': { $in: ['scunt:judge missions'] } },
+        (err, judgeUsers) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(judgeUsers);
+          }
+        },
+      );
+    });
+  },
+
   async refillBribePoints(judgeUserId, points, isAddPoints) {
     return new Promise((resolve, reject) => {
       LeadurModel.findByIdAndUpdate(
