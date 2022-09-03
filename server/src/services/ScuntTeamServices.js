@@ -23,6 +23,20 @@ const ScuntTeamServices = {
     });
   },
 
+  async getTeams() {
+    return new Promise((resolve, reject) => {
+      ScuntTeamModel.find({}, { name: 1 }, {}, (err, teams) => {
+        if (err) {
+          reject(err);
+        } else if (!teams) {
+          reject('UNABLE_TO_GET_TEAMS');
+        } else {
+          resolve(teams);
+        }
+      });
+    });
+  },
+
   async bribeTransaction(teamNumber, points, user) {
     return new Promise((resolve, reject) => {
       if (!user.scuntJudgeBribePoints || points > user.scuntJudgeBribePoints) {
@@ -71,7 +85,12 @@ const ScuntTeamServices = {
   async getScuntJudges() {
     return new Promise((resolve, reject) => {
       LeadurModel.find(
-        { 'authScopes.approved': { $in: ['scunt:judge missions'] } },
+        {
+          $or: [
+            { 'authScopes.approved': 'scunt:judge bribe points' },
+            { 'authScopes.approved': 'scunt:judge missions' },
+          ],
+        },
         (err, judgeUsers) => {
           if (err) {
             reject(err);

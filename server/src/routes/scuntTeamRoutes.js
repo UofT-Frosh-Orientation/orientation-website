@@ -7,6 +7,7 @@ const ScuntTeamController = require('../controllers/ScuntTeamController');
 const router = express.Router();
 
 // To get judge users use users/scunt-judge-users
+// or /scunt-teams/judges (The above isn't returning correct information for some reason)
 
 router.get('/', checkLoggedIn, ScuntTeamController.getTeamPoints);
 

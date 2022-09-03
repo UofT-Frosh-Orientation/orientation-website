@@ -306,7 +306,6 @@ const RefillJudgeBribePoints = () => {
     try {
       const response = await axios.get('/scunt-teams/judges');
       const { users } = response.data;
-      console.log(users);
       if (users.length <= 0 || !users) setJudges([]);
       else setJudges(users);
     } catch (e) {

@@ -16,6 +16,8 @@ import { submitBribePoints } from './functions';
 import star from '../../assets/misc/star-solid.svg';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
 import { getScuntMissions } from '../../state/scuntMissions/saga';
+import useAxios from '../../hooks/useAxios';
+const { axios } = useAxios();
 
 export const PageScuntJudgeForm = () => {
   const { user } = useSelector(userSelector);
@@ -23,23 +25,29 @@ export const PageScuntJudgeForm = () => {
   const { missions } = useSelector(scuntMissionsSelector);
   const { setSnackbar } = useContext(SnackbarContext);
   console.log(missions);
+  const [teams, setTeams] = useState(['Select Team']);
+
+  const getScuntTeams = async () => {
+    try {
+      const response = await axios.get('/scunt-teams');
+      const { teamPoints } = response.data;
+      if (teamPoints.length <= 0 || !teamPoints) setTeams([]);
+      else
+        setTeams(
+          teamPoints.map((team) => {
+            return team?.name;
+          }),
+        );
+    } catch (e) {
+      setTeams(['Error loading teams']);
+    }
+  };
 
   useEffect(() => {
     dispatch(getScuntMissions({ showHidden: false }));
+    getScuntTeams();
   }, []);
 
-  const teams = [
-    'Team 1',
-    'Team 2',
-    'Team 3',
-    'Team 4',
-    'Team 5',
-    'Team 6',
-    'Team 7',
-    'Team 8',
-    'Team 9',
-    'Team 10',
-  ];
   return (
     <>
       {/* <Header text={"Missions"}/> */}
@@ -170,25 +178,26 @@ ScuntNegativePoints.propTypes = {
 };
 
 const ScuntBribePoints = ({ teams }) => {
-  const [remainingBribePoints, setRemainingBribePoints] = useState(500);
+  const { user } = useSelector(userSelector);
+  const [remainingBribePoints, setRemainingBribePoints] = useState(user?.scuntJudgeBribePoints);
   const [assignedPoints, setAssignedPoints] = useState(0);
   const [assignedTeam, setAssignedTeam] = useState('');
   const [clearPointsInput, setClearPointsInput] = useState(false);
 
   const { setSnackbar } = useContext(SnackbarContext);
   const submitBribe = async (teamNumber, points) => {
-    if (points > 0 || points !== undefined) {
+    if (points <= 0 || points === undefined) {
+      setSnackbar('You cannot give 0 points!', true);
+    } else {
       const req = { teamNumber: teamNumber, points: points };
       const result = await submitBribePoints(req);
       if (result !== true) {
-        setSnackbar('Error', true);
+        setSnackbar('Error - You may not have enough bribe points', true);
       } else {
         setRemainingBribePoints(remainingBribePoints - assignedPoints);
         setSnackbar(`Added ${assignedPoints} points to ${assignedTeam}`, false);
         setAssignedPoints(0);
       }
-    } else if (points === 0 || points === undefined) {
-      setSnackbar('You cannot give 0 points!', true);
     }
   };
 
@@ -198,7 +207,7 @@ const ScuntBribePoints = ({ teams }) => {
       <h2>Bribe Points</h2>
       <h4>Remaining bribe points: {remainingBribePoints}</h4>
       {remainingBribePoints === 0 ? (
-        <></>
+        <div style={{ height: '15px' }}></div>
       ) : (
         <>
           <div style={{ height: '10px' }} />
