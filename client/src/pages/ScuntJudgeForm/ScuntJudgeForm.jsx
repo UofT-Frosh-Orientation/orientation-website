@@ -64,8 +64,8 @@ export const PageScuntJudgeForm = () => {
           <ScuntMissionSelection teams={teams} missions={missions} />
           <div className="separator" />
           <ScuntBribePoints teams={teams} />
-          <div className="separator" />
-          <ScuntNegativePoints teams={teams} />
+          {/* <div className="separator" />
+          <ScuntNegativePoints teams={teams} /> */}
         </div>
       </div>
     </>
@@ -547,12 +547,14 @@ const ScuntMissionSelection = ({ missions, teams }) => {
           >
             <Button
               label={'Submit'}
-              onClick={() => {
+              onClick={async () => {
+                const response = await axios.post('/scunt-teams/transaction/add', {
+                  teamName: assignedTeam,
+                  missionNumber: assignedMission?.number,
+                  points: assignedPoints,
+                });
                 window.scrollTo(0, 0);
-                //Submit points here
-                setSnackbar(
-                  `Added ${assignedPoints} points to ${assignedTeam} for ${assignedMission?.name}`,
-                );
+                setSnackbar(response?.data?.message);
                 setAssignedPoints(0);
                 setClearText(true);
                 setAssignedMission(undefined);

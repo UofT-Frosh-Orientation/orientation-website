@@ -49,18 +49,13 @@ const ScuntTeamController = {
       next(e);
     }
   },
+
   async addTransaction(req, res, next) {
     try {
       const { teamName, missionNumber, points } = req.body;
-      await ScuntTeamServices.addTransaction(teamName, missionNumber, points);
+      const result = await ScuntTeamServices.addTransaction(teamName, missionNumber, points);
       return res.status(200).send({
-        message:
-          'Successfully added ' +
-          points.toString() +
-          ' points for team ' +
-          teamName.toString() +
-          ' for completing ' +
-          missionNumber.toString(),
+        message: result,
       });
     } catch (e) {
       next(e);

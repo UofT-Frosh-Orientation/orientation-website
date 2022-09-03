@@ -125,6 +125,8 @@ const ScuntTeamServices = {
 
   async addTransaction(teamName, missionNumber, points) {
     return new Promise((resolve, reject) => {
+      //TODO look up mission to get amount of points
+      //Compare with maxAmountPointsPercent and minAmountPointsPercent to ensure within bounds set by game rules
       ScuntTeamModel.findOne({ name: teamName }, (err, team) => {
         if (err) {
           reject(err);
@@ -138,12 +140,17 @@ const ScuntTeamServices = {
           if (prevPoints < points) {
             team.points += points - prevPoints;
           }
-          team.transactions.push({ name: '', missionNumber, points });
+          const name =
+            (!prevPoints ? 'Added ' : prevPoints < points ? 'Updated to ' : '') +
+            points.toString() +
+            ' points for mission #' +
+            missionNumber.toString();
+          team.transactions.push({ name, missionNumber, points });
           team.save((err, res) => {
             if (err) {
               reject(err);
             } else {
-              resolve(res);
+              resolve(name);
             }
           });
         }
