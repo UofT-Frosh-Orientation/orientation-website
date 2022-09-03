@@ -14,9 +14,20 @@ import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSl
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { submitBribePoints } from './functions';
 import star from '../../assets/misc/star-solid.svg';
+import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
+import { getScuntMissions } from '../../state/scuntMissions/saga';
 
 export const PageScuntJudgeForm = () => {
   const { user } = useSelector(userSelector);
+  const dispatch = useDispatch();
+  const { missions } = useSelector(scuntMissionsSelector);
+  const { setSnackbar } = useContext(SnackbarContext);
+  console.log(missions);
+
+  useEffect(() => {
+    dispatch(getScuntMissions({ showHidden: false }));
+  }, []);
+
   const teams = [
     'Team 1',
     'Team 2',
@@ -42,7 +53,7 @@ export const PageScuntJudgeForm = () => {
               ? user?.firstName
               : user?.preferredName}
           </h3>
-          <ScuntMissionSelection teams={teams} missions={list} />
+          <ScuntMissionSelection teams={teams} missions={missions} />
           <div className="separator" />
           <ScuntBribePoints teams={teams} />
           <div className="separator" />
