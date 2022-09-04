@@ -52,8 +52,8 @@ const ScuntTeamController = {
 
   async addTransaction(req, res, next) {
     try {
-      const { teamName, missionNumber, points } = req.body;
-      const result = await ScuntTeamServices.addTransaction(teamName, missionNumber, points);
+      const { teamNumber, missionNumber, points } = req.body;
+      const result = await ScuntTeamServices.addTransaction(teamNumber, missionNumber, points);
       return res.status(200).send({
         message: result,
       });
@@ -63,14 +63,14 @@ const ScuntTeamController = {
   },
   async subtractTransaction(req, res, next) {
     try {
-      const { teamName, points } = req.body;
-      await ScuntTeamServices.subtractTransaction(teamName, points);
+      const { teamNumber, points } = req.body;
+      await ScuntTeamServices.subtractTransaction(teamNumber, points);
       return res.status(200).send({
         message:
           'Successfully subtracted ' +
           points.toString() +
           ' points for team ' +
-          teamName.toString(),
+          teamNumber.toString(),
       });
     } catch (e) {
       next(e);
@@ -78,8 +78,8 @@ const ScuntTeamController = {
   },
   async viewTransactions(req, res, next) {
     try {
-      const { teamName } = req.body;
-      const result = await ScuntTeamServices.viewTransactions(teamName);
+      const { teamNumber } = req.body;
+      const result = await ScuntTeamServices.viewTransactions(teamNumber);
       return res.status(200).send({
         message: result,
       });

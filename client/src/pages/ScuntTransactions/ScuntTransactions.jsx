@@ -29,7 +29,7 @@ export const ScuntTransactions = () => {
 
   const getTeamTransactions = async () => {
     try {
-      const response = await axios.post('/scunt-teams/transactions', { teamName: assignedTeam });
+      const response = await axios.post('/scunt-teams/transactions', { teamNumber: assignedTeam });
       const transactions = response?.data?.message?.transactions;
       if (transactions.length <= 0 || !transactions) setPointTransactions([]);
       else {

@@ -128,11 +128,11 @@ const ScuntTeamServices = {
     });
   },
 
-  async addTransaction(teamName, missionNumber, points) {
+  async addTransaction(teamNumber, missionNumber, points) {
     return new Promise((resolve, reject) => {
       //TODO look up mission to get amount of points
       //Compare with maxAmountPointsPercent and minAmountPointsPercent to ensure within bounds set by game rules
-      ScuntTeamModel.findOne({ name: teamName }, (err, team) => {
+      ScuntTeamModel.findOne({ number: teamNumber }, (err, team) => {
         if (err) {
           reject(err);
         } else {
@@ -149,7 +149,9 @@ const ScuntTeamServices = {
             (!prevPoints ? 'Added ' : prevPoints < points ? 'Updated to ' : '') +
             points.toString() +
             ' points for mission #' +
-            missionNumber.toString();
+            missionNumber.toString() +
+            ' for team ' +
+            teamNumber.toString();
           team.transactions.push({ name, missionNumber, points });
           team.save((err, res) => {
             if (err) {
@@ -167,16 +169,16 @@ const ScuntTeamServices = {
     });
   },
 
-  async subtractTransaction(teamName, points) {
+  async subtractTransaction(teamNumber, points) {
     return new Promise((resolve, reject) => {
       ScuntTeamModel.findOneAndUpdate(
-        { name: teamName },
+        { number: teamNumber },
         {
           $inc: { points: Math.abs(points) * -1 },
           $push: {
             transactions: [
               {
-                name: 'Subtracted ' + points.toString() + ' from ' + teamName,
+                name: 'Subtracted ' + points.toString() + ' from team ' + teamNumber.toString(),
                 points: Math.abs(points) * -1,
               },
             ],
@@ -197,10 +199,10 @@ const ScuntTeamServices = {
     });
   },
 
-  async viewTransactions(teamName) {
+  async viewTransactions(teamNumber) {
     return new Promise((resolve, reject) => {
       ScuntTeamModel.findOne(
-        { name: teamName },
+        { number: teamNumber },
         { name: 1, number: 1, points: 1, transactions: 1 },
         {},
         (err, teams) => {
@@ -216,10 +218,10 @@ const ScuntTeamServices = {
     });
   },
 
-  async checkTransaction(teamName, missionNumber) {
+  async checkTransaction(teamNumber, missionNumber) {
     return new Promise((resolve, reject) => {
       ScuntTeamModel.findOne(
-        { name: teamName },
+        { number: teamNumber },
         {
           transactions: {
             $filter: {
