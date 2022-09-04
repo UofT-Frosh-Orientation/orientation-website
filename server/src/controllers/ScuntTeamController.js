@@ -63,7 +63,7 @@ const ScuntTeamController = {
   },
   async subtractTransaction(req, res, next) {
     try {
-      const { team: teamName, points } = req.body;
+      const { teamName, points } = req.body;
       await ScuntTeamServices.subtractTransaction(teamName, points);
       return res.status(200).send({
         message:

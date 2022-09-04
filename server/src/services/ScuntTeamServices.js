@@ -169,7 +169,17 @@ const ScuntTeamServices = {
     return new Promise((resolve, reject) => {
       ScuntTeamModel.findOneAndUpdate(
         { name: teamName },
-        { $inc: { points }, $push: { transactions: [{ name: 'Points subtraction', points }] } },
+        {
+          $inc: { points: Math.abs(points) * -1 },
+          $push: {
+            transactions: [
+              {
+                name: 'Subtracted ' + points.toString() + ' from ' + teamName,
+                points: Math.abs(points) * -1,
+              },
+            ],
+          },
+        },
         { upsert: false, returnDocument: 'after' },
         (err, team) => {
           if (err) {

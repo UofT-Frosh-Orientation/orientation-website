@@ -64,8 +64,8 @@ export const PageScuntJudgeForm = () => {
           <ScuntMissionSelection teams={teams} missions={missions} />
           <div className="separator" />
           <ScuntBribePoints teams={teams} />
-          {/* <div className="separator" />
-          <ScuntNegativePoints teams={teams} /> */}
+          <div className="separator" />
+          <ScuntNegativePoints teams={teams} />
         </div>
       </div>
     </>
@@ -73,7 +73,7 @@ export const PageScuntJudgeForm = () => {
 };
 
 const ScuntNegativePoints = ({ teams }) => {
-  const [remainingRemovePoints, setRemainingRemovePoints] = useState(500);
+  const maxRemovePoints = 1000;
   const [assignedPoints, setAssignedPoints] = useState(0);
   const [assignedTeam, setAssignedTeam] = useState('');
   const [clearPointsInput, setClearPointsInput] = useState(false);
@@ -84,91 +84,89 @@ const ScuntNegativePoints = ({ teams }) => {
     <div style={{ width: '100%' }}>
       <div style={{ height: '15px' }} />
       <h2>Remove Points</h2>
-      <h4>Remaining subtraction points: {remainingRemovePoints}</h4>
-      {remainingRemovePoints === 0 ? (
-        <></>
-      ) : (
-        <>
-          <div style={{ height: '10px' }} />
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              marginLeft: '5px',
-              justifyContent: 'space-between',
-            }}
-          >
-            <div style={{ width: '100%' }}>
-              <Dropdown
-                label={'Team'}
-                initialSelectedIndex={0}
-                values={teams}
-                onSelect={(value) => {
-                  setAssignedTeam(value);
-                }}
-                isDisabled={false}
-                localStorageKey={'scunt-team-choice'}
-              />
-            </div>
-            <div>
-              <TextInput
-                label={'Points'}
-                placeholder={assignedPoints}
-                onChange={(value) => {
-                  if (isNaN(parseInt(value))) {
-                    return;
-                  }
-                  if (value === '' || value === undefined) {
-                    setAssignedPoints(0);
-                  } else if (parseInt(value) >= remainingRemovePoints) {
-                    setAssignedPoints(remainingRemovePoints);
-                  } else {
-                    setAssignedPoints(parseInt(value));
-                  }
-                }}
-                setClearText={setClearPointsInput}
-                clearText={clearPointsInput}
-              />
-            </div>
+      <>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            marginLeft: '5px',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div style={{ width: '100%' }}>
+            <Dropdown
+              label={'Team'}
+              initialSelectedIndex={0}
+              values={teams}
+              onSelect={(value) => {
+                setAssignedTeam(value);
+              }}
+              isDisabled={false}
+              localStorageKey={'scunt-team-choice'}
+            />
           </div>
-          <div style={{ height: '10px' }} />
-          <ReactSlider
-            value={assignedPoints}
-            defaultValue={0}
-            max={remainingRemovePoints > 500 ? 500 : remainingRemovePoints}
-            min={0}
-            className="horizontal-slider"
-            thumbClassName="slider-thumb"
-            trackClassName="slider-track"
-            renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
-            onChange={(value) => {
-              setAssignedPoints(value);
+          <div>
+            <TextInput
+              label={'Points'}
+              placeholder={assignedPoints}
+              onChange={(value) => {
+                if (isNaN(parseInt(value))) {
+                  return;
+                }
+                if (value === '' || value === undefined) {
+                  setAssignedPoints(0);
+                } else if (parseInt(value) >= maxRemovePoints) {
+                  setAssignedPoints(maxRemovePoints);
+                } else {
+                  setAssignedPoints(parseInt(value));
+                }
+              }}
+              setClearText={setClearPointsInput}
+              clearText={clearPointsInput}
+            />
+          </div>
+        </div>
+        <div style={{ height: '10px' }} />
+        <ReactSlider
+          value={assignedPoints}
+          defaultValue={0}
+          max={maxRemovePoints}
+          min={0}
+          className="horizontal-slider"
+          thumbClassName="slider-thumb"
+          trackClassName="slider-track"
+          renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
+          onChange={(value) => {
+            setAssignedPoints(value);
+            setClearPointsInput(true);
+          }}
+        />
+        <div style={{ height: '60px' }} />
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: '20px',
+          }}
+        >
+          <Button
+            label={'Remove Points'}
+            onClick={async () => {
+              setAssignedPoints(0);
+              //Subtract points here
+              const response = await axios.post('/scunt-teams/transaction/subtract', {
+                teamName: assignedTeam,
+                points: assignedPoints,
+              });
+              setSnackbar(response?.data?.message);
               setClearPointsInput(true);
             }}
           />
-          <div style={{ height: '60px' }} />
-          <div
-            style={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              marginBottom: '20px',
-            }}
-          >
-            <Button
-              label={'Remove Points'}
-              onClick={() => {
-                setAssignedPoints(0);
-                //Subtract points here
-                setRemainingRemovePoints(remainingRemovePoints - assignedPoints);
-                setSnackbar(`Removed ${assignedPoints} points from ${assignedTeam}`);
-              }}
-            />
-          </div>
-          <h2 style={{ textAlign: 'center' }}>{assignedTeam}</h2>
-          <h3 style={{ textAlign: 'center' }}>-{assignedPoints} Points</h3>
-        </>
-      )}
+        </div>
+        <h2 style={{ textAlign: 'center' }}>{assignedTeam}</h2>
+        <h3 style={{ textAlign: 'center' }}>-{assignedPoints} Points</h3>
+      </>
     </div>
   );
 };
@@ -194,7 +192,6 @@ const ScuntBribePoints = ({ teams }) => {
       if (result !== true) {
         setSnackbar('Error - You may not have enough bribe points', true);
       } else {
-        setRemainingBribePoints(remainingBribePoints - assignedPoints);
         setSnackbar(`Added ${assignedPoints} points to ${assignedTeam}`, false);
         setAssignedPoints(0);
       }
@@ -280,6 +277,7 @@ const ScuntBribePoints = ({ teams }) => {
               label={'Give Bribe Points'}
               onClick={() => {
                 const str = assignedTeam;
+                setClearPointsInput(true);
                 const assignedTeamNumber =
                   str == 'Team 10'
                     ? parseInt(str.substring(str.length - 2))
