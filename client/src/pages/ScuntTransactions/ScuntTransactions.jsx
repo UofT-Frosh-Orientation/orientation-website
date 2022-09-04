@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import './ScuntTransactions.scss';
 import useAxios from '../../hooks/useAxios';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
+import { getScuntTeamObjFromTeamName } from '../ScuntJudgeForm/ScuntJudgeForm';
 const { axios } = useAxios();
 
 export const ScuntTransactions = () => {
   const [assignedTeam, setAssignedTeam] = useState('');
   const [teams, setTeams] = useState(['Select Team']);
+  const [teamObjs, setTeamObjs] = useState();
   const [teamDetails, setTeamDetails] = useState();
   const [pointTransactions, setPointTransactions] = useState([]);
 
@@ -16,12 +18,14 @@ export const ScuntTransactions = () => {
       const response = await axios.get('/scunt-teams');
       const { teamPoints } = response.data;
       if (teamPoints.length <= 0 || !teamPoints) setTeams([]);
-      else
+      else {
+        setTeamObjs(teamPoints);
         setTeams(
           teamPoints.map((team) => {
             return team?.name;
           }),
         );
+      }
     } catch (e) {
       setTeams(['Error loading teams']);
     }
@@ -29,13 +33,12 @@ export const ScuntTransactions = () => {
 
   const getTeamTransactions = async () => {
     try {
-      const response = await axios.post('/scunt-teams/transactions', { teamNumber: assignedTeam });
+      const response = await axios.post('/scunt-teams/transactions', {
+        teamNumber: getScuntTeamObjFromTeamName(assignedTeam, teamObjs)?.number,
+      });
       const transactions = response?.data?.message?.transactions;
-      if (transactions.length <= 0 || !transactions) setPointTransactions([]);
-      else {
-        setPointTransactions(transactions);
-        setTeamDetails(response?.data?.message);
-      }
+      setPointTransactions(transactions);
+      setTeamDetails(response?.data?.message);
     } catch (e) {
       setPointTransactions(['Error loading transactions']);
     }

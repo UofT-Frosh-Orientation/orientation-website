@@ -344,7 +344,9 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
       missionNumber: mission?.number,
     });
     setMissionStatus(response?.data?.missionStatus);
-    setAssignedPoints(response?.data?.missionStatus?.points);
+    if (response?.data?.missionStatus?.points) {
+      setAssignedPoints(response?.data?.missionStatus?.points);
+    }
   };
 
   const getMissionSearchName = (searchName) => {
