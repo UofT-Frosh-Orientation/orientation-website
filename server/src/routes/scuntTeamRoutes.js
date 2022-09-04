@@ -111,8 +111,16 @@ router.post(
 
 router.post(
   '/transactions',
-
+  checkLoggedIn,
+  hasAuthScopes(['scunt:exec view transactions']),
   ScuntTeamController.viewTransactions,
+);
+
+router.post(
+  '/transactions/more',
+  checkLoggedIn,
+  hasAuthScopes(['scunt:exec view transactions']),
+  ScuntTeamController.viewTransactionsMore,
 );
 
 /**

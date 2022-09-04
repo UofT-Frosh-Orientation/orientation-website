@@ -4,6 +4,7 @@ import './ScuntTransactions.scss';
 import useAxios from '../../hooks/useAxios';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import { getScuntTeamObjFromTeamName } from '../ScuntJudgeForm/ScuntJudgeForm';
+import { Button } from '../../components/button/Button/Button';
 const { axios } = useAxios();
 
 export const ScuntTransactions = () => {
@@ -44,6 +45,19 @@ export const ScuntTransactions = () => {
     }
   };
 
+  const getMoreTransactions = async () => {
+    try {
+      const response = await axios.post('/scunt-teams/transactions/more', {
+        teamNumber: getScuntTeamObjFromTeamName(assignedTeam, teamObjs)?.number,
+        alreadyDownloaded: pointTransactions?.length,
+      });
+      const transactions = response?.data?.message?.transactions;
+      setPointTransactions([...pointTransactions, transactions]);
+    } catch (e) {
+      setPointTransactions(['Error loading more transactions']);
+    }
+  };
+
   useEffect(() => {
     getScuntTeams();
   }, []);
@@ -69,6 +83,7 @@ export const ScuntTransactions = () => {
               width: '100%',
             }}
           >
+            <Button label={'Refresh'} onClick={() => {}} />
             <h2>Team:</h2>
             <div style={{ width: '10px' }}></div>
             <Dropdown

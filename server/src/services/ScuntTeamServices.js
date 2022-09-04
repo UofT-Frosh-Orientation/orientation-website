@@ -218,6 +218,26 @@ const ScuntTeamServices = {
     });
   },
 
+  async viewTransactionsMore(teamNumber, alreadyDownloaded) {
+    return new Promise((resolve, reject) => {
+      ScuntTeamModel.findOne(
+        { number: teamNumber },
+        { transactions: 1 },
+        //ONly get the ones after the index already downloaded!
+        {},
+        (err, teams) => {
+          if (err) {
+            reject(err);
+          } else if (!teams) {
+            reject('UNABLE_TO_GET_TEAM_INFO');
+          } else {
+            resolve(teams);
+          }
+        },
+      );
+    });
+  },
+
   async checkTransaction(teamNumber, missionNumber) {
     return new Promise((resolve, reject) => {
       ScuntTeamModel.findOne(
