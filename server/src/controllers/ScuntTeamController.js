@@ -89,8 +89,8 @@ const ScuntTeamController = {
   },
   async checkTransaction(req, res, next) {
     try {
-      const { team, missionNumber } = req.body;
-      const maxPoints = await ScuntTeamServices.checkTransaction(team, missionNumber);
+      const { teamNumber, missionNumber } = req.body;
+      const maxPoints = await ScuntTeamServices.checkTransaction(teamNumber, missionNumber);
       return res.status(200).send({
         message: 'Found status for this mission',
         missionStatus: { completed: maxPoints !== 0, points: maxPoints },

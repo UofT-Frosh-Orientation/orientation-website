@@ -11,13 +11,14 @@ import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { registeredSelector, userSelector } from '../../state/user/userSlice';
+import { loggedInSelector, registeredSelector, userSelector } from '../../state/user/userSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { getScuntMissions } from '../../state/scuntMissions/saga';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
-
+import useAxios from '../../hooks/useAxios';
+const { axios } = useAxios();
 import star from '../../assets/misc/star-solid.svg';
 
 function getMissionCategories(missions) {
@@ -75,17 +76,24 @@ const PageScuntMissionsList = () => {
 };
 
 const PageScuntMissionsListShow = () => {
+  const { user } = useSelector(userSelector);
   const { missions } = useSelector(scuntMissionsSelector);
   const [mission, setMission] = useState(undefined);
   const [searchedMissions, setSearchedMissions] = useState(missions);
   const [clearText, setClearText] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All Categories');
   const [selectedSort, setSelectedSort] = useState('ID');
+  const [missionStatus, setMissionStatus] = useState(undefined);
+  const loggedIn = useSelector(loggedInSelector);
 
   useEffect(() => {
     setMission(undefined);
     getMissionSearchName('');
   }, [selectedCategory, selectedSort]);
+
+  useEffect(() => {
+    getMissionStatus(mission, user?.scuntTeam);
+  }, [mission]);
 
   const getMissionSearchName = (searchName) => {
     const sortedMissions = [...missions];
@@ -131,7 +139,25 @@ const PageScuntMissionsListShow = () => {
     getMissionSearchName('');
   };
 
+  const getMissionStatus = async (missionPassed, teamNumber) => {
+    const response = await axios.post('/scunt-teams/transaction/check', {
+      teamNumber: teamNumber,
+      missionNumber: missionPassed?.number,
+    });
+    setMissionStatus(response?.data?.missionStatus);
+  };
+
   let previousCategory = '';
+
+  let missionStatusText = '';
+  if (mission && missionStatus?.points < mission?.points) {
+    missionStatusText = 'You have not gained full points for this mission.';
+  } else if (mission && missionStatus?.points === mission?.points) {
+    missionStatusText = 'You gained full points for this mission.';
+  } else if (mission && missionStatus?.points > mission?.points) {
+    missionStatusText = 'You earned more than full points for this mission!';
+  }
+
   return (
     <div>
       <div className="scunt-missions-header">
@@ -228,7 +254,6 @@ const PageScuntMissionsListShow = () => {
                   style={{ width: '100%', cursor: 'pointer', paddingRight: '9px' }}
                   onClick={() => {
                     setMission(mission);
-                    window.scrollTo(0, 0);
                   }}
                 >
                   <ScuntMissionEntry mission={mission} />
@@ -258,7 +283,31 @@ const PageScuntMissionsListShow = () => {
           )}
         </div>
       </div>
-      {mission !== undefined ? (
+      {!loggedIn ? (
+        <p>To see mission status and mission QR code please login to your account.</p>
+      ) : (
+        <></>
+      )}
+      {loggedIn && mission !== undefined ? (
+        missionStatus?.completed ? (
+          <>
+            <div style={{ height: '15px' }} />
+            <div style={{ textAlign: 'center' }}>
+              <p className="scunt-mission-status">
+                <b>{'This mission has already been completed by your team.'}</b>
+              </p>
+              <p className="scunt-mission-status">
+                <b>{missionStatusText}</b>
+              </p>
+            </div>
+          </>
+        ) : (
+          <></>
+        )
+      ) : (
+        <></>
+      )}
+      {loggedIn && mission !== undefined ? (
         <div className="scunt-mission-qr-code">
           <QRNormal
             value={'Team 1' + '|' + mission?.number}

@@ -329,6 +329,7 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
   }, [scuntSettings]);
 
   const [assignedMission, setAssignedMission] = useState(undefined);
+  const [missionStatus, setMissionStatus] = useState(undefined);
   const [searchedMissions, setSearchedMissions] = useState([]);
   const [assignedPoints, setAssignedPoints] = useState(0);
   const [assignedTeam, setAssignedTeam] = useState('');
@@ -336,6 +337,15 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
   const [clearPointsInput, setClearPointsInput] = useState(false);
   const [hasQRScanned, setHasQRScanned] = useState(false);
   const { setSnackbar } = useContext(SnackbarContext);
+
+  const getMissionStatus = async (mission, team) => {
+    const response = await axios.post('/scunt-teams/transaction/check', {
+      teamNumber: team?.number,
+      missionNumber: mission?.number,
+    });
+    setMissionStatus(response?.data?.missionStatus);
+    setAssignedPoints(response?.data?.missionStatus?.points);
+  };
 
   const getMissionSearchName = (searchName) => {
     if (searchName === '') {
@@ -362,6 +372,10 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
     }
     getMissionSearchName('');
   };
+
+  useEffect(() => {
+    getMissionStatus(assignedMission, assignedTeam);
+  }, [assignedMission, assignedTeam]);
 
   return (
     <>
@@ -516,11 +530,20 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
               />
             </div>
           </div>
-
-          <div style={{ height: '15px' }} />
-          <p style={{ textAlign: 'center' }}>
-            <b>This mission has already been completed by this team.</b>
-          </p>
+          {missionStatus?.completed ? (
+            <>
+              <div style={{ height: '15px' }} />
+              <p style={{ textAlign: 'center' }}>
+                <b>
+                  {'This mission has already been completed by this team. They earned ' +
+                    missionStatus?.points +
+                    ' points.'}
+                </b>
+              </p>
+            </>
+          ) : (
+            <></>
+          )}
           <div style={{ height: '15px' }} />
           <ReactSlider
             value={assignedPoints}
