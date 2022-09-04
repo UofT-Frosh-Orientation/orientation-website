@@ -1,5 +1,16 @@
 const mongoose = require('mongoose');
 
+const ScuntTeamTransactionsSchema = new mongoose.Schema(
+  {
+    name: { type: String, default: '' },
+    points: { type: Number, default: 0 },
+    missionNumber: { type: Number, default: -1, index: true },
+  },
+  { timestamps: true },
+);
+
+ScuntTeamTransactionsSchema.index({ createdAt: -1 });
+
 const ScuntTeamSchema = new mongoose.Schema({
   number: {
     type: Number,
@@ -17,18 +28,7 @@ const ScuntTeamSchema = new mongoose.Schema({
     required: true,
     default: 0,
   },
-  transactions: [
-    {
-      type: new mongoose.Schema(
-        {
-          name: { type: String, default: '' },
-          points: { type: Number, default: 0 },
-          missionNumber: { type: Number, default: -1, index: true },
-        },
-        { timestamps: true },
-      ),
-    },
-  ],
+  transactions: [ScuntTeamTransactionsSchema],
 });
 
 const ScuntTeamModel = mongoose.model('ScuntTeam', ScuntTeamSchema);

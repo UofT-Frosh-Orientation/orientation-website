@@ -78,10 +78,15 @@ const ScuntTeamController = {
   },
   async viewTransactions(req, res, next) {
     try {
-      const { teamNumber } = req.body;
-      const result = await ScuntTeamServices.viewTransactions(teamNumber);
+      const { teamNumber, showMostRecent } = req.body;
+      let result;
+      if (showMostRecent) {
+        result = await ScuntTeamServices.viewRecentTransactions();
+      } else {
+        result = await ScuntTeamServices.viewTransactions(teamNumber);
+      }
       return res.status(200).send({
-        message: result,
+        transactions: result,
       });
     } catch (e) {
       next(e);
