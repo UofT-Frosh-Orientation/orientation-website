@@ -30,6 +30,7 @@ import { getMissionsAdmin, submitMission, setVisibility, deleteMission } from '.
 import { useDispatch, useSelector } from 'react-redux';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
 import { getScuntMissions } from '../../state/scuntMissions/saga';
+import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 
 const { axios } = useAxios();
 
@@ -97,6 +98,8 @@ const ScuntCreateMissions = () => {
     let parseInput;
     let tempSettings = { ...newMission };
     if (typeof input === 'string') {
+      parseInput = input;
+    } else if (typeof input === 'boolean') {
       parseInput = input;
     } else {
       parseInput = parseFloat(input);
@@ -171,6 +174,12 @@ const ScuntCreateMissions = () => {
                 </>
               );
             })}
+            <Checkboxes
+              values={['isHidden']}
+              onSelected={(value, index, state, selectedIndices) => {
+                handleInput(state, 'isHidden');
+              }}
+            />
           </div>
           <div className="scunt-create-missions-preview-container">
             <div className="scunt-create-missions-preview">

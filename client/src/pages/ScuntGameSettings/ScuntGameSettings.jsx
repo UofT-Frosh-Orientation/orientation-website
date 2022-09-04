@@ -158,7 +158,7 @@ const ScuntGameSettings = () => {
             let selectedCheck = [];
 
             if (newSettings[i.key] === true) {
-              selectedCheck = [1];
+              selectedCheck = [0];
             }
 
             return (
@@ -167,6 +167,7 @@ const ScuntGameSettings = () => {
                   values={[i.parameter]}
                   initialSelectedIndices={selectedCheck}
                   onSelected={(value, index, state, selectedIndices) => {
+                    // console.log(selectedIndices)
                     let tempSettings = { ...newSettings }; // create a copy
                     tempSettings[i.key] = state;
                     setNewSettings(tempSettings);
