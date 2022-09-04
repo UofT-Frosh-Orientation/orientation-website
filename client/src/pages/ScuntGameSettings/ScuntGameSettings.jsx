@@ -144,12 +144,17 @@ const ScuntGameSettings = () => {
         <div className="separator" />
         <br />
 
-        <DeleteMission />
+        {/* <DeleteMission /> */}
 
-        <div className="separator" />
-        <br />
+        {/* <div className="separator" />
+        <br /> */}
 
         {/* <HideRevealMissions /> */}
+
+        {/* <div className="separator" />
+        <br /> */}
+
+        <RenameTeams />
 
         <div className="separator" />
         <br />
@@ -181,17 +186,17 @@ const ScuntGameSettings = () => {
 
         <div
           style={{
-            width: '50%',
-            justifySelf: 'center',
+            width: '100%',
+            justifyContent: 'center',
             alignSelf: 'center',
-            margin: '0 auto',
             display: 'flex',
             flexDirection: 'row',
+            textAlign: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <Button
             label="Update Settings"
-            style={{ margin: '0 20px' }}
             onClick={async () => {
               let name = 'Scunt 2T2 Settings';
               let amountOfTeams = newSettings.amountOfTeams;
@@ -229,7 +234,6 @@ const ScuntGameSettings = () => {
           <Button
             label="Set Recommended Settings"
             isSecondary={true}
-            style={{ margin: '0 20px' }}
             onClick={async () => {
               // setting recommended settings
 
@@ -407,6 +411,58 @@ const RefillJudgeBribePoints = () => {
             setAssignedBribeRefillPoints(0);
             setClearPointsInput(true);
           }
+        }}
+      />
+    </div>
+  );
+};
+
+const RenameTeams = () => {
+  const { setSnackbar } = useContext(SnackbarContext);
+
+  const [teamObjs, setTeamObjs] = useState([]);
+
+  const getScuntTeams = async () => {
+    try {
+      const response = await axios.get('/scunt-teams');
+      const { teamPoints } = response.data;
+      if (teamPoints.length <= 0 || !teamPoints) setTeamObjs([]);
+      else {
+        setTeamObjs(teamPoints);
+      }
+    } catch (e) {
+      setTeamObjs(['Error loading teams']);
+    }
+  };
+
+  useEffect(() => {
+    getScuntTeams();
+  }, []);
+
+  return (
+    <div style={{ margin: '0 5px' }}>
+      <h2>Rename Teams</h2>
+      <div style={{ height: '5px' }} />
+      {teamObjs.map((teamObj, index) => {
+        return (
+          <>
+            <TextInput
+              placeholder={'Team Name'}
+              onChange={(value) => {
+                teamObjs[index]['name'] = value;
+              }}
+              initialValue={teamObj?.name}
+              label={'Team ' + teamObj?.number}
+            />
+          </>
+        );
+      })}
+      <div></div>
+      <Button
+        label={'Rename Teams'}
+        onClick={() => {
+          //Rename teams here
+          console.log(teamObjs);
         }}
       />
     </div>

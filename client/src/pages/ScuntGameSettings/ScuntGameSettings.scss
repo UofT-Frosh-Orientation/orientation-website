@@ -8,6 +8,10 @@
   justify-content: center;
   align-items: center;
   padding: 60px;
+  @include devices(tablet) {
+    padding: 20px;
+    margin: auto;
+  }
 }
 
 .scunt-game-settings-container {
@@ -20,6 +24,9 @@
   border-radius: 20px;
   box-shadow: var(--shadow);
   color: var(--text-dynamic);
+  @include devices(tablet) {
+    width: 100%;
+  }
 }
 
 .scunt-game-settings-textbox-container {
@@ -33,4 +40,7 @@
   border-radius: 20px;
   box-shadow: var(--shadow);
   margin-bottom: 50px;
+  @include devices(tablet) {
+    width: 100%;
+  }
 }
