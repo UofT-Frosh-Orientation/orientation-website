@@ -145,7 +145,7 @@ const ScuntGameSettings = () => {
         <div className="separator" />
         <br />
 
-        <HideRevealMissions />
+        {/* <HideRevealMissions /> */}
 
         <div className="separator" />
         <br />

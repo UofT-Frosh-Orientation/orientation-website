@@ -29,8 +29,9 @@ export async function setVisibility(setSnackbar, startMissionNumber, endMissionN
     await axios.put('/scunt-missions/set-visibility', {
       startMissionNumber: startMissionNumber,
       endMissionNumber: endMissionNumber,
-      isHidden: !visibility,
+      isHidden: visibility,
     });
+    console.log('this is mission', startMissionNumber, endMissionNumber, !visibility);
     setSnackbar('Successfully changed mission visibility!');
   } catch (e) {
     setSnackbar(e.toString());
