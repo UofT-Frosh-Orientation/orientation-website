@@ -1,20 +1,29 @@
 const ScuntMissionModel = require('../models/ScuntMissionModel');
+const ScuntGameSettingsModel = require('../models/ScuntGameSettingsModel');
 
 const ScuntMissionServices = {
   async getAllScuntMissions(showHidden) {
     return new Promise((resolve, reject) => {
-      ScuntMissionModel.find(showHidden ? {} : { isHidden: false }) // finds documents with isHidden property set to false
-        .sort({ number: 1 }) //  sort by number in ascending order (1)
-        .exec(function (err, missions) {
-          // executes query --> callback
-          if (err) {
-            // if error occurs while executing, reject --> result is null
-            reject(err);
-          } else {
-            // else error = null, and result is populated with missions
-            resolve(missions);
-          }
-        });
+      ScuntGameSettingsModel.findOne({}, {}, {}, (err1, settings) => {
+        if (err1) {
+          reject(err1);
+        } else if (!settings || !settings.revealMissions) {
+          reject('INVALID_SETTINGS');
+        } else {
+          ScuntMissionModel.find(showHidden ? {} : { isHidden: false }) // finds documents with isHidden property set to false
+            .sort({ number: 1 }) //  sort by number in ascending order (1)
+            .exec(function (err2, missions) {
+              // executes query --> callback
+              if (err2) {
+                // if error occurs while executing, reject --> result is null
+                reject(err2);
+              } else {
+                // else error = null, and result is populated with missions
+                resolve(missions);
+              }
+            });
+        }
+      });
     });
   },
 
