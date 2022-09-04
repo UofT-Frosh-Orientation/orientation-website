@@ -71,3 +71,10 @@
 .scunt-progress-bar-background {
   background-color: var(--yellow);
 }
+
+.scunt-upload-missions-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

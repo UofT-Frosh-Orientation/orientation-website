@@ -64,7 +64,7 @@ const missioninput = [
 //   Papa.parse(file);
 // }
 
-const CreateMissions = () => {
+const ScuntCreateMissions = () => {
   let initialMission = {
     number: '',
     name: '',
@@ -140,11 +140,6 @@ const CreateMissions = () => {
           isSecondary={true}
           style={{ width: 'fit-content' }}
         >  */}
-        <ScuntCSVFileButton />
-        {/* </Button> */}
-
-        <div className="separator" />
-        <br />
 
         <div className="scunt-create-missions-container">
           <div className="scunt-create-missions-textinput">
@@ -323,6 +318,8 @@ const ScuntAllMissions = () => {
     dispatch(getScuntMissions({ showHidden: true, setSnackbar }));
   });
 
+  const hiddenMissionCell = { backgroundColor: 'var(--purple-shades-light-light)' };
+
   return (
     <div className="all-accounts-container">
       <table className="all-accounts-table">
@@ -340,19 +337,23 @@ const ScuntAllMissions = () => {
           {missions.map((mission) => {
             return (
               <>
-                <tr className="all-accounts-row" key={mission.number + mission.name}>
+                <tr
+                  className="all-accounts-row"
+                  key={mission.number + mission.name}
+                  style={mission?.isHidden ? hiddenMissionCell : {}}
+                >
                   <td className="all-account-data" style={{ padding: '8px', textAlign: 'center' }}>
                     {mission.number}
                   </td>
                   <td
                     className="all-account-data"
-                    style={{ padding: '8px', width: '600px', 'overflow-wrap': 'anywhere' }}
+                    style={{ padding: '8px', width: '600px', overflowWrap: 'anywhere' }}
                   >
                     {mission.name}
                   </td>
                   <td
                     className="all-account-data"
-                    style={{ padding: '8px', 'overflow-wrap': 'anywhere' }}
+                    style={{ padding: '8px', overflowWrap: 'anywhere' }}
                   >
                     {mission.category}
                   </td>
@@ -412,14 +413,32 @@ const ScuntAllMissions = () => {
   );
 };
 
+const ScuntUploadMissions = () => {
+  return (
+    <>
+      <div className="scunt-upload-missions-container">
+        <ScuntCSVFileButton />
+        {/* </Button> */}
+
+        <div className="separator" />
+        <br />
+      </div>
+    </>
+  );
+};
+
 const tabs = [
   {
     title: 'All Missions',
     component: <ScuntAllMissions />,
   },
   {
-    title: 'Create/Upload Missions',
-    component: <CreateMissions />,
+    title: 'Create Missions',
+    component: <ScuntCreateMissions />,
+  },
+  {
+    title: 'Upload Missions CSV',
+    component: <ScuntUploadMissions />,
   },
 ];
 
