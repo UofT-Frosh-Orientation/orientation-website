@@ -26,30 +26,36 @@ const ScuntTeamController = {
       next(e);
     }
   },
-  async refillBribePoints(req, res, next) {
+
+  async getScuntJudges(req, res, next) {
     try {
-      const { judgeUserId, points, isAddPoints = false } = req.body;
-      await ScuntTeamServices.refillBribePoints(judgeUserId, points, isAddPoints);
-      return res
-        .status(200)
-        .send({ message: 'Successfully refilled bribe points of ' + points.toString() });
+      const judgeUsers = await ScuntTeamServices.getScuntJudges();
+      return res.status(200).send({ message: 'Successfuly found judge users', users: judgeUsers });
     } catch (e) {
       console.log(e);
       next(e);
     }
   },
+
+  async refillBribePoints(req, res, next) {
+    try {
+      const { judgeUserId, points, isAddPoints = false } = req.body;
+      await ScuntTeamServices.refillBribePoints(judgeUserId, points, isAddPoints);
+      return res.status(200).send({
+        message: (isAddPoints ? 'Added ' : 'Set ') + points?.toString() + ' bribe points',
+      });
+    } catch (e) {
+      console.log(e);
+      next(e);
+    }
+  },
+
   async addTransaction(req, res, next) {
     try {
-      const { teamName, missionNumber, points } = req.body;
-      await ScuntTeamServices.addTransaction(teamName, missionNumber, points);
+      const { teamNumber, missionNumber, points } = req.body;
+      const result = await ScuntTeamServices.addTransaction(teamNumber, missionNumber, points);
       return res.status(200).send({
-        message:
-          'Successfully added ' +
-          points.toString() +
-          ' points for team ' +
-          teamName.toString() +
-          ' for completing ' +
-          missionNumber.toString(),
+        message: result,
       });
     } catch (e) {
       next(e);
@@ -57,14 +63,25 @@ const ScuntTeamController = {
   },
   async subtractTransaction(req, res, next) {
     try {
-      const { team: teamName, points } = req.body;
-      await ScuntTeamServices.subtractTransaction(teamName, points);
+      const { teamNumber, points } = req.body;
+      await ScuntTeamServices.subtractTransaction(teamNumber, points);
       return res.status(200).send({
         message:
           'Successfully subtracted ' +
           points.toString() +
           ' points for team ' +
-          teamName.toString(),
+          teamNumber.toString(),
+      });
+    } catch (e) {
+      next(e);
+    }
+  },
+  async viewTransactions(req, res, next) {
+    try {
+      const { teamNumber } = req.body;
+      const result = await ScuntTeamServices.viewTransactions(teamNumber);
+      return res.status(200).send({
+        message: result,
       });
     } catch (e) {
       next(e);

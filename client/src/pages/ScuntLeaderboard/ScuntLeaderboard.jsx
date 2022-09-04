@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useMemo } from 'react';
 import PropTypes, { number } from 'prop-types';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import './ScuntLeaderboard.scss';
@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
+import io from 'socket.io-client';
 
 const test = [
   {
@@ -56,6 +57,41 @@ const ScuntLeaderboard = () => {
   const leader = user?.userType === 'leadur';
   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
   const [revealJudgesAndBribes, setRevealJudgesAndBribes] = useState(false);
+  const socket = io(`${import.meta.env.VITE_API_BASE_URL}/leaderboard`, { autoConnect: false });
+  const [leaderboard, setLeaderboard] = useState([]);
+
+  useEffect(() => {
+    socket.connect();
+    socket.on('connect', () => {
+      socket.emit('getScores');
+    });
+    socket.on('scores', (scores) => {
+      setLeaderboard(
+        scores.map((team) => {
+          if (team.points < 0) {
+            team.points = 0;
+          }
+          return team;
+        }),
+      );
+    });
+    socket.on('update', (teamNumber, points) => {
+      setLeaderboard((prevLeaderboard) => {
+        return prevLeaderboard.map((team) => {
+          if (team.number === teamNumber) {
+            team.points = points < 0 ? 0 : points;
+          }
+          return team;
+        });
+      });
+    });
+
+    return () => {
+      socket.off('connect');
+      socket.off('scores');
+      socket.disconnect();
+    };
+  }, []);
 
   const dispatch = useDispatch();
 
@@ -81,29 +117,27 @@ const ScuntLeaderboard = () => {
       <Header text={'Leaderboard'} underlineDesktop={'410px'} underlineMobile={'285px'}>
         <ScuntLinks />
       </Header>
-      <ScuntLeaderboardShow />
+      <ScuntLeaderboardShow leaderboard={leaderboard} />
     </>
   );
 };
 
-const ScuntLeaderboardShow = () => {
+const ScuntLeaderboardShow = ({ leaderboard }) => {
+  // const [leaderboard, setLeaderboard] = useState([]);
+  const computedLeaderboard = useMemo(() => {
+    const max = leaderboard.reduce((prev, curr) => {
+      if (curr.points > prev) {
+        return curr.points;
+      }
+      return prev;
+    }, 0);
+    return leaderboard.map((team) => {
+      const width = Math.round((team.points / max) * 100);
+      team.width = String(width) + '%';
+      return team;
+    });
+  }, [leaderboard]);
   const handle = useFullScreenHandle();
-
-  // for testing
-  let testupdate = test;
-  testupdate.sort((a, b) => {
-    // sort array in decending order
-    return b.points - a.points;
-  });
-
-  let highest = testupdate[0].points;
-
-  testupdate.forEach((element) => {
-    let widthtemp = Math.round((element.points / highest) * 100);
-    element.width = String(widthtemp) + '%';
-  });
-
-  const [leaderboard, setLeaderboard] = useState(testupdate);
 
   return (
     <>
@@ -112,17 +146,17 @@ const ScuntLeaderboardShow = () => {
       </h2>
 
       <FullScreen handle={handle}>
-        <ScuntLeaderboardFullScreen arr={leaderboard} />
+        <ScuntLeaderboardFullScreen arr={computedLeaderboard} />
       </FullScreen>
 
       <div className="display-only-desktop">
         <div className="scunt-leaderboard">
           <Button style={buttonStyle} label="View Fullscreen" onClick={handle.enter} />
         </div>
-        <ScuntLeaderboardDesktop arr={leaderboard} />
+        <ScuntLeaderboardDesktop arr={computedLeaderboard} />
       </div>
       <div className="display-only-tablet">
-        <ScuntLeaderboardMobile arr={leaderboard} />
+        <ScuntLeaderboardMobile arr={computedLeaderboard} />
       </div>
     </>
   );
@@ -325,6 +359,10 @@ const ScuntLeaderboardBubble = ({ name, number, points, rank, img, barwidth }) =
       </div>
     </>
   );
+};
+
+ScuntLeaderboardShow.propTypes = {
+  leaderboard: PropTypes.array,
 };
 
 ScuntLeaderboardBar.propTypes = {

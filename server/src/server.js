@@ -8,6 +8,9 @@ const app = require('./app');
 
 const swaggerLoader = require('./loaders/swaggerLoader');
 
+const ScuntLeaderboardSocketManger = require('./websockets/ScuntLeaderboardSocketManager');
+const LeaderboardSubscription = require('./subscribers/leaderboardSubscriber');
+
 mongoLoader(app).then(() => {
   const server = http.createServer(app);
   const io = new Server(server, {
@@ -18,13 +21,9 @@ mongoLoader(app).then(() => {
   swaggerLoader(app);
   app.use(errorResponseMiddleware);
 
-  const ws = io.of('/ws');
-  ws.on('connection', (socket) => {
-    console.log('User connected!');
-    socket.on('disconnect', () => {
-      console.log('User disconnected!');
-    });
-  });
+  const scuntLeaderboardManager = new ScuntLeaderboardSocketManger(io.of('/leaderboard'));
+
+  scuntLeaderboardManager.listen(LeaderboardSubscription);
 
   server.listen(process.env.PORT || 5001, () => {
     console.log(`Server is running on port: http://localhost:5001`);

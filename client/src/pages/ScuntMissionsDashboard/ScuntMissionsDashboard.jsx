@@ -31,6 +31,7 @@ import { getMissionsAdmin, submitMission, setVisibility, deleteMission } from '.
 import { useDispatch, useSelector } from 'react-redux';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
 import { getScuntMissions } from '../../state/scuntMissions/saga';
+import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 
 const { axios } = useAxios();
 
@@ -65,7 +66,7 @@ const missioninput = [
 //   Papa.parse(file);
 // }
 
-const CreateMissions = () => {
+const ScuntCreateMissions = () => {
   let initialMission = {
     number: '',
     name: '',
@@ -98,6 +99,8 @@ const CreateMissions = () => {
     let parseInput;
     let tempSettings = { ...newMission };
     if (typeof input === 'string') {
+      parseInput = input;
+    } else if (typeof input === 'boolean') {
       parseInput = input;
     } else {
       parseInput = parseFloat(input);
@@ -141,11 +144,6 @@ const CreateMissions = () => {
           isSecondary={true}
           style={{ width: 'fit-content' }}
         >  */}
-        <ScuntCSVFileButton />
-        {/* </Button> */}
-
-        <div className="separator" />
-        <br />
 
         <div className="scunt-create-missions-container">
           <div className="scunt-create-missions-textinput">
@@ -177,6 +175,12 @@ const CreateMissions = () => {
                 </>
               );
             })}
+            <Checkboxes
+              values={['isHidden']}
+              onSelected={(value, index, state, selectedIndices) => {
+                handleInput(state, 'isHidden');
+              }}
+            />
           </div>
           <div className="scunt-create-missions-preview-container">
             <div className="scunt-create-missions-preview">
@@ -339,6 +343,7 @@ const ScuntAllMissions = () => {
       await setVisibility(setSnackbar, fromMission, toMission, visibilty);
     }
   };
+  const hiddenMissionCell = { backgroundColor: 'var(--purple-shades-light-light)' };
 
   return (
     <div className="all-accounts-container">
@@ -398,19 +403,23 @@ const ScuntAllMissions = () => {
           {missions.map((mission) => {
             return (
               <>
-                <tr className="all-accounts-row" key={mission.number + mission.name}>
+                <tr
+                  className="all-accounts-row"
+                  key={mission.number + mission.name}
+                  style={mission?.isHidden ? hiddenMissionCell : {}}
+                >
                   <td className="all-account-data" style={{ padding: '8px', textAlign: 'center' }}>
                     {mission.number}
                   </td>
                   <td
                     className="all-account-data"
-                    style={{ padding: '8px', width: '600px', 'overflow-wrap': 'anywhere' }}
+                    style={{ padding: '8px', width: '600px', overflowWrap: 'anywhere' }}
                   >
                     {mission.name}
                   </td>
                   <td
                     className="all-account-data"
-                    style={{ padding: '8px', 'overflow-wrap': 'anywhere' }}
+                    style={{ padding: '8px', overflowWrap: 'anywhere' }}
                   >
                     {mission.category}
                   </td>
@@ -470,14 +479,169 @@ const ScuntAllMissions = () => {
   );
 };
 
+const ScuntUploadMissions = () => {
+  const [file, setFile] = useState(); // file information
+  const [array, setArray] = useState([]); // array of missions to be sent to backend
+
+  const fileReader = new FileReader();
+
+  const handleOnChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const csvFileToArray = (string) => {
+    const csvHeader = string.slice(0, string.indexOf('\n')).split(',');
+    console.log('csvHeader', csvHeader);
+    const csvRows = string.slice(string.indexOf('\n') + 1).split('\n');
+    console.log('csvRows', csvRows);
+
+    const temparray = csvRows.map((i) => {
+      const values = i.split(',');
+      console.log('values', values);
+      const obj = csvHeader.reduce((object, header, index) => {
+        object[header] = values[index];
+        return object;
+      }, {});
+      return obj;
+    });
+
+    console.log('arrya', temparray);
+
+    setArray(temparray);
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+
+    if (file) {
+      fileReader.onload = function (event) {
+        const text = event.target.result;
+        csvFileToArray(text);
+      };
+
+      fileReader.readAsText(file);
+    }
+  };
+
+  const headerKeys = Object.keys(Object.assign({}, ...array));
+
+  useEffect(() => {
+    console.log(array);
+  }, [array]);
+
+  const uploadMissions = () => {
+    //TODO: calling backend!
+    array.map((mission) => {});
+  };
+
+  // return (
+  //   <>
+  //     <div className="scunt-upload-missions-container">
+  //       <ScuntCSVFileButton />
+  //       {/* </Button> */}
+
+  //       <div className="separator" />
+  //       <br />
+  //     </div>
+  //   </>
+  // );
+
+  return (
+    <div className="scunt-upload-missions-container">
+      {/* <h1>REACTJS CSV IMPORT EXAMPLE </h1> */}
+
+      <div className="scunt-upload-missions-buttons">
+        <input
+          className="button"
+          type={'file'}
+          id={'csvFileInput'}
+          accept={'.csv'}
+          onChange={handleOnChange}
+          style={{
+            margin: '15px 10px',
+            backgroundColor: 'var(--light-purple)',
+            color: 'var(--white)',
+          }}
+        />
+        <Button
+          label="Preview CSV"
+          style={{ width: 'fit-content', flex: '1' }}
+          onClick={(e) => {
+            if (file !== undefined) {
+              handleOnSubmit(e);
+            }
+          }}
+        />
+        <Button
+          label="Upload Missions"
+          style={{ width: 'fit-content' }}
+          onClick={() => {
+            if (array !== undefined) {
+              // calling backend!
+              uploadMissions();
+            }
+          }}
+        />
+      </div>
+
+      {/* <form>
+        <input
+          type={"file"}
+          id={"csvFileInput"}
+          accept={".csv"}
+          onChange={handleOnChange}
+        />
+
+        <button
+          onClick={(e) => {
+            handleOnSubmit(e);
+          }}
+        >
+          IMPORT CSV
+        </button>
+      </form> */}
+      <div className="separator" />
+      <br />
+
+      <table className="upload-missions-table">
+        <tbody>
+          <tr className="upload-mission-table-header-row">
+            {headerKeys.map((key) => (
+              <th key={key} className="upload-mission-table-header-cell">
+                {key}
+              </th>
+            ))}
+          </tr>
+        </tbody>
+
+        <tbody>
+          {array.map((item) => (
+            <tr key={item.id} className="upload-mission-row">
+              {Object.values(item).map((val) => (
+                <td key={item.id + val} className="upload-mission-cell">
+                  {val}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
 const tabs = [
   {
     title: 'All Missions',
     component: <ScuntAllMissions />,
   },
   {
-    title: 'Create/Upload Missions',
-    component: <CreateMissions />,
+    title: 'Create Missions',
+    component: <ScuntCreateMissions />,
+  },
+  {
+    title: 'Upload Missions CSV',
+    component: <ScuntUploadMissions />,
   },
 ];
 

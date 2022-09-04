@@ -4,6 +4,7 @@ const ScuntTeamModel = require('../models/ScuntTeamModel');
 const LeadurModel = require('../models/LeadurModel');
 const ScuntGameSettingsModel = require('../models/ScuntGameSettingsModel');
 const FroshModel = require('../models/FroshModel');
+const LeaderboardSubscription = require('../subscribers/leaderboardSubscriber');
 
 const ScuntTeamServices = {
   async getTeamPoints() {
@@ -15,6 +16,20 @@ const ScuntTeamServices = {
           reject(err);
         } else if (!teams) {
           reject('UNABLE_TO_GET_TEAM_POINTS');
+        } else {
+          resolve(teams);
+        }
+      });
+    });
+  },
+
+  async getTeams() {
+    return new Promise((resolve, reject) => {
+      ScuntTeamModel.find({}, { name: 1 }, {}, (err, teams) => {
+        if (err) {
+          reject(err);
+        } else if (!teams) {
+          reject('UNABLE_TO_GET_TEAMS');
         } else {
           resolve(teams);
         }
@@ -43,17 +58,23 @@ const ScuntTeamServices = {
                   $inc: { points },
                   $push: {
                     transactions: [
-                      { name: `Bribe from ${user.firstName} ${user.lastName}`, points },
+                      {
+                        name: `${points.toString()} points bribe from ${user.firstName} ${
+                          user.lastName
+                        }`,
+                        points,
+                      },
                     ],
                   },
                 },
-                { upsert: false },
+                { upsert: false, returnDocument: 'after' },
                 (err, team) => {
                   if (err) {
                     reject(err);
                   } else if (!team) {
                     reject('INVALID_TEAM_NUMBER');
                   } else {
+                    LeaderboardSubscription.add({ team: team.number, score: team.points });
                     resolve({ team, leadur });
                   }
                 },
@@ -63,6 +84,26 @@ const ScuntTeamServices = {
         );
       }
       // Need to get remaining bribe points of the judge user;
+    });
+  },
+
+  async getScuntJudges() {
+    return new Promise((resolve, reject) => {
+      LeadurModel.find(
+        {
+          $or: [
+            { 'authScopes.approved': 'scunt:judge bribe points' },
+            { 'authScopes.approved': 'scunt:judge missions' },
+          ],
+        },
+        (err, judgeUsers) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(judgeUsers);
+          }
+        },
+      );
     });
   },
 
@@ -87,9 +128,11 @@ const ScuntTeamServices = {
     });
   },
 
-  async addTransaction(teamName, missionNumber, points) {
+  async addTransaction(teamNumber, missionNumber, points) {
     return new Promise((resolve, reject) => {
-      ScuntTeamModel.findOne({ name: teamName }, (err, team) => {
+      //TODO look up mission to get amount of points
+      //Compare with maxAmountPointsPercent and minAmountPointsPercent to ensure within bounds set by game rules
+      ScuntTeamModel.findOne({ number: teamNumber }, (err, team) => {
         if (err) {
           reject(err);
         } else {
@@ -102,12 +145,21 @@ const ScuntTeamServices = {
           if (prevPoints < points) {
             team.points += points - prevPoints;
           }
-          team.transactions.push({ name: '', missionNumber, points });
+          const name =
+            (!prevPoints ? 'Added ' : prevPoints < points ? 'Updated to ' : '') +
+            points.toString() +
+            ' points for mission #' +
+            missionNumber.toString() +
+            ' for team ' +
+            teamNumber.toString();
+          team.transactions.push({ name, missionNumber, points });
           team.save((err, res) => {
             if (err) {
               reject(err);
             } else {
-              resolve(res);
+              LeaderboardSubscription.add({ team: res.number, score: res.points });
+              console.log(res);
+              resolve(name);
             }
           });
         }
@@ -117,11 +169,21 @@ const ScuntTeamServices = {
     });
   },
 
-  async subtractTransaction(teamName, points) {
+  async subtractTransaction(teamNumber, points) {
     return new Promise((resolve, reject) => {
       ScuntTeamModel.findOneAndUpdate(
-        { name: teamName },
-        { $inc: { points }, $push: { transactions: [{ name: 'Points subtraction', points }] } },
+        { number: teamNumber },
+        {
+          $inc: { points: Math.abs(points) * -1 },
+          $push: {
+            transactions: [
+              {
+                name: 'Subtracted ' + points.toString() + ' from team ' + teamNumber.toString(),
+                points: Math.abs(points) * -1,
+              },
+            ],
+          },
+        },
         { upsert: false, returnDocument: 'after' },
         (err, team) => {
           if (err) {
@@ -129,6 +191,7 @@ const ScuntTeamServices = {
           } else if (!team) {
             reject('INVALID_TEAM_NAME');
           } else {
+            LeaderboardSubscription.add({ team: team.number, score: team.points });
             resolve(team);
           }
         },
@@ -136,10 +199,29 @@ const ScuntTeamServices = {
     });
   },
 
-  async checkTransaction(teamName, missionNumber) {
+  async viewTransactions(teamNumber) {
     return new Promise((resolve, reject) => {
       ScuntTeamModel.findOne(
-        { name: teamName },
+        { number: teamNumber },
+        { name: 1, number: 1, points: 1, transactions: 1 },
+        {},
+        (err, teams) => {
+          if (err) {
+            reject(err);
+          } else if (!teams) {
+            reject('UNABLE_TO_GET_TEAM_INFO');
+          } else {
+            resolve(teams);
+          }
+        },
+      );
+    });
+  },
+
+  async checkTransaction(teamNumber, missionNumber) {
+    return new Promise((resolve, reject) => {
+      ScuntTeamModel.findOne(
+        { number: teamNumber },
         {
           transactions: {
             $filter: {

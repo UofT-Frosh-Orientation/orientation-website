@@ -71,3 +71,42 @@
 .scunt-progress-bar-background {
   background-color: var(--yellow);
 }
+
+.scunt-upload-missions-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-missions-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text-dynamic);
+}
+
+.scunt-upload-missions-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-mission-table-header-row {
+  box-sizing: border-box;
+  border-bottom: 4px solid var(--page-bg);
+  vertical-align: bottom;
+}
+
+.upload-mission-table-header-cell {
+  padding: 8px;
+  text-align: left;
+}
+
+.upload-mission-row {
+  border-bottom: 2px solid var(--page-bg);
+}
+
+.upload-mission-cell {
+  padding: 8px;
+}

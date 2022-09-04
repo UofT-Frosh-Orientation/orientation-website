@@ -3,13 +3,18 @@
 .frosh-info-table {
   .buttons-container {
     display: block;
+    margin-right: -5px;
+    text-align: right;
     @include devices(tablet) {
       display: inline-block;
       margin: auto;
       text-align: center;
+      margin-right: 0px;
     }
   }
   h1 {
+    word-break: keep-all;
+    white-space: nowrap;
     margin-bottom: 10px;
     color: var(--text-dynamic);
     font-size: 40px;
