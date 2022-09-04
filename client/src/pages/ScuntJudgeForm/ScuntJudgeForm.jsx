@@ -283,6 +283,7 @@ const ScuntBribePoints = ({ teams }) => {
                     ? parseInt(str.substring(str.length - 2))
                     : parseInt(str.substring(str.length - 1));
                 submitBribe(assignedTeamNumber, assignedPoints);
+                setRemainingBribePoints(remainingBribePoints - assignedPoints);
                 //Submit points here
               }}
             />
