@@ -23,6 +23,7 @@ import useAxios from '../../hooks/useAxios';
 import './ScuntMissionsDashboard.scss';
 import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
+import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 
 import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
 
@@ -323,14 +324,70 @@ const ScuntAllMissions = () => {
   const { setSnackbar } = useContext(SnackbarContext); // use Snackbar to send messages --> successfull hidden/deleted, etc.
   const { darkMode } = useContext(DarkModeContext);
   const { missions } = useSelector(scuntMissionsSelector);
+  const [fromMission, setFromMission] = useState('');
+  const [toMission, setToMission] = useState('');
+  const [visibilty, setSettingVisibility] = useState('');
+
   useEffect(() => {
     dispatch(getScuntMissions({ showHidden: true, setSnackbar }));
   });
 
+  const items = ['true', 'false'];
+
+  const handleSubmit = async () => {
+    if (toMission == '' || fromMission == '') {
+      setSnackbar('Please input required fields', true);
+    } else if (toMission < fromMission) {
+      setSnackbar('Please input valid range', true);
+    } else {
+      await setVisibility(setSnackbar, fromMission, toMission, visibilty);
+    }
+  };
   const hiddenMissionCell = { backgroundColor: 'var(--purple-shades-light-light)' };
 
   return (
     <div className="all-accounts-container">
+      <div style={{ display: 'flex' }}>
+        <TextInput
+          label="From"
+          placeholder={''}
+          isRequiredInput={true}
+          onChange={(input) => {
+            setFromMission(input);
+          }}
+          style={{ display: 'inline-block', margin: '5px' }}
+        />
+        <TextInput
+          label="To"
+          placeholder={''}
+          isRequiredInput={true}
+          onChange={(input) => {
+            setToMission(input);
+          }}
+          style={{ display: 'inline-block', margin: '5px' }}
+        />
+        <div style={{ padding: 'auto' }}>
+          <Dropdown
+            initialSelectedIndex={0}
+            label={'Set isHidden To:'}
+            values={items}
+            onSelect={(value) => {
+              setSettingVisibility(value);
+            }}
+            isDisabled={false}
+          />
+        </div>
+        <div style={{ padding: 'auto', margin: '5px' }}>
+          <Button
+            label="Submit"
+            onClick={() => {
+              handleSubmit();
+            }}
+            isSecondary={true}
+            style={{ width: 'fit-content' }}
+          ></Button>
+        </div>
+      </div>
       <table className="all-accounts-table">
         <tbody>
           <tr className="all-accounts-table-header-row">
@@ -376,7 +433,7 @@ const ScuntAllMissions = () => {
                           setSnackbar,
                           mission.number,
                           mission.number,
-                          mission.isHidden,
+                          !mission.isHidden,
                         );
                       }}
                       style={{ marginRight: 'auto', marginLeft: 'auto', width: 'fit-content' }}
