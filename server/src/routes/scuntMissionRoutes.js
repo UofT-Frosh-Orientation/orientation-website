@@ -1,9 +1,13 @@
 const express = require('express');
+const multer = require('multer');
 const checkLoggedIn = require('../middlewares/checkLoggedIn');
 const hasAuthScopes = require('../middlewares/hasAuthScopes');
 const conditionallyApply = require('../middlewares/conditionallyApply');
 
 const ScuntMissionController = require('../controllers/ScuntMissionController');
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 const router = express.Router();
 
@@ -11,12 +15,11 @@ router.get(
   '/',
   checkLoggedIn,
   conditionallyApply(
-    (req) => req.query.showHidden,
+    (req) => req.query.showHidden || req.query.showHidden === 'true',
     hasAuthScopes(['scunt:exec show missions', 'scunt:exec hide missions']),
   ),
   ScuntMissionController.getMissions,
 );
-
 /**
  * @swagger
  * /scunt-missions:
@@ -111,6 +114,14 @@ router.put(
   checkLoggedIn,
   hasAuthScopes(['scunt:exec show missions']),
   ScuntMissionController.updateMissionVisibility,
+);
+
+router.post(
+  '/bulk',
+  checkLoggedIn,
+  hasAuthScopes(['scunt:exec create missions']),
+  upload.single('missions'),
+  ScuntMissionController.createMultipleMissions,
 );
 
 module.exports = router;
