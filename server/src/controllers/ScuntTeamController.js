@@ -99,10 +99,21 @@ const ScuntTeamController = {
       next(e);
     }
   },
+
   async intializeTeams(req, res, next) {
     try {
       const createdTeams = await ScuntTeamServices.initializeTeams();
       res.status(200).send({ message: `Successfully created ${createdTeams.length} teams!` });
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  async deleteTransaction(req, res, next) {
+    try {
+      const { id, teamNumber } = req.body;
+      await ScuntTeamServices.deleteTransaction(teamNumber, id);
+      res.status(200).send({ message: 'Successfully deleted the transaction!' });
     } catch (e) {
       next(e);
     }
