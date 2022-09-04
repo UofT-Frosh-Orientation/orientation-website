@@ -414,16 +414,153 @@ const ScuntAllMissions = () => {
 };
 
 const ScuntUploadMissions = () => {
-  return (
-    <>
-      <div className="scunt-upload-missions-container">
-        <ScuntCSVFileButton />
-        {/* </Button> */}
+  const [file, setFile] = useState(); // file information
+  const [array, setArray] = useState([]); // array of missions to be sent to backend
 
-        <div className="separator" />
-        <br />
+  const fileReader = new FileReader();
+
+  const handleOnChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const csvFileToArray = (string) => {
+    const csvHeader = string.slice(0, string.indexOf('\n')).split(',');
+    console.log('csvHeader', csvHeader);
+    const csvRows = string.slice(string.indexOf('\n') + 1).split('\n');
+    console.log('csvRows', csvRows);
+
+    const temparray = csvRows.map((i) => {
+      const values = i.split(',');
+      console.log('values', values);
+      const obj = csvHeader.reduce((object, header, index) => {
+        object[header] = values[index];
+        return object;
+      }, {});
+      return obj;
+    });
+
+    console.log('arrya', temparray);
+
+    setArray(temparray);
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+
+    if (file) {
+      fileReader.onload = function (event) {
+        const text = event.target.result;
+        csvFileToArray(text);
+      };
+
+      fileReader.readAsText(file);
+    }
+  };
+
+  const headerKeys = Object.keys(Object.assign({}, ...array));
+
+  useEffect(() => {
+    console.log(array);
+  }, [array]);
+
+  const uploadMissions = () => {
+    //TODO: calling backend!
+    array.map((mission) => {});
+  };
+
+  // return (
+  //   <>
+  //     <div className="scunt-upload-missions-container">
+  //       <ScuntCSVFileButton />
+  //       {/* </Button> */}
+
+  //       <div className="separator" />
+  //       <br />
+  //     </div>
+  //   </>
+  // );
+
+  return (
+    <div className="scunt-upload-missions-container">
+      {/* <h1>REACTJS CSV IMPORT EXAMPLE </h1> */}
+
+      <div className="scunt-upload-missions-buttons">
+        <input
+          className="button"
+          type={'file'}
+          id={'csvFileInput'}
+          accept={'.csv'}
+          onChange={handleOnChange}
+          style={{
+            margin: '15px 10px',
+            backgroundColor: 'var(--light-purple)',
+            color: 'var(--white)',
+          }}
+        />
+        <Button
+          label="Preview CSV"
+          style={{ width: 'fit-content', flex: '1' }}
+          onClick={(e) => {
+            if (file !== undefined) {
+              handleOnSubmit(e);
+            }
+          }}
+        />
+        <Button
+          label="Upload Missions"
+          style={{ width: 'fit-content' }}
+          onClick={() => {
+            if (array !== undefined) {
+              // calling backend!
+              uploadMissions();
+            }
+          }}
+        />
       </div>
-    </>
+
+      {/* <form>
+        <input
+          type={"file"}
+          id={"csvFileInput"}
+          accept={".csv"}
+          onChange={handleOnChange}
+        />
+
+        <button
+          onClick={(e) => {
+            handleOnSubmit(e);
+          }}
+        >
+          IMPORT CSV
+        </button>
+      </form> */}
+      <div className="separator" />
+      <br />
+
+      <table className="upload-missions-table">
+        <tbody>
+          <tr className="upload-mission-table-header-row">
+            {headerKeys.map((key) => (
+              <th key={key} className="upload-mission-table-header-cell">
+                {key}
+              </th>
+            ))}
+          </tr>
+        </tbody>
+
+        <tbody>
+          {array.map((item) => (
+            <tr key={item.id} className="upload-mission-row">
+              {Object.values(item).map((val) => (
+                <td key={item.id + val} className="upload-mission-cell">
+                  {val}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
