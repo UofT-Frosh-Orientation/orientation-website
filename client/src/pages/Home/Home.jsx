@@ -20,6 +20,8 @@ import { ScheduleComponent } from '../../components/schedule/ScheduleHome/Schedu
 import { PopupModal } from '../../components/popup/PopupModal';
 import { sponsors } from '../../util/sponsors';
 import { DarkModeContext } from '../../util/DarkModeProvider';
+import { useSelector } from 'react-redux';
+import { loggedInSelector, userSelector } from '../../state/user/userSlice';
 
 const PageHome = () => {
   return (
@@ -156,9 +158,18 @@ const HomePageTimeline = () => {
 };
 
 const HomePageSchedule = () => {
+  const loggedIn = useSelector(loggedInSelector);
   return (
     <div className="home-page-schedule">
-      <h2 className="home-page-section-header">Schedule</h2>
+      <h2 className="home-page-section-header">Schedule{loggedIn ? '*' : ''}</h2>
+      {loggedIn ? (
+        <div className="home-page-schedule-warning">
+          *Different Frosh groups have different schedules. The homepage schedule is the basic
+          schedule. To see yours, visit the <Link to={'/profile'}>Profile</Link> page.
+        </div>
+      ) : (
+        <></>
+      )}
       <ScheduleComponent />
     </div>
   );
