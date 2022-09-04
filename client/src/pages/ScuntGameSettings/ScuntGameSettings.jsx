@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './ScuntGameSettings.scss';
 
@@ -21,6 +21,7 @@ import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 
 import useAxios from '../../hooks/useAxios';
+import { PopupModal } from '../../components/popup/PopupModal';
 const { axios } = useAxios();
 
 const scuntsettings = [
@@ -272,6 +273,7 @@ const ShuffleTeamsButton = () => {
   const dispatch = useDispatch();
   const { setSnackbar } = useContext(SnackbarContext);
   const { scuntSettings } = useSelector(scuntSettingsSelector);
+  const [showPopUp, setShowPopUp] = useState(false);
   const [shuffleTeams, setShuffleTeams] = useState(false);
 
   useEffect(() => {
@@ -282,13 +284,34 @@ const ShuffleTeamsButton = () => {
 
   return (
     <>
+      <PopupModal
+        trigger={showPopUp}
+        setTrigger={setShowPopUp}
+        blurBackground={false}
+        exitIcon={true}
+      >
+        <div className="registration-edit-popup">
+          <h1>Are you sure?</h1>
+          <h2>All users will have different teams.</h2>
+          <div className="registration-edit-popup-buttons">
+            <Button label="Cancel" isSecondary onClick={() => setShowPopUp(false)} />
+            <Button
+              label="Shuffle Teams"
+              onClick={() => {
+                dispatch(shuffleScuntTeams(setSnackbar));
+                setShowPopUp(false);
+              }}
+            />
+          </div>
+        </div>
+      </PopupModal>
       <Button
         label="Shuffle Teams"
         isSecondary={true}
         isDisabled={shuffleTeams}
         style={{ width: 'fit-content' }}
         onClick={() => {
-          dispatch(shuffleScuntTeams(setSnackbar));
+          setShowPopUp(true);
         }}
       />
     </>

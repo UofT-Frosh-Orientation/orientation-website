@@ -45,6 +45,11 @@ const LeadurSchema = new mongoose.Schema(
       required: false,
       default: 0,
     },
+    scuntTeam: {
+      type: Number,
+      required: false,
+      default: -1,
+    },
   },
   { discriminatorKey: 'userType' },
 );
