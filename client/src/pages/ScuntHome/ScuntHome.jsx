@@ -14,12 +14,7 @@ import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { ProfilePageScuntToken } from '../Profile/Profile';
 import DiscordIcon from '../../assets/social/discord-brands.svg';
-import {
-  aboutScunt,
-  okayToInviteToScunt,
-  scuntDate,
-  scuntDiscord,
-} from '../../util/scunt-constants';
+import { aboutScunt, okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
@@ -72,7 +67,7 @@ const ScuntDiscord = () => {
           overflowWrap: 'anywhere',
         }}
       >
-        <a href={scuntDiscord} className="no-link-style" target={'_blank'} rel="noreferrer">
+        <a href={discordLink} className="no-link-style" target={'_blank'} rel="noreferrer">
           <div
             className="frosh-instagram-container"
             style={{ padding: '15px 20px', margin: '10px 9px' }}
@@ -127,8 +122,25 @@ const AboutScunt = () => {
 };
 
 const ScuntCountdown = () => {
-  const targetDate = new Date(scuntDate);
-  const countDownDate = new Date(targetDate).getTime();
+  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
+  const [targetDate, setTargetDate] = useState();
+  const [countDownDate, setCountDownDate] = useState();
+  //const [targetDate, targetDate]
+
+  useEffect(() => {
+    if (scuntSettings !== undefined) {
+      let settings = scuntSettings[0];
+      const tempDate = new Date(settings?.scuntDate);
+      const tempCountDownDate = new Date(tempDate).getTime();
+
+      setTargetDate(tempDate);
+      setCountDownDate(tempCountDownDate);
+      console.log(tempDate);
+    }
+  }, [scuntSettings]);
+
+  //const targetDate = new Date(scuntDate);
+  //const countDownDate = new Date(targetDate).getTime();
 
   const [countDown, setCountDown] = useState(countDownDate - new Date().getTime());
 
