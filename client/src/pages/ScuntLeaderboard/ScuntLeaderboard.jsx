@@ -66,13 +66,20 @@ const ScuntLeaderboard = () => {
       socket.emit('getScores');
     });
     socket.on('scores', (scores) => {
-      setLeaderboard(scores);
+      setLeaderboard(
+        scores.map((team) => {
+          if (team.points < 0) {
+            team.points = 0;
+          }
+          return team;
+        }),
+      );
     });
-    socket.on('update', (update) => {
+    socket.on('update', (teamNumber, points) => {
       setLeaderboard((prevLeaderboard) => {
         return prevLeaderboard.map((team) => {
-          if (team.number === update.team) {
-            team.points = update.points;
+          if (team.number === teamNumber) {
+            team.points = points < 0 ? 0 : points;
           }
           return team;
         });

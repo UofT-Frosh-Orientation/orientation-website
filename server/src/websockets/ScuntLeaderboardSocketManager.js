@@ -21,7 +21,7 @@ class ScuntLeaderboardSocketManager {
   }
 
   sendUpdate(team, points) {
-    this.io.to('leaderboard').emit('update', { team, points });
+    this.io.to('leaderboard').emit('update', team, points);
   }
 
   async getScores(socket) {
