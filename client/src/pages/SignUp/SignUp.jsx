@@ -12,6 +12,10 @@ import { userSelector } from '../../state/user/userSlice';
 import { signUp } from '../../state/user/saga';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import { SnackbarContext } from '../../util/SnackbarProvider';
+import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
+import useAxios from '../../hooks/useAxios';
+import { getScuntTeamObjFromTeamName } from '../ScuntJudgeForm/ScuntJudgeForm';
+const { axios } = useAxios();
 
 const PageSignUp = () => {
   const [errors, setErrors] = useState({});
@@ -23,6 +27,32 @@ const PageSignUp = () => {
   const { setSnackbar } = useContext(SnackbarContext);
   const { user } = useSelector(userSelector);
   const dispatch = useDispatch();
+
+  const [teams, setTeams] = useState([]);
+  const [teamObjs, setTeamObjs] = useState();
+
+  const getScuntTeams = async () => {
+    try {
+      const response = await axios.get('/scunt-teams');
+      const { teamPoints } = response.data;
+      if (teamPoints.length <= 0 || !teamPoints) setTeams([]);
+      else {
+        setTeamObjs(teamPoints);
+        setTeams(
+          teamPoints.map((team) => {
+            return team?.name;
+          }),
+        );
+      }
+    } catch (e) {
+      console.log(e.toString());
+      setTeams(['Error loading teams']);
+    }
+  };
+
+  useEffect(() => {
+    getScuntTeams();
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -194,6 +224,13 @@ const PageSignUp = () => {
                 values={['Request Leedur Account']}
                 onSelected={(value, index, state, selectedIndices) => {
                   accountObj['leadur'] = state;
+                }}
+              />
+              <RadioButtons
+                label={'Scunt Team'}
+                values={teams}
+                onSelected={(value) => {
+                  accountObj['scuntTeam'] = getScuntTeamObjFromTeamName(value, teamObjs)?.number;
                 }}
               />
             </div>

@@ -14,7 +14,7 @@ const UserController = {
    */
   async signup(req, res, next) {
     try {
-      const { email, password, firstName, lastName, preferredName, leadur } = req.body;
+      const { email, password, firstName, lastName, preferredName, leadur, scuntTeam } = req.body;
 
       await UserServices.validateUser(email.toLowerCase(), password);
 
@@ -27,6 +27,7 @@ const UserController = {
           firstName,
           lastName,
           preferredName,
+          scuntTeam,
         );
       } else {
         user = await UserServices.createUser(

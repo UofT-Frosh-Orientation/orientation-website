@@ -19,7 +19,7 @@ import { getScuntMissions } from '../../state/scuntMissions/saga';
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
 
-const getScuntTeamObjFromTeamName = (teamName, teamObjs) => {
+export const getScuntTeamObjFromTeamName = (teamName, teamObjs) => {
   if (!teamName || !teamObjs) {
     return {};
   }
