@@ -359,6 +359,22 @@ const ScuntTeamServices = {
       );
     });
   },
+  async viewRecentTransactions() {
+    return new Promise((resolve, reject) => {
+      ScuntTeamModel.aggregate([
+        { $project: { transactions: 1, number: 1 } },
+        { $unwind: { path: 'transactions' } },
+        { $sort: { createdAt: -1 } },
+        { $limit: 50 },
+      ]).exec((err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  },
 };
 
 module.exports = ScuntTeamServices;
