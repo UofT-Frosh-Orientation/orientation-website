@@ -3,7 +3,7 @@ const ScuntMissionServices = require('../services/ScuntMissionServices');
 const ScuntMissionController = {
   async getMissions(req, res, next) {
     try {
-      const { showHidden = false } = req.query;
+      const showHidden = req.query.showHidden === 'true';
       const allMissions = await ScuntMissionServices.getAllScuntMissions(showHidden);
       return res.status(200).send({
         message: 'Found missions!',
@@ -63,6 +63,16 @@ const ScuntMissionController = {
           isHidden ? 'hidden' : 'visible'
         }`,
       });
+    } catch (e) {
+      next(e);
+    }
+  },
+  async createMultipleMissions(req, res, next) {
+    try {
+      const missions = await ScuntMissionServices.createMultipleMissions(
+        req.file.buffer.toString(),
+      );
+      res.status(200).send({ missions });
     } catch (e) {
       next(e);
     }

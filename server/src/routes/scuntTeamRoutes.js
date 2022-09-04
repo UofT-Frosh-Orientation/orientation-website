@@ -174,6 +174,13 @@ router.post(
  */
 router.post('/transaction/check', checkLoggedIn, ScuntTeamController.checkTransaction);
 
+router.post(
+  'transaction/delete',
+  checkLoggedIn,
+  hasAuthScopes(['scunt:exec delete transaction']),
+  ScuntTeamController.deleteTransaction,
+);
+
 /**
  * @swagger
  * /scunt-teams/shuffle:
