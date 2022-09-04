@@ -155,6 +155,8 @@ const ScuntTeamServices = {
             if (err) {
               reject(err);
             } else {
+              LeaderboardSubscription.add({ team: res.number, score: res.points });
+              console.log(res);
               resolve(name);
             }
           });
@@ -187,6 +189,7 @@ const ScuntTeamServices = {
           } else if (!team) {
             reject('INVALID_TEAM_NAME');
           } else {
+            LeaderboardSubscription.add({ team: team.number, score: team.points });
             resolve(team);
           }
         },
