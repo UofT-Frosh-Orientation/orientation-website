@@ -15,10 +15,9 @@ export function getUneditableFields() {
   return noEditFields;
 }
 
-export function downloadDataAsXML(data) {
+export function downloadDataAsFile(data, exportType) {
   const fileName = 'froshData';
   let fields = [];
-  const exportType = 'xml';
   exportFromJSON({ data, fileName, fields, exportType });
 }
 

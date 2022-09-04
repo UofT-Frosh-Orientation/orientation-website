@@ -50,6 +50,7 @@ const PaymentController = {
   async froshRetreatTicketCount(req, res, next) {
     try {
       const count = await PaymentServices.getNonExpiredPaymentsCountForItem('Retreat Ticket');
+      console.log(`count is : ${count}`);
       const remaining = process.env.RETREAT_MAX_TICKETS - count;
       res.status(200).send({ count: remaining < 0 ? 0 : remaining });
     } catch (e) {
@@ -67,7 +68,10 @@ const PaymentController = {
           'retreat',
         );
         // console.log(url, payment_intent);
-        await FroshServices.addRetreatPayment(user, payment_intent);
+        const frosh = await FroshServices.addRetreatPayment(user, payment_intent);
+        if (!frosh) {
+          res.status(400).send({ message: 'Something went wrong!' });
+        }
         res.status(200).send({ url });
       } else {
         res.status(400).send({

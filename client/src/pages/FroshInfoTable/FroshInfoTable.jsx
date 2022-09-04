@@ -11,7 +11,9 @@ import { TextInput } from '../../components/input/TextInput/TextInput';
 import { userSelector } from '../../state/user/userSlice';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { PopupModal } from '../../components/popup/PopupModal';
-import { getUneditableFields, downloadDataAsXML, deleteUser } from './functions';
+import { getUneditableFields, downloadDataAsFile, deleteUser } from './functions';
+import DownloadIcon from '../../assets/misc/file-export-solid.svg';
+import { DarkModeContext } from '../../util/DarkModeProvider';
 
 const PageFroshInfoTable = () => {
   const noEditFields = getUneditableFields();
@@ -79,6 +81,7 @@ const PageFroshInfoTable = () => {
       setShowAllUsers(false);
   }, []);
 
+  const dataToDisplay = searchTerm && searchTerm !== '' ? searchedFrosh : sortedFrosh;
   return (
     <div className="frosh-info-table">
       <div className="navbar-space-top" />
@@ -96,12 +99,68 @@ const PageFroshInfoTable = () => {
           ) : (
             <></>
           )}
-          <Button
-            label="Download XML"
-            onClick={() => {
-              downloadDataAsXML(frosh);
-            }}
-          />
+          <div style={{ display: 'inline-block' }}>
+            <Button
+              label={
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                  <img
+                    src={DownloadIcon}
+                    style={{
+                      filter: 'invert(1)',
+                      width: '18px',
+                      height: '18px',
+                      marginRight: '3px',
+                    }}
+                  />
+                  XML
+                </div>
+              }
+              onClick={() => {
+                downloadDataAsFile(dataToDisplay, 'xml');
+                setSnackbar('Downloading data as shown in the table below as an XML...');
+              }}
+            />
+            <Button
+              label={
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                  <img
+                    src={DownloadIcon}
+                    style={{
+                      filter: 'invert(1)',
+                      width: '18px',
+                      height: '18px',
+                      marginRight: '3px',
+                    }}
+                  />
+                  CSV
+                </div>
+              }
+              onClick={() => {
+                downloadDataAsFile(dataToDisplay, 'csv');
+                setSnackbar('Downloading data as shown in the table below as a CSV...');
+              }}
+            />
+            <Button
+              label={
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                  <img
+                    src={DownloadIcon}
+                    style={{
+                      filter: 'invert(1)',
+                      width: '18px',
+                      height: '18px',
+                      marginRight: '3px',
+                    }}
+                  />
+                  XLS
+                </div>
+              }
+              onClick={() => {
+                downloadDataAsFile(dataToDisplay, 'xls');
+                setSnackbar('Downloading data as shown in the table below as an XLS...');
+              }}
+            />
+          </div>
         </div>
       </div>
       {user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') === false ? (
@@ -192,7 +251,7 @@ const PageFroshInfoTable = () => {
               })}
               <th>Delete Account</th>
             </tr>
-            {(searchTerm && searchTerm !== '' ? searchedFrosh : sortedFrosh).map((datum, index) => {
+            {dataToDisplay.map((datum, index) => {
               return (
                 <tr key={index}>
                   <td>

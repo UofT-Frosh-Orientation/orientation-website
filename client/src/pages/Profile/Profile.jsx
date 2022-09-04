@@ -34,7 +34,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { getUserInfo } from '../../state/user/saga';
 import { announcementsSelector } from '../../state/announcements/announcementsSlice';
-import { getAnnouncements, completeAnnouncements } from '../../state/announcements/saga';
+import {
+  getAnnouncements,
+  completeAnnouncements,
+  getCompletedAnnouncements,
+} from '../../state/announcements/saga';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
@@ -43,6 +47,7 @@ import { froshGroups } from '../../util/frosh-groups';
 import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
 import { getFrosh } from '../../state/frosh/saga';
 import { froshSelector, registeredFroshSelector } from '../../state/frosh/froshSlice';
+import { completedAnnouncementsSelector } from '../../state/announcements/announcementsSlice';
 import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHome/ScheduleHome';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 
@@ -64,7 +69,7 @@ const PageProfileFrosh = () => {
         <div>
           {leader === false ? (
             <>
-              <ProfilePageRetreat />
+              {user?.isRegistered && <ProfilePageRetreat />}
               <ProfilePageNitelife />
               <ProfilePageInstagrams />
               <ProfilePageAnnouncements />
@@ -701,23 +706,22 @@ const ProfilePageAnnouncements = () => {
   const dispatch = useDispatch();
   const { user } = useSelector(userSelector);
   const { announcements } = useSelector(announcementsSelector);
+  const { completedAnnouncements } = useSelector(completedAnnouncementsSelector);
   const [announcementList, setAnnouncementList] = useState([]);
   const { setSnackbar } = useContext(SnackbarContext);
 
   useEffect(() => {
     dispatch(getAnnouncements());
-    dispatch(getUserInfo());
-    console.log(user);
+    dispatch(getCompletedAnnouncements());
   }, []);
 
   useEffect(() => {
-    let completedAnnouncements = [];
     let orderedAnnouncements = [];
 
     announcements.forEach((announcement) => {
       if (
-        user.completedAnnouncements.every((value) => {
-          return value._id != announcement._id;
+        completedAnnouncements.every((value) => {
+          return value._id !== announcement._id;
         })
       ) {
         orderedAnnouncements.push({
@@ -727,40 +731,29 @@ const ProfilePageAnnouncements = () => {
           completed: false,
           description: announcement.description,
         });
-      } else {
-        completedAnnouncements.push({
-          id: announcement._id,
-          name: announcement.name,
-          dateCreated: announcement.dateCreated,
-          completed: true,
-          description: announcement.description,
-        });
       }
     });
-    orderedAnnouncements.push(...completedAnnouncements);
+    completedAnnouncements.forEach((announcement) => {
+      orderedAnnouncements.push({
+        id: announcement._id,
+        name: announcement.name,
+        dateCreated: announcement.dateCreated,
+        completed: true,
+        description: announcement.description,
+      });
+    });
     setAnnouncementList(orderedAnnouncements);
-  }, [announcements]);
+  }, [announcements, completedAnnouncements]);
 
   const onDoneTask = (task) => {
-    dispatch(completeAnnouncements({ announcementData: { id: task.id } }));
-    let orderedAnnouncements = announcementList;
+    if (task.completed !== true) {
+      dispatch(completeAnnouncements({ announcementData: { id: task.id } }));
 
-    orderedAnnouncements.push(
-      orderedAnnouncements.splice(orderedAnnouncements.indexOf(task), 1)[0],
-    );
-
-    setAnnouncementList(
-      orderedAnnouncements.map((announcement) => {
-        if (announcement.id != task.id) {
-          return announcement;
-        } else {
-          announcement.completed = true;
-          return announcement;
-        }
-      }),
-    );
-
-    setSnackbar('Marked ' + task.name + ' as complete!');
+      setSnackbar('Marked ' + task.name + ' as complete!');
+    } else {
+      dispatch(completeAnnouncements({ announcementData: { id: task.id } }));
+      setSnackbar('Marked ' + task.name + ' as uncompleted!');
+    }
   };
 
   return (
