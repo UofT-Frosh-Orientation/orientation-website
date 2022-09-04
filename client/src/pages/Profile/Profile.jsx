@@ -877,25 +877,32 @@ const ProfilePageSchedule = () => {
           <></>
         )}
       </div>
-      <ButtonSelector
-        buttonList={buttonList}
-        activeIndex={selectedDayIndex}
-        setActiveIndex={(index) => {
-          setSelectedDayIndex(index);
-          setCloseAll(!closeAll);
-        }}
-        style={{ maxWidth: '250px', marginTop: '0px', marginBottom: '10px', padding: '11px 15px' }}
-      />
-      <div className="profile-page-schedule-accordions">
-        {scheduleData[Object.keys(scheduleData)[selectedDayIndex]].map((scheduleDay, index) => {
-          return (
-            <ScheduleComponentAccordion
-              key={Object.keys(scheduleData)[index] + index}
-              scheduleDay={scheduleDay}
-              closeAll={closeAll}
-            />
-          );
-        })}
+      <div className="profile-page-schedule-content">
+        <ButtonSelector
+          buttonList={buttonList}
+          activeIndex={selectedDayIndex}
+          setActiveIndex={(index) => {
+            setSelectedDayIndex(index);
+            setCloseAll(!closeAll);
+          }}
+          style={{
+            maxWidth: '250px',
+            marginTop: '0px',
+            marginBottom: '10px',
+            padding: '11px 15px',
+          }}
+        />
+        <div className="profile-page-schedule-accordions">
+          {scheduleData[Object.keys(scheduleData)[selectedDayIndex]].map((scheduleDay, index) => {
+            return (
+              <ScheduleComponentAccordion
+                key={Object.keys(scheduleData)[index] + index}
+                scheduleDay={scheduleDay}
+                closeAll={closeAll}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

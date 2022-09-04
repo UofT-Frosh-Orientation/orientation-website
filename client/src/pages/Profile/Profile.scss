@@ -217,10 +217,19 @@
   }
 }
 
+.profile-page-schedule-content {
+  @include devices(tablet) {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+}
+
 .profile-page-schedule-accordions {
   margin-top: -8px;
   @include devices(tablet) {
     margin-top: -13px;
+    margin-left: -10px;
+    margin-right: -10px;
   }
 }
 

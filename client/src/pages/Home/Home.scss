@@ -148,6 +148,18 @@
 .home-page-schedule {
   background-color: var(--purple);
   padding-bottom: 30px;
+  .home-page-schedule-warning {
+    font-size: 18px;
+    color: var(--white);
+    padding-left: min(40px, 3.5%);
+    margin-top: -25px;
+    margin-bottom: 15px;
+    padding-right: min(40px, 3.5%);
+    @include devices(tablet) {
+      margin-top: -10px;
+      font-size: 15px;
+    }
+  }
 }
 
 .home-page-section-header {
