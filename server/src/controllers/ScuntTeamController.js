@@ -87,17 +87,7 @@ const ScuntTeamController = {
       next(e);
     }
   },
-  async viewTransactionsMore(req, res, next) {
-    try {
-      const { teamNumber, alreadyDownloaded } = req.body;
-      const result = await ScuntTeamServices.viewTransactionsMore(teamNumber, alreadyDownloaded);
-      return res.status(200).send({
-        message: result,
-      });
-    } catch (e) {
-      next(e);
-    }
-  },
+
   async checkTransaction(req, res, next) {
     try {
       const { teamNumber, missionNumber } = req.body;

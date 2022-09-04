@@ -9,62 +9,34 @@ const { axios } = useAxios();
 
 export const ScuntTransactions = () => {
   const [assignedTeam, setAssignedTeam] = useState('');
-  const [teams, setTeams] = useState(['Select Team']);
+  const [teams, setTeams] = useState(['All Teams']);
   const [teamObjs, setTeamObjs] = useState();
-  const [teamDetails, setTeamDetails] = useState();
-  const [pointTransactions, setPointTransactions] = useState([]);
+  const [refresh, setRefresh] = useState(true);
 
   const getScuntTeams = async () => {
     try {
       const response = await axios.get('/scunt-teams');
       const { teamPoints } = response.data;
-      if (teamPoints.length <= 0 || !teamPoints) setTeams([]);
-      else {
+      if (teamPoints.length > 0 && teamPoints) {
         setTeamObjs(teamPoints);
-        setTeams(
-          teamPoints.map((team) => {
+        setTeams([
+          'All Teams',
+          ...teamPoints.map((team) => {
             return team?.name;
           }),
-        );
+        ]);
       }
     } catch (e) {
-      setTeams(['Error loading teams']);
-    }
-  };
-
-  const getTeamTransactions = async () => {
-    try {
-      const response = await axios.post('/scunt-teams/transactions', {
-        teamNumber: getScuntTeamObjFromTeamName(assignedTeam, teamObjs)?.number,
-      });
-      const transactions = response?.data?.message?.transactions;
-      setPointTransactions(transactions);
-      setTeamDetails(response?.data?.message);
-    } catch (e) {
-      setPointTransactions(['Error loading transactions']);
-    }
-  };
-
-  const getMoreTransactions = async () => {
-    try {
-      const response = await axios.post('/scunt-teams/transactions/more', {
-        teamNumber: getScuntTeamObjFromTeamName(assignedTeam, teamObjs)?.number,
-        alreadyDownloaded: pointTransactions?.length,
-      });
-      const transactions = response?.data?.message?.transactions;
-      setPointTransactions([...pointTransactions, transactions]);
-    } catch (e) {
-      setPointTransactions(['Error loading more transactions']);
+      console.log(e.toString());
     }
   };
 
   useEffect(() => {
-    getScuntTeams();
-  }, []);
-
-  useEffect(() => {
-    getTeamTransactions();
-  }, [assignedTeam]);
+    if (refresh) {
+      getScuntTeams();
+      setRefresh(false);
+    }
+  }, [refresh]);
 
   return (
     <>
@@ -74,46 +46,115 @@ export const ScuntTransactions = () => {
           <h1>Point Transactions</h1>
           <div className="separator" />
           <p>Transactions of all points that have been distributed to teams</p>
+          <p>When displaying all teams, only the latest 50 transactions are shown</p>
+
           <div className="separator" />
           <div
             style={{
               display: 'flex',
-              justifyContent: 'flex-end',
+              justifyContent: 'space-between',
               alignItems: 'center',
               width: '100%',
             }}
           >
-            <Button label={'Refresh'} onClick={() => {}} />
-            <h2>Team:</h2>
-            <div style={{ width: '10px' }}></div>
-            <Dropdown
-              initialSelectedIndex={0}
-              values={teams}
-              onSelect={(value) => {
-                setAssignedTeam(value);
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
               }}
-              isDisabled={false}
-              localStorageKey={'scunt-team-choice'}
-            />
+            >
+              <h2>Team:</h2>
+              <div style={{ width: '10px' }}></div>
+              <Dropdown
+                initialSelectedIndex={0}
+                values={teams}
+                onSelect={(value) => {
+                  setAssignedTeam(value);
+                }}
+                isDisabled={false}
+                localStorageKey={'scunt-team-choice'}
+              />
+            </div>
+            <div>
+              <Button
+                label={'Refresh'}
+                onClick={() => {
+                  setRefresh(true);
+                }}
+              />
+            </div>
           </div>
           <div className="transactions-list">
-            <h2>
-              {teamDetails?.name}: {teamDetails?.points} points
-            </h2>
-            <div style={{ height: '10px' }}></div>
-            {pointTransactions.map((pointTransaction, index) => {
-              return (
-                <div key={index.toString()}>
-                  <p>
-                    <b>{(index + 1).toString()}.</b> {pointTransaction?.name}:{' '}
-                    {pointTransaction?.points} points
-                  </p>
-                </div>
-              );
-            })}
+            {assignedTeam === 'All Teams' ? (
+              teams.map((team) => {
+                return (
+                  <>
+                    <ScuntTeamTransactions
+                      key={{ team }}
+                      teamObj={getScuntTeamObjFromTeamName(team, teamObjs)}
+                    />
+                  </>
+                );
+              })
+            ) : (
+              <>
+                <ScuntTeamTransactions
+                  teamObj={getScuntTeamObjFromTeamName(assignedTeam, teamObjs)}
+                />
+              </>
+            )}
           </div>
         </div>
       </div>
     </>
   );
+};
+
+const ScuntTeamTransactions = ({ teamObj }) => {
+  const [pointTransactions, setPointTransactions] = useState();
+  const [teamDetails, setTeamDetails] = useState();
+
+  useEffect(() => {
+    getTeamTransactions(teamObj);
+  }, [teamObj]);
+
+  const getTeamTransactions = async (teamObjPassed) => {
+    try {
+      if (!teamObjPassed) {
+        throw 'Team not defined';
+      }
+      const response = await axios.post('/scunt-teams/transactions', {
+        teamNumber: teamObjPassed?.number,
+      });
+      const transactions = response?.data?.message?.transactions;
+      setPointTransactions(transactions);
+      setTeamDetails(response?.data?.message);
+    } catch (e) {
+      console.log(e.toString());
+    }
+  };
+
+  if (!pointTransactions) return <></>;
+  return (
+    <>
+      <h2>
+        {teamDetails?.name}: {teamDetails?.points} points
+      </h2>
+      <div style={{ height: '10px' }}></div>
+      {pointTransactions.map((pointTransaction, index) => {
+        return (
+          <div key={index.toString()}>
+            <p>
+              <b>{(index + 1).toString()}.</b> {pointTransaction?.name}: {pointTransaction?.points}{' '}
+              points
+            </p>
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
+ScuntTeamTransactions.propTypes = {
+  teamObj: PropTypes.object,
 };
