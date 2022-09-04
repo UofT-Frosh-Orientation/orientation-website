@@ -92,6 +92,10 @@ const PageScuntMissionsListShow = () => {
   }, [selectedCategory, selectedSort]);
 
   useEffect(() => {
+    setSearchedMissions(missions);
+  }, [missions]);
+
+  useEffect(() => {
     getMissionStatus(mission, user?.scuntTeam);
   }, [mission]);
 
