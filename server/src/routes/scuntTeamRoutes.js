@@ -109,6 +109,13 @@ router.post(
   ScuntTeamController.addTransaction,
 );
 
+router.post(
+  '/transactions',
+  checkLoggedIn,
+  hasAuthScopes(['scunt:exec view transactions']),
+  ScuntTeamController.viewTransactions,
+);
+
 /**
  * @swagger
  * /scunt-teams/transaction/subtract:

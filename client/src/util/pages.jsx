@@ -30,6 +30,7 @@ import { FroshRetreat } from '../pages/FroshRetreat/FroshRetreat';
 import { PagePaymentSuccess } from '../pages/PagePaymentSuccess/PagePaymentSuccess';
 import { ScuntGameSettings } from '../pages/ScuntGameSettings/ScuntGameSettings';
 import { PageScuntMissionsDashboard } from '../pages/ScuntMissionsDashboard/ScuntMissionsDashboard';
+import { ScuntTransactions } from '../pages/ScuntTransactions/ScuntTransactions';
 
 export const pages = {
   404: {
@@ -303,6 +304,15 @@ export const pages = {
         </AuthorizedPage>
       ),
       path: '/scunt-missions-dashboard',
+    },
+    {
+      label: 'Scunt Point Transactions',
+      path: '/scunt-transactions',
+      component: (
+        <AuthorizedPage authScopes={['scunt:exec view transactions']}>
+          <ScuntTransactions />
+        </AuthorizedPage>
+      ),
     },
   ],
 };

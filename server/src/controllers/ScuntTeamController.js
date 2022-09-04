@@ -76,6 +76,17 @@ const ScuntTeamController = {
       next(e);
     }
   },
+  async viewTransactions(req, res, next) {
+    try {
+      const { teamName } = req.body;
+      const result = await ScuntTeamServices.viewTransactions(teamName);
+      return res.status(200).send({
+        message: result,
+      });
+    } catch (e) {
+      next(e);
+    }
+  },
   async checkTransaction(req, res, next) {
     try {
       const { team, missionNumber } = req.body;

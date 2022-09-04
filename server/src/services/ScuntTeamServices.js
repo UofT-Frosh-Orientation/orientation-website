@@ -58,7 +58,12 @@ const ScuntTeamServices = {
                   $inc: { points },
                   $push: {
                     transactions: [
-                      { name: `Bribe from ${user.firstName} ${user.lastName}`, points },
+                      {
+                        name: `${points.toString()} points bribe from ${user.firstName} ${
+                          user.lastName
+                        }`,
+                        points,
+                      },
                     ],
                   },
                 },
@@ -173,6 +178,25 @@ const ScuntTeamServices = {
             reject('INVALID_TEAM_NAME');
           } else {
             resolve(team);
+          }
+        },
+      );
+    });
+  },
+
+  async viewTransactions(teamName) {
+    return new Promise((resolve, reject) => {
+      ScuntTeamModel.findOne(
+        { name: teamName },
+        { name: 1, number: 1, points: 1, transactions: 1 },
+        {},
+        (err, teams) => {
+          if (err) {
+            reject(err);
+          } else if (!teams) {
+            reject('UNABLE_TO_GET_TEAM_INFO');
+          } else {
+            resolve(teams);
           }
         },
       );
