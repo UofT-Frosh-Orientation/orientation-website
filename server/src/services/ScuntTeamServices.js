@@ -359,8 +359,8 @@ const ScuntTeamServices = {
     return new Promise((resolve, reject) => {
       ScuntTeamModel.findOneAndUpdate(
         { number: teamNumber },
-        { $pull: { 'transactions._id': { $in: [mongoose.Types.ObjectId(id)] } } },
-        {},
+        { $pull: { transactions: { _id: { $in: [mongoose.Types.ObjectId(id)] } } } },
+        { returnDocument: 'after' },
         (err, team) => {
           if (err) {
             reject(err);
