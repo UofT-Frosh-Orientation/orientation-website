@@ -30,10 +30,8 @@ import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
 import { getMissionsAdmin, submitMission, setVisibility, deleteMission } from './functions';
 import { useDispatch, useSelector } from 'react-redux';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
-import { getScuntMissions } from '../../state/scuntMissions/saga';
+import { createMultipleMissions, getScuntMissions } from '../../state/scuntMissions/saga';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
-
-const { axios } = useAxios();
 
 const missioninput = [
   {
@@ -237,6 +235,7 @@ const ScuntCreateMissions = () => {
 const ScuntCSVFileButton = () => {
   //const { CSVReader } = useCSVReader();
   const [CSVFile, setCSVFile] = useState();
+  const dispatch = useDispatch();
 
   const changeHandler = (event) => {
     console.log(event.target.files[0]);
@@ -250,13 +249,17 @@ const ScuntCSVFileButton = () => {
   };
 
   const submit = () => {
-    const file = CSVFile;
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-      const text = e.target.result;
-      console.log(text);
-    };
+    // const formData = new FormData();
+    // formData.append('missions', CSVFile);
+    //
+    // const file = CSVFile;
+    // const reader = new FileReader();
+    //
+    // reader.onload = function (e) {
+    //   const text = e.target.result;
+    //   console.log(text);
+    // };
+    dispatch(createMultipleMissions(CSVFile));
   };
 
   return (
@@ -281,6 +284,7 @@ const ScuntCSVFileButton = () => {
         label="Submit"
         style={{ width: 'fit-content' }}
         onClick={(e) => {
+          e.preventDefault();
           if (CSVFile !== undefined) {
             submit();
           }
@@ -330,7 +334,7 @@ const ScuntAllMissions = () => {
 
   useEffect(() => {
     dispatch(getScuntMissions({ showHidden: true, setSnackbar }));
-  });
+  }, []);
 
   const items = ['true', 'false'];
 
@@ -482,32 +486,15 @@ const ScuntAllMissions = () => {
 const ScuntUploadMissions = () => {
   const [file, setFile] = useState(); // file information
   const [array, setArray] = useState([]); // array of missions to be sent to backend
-
+  const { setSnackbar } = useContext(SnackbarContext);
   const fileReader = new FileReader();
+
+  const headerKeys = ['Number', 'Name', 'Category', 'Points', 'Hidden', 'JudgingStation'];
+
+  const dispatch = useDispatch();
 
   const handleOnChange = (e) => {
     setFile(e.target.files[0]);
-  };
-
-  const csvFileToArray = (string) => {
-    const csvHeader = string.slice(0, string.indexOf('\n')).split(',');
-    console.log('csvHeader', csvHeader);
-    const csvRows = string.slice(string.indexOf('\n') + 1).split('\n');
-    console.log('csvRows', csvRows);
-
-    const temparray = csvRows.map((i) => {
-      const values = i.split(',');
-      console.log('values', values);
-      const obj = csvHeader.reduce((object, header, index) => {
-        object[header] = values[index];
-        return object;
-      }, {});
-      return obj;
-    });
-
-    console.log('arrya', temparray);
-
-    setArray(temparray);
   };
 
   const handleOnSubmit = (e) => {
@@ -516,22 +503,60 @@ const ScuntUploadMissions = () => {
     if (file) {
       fileReader.onload = function (event) {
         const text = event.target.result;
-        csvFileToArray(text);
+        const { data, errors } = parseCsvString(text, {
+          Number: {
+            key: 'number',
+            parseFunction: (val) => parseInt(val),
+            validator: (val) => Number.isInteger(val) && val >= 0,
+            required: true,
+            errorMessage: 'The mission number must be a positive integer!',
+          },
+          Name: {
+            key: 'name',
+            parseFunction: (val) => val,
+            validator: (val) => val.length > 0,
+            required: true,
+            errorMessage: 'The mission name must be at least one character!',
+          },
+          Category: {
+            key: 'category',
+            parseFunction: (val) => val,
+            validator: (val) => val.length > 0,
+            required: true,
+            errorMessage: 'The mission category must be at least one character!',
+          },
+          Points: {
+            key: 'points',
+            parseFunction: (val) => parseInt(val),
+            validator: (val) => Number.isInteger(val) && val >= 0,
+            required: true,
+            errorMessage: 'The mission points must be a positive integer!',
+          },
+          Hidden: {
+            key: 'isHidden',
+            parseFunction: (val) => val.toLowerCase() === 'true',
+            validator: () => true,
+            required: false,
+            errorMessage: '',
+          },
+          JudgingStation: {
+            key: 'isJudgingStation',
+            parseFunction: (val) => val.toLowerCase() === 'true',
+            validator: () => true,
+            required: false,
+            errorMessage: '',
+          },
+        });
+        setArray(data);
       };
 
       fileReader.readAsText(file);
     }
   };
 
-  const headerKeys = Object.keys(Object.assign({}, ...array));
-
-  useEffect(() => {
-    console.log(array);
-  }, [array]);
-
   const uploadMissions = () => {
-    //TODO: calling backend!
-    array.map((mission) => {});
+    // e.preventDefault()
+    dispatch(createMultipleMissions({ file, setSnackbar }));
   };
 
   // return (
@@ -548,8 +573,6 @@ const ScuntUploadMissions = () => {
 
   return (
     <div className="scunt-upload-missions-container">
-      {/* <h1>REACTJS CSV IMPORT EXAMPLE </h1> */}
-
       <div className="scunt-upload-missions-buttons">
         <input
           className="button"
@@ -616,10 +639,13 @@ const ScuntUploadMissions = () => {
 
         <tbody>
           {array.map((item) => (
-            <tr key={item.id} className="upload-mission-row">
-              {Object.values(item).map((val) => (
-                <td key={item.id + val} className="upload-mission-cell">
-                  {val}
+            <tr key={item.number} className="upload-mission-row">
+              {Object.values(item).map((val, idx) => (
+                <td
+                  key={item.number + val.toString() + headerKeys[idx]}
+                  className="upload-mission-cell"
+                >
+                  {val.toString()}
                 </td>
               ))}
             </tr>
@@ -655,6 +681,52 @@ const PageScuntMissionsDashboard = () => {
       </div>
     </>
   );
+};
+
+const parseCsvString = (csvString, mapping, delimiter = ',') => {
+  // regex checks for delimiters that are not contained within quotation marks
+  const regex = new RegExp(`(?!\\B"[^"]*)${delimiter}(?![^"]*"\\B)`);
+  if (csvString.length === 0 || !/\r\b|\r|\n/.test(csvString)) {
+    return { data: [] };
+  }
+  const rows = csvString.split(/\r\n|\r|\n/).filter((elem) => elem !== '');
+  const headers = rows[0].split(regex);
+  const requiredHeaders = Object.keys(mapping).filter((m) => mapping[m].required);
+  const headerErrors = [];
+  requiredHeaders.forEach((header) => {
+    if (!headers.includes(header)) {
+      headerErrors.push({ row: 1, column: header, errorMessage: `Missing header ${header}` });
+    }
+  });
+  if (headerErrors.length > 0) {
+    return { data: [], errors: headerErrors };
+  }
+  const allowedHeaders = Object.keys(mapping);
+  const dataRows = rows.slice(1);
+  const { data, errors } = dataRows.reduce(
+    (previous, row, rowIndex) => {
+      const values = row.split(regex);
+      const parsedRow = headers.reduce((previousObj, current, index) => {
+        if (allowedHeaders.includes(current)) {
+          const val = mapping[current].parseFunction(values[index].replace(/^(["'])(.*)\1$/, '$2')); // removes any surrounding quotation marks
+          if (mapping[current].validator(val)) {
+            previousObj[mapping[current].key] = val;
+          } else {
+            previous.errors.push({
+              row: rowIndex + 2,
+              column: current,
+              errorMessage: mapping[current].errorMessage,
+            });
+          }
+        }
+        return previousObj;
+      }, {});
+      previous.data.push(parsedRow);
+      return previous;
+    },
+    { data: [], errors: [] },
+  );
+  return { data, errors };
 };
 
 export { PageScuntMissionsDashboard };

@@ -5,6 +5,7 @@ const LeadurModel = require('../models/LeadurModel');
 const ScuntGameSettingsModel = require('../models/ScuntGameSettingsModel');
 const FroshModel = require('../models/FroshModel');
 const LeaderboardSubscription = require('../subscribers/leaderboardSubscriber');
+const mongoose = require('mongoose');
 
 const ScuntTeamServices = {
   async getTeamPoints() {
@@ -335,6 +336,41 @@ const ScuntTeamServices = {
               }
             },
           );
+        }
+      });
+    });
+  },
+
+  async deleteTransaction(teamNumber, id) {
+    return new Promise((resolve, reject) => {
+      ScuntTeamModel.findOneAndUpdate(
+        { number: teamNumber },
+        { $pull: { 'transactions._id': { $in: [mongoose.Types.ObjectId(id)] } } },
+        {},
+        (err, team) => {
+          if (err) {
+            reject(err);
+          } else if (!team) {
+            reject('INVALID_TEAM');
+          } else {
+            resolve(true);
+          }
+        },
+      );
+    });
+  },
+  async viewRecentTransactions() {
+    return new Promise((resolve, reject) => {
+      ScuntTeamModel.aggregate([
+        { $project: { transactions: 1, number: 1 } },
+        { $unwind: { path: 'transactions' } },
+        { $sort: { createdAt: -1 } },
+        { $limit: 50 },
+      ]).exec((err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
         }
       });
     });

@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import PropTypes from 'prop-types';
 import './ScuntMissionsList.scss';
 import { Header } from '../../components/text/Header/Header';
-import { list } from '../ScuntJudgeForm/scuntTempData';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { ScuntMissionEntry } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { QRNormal } from 'react-qrbtf';
@@ -13,7 +11,6 @@ import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { loggedInSelector, registeredSelector, userSelector } from '../../state/user/userSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
-import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { getScuntMissions } from '../../state/scuntMissions/saga';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
@@ -90,6 +87,10 @@ const PageScuntMissionsListShow = () => {
     setMission(undefined);
     getMissionSearchName('');
   }, [selectedCategory, selectedSort]);
+
+  useEffect(() => {
+    setSearchedMissions(missions);
+  }, [missions]);
 
   useEffect(() => {
     getMissionStatus(mission, user?.scuntTeam);
