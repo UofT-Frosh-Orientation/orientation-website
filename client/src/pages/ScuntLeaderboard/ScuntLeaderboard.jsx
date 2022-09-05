@@ -66,6 +66,7 @@ const ScuntLeaderboard = () => {
       socket.emit('getScores');
     });
     socket.on('scores', (scores) => {
+      console.log('Scores', scores);
       setLeaderboard(
         scores.map((team) => {
           if (team.points < 0) {

@@ -15,6 +15,7 @@ const ScuntGameSettingsController = {
 
   async setGameSettings(req, res, next) {
     try {
+      console.log(req.body);
       const {
         name,
         amountOfTeams,
@@ -29,7 +30,7 @@ const ScuntGameSettingsController = {
         revealMissions,
         allowJudging,
       } = req.body;
-      await ScuntGameSettingsServices.setGameSettings(
+      const newSettings = await ScuntGameSettingsServices.setGameSettings(
         name,
         amountOfTeams,
         amountOfStarterBribePoints,
@@ -43,10 +44,9 @@ const ScuntGameSettingsController = {
         revealMissions,
         allowJudging,
       );
-      const gameSettings = await ScuntGameSettingsServices.getGameSettings();
       return res.status(200).send({
         message: 'Successfully updated Scunt game settings',
-        settings: gameSettings.map((u) => u.getResponseObject()),
+        settings: [newSettings],
       });
     } catch (e) {
       next(e);
