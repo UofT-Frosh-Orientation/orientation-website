@@ -371,6 +371,19 @@ const ScuntTeamServices = {
       });
     });
   },
+  async setTeamName(teamNumber, rename) {
+    return new Promise((resolve, reject) => {
+      ScuntTeamModel.findOneAndUpdate({ number: teamNumber }, { name: rename }, (err, team) => {
+        if (err) {
+          reject(err);
+        } else if (!team) {
+          reject('INVALID_TEAM_NUMBER');
+        } else {
+          resolve({ team });
+        }
+      });
+    });
+  },
 };
 
 module.exports = ScuntTeamServices;

@@ -435,6 +435,16 @@ const RenameTeams = () => {
     }
   };
 
+  const renameScuntTeams = async () => {
+    try {
+      await axios.put('/scunt-teams/rename-teams', {
+        teamObjs: teamObjs,
+      });
+    } catch (e) {
+      setTeamObjs(['Error loading teams']);
+    }
+  };
+
   useEffect(() => {
     getScuntTeams();
   }, []);
@@ -461,7 +471,7 @@ const RenameTeams = () => {
       <Button
         label={'Rename Teams'}
         onClick={() => {
-          //Rename teams here
+          renameScuntTeams();
           console.log(teamObjs);
         }}
       />

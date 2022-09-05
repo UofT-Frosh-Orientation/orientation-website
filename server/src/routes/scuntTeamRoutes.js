@@ -187,4 +187,11 @@ router.post(
   ScuntTeamController.intializeTeams,
 );
 
+router.put(
+  '/rename-teams',
+  checkLoggedIn,
+  hasAuthScopes(['scunt:exec rename scunt teams']),
+  ScuntTeamController.renameScuntTeams,
+);
+
 module.exports = router;
