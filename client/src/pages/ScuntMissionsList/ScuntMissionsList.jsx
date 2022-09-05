@@ -308,10 +308,10 @@ const PageScuntMissionsListShow = () => {
       ) : (
         <></>
       )}
-      {loggedIn && mission !== undefined ? (
+      {loggedIn && user?.scuntTeam && mission !== undefined ? (
         <div className="scunt-mission-qr-code">
           <QRNormal
-            value={'Team 1' + '|' + mission?.number}
+            value={user?.scuntTeam + '|' + mission?.number}
             styles={{ svg: { width: '120%', margin: '-10%', zIndex: 0 } }}
             type="round"
             opacity={100}

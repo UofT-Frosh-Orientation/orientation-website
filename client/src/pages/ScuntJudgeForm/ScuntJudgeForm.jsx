@@ -28,6 +28,17 @@ export const getScuntTeamObjFromTeamName = (teamName, teamObjs) => {
   })[0];
 };
 
+export const getScuntTeamObjFromTeamNumber = (teamNumber, teamObjs) => {
+  if (!teamNumber || !teamObjs) {
+    return {};
+  }
+  console.log('TEAM NUMBER');
+  console.log(teamNumber);
+  return teamObjs.filter((teamObj) => {
+    return teamObj?.number === parseInt(teamNumber);
+  })[0];
+};
+
 export const PageScuntJudgeForm = () => {
   const { user } = useSelector(userSelector);
   const dispatch = useDispatch();
@@ -339,6 +350,7 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
   const { setSnackbar } = useContext(SnackbarContext);
 
   const getMissionStatus = async (mission, team) => {
+    if (!team || !mission) return 0;
     const response = await axios.post('/scunt-teams/transaction/check', {
       teamNumber: team?.number,
       missionNumber: mission?.number,
@@ -395,15 +407,12 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
               setAssignedMission(mission);
             }
           }
-          const team = data.split('|')[0];
-          if (team === undefined) {
-            setSnackbar('There was an error with the QR code', true);
-            return;
-          } else if (!teams.includes(team)) {
+          const teamNumber = data.split('|')[0];
+          if (teamNumber === undefined) {
             setSnackbar('There was an error with the QR code', true);
             return;
           }
-          setAssignedTeam(getScuntTeamObjFromTeamName(team, teamObjs));
+          setAssignedTeam(getScuntTeamObjFromTeamNumber(teamNumber, teamObjs));
           setHasQRScanned(true);
         }}
       />
@@ -465,7 +474,6 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
               onClick={() => {
                 setAssignedMission(mission);
                 setAssignedPoints(mission?.points);
-                window.scrollTo(0, 0);
               }}
             >
               <ScuntMissionEntry mission={mission} />
@@ -474,7 +482,7 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
         })
       )}
       {assignedMission !== undefined ? (
-        <div style={{ width: '100%', marginRight: '2px', marginTop: '20px' }}>
+        <div style={{ width: '100%', marginRight: '2px', marginTop: '10px' }}>
           <div
             style={{
               display: 'flex',
@@ -584,7 +592,6 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
                   missionNumber: assignedMission?.number,
                   points: assignedPoints,
                 });
-                window.scrollTo(0, 0);
                 setSnackbar(response?.data?.message);
                 setAssignedPoints(0);
                 setClearText(true);

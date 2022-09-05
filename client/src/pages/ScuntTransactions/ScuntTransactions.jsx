@@ -141,7 +141,7 @@ const ScuntTeamTransactions = ({ teamObj, showMostRecentOnly, refresh }) => {
       }
       const response = await axios.post('/scunt-teams/transactions', {
         teamNumber: teamObjPassed?.number,
-        showMostRecent: false,
+        showMostRecent: showMostRecentOnly,
       });
       const transactions = response?.data?.message?.transactions;
       setPointTransactions(transactions);
