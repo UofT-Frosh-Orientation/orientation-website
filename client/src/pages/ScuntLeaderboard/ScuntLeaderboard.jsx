@@ -125,7 +125,25 @@ const ScuntLeaderboard = () => {
 
 const ScuntLeaderboardShow = ({ leaderboard }) => {
   // const [leaderboard, setLeaderboard] = useState([]);
+
   const computedLeaderboard = useMemo(() => {
+    // alg to 'balance' points
+    for (let i = 0; i < leaderboard.length; i++) {
+      let tempPoints = 0;
+      for (let j = 0; j < leaderboard.length; j++) {
+        if (i !== j) {
+          tempPoints += 0.1 * leaderboard[j].points;
+        } else {
+          tempPoints += leaderboard[j].points;
+        }
+        //console.log(tempPoints);
+      }
+      leaderboard[i].points = Math.round(tempPoints);
+      //console.log(team.number, team.points);
+    }
+
+    console.log(leaderboard);
+
     const max = leaderboard.reduce((prev, curr) => {
       if (curr.points > prev) {
         return curr.points;
@@ -133,26 +151,11 @@ const ScuntLeaderboardShow = ({ leaderboard }) => {
       return prev;
     }, 0);
 
-    console.log(leaderboard);
-
     return leaderboard.map((team) => {
-      console.log('old', team);
-
-      for (let i = 0; i < leaderboard.length; i++) {
-        let tempPoints = 0;
-        for (let j = 0; j < leaderboard.length; j++) {
-          if (i !== j) {
-            tempPoints += 0.1 * leaderboard[j].points;
-          } else {
-            tempPoints += leaderboard[j].points;
-          }
-        }
-        team.points = tempPoints;
-      }
-
       const width = Math.round((team.points / max) * 100);
+      console.log(max);
       team.width = String(width) + '%';
-      console.log('new', team);
+      //console.log('new', team);
       return team;
     });
   }, [leaderboard]);
@@ -229,6 +232,8 @@ const ScuntLeaderboardDesktop = ({ arr }) => {
 };
 
 const ScuntLeaderboardMobile = ({ arr }) => {
+  arr.sort((a, b) => b.points - a.points);
+
   return (
     <>
       <div className="leaderboard-page-mobile">
@@ -406,7 +411,7 @@ ScuntLeaderboardBubble.propTypes = {
   points: PropTypes.number,
   rank: PropTypes.number,
   img: PropTypes.any,
-  barwidth: PropTypes.number,
+  barwidth: PropTypes.string,
   // key: PropTypes.string,
 };
 
