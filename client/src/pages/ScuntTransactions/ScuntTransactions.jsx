@@ -90,27 +90,13 @@ export const ScuntTransactions = () => {
             </div>
           </div>
           <div className="transactions-list">
-            {assignedTeam === 'All Teams' ? (
-              teams.map((team) => {
-                return (
-                  <>
-                    <ScuntTeamTransactions
-                      key={{ team }}
-                      teamObj={getScuntTeamObjFromTeamName(team, teamObjs)}
-                      showMostRecentOnly
-                      refresh={refresh}
-                    />
-                  </>
-                );
-              })
-            ) : (
-              <>
-                <ScuntTeamTransactions
-                  teamObj={getScuntTeamObjFromTeamName(assignedTeam, teamObjs)}
-                  refresh={refresh}
-                />
-              </>
-            )}
+            <>
+              <ScuntTeamTransactions
+                teamObj={getScuntTeamObjFromTeamName(assignedTeam, teamObjs)}
+                refresh={refresh}
+                showMostRecentOnly={assignedTeam === 'All Teams'}
+              />
+            </>
           </div>
         </div>
       </div>
@@ -121,7 +107,7 @@ export const ScuntTransactions = () => {
 const ScuntTeamTransactions = ({ teamObj, showMostRecentOnly, refresh }) => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
   const { setSnackbar } = useContext(SnackbarContext);
-
+  const [allTeamPointTransactions, setAllTeamPointTransactions] = useState();
   const [pointTransactions, setPointTransactions] = useState();
   const [teamDetails, setTeamDetails] = useState();
   const [deletedTransactionIDs, setDeletedTransactionIDs] = useState([]);
@@ -136,29 +122,33 @@ const ScuntTeamTransactions = ({ teamObj, showMostRecentOnly, refresh }) => {
 
   const getTeamTransactions = async (teamObjPassed) => {
     try {
-      if (!teamObjPassed) {
+      if (!teamObjPassed && !showMostRecentOnly) {
+        // showMostRecentOnly doesn't require a team
         throw 'Team not defined';
       }
       const response = await axios.post('/scunt-teams/transactions', {
         teamNumber: teamObjPassed?.number,
         showMostRecent: showMostRecentOnly,
       });
-      const transactions = response?.data?.message?.transactions;
-      setPointTransactions(transactions);
-      setTeamDetails(response?.data?.message);
+      if (!showMostRecentOnly) {
+        const transactions = response?.data?.transactions?.transactions;
+        setPointTransactions(transactions);
+        setTeamDetails(response?.data?.transactions);
+      } else {
+        const transactions = response?.data?.transactions;
+        setAllTeamPointTransactions(transactions);
+      }
     } catch (e) {
       return 0;
     }
   };
 
-  const deleteTransaction = async (pointTransaction) => {
+  const deleteTransaction = async (pointTransaction, teamNumber) => {
     try {
       const response = await axios.post('/scunt-teams/transaction/delete', {
-        teamNumber: teamObj?.number,
+        teamNumber: teamNumber ? teamNumber : teamObj?.number,
         id: pointTransaction?._id,
       });
-      console.log(response);
-      setSnackbar(response?.data?.message);
       setDeletedTransactionIDs([...deletedTransactionIDs, pointTransaction?._id]);
     } catch (e) {
       setSnackbar(
@@ -169,40 +159,76 @@ const ScuntTeamTransactions = ({ teamObj, showMostRecentOnly, refresh }) => {
   };
 
   if (!pointTransactions) return <></>;
-  return (
-    <>
-      <h2>
-        {teamDetails?.name}: {teamDetails?.points} points
-      </h2>
-      <div style={{ height: '10px' }}></div>
-      {pointTransactions.map((pointTransaction, index) => {
-        if (deletedTransactionIDs?.includes(pointTransaction?._id)) return <></>;
-        return (
-          <div style={{ display: 'flex', alignItems: 'flex-start' }} key={pointTransaction?._id}>
-            <img
-              onClick={() => {
-                deleteTransaction(pointTransaction);
-              }}
-              src={DeleteIcon}
-              style={{
-                width: '25px',
-                height: '25px',
-                marginRight: '10px',
-                filter: darkMode ? 'invert(1)' : 'invert(0.5)',
-                cursor: 'pointer',
-              }}
-            />
-            <div>
-              <p>
-                <b>{(index + 1).toString()}.</b> {pointTransaction?.name}:{' '}
-                {pointTransaction?.points} points
-              </p>
+  if (showMostRecentOnly)
+    return (
+      <>
+        {allTeamPointTransactions.map((pointTransaction, index) => {
+          if (deletedTransactionIDs?.includes(pointTransaction?.transactions?._id)) return <></>;
+          return (
+            <div
+              style={{ display: 'flex', alignItems: 'flex-start' }}
+              key={pointTransaction?.transactions?._id}
+            >
+              <img
+                onClick={() => {
+                  deleteTransaction(pointTransaction?.transactions, pointTransaction?.number);
+                }}
+                src={DeleteIcon}
+                style={{
+                  width: '25px',
+                  height: '25px',
+                  marginRight: '10px',
+                  filter: darkMode ? 'invert(1)' : 'invert(0.5)',
+                  cursor: 'pointer',
+                }}
+              />
+              <div>
+                <p>
+                  <b>{(index + 1).toString()}.</b> {pointTransaction?.name}:{' '}
+                  {pointTransaction?.transactions?.points} points
+                </p>
+                <p style={{ marginLeft: '25px' }}>{pointTransaction?.transactions?.name}</p>
+              </div>
             </div>
-          </div>
-        );
-      })}
-    </>
-  );
+          );
+        })}
+      </>
+    );
+  if (!showMostRecentOnly)
+    return (
+      <>
+        <h2>
+          {teamDetails?.name}: {teamDetails?.points} points
+        </h2>
+        <div style={{ height: '10px' }}></div>
+        {pointTransactions.map((pointTransaction, index) => {
+          if (deletedTransactionIDs?.includes(pointTransaction?._id)) return <></>;
+          return (
+            <div style={{ display: 'flex', alignItems: 'flex-start' }} key={pointTransaction?._id}>
+              <img
+                onClick={() => {
+                  deleteTransaction(pointTransaction);
+                }}
+                src={DeleteIcon}
+                style={{
+                  width: '25px',
+                  height: '25px',
+                  marginRight: '10px',
+                  filter: darkMode ? 'invert(1)' : 'invert(0.5)',
+                  cursor: 'pointer',
+                }}
+              />
+              <div>
+                <p>
+                  <b>{(index + 1).toString()}.</b> {pointTransaction?.name}:{' '}
+                  {pointTransaction?.points} points
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </>
+    );
 };
 
 ScuntTeamTransactions.propTypes = {
