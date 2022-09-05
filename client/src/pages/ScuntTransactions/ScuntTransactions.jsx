@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './ScuntTransactions.scss';
 import useAxios from '../../hooks/useAxios';
@@ -6,6 +6,9 @@ import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import { getScuntTeamObjFromTeamName } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Button } from '../../components/button/Button/Button';
 const { axios } = useAxios();
+import DeleteIcon from '../../assets/misc/circle-xmark-solid.svg';
+import { DarkModeContext } from '../../util/DarkModeProvider';
+import { SnackbarContext } from '../../util/SnackbarProvider';
 
 export const ScuntTransactions = () => {
   const [assignedTeam, setAssignedTeam] = useState('');
@@ -27,14 +30,16 @@ export const ScuntTransactions = () => {
         ]);
       }
     } catch (e) {
-      console.log(e.toString());
+      return 0;
     }
   };
 
   useEffect(() => {
     if (refresh) {
       getScuntTeams();
-      setRefresh(false);
+      setTimeout(() => {
+        setRefresh(false);
+      }, 5000);
     }
   }, [refresh]);
 
@@ -47,7 +52,6 @@ export const ScuntTransactions = () => {
           <div className="separator" />
           <p>Transactions of all points that have been distributed to teams</p>
           <p>When displaying all teams, only the latest 50 transactions are shown</p>
-
           <div className="separator" />
           <div
             style={{
@@ -81,6 +85,7 @@ export const ScuntTransactions = () => {
                 onClick={() => {
                   setRefresh(true);
                 }}
+                isDisabled={refresh}
               />
             </div>
           </div>
@@ -92,6 +97,8 @@ export const ScuntTransactions = () => {
                     <ScuntTeamTransactions
                       key={{ team }}
                       teamObj={getScuntTeamObjFromTeamName(team, teamObjs)}
+                      showMostRecentOnly
+                      refresh={refresh}
                     />
                   </>
                 );
@@ -100,6 +107,7 @@ export const ScuntTransactions = () => {
               <>
                 <ScuntTeamTransactions
                   teamObj={getScuntTeamObjFromTeamName(assignedTeam, teamObjs)}
+                  refresh={refresh}
                 />
               </>
             )}
@@ -110,13 +118,21 @@ export const ScuntTransactions = () => {
   );
 };
 
-const ScuntTeamTransactions = ({ teamObj }) => {
+const ScuntTeamTransactions = ({ teamObj, showMostRecentOnly, refresh }) => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { setSnackbar } = useContext(SnackbarContext);
+
   const [pointTransactions, setPointTransactions] = useState();
   const [teamDetails, setTeamDetails] = useState();
+  const [deletedTransactionIDs, setDeletedTransactionIDs] = useState([]);
 
   useEffect(() => {
     getTeamTransactions(teamObj);
   }, [teamObj]);
+
+  useEffect(() => {
+    setDeletedTransactionIDs([]);
+  }, [refresh]);
 
   const getTeamTransactions = async (teamObjPassed) => {
     try {
@@ -125,12 +141,30 @@ const ScuntTeamTransactions = ({ teamObj }) => {
       }
       const response = await axios.post('/scunt-teams/transactions', {
         teamNumber: teamObjPassed?.number,
+        showMostRecent: false,
       });
       const transactions = response?.data?.message?.transactions;
       setPointTransactions(transactions);
       setTeamDetails(response?.data?.message);
     } catch (e) {
-      console.log(e.toString());
+      return 0;
+    }
+  };
+
+  const deleteTransaction = async (pointTransaction) => {
+    try {
+      const response = await axios.post('/scunt-teams/transaction/delete', {
+        teamNumber: teamObj?.number,
+        id: pointTransaction?._id,
+      });
+      console.log(response);
+      setSnackbar(response?.data?.message);
+      setDeletedTransactionIDs([...deletedTransactionIDs, pointTransaction?._id]);
+    } catch (e) {
+      setSnackbar(
+        'Could not remove transaction. Ensure you have the proper permissions and try again later.',
+        true,
+      );
     }
   };
 
@@ -142,12 +176,28 @@ const ScuntTeamTransactions = ({ teamObj }) => {
       </h2>
       <div style={{ height: '10px' }}></div>
       {pointTransactions.map((pointTransaction, index) => {
+        if (deletedTransactionIDs?.includes(pointTransaction?._id)) return <></>;
         return (
-          <div key={index.toString()}>
-            <p>
-              <b>{(index + 1).toString()}.</b> {pointTransaction?.name}: {pointTransaction?.points}{' '}
-              points
-            </p>
+          <div style={{ display: 'flex', alignItems: 'flex-start' }} key={pointTransaction?._id}>
+            <img
+              onClick={() => {
+                deleteTransaction(pointTransaction);
+              }}
+              src={DeleteIcon}
+              style={{
+                width: '25px',
+                height: '25px',
+                marginRight: '10px',
+                filter: darkMode ? 'invert(1)' : 'invert(0.5)',
+                cursor: 'pointer',
+              }}
+            />
+            <div>
+              <p>
+                <b>{(index + 1).toString()}.</b> {pointTransaction?.name}:{' '}
+                {pointTransaction?.points} points
+              </p>
+            </div>
           </div>
         );
       })}
@@ -157,4 +207,6 @@ const ScuntTeamTransactions = ({ teamObj }) => {
 
 ScuntTeamTransactions.propTypes = {
   teamObj: PropTypes.object,
+  showMostRecentOnly: PropTypes.bool,
+  refresh: PropTypes.bool,
 };
