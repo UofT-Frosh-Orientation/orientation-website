@@ -46,6 +46,12 @@ const FroshController = {
     const updateInfo = req.body;
 
     try {
+      // Protect these fields when a frosh edits their info (just remove it if it exists in the request)
+      delete updateInfo['isRegistered'];
+      delete updateInfo['isRetreat'];
+      delete updateInfo['froshGroupIcon'];
+      delete updateInfo['froshGroup'];
+      delete updateInfo['scuntTeam'];
       const frosh = await FroshServices.updateFroshInfo(userId, updateInfo);
       return res.status(200).send({
         message: 'Successfully updated Frosh information!',
