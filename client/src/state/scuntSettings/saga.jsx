@@ -68,6 +68,7 @@ export function* setGameSettingsSaga({
     setSnackbar('Scunt Settings Updated!');
     yield put(setScuntSettingsSuccess(result.data.settings));
   } catch (error) {
+    console.log(error);
     setSnackbar(
       error.response?.data?.message
         ? error.response?.data?.message.toString()

@@ -1,41 +1,51 @@
 /* eslint-disable no-unused-vars */
 
 const ScuntGameSettingModel = require('../models/ScuntGameSettingsModel');
+const ScuntSettingsSubscription = require('../subscribers/scuntGameSettingsSubscription');
 
 const ScuntGameSettingsServices = {
   // default scunt settings set in loaders > mongoLoader.js
   async initScuntGameSettings(settings) {
     console.log('init game settings');
     return new Promise((resolve, reject) => {
-      ScuntGameSettingModel.create(
-        {
-          $set: {
-            name: settings.name,
-            amountOfTeams: settings.amountOfTeams,
-            amountOfStarterBribePoints: settings.amountOfStarterBribePoints,
-            maxAmountPointsPercent: settings.maxAmountPointsPercent,
-            minAmountPointsPercent: settings.minAmountPointsPercent,
-            revealJudgesAndBribes: settings.revealJudgesAndBribes,
-            revealTeams: settings.revealTeams,
-            showDiscordLink: settings.showDiscordLink,
-            revealLeaderboard: settings.revealLeaderboard,
-            revealMissions: settings.revealMissions,
-            allowJudging: settings.allowJudging,
-            disordLink: settings.disordLink,
-          },
-        },
-        (err, result) => {
-          if (err) {
-            reject(err);
+      ScuntGameSettingModel.findOne({}, {}, {}, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          if (!result) {
+            ScuntGameSettingModel.create(
+              {
+                name: settings.name,
+                amountOfTeams: settings.amountOfTeams,
+                amountOfStarterBribePoints: settings.amountOfStarterBribePoints,
+                maxAmountPointsPercent: settings.maxAmountPointsPercent,
+                minAmountPointsPercent: settings.minAmountPointsPercent,
+                revealJudgesAndBribes: settings.revealJudgesAndBribes,
+                revealTeams: settings.revealTeams,
+                showDiscordLink: settings.showDiscordLink,
+                revealLeaderboard: settings.revealLeaderboard,
+                revealMissions: settings.revealMissions,
+                allowJudging: settings.allowJudging,
+                disordLink: settings.disordLink,
+              },
+              (err, newSettings) => {
+                if (err) {
+                  reject(err);
+                } else {
+                  resolve(newSettings);
+                }
+              },
+            );
           } else {
             resolve(result);
           }
-        },
-      );
+        }
+      });
     });
   },
 
   async getGameSettings() {
+    console.log('Getting game settings!');
     return new Promise((resolve, reject) => {
       ScuntGameSettingModel.find({}, (err, settings) => {
         if (err) {
@@ -64,7 +74,7 @@ const ScuntGameSettingsServices = {
     allowJudging,
   ) {
     return new Promise((resolve, reject) => {
-      ScuntGameSettingModel.updateMany(
+      ScuntGameSettingModel.findOneAndUpdate(
         {},
         {
           $set: {
@@ -82,12 +92,15 @@ const ScuntGameSettingsServices = {
             allowJudging,
           },
         },
+        { returnDocument: 'after' },
         function (err, settings) {
           if (err) {
             reject(err);
-          } else if (!settings || settings === []) {
+          } else if (!settings) {
             reject('ERROR');
           } else {
+            console.log('Updated settings!');
+            ScuntSettingsSubscription.add(settings);
             resolve(settings);
           }
         },

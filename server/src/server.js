@@ -10,8 +10,9 @@ const swaggerLoader = require('./loaders/swaggerLoader');
 
 const ScuntLeaderboardSocketManger = require('./websockets/ScuntLeaderboardSocketManager');
 const LeaderboardSubscription = require('./subscribers/leaderboardSubscriber');
+const SettingsSubscription = require('./subscribers/scuntGameSettingsSubscription');
 
-mongoLoader(app).then(() => {
+mongoLoader(app).then(async () => {
   const server = http.createServer(app);
   const io = new Server(server, {
     cors: { origin: '*', methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] },
@@ -23,7 +24,10 @@ mongoLoader(app).then(() => {
 
   const scuntLeaderboardManager = new ScuntLeaderboardSocketManger(io.of('/leaderboard'));
 
-  scuntLeaderboardManager.listen(LeaderboardSubscription);
+  await scuntLeaderboardManager.initSettings();
+
+  scuntLeaderboardManager.listenToScores(LeaderboardSubscription);
+  scuntLeaderboardManager.listenToSettings(SettingsSubscription);
 
   server.listen(process.env.PORT || 5001, () => {
     console.log(`Server is running on port: http://localhost:5001`);
