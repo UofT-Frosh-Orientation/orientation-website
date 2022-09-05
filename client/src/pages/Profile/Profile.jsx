@@ -417,7 +417,9 @@ const ProfilePageQRScanner = () => {
             <h3>Current Scanned Data</h3>
             <div style={{ height: '7px' }} />
             <b>{'Email: '}</b>
-            {scannedData?.email?.toString()}
+            {scannedData?.includes('|')
+              ? scannedData?.split('|')[0]?.toString()
+              : scannedData?.email?.toString()}
           </div>
         )}
       </div>
