@@ -124,6 +124,20 @@ const ScuntTeamController = {
       next(e);
     }
   },
+
+  async renameScuntTeams(req, res, next) {
+    const teamObjs = req.body.teamObjs;
+    try {
+      teamObjs.map(
+        async (teamObj, index) =>
+          await ScuntTeamServices.setTeamName(teamObjs[index]['number'], teamObjs[index]['name']),
+      );
+      console.log('Successfully renamed scunt teams!');
+      res.status(200).send({ message: `Successfully renamed scunt teams!` });
+    } catch (e) {
+      next(e);
+    }
+  },
 };
 
 module.exports = ScuntTeamController;
