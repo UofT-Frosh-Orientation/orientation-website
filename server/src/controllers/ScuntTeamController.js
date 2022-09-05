@@ -1,6 +1,21 @@
 const ScuntTeamServices = require('../services/ScuntTeamServices');
 
 const ScuntTeamController = {
+  async updateLeaderTeam(req, res, next) {
+    const userId = req.user.id;
+    const { teamNumber } = req.body;
+
+    try {
+      const leadur = await ScuntTeamServices.updateLeaderTeam(userId, teamNumber);
+      return res.status(200).send({
+        message: 'Successfully updated Scunt Team!',
+        user: leadur.getResponseObject(),
+      });
+    } catch (e) {
+      console.log(e);
+      next(e);
+    }
+  },
   async getTeamPoints(req, res, next) {
     try {
       const teamPoints = await ScuntTeamServices.getTeamPoints();

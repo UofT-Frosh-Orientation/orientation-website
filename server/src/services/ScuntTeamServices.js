@@ -8,6 +8,24 @@ const LeaderboardSubscription = require('../subscribers/leaderboardSubscriber');
 const mongoose = require('mongoose');
 
 const ScuntTeamServices = {
+  async updateLeaderTeam(userId, teamNumber) {
+    return new Promise((resolve, reject) => {
+      LeadurModel.findOneAndUpdate(
+        { _id: userId },
+        { scuntTeam: teamNumber },
+        { returnDocument: 'after' },
+        (err, Leadur) => {
+          if (err || !Leadur) {
+            reject('UNABLE_TO_UPDATE_LEADER');
+          } else {
+            console.log(Leadur);
+            resolve(Leadur);
+          }
+        },
+      );
+    });
+  },
+
   async getTeamPoints() {
     //Get amount of teams (Scunt Game Settings) and points for each team
     //Add up and calculate all tranactions for each team

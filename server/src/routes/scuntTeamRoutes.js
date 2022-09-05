@@ -1,6 +1,7 @@
 const express = require('express');
 const checkLoggedIn = require('../middlewares/checkLoggedIn');
 const hasAuthScopes = require('../middlewares/hasAuthScopes');
+const checkUserType = require('../middlewares/checkUserType');
 
 const ScuntTeamController = require('../controllers/ScuntTeamController');
 
@@ -10,6 +11,13 @@ const router = express.Router();
 // or /scunt-teams/judges (The above isn't returning correct information for some reason)
 
 router.get('/', ScuntTeamController.getTeamPoints);
+
+router.post(
+  '/update-team',
+  checkLoggedIn,
+  checkUserType('leadur'),
+  ScuntTeamController.updateLeaderTeam,
+);
 
 /**
  * @swagger

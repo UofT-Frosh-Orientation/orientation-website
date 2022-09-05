@@ -107,6 +107,7 @@ const ProfilePageScuntTeamSelectionLeader = () => {
   const [teams, setTeams] = useState([]);
   const [teamObjs, setTeamObjs] = useState();
   const [selectedScuntTeamNumber, setSelectedScuntTeamNumber] = useState();
+  const { user } = useSelector(userSelector);
 
   const getScuntTeams = async () => {
     try {
@@ -131,8 +132,9 @@ const ProfilePageScuntTeamSelectionLeader = () => {
     getScuntTeams();
   }, []);
 
-  const changeScuntTeam = (teamNumber) => {
-    setSnackbar('Your team has been changed successfully. The page will refresh in 2 seconds.');
+  const changeScuntTeam = async (teamNumber) => {
+    const result = await axios.post('/scunt-teams/update-team', { teamNumber: teamNumber });
+    setSnackbar(result?.data?.message + ' The page will refresh in 2 seconds.');
     setTimeout(() => {
       window.location.reload();
     }, 2000);
@@ -143,6 +145,7 @@ const ProfilePageScuntTeamSelectionLeader = () => {
       <div className="profile-page-side-section" style={{ marginTop: '20px', textAlign: 'center' }}>
         <h2>Scunt Team</h2>
         <RadioButtons
+          initialSelectedIndex={user?.scuntTeam - 1}
           values={teams}
           onSelected={(value) => {
             setSelectedScuntTeamNumber(getScuntTeamObjFromTeamName(value, teamObjs)?.number);
