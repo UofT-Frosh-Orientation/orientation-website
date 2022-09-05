@@ -109,6 +109,9 @@ const AboutScunt = () => {
             <ProfilePageScuntToken />
           </div>
           <div dangerouslySetInnerHTML={{ __html: aboutScunt }} />
+          <h4>
+            Check the <Link to={'/scunt-rules'}> Rules </Link> for more information
+          </h4>
         </div>
       </div>
       {darkMode ? (
@@ -164,23 +167,31 @@ const ScuntCountdown = () => {
     return [days, hours, minutes, seconds];
   };
 
+  const checkNaN = (value) => {
+    if (isNaN(value)) {
+      return 0;
+    } else {
+      return value;
+    }
+  };
+
   return (
     <div className="scunt-countdown-wrap">
       <div className="scunt-countdown">
         <div className="scunt-countdown-number">
-          <h1>{getDateValues(countDown)[0]}</h1>
+          <h1>{checkNaN(getDateValues(countDown)[0])}</h1>
           <h3>days</h3>
         </div>
         <div className="scunt-countdown-number">
-          <h1>{getDateValues(countDown)[1]}</h1>
+          <h1>{checkNaN(getDateValues(countDown)[1])}</h1>
           <h3>hours</h3>
         </div>
         <div className="scunt-countdown-number">
-          <h1>{getDateValues(countDown)[2]}</h1>
+          <h1>{checkNaN(getDateValues(countDown)[2])}</h1>
           <h3>minutes</h3>
         </div>
         <div className="scunt-countdown-number">
-          <h1>{getDateValues(countDown)[3]}</h1>
+          <h1>{checkNaN(getDateValues(countDown)[3])}</h1>
           <h3>seconds</h3>
         </div>
       </div>

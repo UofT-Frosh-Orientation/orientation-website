@@ -101,7 +101,7 @@ const ScuntGameSettings = () => {
   const initialSettings = {
     name: 'Scunt2T2 Settings',
     amountOfTeams: 10,
-    amountOfStarterBribePoints: 10000,
+    amountOfStarterBribePoints: 2500,
     maxAmountPointsPercent: 0.3,
     minAmountPointsPercent: 0.3,
     revealJudgesAndBribes: true,

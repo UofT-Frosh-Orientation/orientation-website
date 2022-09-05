@@ -50,6 +50,7 @@ import { froshSelector, registeredFroshSelector } from '../../state/frosh/froshS
 import { completedAnnouncementsSelector } from '../../state/announcements/announcementsSlice';
 import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHome/ScheduleHome';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
+import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 
 const PageProfile = () => {
   return <PageProfileFrosh />;
@@ -189,10 +190,7 @@ export const ProfilePageRetreat = () => {
 };
 
 export const ProfilePageScuntToken = () => {
-  if (okayToInviteToScunt === false) {
-    return <div />;
-  }
-
+  const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { user } = useSelector(userSelector);
   const isRegistered = useSelector(registeredSelector);
   const { setSnackbar } = useContext(SnackbarContext);
@@ -201,6 +199,9 @@ export const ProfilePageScuntToken = () => {
   const code = user?.scuntToken;
   if (code === undefined || !isRegistered) {
     return <></>;
+  }
+  if (!scuntSettings || scuntSettings.length <= 0 || scuntSettings[0]?.revealTeams === false) {
+    return <div />;
   }
   if (!user?.scunt) {
     return (
