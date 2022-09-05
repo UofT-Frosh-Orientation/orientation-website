@@ -437,11 +437,12 @@ const RenameTeams = () => {
 
   const renameScuntTeams = async () => {
     try {
-      await axios.put('/scunt-teams/rename-teams', {
+      const result = await axios.put('/scunt-teams/rename-teams', {
         teamObjs: teamObjs,
       });
+      setSnackbar(result?.data?.message);
     } catch (e) {
-      setTeamObjs(['Error loading teams']);
+      setSnackbar(e.toString(), true);
     }
   };
 
@@ -472,7 +473,6 @@ const RenameTeams = () => {
         label={'Rename Teams'}
         onClick={() => {
           renameScuntTeams();
-          console.log(teamObjs);
         }}
       />
     </div>

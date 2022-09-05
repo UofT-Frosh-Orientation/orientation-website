@@ -32,8 +32,6 @@ export const getScuntTeamObjFromTeamNumber = (teamNumber, teamObjs) => {
   if (!teamNumber || !teamObjs) {
     return {};
   }
-  console.log('TEAM NUMBER');
-  console.log(teamNumber);
   return teamObjs.filter((teamObj) => {
     return teamObj?.number === parseInt(teamNumber);
   })[0];

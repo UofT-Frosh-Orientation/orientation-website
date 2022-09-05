@@ -52,7 +52,10 @@ import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHo
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
-import { getScuntTeamObjFromTeamName } from '../ScuntJudgeForm/ScuntJudgeForm';
+import {
+  getScuntTeamObjFromTeamName,
+  getScuntTeamObjFromTeamNumber,
+} from '../ScuntJudgeForm/ScuntJudgeForm';
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
 
@@ -64,6 +67,32 @@ const PageProfileFrosh = () => {
   const { user } = useSelector(userSelector);
   const leader = user?.userType === 'leadur';
   const qrCodeLeader = user?.authScopes?.approved.includes('signInFrosh:qr-code registration');
+
+  const [scuntTeams, setScuntTeams] = useState([]);
+  const [scuntTeamObjs, setScuntTeamObjs] = useState();
+
+  const getScuntTeams = async () => {
+    try {
+      const response = await axios.get('/scunt-teams');
+      const { teamPoints } = response.data;
+      if (teamPoints.length <= 0 || !teamPoints) setScuntTeams([]);
+      else {
+        setScuntTeamObjs(teamPoints);
+        setScuntTeams(
+          teamPoints.map((team) => {
+            return team?.name;
+          }),
+        );
+      }
+    } catch (e) {
+      console.log(e.toString());
+      setScuntTeams(['Error loading teams']);
+    }
+  };
+
+  useEffect(() => {
+    getScuntTeams();
+  }, []);
 
   return (
     <>
@@ -93,44 +122,26 @@ const PageProfileFrosh = () => {
           ) : (
             <></>
           )}
-          <ProfilePageScuntToken />
+          <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
           <ProfilePageResources />
-          {leader ? <ProfilePageScuntTeamSelectionLeader /> : <></>}
+          {leader ? (
+            <ProfilePageScuntTeamSelectionLeader
+              scuntTeamObjs={scuntTeamObjs}
+              scuntTeams={scuntTeams}
+            />
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </>
   );
 };
 
-const ProfilePageScuntTeamSelectionLeader = () => {
+const ProfilePageScuntTeamSelectionLeader = ({ scuntTeams, scuntTeamObjs }) => {
   const { setSnackbar } = useContext(SnackbarContext);
-  const [teams, setTeams] = useState([]);
-  const [teamObjs, setTeamObjs] = useState();
   const [selectedScuntTeamNumber, setSelectedScuntTeamNumber] = useState();
   const { user } = useSelector(userSelector);
-
-  const getScuntTeams = async () => {
-    try {
-      const response = await axios.get('/scunt-teams');
-      const { teamPoints } = response.data;
-      if (teamPoints.length <= 0 || !teamPoints) setTeams([]);
-      else {
-        setTeamObjs(teamPoints);
-        setTeams(
-          teamPoints.map((team) => {
-            return team?.name;
-          }),
-        );
-      }
-    } catch (e) {
-      console.log(e.toString());
-      setTeams(['Error loading teams']);
-    }
-  };
-
-  useEffect(() => {
-    getScuntTeams();
-  }, []);
 
   const changeScuntTeam = async (teamNumber) => {
     const result = await axios.post('/scunt-teams/update-team', { teamNumber: teamNumber });
@@ -143,12 +154,13 @@ const ProfilePageScuntTeamSelectionLeader = () => {
   return (
     <>
       <div className="profile-page-side-section" style={{ marginTop: '20px', textAlign: 'center' }}>
+        <div style={{ height: '10px' }} />
         <h2>Scunt Team</h2>
         <RadioButtons
           initialSelectedIndex={user?.scuntTeam - 1}
-          values={teams}
+          values={scuntTeams}
           onSelected={(value) => {
-            setSelectedScuntTeamNumber(getScuntTeamObjFromTeamName(value, teamObjs)?.number);
+            setSelectedScuntTeamNumber(getScuntTeamObjFromTeamName(value, scuntTeamObjs)?.number);
           }}
         />
         <Button
@@ -160,6 +172,11 @@ const ProfilePageScuntTeamSelectionLeader = () => {
       </div>
     </>
   );
+};
+
+ProfilePageScuntTeamSelectionLeader.propTypes = {
+  scuntTeams: PropTypes.array,
+  scuntTeamObjs: PropTypes.array,
 };
 
 export const ProfilePageRetreat = () => {
@@ -254,7 +271,7 @@ export const ProfilePageRetreat = () => {
   );
 };
 
-export const ProfilePageScuntToken = () => {
+export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { user } = useSelector(userSelector);
   const leader = user?.userType === 'leadur';
@@ -291,7 +308,10 @@ export const ProfilePageScuntToken = () => {
   }
   return (
     <div className="profile-page-scunt-token profile-page-side-section">
-      <h2>Scunt Team: {user?.scuntTeam ? user?.scuntTeam.toString() : '‽'}</h2>
+      <h2>{getScuntTeamObjFromTeamNumber(user?.scuntTeam, scuntTeamObjs)?.name}</h2>
+      <i>
+        <h4>Team {user?.scuntTeam ? user?.scuntTeam.toString() : '‽'}</h4>
+      </i>
       <h3
         style={{ filter: showToken ? '' : 'blur(10px)' }}
         onClick={() => {
@@ -317,6 +337,11 @@ export const ProfilePageScuntToken = () => {
       />
     </div>
   );
+};
+
+ProfilePageScuntToken.propTypes = {
+  scuntTeams: PropTypes.array,
+  scuntTeamObjs: PropTypes.array,
 };
 
 const ProfilePageLeaderPermissionDashboardLinks = () => {
