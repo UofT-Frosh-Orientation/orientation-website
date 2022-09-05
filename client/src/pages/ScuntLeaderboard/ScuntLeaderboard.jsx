@@ -131,9 +131,27 @@ const ScuntLeaderboardShow = ({ leaderboard }) => {
       }
       return prev;
     }, 0);
+
+    console.log(leaderboard);
+
     return leaderboard.map((team) => {
+      console.log('old', team);
+
+      for (let i = 0; i < leaderboard.length; i++) {
+        let tempPoints = 0;
+        for (let j = 0; j < leaderboard.length; j++) {
+          if (i !== j) {
+            tempPoints += 0.1 * leaderboard[j].points;
+          } else {
+            tempPoints += leaderboard[j].points;
+          }
+        }
+        team.points = tempPoints;
+      }
+
       const width = Math.round((team.points / max) * 100);
       team.width = String(width) + '%';
+      console.log('new', team);
       return team;
     });
   }, [leaderboard]);
