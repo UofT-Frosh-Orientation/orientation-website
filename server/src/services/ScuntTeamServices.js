@@ -201,21 +201,17 @@ const ScuntTeamServices = {
   },
 
   async viewTransactions(teamNumber) {
+    console.log(teamNumber);
     return new Promise((resolve, reject) => {
-      ScuntTeamModel.findOne(
-        { number: teamNumber },
-        { name: 1, number: 1, points: 1, transactions: 1 },
-        {},
-        (err, teams) => {
-          if (err) {
-            reject(err);
-          } else if (!teams) {
-            reject('UNABLE_TO_GET_TEAM_INFO');
-          } else {
-            resolve(teams);
-          }
-        },
-      );
+      ScuntTeamModel.findOne({ number: teamNumber }, {}, {}, (err, teams) => {
+        if (err) {
+          reject(err);
+        } else if (!teams) {
+          reject('UNABLE_TO_GET_TEAM_INFO');
+        } else {
+          resolve(teams);
+        }
+      });
     });
   },
 
@@ -362,8 +358,8 @@ const ScuntTeamServices = {
   async viewRecentTransactions() {
     return new Promise((resolve, reject) => {
       ScuntTeamModel.aggregate([
-        { $project: { transactions: 1, number: 1 } },
-        { $unwind: { path: 'transactions' } },
+        { $project: { transactions: 1, number: 1, name: 1 } },
+        { $unwind: { path: '$transactions' } },
         { $sort: { createdAt: -1 } },
         { $limit: 50 },
       ]).exec((err, result) => {
