@@ -375,6 +375,7 @@ export const fields = {
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       localStorageKey: 'registration-scunt',
+      noEdit: true,
     },
     summerLocation: {
       type: 'radio',
