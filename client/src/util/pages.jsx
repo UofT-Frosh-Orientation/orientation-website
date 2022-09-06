@@ -62,15 +62,6 @@ export const pages = {
       includeFooter: false,
     },
     {
-      label: 'Register',
-      component: (
-        <AuthorizedPage>
-          <PageRegistrationForm />
-        </AuthorizedPage>
-      ),
-      path: '/registration',
-    },
-    {
       label: 'Profile',
       component: (
         <AuthorizedPage>
@@ -129,9 +120,22 @@ export const pages = {
     {
       label: 'Registration',
       component: (
-        <AuthorizedPage>
-          <PageRegistrationForm />
-        </AuthorizedPage>
+        // <AuthorizedPage>
+        //   <PageRegistrationForm />
+        // </AuthorizedPage>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            height: '100vh',
+            width: '100%',
+            color: 'var(--text-dynamic)',
+          }}
+        >
+          <h1>Sorry, you can no longer signup for Frosh events.</h1>
+        </div>
       ),
       path: '/registration',
       includeFooter: true,
