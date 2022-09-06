@@ -127,37 +127,39 @@ const ScuntLeaderboardShow = ({ leaderboard }) => {
   // const [leaderboard, setLeaderboard] = useState([]);
 
   const computedLeaderboard = useMemo(() => {
-    // alg to 'balance' points
-    for (let i = 0; i < leaderboard.length; i++) {
-      let tempPoints = 0;
-      for (let j = 0; j < leaderboard.length; j++) {
-        if (i !== j) {
-          tempPoints += 0.1 * leaderboard[j].points;
-        } else {
-          tempPoints += leaderboard[j].points;
+    const { max, sum } = leaderboard.reduce(
+      (prev, curr) => {
+        if (curr.points > prev.max) {
+          prev.max = curr.points;
         }
-        //console.log(tempPoints);
+        prev.sum += curr.points;
+        return prev;
+      },
+      { max: 0, sum: 0 },
+    );
+
+    const mean = sum / (leaderboard.length - 5);
+
+    console.log(mean, max, sum);
+
+    const result = leaderboard.map((team) => {
+      console.log(team);
+      if (team.points < mean) {
+        console.log('Updating team points');
+        team.computedPoints = Math.round(
+          Math.min(team.points + mean, max - mean / leaderboard.length),
+        );
+      } else {
+        team.computedPoints = team.points;
       }
-      leaderboard[i].points = Math.round(tempPoints);
-      //console.log(team.number, team.points);
-    }
-
-    console.log(leaderboard);
-
-    const max = leaderboard.reduce((prev, curr) => {
-      if (curr.points > prev) {
-        return curr.points;
-      }
-      return prev;
-    }, 0);
-
-    return leaderboard.map((team) => {
-      const width = Math.round((team.points / max) * 100);
-      console.log(max);
+      const width = Math.round((team.computedPoints / max) * 100);
       team.width = String(width) + '%';
+      console.log(team);
       //console.log('new', team);
       return team;
     });
+    console.table(result);
+    return result;
   }, [leaderboard]);
   const handle = useFullScreenHandle();
 
@@ -198,7 +200,7 @@ const ScuntLeaderboardFullScreen = ({ arr }) => {
               key={key}
               name={item.name}
               number={item.number}
-              points={item.points}
+              points={item.computedPoints}
               barwidth={item.width}
             />
           );
@@ -209,6 +211,7 @@ const ScuntLeaderboardFullScreen = ({ arr }) => {
 };
 
 const ScuntLeaderboardDesktop = ({ arr }) => {
+  console.table(arr);
   return (
     <>
       <div className="leaderboard-page-desktop">
@@ -220,7 +223,7 @@ const ScuntLeaderboardDesktop = ({ arr }) => {
                 key={key}
                 name={item.name}
                 number={item.number}
-                points={item.points}
+                points={item.computedPoints}
                 barwidth={item.width}
               />
             );
@@ -232,7 +235,7 @@ const ScuntLeaderboardDesktop = ({ arr }) => {
 };
 
 const ScuntLeaderboardMobile = ({ arr }) => {
-  arr.sort((a, b) => b.points - a.points);
+  arr.sort((a, b) => b.computedPoints - a.computedPoints);
 
   return (
     <>
@@ -247,7 +250,7 @@ const ScuntLeaderboardMobile = ({ arr }) => {
                 key={key}
                 name={item.name}
                 number={item.number}
-                points={item.points}
+                points={item.computedPoints}
                 img={firstPlace}
                 barwidth={item.width}
               />
@@ -259,7 +262,7 @@ const ScuntLeaderboardMobile = ({ arr }) => {
                 key={key}
                 name={item.name}
                 number={item.number}
-                points={item.points}
+                points={item.computedPoints}
                 img={secondPlace}
                 barwidth={item.width}
               />
@@ -270,7 +273,7 @@ const ScuntLeaderboardMobile = ({ arr }) => {
                 key={key}
                 name={item.name}
                 number={item.number}
-                points={item.points}
+                points={item.computedPoints}
                 img={thirdPlace}
                 barwidth={item.width}
               />
@@ -282,7 +285,7 @@ const ScuntLeaderboardMobile = ({ arr }) => {
                 rank={rank}
                 name={item.name}
                 number={item.number}
-                points={item.points}
+                points={item.computedPoints}
                 barwidth={item.width}
               />
             );
