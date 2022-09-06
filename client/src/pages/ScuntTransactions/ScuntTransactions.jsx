@@ -158,8 +158,14 @@ const ScuntTeamTransactions = ({ teamObj, showMostRecentOnly, refresh }) => {
     }
   };
 
-  if (!pointTransactions) return <></>;
-  if (showMostRecentOnly)
+  if (
+    (!pointTransactions && !showMostRecentOnly) ||
+    (showMostRecentOnly && !allTeamPointTransactions)
+  ) {
+    return <></>;
+  }
+
+  if (showMostRecentOnly) {
     return (
       <>
         {allTeamPointTransactions.map((pointTransaction, index) => {
@@ -194,7 +200,8 @@ const ScuntTeamTransactions = ({ teamObj, showMostRecentOnly, refresh }) => {
         })}
       </>
     );
-  if (!showMostRecentOnly)
+  }
+  if (!showMostRecentOnly) {
     return (
       <>
         <h2>
@@ -229,6 +236,7 @@ const ScuntTeamTransactions = ({ teamObj, showMostRecentOnly, refresh }) => {
         })}
       </>
     );
+  }
 };
 
 ScuntTeamTransactions.propTypes = {
