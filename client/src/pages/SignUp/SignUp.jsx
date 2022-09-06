@@ -201,6 +201,17 @@ const PageSignUp = () => {
             <></>
           )}
           <div
+            style={{
+              color: 'var(--text-dynamic)',
+              textAlign: 'center',
+              fontSize: '15px',
+              width: '100%',
+              margin: '20px',
+            }}
+          >
+            <h2>You can no longer signup and register for Frosh events.</h2>
+          </div>
+          <div
             className="sign-up-button"
             onMouseOver={() => {
               checkErrors(true);
