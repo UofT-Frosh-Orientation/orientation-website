@@ -71,6 +71,7 @@ const ScuntCreateMissions = () => {
     category: '',
     points: '',
     isHidden: false,
+    isJudgingStation: false,
   };
 
   const { setSnackbar } = useContext(SnackbarContext); // use Snackbar to send messages --> successfull hidden/deleted, etc.
@@ -121,8 +122,7 @@ const ScuntCreateMissions = () => {
     } else {
       // display error message13
       // do not setSubmit to true
-      setSnackbar('Error', true);
-
+      setSnackbar('Error, the mission number probably already exsts!', true);
       setSubmit(true);
     }
   };
@@ -177,6 +177,12 @@ const ScuntCreateMissions = () => {
               values={['isHidden']}
               onSelected={(value, index, state, selectedIndices) => {
                 handleInput(state, 'isHidden');
+              }}
+            />
+            <Checkboxes
+              values={['isJudgingStation']}
+              onSelected={(value, index, state, selectedIndices) => {
+                handleInput(state, 'isJudgingStation');
               }}
             />
           </div>
@@ -381,7 +387,7 @@ const ScuntAllMissions = () => {
             isDisabled={false}
           />
         </div>
-        <div style={{ padding: 'auto', margin: '5px' }}>
+        <div style={{ padding: 'auto', marginTop: '15px' }}>
           <Button
             label="Submit"
             onClick={() => {
@@ -392,6 +398,7 @@ const ScuntAllMissions = () => {
           ></Button>
         </div>
       </div>
+      <div style={{ height: '20px' }} />
       <table className="all-accounts-table">
         <tbody>
           <tr className="all-accounts-table-header-row">
@@ -401,7 +408,8 @@ const ScuntAllMissions = () => {
             <th className="all-accounts-table-header-left-align">Name</th>
             <th className="all-accounts-table-header-left-align">Category</th>
             <th className="all-accounts-table-header">Points</th>
-            <th className="all-accounts-table-header">isHidden</th>
+            <th className="all-accounts-table-header">Hidden</th>
+            <th className="all-accounts-table-header">{'Judging \n Station'}</th>
             <th className="all-accounts-table-header">Delete</th>
           </tr>
           {missions.map((mission) => {
@@ -413,38 +421,38 @@ const ScuntAllMissions = () => {
                   style={mission?.isHidden ? hiddenMissionCell : {}}
                 >
                   <td className="all-account-data" style={{ padding: '8px', textAlign: 'center' }}>
-                    {mission.number}
+                    {mission?.number}
                   </td>
                   <td
                     className="all-account-data"
                     style={{ padding: '8px', width: '600px', overflowWrap: 'anywhere' }}
                   >
-                    {mission.name}
+                    {mission?.name}
                   </td>
                   <td
                     className="all-account-data"
                     style={{ padding: '8px', overflowWrap: 'anywhere' }}
                   >
-                    {mission.category}
+                    {mission?.category}
                   </td>
                   <td className="all-account-data" style={{ padding: '8px', textAlign: 'center' }}>
-                    {mission.points}
+                    {mission?.points}
                   </td>
                   <td className="all-account-data-verified-container" style={{ padding: '8px' }}>
                     <div
                       onClick={async () => {
                         await setVisibility(
                           setSnackbar,
-                          mission.number,
-                          mission.number,
-                          !mission.isHidden,
+                          mission?.number,
+                          mission?.number,
+                          !mission?.isHidden,
                         );
                       }}
                       style={{ marginRight: 'auto', marginLeft: 'auto', width: 'fit-content' }}
                     >
                       <img
                         src={
-                          mission.isHidden
+                          mission?.isHidden
                             ? darkMode
                               ? hiddenEyeDark
                               : hiddenEye
@@ -461,6 +469,18 @@ const ScuntAllMissions = () => {
                         }}
                       />
                     </div>
+                  </td>
+                  <td
+                    className="all-account-data"
+                    style={{
+                      padding: '8px',
+                      textAlign: 'center',
+                      color: mission?.isJudgingStation
+                        ? 'var(--green-success-dark)'
+                        : 'var(--red-error)',
+                    }}
+                  >
+                    {mission?.isJudgingStation.toString()}
                   </td>
                   <td className="all-account-data" style={{ padding: '8px' }}>
                     <div

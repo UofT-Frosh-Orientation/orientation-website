@@ -50,8 +50,10 @@ router.get(
  *                 example: 50
  *               isHidden:
  *                 type: bool
- *                 description: The mission's number
- *                 example: 50
+ *                 example: true
+ *               isJudgingStation:
+ *                 type: bool
+ *                 example: true
  */
 router.post(
   '/',

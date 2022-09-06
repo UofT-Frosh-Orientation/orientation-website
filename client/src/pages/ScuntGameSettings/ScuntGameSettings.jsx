@@ -34,7 +34,7 @@ const scuntsettings = [
     parameter: 'Amount of Starter Bribe Points',
     key: 'amountOfStarterBribePoints',
     description: 'Set all judges bribe points to this number when the game starts',
-    placeholder: 10000,
+    placeholder: 2500,
   },
   {
     parameter: 'Max Amount of Points',
@@ -276,15 +276,7 @@ const ScuntGameSettings = () => {
 const ShuffleTeamsButton = () => {
   const dispatch = useDispatch();
   const { setSnackbar } = useContext(SnackbarContext);
-  const { scuntSettings } = useSelector(scuntSettingsSelector);
   const [showPopUp, setShowPopUp] = useState(false);
-  const [shuffleTeams, setShuffleTeams] = useState(false);
-
-  useEffect(() => {
-    if (scuntSettings !== undefined) {
-      setShuffleTeams(scuntSettings[0]?.revealTeams);
-    }
-  }, [scuntSettings]);
 
   return (
     <>
@@ -297,6 +289,7 @@ const ShuffleTeamsButton = () => {
         <div className="registration-edit-popup">
           <h1>Are you sure?</h1>
           <h2>All users will have different teams.</h2>
+          <h2>Team information and points history will be reset.</h2>
           <div className="registration-edit-popup-buttons">
             <Button label="Cancel" isSecondary onClick={() => setShowPopUp(false)} />
             <Button
@@ -310,9 +303,8 @@ const ShuffleTeamsButton = () => {
         </div>
       </PopupModal>
       <Button
-        label="Shuffle Teams"
+        label="Shuffle, Reset and Generate Teams"
         isSecondary={true}
-        isDisabled={shuffleTeams}
         style={{ width: 'fit-content' }}
         onClick={() => {
           setShowPopUp(true);

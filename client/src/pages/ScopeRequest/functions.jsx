@@ -1,13 +1,38 @@
+import { useEffect, useState } from 'react';
 import useAxios from '../../hooks/useAxios.jsx';
 import { froshGroups } from '../../util/frosh-groups.jsx';
 const { axios } = useAxios();
 import { fields, terms } from '../Registration/RegistrationFields';
 
 export const getTotalScopes = () => {
+  const { axios } = useAxios();
+  const [scuntTeams, setScuntTeams] = useState([]);
+  const getScuntTeams = async () => {
+    try {
+      const response = await axios.get('/scunt-teams');
+      const { teamPoints } = response.data;
+      if (teamPoints.length <= 0 || !teamPoints) setScuntTeams([]);
+      else {
+        setScuntTeams(
+          teamPoints.map((team) => {
+            return team?.number?.toString();
+          }),
+        );
+      }
+    } catch (e) {
+      console.log(e.toString());
+      setScuntTeams([]);
+    }
+  };
+  useEffect(() => {
+    getScuntTeams();
+  }, []);
+
   let froshGroupData = [];
   for (let froshGroup of froshGroups) {
     froshGroupData.push(froshGroup.name);
   }
+
   return {
     faq: ['delete', 'edit'],
     announcements: ['create', 'edit', 'delete'],
@@ -30,6 +55,7 @@ export const getTotalScopes = () => {
       'exec delete transaction',
       'exec rename scunt teams',
     ],
+    scuntGroupData: [...scuntTeams],
     froshGroupData: ['all', ...froshGroupData],
     froshData: ['unRegisteredUsers'], // Can see leader accounts, frosh who haven't finished payment
   };

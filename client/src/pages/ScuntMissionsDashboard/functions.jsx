@@ -32,7 +32,21 @@ export async function setVisibility(setSnackbar, startMissionNumber, endMissionN
       isHidden: visibility,
     });
     console.log('this is mission', startMissionNumber, endMissionNumber, !visibility);
-    setSnackbar('Successfully changed mission visibility!');
+    if (startMissionNumber === endMissionNumber) {
+      setSnackbar(
+        'Mission visibility now ' + !visibility.toString() + ' for mission #' + startMissionNumber,
+      );
+    } else {
+      setSnackbar(
+        'Mission visibility now ' +
+          !visibility.toString() +
+          ' for mission #' +
+          startMissionNumber +
+          ' to #' +
+          endMissionNumber.toString(),
+      );
+    }
+    return true;
   } catch (e) {
     setSnackbar(e.toString());
   }
@@ -42,7 +56,8 @@ export async function deleteMission(setSnackbar, missionNumber) {
   try {
     await axios.delete(`/scunt-missions/${missionNumber}`);
 
-    setSnackbar('Successfully deleted mission!');
+    setSnackbar('Successfully deleted mission #' + missionNumber.toString());
+    return true;
   } catch (e) {
     setSnackbar(e.toString());
   }

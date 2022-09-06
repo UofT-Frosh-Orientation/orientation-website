@@ -71,14 +71,20 @@ const FroshController = {
         { _id: 1 },
       );
       const froshGroupFilters = [null];
+      const scuntTeamFilters = [null];
       if (req.user?.authScopes?.approved) {
         for (const authScope of req.user.authScopes.approved) {
           if (authScope.includes('froshGroupData:')) {
             froshGroupFilters.push(authScope.replace('froshGroupData:', ''));
           }
+          if (authScope.includes('scuntGroupData:')) {
+            scuntTeamFilters.push(parseInt(authScope.replace('scuntGroupData:', '')));
+          }
         }
       }
-      let query = { froshGroup: { $in: froshGroupFilters } };
+      let query = {
+        $or: [{ froshGroup: { $in: froshGroupFilters } }, { scuntTeam: { $in: scuntTeamFilters } }],
+      };
       const allFroshGroups = req.user?.authScopes?.approved?.includes('froshGroupData:all');
       if (allFroshGroups) {
         query = {};
@@ -89,6 +95,8 @@ const FroshController = {
       if (!unRegisteredUsers) {
         query = { ...query, isRegistered: true };
       }
+      console.log('query');
+      console.log(query);
       const frosh = await FroshServices.getFilteredFroshInfo(query, filter);
       const users = await FroshServices.getFilteredUserInfo(query, filter);
       return res.status(200).send({ frosh, users });
