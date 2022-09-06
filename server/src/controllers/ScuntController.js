@@ -1,4 +1,6 @@
 const UserServices = require('../services/UserServices');
+const ScuntGameSettingsServices = require('../services/ScuntGameSettingsServices');
+const ScuntTeamServices = require('../services/ScuntTeamServices');
 
 const ScuntController = {
   /**
@@ -36,6 +38,18 @@ const ScuntController = {
       return res.status(200).send({ message: userInfo });
     } catch (err) {
       next(err);
+    }
+  },
+  async getMissionStatus(req, res, next) {
+    try {
+      const { missionNumber, teamNumber } = req.query;
+      const gameSettings = await ScuntGameSettingsServices.getGameSettings();
+      if (gameSettings[0].revealMissions) {
+        const status = await ScuntTeamServices.checkTransaction(teamNumber, missionNumber);
+        console.log(status);
+      }
+    } catch (e) {
+      next(e);
     }
   },
 };
