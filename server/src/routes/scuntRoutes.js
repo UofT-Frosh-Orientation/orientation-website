@@ -8,4 +8,6 @@ router.post('/login/discord', ScuntController.login);
 
 router.get('/mission/status', ScuntController.getMissionStatus);
 
+router.get('/leaderboard/scores', ScuntController.getLeaderboard);
+
 module.exports = router;

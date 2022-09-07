@@ -31,7 +31,7 @@ const ScuntController = {
 
       const userInfo = {
         name: existingUser.firstName,
-        teamNumber: undefined, // existingUser.teamNumber
+        teamNumber: existingUser.teamNumber, // existingUser.teamNumber
         pronouns: existingUser.pronouns,
         type: 'type',
       };
@@ -41,6 +41,7 @@ const ScuntController = {
       next(err);
     }
   },
+
   async getMissionStatus(req, res, next) {
     try {
       const { missionNumber, teamNumber } = req.query;
@@ -64,6 +65,16 @@ const ScuntController = {
             : 'You earned more than full points for this mission!',
         points: earnedPoints,
       });
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  async getLeaderboard(req, res, next) {
+    try {
+      const teams = await ScuntTeamServices.getTeamPoints();
+      const teamScores = await teams.sort((a, b) => b.number - a.number).map((t) => t.points);
+      res.status(200).send({ teamScores });
     } catch (e) {
       next(e);
     }

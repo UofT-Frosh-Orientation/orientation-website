@@ -234,8 +234,6 @@ const ScuntTeamServices = {
   },
 
   async checkTransaction(teamNumber, missionNumber) {
-    console.log(teamNumber);
-    console.log(missionNumber);
     return new Promise((resolve, reject) => {
       ScuntTeamModel.findOne(
         { number: teamNumber },
@@ -255,7 +253,6 @@ const ScuntTeamServices = {
           } else if (!team) {
             reject('INVALID_TEAM');
           } else {
-            console.log(team);
             resolve(
               team.transactions.reduce((prev, curr) => {
                 if (curr.points > prev) {
