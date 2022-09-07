@@ -524,14 +524,14 @@ const ScuntUploadMissions = () => {
       fileReader.onload = function (event) {
         const text = event.target.result;
         const { data, errors } = parseCsvString(text, {
-          Number: {
+          '#': {
             key: 'number',
             parseFunction: (val) => parseInt(val),
             validator: (val) => Number.isInteger(val) && val >= 0,
             required: true,
             errorMessage: 'The mission number must be a positive integer!',
           },
-          Name: {
+          Item: {
             key: 'name',
             parseFunction: (val) => val,
             validator: (val) => val.length > 0,
@@ -559,7 +559,7 @@ const ScuntUploadMissions = () => {
             required: false,
             errorMessage: '',
           },
-          JudgingStation: {
+          'Judging Station?': {
             key: 'isJudgingStation',
             parseFunction: (val) => val.toLowerCase() === 'true',
             validator: () => true,
@@ -710,7 +710,7 @@ const parseCsvString = (csvString, mapping, delimiter = ',') => {
     return { data: [] };
   }
   const rows = csvString.split(/\r\n|\r|\n/).filter((elem) => elem !== '');
-  const headers = rows[0].split(regex);
+  const headers = rows[0].split(regex).map((h) => h.replace(/^(["'])(.*)\1$/, '$2'));
   const requiredHeaders = Object.keys(mapping).filter((m) => mapping[m].required);
   const headerErrors = [];
   requiredHeaders.forEach((header) => {
@@ -746,6 +746,7 @@ const parseCsvString = (csvString, mapping, delimiter = ',') => {
     },
     { data: [], errors: [] },
   );
+  console.table(data);
   return { data, errors };
 };
 

@@ -44,14 +44,14 @@ const ScuntMissionServices = {
 
   async createMultipleMissions(csvString) {
     const { data, errors } = parseCsvString(csvString, {
-      Number: {
+      '#': {
         key: 'number',
         parseFunction: (val) => parseInt(val),
         validator: (val) => Number.isInteger(val) && val >= 0,
         required: true,
         errorMessage: 'The mission number must be a positive integer!',
       },
-      Name: {
+      Mission: {
         key: 'name',
         parseFunction: (val) => val,
         validator: (val) => val.length > 0,
@@ -79,7 +79,7 @@ const ScuntMissionServices = {
         required: false,
         errorMessage: '',
       },
-      JudgingStation: {
+      'Judging Station?': {
         key: 'isJudgingStation',
         parseFunction: (val) => val.toLowerCase() === 'true',
         validator: () => true,
@@ -161,7 +161,7 @@ const parseCsvString = (csvString, mapping, delimiter = ',') => {
     return { data: [] };
   }
   const rows = csvString.split(/\r\n|\r|\n/).filter((elem) => elem !== '');
-  const headers = rows[0].split(regex);
+  const headers = rows[0].split(regex).map((h) => h.replace(/^(["'])(.*)\1$/, '$2'));
   const requiredHeaders = Object.keys(mapping).filter((m) => mapping[m].required);
   const headerErrors = [];
   requiredHeaders.forEach((header) => {
