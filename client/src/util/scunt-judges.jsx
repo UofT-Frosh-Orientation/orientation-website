@@ -150,7 +150,6 @@ export const scuntJudges = [
       'learn everything you need to know about me and make me a pinterest dream board',
       'make my face into a wood carving',
       'help me take ig baddie pics',
-      'convince my boyfriend to let me steal his cat',
       'make me a relevant meme',
       'make a hot girl walk playlist',
       'write my grad school research proposal',
