@@ -21,6 +21,8 @@ export function* getScuntMissionsSaga({ payload: { showHidden, setSnackbar } }) 
     setSnackbar(
       e.response.data.message
         ? e.response.data.message.toString()
+        : e.response.data.errorMessage
+        ? e.response.data.errorMessage.toString()
         : e.response.data
         ? e.response.data.toString()
         : 'Uh oh, something went wrong! Please try again later.',
@@ -48,6 +50,8 @@ export function* createMultipleMissionsSaga({ payload: { file, setSnackbar } }) 
     setSnackbar(
       e.response.data.message
         ? e.response.data.message.toString()
+        : e.response.data.errorMessage
+        ? e.response.data.errorMessage.toString()
         : e.response.data
         ? e.response.data.toString()
         : 'Uh oh, something went wrong! Please try again later.',
