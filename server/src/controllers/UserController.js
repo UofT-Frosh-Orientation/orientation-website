@@ -14,7 +14,7 @@ const UserController = {
    */
   async signup(req, res, next) {
     try {
-      const { email, password, firstName, lastName, preferredName, leadur } = req.body;
+      const { email, password, firstName, lastName, preferredName, leadur, scuntTeam } = req.body;
 
       await UserServices.validateUser(email.toLowerCase(), password);
 
@@ -27,6 +27,7 @@ const UserController = {
           firstName,
           lastName,
           preferredName,
+          scuntTeam,
         );
       } else {
         user = await UserServices.createUser(
@@ -248,6 +249,17 @@ const UserController = {
     }
   },
 
+  async getScuntJudgeUsers(req, res, next) {
+    try {
+      const judgeUsers = await UserServices.getScuntJudgeUsers();
+      return res.status(200).send({
+        message: 'Successfully found users!',
+        authRequests: judgeUsers.map((u) => u.getResponseObject()),
+      });
+    } catch (e) {
+      next(e);
+    }
+  },
   /**
    * Hard deletes a user account from mongo by id.
    * @param {Object} req

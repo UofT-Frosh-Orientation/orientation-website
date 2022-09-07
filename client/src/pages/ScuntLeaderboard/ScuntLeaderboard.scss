@@ -84,6 +84,7 @@
   );
   background-size: 200%;
   transition: background-position 1900ms ease-out;
+  transition: width 1500ms ease-out;
 
   &:hover {
     transition: background-position 400ms ease-out;
@@ -302,6 +303,7 @@
   );
   background-size: 100% 200%;
   transition: background-position 1900ms ease-out;
+  transition: height 1500ms ease-out;
 
   &:hover {
     // transform: scaleX(101%);

@@ -28,6 +28,9 @@ import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
 import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
 import { FroshRetreat } from '../pages/FroshRetreat/FroshRetreat';
 import { PagePaymentSuccess } from '../pages/PagePaymentSuccess/PagePaymentSuccess';
+import { ScuntGameSettings } from '../pages/ScuntGameSettings/ScuntGameSettings';
+import { PageScuntMissionsDashboard } from '../pages/ScuntMissionsDashboard/ScuntMissionsDashboard';
+import { ScuntTransactions } from '../pages/ScuntTransactions/ScuntTransactions';
 
 export const pages = {
   404: {
@@ -129,9 +132,10 @@ export const pages = {
             alignItems: 'center',
             justifyContent: 'center',
             textAlign: 'center',
-            height: '100vh',
+            height: '80vh',
             width: '100%',
             color: 'var(--text-dynamic)',
+            margin: '20px',
           }}
         >
           <h1>Sorry, you can no longer signup for Frosh events.</h1>
@@ -280,6 +284,40 @@ export const pages = {
       ),
       path: '/scunt-judge-form',
       includeFooter: true,
+    },
+    {
+      label: 'start-scunt',
+      component: (
+        <AuthorizedPage authScopes={['scunt:exec game controls']}>
+          <ScuntGameSettings />
+        </AuthorizedPage>
+      ),
+      path: '/scunt-game-controls',
+    },
+    {
+      label: 'Scunt Missions Dashboard',
+      component: (
+        <AuthorizedPage
+          authScopes={[
+            'scunt:exec show missions',
+            'scunt:exec hide missions',
+            'scunt:exec create missions',
+            'scunt:exec delete missions',
+          ]}
+        >
+          <PageScuntMissionsDashboard />
+        </AuthorizedPage>
+      ),
+      path: '/scunt-missions-dashboard',
+    },
+    {
+      label: 'Scunt Point Transactions',
+      path: '/scunt-transactions',
+      component: (
+        <AuthorizedPage authScopes={['scunt:exec view transactions']}>
+          <ScuntTransactions />
+        </AuthorizedPage>
+      ),
     },
   ],
 };

@@ -29,6 +29,7 @@ import { instagramAccounts } from '../../util/instagramAccounts';
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
 import CampingIcon from '../../assets/misc/camping-tent.png';
 import NitelifeIcon from '../../assets/misc/nitelife.png';
+import ScuntIcon from '../../assets/misc/magnifier.png';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
@@ -50,6 +51,14 @@ import { froshSelector, registeredFroshSelector } from '../../state/frosh/froshS
 import { completedAnnouncementsSelector } from '../../state/announcements/announcementsSlice';
 import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHome/ScheduleHome';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
+import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
+import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
+import {
+  getScuntTeamObjFromTeamName,
+  getScuntTeamObjFromTeamNumber,
+} from '../ScuntJudgeForm/ScuntJudgeForm';
+import useAxios from '../../hooks/useAxios';
+const { axios } = useAxios();
 
 const PageProfile = () => {
   return <PageProfileFrosh />;
@@ -60,6 +69,32 @@ const PageProfileFrosh = () => {
   const leader = user?.userType === 'leadur';
   const qrCodeLeader = user?.authScopes?.approved.includes('signInFrosh:qr-code registration');
 
+  const [scuntTeams, setScuntTeams] = useState([]);
+  const [scuntTeamObjs, setScuntTeamObjs] = useState();
+
+  const getScuntTeams = async () => {
+    try {
+      const response = await axios.get('/scunt-teams');
+      const { teamPoints } = response.data;
+      if (teamPoints.length <= 0 || !teamPoints) setScuntTeams([]);
+      else {
+        setScuntTeamObjs(teamPoints);
+        setScuntTeams(
+          teamPoints.map((team) => {
+            return team?.name;
+          }),
+        );
+      }
+    } catch (e) {
+      console.log(e.toString());
+      setScuntTeams(['Error loading teams']);
+    }
+  };
+
+  useEffect(() => {
+    getScuntTeams();
+  }, []);
+
   return (
     <>
       <div className="navbar-space-top" />
@@ -69,6 +104,7 @@ const PageProfileFrosh = () => {
         <div>
           {leader === false ? (
             <>
+              <ProfilePageScuntMessage />
               {user?.isRegistered && <ProfilePageRetreat />}
               <ProfilePageNitelife />
               <ProfilePageInstagrams />
@@ -88,12 +124,61 @@ const PageProfileFrosh = () => {
           ) : (
             <></>
           )}
-          <ProfilePageScuntToken />
+          <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
           <ProfilePageResources />
+          {leader ? (
+            <ProfilePageScuntTeamSelectionLeader
+              scuntTeamObjs={scuntTeamObjs}
+              scuntTeams={scuntTeams}
+            />
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </>
   );
+};
+
+const ProfilePageScuntTeamSelectionLeader = ({ scuntTeams, scuntTeamObjs }) => {
+  const { setSnackbar } = useContext(SnackbarContext);
+  const [selectedScuntTeamNumber, setSelectedScuntTeamNumber] = useState();
+  const { user } = useSelector(userSelector);
+
+  const changeScuntTeam = async (teamNumber) => {
+    const result = await axios.post('/scunt-teams/update-team', { teamNumber: teamNumber });
+    setSnackbar(result?.data?.message + ' The page will refresh in 2 seconds.');
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
+  };
+
+  return (
+    <>
+      <div className="profile-page-side-section" style={{ marginTop: '20px', textAlign: 'center' }}>
+        <div style={{ height: '10px' }} />
+        <h2>Scunt Team</h2>
+        <RadioButtons
+          initialSelectedIndex={user?.scuntTeam - 1}
+          values={scuntTeams}
+          onSelected={(value) => {
+            setSelectedScuntTeamNumber(getScuntTeamObjFromTeamName(value, scuntTeamObjs)?.number);
+          }}
+        />
+        <Button
+          label={'Change Scunt Team'}
+          onClick={() => {
+            changeScuntTeam(selectedScuntTeamNumber);
+          }}
+        />
+      </div>
+    </>
+  );
+};
+
+ProfilePageScuntTeamSelectionLeader.propTypes = {
+  scuntTeams: PropTypes.array,
+  scuntTeamObjs: PropTypes.array,
 };
 
 export const ProfilePageRetreat = () => {
@@ -188,39 +273,78 @@ export const ProfilePageRetreat = () => {
   );
 };
 
-export const ProfilePageScuntToken = () => {
-  if (okayToInviteToScunt === false) {
-    return <div />;
+export const ProfilePageScuntMessage = () => {
+  const { scuntSettings } = useSelector(scuntSettingsSelector);
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
+  const isRegistered = useSelector(registeredSelector);
+  const { setSnackbar } = useContext(SnackbarContext);
+  const [showToken, setShowToken] = useState(false);
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
+  const code = user?.scuntToken;
+  if (
+    !leader &&
+    (code === undefined ||
+      !isRegistered ||
+      !scuntSettings ||
+      scuntSettings.length <= 0 ||
+      scuntSettings[0]?.revealTeams === false)
+  ) {
+    return <></>;
   }
 
+  return isRegistered ? (
+    <Link to="/scunt">
+      <div className="frosh-instagram-container">
+        <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
+        <div>
+          <h2>Havenger Scunt!</h2>
+          <p>Find more information about Scunt by clicking here!</p>
+        </div>
+      </div>
+    </Link>
+  ) : (
+    <></>
+  );
+};
+
+export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
+  const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
   const isRegistered = useSelector(registeredSelector);
   const { setSnackbar } = useContext(SnackbarContext);
   const [showToken, setShowToken] = useState(false);
 
   const code = user?.scuntToken;
-  if (code === undefined || !isRegistered) {
+  if (
+    !leader &&
+    (code === undefined ||
+      !isRegistered ||
+      !scuntSettings ||
+      scuntSettings.length <= 0 ||
+      scuntSettings[0]?.revealTeams === false)
+  ) {
     return <></>;
   }
-  if (!user?.scunt) {
+  if (!leader && !user?.scunt) {
     return (
       <div className="profile-page-scunt-token profile-page-side-section">
         <p>
           <b>Looking for your Scunt login Token?</b>
         </p>
         <p>You have chosen not to participate in Scunt.</p>
-        <br />
-        <p>
-          If you want to participate, please edit your profile <Link to="/profile-edit">here</Link>{' '}
-          and set <em>Would you like to participate in Havenger Scunt?</em> to <b>Yes</b>.{' '}
-        </p>
         <div style={{ height: '30px' }} />
       </div>
     );
   }
   return (
     <div className="profile-page-scunt-token profile-page-side-section">
-      <h2>Scunt Team: {user?.scuntTeam ? user?.scuntTeam.toString() : '‽'}</h2>
+      <h2>{getScuntTeamObjFromTeamNumber(user?.scuntTeam, scuntTeamObjs)?.name}</h2>
+      <i>
+        <h4>Team {user?.scuntTeam ? user?.scuntTeam.toString() : '‽'}</h4>
+      </i>
       <h3
         style={{ filter: showToken ? '' : 'blur(10px)' }}
         onClick={() => {
@@ -246,6 +370,11 @@ export const ProfilePageScuntToken = () => {
       />
     </div>
   );
+};
+
+ProfilePageScuntToken.propTypes = {
+  scuntTeams: PropTypes.array,
+  scuntTeamObjs: PropTypes.array,
 };
 
 const ProfilePageLeaderPermissionDashboardLinks = () => {
@@ -286,6 +415,26 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
           'scunt:judge missions',
         ]}
         label="Scunt Judge panel"
+      />
+      <ProfilePageDashboardLink
+        link="/scunt-missions-dashboard"
+        authScopes={[
+          'scunt:exec show missions',
+          'scunt:exec hide missions',
+          'scunt:exec create missions',
+          'scunt:exec delete missions',
+        ]}
+        label="Scunt Mission Panel"
+      />
+      <ProfilePageDashboardLink
+        link="/scunt-transactions"
+        authScopes={['scunt:exec view transactions']}
+        label="Scunt Point Transactions"
+      />
+      <ProfilePageDashboardLink
+        link="/scunt-game-controls"
+        authScopes={['scunt:exec game controls']}
+        label="Scunt Settings"
       />
       <ProfilePageDashboardLink
         link="/faq-admin"

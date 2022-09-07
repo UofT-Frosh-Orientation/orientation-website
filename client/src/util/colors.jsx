@@ -19,6 +19,7 @@ export const colors = {
   '--red-error': ['#dd4343', '#dd4343'],
   '--red-error-light': ['#ffacac', '#ffacac'],
   '--text-link': ['#4471d9', '#00d1ff'],
+  '--text-link-for-dark': ['#8AA8EC', '#5EB3EC'],
   '--text-dark': ['#20002e', '#20002e'], // for a dark-text in bothe light and darkmode
   '--text-dark-use': ['#20002e', '#ffffff'], // use this for dark-text that changes in light and darkmode
   '--text-light': ['#f3f3f3', '#f3f3f3'],

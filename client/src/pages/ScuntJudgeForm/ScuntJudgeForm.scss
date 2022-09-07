@@ -36,13 +36,6 @@
   }
 }
 
-.judge-dashboatd-header {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .scunt-mission-entry {
   color: var(--text-dynamic);
   display: flex;
@@ -169,4 +162,9 @@
   h3 {
     color: var(--white);
   }
+}
+
+.scunt-mission-entry-judging-star {
+  width: 15px;
+  margin-right: 5px;
 }

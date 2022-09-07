@@ -8,7 +8,7 @@ const newUserSubscription = require('../subscribers/newUserSubscription');
 
 function createScuntToken() {
   let result = '';
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const characters = '0123456789';
   const charactersLength = characters.length;
   for (let i = 0; i < 5; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -99,14 +99,21 @@ const UserServices = {
   },
 
   checkScuntToken(existingUser) {
-    return existingUser.scuntToken;
+    if (!existingUser.scuntToken) {
+      return false;
+    }
+    return true;
   },
 
   async addScuntToken(userId) {
     const scuntToken = createScuntToken();
 
     return new Promise((resolve, reject) => {
-      UserModel.findByIdAndUpdate(userId, { scuntToken }, (err, user) => {
+      UserModel.findByIdAndUpdate(
+        userId, 
+        { scuntToken }, 
+        { returnDocument: 'after' },
+        (err, user) => {
         if (err || !user) {
           reject('UNABLE_TO_UPDATE_SCUNT_TOKEN_FOR_USER');
         } else {
@@ -359,6 +366,32 @@ const UserServices = {
           } else {
             console.log(result);
             resolve(result);
+          }
+        },
+      );
+    });
+  },
+
+  async getScuntJudgeUsers() {
+    return new Promise((resolve, reject) => {
+      UserModel.find(
+        {
+          $or: [
+            { 'authScopes.approved': 'scunt:judge bribe points' },
+            { 'authScopes.approved': 'scunt:judge missions' },
+            // { 'authScopes.approved': 'scunt:bribe points' }, // this was the wrong scope name i think....
+            // { 'authScopes.approved': 'scunt:judge missions' },
+          ],
+        },
+        {},
+        { strictQuery: false },
+        (err, users) => {
+          if (err) {
+            reject(err);
+          } else if (!users) {
+            reject('INTERNAL_ERROR');
+          } else {
+            resolve(users);
           }
         },
       );
