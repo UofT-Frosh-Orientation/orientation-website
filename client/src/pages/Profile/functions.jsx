@@ -98,9 +98,15 @@ export function scannedUserKeys() {
 }
 
 export function parseQRCode(qrString) {
-  return {
-    email: qrString,
-  };
+  console.log(qrString);
+  if (qrString?.includes('|')) {
+    console.log('HERE!');
+    return { email: qrString?.split('|')[0] };
+  } else {
+    return {
+      email: qrString,
+    };
+  }
 }
 
 export function getQRCodeString(user) {

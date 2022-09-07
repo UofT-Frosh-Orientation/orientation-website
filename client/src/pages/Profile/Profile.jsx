@@ -529,10 +529,10 @@ const ProfilePageQRScanner = () => {
         const lowerCaseSearch = searchFor.toLowerCase();
         const filteredFrosh = registeredFrosh.filter(
           (f) =>
-            `${f.firstName} ${f.lastName}`.toLowerCase().includes(lowerCaseSearch) ||
-            f.email.toLowerCase().includes(lowerCaseSearch) ||
-            f.preferredName.toLowerCase().includes(lowerCaseSearch) ||
-            f.utorid.toLowerCase().includes(lowerCaseSearch),
+            `${f?.firstName} ${f?.lastName}`?.toLowerCase()?.includes(lowerCaseSearch) ||
+            f?.email?.toLowerCase()?.includes(lowerCaseSearch) ||
+            f?.preferredName?.toLowerCase()?.includes(lowerCaseSearch) ||
+            f?.utorid?.toLowerCase()?.includes(lowerCaseSearch),
         );
         setResults(filteredFrosh);
       }, 500);
