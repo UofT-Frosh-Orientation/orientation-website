@@ -13,11 +13,9 @@ const ScuntController = {
    */
   async login(req, res, next) {
     try {
-      console.log(req.body);
       const { email, code } = req.body;
 
       const existingUser = await UserServices.getUserByEmail(email);
-      console.log(existingUser);
 
       try {
         if (!existingUser.scuntToken || existingUser.scuntToken !== code) {
