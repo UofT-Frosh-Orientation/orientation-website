@@ -5,7 +5,11 @@ export const aboutScunt = `
   <h2>Scunt</h2>
   <h3>What is Scunt?</h3>
   <p>
-    Scunt is the best part of F!rosh Week (we promise we aren’t biased)! It’s a chaos filled event where you and your team compete against other F!rosh to get as many points as you possibly can. Your team gains points by completing [missions](link to missions) and getting them judged by our super judgy judges (judging stations are located in the Pit and on the GB steps). The top three teams mayyyy also get something special on top of well-deserved bragging rights ;)
+    Scunt is the best part of F!rosh Week (we promise we aren’t biased)! It’s a chaos filled event where you and your team compete against other F!rosh to get as many points as you possibly can. Your team gains points by completing <a href='/scunt-missions'>missions</a> and getting them judged by our super judgy judges (judging stations are located in the Pit and on the GB steps). The top three teams mayyyy also get something special on top of well-deserved bragging rights ;)
+  </p>
+  <h3>Important Info</h3>
+  <p>
+    You will be assigned a Scunt team (different from your F!rosh group) on Wednesday on the F!rosh week website. Please meet with your team on King’s College Road (outside of Sandford Fleming) at 5:30PM. We’ve attached a <a href="https://drive.google.com/file/d/10dS3155rn2I951wHqFsXnPy0NlY_AY6w/view?usp=sharing">map</a> that shows the location each team will be meeting at and our Scunt HLs will also have signs. Please do not be late, teams will be moving off of campus once the event begins.  If you have any questions contact us at <a href="mailto:scunt@orientation.skule.ca">scunt@orientation.skule.ca</a>.
   </p>
 `;
 export const rules = {
