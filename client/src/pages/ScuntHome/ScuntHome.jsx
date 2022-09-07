@@ -14,12 +14,11 @@ import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { ProfilePageScuntToken } from '../Profile/Profile';
 import DiscordIcon from '../../assets/social/discord-brands.svg';
-import {
-  aboutScunt,
-  okayToInviteToScunt,
-  scuntDate,
-  scuntDiscord,
-} from '../../util/scunt-constants';
+import { aboutScunt, okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { registeredSelector, userSelector } from '../../state/user/userSlice';
+import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
+import { getScuntSettings } from '../../state/scuntSettings/saga';
 
 export const PageScuntHome = () => {
   return (
@@ -34,39 +33,64 @@ export const PageScuntHome = () => {
 };
 
 const ScuntDiscord = () => {
-  if (okayToInviteToScunt === false) {
+  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
+  const [showDiscordLink, setShowDiscordLink] = useState(false);
+  const [discordLink, setDiscordLink] = useState('');
+  const [revealTeams, setRevealTeams] = useState(false);
+
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (scuntSettings !== undefined) {
+      let settings = scuntSettings[0];
+
+      setRevealTeams(settings?.revealTeams);
+      setShowDiscordLink(settings?.showDiscordLink);
+      setDiscordLink(settings?.discordLink);
+    }
+  }, [scuntSettings]);
+
+  if (showDiscordLink !== true && revealTeams !== true && !leader) {
+    // catch the undef states of the selector using !== true
     return <div />;
-  }
-
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-
-  return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        marginTop: '-20px',
-        overflowWrap: 'anywhere',
-      }}
-    >
-      <a href={scuntDiscord} className="no-link-style" target={'_blank'} rel="noreferrer">
-        <div
-          className="frosh-instagram-container"
-          style={{ padding: '15px 20px', margin: '10px 9px' }}
-        >
-          <img
-            src={DiscordIcon}
-            alt="Discord"
-            style={{ filter: darkMode ? 'unset' : 'invert(1)' }}
-          />
-          <div>
-            <p>Join the discord to chat with your team!</p>
-            <h2 style={{ fontSize: '15px' }}>{scuntDiscord}</h2>
+  } else {
+    const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '-20px',
+          overflowWrap: 'anywhere',
+        }}
+      >
+        <a href={discordLink} className="no-link-style" target={'_blank'} rel="noreferrer">
+          <div
+            className="frosh-instagram-container"
+            style={{ padding: '15px 20px', margin: '10px 9px' }}
+          >
+            <img
+              src={DiscordIcon}
+              alt="Discord"
+              style={{ filter: darkMode ? 'unset' : 'invert(1)' }}
+            />
+            <div>
+              {!leader && user.scunt === true ? (
+                <h2 style={{ fontSize: '15px' }}>You are in team {user.scuntTeam}!</h2>
+              ) : (
+                <></>
+              )}
+              <p>Join the discord to chat with your team!</p>
+              <p>{discordLink}</p>
+            </div>
           </div>
-        </div>
-      </a>
-    </div>
-  );
+        </a>
+      </div>
+    );
+  }
 };
 
 const AboutScunt = () => {
@@ -85,6 +109,9 @@ const AboutScunt = () => {
             <ProfilePageScuntToken />
           </div>
           <div dangerouslySetInnerHTML={{ __html: aboutScunt }} />
+          <h4>
+            Check the <Link to={'/scunt-rules'}> Rules </Link> for more information
+          </h4>
         </div>
       </div>
       {darkMode ? (
@@ -98,8 +125,25 @@ const AboutScunt = () => {
 };
 
 const ScuntCountdown = () => {
-  const targetDate = new Date(scuntDate);
-  const countDownDate = new Date(targetDate).getTime();
+  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
+  const [targetDate, setTargetDate] = useState();
+  const [countDownDate, setCountDownDate] = useState();
+  //const [targetDate, targetDate]
+
+  useEffect(() => {
+    if (scuntSettings !== undefined) {
+      let settings = scuntSettings[0];
+      const tempDate = new Date(settings?.scuntDate);
+      const tempCountDownDate = new Date(tempDate).getTime();
+
+      setTargetDate(tempDate);
+      setCountDownDate(tempCountDownDate);
+      console.log(tempDate);
+    }
+  }, [scuntSettings]);
+
+  //const targetDate = new Date(scuntDate);
+  //const countDownDate = new Date(targetDate).getTime();
 
   const [countDown, setCountDown] = useState(countDownDate - new Date().getTime());
 
@@ -123,23 +167,31 @@ const ScuntCountdown = () => {
     return [days, hours, minutes, seconds];
   };
 
+  const checkNaN = (value) => {
+    if (isNaN(value)) {
+      return 0;
+    } else {
+      return value;
+    }
+  };
+
   return (
     <div className="scunt-countdown-wrap">
       <div className="scunt-countdown">
         <div className="scunt-countdown-number">
-          <h1>{getDateValues(countDown)[0]}</h1>
+          <h1>{checkNaN(getDateValues(countDown)[0])}</h1>
           <h3>days</h3>
         </div>
         <div className="scunt-countdown-number">
-          <h1>{getDateValues(countDown)[1]}</h1>
+          <h1>{checkNaN(getDateValues(countDown)[1])}</h1>
           <h3>hours</h3>
         </div>
         <div className="scunt-countdown-number">
-          <h1>{getDateValues(countDown)[2]}</h1>
+          <h1>{checkNaN(getDateValues(countDown)[2])}</h1>
           <h3>minutes</h3>
         </div>
         <div className="scunt-countdown-number">
-          <h1>{getDateValues(countDown)[3]}</h1>
+          <h1>{checkNaN(getDateValues(countDown)[3])}</h1>
           <h3>seconds</h3>
         </div>
       </div>

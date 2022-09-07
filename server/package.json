@@ -45,9 +45,12 @@
     "mime": "^3.0.0",
     "mimemessage": "^1.0.5",
     "mongoose": "^6.3.3",
+    "multer": "^1.4.5-lts.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "react-full-screen": "^1.1.1",
+    "socket.io": "^4.5.1",
+    "socket.io-client": "^4.5.2",
     "stripe": "^9.9.0",
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.4.0"

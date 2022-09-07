@@ -63,3 +63,27 @@
     justify-content: center;
   }
 }
+
+.scunt-missions-judging-station-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  margin: 20px 0;
+  padding: 0 25%;
+
+  font-size: 12px;
+}
+
+.judging-station-info-star {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.scunt-mission-status {
+  font-size: 18px;
+  margin: 5px 20px;
+  color: var(--text-dynamic);
+}

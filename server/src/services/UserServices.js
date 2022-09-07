@@ -87,7 +87,7 @@ const UserServices = {
     });
   },
 
-  async checkScuntToken(existingUser) {
+  checkScuntToken(existingUser) {
     if (!existingUser.scuntToken) {
       return false;
     }
@@ -96,7 +96,7 @@ const UserServices = {
 
   async addScuntToken(email) {
     var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var characters = '0123456789';
     var charactersLength = characters.length;
     for (var i = 0; i < 5; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -362,6 +362,32 @@ const UserServices = {
     });
   },
 
+  async getScuntJudgeUsers() {
+    return new Promise((resolve, reject) => {
+      UserModel.find(
+        {
+          $or: [
+            { 'authScopes.approved': 'scunt:judge bribe points' },
+            { 'authScopes.approved': 'scunt:judge missions' },
+            // { 'authScopes.approved': 'scunt:bribe points' }, // this was the wrong scope name i think....
+            // { 'authScopes.approved': 'scunt:judge missions' },
+          ],
+        },
+        {},
+        { strictQuery: false },
+        (err, users) => {
+          if (err) {
+            reject(err);
+          } else if (!users) {
+            reject('INTERNAL_ERROR');
+          } else {
+            resolve(users);
+          }
+        },
+      );
+    });
+  },
+
   async updateUserInfo(userId, updateInfo) {
     return new Promise((resolve, reject) => {
       UserModel.findOneAndUpdate(
@@ -375,10 +401,11 @@ const UserServices = {
             console.log(User);
             resolve(User);
           }
-      });
+        },
+      );
     });
   },
-      
+
   /**
    * Hard deletes a user by id.
    * @param {ObjectId} id - id of the user to be deleted

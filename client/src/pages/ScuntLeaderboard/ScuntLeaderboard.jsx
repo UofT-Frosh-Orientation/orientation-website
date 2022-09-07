@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useMemo } from 'react';
 import PropTypes, { number } from 'prop-types';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import './ScuntLeaderboard.scss';
@@ -10,6 +10,12 @@ import firstPlace from '../../assets/scuntleaderboard/first-medal.svg';
 import secondPlace from '../../assets/scuntleaderboard/second-medal.svg';
 import thirdPlace from '../../assets/scuntleaderboard/third-medal.svg';
 import { Button } from '../../components/button/Button/Button';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { registeredSelector, userSelector } from '../../state/user/userSlice';
+import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
+import { getScuntSettings } from '../../state/scuntSettings/saga';
+import io from 'socket.io-client';
 
 const test = [
   {
@@ -47,51 +53,134 @@ const test = [
 const buttonStyle = { width: 'fit-content' };
 
 const ScuntLeaderboard = () => {
-  //const [leaderboard, setLeaderboard] = useState([]);
-  const handle = useFullScreenHandle();
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
+  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
+  const [revealJudgesAndBribes, setRevealJudgesAndBribes] = useState(false);
+  const socket = io(`${import.meta.env.VITE_API_BASE_URL}/leaderboard`, { autoConnect: false });
+  const [leaderboard, setLeaderboard] = useState([]);
 
-  // useEffect(() => {
-  //   //dispatch(getLeaderboard());
-  // }, []);
+  useEffect(() => {
+    socket.connect();
+    socket.on('connect', () => {
+      socket.emit('getScores');
+    });
+    socket.on('scores', (scores) => {
+      console.log('Scores', scores);
+      setLeaderboard(
+        scores.map((team) => {
+          if (team.points < 0) {
+            team.points = 0;
+          }
+          return team;
+        }),
+      );
+    });
+    socket.on('update', (teamNumber, points) => {
+      setLeaderboard((prevLeaderboard) => {
+        return prevLeaderboard.map((team) => {
+          if (team.number === teamNumber) {
+            team.points = points < 0 ? 0 : points;
+          }
+          return team;
+        });
+      });
+    });
 
-  // for testing
-  let testupdate = test;
-  testupdate.sort((a, b) => {
-    // sort array in decending order
-    return b.points - a.points;
-  });
+    return () => {
+      socket.off('connect');
+      socket.off('scores');
+      socket.disconnect();
+    };
+  }, []);
 
-  let highest = testupdate[0].points;
+  const dispatch = useDispatch();
 
-  testupdate.forEach((element) => {
-    let widthtemp = Math.round((element.points / highest) * 100);
-    element.width = String(widthtemp) + '%';
-  });
+  useEffect(() => {
+    if (scuntSettings !== undefined) {
+      setRevealJudgesAndBribes(scuntSettings[0]?.revealJudgesAndBribes);
+    }
+  }, [scuntSettings]);
 
-  const [leaderboard, setLeaderboard] = useState(testupdate);
+  if (revealJudgesAndBribes !== true && !leader) {
+    return (
+      <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
+        <ScuntLinks />
+        <div className="scunt-check-soon-title">
+          <h1>Check back soon!</h1>
+        </div>
+      </Header>
+    );
+  }
 
   return (
     <>
       <Header text={'Leaderboard'} underlineDesktop={'410px'} underlineMobile={'285px'}>
         <ScuntLinks />
       </Header>
+      <ScuntLeaderboardShow leaderboard={leaderboard} />
+    </>
+  );
+};
 
+const ScuntLeaderboardShow = ({ leaderboard }) => {
+  // const [leaderboard, setLeaderboard] = useState([]);
+
+  const computedLeaderboard = useMemo(() => {
+    const { max, sum } = leaderboard.reduce(
+      (prev, curr) => {
+        if (curr.points > prev.max) {
+          prev.max = curr.points;
+        }
+        prev.sum += curr.points;
+        return prev;
+      },
+      { max: 0, sum: 0 },
+    );
+
+    const mean = sum / (leaderboard.length - 5);
+
+    console.log(mean, max, sum);
+
+    const result = leaderboard.map((team) => {
+      console.log(team);
+      if (team.points < mean) {
+        console.log('Updating team points');
+        team.computedPoints = Math.round(
+          Math.min(team.points + mean, max - mean / leaderboard.length),
+        );
+      } else {
+        team.computedPoints = team.points;
+      }
+      const width = Math.round((team.computedPoints / max) * 100);
+      team.width = String(width) + '%';
+      console.log(team);
+      //console.log('new', team);
+      return team;
+    });
+    console.table(result);
+    return result;
+  }, [leaderboard]);
+  const handle = useFullScreenHandle();
+
+  return (
+    <>
       <h2 style={{ textAlign: 'center', color: 'var(--text-dark-use)', padding: '25px 4% 0 4%' }}>
         Leaderboard updates in real time!
       </h2>
 
       <FullScreen handle={handle}>
-        <ScuntLeaderboardFullScreen arr={leaderboard} />
+        <ScuntLeaderboardFullScreen arr={computedLeaderboard} />
       </FullScreen>
 
       <div className="display-only-desktop">
         <div className="scunt-leaderboard">
           <Button style={buttonStyle} label="View Fullscreen" onClick={handle.enter} />
         </div>
-        <ScuntLeaderboardDesktop arr={leaderboard} />
+        <ScuntLeaderboardDesktop arr={computedLeaderboard} />
       </div>
       <div className="display-only-tablet">
-        <ScuntLeaderboardMobile arr={leaderboard} />
+        <ScuntLeaderboardMobile arr={computedLeaderboard} />
       </div>
     </>
   );
@@ -111,7 +200,7 @@ const ScuntLeaderboardFullScreen = ({ arr }) => {
               key={key}
               name={item.name}
               number={item.number}
-              points={item.points}
+              points={item.computedPoints}
               barwidth={item.width}
             />
           );
@@ -122,6 +211,7 @@ const ScuntLeaderboardFullScreen = ({ arr }) => {
 };
 
 const ScuntLeaderboardDesktop = ({ arr }) => {
+  console.table(arr);
   return (
     <>
       <div className="leaderboard-page-desktop">
@@ -133,7 +223,7 @@ const ScuntLeaderboardDesktop = ({ arr }) => {
                 key={key}
                 name={item.name}
                 number={item.number}
-                points={item.points}
+                points={item.computedPoints}
                 barwidth={item.width}
               />
             );
@@ -145,6 +235,8 @@ const ScuntLeaderboardDesktop = ({ arr }) => {
 };
 
 const ScuntLeaderboardMobile = ({ arr }) => {
+  arr.sort((a, b) => b.computedPoints - a.computedPoints);
+
   return (
     <>
       <div className="leaderboard-page-mobile">
@@ -158,7 +250,7 @@ const ScuntLeaderboardMobile = ({ arr }) => {
                 key={key}
                 name={item.name}
                 number={item.number}
-                points={item.points}
+                points={item.computedPoints}
                 img={firstPlace}
                 barwidth={item.width}
               />
@@ -170,7 +262,7 @@ const ScuntLeaderboardMobile = ({ arr }) => {
                 key={key}
                 name={item.name}
                 number={item.number}
-                points={item.points}
+                points={item.computedPoints}
                 img={secondPlace}
                 barwidth={item.width}
               />
@@ -181,7 +273,7 @@ const ScuntLeaderboardMobile = ({ arr }) => {
                 key={key}
                 name={item.name}
                 number={item.number}
-                points={item.points}
+                points={item.computedPoints}
                 img={thirdPlace}
                 barwidth={item.width}
               />
@@ -193,7 +285,7 @@ const ScuntLeaderboardMobile = ({ arr }) => {
                 rank={rank}
                 name={item.name}
                 number={item.number}
-                points={item.points}
+                points={item.computedPoints}
                 barwidth={item.width}
               />
             );
@@ -296,6 +388,10 @@ const ScuntLeaderboardBubble = ({ name, number, points, rank, img, barwidth }) =
   );
 };
 
+ScuntLeaderboardShow.propTypes = {
+  leaderboard: PropTypes.array,
+};
+
 ScuntLeaderboardBar.propTypes = {
   name: PropTypes.string,
   number: PropTypes.number,
@@ -318,7 +414,7 @@ ScuntLeaderboardBubble.propTypes = {
   points: PropTypes.number,
   rank: PropTypes.number,
   img: PropTypes.any,
-  barwidth: PropTypes.number,
+  barwidth: PropTypes.string,
   // key: PropTypes.string,
 };
 

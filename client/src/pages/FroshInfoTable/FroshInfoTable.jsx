@@ -17,7 +17,7 @@ import { DarkModeContext } from '../../util/DarkModeProvider';
 
 const PageFroshInfoTable = () => {
   const noEditFields = getUneditableFields();
-  const { registeredFrosh } = useSelector(froshSelector);
+  const { frosh } = useSelector(froshSelector);
   const [objectKeys, setObjectKeys] = useState([]);
   const [sortedParam, setSortedParam] = useState();
   const [sortedOrder, setSortedOrder] = useState(1);
@@ -40,11 +40,11 @@ const PageFroshInfoTable = () => {
   }, [showAllUsers, editMade]);
 
   useEffect(() => {
-    if (registeredFrosh?.length > 0) {
-      setObjectKeys(Object.keys(Object.assign({}, ...registeredFrosh)));
+    if (frosh?.length > 0) {
+      setObjectKeys(Object.keys(Object.assign({}, ...frosh)));
     }
-    setSortedFrosh(registeredFrosh);
-  }, [registeredFrosh]);
+    setSortedFrosh(frosh);
+  }, [frosh]);
 
   useEffect(() => {
     const froshData = [...sortedFrosh];
@@ -211,7 +211,7 @@ const PageFroshInfoTable = () => {
         )}
       </p>
       <div className="table-wrap">
-        {registeredFrosh?.length === 0 ? (
+        {frosh?.length === 0 ? (
           <div style={{ margin: '5%', textAlign: 'center' }}>
             <h2>It looks a bit empty here...</h2>
             <h2>Please read notes listed above and ensure you have the correct permissions.</h2>
@@ -220,13 +220,13 @@ const PageFroshInfoTable = () => {
         ) : (
           <></>
         )}
-        {registeredFrosh?.length >= 0 ? (
+        {frosh?.length >= 0 ? (
           <table>
             <tr>
               <th
                 style={{ cursor: 'pointer' }}
                 onClick={() => {
-                  setSortedFrosh(registeredFrosh);
+                  setSortedFrosh(frosh);
                   setSortedParam('');
                 }}
               >

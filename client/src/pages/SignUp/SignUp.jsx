@@ -5,7 +5,6 @@ import { Button } from '../../components/button/Button/Button';
 import { validateEmail, validatePassword, validatePasswordLength } from './functions';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
-import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userSelector } from '../../state/user/userSlice';
