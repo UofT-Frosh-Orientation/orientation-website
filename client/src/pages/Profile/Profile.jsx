@@ -104,6 +104,7 @@ const PageProfileFrosh = () => {
         <div>
           {leader === false ? (
             <>
+              <ProfilePageScuntMessage />
               {user?.isRegistered && <ProfilePageRetreat />}
               <ProfilePageNitelife />
               <ProfilePageInstagrams />
