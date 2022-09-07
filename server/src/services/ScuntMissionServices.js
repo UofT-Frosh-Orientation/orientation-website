@@ -2,12 +2,16 @@ const ScuntMissionModel = require('../models/ScuntMissionModel');
 const ScuntGameSettingsModel = require('../models/ScuntGameSettingsModel');
 
 const ScuntMissionServices = {
-  async getAllScuntMissions(showHidden) {
+  async getAllScuntMissions(showHidden, user) {
     return new Promise((resolve, reject) => {
       ScuntGameSettingsModel.findOne({}, {}, {}, (err1, settings) => {
         if (err1) {
           reject(err1);
-        } else if (!settings || !settings.revealMissions) {
+        } else if (
+          !settings ||
+          (!settings.revealMissions &&
+            !user.authScopes.approved.includes('scunt:exec show missions'))
+        ) {
           reject('INVALID_SETTINGS');
         } else {
           ScuntMissionModel.find(showHidden ? {} : { isHidden: false }) // finds documents with isHidden property set to false
