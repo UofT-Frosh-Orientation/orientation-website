@@ -125,7 +125,11 @@ const ScuntGameSettings = () => {
                   objKey={i.key}
                   parameter={i.parameter}
                   description={i.description}
-                  placeholder={i.placeholder}
+                  placeholder={
+                    scuntSettings && scuntSettings[0] && scuntSettings[0][i.key]
+                      ? scuntSettings[0][i.key]
+                      : 'Not set yet - e.g. value: ' + i.placeholder.toString()
+                  }
                   newSettings={newSettings}
                   setNewSettings={setNewSettings}
                   // initialValue={i.default}
@@ -163,7 +167,7 @@ const ScuntGameSettings = () => {
           {scuntsettingbool.map((i) => {
             let selectedCheck = [];
 
-            if (newSettings[i.key] === true) {
+            if (newSettings && newSettings[i.key] === true) {
               selectedCheck = [0];
             }
 
@@ -593,7 +597,7 @@ const CurrentScuntGameSettings = () => {
 
   useEffect(() => {
     // this is to catch the initially undefined settings
-    if (scuntSettings !== undefined) {
+    if (scuntSettings && scuntSettings[0]) {
       setKeys(Object.keys(scuntSettings[0]));
     }
   }, [scuntSettings]);
