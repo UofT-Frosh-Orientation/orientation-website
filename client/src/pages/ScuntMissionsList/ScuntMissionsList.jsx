@@ -55,7 +55,7 @@ const PageScuntMissionsList = () => {
         <Header text={'Missions'} underlineDesktop={'300px'} underlineMobile={'210px'}>
           <ScuntLinks />
           <div className="scunt-check-soon-title">
-            <h1>Check back soon!</h1>
+            <h1 style={{ color: 'var(--text-light)' }}>Check back soon!</h1>
           </div>
         </Header>
       </>
