@@ -100,18 +100,6 @@ export const rules = {
       sub: 'The Royal Wedding is the wedding to bring Godiva’s Crown and Mr. Blue & Gold together eternally. The list items for the Royal Wedding will only be accepted by the bride and groom, as well as the SubComm Chairs. The wedding items and submissions for these items will be opened starting at 9:00 PM ish. Each group that wants to claim an item must bring the participating F!rosh and the item to the bride and groom, or SubComm chairs. The wedding will take place at 10:00 PM. Only the F!rosh approved beforehand may participate in the wedding. Any F!rosh that interferes during the wedding will be removed from the scene.',
     },
     {
-      title: 'The Election',
-      sub: 'The election is an opportunity for a team to receive a very substantial point boost during the night that has the potential to take them up several places on the leaderboard. The election will proceed as follows:',
-      items: [
-        'F!rosh may promote their team to other members of the Skule community and make a convincing argument as to why they should receive points.',
-        'Any undergraduate engineering student may place a vote on vote.skule.ca for any team(s) of their choice. ',
-        'Voting closes at 9:00 PM, two hours before Scunt ends ',
-        'The elected team will be determined by instant runoff voting, in the same method as official Engineering Society elections.',
-        'The elected team will receive a number of points equal to five (5) times the number of votes received.',
-        'The elected team will be announced by 9:10 PM.',
-      ],
-    },
-    {
       title: 'Winning',
       sub: 'The group that accumulates the most points, in the absence of any obvious cheating and/or other misconduct, by the end of the night shall be declared the winners.',
     },
