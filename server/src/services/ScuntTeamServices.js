@@ -377,7 +377,7 @@ const ScuntTeamServices = {
       ScuntTeamModel.aggregate([
         { $project: { transactions: 1, number: 1, name: 1 } },
         { $unwind: { path: '$transactions' } },
-        { $sort: { createdAt: -1 } },
+        { $sort: { createdAt: 1 } },
         { $limit: 50 },
       ]).exec((err, result) => {
         if (err) {
