@@ -35,7 +35,7 @@ function errorResponseMiddleware(err, req, res, next) {
   }
   //... for more error messages ...
 
-  res.status(statusCode).send(errorMessage);
+  res.status(statusCode).send({ errorMessage });
 }
 
 module.exports = errorResponseMiddleware;

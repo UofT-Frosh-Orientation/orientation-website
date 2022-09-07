@@ -13,9 +13,11 @@ const ScuntController = {
    */
   async login(req, res, next) {
     try {
+      console.log(req.body);
       const { email, code } = req.body;
 
       const existingUser = await UserServices.getUserByEmail(email);
+      console.log(existingUser);
 
       try {
         if (!existingUser.scuntToken || existingUser.scuntToken !== code) {
@@ -31,12 +33,12 @@ const ScuntController = {
 
       const userInfo = {
         name: existingUser.firstName,
-        teamNumber: existingUser.teamNumber, // existingUser.teamNumber
-        pronouns: existingUser.pronouns,
-        type: 'type',
+        teamNumber: existingUser.scuntTeam, // existingUser.teamNumber
+        pronouns: existingUser.get('pronouns'),
+        type: existingUser.userType,
       };
 
-      return res.status(200).send({ message: userInfo });
+      return res.status(200).send({ ...userInfo });
     } catch (err) {
       next(err);
     }
