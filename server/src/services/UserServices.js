@@ -95,21 +95,26 @@ const UserServices = {
   },
 
   async addScuntToken(email) {
-    var result = '';
-    var characters = '0123456789';
-    var charactersLength = characters.length;
+    let result = '';
+    const characters = '0123456789';
+    const charactersLength = characters.length;
     for (var i = 0; i < 5; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
 
     return new Promise((resolve, reject) => {
-      UserModel.findOneAndUpdate({ email }, { scuntToken: result }, (err, user) => {
-        if (err || !user) {
-          reject('UNABLE_TO_UPDATE_SCUNT_TOKEN_FOR_USER');
-        } else {
-          resolve(user);
-        }
-      });
+      UserModel.findOneAndUpdate(
+        { email },
+        { scuntToken: result },
+        { returnDocument: 'after' },
+        (err, user) => {
+          if (err || !user) {
+            reject('UNABLE_TO_UPDATE_SCUNT_TOKEN_FOR_USER');
+          } else {
+            resolve(user);
+          }
+        },
+      );
     });
   },
 

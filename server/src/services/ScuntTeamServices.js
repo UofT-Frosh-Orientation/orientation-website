@@ -315,11 +315,10 @@ const ScuntTeamServices = {
               if (err) {
                 reject(err);
               } else {
-                FroshModel.find({}, {}, {}, (err, frosh) => {
+                FroshModel.find({ scunt: true }, {}, {}, (err, frosh) => {
                   if (err) {
                     reject(err);
                   } else {
-                    const maxNum = 85;
                     // create an array of promises to save the updated frosh
                     const updates = frosh.map((f) => {
                       let minScore = 100000;
@@ -329,7 +328,7 @@ const ScuntTeamServices = {
                           0.5 * (teams[i].froshGroups[f.froshGroup] ?? 0) +
                           0.5 * (teams[i].pronouns[f.pronouns] ?? 0) +
                           0.5 * (teams[i].disciplines[f.discipline] ?? 0);
-                        if (score < minScore && teams[i].count < maxNum) {
+                        if (score < minScore) {
                           minScore = score;
                           teamIndex = i;
                         }
