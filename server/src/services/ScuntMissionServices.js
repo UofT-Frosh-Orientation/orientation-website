@@ -138,6 +138,20 @@ const ScuntMissionServices = {
       );
     });
   },
+
+  async getMission(number) {
+    return new Promise((resolve, reject) => {
+      ScuntMissionModel.findOne({ number }, {}, {}, (err, mission) => {
+        if (err) {
+          reject(err);
+        } else if (!mission || mission.isHidden) {
+          reject('MISSION_DOES_NOT_EXIST');
+        } else {
+          resolve(mission);
+        }
+      });
+    });
+  },
 };
 
 const parseCsvString = (csvString, mapping, delimiter = ',') => {
