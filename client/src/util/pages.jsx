@@ -132,9 +132,10 @@ export const pages = {
             alignItems: 'center',
             justifyContent: 'center',
             textAlign: 'center',
-            height: '100vh',
+            height: '80vh',
             width: '100%',
             color: 'var(--text-dynamic)',
+            margin: '20px',
           }}
         >
           <h1>Sorry, you can no longer signup for Frosh events.</h1>

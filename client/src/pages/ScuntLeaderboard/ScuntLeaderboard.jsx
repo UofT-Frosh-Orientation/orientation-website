@@ -146,9 +146,11 @@ const ScuntLeaderboardShow = ({ leaderboard }) => {
       console.log(team);
       if (team.points < mean) {
         console.log('Updating team points');
-        team.computedPoints = Math.round(
-          Math.min(team.points + mean, max - mean / leaderboard.length),
-        );
+        // team.computedPoints = Math.round(
+        //   Math.min(team.points + mean, max - mean / leaderboard.length),
+        // );
+        // disable the algorithm temp
+        team.computedPoints = team.points;
       } else {
         team.computedPoints = team.points;
       }

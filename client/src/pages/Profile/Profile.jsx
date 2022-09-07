@@ -59,6 +59,10 @@ import {
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
 
+// hyper link color on scunt home page
+// need to pass in team objects into ScuntDiscord component on the Scunt homepage (to get team name)
+// countdown doesnt show when not logged in (cant get scunt game settings if not logged in?)
+
 const PageProfile = () => {
   return <PageProfileFrosh />;
 };
@@ -99,6 +103,7 @@ const PageProfileFrosh = () => {
       <div className="navbar-space-top" />
       <ProfilePageHeader leader={leader} editButton={true} />
       {leader === true ? <ProfilePageLeaderPermissionDashboardLinks /> : <></>}
+      <ProfilePageScuntMessage />
       <div className="profile-info-row">
         <div>
           {leader === false ? (
@@ -271,6 +276,36 @@ export const ProfilePageRetreat = () => {
   );
 };
 
+export const ProfilePageScuntMessage = () => {
+  const { scuntSettings } = useSelector(scuntSettingsSelector);
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
+  const isRegistered = useSelector(registeredSelector);
+  const { setSnackbar } = useContext(SnackbarContext);
+  const [showToken, setShowToken] = useState(false);
+
+  const code = user?.scuntToken;
+  if (
+    !leader &&
+    (code === undefined ||
+      !isRegistered ||
+      !scuntSettings ||
+      scuntSettings.length <= 0 ||
+      scuntSettings[0]?.revealTeams === false)
+  ) {
+    return <></>;
+  }
+
+  return (
+    <div className="profile-page-scunt-message">
+      <h2>Scunt is happening soon!</h2>
+      <Link to="/scunt">
+        <Button label="Scunt Home"></Button>
+      </Link>
+    </div>
+  );
+};
+
 export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { user } = useSelector(userSelector);
@@ -297,11 +332,6 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
           <b>Looking for your Scunt login Token?</b>
         </p>
         <p>You have chosen not to participate in Scunt.</p>
-        <br />
-        <p>
-          If you want to participate, please edit your profile <Link to="/profile-edit">here</Link>{' '}
-          and set <em>Would you like to participate in Havenger Scunt?</em> to <b>Yes</b>.{' '}
-        </p>
         <div style={{ height: '30px' }} />
       </div>
     );
