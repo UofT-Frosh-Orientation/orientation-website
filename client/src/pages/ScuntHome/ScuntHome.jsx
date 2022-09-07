@@ -19,6 +19,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
+import useAxios from '../../hooks/useAxios';
+const { axios } = useAxios();
 
 export const PageScuntHome = () => {
   return (
@@ -95,6 +97,31 @@ const ScuntDiscord = () => {
 
 const AboutScunt = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const [scuntTeams, setScuntTeams] = useState([]);
+  const [scuntTeamObjs, setScuntTeamObjs] = useState();
+
+  const getScuntTeams = async () => {
+    try {
+      const response = await axios.get('/scunt-teams');
+      const { teamPoints } = response.data;
+      if (teamPoints.length <= 0 || !teamPoints) setScuntTeams([]);
+      else {
+        setScuntTeamObjs(teamPoints);
+        setScuntTeams(
+          teamPoints.map((team) => {
+            return team?.name;
+          }),
+        );
+      }
+    } catch (e) {
+      console.log(e.toString());
+      setScuntTeams(['Error loading teams']);
+    }
+  };
+
+  useEffect(() => {
+    getScuntTeams();
+  }, []);
 
   return (
     <>
@@ -106,11 +133,11 @@ const AboutScunt = () => {
       <div className="about-scunt-container">
         <div className="about-scunt-content">
           <div className="about-scunt-token">
-            <ProfilePageScuntToken />
+            <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
           </div>
           <div dangerouslySetInnerHTML={{ __html: aboutScunt }} />
           <h4>
-            Check the <Link to={'/scunt-rules'}> Rules </Link> for more information
+            Check the <Link to={'/scunt-rules'}>Rules</Link> for more information
           </h4>
         </div>
       </div>

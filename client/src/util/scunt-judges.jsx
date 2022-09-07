@@ -98,7 +98,7 @@ export const scuntJudges = [
     description: 'I like big planes and I cannot lie.',
     content: [
       'Exactly 3 blueberry bagels from Metro (must be the kind made by Metro)',
-      'A bouquet of daisies (I  daisies)',
+      'A bouquet of daisies (I ❤️ daisies)',
       'A Taylor Swift x Harry Styles mashup performed live (my favourite TS is The Archer, and my favourite HS is Keep Driving, good luck)',
       'Get the Executive Director of UTAT to admit I, Jasmine Wu– Director of Media, is his favourite Executive team member in writing with his signature (bonus points if its on official UTAT letterhead)',
       '13 personalized memes made by you and your team, printed out and signed by 13 people (including one HL)',
@@ -193,7 +193,7 @@ export const scuntJudges = [
     description:
       'Heyo heyo heyo I’m Chase, an EngSci 2T3 + PEY, and I am the reason there are no bananas at work. ',
     content: [
-      'Peanuts  ',
+      'Peanuts 🥜',
       'Chant about Chase’s favourite Frosh group (bonus marks for choreography)',
       'Create a ballad about Chase',
       'Make me laugh',
@@ -241,7 +241,7 @@ export const scuntJudges = [
     description: "Hi! I'm Kat, I love food and am excited to judge all of you froshies!",
     content: [
       'Recite "Car Radio" by Twenty One Pilots from memory',
-      'I take my vinegar with fries (yeah you read that right). Bring me some vinegar and fries and I will love you forever ',
+      'I take my vinegar with fries (yeah you read that right). Bring me some vinegar and fries and I will love you forever 🙂',
       'Do you think you know more digits of pi than me? Impress me and you will be rewarded',
       'Make a meme, the funnier the better',
       'Convince me that water is wet',

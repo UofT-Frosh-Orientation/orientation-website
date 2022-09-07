@@ -29,6 +29,7 @@ import { instagramAccounts } from '../../util/instagramAccounts';
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
 import CampingIcon from '../../assets/misc/camping-tent.png';
 import NitelifeIcon from '../../assets/misc/nitelife.png';
+import ScuntIcon from '../../assets/misc/magnifier.png';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
@@ -58,10 +59,6 @@ import {
 } from '../ScuntJudgeForm/ScuntJudgeForm';
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
-
-// hyper link color on scunt home page
-// need to pass in team objects into ScuntDiscord component on the Scunt homepage (to get team name)
-// countdown doesnt show when not logged in (cant get scunt game settings if not logged in?)
 
 const PageProfile = () => {
   return <PageProfileFrosh />;
@@ -103,11 +100,11 @@ const PageProfileFrosh = () => {
       <div className="navbar-space-top" />
       <ProfilePageHeader leader={leader} editButton={true} />
       {leader === true ? <ProfilePageLeaderPermissionDashboardLinks /> : <></>}
-      <ProfilePageScuntMessage />
       <div className="profile-info-row">
         <div>
           {leader === false ? (
             <>
+              <ProfilePageScuntMessage />
               {user?.isRegistered && <ProfilePageRetreat />}
               <ProfilePageNitelife />
               <ProfilePageInstagrams />
@@ -283,6 +280,7 @@ export const ProfilePageScuntMessage = () => {
   const isRegistered = useSelector(registeredSelector);
   const { setSnackbar } = useContext(SnackbarContext);
   const [showToken, setShowToken] = useState(false);
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   const code = user?.scuntToken;
   if (
@@ -296,13 +294,18 @@ export const ProfilePageScuntMessage = () => {
     return <></>;
   }
 
-  return (
-    <div className="profile-page-scunt-message">
-      <h2>Scunt is happening soon!</h2>
-      <Link to="/scunt">
-        <Button label="Scunt Home"></Button>
-      </Link>
-    </div>
+  return isRegistered ? (
+    <Link to="/scunt">
+      <div className="frosh-instagram-container">
+        <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
+        <div>
+          <h2>Havenger Scunt!</h2>
+          <p>Find more information about Scunt by clicking here!</p>
+        </div>
+      </div>
+    </Link>
+  ) : (
+    <></>
   );
 };
 
