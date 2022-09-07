@@ -104,14 +104,17 @@ const PageProfileFrosh = () => {
         <div>
           {leader === false ? (
             <>
-              <ProfilePageScuntMessage />
               {user?.isRegistered && <ProfilePageRetreat />}
               <ProfilePageNitelife />
               <ProfilePageInstagrams />
               <ProfilePageAnnouncements />
             </>
           ) : (
-            <div style={{ marginTop: '-20px' }} />
+            <>
+              <div style={{ marginTop: '20px' }} />
+              <ProfilePageScuntMessage />
+              <div style={{ marginTop: '-20px' }} />
+            </>
           )}
           <ProfilePageSchedule />
         </div>
@@ -294,7 +297,7 @@ export const ProfilePageScuntMessage = () => {
     return <></>;
   }
 
-  return isRegistered ? (
+  return leader || isRegistered ? (
     <Link to="/scunt">
       <div className="frosh-instagram-container">
         <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
