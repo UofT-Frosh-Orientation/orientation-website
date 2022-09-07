@@ -15,7 +15,7 @@ router.get(
   '/',
   checkLoggedIn,
   conditionallyApply(
-    (req) => req.query.showHidden || req.query.showHidden === 'true',
+    (req) => req.query.showHidden === 'true',
     hasAuthScopes(['scunt:exec show missions', 'scunt:exec hide missions']),
   ),
   ScuntMissionController.getMissions,
