@@ -418,7 +418,7 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
           'scunt:judge bribe points',
           'scunt:judge missions',
         ]}
-        label="Scunt Judge panel"
+        label="Scunt Judge Panel"
       />
       <ProfilePageDashboardLink
         link="/scunt-missions-dashboard"
