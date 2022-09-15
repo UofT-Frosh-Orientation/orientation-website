@@ -70,9 +70,9 @@ To view the component stories, navigate to the `client` directory in your termin
 yarn storybook
 ```
 #### Pages
-Pages are stored in `./client/src/util/pages.jsx`. To add a page, add it to the respective category. This can modify the navigation bar, footer links, etc, as other components rely on this file. Pages are routed automatically in `App.jsx`, specifically the `TransitionRoutes` component
+Pages are stored in `./client/src/util/pages.jsx`. To add a page, add it to the respective category. This can modify the navigation bar, footer links, etc, as other components rely on this file. Pages are routed automatically in `App.jsx`, specifically the `TransitionRoutes` component. We use React Router DOM v6, with CSS transitions to achieve routing in React.
 #### Snackbar Provider
-The SNackbar provider is wrapped at the root of the app. Therefore it can be accessed by the child components. You can use setSnackbar to show a snackbar message. 
+The Snackbar provider is wrapped at the root of the app. Therefore it can be accessed by the child components. You can use setSnackbar to show a snackbar message. 
 
 An example usage:
 ```js
