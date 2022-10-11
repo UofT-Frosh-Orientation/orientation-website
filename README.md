@@ -1,3 +1,5 @@
+![image](https://user-images.githubusercontent.com/50821962/195210327-87d8570e-d5c1-4704-be5b-eb2a609c0972.png)
+
 # Orientation Website
 This repository holds the source code for UofT Engineering's Orientation Website! This fullstack website is 
 split into two "packages". First, there is the frontend package, `client`, and second there is the backend
@@ -58,6 +60,7 @@ yarn storybook
 
 ## Technical Breakdown
 ### Frontend
+The design of the frontend can be found here: https://www.figma.com/file/nm0NklXCnOGmQQfugCk5i3/Frosh-Week-2022?node-id=0%3A1
 #### Components
 All components use the standard React functional component structure and require `PropTypes`. Components are located in the `./client/src/components`. Components are documented using storybook. You can read more about using storybook here: https://storybook.js.org/
 #### Assets
