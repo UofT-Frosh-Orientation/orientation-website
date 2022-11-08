@@ -3,18 +3,35 @@ import PropTypes from 'prop-types';
 import './FroshRetreat.scss';
 import { Header } from '../../components/text/Header/Header';
 import { Button } from '../../components/button/Button/Button';
-import { Link } from 'react-router-dom';
-import { userSelector } from '../../state/user/userSlice';
+import { Link, useNavigate } from 'react-router-dom';
+import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useSelector } from 'react-redux';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { SnackbarContext } from '../../util/SnackbarProvider';
+import useAxios from '../../hooks/useAxios';
 
 export const FroshRetreat = () => {
+  const [remainingTickets, setRemainingTickets] = useState();
+  const { setSnackbar } = useContext(SnackbarContext);
+  const navigate = useNavigate();
+  const isRegistered = useSelector(registeredSelector);
+
+  useEffect(async () => {
+    setRemainingTickets(await getRemainingTickets(setSnackbar));
+  }, []);
+
+  useEffect(() => {
+    if (!isRegistered) {
+      navigate('/profile');
+    }
+  }, [isRegistered]);
+
   return (
     <div className="frosh-retreat-page">
       <Header text={'Retreat'} underlineDesktop={'260px'} underlineMobile={'185px'}>
         <div className="info-header">
+          <h1>Remaining Tickets: {remainingTickets}</h1>
           <p style={{ color: 'var(--white)' }}>
             Hello hello! Thank you so much for your interest in participating in the Frosh Retreat.
             The retreat is taking place on Saturday September 10th 2022 running overnight into
@@ -26,27 +43,52 @@ export const FroshRetreat = () => {
           </p>
         </div>
       </Header>
+      <div style={{ height: '20px' }} />
       <iframe
-        src="https://drive.google.com/file/d/1bRBR7OmgX-KKWSsaysEZ3s4wv6nP3qfW/preview"
-        width="100%"
-        height="100%"
-        allow="autoplay"
+        className="frosh-retreat-video"
+        src="https://www.youtube.com/embed/eGwsNvgroCI?autoplay=1"
+        title="F!rosh Retreat Info"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
       ></iframe>
+      <div style={{ height: '20px' }} />
       <h1>Registration</h1>
       <RetreatRegistration />
     </div>
   );
 };
 
+export async function getRemainingTickets(setSnackbar) {
+  try {
+    const { axios } = useAxios();
+    const response = await axios.get('/payment/frosh-retreat-remaining-tickets');
+    console.log('TICKETS!');
+    console.log(response);
+    return response.data.count;
+  } catch (e) {
+    setSnackbar(e.toString(), true);
+  }
+}
+
 const RetreatRegistration = () => {
   const [viewedWaiver, setViewedWaiver] = useState(false);
   const [waiverValue, setWaiverValue] = useState();
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const waiverLink =
     'https://drive.google.com/file/u/5/d/1CVXzncOgUCYjbG8raXWagqvtHS89SDyP/view?usp=sharing';
 
   const { user } = useSelector(userSelector);
   const { setSnackbar } = useContext(SnackbarContext);
+  const { axios } = useAxios();
+  const isRetreat = user?.isRetreat === true;
+
+  const [outOfTickets, setOutOfTickets] = useState(false);
+
+  useEffect(async () => {
+    setOutOfTickets((await getRemainingTickets(setSnackbar)) <= 0);
+  }, []);
 
   console.log(user);
   return (
@@ -82,6 +124,7 @@ const RetreatRegistration = () => {
           <p>
             {!user?.allergies || user?.allergies.length <= 0 ? 'None' : user?.allergies.join(', ')}
           </p>
+          {!user?.allergiesMore ? <p>{user?.allergiesMore}</p> : <></>}
         </div>
         <div className="display-field">
           <h3>Medical Info:</h3>{' '}
@@ -102,6 +145,13 @@ const RetreatRegistration = () => {
             I have read and agree to the Frosh Retreat Waiver. By selecting &apos;Yes&apos; I
             understand the terms laid out by this agreement.
           </h3>
+          <h4>
+            <i>
+              Please bring a signed copy of the waiver to retreat. This can be a digital or physical
+              and must be signed by your parent/guardian if by September 10th, you are still under
+              18.
+            </i>
+          </h4>
           <div style={{ height: '10px' }} />
           <Button
             label="You can read the Frosh Retreat Waiver here"
@@ -117,18 +167,39 @@ const RetreatRegistration = () => {
               values={['Yes', 'No']}
               onSelected={(value) => {
                 setWaiverValue(value);
+                if (value === 'Yes')
+                  setSnackbar('Please bring a signed copy of the waiver to retreat!');
               }}
             />
           ) : (
             <></>
           )}
         </div>
-        {viewedWaiver ? (
+        {isRetreat ? (
+          <h2>You have already payed for Frosh Retreat!</h2>
+        ) : outOfTickets ? (
+          <h2>Sorry there are no more tickets available!</h2>
+        ) : viewedWaiver ? (
           <Button
             label={'Continue to Payment'}
-            isDisabled={waiverValue !== 'Yes'}
+            isDisabled={waiverValue !== 'Yes' || buttonClicked}
             onClick={() => {
               if (waiverValue === 'Yes') {
+                setButtonClicked(true);
+                axios
+                  .post('/payment/frosh-retreat-payment')
+                  .then((response) => {
+                    const { url } = response.data;
+                    window.location.href = url;
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                    setSnackbar(
+                      'Something went wrong! Please file a bug report on GitHub if this issue persists',
+                      true,
+                    );
+                    setButtonClicked(false);
+                  });
                 // Redirect the user to the payment for Retreat here!
               } else {
                 setSnackbar('Please accept the Frosh Waiver before proceeding!', true);
@@ -139,7 +210,9 @@ const RetreatRegistration = () => {
           <></>
         )}
       </div>
-      {viewedWaiver ? (
+      {isRetreat ? (
+        <ErrorSuccessBox success content="You have already accepted the agreement!" />
+      ) : viewedWaiver ? (
         <></>
       ) : (
         <ErrorSuccessBox error content="Please view the Frosh Retreat Waiver before proceeding!" />

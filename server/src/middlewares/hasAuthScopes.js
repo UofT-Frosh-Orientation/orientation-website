@@ -5,7 +5,6 @@
  */
 const hasAuthScopes = (scopes) => {
   return (req, res, next) => {
-    console.log('Checking auth scopes');
     const { authScopes } = req.user;
     let unauthorized = authScopes.approved.length === 0;
     if (authScopes.approved.includes('admin:all')) {

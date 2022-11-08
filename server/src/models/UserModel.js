@@ -83,9 +83,21 @@ const UserSchema = new mongoose.Schema(
           announcementID: {
             type: String,
           },
+          announcementName: {
+            type: String,
+          },
         },
       ],
       default: [],
+    },
+    scuntToken: {
+      type: String,
+      required: false,
+    },
+    isScuntDiscordLoggedIn: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
   },
   { discriminatorKey: 'userType' },

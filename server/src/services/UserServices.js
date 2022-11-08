@@ -87,6 +87,37 @@ const UserServices = {
     });
   },
 
+  checkScuntToken(existingUser) {
+    if (!existingUser.scuntToken) {
+      return false;
+    }
+    return true;
+  },
+
+  async addScuntToken(email) {
+    let result = '';
+    const characters = '0123456789';
+    const charactersLength = characters.length;
+    for (let i = 0; i < 5; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return new Promise((resolve, reject) => {
+      UserModel.findOneAndUpdate(
+        { email },
+        { scuntToken: result },
+        { returnDocument: 'after' },
+        (err, user) => {
+          if (err || !user) {
+            reject('UNABLE_TO_UPDATE_SCUNT_TOKEN_FOR_USER');
+          } else {
+            resolve(user);
+          }
+        },
+      );
+    });
+  },
+
   async validatePasswordResetToken(token) {
     return new Promise((resolve, reject) => {
       jwt.verify(token, process.env.JWT_RESET_TOKEN, (err, decoded) => {
@@ -163,6 +194,44 @@ const UserServices = {
             reject(err);
           } else if (!updatedUser) {
             reject('INVALID_USER');
+          } else {
+            resolve(updatedUser);
+          }
+        },
+      );
+    });
+  },
+
+  async unsubscribeUser(email) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOneAndUpdate(
+        { email },
+        { canEmail: false },
+        { returnDocument: 'after' },
+        (err, updatedUser) => {
+          if (err) {
+            reject(err);
+          } else if (!updatedUser) {
+            reject('INVALID_EMAIL');
+          } else {
+            resolve(updatedUser);
+          }
+        },
+      );
+    });
+  },
+
+  async resubscribeUser(email) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOneAndUpdate(
+        { email },
+        { canEmail: true },
+        { returnDocument: 'after' },
+        (err, updatedUser) => {
+          if (err) {
+            reject(err);
+          } else if (!updatedUser) {
+            reject('INVALID_EMAIL');
           } else {
             resolve(updatedUser);
           }
@@ -295,6 +364,68 @@ const UserServices = {
           }
         },
       );
+    });
+  },
+
+  async getScuntJudgeUsers() {
+    return new Promise((resolve, reject) => {
+      UserModel.find(
+        {
+          $or: [
+            { 'authScopes.approved': 'scunt:judge bribe points' },
+            { 'authScopes.approved': 'scunt:judge missions' },
+            // { 'authScopes.approved': 'scunt:bribe points' }, // this was the wrong scope name i think....
+            // { 'authScopes.approved': 'scunt:judge missions' },
+          ],
+        },
+        {},
+        { strictQuery: false },
+        (err, users) => {
+          if (err) {
+            reject(err);
+          } else if (!users) {
+            reject('INTERNAL_ERROR');
+          } else {
+            resolve(users);
+          }
+        },
+      );
+    });
+  },
+
+  async updateUserInfo(userId, updateInfo) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOneAndUpdate(
+        { _id: userId },
+        updateInfo,
+        { returnDocument: 'after' },
+        (err, User) => {
+          if (err || !User) {
+            reject('UNABLE_TO_UPDATE_USER');
+          } else {
+            console.log(User);
+            resolve(User);
+          }
+        },
+      );
+    });
+  },
+
+  /**
+   * Hard deletes a user by id.
+   * @param {ObjectId} id - id of the user to be deleted
+   * @async
+   * @return {Promise<Object>} - the user which was deleted
+   */
+  async deleteUser(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOneAndDelete({ _id: id }, (err, deletedUser) => {
+        if (err || !deletedUser) {
+          reject('UNABLE_TO_DELETE_USER');
+        } else {
+          resolve(deletedUser);
+        }
+      });
     });
   },
 };

@@ -1,5 +1,6 @@
 const AnnouncementModel = require('../models/AnnouncementModel');
 const UserModel = require('../models/UserModel');
+const announcementSubscription = require('../subscribers/announcementSubscription');
 
 const AnnouncementServices = {
   async getAllAnnouncements() {
@@ -10,7 +11,7 @@ const AnnouncementServices = {
         } else {
           resolve(announcements);
         }
-      });
+      }).sort({ dateCreated: -1 });
     });
   },
 
@@ -21,27 +22,30 @@ const AnnouncementServices = {
         if (err) {
           reject(err);
         } else {
-          const index = listOfCompleted.indexOf(id);
-
-          //if announcement is completed -> remove from completed
-          if (index != -1) {
-            listOfCompleted.splice(index, 1);
+          let removeIndex;
+          if (
+            listOfCompleted.every((value, index) => {
+              if (value.id === announcement.id) {
+                removeIndex = index;
+              }
+              return value.id != announcement.id;
+            })
+          ) {
+            listOfCompleted.push({ _id: announcement.id, announcementName: announcement.name });
           } else {
-            listOfCompleted.push(announcement._id);
+            listOfCompleted.splice(removeIndex, 1);
           }
 
-          resolve(
-            UserModel.findOneAndUpdate(
-              { _id: currentUser._id },
-              { completedAnnouncements: listOfCompleted },
-              (err, user) => {
-                if (err || !user) {
-                  reject('UNABLE_TO_UPDATE_USER');
-                } else {
-                  resolve(user);
-                }
-              },
-            ),
+          UserModel.findOneAndUpdate(
+            { _id: currentUser._id },
+            { completedAnnouncements: listOfCompleted },
+            (err, user) => {
+              if (err || !user) {
+                reject('UNABLE_TO_UPDATE_USER');
+              } else {
+                resolve(user);
+              }
+            },
           );
         }
       });
@@ -61,7 +65,7 @@ const AnnouncementServices = {
             resolve(announcements);
           }
         },
-      );
+      ).sort({ dateCreated: -1 });
     });
   },
 
@@ -83,6 +87,9 @@ const AnnouncementServices = {
         if (err) {
           reject(err);
         } else {
+          if (announcementElement.sendAsEmail === true) {
+            announcementSubscription.add(announcementElement);
+          }
           resolve(newAnnouncement);
         }
       });

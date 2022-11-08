@@ -1,0 +1,112 @@
+.scunt-create-missions-tab-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.scunt-create-missions-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+.scunt-create-missions-textinput {
+  margin: 20px;
+  flex: 50%;
+}
+.scunt-create-missions-preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+
+  flex: 50%;
+}
+
+.scunt-create-missions-preview {
+  width: 100%;
+  padding: 25px;
+  background-color: var(--purple-bg);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+
+  color: var(--text-dynamic);
+  text-align: left;
+}
+
+.scunt-mission-csv-button-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+}
+.scunt-mission-csv-button {
+  position: relative;
+}
+
+.scunt-csv-reader {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+.scunt-browse-file {
+  width: 20%;
+}
+
+.scunt-accepted-file {
+  border: 1px solid var(--white);
+  height: 45px;
+  padding-left: 10px;
+  width: 80%;
+}
+
+.scunt-remove-file {
+  border-radius: 0;
+  padding: 0 20px;
+}
+
+.scunt-progress-bar-background {
+  background-color: var(--yellow);
+}
+
+.scunt-upload-missions-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-missions-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text-dynamic);
+}
+
+.scunt-upload-missions-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-mission-table-header-row {
+  box-sizing: border-box;
+  border-bottom: 4px solid var(--page-bg);
+  vertical-align: bottom;
+}
+
+.upload-mission-table-header-cell {
+  padding: 8px;
+  text-align: left;
+}
+
+.upload-mission-row {
+  border-bottom: 2px solid var(--page-bg);
+}
+
+.upload-mission-cell {
+  padding: 8px;
+}

@@ -4,7 +4,7 @@ function getResponseObject() {
     _id,
     __v,
     hashedPassword,
-    canEmail,
+    // canEmail,
     isDeleted,
     accountCreatedAt,
     lastUpdatedAt,

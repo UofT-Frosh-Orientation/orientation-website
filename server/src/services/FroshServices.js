@@ -55,6 +55,34 @@ const FroshServices = {
     return await frosh.save();
   },
 
+  async addRetreatPayment(user, paymentIntent) {
+    return new Promise((resolve, reject) => {
+      FroshModel.findByIdAndUpdate(
+        user.id,
+        {
+          $push: {
+            payments: [
+              {
+                item: 'Retreat Ticket',
+                paymentIntent: paymentIntent.toString(),
+                amountDue: 9500,
+              },
+            ],
+          },
+        },
+        {},
+        (err, user) => {
+          if (err) {
+            reject(err);
+          } else if (!user) {
+            reject('INVALID_USER');
+          } else {
+            resolve(user);
+          }
+        },
+      );
+    });
+  },
   /**
    * Get a frosh by their id
    * @param id

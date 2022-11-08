@@ -3,6 +3,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
 const FroshServices = require('../services/FroshServices');
+const ScuntGameSettingsServices = require('../services/ScuntGameSettingsServices');
 
 const froshGroups = [
   {
@@ -87,6 +88,21 @@ const froshGroups = [
   },
 ];
 
+const ScuntGameSettings = {
+  name: 'new settings',
+  minAmountPointsPercent: 0.5,
+  amountOfTeams: 10,
+  amountOfStarterBribePoints: 10000,
+  maxAmountPointsPercent: 0.3,
+  revealJudgesAndBribes: false,
+  revealTeams: false,
+  showDiscordLink: false,
+  revealLeaderboard: false,
+  revealMissions: false,
+  allowJudging: false,
+  disordLink: 'https://discord.gg/mRutbwuCK9',
+};
+
 const loadMongo = async (app) => {
   console.log('Loading mongo...');
   const { MONGODB_PASSWORD, MONGODB_HOST, MONGODB_USER } = process.env;
@@ -100,11 +116,12 @@ const loadMongo = async (app) => {
     session({
       resave: false,
       saveUninitialized: true,
-      secret: 'something cryptic',
+      secret: process.env.USER_SESSION_SECRET,
       store: new MongoStore({ mongoUrl: mongoURI, crypto: { secret: process.env.SESSION_SECRET } }),
     }),
   );
   await FroshServices.initFroshGroups(froshGroups);
+  await ScuntGameSettingsServices.initScuntGameSettings(ScuntGameSettings);
 };
 
 module.exports = loadMongo;

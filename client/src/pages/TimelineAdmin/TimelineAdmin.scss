@@ -1,0 +1,110 @@
+@import '../../scssStyles/mixins';
+
+.timeline-admin-page {
+  margin: 100px auto;
+  width: 80%;
+  @include devices(tablet) {
+    margin: 50px 0;
+    width: 100%;
+  }
+}
+
+.timeline-admin-create-question-container {
+  padding: 10px 40px;
+  max-width: 600px;
+  width: 70vw;
+  background-color: var(--container-bg);
+  border-radius: 15px;
+  margin: 0 auto;
+  @include devices(tablet) {
+    max-width: unset;
+    padding: 10px;
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+
+.timeline-admin-existing-events-container {
+  margin-top: 50px;
+  padding: 2%;
+  width: 70vw;
+  background-color: var(--container-bg);
+  border-radius: 15px;
+  margin: 50px auto;
+  @include devices(tablet) {
+    padding: 10px;
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+
+.timeline-admin-hide {
+  display: none;
+}
+
+.timeline-admin-event-container {
+  margin: 15px 10px 0px 10px;
+  padding: 20px 30px 20px 30px;
+  background-color: var(--purple-bg);
+  border-radius: 15px;
+  color: var(--text-dark-use);
+}
+.timeline-admin-titles {
+  margin: 10px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--text-dark-use);
+  @include devices(tablet) {
+    font-size: 25px;
+  }
+}
+
+.timeline-admin-subtitles {
+  margin: 7px;
+  font-size: 18px;
+  color: var(--text-dark-use);
+  @include devices(tablet) {
+    font-size: 15px;
+  }
+}
+
+.timeline-admin-event-titles {
+  font-size: 23px;
+  margin-bottom: 10px;
+  color: var(--text-dark-use);
+  @include devices(tablet) {
+    font-size: 14px;
+  }
+}
+
+.timeline-admin-text {
+  color: var(--text-dark-use);
+  margin-top: 5px;
+  word-wrap: break-word;
+  @include devices(tablet) {
+    font-size: 16px;
+  }
+}
+
+.timeline-admin-edit-title-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.timeline-admin-edit-title {
+  padding-top: 20px;
+  margin-bottom: 7px;
+  font-size: 26px;
+  font-weight: bold;
+  color: var(--text-dark-use);
+  @include devices(tablet) {
+    font-size: 22px;
+  }
+}
+
+.timeline-admin-no-result {
+  font-weight: bold;
+  margin: 10px;
+  color: var(--text-dark-use);
+}

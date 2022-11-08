@@ -134,6 +134,10 @@ router.get(
   UserController.getUsersAuthScopes,
 );
 
+router.put('/unsubscribe', UserController.unsubscribeUser);
+
+router.put('/resubscribe', checkLoggedIn, UserController.resubscribeUser);
+
 router.put(
   '/account-statuses',
   checkLoggedIn,
@@ -147,5 +151,29 @@ router.put(
   hasAuthScopes(['accounts:edit']),
   UserController.updateAuthScopes,
 );
+
+router.get('/scunt-judge-users', UserController.getScuntJudgeUsers);
+/**
+ * @swagger
+ * /user/{id}:
+ *   delete:
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: id of the user to delete
+ *     responses:
+ *       '200':
+ *         description: The user was successfully deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#components/schemas/FAQ'
+ *       '403':
+ *         $ref: '#components/responses/NotLoggedIn'
+ */
+router.delete('/:id', checkLoggedIn, hasAuthScopes(['accounts:delete']), UserController.deleteUser);
 
 module.exports = router;

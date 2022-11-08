@@ -120,27 +120,6 @@
   }
 }
 
-.faq-leaders-questions-subtitles {
-  font-size: 16px;
-  text-align: center;
-  color: var(--text-dark-use);
-  @include devices(tablet) {
-    font-size: 14px;
-  }
-}
-
-.faq-leaders-questions-smaller {
-  background-color: var(--container-bg);
-  border-radius: 12px;
-  color: var(--text-dark-use);
-  @include devices(tablet) {
-    font-size: 16px;
-  }
-}
-
-.faq-leaders-attribute {
-}
-
 .faq-leaders-description {
   color: var(--text-dark-use);
   margin-top: 5px;

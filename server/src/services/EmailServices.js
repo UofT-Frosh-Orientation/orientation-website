@@ -123,25 +123,18 @@ const EmailServices = {
 
   /**
    * Send bulk personalized template emails
-   * @param {Object} bulkEmailEntries an object containing objects with an email as a key and template data as the value
+   * @param {Object[]} bulkEmailEntries an array containing arrays of email addresses
    * @param {String} templateName name of template used
    * @param {Object} defaultTemplateData defult data to be filled in the template
    * @param {String} fromAddress the email adress the email is being sent from
    * @returns {Promise} promise
    */
   async sendBulkTemplateEmail(bulkEmailEntries, templateName, defaultTemplateData, fromAddress) {
-    const entries = Object.entries(bulkEmailEntries);
-
     const params = {
-      BulkEmailEntries: entries.map((entry) => {
+      BulkEmailEntries: bulkEmailEntries.map((entry) => {
         return {
           Destination: {
-            ToAddresses: [entry[0]],
-          },
-          ReplacementEmailContent: {
-            ReplacementTemplate: {
-              ReplacementTemplateData: JSON.stringify(entry[1]),
-            },
+            ToAddresses: [...entry],
           },
         };
       }),

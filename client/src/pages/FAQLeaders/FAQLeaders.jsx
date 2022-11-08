@@ -6,6 +6,7 @@ import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/B
 import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { SnackbarContext } from '../../util/SnackbarProvider';
+import { PopupModal } from '../../components/popup/PopupModal';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
@@ -24,33 +25,35 @@ const PageFAQLeaders = () => {
   }, [activeIndex]);
   //  const [toggleText, setToggleText] = useState('Unanswered');
   return (
-    <div className={'faq-leaders-page'}>
-      <div className={'faq-leaders-create-question-container'}>
-        <h1 className={'faq-leaders-titles'}>Create a new question!</h1>
-        <FAQLeadersNewPost editMade={editMade} setEditMade={setEditMade} />
-      </div>
-      <div className={'faq-leaders-edit-question-container'}>
-        <h1 className={'faq-leaders-titles'}>Existing questions</h1>
-        <div className={'faq-leaders-mobile'}>
-          <ButtonSelector
-            buttonList={buttonList}
-            activeIndex={activeIndex}
-            setActiveIndex={setActiveIndex}
-            maxWidthButton={200}
-          />
+    <div>
+      <div className={'faq-leaders-page'}>
+        <div className={'faq-leaders-create-question-container'}>
+          <h1 className={'faq-leaders-titles'}>Create a new question!</h1>
+          <FAQLeadersNewPost editMade={editMade} setEditMade={setEditMade} />
         </div>
-        <span className={`${!isAnswered ? 'faq-leaders-mobile-hide' : ''}`}>
-          <div className={'faq-leaders-answered-questions'}>
-            <h1 className={'faq-leaders-subtitles'}>Answered</h1>
-            <FAQLeadersAnsweredQuestions editMade={editMade} setEditMade={setEditMade} />
+        <div className={'faq-leaders-edit-question-container'}>
+          <h1 className={'faq-leaders-titles'}>Existing questions</h1>
+          <div className={'faq-leaders-mobile'}>
+            <ButtonSelector
+              buttonList={buttonList}
+              activeIndex={activeIndex}
+              setActiveIndex={setActiveIndex}
+              maxWidthButton={200}
+            />
           </div>
-        </span>
-        <span className={`${isAnswered ? 'faq-leaders-mobile-hide' : ''}`}>
-          <div className={'faq-leaders-unanswered-questions'}>
-            <h1 className={'faq-leaders-subtitles'}>Unanswered</h1>
-            <FAQLeadersUnansweredQuestions editMade={editMade} setEditMade={setEditMade} />
-          </div>
-        </span>
+          <span className={`${!isAnswered ? 'faq-leaders-mobile-hide' : ''}`}>
+            <div className={'faq-leaders-answered-questions'}>
+              <h1 className={'faq-leaders-subtitles'}>Answered</h1>
+              <FAQLeadersAnsweredQuestions editMade={editMade} setEditMade={setEditMade} />
+            </div>
+          </span>
+          <span className={`${isAnswered ? 'faq-leaders-mobile-hide' : ''}`}>
+            <div className={'faq-leaders-unanswered-questions'}>
+              <h1 className={'faq-leaders-subtitles'}>Unanswered</h1>
+              <FAQLeadersUnansweredQuestions editMade={editMade} setEditMade={setEditMade} />
+            </div>
+          </span>
+        </div>
       </div>
     </div>
   );
@@ -226,6 +229,8 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
   const [cancelEdit, setCancelEdit] = useState(false);
   const [createdDate, setCreatedDate] = useState(question.createdAt);
   const [updatedDate, setUpdatedDate] = useState(question.updatedAt);
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [triggerDelete, setTriggerDelete] = useState(false);
   const { setSnackbar } = useContext(SnackbarContext);
   const initialFormData = {
     question: '',
@@ -281,24 +286,43 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
   const updatedDateFormatted = new Date(updatedDate).toLocaleDateString('en-CA', options);
   return (
     <div className={'faq-leaders-questions-container'}>
+      <PopupModal
+        trigger={showPopUp}
+        setTrigger={setShowPopUp}
+        blurBackground={false}
+        exitIcon={true}
+        style={{ position: 'fixed', left: '0' }}
+      >
+        <h1 style={{ textAlign: 'center', color: 'var(--white)' }}>Confirm delete question?</h1>
+        <span style={{ marginTop: '20px' }}>
+          <Button label={'Cancel'} isSecondary onClick={() => setShowPopUp(false)} />
+          <Button
+            label={'Delete'}
+            onClick={async () => {
+                        const result = await deleteQuestion(question.id);
+            if (result !== true) {
+              setSnackbar('Error', true);
+            } else {
+              setEditMade(!editMade);
+              setSnackbar('Question Deleted Successfully', false);
+                            setShowPopUp(false);
+              setTriggerDelete(!triggerDelete);
+            }
+
+            }}
+          />
+        </span>
+      </PopupModal>
       <div className={`${isEdit ? 'faq-leaders-hide' : ''}`}>
         <h1 className={'faq-leaders-questions-titles'}>{questionText}</h1>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-attribute'}>
-            <b>Answer:</b>
-          </span>{' '}
-          {answerText}
+          <b>Answer:</b> {answerText}
         </p>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-attribute'}>
-            <b>Category:</b>
-          </span>{' '}
-          {categoryText}
+          <b>Category:</b> {categoryText}
         </p>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-attribute'}>
-            <b>Email:</b>
-          </span>{' '}
+          <b>Email:</b>{' '}
           <p
             style={{ userSelect: 'all', display: 'inline' }}
             onClick={() => {
@@ -310,16 +334,10 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
           </p>
         </p>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-attribute'}>
-            <b>Created at:</b>
-          </span>{' '}
-          {createdDateFormatted}
+          <b>Created at:</b> {createdDateFormatted}
         </p>
         <p className={'faq-leaders-description'}>
-          <span className={'faq-leaders-attribute'}>
-            <b>Last updated at:</b>
-          </span>{' '}
-          {updatedDateFormatted}
+          <b>Last updated at:</b> {updatedDateFormatted}
         </p>{' '}
       </div>
       <div className={`${!isEdit ? 'faq-leaders-hide' : ''}`}>
@@ -391,16 +409,8 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
         />
       </span>
       <span className={isEdit ? 'faq-leaders-hide' : ''}>
-        <Button
-          label={'Delete'}
-          onClick={async () => {
-            deleteQuestion(question.id);
-            setEditMade(!editMade);
-            setSnackbar('Question Deleted Successfully', false);
-          }}
-        />
+        <Button label={'Delete'} onClick={() => setShowPopUp(true)} />
       </span>
-
       <span className={!isEdit ? 'faq-leaders-hide' : ''}>
         <Button label={'Save'} onClick={() => handleSubmit(question.id)} />
       </span>
@@ -548,11 +558,15 @@ FAQLeadersNewPost.propTypes = {
 FAQLeadersAnsweredQuestions.propTypes = {
   editMade: PropTypes.bool.isRequired,
   setEditMade: PropTypes.func.isRequired,
+  setShowPopUp: PropTypes.func.isRequired,
+  triggerDelete: PropTypes.func.isRequired,
 };
 
 FAQLeadersUnansweredQuestions.propTypes = {
   editMade: PropTypes.bool.isRequired,
   setEditMade: PropTypes.func.isRequired,
+  setShowPopUp: PropTypes.func.isRequired,
+  triggerDelete: PropTypes.func.isRequired,
 };
 
 FAQLeadersButtons.propTypes = {
@@ -565,6 +579,8 @@ FAQLeadersQuestionWrapper.propTypes = {
   question: PropTypes.object.isRequired,
   editMade: PropTypes.bool.isRequired,
   setEditMade: PropTypes.func.isRequired,
+  setShowPopUp: PropTypes.func.isRequired,
+  triggerDelete: PropTypes.func.isRequired,
 };
 
 export { PageFAQLeaders };

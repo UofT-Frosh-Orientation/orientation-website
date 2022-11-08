@@ -38,3 +38,12 @@ export const froshSelector = createSelector(froshReducerSelector, ({ frosh, load
   loading,
   error,
 }));
+
+export const registeredFroshSelector = createSelector(
+  froshReducerSelector,
+  ({ frosh, loading, error }) => ({
+    registeredFrosh: frosh.filter((f) => f.isRegistered),
+    loading,
+    error,
+  }),
+);

@@ -163,6 +163,7 @@
     width: 90vw;
     margin-top: 20px;
   }
+  color: var(--text-dynamic);
 }
 
 .profile-page-qr-code {
@@ -217,10 +218,20 @@
   }
 }
 
+.profile-page-schedule-content {
+  @include devices(tablet) {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+}
+
 .profile-page-schedule-accordions {
   margin-top: -8px;
+  margin-right: -15px;
   @include devices(tablet) {
     margin-top: -13px;
+    margin-left: -10px;
+    margin-right: -10px;
   }
 }
 
@@ -447,12 +458,18 @@
     vertical-align: middle;
     transition: transform 500ms;
   }
+  h2 {
+    margin-bottom: 4px;
+  }
   @include devices(tablet) {
     margin-left: 0;
     margin-right: 0;
-  }
-  h2 {
-    margin-bottom: 4px;
+    h2 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 14px;
+    }
   }
 }
 .frosh-instagram-container {
@@ -490,29 +507,44 @@
       transform: scale(1.02);
     }
   }
+  @include devices(tablet) {
+    margin-left: 0;
+    margin-right: 0;
+    h2 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 15px;
+    }
+  }
 }
 
 .profile-page-scunt-token {
   text-align: center;
   padding: 0 30px;
   padding-top: 30px;
+  margin-top: 20px;
   padding-bottom: 10px;
   h2 {
     padding: 0px !important;
-    padding-bottom: 5px;
     margin: 0px;
     font-size: 28px !important;
     color: var(--black) !important;
-    margin-bottom: 10px;
   }
   h3 {
-    padding: 0px !important;
     padding-bottom: 5px;
-    margin: 0px;
     user-select: all;
     transition: filter 500ms;
     font-size: 28px !important;
-    color: var(--black) !important;
+    color: var(--white) !important;
+    background-color: var(--light-purple);
+    padding: 10px !important;
+    margin: 5px;
+    border-radius: 10px;
+  }
+  h4 {
+    font-size: 22px !important;
+    margin-bottom: 5px;
   }
   p {
     margin-top: 5px;

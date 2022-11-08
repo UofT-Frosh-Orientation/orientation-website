@@ -1,0 +1,46 @@
+@import '../../scssStyles/mixins';
+
+.scunt-game-settings-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+  @include devices(tablet) {
+    padding: 20px;
+    margin: auto;
+  }
+}
+
+.scunt-game-settings-container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--container-bg);
+  width: 90%;
+  height: fit-content;
+  padding: 2%;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  color: var(--text-dynamic);
+  @include devices(tablet) {
+    width: 100%;
+  }
+}
+
+.scunt-game-settings-textbox-container {
+  margin: 10px;
+}
+
+.current-scunt-game-settings-container {
+  width: 50%;
+  padding: 25px;
+  background-color: var(--purple-bg);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 50px;
+  @include devices(tablet) {
+    width: 100%;
+  }
+}

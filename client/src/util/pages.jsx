@@ -20,9 +20,17 @@ import { PageScuntJudgeForm } from '../pages/ScuntJudgeForm/ScuntJudgeForm';
 import { PageScuntMissionsList } from '../pages/ScuntMissionsList/ScuntMissionsList';
 import { PageScuntHome } from '../pages/ScuntHome/ScuntHome';
 import { PageScuntRules } from '../pages/ScuntRules/ScuntRules';
+import { PageTimelineAdmin } from '../pages/TimelineAdmin/TimelineAdmin';
+import { PageAnnounceDash } from '../pages/AnnouncementDashboard/AnnounceDash';
+import { PageUnsubscribe } from '../pages/Unsubscribe/Unsubscribe';
+import { PageResubscribe } from '../pages/Resubscribe/Resubscribe';
 import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
 import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
 import { FroshRetreat } from '../pages/FroshRetreat/FroshRetreat';
+import { PagePaymentSuccess } from '../pages/PagePaymentSuccess/PagePaymentSuccess';
+import { ScuntGameSettings } from '../pages/ScuntGameSettings/ScuntGameSettings';
+import { PageScuntMissionsDashboard } from '../pages/ScuntMissionsDashboard/ScuntMissionsDashboard';
+import { ScuntTransactions } from '../pages/ScuntTransactions/ScuntTransactions';
 
 export const pages = {
   404: {
@@ -57,15 +65,6 @@ export const pages = {
       includeFooter: false,
     },
     {
-      label: 'Register',
-      component: (
-        <AuthorizedPage>
-          <PageRegistrationForm />
-        </AuthorizedPage>
-      ),
-      path: '/registration',
-    },
-    {
       label: 'Profile',
       component: (
         <AuthorizedPage>
@@ -75,8 +74,36 @@ export const pages = {
       path: '/profile',
       includeFooter: true,
     },
+    {
+      label: 'Unsubscribe',
+      component: <PageUnsubscribe />,
+      path: '/unsubscribe',
+      includeFooter: false,
+    },
+    {
+      label: 'Resubscribe',
+      component: (
+        <AuthorizedPage>
+          <PageResubscribe />
+        </AuthorizedPage>
+      ),
+      path: '/resubscribe',
+      includeFooter: false,
+    },
   ],
   hidden: [
+    {
+      lable: 'Announcements Dashboard',
+      component: (
+        <AuthorizedPage
+          authScopes={['announcements:delete', 'announcements:create', 'announcements:edit']}
+        >
+          <PageAnnounceDash />
+        </AuthorizedPage>
+      ),
+      path: '/announcement-dashboard',
+      includeFooter: true,
+    },
     {
       label: 'Request Permissions',
       component: (
@@ -96,9 +123,23 @@ export const pages = {
     {
       label: 'Registration',
       component: (
-        <AuthorizedPage>
-          <PageRegistrationForm />
-        </AuthorizedPage>
+        // <AuthorizedPage>
+        //   <PageRegistrationForm />
+        // </AuthorizedPage>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            height: '80vh',
+            width: '100%',
+            color: 'var(--text-dynamic)',
+            margin: '20px',
+          }}
+        >
+          <h1>Sorry, you can no longer signup for Frosh events.</h1>
+        </div>
       ),
       path: '/registration',
       includeFooter: true,
@@ -107,6 +148,18 @@ export const pages = {
       label: 'Registration Success',
       component: <PageRegistrationSuccess />,
       path: '/registration-success',
+    },
+    {
+      label: 'Registration Success Retreat',
+      component: (
+        <PagePaymentSuccess
+          title={'Frosh Retreat'}
+          message={
+            'Thank you for choosing to participate in the Frosh retreat, we will be reaching out to you for next steps and further details!'
+          }
+        />
+      ),
+      path: '/registration-success-retreat',
     },
     {
       label: 'sign-up',
@@ -124,12 +177,21 @@ export const pages = {
     },
     {
       label: 'payment-error',
-      component: <PagePaymentError />,
+      component: <PagePaymentError link={'/registration'} />,
       path: '/payment-error',
     },
     {
+      label: 'payment-error-retreat',
+      component: <PagePaymentError link={'/frosh-retreat'} />,
+      path: '/payment-error-retreat',
+    },
+    {
       label: 'frosh-retreat',
-      component: <FroshRetreat />,
+      component: (
+        <AuthorizedPage>
+          <FroshRetreat />
+        </AuthorizedPage>
+      ),
       path: '/frosh-retreat',
       includeFooter: true,
     },
@@ -155,6 +217,15 @@ export const pages = {
         </AuthorizedPage>
       ),
       path: '/faq-admin',
+    },
+    {
+      label: 'TimelineAdmin',
+      component: (
+        <AuthorizedPage authScopes={['timeline:create', 'timeline:edit', 'timeline:delete']}>
+          <PageTimelineAdmin />
+        </AuthorizedPage>
+      ),
+      path: '/timeline-admin',
     },
     {
       label: 'frosh-info-table',
@@ -213,6 +284,40 @@ export const pages = {
       ),
       path: '/scunt-judge-form',
       includeFooter: true,
+    },
+    {
+      label: 'start-scunt',
+      component: (
+        <AuthorizedPage authScopes={['scunt:exec game controls']}>
+          <ScuntGameSettings />
+        </AuthorizedPage>
+      ),
+      path: '/scunt-game-controls',
+    },
+    {
+      label: 'Scunt Missions Dashboard',
+      component: (
+        <AuthorizedPage
+          authScopes={[
+            'scunt:exec show missions',
+            'scunt:exec hide missions',
+            'scunt:exec create missions',
+            'scunt:exec delete missions',
+          ]}
+        >
+          <PageScuntMissionsDashboard />
+        </AuthorizedPage>
+      ),
+      path: '/scunt-missions-dashboard',
+    },
+    {
+      label: 'Scunt Point Transactions',
+      path: '/scunt-transactions',
+      component: (
+        <AuthorizedPage authScopes={['scunt:exec view transactions']}>
+          <ScuntTransactions />
+        </AuthorizedPage>
+      ),
     },
   ],
 };

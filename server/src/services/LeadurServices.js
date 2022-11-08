@@ -11,15 +11,16 @@ const LeadurServices = {
    * @param {String} firstName
    * @param {String} lastName
    * @param {String} preferredName
+   * @param {Number} scuntTeam
    * @return {Promise<unknown>}
    */
-  async createLeadur(email, password, firstName, lastName, preferredName) {
+  async createLeadur(email, password, firstName, lastName, preferredName, scuntTeam) {
     return new Promise((resolve, reject) => {
       bcrypt
         .hash(password, 10)
         .then((hashedPassword) => {
           LeadurModel.create(
-            { email, hashedPassword, firstName, lastName, preferredName },
+            { email, hashedPassword, firstName, lastName, preferredName, scuntTeam },
             (err, newUser) => {
               if (err) {
                 console.log(err);

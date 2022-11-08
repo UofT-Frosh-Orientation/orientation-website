@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ButtonSelector } from '../../buttonSelector/buttonSelector/ButtonSelector';
 import { SingleAccordion } from '../../text/Accordion/SingleAccordion/SingleAccordion';
 import './ScheduleHome.scss';
 import { data } from '../../../assets/schedule/data';
+import location from '../../../assets/misc/location.png';
+import { DarkModeContext } from '../../../util/DarkModeProvider';
 
 function getDaysSchedule() {
   const scheduleData = data;
@@ -100,28 +102,54 @@ const ScheduleComponent = () => {
   );
 };
 
-const ScheduleComponentAccordion = ({ scheduleDay, closeAll }) => {
+export const ScheduleComponentAccordion = ({ scheduleDay, closeAll }) => {
   const [isOpen, setIsOpen] = useState(true);
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   useEffect(() => {
     setIsOpen(false);
   }, [closeAll]);
+
+  let startTime = scheduleDay['Start Time'];
+  if (startTime.includes(':00 a1/p1')) {
+    startTime = startTime.replace(':00 a1/p1', '');
+    startTime = convertTime(startTime);
+  }
+  let endTime = scheduleDay['End Time'];
+  if (endTime.includes(':00 a1/p1')) {
+    endTime = endTime.replace(':00 a1/p1', '');
+    endTime = convertTime(endTime);
+  }
 
   return (
     <div className="schedule-accordion">
       <SingleAccordion
         className={`schedule-background-${scheduleDay['Color']}`}
         header={
-          <div className="schedule-accordion-header" closeAll={closeAll}>
-            <h1>{scheduleDay['Event Name']}</h1>
-            <h2>{scheduleDay['Start Time'] + ' - ' + scheduleDay['End Time']}</h2>
+          <div className="schedule-accordion-header-container">
+            <div className="schedule-accordion-header" closeAll={closeAll}>
+              <h1>{scheduleDay['Event Name']}</h1>
+              {scheduleDay['Event Location'] ? (
+                <div className="schedule-accordion-header-location-container">
+                  <img
+                    style={{ filter: darkMode ? 'invert(0.8)' : 'invert(0.6)' }}
+                    src={location}
+                    className="schedule-accordion-header-location-icon"
+                  ></img>
+                  <h3 className="schedule-accordion-location">{scheduleDay['Event Location']}</h3>
+                </div>
+              ) : (
+                <></>
+              )}
+            </div>
+            <h2>{startTime + ' - ' + endTime}</h2>
           </div>
         }
         setIsOpen={setIsOpen}
         isOpen={isOpen}
         canOpen={scheduleDay['Event Description'] !== undefined}
       >
-        <p>{scheduleDay['Event Description']}</p>
+        <p dangerouslySetInnerHTML={{ __html: scheduleDay['Event Description'] }} />
       </SingleAccordion>
     </div>
   );
@@ -133,3 +161,16 @@ ScheduleComponentAccordion.propTypes = {
 };
 
 export { ScheduleComponent };
+
+function convertTime(time) {
+  time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)?$/) || [time];
+
+  if (time.length > 1) {
+    time = time.slice(1);
+    time[5] = +time[0] < 12 ? '  AM' : '  PM';
+    time[0] = +time[0] % 12 || 12;
+  } else {
+    return time + ' AM';
+  }
+  return time.join('');
+}

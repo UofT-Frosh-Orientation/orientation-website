@@ -1,3 +1,26 @@
+import {
+  data,
+  dataAlpha,
+  dataBeta,
+  dataChi,
+  dataDelta,
+  dataGamma,
+  dataIota,
+  dataKappa,
+  dataLambda,
+  dataNu,
+  dataOmega,
+  dataOmicron,
+  dataPhi,
+  dataPi,
+  dataPsi,
+  dataRho,
+  dataSigma,
+  dataTau,
+  dataTheta,
+  dataUpsilon,
+  dataZeta,
+} from '../../assets/schedule/data';
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
 
@@ -16,242 +39,73 @@ export async function resetPassword(email) {
   return true;
 }
 
-export async function getTasks() {
-  try {
-    const response = await axios.get('/announcements');
-    console.log(response);
-    return response.data.announcements;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export function onDoneTask(task) {
-  console.log(task);
-}
-
-export function getFroshScheduleData() {
-  return [
-    {
-      date: 'Monday September 5', //This date format must be followed!
-      events: [
-        {
-          name: 'Meet your F! group!',
-          time: '8:00 AM - 9:00 AM', //This time format must be followed!
-          Color: 'purple',
-        },
-        {
-          name: 'Matriculation',
-          description:
-            'Our kickoff the frosh week, and introduction to all things SKULE™. We all gather in to Convocation Hall',
-          time: '9:00 AM - 11:00 AM',
-          Color: 'yellow',
-        },
-        {
-          name: 'Lunch',
-          time: '11:00 AM - 12:00 PM',
-          Color: 'green',
-        },
-        {
-          name: 'Frosh Games / Dye',
-          description:
-            'Frosh Games: Compete against other frosh groups in the craziest competitions imaginable\nDye: When I say purple you say purple! Where F!rosh and Leedurs alike dye their bodies (or parts thereof) purple. The colour purple represents great significance in the traditions of engineering schools across Canada.',
-          time: '12:00 PM - 3:00 PM',
-          Color: 'yellow',
-        },
-        {
-          name: 'Group Time',
-          time: '3:00 PM - 3:30 PM',
-          Color: 'purple',
-        },
-        {
-          name: 'Downtown Walkaround',
-          description:
-            'Join us for a lovely tour of Toronto’s downtown with 1000 of your newest friends and classmates',
-          time: '3:30 PM - 5:30 PM',
-          Color: 'yellow',
-        },
-        {
-          name: 'Break / Dinner',
-          time: '5:30 PM - 6:30 PM',
-          Color: 'blue',
-        },
-        {
-          name: 'Nitelife',
-          description:
-            'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
-          time: '6:30 PM - Late',
-          Color: 'dark-purple',
-        },
-      ],
-    },
-    {
-      date: 'Tuesday September 6',
-      events: [
-        {
-          name: 'Group Time',
-          time: '8:00 AM - 9:00 AM',
-          Color: 'purple',
-        },
-        {
-          name: 'Engineering Success Seminar',
-          time: '9:00 AM - 10:30 AM',
-          Color: 'gray',
-        },
-        {
-          name: 'Campus Tour / E4TW',
-          description:
-            'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW (Engineers 4 The World) is your very first design challenge here at U of T Engineering!',
-          time: '10:30 AM - 1:00 PM',
-          Color: 'yellow',
-        },
-        {
-          name: 'Lunch',
-          description:
-            'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW (Engineers 4 The World) is your very first design challenge here at U of T Engineering!',
-          time: '1:00 PM - 2:00 PM',
-          Color: 'green',
-        },
-        {
-          name: 'Campus Tour / E4TW',
-          description:
-            'Campus Tour: Where our Frosh leedurs will lead you through a tour of campus to find all the best places to study, work on projects, and nap!\nE4TW (Engineers 4 The World) is your very first design challenge here at U of T Engineering!',
-          time: '2:00 PM - 3:30 PM',
-          Color: 'yellow',
-        },
-        {
-          name: 'Group Time',
-          time: '3:30 PM - 4:30 PM',
-          Color: 'purple',
-        },
-        {
-          name: 'Cheer Off',
-          time: '4:30 PM - 5:30 PM',
-          Color: 'purple',
-        },
-        {
-          name: 'Break / Dinner',
-          time: '5:30 PM - 6:30 PM',
-          Color: 'blue',
-        },
-        {
-          name: 'Nitelife',
-          description:
-            'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
-          time: '6:30 PM - Late',
-          Color: 'dark-purple',
-        },
-      ],
-    },
-    {
-      date: 'Wednesday September 7',
-      events: [
-        {
-          name: 'Faculty Events',
-          time: '8:00 AM - 6:00 PM',
-          Color: 'gray',
-        },
-        {
-          name: 'Havenger Scunt',
-          description:
-            'The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!',
-          time: '6:00 PM - Late',
-          Color: 'dark-purple',
-        },
-      ],
-    },
-    {
-      date: 'Thursday September 8',
-      events: [
-        {
-          name: 'Class Starts',
-          time: '8:00 AM - 6:00 PM',
-          Color: 'gray',
-        },
-        {
-          name: 'Nitelife',
-          description:
-            'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
-          time: '6:00 PM - Late',
-          Color: 'dark-purple',
-        },
-      ],
-    },
-    {
-      date: 'Friday September 9',
-      events: [
-        {
-          name: 'Class Starts',
-          time: '8:00 AM - 6:00 PM',
-          Color: 'gray',
-        },
-        {
-          name: 'Nitelife',
-          description:
-            'You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in!',
-          time: '6:00 PM - Late',
-          Color: 'dark-purple',
-        },
-      ],
-    },
-  ];
-}
-
-export function getDaysFroshSchedule(froshGroup) {
-  console.log('get schedule for ' + froshGroup);
-  let scheduleData = getFroshScheduleData();
-  let days = [];
-  for (let day of scheduleData) {
-    days.push(day['date'].split(' ')[0]);
+export function getDaysSchedule(scheduleData) {
+  const days = [];
+  for (let day of Object.keys(scheduleData)) {
+    days.push(day.split(' ')[0]);
   }
   return days;
 }
 
-export function qrKeys() {
-  return ['email', 'name', 'pronouns', 'shirtSize', 'froshGroup', 'discipline'];
-}
-
-export function parseQRCode(qrString) {
-  try {
-    let qrStringSplit = qrString.split('|');
-    return {
-      email: qrStringSplit[0],
-      name: qrStringSplit[1],
-      pronouns: qrStringSplit[2],
-      shirtSize: qrStringSplit[3],
-      froshGroup: qrStringSplit[4],
-      discipline: qrStringSplit[5],
-    };
-  } catch (e) {
-    return {
-      email: undefined,
-      name: undefined,
-      pronouns: undefined,
-      shirtSize: undefined,
-      froshGroup: undefined,
-      discipline: undefined,
-    };
+export function getFroshGroupSchedule(froshGroup) {
+  if (froshGroup === 'Alpha') {
+    return dataAlpha;
+  } else if (froshGroup === 'Beta') {
+    return dataBeta;
+  } else if (froshGroup === 'Iota') {
+    return dataIota;
+  } else if (froshGroup === 'Phi') {
+    return dataPhi;
+  } else if (froshGroup === 'Psi') {
+    return dataPsi;
+  } else if (froshGroup === 'Rho') {
+    return dataRho;
+  } else if (froshGroup === 'Zeta') {
+    return dataZeta;
+  } else if (froshGroup === 'Gamma') {
+    return dataGamma;
+  } else if (froshGroup === 'Omega') {
+    return dataOmega;
+  } else if (froshGroup === 'Chi') {
+    return dataChi;
+  } else if (froshGroup === 'Upsilon') {
+    return dataUpsilon;
+  } else if (froshGroup === 'Pi') {
+    return dataPi;
+  } else if (froshGroup === 'Nu') {
+    return dataNu;
+  } else if (froshGroup === 'Delta') {
+    return dataDelta;
+  } else if (froshGroup === 'Sigma') {
+    return dataSigma;
+  } else if (froshGroup === 'Tau') {
+    return dataTau;
+  } else if (froshGroup === 'Kappa') {
+    return dataKappa;
+  } else if (froshGroup === 'Theta') {
+    return dataTheta;
+  } else if (froshGroup === 'Lambda') {
+    return dataLambda;
+  } else if (froshGroup === 'Omicron') {
+    return dataOmicron;
+  } else {
+    return data;
   }
 }
 
-export async function getQRCodeString() {
-  // Keep in this order:
-  // email | full name or preferred name | pronouns | shirt size | frosh group | discipline
+export function scannedUserKeys() {
+  return ['email', 'pronouns', 'discipline', 'froshGroup', 'photograph', 'shirtSize'];
+}
+
+export function parseQRCode(qrString) {
+  return {
+    email: qrString,
+  };
+}
+
+export function getQRCodeString(user) {
   try {
-    const response = await axios.get('/user/info');
-    let allDetails = response.data.user.email;
-    return allDetails.concat(
-      '|',
-      response.data.user.fullName,
-      '|',
-      response.data.user.pronouns,
-      '|',
-      response.data.user.shirtSize,
-      '|',
-      response.data.user.froshGroup,
-      '|',
-      response.data.user.discipline,
-    );
+    return user?.email;
   } catch (error) {
     console.log(error);
   }
@@ -259,29 +113,33 @@ export async function getQRCodeString() {
 
 //Return true if successful
 //Return an error string if not
-export function signInFrosh(email) {
-  return true;
+export async function signInFrosh(email) {
+  try {
+    const date = new Date();
+    const result = await axios.put('/qr/scan', {
+      email: email,
+      date: date.toISOString(),
+      tzOffset: date.getTimezoneOffset(),
+    });
+
+    return result;
+  } catch (error) {
+    return error;
+  }
 }
 
-export function searchForFrosh(nameOrEmail) {
-  return [
-    {
-      email: nameOrEmail,
-      name: nameOrEmail,
-      pronouns: 'he/him',
-      shirtSize: 'L',
-      froshGroup: 'Lambda',
-      discipline: 'Comp eng.',
-    },
-    {
-      email: 'hello@hello.com',
-      name: 'hello there',
-      pronouns: undefined,
-      shirtSize: undefined,
-      froshGroup: undefined,
-      discipline: undefined,
-    },
-  ];
+export async function searchForFrosh(email) {
+  try {
+    const response = await axios.get('/qr/search', {
+      params: {
+        search: email,
+      },
+    });
+
+    return response.data.QrInfo;
+  } catch (error) {
+    return error;
+  }
 }
 
 export function capitalizeFirstLetter(string) {

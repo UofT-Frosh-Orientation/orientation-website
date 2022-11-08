@@ -2,6 +2,7 @@ const UserServices = require('../services/UserServices');
 const LeadurServices = require('../services/LeadurServices');
 const passport = require('../services/passport');
 const passwordResetSubscription = require('../subscribers/passwordResetSubscription');
+const announcementSubscription = require('../subscribers/announcementSubscription');
 
 const UserController = {
   /**
@@ -13,7 +14,7 @@ const UserController = {
    */
   async signup(req, res, next) {
     try {
-      const { email, password, firstName, lastName, preferredName, leadur } = req.body;
+      const { email, password, firstName, lastName, preferredName, leadur, scuntTeam } = req.body;
 
       await UserServices.validateUser(email.toLowerCase(), password);
 
@@ -26,6 +27,7 @@ const UserController = {
           firstName,
           lastName,
           preferredName,
+          scuntTeam,
         );
       } else {
         user = await UserServices.createUser(
@@ -36,6 +38,8 @@ const UserController = {
           preferredName,
         );
       }
+
+      await UserServices.addScuntToken(email.toLowerCase());
 
       req.logIn(user, (err) => {
         if (err) {
@@ -55,8 +59,13 @@ const UserController = {
    * @return {Promise<void>}
    */
   async getInfo(req, res) {
-    const user = req.user.getResponseObject();
-    res.status(200).send({ user });
+    let user = req.user;
+
+    if (!UserServices.checkScuntToken(user)) {
+      user = await UserServices.addScuntToken(user.email.toLowerCase());
+    }
+
+    res.status(200).send({ user: user.getResponseObject() });
   },
 
   /**
@@ -136,6 +145,32 @@ const UserController = {
     }
   },
 
+  async unsubscribeUser(req, res, next) {
+    try {
+      const { email } = req.body;
+      await UserServices.unsubscribeUser(email);
+      announcementSubscription.add({ unsubed: true, email });
+
+      res
+        .status(200)
+        .send({ message: 'You have been successfully unsubscribed from announcement emails.' });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async resubscribeUser(req, res, next) {
+    try {
+      const { email } = req.body;
+      await UserServices.resubscribeUser(email);
+      res
+        .status(200)
+        .send({ message: 'You have been successfully resubscribed from announcement emails.' });
+    } catch (error) {
+      next(error);
+    }
+  },
+
   async requestAuthScopes(req, res, next) {
     try {
       const user = req.user;
@@ -211,6 +246,35 @@ const UserController = {
       const { userAuthScopes } = req.body;
       await UserServices.updateAuthScopes(userAuthScopes);
       return res.status(200).send({ message: 'Auth scopes updated!' });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  async getScuntJudgeUsers(req, res, next) {
+    try {
+      const judgeUsers = await UserServices.getScuntJudgeUsers();
+      return res.status(200).send({
+        message: 'Successfully found users!',
+        authRequests: judgeUsers.map((u) => u.getResponseObject()),
+      });
+    } catch (e) {
+      next(e);
+    }
+  },
+  /**
+   * Hard deletes a user account from mongo by id.
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @async
+   * @return {Promise<void>}
+   */
+  async deleteUser(req, res, next) {
+    try {
+      const { id } = req.params;
+      await UserServices.deleteUser(id);
+      res.status(200).send({ message: 'Successfully deleted User!', deletedId: id });
     } catch (err) {
       next(err);
     }

@@ -5,7 +5,6 @@ import { Button } from '../../components/button/Button/Button';
 import { validateEmail, validatePassword, validatePasswordLength } from './functions';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
-import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userSelector } from '../../state/user/userSlice';
@@ -200,6 +199,17 @@ const PageSignUp = () => {
           ) : (
             <></>
           )}
+          <div
+            style={{
+              color: 'var(--text-dynamic)',
+              textAlign: 'center',
+              fontSize: '15px',
+              width: '100%',
+              margin: '20px',
+            }}
+          >
+            <h2>You can no longer signup and register for Frosh events.</h2>
+          </div>
           <div
             className="sign-up-button"
             onMouseOver={() => {

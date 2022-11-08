@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { getSlideshowImages, getTimelineDates } from './functions';
+import { getSlideshowImages, getTimelineEvents } from './functions';
 import './Home.scss';
 import Wave from '../../assets/misc/wave.png';
 import WaveReverse from '../../assets/misc/wave-reverse.png';
@@ -20,6 +20,8 @@ import { ScheduleComponent } from '../../components/schedule/ScheduleHome/Schedu
 import { PopupModal } from '../../components/popup/PopupModal';
 import { sponsors } from '../../util/sponsors';
 import { DarkModeContext } from '../../util/DarkModeProvider';
+import { useSelector } from 'react-redux';
+import { loggedInSelector, userSelector } from '../../state/user/userSlice';
 
 const PageHome = () => {
   return (
@@ -106,7 +108,7 @@ const HomePageTimeline = () => {
   const [selectedEvent, setSelectedEvent] = useState({});
   const [dates, setDates] = useState();
   useEffect(async () => {
-    setDates(await getTimelineDates());
+    setDates(await getTimelineEvents());
   }, []);
   return (
     !(dates === undefined || dates?.length === 0) && (
@@ -127,10 +129,10 @@ const HomePageTimeline = () => {
           exitIcon={true}
         >
           <div className="home-page-timeline-popup-container">
-            <h1>{selectedEvent.name}</h1>
+            <h1>{selectedEvent.eventName}</h1>
             <p>{selectedEvent.description}</p>
 
-            {selectedEvent.link !== undefined ? (
+            {selectedEvent.link !== '' ? (
               <div className="home-page-timeline-popup-button">
                 <a
                   href={selectedEvent.link}
@@ -156,9 +158,18 @@ const HomePageTimeline = () => {
 };
 
 const HomePageSchedule = () => {
+  const loggedIn = useSelector(loggedInSelector);
   return (
     <div className="home-page-schedule">
-      <h2 className="home-page-section-header">Schedule</h2>
+      <h2 className="home-page-section-header">Schedule{loggedIn ? '*' : ''}</h2>
+      {loggedIn ? (
+        <div className="home-page-schedule-warning">
+          *Different Frosh groups have different schedules. The homepage schedule is the basic
+          schedule. To see yours, visit the <Link to={'/profile'}>Profile</Link> page.
+        </div>
+      ) : (
+        <></>
+      )}
       <ScheduleComponent />
     </div>
   );

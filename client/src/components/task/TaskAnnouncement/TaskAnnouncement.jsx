@@ -5,13 +5,20 @@ import Check from '../../../../assets/icons/check-solid-white.svg';
 
 const TaskAnnouncement = ({ tasks, onDone }) => {
   const options = { weekday: undefined, year: 'numeric', month: 'long', day: 'numeric' };
+  if (!tasks || tasks.length <= 0) {
+    return (
+      <div className="task-container">
+        <h2 className="nothing-here">There is nothing here yet!</h2>
+      </div>
+    );
+  }
   return (
     <>
       <div className="task-container">
         {tasks.map((task) => {
           let formattedDate = new Date(task.dateCreated).toLocaleDateString(undefined, options);
           return (
-            <div key={formattedDate + task.name} className={'task-task-container'}>
+            <div key={formattedDate + task.id} className={'task-task-container'}>
               <div
                 style={{
                   display: 'flex',
@@ -48,7 +55,9 @@ const TaskAnnouncement = ({ tasks, onDone }) => {
                     </div>
                   </div>
                   {task.description ? (
-                    <div className="task-description">{task.description}</div>
+                    <div className="task-description" style={{ 'overflow-wrap': 'anywhere' }}>
+                      {task.description}
+                    </div>
                   ) : (
                     <></>
                   )}
