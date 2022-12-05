@@ -123,23 +123,23 @@ export const pages = {
     {
       label: 'Registration',
       component: (
-        // <AuthorizedPage>
-        //   <PageRegistrationForm />
-        // </AuthorizedPage>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            textAlign: 'center',
-            height: '80vh',
-            width: '100%',
-            color: 'var(--text-dynamic)',
-            margin: '20px',
-          }}
-        >
-          <h1>Sorry, you can no longer signup for Frosh events.</h1>
-        </div>
+        <AuthorizedPage>
+          <PageRegistrationForm />
+        </AuthorizedPage>
+        // <div
+        //   style={{
+        //     display: 'flex',
+        //     alignItems: 'center',
+        //     justifyContent: 'center',
+        //     textAlign: 'center',
+        //     height: '80vh',
+        //     width: '100%',
+        //     color: 'var(--text-dynamic)',
+        //     margin: '20px',
+        //   }}
+        // >
+        //   <h1>Sorry, you can no longer signup for Frosh events.</h1>
+        // </div>
       ),
       path: '/registration',
       includeFooter: true,

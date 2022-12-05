@@ -33,7 +33,7 @@ import ScuntIcon from '../../assets/misc/magnifier.png';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
-import { getUserInfo } from '../../state/user/saga';
+import { getUserInfo, updateUserInfo } from '../../state/user/saga';
 import { announcementsSelector } from '../../state/announcements/announcementsSlice';
 import {
   getAnnouncements,
@@ -129,6 +129,7 @@ const PageProfileFrosh = () => {
             <></>
           )}
           <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
+          <ProfilePageScuntTeamsSelection />
           <ProfilePageResources />
           {leader ? (
             <ProfilePageScuntTeamSelectionLeader
@@ -313,6 +314,86 @@ export const ProfilePageScuntMessage = () => {
   );
 };
 
+export const ProfilePageScuntTeamsSelection = () => {
+  const [teammates, setTeammates] = useState(['', '', '']);
+  const [teammatesChangesMade, setTeammatesChangesMade] = useState(false);
+  const dispatch = useDispatch();
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
+  const isRegistered = useSelector(registeredSelector);
+  const { setSnackbar } = useContext(SnackbarContext);
+  const { scuntSettings } = useSelector(scuntSettingsSelector);
+  const { axios } = useAxios();
+
+  if (
+    leader ||
+    !isRegistered ||
+    !user?.scunt ||
+    (scuntSettings !== undefined &&
+      scuntSettings.length >= 1 &&
+      scuntSettings[0]?.revealTeams === true)
+  ) {
+    return <></>;
+  }
+
+  return (
+    <div className="profile-page-scunt-token profile-page-side-section">
+      <h2>Scunt Teammates</h2>
+      <p style={{ fontSize: '12px' }}>
+        Enter the emails (precisely) of other people (up to 3) you want to team with. Otherwise you
+        will be put in a random team.
+      </p>
+      {[0, 1, 2].map((index) => {
+        return (
+          <TextInput
+            key={index.toString()}
+            placeholder={'Email ' + (index + 1).toString()}
+            initialValue={user?.scuntPreferredMembers[index]}
+            value={teammates[index]}
+            onChange={(value) => {
+              teammates[index] = value;
+              setTeammates(teammates);
+              if (value !== user?.scuntPreferredMembers[index] && !teammatesChangesMade)
+                setTeammatesChangesMade(true);
+            }}
+          />
+        );
+      })}
+      <Button
+        isSecondary={true}
+        isDisabled={!teammatesChangesMade}
+        label={'Submit'}
+        onClick={async () => {
+          if (teammatesChangesMade) {
+            const teammatesCopy = teammates.filter((t) => {
+              return t !== '';
+            });
+            for (let i = 0; i < teammatesCopy.length; i++) {
+              teammatesCopy[i] = teammatesCopy[i].replaceAll(' ', '');
+            }
+            // The last email is always the same as the user
+            teammatesCopy[teammatesCopy.length] = user?.email;
+
+            for (let userEmail of teammatesCopy) {
+              const response = await axios.put('/user/user-exist', { email: userEmail });
+              if (response?.data?.code === 1) {
+                continue;
+              } else {
+                setSnackbar(userEmail + ' does not exist!', true);
+              }
+            }
+
+            const newInfo = { scuntPreferredMembers: teammatesCopy };
+            dispatch(updateUserInfo({ newInfo }));
+            setSnackbar('Successfully submitted team request!');
+            setTeammatesChangesMade(false);
+          }
+        }}
+      />
+    </div>
+  );
+};
+
 export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { user } = useSelector(userSelector);
@@ -328,7 +409,9 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
       !isRegistered ||
       !scuntSettings ||
       scuntSettings.length <= 0 ||
-      scuntSettings[0]?.revealTeams === false)
+      (scuntSettings !== undefined &&
+        scuntSettings.length >= 1 &&
+        scuntSettings[0]?.revealTeams === false))
   ) {
     return <></>;
   }

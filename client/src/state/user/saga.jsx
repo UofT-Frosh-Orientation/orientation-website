@@ -71,7 +71,7 @@ export function* updateUserInfoSaga({ payload: { newInfo, navigate } }) {
     const result = yield call(axios.put, '/frosh/info', newInfo);
     console.log(result);
     yield put(setUserInfo(result.data.user));
-    navigate('/profile');
+    if (navigate) navigate('/profile');
   } catch (error) {
     console.log(error);
     yield put(loginFail(error.response.data));

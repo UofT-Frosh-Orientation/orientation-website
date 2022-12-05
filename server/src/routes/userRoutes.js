@@ -2,6 +2,7 @@ const express = require('express');
 
 const UserController = require('../controllers/UserController');
 const checkLoggedIn = require('../middlewares/checkLoggedIn');
+const checkUserType = require('../middlewares/checkUserType');
 const hasAuthScopes = require('../middlewares/hasAuthScopes');
 
 const router = express.Router();
@@ -175,5 +176,7 @@ router.get('/scunt-judge-users', UserController.getScuntJudgeUsers);
  *         $ref: '#components/responses/NotLoggedIn'
  */
 router.delete('/:id', checkLoggedIn, hasAuthScopes(['accounts:delete']), UserController.deleteUser);
+
+router.put('/user-exist', checkLoggedIn, checkUserType('frosh'), UserController.userExist);
 
 module.exports = router;
