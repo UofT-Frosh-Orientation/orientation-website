@@ -319,7 +319,7 @@ const ScuntTeamServices = {
                   if (err) {
                     reject(err);
                   } else {
-                    var scuntTeamDict = {};
+                    const scuntTeamDict = {};
                     // create an array of promises to save the updated frosh
                     const updates = frosh.map((f) => {
                       if (f.scuntPreferredMembers.length) {
