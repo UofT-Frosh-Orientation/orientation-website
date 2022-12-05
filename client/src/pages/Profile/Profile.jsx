@@ -341,14 +341,19 @@ export const ProfilePageScuntTeamsSelection = () => {
       <h2>Scunt Teammates</h2>
       <p style={{ fontSize: '12px' }}>
         Enter the emails (precisely) of other people (up to 3) you want to team with. Otherwise you
-        will be put in a random team.
+        will be put in a random team. Your requested team members must do the same. You do not need
+        to put your own email.
       </p>
       {[0, 1, 2].map((index) => {
         return (
           <TextInput
             key={index.toString()}
             placeholder={'Email ' + (index + 1).toString()}
-            initialValue={user?.scuntPreferredMembers[index]}
+            initialValue={
+              user?.scuntPreferredMembers[index] !== user?.email
+                ? user?.scuntPreferredMembers[index]
+                : ''
+            }
             value={teammates[index]}
             onChange={(value) => {
               teammates[index] = value;
@@ -375,11 +380,15 @@ export const ProfilePageScuntTeamsSelection = () => {
             teammatesCopy[teammatesCopy.length] = user?.email;
 
             for (let userEmail of teammatesCopy) {
-              const response = await axios.put('/user/user-exist', { email: userEmail });
-              if (response?.data?.code === 1) {
-                continue;
-              } else {
-                setSnackbar(userEmail + ' does not exist!', true);
+              let response;
+              try {
+                response = await axios.put('/user/user-exist', { email: userEmail });
+              } catch (e) {
+                if (e?.response?.status === 404) {
+                  setSnackbar(userEmail + ' does not exist!', true);
+                } else {
+                  setSnackbar(e.toString(), true);
+                }
               }
             }
 
