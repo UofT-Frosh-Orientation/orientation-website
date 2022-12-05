@@ -319,15 +319,77 @@ const ScuntTeamServices = {
                   if (err) {
                     reject(err);
                   } else {
+                    var scuntTeamDict = {};
                     // create an array of promises to save the updated frosh
                     const updates = frosh.map((f) => {
+                      if (f.scuntPreferredMembers.length) {
+                        let isMatch = true;
+                        for (let i = 0; i < f.scuntPreferredMembers.length; i++) {
+                          if (f.scuntPreferredMembers[i] !== f.email) {
+                            FroshModel.find({ email: f.scuntPreferredMembers[i] }, (err, frosh) => {
+                              if (err) {
+                                reject(err);
+                              } else {
+                                // there should only be one user with a particular email so map is not needed
+                                const sortedFPreferred = f.scuntPreferredMembers.sort();
+                                const sortedFroshPreferred = frosh[0].scuntPreferredMembers.sort();
+                                if (sortedFPreferred !== sortedFroshPreferred) {
+                                  isMatch = false;
+                                }
+                              }
+                            });
+                            if (!isMatch) {
+                              break;
+                            }
+                          }
+                        }
+
+                        if (isMatch) {
+                          let teamIndex = -1;
+                          for (let i = 0; i < f.scuntPreferredMembers.length; i++) {
+                            if (f.scuntPreferredMembers[i] !== f.email) {
+                              if (scuntTeamDict[f.scuntPreferredMembers[i]] !== undefined) {
+                                teamIndex = scuntTeamDict[f.scuntPreferredMembers[i]];
+                                break;
+                              }
+                            }
+                          }
+
+                          if (teamIndex === -1) {
+                            let minCount = 100000;
+                            for (let i = 0; i < teams.length; i++) {
+                              if (teams[i].count === 0) {
+                                teamIndex = i;
+                                break;
+                              }
+                              if (teams[i].count < minCount) {
+                                minCount = teams[i].count;
+                                teamIndex = i;
+                              }
+                            }
+                          }
+
+                          const team = teams[teamIndex];
+                          f.scuntTeam = team.number;
+                          scuntTeamDict[f.email] = teamIndex;
+                          team.froshGroups[f.froshGroup] =
+                            (team.froshGroups[f.froshGroup] ?? 0) + 1;
+                          team.pronouns[f.pronouns] = (team.pronouns[f.pronouns] ?? 0) + 1;
+                          team.disciplines[f.discipline] =
+                            (team.disciplines[f.discipline] ?? 0) + 1;
+                          team.count += 1;
+                          return f.save({ validateModifiedOnly: true });
+                        }
+                      }
                       let minScore = 100000;
                       let teamIndex = -1;
                       for (let i = 0; i < teams.length; i++) {
                         const score =
                           0.5 * (teams[i].froshGroups[f.froshGroup] ?? 0) +
                           0.5 * (teams[i].pronouns[f.pronouns] ?? 0) +
-                          0.5 * (teams[i].disciplines[f.discipline] ?? 0);
+                          0.5 * (teams[i].disciplines[f.discipline] ?? 0) +
+                          teams[i].count;
+
                         if (score < minScore) {
                           minScore = score;
                           teamIndex = i;
@@ -338,6 +400,7 @@ const ScuntTeamServices = {
                       team.froshGroups[f.froshGroup] = (team.froshGroups[f.froshGroup] ?? 0) + 1;
                       team.pronouns[f.pronouns] = (team.pronouns[f.pronouns] ?? 0) + 1;
                       team.disciplines[f.discipline] = (team.disciplines[f.discipline] ?? 0) + 1;
+                      team.count += 1;
                       return f.save({ validateModifiedOnly: true });
                     });
                     // await the resolution of the full array, and then resolve only if every frosh saved successfully
