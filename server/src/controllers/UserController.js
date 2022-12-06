@@ -279,6 +279,33 @@ const UserController = {
       next(err);
     }
   },
+
+  /**
+   * Checks to see if a user exists with that email
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @return {Promise<void>}
+   */
+  async userExist(req, res, next) {
+    const email = req.body?.email;
+
+    try {
+      const existingUser = await UserServices.getUserByEmail(email);
+      if (existingUser) {
+        return res.status(200).send({
+          message: 'User exists',
+        });
+      } else {
+        return res.status(404).send({
+          message: 'User does not exist',
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      next(e);
+    }
+  },
 };
 
 module.exports = UserController;

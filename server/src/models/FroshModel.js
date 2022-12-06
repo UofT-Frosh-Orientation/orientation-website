@@ -200,6 +200,11 @@ const FroshSchema = new mongoose.Schema(
       required: false,
       default: 0,
     },
+    scuntPreferredMembers: {
+      type: [String],
+      required: false,
+      default: [],
+    },
     isRetreat: {
       type: Boolean,
       required: false,

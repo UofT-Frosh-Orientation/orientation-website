@@ -626,6 +626,8 @@ const CurrentScuntGameSettings = () => {
                   >
                     <b>{scuntSettings[0][i].toString()}</b>
                   </div>
+                ) : scuntSettings[0][i] == null ? (
+                  ''
                 ) : (
                   scuntSettings[0][i].toString()
                 )}
