@@ -1,6 +1,11 @@
 ![image](https://user-images.githubusercontent.com/50821962/195210327-87d8570e-d5c1-4704-be5b-eb2a609c0972.png)
 
 # Orientation Website
+
+Welcome to the University of Toronto's Frosh engineering orientation website, used by more than 1,000 incoming students each year. This website serves as the primary platform for registering and paying for orientation events, and offers a range of features including a main schedule, announcements, a personal profile page with the ability to edit, a Scunt (scavenger hunt) game, sign-up for the Frosh retreat, QR code scanning for automated registration on event day, and more.
+
+This website is built using React, Express, Mongoose, Stripe, Docker, etc, and serves as a valuable resource for incoming students as they prepare for their first year at the University of Toronto. We hope this website helps to make the orientation process as smooth and enjoyable as possible.
+
 This repository holds the source code for UofT Engineering's Orientation Website! This fullstack website is 
 split into two "packages". First, there is the frontend package, `client`, and second there is the backend
 package `server`.
