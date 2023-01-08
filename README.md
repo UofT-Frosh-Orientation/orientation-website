@@ -62,7 +62,10 @@ yarn storybook
 
 ## Technical Breakdown
 ### Frontend
+<<<<<<< HEAD
 The design of the frontend can be found here: https://www.figma.com/file/nm0NklXCnOGmQQfugCk5i3/Frosh-Week-2022?node-id=0%3A1
+=======
+>>>>>>> 1164b42bdf76c1821b868d49ef46f78f744240ec
 #### Components
 All components use the standard React functional component structure and require `PropTypes`. Components are located in the `./client/src/components`. Components are documented using storybook. You can read more about using storybook here: https://storybook.js.org/
 #### Assets
@@ -94,7 +97,11 @@ setSnackbar("Hello", false)
 setSnackbar("Error!", true)
 ```
 #### Darkmode Provider
+<<<<<<< HEAD
 The Darkmode provider is wrapped at the root of the app. Therefore, it can be accessed by the child components. You can use setDarkmode to show toggle the color theme. 
+=======
+The Darkmode provider is wrapped at the root of the app. Therefore it can be accessed by the child components. You can use setDarkmode to show toggle the color theme. 
+>>>>>>> 1164b42bdf76c1821b868d49ef46f78f744240ec
 
 An example usage:
 ```js
@@ -113,13 +120,21 @@ console.log(darkMode)
 #### Colors
 The color list is available in `/client/src/util/colors.jsx`. These colors are applied using CSS variables and can be accessed in SCSS styles or inline styles. Dark mode automatically applies the respective color (index 0 - light mode, index 1 - dark mode)
 #### Global CSS classes
+<<<<<<< HEAD
 Note: Due to the nature of React, all CSS classes written have a global behaviour. Use specific class names for specific features on the website to not have overlapping styles. This section lists useful generic class names for quick styling.
+=======
+Note: Due to the nature of React, all CSS classes written have a global behaviour. Use specefic class names for specefic features on the website to not have overlapping styles. This section lists useful generic class names for quick styling.
+>>>>>>> 1164b42bdf76c1821b868d49ef46f78f744240ec
 * `no-link-style` removed the underline from any `a` link (This includes the `<Link>` component)
 * `display-only-desktop` only displays the contents on a normal computer screen size, otherwise hidden
 * `display-only-tablet` only displays the contents on a tablet/phone screen size, otherwise hidden
 #### SCSS Mixins 
 Import mixins into your SCSS using `@import '../../scssStyles/mixins';`
+<<<<<<< HEAD
 This allows you to use device specific selectors such as `tablet`. The SCSS file: `./client/src./scssStyles./_mixins.scss` has more information
+=======
+THis allows you to use device specefic selectors such as `tablet`. The SCSS file: `./client/src./scssStyles./_mixins.scss` has more information
+>>>>>>> 1164b42bdf76c1821b868d49ef46f78f744240ec
 
 For example:
 ```SCSS
@@ -131,6 +146,7 @@ For example:
 }
 ```
 ### Backend
+<<<<<<< HEAD
 The backend is meticulously organized under the `server` folder in their respective subfolders. `controllers`, `loaders`, `middlewares`, `models`, `routes` etc.
 
 > The general hierarchy is as follows:
@@ -154,3 +170,8 @@ The missions are used for the objectives the frosh must complete. Usually, a spr
 The teams group contains information about a team. This includes the teams nickname and amount of points. Within this collection a list of all the teams transactions can be found. For example, if a judge adds points to a team for a certain task, it is stored here. This also includes bribe points and subtraction points. The subcollection is a log of all transactions that have occurred on that team. It is usually large and only admins have access to this information. 
 
 > For more information and to better understand the architecture, be sure to check out the `models` folder and analyze the Scunt backend structure.
+=======
+More to come
+### Scunt
+More to come
+>>>>>>> 1164b42bdf76c1821b868d49ef46f78f744240ec
