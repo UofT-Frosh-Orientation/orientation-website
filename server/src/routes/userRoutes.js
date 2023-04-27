@@ -2,6 +2,7 @@ const express = require('express');
 
 const UserController = require('../controllers/UserController');
 const checkLoggedIn = require('../middlewares/checkLoggedIn');
+const checkUserType = require('../middlewares/checkUserType');
 const hasAuthScopes = require('../middlewares/hasAuthScopes');
 
 const router = express.Router();
@@ -175,5 +176,46 @@ router.get('/scunt-judge-users', UserController.getScuntJudgeUsers);
  *         $ref: '#components/responses/NotLoggedIn'
  */
 router.delete('/:id', checkLoggedIn, hasAuthScopes(['accounts:delete']), UserController.deleteUser);
+
+/**
+ * @swagger
+ * /user/user-exist:
+ *   post:
+ *     summary: Checks if a user with an email exists
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Email of the user
+ *                 example: john.doe@mail.utoronto.ca
+ *                 format: email
+ *     responses:
+ *       '200':
+ *         description: Successfully found user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: number
+ *                   description: is 1 if user exists
+ *       '404':
+ *          description: Did not find user
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  code:
+ *                    type: number
+ *                    description: is 0 user does not exists
+ */
+router.put('/user-exist', checkLoggedIn, checkUserType('frosh'), UserController.userExist);
 
 module.exports = router;
