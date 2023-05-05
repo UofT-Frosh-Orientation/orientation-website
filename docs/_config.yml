@@ -1,4 +1,4 @@
-title: Orientation Week Website Documentation
+title: F!rosh Week Website Documentation
 description: A GitHub Pages website used to host documentation and resources for UofT orientation website development 
 theme: just-the-docs
 
@@ -7,6 +7,6 @@ url: https://uoft-frosh-orientation.github.io/orientation-website
 aux_links:
   Github Repo: https://github.com/UofT-Frosh-Orientation/orientation-website/
 
-favicon_ico: "../client/src/assets/logo/main-frosh-logo.ico"
+favicon_ico: "/main-frosh-logo.ico"
 
 color_scheme: dark
