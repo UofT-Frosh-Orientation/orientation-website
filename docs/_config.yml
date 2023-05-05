@@ -6,3 +6,5 @@ url: https://uoft-frosh-orientation.github.io/orientation-website
 
 aux_links:
   Github Repo: https://github.com/UofT-Frosh-Orientation/orientation-website/
+
+favicon_ico: "../client/src/assets/logo/main-frosh-logo.ico"
