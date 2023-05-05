@@ -8,7 +8,9 @@ nav_order: 3
 
 ## The Frosh 2T3 Web Team
 
-- Soon to come!
+### Webmasters
+
+- [Farbod Mohammadzadeh](https://github.com/Freeassassin), [Natalie Chan](https://github.com/natapokie)
 
 ## The Frosh 2T2 Web Team
 
