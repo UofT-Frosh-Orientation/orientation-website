@@ -3,6 +3,7 @@ layout: default
 title: Havenger Scunt
 nav_order: 2
 permalink: /ProjectArchitecture/Backend
+parent: Project Architecture
 ---
 
 # Backend

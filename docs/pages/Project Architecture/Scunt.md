@@ -3,6 +3,7 @@ layout: default
 title: Havenger Scunt
 nav_order: 3
 permalink: /ProjectArchitecture/Scunt
+parent: Project Architecture
 ---
 
 # Scunt
