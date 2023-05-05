@@ -25,7 +25,7 @@ package `server`.
 ---
 
 
-## Getting started
+# Getting started
 
 **_Note: You will need to contact a project maintainer to get access to the `.env` environment variables and keys._**
 
@@ -71,7 +71,7 @@ yarn install
 
 The easiest way to install docker is to follow the instructions at https://www.docker.com/products/docker-desktop/
 
-## Running the code
+# Running the code
 
 When running the code, you can choose whether you want to run just the frontend, just the backend, or both
 at the same time. For most purposes, it is recommended to run both. Another common way to run the code is
