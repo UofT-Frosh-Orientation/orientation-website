@@ -8,3 +8,5 @@ aux_links:
   Github Repo: https://github.com/UofT-Frosh-Orientation/orientation-website/
 
 favicon_ico: "../client/src/assets/logo/main-frosh-logo.ico"
+
+color_scheme: dark
