@@ -15,6 +15,15 @@ This repository holds the source code for UofT Engineering's Orientation Website
 split into two "packages". First, there is the frontend package, `client`, and second there is the backend
 package `server`.
 
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
+
+
 ## The Frosh 2T3 Web Team
 
 - Soon to come!
