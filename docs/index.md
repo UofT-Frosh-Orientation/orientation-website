@@ -1,1 +1,7 @@
 # Welcome to the F!rosh Week 2T3 Website Documentation
+
+## Table of Contents:
+
+- [Getting Started]()
+- [Project Timeline]()
+- [Resources]()
