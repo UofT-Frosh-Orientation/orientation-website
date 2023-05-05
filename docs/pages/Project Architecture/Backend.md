@@ -2,7 +2,6 @@
 layout: default
 title: Backend
 parent: Project Architecture
-permalink: /ProjectArchitecture/Backend
 ---
 
 # Backend

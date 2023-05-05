@@ -2,7 +2,6 @@
 layout: default
 title: Havenger Scunt
 parent: Project Architecture
-permalink: /ProjectArchitecture/Scunt
 ---
 
 # Scunt

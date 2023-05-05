@@ -2,7 +2,6 @@
 layout: default
 title: Frontend
 parent: Project Architecture
-permalink: /ProjectArchitecture/Frontend
 ---
 
 # Frontend
