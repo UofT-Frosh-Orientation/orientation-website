@@ -1,9 +1,8 @@
 ---
 layout: default
 title: Frontend
-nav_order: 1
-permalink: /ProjectArchitecture/Frontend
 parent: Project Architecture
+permalink: /ProjectArchitecture/Frontend
 ---
 
 # Frontend

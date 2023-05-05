@@ -1,9 +1,8 @@
 ---
 layout: default
 title: Backend
-nav_order: 2
-permalink: /ProjectArchitecture/Backend
 parent: Project Architecture
+permalink: /ProjectArchitecture/Backend
 ---
 
 # Backend
