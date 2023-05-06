@@ -6,7 +6,7 @@ parent: Project Architecture
 
 # Frontend
 
-The design of the frontend can be found here: https://www.figma.com/file/nm0NklXCnOGmQQfugCk5i3/Frosh-Week-2022?node-id=0%3A1
+The design of the frontend can be found [here](https://www.figma.com/file/nm0NklXCnOGmQQfugCk5i3/Frosh-Week-2022?node-id=0%3A1) in the Figma
 
 ## Components
 
