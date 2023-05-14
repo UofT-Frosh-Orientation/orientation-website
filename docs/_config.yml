@@ -12,7 +12,7 @@ favicon_ico: "/main-frosh-logo.ico"
 color_scheme: dark
 
 callouts:
-  new_note:
+  new-note:
     title: 💡Tip
     color: yellow
   new-important:
