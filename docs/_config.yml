@@ -13,13 +13,13 @@ color_scheme: dark
 
 callouts:
   new_note:
-    title: "💡"
+    title: 💡
     color: yellow
   new-important:
-    title: "❗"
+    title: ❗
     color: red
   confused: 
-    title: "😕 Confused?"
+    title: 😕 Confused?
     color: blue
   quote:
     color: blue

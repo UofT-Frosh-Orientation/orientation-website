@@ -37,10 +37,10 @@ There are multiple ways that you can write functional components as well,
 
 There are multiple ways that you can write functional components as well, 
 
-### Function Keword
+### Function Keyword
 
 ```jsx
-function MyComponent(prop1, prop2, …, propN) {
+function MyComponent(prop1, prop2) {
   return (
     <> 
       <h1>{prop1}</h1>
@@ -53,7 +53,7 @@ function MyComponent(prop1, prop2, …, propN) {
 ### Arrow Function
 
 ```jsx
-const MyComponent = ({prop1, prop2, …, propN}) =>  {
+const MyComponent = ({prop1, prop2}) =>  {
   return (
     <> 
       <h1>{prop1}</h1>
