@@ -17,8 +17,8 @@ Frontend development involves using a combination of HTML, CSS, and JavaScript. 
 
 React is a JavaScript framework that allows you to build user interfaces in a very modular way using components. We kinda describe components like building blocks hence the modularity. They can be nested inside each other allowing you to easily build more complex components by combining smaller ones. For example, an entire page is a component made up of smaller components like text boxes, buttons, images, etc. Note that the file extension for React is .jsx, just something to be careful of when creating new files!
 
-
->💡 A framework is like a set of tools that you can use to build applications that make it easier for you to maintain and update your applications (overall making your life easier)!
+{: .note }
+A framework is like a set of tools that you can use to build applications that make it easier for you to maintain and update your applications (overall making your life easier)!
 
 ---
 
@@ -36,29 +36,28 @@ There are multiple ways that you can write functional components as well,
 
 ### Function Keword
 
-```JSX
+```js
 function MyComponent(prop1, prop2, …, propN) {
-	return (
-		<> 
-			<h1>{prop1}</h1>
-			<h2>Hello</h2>
-		</>
-	)
+  return (
+    <> 
+      <h1>{prop1}</h1>
+      <h2>Hello</h2>
+    </>
+  )
 }
 ```
 
 ### Arrow Function
 
-```JSX
+```js
 const MyComponent = ({prop1, prop2, …, propN}) =>  {
-	return (
-		<> 
-			<h1>{prop1}</h1>
-			<h2>Hello</h2>
-		</>
-	)
+  return (
+    <> 
+      <h1>{prop1}</h1>
+      <h2>Hello</h2>
+    </>
+  )
 }
-
 ```
 
 > ❗When naming components make sure to use Pascal Case, e.g., FirstName and LastName!
