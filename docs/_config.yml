@@ -13,10 +13,10 @@ color_scheme: dark
 
 callouts:
   new_note:
-    title: 💡
+    title: 💡Tip
     color: yellow
   new-important:
-    title: ❗
+    title: ❗Important
     color: red
   confused: 
     title: 😕 Confused?
