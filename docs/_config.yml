@@ -12,10 +12,10 @@ favicon_ico: "/main-frosh-logo.ico"
 color_scheme: dark
 
 callouts:
-  note:
+  new_note:
     title: "💡"
     color: yellow
-  important:
+  new-important:
     title: "❗"
     color: red
   confused: 
@@ -23,3 +23,7 @@ callouts:
     color: blue
   quote:
     color: blue
+
+# callouts:
+# {: .note }
+# A paragraph

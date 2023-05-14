@@ -10,14 +10,16 @@ parent: Onboarding
 
 This guide is here to help you get started with frontend development in React and is meant to be an iterative and dynamic guide, so you are encouraged to add any resources you found helpful as well.
 
-For those that don’t know, 
-> "... frontend is a term used to describe the client side of a website or application. It involves creating the user interface (UI) and functionality that users interact with”
+For those that don’t know,
+
+{: .quote }
+"... frontend is a term used to describe the client side of a website or application. It involves creating the user interface (UI) and functionality that users interact with”
 
 Frontend development involves using a combination of HTML, CSS, and JavaScript. HTML (Hypertext Markup Language) is used to structure the content of a web page, for example, all the text and images on a website are embedded in HTML tags. CSS (Cascading Style Sheets) is used to style and change the layout of the pages, for example changing the colours of components and centring items. Finally, JavaScript is used to add functionality to the page and make it interactive for the users, this includes things like clicking buttons.
 
 React is a JavaScript framework that allows you to build user interfaces in a very modular way using components. We kinda describe components like building blocks hence the modularity. They can be nested inside each other allowing you to easily build more complex components by combining smaller ones. For example, an entire page is a component made up of smaller components like text boxes, buttons, images, etc. Note that the file extension for React is .jsx, just something to be careful of when creating new files!
 
-{: .note }
+{: .new_note }
 A framework is like a set of tools that you can use to build applications that make it easier for you to maintain and update your applications (overall making your life easier)!
 
 ---
@@ -28,7 +30,8 @@ There are two ways you can write components in React, **functional** and **class
 
 For the orientation website, we write everything in functional components because it’s a lot simpler and easier to understand!
 
-> Conceptually, components are like JavaScript functions. They accept inputs (called “props” short for properties) and return React elements (HTML) describing what should appear on the screen.
+{: .quote}
+Conceptually, components are like JavaScript functions. They accept inputs (called “props” short for properties) and return React elements (HTML) describing what should appear on the screen.
 
 There are multiple ways that you can write functional components as well, 
 
@@ -36,7 +39,7 @@ There are multiple ways that you can write functional components as well,
 
 ### Function Keword
 
-```js
+```jsx
 function MyComponent(prop1, prop2, …, propN) {
   return (
     <> 
@@ -49,7 +52,7 @@ function MyComponent(prop1, prop2, …, propN) {
 
 ### Arrow Function
 
-```js
+```jsx
 const MyComponent = ({prop1, prop2, …, propN}) =>  {
   return (
     <> 
@@ -60,7 +63,8 @@ const MyComponent = ({prop1, prop2, …, propN}) =>  {
 }
 ```
 
-> ❗When naming components make sure to use Pascal Case, e.g., FirstName and LastName!
+{: .new-important}
+When naming components make sure to use Pascal Case, e.g., FirstName and LastName!
 
 ---
 
@@ -68,7 +72,7 @@ const MyComponent = ({prop1, prop2, …, propN}) =>  {
 
 ### Importing
 
-```JSX
+```jsx
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './yourFile.scss';
@@ -78,7 +82,8 @@ These three lines are pretty important!
 
 1. `useState`, `useEffect` and `useContext` are built-in functions in React, we typically use useState and useEffect which will be discussed further in a later section. 
 
-	> 💡 Instead of useContext, we use Redux, which allows us to pass and update states across multiple components. No worries if this concept of “State” is unclear, it will be described later!
+	{: .new_note}
+  Instead of useContext, we use Redux, which allows us to pass and update states across multiple components. No worries if this concept of “State” is unclear, it will be described later!
 
 2. Secondly, PropTypes allows for built-in type checking when you pass in any props to your component.
 
@@ -88,7 +93,7 @@ In addition to those three important lines, you might also need to import images
 
 #### Importing Images
 
-```JSX
+```jsx
 import ImageName from './filepath'
 ```
 
@@ -96,7 +101,7 @@ import ImageName from './filepath'
 
 #### Importing Components
 
-```JSX
+```jsx
 import { Component1, Component2, … } from './filepath'
 import { Component3, Component4, …} from 'package-name'
 ```
@@ -109,17 +114,18 @@ To import a component from another .jsx file, you’ll need to make sure to expo
 
 To use components that you’ve built from other files, you must export the component!
 
-> 💡Note, you can export multiple components from one file as well!
+{: .new-note}
+💡Note, you can export multiple components from one file as well!
 
 There are two syntaxes for exporting your components, you can add **export** before the **const** keyword, or you can export all the components at the end of your code (we recommend this!).
 
-```JSX
+```jsx
 export const MyComponent = () => {
 	return ()
 }
 ```
 
-```JSX
+```jsx
 const Component1 = () => {
 	return ()
 }
