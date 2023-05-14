@@ -12,15 +12,14 @@ This guide is here to help you get started with frontend development in React an
 
 For those that don’t know,
 
-{: .quote }
-"... frontend is a term used to describe the client side of a website or application. It involves creating the user interface (UI) and functionality that users interact with”
+> "... frontend is a term used to describe the client side of a website or application. It involves creating the user interface (UI) and functionality that users interact with”
 
 Frontend development involves using a combination of HTML, CSS, and JavaScript. HTML (Hypertext Markup Language) is used to structure the content of a web page, for example, all the text and images on a website are embedded in HTML tags. CSS (Cascading Style Sheets) is used to style and change the layout of the pages, for example changing the colours of components and centring items. Finally, JavaScript is used to add functionality to the page and make it interactive for the users, this includes things like clicking buttons.
 
 React is a JavaScript framework that allows you to build user interfaces in a very modular way using components. We kinda describe components like building blocks hence the modularity. They can be nested inside each other allowing you to easily build more complex components by combining smaller ones. For example, an entire page is a component made up of smaller components like text boxes, buttons, images, etc. Note that the file extension for React is .jsx, just something to be careful of when creating new files!
 
-{: .new_note }
-A framework is like a set of tools that you can use to build applications that make it easier for you to maintain and update your applications (overall making your life easier)!
+
+> 💡A framework is like a set of tools that you can use to build applications that make it easier for you to maintain and update your applications (overall making your life easier)!
 
 ---
 
@@ -30,8 +29,7 @@ There are two ways you can write components in React, **functional** and **class
 
 For the orientation website, we write everything in functional components because it’s a lot simpler and easier to understand!
 
-{: .quote}
-Conceptually, components are like JavaScript functions. They accept inputs (called “props” short for properties) and return React elements (HTML) describing what should appear on the screen.
+> Conceptually, components are like JavaScript functions. They accept inputs (called “props” short for properties) and return React elements (HTML) describing what should appear on the screen.
 
 There are multiple ways that you can write functional components as well, 
 
@@ -63,8 +61,7 @@ const MyComponent = ({prop1, prop2}) =>  {
 }
 ```
 
-{: .new-important}
-When naming components make sure to use Pascal Case, e.g., FirstName and LastName!
+> ❗When naming components make sure to use Pascal Case, e.g., FirstName and LastName!
 
 ---
 
@@ -82,8 +79,7 @@ These three lines are pretty important!
 
 1. `useState`, `useEffect` and `useContext` are built-in functions in React, we typically use useState and useEffect which will be discussed further in a later section. 
 
-	{: .new_note}
-  Instead of useContext, we use Redux, which allows us to pass and update states across multiple components. No worries if this concept of “State” is unclear, it will be described later!
+  > 💡Instead of useContext, we use Redux, which allows us to pass and update states across multiple components. No worries if this concept of “State” is unclear, it will be described later!
 
 2. Secondly, PropTypes allows for built-in type checking when you pass in any props to your component.
 
@@ -102,8 +98,8 @@ import ImageName from './filepath'
 #### Importing Components
 
 ```jsx
-import { Component1, Component2, … } from './filepath'
-import { Component3, Component4, …} from 'package-name'
+import { Component1, Component2 } from './filepath'
+import { Component3, Component4 } from 'package-name'
 ```
 
 To import a component from another .jsx file, you’ll need to make sure to export the component. For components that are declared and used in the same file, there is no need to import them. More later!
@@ -114,27 +110,24 @@ To import a component from another .jsx file, you’ll need to make sure to expo
 
 To use components that you’ve built from other files, you must export the component!
 
-{: .new-note}
-💡Note, you can export multiple components from one file as well!
+>💡Note, you can export multiple components from one file as well!
 
 There are two syntaxes for exporting your components, you can add **export** before the **const** keyword, or you can export all the components at the end of your code (we recommend this!).
 
 ```jsx
 export const MyComponent = () => {
-	return ()
+  return ()
 }
 ```
 
 ```jsx
 const Component1 = () => {
-	return ()
+  return ()
 }
 
 const Component2 = () => {
-	return ()
+  return ()
 }
-
-…
 
 export { Component1, Component2 }
 ```
@@ -147,9 +140,9 @@ Some of the most important tags you’ll need to know are, `<div>`, `<h1>` to `<
 
 React syntax is slightly different than HTML, so here is the general format of any tag,
 
-```JSX
+```jsx
 <div className="class-name" style={{display: 'flex', color: 'red'}}>
-	{children}
+  {children}
 </div>
 
 <img className="class-img" src={ImportedImage}></img>
@@ -161,13 +154,13 @@ You can add classes using `className` to specify multiple styles, these classes 
 
 #### Multiple Classes
 
-```JSX
+```jsx
 <div className="class1 class2"></div>
 ```
 
 #### Conditional Classes
 
-```JSX
+```jsx
 <div className={ condition ? "class1" : ""}> </div>
 ```
 
@@ -175,7 +168,7 @@ In words, it means, if the condition is true, it will apply the style from class
 
 #### Multiple & Conditional Classes
 
-```JSX
+```jsx
 <tag className={` class ${ condition ? 'true-class' : 'false-class'} `}></tag>
 ```
 
@@ -185,11 +178,11 @@ In words, it means, if the condition is true, it will apply the style from class
 
 #### Alternative Style Attribute
 
-```JSX
+```jsx
 // define your style object
 const styleTag = {
-	display: 'flex',
-	color: 'red'
+  display: 'flex',
+  color: 'red'
 }
 
 <div style={styleTag} />
@@ -203,51 +196,50 @@ Once again SCSS, works the exact same way as CSS. We keep all the style code in 
 
 When you’re writing your style code, here are some important styles you should keep in mind as well as general syntax!
 
-```CSS
+```css
 .class-name {
-	/* these three lines below aligns the contents to the center of a container */
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  /* these three lines below aligns the contents to the center of a container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 	
-	background-color: green;
-	transition background-color 200ms;
+  background-color: green;
+  transition background-color 200ms;
 
-	/* the ampersand means that you’re applying the style to the current component */
-	&:hover {
-		/* just like it sounds, this style “actives” when you hover over with your mouse */
-		background-color: red;
-	transition background-color 200ms;
-	}
+  /* the ampersand means that you’re applying the style to the current component */
+  &:hover {
+    /* just like it sounds, this style “actives” when you hover over with your mouse */
+    background-color: red;
+  transition background-color 200ms;
+  }
 
-	&:active {
-		/* this style actives when you press and hold */
-		background-color: blue;
-	transition background-color 200ms;
-	}
+  &:active {
+    /* this style actives when you press and hold */
+    background-color: blue;
+    transition background-color 200ms;
+  }
 }
 ```
 
 #### Apply Style to Multiple Components
 
-```CSS
+```css
 .class-one,
 .class-two {
-	&:hover{...}
-	&:active{...}
+  &:hover{...}
+  &:active{...}
 }
 ```
 
 #### Apply to All Components
 
-```CSS
+```css
 * {...}
-
 ```
 
 #### Apply Style to All Tags
 
-```CSS
+```css
 h1, 
 h2, 
 div {...}
@@ -255,13 +247,13 @@ div {...}
 
 You might also notice that :root, uses two dashes `--`. These are style variables that we assign in CSS. They can be used for color to make sure everything follows the same style guide or transitions!
 
-```CSS
+```css
 :root {
-	--purple: #AA98A9; /* we define the variable purple with a certain HEX code */
+  --purple: #AA98A9; /* we define the variable purple with a certain HEX code */
 }
 
 .class-name {
-	color: var(--purple)
+  color: var(--purple)
 }
 ```
 
@@ -271,13 +263,13 @@ You might also notice that :root, uses two dashes `--`. These are style variable
 >
 > So make sure to follow this!
 
-```JSX
+```jsx
 import PropTypes from 'prop-types';
 ```
 
 Lets take a look at an example now!
 
-```JSX
+```jsx
 const propTypesObj = {
   propBool: PropTypes.bool, 
   propString: PropTypes.string, 
@@ -300,11 +292,11 @@ Here, we are creating an object called `propTypesObj`, with the following proper
 
 The property `children` with `PropTypes.node` is what we use for components that have children, i.e., components that are nested inside other components. For example, 
 
-```JSX
+```jsx
 const Component = ({children}) => {
-	return(
-		<div>{children}</div>
-	)
+  return(
+    <div>{children}</div>
+  )
 }
 ```
 
@@ -312,27 +304,27 @@ You can name your props, however, you would like, just make sure that the naming
 
 Next, you can also assign **default props**, when the user doesn’t provide a prop! So if you’re calling `MyComponent` in another file
 
-```JSX
+```jsx
 export const MyComponent = ({propBool, propString, propObject, children}) => {
-	return(
-		<div style={propObject}>
-			<h1>{propString}</h1>
-			{children}
-			{ propBool ? (<p>{propString}</p>) : (<></>) }
-		</div>
-	)
+  return(
+    <div style={propObject}>
+      <h1>{propString}</h1>
+      {children}
+      { propBool ? (<p>{propString}</p>) : (<></>) }
+    </div>
+  )
 }
 ```
 
-```JSX
+```jsx
 export const ParentComponent = () => {
-	return (
-		<div>
-			<MyComponent propString='Example' >
-				<h1>Hello</h1>
-			</MyComponent>
-		<div>
-	)
+  return (
+    <div>
+      <MyComponent propString='Example' >
+        <h1>Hello</h1>
+      </MyComponent>
+    <div>
+  )
 }
 ```
 
@@ -348,13 +340,13 @@ One important aspect of any component is something called handling events. These
 
 One event handler that you might be familiar with is the `onClick` (in HTML, `onclick`). In React, you can pass a function as the event handler. These event handlers are written inside the HTML or component tag.
 
-```JSX
+```jsx
 <Component onClick={ () => { console.log("click") } } />
 ```
 
 Alternatively, you can declare the function separately, and pass it into the component,
 
-```JSX
+```jsx
 const function = () => { console.log(“click”) }
 <Component onClick={ function }/>
 ```
@@ -373,7 +365,7 @@ A component can have multiple states, and these states can change as a response 
 
 We can take a look at a simple component generated with the help of ChatGPT 😉, 
 
-```JSX
+```jsx
 import React, { useState } from 'react';
 
 export const Button = () => {
@@ -398,7 +390,7 @@ Lets walk through the code snippet starting with initializing your state variabl
 
 Here is the general syntax,
 
-```JSX
+```jsx
 const [state, setState] = useState();
 ```
 
@@ -411,8 +403,8 @@ const [state, setState] = useState();
 	- `click` is initially set to false.
 
 > 💡You can kinda think of setState like this, 
-	>
-	> `setState(newState)` → `state = newState`
+>
+> `setState(newState)` → `state = newState`
 
 Using the event handler we introduced previously, we see that when the user clicks the component, the code executes the `clickFunction`, which changes the state variables.
 
@@ -424,25 +416,25 @@ Using the event handler we introduced previously, we see that when the user clic
 
 Here is the general syntax of useEffect, 
 
-```JSX
+```jsx
 useEffect(() => {
-	// this runs on every render
-	// no dependencies
+  // this runs on every render
+  // no dependencies
 });
 ```
 
 We can specify how we want `useEffect` to run using a dependency array. The dependency array can be empty, or contain multiple values.
 
-```JSX
+```jsx
 useEffect(() => {
-	// this runs on the first render (i.e., rendering the page)
-	// empty dependency array
+  // this runs on the first render (i.e., rendering the page)
+  // empty dependency array
 }, []);
 ```
 
-```JSX
+```jsx
 useEffect(() => {
-	// this runs on the first render and runs everytime the any of the dependency values change
+  // this runs on the first render and runs everytime the any of the dependency values change
 }, [ state, props]);
 ```
 
