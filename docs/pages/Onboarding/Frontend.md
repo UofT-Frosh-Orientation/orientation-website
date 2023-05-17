@@ -22,6 +22,12 @@ React is a JavaScript framework that allows you to build user interfaces in a ve
 {: .new-note }
 A framework is like a set of tools that you can use to build applications that make it easier for you to maintain and update your applications (overall making your life easier)!
 
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
 ---
 
 ## React Functional Components
