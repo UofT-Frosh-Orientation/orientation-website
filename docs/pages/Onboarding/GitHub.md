@@ -186,3 +186,5 @@ After writing your code you can navigate to the `Source Control` tab and stage a
 ![](../../imgs/VScode-commit.jpg)
 
 ![](../../imgs/VScode-commit1.jpg)
+
+![](../../imgs/VScode-commit2.jpg)
