@@ -30,7 +30,7 @@ There are two ways to clone repositories on GitHub, either through your command 
 
 2. Click the green **Code** button, and copy the **HTTPS key**
 
-    ![github-https]('../../../../imgs/github-code-repo-https.png')
+    ![github-https]('/../../../imgs/github-code-repo.png)
 
 3. Open your command prompt
     + On Windows, search up **cmd** or **Command Prompt** by clicking on the Windows Key
@@ -55,7 +55,7 @@ Before beginning make sure to download [GitHub Desktop](https://desktop.github.c
 
 2. Click the green **Code** button, and click "Open with GitHub Desktop"
 
-    ![github-https]('../../../../imgs/github-code-repo-desktop.png')
+    ![github-https]('/../../../imgs/github-code-repo-desktop.png)
 
 3. Follow the GitHub Desktop prompts!
 
@@ -151,3 +151,10 @@ Some other important Git commands related to branching!
     ```
     git pull origin <branch-name>
     ```
+
+## Using Git & Github in VS Code
+
+### Changing Branches
+
+### Making Commits
+

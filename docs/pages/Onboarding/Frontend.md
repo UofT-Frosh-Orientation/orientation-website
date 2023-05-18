@@ -81,7 +81,7 @@ When naming components make sure to use Pascal Case, e.g., FirstName and LastNam
 ```jsx
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import './yourFile.sscss';
+import './yourFile.scss';
 ```
 
 These three lines are pretty important! 
@@ -93,7 +93,7 @@ These three lines are pretty important!
 
 2. Secondly, PropTypes allows for built-in type checking when you pass in any props to your component.
 
-3. Lastly, make sure to import your .sscss file! Sscss includes all the features of scss but has more features. You can treat your Sscss file as a regular scss file.
+3. Lastly, make sure to import your .scss file! Scss includes all the features of scss but has more features. You can treat your Scss file as a regular scss file.
 
 In addition to those three important lines, you might also need to import images or components!
 
@@ -162,7 +162,7 @@ React syntax is slightly different than HTML, so here is the general format of a
 {: .new-note }
 We refer to anything inside the tag, this can be plain text, other tags or components as the children.
 
-You can add classes using `className` to specify multiple styles, these classes are imported from your Sscss file, or you can add style similar to an object.
+You can add classes using `className` to specify multiple styles, these classes are imported from your Scss file, or you can add style similar to an object.
 
 #### Multiple Classes
 
@@ -204,9 +204,9 @@ const styleTag = {
 {: .new-note }
 Generally, all the tags that you use in HTML can be used in React.
 
-### Important Sscss Notes
+### Important Scss Notes
 
-Once again Sscss, works the exact same way as scss. We keep all the style code in another file and import it to our .jsx file.
+Once again Scss, works the exact same way as scss. We keep all the style code in another file and import it to our .jsx file.
 
 When you’re writing your style code, here are some important styles you should keep in mind as well as general syntax!
 
@@ -345,7 +345,7 @@ export const ParentComponent = () => {
 
 Note that the line `<h1>Hello</h1>` is the children prop! 
 
-In this example above, due to `deafultProps`, although `propBool` isn’t stated, it will automatically be assigned the value **true**.
+In this example above, due to `defaultProps`, although `propBool` isn’t stated, it will automatically be assigned the value **true**.
 
 {: .confused}
 Let us know how we can help and improve this section! Feel free to check out the link [here](https://www.freecodecamp.org/news/how-to-use-proptypes-in-react/) as well, we mentioned the main propTypes you’ll need but there are others that you can look into!
@@ -480,7 +480,7 @@ Finally, you can change the size of your screen and check for responsiveness! Th
 
 And you've made it to the end!🎉 Thank you for reading up to here, I really appreciate it!
 
-To be completetly honest, I'm still learning too so please send me a message if you're still confused or need further clarification on something!
+To be completely honest, I'm still learning too so please send me a message if you're still confused or need further clarification on something!
 
 (🤫I also didn't test any of the code that I included on this document, so please let me know if there are any issues)
 
