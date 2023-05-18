@@ -153,8 +153,36 @@ Some other important Git commands related to branching!
     ```
 
 ## Using Git & Github in VS Code
+After cloning a repository onto your computer you can use built-in VS code tools to simplify some low level GitHub tasks.
 
+- First make sure you have the Git and GitHub extensions installed on VS code.
+
+- Open the `orientation-website` folder in VS code.
 ### Changing Branches
+To change branches: 
+- click on the bottom left box
+
+    ![](../../imgs/VScode-branch.jpg)
+
+- This will open the selection bar. Here you can type the number / name of the branch you want to check out.
+
+    ![](../../imgs/VScode-branch-select.jpg)
+
+### Pulling Changes:
+To pull changes:
+
+- Either use the refresh icon next to the branch selection box from before
+
+    ![](../../imgs/VScode-pull.jpg)
+
+- You can also navigate to the `Source Control` tab on the right menu and click the synchronize button.  
+
+    ![](../../imgs/VScode-pull1.jpg)
 
 ### Making Commits
 
+After writing your code you can navigate to the `Source Control` tab and stage all your changes. You can do this by clicking on the + button next to the changes tab
+
+![](../../imgs/VScode-commit.jpg)
+
+![](../../imgs/VScode-commit1.jpg)
