@@ -2,4 +2,7 @@ blank_issues_enabled: true
 contact_links:
   - name: F!rosh Week Instagram
     url: https://www.instagram.com/froshweek/
-    about: Follow our Instagram for news and updates about F!rosh Week.
+    about: Contact us on Instagram about any issues with the website.
+  - name: Contact Tech Team
+    url: mailto:tech@orientation.skule.ca
+    about: Email us to let us know about any issues with the website.
