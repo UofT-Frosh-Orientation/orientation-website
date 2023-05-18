@@ -2,6 +2,7 @@
 layout: default
 title: Git & GitHub
 parent: Onboarding
+nav_order: 3
 ---
 
 # Git & GitHub
