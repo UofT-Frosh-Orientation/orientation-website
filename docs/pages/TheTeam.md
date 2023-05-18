@@ -12,6 +12,10 @@ nav_order: 4
 
 - [Farbod Mohammadzadeh](https://github.com/Freeassassin), [Natalie Chan](https://github.com/natapokie)
 
+### Team Members
+
+- [Vraj Prajapti](https://github.com/vproHacks), [Sherry Zhang](), [Tanushanth Thavanenthiran](https://github.com/Tanushanth), [Uzma Ferdous](https://github.com/uzFer)
+
 ## The Frosh 2T2 Web Team
 
 ### Webmasters
