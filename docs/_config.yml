@@ -1,0 +1,29 @@
+title: F!rosh Website Documentation
+description: A GitHub Pages website used to host documentation and resources for UofT orientation website development 
+theme: just-the-docs
+
+url: https://uoft-frosh-orientation.github.io/orientation-website
+
+aux_links:
+  Github Repo: https://github.com/UofT-Frosh-Orientation/orientation-website/
+
+favicon_ico: "/main-frosh-logo.ico"
+
+color_scheme: dark
+
+callouts:
+  new-note:
+    title: 💡Tip
+    color: yellow
+  new-important:
+    title: ❗Important
+    color: red
+  confused: 
+    title: 😕 Confused?
+    color: blue
+  quote:
+    color: blue
+
+# callouts:
+# {: .note }
+# A paragraph
