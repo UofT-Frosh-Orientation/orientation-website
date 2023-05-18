@@ -2,6 +2,7 @@
 layout: default
 title: Backend
 parent: Onboarding
+nav_order: 1
 ---
 
 # Backend
@@ -9,11 +10,10 @@ parent: Onboarding
 The backend is comprised of a variety of systems and technologies. The application is a REST API created using Express.js that communicates with services such as a MongoDB for data storage, stripe for payments, and AWS (Amazon Web Services) Simple Email Service (SES)for sending dynamic emails to users. Additionally, Redis is used to hold session data to and to perform asynchronous tasks on the server side. The following will expand on the require skill set to use each of these technologies.
 
 ## Table of contents
-
 {: .no_toc .text-delta }
 
 1. TOC
-   {:toc}
+{:toc}
 
 ---
 
