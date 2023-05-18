@@ -2,7 +2,7 @@
 layout: default
 title: Backend
 parent: Onboarding
-nav_order: 1
+nav_order: 2
 ---
 
 # Backend
@@ -10,6 +10,7 @@ nav_order: 1
 The backend is comprised of a variety of systems and technologies. The application is a REST API created using Express.js that communicates with services such as a MongoDB for data storage, stripe for payments, and AWS (Amazon Web Services) Simple Email Service (SES)for sending dynamic emails to users. Additionally, Redis is used to hold session data to and to perform asynchronous tasks on the server side. The following will expand on the require skill set to use each of these technologies.
 
 ## Table of contents
+
 {: .no_toc .text-delta }
 
 1. TOC
@@ -208,20 +209,117 @@ const EmailServices = {
 module.exports = EmailServices;
 ```
 
+## Redis
 
-## Redis 
+Redis is a tool used to keep data in memory. This makes retrieving this data very fast as opposed to making a call to a database. However we use Redis on the backend to hold the information of `subscriptions` that run in the background without effecting other functions. This is done by creating a `Queue` with `Bull` which is a list of jobs that need to be done in the order that they were added or FIFO (First In, First Out) order.
 
 ### Bull
 
+Bull is a Node.js package that allows you to create a Queue and store that Queue inside your Redis datastore. This makes the process a lot faster than storing the Queue information in the database
 
 ### Subscribers
 
+Subscribers are jobs that are added to the Bull Queues to be done. They are separated based on services or parts of the website.
+
+Example subscriber file:
+
+```jsx
+const Queue = require("bull");
+const EmailServices = require("../services/EmailServices");
+const UserServices = require("../services/UserServices");
+
+const announcementSubscription = new Queue("newFrosh", {
+  redis: {
+    port: process.env.REDIS_PORT,
+    host: "redis",
+    password: process.env.REDIS_PASSWORD,
+  },
+});
+
+announcementSubscription.process((job, done) => {
+  console.log("Announcement Created!");
+
+  if (job.data.unsubed === true) {
+    try {
+      const result = EmailServices.sendTemplateEmail(
+        {},
+        "unsubscribed",
+        [job.data.email],
+        "tech@orientation.skule.ca"
+      );
+
+      result.then((response) => {
+        console.log(response);
+        done();
+      });
+    } catch (error) {
+      done(error);
+    }
+  } else {
+    try {
+      const bulkEmailEntries = [];
+
+      UserServices.getAllUsers().then((users) => {
+        let count = 0;
+        let entries = [];
+        users.forEach((user) => {
+          if (user.canEmail === true) {
+            count++;
+            entries.push(user.email);
+
+            if (count === 20) {
+              bulkEmailEntries.push(entries);
+              count = 0;
+              entries = [];
+            }
+          }
+        });
+        if (entries.length > 0) {
+          bulkEmailEntries.push(entries);
+        }
+        const result = EmailServices.sendBulkTemplateEmail(
+          bulkEmailEntries,
+          "announcement",
+          { name: job.data.name, description: job.data.description },
+          "tech@orientation.skule.ca"
+        );
+
+        result.then((response) => {
+          console.log("response:");
+          console.log(response);
+          done();
+        });
+      });
+    } catch (error) {
+      done(error);
+    }
+  }
+});
+
+module.exports = announcementSubscription;
+```
+
+This file sends a mass email to all F!rosh for inform them of an announcement or send someone an email letting them know they have unsubscribed from announcement emails.
+
 ## MongoDB
+
+MongoDB is a noSQL database that we use to store F!rosh data. Watch these videos:
+
+- [MongoDB Crash Course](https://youtu.be/ofme2o29ngU)
+- [Mongoose Crash Course](https://youtu.be/DZBGEVgL2eE)
 
 ### Mongoose
 
-### Models
+Mongoose is a wrapper for MongoDB that makes interacting with the database a lot more streamlines and easier.
+
+### Models & Schemas
+
+You can use Mongoose Schemes to create data models that the database will follow when new piece of data are added.
 
 ## AWS SES
 
+The AWS SES is an API used to send emails from the backend programmatically.
+
 ## Stripe
+
+Stripe is the API we use to process payments F!rosh make to pay for F!rosh Week and F!rosh retreat.
