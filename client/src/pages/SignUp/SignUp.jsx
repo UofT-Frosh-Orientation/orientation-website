@@ -84,6 +84,7 @@ const PageSignUp = () => {
       }
       setErrors(errorObject);
     }
+    // console.log(errorObject)
     setAnyErrors(anyErrorsNow);
     return anyErrorsNow;
   };
@@ -199,7 +200,7 @@ const PageSignUp = () => {
           ) : (
             <></>
           )}
-          <div
+          {/* <div
             style={{
               color: 'var(--text-dynamic)',
               textAlign: 'center',
@@ -209,13 +210,13 @@ const PageSignUp = () => {
             }}
           >
             <h2>You can no longer signup and register for Frosh events.</h2>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             className="sign-up-button"
             onMouseOver={() => {
               checkErrors(true);
             }}
-          >
+          > */}
             <Button
               label="Create Account"
               style={{ margin: 0 }}
@@ -227,7 +228,7 @@ const PageSignUp = () => {
                 }
               }}
             />
-          </div>
+          {/* </div> */}
         </div>
       </div>
       <div
