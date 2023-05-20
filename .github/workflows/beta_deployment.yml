@@ -66,7 +66,7 @@ jobs:
         run: doctl registry login --expiry-seconds 600
 
       - name: Remove old client image
-        run: if [ ! -z "$(doctl registry repository list | grep orientation-client)" ]; then doctl registry repository delete-tag orientation-client $(echo $TAG) --force; else echo "No repository"; fi
+        run: if [ ! -z "$(doctl registry repository list | grep "$(echo $CLIENT_IMAGE_NAME)")" ]; then doctl registry repository delete-tag $(echo $CLIENT_IMAGE_NAME) $(echo $TAG) --force; else echo "No repository"; fi
 
       - name: Push client image to container registry
         run: docker push registry.digitalocean.com/uoft-orientation/orientation-client:beta
