@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build server image
-        run: cd server && docker build -t $(echo $REGISTRY)/$(echo $SERVER_IMAGE_NAME):beta -f beta.Dockerfile .
+        run: cd server && docker build -t registry.digitalocean.com/uoft-orientation/orientation-server:beta -f beta.Dockerfile .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -39,7 +39,7 @@ jobs:
 
 
       - name: Push server image to container registry
-        run: docker push $(echo $REGISTRY)/$(echo $SERVER_IMAGE_NAME):beta
+        run: docker push registry.digitalocean.com/uoft-orientation/orientation-server:beta
 
   build_client:
     runs-on: ubuntu-20.04
@@ -55,7 +55,7 @@ jobs:
           directory: client
 
       - name: Build client image
-        run: cd client && docker build -t $(echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):beta -f beta.Dockerfile .
+        run: cd client && docker build -t registry.digitalocean.com/uoft-orientation/orientation-client:beta -f beta.Dockerfile .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -66,10 +66,10 @@ jobs:
         run: doctl registry login --expiry-seconds 600
 
       - name: Remove old client image
-        run: if [ ! -z "$(doctl registry repository list | grep "$(echo $CLIENT_IMAGE_NAME)")" ]; then doctl registry repository delete-tag $(echo $CLIENT_IMAGE_NAME) $(echo $TAG) --force; else echo "No repository"; fi
+        run: if [ ! -z "$(doctl registry repository list | grep orientation-client)" ]; then doctl registry repository delete-tag orientation-client $(echo $TAG) --force; else echo "No repository"; fi
 
       - name: Push client image to container registry
-        run: docker push $(echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):beta
+        run: docker push registry.digitalocean.com/uoft-orientation/orientation-client:beta
 
   deploy_beta:
     runs-on: ubuntu-20.04
