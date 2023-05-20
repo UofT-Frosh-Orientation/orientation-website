@@ -10,6 +10,7 @@ on:
 concurrency: beta-deployment
 
 env:
+
   REGISTRY: registry.digitalocean.com
   TAG: beta
   SERVER_IMAGE_NAME: "orientation-server"
