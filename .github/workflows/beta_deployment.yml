@@ -71,7 +71,7 @@ jobs:
       - name: Push client image to container registry
         run: docker push $(echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):beta
 
-  deploy:
+  deploy_beta:
     runs-on: ubuntu-20.04
     needs:
       - build_client
