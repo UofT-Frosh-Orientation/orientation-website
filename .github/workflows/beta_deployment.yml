@@ -28,7 +28,7 @@ jobs:
         run: cd server && docker build -t orientation-server:beta -f beta.Dockerfile .
 
       - name: Tag server image
-        run: docker tag orientation-server registry.digitalocean.com/uoft-orientation/orientation-server
+        run: docker tag orientation-server:beta registry.digitalocean.com/uoft-orientation/orientation-server
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
