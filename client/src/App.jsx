@@ -18,6 +18,7 @@ import { SnackbarProvider } from './util/SnackbarProvider';
 
 import { getScuntSettings } from './state/scuntSettings/saga';
 import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
+import LandingPageUzma from './Initial/LandingPageUzma';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -46,38 +47,5 @@ const TransitionRoutes = () => {
 
   console.log(scuntSettings);
   // const {darkMode} = useContext(DarkModeContext);
-  return (
-    <TransitionGroup>
-      {/* <div className={`${darkMode?"dark-mode-body":"light-mode-body"}`}> */}
-      <Navbar isLoggedIn={loggedIn} froshInitials={initials} isRegistered={registered} />
-      <ScrollToTop />
-      <CSSTransition key={location.key} classNames="page" timeout={300}>
-        <Routes location={location}>
-          {[
-            ...pages.main,
-            ...pages.hidden,
-            ...pages.special,
-            ...pages.scunt,
-            ...pages.scuntHidden,
-          ].map((page) => {
-            return (
-              <Route
-                path={page.path}
-                key={page.path}
-                element={
-                  <div style={{ position: 'absolute', right: 0, left: 0, bottom: 0, top: 0 }}>
-                    <div style={{ minHeight: '100vh' }}>{page.component}</div>
-                    {page.includeFooter ? <Footer /> : <></>}
-                  </div>
-                }
-              />
-            );
-          })}
-          <Route path="*" element={pages['404'].component} />
-        </Routes>
-      </CSSTransition>
-      <AskQuestionButton />
-      {/* </div> */}
-    </TransitionGroup>
-  );
+  return <LandingPageUzma />;
 };
