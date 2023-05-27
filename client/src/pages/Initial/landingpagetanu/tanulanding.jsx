@@ -1,27 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './tanulanding.scss';
-import InstagramLogo from '../../assets/social/instagram_icon.png';
+import InstagramLogo from '../../../assets/social/instagram_icon.png';
 
 const TanuLanding = () => {
   return (
-    <div className="page-container">
-      <div className="title-container">
-        <h1 className="under-construction-text">UNDER CONSTRUCTION</h1>
-        <h2 className="subtitle-text">
+    <div className="tanu-landing-page-container">
+      <div className="tanu-landing-page-title-container">
+        <h1 className="tanu-landing-page-under-construction-text">UNDER CONSTRUCTION</h1>
+        <h2 className="tanu-landing-page-subtitle-text">
           Stay Tuned F!Rosh, we are working hard to give you the best experience!
         </h2>
-        <h2 className="subtitle-text">Registration for F!rosh Week will open soon.</h2>
+        <h2 className="tanu-landing-page-subtitle-text">
+          Registration for F!rosh Week will open soon.
+        </h2>
       </div>
 
-      <hr className="hrline"></hr>
-      <div className="social-container">
-        <div className="froshweek">
+      <hr className="tanu-landing-page-hrline"></hr>
+      <div className="tanu-landing-page-social-container">
+        <div className="tanu-landing-page-froshweek">
           <a
             href="https://www.instagram.com/froshweek/"
             target="_blank"
             rel="noreferrer"
-            className="insta-logo"
+            className="tanu-landing-page-insta-logo"
           >
             <img
               src={InstagramLogo}
@@ -29,14 +30,14 @@ const TanuLanding = () => {
               alt="Instagram logo links to F!rosh Instagram page"
             />
           </a>
-          <p className="froshweek-text">Follow us at @froshweek for updates</p>
+          <p className="tanu-landing-page-froshweek-text">Follow us at @froshweek for updates</p>
         </div>
-        <div className="froshnomore">
+        <div className="tanu-landing-page-froshnomore">
           <a
             href="https://www.instagram.com/froshnomore/"
             target="_blank"
             rel="noreferrer"
-            className="insta-logo"
+            className="tanu-landing-page-insta-logo"
           >
             <img
               src={InstagramLogo}
@@ -44,7 +45,7 @@ const TanuLanding = () => {
               alt="Instagram logo links to F!rosh Instagram page"
             />
           </a>
-          <p className="froshnomore-text">Get Involved at @froshnomore</p>
+          <p className="tanu-landing-page-froshnomore-text">Get Involved at @froshnomore</p>
         </div>
       </div>
     </div>

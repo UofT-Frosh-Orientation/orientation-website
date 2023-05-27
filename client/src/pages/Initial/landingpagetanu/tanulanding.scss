@@ -1,29 +1,30 @@
-.page-container {
-  background: repeating-linear-gradient(35deg, #c572f8 0px 2px, #b954f8 0px 4px);
+@import '../../../scssStyles/mixins';
 
+.tanu-landing-page-container {
+  background: repeating-linear-gradient(35deg, #6f1e88 0px 2px, #a04fb9 0px 4px);
   top: 0;
   height: 100vh;
 }
-.title-container {
+.tanu-landing-page-title-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
   padding-top: 8%;
-  .under-construction-text {
-    color: rgb(48, 47, 47);
+  .tanu-landing-page-under-construction-text {
+    color: white;
     font-style: bold;
     text-align: center;
     font-size: 80px;
 
-    background: repeating-linear-gradient(145deg, #ecf023 0px 8px, #f3f70d 0px 12px);
+    background: repeating-linear-gradient(45deg, #ffe76a 0px 6px, #ffe863 0px 12px);
     padding: 20px;
     margin-bottom: 24px;
     text-shadow: 0px 2px 4px #000000;
   }
-  .subtitle-text {
-    color: #121212;
+  .tanu-landing-page-subtitle-text {
+    color: white;
     font-style: bold;
     text-align: center;
     font-size: 40px;
@@ -31,61 +32,61 @@
   }
 }
 
-.hrline {
-  background: repeating-linear-gradient(45deg, #ecf023 0px 6px, #f3f70d 0px 12px);
+.tanu-landing-page-hrline {
+  background: repeating-linear-gradient(45deg, #ffe76a 0px 6px, #ffe863 0px 12px);
   margin-top: 5%;
   align-items: center;
   height: 1vh;
   border: transparent;
 }
-.social-container {
+.tanu-landing-page-social-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   width: 100%;
-  .insta-logo {
+  .tanu-landing-page-insta-logo {
     padding-right: 2%;
   }
 
-  .froshweek {
+  .tanu-landing-page-froshweek {
     display: flex;
     flex-direction: row;
     padding-top: 5%;
-    color: #121212;
+    color: white;
     font-style: bold;
     text-align: center;
     font-size: 25px;
-    .froshweek-text {
+    .tanu-landing-page-froshweek-text {
       padding-top: 1%;
     }
   }
-  .froshnomore {
+  .tanu-landing-page-froshnomore {
     display: flex;
     flex-direction: row;
     padding-top: 5%;
-    color: #121212;
+    color: white;
     font-style: bold;
     text-align: center;
     font-size: 25px;
     margin-bottom: 24px;
-    .froshnomore-text {
+    .tanu-landing-page-froshnomore-text {
       padding-top: 1%;
     }
   }
 }
 
-@media screen and (max-width: 800px) {
-  .title-container {
+@include devices(tablet) {
+  .tanu-landing-page-title-container {
     padding-top: 30%;
-    .under-construction-text {
+    .tanu-landing-page-under-construction-text {
       font-size: 40px;
       padding: 20px;
       margin-bottom: 24px;
       text-shadow: 0px 2px 4px #000000;
     }
-    .subtitle-text {
-      color: #121212;
+    .tanu-landing-page-subtitle-text {
+      color: white;
       font-style: bold;
       text-align: center;
       font-size: 20px;
@@ -93,26 +94,26 @@
     }
   }
 
-  .social-container {
+  .tanu-landing-page-social-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     width: 100%;
-    .insta-logo {
+    .tanu-landing-page-insta-logo {
       padding-right: 2%;
     }
 
-    .froshweek {
+    .tanu-landing-page-froshweek {
       font-size: 20px;
-      .froshweek-text {
+      .tanu-landing-page-froshweek-text {
         padding-top: 1%;
       }
     }
-    .froshnomore {
+    .tanu-landing-page-froshnomore {
       font-size: 20px;
       margin-bottom: 24px;
-      .froshnomore-text {
+      .tanu-landing-page-froshnomore-text {
         padding-top: 1%;
       }
     }
