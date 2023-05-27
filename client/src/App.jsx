@@ -18,7 +18,6 @@ import { SnackbarProvider } from './util/SnackbarProvider';
 
 import { getScuntSettings } from './state/scuntSettings/saga';
 import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
-import LandingPageUzma from './Initial/LandingPageUzma';
 
 export default function App() {
   const dispatch = useDispatch();

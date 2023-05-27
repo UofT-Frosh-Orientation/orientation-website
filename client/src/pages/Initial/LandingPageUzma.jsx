@@ -1,6 +1,6 @@
 import './LandingPageUzma.scss';
-import MainFroshLogo from '../assets/logo/frosh-main-logo-with-bg.svg';
-import InstagramLogo from '../assets/social/instagram_icon.png';
+import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
+import InstagramLogo from '../../assets/social/instagram_icon.png';
 
 const LandingPageUzma = () => {
   return (
