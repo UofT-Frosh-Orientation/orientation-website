@@ -90,47 +90,8 @@ export const LandingPage = () => {
     setPageIndex(JSON.parse(randIdx));
   }, []);
 
-  //   useEffect(() => {
-  //     // updating state var
-  //     console.log("second")
-  //     let randIdx = randomNumber(0, landingPages.length - 1);
-  //     const localIdx = window.localStorage.getItem('landing_page_idx');
-
-  //     // if (localIdx === null) {
-  //     //   setPageIndex(JSON.parse(randIdx));
-  //     // } else {
-  //     //   while (randIdx === JSON.parse(localIdx)) {
-  //     //     randIdx = randomNumber(0, landingPages.length - 1);
-  //     //   }
-  //     //   setPageIndex(JSON.parse(randIdx));
-  //     // }
-
-  //     if (localIdx !== null) {
-  //         while (randIdx === JSON.parse(localIdx)) {
-  //             randIdx = randomNumber(0, landingPages.length - 1);
-  //         }
-  //         setPageIndex(JSON.parse(randIdx));
-  //     }
-
-  //   }, []);
-
-  //   useEffect(() => {
-  //     // set the id in local storage
-  //     console.log("third")
-  //     window.localStorage.setItem('landing_page_idx', JSON.stringify(pageIndex));
-  //   }, [pageIndex]);
-
   return (
     <>
-      {/* {landingPages.map((item, idx) => {
-            if (idx === pageIndex) {
-                return (
-                    <div className='initial-page'>
-                     {item}
-                    </div>
-                )
-            }
-        })} */}
       <div key={landingPages[pageIndex]['key']}>{landingPages[pageIndex]['component']}</div>
     </>
   );
