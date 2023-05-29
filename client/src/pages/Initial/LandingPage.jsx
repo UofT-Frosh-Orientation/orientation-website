@@ -58,11 +58,11 @@ const landingPages = [
   },
   {
     key: 1,
-    component: <L1 />,
+    component: <L2 />,
   },
   {
     key: 2,
-    component: <L1 />,
+    component: <L3 />,
   },
 ];
 
@@ -75,8 +75,6 @@ export const LandingPage = () => {
   const [pageIndex, setPageIndex] = useState(null);
 
   useEffect(() => {
-    // init of state variable
-    console.log('first');
     let randIdx = randomNumber(0, landingPages.length - 1);
     const localIdx = window.localStorage.getItem('landing_page_idx');
 
@@ -92,7 +90,11 @@ export const LandingPage = () => {
 
   return (
     <>
-      <div key={landingPages[pageIndex]['key']}>{landingPages[pageIndex]['component']}</div>
+      {landingPages.map((item) => {
+        if (item.key == pageIndex) {
+          return <div key={item.key}>{item.component}</div>;
+        }
+      })}
     </>
   );
 };

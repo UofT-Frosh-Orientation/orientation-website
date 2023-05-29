@@ -18,6 +18,7 @@ import { SnackbarProvider } from './util/SnackbarProvider';
 
 import { getScuntSettings } from './state/scuntSettings/saga';
 import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
+import { LandingPage } from './pages/Initial/LandingPage';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -26,13 +27,19 @@ export default function App() {
     dispatch(getScuntSettings());
   }, []);
 
+  const readyForFrosh = false;
+
   return (
     <DarkModeProvider>
-      <SnackbarProvider>
-        <BrowserRouter>
-          <TransitionRoutes />
-        </BrowserRouter>
-      </SnackbarProvider>
+      {readyForFrosh ? (
+        <SnackbarProvider>
+          <BrowserRouter>
+            <TransitionRoutes />
+          </BrowserRouter>
+        </SnackbarProvider>
+      ) : (
+        <LandingPage />
+      )}
     </DarkModeProvider>
   );
 }
