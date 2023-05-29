@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import './LandingPage<Sherry>.scss';
+import './LandingPageSherry.scss';
 
 const SZLandingPage = () => {
   return (
