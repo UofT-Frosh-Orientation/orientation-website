@@ -8,7 +8,7 @@ const TanuLanding = () => {
       <div className="tanu-landing-page-title-container">
         <h1 className="tanu-landing-page-under-construction-text">UNDER CONSTRUCTION</h1>
         <h2 className="tanu-landing-page-subtitle-text">
-          Stay Tuned F!Rosh, we are working hard to give you the best experience!
+          Stay Tuned F!rosh, we are working hard to give you the best experience!
         </h2>
         <h2 className="tanu-landing-page-subtitle-text">
           Registration for F!rosh Week will open soon.
