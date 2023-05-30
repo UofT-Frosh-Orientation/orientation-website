@@ -1,0 +1,68 @@
+@import '../../scssStyles/mixins';
+
+.landing-page-uzma-header {
+  display: flex;
+  position: relative;
+  height: 80vh;
+  min-height: 500px;
+  background-image: linear-gradient(
+    to right,
+    var(--purple-transparent) 20%,
+    var(--purple-transparent-more)
+  );
+  align-items: center;
+
+  @include devices(tablet) {
+    justify-content: center;
+  }
+}
+
+.landing-page-uzma-icon {
+  height: max(10vh, 100px);
+  width: max(10vh, 100px);
+  margin-bottom: min(5vh, 50px);
+}
+
+.landing-page-uzma-instagram-logo {
+  height: max(5vh, 50px);
+  width: max(5vh, 50px);
+  margin: min(2vh, 20px);
+}
+
+.landing-page-uzma-header-text {
+  padding-left: 5%;
+  p {
+    font-size: max(1.5vh, 15px);
+    color: var(--text-light);
+    margin-bottom: min(2vh, 20px);
+    margin-top: min(2vh, 20px);
+    line-height: 1;
+  }
+  h3 {
+    font-size: max(3vh, 30px);
+    color: var(--text-light);
+    margin-bottom: min(2vh, 20px);
+    margin-top: min(1vh, 10px);
+    line-height: 1;
+  }
+  h2 {
+    font-size: max(6vh, 60px);
+    color: var(--text-light);
+    line-height: 0.7;
+    line-height: 1;
+  }
+  @include devices(tablet) {
+    padding-left: 0%;
+    padding: 0px 25px;
+    h3 {
+      font-size: 20px;
+      text-align: center;
+      line-height: 1;
+    }
+    h2 {
+      font-size: 32px;
+      text-align: center;
+      line-height: 1;
+    }
+  }
+}
