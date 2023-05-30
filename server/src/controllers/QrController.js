@@ -9,6 +9,9 @@ const QrController = {
       const existingUser = await UserServices.getUserByEmail(email);
 
       const froshDataFields = req.user?.froshDataFields?.approved;
+      if (!existingUser) {
+        return res.status(200).send({ message: 'This frosh does not exist!', returnedUser: {} });
+      }
       const returnedUser = {};
 
       for (const dataField of froshDataFields) {

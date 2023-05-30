@@ -175,6 +175,15 @@ const ScuntNegativePoints = ({ teams, teamObjs }) => {
           <Button
             label={'Remove Points'}
             onClick={async () => {
+              if (
+                assignedTeam === 'Select Team' ||
+                !assignedTeam ||
+                assignedTeam === '' ||
+                Object.keys(assignedTeam).length <= 0
+              ) {
+                setSnackbar('Please select a team!', true);
+                return;
+              }
               setAssignedPoints(0);
               //Subtract points here
               const response = await axios.post('/scunt-teams/transaction/subtract', {
@@ -298,6 +307,16 @@ const ScuntBribePoints = ({ teams, teamObjs }) => {
             <Button
               label={'Give Bribe Points'}
               onClick={() => {
+                if (
+                  assignedTeam === 'Select Team' ||
+                  !assignedTeam ||
+                  assignedTeam === '' ||
+                  Object.keys(assignedTeam).length <= 0
+                ) {
+                  setSnackbar('Please select a team!', true);
+                  return;
+                }
+                console.log(assignedTeam);
                 setClearPointsInput(true);
                 submitBribe(assignedTeam?.number, assignedPoints);
                 setRemainingBribePoints(remainingBribePoints - assignedPoints);
@@ -317,7 +336,8 @@ ScuntBribePoints.propTypes = {
   teamObjs: PropTypes.array,
 };
 
-const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
+const ScuntMissionSelection = ({ missions, teams: teamsPassed, teamObjs }) => {
+  const teams = ['Select Team', ...teamsPassed];
   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
   const [maxAmountPointsPercent, setMaxAmountPointsPercent] = useState(0);
   const [minAmountPointsPercent, setMinAmountPointsPercent] = useState(0);
@@ -497,7 +517,8 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
                   initialSelectedIndex={0}
                   values={teams}
                   onSelect={(value) => {
-                    setAssignedTeam(getScuntTeamObjFromTeamName(value, teamObjs));
+                    if (value !== 'Select Team')
+                      setAssignedTeam(getScuntTeamObjFromTeamName(value, teamObjs));
                   }}
                   isDisabled={false}
                 />
@@ -585,6 +606,10 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
             <Button
               label={'Submit'}
               onClick={async () => {
+                if (assignedTeam === 'Select Team' || !assignedTeam) {
+                  setSnackbar('Please select a team!', true);
+                  return;
+                }
                 const response = await axios.post('/scunt-teams/transaction/add', {
                   teamNumber: assignedTeam?.number,
                   missionNumber: assignedMission?.number,
