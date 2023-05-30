@@ -11,7 +11,6 @@ import { useState, useEffect, useContext } from 'react';
 import { getUserInfo } from './state/user/saga';
 import io from 'socket.io-client';
 
-import { InitialPage } from './pages/Initial/Initial';
 import { AskQuestionButton } from './components/button/AskQuestionButton/AskQuestionButton';
 import { DarkModeProvider } from './util/DarkModeProvider';
 import { SnackbarProvider } from './util/SnackbarProvider';

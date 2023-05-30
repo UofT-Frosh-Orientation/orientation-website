@@ -1,72 +1,23 @@
 import React, { useEffect, useState } from 'react';
-
-const L1 = () => {
-  return (
-    <>
-      <div
-        style={{
-          width: '50px',
-          height: '50px',
-          position: 'absolute',
-          top: '50%',
-          bottom: '50px',
-          backgroundColor: 'blue',
-        }}
-      ></div>
-    </>
-  );
-};
-
-const L2 = () => {
-  return (
-    <>
-      <div
-        style={{
-          width: '50px',
-          height: '50px',
-          position: 'absolute',
-          top: '50%',
-          bottom: '50px',
-          backgroundColor: 'green',
-        }}
-      ></div>
-    </>
-  );
-};
-
-const L3 = () => {
-  return (
-    <>
-      <div
-        style={{
-          width: '50px',
-          height: '50px',
-          position: 'absolute',
-          top: '50%',
-          bottom: '50px',
-          backgroundColor: 'red',
-        }}
-      ></div>
-    </>
-  );
-};
+import { TanuLanding } from './TanuLanding/TanuLanding';
+import { UzmaLanding } from './UzmaLanding/UzmaLanding';
+import { NatLanding } from './NatLanding/NatLanding';
 
 const landingPages = [
   {
     key: 0,
-    component: <L1 />,
+    component: <TanuLanding />,
   },
   {
     key: 1,
-    component: <L2 />,
+    component: <UzmaLanding />,
   },
   {
     key: 2,
-    component: <L3 />,
+    component: <NatLanding />,
   },
 ];
 
-// https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
