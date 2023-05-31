@@ -217,7 +217,12 @@ const HomePageSponsors = () => {
           }}
         />
       ) : (
-        <></>
+        <Button
+          label={'View Less'}
+          onClick={() => {
+            setViewAll(false);
+          }}
+        />
       )}
     </div>
   );
