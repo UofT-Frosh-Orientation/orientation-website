@@ -1,14 +1,15 @@
+@import '../../../scssStyles/mixins';
 .sz-wrapper-landing {
   display: grid;
   place-content: center;
-  background-color: #6f1e88;
+  background-color: var(--purple-bg);
 
   min-height: 100vh;
   font-family: 'Inter-Bold';
   font-size: clamp(1.5rem, 1rem + 18vw, 15rem);
   font-weight: 700;
   text-transform: uppercase;
-  color: #ffe863;
+  color: var(--yellow);
 }
 
 .sz-wrapper-landing > div {
@@ -35,7 +36,20 @@
 }
 
 .sz-landing-instagram-logo {
-  height: 40vmin;
-  pointer-events: none;
-  margin: min(2vh, 20px);
+  height: 10vmin;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+.szlanding-logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  margin: 0 20px;
+  background: #ffe863;
 }
