@@ -14,6 +14,7 @@ const SZLandingPage = () => {
         <h1 className="szlanding-title-text">
           F!rosh Week<br></br>is Approaching...
         </h1>
+        <div className="szlanding-logo-container">
         <a href="https://www.instagram.com/froshweek/" target="_blank" rel="noreferrer">
           <img
             src={InstagramLogo}
@@ -21,6 +22,14 @@ const SZLandingPage = () => {
             alt="logo for F!rosh Instagram page"
           />
         </a>
+        <a href="https://www.instagram.com/froshnomore/" target="_blank" rel="noreferrer">
+            <img
+              src={InstagramLogo}
+              className="sz-landing-instagram-logo"
+              alt="logo for leedur/skule upper years Instagram page"
+            />
+          </a>
+        </div>
       </section>
     </>
   );
