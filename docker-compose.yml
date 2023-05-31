@@ -16,6 +16,8 @@ services:
   mongo-express:
     image: mongo-express
     container_name: mongo-express
+    restart: unless-stopped
+
     depends_on:
       mongodb:
         condition: service_started
