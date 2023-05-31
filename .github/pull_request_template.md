@@ -5,7 +5,7 @@
 
 Closes # 
 
-### **Accomplishments:**
+### **Accomplishments:** (requirements)
 
 - accomplishment 1
 - accomplishment 2
