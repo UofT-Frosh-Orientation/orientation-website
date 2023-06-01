@@ -79,7 +79,7 @@ jobs:
         run: docker push registry.digitalocean.com/uoft-orientation/orientation-client:beta
 
       - name: Run garbage collector
-        run: doctl registry garbage-collection start --include-untagged-manifests --force registry.digitalocean.com/uoft-orientation
+        run: doctl registry garbage-collection start --include-untagged-manifests --force uoft-orientation
 
   deploy_beta:
     runs-on: ubuntu-20.04
