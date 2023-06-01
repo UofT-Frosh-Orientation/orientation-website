@@ -80,3 +80,10 @@ services:
       - "3000:3000"
     volumes:
       - ./client/src:/app/src
+  docs:
+    build: ./docs
+    container_name: docs
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./docs:/srv/jekyll
