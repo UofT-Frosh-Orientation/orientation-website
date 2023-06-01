@@ -6,7 +6,10 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import './ExecProfile.scss';
 
 import wave from '../../../assets/about/wave-about.svg';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+// Set 5s to read the post before closing automatically, configure as needed
+const EXEC_TIMEOUT = 5000;
 
 const ExecProfile = ({
   image,
@@ -25,6 +28,13 @@ const ExecProfile = ({
 }) => {
   // initialize to false, don't show description
   const [showDescription, setShowDescription] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (showDescription) setShowDescription(!showDescription); // stop showing description
+    }, EXEC_TIMEOUT);
+    return () => clearTimeout(timer);
+  }, [showDescription]);
 
   return (
     <div
