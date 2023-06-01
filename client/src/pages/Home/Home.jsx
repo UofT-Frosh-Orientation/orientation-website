@@ -14,6 +14,8 @@ import Landing1 from '../../assets/landing/landing-1.jpg';
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
 import { ImageCarousel } from '../../components/ImageCarousel/ImageCarousel';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
+import FroshHardHatWhite from '../../assets/logo/frosh-hard-hat-white.svg';
+
 import 'react-slideshow-image/dist/styles.css';
 import { Slide } from 'react-slideshow-image';
 import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
@@ -39,10 +41,15 @@ const HomePageHeader = () => {
 
   return (
     <div className="home-page-header">
+      <img
+        src={FroshHardHatWhite}
+        className="FroshHardHatWhite-logo"
+        alt="White Fr!osh Hard Hat Logo"
+      ></img>
+
       <div className="home-page-header-text">
-        <h2>F!rosh Week</h2>
-        <h1>2T2</h1>
-        <p>Organized by the University of Toronto&apos;s Engineering Orientation Commitee</p>
+        <h2>Welcome to F!rosh Week!</h2>
+        <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p>
         <Link
           key={'/registration'}
           to={'/registration'}

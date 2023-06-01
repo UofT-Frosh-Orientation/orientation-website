@@ -2,7 +2,7 @@
 
 .home-page-header {
   position: relative;
-  height: 80vh;
+  height: 100vh;
   min-height: 500px;
   background-image: linear-gradient(
     to right,
@@ -10,31 +10,47 @@
     var(--purple-transparent-more)
   );
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   @include devices(tablet) {
     justify-content: center;
   }
 }
 
+.FroshHardHatWhite-logo {
+  text-align: center;
+  width: 50%;
+  object-fit: fill;
+  height: 20vh;
+  @include devices(tablet) {
+    text-align: center;
+    width: 40%;
+  }
+}
+
 .home-page-header-text {
-  padding-left: 5%;
+  padding: 3%;
   h1 {
+    text-align: center;
     font-size: max(14vh, 140px);
     color: var(--text-light);
     line-height: 1;
   }
   h2 {
+    text-align: center;
     font-size: max(6vh, 60px);
     color: var(--text-light);
     line-height: 0.7;
     line-height: 1;
   }
   p {
-    font-size: max(1.4vh, 14px);
+    text-align: center;
+    font-size: max(3vh, 14px);
     margin-bottom: min(2vh, 20px);
-    margin-top: min(1vh, 10px);
+    margin-top: min(3vh, 10px);
     color: var(--text-light);
-    line-height: 1;
+    line-height: 1.2;
   }
   @include devices(tablet) {
     padding-left: 0%;
@@ -58,6 +74,9 @@
 
 .home-page-header-register-button {
   margin-top: 15px;
+  display: flex;
+  display: grid;
+  margin: auto;
   @include devices(tablet) {
     text-align: center;
     width: unset;
@@ -78,13 +97,13 @@
 .home-page-landing-image-container {
   position: absolute;
   z-index: -1;
-  height: 80vh;
+  height: 100vh;
   width: 100vw;
   min-height: 500px;
 }
 .home-page-landing-image {
   object-fit: cover;
-  height: 80vh;
+  height: 100vh;
   width: 100vw;
   min-height: 500px;
 }
