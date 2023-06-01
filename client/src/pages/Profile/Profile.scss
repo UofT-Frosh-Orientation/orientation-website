@@ -420,7 +420,18 @@
 
 .profile-leader-dashboard-links {
   color: var(--text-dynamic);
-  display: flex;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 25px;
+  padding: 0 12.5%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  /* display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
@@ -431,6 +442,24 @@
   flex-wrap: wrap;
   @include devices(tablet) {
     flex-wrap: unset;
+    flex-direction: column;
+  }*/
+  .profile-leader-dashboard-permissions-links {
+    grid-area: 1 / 1 / 2 / 4;
+  }
+  .profile-leader-dashboard-data-links {
+    grid-area: 2 / 1 / 4 / 2;
+    display: flex;
+    flex-direction: column;
+  }
+  .profile-leader-dashboard-outreach-links {
+    grid-area: 2 / 2 / 5 / 3;
+    display: flex;
+    flex-direction: column;
+  }
+  .profile-leader-dashboard-scunt-links {
+    grid-area: 2 / 3 / 6 / 4;
+    display: flex;
     flex-direction: column;
   }
 }

@@ -480,78 +480,86 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
   const approved = user?.approved === true;
   return (
     <div className={'profile-leader-dashboard-links'}>
-      <ProfilePageDashboardLink
-        link="/approve-accounts"
-        authScopes={['accounts:delete', 'accounts:edit', 'accounts:read']}
-        label="Leedur Account Scope Approval"
-      />
-      {leader && approved ? (
-        <Link
-          to={'/permission-request'}
-          style={{ textDecoration: 'none' }}
-          className={'no-link-style'}
-        >
-          <Button label="Request Leedur Permissions" />
-        </Link>
-      ) : (
-        <></>
-      )}
-      <ProfilePageDashboardLink
-        link="/scunt-judge-form"
-        authScopes={[
-          'scunt:exec allow leaderboard',
-          'scunt:exec allow missions page',
-          'scunt:exec hide leaderboard',
-          'scunt:exec hide missions page',
-          'scunt:exec hide wedding missions',
-          'scunt:exec negative points',
-          'scunt:exec refill bribe points',
-          'scunt:exec show wedding missions',
-          'scunt:judge bribe points',
-          'scunt:judge missions',
-        ]}
-        label="Scunt Judge Panel"
-      />
-      <ProfilePageDashboardLink
-        link="/scunt-missions-dashboard"
-        authScopes={[
-          'scunt:exec show missions',
-          'scunt:exec hide missions',
-          'scunt:exec create missions',
-          'scunt:exec delete missions',
-        ]}
-        label="Scunt Mission Panel"
-      />
-      <ProfilePageDashboardLink
-        link="/scunt-transactions"
-        authScopes={['scunt:exec view transactions']}
-        label="Scunt Point Transactions"
-      />
-      <ProfilePageDashboardLink
-        link="/scunt-game-controls"
-        authScopes={['scunt:exec game controls']}
-        label="Scunt Settings"
-      />
-      <ProfilePageDashboardLink
-        link="/faq-admin"
-        authScopes={['faq:delete', 'faq:edit']}
-        label="FAQ Admin Panel"
-      />
-      <ProfilePageDashboardLink
-        link="/timeline-admin"
-        authScopes={['timeline:create', 'timeline:edit', 'timeline:delete']}
-        label="Timeline Admin Panel"
-      />
-      <ProfilePageDashboardLink
-        link="/announcement-dashboard"
-        authScopes={['announcements:delete', 'announcements:create', 'announcements:edit']}
-        label="Announcements Admin Panel"
-      />
-      <ProfilePageDashboardLink
-        link="/frosh-info-table"
-        anyRegisterScope={true}
-        label="Frosh Info Table"
-      />
+      <div className={'profile-leader-dashboard-permissions-links'}>
+        {leader && approved ? (
+          <Link
+            to={'/permission-request'}
+            style={{ textDecoration: 'none' }}
+            className={'no-link-style'}
+          >
+            <Button label="Request Leedur Permissions" />
+          </Link>
+        ) : (
+          <></>
+        )}
+      </div>
+      <div className={'profile-leader-dashboard-data-links'}>
+        <ProfilePageDashboardLink
+          link="/approve-accounts"
+          authScopes={['accounts:delete', 'accounts:edit', 'accounts:read']}
+          label="Leedur Account Scope Approval"
+        />
+        <ProfilePageDashboardLink
+          link="/frosh-info-table"
+          anyRegisterScope={true}
+          label="Frosh Info Table"
+        />
+      </div>
+      <div className={'profile-leader-dashboard-outreach-links'}>
+        <ProfilePageDashboardLink
+          link="/faq-admin"
+          authScopes={['faq:delete', 'faq:edit']}
+          label="FAQ Admin Panel"
+        />
+        <ProfilePageDashboardLink
+          link="/timeline-admin"
+          authScopes={['timeline:create', 'timeline:edit', 'timeline:delete']}
+          label="Timeline Admin Panel"
+        />
+        <ProfilePageDashboardLink
+          link="/announcement-dashboard"
+          authScopes={['announcements:delete', 'announcements:create', 'announcements:edit']}
+          label="Announcements Admin Panel"
+        />
+      </div>
+      <div className={'profile-leader-dashboard-scunt-links'}>
+        <ProfilePageDashboardLink
+          link="/scunt-judge-form"
+          authScopes={[
+            'scunt:exec allow leaderboard',
+            'scunt:exec allow missions page',
+            'scunt:exec hide leaderboard',
+            'scunt:exec hide missions page',
+            'scunt:exec hide wedding missions',
+            'scunt:exec negative points',
+            'scunt:exec refill bribe points',
+            'scunt:exec show wedding missions',
+            'scunt:judge bribe points',
+            'scunt:judge missions',
+          ]}
+          label="Scunt Judge Panel"
+        />
+        <ProfilePageDashboardLink
+          link="/scunt-missions-dashboard"
+          authScopes={[
+            'scunt:exec show missions',
+            'scunt:exec hide missions',
+            'scunt:exec create missions',
+            'scunt:exec delete missions',
+          ]}
+          label="Scunt Mission Panel"
+        />
+        <ProfilePageDashboardLink
+          link="/scunt-transactions"
+          authScopes={['scunt:exec view transactions']}
+          label="Scunt Point Transactions"
+        />
+        <ProfilePageDashboardLink
+          link="/scunt-game-controls"
+          authScopes={['scunt:exec game controls']}
+          label="Scunt Settings"
+        />
+      </div>
     </div>
   );
 };
