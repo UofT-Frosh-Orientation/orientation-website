@@ -37,7 +37,7 @@ const ImageCarousel = ({ items }) => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <div style={{ transform: `scale(${item.scale})` }}>
+                  <div className="carousel-slide-container">
                     <img className="carousel-slide" src={item.image} alt={item.name} />
                   </div>
                 </a>
