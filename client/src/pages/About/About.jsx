@@ -312,62 +312,77 @@ const AboutUsTeamsTab = () => {
   let numTabs = tabs.length;
   let tabComponent;
 
-  return (
-    <>
-      <div className="aboutus-teams-all-tabs">
-        <div className="aboutus-teams-all-tabs-scroll">
-          {tabs.map((tab) => {
-            if (tab.active) {
-              tabsCounter++;
-              //console.log(tabsCounter);
-              return (
-                <div key={tab.title} className="aboutus-teams-tabs">
-                  <div
-                    className="aboutus-teams-tabs-container"
-                    onClick={() => {
-                      setCurrentTab(tab.title);
-                    }}
-                  >
-                    {tabsCounter > 1 ? <div className="aboutus-short-vertical-line"></div> : <></>}
+  if (tabs.every((value, index, array) => value.active))
+    return (
+      <>
+        <div className="aboutus-teams-all-tabs">
+          <div className="aboutus-teams-all-tabs-scroll">
+            {tabs.map((tab) => {
+              if (tab.active) {
+                tabsCounter++;
+                //console.log(tabsCounter);
+                return (
+                  <div key={tab.title} className="aboutus-teams-tabs">
                     <div
-                      style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}
+                      className="aboutus-teams-tabs-container"
+                      onClick={() => {
+                        setCurrentTab(tab.title);
+                      }}
                     >
-                      <h1
-                        className={
-                          currentTab === tab.title
-                            ? 'aboutus-teams-tabs-title-selected'
-                            : 'aboutus-teams-tabs-title'
-                        }
-                      >
-                        {tab.title}
-                      </h1>
+                      {tabsCounter > 1 ? (
+                        <div className="aboutus-short-vertical-line"></div>
+                      ) : (
+                        <></>
+                      )}
                       <div
-                        className={`aboutus-yellow-bubble ${
-                          currentTab === tab.title
-                            ? 'aboutus-yellow-bubble-show'
-                            : 'aboutus-yellow-bubble-noshow'
-                        }`}
-                      ></div>
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'start',
+                        }}
+                      >
+                        <h1
+                          className={
+                            currentTab === tab.title
+                              ? 'aboutus-teams-tabs-title-selected'
+                              : 'aboutus-teams-tabs-title'
+                          }
+                        >
+                          {tab.title}
+                        </h1>
+                        <div
+                          className={`aboutus-yellow-bubble ${
+                            currentTab === tab.title
+                              ? 'aboutus-yellow-bubble-show'
+                              : 'aboutus-yellow-bubble-noshow'
+                          }`}
+                        ></div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            } else {
-              return; // tab is not meant to be active
+                );
+              } else {
+                return;
+              }
+            })}
+          </div>
+        </div>
+
+        <div className="aboutus-tabs-component">
+          {tabs.map((tab) => {
+            if (currentTab === tab.title && tab.active) {
+              return tab.component;
             }
           })}
         </div>
-      </div>
-
-      <div className="aboutus-tabs-component">
-        {tabs.map((tab) => {
-          if (currentTab === tab.title && tab.active) {
-            return tab.component;
-          }
-        })}
-      </div>
-    </>
-  );
+      </>
+    );
+  else
+    return (
+      <>
+        <h2 className="about-introduction-title">Stay tuned to meet the team!</h2>
+      </>
+    );
 };
 
 const AboutUsTeamsTabWrapper = () => {
@@ -378,7 +393,6 @@ const AboutUsTeamsTabWrapper = () => {
 
   return (
     <>
-      <Button label="Toggle Show Team" onClick={() => setShowAboutUs(!showAboutUs)} />
       <AboutUsTeamsTab />
     </>
   );
