@@ -11,13 +11,13 @@ import { useState, useEffect, useContext } from 'react';
 import { getUserInfo } from './state/user/saga';
 import io from 'socket.io-client';
 
-import { InitialPage } from './pages/Initial/Initial';
 import { AskQuestionButton } from './components/button/AskQuestionButton/AskQuestionButton';
 import { DarkModeProvider } from './util/DarkModeProvider';
 import { SnackbarProvider } from './util/SnackbarProvider';
 
 import { getScuntSettings } from './state/scuntSettings/saga';
 import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
+import { LandingPage } from './pages/Initial/LandingPage';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -26,13 +26,19 @@ export default function App() {
     dispatch(getScuntSettings());
   }, []);
 
+  const readyForFrosh = false;
+
   return (
     <DarkModeProvider>
-      <SnackbarProvider>
-        <BrowserRouter>
-          <TransitionRoutes />
-        </BrowserRouter>
-      </SnackbarProvider>
+      {readyForFrosh ? (
+        <SnackbarProvider>
+          <BrowserRouter>
+            <TransitionRoutes />
+          </BrowserRouter>
+        </SnackbarProvider>
+      ) : (
+        <LandingPage />
+      )}
     </DarkModeProvider>
   );
 }

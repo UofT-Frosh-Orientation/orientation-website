@@ -4,7 +4,7 @@ const ScuntMissionController = {
   async getMissions(req, res, next) {
     try {
       const showHidden = req.query.showHidden === 'true';
-      const allMissions = await ScuntMissionServices.getAllScuntMissions(showHidden);
+      const allMissions = await ScuntMissionServices.getAllScuntMissions(showHidden, req.user);
       return res.status(200).send({
         message: 'Found missions!',
         missions: allMissions.map((m) => m.getResponseObject()),
