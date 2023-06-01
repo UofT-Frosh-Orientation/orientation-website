@@ -82,7 +82,7 @@ const ImageCarousel = ({ items }) => {
             return (
               <div key={item.name + index}>
                 <a className="carousel-link" href={item.website}>
-                  <div style={{ transform: `scale(${item.scale})` }}>
+                  <div className="carousel-slide-container">
                     <img className="carousel-slide" src={item.image} alt={item.name} />
                   </div>
                 </a>
