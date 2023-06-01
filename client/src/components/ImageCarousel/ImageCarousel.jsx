@@ -7,6 +7,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 const ImageCarousel = ({ items }) => {
   const [currentLabel, setCurrentLabel] = useState(0);
   const [currentLabelMobile, setCurrentLabelMobile] = useState(0);
+  const colours = ['#a6a6a6', '#ba992d', '#9c5c0e', '#9c5c0e', 'white', 'white'];
 
   return (
     <div>
@@ -38,24 +39,17 @@ const ImageCarousel = ({ items }) => {
                   rel="noreferrer"
                 >
                   <div className="carousel-slide-container">
-                    <img className="carousel-slide" src={item.image} alt={item.name} />
+                    <img
+                      className="carousel-slide"
+                      src={item.image}
+                      alt={item.name}
+                      style={{
+                        border: currentLabel === index ? '10px solid' : 'none',
+                        borderColor: currentLabel === index ? `${colours[index]}` : 'none',
+                      }}
+                    />
                   </div>
                 </a>
-                <p
-                  style={{
-                    userSelect: 'all',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    left: 0,
-                    right: 0,
-                    position: 'absolute',
-                    transform: 'translateY(-40px)',
-                    bottom: '0px',
-                    textAlign: 'center',
-                  }}
-                >
-                  {currentLabel == index ? item.label : ''}
-                </p>
               </div>
             );
           })}
