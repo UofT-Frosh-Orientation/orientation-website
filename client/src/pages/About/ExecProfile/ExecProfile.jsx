@@ -9,7 +9,7 @@ import wave from '../../../assets/about/wave-about.svg';
 import { useState, useEffect } from 'react';
 
 // Set 5s to read the post before closing automatically, configure as needed
-const EXEC_TIMEOUT = 5000;
+const EXEC_TIMEOUT = 25000;
 
 const ExecProfile = ({
   image,

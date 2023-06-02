@@ -18,7 +18,7 @@ import InstagramIcon from '../../assets/social/instagram-brands.svg';
 import MailIcon from '../../assets/social/envelope-solid.svg';
 import { instagramAccounts } from '../../util/instagramAccounts';
 
-import { Button } from '../../components/button/Button/Button';
+import PropTypes from 'prop-types';
 
 const PageAbout = () => {
   return (
@@ -287,113 +287,113 @@ const tabs = [
     title: 'Exec Team',
     component: <AboutUsExecTeam />,
     active: true,
+    wantToLoad: false,
   },
   {
     title: 'Tech Team',
     component: <AboutUsTechTeam />,
     active: true,
+    wantToLoad: false,
   },
   {
     title: 'Subcoms',
     component: <AboutUsSubcom />,
     active: true,
+    wantToLoad: true,
   },
   {
     title: 'Head Leedurs',
     component: <AboutUsHL />,
     active: true,
+    wantToLoad: true,
   },
 ];
 
 const AboutUsTeamsTab = () => {
-  const [currentTab, setCurrentTab] = useState('Exec Team');
+  const wantedTabs = tabs.filter((tab) => tab.wantToLoad);
+  console.log(wantedTabs);
+  const [currentTab, setCurrentTab] = useState(
+    wantedTabs.length > 0 ? wantedTabs.at(0).title : 'Exec Team',
+  );
 
   let tabsCounter = 0;
   let numTabs = tabs.length;
   let tabComponent;
 
-  if (tabs.every((value, index, array) => value.active))
-    return (
-      <>
-        <div className="aboutus-teams-all-tabs">
-          <div className="aboutus-teams-all-tabs-scroll">
-            {tabs.map((tab) => {
-              if (tab.active) {
-                tabsCounter++;
-                //console.log(tabsCounter);
-                return (
-                  <div key={tab.title} className="aboutus-teams-tabs">
+  return (
+    <>
+      <div className="aboutus-teams-all-tabs">
+        <div className="aboutus-teams-all-tabs-scroll">
+          {tabs.map((tab) => {
+            if (tab.active) {
+              tabsCounter++;
+              //console.log(tabsCounter);
+              return (
+                <div key={tab.title} className="aboutus-teams-tabs">
+                  <div
+                    className="aboutus-teams-tabs-container"
+                    onClick={() => {
+                      setCurrentTab(tab.title);
+                    }}
+                  >
+                    {tabsCounter > 1 ? <div className="aboutus-short-vertical-line"></div> : <></>}
                     <div
-                      className="aboutus-teams-tabs-container"
-                      onClick={() => {
-                        setCurrentTab(tab.title);
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'start',
                       }}
                     >
-                      {tabsCounter > 1 ? (
-                        <div className="aboutus-short-vertical-line"></div>
-                      ) : (
-                        <></>
-                      )}
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'start',
-                        }}
+                      <h1
+                        className={
+                          currentTab === tab.title
+                            ? 'aboutus-teams-tabs-title-selected'
+                            : 'aboutus-teams-tabs-title'
+                        }
                       >
-                        <h1
-                          className={
-                            currentTab === tab.title
-                              ? 'aboutus-teams-tabs-title-selected'
-                              : 'aboutus-teams-tabs-title'
-                          }
-                        >
-                          {tab.title}
-                        </h1>
-                        <div
-                          className={`aboutus-yellow-bubble ${
-                            currentTab === tab.title
-                              ? 'aboutus-yellow-bubble-show'
-                              : 'aboutus-yellow-bubble-noshow'
-                          }`}
-                        ></div>
-                      </div>
+                        {tab.title}
+                      </h1>
+                      <div
+                        className={`aboutus-yellow-bubble ${
+                          currentTab === tab.title
+                            ? 'aboutus-yellow-bubble-show'
+                            : 'aboutus-yellow-bubble-noshow'
+                        }`}
+                      ></div>
                     </div>
                   </div>
-                );
-              } else {
-                return;
-              }
-            })}
-          </div>
-        </div>
-
-        <div className="aboutus-tabs-component">
-          {tabs.map((tab) => {
-            if (currentTab === tab.title && tab.active) {
-              return tab.component;
+                </div>
+              );
+            } else {
+              return;
             }
           })}
         </div>
-      </>
-    );
-  else
-    return (
-      <>
-        <h2 className="about-introduction-title">Stay tuned to meet the team!</h2>
-      </>
-    );
+      </div>
+
+      <div className="aboutus-tabs-component">
+        {tabs.map((tab) => {
+          if (currentTab === tab.title && tab.active) {
+            return tab.component;
+          }
+        })}
+      </div>
+    </>
+  );
 };
 
 const AboutUsTeamsTabWrapper = () => {
-  const [showAboutUs, setShowAboutUs] = useState(true);
+  const showAboutUs = true;
 
-  if (!showAboutUs) tabs.map((tab) => (tab.active = false));
-  else tabs.map((tab) => (tab.active = true));
+  tabs.map((tab) => (tab.active = showAboutUs ? tab.wantToLoad : false));
 
   return (
     <>
-      <AboutUsTeamsTab />
+      {showAboutUs ? (
+        <AboutUsTeamsTab />
+      ) : (
+        <h2 className="about-introduction-title">Stay tuned to meet the team!</h2>
+      )}
     </>
   );
 };
