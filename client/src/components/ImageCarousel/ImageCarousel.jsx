@@ -7,7 +7,6 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 const ImageCarousel = ({ items }) => {
   const [currentLabel, setCurrentLabel] = useState(0);
   const [currentLabelMobile, setCurrentLabelMobile] = useState(0);
-  const colours = ['#a6a6a6', '#ba992d', '#9c5c0e', '#9c5c0e', 'white', 'white'];
 
   return (
     <div>
@@ -45,7 +44,10 @@ const ImageCarousel = ({ items }) => {
                       alt={item.name}
                       style={{
                         border: currentLabel === index ? '10px solid' : 'none',
-                        borderColor: currentLabel === index ? `${colours[index]}` : 'none',
+                        borderImage:
+                          currentLabel === index
+                            ? `var(--sponsor-border-${item.rank}) 50 50 50 50 stretch stretch`
+                            : 'none',
                       }}
                     />
                   </div>
@@ -77,24 +79,20 @@ const ImageCarousel = ({ items }) => {
               <div key={item.name + index}>
                 <a className="carousel-link" href={item.website}>
                   <div className="carousel-slide-container">
-                    <img className="carousel-slide" src={item.image} alt={item.name} />
+                    <img
+                      className="carousel-slide"
+                      src={item.image}
+                      alt={item.name}
+                      style={{
+                        border: currentLabel === index ? '10px solid' : 'none',
+                        borderImage:
+                          currentLabel === index
+                            ? `var(--sponsor-border-${item.rank}) 50 50 50 50 stretch stretch`
+                            : 'none',
+                      }}
+                    />
                   </div>
                 </a>
-                <p
-                  style={{
-                    userSelect: 'all',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    left: 0,
-                    right: 0,
-                    position: 'absolute',
-                    transform: 'translateY(-30px)',
-                    bottom: '0px',
-                    textAlign: 'center',
-                  }}
-                >
-                  {item.label}
-                </p>
               </div>
             );
           })}

@@ -178,6 +178,7 @@ const HomePageSchedule = () => {
 const HomePageSponsors = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
   const [viewAll, setViewAll] = useState(false);
+
   return (
     <div className="home-page-sponsors">
       {darkMode ? (
