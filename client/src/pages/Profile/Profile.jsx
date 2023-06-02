@@ -493,7 +493,18 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
           <></>
         )}
       </div>
+      <div className={'profile-leader-dashboard-data-title'}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          className={'profile-leader-dashboard-data-icon'}
+        >
+          <path d="M64 256V160H224v96H64zm0 64H224v96H64V320zm224 96V320H448v96H288zM448 256H288V160H448v96zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64z" />
+        </svg>
+        <h3 className={'profile-leader-dashboard-data-text'}>Data</h3>
+      </div>
       <div className={'profile-leader-dashboard-data-links'}>
+        <hr className={'profile-leader-dashboard-data-hrline'}></hr>
         <ProfilePageDashboardLink
           link="/approve-accounts"
           authScopes={['accounts:delete', 'accounts:edit', 'accounts:read']}
@@ -505,7 +516,20 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
           label="Frosh Info Table"
         />
       </div>
+
+      <div className={'profile-leader-dashboard-outreach-title'}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 640 512"
+          className={'profile-leader-dashboard-outreach-icon'}
+        >
+          <path d="M544 248v3.3l69.7-69.7c21.9-21.9 21.9-57.3 0-79.2L535.6 24.4c-21.9-21.9-57.3-21.9-79.2 0L416.3 64.5c-2.7-.3-5.5-.5-8.3-.5H296c-37.1 0-67.6 28-71.6 64H224V248c0 22.1 17.9 40 40 40s40-17.9 40-40V176c0 0 0-.1 0-.1V160l16 0 136 0c0 0 0 0 .1 0H464c44.2 0 80 35.8 80 80v8zM336 192v56c0 39.8-32.2 72-72 72s-72-32.2-72-72V129.4c-35.9 6.2-65.8 32.3-76 68.2L99.5 255.2 26.3 328.4c-21.9 21.9-21.9 57.3 0 79.2l78.1 78.1c21.9 21.9 57.3 21.9 79.2 0l37.7-37.7c.9 0 1.8 .1 2.7 .1H384c26.5 0 48-21.5 48-48c0-5.6-1-11-2.7-16H432c26.5 0 48-21.5 48-48c0-12.8-5-24.4-13.2-33c25.7-5 45.1-27.6 45.2-54.8v-.4c-.1-30.8-25.1-55.8-56-55.8c0 0 0 0 0 0l-120 0z" />{' '}
+        </svg>
+        <h3 className={'profile-leader-dashboard-outreach-text'}>Outreach</h3>
+      </div>
       <div className={'profile-leader-dashboard-outreach-links'}>
+        <hr className={'profile-leader-dashboard-outreach-hrline'}></hr>
+
         <ProfilePageDashboardLink
           link="/faq-admin"
           authScopes={['faq:delete', 'faq:edit']}
@@ -522,7 +546,20 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
           label="Announcements Admin Panel"
         />
       </div>
+
+      <div className={'profile-leader-dashboard-scunt-title'}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          className={'profile-leader-dashboard-scunt-icon'}
+        >
+          <path d="M128 32h32c17.7 0 32 14.3 32 32V96H96V64c0-17.7 14.3-32 32-32zm64 96V448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V388.9c0-34.6 9.4-68.6 27.2-98.3C40.9 267.8 49.7 242.4 53 216L60.5 156c2-16 15.6-28 31.8-28H192zm227.8 0c16.1 0 29.8 12 31.8 28L459 216c3.3 26.4 12.1 51.8 25.8 74.6c17.8 29.7 27.2 63.7 27.2 98.3V448c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V128h99.8zM320 64c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32V96H320V64zm-32 64V288H224V128h64z" />{' '}
+        </svg>
+        <h3 className={'profile-leader-dashboard-scunt-text'}>Scunt</h3>
+      </div>
       <div className={'profile-leader-dashboard-scunt-links'}>
+        <hr className={'profile-leader-dashboard-scunt-hrline'}></hr>
+
         <ProfilePageDashboardLink
           link="/scunt-judge-form"
           authScopes={[
