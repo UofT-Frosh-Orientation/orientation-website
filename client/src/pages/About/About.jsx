@@ -305,7 +305,7 @@ const tabs = [
     title: 'Head Leedurs',
     component: <AboutUsHL />,
     active: true,
-    wantToLoad: true,
+    wantToLoad: false,
   },
 ];
 
@@ -383,9 +383,13 @@ const AboutUsTeamsTab = () => {
 };
 
 const AboutUsTeamsTabWrapper = () => {
-  const showAboutUs = true;
+  let showAboutUs = true;
 
   tabs.map((tab) => (tab.active = showAboutUs ? tab.wantToLoad : false));
+
+  // set showAboutUs in case every single tab is false
+
+  showAboutUs = !tabs.every((tab, i, a) => !tab.wantToLoad);
 
   return (
     <>
