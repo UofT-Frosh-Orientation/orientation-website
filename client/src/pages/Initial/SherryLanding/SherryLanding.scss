@@ -16,20 +16,11 @@
 
 .sz-landing-text {
   font-size: 20vh;
-  text-shadow: 0px 0px 0 rgb(250,188,2),
-                 1px 1px 0 rgb(245,183,0),
-                 2px 2px 0 rgb(240,178,0),
-                 3px 3px 0 rgb(235,173,0),
-                 4px 4px 0 rgb(230,168,0),
-                 5px 5px 0 rgb(225,163,0),
-                 6px 6px 0 rgb(220,158,0),
-                 7px 7px 0 rgb(215,153,0),
-                 8px 8px 0 rgb(210,148,0),
-                 9px 9px 0 rgb(205,143,0),
-                 10px 10px  0 rgb(200,138,0),
-                 11px 11px 10px rgba(0,0,0,0.6),
-                 11px 11px 1px rgba(0,0,0,0.5),
-                 0px 0px 10px rgba(0,0,0,.2);
+  text-shadow: 0px 0px 0 rgb(250, 188, 2), 1px 1px 0 rgb(245, 183, 0), 2px 2px 0 rgb(240, 178, 0),
+    3px 3px 0 rgb(235, 173, 0), 4px 4px 0 rgb(230, 168, 0), 5px 5px 0 rgb(225, 163, 0),
+    6px 6px 0 rgb(220, 158, 0), 7px 7px 0 rgb(215, 153, 0), 8px 8px 0 rgb(210, 148, 0),
+    9px 9px 0 rgb(205, 143, 0), 10px 10px 0 rgb(200, 138, 0), 11px 11px 10px rgba(0, 0, 0, 0.6),
+    11px 11px 1px rgba(0, 0, 0, 0.5), 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .szlanding-small-text {
@@ -37,10 +28,9 @@
   text-align: center;
   font-size: 5vh;
   margin-bottom: 5%;
-  
 }
 
-.szlanding-logo-container{
+.szlanding-logo-container {
   text-align: center;
   justify-content: center;
 }

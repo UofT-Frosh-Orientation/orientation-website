@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { TanuLanding } from './TanuLanding/TanuLanding';
 import { UzmaLanding } from './UzmaLanding/UzmaLanding';
 import { NatLanding } from './NatLanding/NatLanding';
+import { SherryLanding } from './SherryLanding/SherryLanding';
 
 const landingPages = [
   {
@@ -15,6 +16,10 @@ const landingPages = [
   {
     key: 2,
     component: <NatLanding />,
+  },
+  {
+    key: 3,
+    component: <SherryLanding />,
   },
 ];
 
