@@ -421,105 +421,111 @@
 .profile-leader-dashboard-links {
   color: var(--text-dynamic);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   flex-wrap: wrap;
+  margin-bottom: 100px;
   @include devices(tablet) {
-    flex-wrap: unset;
-    flex-direction: column;
   }
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  margin-bottom: 50px;
-  margin-top: 25px;
-  text-align: center;
-  padding: 0px 20px;
-  flex-wrap: wrap;
-  @include devices(tablet) {
-    flex-wrap: unset;
-    flex-direction: column;
-  }*/
   .profile-leader-dashboard-permissions-links {
-    padding-right: 50px;
   }
+  .profile-leader-dashboard-other-links {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
 
-  .profile-leader-dashboard-data-links {
-    width: max(200px, 15%);
-    .profile-leader-dashboard-data-title {
-      display: flex;
-      flex-direction: row;
-      border-radius: 6px;
-      border: 2px solid var(--purple-shades-muted);
-      cursor: pointer;
-      margin: auto;
-      .profile-leader-dashboard-data-icon {
-        width: 40px;
-        height: 40px;
-        fill: var(--yellow);
-        margin: auto 0 auto auto;
-        padding-bottom: 2px;
-        padding-right: 5px;
+    @include devices(tablet) {
+      width: 95%;
+    }
+    .profile-leader-dashboard-data-links {
+      width: 100%;
+      .profile-leader-dashboard-data-title {
+        display: flex;
+        flex-direction: row;
+        border-radius: 6px;
+        border: 2px solid var(--purple-shades-muted);
+        cursor: pointer;
+        margin: auto;
+        .profile-leader-dashboard-data-icon {
+          width: 40px;
+          height: 40px;
+          fill: var(--yellow);
+          margin: auto 0 auto auto;
+          padding-bottom: 2px;
+          padding-right: 5px;
+        }
+        .profile-leader-dashboard-data-text {
+          color: white;
+          font-size: larger;
+          margin: auto auto auto 0;
+        }
       }
-      .profile-leader-dashboard-data-text {
-        color: white;
-        font-size: x-large;
-        margin: auto auto auto 0;
+    }
+
+    .profile-leader-dashboard-outreach-links {
+      width: 100%;
+
+      .profile-leader-dashboard-outreach-title {
+        display: flex;
+        flex-direction: row;
+        border-radius: 6px;
+        border: 2px solid var(--purple-shades-muted);
+        cursor: pointer;
+        margin: auto;
+        .profile-leader-dashboard-outreach-icon {
+          width: 40px;
+          height: 40px;
+          fill: var(--yellow);
+          margin: auto 0 auto auto;
+          padding-bottom: 2px;
+          padding-right: 5px;
+        }
+        .profile-leader-dashboard-outreach-text {
+          color: white;
+          font-size: larger;
+          margin: auto auto auto 0;
+        }
+      }
+    }
+
+    .profile-leader-dashboard-scunt-links {
+      width: 100%;
+      .profile-leader-dashboard-scunt-title {
+        display: flex;
+        flex-direction: row;
+        border-radius: 6px;
+        border: 2px solid var(--purple-shades-muted);
+
+        cursor: pointer;
+        margin: auto;
+        .profile-leader-dashboard-scunt-icon {
+          width: 40px;
+          height: 40px;
+          fill: var(--yellow);
+          margin: auto 0 auto auto;
+          padding-bottom: 2px;
+          padding-right: 5px;
+        }
+        .profile-leader-dashboard-scunt-text {
+          color: white;
+          font-size: larger;
+          margin: auto auto auto 0;
+        }
       }
     }
   }
-
-  .profile-leader-dashboard-outreach-links {
-    width: max(200px, 15%);
-    .profile-leader-dashboard-outreach-title {
-      display: flex;
-      flex-direction: row;
-      border-radius: 6px;
-      border: 2px solid var(--purple-shades-muted);
-
-      cursor: pointer;
-      margin: auto;
-      .profile-leader-dashboard-outreach-icon {
-        width: 40px;
-        height: 40px;
-        fill: var(--yellow);
-        margin: auto 0 auto auto;
-        padding-bottom: 2px;
-        padding-right: 5px;
-      }
-      .profile-leader-dashboard-outreach-text {
-        color: white;
-        font-size: x-large;
-        margin: auto auto auto 0;
-      }
-    }
-  }
-
-  .profile-leader-dashboard-scunt-links {
-    width: max(200px, 15%);
-    .profile-leader-dashboard-scunt-title {
-      display: flex;
-      flex-direction: row;
-      border-radius: 6px;
-      border: 2px solid var(--purple-shades-muted);
-
-      cursor: pointer;
-      margin: auto;
-      .profile-leader-dashboard-scunt-icon {
-        width: 40px;
-        height: 40px;
-        fill: var(--yellow);
-        margin: auto 0 auto auto;
-        padding-bottom: 2px;
-        padding-right: 5px;
-      }
-      .profile-leader-dashboard-scunt-text {
-        color: white;
-        font-size: x-large;
-        margin: auto auto auto 0;
-      }
+  .dashboard-dropdown-image {
+    user-select: none;
+    height: 100%;
+    width: 16px;
+    margin-right: 10px;
+    margin-top: 5px;
+    transition: transform 300ms ease-in-out;
+    transform: rotate(0) translateY(2.5px);
+    &.open {
+      transform: rotate(180deg) translateY(2.5px);
     }
   }
 }

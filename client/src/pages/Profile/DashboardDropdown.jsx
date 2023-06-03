@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import './DashboardDropdown.scss';
 import { userSelector } from '../../state/user/userSlice';
-const DashboardDropdown = ({ open, setOpen, items, title }) => {
+
+const DashboardDropdown = ({ open, setOpen, items }) => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
   let count = 0; // counts which page
 
