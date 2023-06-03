@@ -608,16 +608,6 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
             items={dashboardItems.data}
             title={'data'}
           />
-          {/* <ProfilePageDashboardLink
-            link="/approve-accounts"
-            authScopes={['accounts:delete', 'accounts:edit', 'accounts:read']}
-            label="Leedur Account Scope Approval"
-          />
-          <ProfilePageDashboardLink
-            link="/frosh-info-table"
-            anyRegisterScope={true}
-            label="Frosh Info Table"
-          />  */}
         </div>
 
         <div className={'profile-leader-dashboard-outreach-links'}>
@@ -647,22 +637,6 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
             items={dashboardItems.outreach}
             title={'outreach'}
           />
-
-          {/* <ProfilePageDashboardLink
-            link="/faq-admin"
-            authScopes={['faq:delete', 'faq:edit']}
-            label="FAQ Admin Panel"
-          />
-          <ProfilePageDashboardLink
-            link="/timeline-admin"
-            authScopes={['timeline:create', 'timeline:edit', 'timeline:delete']}
-            label="Timeline Admin Panel"
-          />
-          <ProfilePageDashboardLink
-            link="/announcement-dashboard"
-            authScopes={['announcements:delete', 'announcements:create', 'announcements:edit']}
-            label="Announcements Admin Panel"
-          /> */}
         </div>
 
         <div className={'profile-leader-dashboard-scunt-links'}>
@@ -692,42 +666,6 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
             items={dashboardItems.scunt}
             title={'outreach'}
           />
-          {/* <ProfilePageDashboardLink
-            link="/scunt-judge-form"
-            authScopes={[
-              'scunt:exec allow leaderboard',
-              'scunt:exec allow missions page',
-              'scunt:exec hide leaderboard',
-              'scunt:exec hide missions page',
-              'scunt:exec hide wedding missions',
-              'scunt:exec negative points',
-              'scunt:exec refill bribe points',
-              'scunt:exec show wedding missions',
-              'scunt:judge bribe points',
-              'scunt:judge missions',
-            ]}
-            label="Scunt Judge Panel"
-          />
-          <ProfilePageDashboardLink
-            link="/scunt-missions-dashboard"
-            authScopes={[
-              'scunt:exec show missions',
-              'scunt:exec hide missions',
-              'scunt:exec create missions',
-              'scunt:exec delete missions',
-            ]}
-            label="Scunt Mission Panel"
-          />
-          <ProfilePageDashboardLink
-            link="/scunt-transactions"
-            authScopes={['scunt:exec view transactions']}
-            label="Scunt Point Transactions"
-          />
-          <ProfilePageDashboardLink
-            link="/scunt-game-controls"
-            authScopes={['scunt:exec game controls']}
-            label="Scunt Settings"
-          /> */}
         </div>
       </div>
     </div>
