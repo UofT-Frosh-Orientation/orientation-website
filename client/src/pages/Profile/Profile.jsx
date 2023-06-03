@@ -30,6 +30,8 @@ import InstagramIcon from '../../assets/social/instagram-brands.svg';
 import CampingIcon from '../../assets/misc/camping-tent.png';
 import NitelifeIcon from '../../assets/misc/nitelife.png';
 import ScuntIcon from '../../assets/misc/magnifier.png';
+import Arrow from '../../../assets/icons/angle-down-solid.svg';
+import ArrowDarkMode from '../../assets/darkmode/icons/angle-down-solid.svg';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
@@ -53,15 +55,13 @@ import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHo
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
+import { DashboardDropdown } from '../../components/DashboardDropdown/DashboardDropdown';
 import {
   getScuntTeamObjFromTeamName,
   getScuntTeamObjFromTeamNumber,
 } from '../ScuntJudgeForm/ScuntJudgeForm';
 import useAxios from '../../hooks/useAxios';
 
-import Arrow from '../../../assets/icons/angle-down-solid.svg';
-import ArrowDarkMode from '../../assets/darkmode/icons/angle-down-solid.svg';
-import { DashboardDropdown } from './DashboardDropdown';
 const { axios } = useAxios();
 
 const PageProfile = () => {
