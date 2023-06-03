@@ -103,7 +103,7 @@ const PageProfileFrosh = () => {
     <>
       <div className="navbar-space-top" />
       <ProfilePageHeader leader={leader} editButton={true} />
-      {leader === true ? <ProfilePageLeaderPermissionDashboardLinks /> : <></>}
+
       <div className="profile-info-row">
         <div>
           {leader === false ? (
@@ -116,6 +116,7 @@ const PageProfileFrosh = () => {
             </>
           ) : (
             <>
+              <ProfilePageLeaderPermissionDashboardLinks />
               <div style={{ marginTop: '20px' }} />
               <ProfilePageScuntMessage />
               <div style={{ marginTop: '-20px' }} />

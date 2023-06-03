@@ -21,17 +21,22 @@
   display: flex;
   flex-direction: column;
   border-radius: 6px;
-  width: 30%;
-
+  width: max(130px, 13%);
+  margin: auto;
+  z-index: 90;
   border: 2px solid var(--purple-shades-muted);
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   opacity: 0;
   transition: opacity 300ms, transform 300ms;
   @include devices(tablet) {
     font-size: smaller;
+    width: 26%;
   }
 }
-
+.dashboard-dropdown-filler {
+  border: none;
+  background: transparent;
+}
 .dashboard-dropdown-container-display {
   opacity: 1;
   transition: opacity 300ms, transform 300ms;
@@ -40,15 +45,14 @@
 .dashboard-dropdown-item-container {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  text-align: left;
-  padding: 5px 18px;
+  text-align: center;
 
   background-color: var(--navbar-bg);
   color: var(--black);
   width: 100%;
-  height: 40px;
+  height: 60px;
 
   cursor: pointer;
 
