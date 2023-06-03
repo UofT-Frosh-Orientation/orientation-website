@@ -299,7 +299,7 @@ const tabs = [
     title: 'Subcoms',
     component: <AboutUsSubcom />,
     active: true,
-    wantToLoad: true,
+    wantToLoad: false,
   },
   {
     title: 'Head Leedurs',
@@ -383,7 +383,7 @@ const AboutUsTeamsTab = () => {
 };
 
 const AboutUsTeamsTabWrapper = () => {
-  let showAboutUs = true;
+  let showAboutUs = false;
 
   tabs.map((tab) => (tab.active = showAboutUs ? tab.wantToLoad : false));
 
