@@ -9,6 +9,20 @@
   padding: 20px;
 }
 
+.carousel-slide-border {
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 55px;
+  cursor: pointer;
+  height: calc(350px - 50px);
+
+  @include devices(tablet) {
+    width: 90%;
+    margin-bottom: 40px;
+    height: calc(290px - 50px);
+  }
+}
+
 .carousel-slide {
   background-color: var(--sponsor-background);
   padding: 15px;

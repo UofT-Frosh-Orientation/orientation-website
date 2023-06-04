@@ -38,18 +38,15 @@ const ImageCarousel = ({ items }) => {
                   rel="noreferrer"
                 >
                   <div className="carousel-slide-container">
-                    <img
-                      className="carousel-slide"
-                      src={item.image}
-                      alt={item.name}
+                    <div
+                      className="carousel-slide-border"
                       style={{
-                        border: currentLabel === index ? '10px solid' : 'none',
-                        borderImage:
-                          currentLabel === index
-                            ? `var(--sponsor-border-${item.rank}) 50 50 50 50 stretch stretch`
-                            : 'none',
+                        backgroundImage:
+                          currentLabel === index ? `var(--sponsor-border-${item.rank})` : 'none',
                       }}
-                    />
+                    >
+                      <img className="carousel-slide" src={item.image} alt={item.name} />
+                    </div>
                   </div>
                 </a>
               </div>
