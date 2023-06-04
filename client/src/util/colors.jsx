@@ -122,16 +122,16 @@ export const colors = {
   '--sponsor-container': ['#ffffff', '#8c60b3'],
   '--sponsor-background': ['#FFFFFF00', '#ffffff'],
   '--sponsor-border-diamond': [
-    'linear-gradient(to right, #83a4d4, #b6fbff)',
-    'linear-gradient(to right, #83a4d4, #b6fbff)',
+    'linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(231,249,255,1) 0%, rgba(4,40,92,1) 100%)',
+    'linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(231,249,255,1) 0%, rgba(4,40,92,1) 100%)',
   ],
   '--sponsor-border-gold': [
-    'linear-gradient(45deg, rgba(2,0,36,1) 0%, rgba(212,181,78,1) 0%, rgba(154,106,23,1) 100%)',
-    'linear-gradient(45deg, rgba(2,0,36,1) 0%, rgba(212,181,78,1) 0%, rgba(154,106,23,1) 100%)',
+    'linear-gradient(45deg, rgba(2,0,36,1) 0%, rgba(232,198,84,1) 0%, rgba(106,69,4,1) 100%)',
+    'linear-gradient(45deg, rgba(2,0,36,1) 0%, rgba(232,198,84,1) 0%, rgba(106,69,4,1) 100%)',
   ],
   '--sponsor-border-bronze': [
-    'linear-gradient(45deg, rgba(2,0,36,1) 0%, rgba(255,167,73,1) 0%, rgba(134,70,35,1) 100%)',
-    'linear-gradient(45deg, rgba(2,0,36,1) 0%, rgba(255,167,73,1) 0%, rgba(134,70,35,1) 100%)',
+    'linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(227,168,109,1) 0%, rgba(98,40,13,1) 100%)',
+    'linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(227,168,109,1) 0%, rgba(98,40,13,1) 100%)',
   ],
   '--sponsor-border-none': [
     'linear-gradient(45deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 100%)',
