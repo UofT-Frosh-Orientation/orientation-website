@@ -3,13 +3,10 @@ const FroshServices = require('../services/FroshServices');
 
 const PaymentController = {
   async handleWebhook(req, res, next) {
-    console.log(req.headers)
-    console.log(req.body)
     let event;
     const signature = req.headers['stripe-signature'];
     try {
       event = await PaymentServices.decodeWebhookEvent(req.body, signature);
-      //console.log('event', event);
     } catch (err) {
       next(new Error('UNAUTHORIZED'));
     }
@@ -31,7 +28,7 @@ const PaymentController = {
         default:
           console.log(`Unhandled event type: ${event.type}`);
       }
-      res.setStatus(200);
+      res.status(200);
     } catch (err) {
       next(err);
     }
