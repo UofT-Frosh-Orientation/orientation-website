@@ -28,7 +28,7 @@ const PaymentController = {
         default:
           console.log(`Unhandled event type: ${event.type}`);
       }
-      res.status(200);
+      res.status(200).send({ message: 'Webhook processed' });
     } catch (err) {
       next(err);
     }
