@@ -217,17 +217,17 @@ const PageSignUp = () => {
               checkErrors(true);
             }}
           > */}
-            <Button
-              label="Create Account"
-              style={{ margin: 0 }}
-              isDisabled={anyErrors}
-              onClick={async () => {
-                const anyErrors = checkErrors(true);
-                if (anyErrors === false) {
-                  submitForm();
-                }
-              }}
-            />
+          <Button
+            label="Create Account"
+            style={{ margin: 0 }}
+            isDisabled={anyErrors}
+            onClick={async () => {
+              const anyErrors = checkErrors(true);
+              if (anyErrors === false) {
+                submitForm();
+              }
+            }}
+          />
           {/* </div> */}
         </div>
       </div>
@@ -252,19 +252,25 @@ const PageSignUp = () => {
                 : accountObj['preferredName']
             }.`}</h2>
             {accountObj['leadur'] === true ? (
-              <h3>Your account will be reviewed and shortly become an official Leedur account.</h3>
+              <h3>
+                Check your inbox for a confirmation link. Your account will be reviewed and shortly
+                become an official Leedur account.
+              </h3>
             ) : (
               <>
                 <h1>You aren&apos;t done just yet!</h1>
-                <h3>You still need to register and pay for the F!rosh Week event.</h3>
-                <Link to="/registration" className="no-link-style">
+                <h3>
+                  Check your inbox for a confirmation link. You still need to register and pay for
+                  the F!rosh Week event.
+                </h3>
+                {/* <Link to="/registration" className="no-link-style">
                   <div>
                     <Button
                       label="Register"
                       style={{ padding: '25px 60px', fontSize: '20px', borderRadius: '20px' }}
                     />
                   </div>
-                </Link>
+                </Link> */}
               </>
             )}
           </div>
