@@ -788,6 +788,15 @@ const ProfilePageHeader = ({ leader, editButton }) => {
   // console.log(`editButton: ${editButton}`);
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
+  const currentYear = new Date().getFullYear();
+  const firstDigitL = currentYear.toString().slice(-2, -1);
+  const lastDigitL = currentYear.toString().slice(-1);
+  let leedurYear = `${firstDigitL}T${lastDigitL}`;
+  const gradYear = currentYear + 4;
+  const firstDigitF = gradYear.toString().slice(-2, -1);
+  const lastDigitF = gradYear.toString().slice(-1);
+  let froshYear = `${firstDigitF}T${lastDigitF}`;
+
   return (
     <>
       <div className="profile-page-header">
@@ -813,11 +822,11 @@ const ProfilePageHeader = ({ leader, editButton }) => {
           </div>
           <div className="profile-page-header-class desktop-only">
             {leader === true ? (
-              <h2>2T2</h2>
+              <h2>{leedurYear}</h2>
             ) : (
               <>
                 <p>Class of</p>
-                <h2>2T6</h2>
+                <h2>{froshYear}</h2>
               </>
             )}
           </div>
