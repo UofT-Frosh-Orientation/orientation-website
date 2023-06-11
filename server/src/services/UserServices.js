@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 
 const UserModel = require('../models/UserModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
+const { sendSimpleEmail } = require('./EmailServices');
+const EmailServices = require('./EmailServices');
 
 function createScuntToken() {
   let result = '';
@@ -61,6 +63,29 @@ const UserServices = {
                 reject(err);
               } else {
                 newUserSubscription.add(newUser);
+                const emailToken = jwt.sign(
+                  { email },
+                  process.env.JWT_EMAIL_CONFIRMATION_TOKEN,
+                  { expiresIn: '1h' },
+                  {
+                    /*
+                  (err, token) => {
+                    if (err) {
+                      reject(err);
+                    } else {
+                      resolve(token);
+                    }
+                  },*/
+                  },
+                );
+
+                EmailServices.sendSimpleEmail(
+                  email,
+                  process.env.CLIENT_BASE_URL + '/verify-user-email' + email + '/' + emailToken,
+                  'Please use this URL to confirm your email.',
+                  'F!rosh Email Confirmation',
+                  process.env.REGISTRATION_DATA_EMAIL_ADDRESSES,
+                );
                 resolve(newUser);
               }
             },
@@ -110,22 +135,38 @@ const UserServices = {
 
     return new Promise((resolve, reject) => {
       UserModel.findByIdAndUpdate(
-        userId, 
-        { scuntToken }, 
+        userId,
+        { scuntToken },
         { returnDocument: 'after' },
         (err, user) => {
-        if (err || !user) {
-          reject('UNABLE_TO_UPDATE_SCUNT_TOKEN_FOR_USER');
-        } else {
-          resolve(user);
-        }
-      });
+          if (err || !user) {
+            reject('UNABLE_TO_UPDATE_SCUNT_TOKEN_FOR_USER');
+          } else {
+            resolve(user);
+          }
+        },
+      );
     });
   },
 
   async validatePasswordResetToken(token) {
     return new Promise((resolve, reject) => {
       jwt.verify(token, process.env.JWT_RESET_TOKEN, (err, decoded) => {
+        console.log(err);
+        console.log(decoded);
+        if (err) {
+          reject(err);
+        } else {
+          const { email } = decoded;
+          resolve(email);
+        }
+      });
+    });
+  },
+
+  async validateEmailConfirmationToken(token) {
+    return new Promise((resolve, reject) => {
+      jwt.verify(token, process.env.JWT_EMAIL_CONFIRMATION_TOKEN, (err, decoded) => {
         console.log(err);
         console.log(decoded);
         if (err) {

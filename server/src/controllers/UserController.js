@@ -77,6 +77,8 @@ const UserController = {
     passport.authenticate('local', (err, user) => {
       if (err || !user) {
         res.status(403).send({ message: 'Please ensure your email and password are correct.' });
+      } else if (!user.confirmed) {
+        res.status(403).send({ message: 'Please ensure if you have verified your email.' });
       } else {
         req.logIn(user, (err) => {
           if (err) {
@@ -136,6 +138,25 @@ const UserController = {
         res.status(200).send({
           message:
             'Successfully updated your password! Please sign in with your email and new password.',
+        });
+      }
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  async confirmUser(req, res, next) {
+    try {
+      const { email, emailToken } = req.body;
+      const result = await UserServices.validateEmailConfirmationToken(emailToken);
+      const existingUser = await UserServices.getUserByEmail(email);
+      if (!existingUser || existingUser.email !== result) {
+        next(new Error('INVALID_PASSWORD_RESET_EMAIL'));
+      } else {
+        await UserServices.updateUserInfo(existingUser.id, { confirmed: true });
+        res.status(200).send({
+          message:
+            'Successfully confirmed your email! Please sign in with your email and password.',
         });
       }
     } catch (err) {

@@ -78,7 +78,7 @@ export const pages = {
     {
       label: 'Email Confirmed',
       component: <PageEmailConfirmed />,
-      path: '/email-confirmed',
+      path: '/verify-user-email/:email/:emailToken',
       includeFooter: false,
     },
     {
