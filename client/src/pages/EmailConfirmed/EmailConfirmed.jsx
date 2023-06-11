@@ -41,10 +41,10 @@ const PageEmailConfirmed = () => {
       ) : (
         <div className="email-confirmed-page">
           <div className="email-confirmed-container">
-            <h1>Oh no!</h1>
+            <h1>Oh no! :( </h1>
             <h2>An error occurred when trying to verify your email. Please try again later.</h2>
             <Link to={'/login'} style={{ textDecoration: 'none' }} className={'no-link-style'}>
-              <Button label="Login Page" />
+              <Button label="Go back to login page" />
             </Link>
           </div>
         </div>
