@@ -135,6 +135,8 @@ router.get(
   UserController.getUsersAuthScopes,
 );
 
+router.put('/profile-edit', UserController.updateInfo);
+
 router.put('/unsubscribe', UserController.unsubscribeUser);
 
 router.put('/resubscribe', checkLoggedIn, UserController.resubscribeUser);
