@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-
+const jwt = require('jsonwebtoken');
 const LeadurModel = require('../models/LeadurModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
 
