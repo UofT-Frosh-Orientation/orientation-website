@@ -39,17 +39,18 @@ const UserController = {
         );
       }
 
-      req.logIn(user, (err) => {
-        if (err) {
-          return next(err);
-        }
+      //req.logIn(user, (err) => {
+        //if (err) {
+        //  return next(err);
+        //}
         return res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
-      });
+      //});
     } catch (e) {
       console.log(e);
       next(e);
     }
   },
+
   /**
    * Gets the info of the currently authenticated user.
    * @param {Object} req
@@ -78,7 +79,7 @@ const UserController = {
       if (err || !user) {
         res.status(403).send({ message: 'Please ensure your email and password are correct.' });
       } else if (!user.confirmed) {
-        res.status(403).send({ message: 'Please ensure if you have verified your email.' });
+        res.status(403).send({ message: 'Please ensure that you have verified your email.' });
       } else {
         req.logIn(user, (err) => {
           if (err) {
@@ -151,7 +152,7 @@ const UserController = {
       const result = await UserServices.validateEmailConfirmationToken(emailToken);
       const existingUser = await UserServices.getUserByEmail(email);
       if (!existingUser || existingUser.email !== result) {
-        next(new Error('INVALID_PASSWORD_RESET_EMAIL'));
+        next(new Error('INVALID_VERIFICATION_LINK'));
       } else {
         await UserServices.updateUserInfo(existingUser.id, { confirmed: true });
         res.status(200).send({

@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '../../components/button/Button/Button';
 import './EmailConfirmed.scss';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+import useAxios from '../../hooks/useAxios';
 
 const PageEmailConfirmed = () => {
   const { email } = useParams();
@@ -10,16 +10,19 @@ const PageEmailConfirmed = () => {
   const [validEmailToken, setvalidEmailToken] = useState(false);
 
   function verifyEmailToken(email, emailToken) {
-    const emailAndEmailToken = {
-      email: email,
-      emailToken: emailToken,
-    };
-    axios.post('/user/validate-email-confirmation', emailAndEmailToken).then((response) => {
-      const responseStatus = response.data.status;
-      if (responseStatus == 'okay') {
-        setvalidEmailToken(true);
-      }
-    });
+    const {axios} = useAxios(); 
+
+    try {
+      const emailAndEmailToken = {
+        email: email,
+        emailToken: emailToken,
+      };
+      axios.post('/user/verify-user-email', emailAndEmailToken);
+      setvalidEmailToken(true);
+    }
+    catch(e) {
+      console.log(e);
+    }
   }
 
   useEffect(() => {

@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 
 const UserModel = require('../models/UserModel');
 const newUserSubscription = require('../subscribers/newUserSubscription');
-const { sendSimpleEmail } = require('./EmailServices');
 const EmailServices = require('./EmailServices');
 
 function createScuntToken() {
@@ -58,38 +57,29 @@ const UserServices = {
         .then((hashedPassword) => {
           UserModel.create(
             { email, hashedPassword, firstName, lastName, preferredName, scuntToken },
-            (err, newUser) => {
+            async (err, newUser) => {
               if (err) {
                 reject(err);
               } else {
-                newUserSubscription.add(newUser);
+                newUserSubscription.add(newUser);   
                 const emailToken = jwt.sign(
                   { email },
-                  process.env.JWT_EMAIL_CONFIRMATION_TOKEN,
-                  { expiresIn: '1h' },
-                  {
-                    /*
-                  (err, token) => {
-                    if (err) {
-                      reject(err);
-                    } else {
-                      resolve(token);
-                    }
-                  },*/
-                  },
+                  process.env.JWT_RESET_TOKEN,
                 );
-
-                EmailServices.sendSimpleEmail(
-                  email,
-                  process.env.CLIENT_BASE_URL + '/verify-user-email' + email + '/' + emailToken,
-                  'Please use this URL to confirm your email.',
-                  'F!rosh Email Confirmation',
-                  process.env.REGISTRATION_DATA_EMAIL_ADDRESSES,
-                );
+                const url = process.env.CLIENT_BASE_URL + '/verify-user-email/' + email + '/' + emailToken;
+                const result = await EmailServices.sendSimpleEmail(
+                   [email],
+                   '',
+                   'Please use this URL to confirm your email: ' + url,
+                   'F!rosh Email Confirmation',
+                   'tech@orientation.skule.ca',
+                 );
                 resolve(newUser);
               }
             },
           );
+
+
         })
         .catch((err) => {
           reject(err);
@@ -166,7 +156,7 @@ const UserServices = {
 
   async validateEmailConfirmationToken(token) {
     return new Promise((resolve, reject) => {
-      jwt.verify(token, process.env.JWT_EMAIL_CONFIRMATION_TOKEN, (err, decoded) => {
+      jwt.verify(token, process.env.JWT_RESET_TOKEN, (err, decoded) => {
         console.log(err);
         console.log(decoded);
         if (err) {

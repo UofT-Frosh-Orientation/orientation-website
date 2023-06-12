@@ -21,12 +21,25 @@ const LeadurServices = {
         .then((hashedPassword) => {
           LeadurModel.create(
             { email, hashedPassword, firstName, lastName, preferredName, scuntTeam },
-            (err, newUser) => {
+            async (err, newUser) => {
               if (err) {
                 console.log(err);
                 reject(err);
               } else {
                 newUserSubscription.add(newUser);
+
+                const emailToken = jwt.sign(
+                  { email },
+                  process.env.JWT_RESET_TOKEN,
+                );
+                const url = process.env.CLIENT_BASE_URL + '/verify-user-email/' + email + '/' + emailToken;
+                const result = await EmailServices.sendSimpleEmail(
+                  [email],
+                  '',
+                  'Please use this URL to confirm your email: ' + url,
+                  'F!rosh Email Confirmation',
+                  'tech@orientation.skule.ca',
+                );
                 resolve(newUser);
               }
             },
