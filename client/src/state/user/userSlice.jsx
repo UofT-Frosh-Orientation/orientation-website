@@ -14,6 +14,22 @@ const userSlice = createSlice({
   name: 'userReducer',
   initialState,
   reducers: {
+    signupStart: (state) => {
+      state.loading = true;
+      state.error = null;
+      state.signedUp = undefined;
+    },
+    signupFail: (state, { payload: error }) => {
+      state.loading = false;
+      state.error = error;
+      state.signedUp = false;
+    },
+    signupSuccess: (state, { payload: user }) => {
+      state.loading = false;
+      state.error = null;
+      state.user = user;
+      state.signedUp = true;
+    },
     loginStart: (state) => {
       state.loading = true;
       state.error = null;

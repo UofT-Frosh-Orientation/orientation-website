@@ -263,14 +263,6 @@ const PageSignUp = () => {
                   Check your inbox for a link to verify your email. You still need to register and
                   pay for the F!rosh Week event.
                 </h3>
-                {/* <Link to="/registration" className="no-link-style">
-                  <div>
-                    <Button
-                      label="Register"
-                      style={{ padding: '25px 60px', fontSize: '20px', borderRadius: '20px' }}
-                    />
-                  </div>
-                </Link> */}
               </>
             )}
           </div>

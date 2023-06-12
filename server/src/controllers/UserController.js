@@ -38,16 +38,10 @@ const UserController = {
           preferredName,
         );
       }
-
-      //req.logIn(user, (err) => {
-        //if (err) {
-        //  return next(err);
-        //}
-        return res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
-      //});
-    } catch (e) {
-      console.log(e);
-      next(e);
+      return res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
+    } 
+    catch(err) {
+      next(err);
     }
   },
 

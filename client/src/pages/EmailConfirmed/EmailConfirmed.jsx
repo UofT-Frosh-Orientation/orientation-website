@@ -20,8 +20,8 @@ const PageEmailConfirmed = () => {
       axios.post('/user/verify-user-email', emailAndEmailToken);
       setvalidEmailToken(true);
     }
-    catch(e) {
-      console.log(e);
+    catch(err) {
+      setvalidEmailToken(false);
     }
   }
 
