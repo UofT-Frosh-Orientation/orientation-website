@@ -184,6 +184,10 @@ const HomePageSchedule = () => {
 const HomePageSponsors = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
   const [viewAll, setViewAll] = useState(false);
+
+  useEffect(() => {
+    console.log(sponsors.length)
+  }, [])
   return (
     <div className="home-page-sponsors">
       {darkMode ? (
@@ -193,38 +197,48 @@ const HomePageSponsors = () => {
       )}
       <h2>Our Sponsors</h2>
       <PleaseSponsor />
-      {viewAll === false ? (
-        <ImageCarousel items={sponsors} />
-      ) : (
-        <div className="all-sponsors-area">
-          {sponsors.map((item, index) => {
-            return (
-              <div key={item.name + index} className="sponsor-container">
-                <a
-                  href={item.website}
-                  key={item.name + index}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="no-link-style"
-                >
-                  <img src={item.image} alt={item.name} />
-                </a>
-                <p>{item.label}</p>
-              </div>
-            );
-          })}
-        </div>
-      )}
-      {!viewAll ? (
-        <Button
-          label={'View All'}
-          onClick={() => {
-            setViewAll(true);
-          }}
-        />
-      ) : (
-        <></>
-      )}
+
+      { sponsors.length > 0 && 
+      <div>
+        {viewAll === false ? (
+          <ImageCarousel items={sponsors} />
+        ) : (
+          <div className="all-sponsors-area">
+            {sponsors.map((item, index) => {
+              return (
+                <div key={item.name + index} className="sponsor-container">
+                  <a
+                    href={item.website}
+                    key={item.name + index}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="no-link-style"
+                  >
+                    <img src={item.image} alt={item.name} />
+                  </a>
+                  <p>{item.label}</p>
+                </div>
+              );
+            })}
+          </div>
+        )}
+        {!viewAll ? (
+          <Button
+            label={'View All'}
+            onClick={() => {
+              setViewAll(true);
+            }}
+          />
+        ) : (
+          <Button
+            label={'View Less'}
+            onClick={() => {
+              setViewAll(false);
+            }}
+          />
+        )}
+      </div>
+    }
     </div>
   );
 };
