@@ -2,6 +2,7 @@
 layout: default
 title: Sponsors
 parent: Frontend
+nav_order: 1
 ---
 
 # Sponsors
