@@ -29,8 +29,8 @@ const PageHome = () => {
   return (
     <>
       <HomePageHeader />
-      <HomePageTimeline />
-      <HomePageSchedule />
+      {/* <HomePageTimeline /> */}
+      {/* <HomePageSchedule /> */}
       <HomePageSponsors />
     </>
   );
@@ -49,7 +49,7 @@ const HomePageHeader = () => {
       <div className="home-page-header-text">
         <h2>Welcome to F!rosh Week!</h2>
         <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p>
-        <Link
+        {/* <Link
           key={'/registration'}
           to={'/registration'}
           style={{ textDecoration: 'none' }}
@@ -75,7 +75,7 @@ const HomePageHeader = () => {
               <Button label="Register" isSecondary style={{ margin: '0px' }} />
             </div>
           </div>
-        </Link>
+        </Link> */}
       </div>
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />
@@ -186,8 +186,8 @@ const HomePageSponsors = () => {
   const [viewAll, setViewAll] = useState(false);
 
   useEffect(() => {
-    console.log(sponsors.length)
-  }, [])
+    console.log(sponsors.length);
+  }, []);
   return (
     <div className="home-page-sponsors">
       {darkMode ? (
@@ -198,47 +198,47 @@ const HomePageSponsors = () => {
       <h2>Our Sponsors</h2>
       <PleaseSponsor />
 
-      { sponsors.length > 0 && 
-      <div>
-        {viewAll === false ? (
-          <ImageCarousel items={sponsors} />
-        ) : (
-          <div className="all-sponsors-area">
-            {sponsors.map((item, index) => {
-              return (
-                <div key={item.name + index} className="sponsor-container">
-                  <a
-                    href={item.website}
-                    key={item.name + index}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="no-link-style"
-                  >
-                    <img src={item.image} alt={item.name} />
-                  </a>
-                  <p>{item.label}</p>
-                </div>
-              );
-            })}
-          </div>
-        )}
-        {!viewAll ? (
-          <Button
-            label={'View All'}
-            onClick={() => {
-              setViewAll(true);
-            }}
-          />
-        ) : (
-          <Button
-            label={'View Less'}
-            onClick={() => {
-              setViewAll(false);
-            }}
-          />
-        )}
-      </div>
-    }
+      {sponsors.length > 0 && (
+        <div>
+          {viewAll === false ? (
+            <ImageCarousel items={sponsors} />
+          ) : (
+            <div className="all-sponsors-area">
+              {sponsors.map((item, index) => {
+                return (
+                  <div key={item.name + index} className="sponsor-container">
+                    <a
+                      href={item.website}
+                      key={item.name + index}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="no-link-style"
+                    >
+                      <img src={item.image} alt={item.name} />
+                    </a>
+                    <p>{item.label}</p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+          {!viewAll ? (
+            <Button
+              label={'View All'}
+              onClick={() => {
+                setViewAll(true);
+              }}
+            />
+          ) : (
+            <Button
+              label={'View Less'}
+              onClick={() => {
+                setViewAll(false);
+              }}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };

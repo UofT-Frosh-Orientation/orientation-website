@@ -26,7 +26,7 @@ export default function App() {
     dispatch(getScuntSettings());
   }, []);
 
-  const readyForFrosh = false;
+  const readyForFrosh = true;
 
   return (
     <DarkModeProvider>
@@ -67,16 +67,22 @@ const TransitionRoutes = () => {
             ...pages.scuntHidden,
           ].map((page) => {
             return (
-              <Route
-                path={page.path}
-                key={page.path}
-                element={
-                  <div style={{ position: 'absolute', right: 0, left: 0, bottom: 0, top: 0 }}>
-                    <div style={{ minHeight: '100vh' }}>{page.component}</div>
-                    {page.includeFooter ? <Footer /> : <></>}
-                  </div>
-                }
-              />
+              <>
+                {page.label === 'Home' || page.label === 'About' ? (
+                  <Route
+                    path={page.path}
+                    key={page.path}
+                    element={
+                      <div style={{ position: 'absolute', right: 0, left: 0, bottom: 0, top: 0 }}>
+                        <div style={{ minHeight: '100vh' }}>{page.component}</div>
+                        {page.includeFooter ? <Footer /> : <></>}
+                      </div>
+                    }
+                  />
+                ) : (
+                  <></>
+                )}
+              </>
             );
           })}
           <Route path="*" element={pages['404'].component} />
