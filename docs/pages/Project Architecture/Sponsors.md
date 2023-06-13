@@ -9,7 +9,7 @@ nav_order: 1
 
 All our F!rosh sponsors are located in `./client/src/util/sponsors.jsx/`. As seen below, each sponsor listed has 5 fields: website, image, scale, rank, and label.
 
-```js
+```jsx
 export const sponsors = [
   {
     website: 'https://alumni.engineering.utoronto.ca/engineering-alumni-network/',
@@ -37,7 +37,7 @@ The 'scale' field can be used to control the sponsor's image sizing. This can be
 
 The 'rank' field allows us to display coloured borders on our homepage, which can be seen or changed in `./client/src/components/ImageCarousel/ImageCarousel.jsx`. The mesh gradients in `backgroundImage` can be found in `./client/src/util/sponsors.jsx/`, where we list our theme colours.
 
-```js
+```jsx
 <div
     className="carousel-slide-border"
     style={{
