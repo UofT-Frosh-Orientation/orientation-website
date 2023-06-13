@@ -86,7 +86,7 @@ const PageProfileFrosh = () => {
         );
       }
     } catch (e) {
-      console.log(e.toString());
+      console.error(e.toString());
       setScuntTeams(['Error loading teams']);
     }
   };
@@ -569,8 +569,6 @@ const ProfilePageDashboardLink = ({ link, authScopes, anyRegisterScope, label })
     }
   }
 
-  console.log('STATUS', hasAuthScope);
-
   const hasAnyRegisterScope = anyRegisterScope && user?.froshDataFields?.approved?.length > 0;
   if (hasAuthScope || hasAnyRegisterScope) {
     return (
@@ -785,7 +783,7 @@ const ProfilePageHeader = ({ leader, editButton }) => {
   const leaderApproved = user?.approved === true;
 
   const isRegistered = useSelector(registeredSelector);
-  // console.log(`editButton: ${editButton}`);
+
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   const currentYear = new Date().getFullYear();
@@ -1076,7 +1074,7 @@ const ProfilePageSchedule = () => {
   const [froshGroup, setFroshGroup] = useState(user?.froshGroup);
 
   const scheduleData = getFroshGroupSchedule(froshGroup);
-  console.log(scheduleData);
+
   const days = getDaysSchedule(scheduleData);
 
   const today = new Date();

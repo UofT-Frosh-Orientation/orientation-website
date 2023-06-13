@@ -69,7 +69,7 @@ const PageFAQ = () => {
     setQuestionsObjects(questionsObjectsLocal);
     setQuestionCategories(questionCategoriesLocal);
     setAllQuestions(allQuestionsLocal);
-    // console.log(unsortedQuestionsLocal, questionsObjectsLocal, questionCategoriesLocal, allQuestionsLocal)
+
     setLoading(false);
     setIsSearch(false);
   }, []);

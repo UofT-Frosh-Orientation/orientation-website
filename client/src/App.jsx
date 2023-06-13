@@ -30,15 +30,11 @@ export default function App() {
 
   return (
     <DarkModeProvider>
-      {readyForFrosh ? (
-        <SnackbarProvider>
-          <BrowserRouter>
-            <TransitionRoutes />
-          </BrowserRouter>
-        </SnackbarProvider>
-      ) : (
-        <LandingPage />
-      )}
+      <SnackbarProvider>
+        <BrowserRouter>
+          <TransitionRoutes />
+        </BrowserRouter>
+      </SnackbarProvider>
     </DarkModeProvider>
   );
 }
@@ -50,7 +46,6 @@ const TransitionRoutes = () => {
   const initials = useSelector(initialsSelector);
   const scuntSettings = useSelector(scuntSettingsSelector);
 
-  console.log(scuntSettings);
   // const {darkMode} = useContext(DarkModeContext);
   return (
     <TransitionGroup>

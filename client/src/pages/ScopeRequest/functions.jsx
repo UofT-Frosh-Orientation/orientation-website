@@ -20,7 +20,7 @@ export const getTotalScopes = () => {
         );
       }
     } catch (e) {
-      console.log(e.toString());
+      console.error(e.toString());
       setScuntTeams([]);
     }
   };
