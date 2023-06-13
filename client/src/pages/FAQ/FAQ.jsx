@@ -188,7 +188,6 @@ const FAQPageHeader = ({
   };
   return (
     <>
-      <div className="navbar-space-top" />
       <div className={'faq-page-header'}>
         <div className={'faq-page-header-container'}>
           <div className="faq-page-header-text">

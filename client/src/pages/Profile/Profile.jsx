@@ -97,7 +97,6 @@ const PageProfileFrosh = () => {
 
   return (
     <>
-      <div className="navbar-space-top" />
       <ProfilePageHeader leader={leader} editButton={true} />
       {leader === true ? <ProfilePageLeaderPermissionDashboardLinks /> : <></>}
       <div className="profile-info-row">
