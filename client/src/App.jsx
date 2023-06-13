@@ -26,19 +26,13 @@ export default function App() {
     dispatch(getScuntSettings());
   }, []);
 
-  const readyForFrosh = true;
-
   return (
     <DarkModeProvider>
-      {readyForFrosh ? (
-        <SnackbarProvider>
-          <BrowserRouter>
-            <TransitionRoutes />
-          </BrowserRouter>
-        </SnackbarProvider>
-      ) : (
-        <LandingPage />
-      )}
+      <SnackbarProvider>
+        <BrowserRouter>
+          <TransitionRoutes />
+        </BrowserRouter>
+      </SnackbarProvider>
     </DarkModeProvider>
   );
 }
