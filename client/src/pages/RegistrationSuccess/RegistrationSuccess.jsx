@@ -15,7 +15,7 @@ import { getUserInfo } from '../../state/user/saga';
 const PageRegistrationSuccess = () => {
   // const location = useLocation();
   const { user, error } = useSelector(userSelector);
-  console.log(user);
+
   // const [error, setError] = useState(false);
   const dispatch = useDispatch();
   const [animate, setAnimate] = useState(true);

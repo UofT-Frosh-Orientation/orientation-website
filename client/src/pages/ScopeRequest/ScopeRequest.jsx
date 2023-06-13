@@ -65,7 +65,7 @@ export const PageScopeRequest = () => {
                 }
               }
             } catch (e) {
-              console.log(e.toString());
+              console.error(e.toString());
             }
             const disabledFields = [...highlightFields];
             try {
@@ -75,7 +75,7 @@ export const PageScopeRequest = () => {
                 }
               }
             } catch (e) {
-              console.log(e.toString());
+              console.error(e.toString());
             }
             return (
               <div key={scope} style={{ paddingRight: '25px' }}>

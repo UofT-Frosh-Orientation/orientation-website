@@ -50,7 +50,6 @@ const TransitionRoutes = () => {
   const initials = useSelector(initialsSelector);
   const scuntSettings = useSelector(scuntSettingsSelector);
 
-  console.log(scuntSettings);
   // const {darkMode} = useContext(DarkModeContext);
   return (
     <TransitionGroup>

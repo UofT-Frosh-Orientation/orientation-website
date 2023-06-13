@@ -9,6 +9,4 @@ export function getSelectedFroshValues() {
   };
 }
 
-export function submitEdits(froshObject) {
-  console.log(froshObject);
-}
+export function submitEdits(froshObject) {}
