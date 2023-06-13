@@ -2,6 +2,7 @@
 layout: default
 title: Sponsors
 parent: Frontend
+grand_parent: Project Architecture
 nav_order: 1
 ---
 
@@ -36,7 +37,7 @@ The 'scale' field can be used to control the sponsor's image sizing. This can be
 - Rank
 
 The 'rank' field allows us to display coloured borders on our homepage, which can be seen or changed in `./client/src/components/ImageCarousel/ImageCarousel.jsx`. The mesh gradients in `backgroundImage` can be found in `./client/src/util/sponsors.jsx/`, where we list our theme colours.
-
+{% raw %}
 ```jsx
 <div
     className="carousel-slide-border"
@@ -48,7 +49,7 @@ The 'rank' field allows us to display coloured borders on our homepage, which ca
     <img className="carousel-slide" src={item.image} alt={item.name} />
 </div>
 ```
-
+{% endraw %}
 - Label
 
 The 'label' field is used to display a short description to users when they hover on an image in the 'View All' state. This can be seen or changed in `./client/src/components/Home/Home.jsx` and `./client/src/components/Home/Home.scss`.
