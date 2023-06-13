@@ -30,15 +30,11 @@ export default function App() {
 
   return (
     <DarkModeProvider>
-      {readyForFrosh ? (
-        <SnackbarProvider>
-          <BrowserRouter>
-            <TransitionRoutes />
-          </BrowserRouter>
-        </SnackbarProvider>
-      ) : (
-        <LandingPage />
-      )}
+      <SnackbarProvider>
+        <BrowserRouter>
+          <TransitionRoutes />
+        </BrowserRouter>
+      </SnackbarProvider>
     </DarkModeProvider>
   );
 }
