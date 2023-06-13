@@ -273,7 +273,6 @@ const PageFroshInfoTable = () => {
                         backgroundColor: 'var(--red-error)',
                       }}
                       onClick={() => {
-                        console.log(datum);
                         setSelectedUserID(datum._id);
                         setShowPopUp(true);
                       }}

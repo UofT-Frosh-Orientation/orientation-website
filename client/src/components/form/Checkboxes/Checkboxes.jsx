@@ -104,8 +104,7 @@ const Checkboxes = ({
       let selectedIndicesCopy = [...selectedIndices];
       selectedIndicesCopy.push(index);
       setSelectedIndices(selectedIndicesCopy);
-      // console.log(selectedIndicesCopy);
-      // console.log(value, index);
+
       onSelected(value, index, true, selectedIndicesCopy);
       if (selectedIndicesCopy.length >= maxCanSelect) {
         setIsAllDisabled(true);
