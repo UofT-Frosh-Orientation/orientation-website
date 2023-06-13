@@ -50,20 +50,20 @@ export const pages = {
       path: '/about',
       includeFooter: true,
     },
-    {
-      label: 'FAQ',
-      component: <PageFAQ />,
-      path: '/faq',
-      includeFooter: true,
-    },
+    // {
+    //   label: 'FAQ',
+    //   component: <PageFAQ />,
+    //   path: '/faq',
+    //   includeFooter: true,
+    // },
   ],
   special: [
-    {
-      label: 'Login',
-      component: <PageLogin />,
-      path: '/login',
-      includeFooter: false,
-    },
+    //   {
+    //     label: 'Login',
+    //     component: <PageLogin />,
+    //     path: '/login',
+    //     includeFooter: false,
+    //   },
     {
       label: 'Profile',
       component: (
@@ -74,22 +74,22 @@ export const pages = {
       path: '/profile',
       includeFooter: true,
     },
-    {
-      label: 'Unsubscribe',
-      component: <PageUnsubscribe />,
-      path: '/unsubscribe',
-      includeFooter: false,
-    },
-    {
-      label: 'Resubscribe',
-      component: (
-        <AuthorizedPage>
-          <PageResubscribe />
-        </AuthorizedPage>
-      ),
-      path: '/resubscribe',
-      includeFooter: false,
-    },
+    //   {
+    //     label: 'Unsubscribe',
+    //     component: <PageUnsubscribe />,
+    //     path: '/unsubscribe',
+    //     includeFooter: false,
+    //   },
+    //   {
+    //     label: 'Resubscribe',
+    //     component: (
+    //       <AuthorizedPage>
+    //         <PageResubscribe />
+    //       </AuthorizedPage>
+    //     ),
+    //     path: '/resubscribe',
+    //     includeFooter: false,
+    //   },
   ],
   hidden: [
     {

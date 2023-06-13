@@ -29,8 +29,8 @@ const PageHome = () => {
   return (
     <>
       <HomePageHeader />
-      <HomePageTimeline />
-      <HomePageSchedule />
+      {/* <HomePageTimeline /> */}
+      {/* <HomePageSchedule /> */}
       <HomePageSponsors />
     </>
   );
@@ -49,33 +49,7 @@ const HomePageHeader = () => {
       <div className="home-page-header-text">
         <h2>Welcome to F!rosh Week!</h2>
         <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p>
-        <Link
-          key={'/registration'}
-          to={'/registration'}
-          style={{ textDecoration: 'none' }}
-          className="no-link-style"
-        >
-          <div className="home-page-header-register-button">
-            <div className="desktop-only">
-              <Button
-                label="Register"
-                isSecondary
-                style={{
-                  margin: '0px',
-                  width: '100%',
-                  height: '100%',
-                  fontSize: 'unset',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              />
-            </div>
-            <div className="mobile-only">
-              <Button label="Register" isSecondary style={{ margin: '0px' }} />
-            </div>
-          </div>
-        </Link>
+
       </div>
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />
@@ -185,7 +159,7 @@ const HomePageSponsors = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
   const [viewAll, setViewAll] = useState(false);
 
-  useEffect(() => {}, []);
+
   return (
     <div className="home-page-sponsors">
       {darkMode ? (
