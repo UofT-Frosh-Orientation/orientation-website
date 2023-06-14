@@ -56,7 +56,7 @@ const PageSignUp = () => {
       anyErrorsNow = true;
     } else if (validatePassword(accountObj['password']) === null) {
       errorsCopy['password'] =
-        'Your password is too weak, it should be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter, 1 digit, and one special character';
+        'Your password is too weak, it should be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter, 1 digit, and one special character: .@$!%*#?&';
       anyErrorsNow = true;
     }
     if (accountObj['confirmPassword'] === undefined || accountObj['confirmPassword'] === '') {
@@ -217,17 +217,17 @@ const PageSignUp = () => {
               checkErrors(true);
             }}
           > */}
-            <Button
-              label="Create Account"
-              style={{ margin: 0 }}
-              isDisabled={anyErrors}
-              onClick={async () => {
-                const anyErrors = checkErrors(true);
-                if (anyErrors === false) {
-                  submitForm();
-                }
-              }}
-            />
+          <Button
+            label="Create Account"
+            style={{ margin: 0 }}
+            isDisabled={anyErrors}
+            onClick={async () => {
+              const anyErrors = checkErrors(true);
+              if (anyErrors === false) {
+                submitForm();
+              }
+            }}
+          />
           {/* </div> */}
         </div>
       </div>
