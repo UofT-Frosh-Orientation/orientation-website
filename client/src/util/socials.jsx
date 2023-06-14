@@ -17,16 +17,16 @@ export const socials = [
     link: 'https://bit.ly/froshig',
     icon: InstagramIcon,
   },
-  {
-    label: 'TikTok',
-    link: 'https://www.tiktok.com/@froshweek',
-    icon: TikTokIcon,
-  },
-  {
-    label: 'Discord',
-    link: 'https://discord.gg/NageuCrUk9',
-    icon: DiscordIcon,
-  },
+  // {
+  //   label: 'TikTok',
+  //   link: 'https://www.tiktok.com/@froshweek',
+  //   icon: TikTokIcon,
+  // },
+  // {
+  //   label: 'Discord',
+  //   link: 'https://discord.gg/NageuCrUk9',
+  //   icon: DiscordIcon,
+  // },
   // {
   //   label: 'Twitter',
   //   link: 'https://bit.ly/froshweektwitter',

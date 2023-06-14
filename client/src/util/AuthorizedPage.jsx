@@ -12,16 +12,13 @@ const AuthorizedPage = ({ children, authScopes = [], leaderOnly }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('Logged in', loggedIn);
     if (!loggedIn) {
-      console.log('Not logged in');
       dispatch(getUserInfo(navigate));
     }
   }, [user]);
 
   useEffect(() => {
     authScopes.forEach((auth) => {
-      console.log('Checking auth scopes');
       if (user && !user?.authScopes?.approved?.includes(auth)) {
         navigate('/');
       }

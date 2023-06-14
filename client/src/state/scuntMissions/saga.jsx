@@ -45,7 +45,7 @@ export function* createMultipleMissionsSaga({ payload: { file, setSnackbar } }) 
     yield put(getScuntMissionsSuccess(result.data.missions));
     setSnackbar('Successfully uploaded missions!', false);
   } catch (e) {
-    console.log(e);
+    console.error(e);
     yield put(getScuntMissionsFailure(e));
     setSnackbar(
       e.response.data.message

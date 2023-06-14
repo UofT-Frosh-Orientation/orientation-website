@@ -84,7 +84,7 @@ const PageSignUp = () => {
       }
       setErrors(errorObject);
     }
-    // console.log(errorObject)
+
     setAnyErrors(anyErrorsNow);
     return anyErrorsNow;
   };
@@ -217,17 +217,17 @@ const PageSignUp = () => {
               checkErrors(true);
             }}
           > */}
-            <Button
-              label="Create Account"
-              style={{ margin: 0 }}
-              isDisabled={anyErrors}
-              onClick={async () => {
-                const anyErrors = checkErrors(true);
-                if (anyErrors === false) {
-                  submitForm();
-                }
-              }}
-            />
+          <Button
+            label="Create Account"
+            style={{ margin: 0 }}
+            isDisabled={anyErrors}
+            onClick={async () => {
+              const anyErrors = checkErrors(true);
+              if (anyErrors === false) {
+                submitForm();
+              }
+            }}
+          />
           {/* </div> */}
         </div>
       </div>

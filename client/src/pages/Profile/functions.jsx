@@ -26,7 +26,6 @@ const { axios } = useAxios();
 
 // function checks if email is valid and sends a reset password email
 export async function resetPassword(email) {
-  console.log(email);
   let promise = new Promise((res, rej) => {
     setTimeout(() => res(''), 1000);
     // currently does not display this ^ response as the display for error message,
@@ -98,9 +97,7 @@ export function scannedUserKeys() {
 }
 
 export function parseQRCode(qrString) {
-  console.log(qrString);
   if (qrString?.includes('|')) {
-    console.log('HERE!');
     return { email: qrString?.split('|')[0] };
   } else {
     return {
@@ -113,7 +110,7 @@ export function getQRCodeString(user) {
   try {
     return user?.email;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -165,6 +162,6 @@ export async function getFroshData() {
       email: user.email,
     };
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

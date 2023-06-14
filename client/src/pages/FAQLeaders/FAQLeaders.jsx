@@ -104,7 +104,7 @@ const FAQLeadersAnsweredQuestions = ({ editMade, setEditMade }) => {
       setAllQuestions(allQuestions);
       setQuestionCategories(questionCategories);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setAllQuestions(undefined);
     }
   };
@@ -183,7 +183,7 @@ const FAQLeadersUnansweredQuestions = ({ editMade, setEditMade }) => {
       setAllQuestions(allQuestions);
       setQuestionCategories(questionCategories);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setAllQuestions(undefined);
     }
   };
@@ -299,16 +299,15 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
           <Button
             label={'Delete'}
             onClick={async () => {
-                        const result = await deleteQuestion(question.id);
-            if (result !== true) {
-              setSnackbar('Error', true);
-            } else {
-              setEditMade(!editMade);
-              setSnackbar('Question Deleted Successfully', false);
-                            setShowPopUp(false);
-              setTriggerDelete(!triggerDelete);
-            }
-
+              const result = await deleteQuestion(question.id);
+              if (result !== true) {
+                setSnackbar('Error', true);
+              } else {
+                setEditMade(!editMade);
+                setSnackbar('Question Deleted Successfully', false);
+                setShowPopUp(false);
+                setTriggerDelete(!triggerDelete);
+              }
             }}
           />
         </span>

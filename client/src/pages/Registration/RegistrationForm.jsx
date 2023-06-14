@@ -41,7 +41,6 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   }, []);
 
   const handleRegister = async () => {
-    console.log(froshObject);
     setCanRegister(false);
     const isFormValid = validateForm();
     if (!isFormValid) {
@@ -55,8 +54,6 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
       } catch (error) {
         setCanRegister(true);
       }
-
-      // console.log(result)
     }
   };
 
@@ -122,7 +119,6 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   };
 
   const disableField = (isDisabled, fieldKey, step) => {
-    console.log(fieldKey, 'ISDISABLED');
     const formFieldsCopy = { ...formFields };
     formFieldsCopy[step][fieldKey]['isDisabled'] = isDisabled;
     setFormFields(formFieldsCopy);
@@ -309,8 +305,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
           {/* <Button
             label={'Check'}
             onClick={() => {
-              console.log(froshObject);
-              console.log(validateForm());
+              
+              
             }}
           /> */}
           <div style={{ marginBottom: '55px' }}>
@@ -435,8 +431,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
           {/* <Button
             label={'Check'}
             onClick={() => {
-              console.log(froshObject);
-              console.log(validateForm());
+              
+              
             }}
           /> */}
         </div>
