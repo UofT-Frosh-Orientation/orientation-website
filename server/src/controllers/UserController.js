@@ -325,8 +325,6 @@ const UserController = {
         user: user.getResponseObject(),
       });
     } catch (e) {
-      console.log(e);
-      console.log('here');
       next(e);
     }
   },

@@ -19,25 +19,53 @@ const PageProfileEdit = () => {
   const { user } = useSelector(userSelector);
   const isRegistered = useSelector(registeredSelector);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [accountObj, setAccountObj] = useState({});
   const [anyErrors, setAnyErrors] = useState({});
   const [pageState, setPageState] = useState('form');
   const [errors, setErrors] = useState({});
 
-  if (isRegistered) {
-    navigate('/profile');
-  }
+  // if (isRegistered) {
+  //   navigate('/profile');
+  // }
 
-  const submitForm = async () => {
-    const { axios } = useAxios();
-    try {
-      console.log(user.id);
-      axios.put('/user/profile-edit', accountObj);
-      navigate('/profile');
-    } catch (e) {
-      console.log(e);
-      navigate('/profile');
+  const submitForm = (newInfo) => {
+    // const { axios } = useAxios();
+    // try {
+    //   console.log(user.id);
+    //   axios.put('/user/update-info', accountObj);
+    //   navigate('/profile');
+    // } catch (e) {
+    //   console.log(e);
+    //   navigate('/profile');
+    // }
+    dispatch(updateUserInfo({ newInfo, navigate}));
+  };
+
+  const checkErrors = (sendFeedback = true, feedbackToSend = []) => {
+    let anyErrorsNow = false;
+    const errorsCopy = {};
+    if (accountObj['firstName'] === undefined || accountObj['firstName'] === '') {
+      errorsCopy['firstName'] = 'Please enter a first name';
+      anyErrorsNow = true;
     }
+    if (accountObj['lastName'] === undefined || accountObj['lastName'] === '') {
+      errorsCopy['lastName'] = 'Please enter a last name';
+      anyErrorsNow = true;
+    }
+    if (sendFeedback) {
+      setErrors(errorsCopy);
+    }
+    if (sendFeedback === false) {
+      const errorObject = {};
+      for (let send of feedbackToSend) {
+        errorObject[send] = errorsCopy[send];
+      }
+      setErrors(errorObject);
+    }
+    // console.log(errorObject)
+    setAnyErrors(anyErrorsNow);
+    return anyErrorsNow;
   };
 
   return (
@@ -60,25 +88,27 @@ const PageProfileEdit = () => {
                 <div className="profile-edit-input">
                   <TextInput
                     label="First Name"
+                    isRequiredInput
                     placeholder={'John'}
                     errorFeedback={errors['firstName']}
                     onChange={(value) => {
                       accountObj['firstName'] = value;
                       //checkErrors(false);
                     }}
-                    localStorageKey={'sign-up-firstName'}
+                    localStorageKey={'profile-edit-firstName'}
                   />
                 </div>
                 <div className="profile-edit-input">
                   <TextInput
                     label="Last Name"
+                    isRequiredInput
                     placeholder={'Doe'}
                     errorFeedback={errors['lastName']}
                     onChange={(value) => {
                       accountObj['lastName'] = value;
                       // checkErrors(false);
                     }}
-                    localStorageKey={'sign-up-lastName'}
+                    localStorageKey={'profile-edit-lastName'}
                   />
                 </div>
                 <div className="profile-edit-input">
@@ -90,19 +120,18 @@ const PageProfileEdit = () => {
                       accountObj['preferredName'] = value;
                       // checkErrors(false);
                     }}
-                    localStorageKey={'sign-up-preferredName'}
+                    localStorageKey={'profile-edit-preferredName'}
                   />
                 </div>
 
                 <Button
                   label="Confirm Change"
                   style={{ margin: 0 }}
-                  // isDisabled={anyErrors}
                   onClick={async () => {
-                    //const anyErrors = checkErrors(true);
-                    //if (anyErrors === false) {
-                    submitForm();
-                    //}
+                    const anyErrors = checkErrors(true);
+                    if (anyErrors === false) {
+                      submitForm(accountObj);
+                    }
                   }}
                 />
               </div>
