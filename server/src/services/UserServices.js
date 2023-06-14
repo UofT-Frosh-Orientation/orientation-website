@@ -25,7 +25,7 @@ const UserServices = {
    */
   async validateUser(email, password) {
     const passwordValidator =
-      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
+      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.@$!%*#?&])[A-Za-z0-9@$!%*#?&.]{8,}/;
     const user = await UserModel.findOne({ email: email.toLowerCase() });
     if (user) {
       throw new Error('DUPLICATE_EMAIL');
@@ -110,16 +110,17 @@ const UserServices = {
 
     return new Promise((resolve, reject) => {
       UserModel.findByIdAndUpdate(
-        userId, 
-        { scuntToken }, 
+        userId,
+        { scuntToken },
         { returnDocument: 'after' },
         (err, user) => {
-        if (err || !user) {
-          reject('UNABLE_TO_UPDATE_SCUNT_TOKEN_FOR_USER');
-        } else {
-          resolve(user);
-        }
-      });
+          if (err || !user) {
+            reject('UNABLE_TO_UPDATE_SCUNT_TOKEN_FOR_USER');
+          } else {
+            resolve(user);
+          }
+        },
+      );
     });
   },
 
@@ -164,7 +165,7 @@ const UserServices = {
 
   async updatePassword(email, password) {
     const passwordValidator =
-      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
+      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.@$!%*#?&])[A-Za-z0-9@$!%*#?&.]{8,}/;
     if (!passwordValidator.test(password)) {
       throw new Error('INVALID_PASSWORD');
     }
