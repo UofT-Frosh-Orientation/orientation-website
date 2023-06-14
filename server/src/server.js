@@ -6,8 +6,6 @@ const errorResponseMiddleware = require('./middlewares/errorResponseMiddleware')
 const routerLoader = require('./loaders/routerLoader');
 const app = require('./app');
 
-const swaggerLoader = require('./loaders/swaggerLoader');
-
 const ScuntLeaderboardSocketManger = require('./websockets/ScuntLeaderboardSocketManager');
 const LeaderboardSubscription = require('./subscribers/leaderboardSubscriber');
 const SettingsSubscription = require('./subscribers/scuntGameSettingsSubscription');
@@ -19,7 +17,6 @@ mongoLoader(app).then(async () => {
   });
   passportLoader(app);
   routerLoader(app);
-  swaggerLoader(app);
   app.use(errorResponseMiddleware);
 
   const scuntLeaderboardManager = new ScuntLeaderboardSocketManger(io.of('/leaderboard'));
