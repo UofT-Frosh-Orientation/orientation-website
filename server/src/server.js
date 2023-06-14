@@ -27,6 +27,6 @@ mongoLoader(app).then(async () => {
   scuntLeaderboardManager.listenToSettings(SettingsSubscription);
 
   server.listen(process.env.PORT || 5001, () => {
-    console.log(`Server is running on port: http://localhost:5001`);
+    console.log(`Server is running on: ${process.env.API_BASE_URL}`);
   });
 });
