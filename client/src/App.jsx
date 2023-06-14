@@ -7,17 +7,12 @@ import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { initialsSelector, loggedInSelector, registeredSelector } from './state/user/userSlice';
-import { useState, useEffect, useContext } from 'react';
+import { useEffect } from 'react';
 import { getUserInfo } from './state/user/saga';
-import io from 'socket.io-client';
-
-import { AskQuestionButton } from './components/button/AskQuestionButton/AskQuestionButton';
 import { DarkModeProvider } from './util/DarkModeProvider';
 import { SnackbarProvider } from './util/SnackbarProvider';
-
 import { getScuntSettings } from './state/scuntSettings/saga';
 import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
-import { LandingPage } from './pages/Initial/LandingPage';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -44,10 +39,8 @@ const TransitionRoutes = () => {
   const initials = useSelector(initialsSelector);
   const scuntSettings = useSelector(scuntSettingsSelector);
 
-  // const {darkMode} = useContext(DarkModeContext);
   return (
     <TransitionGroup>
-      {/* <div className={`${darkMode?"dark-mode-body":"light-mode-body"}`}> */}
       <Navbar isLoggedIn={loggedIn} froshInitials={initials} isRegistered={registered} />
       <ScrollToTop />
       <CSSTransition key={location.key} classNames="page" timeout={300}>
@@ -81,8 +74,6 @@ const TransitionRoutes = () => {
           <Route path="*" element={pages['404'].component} />
         </Routes>
       </CSSTransition>
-      <AskQuestionButton />
-      {/* </div> */}
     </TransitionGroup>
   );
 };
