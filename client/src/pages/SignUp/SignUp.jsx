@@ -99,7 +99,6 @@ const PageSignUp = () => {
         className={`sign-up-page ${pageState !== 'form' ? 'sign-up-page-disappear' : ''}`}
         style={{ display: pageState === 'success' ? 'none' : '' }}
       >
-        <div className="navbar-space-top" />
         <div className="sign-up-container">
           <img
             className={`sign-up-logo ${revealLeaderSignup >= 5 ? 'sign-up-logo-expand' : ''}`}
@@ -243,7 +242,6 @@ const PageSignUp = () => {
           className={`sign-up-success ${pageState === 'success' ? 'sign-up-success-appear' : ''}`}
         >
           <div style={{ margin: 'auto auto' }}>
-            <div className="navbar-space-top" />
             <h2>{`Thank you for creating an account, ${
               accountObj['preferredName'] === null ||
               accountObj['preferredName'] === undefined ||

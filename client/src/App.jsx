@@ -44,10 +44,8 @@ const TransitionRoutes = () => {
   const initials = useSelector(initialsSelector);
   const scuntSettings = useSelector(scuntSettingsSelector);
 
-  // const {darkMode} = useContext(DarkModeContext);
   return (
     <TransitionGroup>
-      {/* <div className={`${darkMode?"dark-mode-body":"light-mode-body"}`}> */}
       <Navbar isLoggedIn={loggedIn} froshInitials={initials} isRegistered={registered} />
       <ScrollToTop />
       <CSSTransition key={location.key} classNames="page" timeout={300}>
@@ -60,29 +58,30 @@ const TransitionRoutes = () => {
             ...pages.scuntHidden,
           ].map((page) => {
             return (
-              <>
-                {page.label === 'Home' || page.label === 'About' ? (
-                  <Route
-                    path={page.path}
-                    key={page.path}
-                    element={
-                      <div style={{ position: 'absolute', right: 0, left: 0, bottom: 0, top: 0 }}>
-                        <div style={{ minHeight: '100vh' }}>{page.component}</div>
-                        {page.includeFooter ? <Footer /> : <></>}
-                      </div>
-                    }
-                  />
-                ) : (
-                  <></>
-                )}
-              </>
+              <Route
+                path={page.path}
+                key={page.path}
+                element={
+                  <div
+                    className="content-container"
+                    style={{
+                      position: 'absolute',
+                      right: 0,
+                      left: 0,
+                      bottom: 0,
+                      top: 0,
+                    }}
+                  >
+                    {page.component}
+                  </div>
+                }
+              />
             );
           })}
           <Route path="*" element={pages['404'].component} />
         </Routes>
       </CSSTransition>
       <AskQuestionButton />
-      {/* </div> */}
     </TransitionGroup>
   );
 };

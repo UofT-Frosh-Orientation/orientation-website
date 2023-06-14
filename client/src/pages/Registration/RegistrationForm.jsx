@@ -131,7 +131,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
           const field = formFieldsAtStep[key];
           if (field.type === 'text') {
             return (
-              <div className={field.className ? field.className : 'full-width-input'}>
+              <div key={index} className={field.className ? field.className : 'full-width-input'}>
                 <TextInput
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
@@ -162,7 +162,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             );
           } else if (field.type === 'radio') {
             return (
-              <div className={field.className ? field.className : 'full-width-input'}>
+              <div key={index} className={field.className ? field.className : 'full-width-input'}>
                 <RadioButtons
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
@@ -188,7 +188,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             );
           } else if (field.type === 'dropdown') {
             return (
-              <div className={field.className ? field.className : 'full-width-input'}>
+              <div key={index} className={field.className ? field.className : 'full-width-input'}>
                 <Dropdown
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
@@ -213,7 +213,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             );
           } else if (field.type === 'checkbox') {
             return (
-              <div className={field.className ? field.className : 'full-width-input'}>
+              <div key={index} className={field.className ? field.className : 'full-width-input'}>
                 <Checkboxes
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
@@ -244,7 +244,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             );
           } else if (field.type === 'label') {
             return (
-              <div className="text-input-container" style={{ width: '100%' }}>
+              <div key={index} className="text-input-container" style={{ width: '100%' }}>
                 <div className="text-input-title-container">
                   {field.label !== undefined ? (
                     field.isBold === true ? (
@@ -295,20 +295,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             </div>
           </div>
         </PopupModal>
-        <div className="navbar-space-top" />
+
         <div className="registration-form-flex">
           <div className="registration-form">
             {Object.keys(fields).map((fieldsKey, index) => {
               return generateStepComponent(formFields[fieldsKey], fieldsKey);
             })}
           </div>
-          {/* <Button
-            label={'Check'}
-            onClick={() => {
-              
-              
-            }}
-          /> */}
           <div style={{ marginBottom: '55px' }}>
             <div
               style={{
@@ -350,23 +343,6 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   } else {
     return (
       <div>
-        {/* <PopupModal
-          trigger={showPopUp}
-          setTrigger={setShowPopUp}
-          blurBackground={true}
-          exitIcon={true}
-        >
-          <div className="registration-edit-popup">
-            <h1>Pay now?</h1>
-            <h2>
-              We have saved your info, but you must pay to be fully registered for F!rosh Week.
-            </h2>
-            <div className="registration-edit-popup-buttons">
-              <Button label={'Pay Now'} onClick={handleCheckout} />
-            </div>
-          </div>
-        </PopupModal> */}
-        <div className="navbar-space-top" />
         <div className="registration-form-flex">
           <div className="registration-form">
             <Tabs
@@ -428,13 +404,6 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
               ]}
             />
           </div>
-          {/* <Button
-            label={'Check'}
-            onClick={() => {
-              
-              
-            }}
-          /> */}
         </div>
       </div>
     );
