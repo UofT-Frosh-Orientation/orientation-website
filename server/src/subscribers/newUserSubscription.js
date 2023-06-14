@@ -6,33 +6,29 @@ const newUserSubscription = new Queue('newUser', {
   redis: { port: process.env.REDIS_PORT, host: 'redis', password: process.env.REDIS_PASSWORD },
 });
 
-newUserSubscription.process(async (job, done) => {
+newUserSubscription.process((job, done) => {
   try {
     // sending user email verification link
     const emailToken = jwt.sign(
-      [job.data.email],
+      job.data.email,
       process.env.JWT_RESET_TOKEN,
     );
-    const url = process.env.CLIENT_BASE_URL + '/verify-user-email/' + email + '/' + emailToken;
-    await EmailServices.sendSimpleEmail(
+    const url = process.env.CLIENT_BASE_URL + '/verify-user-email/' + job.data.email + '/' + emailToken;
+    EmailServices.sendSimpleEmail(
        [job.data.email],
        '',
        'Please use this URL to confirm your email: ' + url,
        'F!rosh Email Confirmation',
        'tech@orientation.skule.ca',
-    ).then(() => {
-      try {
-        // sending user creation email
-        const result = EmailServices.sendTemplateEmail(
-          {},
-          'signup_confirmation',
-          [job.data.email],
-          'tech@orientation.skule.ca',
-        ); 
-      } catch (error) {
-        done(error);
-      }
-    });
+    );
+
+    // sending user creation email
+    const result = EmailServices.sendTemplateEmail(
+      {},
+      'signup_confirmation',
+      [job.data.email],
+      'tech@orientation.skule.ca',
+    ); 
     done();
   } catch (error) {
     done(error);

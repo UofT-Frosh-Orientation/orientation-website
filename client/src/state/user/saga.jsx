@@ -2,6 +2,9 @@ import { createAction } from '@reduxjs/toolkit';
 import { put, call, takeLeading } from 'redux-saga/effects';
 
 import {
+  signupStart,
+  signupFail,
+  signupSuccess,
   loginStart,
   loginFail,
   loginSuccess,
@@ -83,9 +86,9 @@ export const signUp = createAction('createUserSaga');
 export function* createUserSaga({ payload: { setSnackbar, setIsLoading, user } }) {
   const { axios } = useAxios();
   try {
-    yield put(loginStart());
+    yield put(signupStart());
     const result = yield call(axios.post, '/user/signup', user);
-    yield put(loginSuccess(result.data.user));
+    yield put(signupSuccess(result.data.user));
   } catch (error) {
     console.log(user);
     setSnackbar(
@@ -98,7 +101,7 @@ export function* createUserSaga({ payload: { setSnackbar, setIsLoading, user } }
     );
     setIsLoading(false);
     console.log(error);
-    yield put(loginFail(error.response.data));
+    yield put(signupFail(error.response.data));
   }
 }
 

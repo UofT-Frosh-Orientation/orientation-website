@@ -5,6 +5,7 @@ export const initialState = {
   loading: false,
   error: null,
   user: undefined,
+  signedUp: undefined,
   loggedIn: undefined,
   resetPasswordSucceeded: false,
   passwordResetRequest: false,
@@ -134,6 +135,9 @@ const userSlice = createSlice({
 });
 
 export const {
+  signupStart,
+  signupFail,
+  signupSuccess,
   loginStart,
   loginFail,
   loginSuccess,
@@ -167,6 +171,8 @@ export const userSelector = createSelector(userReducerSelector, ({ user, loading
   loading,
   error,
 }));
+
+export const signedUpSelector = createSelector(userReducerSelector, ({ signedUp }) => signedUp);
 
 export const loggedInSelector = createSelector(userReducerSelector, ({ loggedIn }) => loggedIn);
 
