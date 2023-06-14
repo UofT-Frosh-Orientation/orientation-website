@@ -49,19 +49,19 @@ const UserServices = {
    * @return {Promise<Object>}
    */
   async createUser(email, password, firstName, lastName, preferredName) {
-    console.log('Making users');
     const scuntToken = createScuntToken();
+
     return new Promise((resolve, reject) => {
       bcrypt
         .hash(password, 10)
         .then((hashedPassword) => {
           UserModel.create(
             { email, hashedPassword, firstName, lastName, preferredName, scuntToken },
-            async (err, newUser) => {
+            (err, newUser) => {
               if (err) {
                 reject(err);
               } else {
-                newUserSubscription.add(newUser);   
+                emailConfirmationSubscription.add(newUser);   
                 resolve(newUser);
               }
             },
@@ -128,8 +128,6 @@ const UserServices = {
   async validatePasswordResetToken(token) {
     return new Promise((resolve, reject) => {
       jwt.verify(token, process.env.JWT_RESET_TOKEN, (err, decoded) => {
-        console.log(err);
-        console.log(decoded);
         if (err) {
           reject(err);
         } else {
@@ -143,8 +141,6 @@ const UserServices = {
   async validateEmailConfirmationToken(token) {
     return new Promise((resolve, reject) => {
       jwt.verify(token, process.env.JWT_RESET_TOKEN, (err, decoded) => {
-        console.log(err);
-        console.log(decoded);
         if (err) {
           reject(err);
         } else {

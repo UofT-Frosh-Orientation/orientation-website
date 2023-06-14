@@ -28,7 +28,7 @@ const LeadurServices = {
                 console.log(err);
                 reject(err);
               } else {
-                newUserSubscription.add(newUser);
+                emailConfirmationSubscription.add(newUser);
                 resolve(newUser);
               }
             },

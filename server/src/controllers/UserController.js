@@ -3,6 +3,7 @@ const LeadurServices = require('../services/LeadurServices');
 const passport = require('../services/passport');
 const passwordResetSubscription = require('../subscribers/passwordResetSubscription');
 const announcementSubscription = require('../subscribers/announcementSubscription');
+const newUserSubscription = require('../subscribers/newUserSubscription');
 
 const UserController = {
   /**
@@ -145,13 +146,16 @@ const UserController = {
       const { email, emailToken } = req.body;
       const result = await UserServices.validateEmailConfirmationToken(emailToken);
       const existingUser = await UserServices.getUserByEmail(email);
+
       if (!existingUser || existingUser.email !== result) {
         next(new Error('INVALID_VERIFICATION_LINK'));
       } else {
         await UserServices.updateUserInfo(existingUser.id, { confirmed: true });
+        newUserSubscription.add(existingUser);  
+        
         res.status(200).send({
           message:
-            'Successfully confirmed your email! Please sign in with your email and password.',
+            'Successfully verified your email! Log in with your email and password to get started.',
         });
       }
     } catch (err) {
