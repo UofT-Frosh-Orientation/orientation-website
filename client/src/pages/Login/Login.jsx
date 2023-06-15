@@ -41,8 +41,6 @@ const emailSuccessMessage = `Success, an email has been sent!`;
 const emailErrorMessage = `We didn't recognize that email, please try again!`;
 
 const PageLogin = ({ incorrectEntry }) => {
-  // pop up when clicking forget password
-  // deafult -- popup off
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -51,36 +49,18 @@ const PageLogin = ({ incorrectEntry }) => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { loading, user } = useSelector(userSelector);
-  // const [loginState, setLoginState] = useState('');
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-
-  const handleChanges = (event) => {
-    console.log(event.target.name);
-    const { name, value } = event;
-    console.log(event);
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
     loginButtonPress();
-    // console.log(formData)
   };
 
   function loginButtonPress() {
     setIsLoading(true);
-    console.log(email, password);
     dispatch(login({ setSnackbar, setIsLoading, email, password }));
   }
 
@@ -103,24 +83,18 @@ const PageLogin = ({ incorrectEntry }) => {
                 inputType={'text'}
                 placeholder={'Email'}
                 autocomplete={'email'}
-                onChange={
-                  // handleChanges
-                  (value) => {
-                    setEmail(value);
-                  }
-                }
+                onChange={(value) => {
+                  setEmail(value);
+                }}
                 localStorageKey="email-login"
               />
               <TextInput
                 inputType={'password'}
                 placeholder={'Password'}
                 autocomplete={'current-password'}
-                onChange={
-                  // handleChanges
-                  (value) => {
-                    setPassword(value);
-                  }
-                }
+                onChange={(value) => {
+                  setPassword(value);
+                }}
                 onEnterKey={loginButtonPress}
               />
               <p
@@ -137,14 +111,7 @@ const PageLogin = ({ incorrectEntry }) => {
                   }}
                 />
 
-                <Button
-                  label={'Log in'}
-                  type="submit"
-                  // onClick={
-                  //   // handleSubmit
-                  //   loginButtonPress
-                  // }
-                />
+                <Button label={'Log in'} type="submit" />
               </div>
             </form>
           </div>
