@@ -56,8 +56,31 @@ const PageLogin = ({ incorrectEntry }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleChanges = (event) => {
+    console.log(event.target.name);
+    const { name, value } = event;
+    console.log(event);
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    loginButtonPress();
+    // console.log(formData)
+  };
+
   function loginButtonPress() {
     setIsLoading(true);
+    console.log(email, password);
     dispatch(login({ setSnackbar, setIsLoading, email, password }));
   }
 
@@ -74,40 +97,56 @@ const PageLogin = ({ incorrectEntry }) => {
         <div className="login-bg">
           <div className={`login-container ${loading ? 'login-container-disappear' : ''}`}>
             <h1 className="login-title">Login</h1>
-            <TextInput
-              inputType={'text'}
-              placeholder={'Email'}
-              autocomplete={'email'}
-              onChange={(value) => {
-                setEmail(value);
-              }}
-              localStorageKey="email-login"
-            />
-            <TextInput
-              inputType={'password'}
-              placeholder={'Password'}
-              autocomplete={'current-password'}
-              onChange={(value) => {
-                setPassword(value);
-              }}
-              onEnterKey={loginButtonPress}
-            />
-            <p
-              className="forgot-message"
-              onClick={() => setShowPopUp(true)}
-            >{`Forgot Password?`}</p>
-
-            <div className="login-button-container">
-              <ButtonOutlined
-                label="Create account"
-                isSecondary
-                onClick={() => {
-                  navigate('/sign-up');
-                }}
+            <form onSubmit={handleSubmit}>
+              <TextInput
+                label={'email'}
+                inputType={'text'}
+                placeholder={'Email'}
+                autocomplete={'email'}
+                onChange={
+                  // handleChanges
+                  (value) => {
+                    setEmail(value);
+                  }
+                }
+                localStorageKey="email-login"
               />
+              <TextInput
+                inputType={'password'}
+                placeholder={'Password'}
+                autocomplete={'current-password'}
+                onChange={
+                  // handleChanges
+                  (value) => {
+                    setPassword(value);
+                  }
+                }
+                onEnterKey={loginButtonPress}
+              />
+              <p
+                className="forgot-message"
+                onClick={() => setShowPopUp(true)}
+              >{`Forgot Password?`}</p>
 
-              <Button label={'Log in'} onClick={loginButtonPress} />
-            </div>
+              <div className="login-button-container">
+                <ButtonOutlined
+                  label="Create account"
+                  isSecondary
+                  onClick={() => {
+                    navigate('/sign-up');
+                  }}
+                />
+
+                <Button
+                  label={'Log in'}
+                  type="submit"
+                  // onClick={
+                  //   // handleSubmit
+                  //   loginButtonPress
+                  // }
+                />
+              </div>
+            </form>
           </div>
         </div>
         <div
