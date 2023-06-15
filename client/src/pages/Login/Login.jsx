@@ -117,7 +117,7 @@ const PageLogin = ({ incorrectEntry }) => {
           </div>
         </div>
         <div
-          style={{ zIndex: 1 }}
+          style={{ zIndex: 50 }}
           className={`login-loading ${isLoading === true ? 'login-loading-appear' : ''}`}
         >
           <LoadingAnimation size={'60px'} />
