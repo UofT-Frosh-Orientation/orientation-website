@@ -2,6 +2,7 @@
 layout: default
 title: Frontend
 parent: Project Architecture
+has_children: true
 ---
 
 # Frontend

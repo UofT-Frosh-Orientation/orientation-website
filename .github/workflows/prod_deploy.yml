@@ -5,12 +5,12 @@ on:
 
   push:
     branches:
-      - main
+      - prod
 
 concurrency: prod-deployment
 
 env:
-  REGISTRY: ${{ secrets.DIGITALOCEAN_CONTAINER_URL }}
+  REGISTRY: registry.digitalocean.com/uoft-orientation
   TAG: prod
   SERVER_IMAGE_NAME: "orientation-server"
   CLIENT_IMAGE_NAME: "orientation-client"
@@ -24,7 +24,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build server image
-        run: cd server && docker build -t $(echo $REGISTRY)/$(echo $SERVER_IMAGE_NAME):prod -f prod.Dockerfile .
+        run: cd server && docker build -t orientation-server:prod -f prod.Dockerfile .
+
+      - name: Tag server image
+        run: docker tag orientation-server:prod registry.digitalocean.com/uoft-orientation/orientation-server:prod
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -38,7 +41,7 @@ jobs:
         run: if [ ! -z "$(doctl registry repository list | grep "$(echo $SERVER_IMAGE_NAME)")" ]; then doctl registry repository delete-tag $(echo $SERVER_IMAGE_NAME) $(echo $TAG) --force; else echo "No repository"; fi
 
       - name: Push server image to container registry
-        run: docker push $(echo $REGISTRY)/$(echo $SERVER_IMAGE_NAME):prod
+        run: docker push registry.digitalocean.com/uoft-orientation/orientation-server:prod
 
   build_client:
     runs-on: ubuntu-20.04
@@ -54,7 +57,10 @@ jobs:
           directory: client
 
       - name: Build client image
-        run: cd client && docker build -t $(echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):prod -f prod.Dockerfile .
+        run: cd client && docker build -t orientation-client:prod -f prod.Dockerfile .
+
+      - name: Tag client image
+        run: docker tag orientation-client:prod registry.digitalocean.com/uoft-orientation/orientation-client:prod
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -68,4 +74,7 @@ jobs:
         run: if [ ! -z "$(doctl registry repository list | grep "$(echo $CLIENT_IMAGE_NAME)")" ]; then doctl registry repository delete-tag $(echo $CLIENT_IMAGE_NAME) $(echo $TAG) --force; else echo "No repository"; fi
 
       - name: Push client image to container registry
-        run: docker push $(echo $REGISTRY)/$(echo $CLIENT_IMAGE_NAME):prod
+        run: docker push registry.digitalocean.com/uoft-orientation/orientation-client:prod
+
+      - name: Run garbage collector
+        run: doctl registry garbage-collection start --include-untagged-manifests --force uoft-orientation

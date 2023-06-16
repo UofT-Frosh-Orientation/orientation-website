@@ -114,7 +114,7 @@ const AboutScunt = () => {
         );
       }
     } catch (e) {
-      console.log(e.toString());
+      console.error(e.toString());
       setScuntTeams(['Error loading teams']);
     }
   };
@@ -165,7 +165,6 @@ const ScuntCountdown = () => {
 
       setTargetDate(tempDate);
       setCountDownDate(tempCountDownDate);
-      console.log(tempDate);
     }
   }, [scuntSettings]);
 

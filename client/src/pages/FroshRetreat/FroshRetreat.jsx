@@ -63,8 +63,7 @@ export async function getRemainingTickets(setSnackbar) {
   try {
     const { axios } = useAxios();
     const response = await axios.get('/payment/frosh-retreat-remaining-tickets');
-    console.log('TICKETS!');
-    console.log(response);
+
     return response.data.count;
   } catch (e) {
     setSnackbar(e.toString(), true);
@@ -90,7 +89,6 @@ const RetreatRegistration = () => {
     setOutOfTickets((await getRemainingTickets(setSnackbar)) <= 0);
   }, []);
 
-  console.log(user);
   return (
     <div style={{ margin: '0 20px' }}>
       <p style={{ textAlign: 'center' }}>
@@ -193,7 +191,7 @@ const RetreatRegistration = () => {
                     window.location.href = url;
                   })
                   .catch((err) => {
-                    console.log(err);
+                    console.error(err);
                     setSnackbar(
                       'Something went wrong! Please file a bug report on GitHub if this issue persists',
                       true,

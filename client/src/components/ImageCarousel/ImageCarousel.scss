@@ -5,8 +5,26 @@
   justify-content: center;
 }
 
+.carousel-slide-container {
+  padding: 20px;
+}
+
+.carousel-slide-border {
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 55px;
+  cursor: pointer;
+  height: calc(350px - 50px);
+
+  @include devices(tablet) {
+    width: 100%;
+    margin-bottom: 40px;
+    height: calc(290px - 50px);
+  }
+}
+
 .carousel-slide {
-  background-color: var(--sponsor-background);
+  background-color: var(--white);
   padding: 15px;
   border-radius: 15px;
   margin-bottom: 55px;
@@ -18,7 +36,6 @@
     height: calc(260px - 50px);
   }
 
-  filter: drop-shadow(5px 5px 10px #23232342);
   object-fit: contain;
 }
 

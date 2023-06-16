@@ -40,8 +40,6 @@ const FAQAskQuestion = () => {
     setQuestionText(newQuestionState);
   };
   async function handleSubmit(text) {
-    // console.log(submitQuestion(formData));
-    //console.log(formData);
     if (formData?.question?.length > 0 && formData?.email?.length > 0) {
       setPageState('loading');
       const result = await submitQuestion(formData);
