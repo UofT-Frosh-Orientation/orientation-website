@@ -225,6 +225,63 @@ const EmailServices = {
 
     return SES.send(command);
   },
+
+  async sendStreamAttachedEmail(html, text, subject, streams, toAddresses, fromAddress) {
+    const msg = mimemessage.factory({
+      contentType: 'multipart/mixed',
+      body: [],
+    });
+    msg.header('From', fromAddress);
+    msg.header('To', toAddresses);
+    msg.header('Subject', subject);
+    const alternateEntity = mimemessage.factory({
+      contentType: 'multipart/alternate',
+      body: [],
+    });
+
+    const htmlEntity = mimemessage.factory({
+      contentType: 'text/html;charset=utf-8',
+      body: html,
+    });
+
+    const plainEntity = mimemessage.factory({
+      body: text,
+    });
+
+    alternateEntity.body.push(htmlEntity);
+    alternateEntity.body.push(plainEntity);
+
+    msg.body.push(alternateEntity);
+
+    for (const stream of streams) {
+      const attachment = mimemessage.factory({
+        contentType: mime.getType(), // get mimetype of stream
+        contentTransferEncoding: 'base64',
+        body: stream, // stream itself
+      });
+
+      attachment.header('Content-Disposition', `attachment ;filename="${stream}"`);
+
+      msg.body.push(attachment);
+    }
+
+    const params = {
+      Content: {
+        Raw: {
+          Data: Buffer.from(msg.toString(), 'ascii'),
+        },
+      },
+      Destination: {
+        ToAddresses: toAddresses,
+      },
+
+      FromEmailAddress: fromAddress,
+    };
+
+    const command = new SendEmailCommand(params);
+
+    return SES.send(command);
+  },
 };
 
 module.exports = EmailServices;

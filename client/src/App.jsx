@@ -26,7 +26,7 @@ export default function App() {
     dispatch(getScuntSettings());
   }, []);
 
-  const readyForFrosh = false;
+  const readyForFrosh = true;
 
   return (
     <DarkModeProvider>
