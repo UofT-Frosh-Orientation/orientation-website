@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
 const UserModel = require('../models/UserModel');
-const newUserSubscription = require('../subscribers/newUserSubscription');
+const emailConfirmationSubscription = require("../subscribers/emailConfirmationSubscription");
 
 function createScuntToken() {
   let result = '';
@@ -48,8 +48,8 @@ const UserServices = {
    * @return {Promise<Object>}
    */
   async createUser(email, password, firstName, lastName, preferredName) {
-    console.log('Making users');
     const scuntToken = createScuntToken();
+
     return new Promise((resolve, reject) => {
       bcrypt
         .hash(password, 10)
@@ -60,7 +60,7 @@ const UserServices = {
               if (err) {
                 reject(err);
               } else {
-                newUserSubscription.add(newUser);
+                emailConfirmationSubscription.add(newUser);   
                 resolve(newUser);
               }
             },
@@ -110,29 +110,39 @@ const UserServices = {
 
     return new Promise((resolve, reject) => {
       UserModel.findByIdAndUpdate(
-        userId, 
-        { scuntToken }, 
+        userId,
+        { scuntToken },
         { returnDocument: 'after' },
         (err, user) => {
-        if (err || !user) {
-          reject('UNABLE_TO_UPDATE_SCUNT_TOKEN_FOR_USER');
-        } else {
-          resolve(user);
-        }
-      });
+          if (err || !user) {
+            reject('UNABLE_TO_UPDATE_SCUNT_TOKEN_FOR_USER');
+          } else {
+            resolve(user);
+          }
+        },
+      );
     });
   },
 
   async validatePasswordResetToken(token) {
     return new Promise((resolve, reject) => {
       jwt.verify(token, process.env.JWT_RESET_TOKEN, (err, decoded) => {
-        console.log(err);
-        console.log(decoded);
         if (err) {
           reject(err);
         } else {
-          const { email } = decoded;
-          resolve(email);
+          resolve(decoded);
+        }
+      });
+    });
+  },
+
+  async validateEmailConfirmationToken(token) {
+    return new Promise((resolve, reject) => {
+      jwt.verify(token, process.env.JWT_RESET_TOKEN, (err, decoded) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(decoded);
         }
       });
     });
