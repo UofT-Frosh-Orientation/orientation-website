@@ -60,7 +60,7 @@ export function* getUserInfoSaga({ payload: navigate }) {
     const result = yield call(axios.get, '/user/info');
     yield put(setUserInfo(result.data.user));
   } catch (error) {
-    console.log(error);
+    console.error(error);
     yield put(logoutSuccess());
     navigate && navigate('/login');
   }
@@ -72,11 +72,11 @@ export function* updateUserInfoSaga({ payload: { newInfo, navigate } }) {
   const { axios } = useAxios();
   try {
     const result = yield call(axios.put, '/frosh/info', newInfo);
-    console.log(result);
+
     yield put(setUserInfo(result.data.user));
     if (navigate) navigate('/profile');
   } catch (error) {
-    console.log(error);
+    console.error(error);
     yield put(loginFail(error.response.data));
   }
 }
@@ -90,7 +90,6 @@ export function* createUserSaga({ payload: { setSnackbar, setIsLoading, user } }
     const result = yield call(axios.post, '/user/signup', user);
     yield put(signupSuccess(result.data.user));
   } catch (error) {
-    console.log(user);
     setSnackbar(
       error.response?.data?.message
         ? error.response?.data?.message.toString()
@@ -100,7 +99,6 @@ export function* createUserSaga({ payload: { setSnackbar, setIsLoading, user } }
       true,
     );
     setIsLoading(false);
-    console.log(error);
     yield put(signupFail(error.response.data));
   }
 }
@@ -114,7 +112,7 @@ export function* resetPasswordSaga({ payload: { email, password, token } }) {
     const result = yield call(axios.post, '/user/reset-password', { email, password, token });
     yield put(resetPasswordSuccess());
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield put(resetPasswordFailure());
   }
 }
@@ -128,7 +126,7 @@ export function* requestPasswordResetSaga({ payload: email }) {
     const result = yield call(axios.post, '/user/request-password-reset', { email });
     yield put(requestPasswordResetSuccess());
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield put(requestPasswordResetFailure());
   }
 }
@@ -144,7 +142,7 @@ export function* logoutSaga({ payload: { navigate } }) {
     yield put(logoutSuccess());
     yield call(navigate, '/');
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield put(logoutFailure(err.response.data));
   }
 }
@@ -162,7 +160,7 @@ export function* requestAuthScopesSaga({ payload: { authScopes, froshDataFields,
     yield put(updateUserInfoSuccess(result.data.user));
     setSnackbar('Success!', false);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield put(updateUserInfoFailure(err.response.data));
     setSnackbar(
       err.response.data.message

@@ -3,7 +3,6 @@ const FroshServices = require('../services/FroshServices');
 
 const PaymentController = {
   async handleWebhook(req, res, next) {
-    // console.log(req)
     let event;
     const signature = req.headers['stripe-signature'];
     try {
@@ -17,7 +16,7 @@ const PaymentController = {
       switch (event.type) {
         case 'payment_intent.succeeded': {
           const { id, amount_received } = event.data.object;
-          // console.log(paymentIntent);
+
           console.log('Handling payment intent');
           // update frosh model to have paid successfully
           await PaymentServices.updatePayment(id, amount_received);
@@ -67,7 +66,7 @@ const PaymentController = {
           user.email,
           'retreat',
         );
-        // console.log(url, payment_intent);
+
         const frosh = await FroshServices.addRetreatPayment(user, payment_intent);
         if (!frosh) {
           res.status(400).send({ message: 'Something went wrong!' });

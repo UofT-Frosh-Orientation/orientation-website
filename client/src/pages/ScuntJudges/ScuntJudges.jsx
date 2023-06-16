@@ -152,7 +152,6 @@ const ScuntJudgesShow = ({ judges }) => {
             // updating local storage with clicks
             const data = window.localStorage.getItem('scunt-judges-profile');
             let updateData = JSON.parse(data);
-            //console.log(updateData);
 
             let index = updateData?.findIndex((i) => i?.name === judge?.name);
 

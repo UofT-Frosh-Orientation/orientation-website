@@ -99,7 +99,7 @@ const ScuntMissionServices = {
         if (err1) {
           reject(err1);
         }
-        // console.log(`Deleted ${deletedCount} missions`);
+
         ScuntMissionModel.create(data, {}, (err2, result) => {
           if (err2) {
             reject(err2);
