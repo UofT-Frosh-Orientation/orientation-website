@@ -131,7 +131,10 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
           const field = formFieldsAtStep[key];
           if (field.type === 'text') {
             return (
-              <div className={field.className ? field.className : 'full-width-input'}>
+              <div
+                className={field.className ? field.className : 'full-width-input'}
+                key={`${index}-${key}`}
+              >
                 <TextInput
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
@@ -369,64 +372,67 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
         <div className="navbar-space-top" />
         <div className="registration-form-flex">
           <div className="registration-form">
-            <Tabs
-              scrollToTopAfterChange={true}
-              selectedTabPassed={selectedTab}
-              go={selectedTabGo}
-              tabs={[
-                {
-                  title: 'General',
-                  component: (
-                    <>
-                      <div className="registration-first-step-header-container">
-                        <img className="registration-icon-logo" src={MainFroshLogo}></img>
-                        <div>
-                          <h1 className="registration-first-step-title">
-                            {'Hello ' +
-                              (user?.preferredName === '' || !user?.preferredName
-                                ? user?.firstName
-                                : user?.preferredName)}
-                          </h1>
-                          <h2 className="registration-first-step-subtitle">
-                            Let&apos;s register for UofT Engineering&apos;s F!rosh Week 2T2
-                          </h2>
+            <form onSubmit={handleRegister}>
+              <Tabs
+                scrollToTopAfterChange={true}
+                selectedTabPassed={selectedTab}
+                go={selectedTabGo}
+                tabs={[
+                  {
+                    title: 'General',
+                    component: (
+                      <>
+                        <div className="registration-first-step-header-container">
+                          <img className="registration-icon-logo" src={MainFroshLogo}></img>
+                          <div>
+                            <h1 className="registration-first-step-title">
+                              {'Hello ' +
+                                (user?.preferredName === '' || !user?.preferredName
+                                  ? user?.firstName
+                                  : user?.preferredName)}
+                            </h1>
+                            <h2 className="registration-first-step-subtitle">
+                              Let&apos;s register for UofT Engineering&apos;s F!rosh Week 2T2
+                            </h2>
+                          </div>
                         </div>
+                        {generateStepComponent(formFields['General'], 'General')}
+                      </>
+                    ),
+                  },
+                  {
+                    title: 'Health & Safety',
+                    component: generateStepComponent(formFields['HealthSafety'], 'HealthSafety'),
+                  },
+                  {
+                    title: 'Extra Events',
+                    component: generateStepComponent(formFields['Misc'], 'Misc'),
+                  },
+                  {
+                    title: 'Payment',
+                    component: (
+                      <div className="registration-payment-page">
+                        <p className="register-terms-of-service">{terms}</p>
+                        <b>
+                          <p className="register-terms-of-service-below">
+                            By proceeding with your payment, you indicate you accept F!rosh Week
+                            using your submitted information in order to help plan and deliver
+                            Orientation events
+                          </p>
+                        </b>
+                        <Button
+                          type="submit"
+                          style={{ margin: '0 auto', marginTop: '15px' }}
+                          label={'Pay Now'}
+                          // onClick={handleRegister}
+                          isDisabled={!canRegister}
+                        />
                       </div>
-                      {generateStepComponent(formFields['General'], 'General')}
-                    </>
-                  ),
-                },
-                {
-                  title: 'Health & Safety',
-                  component: generateStepComponent(formFields['HealthSafety'], 'HealthSafety'),
-                },
-                {
-                  title: 'Extra Events',
-                  component: generateStepComponent(formFields['Misc'], 'Misc'),
-                },
-                {
-                  title: 'Payment',
-                  component: (
-                    <div className="registration-payment-page">
-                      <p className="register-terms-of-service">{terms}</p>
-                      <b>
-                        <p className="register-terms-of-service-below">
-                          By proceeding with your payment, you indicate you accept F!rosh Week using
-                          your submitted information in order to help plan and deliver Orientation
-                          events
-                        </p>
-                      </b>
-                      <Button
-                        style={{ margin: '0 auto', marginTop: '15px' }}
-                        label={'Pay Now'}
-                        onClick={handleRegister}
-                        isDisabled={!canRegister}
-                      />
-                    </div>
-                  ),
-                },
-              ]}
-            />
+                    ),
+                  },
+                ]}
+              />
+            </form>
           </div>
           {/* <Button
             label={'Check'}
