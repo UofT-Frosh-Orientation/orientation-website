@@ -24,7 +24,7 @@ const PageProfileEditUnregistered = () => {
    }
 
   const submitForm = (newInfo) => {
-    dispatch(updateUserInfo({ newInfo, navigate}));
+    dispatch(updateUserInfo({ newInfo, navigate, isRegistered}));
   };
 
   const checkErrors = (sendFeedback = true, feedbackToSend = []) => {

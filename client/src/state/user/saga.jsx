@@ -65,10 +65,16 @@ export function* getUserInfoSaga({ payload: navigate }) {
 
 export const updateUserInfo = createAction('updateUserInfoSaga');
 
-export function* updateUserInfoSaga({ payload: { newInfo, navigate } }) {
+export function* updateUserInfoSaga({ payload: { newInfo, navigate, isRegistered} }) {
   const { axios } = useAxios();
   try {
-    const result = yield call(axios.put, '/user/update-info', newInfo);
+    if(isRegistered){
+      const result = yield call(axios.put, '/frosh/info', newInfo);
+    }
+    else{
+      const result = yield call(axios.put, '/user/update-info', newInfo);
+    }
+    
     console.log(result);
     yield put(setUserInfo(result.data.user));
     if (navigate) navigate('/profile');
