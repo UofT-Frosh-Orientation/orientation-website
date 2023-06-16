@@ -1,6 +1,5 @@
 const Queue = require('bull');
 const EmailServices = require('../services/EmailServices');
-const jwt = require('jsonwebtoken');
 
 const newUserSubscription = new Queue('existingUser', {
   redis: { port: process.env.REDIS_PORT, host: 'redis', password: process.env.REDIS_PASSWORD },

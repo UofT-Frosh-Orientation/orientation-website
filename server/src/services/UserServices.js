@@ -4,8 +4,7 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
 const UserModel = require('../models/UserModel');
-const newUserSubscription = require('../subscribers/newUserSubscription');
-const EmailServices = require('./EmailServices');
+const emailConfirmationSubscription = require("../subscribers/emailConfirmationSubscription");
 
 function createScuntToken() {
   let result = '';
@@ -131,8 +130,7 @@ const UserServices = {
         if (err) {
           reject(err);
         } else {
-          const { email } = decoded;
-          resolve(email);
+          resolve(decoded);
         }
       });
     });
@@ -144,8 +142,7 @@ const UserServices = {
         if (err) {
           reject(err);
         } else {
-          const { email } = decoded;
-          resolve(email);
+          resolve(decoded);
         }
       });
     });
