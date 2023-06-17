@@ -120,16 +120,16 @@ const Checkboxes = ({
   return (
     <>
       {label !== undefined ? <p className="checkbox-input-title">{label}</p> : <></>}
-      <div style={{ display: 'flex', alignItems: 'flex-start' }}>
-        <form action="">
-          {values.map((value, index) => {
-            let isDisabled = false;
-            let isHighlighted = false;
-            if (disabledIndices !== undefined) isDisabled = disabledIndices.includes(index);
-            if (disabledValues !== undefined) isDisabled = disabledValues.includes(value);
-            if (highlightValues !== undefined) isHighlighted = highlightValues.includes(value);
-            let allDisabled = isAllDisabled && !selectedIndices.includes(index);
-            return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        {values.map((value, index) => {
+          let isDisabled = false;
+          let isHighlighted = false;
+          if (disabledIndices !== undefined) isDisabled = disabledIndices.includes(index);
+          if (disabledValues !== undefined) isDisabled = disabledValues.includes(value);
+          if (highlightValues !== undefined) isHighlighted = highlightValues.includes(value);
+          let allDisabled = isAllDisabled && !selectedIndices.includes(index);
+          return (
+            <React.Fragment key={`${label}-${index}-${value}`}>
               <label
                 className={
                   'form-control' + (isDisabled || allDisabled ? ' form-control-disabled' : '')
@@ -139,14 +139,9 @@ const Checkboxes = ({
               >
                 <input
                   type="checkbox"
-                  name="checkbox"
-                  defaultChecked={
-                    initialSelectedIndices === undefined
-                      ? false
-                      : initialSelectedIndices.includes(index)
-                  }
+                  name={label ?? 'name'}
                   checked={selectedIndices.includes(index)}
-                  onClick={() => {
+                  onChange={() => {
                     onClickedCheckbox(value, index);
                   }}
                   disabled={isDisabled || allDisabled}
@@ -154,9 +149,9 @@ const Checkboxes = ({
                 {filterLabel ? filterLabel(value.toString()) : value.toString()}
                 {isHighlighted ? <span className="checkbox-highlight">✔</span> : <></>}
               </label>
-            );
-          })}
-        </form>
+            </React.Fragment>
+          );
+        })}
       </div>
     </>
   );
