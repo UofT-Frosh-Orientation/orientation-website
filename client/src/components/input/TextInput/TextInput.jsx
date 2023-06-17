@@ -176,7 +176,7 @@ const TextInput = ({
             required={isRequiredInput}
             disabled={isDisabled}
             onKeyPress={onKeyPress}
-            value={value ?? ''}
+            value={type === 'date' ? localStorage.getItem(localStorageKey) : value ?? ''}
             placeholder={placeholder}
             type={type}
             autoComplete={autocomplete}
