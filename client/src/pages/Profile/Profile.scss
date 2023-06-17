@@ -444,7 +444,6 @@
     flex-direction: row;
     margin-left: auto;
     width: 100%;
-    margin-bottom: 50px;
     margin-bottom: 30px;
     @include devices(tablet) {
       margin: auto;
@@ -452,82 +451,38 @@
       margin-bottom: 100px;
       margin-top: 15px;
     }
-    .profile-leader-dashboard-data-links {
-      width: 100%;
-      .profile-leader-dashboard-data-title {
+    .profile-leader-dashboard-dropdown-links {
+      width:100%;
+      display: flex;
+      flex-direction: column;
+      margin-left: auto;
+      .profile-leader-dashboard-dropdown-title {
+        width:100%;
         display: flex;
         flex-direction: row;
         border-radius: 6px;
         border: 2px solid var(--purple-shades-muted);
         cursor: pointer;
         margin: auto;
-        .profile-leader-dashboard-data-icon {
+        .profile-leader-dashboard-dropdown-icon {
           width: 30px;
           height: 30px;
-          fill: var(--yellow);
+          fill: white;
           margin: auto 0 auto auto;
           padding-bottom: 2px;
           padding-right: 5px;
         }
-        .profile-leader-dashboard-data-text {
-          color: white;
+        .profile-leader-dashboard-dropdown-text {
+          color: var(--text-dynamic);
           font-size: medium;
           margin: auto auto auto 0;
         }
       }
     }
 
-    .profile-leader-dashboard-outreach-links {
-      width: 100%;
+    
 
-      .profile-leader-dashboard-outreach-title {
-        display: flex;
-        flex-direction: row;
-        border-radius: 6px;
-        border: 2px solid var(--purple-shades-muted);
-        cursor: pointer;
-        margin: auto;
-        .profile-leader-dashboard-outreach-icon {
-          width: 30px;
-          height: 30px;
-          fill: var(--yellow);
-          margin: auto 0 auto auto;
-          padding-bottom: 2px;
-          padding-right: 5px;
-        }
-        .profile-leader-dashboard-outreach-text {
-          color: white;
-          font-size: medium;
-          margin: auto auto auto 0;
-        }
-      }
-    }
-
-    .profile-leader-dashboard-scunt-links {
-      width: 100%;
-      .profile-leader-dashboard-scunt-title {
-        display: flex;
-        flex-direction: row;
-        border-radius: 6px;
-        border: 2px solid var(--purple-shades-muted);
-
-        cursor: pointer;
-        margin: auto;
-        .profile-leader-dashboard-scunt-icon {
-          width: 30px;
-          height: 30px;
-          fill: var(--yellow);
-          margin: auto 0 auto auto;
-          padding-bottom: 2px;
-          padding-right: 5px;
-        }
-        .profile-leader-dashboard-scunt-text {
-          color: white;
-          font-size: medium;
-          margin: auto auto auto 0;
-        }
-      }
-    }
+    
   }
   .dashboard-dropdown-image {
     user-select: none;

@@ -5,15 +5,53 @@ import PropTypes from 'prop-types';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import './DashboardDropdown.scss';
 import { userSelector } from '../../state/user/userSlice';
-
-const DashboardDropdown = ({ open, setOpen, items }) => {
+import Arrow from '../../../assets/icons/angle-down-solid.svg';
+import ArrowDarkMode from '../../assets/darkmode/icons/angle-down-solid.svg';
+import DataDashboardIcon from '../../assets/dashboarddropdown/data-icon.svg';
+import OutreachDashboardIcon from '../../assets/dashboarddropdown/outreach-icon.svg';
+import ScuntDashboardIcon from '../../assets/dashboarddropdown/scunt-icon.svg';
+const DashboardDropdown = ({ open, setOpen, items, title, icon}) => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
   let count = 0; // counts which page
-
+  const [ anyScope, setAnyScope ] = useState(false);
   const { pathname } = useLocation();
+  const { user } = useSelector(userSelector);
 
+  useEffect(() => {
+    let anyScopeFound = false;
+    items.map((item) => {
+      anyScopeFound = item.anyRegisterScope;
+      if (item.authScopes) {
+        for (let authScope of item.authScopes) {
+          if (user && user?.authScopes?.approved?.includes(authScope)) {
+            anyScopeFound = true;
+            break;
+          }
+        }
+      }     
+    });
+    setAnyScope(anyScopeFound);
+  }, []);
+  
   return (
     <>
+    
+     <div className={'profile-leader-dashboard-dropdown-links'} key={title}>
+        <div
+        className={'profile-leader-dashboard-dropdown-title'}
+        onClick={() => setOpen(!open)}
+      >
+        <img src={icon} className={'profile-leader-dashboard-dropdown-icon'}/>
+        <h3 className={'profile-leader-dashboard-dropdown-text'}>{title}</h3>
+        <div className={`dashboard-dropdown-image${open ? ' open' : ''}`}>
+          {darkMode ? (
+            <img alt={'arrow'} src={ArrowDarkMode} className="dashboard-dropdown-arrow" />
+          ) : (
+            <img alt={'arrow'} src={Arrow} className="dashboard-dropdown-arrow" />
+          )}
+        </div>
+      </div>
+      
       <div
         className={`dashboard-dropdown-bg ${
           open ? 'dashboard-dropdown-bg-display' : 'dashboard-dropdown-bg-hide'
@@ -80,7 +118,10 @@ const DashboardDropdown = ({ open, setOpen, items }) => {
           })}
         </div>
       </div>
-    </>
+      
+    </div> 
+    
+  </>
   );
 };
 

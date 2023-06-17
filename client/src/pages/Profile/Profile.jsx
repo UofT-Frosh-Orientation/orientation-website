@@ -32,6 +32,9 @@ import NitelifeIcon from '../../assets/misc/nitelife.png';
 import ScuntIcon from '../../assets/misc/magnifier.png';
 import Arrow from '../../../assets/icons/angle-down-solid.svg';
 import ArrowDarkMode from '../../assets/darkmode/icons/angle-down-solid.svg';
+import DataDashboardIcon from '../../assets/dashboarddropdown/data-icon.svg';
+import OutreachDashboardIcon from '../../assets/dashboarddropdown/outreach-icon.svg';
+import ScuntDashboardIcon from '../../assets/dashboarddropdown/scunt-icon.svg';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
@@ -481,193 +484,150 @@ ProfilePageScuntToken.propTypes = {
 const ProfilePageLeaderPermissionDashboardLinks = () => {
   const { user } = useSelector(userSelector);
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-  const [openDataDropdown, setOpenDataDropdown] = useState(true);
-  const [openOutreachDropdown, setOpenOutreachDropdown] = useState(true);
-  const [openScuntDropdown, setOpenScuntDropdown] = useState(true);
+  const [openDataDropdown, setOpenDataDropdown] = useState(false);
+  const [openOutreachDropdown, setOpenOutreachDropdown] = useState(false);
+  const [openScuntDropdown, setOpenScuntDropdown] = useState(false);
 
   const leader = user?.userType === 'leadur';
   const approved = user?.approved === true;
-  const dashboardItems = {
-    data: [
+  const dropdowns = [
       {
-        label: 'Leedur Account Scope Approval',
-        anyRegisterScope: false,
-        link: '/approve-accounts',
-        authScopes: ['accounts:delete', 'accounts:edit', 'accounts:read'],
+        label: "data",
+        title: "Data",
+        state: openDataDropdown,
+        setState: setOpenDataDropdown,
+        icon: DataDashboardIcon,
+        items:[
+          {
+            label: 'Leedur Account Scope Approval',
+            anyRegisterScope: false,
+            link: '/approve-accounts',
+            authScopes: ['accounts:delete', 'accounts:edit', 'accounts:read'],
+          },
+          {
+            label: 'Frosh Info Table',
+            anyRegisterScope: true,
+            link: '/frosh-info-table',
+            authScopes: [],
+          },
+        ]
+
       },
       {
-        label: 'Frosh Info Table',
-        anyRegisterScope: true,
-        link: '/frosh-info-table',
-        authScopes: [],
-      },
-    ],
-    outreach: [
-      {
-        label: 'FAQ Admin Panel',
-        anyRegisterScope: false,
-        link: '/faq-admin',
-        authScopes: ['faq:delete', 'faq:edit'],
-      },
-      {
-        label: 'Timeline Admin Panel',
-        anyRegisterScope: false,
-        link: '/timeline-admin',
-        authScopes: ['timeline:create', 'timeline:edit', 'timeline:delete'],
-      },
-      {
-        label: 'Announcements Admin Panel',
-        anyRegisterScope: false,
-        link: '/announcement-dashboard',
-        authScopes: ['announcements:delete', 'announcements:create', 'announcements:edit'],
-      },
-    ],
-    scunt: [
-      {
-        label: 'Scunt Judge Panel',
-        anyRegisterScope: false,
-        link: '/scunt-judge-form',
-        authScopes: [
-          'scunt:exec allow leaderboard',
-          'scunt:exec allow missions page',
-          'scunt:exec hide leaderboard',
-          'scunt:exec hide missions page',
-          'scunt:exec hide wedding missions',
-          'scunt:exec negative points',
-          'scunt:exec refill bribe points',
-          'scunt:exec show wedding missions',
-          'scunt:judge bribe points',
-          'scunt:judge missions',
-        ],
+        label: "outreach",
+        title: "Outreach",
+        state: openOutreachDropdown,
+        setState: setOpenOutreachDropdown,
+        icon: OutreachDashboardIcon,
+        items: [
+          {
+            label: 'FAQ Admin Panel',
+            anyRegisterScope: false,
+            link: '/faq-admin',
+            authScopes: ['faq:delete', 'faq:edit'],
+          },
+          {
+            label: 'Timeline Admin Panel',
+            anyRegisterScope: false,
+            link: '/timeline-admin',
+            authScopes: ['timeline:create', 'timeline:edit', 'timeline:delete'],
+          },
+          {
+            label: 'Announcements Admin Panel',
+            anyRegisterScope: false,
+            link: '/announcement-dashboard',
+            authScopes: ['announcements:delete', 'announcements:create', 'announcements:edit'],
+          },
+        ]
+
       },
       {
-        label: 'Scunt Mission Panel',
-        anyRegisterScope: false,
-        link: '/scunt-missions-dashboard',
-        authScopes: [
-          'scunt:exec show missions',
-          'scunt:exec hide missions',
-          'scunt:exec create missions',
-          'scunt:exec delete missions',
-        ],
+        label: "scunt",
+        title: "Scunt",
+        state: openScuntDropdown,
+        setState: setOpenScuntDropdown,
+        icon: ScuntDashboardIcon,
+        items:[
+          {
+            label: 'Scunt Judge Panel',
+            anyRegisterScope: false,
+            link: '/scunt-judge-form',
+            authScopes: [
+              'scunt:exec allow leaderboard',
+              'scunt:exec allow missions page',
+              'scunt:exec hide leaderboard',
+              'scunt:exec hide missions page',
+              'scunt:exec hide wedding missions',
+              'scunt:exec negative points',
+              'scunt:exec refill bribe points',
+              'scunt:exec show wedding missions',
+              'scunt:judge bribe points',
+              'scunt:judge missions',
+            ],
+          },
+          {
+            label: 'Scunt Mission Panel',
+            anyRegisterScope: false,
+            link: '/scunt-missions-dashboard',
+            authScopes: [
+              'scunt:exec show missions',
+              'scunt:exec hide missions',
+              'scunt:exec create missions',
+              'scunt:exec delete missions',
+            ],
+          },
+          {
+            label: 'Scunt Point Transactions',
+            anyRegisterScope: false,
+            link: '/scunt-transactions',
+            authScopes: ['scunt:exec view transactions'],
+          },
+          {
+            label: 'Scunt Settings',
+            anyRegisterScope: false,
+            link: '/scunt-game-controls',
+            authScopes: ['scunt:exec game controls'],
+          },
+        ]
       },
-      {
-        label: 'Scunt Point Transactions',
-        anyRegisterScope: false,
-        link: '/scunt-transactions',
-        authScopes: ['scunt:exec view transactions'],
-      },
-      {
-        label: 'Scunt Settings',
-        anyRegisterScope: false,
-        link: '/scunt-game-controls',
-        authScopes: ['scunt:exec game controls'],
-      },
-    ],
-  };
+      
+  ]
   return (
     <div className={'profile-leader-dashboard-links'}>
-      <div className={'profile-leader-dashboard-permissions-links'}>
-        {leader && approved ? (
-          <Link
-            to={'/permission-request'}
-            style={{ textDecoration: 'none' }}
-            className={'no-link-style'}
-          >
-            <Button label="Request Leedur Permissions" />
-          </Link>
-        ) : (
-          <></>
-        )}
-      </div>
-      <div className={'profile-leader-dashboard-other-links'}>
-        <div className={'profile-leader-dashboard-data-links'}>
-          <div
-            className={'profile-leader-dashboard-data-title'}
-            onClick={() => setOpenDataDropdown(!openDataDropdown)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              className={'profile-leader-dashboard-data-icon'}
+      {leader && approved ? (
+      <>
+        <div className={'profile-leader-dashboard-permissions-links'}>
+            <Link
+              to={'/permission-request'}
+              style={{ textDecoration: 'none' }}
+              className={'no-link-style'}
             >
-              <path d="M64 256V160H224v96H64zm0 64H224v96H64V320zm224 96V320H448v96H288zM448 256H288V160H448v96zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64z" />
-            </svg>
-            <h3 className={'profile-leader-dashboard-data-text'}>Data</h3>
-            <div className={`dashboard-dropdown-image${openDataDropdown ? ' open' : ''}`}>
-              {darkMode ? (
-                <img alt={'arrow'} src={ArrowDarkMode} className="dashboard-dropdown-arrow" />
-              ) : (
-                <img alt={'arrow'} src={Arrow} className="dashboard-dropdown-arrow" />
-              )}
-            </div>
-          </div>
-          <DashboardDropdown
-            open={openDataDropdown}
-            setOpen={setOpenDataDropdown}
-            items={dashboardItems.data}
-            title={'data'}
-          />
+              <Button label="Request Leedur Permissions" />
+            </Link>
+          
         </div>
-
-        <div className={'profile-leader-dashboard-outreach-links'}>
-          <div
-            className={'profile-leader-dashboard-outreach-title'}
-            onClick={() => setOpenOutreachDropdown(!openOutreachDropdown)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 640 512"
-              className={'profile-leader-dashboard-outreach-icon'}
-            >
-              <path d="M544 248v3.3l69.7-69.7c21.9-21.9 21.9-57.3 0-79.2L535.6 24.4c-21.9-21.9-57.3-21.9-79.2 0L416.3 64.5c-2.7-.3-5.5-.5-8.3-.5H296c-37.1 0-67.6 28-71.6 64H224V248c0 22.1 17.9 40 40 40s40-17.9 40-40V176c0 0 0-.1 0-.1V160l16 0 136 0c0 0 0 0 .1 0H464c44.2 0 80 35.8 80 80v8zM336 192v56c0 39.8-32.2 72-72 72s-72-32.2-72-72V129.4c-35.9 6.2-65.8 32.3-76 68.2L99.5 255.2 26.3 328.4c-21.9 21.9-21.9 57.3 0 79.2l78.1 78.1c21.9 21.9 57.3 21.9 79.2 0l37.7-37.7c.9 0 1.8 .1 2.7 .1H384c26.5 0 48-21.5 48-48c0-5.6-1-11-2.7-16H432c26.5 0 48-21.5 48-48c0-12.8-5-24.4-13.2-33c25.7-5 45.1-27.6 45.2-54.8v-.4c-.1-30.8-25.1-55.8-56-55.8c0 0 0 0 0 0l-120 0z" />{' '}
-            </svg>
-            <h3 className={'profile-leader-dashboard-outreach-text'}>Outreach</h3>
-            <div className={`dashboard-dropdown-image${openOutreachDropdown ? ' open' : ''}`}>
-              {darkMode ? (
-                <img alt={'arrow'} src={ArrowDarkMode} className="dashboard-dropdown-arrow" />
-              ) : (
-                <img alt={'arrow'} src={Arrow} className="dashboard-dropdown-arrow" />
-              )}
-            </div>
-          </div>
-          <DashboardDropdown
-            open={openOutreachDropdown}
-            setOpen={setOpenOutreachDropdown}
-            items={dashboardItems.outreach}
-            title={'outreach'}
-          />
+        <div className={'profile-leader-dashboard-other-links'}>
+          {dropdowns.map((dropdown,index) => (
+              let hasAuth = false;
+              dropdown.items.map((item) => {
+                if(item.anyRegisterScope){
+                  hasAuth = true;
+                }
+                if (item.authScopes) {
+                  for (let authScope of item.authScopes) {
+                    if (user && user?.authScopes?.approved?.includes(authScope)) {
+                      hasAuth = true;
+                      break;
+                    }
+                  }
+                }     
+              });
+                
+            ))}
         </div>
-
-        <div className={'profile-leader-dashboard-scunt-links'}>
-          <div
-            className={'profile-leader-dashboard-scunt-title'}
-            onClick={() => setOpenScuntDropdown(!openScuntDropdown)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              className={'profile-leader-dashboard-scunt-icon'}
-            >
-              <path d="M128 32h32c17.7 0 32 14.3 32 32V96H96V64c0-17.7 14.3-32 32-32zm64 96V448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V388.9c0-34.6 9.4-68.6 27.2-98.3C40.9 267.8 49.7 242.4 53 216L60.5 156c2-16 15.6-28 31.8-28H192zm227.8 0c16.1 0 29.8 12 31.8 28L459 216c3.3 26.4 12.1 51.8 25.8 74.6c17.8 29.7 27.2 63.7 27.2 98.3V448c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V128h99.8zM320 64c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32V96H320V64zm-32 64V288H224V128h64z" />{' '}
-            </svg>
-            <h3 className={'profile-leader-dashboard-scunt-text'}>Scunt</h3>
-            <div className={`dashboard-dropdown-image${openScuntDropdown ? ' open' : ''}`}>
-              {darkMode ? (
-                <img alt={'arrow'} src={ArrowDarkMode} className="dashboard-dropdown-arrow" />
-              ) : (
-                <img alt={'arrow'} src={Arrow} className="dashboard-dropdown-arrow" />
-              )}
-            </div>
-          </div>
-          <DashboardDropdown
-            open={openScuntDropdown}
-            setOpen={setOpenScuntDropdown}
-            items={dashboardItems.scunt}
-            title={'outreach'}
-          />
-        </div>
-      </div>
+      </>
+     ):(
+      <></>)}
     </div>
   );
 };
