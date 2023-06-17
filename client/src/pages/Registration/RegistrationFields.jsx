@@ -420,6 +420,8 @@ export const fields = {
           disableField(false, 'commuterProgramInformation', 'Misc');
         } else {
           disableField(true, 'commuterProgramInformation', 'Misc');
+          disableField(true, 'commuterProgramOther', 'Misc');
+          disableField(true, 'commuterProgramStop', 'Misc');
         }
       },
       localStorageKey: 'registration-commuter',
