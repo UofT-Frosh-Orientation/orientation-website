@@ -7,42 +7,22 @@ import './DashboardDropdown.scss';
 import { userSelector } from '../../state/user/userSlice';
 import Arrow from '../../../assets/icons/angle-down-solid.svg';
 import ArrowDarkMode from '../../assets/darkmode/icons/angle-down-solid.svg';
-import DataDashboardIcon from '../../assets/dashboarddropdown/data-icon.svg';
-import OutreachDashboardIcon from '../../assets/dashboarddropdown/outreach-icon.svg';
-import ScuntDashboardIcon from '../../assets/dashboarddropdown/scunt-icon.svg';
 const DashboardDropdown = ({ open, setOpen, items, title, icon}) => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
   let count = 0; // counts which page
-  const [ anyScope, setAnyScope ] = useState(false);
   const { pathname } = useLocation();
-  const { user } = useSelector(userSelector);
 
-  useEffect(() => {
-    let anyScopeFound = false;
-    items.map((item) => {
-      anyScopeFound = item.anyRegisterScope;
-      if (item.authScopes) {
-        for (let authScope of item.authScopes) {
-          if (user && user?.authScopes?.approved?.includes(authScope)) {
-            anyScopeFound = true;
-            break;
-          }
-        }
-      }     
-    });
-    setAnyScope(anyScopeFound);
-  }, []);
   
   return (
-    <>
+
     
-     <div className={'profile-leader-dashboard-dropdown-links'} key={title}>
+     <div className={'dashboard-dropdown-links'} key={title}>
         <div
-        className={'profile-leader-dashboard-dropdown-title'}
+        className={'dashboard-dropdown-title'}
         onClick={() => setOpen(!open)}
       >
-        <img src={icon} className={'profile-leader-dashboard-dropdown-icon'}/>
-        <h3 className={'profile-leader-dashboard-dropdown-text'}>{title}</h3>
+        <img src={icon} className={'dashboard-dropdown-icon'}/>
+        <h3 className={'dashboard-dropdown-text'}>{title}</h3>
         <div className={`dashboard-dropdown-image${open ? ' open' : ''}`}>
           {darkMode ? (
             <img alt={'arrow'} src={ArrowDarkMode} className="dashboard-dropdown-arrow" />
@@ -118,10 +98,8 @@ const DashboardDropdown = ({ open, setOpen, items, title, icon}) => {
           })}
         </div>
       </div>
-      
     </div> 
-    
-  </>
+
   );
 };
 
