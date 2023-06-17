@@ -608,20 +608,13 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
         </div>
         <div className={'profile-leader-dashboard-other-links'}>
           {dropdowns.map((dropdown,index) => (
-              let hasAuth = false;
-              dropdown.items.map((item) => {
-                if(item.anyRegisterScope){
-                  hasAuth = true;
-                }
-                if (item.authScopes) {
-                  for (let authScope of item.authScopes) {
-                    if (user && user?.authScopes?.approved?.includes(authScope)) {
-                      hasAuth = true;
-                      break;
-                    }
-                  }
-                }     
-              });
+              <DashboardDropdown
+              open={dropdown.state}
+              setOpen={dropdown.setState}
+              items={dropdown.items}
+              title={dropdown.title}
+              icon = {dropdown.icon}
+            />
                 
             ))}
         </div>
