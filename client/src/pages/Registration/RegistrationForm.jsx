@@ -165,7 +165,10 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             );
           } else if (field.type === 'radio') {
             return (
-              <div className={field.className ? field.className : 'full-width-input'}>
+              <div
+                className={field.className ? field.className : 'full-width-input'}
+                key={`${index}-${key}`}
+              >
                 <RadioButtons
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
@@ -191,7 +194,10 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             );
           } else if (field.type === 'dropdown') {
             return (
-              <div className={field.className ? field.className : 'full-width-input'}>
+              <div
+                className={field.className ? field.className : 'full-width-input'}
+                key={`${index}-${key}`}
+              >
                 <Dropdown
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
@@ -216,7 +222,10 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             );
           } else if (field.type === 'checkbox') {
             return (
-              <div className={field.className ? field.className : 'full-width-input'}>
+              <div
+                className={field.className ? field.className : 'full-width-input'}
+                key={`${index}-${key}`}
+              >
                 <Checkboxes
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
@@ -247,7 +256,11 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             );
           } else if (field.type === 'label') {
             return (
-              <div className="text-input-container" style={{ width: '100%' }}>
+              <div
+                className="text-input-container"
+                style={{ width: '100%' }}
+                key={`${index}-${key}`}
+              >
                 <div className="text-input-title-container">
                   {field.label !== undefined ? (
                     field.isBold === true ? (
