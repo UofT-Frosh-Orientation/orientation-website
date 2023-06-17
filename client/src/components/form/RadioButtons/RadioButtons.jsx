@@ -53,7 +53,7 @@ const RadioButtons = ({
               >
                 <input
                   type="radio"
-                  name={label}
+                  name={label ?? 'radio'}
                   disabled={isDisabledValue}
                   checked={selectedIndex === index}
                   onChange={() => {
