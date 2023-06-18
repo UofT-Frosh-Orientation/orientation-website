@@ -77,6 +77,7 @@ const Dropdown = ({
         <div
           onClick={() => !isDisabled && setIsOpen(!isOpen)}
           className={`dropdown-selected${isDisabled ? '-disabled' : ''}`}
+          tabIndex="0"
         >
           <div className={'dropdown-selected-label'}>
             {maxLetters
