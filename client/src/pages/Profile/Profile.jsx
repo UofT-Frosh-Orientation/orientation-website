@@ -491,112 +491,145 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
   const leader = user?.userType === 'leadur';
   const approved = user?.approved === true;
   const dropdowns = [
-      {
-        label: "data",
-        title: "Data",
-        state: openDataDropdown,
-        setState: setOpenDataDropdown,
-        icon: DataDashboardIcon,
-        items:[
-          {
-            label: 'Leedur Account Scope Approval',
-            anyRegisterScope: false,
-            link: '/approve-accounts',
-            authScopes: ['accounts:delete', 'accounts:edit', 'accounts:read'],
-          },
-          {
-            label: 'Frosh Info Table',
-            anyRegisterScope: true,
-            link: '/frosh-info-table',
-            authScopes: [],
-          },
-        ]
+    {
+      label: 'data',
+      title: 'Data',
+      state: openDataDropdown,
+      setState: setOpenDataDropdown,
+      icon: DataDashboardIcon,
+      items: [
+        {
+          label: 'Leedur Account Scope Approval',
+          anyRegisterScope: false,
+          link: '/approve-accounts',
+          authScopes: ['accounts:delete', 'accounts:edit', 'accounts:read'],
+        },
+        {
+          label: 'Frosh Info Table',
+          anyRegisterScope: true,
+          link: '/frosh-info-table',
+          authScopes: [],
+        },
+      ],
+    },
+    {
+      label: 'outreach',
+      title: 'Outreach',
+      state: openOutreachDropdown,
+      setState: setOpenOutreachDropdown,
+      icon: OutreachDashboardIcon,
+      items: [
+        {
+          label: 'FAQ Admin Panel',
+          anyRegisterScope: false,
+          link: '/faq-admin',
+          authScopes: ['faq:delete', 'faq:edit'],
+        },
+        {
+          label: 'Timeline Admin Panel',
+          anyRegisterScope: false,
+          link: '/timeline-admin',
+          authScopes: ['timeline:create', 'timeline:edit', 'timeline:delete'],
+        },
+        {
+          label: 'Announcements Admin Panel',
+          anyRegisterScope: false,
+          link: '/announcement-dashboard',
+          authScopes: ['announcements:delete', 'announcements:create', 'announcements:edit'],
+        },
+      ],
+    },
+    {
+      label: 'scunt',
+      title: 'Scunt',
+      state: openScuntDropdown,
+      setState: setOpenScuntDropdown,
+      icon: ScuntDashboardIcon,
+      items: [
+        {
+          label: 'Scunt Judge Panel',
+          anyRegisterScope: false,
+          link: '/scunt-judge-form',
+          authScopes: [
+            'scunt:exec allow leaderboard',
+            'scunt:exec allow missions page',
+            'scunt:exec hide leaderboard',
+            'scunt:exec hide missions page',
+            'scunt:exec hide wedding missions',
+            'scunt:exec negative points',
+            'scunt:exec refill bribe points',
+            'scunt:exec show wedding missions',
+            'scunt:judge bribe points',
+            'scunt:judge missions',
+          ],
+        },
+        {
+          label: 'Scunt Mission Panel',
+          anyRegisterScope: false,
+          link: '/scunt-missions-dashboard',
+          authScopes: [
+            'scunt:exec show missions',
+            'scunt:exec hide missions',
+            'scunt:exec create missions',
+            'scunt:exec delete missions',
+          ],
+        },
+        {
+          label: 'Scunt Point Transactions',
+          anyRegisterScope: false,
+          link: '/scunt-transactions',
+          authScopes: ['scunt:exec view transactions'],
+        },
+        {
+          label: 'Scunt Settings',
+          anyRegisterScope: false,
+          link: '/scunt-game-controls',
+          authScopes: ['scunt:exec game controls'],
+        },
+      ],
+    },
+  ];
 
-      },
-      {
-        label: "outreach",
-        title: "Outreach",
-        state: openOutreachDropdown,
-        setState: setOpenOutreachDropdown,
-        icon: OutreachDashboardIcon,
-        items: [
-          {
-            label: 'FAQ Admin Panel',
-            anyRegisterScope: false,
-            link: '/faq-admin',
-            authScopes: ['faq:delete', 'faq:edit'],
-          },
-          {
-            label: 'Timeline Admin Panel',
-            anyRegisterScope: false,
-            link: '/timeline-admin',
-            authScopes: ['timeline:create', 'timeline:edit', 'timeline:delete'],
-          },
-          {
-            label: 'Announcements Admin Panel',
-            anyRegisterScope: false,
-            link: '/announcement-dashboard',
-            authScopes: ['announcements:delete', 'announcements:create', 'announcements:edit'],
-          },
-        ]
+  let userDropdown = [...dropdowns];
+  const approvedScopes = [...user.authScopes.approved];
 
-      },
-      {
-        label: "scunt",
-        title: "Scunt",
-        state: openScuntDropdown,
-        setState: setOpenScuntDropdown,
-        icon: ScuntDashboardIcon,
-        items:[
-          {
-            label: 'Scunt Judge Panel',
-            anyRegisterScope: false,
-            link: '/scunt-judge-form',
-            authScopes: [
-              'scunt:exec allow leaderboard',
-              'scunt:exec allow missions page',
-              'scunt:exec hide leaderboard',
-              'scunt:exec hide missions page',
-              'scunt:exec hide wedding missions',
-              'scunt:exec negative points',
-              'scunt:exec refill bribe points',
-              'scunt:exec show wedding missions',
-              'scunt:judge bribe points',
-              'scunt:judge missions',
-            ],
-          },
-          {
-            label: 'Scunt Mission Panel',
-            anyRegisterScope: false,
-            link: '/scunt-missions-dashboard',
-            authScopes: [
-              'scunt:exec show missions',
-              'scunt:exec hide missions',
-              'scunt:exec create missions',
-              'scunt:exec delete missions',
-            ],
-          },
-          {
-            label: 'Scunt Point Transactions',
-            anyRegisterScope: false,
-            link: '/scunt-transactions',
-            authScopes: ['scunt:exec view transactions'],
-          },
-          {
-            label: 'Scunt Settings',
-            anyRegisterScope: false,
-            link: '/scunt-game-controls',
-            authScopes: ['scunt:exec game controls'],
-          },
-        ]
-      },
-      
-  ]
+  userDropdown = [...dropdowns];
+  console.log(approvedScopes);
+
+  // does not work though!! you should not be changing the array while looping though it
+  // instead, i suggest pushing elements into a new array (i was being stupid HAHA)
+  for (let i = 0; i < userDropdown.length; i++) {
+    for (let j = 0; j < userDropdown[i].items.length; j++) {
+      let allScopes = userDropdown[i].items[j].authScopes;
+      console.log(allScopes);
+      let hasAuthScope = false;
+      for (let authScope of allScopes) {
+        if (user && approvedScopes.includes(authScope)) {
+          hasAuthScope = true;
+          break;
+        }
+      }
+
+      if (!hasAuthScope) {
+        // remove that item from items
+        console.log('removing item', userDropdown[i].items[j]);
+        userDropdown[i].items.splice(j, 1);
+      }
+    }
+    // if the items list is empty, remove the entire label
+    if (userDropdown[i].items.length === 0) {
+      console.log('removing label', userDropdown[i]);
+      userDropdown.splice(i, 1);
+    }
+  }
+
+  console.log(userDropdown);
+
   return (
     <div className={'profile-leader-dashboard-links'}>
       {leader && approved ? (
-      <>
-        <div className={'profile-leader-dashboard-permissions-links'}>
+        <>
+          <div className={'profile-leader-dashboard-permissions-links'}>
             <Link
               to={'/permission-request'}
               style={{ textDecoration: 'none' }}
@@ -604,23 +637,26 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
             >
               <Button label="Request Leedur Permissions" />
             </Link>
-          
-        </div>
-        <div className={'profile-leader-dashboard-other-links'}>
-          {dropdowns.map((dropdown,index) => (
-              <DashboardDropdown
-              open={dropdown.state}
-              setOpen={dropdown.setState}
-              items={dropdown.items}
-              title={dropdown.title}
-              icon = {dropdown.icon}
-            />
-                
-            ))}
-        </div>
-      </>
-     ):(
-      <></>)}
+          </div>
+          <div className={'profile-leader-dashboard-other-links'}>
+            {userDropdown.map((dropdown, index) => {
+              return (
+                <React.Fragment key={`${dropdown.label}-${index}`}>
+                  <DashboardDropdown
+                    open={dropdown.state}
+                    setOpen={dropdown.setState}
+                    items={dropdown.items}
+                    title={dropdown.title}
+                    icon={dropdown.icon}
+                  />
+                </React.Fragment>
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
@@ -638,7 +674,7 @@ const ProfilePageDashboardLink = ({ link, authScopes, anyRegisterScope, label })
     }
   }
 
-  console.log('STATUS', hasAuthScope);
+  // console.log('STATUS', hasAuthScope);
 
   const hasAnyRegisterScope = anyRegisterScope && user?.froshDataFields?.approved?.length > 0;
   if (hasAuthScope || hasAnyRegisterScope) {

@@ -7,62 +7,41 @@ import './DashboardDropdown.scss';
 import { userSelector } from '../../state/user/userSlice';
 import Arrow from '../../../assets/icons/angle-down-solid.svg';
 import ArrowDarkMode from '../../assets/darkmode/icons/angle-down-solid.svg';
-const DashboardDropdown = ({ open, setOpen, items, title, icon}) => {
+
+const DashboardDropdown = ({ open, setOpen, items, title, icon }) => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
   let count = 0; // counts which page
   const { pathname } = useLocation();
 
-  
   return (
-
-    
-     <div className={'dashboard-dropdown-links'} key={title}>
-        <div
-        className={'dashboard-dropdown-title'}
-        onClick={() => setOpen(!open)}
-      >
-        <img src={icon} className={'dashboard-dropdown-icon'}/>
-        <h3 className={'dashboard-dropdown-text'}>{title}</h3>
-        <div className={`dashboard-dropdown-image${open ? ' open' : ''}`}>
-          {darkMode ? (
-            <img alt={'arrow'} src={ArrowDarkMode} className="dashboard-dropdown-arrow" />
-          ) : (
-            <img alt={'arrow'} src={Arrow} className="dashboard-dropdown-arrow" />
-          )}
+    <>
+      <div className={'dashboard-dropdown-links'} key={title}>
+        <div className={'dashboard-dropdown-title'} onClick={() => setOpen(!open)}>
+          <img src={icon} className={'dashboard-dropdown-icon'} />
+          <h3 className={'dashboard-dropdown-text'}>{title}</h3>
+          <div className={`dashboard-dropdown-image${open ? ' open' : ''}`}>
+            {darkMode ? (
+              <img alt={'arrow'} src={ArrowDarkMode} className="dashboard-dropdown-arrow" />
+            ) : (
+              <img alt={'arrow'} src={Arrow} className="dashboard-dropdown-arrow" />
+            )}
+          </div>
         </div>
-      </div>
-      
-      <div
-        className={`dashboard-dropdown-bg ${
-          open ? 'dashboard-dropdown-bg-display' : 'dashboard-dropdown-bg-hide'
-        }`}
-        onClick={() => {
-          setOpen(false);
-        }}
-      >
+
         <div
-          className={`dashboard-dropdown-container ${
-            open ? 'dashboard-dropdown-container-display' : ''
+          className={`dashboard-dropdown-bg ${
+            open ? 'dashboard-dropdown-bg-display' : 'dashboard-dropdown-bg-hide'
           }`}
+          onClick={() => {
+            setOpen(false);
+          }}
         >
-          {items.map((item) => {
-            count++;
-            const { user } = useSelector(userSelector);
-            let hasAuthScope = false;
-            if (item.authScopes) {
-              for (let authScope of item.authScopes) {
-                if (user && user?.authScopes?.approved?.includes(authScope)) {
-                  hasAuthScope = true;
-                  break;
-                }
-              }
-            }
-
-            console.log('STATUS', hasAuthScope);
-
-            const hasAnyRegisterScope =
-              item.anyRegisterScope && user?.froshDataFields?.approved?.length > 0;
-            if (hasAuthScope || hasAnyRegisterScope) {
+          <div
+            className={`dashboard-dropdown-container ${
+              open ? 'dashboard-dropdown-container-display' : ''
+            }`}
+          >
+            {items.map((item) => {
               return (
                 <Link
                   to={pathname === item.link ? {} : item.link}
@@ -92,14 +71,11 @@ const DashboardDropdown = ({ open, setOpen, items, title, icon}) => {
                   </div>
                 </Link>
               );
-            } else {
-              return <></>;
-            }
-          })}
+            })}
+          </div>
         </div>
       </div>
-    </div> 
-
+    </>
   );
 };
 
@@ -108,6 +84,7 @@ DashboardDropdown.propTypes = {
   setOpen: PropTypes.func,
   items: PropTypes.array, // array of objects with pages to be displayed
   title: PropTypes.string,
+  icon: PropTypes.string,
 };
 
 export { DashboardDropdown };
