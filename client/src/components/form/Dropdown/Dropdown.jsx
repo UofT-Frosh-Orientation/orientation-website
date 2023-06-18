@@ -58,7 +58,18 @@ const Dropdown = ({
         }
         setIsOpen(false);
       }}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') {
+          onSelect(value);
+          setSelected(value);
+          if (localStorageKey) {
+            localStorage.setItem(localStorageKey, value);
+          }
+          setIsOpen(false);
+        }
+      }}
       key={`dropdownItem-${value}`}
+      tabIndex="0"
     >
       {filterLabel ? filterLabel(value.toString()) : value.toString()}
     </div>
@@ -78,6 +89,11 @@ const Dropdown = ({
           onClick={() => !isDisabled && setIsOpen(!isOpen)}
           className={`dropdown-selected${isDisabled ? '-disabled' : ''}`}
           tabIndex="0"
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              !isDisabled && setIsOpen(!isOpen);
+            }
+          }}
         >
           <div className={'dropdown-selected-label'}>
             {maxLetters

@@ -93,7 +93,9 @@
   cursor: pointer;
   transition: background-color 300ms ease-in-out;
 
-  &:hover {
+  &:hover,
+  &:focus {
+    outline: none;
     background-color: var(--dropdown-hover);
   }
   @include devices(tablet) {
