@@ -15,12 +15,12 @@
   transition: transform 200ms, background-color 200ms;
   user-select: none;
 
-  &:hover,
-  &:focus {
+  &:hover {
     transform: scale(1.02);
     transition: transform 200ms;
   }
-  &:active {
+  &:active,
+  &:focus {
     transform: scale(0.97);
     transition: transform 150ms;
   }
