@@ -15,7 +15,8 @@
   transition: transform 200ms, background-color 200ms;
   user-select: none;
 
-  &:hover {
+  &:hover,
+  &:focus {
     transform: scale(1.02);
     transition: transform 200ms;
   }
