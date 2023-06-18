@@ -141,10 +141,10 @@ a:hover {
   border-radius: 3px;
 }
 
-.navbar-space-top {
-  height: 45px;
+.content-container {
+  margin-top: 45px;
   @include devices(tablet) {
-    height: 0px;
+    margin-top: 0px;
   }
 }
 

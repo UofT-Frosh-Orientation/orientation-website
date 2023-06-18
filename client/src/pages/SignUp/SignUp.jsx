@@ -99,7 +99,6 @@ const PageSignUp = () => {
         className={`sign-up-page ${pageState !== 'form' ? 'sign-up-page-disappear' : ''}`}
         style={{ display: pageState === 'success' ? 'none' : '' }}
       >
-        <div className="navbar-space-top" />
         <div className="sign-up-container">
           <img
             className={`sign-up-logo ${revealLeaderSignup >= 5 ? 'sign-up-logo-expand' : ''}`}
@@ -243,7 +242,6 @@ const PageSignUp = () => {
           className={`sign-up-success ${pageState === 'success' ? 'sign-up-success-appear' : ''}`}
         >
           <div style={{ margin: 'auto auto' }}>
-            <div className="navbar-space-top" />
             <h2>{`Thank you for creating an account, ${
               accountObj['preferredName'] === null ||
               accountObj['preferredName'] === undefined ||
@@ -252,19 +250,17 @@ const PageSignUp = () => {
                 : accountObj['preferredName']
             }.`}</h2>
             {accountObj['leadur'] === true ? (
-              <h3>Your account will be reviewed and shortly become an official Leedur account.</h3>
+              <h3>
+                Check your inbox for a link to verify your email. Your account will be reviewed and
+                shortly become an official Leedur account.
+              </h3>
             ) : (
               <>
                 <h1>You aren&apos;t done just yet!</h1>
-                <h3>You still need to register and pay for the F!rosh Week event.</h3>
-                <Link to="/registration" className="no-link-style">
-                  <div>
-                    <Button
-                      label="Register"
-                      style={{ padding: '25px 60px', fontSize: '20px', borderRadius: '20px' }}
-                    />
-                  </div>
-                </Link>
+                <h3>
+                  Check your inbox for a link to verify your email. You still need to register and
+                  pay for the F!rosh Week event.
+                </h3>
               </>
             )}
           </div>

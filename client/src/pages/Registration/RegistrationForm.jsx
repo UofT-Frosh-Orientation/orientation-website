@@ -311,20 +311,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             </div>
           </div>
         </PopupModal>
-        <div className="navbar-space-top" />
+
         <div className="registration-form-flex">
           <div className="registration-form">
             {Object.keys(fields).map((fieldsKey, index) => {
               return generateStepComponent(formFields[fieldsKey], fieldsKey);
             })}
           </div>
-          {/* <Button
-            label={'Check'}
-            onClick={() => {
-              
-              
-            }}
-          /> */}
           <div style={{ marginBottom: '55px' }}>
             <div
               style={{
@@ -366,23 +359,6 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   } else {
     return (
       <div>
-        {/* <PopupModal
-          trigger={showPopUp}
-          setTrigger={setShowPopUp}
-          blurBackground={true}
-          exitIcon={true}
-        >
-          <div className="registration-edit-popup">
-            <h1>Pay now?</h1>
-            <h2>
-              We have saved your info, but you must pay to be fully registered for F!rosh Week.
-            </h2>
-            <div className="registration-edit-popup-buttons">
-              <Button label={'Pay Now'} onClick={handleCheckout} />
-            </div>
-          </div>
-        </PopupModal> */}
-        <div className="navbar-space-top" />
         <div className="registration-form-flex">
           <div className="registration-form">
             <form onSubmit={handleRegister}>
@@ -447,13 +423,6 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
               />
             </form>
           </div>
-          {/* <Button
-            label={'Check'}
-            onClick={() => {
-              
-              
-            }}
-          /> */}
         </div>
       </div>
     );

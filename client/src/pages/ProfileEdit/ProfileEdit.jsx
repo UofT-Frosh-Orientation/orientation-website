@@ -23,7 +23,6 @@ const PageProfileEdit = () => {
     <>
       {isRegistered && (
         <>
-          <div className="navbar-space-top" />
           <ProfilePageHeader leader={false} editButton={false} />
           <div className="edit-form-container">
             <PageRegistrationForm
