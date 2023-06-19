@@ -11,7 +11,7 @@ emailConfirmationSubscription.process((job, done) => {
     // sending user email verification link
     const emailToken = jwt.sign(
       job.data.email,
-      process.env.JWT_RESET_TOKEN,
+      process.env.JWT_EMAIL_CONFIRMATION_TOKEN,
     );
     const url = process.env.CLIENT_BASE_URL + '/verify-user-email/' + job.data.email + '/' + emailToken;
     EmailServices.sendSimpleEmail(
