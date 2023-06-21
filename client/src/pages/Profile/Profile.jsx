@@ -487,7 +487,6 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
   const [openDataDropdown, setOpenDataDropdown] = useState(false);
   const [openOutreachDropdown, setOpenOutreachDropdown] = useState(false);
   const [openScuntDropdown, setOpenScuntDropdown] = useState(false);
-
   const leader = user?.userType === 'leadur';
   const approved = user?.approved === true;
   const dropdowns = [
@@ -590,40 +589,43 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
     },
   ];
 
-  let userDropdown = [...dropdowns];
+  let userDropdown = [];
   const approvedScopes = [...user.authScopes.approved];
-
-  userDropdown = [...dropdowns];
-  console.log(approvedScopes);
 
   // does not work though!! you should not be changing the array while looping though it
   // instead, i suggest pushing elements into a new array (i was being stupid HAHA)
-  for (let i = 0; i < userDropdown.length; i++) {
-    for (let j = 0; j < userDropdown[i].items.length; j++) {
-      let allScopes = userDropdown[i].items[j].authScopes;
-      console.log(allScopes);
-      let hasAuthScope = false;
+  for (let i = 0; i < dropdowns.length; i++) {
+    for (let j = 0; j < dropdowns[i].items.length; j++) {
+
+      let allScopes = dropdowns[i].items[j].authScopes;
+      let hasAuthScope = dropdowns[i].items[j].anyRegisterScope;
       for (let authScope of allScopes) {
         if (user && approvedScopes.includes(authScope)) {
           hasAuthScope = true;
-          break;
         }
       }
-
-      if (!hasAuthScope) {
-        // remove that item from items
-        console.log('removing item', userDropdown[i].items[j]);
-        userDropdown[i].items.splice(j, 1);
+      if (hasAuthScope) {
+        if(userDropdown.length === 0 || userDropdown[userDropdown.length - 1].label !== dropdowns[i].label){
+          let newObject = {
+            label: dropdowns[i].label,
+            title: dropdowns[i].title,
+            state: dropdowns[i].state,
+            setState: dropdowns[i].setState,
+            icon:dropdowns[i].icon,
+            items: []
+          }
+          userDropdown.push(newObject);
+        }
+        let newAuthScope = {
+          label: dropdowns[i].items[j].label,
+          anyRegisterScope: dropdowns[i].items[j].anyRegisterScope,
+          link: dropdowns[i].items[j].link,
+          authScopes: dropdowns[i].items[j].authScopes,
+        }
+        userDropdown[userDropdown.length - 1].items.push(newAuthScope);
       }
     }
-    // if the items list is empty, remove the entire label
-    if (userDropdown[i].items.length === 0) {
-      console.log('removing label', userDropdown[i]);
-      userDropdown.splice(i, 1);
-    }
   }
-
-  console.log(userDropdown);
 
   return (
     <div className={'profile-leader-dashboard-links'}>
