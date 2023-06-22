@@ -25,7 +25,6 @@ const MakeReceipt = (froshObject) => {
   const qr = (
     <QRNormal
       value={froshObject.id}
-      styles={{ svg: { width: '120%', margin: '-10%' } }}
       type="round"
       opacity={100}
       posType="round"
