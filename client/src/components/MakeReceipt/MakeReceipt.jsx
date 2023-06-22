@@ -90,7 +90,7 @@ const MakeReceipt = (froshObject) => {
     'utorid',
   ].forEach((x, i, a) => {
     t2.push(
-      <Text style={{ fontSize: 11 }} key={currKey++}>
+      <Text style={{ fontSize: 14 }} key={currKey++}>
         {x}= {Array.isArray(x) ? Array.toString(froshObject[x]) : JSON.stringify(froshObject[x])}
       </Text>,
     );
