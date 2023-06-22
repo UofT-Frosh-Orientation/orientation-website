@@ -99,10 +99,21 @@ const MakeReceipt = (froshObject) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <View style={styles.section}>
-          <Svg fill="white">{t1}</Svg>
-          <Text style={{ fontSize: 11 }} key={currKey++}>
+        <View style={styles.qrcode}>
+          <Svg fill="white" style={{ width: '250px' }}>
+            {t1}
+          </Svg>
+          <Text style={{ fontSize: 18, padding: '20px 0' }} key={currKey++}>
             Your Unique QRCode
+          </Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={{ fontSize: 18, padding: '20px 0' }} key={currKey++}>
+            Please check all of your information to ensure it is correct. If you need to make any
+            changes, please email us at{' '}
+            <Link src={'mailto:tech@orientation.skule.ca'}>tech@orientation.skule.ca</Link> or reach
+            out to us on our Instagram page{' '}
+            <Link src={'https://www.instagram.com/froshweek'}>@froshweek</Link>.
           </Text>
           {t2}
         </View>
