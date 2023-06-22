@@ -45,12 +45,6 @@ const MakeReceipt = (froshObject) => {
     t2 = [];
 
   svg.childNodes.forEach((node, key, parent) => {
-    if (key === 0) {
-      console.log(qr64);
-      console.log(node.getAttribute('cx'));
-      console.log(node.getAttribute('cy'));
-      console.log(node.getAttribute('r'));
-    }
     t1.push(
       <Circle
         key={currKey}
