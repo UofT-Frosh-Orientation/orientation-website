@@ -255,7 +255,7 @@ const EmailServices = {
 
     for (const stream of streams) {
       const attachment = mimemessage.factory({
-        contentType: mime.getType(), // get mimetype of stream
+        contentType: 'application/pdf'
         contentTransferEncoding: 'base64',
         body: stream, // stream itself
       });
