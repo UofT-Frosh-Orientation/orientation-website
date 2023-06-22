@@ -1064,7 +1064,6 @@ const ProfilePageResources = () => {
           label={'Download Information PDF'}
           onClick={async () => {
             const froshObject = user?.user;
-            console.log(froshObject);
             const blob = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
             const fileURL = URL.createObjectURL(blob);
             const pdfWindow = window.open(fileURL, '_blank');
