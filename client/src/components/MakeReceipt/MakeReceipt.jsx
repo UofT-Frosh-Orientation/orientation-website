@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
 });
 
 const MakeReceipt = (froshObject) => {
-  console.log(froshObject);
   const qr = (
     <QRNormal
       value={froshObject.id}
