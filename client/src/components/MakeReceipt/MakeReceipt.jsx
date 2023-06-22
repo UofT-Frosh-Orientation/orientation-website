@@ -6,13 +6,17 @@ import ReactDOMServer from 'react-dom/server';
 
 const styles = StyleSheet.create({
   page: {
-    flexDirection: 'row',
     backgroundColor: '#E4E4E4',
   },
+  qrcode: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 5,
+  },
   section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1,
+    margin: 2,
+    padding: 5,
   },
 });
 
