@@ -35,7 +35,6 @@ const MakeReceipt = (froshObject) => {
   );
 
   const qr64 = ReactDOMServer.renderToString(qr);
-  console.log(qr64);
   // create dummy element to hold the children
   const svgg = document.createElement('div');
   svgg.innerHTML = qr64;
