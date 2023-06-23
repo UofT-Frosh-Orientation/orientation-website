@@ -108,7 +108,7 @@ const PageProfileFrosh = () => {
       <ProfilePageHeader leader={leader} editButton={true} />
 
       <div className="profile-info-row">
-        <div>
+        <div style={{ marginLeft: '50px' }}>
           {leader === false ? (
             <>
               <ProfilePageScuntMessage />
@@ -596,7 +596,6 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
   // instead, i suggest pushing elements into a new array (i was being stupid HAHA)
   for (let i = 0; i < dropdowns.length; i++) {
     for (let j = 0; j < dropdowns[i].items.length; j++) {
-
       let allScopes = dropdowns[i].items[j].authScopes;
       let hasAuthScope = dropdowns[i].items[j].anyRegisterScope;
       for (let authScope of allScopes) {
@@ -605,15 +604,18 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
         }
       }
       if (hasAuthScope) {
-        if(userDropdown.length === 0 || userDropdown[userDropdown.length - 1].label !== dropdowns[i].label){
+        if (
+          userDropdown.length === 0 ||
+          userDropdown[userDropdown.length - 1].label !== dropdowns[i].label
+        ) {
           let newObject = {
             label: dropdowns[i].label,
             title: dropdowns[i].title,
             state: dropdowns[i].state,
             setState: dropdowns[i].setState,
-            icon:dropdowns[i].icon,
-            items: []
-          }
+            icon: dropdowns[i].icon,
+            items: [],
+          };
           userDropdown.push(newObject);
         }
         let newAuthScope = {
@@ -621,7 +623,7 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
           anyRegisterScope: dropdowns[i].items[j].anyRegisterScope,
           link: dropdowns[i].items[j].link,
           authScopes: dropdowns[i].items[j].authScopes,
-        }
+        };
         userDropdown[userDropdown.length - 1].items.push(newAuthScope);
       }
     }
@@ -637,7 +639,7 @@ const ProfilePageLeaderPermissionDashboardLinks = () => {
               style={{ textDecoration: 'none' }}
               className={'no-link-style'}
             >
-              <Button label="Request Leedur Permissions" />
+              <Button label="Request Leedur Permissions" style={{ margin: '0' }} />
             </Link>
           </div>
           <div className={'profile-leader-dashboard-other-links'}>

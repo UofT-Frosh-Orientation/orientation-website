@@ -1,4 +1,4 @@
-import { React, useEffect, useState, useContext } from 'react';
+import { React, useEffect, useState, useContext, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -13,9 +13,33 @@ const DashboardDropdown = ({ open, setOpen, items, title, icon }) => {
   let count = 0; // counts which page
   const { pathname } = useLocation();
 
+  const refContainer = useRef();
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    // initial set width on render
+    if (refContainer.current) {
+      setWidth(refContainer.current.offsetWidth);
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      // adjust dropdown on window resize
+      if (refContainer.current) {
+        setWidth(refContainer.current.offsetWidth);
+      }
+    };
+    window.addEventListener('resize', handleResize); // listen for resize
+    return () => {
+      // Clean up the event listener on component unmount
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <>
-      <div className={'dashboard-dropdown-links'} key={title}>
+      <div className={'dashboard-dropdown-links'} key={title} ref={refContainer}>
         <div className={'dashboard-dropdown-title'} onClick={() => setOpen(!open)}>
           <img src={icon} className={'dashboard-dropdown-icon'} />
           <h3 className={'dashboard-dropdown-text'}>{title}</h3>
@@ -40,6 +64,7 @@ const DashboardDropdown = ({ open, setOpen, items, title, icon }) => {
             className={`dashboard-dropdown-container ${
               open ? 'dashboard-dropdown-container-display' : ''
             }`}
+            style={{ width: width }}
           >
             {items.map((item) => {
               return (

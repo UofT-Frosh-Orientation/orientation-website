@@ -122,8 +122,8 @@
 }
 
 .profile-page-schedule {
-  margin-left: 50px;
-  margin-right: 2%;
+  // margin-left: 50px;
+  // margin-right: 2%;
   flex: 1;
   max-width: 1000px;
   margin-top: 20px;
@@ -422,36 +422,39 @@
   color: var(--text-dynamic);
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
-  margin-left: 35px;
-  margin-right: 20px;
+  // margin-left: 35px;
+  // margin-right: 20px;
   @include devices(tablet) {
     flex-direction: column;
     margin: auto;
   }
+  width: 100%;
+
   .profile-leader-dashboard-permissions-links {
-    width: 300px;
-    margin-right: auto;
+    width: 30%;
+    // margin-right: auto;
     @include devices(tablet) {
-      margin: auto;
+      // margin: auto;
       width: 350px;
     }
   }
   .profile-leader-dashboard-other-links {
     display: flex;
     flex-direction: row;
-    margin-left: auto;
+    margin-left: 2%;
     width: 100%;
-    margin-bottom: 30px;
+    // margin-bottom: 30px;
     @include devices(tablet) {
-      margin: auto;
-      width: 100%;
-      margin-bottom: 100px;
-      margin-top: 15px;
+      margin-top: 5%;
+      margin-left: 0;
+      // margin: auto;
+      // width: 100%;
+      // margin-bottom: 100px;
+      // margin-top: 15px;
     }
-
   }
 
   .dashboard-dropdown-image {
@@ -506,8 +509,8 @@
   }
 }
 .frosh-instagram-container {
-  margin-left: 50px;
-  margin-right: 2%;
+  // margin-left: 50px;
+  // margin-right: 2%;
   flex: 1;
   max-width: 1000px;
   background-color: var(--purple-shades-light);
