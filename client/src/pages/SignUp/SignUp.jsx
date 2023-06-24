@@ -56,7 +56,7 @@ const PageSignUp = () => {
       anyErrorsNow = true;
     } else if (validatePassword(accountObj['password']) === null) {
       errorsCopy['password'] =
-        'Your password is too weak, it should be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character (square, round brackets and single, double quotation marks are not accepted)';
+        'Your password is too weak, it should be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character (forward/backward slashes, square, round brackets and single, double quotation marks are not accepted)';
       anyErrorsNow = true;
     }
     if (accountObj['confirmPassword'] === undefined || accountObj['confirmPassword'] === '') {
