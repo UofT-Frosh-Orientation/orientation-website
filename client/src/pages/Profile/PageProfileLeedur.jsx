@@ -56,20 +56,69 @@ import {
   getScuntTeamObjFromTeamNumber,
 } from '../ScuntJudgeForm/ScuntJudgeForm';
 import useAxios from '../../hooks/useAxios';
-import { PageProfileFrosh } from './PageProfileFrosh';
-import { PageProfileLeedur } from './PageProfileLeedur';
 const { axios } = useAxios();
 
 
-const PageProfile = () => {
-  const { user } = useSelector(userSelector);
-  const leader = user?.userType === 'leadur';
-
-  return (
-    <>
-      {leader === true ? <PageProfileLeedur /> : <PageProfileFrosh />}
-    </>
-  );
+const PageProfileLeedur = () => {
+    const { user } = useSelector(userSelector);
+    const qrCodeLeader = user?.authScopes?.approved.includes('signInFrosh:qr-code registration');
+  
+    const [scuntTeams, setScuntTeams] = useState([]);
+    const [scuntTeamObjs, setScuntTeamObjs] = useState();
+  
+    const getScuntTeams = async () => {
+      try {
+        const response = await axios.get('/scunt-teams');
+        const { teamPoints } = response.data;
+        if (teamPoints.length <= 0 || !teamPoints) setScuntTeams([]);
+        else {
+          setScuntTeamObjs(teamPoints);
+          setScuntTeams(
+            teamPoints.map((team) => {
+              return team?.name;
+            }),
+          );
+        }
+      } catch (e) {
+        console.error(e.toString());
+        setScuntTeams(['Error loading teams']);
+      }
+    };
+  
+    useEffect(() => {
+      getScuntTeams();
+    }, []);
+  
+    return (
+      <>
+        <ProfilePageLeedurHeader editButton={true} />
+        <ProfilePageLeaderPermissionDashboardLinks />
+        <div className="profile-info-row">
+          <div>
+            <div style={{ marginTop: '20px' }} />
+            <ProfilePageLeedurScuntMessage />
+            <div style={{ marginTop: '-20px' }} />
+            <ProfilePageSchedule />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <ProfilePageQRCode />
+            {qrCodeLeader === true ? (
+              <>
+                <ProfilePageQRScanner />
+              </>
+            ) : (
+              <></>
+            )}
+            <ProfilePageLeedurScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
+            <ProfilePageResources />
+            <ProfilePageScuntTeamSelectionLeader
+            scuntTeamObjs={scuntTeamObjs}
+            scuntTeams={scuntTeams}
+            />
+          </div>
+        </div>
+      </>
+    );
 };
 
 { /*
@@ -205,97 +254,34 @@ export const ProfilePageRetreat = () => {
     </Link>
   );
 };
+*/}
 
-export const ProfilePageScuntTeamsSelection = () => {
-  const [teammates, setTeammates] = useState(['', '', '']);
-  const [teammatesChangesMade, setTeammatesChangesMade] = useState(false);
-  const dispatch = useDispatch();
+export const ProfilePageLeedurScuntMessage = () => {
+  const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { user } = useSelector(userSelector);
   const leader = user?.userType === 'leadur';
   const isRegistered = useSelector(registeredSelector);
   const { setSnackbar } = useContext(SnackbarContext);
-  const { scuntSettings } = useSelector(scuntSettingsSelector);
-  const { axios } = useAxios();
+  const [showToken, setShowToken] = useState(false);
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
-  if (
-    leader ||
-    !isRegistered ||
-    !user?.scunt ||
-    (scuntSettings !== undefined &&
-      scuntSettings.length >= 1 &&
-      scuntSettings[0]?.revealTeams === true)
-  ) {
-    return <></>;
-  }
+  const code = user?.scuntToken;
 
   return (
-    <div className="profile-page-scunt-token profile-page-side-section">
-      <h2>Scunt Teammates</h2>
-      <p style={{ fontSize: '12px' }}>
-        Enter the emails (precisely) of other people (up to 3) you want to team with. Otherwise you
-        will be put in a random team. Your requested team members must do the same. You do not need
-        to put your own email.
-      </p>
-      {[0, 1, 2].map((index) => {
-        return (
-          <TextInput
-            key={index.toString()}
-            placeholder={'Email ' + (index + 1).toString()}
-            initialValue={
-              user?.scuntPreferredMembers[index] !== user?.email
-                ? user?.scuntPreferredMembers[index]
-                : ''
-            }
-            value={teammates[index]}
-            onChange={(value) => {
-              teammates[index] = value;
-              setTeammates(teammates);
-              if (value !== user?.scuntPreferredMembers[index] && !teammatesChangesMade)
-                setTeammatesChangesMade(true);
-            }}
-          />
-        );
-      })}
-      <Button
-        isSecondary={true}
-        isDisabled={!teammatesChangesMade}
-        label={'Submit'}
-        onClick={async () => {
-          if (teammatesChangesMade) {
-            const teammatesCopy = teammates.filter((t) => {
-              return t !== '';
-            });
-            for (let i = 0; i < teammatesCopy.length; i++) {
-              teammatesCopy[i] = teammatesCopy[i].replaceAll(' ', '');
-            }
-            // The last email is always the same as the user
-            teammatesCopy[teammatesCopy.length] = user?.email;
-
-            for (let userEmail of teammatesCopy) {
-              let response;
-              try {
-                response = await axios.put('/user/user-exist', { email: userEmail });
-              } catch (e) {
-                if (e?.response?.status === 404) {
-                  setSnackbar(userEmail + ' does not exist!', true);
-                } else {
-                  setSnackbar(e.toString(), true);
-                }
-              }
-            }
-
-            const newInfo = { scuntPreferredMembers: teammatesCopy };
-            dispatch(updateUserInfo({ newInfo }));
-            setSnackbar('Successfully submitted team request!');
-            setTeammatesChangesMade(false);
-          }
-        }}
-      />
-    </div>
+    <Link to="/scunt">
+      <div className="frosh-instagram-container">
+        <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
+        <div>
+          <h2>Havenger Scunt!</h2>
+          <p>Find more information about Scunt by clicking here!</p>
+        </div>
+      </div>
+    </Link>
   );
 };
 
-export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
+
+export const ProfilePageLeedurScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { user } = useSelector(userSelector);
   const leader = user?.userType === 'leadur';
@@ -304,29 +290,7 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   const [showToken, setShowToken] = useState(false);
 
   const code = user?.scuntToken;
-  if (
-    !leader &&
-    (code === undefined ||
-      !isRegistered ||
-      !scuntSettings ||
-      scuntSettings.length <= 0 ||
-      (scuntSettings !== undefined &&
-        scuntSettings.length >= 1 &&
-        scuntSettings[0]?.revealTeams === false))
-  ) {
-    return <></>;
-  }
-  if (!leader && !user?.scunt) {
-    return (
-      <div className="profile-page-scunt-token profile-page-side-section">
-        <p>
-          <b>Looking for your Scunt login Token?</b>
-        </p>
-        <p>You have chosen not to participate in Scunt.</p>
-        <div style={{ height: '30px' }} />
-      </div>
-    );
-  }
+  
   return (
     <div className="profile-page-scunt-token profile-page-side-section">
       <h2>{getScuntTeamObjFromTeamNumber(user?.scuntTeam, scuntTeamObjs)?.name}</h2>
@@ -360,35 +324,117 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   );
 };
 
-ProfilePageScuntToken.propTypes = {
+ProfilePageLeedurScuntToken.propTypes = {
   scuntTeams: PropTypes.array,
   scuntTeamObjs: PropTypes.array,
 };
 
+const ProfilePageLeaderPermissionDashboardLinks = () => {
+  const { user } = useSelector(userSelector);
+  const approved = user?.approved === true;
+  
+  return (
+    <div className={'profile-leader-dashboard-links'}>
+      <ProfilePageDashboardLink
+        link="/approve-accounts"
+        authScopes={['accounts:delete', 'accounts:edit', 'accounts:read']}
+        label="Leedur Account Scope Approval"
+      />
+      {approved ? (
+        <Link
+          to={'/permission-request'}
+          style={{ textDecoration: 'none' }}
+          className={'no-link-style'}
+        >
+          <Button label="Request Leedur Permissions" />
+        </Link>
+      ) : (
+        <></>
+      )}
+      <ProfilePageDashboardLink
+        link="/scunt-judge-form"
+        authScopes={[
+          'scunt:exec allow leaderboard',
+          'scunt:exec allow missions page',
+          'scunt:exec hide leaderboard',
+          'scunt:exec hide missions page',
+          'scunt:exec hide wedding missions',
+          'scunt:exec negative points',
+          'scunt:exec refill bribe points',
+          'scunt:exec show wedding missions',
+          'scunt:judge bribe points',
+          'scunt:judge missions',
+        ]}
+        label="Scunt Judge Panel"
+      />
+      <ProfilePageDashboardLink
+        link="/scunt-missions-dashboard"
+        authScopes={[
+          'scunt:exec show missions',
+          'scunt:exec hide missions',
+          'scunt:exec create missions',
+          'scunt:exec delete missions',
+        ]}
+        label="Scunt Mission Panel"
+      />
+      <ProfilePageDashboardLink
+        link="/scunt-transactions"
+        authScopes={['scunt:exec view transactions']}
+        label="Scunt Point Transactions"
+      />
+      <ProfilePageDashboardLink
+        link="/scunt-game-controls"
+        authScopes={['scunt:exec game controls']}
+        label="Scunt Settings"
+      />
+      <ProfilePageDashboardLink
+        link="/faq-admin"
+        authScopes={['faq:delete', 'faq:edit']}
+        label="FAQ Admin Panel"
+      />
+      <ProfilePageDashboardLink
+        link="/timeline-admin"
+        authScopes={['timeline:create', 'timeline:edit', 'timeline:delete']}
+        label="Timeline Admin Panel"
+      />
+      <ProfilePageDashboardLink
+        link="/announcement-dashboard"
+        authScopes={['announcements:delete', 'announcements:create', 'announcements:edit']}
+        label="Announcements Admin Panel"
+      />
+      <ProfilePageDashboardLink
+        link="/frosh-info-table"
+        anyRegisterScope={true}
+        label="Frosh Info Table"
+      />
+    </div>
+  );
+};
 
 // If a user has any of the auth scopes then it will show this button
 const ProfilePageDashboardLink = ({ link, authScopes, anyRegisterScope, label }) => {
   const { user } = useSelector(userSelector);
   let hasAuthScope = false;
-  if (authScopes) {
-    for (let authScope of authScopes) {
-      if (user && user?.authScopes?.approved?.includes(authScope)) {
-        hasAuthScope = true;
-        break;
-      }
+  
+    if (authScopes) {
+        for (let authScope of authScopes) {
+            if (user && user?.authScopes?.approved?.includes(authScope)) {
+                hasAuthScope = true;
+                break;
+            }
+        }
     }
-  }
 
-  const hasAnyRegisterScope = anyRegisterScope && user?.froshDataFields?.approved?.length > 0;
-  if (hasAuthScope || hasAnyRegisterScope) {
-    return (
-      <Link to={link} style={{ textDecoration: 'none' }} className={'no-link-style'}>
-        <Button label={label} />
-      </Link>
-    );
-  } else {
-    return <></>;
-  }
+    const hasAnyRegisterScope = anyRegisterScope && user?.froshDataFields?.approved?.length > 0;
+    if (hasAuthScope || hasAnyRegisterScope) {
+        return (
+        <Link to={link} style={{ textDecoration: 'none' }} className={'no-link-style'}>
+            <Button label={label} />
+        </Link>
+        );
+    } else {
+        return <></>;
+    }
 };
 
 ProfilePageDashboardLink.propTypes = {
@@ -588,7 +634,7 @@ const ProfilePageQRScanner = () => {
   );
 };
 
-const ProfilePageHeader = ({ leader, editButton }) => {
+const ProfilePageLeedurHeader = ({ leader, editButton }) => {
   const { user } = useSelector(userSelector);
   const leaderApproved = user?.approved === true;
 
@@ -609,8 +655,8 @@ const ProfilePageHeader = ({ leader, editButton }) => {
     <>
       <div className="profile-page-header">
         <div className="profile-page-header-group">
-          <h1>{leader === true ? 'ℒ' : user?.froshGroupIcon}</h1>
-          {leader === true ? <p>{'(Leedur)'}</p> : <p>{user?.froshGroup}</p>}
+          <h1>ℒ</h1>
+          <p>'(Leedur)'</p>
         </div>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-info">
@@ -652,7 +698,7 @@ const ProfilePageHeader = ({ leader, editButton }) => {
       ) : (
         <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
       )}
-      {leader === true && leaderApproved === false ? (
+      {leaderApproved === false ? (
         <div className={'profile-not-registered'}>
           <h1>Your Leedur Account is not Approved!</h1>
           <h2>Please contact a VC to get your account approved.</h2>
@@ -660,6 +706,7 @@ const ProfilePageHeader = ({ leader, editButton }) => {
       ) : (
         <></>
       )}
+      {/*
       {!isRegistered && leader !== true ? (
         <div className={'profile-not-registered'}>
           <h1>You are not registered!</h1>
@@ -675,148 +722,14 @@ const ProfilePageHeader = ({ leader, editButton }) => {
         </div>
       ) : (
         <></>
-      )}
+      )} */}
     </>
   );
 };
 
-ProfilePageHeader.propTypes = {
+ProfilePageLeedurHeader.propTypes = {
   leader: PropTypes.bool,
   editButton: PropTypes.bool,
-};
-
-const ProfilePageNitelife = () => {
-  const isRegistered = useSelector(registeredSelector);
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-
-  return isRegistered ? (
-    <a
-      href={'https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'}
-      className="no-link-style"
-      target={'_blank'}
-      rel="noreferrer"
-    >
-      <div className="frosh-instagram-container">
-        <img
-          src={NitelifeIcon}
-          alt="Nitelife"
-          style={{ filter: darkMode ? 'invert(1)' : 'unset' }}
-        />
-        <div>
-          <h2>Nitelife Event Schedule & Map</h2>
-          <p>F!rosh Week doesn&apos;t end at 6:00! Learn more by clicking here.</p>
-        </div>
-      </div>
-    </a>
-  ) : (
-    <></>
-  );
-};
-
-const ProfilePageInstagrams = () => {
-  const { user } = useSelector(userSelector);
-  const isRegistered = useSelector(registeredSelector);
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-
-  const getInstagramFromLink = (link) => {
-    if (link === undefined) return '';
-    return link.replace('https://www.instagram.com', '').replace('/', '');
-  };
-
-  const instagramLink = instagramAccounts[user?.froshGroup];
-
-  return isRegistered ? (
-    <a href={instagramLink} className="no-link-style" target={'_blank'} rel="noreferrer">
-      <div className="frosh-instagram-container">
-        <img
-          src={InstagramIcon}
-          alt="Instagram"
-          style={{ filter: !darkMode ? 'invert(1)' : 'unset' }}
-        />
-        <div>
-          <p>Go follow your frosh group and meet your Leedurs!</p>
-          <h2>@{getInstagramFromLink(instagramLink).slice(0, -1)}</h2>
-        </div>
-      </div>
-    </a>
-  ) : (
-    <></>
-  );
-};
-
-const ProfilePageAnnouncements = () => {
-  const dispatch = useDispatch();
-  const { user } = useSelector(userSelector);
-  const { announcements } = useSelector(announcementsSelector);
-  const { completedAnnouncements } = useSelector(completedAnnouncementsSelector);
-  const [announcementList, setAnnouncementList] = useState([]);
-  const { setSnackbar } = useContext(SnackbarContext);
-
-  useEffect(() => {
-    dispatch(getAnnouncements());
-    dispatch(getCompletedAnnouncements());
-  }, []);
-
-  useEffect(() => {
-    let orderedAnnouncements = [];
-
-    announcements.forEach((announcement) => {
-      if (
-        completedAnnouncements.every((value) => {
-          return value._id !== announcement._id;
-        })
-      ) {
-        orderedAnnouncements.push({
-          id: announcement._id,
-          name: announcement.name,
-          dateCreated: announcement.dateCreated,
-          completed: false,
-          description: announcement.description,
-        });
-      }
-    });
-    completedAnnouncements.forEach((announcement) => {
-      orderedAnnouncements.push({
-        id: announcement._id,
-        name: announcement.name,
-        dateCreated: announcement.dateCreated,
-        completed: true,
-        description: announcement.description,
-      });
-    });
-    setAnnouncementList(orderedAnnouncements);
-  }, [announcements, completedAnnouncements]);
-
-  const onDoneTask = (task) => {
-    if (task.completed !== true) {
-      dispatch(completeAnnouncements({ announcementData: { id: task.id } }));
-
-      setSnackbar('Marked ' + task.name + ' as complete!');
-    } else {
-      dispatch(completeAnnouncements({ announcementData: { id: task.id } }));
-      setSnackbar('Marked ' + task.name + ' as uncompleted!');
-    }
-  };
-
-  return (
-    <div className="profile-page-announcements">
-      <h2 className="profile-page-section-header">Tasks and Announcements</h2>
-
-      {user?.canEmail === false ? (
-        <Link
-          key={'/resubscribe'}
-          to={'/resubscribe'}
-          style={{ textDecoration: 'none' }}
-          className={'no-link-style'}
-        >
-          <Button label="Resubscribe To Announcements Emails" />
-        </Link>
-      ) : (
-        <></>
-      )}
-      <TaskAnnouncement tasks={announcementList} onDone={onDoneTask} />
-    </div>
-  );
 };
 
 const ProfilePageQRCode = () => {
@@ -924,20 +837,16 @@ const ProfilePageSchedule = () => {
         <h2 className="profile-page-section-header profile-page-section-header-schedule">
           Schedule
         </h2>
-        {leader ? (
-          <div style={{ marginTop: '10px' }}>
-            <Dropdown
-              values={froshGroupNames}
-              initialSelectedIndex={0}
-              onSelect={(froshGroup) => {
-                setFroshGroup(froshGroup);
-              }}
-              localStorageKey={'leader-frosh-group-dropdown'}
-            />
-          </div>
-        ) : (
-          <></>
-        )}
+        <div style={{ marginTop: '10px' }}>
+        <Dropdown
+            values={froshGroupNames}
+            initialSelectedIndex={0}
+            onSelect={(froshGroup) => {
+            setFroshGroup(froshGroup);
+            }}
+            localStorageKey={'leader-frosh-group-dropdown'}
+        />
+        </div>
       </div>
       <div className="profile-page-schedule-content">
         <ButtonSelector
@@ -969,5 +878,5 @@ const ProfilePageSchedule = () => {
     </div>
   );
 };
-*/}
-export { PageProfile };
+
+export { PageProfileLeedur, ProfilePageLeedurHeader };

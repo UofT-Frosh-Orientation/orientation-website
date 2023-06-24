@@ -7,6 +7,7 @@ import {
   getQRCodeString,
   parseQRCode,
   scannedUserKeys,
+  searchForFrosh,
   signInFrosh,
 } from './functions';
 import './Profile.scss';
@@ -16,6 +17,7 @@ import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnn
 import { QRNormal } from 'react-qrbtf';
 import { ButtonBubble } from '../../components/button/ButtonBubble/ButtonBubble';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
+import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
 import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
@@ -31,7 +33,7 @@ import ScuntIcon from '../../assets/misc/magnifier.png';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
-import { updateUserInfo } from '../../state/user/saga';
+import { getUserInfo, updateUserInfo } from '../../state/user/saga';
 import { announcementsSelector } from '../../state/announcements/announcementsSlice';
 import {
   getAnnouncements,
@@ -41,11 +43,11 @@ import {
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
-import { scuntDiscord } from '../../util/scunt-constants';
+import { okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
 import { froshGroups } from '../../util/frosh-groups';
 import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
 import { getFrosh } from '../../state/frosh/saga';
-import { registeredFroshSelector } from '../../state/frosh/froshSlice';
+import { froshSelector, registeredFroshSelector } from '../../state/frosh/froshSlice';
 import { completedAnnouncementsSelector } from '../../state/announcements/announcementsSlice';
 import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHome/ScheduleHome';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
@@ -56,20 +58,66 @@ import {
   getScuntTeamObjFromTeamNumber,
 } from '../ScuntJudgeForm/ScuntJudgeForm';
 import useAxios from '../../hooks/useAxios';
-import { PageProfileFrosh } from './PageProfileFrosh';
-import { PageProfileLeedur } from './PageProfileLeedur';
 const { axios } = useAxios();
 
-
-const PageProfile = () => {
-  const { user } = useSelector(userSelector);
-  const leader = user?.userType === 'leadur';
-
-  return (
-    <>
-      {leader === true ? <PageProfileLeedur /> : <PageProfileFrosh />}
-    </>
-  );
+const PageProfileFrosh = () => {
+    const { user } = useSelector(userSelector);
+    const qrCodeLeader = user?.authScopes?.approved.includes('signInFrosh:qr-code registration');
+  
+    const [scuntTeams, setScuntTeams] = useState([]);
+    const [scuntTeamObjs, setScuntTeamObjs] = useState();
+  
+    const getScuntTeams = async () => {
+      try {
+        const response = await axios.get('/scunt-teams');
+        const { teamPoints } = response.data;
+        if (teamPoints.length <= 0 || !teamPoints) setScuntTeams([]);
+        else {
+          setScuntTeamObjs(teamPoints);
+          setScuntTeams(
+            teamPoints.map((team) => {
+              return team?.name;
+            }),
+          );
+        }
+      } catch (e) {
+        console.error(e.toString());
+        setScuntTeams(['Error loading teams']);
+      }
+    };
+  
+    useEffect(() => {
+      getScuntTeams();
+    }, []);
+  
+    return (
+      <>
+        <ProfilePageFroshHeader editButton={true} />
+        <div className="profile-info-row">
+          <div>
+            <ProfilePageFroshScuntMessage />
+            {user?.isRegistered && <ProfilePageRetreat />}
+            <ProfilePageNitelife />
+            <ProfilePageInstagrams />
+            <ProfilePageAnnouncements />
+            <ProfilePageSchedule />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <ProfilePageQRCode />
+            {qrCodeLeader === true ? (
+              <>
+                <ProfilePageQRScanner />
+              </>
+            ) : (
+              <></>
+            )}
+            <ProfilePageFroshScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
+            <ProfilePageFroshScuntTeamsSelection />
+            <ProfilePageResources />
+          </div>
+        </div>
+      </>
+    );
 };
 
 { /*
@@ -113,6 +161,7 @@ ProfilePageScuntTeamSelectionLeader.propTypes = {
   scuntTeams: PropTypes.array,
   scuntTeamObjs: PropTypes.array,
 };
+
 
 export const ProfilePageRetreat = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
@@ -205,8 +254,45 @@ export const ProfilePageRetreat = () => {
     </Link>
   );
 };
+*/}
 
-export const ProfilePageScuntTeamsSelection = () => {
+export const ProfilePageFroshScuntMessage = () => {
+  const { scuntSettings } = useSelector(scuntSettingsSelector);
+  const { user } = useSelector(userSelector);
+  const leader = user?.userType === 'leadur';
+  const isRegistered = useSelector(registeredSelector);
+  const { setSnackbar } = useContext(SnackbarContext);
+  const [showToken, setShowToken] = useState(false);
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
+  const code = user?.scuntToken;
+  if (
+    !leader &&
+    (code === undefined ||
+      !isRegistered ||
+      !scuntSettings ||
+      scuntSettings.length <= 0 ||
+      scuntSettings[0]?.revealTeams === false)
+  ) {
+    return <></>;
+  }
+
+  return isRegistered ? (
+    <Link to="/scunt">
+      <div className="frosh-instagram-container">
+        <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
+        <div>
+          <h2>Havenger Scunt!</h2>
+          <p>Find more information about Scunt by clicking here!</p>
+        </div>
+      </div>
+    </Link>
+  ) : (
+    <></>
+  );
+};
+
+export const ProfilePageFroshScuntTeamsSelection = () => {
   const [teammates, setTeammates] = useState(['', '', '']);
   const [teammatesChangesMade, setTeammatesChangesMade] = useState(false);
   const dispatch = useDispatch();
@@ -218,7 +304,6 @@ export const ProfilePageScuntTeamsSelection = () => {
   const { axios } = useAxios();
 
   if (
-    leader ||
     !isRegistered ||
     !user?.scunt ||
     (scuntSettings !== undefined &&
@@ -305,7 +390,6 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
 
   const code = user?.scuntToken;
   if (
-    !leader &&
     (code === undefined ||
       !isRegistered ||
       !scuntSettings ||
@@ -316,7 +400,7 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   ) {
     return <></>;
   }
-  if (!leader && !user?.scunt) {
+  if (!user?.scunt) {
     return (
       <div className="profile-page-scunt-token profile-page-side-section">
         <p>
@@ -360,42 +444,9 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   );
 };
 
-ProfilePageScuntToken.propTypes = {
+ProfilePageFroshScuntToken.propTypes = {
   scuntTeams: PropTypes.array,
   scuntTeamObjs: PropTypes.array,
-};
-
-
-// If a user has any of the auth scopes then it will show this button
-const ProfilePageDashboardLink = ({ link, authScopes, anyRegisterScope, label }) => {
-  const { user } = useSelector(userSelector);
-  let hasAuthScope = false;
-  if (authScopes) {
-    for (let authScope of authScopes) {
-      if (user && user?.authScopes?.approved?.includes(authScope)) {
-        hasAuthScope = true;
-        break;
-      }
-    }
-  }
-
-  const hasAnyRegisterScope = anyRegisterScope && user?.froshDataFields?.approved?.length > 0;
-  if (hasAuthScope || hasAnyRegisterScope) {
-    return (
-      <Link to={link} style={{ textDecoration: 'none' }} className={'no-link-style'}>
-        <Button label={label} />
-      </Link>
-    );
-  } else {
-    return <></>;
-  }
-};
-
-ProfilePageDashboardLink.propTypes = {
-  link: PropTypes.string,
-  authScopes: PropTypes.arrayOf(PropTypes.string),
-  label: PropTypes.string,
-  anyRegisterScope: PropTypes.bool,
 };
 
 const ProfilePageQRScanner = () => {
@@ -588,7 +639,7 @@ const ProfilePageQRScanner = () => {
   );
 };
 
-const ProfilePageHeader = ({ leader, editButton }) => {
+const ProfilePageFroshHeader = ({ editButton }) => {
   const { user } = useSelector(userSelector);
   const leaderApproved = user?.approved === true;
 
@@ -609,8 +660,8 @@ const ProfilePageHeader = ({ leader, editButton }) => {
     <>
       <div className="profile-page-header">
         <div className="profile-page-header-group">
-          <h1>{leader === true ? 'ℒ' : user?.froshGroupIcon}</h1>
-          {leader === true ? <p>{'(Leedur)'}</p> : <p>{user?.froshGroup}</p>}
+          <h1>{user?.froshGroupIcon}</h1>
+          <p>{user?.froshGroup}</p>
         </div>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-info">
@@ -629,14 +680,8 @@ const ProfilePageHeader = ({ leader, editButton }) => {
             </p>
           </div>
           <div className="profile-page-header-class desktop-only">
-            {leader === true ? (
-              <h2>{leedurYear}</h2>
-            ) : (
-              <>
-                <p>Class of</p>
-                <h2>{froshYear}</h2>
-              </>
-            )}
+            <p>Class of</p>
+            <h2>{froshYear}</h2>
           </div>
           {editButton !== false && isRegistered ? (
             <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
@@ -652,15 +697,7 @@ const ProfilePageHeader = ({ leader, editButton }) => {
       ) : (
         <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
       )}
-      {leader === true && leaderApproved === false ? (
-        <div className={'profile-not-registered'}>
-          <h1>Your Leedur Account is not Approved!</h1>
-          <h2>Please contact a VC to get your account approved.</h2>
-        </div>
-      ) : (
-        <></>
-      )}
-      {!isRegistered && leader !== true ? (
+      {!isRegistered ? (
         <div className={'profile-not-registered'}>
           <h1>You are not registered!</h1>
           <h2>You will not be able to participate in F!rosh week events until you register.</h2>
@@ -680,7 +717,7 @@ const ProfilePageHeader = ({ leader, editButton }) => {
   );
 };
 
-ProfilePageHeader.propTypes = {
+ProfilePageFroshHeader.propTypes = {
   leader: PropTypes.bool,
   editButton: PropTypes.bool,
 };
@@ -852,6 +889,7 @@ const ProfilePageQRCode = () => {
     </div>
   );
 };
+
 const ProfilePageResources = () => {
   return (
     <div className="profile-page-resources profile-page-side-section">
@@ -924,20 +962,6 @@ const ProfilePageSchedule = () => {
         <h2 className="profile-page-section-header profile-page-section-header-schedule">
           Schedule
         </h2>
-        {leader ? (
-          <div style={{ marginTop: '10px' }}>
-            <Dropdown
-              values={froshGroupNames}
-              initialSelectedIndex={0}
-              onSelect={(froshGroup) => {
-                setFroshGroup(froshGroup);
-              }}
-              localStorageKey={'leader-frosh-group-dropdown'}
-            />
-          </div>
-        ) : (
-          <></>
-        )}
       </div>
       <div className="profile-page-schedule-content">
         <ButtonSelector
@@ -969,5 +993,5 @@ const ProfilePageSchedule = () => {
     </div>
   );
 };
-*/}
-export { PageProfile };
+
+export { PageProfileFrosh, ProfilePageFroshHeader };
