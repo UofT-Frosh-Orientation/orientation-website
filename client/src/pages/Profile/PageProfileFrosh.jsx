@@ -7,7 +7,6 @@ import {
   getQRCodeString,
   parseQRCode,
   scannedUserKeys,
-  searchForFrosh,
   signInFrosh,
 } from './functions';
 import './Profile.scss';
@@ -16,8 +15,6 @@ import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-fli
 import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnnouncement';
 import { QRNormal } from 'react-qrbtf';
 import { ButtonBubble } from '../../components/button/ButtonBubble/ButtonBubble';
-import { Dropdown } from '../../components/form/Dropdown/Dropdown';
-import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
 import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
@@ -27,13 +24,11 @@ import { Link } from 'react-router-dom';
 import { resources } from '../../util/resources';
 import { instagramAccounts } from '../../util/instagramAccounts';
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
-import CampingIcon from '../../assets/misc/camping-tent.png';
 import NitelifeIcon from '../../assets/misc/nitelife.png';
 import ScuntIcon from '../../assets/misc/magnifier.png';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
-import { getUserInfo, updateUserInfo } from '../../state/user/saga';
+import { updateUserInfo } from '../../state/user/saga';
 import { announcementsSelector } from '../../state/announcements/announcementsSlice';
 import {
   getAnnouncements,
@@ -43,30 +38,23 @@ import {
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
-import { okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
+import { scuntDiscord } from '../../util/scunt-constants';
 import { froshGroups } from '../../util/frosh-groups';
-import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
 import { getFrosh } from '../../state/frosh/saga';
-import { froshSelector, registeredFroshSelector } from '../../state/frosh/froshSlice';
+import { registeredFroshSelector } from '../../state/frosh/froshSlice';
 import { completedAnnouncementsSelector } from '../../state/announcements/announcementsSlice';
 import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHome/ScheduleHome';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
-import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
-import {
-  getScuntTeamObjFromTeamName,
-  getScuntTeamObjFromTeamNumber,
-} from '../ScuntJudgeForm/ScuntJudgeForm';
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
 
 const PageProfileFrosh = () => {
     const { user } = useSelector(userSelector);
     const qrCodeLeader = user?.authScopes?.approved.includes('signInFrosh:qr-code registration');
-  
     const [scuntTeams, setScuntTeams] = useState([]);
     const [scuntTeamObjs, setScuntTeamObjs] = useState();
-  
+
     const getScuntTeams = async () => {
       try {
         const response = await axios.get('/scunt-teams');
@@ -161,7 +149,7 @@ ProfilePageScuntTeamSelectionLeader.propTypes = {
   scuntTeams: PropTypes.array,
   scuntTeamObjs: PropTypes.array,
 };
-
+*/}
 
 export const ProfilePageRetreat = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
@@ -254,7 +242,6 @@ export const ProfilePageRetreat = () => {
     </Link>
   );
 };
-*/}
 
 export const ProfilePageFroshScuntMessage = () => {
   const { scuntSettings } = useSelector(scuntSettingsSelector);
@@ -266,9 +253,7 @@ export const ProfilePageFroshScuntMessage = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   const code = user?.scuntToken;
-  if (
-    !leader &&
-    (code === undefined ||
+  if ((code === undefined ||
       !isRegistered ||
       !scuntSettings ||
       scuntSettings.length <= 0 ||
@@ -297,14 +282,12 @@ export const ProfilePageFroshScuntTeamsSelection = () => {
   const [teammatesChangesMade, setTeammatesChangesMade] = useState(false);
   const dispatch = useDispatch();
   const { user } = useSelector(userSelector);
-  const leader = user?.userType === 'leadur';
   const isRegistered = useSelector(registeredSelector);
   const { setSnackbar } = useContext(SnackbarContext);
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { axios } = useAxios();
 
-  if (
-    !isRegistered ||
+  if(!isRegistered ||
     !user?.scunt ||
     (scuntSettings !== undefined &&
       scuntSettings.length >= 1 &&
@@ -451,7 +434,6 @@ ProfilePageFroshScuntToken.propTypes = {
 
 const ProfilePageQRScanner = () => {
   const { setSnackbar } = useContext(SnackbarContext);
-
   const [clearText, setClearText] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(false);
@@ -641,12 +623,8 @@ const ProfilePageQRScanner = () => {
 
 const ProfilePageFroshHeader = ({ editButton }) => {
   const { user } = useSelector(userSelector);
-  const leaderApproved = user?.approved === true;
-
   const isRegistered = useSelector(registeredSelector);
-
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-
   const currentYear = new Date().getFullYear();
   const firstDigitL = currentYear.toString().slice(-2, -1);
   const lastDigitL = currentYear.toString().slice(-1);
@@ -860,12 +838,15 @@ const ProfilePageQRCode = () => {
   const isRegistered = useSelector(registeredSelector);
   const [QRCodeString, setQRCodeString] = useState('');
   const { user } = useSelector(userSelector);
+  
   useEffect(() => {
     setQRCodeString(getQRCodeString(user));
   }, []);
+
   if (!isRegistered) {
     return <></>;
   }
+
   if (QRCodeString === undefined) {
     return (
       <div className="profile-page-qr-code profile-page-side-section">
@@ -873,6 +854,7 @@ const ProfilePageQRCode = () => {
       </div>
     );
   }
+
   return (
     <div className="profile-page-qr-code profile-page-side-section">
       <QRNormal
@@ -917,17 +899,13 @@ const ProfilePageResources = () => {
 
 const ProfilePageSchedule = () => {
   const { user } = useSelector(userSelector);
-  const leader = user?.userType === 'leadur';
-
   const [froshGroup, setFroshGroup] = useState(user?.froshGroup);
-
   const scheduleData = getFroshGroupSchedule(froshGroup);
-
   const days = getDaysSchedule(scheduleData);
-
   const today = new Date();
   const options = { weekday: 'long' };
   const todayString = today.toLocaleDateString('en-US', options).replace(',', '');
+  
   let count = 0;
   for (let day of days) {
     if (day === todayString) {

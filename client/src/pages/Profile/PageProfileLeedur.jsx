@@ -12,7 +12,6 @@ import {
 import './Profile.scss';
 import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
 import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
-import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnnouncement';
 import { QRNormal } from 'react-qrbtf';
 import { ButtonBubble } from '../../components/button/ButtonBubble/ButtonBubble';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
@@ -23,36 +22,19 @@ import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOut
 import EditIcon from '../../assets/misc/pen-solid.svg';
 import { Link } from 'react-router-dom';
 import { resources } from '../../util/resources';
-import { instagramAccounts } from '../../util/instagramAccounts';
-import InstagramIcon from '../../assets/social/instagram-brands.svg';
-import CampingIcon from '../../assets/misc/camping-tent.png';
-import NitelifeIcon from '../../assets/misc/nitelife.png';
-import ScuntIcon from '../../assets/misc/magnifier.png';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
-import { updateUserInfo } from '../../state/user/saga';
-import { announcementsSelector } from '../../state/announcements/announcementsSlice';
-import {
-  getAnnouncements,
-  completeAnnouncements,
-  getCompletedAnnouncements,
-} from '../../state/announcements/saga';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntDiscord } from '../../util/scunt-constants';
 import { froshGroups } from '../../util/frosh-groups';
-import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
 import { getFrosh } from '../../state/frosh/saga';
 import { registeredFroshSelector } from '../../state/frosh/froshSlice';
-import { completedAnnouncementsSelector } from '../../state/announcements/announcementsSlice';
 import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHome/ScheduleHome';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
-import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
 import {
-  getScuntTeamObjFromTeamName,
   getScuntTeamObjFromTeamNumber,
 } from '../ScuntJudgeForm/ScuntJudgeForm';
 import useAxios from '../../hooks/useAxios';
@@ -284,11 +266,8 @@ export const ProfilePageLeedurScuntMessage = () => {
 export const ProfilePageLeedurScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { user } = useSelector(userSelector);
-  const leader = user?.userType === 'leadur';
-  const isRegistered = useSelector(registeredSelector);
   const { setSnackbar } = useContext(SnackbarContext);
   const [showToken, setShowToken] = useState(false);
-
   const code = user?.scuntToken;
   
   return (
@@ -556,8 +535,8 @@ const ProfilePageQRScanner = () => {
                     )?.toLocaleDateString(undefined, options)}`}
                   />
                 </div>
-              ) : (
-                <></>
+                ) : (
+                  <></>
               )}
             </>
           </div>
@@ -706,23 +685,6 @@ const ProfilePageLeedurHeader = ({ leader, editButton }) => {
       ) : (
         <></>
       )}
-      {/*
-      {!isRegistered && leader !== true ? (
-        <div className={'profile-not-registered'}>
-          <h1>You are not registered!</h1>
-          <h2>You will not be able to participate in F!rosh week events until you register.</h2>
-          <Link
-            key={'/registration'}
-            to={'/registration'}
-            style={{ textDecoration: 'none' }}
-            className={'no-link-style'}
-          >
-            <Button label="Register" style={{}} />
-          </Link>
-        </div>
-      ) : (
-        <></>
-      )} */}
     </>
   );
 };
@@ -733,22 +695,21 @@ ProfilePageLeedurHeader.propTypes = {
 };
 
 const ProfilePageQRCode = () => {
-  const isRegistered = useSelector(registeredSelector);
   const [QRCodeString, setQRCodeString] = useState('');
   const { user } = useSelector(userSelector);
+  
   useEffect(() => {
     setQRCodeString(getQRCodeString(user));
   }, []);
-  if (!isRegistered) {
-    return <></>;
-  }
-  if (QRCodeString === undefined) {
+
+  if(QRCodeString === undefined) {
     return (
       <div className="profile-page-qr-code profile-page-side-section">
         <p>There is an error with your QR code.</p>
       </div>
     );
   }
+
   return (
     <div className="profile-page-qr-code profile-page-side-section">
       <QRNormal
@@ -765,6 +726,7 @@ const ProfilePageQRCode = () => {
     </div>
   );
 };
+
 const ProfilePageResources = () => {
   return (
     <div className="profile-page-resources profile-page-side-section">
@@ -792,17 +754,13 @@ const ProfilePageResources = () => {
 
 const ProfilePageSchedule = () => {
   const { user } = useSelector(userSelector);
-  const leader = user?.userType === 'leadur';
-
   const [froshGroup, setFroshGroup] = useState(user?.froshGroup);
-
   const scheduleData = getFroshGroupSchedule(froshGroup);
-
   const days = getDaysSchedule(scheduleData);
-
   const today = new Date();
   const options = { weekday: 'long' };
   const todayString = today.toLocaleDateString('en-US', options).replace(',', '');
+  
   let count = 0;
   for (let day of days) {
     if (day === todayString) {

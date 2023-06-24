@@ -56,8 +56,6 @@ import {
   getScuntTeamObjFromTeamNumber,
 } from '../ScuntJudgeForm/ScuntJudgeForm';
 import useAxios from '../../hooks/useAxios';
-import { PageProfileFrosh } from './PageProfileFrosh';
-import { PageProfileLeedur } from './PageProfileLeedur';
 const { axios } = useAxios();
 
 
@@ -67,7 +65,12 @@ const PageProfile = () => {
 
   return (
     <>
-      {leader === true ? <PageProfileLeedur /> : <PageProfileFrosh />}
+      {leader === true ? (import("./PageProfileLeedur").then(module => {
+          module.PageProfileLeedur
+        })) :  (import("./PageProfileFrosh").then(module => {
+          module.PageProfileFrosh 
+        }))
+      }
     </>
   );
 };
