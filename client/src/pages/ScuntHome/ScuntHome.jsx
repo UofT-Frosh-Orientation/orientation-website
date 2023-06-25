@@ -12,7 +12,7 @@ import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOut
 import { pages } from '../../util/pages';
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 import { DarkModeContext } from '../../util/DarkModeProvider';
-import { ProfilePageScuntToken } from '../Profile/Profile';
+import { ProfilePageScuntToken } from '../Profile/PageProfileFrosh';
 import DiscordIcon from '../../assets/social/discord-brands.svg';
 import { aboutScunt, okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
 import { useDispatch, useSelector } from 'react-redux';

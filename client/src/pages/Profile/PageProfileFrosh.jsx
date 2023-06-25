@@ -99,7 +99,7 @@ const PageProfileFrosh = () => {
             ) : (
               <></>
             )}
-            <ProfilePageFroshScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
+            <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
             <ProfilePageFroshScuntTeamsSelection />
             <ProfilePageResources />
           </div>
@@ -373,6 +373,7 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
 
   const code = user?.scuntToken;
   if (
+    !leader &&
     (code === undefined ||
       !isRegistered ||
       !scuntSettings ||
@@ -383,7 +384,7 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   ) {
     return <></>;
   }
-  if (!user?.scunt) {
+  if (!leader && !user?.scunt) {
     return (
       <div className="profile-page-scunt-token profile-page-side-section">
         <p>
@@ -427,7 +428,7 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   );
 };
 
-ProfilePageFroshScuntToken.propTypes = {
+ProfilePageScuntToken.propTypes = {
   scuntTeams: PropTypes.array,
   scuntTeamObjs: PropTypes.array,
 };
