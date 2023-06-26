@@ -25,7 +25,7 @@ const UserServices = {
    */
   async validateUser(email, password) {
     const passwordValidator =
-      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
+      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[~`_=^:();<>+-.@$!%*#?&])[A-Za-z0-9@$_=!%:*#?&.]/;
     const user = await UserModel.findOne({ email: email.toLowerCase() });
     if (user) {
       throw new Error('DUPLICATE_EMAIL');
@@ -174,7 +174,7 @@ const UserServices = {
 
   async updatePassword(email, password) {
     const passwordValidator =
-      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}/;
+      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[~`_=^:();<>+-.@$!%*#?&])[A-Za-z0-9@$_=!%:*#?&.]{8,}/;
     if (!passwordValidator.test(password)) {
       throw new Error('INVALID_PASSWORD');
     }
