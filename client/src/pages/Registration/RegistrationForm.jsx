@@ -413,7 +413,6 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                           type="submit"
                           style={{ margin: '0 auto', marginTop: '15px' }}
                           label={'Pay Now'}
-                          // onClick={handleRegister}
                           isDisabled={!canRegister}
                         />
                       </div>
