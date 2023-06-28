@@ -8,21 +8,11 @@ import TikTokIcon from '../assets/social/tiktok-brands.svg';
 import WhatsAppIcon from '../assets/social/square-whatsapp.svg';
 
 export const socials = [
-  // {
-  //   label: 'Facebook',
-  //   link: 'https://bit.ly/froshfb',
-  //   icon: FacebookIcon,
-  // },
   {
     label: 'Instagram',
     link: 'https://bit.ly/froshig',
     icon: InstagramIcon,
   },
-  // {
-  //   label: 'TikTok',
-  //   link: 'https://www.tiktok.com/@froshweek',
-  //   icon: TikTokIcon,
-  // },
   {
     label: 'Discord',
     link: 'https://discord.com/invite/6D9bBkU4ka',
@@ -33,16 +23,6 @@ export const socials = [
     link: 'https://chat.whatsapp.com/L5ZKvpJIOD0JtiJDU9hj1U',
     icon: WhatsAppIcon,
   },
-  // {
-  //   label: 'Twitter',
-  //   link: 'https://bit.ly/froshweektwitter',
-  //   icon: TwitterIcon,
-  // },
-  // {
-  //   label: 'Snapchat',
-  //   link: 'https://bit.ly/2N3dlXt',
-  //   icon: SnapchatIcon,
-  // },
   {
     label: 'YoutubeIcon',
     link: 'https://www.youtube.com/@skulefroshweek',
