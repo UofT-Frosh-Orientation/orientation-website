@@ -15,6 +15,7 @@ const Checkboxes = ({
   filterLabel,
   selectAll,
   setSelectAll,
+  autoFocus,
 }) => {
   useEffect(() => {
     if (selectAll) {
@@ -145,6 +146,7 @@ const Checkboxes = ({
                     onClickedCheckbox(value, index);
                   }}
                   disabled={isDisabled || allDisabled}
+                  autoFocus={autoFocus}
                 />
                 {filterLabel ? filterLabel(value.toString()) : value.toString()}
                 {isHighlighted ? <span className="checkbox-highlight">✔</span> : <></>}
@@ -170,6 +172,7 @@ Checkboxes.propTypes = {
   filterLabel: PropTypes.func,
   selectAll: PropTypes.bool,
   setSelectAll: PropTypes.func,
+  autoFocus: PropTypes.bool,
 };
 
 export { Checkboxes };

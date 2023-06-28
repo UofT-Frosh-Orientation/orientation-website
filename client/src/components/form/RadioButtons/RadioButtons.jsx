@@ -10,6 +10,7 @@ const RadioButtons = ({
   label,
   isDisabled,
   localStorageKey,
+  autoFocus,
 }) => {
   useEffect(() => {
     if (localStorageKey !== undefined) {
@@ -63,6 +64,7 @@ const RadioButtons = ({
                       localStorage.setItem(localStorageKey, JSON.stringify(index));
                     }
                   }}
+                  autoFocus={autoFocus}
                 />
                 {value}
               </label>
@@ -82,6 +84,7 @@ RadioButtons.propTypes = {
   label: PropTypes.string,
   isDisabled: PropTypes.bool,
   localStorageKey: PropTypes.string,
+  autoFocus: PropTypes.bool,
 };
 
 export { RadioButtons };

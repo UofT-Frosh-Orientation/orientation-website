@@ -128,13 +128,11 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     return (
       <div className="registration-tab-content">
         {Object.keys(formFieldsAtStep).map((key, index) => {
+          console.log(key, index);
           const field = formFieldsAtStep[key];
           if (field.type === 'text') {
             return (
-              <div
-                className={field.className ? field.className : 'full-width-input'}
-                key={`${index}-${key}`}
-              >
+              <div key={index} className={field.className ? field.className : 'full-width-input'}>
                 <TextInput
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
@@ -160,15 +158,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       : field.isDisabled
                   }
                   inputTitle={field.inputTitle}
+                  autoFocus={index === 0 ? true : false}
                 />
               </div>
             );
           } else if (field.type === 'radio') {
             return (
-              <div
-                className={field.className ? field.className : 'full-width-input'}
-                key={`${index}-${key}`}
-              >
+              <div key={index} className={field.className ? field.className : 'full-width-input'}>
                 <RadioButtons
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
@@ -189,15 +185,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       : field.isDisabled
                   }
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
+                  autoFocus={index === 0 ? true : false}
                 />
               </div>
             );
           } else if (field.type === 'dropdown') {
             return (
-              <div
-                className={field.className ? field.className : 'full-width-input'}
-                key={`${index}-${key}`}
-              >
+              <div key={index} className={field.className ? field.className : 'full-width-input'}>
                 <Dropdown
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
@@ -222,10 +216,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             );
           } else if (field.type === 'checkbox') {
             return (
-              <div
-                className={field.className ? field.className : 'full-width-input'}
-                key={`${index}-${key}`}
-              >
+              <div key={index} className={field.className ? field.className : 'full-width-input'}>
                 <Checkboxes
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
@@ -251,16 +242,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   }}
                   values={field.values}
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
+                  autoFocus={index === 0 ? true : false}
                 />
               </div>
             );
           } else if (field.type === 'label') {
             return (
-              <div
-                className="text-input-container"
-                style={{ width: '100%' }}
-                key={`${index}-${key}`}
-              >
+              <div key={index} className="text-input-container" style={{ width: '100%' }}>
                 <div className="text-input-title-container">
                   {field.label !== undefined ? (
                     field.isBold === true ? (
@@ -361,66 +349,64 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
       <div>
         <div className="registration-form-flex">
           <div className="registration-form">
-            <form onSubmit={handleRegister}>
-              <Tabs
-                scrollToTopAfterChange={true}
-                selectedTabPassed={selectedTab}
-                go={selectedTabGo}
-                tabs={[
-                  {
-                    title: 'General',
-                    component: (
-                      <>
-                        <div className="registration-first-step-header-container">
-                          <img className="registration-icon-logo" src={MainFroshLogo}></img>
-                          <div>
-                            <h1 className="registration-first-step-title">
-                              {'Hello ' +
-                                (user?.preferredName === '' || !user?.preferredName
-                                  ? user?.firstName
-                                  : user?.preferredName)}
-                            </h1>
-                            <h2 className="registration-first-step-subtitle">
-                              Let&apos;s register for UofT Engineering&apos;s F!rosh Week 2T2
-                            </h2>
-                          </div>
+            <Tabs
+              scrollToTopAfterChange={true}
+              selectedTabPassed={selectedTab}
+              go={selectedTabGo}
+              tabs={[
+                {
+                  title: 'General',
+                  component: (
+                    <>
+                      <div className="registration-first-step-header-container">
+                        <img className="registration-icon-logo" src={MainFroshLogo}></img>
+                        <div>
+                          <h1 className="registration-first-step-title">
+                            {'Hello ' +
+                              (user?.preferredName === '' || !user?.preferredName
+                                ? user?.firstName
+                                : user?.preferredName)}
+                          </h1>
+                          <h2 className="registration-first-step-subtitle">
+                            Let&apos;s register for UofT Engineering&apos;s F!rosh Week 2T2
+                          </h2>
                         </div>
-                        {generateStepComponent(formFields['General'], 'General')}
-                      </>
-                    ),
-                  },
-                  {
-                    title: 'Health & Safety',
-                    component: generateStepComponent(formFields['HealthSafety'], 'HealthSafety'),
-                  },
-                  {
-                    title: 'Extra Events',
-                    component: generateStepComponent(formFields['Misc'], 'Misc'),
-                  },
-                  {
-                    title: 'Payment',
-                    component: (
-                      <div className="registration-payment-page">
-                        <p className="register-terms-of-service">{terms}</p>
-                        <b>
-                          <p className="register-terms-of-service-below">
-                            By proceeding with your payment, you indicate you accept F!rosh Week
-                            using your submitted information in order to help plan and deliver
-                            Orientation events
-                          </p>
-                        </b>
-                        <Button
-                          type="submit"
-                          style={{ margin: '0 auto', marginTop: '15px' }}
-                          label={'Pay Now'}
-                          isDisabled={!canRegister}
-                        />
                       </div>
-                    ),
-                  },
-                ]}
-              />
-            </form>
+                      {generateStepComponent(formFields['General'], 'General')}
+                    </>
+                  ),
+                },
+                {
+                  title: 'Health & Safety',
+                  component: generateStepComponent(formFields['HealthSafety'], 'HealthSafety'),
+                },
+                {
+                  title: 'Extra Events',
+                  component: generateStepComponent(formFields['Misc'], 'Misc'),
+                },
+                {
+                  title: 'Payment',
+                  component: (
+                    <div className="registration-payment-page">
+                      <p className="register-terms-of-service">{terms}</p>
+                      <b>
+                        <p className="register-terms-of-service-below">
+                          By proceeding with your payment, you indicate you accept F!rosh Week using
+                          your submitted information in order to help plan and deliver Orientation
+                          events
+                        </p>
+                      </b>
+                      <Button
+                        style={{ margin: '0 auto', marginTop: '15px' }}
+                        label={'Pay Now'}
+                        onClick={handleRegister}
+                        isDisabled={!canRegister}
+                      />
+                    </div>
+                  ),
+                },
+              ]}
+            />
           </div>
         </div>
       </div>
