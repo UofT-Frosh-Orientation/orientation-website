@@ -86,7 +86,7 @@ const PageProfileFrosh = () => {
         );
       }
     } catch (e) {
-      console.log(e.toString());
+      console.error(e.toString());
       setScuntTeams(['Error loading teams']);
     }
   };
@@ -97,7 +97,6 @@ const PageProfileFrosh = () => {
 
   return (
     <>
-      <div className="navbar-space-top" />
       <ProfilePageHeader leader={leader} editButton={true} />
       {leader === true ? <ProfilePageLeaderPermissionDashboardLinks /> : <></>}
       <div className="profile-info-row">
@@ -569,8 +568,6 @@ const ProfilePageDashboardLink = ({ link, authScopes, anyRegisterScope, label })
     }
   }
 
-  console.log('STATUS', hasAuthScope);
-
   const hasAnyRegisterScope = anyRegisterScope && user?.froshDataFields?.approved?.length > 0;
   if (hasAuthScope || hasAnyRegisterScope) {
     return (
@@ -785,8 +782,17 @@ const ProfilePageHeader = ({ leader, editButton }) => {
   const leaderApproved = user?.approved === true;
 
   const isRegistered = useSelector(registeredSelector);
-  // console.log(`editButton: ${editButton}`);
+
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
+  const currentYear = new Date().getFullYear();
+  const firstDigitL = currentYear.toString().slice(-2, -1);
+  const lastDigitL = currentYear.toString().slice(-1);
+  let leedurYear = `${firstDigitL}T${lastDigitL}`;
+  const gradYear = currentYear + 4;
+  const firstDigitF = gradYear.toString().slice(-2, -1);
+  const lastDigitF = gradYear.toString().slice(-1);
+  let froshYear = `${firstDigitF}T${lastDigitF}`;
 
   return (
     <>
@@ -813,11 +819,11 @@ const ProfilePageHeader = ({ leader, editButton }) => {
           </div>
           <div className="profile-page-header-class desktop-only">
             {leader === true ? (
-              <h2>2T2</h2>
+              <h2>{leedurYear}</h2>
             ) : (
               <>
                 <p>Class of</p>
-                <h2>2T6</h2>
+                <h2>{froshYear}</h2>
               </>
             )}
           </div>
@@ -1067,7 +1073,7 @@ const ProfilePageSchedule = () => {
   const [froshGroup, setFroshGroup] = useState(user?.froshGroup);
 
   const scheduleData = getFroshGroupSchedule(froshGroup);
-  console.log(scheduleData);
+
   const days = getDaysSchedule(scheduleData);
 
   const today = new Date();

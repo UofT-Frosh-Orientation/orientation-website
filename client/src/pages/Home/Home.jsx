@@ -29,8 +29,8 @@ const PageHome = () => {
   return (
     <>
       <HomePageHeader />
-      <HomePageTimeline />
-      <HomePageSchedule />
+      {/* <HomePageTimeline /> */}
+      {/* <HomePageSchedule /> */}
       <HomePageSponsors />
     </>
   );
@@ -49,33 +49,7 @@ const HomePageHeader = () => {
       <div className="home-page-header-text">
         <h2>Welcome to F!rosh Week!</h2>
         <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p>
-        <Link
-          key={'/registration'}
-          to={'/registration'}
-          style={{ textDecoration: 'none' }}
-          className="no-link-style"
-        >
-          <div className="home-page-header-register-button">
-            <div className="desktop-only">
-              <Button
-                label="Register"
-                isSecondary
-                style={{
-                  margin: '0px',
-                  width: '100%',
-                  height: '100%',
-                  fontSize: 'unset',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              />
-            </div>
-            <div className="mobile-only">
-              <Button label="Register" isSecondary style={{ margin: '0px' }} />
-            </div>
-          </div>
-        </Link>
+
       </div>
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />
@@ -184,6 +158,8 @@ const HomePageSchedule = () => {
 const HomePageSponsors = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
   const [viewAll, setViewAll] = useState(false);
+
+
   return (
     <div className="home-page-sponsors">
       {darkMode ? (
@@ -193,37 +169,47 @@ const HomePageSponsors = () => {
       )}
       <h2>Our Sponsors</h2>
       <PleaseSponsor />
-      {viewAll === false ? (
-        <ImageCarousel items={sponsors} />
-      ) : (
-        <div className="all-sponsors-area">
-          {sponsors.map((item, index) => {
-            return (
-              <div key={item.name + index} className="sponsor-container">
-                <a
-                  href={item.website}
-                  key={item.name + index}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="no-link-style"
-                >
-                  <img src={item.image} alt={item.name} />
-                </a>
-                <p>{item.label}</p>
-              </div>
-            );
-          })}
+
+      {sponsors.length > 0 && (
+        <div>
+          {viewAll === false ? (
+            <ImageCarousel items={sponsors} />
+          ) : (
+            <div className="all-sponsors-area">
+              {sponsors.map((item, index) => {
+                return (
+                  <div key={item.name + index} className="sponsor-container">
+                    <a
+                      href={item.website}
+                      key={item.name + index}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="no-link-style"
+                    >
+                      <img src={item.image} alt={item.name} />
+                    </a>
+                    <p>{item.label}</p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+          {!viewAll ? (
+            <Button
+              label={'View All'}
+              onClick={() => {
+                setViewAll(true);
+              }}
+            />
+          ) : (
+            <Button
+              label={'View Less'}
+              onClick={() => {
+                setViewAll(false);
+              }}
+            />
+          )}
         </div>
-      )}
-      {!viewAll ? (
-        <Button
-          label={'View All'}
-          onClick={() => {
-            setViewAll(true);
-          }}
-        />
-      ) : (
-        <></>
       )}
     </div>
   );

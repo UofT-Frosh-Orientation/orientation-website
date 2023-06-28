@@ -62,7 +62,6 @@ const PageLogin = ({ incorrectEntry }) => {
   }
 
   useEffect(() => {
-    console.log(user);
     if (user) {
       navigate('/profile', { state: { frosh: user } });
       setIsLoading(false);
@@ -206,7 +205,6 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
   const [buttonClick, setButtonClick] = useState(0);
   const { loading, error, passwordResetRequest } = useSelector(requestPasswordResetSelector);
   const dispatch = useDispatch();
-  console.log(passwordResetRequest && !loading);
 
   return (
     <>
@@ -217,7 +215,6 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
             placeholder={'Email'}
             localStorageKey={'forgot-password-container-email'}
             onChange={(value) => {
-              console.log('Email', value);
               setEmailInput(value);
             }}
             onEnterKey={() => {
@@ -250,7 +247,6 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
                 setButtonClick(buttonClick + 1);
                 dispatch(requestPasswordReset(email));
                 // setButtonClick(buttonClick + 1);
-                //console.log(buttonClick);
               }}
             />
           )}

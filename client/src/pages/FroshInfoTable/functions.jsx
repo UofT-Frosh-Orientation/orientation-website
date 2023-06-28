@@ -24,10 +24,10 @@ export function downloadDataAsFile(data, exportType) {
 export async function deleteUser(id) {
   try {
     const response = await axios.delete(`/user/${id}`);
-    console.log(response);
+
     return true;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return error;
   }
 }

@@ -69,11 +69,11 @@ export async function getQuestions(setSnackbar) {
 export async function submitQuestion(question) {
   try {
     const response = await axios.post('/faq/create', question);
-    // console.log(response);
+
     return true;
   } catch (error) {
-    console.log(error);
-    console.log(error.response.data.message);
+    console.error(error);
+
     return error.response.data.message;
   }
 }

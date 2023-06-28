@@ -1,7 +1,5 @@
 const bcrypt = require('bcrypt');
-
 const LeadurModel = require('../models/LeadurModel');
-const newUserSubscription = require('../subscribers/newUserSubscription');
 
 const LeadurServices = {
   /**
@@ -21,12 +19,12 @@ const LeadurServices = {
         .then((hashedPassword) => {
           LeadurModel.create(
             { email, hashedPassword, firstName, lastName, preferredName, scuntTeam },
-            (err, newUser) => {
+            async (err, newUser) => {
               if (err) {
                 console.log(err);
                 reject(err);
               } else {
-                newUserSubscription.add(newUser);
+                emailConfirmationSubscription.add(newUser);
                 resolve(newUser);
               }
             },

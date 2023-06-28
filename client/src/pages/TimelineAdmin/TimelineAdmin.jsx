@@ -202,10 +202,10 @@ const ExistingTimelineEvents = ({ editMade, setEditMade }) => {
     try {
       const response = await axios.get('/timeline');
       const existingEvents = await response.data.timelines;
-      console.log(existingEvents);
+
       setExistingEvents(existingEvents);
     } catch (error) {
-      console.log('Error', error.message);
+      console.error(error);
     }
   };
   useEffect(() => {
@@ -421,7 +421,6 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
         <Button
           label={editButtonText}
           onClick={() => {
-            console.log(event);
             setIsEdit(!isEdit);
             setEditButtonText(`${isEdit ? 'Edit' : 'Stop Edit'}`);
             if (!isEdit) {
@@ -459,7 +458,6 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
         <Button
           label={'Save'}
           onClick={() => {
-            console.log(event);
             handleSubmit(event._id);
           }}
         />

@@ -158,7 +158,6 @@ const AboutUsSubcom = () => {
             <h1 className="aboutus-subcom">{com}</h1>
             <div className="aboutus-subcom-grid-container">
               {subComs[com].map((subcom) => {
-                //console.log(subcom.coChair);
                 return (
                   <ExecProfile
                     key={subcom.subcom}
@@ -190,7 +189,6 @@ const AboutUsHL = () => {
           const [hover, setHover] = useState(false);
 
           useEffect(() => {
-            console.log(clickLink);
             if (clickLink) {
               setOpen(false);
             }
@@ -209,7 +207,6 @@ const AboutUsHL = () => {
               key={info.group}
               className="aboutus-hl-container"
               onClick={() => {
-                console.log('clicklink', clickLink);
                 if (!clickLink) {
                   setOpen(!open);
                 } else {
@@ -311,7 +308,7 @@ const tabs = [
 
 const AboutUsTeamsTab = () => {
   const wantedTabs = tabs.filter((tab) => tab.wantToLoad);
-  console.log(wantedTabs);
+
   const [currentTab, setCurrentTab] = useState(
     wantedTabs.length > 0 ? wantedTabs.at(0).title : 'Exec Team',
   );
@@ -327,7 +324,7 @@ const AboutUsTeamsTab = () => {
           {tabs.map((tab) => {
             if (tab.active) {
               tabsCounter++;
-              //console.log(tabsCounter);
+
               return (
                 <div key={tab.title} className="aboutus-teams-tabs">
                   <div

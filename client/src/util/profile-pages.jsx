@@ -80,4 +80,5 @@ export const profilePages = {
       function: logoutFunction,
     },
   ],
+  preRegistration: [],
 };
