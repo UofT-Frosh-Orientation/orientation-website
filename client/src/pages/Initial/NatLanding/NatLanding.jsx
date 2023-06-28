@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Initial.scss';
-import InstagramLogo from '../../assets/social/instagram_icon.png';
+import './NatLanding.scss';
+import InstagramLogo from '../../../assets/social/instagram_icon.png';
 
-const InitialPage = () => {
+const NatLanding = () => {
   return (
     <>
       <div className="initial-page">
@@ -21,22 +21,24 @@ const InitialPage = () => {
 
           {/* Registration Info */}
           <div className="info">
-            <a href="https://www.instagram.com/froshweek/" target="_blank" rel="noreferrer">
+            <a
+              className="no-link-style"
+              href="https://www.instagram.com/froshweek/"
+              target="_blank"
+              rel="noreferrer"
+            >
               <img
                 src={InstagramLogo}
-                className="instagram-logo"
+                className="instagram-logo no-link-style"
                 alt="Instagram logo links to F!rosh Instagram page"
               />
             </a>
-            <p className="info-text">
-              Registration for F!rosh Week will open around the middle of July. Follow us on
-              Instagram for more updates!
-            </p>
+            <p className="info-text">Follow us on Instagram for more updates about F!rosh Week!</p>
           </div>
 
           {/* Footer */}
           <div className="footer">
-            <h2 className="footer-text">Made with 💜 by the F!rosh Week 2T2 Tech Team</h2>
+            <h2 className="footer-text">Made with 💜 by the F!rosh Week 2T3 Tech Team</h2>
           </div>
         </div>
       </div>
@@ -44,4 +46,4 @@ const InitialPage = () => {
   );
 };
 
-export { InitialPage };
+export { NatLanding };

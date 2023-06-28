@@ -119,6 +119,8 @@ router.post('/request-password-reset', UserController.requestPasswordReset);
 
 router.post('/reset-password', UserController.resetPassword);
 
+router.post('/verify-user-email', UserController.confirmUser);
+
 router.post('/request-auth-scopes', checkLoggedIn, UserController.requestAuthScopes);
 
 router.get(

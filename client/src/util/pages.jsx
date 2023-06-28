@@ -31,6 +31,7 @@ import { PagePaymentSuccess } from '../pages/PagePaymentSuccess/PagePaymentSucce
 import { ScuntGameSettings } from '../pages/ScuntGameSettings/ScuntGameSettings';
 import { PageScuntMissionsDashboard } from '../pages/ScuntMissionsDashboard/ScuntMissionsDashboard';
 import { ScuntTransactions } from '../pages/ScuntTransactions/ScuntTransactions';
+import { PageEmailConfirmed } from '../pages/EmailConfirmed/EmailConfirmed';
 
 export const pages = {
   404: {
@@ -50,20 +51,20 @@ export const pages = {
       path: '/about',
       includeFooter: true,
     },
-    {
-      label: 'FAQ',
-      component: <PageFAQ />,
-      path: '/faq',
-      includeFooter: true,
-    },
+    // {
+    //   label: 'FAQ',
+    //   component: <PageFAQ />,
+    //   path: '/faq',
+    //   includeFooter: true,
+    // },
   ],
   special: [
-    {
-      label: 'Login',
-      component: <PageLogin />,
-      path: '/login',
-      includeFooter: false,
-    },
+    //   {
+    //     label: 'Login',
+    //     component: <PageLogin />,
+    //     path: '/login',
+    //     includeFooter: false,
+    //   },
     {
       label: 'Profile',
       component: (
@@ -73,6 +74,12 @@ export const pages = {
       ),
       path: '/profile',
       includeFooter: true,
+    },
+    {
+      label: 'Email Confirmed',
+      component: <PageEmailConfirmed />,
+      path: '/verify-user-email/:email/:emailToken',
+      includeFooter: false,
     },
     {
       label: 'Unsubscribe',

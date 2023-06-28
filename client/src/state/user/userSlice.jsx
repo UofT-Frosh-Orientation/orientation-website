@@ -5,6 +5,7 @@ export const initialState = {
   loading: false,
   error: null,
   user: undefined,
+  signedUp: undefined,
   loggedIn: undefined,
   resetPasswordSucceeded: false,
   passwordResetRequest: false,
@@ -14,6 +15,22 @@ const userSlice = createSlice({
   name: 'userReducer',
   initialState,
   reducers: {
+    signupStart: (state) => {
+      state.loading = true;
+      state.error = null;
+      state.signedUp = undefined;
+    },
+    signupFail: (state, { payload: error }) => {
+      state.loading = false;
+      state.error = error;
+      state.signedUp = false;
+    },
+    signupSuccess: (state, { payload: user }) => {
+      state.loading = false;
+      state.error = null;
+      state.user = user;
+      state.signedUp = true;
+    },
     loginStart: (state) => {
       state.loading = true;
       state.error = null;
@@ -118,6 +135,9 @@ const userSlice = createSlice({
 });
 
 export const {
+  signupStart,
+  signupFail,
+  signupSuccess,
   loginStart,
   loginFail,
   loginSuccess,
@@ -151,6 +171,8 @@ export const userSelector = createSelector(userReducerSelector, ({ user, loading
   loading,
   error,
 }));
+
+export const signedUpSelector = createSelector(userReducerSelector, ({ signedUp }) => signedUp);
 
 export const loggedInSelector = createSelector(userReducerSelector, ({ loggedIn }) => loggedIn);
 

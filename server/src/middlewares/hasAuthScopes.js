@@ -15,7 +15,7 @@ const hasAuthScopes = (scopes) => {
         unauthorized = true;
       }
     });
-    // console.log(unauthorized);
+
     return unauthorized
       ? res.status(403).send({ message: 'You are not authorized to access this resource' })
       : next();

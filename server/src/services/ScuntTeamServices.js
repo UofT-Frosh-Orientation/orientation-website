@@ -61,46 +61,54 @@ const ScuntTeamServices = {
       if (!user.scuntJudgeBribePoints || points > user.scuntJudgeBribePoints) {
         reject('NOT_ENOUGH_BRIBE_POINTS');
       } else {
-        LeadurModel.findByIdAndUpdate(
-          user.id,
-          { $set: { scuntJudgeBribePoints: user.scuntJudgeBribePoints - points } },
-          { upsert: false, returnDocument: 'after' },
-          (err, leadur) => {
-            if (err) {
-              reject(err);
-            } else if (!leadur) {
-              reject('INTERNAL_ERROR');
-            } else {
-              ScuntTeamModel.findOneAndUpdate(
-                { number: teamNumber },
-                {
-                  $inc: { points },
-                  $push: {
-                    transactions: [
-                      {
-                        name: `${points.toString()} points bribe from ${user.firstName} ${
-                          user.lastName
-                        }`,
-                        points,
+        ScuntGameSettingsModel.findOne({}, (err, settings) => {
+          if (err) {
+            reject(err);
+          } else if (!settings || !settings.allowJudging) {
+            reject('INVALID_SETTINGS');
+          } else {
+            LeadurModel.findByIdAndUpdate(
+              user.id,
+              { $set: { scuntJudgeBribePoints: user.scuntJudgeBribePoints - points } },
+              { upsert: false, returnDocument: 'after' },
+              (err, leadur) => {
+                if (err) {
+                  reject(err);
+                } else if (!leadur) {
+                  reject('INTERNAL_ERROR');
+                } else {
+                  ScuntTeamModel.findOneAndUpdate(
+                    { number: teamNumber },
+                    {
+                      $inc: { points },
+                      $push: {
+                        transactions: [
+                          {
+                            name: `${points.toString()} points bribe from ${user.firstName} ${
+                              user.lastName
+                            }`,
+                            points,
+                          },
+                        ],
                       },
-                    ],
-                  },
-                },
-                { upsert: false, returnDocument: 'after' },
-                (err, team) => {
-                  if (err) {
-                    reject(err);
-                  } else if (!team) {
-                    reject('INVALID_TEAM_NUMBER');
-                  } else {
-                    LeaderboardSubscription.add({ team: team.number, score: team.points });
-                    resolve({ team, leadur });
-                  }
-                },
-              );
-            }
-          },
-        );
+                    },
+                    { upsert: false, returnDocument: 'after' },
+                    (err, team) => {
+                      if (err) {
+                        reject(err);
+                      } else if (!team) {
+                        reject('INVALID_TEAM_NUMBER');
+                      } else {
+                        LeaderboardSubscription.add({ team: team.number, score: team.points });
+                        resolve({ team, leadur });
+                      }
+                    },
+                  );
+                }
+              },
+            );
+          }
+        });
       }
       // Need to get remaining bribe points of the judge user;
     });
@@ -150,39 +158,48 @@ const ScuntTeamServices = {
   async addTransaction(teamNumber, missionNumber, points) {
     return new Promise((resolve, reject) => {
       //TODO look up mission to get amount of points
-      //Compare with maxAmountPointsPercent and minAmountPointsPercent to ensure within bounds set by game rules
-      ScuntTeamModel.findOne({ number: teamNumber }, (err, team) => {
+      ScuntGameSettingsModel.findOne({}, (err, settings) => {
         if (err) {
           reject(err);
+        } else if (!settings || !settings.allowJudging) {
+          reject('INVALID_SETTINGS');
         } else {
-          const prevPoints = team.transactions.reduce((prev, curr) => {
-            if (curr.missionNumber === missionNumber && curr.points > prev) {
-              prev = curr.points;
-            }
-            return prev;
-          }, 0);
-          if (prevPoints < points) {
-            team.points += points - prevPoints;
-          }
-          const name =
-            (!prevPoints ? 'Added ' : prevPoints < points ? 'Updated to ' : '') +
-            points.toString() +
-            ' points for mission #' +
-            missionNumber.toString() +
-            ' for team ' +
-            teamNumber.toString();
-          team.transactions.push({ name, missionNumber, points });
-          team.save((err, res) => {
+          //Compare with maxAmountPointsPercent and minAmountPointsPercent to ensure within bounds set by game rules
+          ScuntTeamModel.findOne({ number: teamNumber }, (err, team) => {
             if (err) {
               reject(err);
             } else {
-              LeaderboardSubscription.add({ team: res.number, score: res.points });
-              console.log(res);
-              resolve(name);
+              const prevPoints = team.transactions.reduce((prev, curr) => {
+                if (curr.missionNumber === missionNumber && curr.points > prev) {
+                  prev = curr.points;
+                }
+                return prev;
+              }, 0);
+              if (prevPoints < points) {
+                team.points += points - prevPoints;
+              }
+              const name =
+                (!prevPoints ? 'Added ' : prevPoints < points ? 'Updated to ' : '') +
+                points.toString() +
+                ' points for mission #' +
+                missionNumber.toString() +
+                ' for team ' +
+                teamNumber.toString();
+              team.transactions.push({ name, missionNumber, points });
+              team.save((err, res) => {
+                if (err) {
+                  reject(err);
+                } else {
+                  LeaderboardSubscription.add({ team: res.number, score: res.points });
+                  console.log(res);
+                  resolve(name);
+                }
+              });
             }
           });
         }
       });
+
       // Get max and min possible points by multiplying missionNumber's mission by minAmountPointsPercent and maxAmountPointsPercent from game settings
       return true;
     });
@@ -190,31 +207,39 @@ const ScuntTeamServices = {
 
   async subtractTransaction(teamNumber, points) {
     return new Promise((resolve, reject) => {
-      ScuntTeamModel.findOneAndUpdate(
-        { number: teamNumber },
-        {
-          $inc: { points: Math.abs(points) * -1 },
-          $push: {
-            transactions: [
-              {
-                name: 'Subtracted ' + points.toString() + ' from team ' + teamNumber.toString(),
-                points: Math.abs(points) * -1,
+      ScuntGameSettingsModel.findOne({}, (err, settings) => {
+        if (err) {
+          reject(err);
+        } else if (!settings || !settings.allowJudging) {
+          reject('INVALID_SETTINGS');
+        } else {
+          ScuntTeamModel.findOneAndUpdate(
+            { number: teamNumber },
+            {
+              $inc: { points: Math.abs(points) * -1 },
+              $push: {
+                transactions: [
+                  {
+                    name: 'Subtracted ' + points.toString() + ' from team ' + teamNumber.toString(),
+                    points: Math.abs(points) * -1,
+                  },
+                ],
               },
-            ],
-          },
-        },
-        { upsert: false, returnDocument: 'after' },
-        (err, team) => {
-          if (err) {
-            reject(err);
-          } else if (!team) {
-            reject('INVALID_TEAM_NAME');
-          } else {
-            LeaderboardSubscription.add({ team: team.number, score: team.points });
-            resolve(team);
-          }
-        },
-      );
+            },
+            { upsert: false, returnDocument: 'after' },
+            (err, team) => {
+              if (err) {
+                reject(err);
+              } else if (!team) {
+                reject('INVALID_TEAM_NAME');
+              } else {
+                LeaderboardSubscription.add({ team: team.number, score: team.points });
+                resolve(team);
+              }
+            },
+          );
+        }
+      });
     });
   },
 
@@ -440,7 +465,7 @@ const ScuntTeamServices = {
       ScuntTeamModel.aggregate([
         { $project: { transactions: 1, number: 1, name: 1 } },
         { $unwind: { path: '$transactions' } },
-        { $sort: { createdAt: -1 } },
+        { $sort: { createdAt: 1 } },
         { $limit: 50 },
       ]).exec((err, result) => {
         if (err) {

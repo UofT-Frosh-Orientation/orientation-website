@@ -1,5 +1,5 @@
 import React from 'react';
-import './tanulanding.scss';
+import './TanuLanding.scss';
 import InstagramLogo from '../../../assets/social/instagram_icon.png';
 
 const TanuLanding = () => {

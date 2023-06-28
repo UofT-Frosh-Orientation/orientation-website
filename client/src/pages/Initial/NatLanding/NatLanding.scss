@@ -6,14 +6,13 @@
   overflow-x: hidden;
 
   background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(221, 204, 231, 0.21875) 38.02%,
-      #621790 100%
-    ),
-    #935ebf;
+    180deg,
+    var(--purple) 0%,
+    var(--light-purple) 50%,
+    var(--purple-shades-dark) 100%
+  );
 
-  color: #ffffff;
+  color: var(--white);
   padding: 20px;
 }
 
@@ -40,7 +39,7 @@ hr.line {
   top: 10px;
   width: 851px;
   height: 0px;
-  border: 2px solid #ffe76a;
+  border: 2px solid var(--yellow);
   border-radius: 100px;
   margin-bottom: 24px;
 }
@@ -83,7 +82,7 @@ hr.line {
   left: 0;
   justify-content: center;
   align-items: center;
-  color: #d68fff;
+  color: var(--purple-shades-muted);
 }
 .footer-text {
   text-align: center;
@@ -124,7 +123,7 @@ hr.line {
   }
   hr.line {
     width: 274px;
-    border: 1px solid #ffe76a;
+    border: 1px solid var(--yellow);
     border-radius: 100px;
     margin-bottom: 10px;
   }
@@ -146,7 +145,7 @@ hr.line {
     padding-top: 10%;
   }
   .svg-icon {
-    fill: #ffffff;
+    fill: var(--white);
     width: 58px;
     vertical-align: middle;
   }

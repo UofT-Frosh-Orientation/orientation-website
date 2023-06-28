@@ -5,7 +5,7 @@ on:
 
   push:
     branches:
-      - dev
+      - beta
 
 concurrency: beta-deployment
 
@@ -15,72 +15,77 @@ env:
   SERVER_IMAGE_NAME: "orientation-server"
   CLIENT_IMAGE_NAME: "orientation-client"
   DIGITALOCEAN_API_KEY: ${{ secrets.DIGITALOCEAN_API_KEY }}
-  
+
 jobs:
-#   build_server:
-#     runs-on: ubuntu-20.04
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
+  build_server:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-#       - name: Build server image
-#         run: cd server && docker build -t orientation-server:beta -f beta.Dockerfile .
+      - name: Build server image
+        run: cd server && docker build -t orientation-server:beta -f beta.Dockerfile .
 
-#       - name: Tag server image
-#         run: docker tag orientation-server:beta registry.digitalocean.com/uoft-orientation/orientation-server:beta
+      - name: Tag server image
+        run: docker tag orientation-server:beta registry.digitalocean.com/uoft-orientation/orientation-server:beta
 
-#       - name: Install doctl
-#         uses: digitalocean/action-doctl@v2
-#         with:
-#           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-#       - name: Log in to DigitalOcean Container Registry
-#         run: doctl registry login --expiry-seconds 600
+      - name: Log in to DigitalOcean Container Registry
+        run: doctl registry login --expiry-seconds 600
 
-#       - name: Remove old server image
-#         run: if [ ! -z "$(doctl registry repository list | grep "$(echo $SERVER_IMAGE_NAME)")" ]; then doctl registry repository delete-tag $(echo $SERVER_IMAGE_NAME) $(echo $TAG) --force; else echo "No repository"; fi
+      - name: Remove old server image
+        run: if [ ! -z "$(doctl registry repository list | grep "$(echo $SERVER_IMAGE_NAME)")" ]; then doctl registry repository delete-tag $(echo $SERVER_IMAGE_NAME) $(echo $TAG) --force; else echo "No repository"; fi
 
-#       - name: Push server image to container registry
-#         run: docker push registry.digitalocean.com/uoft-orientation/orientation-server:beta
+      - name: Push server image to container registry
+        run: docker push registry.digitalocean.com/uoft-orientation/orientation-server:beta
 
-#   build_client:
-#     runs-on: ubuntu-20.04
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
+  build_client:
+    runs-on: ubuntu-20.04
+    needs:
+      - build_server
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-#       - name: Make envfile
-#         uses: SpicyPizza/create-envfile@v1.3
-#         with:
-#           envkey_VITE_API_BASE_URL: "https://api.beta.orientation.skule.ca"
-#           file_name: .env
-#           directory: client
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_VITE_API_BASE_URL: "https://api.beta.orientation.skule.ca"
+          file_name: .env
+          directory: client
 
-#       - name: Build client image
-#         run: cd client && docker build -t orientation-client:beta -f beta.Dockerfile .
+      - name: Build client image
+        run: cd client && docker build -t orientation-client:beta -f beta.Dockerfile .
 
-#       - name: Tag client image
-#         run: docker tag orientation-client:beta registry.digitalocean.com/uoft-orientation/orientation-client:beta
+      - name: Tag client image
+        run: docker tag orientation-client:beta registry.digitalocean.com/uoft-orientation/orientation-client:beta
 
-#       - name: Install doctl
-#         uses: digitalocean/action-doctl@v2
-#         with:
-#           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-#       - name: Log in to DigitalOcean Container Registry
-#         run: doctl registry login --expiry-seconds 600
+      - name: Log in to DigitalOcean Container Registry
+        run: doctl registry login --expiry-seconds 600
 
-#       - name: Remove old client image
-#         run: if [ ! -z "$(doctl registry repository list | grep "$(echo $CLIENT_IMAGE_NAME)")" ]; then doctl registry repository delete-tag $(echo $CLIENT_IMAGE_NAME) $(echo $TAG) --force; else echo "No repository"; fi
+      - name: Remove old client image
+        run: if [ ! -z "$(doctl registry repository list | grep "$(echo $CLIENT_IMAGE_NAME)")" ]; then doctl registry repository delete-tag $(echo $CLIENT_IMAGE_NAME) $(echo $TAG) --force; else echo "No repository"; fi
 
-#       - name: Push client image to container registry
-#         run: docker push registry.digitalocean.com/uoft-orientation/orientation-client:beta
+      - name: Push client image to container registry
+        run: docker push registry.digitalocean.com/uoft-orientation/orientation-client:beta
+
+      - name: Run garbage collector
+        run: doctl registry garbage-collection start --include-untagged-manifests --force uoft-orientation
 
   deploy_beta:
     runs-on: ubuntu-20.04
-#     needs:
-#       - build_client
-#       - build_server
+    needs:
+      - build_client
+      - build_server
 
     steps:
       - name: Deploy over SSH
@@ -88,7 +93,5 @@ jobs:
         with:
           host: beta.orientation.skule.ca
           username: ${{ secrets.DO_SSH_USER }}
-#           password: ${{ secrets.DO_SSH_USER_PASSWORD }}
           key: ${{ secrets.DO_SSH_KEY }}
-#           passphrase: ${{ secrets.DO_SSH_KEY_PASSCODE }}
           script: ${{ secrets.BETA_DEPLOYMENT_SCRIPT }}

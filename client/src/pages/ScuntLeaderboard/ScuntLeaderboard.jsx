@@ -66,7 +66,6 @@ const ScuntLeaderboard = () => {
       socket.emit('getScores');
     });
     socket.on('scores', (scores) => {
-      console.log('Scores', scores);
       setLeaderboard(
         scores.map((team) => {
           if (team.points < 0) {
@@ -140,12 +139,8 @@ const ScuntLeaderboardShow = ({ leaderboard }) => {
 
     const mean = sum / (leaderboard.length - 5);
 
-    console.log(mean, max, sum);
-
     const result = leaderboard.map((team) => {
-      console.log(team);
       if (team.points < mean) {
-        console.log('Updating team points');
         // team.computedPoints = Math.round(
         //   Math.min(team.points + mean, max - mean / leaderboard.length),
         // );
@@ -156,8 +151,7 @@ const ScuntLeaderboardShow = ({ leaderboard }) => {
       }
       const width = Math.round((team.computedPoints / max) * 100);
       team.width = String(width) + '%';
-      console.log(team);
-      //console.log('new', team);
+
       return team;
     });
     console.table(result);
