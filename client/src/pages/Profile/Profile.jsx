@@ -936,12 +936,10 @@ const ProfilePageHeader = ({ leader, editButton }) => {
               </>
             )}
           </div>
-          {editButton !== false && isRegistered ? (
-            <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
+          {editButton !== false && (
+            <Link to={isRegistered? '/profile-edit' : '/profile-edit-unregistered'} className={'profile-edit-icon-link no-link-style'}>
               <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
             </Link>
-          ) : (
-            <></>
           )}
         </div>
       </div>

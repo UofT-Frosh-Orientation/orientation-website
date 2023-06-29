@@ -7,6 +7,7 @@ import { PageMaintenance } from '../pages/Maintenance/Maintenance';
 import { PagePaymentError } from '../pages/PaymentError/PaymentError';
 import { PageProfile } from '../pages/Profile/Profile';
 import { PageProfileEdit } from '../pages/ProfileEdit/ProfileEdit';
+import { PageProfileEditUnregistered } from '../pages/ProfileEditUnregistered/ProfileEditUnregistered';
 import { PageRegistrationForm } from '../pages/Registration/RegistrationForm';
 import { PageLogin } from '../pages/Login/Login';
 import { PageRegistrationSuccess } from '../pages/RegistrationSuccess/RegistrationSuccess';
@@ -181,6 +182,15 @@ export const pages = {
         </AuthorizedPage>
       ),
       path: '/profile-edit',
+    },
+    {
+      label: 'profile-edit-unregistered',
+      component: (
+        <AuthorizedPage>
+          <PageProfileEditUnregistered />
+        </AuthorizedPage>
+      ),
+      path: '/profile-edit-unregistered',
     },
     {
       label: 'payment-error',

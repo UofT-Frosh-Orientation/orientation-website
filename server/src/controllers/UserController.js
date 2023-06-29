@@ -324,6 +324,30 @@ const UserController = {
       next(e);
     }
   },
+
+  /**
+   * Update a users info
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @return {Promise<void>}
+   */
+  async updateInfo(req, res, next) {
+    console.log(req.user);
+    console.log(req.body);
+    const userId = req.user.id;
+    const updateInfo = req.body;
+
+    try {
+      const user = await UserServices.updateUserInfo(userId, updateInfo);
+      return res.status(200).send({
+        message: 'Successfully updated User Information!',
+        user: user.getResponseObject(),
+      });
+    } catch (e) {
+      next(e);
+    }
+  },
 };
 
 module.exports = UserController;
