@@ -68,20 +68,35 @@ export function* getUserInfoSaga({ payload: navigate }) {
 
 export const updateUserInfo = createAction('updateUserInfoSaga');
 
-export function* updateUserInfoSaga({ payload: { newInfo, navigate, isRegistered} }) {
+export function* updateUserInfoSaga({
+  payload: { setSnackbar, setIsLoading, newInfo, navigate, isRegistered },
+}) {
   const { axios } = useAxios();
+  let result = {};
   try {
-
-    if(isRegistered){
-      const result = yield call(axios.put, '/frosh/info', newInfo);
-    }
-    else{
-      const result = yield call(axios.put, '/user/update-info', newInfo);
+    if (isRegistered) {
+      result = yield call(axios.put, '/frosh/info', newInfo);
+    } else {
+      result = yield call(axios.put, '/user/update-info', newInfo);
     }
     yield put(setUserInfo(result.data.user));
-    if (navigate) navigate('/profile');
+    setSnackbar('Successfully Updated User Info', false);
+    if (navigate) {
+      setTimeout(() => {
+        navigate('/profile');
+      }, 1000);
+    }
   } catch (error) {
-    console.error(error);
+    setSnackbar(
+      error.response?.data?.message
+        ? error.response?.data?.message.toString()
+        : error.response?.data
+        ? error.response?.data.toString()
+        : error.toString(),
+      true,
+    );
+    // console.error(error);
+    setIsLoading(false);
     yield put(loginFail(error.response.data));
   }
 }
