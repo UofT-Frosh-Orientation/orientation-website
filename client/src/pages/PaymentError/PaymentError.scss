@@ -52,6 +52,91 @@
   }
 }
 
+.spotlight {
+  position: relative;
+  bottom: 0;
+  left: 10%;
+  top: 0%;
+  transform: translate(0%, -8%);
+  width: 100%;
+  height: 100%;
+  transform: translate(0%, -8%) rotateY(0deg);
+  animation: spotlight-fade 6.5s infinite;
+  animation-fill-mode: both;
+  opacity: 0;
+}
+
+@keyframes spotlight-fade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.chicken {
+  position: absolute;
+  top: 59%;
+  left: 59%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 70%;
+}
+
+.question-1 {
+  position: absolute;
+  width: 26%;
+  height: 26%;
+  top: 26%;
+  left: 20%;
+  opacity: 0;
+  animation: appear 0.7s linear 2s forwards;
+}
+.question-2 {
+  position: absolute;
+  width: 24%;
+  height: 24%;
+  top: 24%;
+  left: 30%;
+  transform: rotate(20deg);
+  opacity: 0;
+  animation-delay: 2s;
+  animation: appear 0.5s linear 2.6s forwards;
+}
+.question-3 {
+  position: absolute;
+  width: 22%;
+  height: 22%;
+  top: 24%;
+  left: 40%;
+  transform: rotate(43deg);
+  opacity: 0;
+  animation-delay: 3s;
+  animation: appear 0.5s linear 3.2s forwards;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.sweat {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  top: 43%;
+  left: 47%;
+  opacity: 1;
+}
+
 .payment-error-text-container {
   flex: 1;
   padding-left: 80px;
