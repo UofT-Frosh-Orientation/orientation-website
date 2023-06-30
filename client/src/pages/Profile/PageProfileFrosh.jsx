@@ -21,9 +21,7 @@ import { TextInput } from '../../components/input/TextInput/TextInput';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import EditIcon from '../../assets/misc/pen-solid.svg';
 import CampingIcon from '../../assets/misc/camping-tent.png';
-import {
-  getScuntTeamObjFromTeamNumber,
-} from '../ScuntJudgeForm/ScuntJudgeForm';
+import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Link } from 'react-router-dom';
 import { resources } from '../../util/resources';
 import { instagramAccounts } from '../../util/instagramAccounts';
@@ -34,11 +32,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { updateUserInfo } from '../../state/user/saga';
 import { announcementsSelector } from '../../state/announcements/announcementsSlice';
-import {
-  getAnnouncements,
-  completeAnnouncements,
-  getCompletedAnnouncements,
-} from '../../state/announcements/saga';
+import { getAnnouncements, completeAnnouncements, getCompletedAnnouncements } from '../../state/announcements/saga';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
@@ -113,56 +107,12 @@ const PageProfileFrosh = () => {
     );
 };
 
-{ /*
-const ProfilePageScuntTeamSelectionLeader = ({ scuntTeams, scuntTeamObjs }) => {
-  const { setSnackbar } = useContext(SnackbarContext);
-  const [selectedScuntTeamNumber, setSelectedScuntTeamNumber] = useState();
-  const { user } = useSelector(userSelector);
-
-  const changeScuntTeam = async (teamNumber) => {
-    const result = await axios.post('/scunt-teams/update-team', { teamNumber: teamNumber });
-    setSnackbar(result?.data?.message + ' The page will refresh in 2 seconds.');
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
-  };
-
-  return (
-    <>
-      <div className="profile-page-side-section" style={{ marginTop: '20px', textAlign: 'center' }}>
-        <div style={{ height: '10px' }} />
-        <h2>Scunt Team</h2>
-        <RadioButtons
-          initialSelectedIndex={user?.scuntTeam - 1}
-          values={scuntTeams}
-          onSelected={(value) => {
-            setSelectedScuntTeamNumber(getScuntTeamObjFromTeamName(value, scuntTeamObjs)?.number);
-          }}
-        />
-        <Button
-          label={'Change Scunt Team'}
-          onClick={() => {
-            changeScuntTeam(selectedScuntTeamNumber);
-          }}
-        />
-      </div>
-    </>
-  );
-};
-
-ProfilePageScuntTeamSelectionLeader.propTypes = {
-  scuntTeams: PropTypes.array,
-  scuntTeamObjs: PropTypes.array,
-};
-*/}
-
 export const ProfilePageRetreat = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
   const { user } = useSelector(userSelector);
   const isRegistered = useSelector(registeredSelector);
   const isRetreat = user?.isRetreat === true;
   const { setSnackbar } = useContext(SnackbarContext);
-
   const [remainingTickets, setRemainingTickets] = useState();
 
   useEffect(async () => {
@@ -251,10 +201,7 @@ export const ProfilePageRetreat = () => {
 export const ProfilePageFroshScuntMessage = () => {
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { user } = useSelector(userSelector);
-  const leader = user?.userType === 'leadur';
   const isRegistered = useSelector(registeredSelector);
-  const { setSnackbar } = useContext(SnackbarContext);
-  const [showToken, setShowToken] = useState(false);
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   const code = user?.scuntToken;
@@ -292,8 +239,7 @@ export const ProfilePageFroshScuntTeamsSelection = () => {
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { axios } = useAxios();
 
-  if(!isRegistered ||
-    !user?.scunt ||
+  if(!isRegistered || !user?.scunt ||
     (scuntSettings !== undefined &&
       scuntSettings.length >= 1 &&
       scuntSettings[0]?.revealTeams === true)
@@ -371,17 +317,12 @@ export const ProfilePageFroshScuntTeamsSelection = () => {
 export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { user } = useSelector(userSelector);
-  const leader = user?.userType === 'leadur';
   const isRegistered = useSelector(registeredSelector);
   const { setSnackbar } = useContext(SnackbarContext);
   const [showToken, setShowToken] = useState(false);
 
   const code = user?.scuntToken;
-  if (
-    !leader &&
-    (code === undefined ||
-      !isRegistered ||
-      !scuntSettings ||
+  if ((code === undefined || !isRegistered || !scuntSettings || 
       scuntSettings.length <= 0 ||
       (scuntSettings !== undefined &&
         scuntSettings.length >= 1 &&
@@ -389,7 +330,7 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   ) {
     return <></>;
   }
-  if (!leader && !user?.scunt) {
+  if (!user?.scunt) {
     return (
       <div className="profile-page-scunt-token profile-page-side-section">
         <p>
@@ -702,7 +643,6 @@ const ProfilePageFroshHeader = ({ editButton }) => {
 };
 
 ProfilePageFroshHeader.propTypes = {
-  leader: PropTypes.bool,
   editButton: PropTypes.bool,
 };
 

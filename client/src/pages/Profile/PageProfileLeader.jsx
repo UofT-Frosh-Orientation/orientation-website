@@ -34,20 +34,15 @@ import { getFrosh } from '../../state/frosh/saga';
 import { registeredFroshSelector } from '../../state/frosh/froshSlice';
 import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHome/ScheduleHome';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
-import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
-import {
-  getScuntTeamObjFromTeamName,
-  getScuntTeamObjFromTeamNumber,
-} from '../ScuntJudgeForm/ScuntJudgeForm';
+import { getScuntTeamObjFromTeamName, getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
 import ScuntIcon from '../../assets/misc/magnifier.png';
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
 
 
-const PageProfileLeedur = () => {
+const PageProfileLeader = () => {
     const { user } = useSelector(userSelector);
     const qrCodeLeader = user?.authScopes?.approved.includes('signInFrosh:qr-code registration');
-  
     const [scuntTeams, setScuntTeams] = useState([]);
     const [scuntTeamObjs, setScuntTeamObjs] = useState();
   
@@ -76,15 +71,17 @@ const PageProfileLeedur = () => {
   
     return (
       <>
-        <ProfilePageLeedurHeader editButton={true} />
-        <ProfilePageLeaderPermissionDashboardLinks />
+        <ProfilePageLeaderHeader editButton={true} />
+
         <div className="profile-info-row">
-          <div>
+          <div style={{ marginLeft: '50px' }}>
+            <ProfilePageLeaderPermissionDashboardLinks />
             <div style={{ marginTop: '20px' }} />
-            <ProfilePageLeedurScuntMessage />
+            <ProfilePageLeaderScuntMessage />
             <div style={{ marginTop: '-20px' }} />
             <ProfilePageSchedule />
           </div>
+
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <ProfilePageQRCode />
             {qrCodeLeader === true ? (
@@ -97,8 +94,8 @@ const PageProfileLeedur = () => {
             <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
             <ProfilePageResources />
             <ProfilePageScuntTeamSelectionLeader
-            scuntTeamObjs={scuntTeamObjs}
-            scuntTeams={scuntTeams}
+              scuntTeamObjs={scuntTeamObjs}
+              scuntTeams={scuntTeams}
             />
           </div>
         </div>
@@ -146,110 +143,9 @@ ProfilePageScuntTeamSelectionLeader.propTypes = {
   scuntTeams: PropTypes.array,
   scuntTeamObjs: PropTypes.array,
 };
-{/*
-export const ProfilePageRetreat = () => {
+
+export const ProfilePageLeaderScuntMessage = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-  const { user } = useSelector(userSelector);
-  const isRegistered = useSelector(registeredSelector);
-  const isRetreat = user?.isRetreat === true;
-  const { setSnackbar } = useContext(SnackbarContext);
-
-  const [remainingTickets, setRemainingTickets] = useState();
-
-  useEffect(async () => {
-    setRemainingTickets(await getRemainingTickets(setSnackbar));
-  }, []);
-
-  if (!isRegistered) {
-    return <></>;
-  }
-  if (remainingTickets <= 0 && !isRetreat) {
-    return <></>;
-  }
-  return (
-    <Link to={'/frosh-retreat'} className="no-link-style">
-      <div className="retreat-profile-container">
-        <img src={CampingIcon} alt="Camping" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
-        {isRetreat ? (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              flex: 1,
-            }}
-          >
-            <h2>Thank you for purchasing a Frosh Retreat Ticket!</h2>
-            <p>
-              We will reach out with more information soon. Keep an eye on your email! Please bring
-              a signed copy of the waiver to retreat.
-            </p>
-          </div>
-        ) : (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              flex: 1,
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                flex: 1,
-                alignItems: 'center',
-                width: '100%',
-              }}
-            >
-              <div>
-                <h2>Want to participate in F!rosh Retreat?</h2>
-                <p>
-                  There are only a limited number of tickets, so get yours before it&apos;s too
-                  late!{' '}
-                </p>
-              </div>
-              <div className="desktop-only">
-                <Button
-                  label={'Learn More'}
-                  isSecondary
-                  style={{ margin: 0, marginLeft: '10px' }}
-                />
-              </div>
-            </div>
-            <div className="mobile-only" style={{ marginTop: '10px', width: '100%' }}>
-              <Button
-                label={'Learn More'}
-                isSecondary
-                style={{
-                  margin: '-1px',
-                  marginLeft: '10px',
-                  display: 'flex',
-                  flex: '1 0 auto',
-                  justifyContent: 'center',
-                }}
-              />
-            </div>
-          </div>
-        )}
-      </div>
-    </Link>
-  );
-};
-*/}
-
-export const ProfilePageLeedurScuntMessage = () => {
-  const { scuntSettings } = useSelector(scuntSettingsSelector);
-  const { user } = useSelector(userSelector);
-  const leader = user?.userType === 'leadur';
-  const isRegistered = useSelector(registeredSelector);
-  const { setSnackbar } = useContext(SnackbarContext);
-  const [showToken, setShowToken] = useState(false);
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-
-  const code = user?.scuntToken;
 
   return (
     <Link to="/scunt">
@@ -265,7 +161,6 @@ export const ProfilePageLeedurScuntMessage = () => {
 };
 
 export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
-  const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { user } = useSelector(userSelector);
   const { setSnackbar } = useContext(SnackbarContext);
   const [showToken, setShowToken] = useState(false);
@@ -426,7 +321,6 @@ ProfilePageDashboardLink.propTypes = {
 
 const ProfilePageQRScanner = () => {
   const { setSnackbar } = useContext(SnackbarContext);
-
   const [clearText, setClearText] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(false);
@@ -614,12 +508,10 @@ const ProfilePageQRScanner = () => {
   );
 };
 
-const ProfilePageLeedurHeader = ({ leader, editButton }) => {
+const ProfilePageLeaderHeader = ({ editButton }) => {
   const { user } = useSelector(userSelector);
   const leaderApproved = user?.approved === true;
-
   const isRegistered = useSelector(registeredSelector);
-
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   const currentYear = new Date().getFullYear();
@@ -655,14 +547,7 @@ const ProfilePageLeedurHeader = ({ leader, editButton }) => {
             </p>
           </div>
           <div className="profile-page-header-class desktop-only">
-            {leader === true ? (
-              <h2>{leedurYear}</h2>
-            ) : (
-              <>
-                <p>Class of</p>
-                <h2>{froshYear}</h2>
-              </>
-            )}
+            <h2>{leedurYear}</h2>
           </div>
           {editButton !== false && isRegistered ? (
             <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
@@ -690,8 +575,7 @@ const ProfilePageLeedurHeader = ({ leader, editButton }) => {
   );
 };
 
-ProfilePageLeedurHeader.propTypes = {
-  leader: PropTypes.bool,
+ProfilePageLeaderHeader.propTypes = {
   editButton: PropTypes.bool,
 };
 
@@ -838,4 +722,4 @@ const ProfilePageSchedule = () => {
   );
 };
 
-export { PageProfileLeedur, ProfilePageLeedurHeader };
+export { PageProfileLeader, ProfilePageLeaderHeader };
