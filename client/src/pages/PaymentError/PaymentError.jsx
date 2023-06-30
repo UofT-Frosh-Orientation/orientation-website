@@ -34,9 +34,15 @@ const PagePaymentError = ({ link }) => {
             <p className="payment-error-text-container-body">
               Sorry, we were unable to process your payment.<br></br>Please try again!
             </p>
+            <p className="payment-error-text-container-body">
+            Tried multiple times and payment is still failing? 
+            <br></br>Send a message to our Instagram or email us about your issue!
+            </p>
 
             <Link to={link} className="no-link-style">
               <Button label={'Back to Payment'} onClick={() => {}} />
+              <Button label={'Instagram'} onClick={() => { window.location.href = 'https://www.instagram.com/froshweek/'; }} />
+              <Button label={'Email Us'} onClick={() => { window.location.href = "mailto:tech@orientation.skule.ca"; }} />
             </Link>
           </div>
         </div>
