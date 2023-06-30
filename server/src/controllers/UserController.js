@@ -4,6 +4,7 @@ const passport = require('../services/passport');
 const passwordResetSubscription = require('../subscribers/passwordResetSubscription');
 const announcementSubscription = require('../subscribers/announcementSubscription');
 const newUserSubscription = require('../subscribers/newUserSubscription');
+const {logger, loggerMiddleware} = require('../util/logger');
 
 const UserController = {
   /**
@@ -42,6 +43,7 @@ const UserController = {
       return res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
     } 
     catch(err) {
+      req.log.error(err);
       next(err);
     }
   },
@@ -72,14 +74,18 @@ const UserController = {
   async login(req, res, next) {
     passport.authenticate('local', (err, user) => {
       if (err || !user) {
+        req.log.info("Inorrect Email and Password entered by user");
         res.status(403).send({ message: 'Please ensure your email and password are correct.' });
       } else if (!user.confirmed) {
+        req.log.error(err, "Attempt to login with unverified email");
         res.status(403).send({ message: 'Please ensure that you have verified your email.' });
       } else {
         req.logIn(user, (err) => {
           if (err) {
+            req.log.error(err);
             next(err);
           } else {
+            req.log.info({message: "Successful login by user", user: user.getResponseObject()});
             res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
           }
         });
