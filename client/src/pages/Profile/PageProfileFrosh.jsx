@@ -20,6 +20,10 @@ import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import EditIcon from '../../assets/misc/pen-solid.svg';
+import CampingIcon from '../../assets/misc/camping-tent.png';
+import {
+  getScuntTeamObjFromTeamNumber,
+} from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Link } from 'react-router-dom';
 import { resources } from '../../util/resources';
 import { instagramAccounts } from '../../util/instagramAccounts';
@@ -47,6 +51,7 @@ import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHo
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import useAxios from '../../hooks/useAxios';
+import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
 const { axios } = useAxios();
 
 const PageProfileFrosh = () => {
