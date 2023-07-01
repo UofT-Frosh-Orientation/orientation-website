@@ -24,7 +24,7 @@ import EditIcon from '../../assets/misc/pen-solid.svg';
 import { Link } from 'react-router-dom';
 import { resources } from '../../util/resources';
 import { useDispatch, useSelector } from 'react-redux';
-import { registeredSelector, userSelector } from '../../state/user/userSlice';
+import { userSelector } from '../../state/user/userSlice';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
@@ -38,7 +38,6 @@ import { getScuntTeamObjFromTeamName, getScuntTeamObjFromTeamNumber } from '../S
 import ScuntIcon from '../../assets/misc/magnifier.png';
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
-
 
 const PageProfileLeader = () => {
     const { user } = useSelector(userSelector);
@@ -60,7 +59,6 @@ const PageProfileLeader = () => {
           );
         }
       } catch (e) {
-        console.error(e.toString());
         setScuntTeams(['Error loading teams']);
       }
     };
@@ -72,7 +70,6 @@ const PageProfileLeader = () => {
     return (
       <>
         <ProfilePageLeaderHeader editButton={true} />
-
         <div className="profile-info-row">
           <div style={{ marginLeft: '50px' }}>
             <ProfilePageLeaderPermissionDashboardLinks />
@@ -81,7 +78,6 @@ const PageProfileLeader = () => {
             <div style={{ marginTop: '-20px' }} />
             <ProfilePageSchedule />
           </div>
-
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <ProfilePageQRCode />
             {qrCodeLeader === true ? (
@@ -511,17 +507,12 @@ const ProfilePageQRScanner = () => {
 const ProfilePageLeaderHeader = ({ editButton }) => {
   const { user } = useSelector(userSelector);
   const leaderApproved = user?.approved === true;
-  const isRegistered = useSelector(registeredSelector);
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   const currentYear = new Date().getFullYear();
   const firstDigitL = currentYear.toString().slice(-2, -1);
   const lastDigitL = currentYear.toString().slice(-1);
   let leedurYear = `${firstDigitL}T${lastDigitL}`;
-  const gradYear = currentYear + 4;
-  const firstDigitF = gradYear.toString().slice(-2, -1);
-  const lastDigitF = gradYear.toString().slice(-1);
-  let froshYear = `${firstDigitF}T${lastDigitF}`;
 
   return (
     <>
@@ -549,13 +540,9 @@ const ProfilePageLeaderHeader = ({ editButton }) => {
           <div className="profile-page-header-class desktop-only">
             <h2>{leedurYear}</h2>
           </div>
-          {editButton !== false && isRegistered ? (
-            <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
-              <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
-            </Link>
-          ) : (
-            <></>
-          )}
+          <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
+            <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
+          </Link>
         </div>
       </div>
       {darkMode ? (
