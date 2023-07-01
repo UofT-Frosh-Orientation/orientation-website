@@ -9,7 +9,7 @@ import { headLeedurs } from '../../util/about/headleedurs';
 import { subComs } from '../../util/about/subcoms';
 
 import { ExecProfile } from './ExecProfile/ExecProfile';
-import ExecLogo from '../../assets/about/exec-tshirt-logo.svg';
+import ExecLogo from '../../assets/about/about-page.svg';
 import { useEffect } from 'react';
 import { object } from 'prop-types';
 import { Header } from '../../components/text/Header/Header';
