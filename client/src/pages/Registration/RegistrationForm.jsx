@@ -344,7 +344,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     return (
       <div>
         <div className="registration-form-flex">
-          <div className="registration-form">
+          <div className="registration-form" style={{ marginBottom: '65px' }}>
             <Tabs
               scrollToTopAfterChange={true}
               selectedTabPassed={selectedTab}
@@ -373,11 +373,19 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   ),
                 },
                 {
+                  title: 'Kits',
+                  component: generateStepComponent(formFields['Kits'], 'Kits'),
+                },
+                {
                   title: 'Health & Safety',
                   component: generateStepComponent(formFields['HealthSafety'], 'HealthSafety'),
                 },
                 {
                   title: 'Extra Events',
+                  component: generateStepComponent(formFields['ExtraEvents'], 'ExtraEvents'),
+                },
+                {
+                  title: 'Misc.',
                   component: generateStepComponent(formFields['Misc'], 'Misc'),
                 },
                 {

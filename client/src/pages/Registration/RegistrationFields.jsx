@@ -52,7 +52,7 @@ export const fields = {
       localStorageKey: 'registration-preferred-name',
     },
   },
-  Registration: {
+  General: {
     fullName: {
       type: 'text',
       inputType: 'text',
@@ -227,15 +227,27 @@ export const fields = {
       values: ['Yes', 'No'],
       isRequiredInput: true,
       noEdit: true,
-      initialSelectedIndex: null,
+      initialSelectedIndex: 1,
       localStorageKey: 'registration-bursaryRequested',
+    },
+  },
+  Kits: {
+    shirtSize: {
+      type: 'dropdown',
+      label: 'T-shirt Size',
+      values: ['S', 'M', 'L', 'XL', '2XL', '3XL'],
+      initialSelectedIndex: 1,
+      className: 'inline-block-remaining',
+      isRequiredInput: false,
+      noEdit: true,
+      localStorageKey: 'registration-shirtSize',
     },
   },
   HealthSafety: {
     medicalInfo: {
       type: 'dropdown',
       values: ['Yes', 'No'],
-      initialSelectedIndex: null,
+      initialSelectedIndex: 1,
       // inputType: 'textArea',
       label: 'Allergies and/or Medical Conditions',
       placeholder: 'Nut allergy',
@@ -246,8 +258,10 @@ export const fields = {
       onChanged: (value, disableField) => {
         if (value === 'Yes') {
           disableField(false, 'specficMedicalInfo', 'HealthSafety');
+          disableField(false, 'medication', 'HealthSafety');
         } else {
           disableField(true, 'specficMedicalInfo', 'HealthSafety');
+          disableField(false, 'medication', 'HealthSafety');
         }
       },
     },
@@ -270,13 +284,6 @@ export const fields = {
       isRequiredInput: false,
       localStorageKey: 'registration-medication',
       className: 'half-width-input',
-      onChanged: (value, disableField) => {
-        if (value === 'Yes') {
-          disableField(false, 'specficMedicalInfo', 'HealthSafety');
-        } else {
-          disableField(true, 'specficMedicalInfo', 'HealthSafety');
-        }
-      },
     },
     allergies: {
       type: 'checkbox',
@@ -304,7 +311,7 @@ export const fields = {
     },
     allergiesOther: {
       type: 'text',
-      inputType: 'textarea',
+      inputType: 'textArea',
       label: 'If you have any other restrictions not listed above, please list them here.',
       placeholder: 'Allergic to berries',
       hasRestrictedInput: true,
@@ -312,23 +319,11 @@ export const fields = {
       localStorageKey: 'registration-allergiesMore',
     },
   },
-  Kits: {
-    shirtSize: {
-      type: 'dropdown',
-      label: 'T-shirt Size',
-      values: ['S', 'M', 'L', 'XL', '2XL', '3XL'],
-      initialSelectedIndex: 1,
-      className: 'inline-block-remaining',
-      isRequiredInput: false,
-      noEdit: true,
-      localStorageKey: 'registration-shirtSize',
-    },
-  },
   ExtraEvents: {
     nitelife: {
       type: 'dropdown',
       values: ['Yes', 'No'],
-      initialSelectedIndex: null,
+      initialSelectedIndex: 0,
       label: 'Would you be interested in attending a carnival with other UofT Departments?',
       hasRestrictedInput: true,
       isRequiredInput: false,
@@ -400,7 +395,7 @@ export const fields = {
     },
     accessibility: {
       type: 'text',
-      inputType: 'textarea',
+      inputType: 'textArea',
       label:
         "Do you have any accessibility requirements or accommodations you'd like to share with us?",
       placeholder: '',
@@ -416,17 +411,10 @@ export const fields = {
       },
     },
     accommodation: {
-      type: 'radio',
+      type: 'dropdown',
       label: 'Would you like us to reach out to you about how we can best accommodate you?',
       values: ['Yes', 'No'],
       initialSelectedIndex: 1,
-      onChanged: (value, disableField) => {
-        if (value === 'Yes') {
-          disableField(false, 'accommodationContact', 'HealthSafety');
-        } else {
-          disableField(true, 'accommodationContact', 'HealthSafety');
-        }
-      },
       localStorageKey: 'registration-accommodation',
     },
   },
