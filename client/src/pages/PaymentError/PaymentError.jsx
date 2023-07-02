@@ -7,12 +7,17 @@ import QuestionMark from '../../assets/paymenterror/qmark.svg';
 import { Button } from '../../components/button/Button/Button';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import InstagramIcon from '../../assets/social/instagram-brands.svg';
-import EmailIcon from '../../assets/social/envelope-regular.svg';
+import InstagramIconWhite from '../../assets/social/instagram-brands.svg';
+import EmailIconWhite from '../../assets/social/envelope-regular.svg';
+import InstagramIconPurple from '../../assets/social/instagram-brands-purple.svg';
+import EmailIconPurple from '../../assets/social/envelope-regular-purple.svg';
+import { DarkModeContext } from '../../util/DarkModeProvider';
 
 const PaymentErrorGraphic = () => {
   return (
-    <div className="payment-error-image"> {/* new payment error visuals*/}
+    <div className="payment-error-image">
+      {' '}
+      {/* new payment error visuals*/}
       <img className="spotlight" src={Spotlight} />
       <img className="chicken" src={MoneyChicken} />
       <img className="sweat" src={SweatDrop} />
@@ -24,11 +29,13 @@ const PaymentErrorGraphic = () => {
 };
 
 const PagePaymentError = ({ link }) => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
   return (
     <>
       <div className="payment-error-page">
         <div className="payment-error-container">
-          <PaymentErrorGraphic /> 
+          <PaymentErrorGraphic />
 
           <div className="payment-error-text-container">
             <h2 className="payment-error-text-container-title">Oops!</h2>
@@ -51,7 +58,11 @@ const PagePaymentError = ({ link }) => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <img alt="Instagram" src={InstagramIcon} className="icon-style"></img>
+                {darkMode ? (
+                  <img alt="Instagram" src={InstagramIconWhite} className="icon-style"></img>
+                ) : (
+                  <img alt="Instagram" src={InstagramIconPurple} className="icon-style"></img>
+                )}
               </a>
               <a
                 href="mailto:marketing@orientation.skule.ca"
@@ -59,7 +70,11 @@ const PagePaymentError = ({ link }) => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <img alt="Email" src={EmailIcon} className="icon-style"></img>
+                {darkMode ? (
+                  <img alt="Email" src={EmailIconWhite} className="icon-style"></img>
+                ) : (
+                  <img alt="Email" src={EmailIconPurple} className="icon-style"></img>
+                )}
               </a>
             </div>
           </div>
@@ -74,4 +89,3 @@ PagePaymentError.propTypes = {
 };
 
 export { PagePaymentError };
-
