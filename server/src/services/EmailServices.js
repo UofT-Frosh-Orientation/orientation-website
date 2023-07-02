@@ -226,7 +226,7 @@ const EmailServices = {
     return SES.send(command);
   },
 
-  async sendStreamAttachedEmail(html, text, subject, streams, toAddresses, fromAddress) {
+  async sendRawEmailMulterFiles(html, text, subject, files, toAddresses, fromAddress) {
     const msg = mimemessage.factory({
       contentType: 'multipart/mixed',
       body: [],
@@ -253,14 +253,15 @@ const EmailServices = {
 
     msg.body.push(alternateEntity);
 
-    for (const stream of streams) {
+    for (const file of files) {
+      console.log(Buffer.from(file.buffer));
       const attachment = mimemessage.factory({
-        contentType: 'application/pdf',
+        contentType: file.mimetype,
         contentTransferEncoding: 'base64',
-        body: stream, // stream itself
+        body: Buffer.from(file.buffer),
       });
 
-      attachment.header('Content-Disposition', `attachment ;filename="${stream}"`);
+      attachment.header('Content-Disposition', `attachment; filename="${file.fieldname}"`);
 
       msg.body.push(attachment);
     }

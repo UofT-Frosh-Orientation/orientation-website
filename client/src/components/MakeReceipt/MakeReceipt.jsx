@@ -90,15 +90,15 @@ const MakeReceipt = (froshObject) => {
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.qrcode}>
-          <Svg fill="white" style={{ width: '250px' }}>
+          <Svg fill="white" style={{ width: '250px', padding: '10px 0 0 0' }}>
             {t1}
           </Svg>
-          <Text style={{ fontSize: 18, padding: '20px 0' }} key={currKey++}>
+          <Text style={{ fontSize: 16, padding: '20px 0' }} key={currKey++}>
             Your Unique QRCode
           </Text>
         </View>
         <View style={styles.section}>
-          <Text style={{ fontSize: 18, padding: '20px 0' }} key={currKey++}>
+          <Text style={{ fontSize: 16, padding: '20px 0' }} key={currKey++}>
             Please check all of your information to ensure it is correct. If you need to make any
             changes, please email us at{' '}
             <Link src={'mailto:tech@orientation.skule.ca'}>tech@orientation.skule.ca</Link> or reach

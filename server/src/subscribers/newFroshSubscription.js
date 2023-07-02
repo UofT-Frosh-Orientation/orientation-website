@@ -6,19 +6,21 @@ const newFroshSubscription = new Queue('newFrosh', {
 });
 
 newFroshSubscription.process((job, done) => {
-  console.log('Registered frosh!');
-  console.log(job.data);
+  console.log('started newFroshSubscription', job.data);
   try {
     // sending user creation email
-    const result = EmailServices.sendTemplateEmail(
-      {},
-      'registration_confirmation',
+    const result = EmailServices.sendRawEmailMulterFiles(
+      'html',
+      'text',
+      'Thank you for registering!',
+      [job.data.file],
       [job.data.email],
       'tech@orientation.skule.ca',
     );
 
     result.then((response) => {
-      console.log(response);
+      console.log('finished newFroshSubscription');
+      console.log('email API response', response);
     });
 
     done();
@@ -26,3 +28,5 @@ newFroshSubscription.process((job, done) => {
     done(error);
   }
 });
+
+module.exports = newFroshSubscription;
