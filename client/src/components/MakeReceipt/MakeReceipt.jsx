@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Document, Page, Text, View, Svg, Circle, StyleSheet } from '@react-pdf/renderer';
+import { Document, Page, Text, View, Svg, Circle, StyleSheet, Link } from '@react-pdf/renderer';
 import { QRNormal } from 'react-qrbtf';
 import ReactDOMServer from 'react-dom/server';
 
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
   section: {
     margin: 2,
-    padding: 5,
+    padding: 7.5,
   },
 });
 
@@ -58,43 +58,33 @@ const MakeReceipt = (froshObject) => {
     currKey++;
   });
 
-  [
-    // All nonintrusive displayable form information
-    'accessibility',
-    'accommodation',
-    'accommodationContact',
-    'accommodationOther',
-    'allergies',
-    'birthDate',
-    'bursaryRequested',
-    'discipline',
-    'email',
-    'emergencyContactName',
-    'emergencyContactNumber',
-    'emergencyContactNumberAreaCode',
-    'emergencyContactRelationship',
-    'firstName',
-    'froshGroup',
-    'instagram',
-    'lastName',
-    'legalName',
-    'medicalInfo',
-    'medication',
-    'phoneNumber',
-    'phoneNumberAreaCode',
-    'photograph',
-    'preferredName',
-    'pronouns',
-    'shirtSize',
+  // All nonintrusive displayable form information
+  const irrelevantFields = [
+    'authScopes',
+    'canEmail',
+    'completedAnnouncements',
+    'froshGroupIcon',
+    'id',
+    'isRegistered',
+    'isScuntDiscordLoggedIn',
+    'scuntPreferredMembers',
+    'scuntTeam',
+    'scuntToken',
     'userType',
-    'utorid',
-  ].forEach((x, i, a) => {
+  ];
+  for (const [key, value] of Object.entries(froshObject)) {
+    if (irrelevantFields.includes(key)) continue;
     t2.push(
-      <Text style={{ fontSize: 14 }} key={currKey++}>
-        {x}= {Array.isArray(x) ? Array.toString(froshObject[x]) : JSON.stringify(froshObject[x])}
-      </Text>,
+      <>
+        <Text style={{ fontSize: 14 }} key={currKey++}>
+          {key}:
+        </Text>
+        <Text style={{ fontSize: 14, padding: '0 0 20px 0' }} key={currKey++}>
+          {value}
+        </Text>
+      </>,
     );
-  });
+  }
 
   return (
     <Document>
