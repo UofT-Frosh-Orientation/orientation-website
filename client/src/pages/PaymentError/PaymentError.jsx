@@ -12,7 +12,7 @@ import EmailIcon from '../../assets/social/envelope-regular.svg';
 
 const PaymentErrorGraphic = () => {
   return (
-    <div className="payment-error-image">
+    <div className="payment-error-image"> {/* new payment error visuals*/}
       <img className="spotlight" src={Spotlight} />
       <img className="chicken" src={MoneyChicken} />
       <img className="sweat" src={SweatDrop} />
@@ -28,7 +28,7 @@ const PagePaymentError = ({ link }) => {
     <>
       <div className="payment-error-page">
         <div className="payment-error-container">
-          <PaymentErrorGraphic />
+          <PaymentErrorGraphic /> 
 
           <div className="payment-error-text-container">
             <h2 className="payment-error-text-container-title">Oops!</h2>
