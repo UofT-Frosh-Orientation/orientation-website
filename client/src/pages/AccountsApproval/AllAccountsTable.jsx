@@ -37,8 +37,6 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
 
   const dispatch = useDispatch();
 
-  // console.log(accountStatus)
-
   const save = () => {
     dispatch(updateAccounts({ setSnackbar, accounts: emailList }));
   };

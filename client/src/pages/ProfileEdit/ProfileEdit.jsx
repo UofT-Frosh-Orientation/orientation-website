@@ -14,7 +14,7 @@ const PageProfileEdit = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const submit = (newInfo) => {
-    dispatch(updateUserInfo({ newInfo, navigate }));
+    dispatch(updateUserInfo({ newInfo, navigate, isRegistered }));
   };
   if (!isRegistered) {
     navigate('/profile');
@@ -23,7 +23,6 @@ const PageProfileEdit = () => {
     <>
       {isRegistered && (
         <>
-          <div className="navbar-space-top" />
           <ProfilePageHeader leader={false} editButton={false} />
           <div className="edit-form-container">
             <PageRegistrationForm

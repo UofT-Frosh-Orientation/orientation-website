@@ -3,6 +3,7 @@ const LeadurServices = require('../services/LeadurServices');
 const passport = require('../services/passport');
 const passwordResetSubscription = require('../subscribers/passwordResetSubscription');
 const announcementSubscription = require('../subscribers/announcementSubscription');
+const newUserSubscription = require('../subscribers/newUserSubscription');
 
 const UserController = {
   /**
@@ -38,18 +39,12 @@ const UserController = {
           preferredName,
         );
       }
-
-      req.logIn(user, (err) => {
-        if (err) {
-          return next(err);
-        }
-        return res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
-      });
-    } catch (e) {
-      console.log(e);
-      next(e);
+      return res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
+    } catch (err) {
+      next(err);
     }
   },
+
   /**
    * Gets the info of the currently authenticated user.
    * @param {Object} req
@@ -77,6 +72,8 @@ const UserController = {
     passport.authenticate('local', (err, user) => {
       if (err || !user) {
         res.status(403).send({ message: 'Please ensure your email and password are correct.' });
+      } else if (!user.confirmed) {
+        res.status(403).send({ message: 'Please ensure that you have verified your email.' });
       } else {
         req.logIn(user, (err) => {
           if (err) {
@@ -136,6 +133,28 @@ const UserController = {
         res.status(200).send({
           message:
             'Successfully updated your password! Please sign in with your email and new password.',
+        });
+      }
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  async confirmUser(req, res, next) {
+    try {
+      const { email, emailToken } = req.body;
+      const result = await UserServices.validateEmailConfirmationToken(emailToken);
+      const existingUser = await UserServices.getUserByEmail(email);
+
+      if (!existingUser || existingUser.email !== result) {
+        next(new Error('INVALID_VERIFICATION_LINK'));
+      } else {
+        await UserServices.updateUserInfo(existingUser.id, { confirmed: true });
+        newUserSubscription.add(existingUser);
+
+        res.status(200).send({
+          message:
+            'Successfully verified your email! Log in with your email and password to get started.',
         });
       }
     } catch (err) {
@@ -301,6 +320,30 @@ const UserController = {
       }
     } catch (e) {
       console.log(e);
+      next(e);
+    }
+  },
+
+  /**
+   * Update a users info
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @return {Promise<void>}
+   */
+  async updateInfo(req, res, next) {
+    console.log(req.user);
+    console.log(req.body);
+    const userId = req.user.id;
+    const updateInfo = req.body;
+
+    try {
+      const user = await UserServices.updateUserInfo(userId, updateInfo);
+      return res.status(200).send({
+        message: 'Successfully updated User Information!',
+        user: user.getResponseObject(),
+      });
+    } catch (e) {
       next(e);
     }
   },

@@ -6,7 +6,7 @@ export async function getTimelineEvents() {
     const response = await axios.get('/timeline');
     return response.data.timelines;
   } catch (error) {
-    console.log('Error', error.message);
+    console.error(error);
     return [];
   }
 }
