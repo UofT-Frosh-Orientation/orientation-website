@@ -149,6 +149,21 @@
   }
 }
 
+.icon-style {
+  position: relative;
+  filter: brightness(0) invert(1);
+  width: 7%;
+  height: 7%;
+  margin-left: 5%;
+  margin-right: 6%;
+}
+
+.icon-style:hover {
+  border-radius: 50%;
+  padding: 1%;
+  transition: all 0.3s ease-in-out;
+}
+
 .payment-error-text-container-title {
   font-size: 60px;
   font-weight: bold;
@@ -211,3 +226,4 @@
     transform-origin: center;
   }
 }
+
