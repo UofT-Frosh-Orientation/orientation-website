@@ -27,7 +27,7 @@ const FroshController = {
         await FroshServices.upgradeToFrosh(user, registrationInfo, payment_intent)
       ).getResponseObject();
       if (frosh) {
-        console.log('Registered frosh!');
+        console.log('Registered frosh');
         newFroshSubscription.add({ email: user.email, file: req.file });
         res.status(400).send({ url });
       }

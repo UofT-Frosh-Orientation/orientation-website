@@ -254,11 +254,10 @@ const EmailServices = {
     msg.body.push(alternateEntity);
 
     for (const file of files) {
-      console.log(Buffer.from(file.buffer));
       const attachment = mimemessage.factory({
         contentType: file.mimetype,
         contentTransferEncoding: 'base64',
-        body: Buffer.from(file.buffer),
+        body: Buffer.from(file.buffer).toString('base64'),
       });
 
       attachment.header('Content-Disposition', `attachment; filename="${file.fieldname}"`);

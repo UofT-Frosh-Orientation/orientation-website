@@ -20,7 +20,7 @@ newFroshSubscription.process((job, done) => {
 
     result.then((response) => {
       console.log('finished newFroshSubscription');
-      console.log('email API response', response);
+      console.log('email API response:', response);
     });
 
     done();

@@ -12,11 +12,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 5,
-  },
-  section: {
-    margin: 2,
-    padding: 7.5,
   },
 });
 
@@ -71,16 +66,19 @@ const MakeReceipt = (froshObject) => {
     'scuntTeam',
     'scuntToken',
     'userType',
+    'confirmed',
+    'froshGroup',
   ];
   for (const [key, value] of Object.entries(froshObject)) {
+    console.log(key, value);
     if (irrelevantFields.includes(key)) continue;
     t2.push(
       <>
-        <Text style={{ fontSize: 14 }} key={currKey++}>
+        <Text style={{ fontSize: 14 }} key={key}>
           {key}:
         </Text>
-        <Text style={{ fontSize: 14, padding: '0 0 20px 0' }} key={currKey++}>
-          {value}
+        <Text style={{ fontSize: 14, padding: '0 0 10px 0', color: '#28093A' }} key={key + value}>
+          {value.toString()}
         </Text>
       </>,
     );
@@ -93,11 +91,11 @@ const MakeReceipt = (froshObject) => {
           <Svg fill="white" style={{ width: '250px', padding: '10px 0 0 0' }}>
             {t1}
           </Svg>
-          <Text style={{ fontSize: 16, padding: '20px 0' }} key={currKey++}>
+          <Text style={{ fontSize: 16, padding: '10px 0 0 0' }} key={currKey++}>
             Your Unique QRCode
           </Text>
         </View>
-        <View style={styles.section}>
+        <View style={{ padding: '0 10px' }}>
           <Text style={{ fontSize: 16, padding: '20px 0' }} key={currKey++}>
             Please check all of your information to ensure it is correct. If you need to make any
             changes, please email us at{' '}
