@@ -70,7 +70,6 @@ const MakeReceipt = (froshObject) => {
     'froshGroup',
   ];
   for (const [key, value] of Object.entries(froshObject)) {
-    console.log(key, value);
     if (irrelevantFields.includes(key)) continue;
     t2.push(
       <>

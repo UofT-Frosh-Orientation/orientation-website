@@ -10,9 +10,9 @@ newFroshSubscription.process((job, done) => {
   try {
     // sending user creation email
     const result = EmailServices.sendRawEmailMulterFiles(
-      'html',
-      'text',
-      'Thank you for registering!',
+      `html`,
+      `Hello ${job.data.name}! \n\n Thank you for registering for F!rosh Week 2T3! \n\n Please find attached your F!rosh Week 2T3 data receipt, it has a copy of your QR code that you'll need for a variety of your F!rosh Week activities. \n\n We look forward to seeing you soon! \n\n For further information please consult your profile page on https://orientaion.skule.ca \n\n\n\n Sincerely, \n\n The F!rosh Week 2T3 Team`,
+      'Congratulation on registering for F!rosh Week 2T3',
       [job.data.file],
       [job.data.email],
       'tech@orientation.skule.ca',

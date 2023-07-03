@@ -226,6 +226,16 @@ const EmailServices = {
     return SES.send(command);
   },
 
+  /**
+   * Send raw MIME format email which can include attachment buffers from multer
+   * @param {String} html html part of the message
+   * @param {String} text text part of the message
+   * @param {String} subject subject of the email
+   * @param {String[]} attachments an array of multer buffers
+   * @param {String[]} toAddresses array of email addresses to send to
+   * @param {String} fromAddress the email adress the email is being sent from
+   * @returns {Promise} promise
+   */
   async sendRawEmailMulterFiles(html, text, subject, files, toAddresses, fromAddress) {
     const msg = mimemessage.factory({
       contentType: 'multipart/mixed',
