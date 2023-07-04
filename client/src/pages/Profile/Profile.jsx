@@ -107,7 +107,7 @@ const PageProfileFrosh = () => {
       <ProfilePageHeader leader={leader} editButton={true} />
 
       <div className="profile-info-row">
-        <div style={{ marginLeft: '50px' }}>
+        <div className="profile-page-divider">
           {leader === false ? (
             <>
               <ProfilePageScuntMessage />
@@ -907,8 +907,8 @@ const ProfilePageHeader = ({ leader, editButton }) => {
     <>
       <div className="profile-page-header">
         <div className="profile-page-header-group">
-          <h1>{leader === true ? 'ℒ' : user?.froshGroupIcon}</h1>
-          {leader === true ? <p>{'(Leedur)'}</p> : <p>{user?.froshGroup}</p>}
+          <h1>{leader === true ? 'ℒ' : isRegistered ? user?.froshGroupIcon : ''}</h1>
+          <p>{leader === true ? '(Leedur)' : isRegistered ? user?.froshGroup : ''}</p>
         </div>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-info">
@@ -937,7 +937,10 @@ const ProfilePageHeader = ({ leader, editButton }) => {
             )}
           </div>
           {editButton !== false && (
-            <Link to={isRegistered? '/profile-edit' : '/profile-edit-unregistered'} className={'profile-edit-icon-link no-link-style'}>
+            <Link
+              to={isRegistered ? '/profile-edit' : '/profile-edit-unregistered'}
+              className={'profile-edit-icon-link no-link-style'}
+            >
               <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
             </Link>
           )}
@@ -1144,7 +1147,7 @@ const ProfilePageQRCode = () => {
         posColor="#28093A"
         backgroundColor="white"
       />
-      <p>Your Sign-in QR Code</p>
+      <p style={{ color: 'var(--purple)' }}>Your Sign-in QR Code</p>
     </div>
   );
 };
