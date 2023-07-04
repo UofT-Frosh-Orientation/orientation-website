@@ -2,6 +2,9 @@ const pino = require('pino');
 const pinoHttp = require('pino-http');
 const pinoPretty = require('pino-pretty');
 
+
+const fileStream = pino.destination('./output.log');
+
 const logger = pino({
     transport:{
         target: "pino-pretty",
@@ -10,24 +13,25 @@ const logger = pino({
         }
     },
     redact: {
-        paths: [''],
+        paths: ['req.headers'],
         remove: true
       }
-  });
+  }, fileStream);
+
 const loggerMiddleware = pinoHttp({
     logger,
-    // customLogLevel: function (res, err) {
-    //     // Customize the log level based on the response and error
-    //     return 'info';
-    // },
-    // customSuccessMessage: function (res) {
-    //     // Customize the success log message
-    //     return `Request completed successfully with status ${res.statusCode}`;
-    // },
-    // customErrorMessage: function (error, res) {
-    //     // Customize the error log message
-    //     return `An error occurred: ${error.message}`;
-    // },
+    customLogLevel: function (res, err) {
+        // Customize the log level based on the response and error
+        return 'info';
+    },
+    customSuccessMessage: function (res) {
+        // Customize the success log message
+        return `Request completed successfully with status ${res.statusCode}`;
+    },
+    customErrorMessage: function (error, res) {
+        // Customize the error log message
+        return `An error occurred: ${error.message}`;
+    },
     prettyPrint: { colorize: true }, // Enable pretty printing with colors
     }
 );
