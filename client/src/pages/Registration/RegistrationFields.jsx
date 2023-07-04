@@ -77,7 +77,7 @@ export const fields = {
     },
   },
   General: {
-    fullName: {
+    legalName: {
       type: 'text',
       inputType: 'text',
       placeholder: 'John Doe',
@@ -86,7 +86,7 @@ export const fields = {
       noEdit: true,
       errorMessage: 'Please enter your full name',
       localStorageKey: 'registration-full-name',
-      validation: textValidation,
+      validation: textLengthValidation,
     },
     pronouns: {
       type: 'dropdown',
@@ -114,7 +114,7 @@ export const fields = {
       errorMessage: 'Please enter a pronoun',
       className: 'fill-remaining-width-input',
       localStorageKey: 'registration-other-pronoun',
-      validation: textValidation,
+      validation: textLengthValidation,
     },
     birthDate: {
       type: 'text',
@@ -198,7 +198,7 @@ export const fields = {
       type: 'text',
       inputType: 'text',
       placeholder: '+1',
-      hasRestrictedInput: true,
+      hasRestrictedInput: false,
       localStorageKey: 'registration-phoneNumberCountryCode',
       className: 'small-width-input',
       inputTitle: 'Country Code',
@@ -206,7 +206,7 @@ export const fields = {
       noEdit: false,
       validation: (value) => {
         if (/^[+0-9]*$/.test(value)) {
-          if (value.length === 3) {
+          if (value.length <= 3) {
             return true;
           } else {
             return 'Must be at most 3 characters';
@@ -240,7 +240,7 @@ export const fields = {
       errorMessage: 'Please enter a valid name',
       localStorageKey: 'registration-emergencyContactName',
       className: 'full-width-input',
-      validation: textValidation,
+      validation: textLengthValidation,
     },
     emergencyContactRelationship: {
       type: 'text',
@@ -253,7 +253,7 @@ export const fields = {
       errorMessage: 'Please enter an emergency contact relationship',
       localStorageKey: 'registration-emergencyContactRelationship',
       className: 'half-width-input',
-      validation: textValidation,
+      validation: textLengthValidation,
     },
     emergencyContactNumber: {
       type: 'text',
@@ -296,7 +296,7 @@ export const fields = {
           disableField(false, 'medication', 'HealthSafety');
         } else {
           disableField(true, 'specficMedicalInfo', 'HealthSafety');
-          disableField(false, 'medication', 'HealthSafety');
+          disableField(true, 'medication', 'HealthSafety');
         }
       },
     },
@@ -436,7 +436,7 @@ export const fields = {
       localStorageKey: 'registration-summerLocationCity',
       errorMessage: 'Please enter your city',
       className: 'half-width-input',
-      validation: textValidation,
+      validation: textLengthValidation,
     },
     summerLocationCountry: {
       type: 'text',
