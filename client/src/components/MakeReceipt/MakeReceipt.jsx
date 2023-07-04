@@ -78,7 +78,7 @@ const MakeReceipt = (froshObject) => {
           {key}:
         </Text>
         <Text style={{ fontSize: 14, padding: '0 0 10px 0', color: '#28093A' }} key={key + value}>
-          {value.toString()}
+          {`${value}`}
         </Text>
       </>,
     );

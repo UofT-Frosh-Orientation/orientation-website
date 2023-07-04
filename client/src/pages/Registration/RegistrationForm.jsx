@@ -61,6 +61,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
         });
         window.location.href = response.data.url;
       } catch (error) {
+        console.log(error);
         setCanRegister(true);
       }
     }
