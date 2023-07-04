@@ -2,6 +2,7 @@
 // These must be included, even if the input type does not require this info
 //
 // isRequiredInput: if the field can be undefined before submission
+// hasRestrictedInput (optional): replaces symbols like +-/{},etc. with ''
 // errorMessage: The message to show if the field is missing but is required
 // onChanged(value, disableFields): disable/enable fields based on a value (dependancies)
 // className: the class name applied around the child form input component
@@ -9,6 +10,29 @@
 //         Note: noEdit does not work for checkboxes
 // validation(value): if set, return true for a valid input, return a string as the error message. The check will fail if a string is returned.
 // isBold: field.type of label! (bolds the label)
+
+// checking for Aa-Zz characters and 1-50 character length
+const textValidation = (value) => {
+  if (value.length >= 1 && value.length <= 50) {
+    if (/^[A-Za-z]*$/.test(value)) {
+      return true;
+    } else {
+      return 'Please use Aa-Zz characters';
+    }
+  } else {
+    return 'Please ensure that your full name is between 1 and 50 characters';
+  }
+};
+
+const textLengthValidation = (value) => {
+  if (value.length > 50) {
+    return 'Please try to use 50 characters or less';
+  } else {
+    return true;
+  }
+};
+
+let allergiesList = [];
 
 export const fields = {
   EditFieldsOnly: {
@@ -59,26 +83,18 @@ export const fields = {
       placeholder: 'John Doe',
       label: 'Legal Name',
       isRequiredInput: true,
+      noEdit: true,
       errorMessage: 'Please enter your full name',
       localStorageKey: 'registration-full-name',
-      validation: (value) => {
-        if (value.length >= 1 && value.length <= 50) {
-          if (/^[A-Za-z]*$/.test(value)) {
-            return true;
-          } else {
-            return 'Please use Aa-Zz characters';
-          }
-        } else {
-          return 'Please ensure that your full name is between 1 and 50 characters';
-        }
-      },
+      validation: textValidation,
     },
     pronouns: {
       type: 'dropdown',
       label: 'What are your pronouns?',
       values: ['He/Him', 'They/Them', 'She/Her', 'Other', 'Prefer not to say'],
       isRequiredInput: true,
-      initialSelectedIndex: 0,
+      initialSelectedIndex: 4,
+      noEdit: true,
       className: 'half-width-input',
       onChanged: (value, disableField) => {
         if (value === 'Other') {
@@ -93,11 +109,12 @@ export const fields = {
       type: 'text',
       inputType: 'text',
       label: 'Other Pronoun',
-      hasRestrictedInput: true,
       isRequiredInput: false,
+      noEdit: true,
       errorMessage: 'Please enter a pronoun',
       className: 'fill-remaining-width-input',
       localStorageKey: 'registration-other-pronoun',
+      validation: textValidation,
     },
     birthDate: {
       type: 'text',
@@ -106,6 +123,7 @@ export const fields = {
       placeholder: '',
       hasRestrictedInput: true,
       isRequiredInput: true,
+      noEdit: true,
       errorMessage: 'Please enter a valid date',
       className: 'half-width-input',
       validation: (value) => {
@@ -125,9 +143,10 @@ export const fields = {
       type: 'text',
       inputType: 'text',
       label: 'UtorID',
-      placeholder: '',
+      placeholder: 'doejon11',
       hasRestrictedInput: true,
       isRequiredInput: true,
+      noEdit: true,
       errorMessage: 'Please enter your UtorID',
       localStorageKey: 'registration-utorid',
       className: 'half-width-input',
@@ -154,10 +173,21 @@ export const fields = {
         'TrackOne',
         'EngSci',
       ],
-      className: 'inline-block-remaining',
+      className: 'half-width-input',
       initialSelectedIndex: 0,
       isRequiredInput: true,
+      noEdit: true,
       localStorageKey: 'registration-discipline',
+    },
+    shirtSize: {
+      type: 'dropdown',
+      label: 'T-shirt Size',
+      values: ['S', 'M', 'L', 'XL', '2XL', '3XL'],
+      initialSelectedIndex: 1,
+      className: 'half-width-input',
+      isRequiredInput: true,
+      noEdit: true,
+      localStorageKey: 'registration-shirtSize',
     },
     phoneNumberLabel: {
       type: 'label',
@@ -173,13 +203,26 @@ export const fields = {
       className: 'small-width-input',
       inputTitle: 'Country Code',
       maxLength: 3,
+      noEdit: false,
+      validation: (value) => {
+        if (/^[+0-9]*$/.test(value)) {
+          if (value.length === 3) {
+            return true;
+          } else {
+            return 'Must be at most 3 characters';
+          }
+        } else {
+          return 'Must contain characters 0-9 or +';
+        }
+      },
     },
     phoneNumber: {
       type: 'text',
       inputType: 'text',
-      placeholder: '',
+      placeholder: '(416) 123-4567',
       hasRestrictedInput: true,
       isRequiredInput: true,
+      noEdit: false,
       errorMessage: 'Please enter a valid phone number',
       localStorageKey: 'registration-phoneNumber',
       className: 'fill-remaining-width-input',
@@ -190,23 +233,27 @@ export const fields = {
       type: 'text',
       inputType: 'text',
       label: 'Emergency Contact Full Name',
-      placeholder: '',
+      placeholder: 'Jane Doe',
       hasRestrictedInput: true,
       isRequiredInput: true,
+      noEdit: false,
       errorMessage: 'Please enter a valid name',
       localStorageKey: 'registration-emergencyContactName',
-      className: 'half-width-input',
+      className: 'full-width-input',
+      validation: textValidation,
     },
     emergencyContactRelationship: {
       type: 'text',
       inputType: 'text',
       label: 'Emergency Contact Relationship',
-      placeholder: '',
+      placeholder: 'Parent / Guardian',
       hasRestrictedInput: true,
       isRequiredInput: true,
+      noEdit: false,
       errorMessage: 'Please enter an emergency contact relationship',
       localStorageKey: 'registration-emergencyContactRelationship',
       className: 'half-width-input',
+      validation: textValidation,
     },
     emergencyContactNumber: {
       type: 'text',
@@ -215,14 +262,15 @@ export const fields = {
       placeholder: '(416) 123-4567',
       hasRestrictedInput: true,
       isRequiredInput: true,
+      noEdit: false,
       errorMessage: 'Please enter a valid phone number',
       localStorageKey: 'registration-emergencyContactNumber',
-      className: 'fill-remaining-width-input',
+      className: 'half-width-input',
       isPhoneNumber: true,
       inputTitle: 'Phone Number',
     },
     bursaryRequested: {
-      type: 'dropdown',
+      type: 'radio',
       label: 'Bursary',
       values: ['Yes', 'No'],
       isRequiredInput: true,
@@ -231,28 +279,15 @@ export const fields = {
       localStorageKey: 'registration-bursaryRequested',
     },
   },
-  Kits: {
-    shirtSize: {
-      type: 'dropdown',
-      label: 'T-shirt Size',
-      values: ['S', 'M', 'L', 'XL', '2XL', '3XL'],
-      initialSelectedIndex: 1,
-      className: 'inline-block-remaining',
-      isRequiredInput: false,
-      noEdit: true,
-      localStorageKey: 'registration-shirtSize',
-    },
-  },
   HealthSafety: {
     medicalInfo: {
-      type: 'dropdown',
+      type: 'radio',
       values: ['Yes', 'No'],
       initialSelectedIndex: 1,
-      // inputType: 'textArea',
       label: 'Allergies and/or Medical Conditions',
-      placeholder: 'Nut allergy',
-      hasRestrictedInput: true,
+      placeholder: '',
       isRequiredInput: true,
+      noEdit: false,
       localStorageKey: 'registration-medicalInfo',
       className: 'half-width-input',
       onChanged: (value, disableField) => {
@@ -270,20 +305,22 @@ export const fields = {
       inputType: 'text',
       label: 'Specific Allergies and/or Medical Conditions',
       placeholder: 'Nut Allergy',
-      hasRestrictedInput: true,
       isRequiredInput: false,
+      noEdit: false,
       localStorageKey: 'registration-specificMedicalInfo',
       className: 'half-width-input',
+      validation: textLengthValidation,
     },
     medication: {
       type: 'text',
       inputType: 'text',
       label: 'Medication (e.g. Epi-Pen, inhaler, ...)',
       placeholder: 'Carries 2 Epi-Pens',
-      hasRestrictedInput: true,
       isRequiredInput: false,
+      noEdit: false,
       localStorageKey: 'registration-medication',
       className: 'half-width-input',
+      validation: textLengthValidation,
     },
     allergies: {
       type: 'checkbox',
@@ -300,9 +337,10 @@ export const fields = {
         'Other',
       ],
       isRequiredInput: true,
+      noEdit: false,
       localStorageKey: 'registration-allergies',
-      onChanged: (value, disableField) => {
-        if (value === 'other') {
+      onChanged: (values, disableField) => {
+        if (values.includes('Other')) {
           disableField(false, 'allergiesOther', 'HealthSafety');
         } else {
           disableField(true, 'allergiesOther', 'HealthSafety');
@@ -316,22 +354,56 @@ export const fields = {
       placeholder: 'Allergic to berries',
       hasRestrictedInput: true,
       isRequiredInput: false,
+      noEdit: false,
       localStorageKey: 'registration-allergiesMore',
+      validation: (value) => {
+        if (value.length > 100) {
+          return 'Please use less than 100 characters';
+        } else {
+          return true;
+        }
+      },
+    },
+    accessibility: {
+      type: 'text',
+      inputType: 'textArea',
+      label:
+        "Do you have any accessibility requirements or accommodations you'd like to share with us?",
+      placeholder:
+        'I would like to be able to access a quiet space to relax when the activities get overwhelming',
+      hasRestrictedInput: true,
+      isRequiredInput: false,
+      localStorageKey: 'registration-accessibility',
+      onChanged: (value, disableField) => {
+        if (value !== '' && value !== undefined) {
+          disableField(false, 'accommodation', 'HealthSafety');
+        } else {
+          disableField(true, 'accommodation', 'HealthSafety');
+        }
+      },
+    },
+    accommodation: {
+      type: 'radio',
+      label: 'Would you like us to reach out to you about how we can best accommodate you?',
+      values: ['Yes', 'No'],
+      initialSelectedIndex: 0,
+      isRequiredInput: false,
+      localStorageKey: 'registration-accommodation',
     },
   },
   ExtraEvents: {
     nitelife: {
-      type: 'dropdown',
+      type: 'radio',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       label: 'Would you be interested in attending a carnival with other UofT Departments?',
       hasRestrictedInput: true,
       isRequiredInput: false,
+      noEdit: false,
       localStorageKey: 'registration-nitelife',
-      className: 'half-width-input',
     },
     scunt: {
-      type: 'dropdown',
+      type: 'radio',
       label:
         'Would you like to participate in Havenger Scunt? (It will take place on the evening of Wednesday, September 6th)',
       values: ['Yes', 'No'],
@@ -341,81 +413,66 @@ export const fields = {
       isRequiredInput: true,
     },
     retreat: {
-      type: 'dropdown',
+      type: 'radio',
       label:
         'Would you like to attend an overnight retreat on September 9th-10th at Hart House Farms (at an additional cost)?',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       localStorageKey: 'registration-scunt',
-      noEdit: false,
+      noEdit: true,
       isRequiredInput: true,
     },
-  },
-  Misc: {
     summerLocationLabel: {
       type: 'label',
       label: 'Where will you be located for the majority of the summer?',
-      isRequiredInput: true,
     },
     summerLocationCity: {
       type: 'text',
       inputType: 'text',
       label: 'City',
-      placeholder: '',
-      hasRestrictedInput: true,
-      isRequiredInput: false,
+      placeholder: 'Toronto',
+      isRequiredInput: true,
+      noEdit: false,
       localStorageKey: 'registration-summerLocationCity',
       errorMessage: 'Please enter your city',
       className: 'half-width-input',
+      validation: textValidation,
     },
     summerLocationCountry: {
       type: 'text',
       inputType: 'text',
-      label: 'Country',
-      placeholder: '',
+      label: 'Country (2 character code)',
+      placeholder: 'CA',
       hasRestrictedInput: true,
-      isRequiredInput: false,
+      isRequiredInput: true,
+      noEdit: false,
       localStorageKey: 'registration-summerLocationCountry',
       errorMessage: 'Please enter your country',
       className: 'half-width-input',
       validation: (value) => {
-        if (/^[A-Z]*$/.test(value)) {
+        if (/^[A-Z]*$/.test(value) && value.length === 2) {
           return true;
         } else {
-          return 'Please use capital letters';
+          return 'Please use the 2 letter country code';
         }
       },
     },
-    photograph: {
+    moveToToronto: {
       type: 'dropdown',
+      label:
+        'If you are not in the GTA (Greater Toronto Area) already, approximately when are you planning to move to Toronto?',
+      values: ['N/A', 'July', 'August', 'September'],
+      initialSelectedIndex: 0,
+      isRequiredInput: false,
+      noEdit: false,
+      localStorageKey: 'registration-moveToToronto',
+    },
+    photograph: {
+      type: 'radio',
       label: 'Are you okay with being photographed during Frosh Week?',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       localStorageKey: 'registration-photograph',
-    },
-    accessibility: {
-      type: 'text',
-      inputType: 'textArea',
-      label:
-        "Do you have any accessibility requirements or accommodations you'd like to share with us?",
-      placeholder: '',
-      hasRestrictedInput: true,
-      isRequiredInput: false,
-      localStorageKey: 'registration-accessibility',
-      onChanged: (value, disableField) => {
-        if (value !== '' && value !== undefined) {
-          disableField(false, 'accommodation', 'Misc');
-        } else {
-          disableField(true, 'accommodation', 'Misc');
-        }
-      },
-    },
-    accommodation: {
-      type: 'dropdown',
-      label: 'Would you like us to reach out to you about how we can best accommodate you?',
-      values: ['Yes', 'No'],
-      initialSelectedIndex: 1,
-      localStorageKey: 'registration-accommodation',
     },
   },
 };

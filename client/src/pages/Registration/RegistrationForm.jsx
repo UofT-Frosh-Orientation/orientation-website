@@ -235,7 +235,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       values.push(field.values[index]);
                     }
                     froshObject[key] = values;
-                    if (field.onChanged) field.onChanged(value, disableField);
+                    if (field.onChanged) field.onChanged(values, disableField);
                   }}
                   values={field.values}
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
@@ -373,20 +373,12 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   ),
                 },
                 {
-                  title: 'Kits',
-                  component: generateStepComponent(formFields['Kits'], 'Kits'),
-                },
-                {
                   title: 'Health & Safety',
                   component: generateStepComponent(formFields['HealthSafety'], 'HealthSafety'),
                 },
                 {
                   title: 'Extra Events',
                   component: generateStepComponent(formFields['ExtraEvents'], 'ExtraEvents'),
-                },
-                {
-                  title: 'Misc.',
-                  component: generateStepComponent(formFields['Misc'], 'Misc'),
                 },
                 {
                   title: 'Payment',
