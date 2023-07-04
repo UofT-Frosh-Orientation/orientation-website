@@ -128,7 +128,6 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     return (
       <div className="registration-tab-content">
         {Object.keys(formFieldsAtStep).map((key, index) => {
-          console.log(key, index);
           const field = formFieldsAtStep[key];
           if (field.type === 'text') {
             return (
