@@ -40,8 +40,7 @@ const UserController = {
         );
       }
       return res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
-    } 
-    catch(err) {
+    } catch (err) {
       next(err);
     }
   },
@@ -151,8 +150,8 @@ const UserController = {
         next(new Error('INVALID_VERIFICATION_LINK'));
       } else {
         await UserServices.updateUserInfo(existingUser.id, { confirmed: true });
-        newUserSubscription.add(existingUser);  
-        
+        newUserSubscription.add(existingUser);
+
         res.status(200).send({
           message:
             'Successfully verified your email! Log in with your email and password to get started.',

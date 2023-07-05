@@ -10,7 +10,7 @@ const PageEmailConfirmed = () => {
   const [validEmailToken, setvalidEmailToken] = useState(false);
 
   function verifyEmailToken(email, emailToken) {
-    const {axios} = useAxios(); 
+    const { axios } = useAxios();
 
     try {
       const emailAndEmailToken = {
@@ -19,8 +19,7 @@ const PageEmailConfirmed = () => {
       };
       axios.post('/user/verify-user-email', emailAndEmailToken);
       setvalidEmailToken(true);
-    }
-    catch(err) {
+    } catch (err) {
       setvalidEmailToken(false);
     }
   }
