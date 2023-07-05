@@ -59,14 +59,14 @@ const FroshSchema = new mongoose.Schema(
       type: String,
       enum: [
         'Chemical',
-        'Industrial',
-        'Mechanical',
         'Civil',
+        'Electrical & Computer',
+        'Engineering Science',
+        'Industrial',
+        'Materials',
+        'Mechanical',
         'Mineral',
-        'ECE',
-        'MSE',
-        'TrackOne',
-        'EngSci',
+        'Track One (Undeclared)',
       ],
       required: true,
     },
@@ -128,15 +128,17 @@ const FroshSchema = new mongoose.Schema(
       type: Boolean, // true is want to be contacted, false is not
       required: false,
     },
-    nitelife: {
+    interestInNitelife: {
       type: Boolean, // true is interested in attending
       required: false,
     },
-    scunt: {
+    attendingScunt: {
       type: Boolean, // true is attending scunt, false is not attending
       required: true,
     },
-    retreat: {
+    interestInRetreat: {
+      // only indicates whether a frosh is interested in retreat,
+      // we show the same retreat msg on profiler regardless of choice
       type: Boolean,
       required: true,
     },
@@ -183,6 +185,7 @@ const FroshSchema = new mongoose.Schema(
       default: [],
     },
     isRetreat: {
+      // used for F!rosh that paid for retreat
       type: Boolean,
       required: false,
     },

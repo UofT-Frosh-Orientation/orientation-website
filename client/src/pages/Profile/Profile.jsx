@@ -335,7 +335,7 @@ export const ProfilePageScuntTeamsSelection = () => {
   if (
     leader ||
     !isRegistered ||
-    !user?.scunt ||
+    !user?.attendingScunt ||
     (scuntSettings !== undefined &&
       scuntSettings.length >= 1 &&
       scuntSettings[0]?.revealTeams === true)
@@ -431,7 +431,7 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   ) {
     return <></>;
   }
-  if (!leader && !user?.scunt) {
+  if (!leader && !user?.attendingScunt) {
     return (
       <div className="profile-page-scunt-token profile-page-side-section">
         <p>

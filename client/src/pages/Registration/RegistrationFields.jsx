@@ -164,14 +164,14 @@ export const fields = {
       label: 'Discipline',
       values: [
         'Chemical',
-        'Industrial',
-        'Mechanical',
         'Civil',
+        'Electrical & Computer',
+        'Engineering Science',
+        'Industrial',
+        'Materials',
+        'Mechanical',
         'Mineral',
-        'ECE',
-        'MSE',
-        'TrackOne',
-        'EngSci',
+        'Track One (Undeclared)',
       ],
       className: 'half-width-input',
       initialSelectedIndex: 0,
@@ -392,7 +392,7 @@ export const fields = {
     },
   },
   ExtraEvents: {
-    nitelife: {
+    interestInNitelife: {
       type: 'radio',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
@@ -402,7 +402,7 @@ export const fields = {
       noEdit: false,
       localStorageKey: 'registration-nitelife',
     },
-    scunt: {
+    attendingScunt: {
       type: 'radio',
       label:
         'Would you like to participate in Havenger Scunt? (It will take place on the evening of Wednesday, September 6th)',
@@ -412,7 +412,7 @@ export const fields = {
       noEdit: false,
       isRequiredInput: true,
     },
-    retreat: {
+    interestInRetreat: {
       type: 'radio',
       label:
         'Would you like to attend an overnight retreat on September 9th-10th at Hart House Farms (at an additional cost)?',

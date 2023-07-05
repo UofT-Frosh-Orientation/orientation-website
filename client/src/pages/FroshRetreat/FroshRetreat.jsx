@@ -81,7 +81,7 @@ const RetreatRegistration = () => {
   const { user } = useSelector(userSelector);
   const { setSnackbar } = useContext(SnackbarContext);
   const { axios } = useAxios();
-  const isRetreat = user?.isRetreat === true;
+  const isRetreat = user?.interestedInRetreat === true;
 
   const [outOfTickets, setOutOfTickets] = useState(false);
 
@@ -112,7 +112,7 @@ const RetreatRegistration = () => {
         <div className="display-field">
           <h3>Phone Number:</h3>{' '}
           <p>
-            {(!user?.phoneNumberAreaCode ? '' : user?.phoneNumberAreaCode) +
+            {(!user?.phoneNumberCountryCode ? '' : user?.phoneNumberCountryCode) +
               ' ' +
               user?.phoneNumber}
           </p>
@@ -122,11 +122,16 @@ const RetreatRegistration = () => {
           <p>
             {!user?.allergies || user?.allergies.length <= 0 ? 'None' : user?.allergies.join(', ')}
           </p>
-          {!user?.allergiesMore ? <p>{user?.allergiesMore}</p> : <></>}
+          {!user?.allergiesOther ? <p>{user?.allergiesOther}</p> : <></>}
         </div>
         <div className="display-field">
           <h3>Medical Info:</h3>{' '}
           <p>{!user?.medicalInfo || user?.medicalInfo === '' ? 'None' : user?.medicalInfo}</p>
+          <p>
+            {!user?.specficMedicalInfo || user?.specficMedicalInfo === ''
+              ? 'None'
+              : user?.specficMedicalInfo}
+          </p>
         </div>
         <div className="display-field">
           <h3>Medication:</h3>{' '}
@@ -134,9 +139,7 @@ const RetreatRegistration = () => {
         </div>
         <div className="display-field">
           <h3>Emergency Contact:</h3>{' '}
-          <p>{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${
-            !user?.emergencyContactNumberAreaCode ? '' : user?.emergencyContactNumberAreaCode
-          } ${user?.emergencyContactNumber}`}</p>
+          <p>{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${user?.emergencyContactNumber}`}</p>
         </div>
         <div className="radio-buttons-retreat">
           <h3>
