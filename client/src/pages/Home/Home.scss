@@ -18,15 +18,15 @@
 .FroshHardHatWhite-logo {
   text-align: center;
   object-fit: fill;
-  height: 210px;
+  height: 400px;
   @include devices(tablet) {
     text-align: center;
-    height: 120px;
+    height: 220px;
   }
 }
 
 .home-page-header-text {
-  padding: 3%;
+  padding: 0 3%;
   h1 {
     text-align: center;
     font-size: max(14vh, 140px);
@@ -49,7 +49,7 @@
     line-height: 1.2;
   }
   @include devices(tablet) {
-    padding: 20px 25px;
+    padding: 0px 25px;
     h1 {
       font-size: 100px;
       text-align: center;
