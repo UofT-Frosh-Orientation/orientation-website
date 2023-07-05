@@ -13,6 +13,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
   @include devices(tablet) {
     justify-content: center;
   }
@@ -20,12 +21,11 @@
 
 .FroshHardHatWhite-logo {
   text-align: center;
-  width: 50%;
   object-fit: fill;
-  height: 22vh;
+  height: 210px;
   @include devices(tablet) {
     text-align: center;
-    width: 40%;
+    height: 120px;
   }
 }
 
@@ -53,8 +53,7 @@
     line-height: 1.2;
   }
   @include devices(tablet) {
-    padding-left: 0%;
-    padding: 0px 25px;
+    padding: 20px 25px;
     h1 {
       font-size: 100px;
       text-align: center;

@@ -19,6 +19,7 @@ import MailIcon from '../../assets/social/envelope-solid.svg';
 import { instagramAccounts } from '../../util/instagramAccounts';
 
 import PropTypes from 'prop-types';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const PageAbout = () => {
   return (
@@ -49,7 +50,7 @@ const AboutUsSection = () => {
     <Header text="About Us">
       <div className="aboutus-subsubcontainer">
         <div className="aboutus-image-container">
-          <img className="aboutus-image" src={ExecLogo} alt="logo"></img>
+          <LazyLoadImage className="aboutus-image" src={ExecLogo} alt="logo"></LazyLoadImage>
         </div>
 
         <div className="aboutus-info-container">
