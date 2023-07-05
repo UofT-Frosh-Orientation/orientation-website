@@ -2,10 +2,10 @@ import FacebookIcon from '../assets/social/facebook-square-brands.svg';
 import InstagramIcon from '../assets/social/instagram-brands.svg';
 import TwitterIcon from '../assets/social/twitter-square-brands.svg';
 import SnapchatIcon from '../assets/social/snapchat-square-brands.svg';
-import YoutubeIcon from '../assets/social/youtube-square-brands.svg';
+import YoutubeIcon from '../assets/social/youtube.svg';
 import DiscordIcon from '../assets/social/discord-brands.svg';
 import TikTokIcon from '../assets/social/tiktok-brands.svg';
-import WhatsAppIcon from '../assets/social/square-whatsapp.svg';
+import WhatsAppIcon from '../assets/social/whatsapp.svg';
 
 export const socials = [
   {

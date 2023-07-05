@@ -4,11 +4,7 @@
   position: relative;
   height: 100vh;
   min-height: 500px;
-  background-image: linear-gradient(
-    to right,
-    var(--purple-transparent) 20%,
-    var(--purple-transparent-more)
-  );
+  background: radial-gradient(50% 42.09% at 50% 57.91%, #711f8bbf 43.23%, #3d0f58bf 100%);
   display: flex;
   flex-direction: column;
   justify-content: center;
