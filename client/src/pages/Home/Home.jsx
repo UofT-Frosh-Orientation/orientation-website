@@ -10,10 +10,9 @@ import WaveReverseDarkmode from '../../assets/darkmode/misc/wave-reverse.png';
 import { Button } from '../../components/button/Button/Button';
 import { Link } from 'react-router-dom';
 
-import Landing1 from '../../assets/landing/landing-1.jpg';
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
 import { ImageCarousel } from '../../components/ImageCarousel/ImageCarousel';
-import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
+import MainFroshLogo from '../../assets/logo/frosh-main-logo-outline.svg';
 import FroshHardHatWhite from '../../assets/logo/frosh-hard-hat-white.svg';
 
 import 'react-slideshow-image/dist/styles.css';
@@ -44,9 +43,9 @@ const HomePageHeader = () => {
   return (
     <div className="home-page-header">
       <LazyLoadImage
-        src={FroshHardHatWhite}
+        src={MainFroshLogo}
         className="FroshHardHatWhite-logo"
-        alt="White Fr!osh Hard Hat Logo"
+        alt="home page frosh logo"
         effect="blur"
       ></LazyLoadImage>
       <div className="home-page-header-text">
