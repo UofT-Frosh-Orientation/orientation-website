@@ -24,6 +24,8 @@ import { sponsors } from '../../util/sponsors';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { useSelector } from 'react-redux';
 import { loggedInSelector, userSelector } from '../../state/user/userSlice';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import ProgressiveImage from '../../components/progressiveImg/ProgressiveImg';
 
 const PageHome = () => {
   return (
@@ -49,7 +51,6 @@ const HomePageHeader = () => {
       <div className="home-page-header-text">
         <h2>Welcome to F!rosh Week!</h2>
         <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p>
-
       </div>
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />
@@ -65,7 +66,7 @@ const HomePageHeader = () => {
 
 const HomePageSlideshow = () => {
   const properties = {
-    duration: 5000,
+    duration: 7000,
     autoplay: true,
     transitionDuration: 1000,
     arrows: false,
@@ -75,8 +76,15 @@ const HomePageSlideshow = () => {
   return (
     <Slide {...properties}>
       {getSlideshowImages().map((image, index) => (
-        <div key={index}>
-          <img className="home-page-landing-image" src={image} alt={'slideshow' + index} />
+        <div key={index} style={{ overflow: 'hidden' }}>
+          <ProgressiveImage
+            classStyle="home-page-landing-image"
+            src={image.src}
+            placeholder={image.placeholder}
+            alt={'slideshow' + index}
+          />
+          {/* <LazyLoadImage className="home-page-landing-image" src={image} alt={'slideshow' + index}></LazyLoadImage> */}
+          {/* <img className="home-page-landing-image" src={image} alt={'slideshow' + index} /> */}
         </div>
       ))}
     </Slide>
@@ -158,7 +166,6 @@ const HomePageSchedule = () => {
 const HomePageSponsors = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
   const [viewAll, setViewAll] = useState(false);
-
 
   return (
     <div className="home-page-sponsors">

@@ -11,6 +11,7 @@ import slideshow7 from '../../assets/homeSlideshow/IMG_7848.webp';
 import slideshow8 from '../../assets/homeSlideshow/IMG_8857.webp';
 import slideshow9 from '../../assets/homeSlideshow/IMG_8879.webp';
 import slideshow10 from '../../assets/homeSlideshow/IMG_9541.webp';
+import slideshowTiny10 from '../../assets/homeSlideshow/tiny/IMG_9541_smaller.webp';
 
 export async function getTimelineEvents() {
   try {
@@ -24,16 +25,20 @@ export async function getTimelineEvents() {
 
 export function getSlideshowImages() {
   return shuffleArray([
-    slideshow1,
-    slideshow2,
-    slideshow3,
-    slideshow4,
-    slideshow5,
-    slideshow6,
-    slideshow7,
-    slideshow8,
-    slideshow9,
-    slideshow10,
+    {
+      src: slideshow10,
+      placeholder: slideshowTiny10,
+    },
+    // slideshow1,
+    // slideshow2,
+    // slideshow3,
+    // slideshow4,
+    // slideshow5,
+    // slideshow6,
+    // slideshow7,
+    // slideshow8,
+    // slideshow9,
+    // slideshow10,
     // 'https://photos.smugmug.com/photos/i-LB9g6Pz/0/L/i-LB9g6Pz-L.jpg',
     // 'https://photos.smugmug.com/photos/i-bgkRBSR/0/L/i-bgkRBSR-L.jpg',
     // 'https://photos.smugmug.com/photos/i-q3gvVgQ/0/L/i-q3gvVgQ-L.jpg',
