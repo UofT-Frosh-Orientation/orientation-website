@@ -28,7 +28,11 @@ const FroshController = {
       ).getResponseObject();
       if (frosh) {
         console.log('Registered frosh');
-        newFroshSubscription.add({ name: user.preferredName, email: user.email, file: req.file });
+        newFroshSubscription.add({
+          preferredName: user.preferredName,
+          email: user.email,
+          file: req.file,
+        });
         res.status(200).send({ url });
       }
     } catch (e) {
