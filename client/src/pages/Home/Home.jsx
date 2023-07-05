@@ -66,7 +66,7 @@ const HomePageHeader = () => {
 
 const HomePageSlideshow = () => {
   const properties = {
-    duration: 7000,
+    duration: 8000,
     autoplay: true,
     transitionDuration: 1000,
     arrows: false,
@@ -83,8 +83,6 @@ const HomePageSlideshow = () => {
             placeholder={image.placeholder}
             alt={'slideshow' + index}
           />
-          {/* <LazyLoadImage className="home-page-landing-image" src={image} alt={'slideshow' + index}></LazyLoadImage> */}
-          {/* <img className="home-page-landing-image" src={image} alt={'slideshow' + index} /> */}
         </div>
       ))}
     </Slide>
