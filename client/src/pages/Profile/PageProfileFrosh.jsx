@@ -24,7 +24,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { updateUserInfo } from '../../state/user/saga';
 import { announcementsSelector } from '../../state/announcements/announcementsSlice';
-import { getAnnouncements, completeAnnouncements, getCompletedAnnouncements } from '../../state/announcements/saga';
+import {
+  getAnnouncements,
+  completeAnnouncements,
+  getCompletedAnnouncements,
+} from '../../state/announcements/saga';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntDiscord } from '../../util/scunt-constants';
@@ -34,56 +38,62 @@ import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHo
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import useAxios from '../../hooks/useAxios';
 import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
+
 const { axios } = useAxios();
 
 const PageProfileFrosh = () => {
-    const { user } = useSelector(userSelector);
-    const [scuntTeams, setScuntTeams] = useState([]);
-    const [scuntTeamObjs, setScuntTeamObjs] = useState();
+  const { user } = useSelector(userSelector);
+  const [scuntTeams, setScuntTeams] = useState([]);
+  const [scuntTeamObjs, setScuntTeamObjs] = useState();
 
-    const getScuntTeams = async () => {
-      try {
-        const response = await axios.get('/scunt-teams');
-        const { teamPoints } = response.data;
-        if (teamPoints.length <= 0 || !teamPoints) setScuntTeams([]);
-        else {
-          setScuntTeamObjs(teamPoints);
-          setScuntTeams(
-            teamPoints.map((team) => {
-              return team?.name;
-            }),
-          );
-        }
-      } catch (e) {
-        setScuntTeams(['Error loading teams']);
+  const getScuntTeams = async () => {
+    try {
+      const response = await axios.get('/scunt-teams');
+      const { teamPoints } = response.data;
+      if (teamPoints.length <= 0 || !teamPoints) setScuntTeams([]);
+      else {
+        setScuntTeamObjs(teamPoints);
+        setScuntTeams(
+          teamPoints.map((team) => {
+            return team?.name;
+          }),
+        );
       }
-    };
-  
-    useEffect(() => {
-      getScuntTeams();
-    }, []);
-  
-    return (
-      <>
-        <ProfilePageFroshHeader editButton={true} />
-        <div className="profile-info-row">
-          <div>
-            <ProfilePageFroshScuntMessage />
-            {user?.isRegistered && <ProfilePageRetreat />}
-            <ProfilePageNitelife />
-            <ProfilePageInstagrams />
-            <ProfilePageAnnouncements />
+    } catch (e) {
+      setScuntTeams(['Error loading teams']);
+    }
+  };
+
+  useEffect(() => {
+    getScuntTeams();
+  }, []);
+
+  return (
+    <>
+      <ProfilePageFroshHeader editButton={true} />
+      <div className="profile-info-row">
+        <div>
+          <ProfilePageFroshScuntMessage />
+          {user?.isRegistered && <ProfilePageRetreat />}
+          <ProfilePageNitelife />
+          <ProfilePageInstagrams />
+          <ProfilePageAnnouncements />
+          <LazyLoadComponent>
             <ProfilePageSchedule />
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <ProfilePageQRCode />
-            <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
-            <ProfilePageFroshScuntTeamsSelection />
-            <ProfilePageResources />
-          </div>
+          </LazyLoadComponent>
         </div>
-      </>
-    );
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <ProfilePageQRCode />
+          <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
+          <ProfilePageFroshScuntTeamsSelection />
+          <LazyLoadComponent>
+            <ProfilePageResources />
+          </LazyLoadComponent>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export const ProfilePageRetreat = () => {
@@ -184,11 +194,12 @@ export const ProfilePageFroshScuntMessage = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   const code = user?.scuntToken;
-  if ((code === undefined ||
-      !isRegistered ||
-      !scuntSettings ||
-      scuntSettings.length <= 0 ||
-      scuntSettings[0]?.revealTeams === false)
+  if (
+    code === undefined ||
+    !isRegistered ||
+    !scuntSettings ||
+    scuntSettings.length <= 0 ||
+    scuntSettings[0]?.revealTeams === false
   ) {
     return <></>;
   }
@@ -218,7 +229,9 @@ export const ProfilePageFroshScuntTeamsSelection = () => {
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { axios } = useAxios();
 
-  if(!isRegistered || !user?.scunt ||
+  if (
+    !isRegistered ||
+    !user?.scunt ||
     (scuntSettings !== undefined &&
       scuntSettings.length >= 1 &&
       scuntSettings[0]?.revealTeams === true)
@@ -301,11 +314,14 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   const [showToken, setShowToken] = useState(false);
 
   const code = user?.scuntToken;
-  if ((code === undefined || !isRegistered || !scuntSettings || 
-      scuntSettings.length <= 0 ||
-      (scuntSettings !== undefined &&
-        scuntSettings.length >= 1 &&
-        scuntSettings[0]?.revealTeams === false))
+  if (
+    code === undefined ||
+    !isRegistered ||
+    !scuntSettings ||
+    scuntSettings.length <= 0 ||
+    (scuntSettings !== undefined &&
+      scuntSettings.length >= 1 &&
+      scuntSettings[0]?.revealTeams === false)
   ) {
     return <></>;
   }
@@ -570,7 +586,7 @@ const ProfilePageQRCode = () => {
   const isRegistered = useSelector(registeredSelector);
   const [QRCodeString, setQRCodeString] = useState('');
   const { user } = useSelector(userSelector);
-  
+
   useEffect(() => {
     setQRCodeString(getQRCodeString(user));
   }, []);
@@ -637,7 +653,7 @@ const ProfilePageSchedule = () => {
   const today = new Date();
   const options = { weekday: 'long' };
   const todayString = today.toLocaleDateString('en-US', options).replace(',', '');
-  
+
   let count = 0;
   for (let day of days) {
     if (day === todayString) {
@@ -691,11 +707,15 @@ const ProfilePageSchedule = () => {
         <div className="profile-page-schedule-accordions">
           {scheduleData[Object.keys(scheduleData)[selectedDayIndex]].map((scheduleDay, index) => {
             return (
-              <ScheduleComponentAccordion
-                key={Object.keys(scheduleData)[index] + index}
-                scheduleDay={scheduleDay}
-                closeAll={closeAll}
-              />
+              <React.Fragment key={`${scheduleDay}-${index}`}>
+                <LazyLoadComponent>
+                  <ScheduleComponentAccordion
+                    key={Object.keys(scheduleData)[index] + index}
+                    scheduleDay={scheduleDay}
+                    closeAll={closeAll}
+                  />
+                </LazyLoadComponent>
+              </React.Fragment>
             );
           })}
         </div>

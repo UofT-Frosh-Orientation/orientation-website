@@ -59,12 +59,12 @@ export const pages = {
     // },
   ],
   special: [
-    //   {
-    //     label: 'Login',
-    //     component: <PageLogin />,
-    //     path: '/login',
-    //     includeFooter: false,
-    //   },
+    {
+      label: 'Login',
+      component: <PageLogin />,
+      path: '/login',
+      includeFooter: false,
+    },
     {
       label: 'Profile',
       component: (
