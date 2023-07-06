@@ -128,18 +128,8 @@ const FroshSchema = new mongoose.Schema(
       type: Boolean, // true is want to be contacted, false is not
       required: false,
     },
-    interestInNitelife: {
-      type: Boolean, // true is interested in attending
-      required: false,
-    },
     attendingScunt: {
       type: Boolean, // true is attending scunt, false is not attending
-      required: true,
-    },
-    interestInRetreat: {
-      // only indicates whether a frosh is interested in retreat,
-      // we show the same retreat msg on profiler regardless of choice
-      type: Boolean,
       required: true,
     },
     summerLocationCity: {

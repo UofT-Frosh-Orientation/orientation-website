@@ -392,16 +392,6 @@ export const fields = {
     },
   },
   ExtraEvents: {
-    interestInNitelife: {
-      type: 'radio',
-      values: ['Yes', 'No'],
-      initialSelectedIndex: 0,
-      label: 'Would you be interested in attending a carnival with other UofT Departments?',
-      hasRestrictedInput: true,
-      isRequiredInput: false,
-      noEdit: false,
-      localStorageKey: 'registration-nitelife',
-    },
     attendingScunt: {
       type: 'radio',
       label:
@@ -410,16 +400,6 @@ export const fields = {
       initialSelectedIndex: 0,
       localStorageKey: 'registration-scunt',
       noEdit: false,
-      isRequiredInput: true,
-    },
-    interestInRetreat: {
-      type: 'radio',
-      label:
-        'Would you like to attend an overnight retreat on September 9th-10th at Hart House Farms (at an additional cost)?',
-      values: ['Yes', 'No'],
-      initialSelectedIndex: 0,
-      localStorageKey: 'registration-scunt',
-      noEdit: true,
       isRequiredInput: true,
     },
     summerLocationLabel: {
@@ -461,7 +441,7 @@ export const fields = {
       type: 'dropdown',
       label:
         'If you are not in the GTA (Greater Toronto Area) already, approximately when are you planning to move to Toronto?',
-      values: ['N/A', 'July', 'August', 'September'],
+      values: ['Already in Toronto', 'July', 'August', 'September'],
       initialSelectedIndex: 0,
       isRequiredInput: false,
       noEdit: false,
