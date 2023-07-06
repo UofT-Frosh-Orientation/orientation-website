@@ -14,7 +14,7 @@ const PageProfileEdit = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const submit = (newInfo) => {
-    dispatch(updateUserInfo({ newInfo, navigate }));
+    dispatch(updateUserInfo({ newInfo, navigate, isRegistered }));
   };
   if (!isRegistered) {
     navigate('/profile');

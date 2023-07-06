@@ -34,69 +34,76 @@ import { getFrosh } from '../../state/frosh/saga';
 import { registeredFroshSelector } from '../../state/frosh/froshSlice';
 import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHome/ScheduleHome';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
-import { getScuntTeamObjFromTeamName, getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
+import {
+  getScuntTeamObjFromTeamName,
+  getScuntTeamObjFromTeamNumber,
+} from '../ScuntJudgeForm/ScuntJudgeForm';
 import ScuntIcon from '../../assets/misc/magnifier.png';
+import { DashboardDropdown } from '../../components/DashboardDropdown/DashboardDropdown';
+import DataDashboardIcon from '../../assets/dashboarddropdown/data-icon.svg';
+import OutreachDashboardIcon from '../../assets/dashboarddropdown/outreach-icon.svg';
+import ScuntDashboardIcon from '../../assets/dashboarddropdown/scunt-icon.svg';
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
 
 const PageProfileLeader = () => {
-    const { user } = useSelector(userSelector);
-    const qrCodeLeader = user?.authScopes?.approved.includes('signInFrosh:qr-code registration');
-    const [scuntTeams, setScuntTeams] = useState([]);
-    const [scuntTeamObjs, setScuntTeamObjs] = useState();
-  
-    const getScuntTeams = async () => {
-      try {
-        const response = await axios.get('/scunt-teams');
-        const { teamPoints } = response.data;
-        if (teamPoints.length <= 0 || !teamPoints) setScuntTeams([]);
-        else {
-          setScuntTeamObjs(teamPoints);
-          setScuntTeams(
-            teamPoints.map((team) => {
-              return team?.name;
-            }),
-          );
-        }
-      } catch (e) {
-        setScuntTeams(['Error loading teams']);
+  const { user } = useSelector(userSelector);
+  const qrCodeLeader = user?.authScopes?.approved.includes('signInFrosh:qr-code registration');
+  const [scuntTeams, setScuntTeams] = useState([]);
+  const [scuntTeamObjs, setScuntTeamObjs] = useState();
+
+  const getScuntTeams = async () => {
+    try {
+      const response = await axios.get('/scunt-teams');
+      const { teamPoints } = response.data;
+      if (teamPoints.length <= 0 || !teamPoints) setScuntTeams([]);
+      else {
+        setScuntTeamObjs(teamPoints);
+        setScuntTeams(
+          teamPoints.map((team) => {
+            return team?.name;
+          }),
+        );
       }
-    };
-  
-    useEffect(() => {
-      getScuntTeams();
-    }, []);
-  
-    return (
-      <>
-        <ProfilePageLeaderHeader editButton={true} />
-        <div className="profile-info-row">
-          <div style={{ marginLeft: '50px' }}>
-            <ProfilePageLeaderPermissionDashboardLinks />
-            <div style={{ marginTop: '20px' }} />
-            <ProfilePageLeaderScuntMessage />
-            <div style={{ marginTop: '-20px' }} />
-            <ProfilePageSchedule />
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <ProfilePageQRCode />
-            {qrCodeLeader === true ? (
-              <>
-                <ProfilePageQRScanner />
-              </>
-            ) : (
-              <></>
-            )}
-            <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
-            <ProfilePageResources />
-            <ProfilePageScuntTeamSelectionLeader
-              scuntTeamObjs={scuntTeamObjs}
-              scuntTeams={scuntTeams}
-            />
-          </div>
+    } catch (e) {
+      setScuntTeams(['Error loading teams']);
+    }
+  };
+
+  useEffect(() => {
+    getScuntTeams();
+  }, []);
+
+  return (
+    <>
+      <ProfilePageLeaderHeader editButton={true} />
+      <div className="profile-info-row">
+        <div style={{ marginLeft: '50px' }}>
+          <ProfilePageLeaderPermissionDashboardLinks />
+          <div style={{ marginTop: '20px' }} />
+          <ProfilePageLeaderScuntMessage />
+          <div style={{ marginTop: '-20px' }} />
+          <ProfilePageSchedule />
         </div>
-      </>
-    );
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <ProfilePageQRCode />
+          {qrCodeLeader === true ? (
+            <>
+              <ProfilePageQRScanner />
+            </>
+          ) : (
+            <></>
+          )}
+          <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
+          <ProfilePageResources />
+          <ProfilePageScuntTeamSelectionLeader
+            scuntTeamObjs={scuntTeamObjs}
+            scuntTeams={scuntTeams}
+          />
+        </div>
+      </div>
+    </>
+  );
 };
 
 const ProfilePageScuntTeamSelectionLeader = ({ scuntTeams, scuntTeamObjs }) => {
@@ -202,117 +209,186 @@ ProfilePageScuntToken.propTypes = {
 
 const ProfilePageLeaderPermissionDashboardLinks = () => {
   const { user } = useSelector(userSelector);
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const [openDataDropdown, setOpenDataDropdown] = useState(false);
+  const [openOutreachDropdown, setOpenOutreachDropdown] = useState(false);
+  const [openScuntDropdown, setOpenScuntDropdown] = useState(false);
+  const leader = user?.userType === 'leadur';
   const approved = user?.approved === true;
-  
+  const dropdowns = [
+    {
+      label: 'data',
+      title: 'Data',
+      state: openDataDropdown,
+      setState: setOpenDataDropdown,
+      icon: DataDashboardIcon,
+      items: [
+        {
+          label: 'Leedur Account Scope Approval',
+          anyRegisterScope: false,
+          link: '/approve-accounts',
+          authScopes: ['accounts:delete', 'accounts:edit', 'accounts:read'],
+        },
+        {
+          label: 'Frosh Info Table',
+          anyRegisterScope: true,
+          link: '/frosh-info-table',
+          authScopes: [],
+        },
+      ],
+    },
+    {
+      label: 'outreach',
+      title: 'Outreach',
+      state: openOutreachDropdown,
+      setState: setOpenOutreachDropdown,
+      icon: OutreachDashboardIcon,
+      items: [
+        {
+          label: 'FAQ Admin Panel',
+          anyRegisterScope: false,
+          link: '/faq-admin',
+          authScopes: ['faq:delete', 'faq:edit'],
+        },
+        {
+          label: 'Timeline Admin Panel',
+          anyRegisterScope: false,
+          link: '/timeline-admin',
+          authScopes: ['timeline:create', 'timeline:edit', 'timeline:delete'],
+        },
+        {
+          label: 'Announcements Admin Panel',
+          anyRegisterScope: false,
+          link: '/announcement-dashboard',
+          authScopes: ['announcements:delete', 'announcements:create', 'announcements:edit'],
+        },
+      ],
+    },
+    {
+      label: 'scunt',
+      title: 'Scunt',
+      state: openScuntDropdown,
+      setState: setOpenScuntDropdown,
+      icon: ScuntDashboardIcon,
+      items: [
+        {
+          label: 'Scunt Judge Panel',
+          anyRegisterScope: false,
+          link: '/scunt-judge-form',
+          authScopes: [
+            'scunt:exec allow leaderboard',
+            'scunt:exec allow missions page',
+            'scunt:exec hide leaderboard',
+            'scunt:exec hide missions page',
+            'scunt:exec hide wedding missions',
+            'scunt:exec negative points',
+            'scunt:exec refill bribe points',
+            'scunt:exec show wedding missions',
+            'scunt:judge bribe points',
+            'scunt:judge missions',
+          ],
+        },
+        {
+          label: 'Scunt Mission Panel',
+          anyRegisterScope: false,
+          link: '/scunt-missions-dashboard',
+          authScopes: [
+            'scunt:exec show missions',
+            'scunt:exec hide missions',
+            'scunt:exec create missions',
+            'scunt:exec delete missions',
+          ],
+        },
+        {
+          label: 'Scunt Point Transactions',
+          anyRegisterScope: false,
+          link: '/scunt-transactions',
+          authScopes: ['scunt:exec view transactions'],
+        },
+        {
+          label: 'Scunt Settings',
+          anyRegisterScope: false,
+          link: '/scunt-game-controls',
+          authScopes: ['scunt:exec game controls'],
+        },
+      ],
+    },
+  ];
+
+  let userDropdown = [];
+  const approvedScopes = [...user.authScopes.approved];
+
+  // does not work though!! you should not be changing the array while looping though it
+  // instead, i suggest pushing elements into a new array (i was being stupid HAHA)
+  for (let i = 0; i < dropdowns.length; i++) {
+    for (let j = 0; j < dropdowns[i].items.length; j++) {
+      let allScopes = dropdowns[i].items[j].authScopes;
+      let hasAuthScope = dropdowns[i].items[j].anyRegisterScope;
+      for (let authScope of allScopes) {
+        if (user && approvedScopes.includes(authScope)) {
+          hasAuthScope = true;
+        }
+      }
+      if (hasAuthScope) {
+        if (
+          userDropdown.length === 0 ||
+          userDropdown[userDropdown.length - 1].label !== dropdowns[i].label
+        ) {
+          let newObject = {
+            label: dropdowns[i].label,
+            title: dropdowns[i].title,
+            state: dropdowns[i].state,
+            setState: dropdowns[i].setState,
+            icon: dropdowns[i].icon,
+            items: [],
+          };
+          userDropdown.push(newObject);
+        }
+        let newAuthScope = {
+          label: dropdowns[i].items[j].label,
+          anyRegisterScope: dropdowns[i].items[j].anyRegisterScope,
+          link: dropdowns[i].items[j].link,
+          authScopes: dropdowns[i].items[j].authScopes,
+        };
+        userDropdown[userDropdown.length - 1].items.push(newAuthScope);
+      }
+    }
+  }
+
   return (
     <div className={'profile-leader-dashboard-links'}>
-      <ProfilePageDashboardLink
-        link="/approve-accounts"
-        authScopes={['accounts:delete', 'accounts:edit', 'accounts:read']}
-        label="Leedur Account Scope Approval"
-      />
-      {approved ? (
-        <Link
-          to={'/permission-request'}
-          style={{ textDecoration: 'none' }}
-          className={'no-link-style'}
-        >
-          <Button label="Request Leedur Permissions" />
-        </Link>
+      {leader && approved ? (
+        <>
+          <div className={'profile-leader-dashboard-permissions-links'}>
+            <Link
+              to={'/permission-request'}
+              style={{ textDecoration: 'none' }}
+              className={'no-link-style'}
+            >
+              <Button label="Request Leedur Permissions" style={{ margin: '0' }} />
+            </Link>
+          </div>
+          <div className={'profile-leader-dashboard-other-links'}>
+            {userDropdown.map((dropdown, index) => {
+              return (
+                <React.Fragment key={`${dropdown.label}-${index}`}>
+                  <DashboardDropdown
+                    open={dropdown.state}
+                    setOpen={dropdown.setState}
+                    items={dropdown.items}
+                    title={dropdown.title}
+                    icon={dropdown.icon}
+                  />
+                </React.Fragment>
+              );
+            })}
+          </div>
+        </>
       ) : (
         <></>
       )}
-      <ProfilePageDashboardLink
-        link="/scunt-judge-form"
-        authScopes={[
-          'scunt:exec allow leaderboard',
-          'scunt:exec allow missions page',
-          'scunt:exec hide leaderboard',
-          'scunt:exec hide missions page',
-          'scunt:exec hide wedding missions',
-          'scunt:exec negative points',
-          'scunt:exec refill bribe points',
-          'scunt:exec show wedding missions',
-          'scunt:judge bribe points',
-          'scunt:judge missions',
-        ]}
-        label="Scunt Judge Panel"
-      />
-      <ProfilePageDashboardLink
-        link="/scunt-missions-dashboard"
-        authScopes={[
-          'scunt:exec show missions',
-          'scunt:exec hide missions',
-          'scunt:exec create missions',
-          'scunt:exec delete missions',
-        ]}
-        label="Scunt Mission Panel"
-      />
-      <ProfilePageDashboardLink
-        link="/scunt-transactions"
-        authScopes={['scunt:exec view transactions']}
-        label="Scunt Point Transactions"
-      />
-      <ProfilePageDashboardLink
-        link="/scunt-game-controls"
-        authScopes={['scunt:exec game controls']}
-        label="Scunt Settings"
-      />
-      <ProfilePageDashboardLink
-        link="/faq-admin"
-        authScopes={['faq:delete', 'faq:edit']}
-        label="FAQ Admin Panel"
-      />
-      <ProfilePageDashboardLink
-        link="/timeline-admin"
-        authScopes={['timeline:create', 'timeline:edit', 'timeline:delete']}
-        label="Timeline Admin Panel"
-      />
-      <ProfilePageDashboardLink
-        link="/announcement-dashboard"
-        authScopes={['announcements:delete', 'announcements:create', 'announcements:edit']}
-        label="Announcements Admin Panel"
-      />
-      <ProfilePageDashboardLink
-        link="/frosh-info-table"
-        anyRegisterScope={true}
-        label="Frosh Info Table"
-      />
     </div>
   );
-};
-
-// If a user has any of the auth scopes then it will show this button
-const ProfilePageDashboardLink = ({ link, authScopes, anyRegisterScope, label }) => {
-  const { user } = useSelector(userSelector);
-  let hasAuthScope = false;
-  
-    if (authScopes) {
-        for (let authScope of authScopes) {
-            if (user && user?.authScopes?.approved?.includes(authScope)) {
-                hasAuthScope = true;
-                break;
-            }
-        }
-    }
-
-    const hasAnyRegisterScope = anyRegisterScope && user?.froshDataFields?.approved?.length > 0;
-    if (hasAuthScope || hasAnyRegisterScope) {
-        return (
-        <Link to={link} style={{ textDecoration: 'none' }} className={'no-link-style'}>
-            <Button label={label} />
-        </Link>
-        );
-    } else {
-        return <></>;
-    }
-};
-
-ProfilePageDashboardLink.propTypes = {
-  link: PropTypes.string,
-  authScopes: PropTypes.arrayOf(PropTypes.string),
-  label: PropTypes.string,
-  anyRegisterScope: PropTypes.bool,
 };
 
 const ProfilePageQRScanner = () => {
@@ -426,8 +502,8 @@ const ProfilePageQRScanner = () => {
                     )?.toLocaleDateString(undefined, options)}`}
                   />
                 </div>
-                ) : (
-                  <></>
+              ) : (
+                <></>
               )}
             </>
           </div>
@@ -569,12 +645,12 @@ ProfilePageLeaderHeader.propTypes = {
 const ProfilePageQRCode = () => {
   const [QRCodeString, setQRCodeString] = useState('');
   const { user } = useSelector(userSelector);
-  
+
   useEffect(() => {
     setQRCodeString(getQRCodeString(user));
   }, []);
 
-  if(QRCodeString === undefined) {
+  if (QRCodeString === undefined) {
     return (
       <div className="profile-page-qr-code profile-page-side-section">
         <p>There is an error with your QR code.</p>
@@ -632,7 +708,7 @@ const ProfilePageSchedule = () => {
   const today = new Date();
   const options = { weekday: 'long' };
   const todayString = today.toLocaleDateString('en-US', options).replace(',', '');
-  
+
   let count = 0;
   for (let day of days) {
     if (day === todayString) {
@@ -668,14 +744,14 @@ const ProfilePageSchedule = () => {
           Schedule
         </h2>
         <div style={{ marginTop: '10px' }}>
-        <Dropdown
+          <Dropdown
             values={froshGroupNames}
             initialSelectedIndex={0}
             onSelect={(froshGroup) => {
-            setFroshGroup(froshGroup);
+              setFroshGroup(froshGroup);
             }}
             localStorageKey={'leader-frosh-group-dropdown'}
-        />
+          />
         </div>
       </div>
       <div className="profile-page-schedule-content">

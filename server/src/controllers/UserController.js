@@ -40,8 +40,7 @@ const UserController = {
         );
       }
       return res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
-    } 
-    catch(err) {
+    } catch (err) {
       next(err);
     }
   },
@@ -151,8 +150,8 @@ const UserController = {
         next(new Error('INVALID_VERIFICATION_LINK'));
       } else {
         await UserServices.updateUserInfo(existingUser.id, { confirmed: true });
-        newUserSubscription.add(existingUser);  
-        
+        newUserSubscription.add(existingUser);
+
         res.status(200).send({
           message:
             'Successfully verified your email! Log in with your email and password to get started.',
@@ -321,6 +320,30 @@ const UserController = {
       }
     } catch (e) {
       console.log(e);
+      next(e);
+    }
+  },
+
+  /**
+   * Update a users info
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @return {Promise<void>}
+   */
+  async updateInfo(req, res, next) {
+    console.log(req.user);
+    console.log(req.body);
+    const userId = req.user.id;
+    const updateInfo = req.body;
+
+    try {
+      const user = await UserServices.updateUserInfo(userId, updateInfo);
+      return res.status(200).send({
+        message: 'Successfully updated User Information!',
+        user: user.getResponseObject(),
+      });
+    } catch (e) {
       next(e);
     }
   },
