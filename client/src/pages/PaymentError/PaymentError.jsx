@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import './PaymentError.scss';
 import MoneyChicken from '../../assets/paymenterror/money-chicken.svg';
 import SweatDrop from '../../assets/paymenterror/sweat-drop.svg';

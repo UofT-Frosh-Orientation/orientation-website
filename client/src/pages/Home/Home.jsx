@@ -1,20 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
-import PropTypes from 'prop-types';
 import { getSlideshowImages, getTimelineEvents } from './functions';
 import './Home.scss';
 import Wave from '../../assets/misc/wave.png';
 import WaveReverse from '../../assets/misc/wave-reverse.png';
 import WaveDarkMode from '../../assets/darkmode/misc/wave.png';
 import WaveReverseDarkmode from '../../assets/darkmode/misc/wave-reverse.png';
-
 import { Button } from '../../components/button/Button/Button';
 import { Link } from 'react-router-dom';
 
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
 import { ImageCarousel } from '../../components/ImageCarousel/ImageCarousel';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo-outline.svg';
-import FroshHardHatWhite from '../../assets/logo/frosh-hard-hat-white.svg';
-
 import 'react-slideshow-image/dist/styles.css';
 import { Slide } from 'react-slideshow-image';
 import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
@@ -23,7 +19,7 @@ import { sponsors } from '../../util/sponsors';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { useSelector } from 'react-redux';
 import { loggedInSelector, userSelector } from '../../state/user/userSlice';
-import { LazyLoadComponent, LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import ProgressiveImage from '../../components/progressiveImg/ProgressiveImg';
 
 const PageHome = () => {
@@ -38,7 +34,7 @@ const PageHome = () => {
 };
 
 const HomePageHeader = () => {
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
 
   return (
     <div className="home-page-header">

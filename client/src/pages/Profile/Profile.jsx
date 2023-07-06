@@ -7,7 +7,6 @@ import {
   getQRCodeString,
   parseQRCode,
   scannedUserKeys,
-  searchForFrosh,
   signInFrosh,
 } from './functions';
 import './Profile.scss';
@@ -17,7 +16,6 @@ import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnn
 import { QRNormal } from 'react-qrbtf';
 import { ButtonBubble } from '../../components/button/ButtonBubble/ButtonBubble';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
-import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
 import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
@@ -30,15 +28,13 @@ import InstagramIcon from '../../assets/social/instagram-brands.svg';
 import CampingIcon from '../../assets/misc/camping-tent.png';
 import NitelifeIcon from '../../assets/misc/nitelife.png';
 import ScuntIcon from '../../assets/misc/magnifier.png';
-import Arrow from '../../../assets/icons/angle-down-solid.svg';
-import ArrowDarkMode from '../../assets/darkmode/icons/angle-down-solid.svg';
 import DataDashboardIcon from '../../assets/dashboarddropdown/data-icon.svg';
 import OutreachDashboardIcon from '../../assets/dashboarddropdown/outreach-icon.svg';
 import ScuntDashboardIcon from '../../assets/dashboarddropdown/scunt-icon.svg';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
-import { getUserInfo, updateUserInfo } from '../../state/user/saga';
+import { updateUserInfo } from '../../state/user/saga';
 import { announcementsSelector } from '../../state/announcements/announcementsSlice';
 import {
   getAnnouncements,
@@ -48,11 +44,11 @@ import {
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
-import { okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
+import { scuntDiscord } from '../../util/scunt-constants';
 import { froshGroups } from '../../util/frosh-groups';
 import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
 import { getFrosh } from '../../state/frosh/saga';
-import { froshSelector, registeredFroshSelector } from '../../state/frosh/froshSlice';
+import { registeredFroshSelector } from '../../state/frosh/froshSlice';
 import { completedAnnouncementsSelector } from '../../state/announcements/announcementsSlice';
 import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHome/ScheduleHome';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
