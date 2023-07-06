@@ -18,6 +18,19 @@
   background-color: purple;
 }
 
+.about-introduction-title {
+  text-align: left;
+  font-size: 60px;
+  color: var(--text-dynamic);
+  margin-top: 50px;
+  text-align: center;
+
+  @include devices(tablet) {
+    margin-top: 25px;
+    font-size: 40px;
+  }
+}
+
 // ABOUT US SECTION
 
 .aboutus-subsubcontainer {

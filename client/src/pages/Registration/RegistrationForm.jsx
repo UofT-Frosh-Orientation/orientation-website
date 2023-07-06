@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { fields, terms } from './RegistrationFields';
 import { TextInput } from '../../components/input/TextInput/TextInput';
@@ -13,9 +13,11 @@ import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOut
 import { Link, useNavigate } from 'react-router-dom';
 import { PopupModal } from '../../components/popup/PopupModal';
 import useAxios from '../../hooks/useAxios';
-import { initialsSelector, registeredSelector, userSelector } from '../../state/user/userSlice';
+import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useSelector } from 'react-redux';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
+import { MakeReceipt } from '../../components/MakeReceipt/MakeReceipt';
+import ReactPDF from '@react-pdf/renderer';
 
 const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
   const steps = Object.keys(fields);
@@ -41,22 +43,27 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   }, []);
 
   const handleRegister = async () => {
-    console.log(froshObject);
     setCanRegister(false);
     const isFormValid = validateForm();
     if (!isFormValid) {
       return setCanRegister(true);
     } else {
       try {
-        const response = await axios.post('/frosh/register', froshObject);
+        let formData = new FormData();
+        for (const [key, value] of Object.entries(froshObject)) {
+          if (value === undefined) continue;
+          formData.append(key, value);
+        }
+        const dataReceipt = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
+        formData.append('dataReceipt', dataReceipt);
+        const response = await axios.post('/frosh/register', formData, {
+          headers: { 'content-type': 'multipart/form-data' },
+        });
         window.location.href = response.data.url;
-        // setCheckoutUrl(response.data.url);
-        // setShowPopUp(true);
       } catch (error) {
+        console.log(error);
         setCanRegister(true);
       }
-
-      // console.log(result)
     }
   };
 
@@ -122,7 +129,6 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   };
 
   const disableField = (isDisabled, fieldKey, step) => {
-    console.log(fieldKey, 'ISDISABLED');
     const formFieldsCopy = { ...formFields };
     formFieldsCopy[step][fieldKey]['isDisabled'] = isDisabled;
     setFormFields(formFieldsCopy);
@@ -135,7 +141,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
           const field = formFieldsAtStep[key];
           if (field.type === 'text') {
             return (
-              <div className={field.className ? field.className : 'full-width-input'}>
+              <div key={index} className={field.className ? field.className : 'full-width-input'}>
                 <TextInput
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
@@ -166,7 +172,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             );
           } else if (field.type === 'radio') {
             return (
-              <div className={field.className ? field.className : 'full-width-input'}>
+              <div key={index} className={field.className ? field.className : 'full-width-input'}>
                 <RadioButtons
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
@@ -192,7 +198,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             );
           } else if (field.type === 'dropdown') {
             return (
-              <div className={field.className ? field.className : 'full-width-input'}>
+              <div key={index} className={field.className ? field.className : 'full-width-input'}>
                 <Dropdown
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
@@ -217,7 +223,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             );
           } else if (field.type === 'checkbox') {
             return (
-              <div className={field.className ? field.className : 'full-width-input'}>
+              <div key={index} className={field.className ? field.className : 'full-width-input'}>
                 <Checkboxes
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
@@ -248,7 +254,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             );
           } else if (field.type === 'label') {
             return (
-              <div className="text-input-container" style={{ width: '100%' }}>
+              <div key={index} className="text-input-container" style={{ width: '100%' }}>
                 <div className="text-input-title-container">
                   {field.label !== undefined ? (
                     field.isBold === true ? (
@@ -299,20 +305,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             </div>
           </div>
         </PopupModal>
-        <div className="navbar-space-top" />
+
         <div className="registration-form-flex">
           <div className="registration-form">
             {Object.keys(fields).map((fieldsKey, index) => {
               return generateStepComponent(formFields[fieldsKey], fieldsKey);
             })}
           </div>
-          {/* <Button
-            label={'Check'}
-            onClick={() => {
-              console.log(froshObject);
-              console.log(validateForm());
-            }}
-          /> */}
           <div style={{ marginBottom: '55px' }}>
             <div
               style={{
@@ -354,23 +353,6 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   } else {
     return (
       <div>
-        {/* <PopupModal
-          trigger={showPopUp}
-          setTrigger={setShowPopUp}
-          blurBackground={true}
-          exitIcon={true}
-        >
-          <div className="registration-edit-popup">
-            <h1>Pay now?</h1>
-            <h2>
-              We have saved your info, but you must pay to be fully registered for F!rosh Week.
-            </h2>
-            <div className="registration-edit-popup-buttons">
-              <Button label={'Pay Now'} onClick={handleCheckout} />
-            </div>
-          </div>
-        </PopupModal> */}
-        <div className="navbar-space-top" />
         <div className="registration-form-flex">
           <div className="registration-form">
             <Tabs
@@ -392,7 +374,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                                 : user?.preferredName)}
                           </h1>
                           <h2 className="registration-first-step-subtitle">
-                            Let&apos;s register for UofT Engineering&apos;s F!rosh Week 2T2
+                            Let&apos;s register for UofT Engineering&apos;s F!rosh Week 2T3
                           </h2>
                         </div>
                       </div>
@@ -432,13 +414,6 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
               ]}
             />
           </div>
-          {/* <Button
-            label={'Check'}
-            onClick={() => {
-              console.log(froshObject);
-              console.log(validateForm());
-            }}
-          /> */}
         </div>
       </div>
     );

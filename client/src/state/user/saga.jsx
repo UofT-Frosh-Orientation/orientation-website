@@ -2,6 +2,9 @@ import { createAction } from '@reduxjs/toolkit';
 import { put, call, takeLeading } from 'redux-saga/effects';
 
 import {
+  signupStart,
+  signupFail,
+  signupSuccess,
   loginStart,
   loginFail,
   loginSuccess,
@@ -57,7 +60,7 @@ export function* getUserInfoSaga({ payload: navigate }) {
     const result = yield call(axios.get, '/user/info');
     yield put(setUserInfo(result.data.user));
   } catch (error) {
-    console.log(error);
+    console.error(error);
     yield put(logoutSuccess());
     navigate && navigate('/login');
   }
@@ -65,15 +68,35 @@ export function* getUserInfoSaga({ payload: navigate }) {
 
 export const updateUserInfo = createAction('updateUserInfoSaga');
 
-export function* updateUserInfoSaga({ payload: { newInfo, navigate } }) {
+export function* updateUserInfoSaga({
+  payload: { setSnackbar, setIsLoading, newInfo, navigate, isRegistered },
+}) {
   const { axios } = useAxios();
+  let result = {};
   try {
-    const result = yield call(axios.put, '/frosh/info', newInfo);
-    console.log(result);
+    if (isRegistered) {
+      result = yield call(axios.put, '/frosh/info', newInfo);
+    } else {
+      result = yield call(axios.put, '/user/update-info', newInfo);
+    }
     yield put(setUserInfo(result.data.user));
-    if (navigate) navigate('/profile');
+    setSnackbar('Successfully Updated User Info', false);
+    if (navigate) {
+      setTimeout(() => {
+        navigate('/profile');
+      }, 1000);
+    }
   } catch (error) {
-    console.log(error);
+    setSnackbar(
+      error.response?.data?.message
+        ? error.response?.data?.message.toString()
+        : error.response?.data
+        ? error.response?.data.toString()
+        : error.toString(),
+      true,
+    );
+    // console.error(error);
+    setIsLoading(false);
     yield put(loginFail(error.response.data));
   }
 }
@@ -83,11 +106,10 @@ export const signUp = createAction('createUserSaga');
 export function* createUserSaga({ payload: { setSnackbar, setIsLoading, user } }) {
   const { axios } = useAxios();
   try {
-    yield put(loginStart());
+    yield put(signupStart());
     const result = yield call(axios.post, '/user/signup', user);
-    yield put(loginSuccess(result.data.user));
+    yield put(signupSuccess(result.data.user));
   } catch (error) {
-    console.log(user);
     setSnackbar(
       error.response?.data?.message
         ? error.response?.data?.message.toString()
@@ -97,8 +119,7 @@ export function* createUserSaga({ payload: { setSnackbar, setIsLoading, user } }
       true,
     );
     setIsLoading(false);
-    console.log(error);
-    yield put(loginFail(error.response.data));
+    yield put(signupFail(error.response.data));
   }
 }
 
@@ -111,7 +132,7 @@ export function* resetPasswordSaga({ payload: { email, password, token } }) {
     const result = yield call(axios.post, '/user/reset-password', { email, password, token });
     yield put(resetPasswordSuccess());
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield put(resetPasswordFailure());
   }
 }
@@ -125,7 +146,7 @@ export function* requestPasswordResetSaga({ payload: email }) {
     const result = yield call(axios.post, '/user/request-password-reset', { email });
     yield put(requestPasswordResetSuccess());
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield put(requestPasswordResetFailure());
   }
 }
@@ -141,7 +162,7 @@ export function* logoutSaga({ payload: { navigate } }) {
     yield put(logoutSuccess());
     yield call(navigate, '/');
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield put(logoutFailure(err.response.data));
   }
 }
@@ -159,7 +180,7 @@ export function* requestAuthScopesSaga({ payload: { authScopes, froshDataFields,
     yield put(updateUserInfoSuccess(result.data.user));
     setSnackbar('Success!', false);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield put(updateUserInfoFailure(err.response.data));
     setSnackbar(
       err.response.data.message

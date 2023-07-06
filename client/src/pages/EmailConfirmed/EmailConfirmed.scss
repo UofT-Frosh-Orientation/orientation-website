@@ -1,0 +1,34 @@
+.email-confirmed-page {
+  color: var(--text-dynamic);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  transition: transform 700ms, opacity 700ms;
+}
+
+.email-confirmed-container {
+  background-color: var(--container-bg);
+  border-radius: 15px;
+  padding: 40px min(150px, 5%);
+  margin: 50px;
+  box-shadow: var(--shadow);
+  width: 95vw;
+  max-width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  h1 {
+    text-align: center;
+    font-size: 40px;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  h2 {
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 25px;
+    width: 100%;
+  }
+}

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './ImageCarousel.scss';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const ImageCarousel = ({ items }) => {
   const [currentLabel, setCurrentLabel] = useState(0);
@@ -37,25 +38,22 @@ const ImageCarousel = ({ items }) => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <div style={{ transform: `scale(${item.scale})` }}>
-                    <img className="carousel-slide" src={item.image} alt={item.name} />
+                  <div className="carousel-slide-container">
+                    <div
+                      className="carousel-slide-border"
+                      style={{
+                        backgroundImage:
+                          currentLabel === index ? `var(--sponsor-border-${item.rank})` : 'none',
+                      }}
+                    >
+                      <LazyLoadImage
+                        className="carousel-slide"
+                        src={item.image}
+                        alt={item.name}
+                      ></LazyLoadImage>
+                    </div>
                   </div>
                 </a>
-                <p
-                  style={{
-                    userSelect: 'all',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    left: 0,
-                    right: 0,
-                    position: 'absolute',
-                    transform: 'translateY(-40px)',
-                    bottom: '0px',
-                    textAlign: 'center',
-                  }}
-                >
-                  {currentLabel == index ? item.label : ''}
-                </p>
               </div>
             );
           })}
@@ -82,25 +80,22 @@ const ImageCarousel = ({ items }) => {
             return (
               <div key={item.name + index}>
                 <a className="carousel-link" href={item.website}>
-                  <div style={{ transform: `scale(${item.scale})` }}>
-                    <img className="carousel-slide" src={item.image} alt={item.name} />
+                  <div className="carousel-slide-container">
+                    <div
+                      className="carousel-slide-border"
+                      style={{
+                        backgroundImage:
+                          currentLabel === index ? `var(--sponsor-border-${item.rank})` : 'none',
+                      }}
+                    >
+                      <LazyLoadImage
+                        className="carousel-slide"
+                        src={item.image}
+                        alt={item.name}
+                      ></LazyLoadImage>
+                    </div>
                   </div>
                 </a>
-                <p
-                  style={{
-                    userSelect: 'all',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    left: 0,
-                    right: 0,
-                    position: 'absolute',
-                    transform: 'translateY(-30px)',
-                    bottom: '0px',
-                    textAlign: 'center',
-                  }}
-                >
-                  {item.label}
-                </p>
               </div>
             );
           })}

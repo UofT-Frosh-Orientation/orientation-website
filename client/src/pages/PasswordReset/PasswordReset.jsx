@@ -95,7 +95,7 @@ export const PasswordReset = () => {
         <div className={'password-reset-container'}>
           <img className={'password-reset-logo'} src={MainFroshLogo} alt={'Frosh week logo'} />
           <h1 style={{ color: 'var(--text-dynamic)' }}>Reset your password</h1>
-          <h3 style={{ color: 'var(--text-dynamic)' }}>For F!rosh Week 2T2, UofT Engineering</h3>
+          <h3 style={{ color: 'var(--text-dynamic)' }}>For F!rosh Week 2T3, UofT Engineering</h3>
           <div className={'full-width-input'}>
             <TextInput
               label={'Email'}

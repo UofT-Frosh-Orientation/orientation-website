@@ -4,6 +4,12 @@ const FroshController = require('../controllers/FroshController');
 const checkLoggedIn = require('../middlewares/checkLoggedIn');
 const checkUserType = require('../middlewares/checkUserType');
 
+const multer = require('multer');
+
+const storage = multer.memoryStorage();
+
+const upload = multer({ storage });
+
 const router = express.Router();
 /**
  * @swagger
@@ -18,7 +24,12 @@ const router = express.Router();
  *             $ref: '#/components/schemas/NewFrosh'
  *
  */
-router.post('/register', checkLoggedIn, FroshController.registerFrosh);
+router.post(
+  '/register',
+  checkLoggedIn,
+  upload.single('dataReceipt'),
+  FroshController.registerFrosh,
+);
 
 /**
  * @swagger

@@ -56,7 +56,7 @@ const PageSignUp = () => {
       anyErrorsNow = true;
     } else if (validatePassword(accountObj['password']) === null) {
       errorsCopy['password'] =
-        'Your password is too weak, it should be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter, 1 digit, and one special character';
+        'Your password is too weak, it should be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character (forward/backward slashes, square, round brackets and single, double quotation marks are not accepted)';
       anyErrorsNow = true;
     }
     if (accountObj['confirmPassword'] === undefined || accountObj['confirmPassword'] === '') {
@@ -84,7 +84,7 @@ const PageSignUp = () => {
       }
       setErrors(errorObject);
     }
-    // console.log(errorObject)
+
     setAnyErrors(anyErrorsNow);
     return anyErrorsNow;
   };
@@ -99,7 +99,6 @@ const PageSignUp = () => {
         className={`sign-up-page ${pageState !== 'form' ? 'sign-up-page-disappear' : ''}`}
         style={{ display: pageState === 'success' ? 'none' : '' }}
       >
-        <div className="navbar-space-top" />
         <div className="sign-up-container">
           <img
             className={`sign-up-logo ${revealLeaderSignup >= 5 ? 'sign-up-logo-expand' : ''}`}
@@ -107,7 +106,7 @@ const PageSignUp = () => {
             onClick={handleLeaderReveal}
           ></img>
           <h1 style={{ color: 'var(--black)' }}>Create an Account</h1>
-          <h3 style={{ color: 'var(--black)' }}>For F!rosh Week 2T2, UofT Engineering</h3>
+          <h3 style={{ color: 'var(--black)' }}>For F!rosh Week 2T3, UofT Engineering</h3>
           <div className="full-width-input">
             <TextInput
               label="Email"
@@ -217,17 +216,17 @@ const PageSignUp = () => {
               checkErrors(true);
             }}
           > */}
-            <Button
-              label="Create Account"
-              style={{ margin: 0 }}
-              isDisabled={anyErrors}
-              onClick={async () => {
-                const anyErrors = checkErrors(true);
-                if (anyErrors === false) {
-                  submitForm();
-                }
-              }}
-            />
+          <Button
+            label="Create Account"
+            style={{ margin: 0 }}
+            isDisabled={anyErrors}
+            onClick={async () => {
+              const anyErrors = checkErrors(true);
+              if (anyErrors === false) {
+                submitForm();
+              }
+            }}
+          />
           {/* </div> */}
         </div>
       </div>
@@ -243,7 +242,6 @@ const PageSignUp = () => {
           className={`sign-up-success ${pageState === 'success' ? 'sign-up-success-appear' : ''}`}
         >
           <div style={{ margin: 'auto auto' }}>
-            <div className="navbar-space-top" />
             <h2>{`Thank you for creating an account, ${
               accountObj['preferredName'] === null ||
               accountObj['preferredName'] === undefined ||
@@ -252,19 +250,17 @@ const PageSignUp = () => {
                 : accountObj['preferredName']
             }.`}</h2>
             {accountObj['leadur'] === true ? (
-              <h3>Your account will be reviewed and shortly become an official Leedur account.</h3>
+              <h3>
+                Check your inbox for a link to verify your email. Your account will be reviewed and
+                shortly become an official Leedur account.
+              </h3>
             ) : (
               <>
                 <h1>You aren&apos;t done just yet!</h1>
-                <h3>You still need to register and pay for the F!rosh Week event.</h3>
-                <Link to="/registration" className="no-link-style">
-                  <div>
-                    <Button
-                      label="Register"
-                      style={{ padding: '25px 60px', fontSize: '20px', borderRadius: '20px' }}
-                    />
-                  </div>
-                </Link>
+                <h3>
+                  Check your inbox for a link to verify your email. You still need to register and
+                  pay for the F!rosh Week event.
+                </h3>
               </>
             )}
           </div>

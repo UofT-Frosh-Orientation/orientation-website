@@ -99,7 +99,7 @@ const ScuntGameSettings = () => {
   }, [scuntSettings]);
 
   const initialSettings = {
-    name: 'Scunt2T2 Settings',
+    name: 'Scunt2T3 Settings',
     amountOfTeams: 10,
     amountOfStarterBribePoints: 2500,
     maxAmountPointsPercent: 0.3,
@@ -177,7 +177,6 @@ const ScuntGameSettings = () => {
                   values={[i.parameter]}
                   initialSelectedIndices={selectedCheck}
                   onSelected={(value, index, state, selectedIndices) => {
-                    // console.log(selectedIndices)
                     let tempSettings = { ...newSettings }; // create a copy
                     tempSettings[i.key] = state;
                     setNewSettings(tempSettings);
@@ -202,7 +201,7 @@ const ScuntGameSettings = () => {
           <Button
             label="Update Settings"
             onClick={async () => {
-              let name = 'Scunt 2T2 Settings';
+              let name = 'Scunt 2T3 Settings';
               let amountOfTeams = newSettings.amountOfTeams;
               let amountOfStarterBribePoints = newSettings.amountOfStarterBribePoints;
               let maxAmountPointsPercent = newSettings.maxAmountPointsPercent;
@@ -241,7 +240,7 @@ const ScuntGameSettings = () => {
             onClick={async () => {
               // setting recommended settings
 
-              let name = 'Scunt 2T2 Settings';
+              let name = 'Scunt 2T3 Settings';
               let amountOfTeams = initialSettings.amountOfTeams;
               let amountOfStarterBribePoints = initialSettings.amountOfStarterBribePoints;
               let maxAmountPointsPercent = initialSettings.maxAmountPointsPercent;

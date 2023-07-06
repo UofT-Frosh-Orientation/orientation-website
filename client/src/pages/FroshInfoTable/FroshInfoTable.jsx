@@ -84,7 +84,6 @@ const PageFroshInfoTable = () => {
   const dataToDisplay = searchTerm && searchTerm !== '' ? searchedFrosh : sortedFrosh;
   return (
     <div className="frosh-info-table">
-      <div className="navbar-space-top" />
       <div className="header">
         <h1>Frosh Data</h1>
         <div className="buttons-container">
@@ -273,7 +272,6 @@ const PageFroshInfoTable = () => {
                         backgroundColor: 'var(--red-error)',
                       }}
                       onClick={() => {
-                        console.log(datum);
                         setSelectedUserID(datum._id);
                         setShowPopUp(true);
                       }}

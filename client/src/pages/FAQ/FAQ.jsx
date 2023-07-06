@@ -69,7 +69,7 @@ const PageFAQ = () => {
     setQuestionsObjects(questionsObjectsLocal);
     setQuestionCategories(questionCategoriesLocal);
     setAllQuestions(allQuestionsLocal);
-    // console.log(unsortedQuestionsLocal, questionsObjectsLocal, questionCategoriesLocal, allQuestionsLocal)
+
     setLoading(false);
     setIsSearch(false);
   }, []);
@@ -188,7 +188,6 @@ const FAQPageHeader = ({
   };
   return (
     <>
-      <div className="navbar-space-top" />
       <div className={'faq-page-header'}>
         <div className={'faq-page-header-container'}>
           <div className="faq-page-header-text">

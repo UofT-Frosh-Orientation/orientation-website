@@ -12,7 +12,7 @@ export function* getFroshSaga({ payload: { showAllUsers } }) {
     const result = yield call(axios.get, '/frosh/filtered-data');
     yield put(getFroshSuccess(showAllUsers ? result?.data?.users : result?.data?.frosh));
   } catch (e) {
-    console.log(e);
+    console.error(e);
     yield put(getFroshFailure(e));
   }
 }

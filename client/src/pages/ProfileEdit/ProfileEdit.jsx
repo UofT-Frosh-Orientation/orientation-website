@@ -2,7 +2,6 @@ import React from 'react';
 import './ProfileEdit.scss';
 import { ProfilePageHeader } from '../Profile/Profile';
 import { PageRegistrationForm } from '../Registration/RegistrationForm';
-import { submitEdits } from './functions';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from '../../state/user/saga';
@@ -14,7 +13,7 @@ const PageProfileEdit = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const submit = (newInfo) => {
-    dispatch(updateUserInfo({ newInfo, navigate }));
+    dispatch(updateUserInfo({ newInfo, navigate, isRegistered }));
   };
   if (!isRegistered) {
     navigate('/profile');
@@ -23,7 +22,6 @@ const PageProfileEdit = () => {
     <>
       {isRegistered && (
         <>
-          <div className="navbar-space-top" />
           <ProfilePageHeader leader={false} editButton={false} />
           <div className="edit-form-container">
             <PageRegistrationForm

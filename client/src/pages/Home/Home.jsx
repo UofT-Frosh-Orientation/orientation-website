@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
-import PropTypes from 'prop-types';
 import { getSlideshowImages, getTimelineEvents } from './functions';
 import './Home.scss';
 import Wave from '../../assets/misc/wave.png';
 import WaveReverse from '../../assets/misc/wave-reverse.png';
 import WaveDarkMode from '../../assets/darkmode/misc/wave.png';
 import WaveReverseDarkmode from '../../assets/darkmode/misc/wave-reverse.png';
-
 import { Button } from '../../components/button/Button/Button';
 import { Link } from 'react-router-dom';
 
-import Landing1 from '../../assets/landing/landing-1.jpg';
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
 import { ImageCarousel } from '../../components/ImageCarousel/ImageCarousel';
-import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
+import MainFroshLogo from '../../assets/logo/frosh-main-logo-outline.svg';
 import 'react-slideshow-image/dist/styles.css';
 import { Slide } from 'react-slideshow-image';
 import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
@@ -22,62 +19,42 @@ import { sponsors } from '../../util/sponsors';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { useSelector } from 'react-redux';
 import { loggedInSelector, userSelector } from '../../state/user/userSlice';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import ProgressiveImage from '../../components/progressiveImg/ProgressiveImg';
 
 const PageHome = () => {
   return (
     <>
       <HomePageHeader />
-      <HomePageTimeline />
-      <HomePageSchedule />
+      {/* <HomePageTimeline /> */}
+      {/* <HomePageSchedule /> */}
       <HomePageSponsors />
     </>
   );
 };
 
 const HomePageHeader = () => {
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
 
   return (
     <div className="home-page-header">
+      <LazyLoadImage
+        src={MainFroshLogo}
+        className="FroshHardHatWhite-logo"
+        alt="home page frosh logo"
+        effect="blur"
+      ></LazyLoadImage>
       <div className="home-page-header-text">
-        <h2>F!rosh Week</h2>
-        <h1>2T2</h1>
-        <p>Organized by the University of Toronto&apos;s Engineering Orientation Commitee</p>
-        <Link
-          key={'/registration'}
-          to={'/registration'}
-          style={{ textDecoration: 'none' }}
-          className="no-link-style"
-        >
-          <div className="home-page-header-register-button">
-            <div className="desktop-only">
-              <Button
-                label="Register"
-                isSecondary
-                style={{
-                  margin: '0px',
-                  width: '100%',
-                  height: '100%',
-                  fontSize: 'unset',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              />
-            </div>
-            <div className="mobile-only">
-              <Button label="Register" isSecondary style={{ margin: '0px' }} />
-            </div>
-          </div>
-        </Link>
+        <h2>Welcome to F!rosh Week!</h2>
+        <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p>
       </div>
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />
       </div>
       {darkMode ? (
-        <img src={WaveDarkMode} className="wave-image home-page-top-wave-image" />
+        <img src={WaveDarkMode} className="wave-image home-page-top-wave-image" alt="wave-img" />
       ) : (
-        <img src={Wave} className="wave-image home-page-top-wave-image" />
+        <img src={Wave} className="wave-image home-page-top-wave-image" alt="wave-img" />
       )}
     </div>
   );
@@ -85,7 +62,7 @@ const HomePageHeader = () => {
 
 const HomePageSlideshow = () => {
   const properties = {
-    duration: 5000,
+    duration: 8000,
     autoplay: true,
     transitionDuration: 1000,
     arrows: false,
@@ -95,8 +72,13 @@ const HomePageSlideshow = () => {
   return (
     <Slide {...properties}>
       {getSlideshowImages().map((image, index) => (
-        <div key={index}>
-          <img className="home-page-landing-image" src={image} alt={'slideshow' + index} />
+        <div key={index} style={{ overflow: 'hidden' }}>
+          <ProgressiveImage
+            classStyle="home-page-landing-image"
+            src={image.src}
+            placeholder={image.placeholder}
+            alt={'slideshow' + index}
+          />
         </div>
       ))}
     </Slide>
@@ -178,46 +160,61 @@ const HomePageSchedule = () => {
 const HomePageSponsors = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
   const [viewAll, setViewAll] = useState(false);
+
   return (
     <div className="home-page-sponsors">
       {darkMode ? (
-        <img src={WaveReverseDarkmode} className="wave-image home-page-bottom-wave-image" />
+        <img
+          src={WaveReverseDarkmode}
+          className="wave-image home-page-bottom-wave-image"
+          alt="wave-img"
+        />
       ) : (
-        <img src={WaveReverse} className="wave-image home-page-bottom-wave-image" />
+        <img src={WaveReverse} className="wave-image home-page-bottom-wave-image" alt="wave-img" />
       )}
       <h2>Our Sponsors</h2>
       <PleaseSponsor />
-      {viewAll === false ? (
-        <ImageCarousel items={sponsors} />
-      ) : (
-        <div className="all-sponsors-area">
-          {sponsors.map((item, index) => {
-            return (
-              <div key={item.name + index} className="sponsor-container">
-                <a
-                  href={item.website}
-                  key={item.name + index}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="no-link-style"
-                >
-                  <img src={item.image} alt={item.name} />
-                </a>
-                <p>{item.label}</p>
-              </div>
-            );
-          })}
+
+      {sponsors.length > 0 && (
+        <div>
+          {viewAll === false ? (
+            <ImageCarousel items={sponsors} />
+          ) : (
+            <div className="all-sponsors-area">
+              {sponsors.map((item, index) => {
+                return (
+                  <div key={item.name + index} className="sponsor-container">
+                    <a
+                      href={item.website}
+                      key={item.name + index}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="no-link-style"
+                    >
+                      <LazyLoadImage alt={item.name} effect="blur" src={item.image}></LazyLoadImage>
+                    </a>
+                    <p>{item.label}</p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+          {!viewAll ? (
+            <Button
+              label={'View All'}
+              onClick={() => {
+                setViewAll(true);
+              }}
+            />
+          ) : (
+            <Button
+              label={'View Less'}
+              onClick={() => {
+                setViewAll(false);
+              }}
+            />
+          )}
         </div>
-      )}
-      {!viewAll ? (
-        <Button
-          label={'View All'}
-          onClick={() => {
-            setViewAll(true);
-          }}
-        />
-      ) : (
-        <></>
       )}
     </div>
   );

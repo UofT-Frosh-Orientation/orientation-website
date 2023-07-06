@@ -42,7 +42,7 @@ export const PageScuntJudgeForm = () => {
   const dispatch = useDispatch();
   const { missions } = useSelector(scuntMissionsSelector);
   const { setSnackbar } = useContext(SnackbarContext);
-  console.log(missions);
+
   const [teams, setTeams] = useState(['Select Team']);
   const [teamObjs, setTeamObjs] = useState();
 
@@ -71,8 +71,6 @@ export const PageScuntJudgeForm = () => {
 
   return (
     <>
-      {/* <Header text={"Missions"}/> */}
-      <div className="navbar-space-top" />
       <div className="scunt-judge-form-page">
         <div className="scunt-judge-form-container">
           <h1>Judge Dashboard</h1>
@@ -120,8 +118,6 @@ const ScuntNegativePoints = ({ teams, teamObjs }) => {
               initialSelectedIndex={0}
               values={teams}
               onSelect={(value) => {
-                console.log('TEAMS');
-                console.log(value, teamObjs);
                 setAssignedTeam(getScuntTeamObjFromTeamName(value, teamObjs));
               }}
               isDisabled={false}
@@ -316,7 +312,7 @@ const ScuntBribePoints = ({ teams, teamObjs }) => {
                   setSnackbar('Please select a team!', true);
                   return;
                 }
-                console.log(assignedTeam);
+
                 setClearPointsInput(true);
                 submitBribe(assignedTeam?.number, assignedPoints);
                 setRemainingBribePoints(remainingBribePoints - assignedPoints);
@@ -534,7 +530,6 @@ const ScuntMissionSelection = ({ missions, teams: teamsPassed, teamObjs }) => {
                 label={'Points'}
                 placeholder={assignedPoints}
                 onChange={(value) => {
-                  console.log('VALUE', value);
                   if (isNaN(parseInt(value))) {
                     return;
                   }
