@@ -151,10 +151,10 @@ export const fields = {
       localStorageKey: 'registration-utorid',
       className: 'half-width-input',
       validation: (value) => {
-        if (value !== undefined && value.toString().length === 8) {
+        if (value !== undefined && value.toString().length <= 9 && value.toString().length >= 7) {
           return true;
         } else {
-          return 'Your UtorID should be 8 characters long';
+          return 'Your UtorID should be 7-9 characters long';
         }
       },
       isUtorID: true,
@@ -284,7 +284,7 @@ export const fields = {
       type: 'radio',
       values: ['Yes', 'No'],
       initialSelectedIndex: 1,
-      label: 'Allergies and/or Medical Conditions',
+      label: 'Medical Conditions',
       placeholder: '',
       isRequiredInput: true,
       noEdit: false,
@@ -303,8 +303,8 @@ export const fields = {
     specficMedicalInfo: {
       type: 'text',
       inputType: 'text',
-      label: 'Specific Allergies and/or Medical Conditions',
-      placeholder: 'Nut Allergy',
+      label: 'Specific Medical Conditions',
+      placeholder: 'Respiratory Conditions',
       isRequiredInput: false,
       noEdit: false,
       localStorageKey: 'registration-specificMedicalInfo',
@@ -315,7 +315,7 @@ export const fields = {
       type: 'text',
       inputType: 'text',
       label: 'Medication (e.g. Epi-Pen, inhaler, ...)',
-      placeholder: 'Carries 2 Epi-Pens',
+      placeholder: 'Carries 2 Inhalers',
       isRequiredInput: false,
       noEdit: false,
       localStorageKey: 'registration-medication',
