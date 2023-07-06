@@ -418,58 +418,58 @@
   padding: 0px 20px;
 }
 
-.profile-leader-dashboard-links {
-  color: var(--text-dynamic);
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  // margin-left: 35px;
-  // margin-right: 20px;
-  @include devices(tablet) {
-    flex-direction: column;
-    margin: auto;
-  }
-  width: 100%;
+// .profile-leader-dashboard-links {
+//   color: var(--text-dynamic);
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   align-items: center;
+//   text-align: center;
+//   // margin-left: 35px;
+//   // margin-right: 20px;
+//   @include devices(tablet) {
+//     flex-direction: column;
+//     margin: auto;
+//   }
+//   width: 100%;
 
-  .profile-leader-dashboard-permissions-links {
-    width: 30%;
-    // margin-right: auto;
-    @include devices(tablet) {
-      // margin: auto;
-      width: 350px;
-    }
-  }
-  .profile-leader-dashboard-other-links {
-    display: flex;
-    flex-direction: row;
-    margin-left: 2%;
-    width: 100%;
-    // margin-bottom: 30px;
-    @include devices(tablet) {
-      margin-top: 5%;
-      margin-left: 0;
-      // margin: auto;
-      // width: 100%;
-      // margin-bottom: 100px;
-      // margin-top: 15px;
-    }
-  }
+//   .profile-leader-dashboard-permissions-links {
+//     width: 30%;
+//     // margin-right: auto;
+//     @include devices(tablet) {
+//       // margin: auto;
+//       width: 350px;
+//     }
+//   }
+//   .profile-leader-dashboard-other-links {
+//     display: flex;
+//     flex-direction: row;
+//     margin-left: 2%;
+//     width: 100%;
+//     // margin-bottom: 30px;
+//     @include devices(tablet) {
+//       margin-top: 5%;
+//       margin-left: 0;
+//       // margin: auto;
+//       // width: 100%;
+//       // margin-bottom: 100px;
+//       // margin-top: 15px;
+//     }
+//   }
 
-  .dashboard-dropdown-image {
-    user-select: none;
-    height: 100%;
-    width: 16px;
-    margin-right: 10px;
-    margin-top: 5px;
-    transition: transform 300ms ease-in-out;
-    transform: rotate(0) translateY(2.5px);
-    &.open {
-      transform: rotate(180deg) translateY(2.5px);
-    }
-  }
-}
+//   .dashboard-dropdown-image {
+//     user-select: none;
+//     height: 100%;
+//     width: 16px;
+//     margin-right: 10px;
+//     margin-top: 5px;
+//     transition: transform 300ms ease-in-out;
+//     transform: rotate(0) translateY(2.5px);
+//     &.open {
+//       transform: rotate(180deg) translateY(2.5px);
+//     }
+//   }
+// }
 
 .retreat-profile-container {
   margin-left: 50px;
