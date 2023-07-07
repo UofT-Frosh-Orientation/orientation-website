@@ -201,9 +201,12 @@ export const ProfilePageRetreat = () => {
   const { setSnackbar } = useContext(SnackbarContext);
 
   const [remainingTickets, setRemainingTickets] = useState();
-
-  useEffect(async () => {
+  const remainingTicketsSetter = async () => {
     setRemainingTickets(await getRemainingTickets(setSnackbar));
+  };
+
+  useEffect(() => {
+    remainingTicketsSetter();
   }, []);
 
   if (!isRegistered) {
@@ -937,7 +940,10 @@ const ProfilePageHeader = ({ leader, editButton }) => {
             )}
           </div>
           {editButton !== false && (
-            <Link to={isRegistered? '/profile-edit' : '/profile-edit-unregistered'} className={'profile-edit-icon-link no-link-style'}>
+            <Link
+              to={isRegistered ? '/profile-edit' : '/profile-edit-unregistered'}
+              className={'profile-edit-icon-link no-link-style'}
+            >
               <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
             </Link>
           )}

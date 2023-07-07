@@ -95,7 +95,7 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
         <ProfileDropdown
           open={openProfileDropdown}
           setOpen={setOpenProfileDropdown}
-          items={profilePages.preRegistration}
+          items={profilePages.notLogin}
         />
       )}
 

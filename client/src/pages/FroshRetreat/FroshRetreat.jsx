@@ -17,8 +17,12 @@ export const FroshRetreat = () => {
   const navigate = useNavigate();
   const isRegistered = useSelector(registeredSelector);
 
-  useEffect(async () => {
+  const remainingTicketsSetter = async () => {
     setRemainingTickets(await getRemainingTickets(setSnackbar));
+  };
+
+  useEffect(() => {
+    remainingTicketsSetter();
   }, []);
 
   useEffect(() => {
@@ -85,8 +89,12 @@ const RetreatRegistration = () => {
 
   const [outOfTickets, setOutOfTickets] = useState(false);
 
-  useEffect(async () => {
+  const outOfTicketsSetter = async () => {
     setOutOfTickets((await getRemainingTickets(setSnackbar)) <= 0);
+  };
+
+  useEffect(() => {
+    outOfTicketsSetter();
   }, []);
 
   return (
