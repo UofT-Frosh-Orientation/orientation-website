@@ -1,24 +1,21 @@
 const pino = require('pino');
 const pinoHttp = require('pino-http');
 
-const logger = pino(
-  [
-    {
-      redact: {
-        paths: [
-          'req.headers',
-          'req.remoteAddress',
-          'req.remotePort',
-          'res.headers',
-          'user.email',
-          'user.firstName',
-          'user.lastName',
-          'user.preferredName',
-        ],
-        remove: true,
-      },
+const logger = pino({
+    redact: {
+      paths: [
+        'req.headers',
+        'req.remoteAddress',
+        'req.remotePort',
+        'res.headers',
+        'user.email',
+        'user.firstName',
+        'user.lastName',
+        'user.preferredName',
+      ],
+      remove: true,
     },
-  ],
+  },
   pino.destination({ dest: `${__dirname}/../output.txt`, minLength: 2048, sync: false }),
 );
 
