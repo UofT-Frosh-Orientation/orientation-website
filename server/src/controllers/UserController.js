@@ -81,7 +81,7 @@ const UserController = {
       } else {
         req.logIn(user, (err) => {
           if (err) {
-            req.log.fatal({msg: "User Logout Failure: user " + user.id, err, user: user.getResponseObject()});
+            req.log.fatal({msg: "User Login Failure: user " + user.id, err, user: user.getResponseObject()});
             next(err);
           } else {
             req.log.info({msg: "Successful login by user " + user.id , user: user.getResponseObject()});
