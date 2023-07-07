@@ -12,7 +12,7 @@ const ScuntTeamController = {
         user: leadur.getResponseObject(),
       });
     } catch (e) {
-      console.log(e);
+      req.log.fatal({msg: "Unable to update leader team for user " + userId, e, user: req.user.getResponseObject()});
       next(e);
     }
   },
@@ -21,6 +21,7 @@ const ScuntTeamController = {
       const teamPoints = await ScuntTeamServices.getTeamPoints();
       return res.status(200).send({ message: 'Team points', teamPoints });
     } catch (e) {
+      req.log.fatal({msg: "Unable to get team points", e});
       next(e);
     }
   },
@@ -38,6 +39,7 @@ const ScuntTeamController = {
         user: leadur,
       });
     } catch (e) {
+      req.log.fatal({msg: "Unable to process bribe transaction", e});
       next(e);
     }
   },
@@ -47,7 +49,7 @@ const ScuntTeamController = {
       const judgeUsers = await ScuntTeamServices.getScuntJudges();
       return res.status(200).send({ message: 'Successfuly found judge users', users: judgeUsers });
     } catch (e) {
-      console.log(e);
+      req.log.fatal({msg: "Unable to get scunt judges", e});
       next(e);
     }
   },
@@ -60,7 +62,7 @@ const ScuntTeamController = {
         message: (isAddPoints ? 'Added ' : 'Set ') + points?.toString() + ' bribe points',
       });
     } catch (e) {
-      console.log(e);
+      req.log.fatal({msg: "Unable to refill bribe points", e});
       next(e);
     }
   },
@@ -73,6 +75,7 @@ const ScuntTeamController = {
         message: result,
       });
     } catch (e) {
+      req.log.fatal({msg: "Unable to add scunt team transaction", e});
       next(e);
     }
   },
@@ -88,6 +91,7 @@ const ScuntTeamController = {
           teamNumber.toString(),
       });
     } catch (e) {
+      req.log.fatal({msg: "Unable to subtract scunt team transaction", e});
       next(e);
     }
   },
@@ -104,6 +108,7 @@ const ScuntTeamController = {
         transactions: result,
       });
     } catch (e) {
+      req.log.fatal({msg: "Unable to view scunt team transactions", e});
       next(e);
     }
   },
@@ -117,6 +122,7 @@ const ScuntTeamController = {
         missionStatus: { completed: maxPoints !== 0, points: maxPoints },
       });
     } catch (e) {
+      req.log.fatal({msg: "Unable to check scunt team transaction", e});
       next(e);
     }
   },
@@ -126,6 +132,7 @@ const ScuntTeamController = {
       const createdTeams = await ScuntTeamServices.initializeTeams();
       res.status(200).send({ message: `Successfully created ${createdTeams.length} teams!` });
     } catch (e) {
+      req.log.fatal({msg: "Unable to initialize scunt teams", e});
       next(e);
     }
   },
@@ -136,6 +143,7 @@ const ScuntTeamController = {
       await ScuntTeamServices.deleteTransaction(teamNumber, id);
       res.status(200).send({ message: 'Successfully deleted the transaction!' });
     } catch (e) {
+      req.log.fatal({msg: "Unable to delete scunt team transaction " + id, e});
       next(e);
     }
   },
@@ -150,6 +158,7 @@ const ScuntTeamController = {
       console.log('Successfully renamed scunt teams!');
       res.status(200).send({ message: `Successfully renamed scunt teams!` });
     } catch (e) {
+      req.log.error({msg: "Unable to rename scunt teams", e});
       next(e);
     }
   },
