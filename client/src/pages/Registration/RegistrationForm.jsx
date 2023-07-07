@@ -398,6 +398,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                         onClick={handleRegister}
                         isDisabled={!canRegister}
                       />
+                      <p className="register-terms-of-service" style={{ marginTop: '20px' }}>
+                        If you&apos;re looking to apply for a bursary, click{' '}
+                        <a href="https://forms.gle/UFajTRoBF8iWah2MA" target="_blank" rel="noreferrer">
+                          here
+                        </a>{' '}
+                        to submit in an application
+                      </p>
                     </div>
                   ),
                 },
