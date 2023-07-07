@@ -1,9 +1,8 @@
 const pino = require('pino');
 const pinoHttp = require('pino-http');
-const pinoPretty = require('pino-pretty');
 
+const fileStream = pino.destination({ dest: './output.log', minLength: 512, sync: false });
 
-const fileStream = pino.destination({dest: './output.log', sync: true});
 const logger = pino({
     transport:{
         targets: [
@@ -19,7 +18,7 @@ const logger = pino({
         paths: ['req.headers', 'req.remoteAddress', 'req.remotePort', 'res.headers', 'user.email', 'user.firstName', 'user.lastName', 'user.preferredName'],
         remove: true
       }
-  }, fileStream);
+}, fileStream);
 
 const loggerMiddleware = pinoHttp({
     logger,
@@ -28,7 +27,7 @@ const loggerMiddleware = pinoHttp({
         return "Request completed successfully with status " + res.statusCode;
     },
     prettyPrint: { colorize: true }, // Enable pretty printing with colors
-    });
+});
 
 module.exports = {
     logger,
