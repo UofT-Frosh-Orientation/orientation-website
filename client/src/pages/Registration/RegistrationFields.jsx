@@ -269,15 +269,6 @@ export const fields = {
       isPhoneNumber: true,
       inputTitle: 'Phone Number',
     },
-    bursaryRequested: {
-      type: 'radio',
-      label: 'Bursary',
-      values: ['Yes', 'No'],
-      isRequiredInput: true,
-      noEdit: true,
-      initialSelectedIndex: 1,
-      localStorageKey: 'registration-bursaryRequested',
-    },
   },
   HealthSafety: {
     medicalInfo: {
@@ -356,6 +347,7 @@ export const fields = {
       isRequiredInput: false,
       noEdit: false,
       localStorageKey: 'registration-allergiesMore',
+      isDisabled: true, // to initially set to disabled until 'Other' is clicked
       validation: (value) => {
         if (value.length > 100) {
           return 'Please use less than 100 characters';
