@@ -199,9 +199,12 @@ export const ProfilePageRetreat = () => {
   const { setSnackbar } = useContext(SnackbarContext);
 
   const [remainingTickets, setRemainingTickets] = useState();
-
-  useEffect(async () => {
+  const remainingTicketsSetter = async () => {
     setRemainingTickets(await getRemainingTickets(setSnackbar));
+  };
+
+  useEffect(() => {
+    remainingTicketsSetter();
   }, []);
 
   if (!isRegistered) {
