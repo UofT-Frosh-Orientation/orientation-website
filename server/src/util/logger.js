@@ -1,7 +1,8 @@
 const pino = require('pino');
 const pinoHttp = require('pino-http');
 
-const logger = pino({
+const logger = pino(
+  {
     redact: {
       paths: [
         'req.headers',
@@ -16,12 +17,12 @@ const logger = pino({
       remove: true,
     },
   },
-  pino.destination({ dest: `${__dirname}/../output.txt`, minLength: 2048, sync: false }),
+  pino.destination({ dest: `${__dirname}/../backendlogs.txt`, minLength: 4096, sync: false }),
 );
 
 const loggerMiddleware = pinoHttp({
   logger,
-  customSuccessMessage: function (req, res) {
+  customSuccessMessage(req, res) {
     // Customize the success log message
     return 'Request completed successfully with status ' + res.statusCode;
   },
