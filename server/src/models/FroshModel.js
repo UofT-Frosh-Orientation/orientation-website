@@ -34,18 +34,26 @@ const paymentSchema = new mongoose.Schema({
 
 const FroshSchema = new mongoose.Schema(
   {
-    birthDate: {
-      type: Date,
+    legalName: {
+      type: String,
       required: true,
     },
     pronouns: {
       type: String,
-      enum: ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'],
+      enum: ['He/Him', 'They/Them', 'She/Her', 'Other', 'Prefer not to say'],
       required: true,
     },
-    pronounsOther: {
+    pronounOther: {
       type: String,
       required: false,
+    },
+    birthDate: {
+      type: Date,
+      required: true,
+    },
+    utorid: {
+      type: String,
+      required: true,
     },
     discipline: {
       type: String,
@@ -62,36 +70,18 @@ const FroshSchema = new mongoose.Schema(
       ],
       required: true,
     },
-    froshGroup: {
-      type: String, //TODO: add enum validation to frosh groups with all valid Frosh Group names
-      required: true,
-    },
-    payments: [paymentSchema],
-    utorid: {
-      type: String,
-      required: true,
-    },
     shirtSize: {
       type: String,
-      enum: ['S', 'M', 'L', 'XL'],
+      enum: ['S', 'M', 'L', 'XL', '2XL', '3XL'],
       required: true,
     },
-    phoneNumberAreaCode: {
+    phoneNumberCountryCode: {
       type: String,
       required: false,
-      default: '1',
     },
     phoneNumber: {
       type: String,
       required: true,
-    },
-    phoneNumberAreaCode: {
-      type: String,
-      required: false,
-    },
-    instagram: {
-      type: String, //needs an @ symbol at the beginning
-      required: false,
     },
     emergencyContactName: {
       type: String,
@@ -105,12 +95,16 @@ const FroshSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    emergencyContactNumberAreaCode: {
-      type: String,
-      required: false,
-      default: '1',
+    bursaryRequested: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
     medicalInfo: {
+      type: String,
+      required: false,
+    },
+    specficMedicalInfo: {
       type: String,
       required: false,
     },
@@ -122,12 +116,8 @@ const FroshSchema = new mongoose.Schema(
       type: [String],
       required: false,
     },
-    allergiesMore: {
+    allergiesOther: {
       type: String,
-      required: false,
-    },
-    photograph: {
-      type: Boolean, // true is okay with being photographed, false it not
       required: false,
     },
     accessibility: {
@@ -138,58 +128,32 @@ const FroshSchema = new mongoose.Schema(
       type: Boolean, // true is want to be contacted, false is not
       required: false,
     },
-    accommodationContact: {
-      type: String,
-      enum: ['Phone', 'Email', 'Other'], // other option
-      required: false,
-    },
-    accommodationOther: {
-      type: String,
-      required: false,
-    },
-    scunt: {
+    attendingScunt: {
       type: Boolean, // true is attending scunt, false is not attending
-      required: false,
+      required: true,
     },
-    summerLocation: {
-      type: Boolean, // true is in GTA, false is out of GTA
-      required: false,
-    },
-    summerLocationOther: {
+    summerLocationCity: {
       type: String,
-      required: false,
+      required: true,
+    },
+    summerLocationCountry: {
+      type: String,
+      required: true,
     },
     moveToToronto: {
       type: String,
-      enum: ['N/A', 'May', 'June', 'July', 'August', 'September'],
+      enum: ['N/A', 'July', 'August', 'September'],
       required: false,
     },
-    commuterProgram: {
-      type: Boolean,
-      required: false,
-    },
-    commuterProgramInformation: {
-      type: String,
-      enum: ['Car', 'Bus', 'Subway', 'Go Train', 'Walking', 'Biking', 'Other'], // also has an other option
-      required: false,
-    },
-    commuterProgramOther: {
-      type: String,
-      required: false,
-    },
-    commuterProgramStop: {
-      type: String,
-      required: false,
-    },
-    legalName: {
-      type: String,
+    photograph: {
+      type: Boolean, // true is okay with being photographed, false it not
       required: true,
     },
-    bursaryRequested: {
-      type: Boolean,
+    froshGroup: {
+      type: String, //TODO: add enum validation to frosh groups with all valid Frosh Group names
       required: true,
-      default: false,
     },
+    payments: [paymentSchema],
     isRegistered: {
       type: Boolean,
       required: true,
@@ -211,6 +175,7 @@ const FroshSchema = new mongoose.Schema(
       default: [],
     },
     isRetreat: {
+      // used for F!rosh that paid for retreat
       type: Boolean,
       required: false,
     },

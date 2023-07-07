@@ -105,7 +105,7 @@ const PageProfileFrosh = () => {
       <ProfilePageHeader leader={leader} editButton={true} />
 
       <div className="profile-info-row">
-        <div style={{ marginLeft: '50px' }}>
+        <div className="profile-page-divider">
           {leader === false ? (
             <>
               <ProfilePageScuntMessage />
@@ -336,7 +336,7 @@ export const ProfilePageScuntTeamsSelection = () => {
   if (
     leader ||
     !isRegistered ||
-    !user?.scunt ||
+    !user?.attendingScunt ||
     (scuntSettings !== undefined &&
       scuntSettings.length >= 1 &&
       scuntSettings[0]?.revealTeams === true)
@@ -432,7 +432,7 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   ) {
     return <></>;
   }
-  if (!leader && !user?.scunt) {
+  if (!leader && !user?.attendingScunt) {
     return (
       <div className="profile-page-scunt-token profile-page-side-section">
         <p>
@@ -908,8 +908,8 @@ const ProfilePageHeader = ({ leader, editButton }) => {
     <>
       <div className="profile-page-header">
         <div className="profile-page-header-group">
-          <h1>{leader === true ? 'ℒ' : user?.froshGroupIcon}</h1>
-          {leader === true ? <p>{'(Leedur)'}</p> : <p>{user?.froshGroup}</p>}
+          <h1>{leader === true ? 'ℒ' : isRegistered ? user?.froshGroupIcon : ''}</h1>
+          <p>{leader === true ? '(Leedur)' : isRegistered ? user?.froshGroup : ''}</p>
         </div>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-info">
@@ -1148,7 +1148,7 @@ const ProfilePageQRCode = () => {
         posColor="#28093A"
         backgroundColor="white"
       />
-      <p>Your Sign-in QR Code</p>
+      <p style={{ color: 'var(--purple)' }}>Your Sign-in QR Code</p>
     </div>
   );
 };
