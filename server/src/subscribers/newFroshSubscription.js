@@ -23,6 +23,7 @@ newFroshSubscription.process((job, done) => {
           </style>
         </head>
         <body>
+          <img src="cid:banner" alt="Email banner"/>
           <p>Hi ${job.data.preferredName},</p>
           <p>Thank you for registering for F!rosh Week 2T3!!!</p>
           <p>Please find attached your information PDF which includes a receipt of your data and your unique QR code that you will use for a variety of activities during F!rosh Week.</p>
