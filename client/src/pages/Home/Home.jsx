@@ -89,9 +89,13 @@ const HomePageTimeline = () => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState({});
   const [dates, setDates] = useState();
-  useEffect(async () => {
+  const datesSetter = async () => {
     setDates(await getTimelineEvents());
+  };
+  useEffect(() => {
+    datesSetter();
   }, []);
+
   return (
     !(dates === undefined || dates?.length === 0) && (
       <div className="home-page-timeline">

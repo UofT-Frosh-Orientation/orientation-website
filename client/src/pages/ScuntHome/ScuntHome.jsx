@@ -80,7 +80,7 @@ const ScuntDiscord = () => {
               style={{ filter: darkMode ? 'unset' : 'invert(1)' }}
             />
             <div>
-              {!leader && user?.scunt === true ? (
+              {!leader && user?.attendingScunt === true ? (
                 <h2 style={{ fontSize: '15px' }}>You are in team {user.scuntTeam}!</h2>
               ) : (
                 <></>

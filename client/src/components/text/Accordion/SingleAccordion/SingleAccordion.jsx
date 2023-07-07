@@ -51,8 +51,8 @@ const SingleAccordion = ({ header, children, isOpen, setIsOpen, canOpen, classNa
 };
 
 SingleAccordion.propTypes = {
-  header: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired,
+  header: PropTypes.element.isRequired,
+  children: PropTypes.element.isRequired,
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
   canOpen: PropTypes.bool.isRequired,

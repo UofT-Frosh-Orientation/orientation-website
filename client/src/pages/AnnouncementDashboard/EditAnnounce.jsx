@@ -76,7 +76,7 @@ const EditAnnounce = () => {
                 <tr className="all-accounts-row" key={announcement.id}>
                   <td
                     className="all-account-data-verified-container"
-                    style={{ 'overflow-wrap': 'anywhere' }}
+                    style={{ overflowWrap: 'anywhere' }}
                   >
                     <div>
                       {announcement.editMode ? (

@@ -78,11 +78,11 @@ const TextInput = ({
 
   const [type, setType] = useState(inputType ? inputType : 'text');
 
-  const onKeyPress = (target) => {
-    if (target.charCode === 13) {
-      if (onEnterKey) onEnterKey(value);
-    }
-  };
+  // const onKeyPress = (target) => {
+  //   if (target.charCode === 13) {
+  //     if (onEnterKey) onEnterKey(value);
+  //   }
+  // };
 
   const onInputChange = (event) => {
     let value = event.target.value;
@@ -156,7 +156,7 @@ const TextInput = ({
             }
             required={isRequiredInput}
             disabled={isDisabled}
-            onKeyPress={onKeyPress}
+            // onKeyPress={onKeyPress}
             value={value}
             placeholder={placeholder}
             type={type}
@@ -175,7 +175,7 @@ const TextInput = ({
             }
             required={isRequiredInput}
             disabled={isDisabled}
-            onKeyPress={onKeyPress}
+            // onKeyPress={onKeyPress}
             value={value}
             placeholder={placeholder}
             type={type}
