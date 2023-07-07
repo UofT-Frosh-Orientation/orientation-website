@@ -6,23 +6,18 @@ import { useNavigate } from 'react-router-dom';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
 
-import BrachioR from '../../assets/login/brachiosaurus-ground-right.svg';
-import BrachioL from '../../assets/login/brachiosaurus-ground-left.svg';
-import Ground from '../../assets/login/ground.svg';
-import MountainB from '../../assets/login/mountain-back.svg';
-import MountainFL from '../../assets/login/mountain-front-left.svg';
-import MountainFR from '../../assets/login/mountain-front-right.svg';
-import MountainM from '../../assets/login/mountain-mid.svg';
-import Ptero from '../../assets/login/ptero.svg';
-
-import BrachioRDarkMode from '../../assets/darkmode/login/brachiosaurus-ground-right.svg';
-import BrachioLDarkMode from '../../assets/darkmode/login/brachiosaurus-ground-left.svg';
-import GroundDarkMode from '../../assets/darkmode/login/ground.svg';
-import MountainBDarkMode from '../../assets/darkmode/login/mountain-back.svg';
-import MountainFLDarkMode from '../../assets/darkmode/login/mountain-front-left.svg';
-import MountainFRDarkMode from '../../assets/darkmode/login/mountain-front-right.svg';
-import MountainMDarkMode from '../../assets/darkmode/login/mountain-mid.svg';
-import PteroDarkMode from '../../assets/darkmode/login/ptero.svg';
+import BackgroundColourDark from '../../assets/login-light-dark/background-colour-dark.svg';
+import BackgroundDark from '../../assets/login-light-dark/background-dark.svg';
+import Background from '../../assets/login-light-dark/background.svg';
+import Birds from '../../assets/login-light-dark/birds.svg';
+import CloudsDark from '../../assets/login-light-dark/clouds-dark.svg';
+import CloudsLongDark from '../../assets/login-light-dark/clouds-long-dark.svg';
+import CloudsLong from '../../assets/login-light-dark/clouds-long.svg';
+import Clouds from '../../assets/login-light-dark/clouds.svg';
+import ForegroundDark from '../../assets/login-light-dark/foreground-dark.svg';
+import Foreground from '../../assets/login-light-dark/foreground.svg';
+import MidgroundDark from '../../assets/login-light-dark/midground-dark.svg';
+import Midground from '../../assets/login-light-dark/midground.svg';
 
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
@@ -141,51 +136,45 @@ const LoginBackgroundImages = () => {
     <>
       <div className="login-bg-images">
         {!darkMode ? (
-          <img className="mountain-back" src={MountainB} alt="mountain"></img>
+          <img className="bg-colour" alt="background-colour"></img>
         ) : (
-          <img className="mountain-back" src={MountainBDarkMode} alt="mountain"></img>
+          <img className="bg-colour" src={BackgroundColourDark} alt="background-colour"></img>
         )}
 
         {!darkMode ? (
-          <img className="mountain-front-right" src={MountainFR} alt="mountain"></img>
+          <img className="bg" src={Background} alt="background"></img>
         ) : (
-          <img className="mountain-front-right" src={MountainFRDarkMode} alt="mountain"></img>
+          <img className="bg" src={BackgroundDark} alt="background"></img>
         )}
 
         {!darkMode ? (
-          <img className="mountain-mid" src={MountainM} alt="mountain"></img>
+          <img className="birds" src={Birds} alt="birds"></img>
         ) : (
-          <img className="mountain-mid" src={MountainMDarkMode} alt="mountain"></img>
+          <img className="birds" src={Birds} alt="birds"></img>
         )}
 
         {!darkMode ? (
-          <img className="mountain-front-left" src={MountainFL} alt="mountain"></img>
+          <img className="clouds" src={Clouds} alt="clouds"></img>
         ) : (
-          <img className="mountain-front-left" src={MountainFLDarkMode} alt="mountain"></img>
+          <img className="clouds" src={CloudsDark} alt="clouds"></img>
         )}
 
         {!darkMode ? (
-          <img className="ground" src={Ground} alt="ground"></img>
+          <img className="clouds-long" src={CloudsLong} alt="clouds"></img>
         ) : (
-          <img className="ground" src={GroundDarkMode} alt="ground"></img>
+          <img className="clouds-long" src={CloudsLongDark} alt="clouds"></img>
         )}
 
         {!darkMode ? (
-          <img className="brachio-left" src={BrachioL} alt="brachiosaurus"></img>
+          <img className="midground" src={Midground} alt="midground"></img>
         ) : (
-          <img className="brachio-left" src={BrachioLDarkMode} alt="brachiosaurus"></img>
+          <img className="midground" src={MidgroundDark} alt="midground"></img>
         )}
 
         {!darkMode ? (
-          <img className="brachio-right" src={BrachioR} alt="brachiosaurus"></img>
+          <img className="foreground" src={Foreground} alt="foreground"></img>
         ) : (
-          <img className="brachio-right" src={BrachioRDarkMode} alt="brachiosaurus"></img>
-        )}
-
-        {!darkMode ? (
-          <img className="ptero" src={Ptero} alt="ptero"></img>
-        ) : (
-          <img className="ptero" src={PteroDarkMode} alt="ptero"></img>
+          <img className="foreground" src={ForegroundDark} alt="foreground"></img>
         )}
       </div>
     </>
