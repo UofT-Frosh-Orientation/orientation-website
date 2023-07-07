@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 import configureAppStore, { sagaMiddleware } from './store';
@@ -20,11 +20,10 @@ sagaMiddleware.run(froshSaga);
 sagaMiddleware.run(scuntSettingsSaga);
 sagaMiddleware.run(scuntMissionsSaga);
 
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root'),
 );
