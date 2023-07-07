@@ -362,7 +362,7 @@ export const ProfilePageScuntTeamsSelection = () => {
                 ? user?.scuntPreferredMembers[index]
                 : ''
             }
-            value={teammates[index]}
+            value={teammates[index] ?? ''}
             onChange={(value) => {
               teammates[index] = value;
               setTeammates(teammates);
@@ -1273,7 +1273,7 @@ const ProfilePageSchedule = () => {
           {scheduleData[Object.keys(scheduleData)[selectedDayIndex]].map((scheduleDay, index) => {
             return (
               <ScheduleComponentAccordion
-                key={Object.keys(scheduleData)[index] + index}
+                key={index}
                 scheduleDay={scheduleDay}
                 closeAll={closeAll}
               />

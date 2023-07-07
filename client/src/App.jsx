@@ -7,10 +7,8 @@ import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { initialsSelector, loggedInSelector, registeredSelector } from './state/user/userSlice';
-import { useState, useEffect, useContext } from 'react';
+import { useEffect } from 'react';
 import { getUserInfo } from './state/user/saga';
-import io from 'socket.io-client';
-
 import { AskQuestionButton } from './components/button/AskQuestionButton/AskQuestionButton';
 import { DarkModeProvider } from './util/DarkModeProvider';
 import { SnackbarProvider } from './util/SnackbarProvider';
