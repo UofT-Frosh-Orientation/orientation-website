@@ -6,18 +6,19 @@ import { useNavigate } from 'react-router-dom';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
 
-import BackgroundColourDark from '../../assets/login-light-dark/background-colour-dark.svg';
-import BackgroundDark from '../../assets/login-light-dark/background-dark.svg';
-import Background from '../../assets/login-light-dark/background.svg';
-import Birds from '../../assets/login-light-dark/birds.svg';
-import CloudsDark from '../../assets/login-light-dark/clouds-dark.svg';
-import CloudsLongDark from '../../assets/login-light-dark/clouds-long-dark.svg';
-import CloudsLong from '../../assets/login-light-dark/clouds-long.svg';
-import Clouds from '../../assets/login-light-dark/clouds.svg';
-import ForegroundDark from '../../assets/login-light-dark/foreground-dark.svg';
-import Foreground from '../../assets/login-light-dark/foreground.svg';
-import MidgroundDark from '../../assets/login-light-dark/midground-dark.svg';
-import Midground from '../../assets/login-light-dark/midground.svg';
+import BackgroundColourDark from '../../assets/darkmode/login/background-colour-dark.svg';
+import BackgroundDark from '../../assets/darkmode/login/background-dark.svg';
+import CloudsDark from '../../assets/darkmode/login/clouds-dark.svg';
+import CloudsLongDark from '../../assets/darkmode/login/clouds-long-dark.svg';
+import ForegroundDark from '../../assets/darkmode/login/foreground-dark.svg';
+import MidgroundDark from '../../assets/darkmode/login/midground-dark.svg';
+
+import Background from '../../assets/login/background.svg';
+import Birds from '../../assets/login/birds.svg';
+import Clouds from '../../assets/login/clouds.svg';
+import CloudsLong from '../../assets/login/clouds-long.svg';
+import Foreground from '../../assets/login/foreground.svg';
+import Midground from '../../assets/login/midground.svg';
 
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
