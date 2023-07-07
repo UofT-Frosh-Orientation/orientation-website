@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "concurrently \"cd server && yarn start:dev\" \"cd client && yarn dev\"",
+    "install:all": "concurrently \"cd server && yarn install\" \"cd client && yarn install\"",
     "prepare": "husky install"
   },
   "keywords": [],
