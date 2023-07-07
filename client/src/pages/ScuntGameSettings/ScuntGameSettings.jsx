@@ -335,9 +335,12 @@ const RefillJudgeBribePoints = () => {
       setJudges([]);
     }
   };
-
-  useEffect(async () => {
+  const judgeUsersGetter = async () => {
     getJudgeUsers();
+  };
+
+  useEffect(() => {
+    judgeUsersGetter();
   }, []);
 
   return (
