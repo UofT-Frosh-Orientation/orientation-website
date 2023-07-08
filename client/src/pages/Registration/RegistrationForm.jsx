@@ -54,6 +54,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
           if (value === undefined) continue;
           formData.append(key, value);
         }
+        froshObject['id'] = user.id;
         const dataReceipt = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
         formData.append('dataReceipt', dataReceipt);
         const response = await axios.post('/frosh/register', formData, {
