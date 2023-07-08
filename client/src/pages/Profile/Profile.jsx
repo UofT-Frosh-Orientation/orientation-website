@@ -60,7 +60,9 @@ import {
   getScuntTeamObjFromTeamName,
   getScuntTeamObjFromTeamNumber,
 } from '../ScuntJudgeForm/ScuntJudgeForm';
+import { MakeReceipt } from '../../components/MakeReceipt/MakeReceipt';
 import useAxios from '../../hooks/useAxios';
+import ReactPDF from '@react-pdf/renderer';
 
 const { axios } = useAxios();
 
@@ -1152,6 +1154,7 @@ const ProfilePageQRCode = () => {
   );
 };
 const ProfilePageResources = () => {
+  const user = useSelector(userSelector);
   return (
     <div className="profile-page-resources profile-page-side-section">
       <h2>Resources</h2>
@@ -1172,6 +1175,20 @@ const ProfilePageResources = () => {
           </a>
         );
       })}
+      <a key={'5Download'} className="no-link-style">
+        <ButtonBubble
+          label={'Download Information PDF'}
+          onClick={async () => {
+            const froshObject = user?.user;
+            const blob = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
+            const fileURL = URL.createObjectURL(blob);
+            const pdfWindow = window.open(fileURL, '_blank');
+            pdfWindow && pdfWindow.focus();
+          }}
+          isSecondary
+          style={{ margin: 0, marginTop: '10px' }}
+        />
+      </a>
     </div>
   );
 };
