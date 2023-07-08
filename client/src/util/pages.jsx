@@ -69,9 +69,9 @@ export const pages = {
     {
       label: 'Profile',
       component: (
-        <AuthorizedPage>
-          <PageProfile />
-        </AuthorizedPage>
+        // <AuthorizedPage>
+        <PageProfile />
+        // </AuthorizedPage>
       ),
       path: '/profile',
       includeFooter: true,
@@ -205,9 +205,9 @@ export const pages = {
     {
       label: 'frosh-retreat',
       component: (
-        <AuthorizedPage>
-          <FroshRetreat />
-        </AuthorizedPage>
+        // <AuthorizedPage>
+        <FroshRetreat />
+        // </AuthorizedPage>
       ),
       path: '/frosh-retreat',
       includeFooter: true,

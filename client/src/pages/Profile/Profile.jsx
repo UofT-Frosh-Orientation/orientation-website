@@ -110,8 +110,9 @@ const PageProfileFrosh = () => {
         <div style={{ marginLeft: '50px' }}>
           {leader === false ? (
             <>
-              <ProfilePageScuntMessage />
+              <ProfilePageRetreat />
               {user?.isRegistered && <ProfilePageRetreat />}
+              <ProfilePageScuntMessage />
               <ProfilePageNitelife />
               <ProfilePageInstagrams />
               <ProfilePageAnnouncements />
@@ -209,12 +210,12 @@ export const ProfilePageRetreat = () => {
     remainingTicketsSetter();
   }, []);
 
-  if (!isRegistered) {
-    return <></>;
-  }
-  if (remainingTickets <= 0 && !isRetreat) {
-    return <></>;
-  }
+  // if (!isRegistered) {
+  //   return <></>;
+  // }
+  // if (remainingTickets <= 0 && !isRetreat) {
+  //   return <></>;
+  // }
   return (
     <Link to={'/frosh-retreat'} className="no-link-style">
       <div className="retreat-profile-container">

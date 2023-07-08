@@ -6,6 +6,7 @@
   align-items: center;
 
   .info-header {
+    text-align: center;
     margin: 10px 20px;
     h1 {
       color: var(--white) !important;
@@ -51,8 +52,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 60px;
-    margin-bottom: 50px;
+    margin: 50px 30px;
   }
   .radio-buttons {
     width: fit-content;

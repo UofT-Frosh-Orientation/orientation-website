@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { SnackbarContext } from '../../util/SnackbarProvider';
+import waiverPDF from '../../assets/retreatWaiver/frosh-retreat-2T3-waiver.pdf';
 import useAxios from '../../hooks/useAxios';
 
 export const FroshRetreat = () => {
@@ -26,9 +27,9 @@ export const FroshRetreat = () => {
   }, []);
 
   useEffect(() => {
-    if (!isRegistered) {
-      navigate('/profile');
-    }
+    // if (!isRegistered) {
+    //   navigate('/profile');
+    // }
   }, [isRegistered]);
 
   return (
@@ -36,14 +37,20 @@ export const FroshRetreat = () => {
       <Header text={'Retreat'} underlineDesktop={'260px'} underlineMobile={'185px'}>
         <div className="info-header">
           <h1>Remaining Tickets: {remainingTickets}</h1>
+          <h3 style={{ color: 'var(--white)', margin: '20px 0', textAlign: 'center' }}>
+            Escape the city to the lovely Hart House Farms for a weekend of wholesome camp vibes!
+          </h3>
           <p style={{ color: 'var(--white)' }}>
-            Hello hello! Thank you so much for your interest in participating in the Frosh Retreat.
-            The retreat is taking place on Saturday September 10th 2022 running overnight into
-            Sunday September 11th 2022 at Hart House Farm.{' '}
+            The retreat is taking place on September 9th and September 10th, 2023 at Hart House
+            Farm.
           </p>
           <p style={{ color: 'var(--white)' }}>
             Due to limited spaces, we are selling a limited number of tickets so purchase yours
             before they sell out!{' '}
+          </p>
+          <p style={{ color: 'var(--white)' }}>
+            Tickets to Retreat are $95.00 &#40;they include bus transportation; no tickets without
+            bus transportation&#41;
           </p>
         </div>
       </Header>
@@ -79,8 +86,7 @@ const RetreatRegistration = () => {
   const [waiverValue, setWaiverValue] = useState();
   const [buttonClicked, setButtonClicked] = useState(false);
 
-  const waiverLink =
-    'https://drive.google.com/file/u/5/d/1CVXzncOgUCYjbG8raXWagqvtHS89SDyP/view?usp=sharing';
+  const waiverLink = '../../assests/retreatWaiver/frosh-retreat-2T3-waiver.pdf';
 
   const { user } = useSelector(userSelector);
   const { setSnackbar } = useContext(SnackbarContext);
@@ -147,6 +153,15 @@ const RetreatRegistration = () => {
           } ${user?.emergencyContactNumber}`}</p>
         </div>
         <div className="radio-buttons-retreat">
+          <Button
+            label="Read and Download the Frosh Retreat Waiver here"
+            isSecondary
+            onClick={() => {
+              window.open(waiverPDF, '_blank').focus();
+              setViewedWaiver(true);
+            }}
+            style={{ marginBottom: '25px' }}
+          />
           <h3>
             I have read and agree to the Frosh Retreat Waiver. By selecting &apos;Yes&apos; I
             understand the terms laid out by this agreement.
@@ -154,19 +169,10 @@ const RetreatRegistration = () => {
           <h4>
             <i>
               Please bring a signed copy of the waiver to retreat. This can be a digital or physical
-              and must be signed by your parent/guardian if by September 10th, you are still under
-              18.
+              and must be signed by your parent/guardian before retreat, you are still under 18.
             </i>
           </h4>
           <div style={{ height: '10px' }} />
-          <Button
-            label="You can read the Frosh Retreat Waiver here"
-            isSecondary
-            onClick={() => {
-              window.open(waiverLink, '_blank').focus();
-              setViewedWaiver(true);
-            }}
-          />
           {viewedWaiver ? (
             <RadioButtons
               initialSelectedIndex={1}
