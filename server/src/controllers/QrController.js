@@ -4,13 +4,12 @@ const UserServices = require('../services/UserServices');
 const QrController = {
   async getScannedUser(req, res, next) {
     try {
-      const { email, date, tzOffset } = req.body;
+      const { userID, date, tzOffset } = req.body;
       const day = new Date(Date.parse(date) - tzOffset * 60 * 1000);
-      const existingUser = await UserServices.getUserByEmail(email);
-
+      const existingUser = await UserServices.getUserByID(userID);
       const froshDataFields = req.user?.froshDataFields?.approved;
       if (!existingUser) {
-        return res.status(200).send({ message: 'This frosh does not exist!', returnedUser: {} });
+        return res.status(404).send({ message: 'This frosh does not exist!', returnedUser: {} });
       }
       const returnedUser = {};
 

@@ -90,7 +90,13 @@ const MakeReceipt = (froshObject) => {
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.qrcode}>
-          <Svg fill="white" style={{ width: '250px', padding: '10px 0 0 0' }}>
+          <Svg
+            fill="white"
+            style={{
+              width: '250px',
+              padding: '10px 0 0 0',
+            }}
+          >
             {t1}
           </Svg>
           <Text style={{ fontSize: 16, padding: '10px 0 0 0' }} key={currKey++}>

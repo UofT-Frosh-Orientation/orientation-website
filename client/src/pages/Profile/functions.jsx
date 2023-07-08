@@ -98,12 +98,10 @@ export function scannedUserKeys() {
 
 export function parseQRCode(qrString) {
   console.log('qrString', qrString);
-  if (qrString?.includes('|')) {
-    return { id: qrString?.split('|')[0] };
-  } else {
-    return {
-      email: qrString,
-    };
+  try {
+    return { id: qrString };
+  } catch (error) {
+    console.error('error parsing QR code', error);
   }
 }
 
@@ -121,7 +119,7 @@ export async function signInFrosh(userID) {
   try {
     const date = new Date();
     const result = await axios.put('/qr/scan', {
-      useID: userID,
+      userID: userID,
       date: date.toISOString(),
       tzOffset: date.getTimezoneOffset(),
     });

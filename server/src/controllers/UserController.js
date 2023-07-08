@@ -396,8 +396,6 @@ const UserController = {
    * @return {Promise<void>}
    */
   async updateInfo(req, res, next) {
-    console.log(req.user);
-    console.log(req.body);
     const userId = req.user.id;
     const updateInfo = req.body;
 
