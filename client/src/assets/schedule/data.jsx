@@ -4493,7 +4493,8 @@ export const data = {
     {
       'Event Name': 'Matriculation',
       'Event Location': 'Convocation Hall',
-      'Event Description': 'Our kickoff the frosh week, and introduction to all things SKULE™.',
+      'Event Description':
+        'Our kickoff to F!rosh Week, and an introduction to all things Skule! Hear from clubs, design teams, and other student groups about all the amazing opportunities waiting for you here at UofT Engineering, while also learning about some of our many Skule traditions!',
       'Start Time': '9:00  AM',
       'End Time': '11:00  AM',
       Color: 'yellow',
@@ -4501,7 +4502,7 @@ export const data = {
     {
       'Event Name': 'F!rosh Games, D!ye Station & Lunch',
       'Event Description':
-        'Frosh Games: Compete against other frosh groups in the craziest competitions imaginable\nDye: When I say purple you say purple! Where F!rosh and Leedurs alike dye their bodies (or parts thereof) purple. The colour purple represents great significance in the traditions of engineering schools across Canada.',
+        'Frosh Games: Compete against other frosh groups in the craziest competitions imaginable.\nDye: When I say purple you say purple! Where F!rosh and Leedurs alike dye their bodies (or parts thereof) purple. The colour purple represents great significance in the traditions of engineering schools across Canada.',
       'Start Time': '11:00  AM',
       'End Time': '3:00  PM',
       Color: 'purple',
@@ -4535,7 +4536,7 @@ export const data = {
     {
       'Event Name': 'Campus Tour, Build Battle & Lunch',
       'Event Description':
-        "Campus Tour: Be guided by your F!rosh Leedurs on a tour of our gorgeous campus, showing you all the best places to study, grab food, participate in extracurriculars, and nap!\nBuild Battle: Your first of many design challenges at UofT Engineering, except its probably the one of the coolest ones you do! Work with your frosh group to tackle your piece of the puzzle for this year's unique design challenge, coming together to build something truly amazing as a 2T7 class!",
+        "Campus Tour: Be guided by your F!rosh Leedurs on a tour of our gorgeous campus, showing you all the best places to study, grab food, participate in extracurriculars, and nap! \nBuild Battle: Your first of many design challenges at UofT Engineering, except its probably the one of the coolest ones you do! Work with your frosh group to tackle your piece of the puzzle for this year's unique design challenge, coming together to build something truly amazing as a 2T7 class!",
       'Start Time': '10:30  AM',
       'End Time': '4:30  PM',
       Color: 'yellow',
