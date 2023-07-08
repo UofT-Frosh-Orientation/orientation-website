@@ -1,28 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getDaysSchedule, getFroshGroupSchedule, getQRCodeString } from './functions';
+import { getQRCodeString } from './functions';
 import './Profile.scss';
 import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
 import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
 import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnnouncement';
 import { QRNormal } from 'react-qrbtf';
-import { ButtonBubble } from '../../components/button/ButtonBubble/ButtonBubble';
-import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
 import { Button } from '../../components/button/Button/Button';
-import { TextInput } from '../../components/input/TextInput/TextInput';
-import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import EditIcon from '../../assets/misc/pen-solid.svg';
 import CampingIcon from '../../assets/misc/camping-tent.png';
 import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Link } from 'react-router-dom';
-import { resources } from '../../util/resources';
 import { instagramAccounts } from '../../util/instagramAccounts';
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
 import NitelifeIcon from '../../assets/misc/nitelife.png';
 import ScuntIcon from '../../assets/misc/magnifier.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
-import { updateUserInfo } from '../../state/user/saga';
 import { announcementsSelector } from '../../state/announcements/announcementsSlice';
 import {
   getAnnouncements,
@@ -31,17 +25,15 @@ import {
 } from '../../state/announcements/saga';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
-import { scuntDiscord } from '../../util/scunt-constants';
-import { froshGroups } from '../../util/frosh-groups';
 import { completedAnnouncementsSelector } from '../../state/announcements/announcementsSlice';
-import { ScheduleComponentAccordion } from '../../components/schedule/ScheduleHome/ScheduleHome';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import useAxios from '../../hooks/useAxios';
 import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { ProfilePageSchedule } from '../../components/profile/ProfilePageSchedule/ProfilePageSchedule';
 import { ProfilePageResources } from '../../components/profile/ProfilePageResources/ProfilePageResources';
-// import { ProfilePageSchedule } from '../../components/profile/ProfilePageResources/ProfilePageResources';
+import { ProfilePageFroshScuntTeamsSelection } from '../../components/profile/scunt/ProfilePageFroshScuntTeamsSelection/ProfilePageFroshScuntTeamsSelection';
+import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
 
 const { axios } = useAxios();
 
@@ -76,8 +68,8 @@ const PageProfileFrosh = () => {
     <>
       <ProfilePageFroshHeader editButton={true} />
       <div className="profile-info-row">
-        <div>
-          <ProfilePageFroshScuntMessage />
+        <div className="profile-info-row-right">
+          {/* <ProfilePageFroshScuntMessage /> */}
           {user?.isRegistered && <ProfilePageRetreat />}
           <ProfilePageNitelife />
           <ProfilePageInstagrams />
@@ -88,8 +80,9 @@ const PageProfileFrosh = () => {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <ProfilePageQRCode />
-          <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
-          <ProfilePageFroshScuntTeamsSelection />
+          {/* Remove scunt stuff for now! */}
+          {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> */}
+          {/* <ProfilePageFroshScuntTeamsSelection /> */}
           <LazyLoadComponent>
             <ProfilePageResources />
           </LazyLoadComponent>
@@ -220,161 +213,6 @@ export const ProfilePageFroshScuntMessage = () => {
   ) : (
     <></>
   );
-};
-
-export const ProfilePageFroshScuntTeamsSelection = () => {
-  const [teammates, setTeammates] = useState(['', '', '']);
-  const [teammatesChangesMade, setTeammatesChangesMade] = useState(false);
-  const dispatch = useDispatch();
-  const { user } = useSelector(userSelector);
-  const isRegistered = useSelector(registeredSelector);
-  const { setSnackbar } = useContext(SnackbarContext);
-  const { scuntSettings } = useSelector(scuntSettingsSelector);
-  const { axios } = useAxios();
-
-  if (
-    !isRegistered ||
-    !user?.scunt ||
-    (scuntSettings !== undefined &&
-      scuntSettings.length >= 1 &&
-      scuntSettings[0]?.revealTeams === true)
-  ) {
-    return <></>;
-  }
-
-  return (
-    <div className="profile-page-scunt-token profile-page-side-section">
-      <h2>Scunt Teammates</h2>
-      <p style={{ fontSize: '12px' }}>
-        Enter the emails (precisely) of other people (up to 3) you want to team with. Otherwise you
-        will be put in a random team. Your requested team members must do the same. You do not need
-        to put your own email.
-      </p>
-      {[0, 1, 2].map((index) => {
-        return (
-          <TextInput
-            key={index.toString()}
-            placeholder={'Email ' + (index + 1).toString()}
-            initialValue={
-              user?.scuntPreferredMembers[index] !== user?.email
-                ? user?.scuntPreferredMembers[index]
-                : ''
-            }
-            value={teammates[index]}
-            onChange={(value) => {
-              teammates[index] = value;
-              setTeammates(teammates);
-              if (value !== user?.scuntPreferredMembers[index] && !teammatesChangesMade)
-                setTeammatesChangesMade(true);
-            }}
-          />
-        );
-      })}
-      <Button
-        isSecondary={true}
-        isDisabled={!teammatesChangesMade}
-        label={'Submit'}
-        onClick={async () => {
-          if (teammatesChangesMade) {
-            const teammatesCopy = teammates.filter((t) => {
-              return t !== '';
-            });
-            for (let i = 0; i < teammatesCopy.length; i++) {
-              teammatesCopy[i] = teammatesCopy[i].replaceAll(' ', '');
-            }
-            // The last email is always the same as the user
-            teammatesCopy[teammatesCopy.length] = user?.email;
-
-            for (let userEmail of teammatesCopy) {
-              let response;
-              try {
-                response = await axios.put('/user/user-exist', { email: userEmail });
-              } catch (e) {
-                if (e?.response?.status === 404) {
-                  setSnackbar(userEmail + ' does not exist!', true);
-                } else {
-                  setSnackbar(e.toString(), true);
-                }
-              }
-            }
-
-            const newInfo = { scuntPreferredMembers: teammatesCopy };
-            dispatch(updateUserInfo({ newInfo }));
-            setSnackbar('Successfully submitted team request!');
-            setTeammatesChangesMade(false);
-          }
-        }}
-      />
-    </div>
-  );
-};
-
-export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
-  const { scuntSettings } = useSelector(scuntSettingsSelector);
-  const { user } = useSelector(userSelector);
-  const isRegistered = useSelector(registeredSelector);
-  const { setSnackbar } = useContext(SnackbarContext);
-  const [showToken, setShowToken] = useState(false);
-
-  const code = user?.scuntToken;
-  if (
-    code === undefined ||
-    !isRegistered ||
-    !scuntSettings ||
-    scuntSettings.length <= 0 ||
-    (scuntSettings !== undefined &&
-      scuntSettings.length >= 1 &&
-      scuntSettings[0]?.revealTeams === false)
-  ) {
-    return <></>;
-  }
-  if (!user?.scunt) {
-    return (
-      <div className="profile-page-scunt-token profile-page-side-section">
-        <p>
-          <b>Looking for your Scunt login Token?</b>
-        </p>
-        <p>You have chosen not to participate in Scunt.</p>
-        <div style={{ height: '30px' }} />
-      </div>
-    );
-  }
-  return (
-    <div className="profile-page-scunt-token profile-page-side-section">
-      <h2>{getScuntTeamObjFromTeamNumber(user?.scuntTeam, scuntTeamObjs)?.name}</h2>
-      <i>
-        <h4>Team {user?.scuntTeam ? user?.scuntTeam.toString() : '‽'}</h4>
-      </i>
-      <h3
-        style={{ filter: showToken ? '' : 'blur(10px)' }}
-        onClick={() => {
-          setSnackbar('Copied to clipboard');
-          navigator.clipboard.writeText(code);
-        }}
-      >
-        {code}
-      </h3>
-      <p>Scunt Login Token</p>
-      <p style={{ fontSize: '13px' }}>
-        Use this token to login to the{' '}
-        <a href={scuntDiscord} target="_blank" rel="noreferrer">
-          Scunt Discord
-        </a>
-      </p>
-      <ButtonOutlined
-        isSecondary={showToken}
-        label={showToken ? 'Hide' : 'Show'}
-        onClick={() => {
-          setShowToken(!showToken);
-        }}
-      />
-    </div>
-  );
-};
-
-ProfilePageScuntToken.propTypes = {
-  scuntTeams: PropTypes.array,
-  scuntTeamObjs: PropTypes.array,
 };
 
 const ProfilePageFroshHeader = ({ editButton }) => {
@@ -618,113 +456,9 @@ const ProfilePageQRCode = () => {
         posColor="#28093A"
         backgroundColor="white"
       />
-      <p>Your Sign-in QR Code</p>
+      <p style={{ color: 'var(--purple)' }}>Your Sign-in QR Code</p>
     </div>
   );
 };
-
-// const ProfilePageResources = () => {
-//   return (
-//     <div className="profile-page-resources profile-page-side-section">
-//       <h2>Resources</h2>
-//       {resources.map((resource, index) => {
-//         return (
-//           <a
-//             key={index + resource.name}
-//             href={resource.link}
-//             target="_blank"
-//             className="no-link-style"
-//             rel="noreferrer"
-//           >
-//             <ButtonBubble
-//               label={resource.name}
-//               isSecondary
-//               style={{ margin: 0, marginTop: '10px' }}
-//             />
-//           </a>
-//         );
-//       })}
-//     </div>
-//   );
-// };
-
-// const ProfilePageSchedule = () => {
-//   const { user } = useSelector(userSelector);
-//   const [froshGroup, setFroshGroup] = useState(user?.froshGroup);
-//   const scheduleData = getFroshGroupSchedule(froshGroup);
-//   const days = getDaysSchedule(scheduleData);
-//   const today = new Date();
-//   const options = { weekday: 'long' };
-//   const todayString = today.toLocaleDateString('en-US', options).replace(',', '');
-
-//   let count = 0;
-//   for (let day of days) {
-//     if (day === todayString) {
-//       break;
-//     }
-//     count++;
-//   }
-//   if (count >= Object.keys(scheduleData).length) {
-//     count = 0;
-//   }
-//   const [selectedDayIndex, setSelectedDayIndex] = useState(count);
-//   const [closeAll, setCloseAll] = useState(false);
-//   const buttonList = Object.keys(scheduleData).map((item) => {
-//     return { name: item };
-//   });
-
-//   const froshGroupNames = [];
-//   for (let froshGroup of froshGroups) {
-//     froshGroupNames.push(froshGroup?.name);
-//   }
-
-//   return (
-//     <div className="profile-page-schedule">
-//       <div
-//         style={{
-//           display: 'flex',
-//           flexDirection: 'row',
-//           justifyContent: 'space-between',
-//           alignItems: 'center',
-//         }}
-//       >
-//         <h2 className="profile-page-section-header profile-page-section-header-schedule">
-//           Schedule
-//         </h2>
-//       </div>
-//       <div className="profile-page-schedule-content">
-//         <ButtonSelector
-//           buttonList={buttonList}
-//           activeIndex={selectedDayIndex}
-//           setActiveIndex={(index) => {
-//             setSelectedDayIndex(index);
-//             setCloseAll(!closeAll);
-//           }}
-//           style={{
-//             maxWidth: '250px',
-//             marginTop: '0px',
-//             marginBottom: '10px',
-//             padding: '11px 15px',
-//           }}
-//         />
-//         <div className="profile-page-schedule-accordions">
-//           {scheduleData[Object.keys(scheduleData)[selectedDayIndex]].map((scheduleDay, index) => {
-//             return (
-//               <React.Fragment key={`${scheduleDay}-${index}`}>
-//                 <LazyLoadComponent>
-//                   <ScheduleComponentAccordion
-//                     key={Object.keys(scheduleData)[index] + index}
-//                     scheduleDay={scheduleDay}
-//                     closeAll={closeAll}
-//                   />
-//                 </LazyLoadComponent>
-//               </React.Fragment>
-//             );
-//           })}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
 
 export { PageProfileFrosh, ProfilePageFroshHeader };

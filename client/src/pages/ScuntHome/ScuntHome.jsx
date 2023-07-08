@@ -12,7 +12,7 @@ import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOut
 import { pages } from '../../util/pages';
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 import { DarkModeContext } from '../../util/DarkModeProvider';
-import { ProfilePageScuntToken } from '../Profile/PageProfileFrosh';
+// import { ProfilePageScuntToken } from '../Profile/PageProfileFrosh';
 import DiscordIcon from '../../assets/social/discord-brands.svg';
 import { aboutScunt, okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,6 +20,7 @@ import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import useAxios from '../../hooks/useAxios';
+import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
 const { axios } = useAxios();
 
 export const PageScuntHome = () => {
