@@ -1,0 +1,38 @@
+@import '../../../scssStyles/mixins';
+
+.profile-page-side-section {
+  max-width: 350px;
+  background-color: var(--container-bg);
+  box-shadow: var(--shadow);
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 15px;
+  @include devices(tablet) {
+    max-width: 90vw;
+    width: 90vw;
+    margin-top: 20px;
+  }
+  color: var(--text-dynamic);
+}
+
+.profile-page-resources {
+  margin-top: 20px;
+  flex-wrap: wrap;
+  overflow: hidden;
+  flex: 0;
+  flex-shrink: 1;
+  padding: 25px 30px;
+  h2 {
+    color: var(--text-dynamic);
+    font-size: 32px;
+  }
+  @include devices(tablet) {
+    max-width: 90vw;
+    width: 90vw;
+    h2 {
+      font-size: 26px;
+    }
+  }
+}

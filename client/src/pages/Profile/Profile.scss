@@ -121,33 +121,33 @@
   }
 }
 
-.profile-page-schedule {
-  // margin-left: 50px;
-  // margin-right: 2%;
-  flex: 1;
-  max-width: 1000px;
-  margin-top: 20px;
-  @include devices(tablet) {
-    margin-left: 0;
-    margin-right: 0;
-  }
-}
+// .profile-page-schedule {
+//   // margin-left: 50px;
+//   // margin-right: 2%;
+//   flex: 1;
+//   max-width: 1000px;
+//   margin-top: 20px;
+//   @include devices(tablet) {
+//     margin-left: 0;
+//     margin-right: 0;
+//   }
+// }
 
-.profile-page-section-header {
-  padding-top: 15px;
-  font-size: 42px;
-  color: var(--black);
-  padding-bottom: 5px;
-  @include devices(tablet) {
-    margin-left: 1%;
-    font-size: 34px;
-    padding-top: 25px;
-  }
-}
+// .profile-page-section-header {
+//   padding-top: 15px;
+//   font-size: 42px;
+//   color: var(--black);
+//   padding-bottom: 5px;
+//   @include devices(tablet) {
+//     margin-left: 1%;
+//     font-size: 34px;
+//     padding-top: 25px;
+//   }
+// }
 
-.profile-page-section-header-schedule {
-  padding-bottom: 15px;
-}
+// .profile-page-section-header-schedule {
+//   padding-bottom: 15px;
+// }
 
 // .profile-page-side-section {
 //   max-width: 350px;
@@ -198,42 +198,42 @@
   }
 }
 
-.profile-page-resources {
-  margin-top: 20px;
-  flex-wrap: wrap;
-  overflow: hidden;
-  flex: 0;
-  flex-shrink: 1;
-  padding: 25px 30px;
-  h2 {
-    color: var(--text-dynamic);
-    font-size: 32px;
-  }
-  @include devices(tablet) {
-    max-width: 90vw;
-    width: 90vw;
-    h2 {
-      font-size: 26px;
-    }
-  }
-}
+// .profile-page-resources {
+//   margin-top: 20px;
+//   flex-wrap: wrap;
+//   overflow: hidden;
+//   flex: 0;
+//   flex-shrink: 1;
+//   padding: 25px 30px;
+//   h2 {
+//     color: var(--text-dynamic);
+//     font-size: 32px;
+//   }
+//   @include devices(tablet) {
+//     max-width: 90vw;
+//     width: 90vw;
+//     h2 {
+//       font-size: 26px;
+//     }
+//   }
+// }
 
-.profile-page-schedule-content {
-  @include devices(tablet) {
-    margin-left: -10px;
-    margin-right: -10px;
-  }
-}
+// .profile-page-schedule-content {
+//   @include devices(tablet) {
+//     margin-left: -10px;
+//     margin-right: -10px;
+//   }
+// }
 
-.profile-page-schedule-accordions {
-  margin-top: -8px;
-  margin-right: -15px;
-  @include devices(tablet) {
-    margin-top: -13px;
-    margin-left: -10px;
-    margin-right: -10px;
-  }
-}
+// .profile-page-schedule-accordions {
+//   margin-top: -8px;
+//   margin-right: -15px;
+//   @include devices(tablet) {
+//     margin-top: -13px;
+//     margin-left: -10px;
+//     margin-right: -10px;
+//   }
+// }
 
 .profile-page-accordion-container {
   color: var(--text-dynamic);

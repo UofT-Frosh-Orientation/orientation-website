@@ -46,6 +46,9 @@ import ScuntDashboardIcon from '../../assets/dashboarddropdown/scunt-icon.svg';
 import useAxios from '../../hooks/useAxios';
 import { ProfilePageLeaderPermissionDashboardLinks } from '../../components/profile/leedur/PermissionDashboardLinks/ProfilePageLeaderPermissionDashboardLinks';
 import { ProfilePageQRScanner } from '../../components/profile/leedur/ProfilePageQRScanner/ProfilePageQRScanner';
+import { ProfilePageSchedule } from '../../components/profile/ProfilePageSchedule/ProfilePageSchedule';
+import { ProfilePageResources } from '../../components/profile/ProfilePageResources/ProfilePageResources';
+// import { ProfilePageSchedule } from '../../components/profile/ProfilePageResources/ProfilePageResources';
 const { axios } = useAxios();
 
 const PageProfileLeader = () => {
@@ -677,114 +680,114 @@ const ProfilePageQRCode = () => {
   );
 };
 
-const ProfilePageResources = () => {
-  return (
-    <div className="profile-page-resources profile-page-side-section">
-      <h2>Resources</h2>
-      {resources.map((resource, index) => {
-        return (
-          <a
-            key={index + resource.name}
-            href={resource.link}
-            target="_blank"
-            className="no-link-style"
-            rel="noreferrer"
-          >
-            <ButtonBubble
-              label={resource.name}
-              isSecondary
-              style={{ margin: 0, marginTop: '10px' }}
-            />
-          </a>
-        );
-      })}
-    </div>
-  );
-};
+// const ProfilePageResources = () => {
+//   return (
+//     <div className="profile-page-resources profile-page-side-section">
+//       <h2>Resources</h2>
+//       {resources.map((resource, index) => {
+//         return (
+//           <a
+//             key={index + resource.name}
+//             href={resource.link}
+//             target="_blank"
+//             className="no-link-style"
+//             rel="noreferrer"
+//           >
+//             <ButtonBubble
+//               label={resource.name}
+//               isSecondary
+//               style={{ margin: 0, marginTop: '10px' }}
+//             />
+//           </a>
+//         );
+//       })}
+//     </div>
+//   );
+// };
 
-const ProfilePageSchedule = () => {
-  const { user } = useSelector(userSelector);
-  const [froshGroup, setFroshGroup] = useState(user?.froshGroup);
-  const scheduleData = getFroshGroupSchedule(froshGroup);
-  const days = getDaysSchedule(scheduleData);
-  const today = new Date();
-  const options = { weekday: 'long' };
-  const todayString = today.toLocaleDateString('en-US', options).replace(',', '');
+// const ProfilePageSchedule = () => {
+//   const { user } = useSelector(userSelector);
+//   const [froshGroup, setFroshGroup] = useState(user?.froshGroup);
+//   const scheduleData = getFroshGroupSchedule(froshGroup);
+//   const days = getDaysSchedule(scheduleData);
+//   const today = new Date();
+//   const options = { weekday: 'long' };
+//   const todayString = today.toLocaleDateString('en-US', options).replace(',', '');
 
-  let count = 0;
-  for (let day of days) {
-    if (day === todayString) {
-      break;
-    }
-    count++;
-  }
-  if (count >= Object.keys(scheduleData).length) {
-    count = 0;
-  }
-  const [selectedDayIndex, setSelectedDayIndex] = useState(count);
-  const [closeAll, setCloseAll] = useState(false);
-  const buttonList = Object.keys(scheduleData).map((item) => {
-    return { name: item };
-  });
+//   let count = 0;
+//   for (let day of days) {
+//     if (day === todayString) {
+//       break;
+//     }
+//     count++;
+//   }
+//   if (count >= Object.keys(scheduleData).length) {
+//     count = 0;
+//   }
+//   const [selectedDayIndex, setSelectedDayIndex] = useState(count);
+//   const [closeAll, setCloseAll] = useState(false);
+//   const buttonList = Object.keys(scheduleData).map((item) => {
+//     return { name: item };
+//   });
 
-  const froshGroupNames = [];
-  for (let froshGroup of froshGroups) {
-    froshGroupNames.push(froshGroup?.name);
-  }
+//   const froshGroupNames = [];
+//   for (let froshGroup of froshGroups) {
+//     froshGroupNames.push(froshGroup?.name);
+//   }
 
-  return (
-    <div className="profile-page-schedule">
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <h2 className="profile-page-section-header profile-page-section-header-schedule">
-          Schedule
-        </h2>
-        <div style={{ marginTop: '10px' }}>
-          <Dropdown
-            values={froshGroupNames}
-            initialSelectedIndex={0}
-            onSelect={(froshGroup) => {
-              setFroshGroup(froshGroup);
-            }}
-            localStorageKey={'leader-frosh-group-dropdown'}
-          />
-        </div>
-      </div>
-      <div className="profile-page-schedule-content">
-        <ButtonSelector
-          buttonList={buttonList}
-          activeIndex={selectedDayIndex}
-          setActiveIndex={(index) => {
-            setSelectedDayIndex(index);
-            setCloseAll(!closeAll);
-          }}
-          style={{
-            maxWidth: '250px',
-            marginTop: '0px',
-            marginBottom: '10px',
-            padding: '11px 15px',
-          }}
-        />
-        <div className="profile-page-schedule-accordions">
-          {scheduleData[Object.keys(scheduleData)[selectedDayIndex]].map((scheduleDay, index) => {
-            return (
-              <ScheduleComponentAccordion
-                key={Object.keys(scheduleData)[index] + index}
-                scheduleDay={scheduleDay}
-                closeAll={closeAll}
-              />
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-};
+//   return (
+//     <div className="profile-page-schedule">
+//       <div
+//         style={{
+//           display: 'flex',
+//           flexDirection: 'row',
+//           justifyContent: 'space-between',
+//           alignItems: 'center',
+//         }}
+//       >
+//         <h2 className="profile-page-section-header profile-page-section-header-schedule">
+//           Schedule
+//         </h2>
+//         <div style={{ marginTop: '10px' }}>
+//           <Dropdown
+//             values={froshGroupNames}
+//             initialSelectedIndex={0}
+//             onSelect={(froshGroup) => {
+//               setFroshGroup(froshGroup);
+//             }}
+//             localStorageKey={'leader-frosh-group-dropdown'}
+//           />
+//         </div>
+//       </div>
+//       <div className="profile-page-schedule-content">
+//         <ButtonSelector
+//           buttonList={buttonList}
+//           activeIndex={selectedDayIndex}
+//           setActiveIndex={(index) => {
+//             setSelectedDayIndex(index);
+//             setCloseAll(!closeAll);
+//           }}
+//           style={{
+//             maxWidth: '250px',
+//             marginTop: '0px',
+//             marginBottom: '10px',
+//             padding: '11px 15px',
+//           }}
+//         />
+//         <div className="profile-page-schedule-accordions">
+//           {scheduleData[Object.keys(scheduleData)[selectedDayIndex]].map((scheduleDay, index) => {
+//             return (
+//               <ScheduleComponentAccordion
+//                 key={Object.keys(scheduleData)[index] + index}
+//                 scheduleDay={scheduleDay}
+//                 closeAll={closeAll}
+//               />
+//             );
+//           })}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 export { PageProfileLeader, ProfilePageLeaderHeader };
