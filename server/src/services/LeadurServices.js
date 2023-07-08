@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const LeadurModel = require('../models/LeadurModel');
+const emailConfirmationSubscription = require('../subscribers/emailConfirmationSubscription');
 
 const LeadurServices = {
   /**
