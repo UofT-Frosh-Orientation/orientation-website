@@ -10,6 +10,7 @@ const RadioButtons = ({
   label,
   isDisabled,
   localStorageKey,
+  autoFocus,
 }) => {
   useEffect(() => {
     if (localStorageKey !== undefined) {
@@ -41,38 +42,35 @@ const RadioButtons = ({
     <div className={`${isDisabled ? 'radio-input-disabled-container' : ''}`}>
       {label !== undefined ? <p className="radio-input-title">{label}</p> : <></>}
       <div style={{ display: 'flex', alignItems: 'flex-start' }} className={'radio-buttons'}>
-        <form action="">
-          {values.map((value, index) => {
-            let isDisabledValue = false;
-            if (disabledIndices !== undefined) isDisabledValue = disabledIndices?.includes(index);
-            if (isDisabled === true) isDisabledValue = true;
-            return (
-              <>
-                <label
-                  className={'form-control' + (isDisabledValue ? ' form-control-disabled' : '')}
-                  key={value}
-                  id={value}
-                >
-                  <input
-                    type="radio"
-                    name="radio"
-                    defaultChecked={initialSelectedIndex === index ? true : false}
-                    onClick={() => {
-                      onSelected(value, index);
-                      setSelectedIndex(index);
-                      if (localStorageKey) {
-                        localStorage.setItem(localStorageKey, JSON.stringify(index));
-                      }
-                    }}
-                    disabled={isDisabledValue}
-                    checked={selectedIndex === index}
-                  />
-                  {value}
-                </label>
-              </>
-            );
-          })}
-        </form>
+        {values.map((value, index) => {
+          let isDisabledValue = false;
+          if (disabledIndices !== undefined) isDisabledValue = disabledIndices?.includes(index);
+          if (isDisabled === true) isDisabledValue = true;
+          return (
+            <React.Fragment key={`${label}-${index}-${value}`}>
+              <label
+                className={'form-control' + (isDisabledValue ? ' form-control-disabled' : '')}
+                id={value}
+              >
+                <input
+                  type="radio"
+                  name={label ?? 'radio'}
+                  disabled={isDisabledValue}
+                  checked={selectedIndex === index}
+                  onChange={() => {
+                    onSelected(value, index);
+                    setSelectedIndex(index);
+                    if (localStorageKey) {
+                      localStorage.setItem(localStorageKey, JSON.stringify(index));
+                    }
+                  }}
+                  autoFocus={autoFocus}
+                />
+                {value}
+              </label>
+            </React.Fragment>
+          );
+        })}
       </div>
     </div>
   );
@@ -86,6 +84,7 @@ RadioButtons.propTypes = {
   label: PropTypes.string,
   isDisabled: PropTypes.bool,
   localStorageKey: PropTypes.string,
+  autoFocus: PropTypes.bool,
 };
 
 export { RadioButtons };

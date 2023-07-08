@@ -157,6 +157,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       : field.isDisabled
                   }
                   inputTitle={field.inputTitle}
+                  autoFocus={index === 0 ? true : false}
                 />
               </div>
             );
@@ -183,6 +184,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       : field.isDisabled
                   }
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
+                  autoFocus={index === 0 ? true : false}
                 />
               </div>
             );
@@ -239,6 +241,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   }}
                   values={field.values}
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
+                  autoFocus={index === 0 ? true : false}
                 />
               </div>
             );
