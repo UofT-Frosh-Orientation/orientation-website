@@ -30,7 +30,7 @@ const PageHome = () => {
     <>
       <HomePageHeader />
       {/* <HomePageTimeline /> */}
-      {/* <HomePageSchedule /> */}
+      <HomePageSchedule />
       <HomePageSponsors />
     </>
   );
@@ -49,7 +49,6 @@ const HomePageHeader = () => {
       <div className="home-page-header-text">
         <h2>Welcome to F!rosh Week!</h2>
         <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p>
-
       </div>
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />
@@ -158,7 +157,6 @@ const HomePageSchedule = () => {
 const HomePageSponsors = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
   const [viewAll, setViewAll] = useState(false);
-
 
   return (
     <div className="home-page-sponsors">
