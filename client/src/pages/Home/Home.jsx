@@ -26,8 +26,8 @@ const PageHome = () => {
   return (
     <>
       <HomePageHeader />
-      {/* <HomePageTimeline /> */}
-      {/* <HomePageSchedule /> */}
+      <HomePageTimeline />
+      <HomePageSchedule />
       <HomePageSponsors />
     </>
   );
