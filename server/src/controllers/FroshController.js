@@ -36,7 +36,6 @@ const FroshController = {
           email: user.email,
           file: req.file,
         });
-
         res.status(200).send({ url });
       }
     } catch (e) {
