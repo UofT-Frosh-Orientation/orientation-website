@@ -95,7 +95,7 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
         <ProfileDropdown
           open={openProfileDropdown}
           setOpen={setOpenProfileDropdown}
-          items={profilePages.preRegistration}
+          items={profilePages.notLogin}
         />
       )}
 
@@ -130,18 +130,16 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
               if (isLoggedIn && froshInitials !== 'undefinedundefined') {
                 // if logged in
                 return (
-                  <>
-                    <div
-                      key={page.path}
-                      className="icon-profile"
-                      onClick={() => {
-                        setOpenProfileDropdown(!openProfileDropdown);
-                      }}
-                    >
-                      {' '}
-                      {froshInitials}{' '}
-                    </div>
-                  </>
+                  <div
+                    key={page.path}
+                    className="icon-profile"
+                    onClick={() => {
+                      setOpenProfileDropdown(!openProfileDropdown);
+                    }}
+                  >
+                    {' '}
+                    {froshInitials}{' '}
+                  </div>
                 );
               } else {
                 // if not logged in

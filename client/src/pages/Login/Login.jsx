@@ -41,8 +41,6 @@ const emailSuccessMessage = `Success, an email has been sent!`;
 const emailErrorMessage = `We didn't recognize that email, please try again!`;
 
 const PageLogin = ({ incorrectEntry }) => {
-  // pop up when clicking forget password
-  // deafult -- popup off
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -51,10 +49,15 @@ const PageLogin = ({ incorrectEntry }) => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { loading, user } = useSelector(userSelector);
-  // const [loginState, setLoginState] = useState('');
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    loginButtonPress();
+  };
 
   function loginButtonPress() {
     setIsLoading(true);
@@ -74,44 +77,47 @@ const PageLogin = ({ incorrectEntry }) => {
         <div className="login-bg">
           <div className={`login-container ${loading ? 'login-container-disappear' : ''}`}>
             <h1 className="login-title">Login</h1>
-            <TextInput
-              inputType={'text'}
-              placeholder={'Email'}
-              autocomplete={'email'}
-              onChange={(value) => {
-                setEmail(value);
-              }}
-              localStorageKey="email-login"
-            />
-            <TextInput
-              inputType={'password'}
-              placeholder={'Password'}
-              autocomplete={'current-password'}
-              onChange={(value) => {
-                setPassword(value);
-              }}
-              onEnterKey={loginButtonPress}
-            />
-            <p
-              className="forgot-message"
-              onClick={() => setShowPopUp(true)}
-            >{`Forgot Password?`}</p>
-
-            <div className="login-button-container">
-              <ButtonOutlined
-                label="Create account"
-                isSecondary
-                onClick={() => {
-                  navigate('/sign-up');
+            <form onSubmit={handleSubmit}>
+              <TextInput
+                label={'email'}
+                inputType={'text'}
+                placeholder={'Email'}
+                autocomplete={'email'}
+                onChange={(value) => {
+                  setEmail(value);
                 }}
+                localStorageKey="email-login"
               />
+              <TextInput
+                inputType={'password'}
+                placeholder={'Password'}
+                autocomplete={'current-password'}
+                onChange={(value) => {
+                  setPassword(value);
+                }}
+                onEnterKey={loginButtonPress}
+              />
+              <p
+                className="forgot-message"
+                onClick={() => setShowPopUp(true)}
+              >{`Forgot Password?`}</p>
 
-              <Button label={'Log in'} onClick={loginButtonPress} />
-            </div>
+              <div className="login-button-container">
+                <ButtonOutlined
+                  label="Create account"
+                  isSecondary
+                  onClick={() => {
+                    navigate('/sign-up');
+                  }}
+                />
+
+                <Button label={'Log in'} type="submit" />
+              </div>
+            </form>
           </div>
         </div>
         <div
-          style={{ zIndex: 1 }}
+          style={{ zIndex: 50 }}
           className={`login-loading ${isLoading === true ? 'login-loading-appear' : ''}`}
         >
           <LoadingAnimation size={'60px'} />

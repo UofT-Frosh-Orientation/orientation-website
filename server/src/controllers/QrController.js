@@ -27,6 +27,7 @@ const QrController = {
 
       return res.status(200).send({ message: 'Frosh has been marked as present', returnedUser });
     } catch (e) {
+      req.log.fatal({msg: "Unable to scan user: user " + req.user.id, e, user: req.user.getResponseObject()});
       next(e);
     }
   },

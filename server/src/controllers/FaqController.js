@@ -14,6 +14,7 @@ const FaqController = {
       const answeredQuestions = await FaqServices.getAnsweredQuestions();
       res.status(200).send({ faqs: answeredQuestions });
     } catch (err) {
+      req.log.fatal({msg: "Unable to get answered FAQ questions", err});
       next(err);
     }
   },
@@ -31,6 +32,7 @@ const FaqController = {
       const unansweredQuestions = await FaqServices.getUnansweredQuestions();
       res.status(200).send({ faqs: unansweredQuestions });
     } catch (err) {
+      req.log.fatal({msg: "Unable to get unanswered FAQ questions", err});
       next(err);
     }
   },
@@ -48,6 +50,7 @@ const FaqController = {
       const allQuestions = await FaqServices.getAllQuestions();
       res.status(200).send({ faqs: allQuestions });
     } catch (err) {
+      req.log.fatal({msg: "Unable to get all FAQ questions", err});
       next(err);
     }
   },
@@ -67,6 +70,7 @@ const FaqController = {
       const newFaq = await FaqServices.createNewQuestion(email, question, undefined, category);
       res.status(200).send(newFaq.toObject());
     } catch (err) {
+      req.log.fatal({msg: "Unable to create FAQ question", err});
       next(err);
     }
   },
@@ -85,6 +89,7 @@ const FaqController = {
       const newFaq = await FaqServices.createNewQuestion(email, question, answer, category);
       res.status(200).send(newFaq.toObject());
     } catch (err) {
+      req.log.fatal({msg: "Unable to create FAQ question with answer", err});
       next(err);
     }
   },
@@ -103,6 +108,7 @@ const FaqController = {
       await FaqServices.deleteQuestion(faqId);
       res.status(200).send({ message: 'Successfully deleted FAQ!', deletedId: faqId });
     } catch (err) {
+      req.log.fatal({msg: "Unable to delete FAQ question", err});
       next(err);
     }
   },
@@ -124,6 +130,7 @@ const FaqController = {
       const updatedFaq = await FaqServices.updateQuestion(faqId, update);
       res.status(200).send(updatedFaq.toObject());
     } catch (err) {
+      req.log.fatal({msg: "Unable to update FAQ question", err});
       next(err);
     }
   },

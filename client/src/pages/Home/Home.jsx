@@ -24,6 +24,8 @@ import { sponsors } from '../../util/sponsors';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { useSelector } from 'react-redux';
 import { loggedInSelector, userSelector } from '../../state/user/userSlice';
+import { LazyLoadComponent, LazyLoadImage } from 'react-lazy-load-image-component';
+import ProgressiveImage from '../../components/progressiveImg/ProgressiveImg';
 
 const PageHome = () => {
   return (
@@ -41,11 +43,12 @@ const HomePageHeader = () => {
 
   return (
     <div className="home-page-header">
-      <img
+      <LazyLoadImage
         src={FroshHardHatWhite}
         className="FroshHardHatWhite-logo"
         alt="White Fr!osh Hard Hat Logo"
-      ></img>
+        effect="blur"
+      ></LazyLoadImage>
       <div className="home-page-header-text">
         <h2>Welcome to F!rosh Week!</h2>
         <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p>
@@ -54,9 +57,9 @@ const HomePageHeader = () => {
         <HomePageSlideshow />
       </div>
       {darkMode ? (
-        <img src={WaveDarkMode} className="wave-image home-page-top-wave-image" />
+        <img src={WaveDarkMode} className="wave-image home-page-top-wave-image" alt="wave-img" />
       ) : (
-        <img src={Wave} className="wave-image home-page-top-wave-image" />
+        <img src={Wave} className="wave-image home-page-top-wave-image" alt="wave-img" />
       )}
     </div>
   );
@@ -64,7 +67,7 @@ const HomePageHeader = () => {
 
 const HomePageSlideshow = () => {
   const properties = {
-    duration: 5000,
+    duration: 8000,
     autoplay: true,
     transitionDuration: 1000,
     arrows: false,
@@ -74,8 +77,13 @@ const HomePageSlideshow = () => {
   return (
     <Slide {...properties}>
       {getSlideshowImages().map((image, index) => (
-        <div key={index}>
-          <img className="home-page-landing-image" src={image} alt={'slideshow' + index} />
+        <div key={index} style={{ overflow: 'hidden' }}>
+          <ProgressiveImage
+            classStyle="home-page-landing-image"
+            src={image.src}
+            placeholder={image.placeholder}
+            alt={'slideshow' + index}
+          />
         </div>
       ))}
     </Slide>
@@ -86,9 +94,13 @@ const HomePageTimeline = () => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState({});
   const [dates, setDates] = useState();
-  useEffect(async () => {
+  const datesSetter = async () => {
     setDates(await getTimelineEvents());
+  };
+  useEffect(() => {
+    datesSetter();
   }, []);
+
   return (
     !(dates === undefined || dates?.length === 0) && (
       <div className="home-page-timeline">
@@ -161,9 +173,13 @@ const HomePageSponsors = () => {
   return (
     <div className="home-page-sponsors">
       {darkMode ? (
-        <img src={WaveReverseDarkmode} className="wave-image home-page-bottom-wave-image" />
+        <img
+          src={WaveReverseDarkmode}
+          className="wave-image home-page-bottom-wave-image"
+          alt="wave-img"
+        />
       ) : (
-        <img src={WaveReverse} className="wave-image home-page-bottom-wave-image" />
+        <img src={WaveReverse} className="wave-image home-page-bottom-wave-image" alt="wave-img" />
       )}
       <h2>Our Sponsors</h2>
       <PleaseSponsor />
@@ -184,7 +200,7 @@ const HomePageSponsors = () => {
                       rel="noreferrer"
                       className="no-link-style"
                     >
-                      <img src={item.image} alt={item.name} />
+                      <LazyLoadImage alt={item.name} effect="blur" src={item.image}></LazyLoadImage>
                     </a>
                     <p>{item.label}</p>
                   </div>
