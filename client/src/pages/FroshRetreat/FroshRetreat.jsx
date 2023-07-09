@@ -11,6 +11,8 @@ import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/Err
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import waiverPDF from '../../assets/retreatWaiver/frosh-retreat-2T3-waiver.pdf';
 import useAxios from '../../hooks/useAxios';
+import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
+import egglinton from '../../assets/mascots/Egglinton-1.png';
 
 export const FroshRetreat = () => {
   const [remainingTickets, setRemainingTickets] = useState();
@@ -53,6 +55,7 @@ export const FroshRetreat = () => {
             bus transportation&#41;
           </p>
         </div>
+        <FroshRetreatFAQ />
       </Header>
       <div style={{ height: '20px' }} />
       <iframe
@@ -67,6 +70,89 @@ export const FroshRetreat = () => {
       <h1>Registration</h1>
       <RetreatRegistration />
     </div>
+  );
+};
+
+const retreatFAQs = [
+  {
+    title: 'What is F!rosh Retreat?',
+    description:
+      'An overnight camping experience for Frosh at Hart House Farms that allows frosh to play games and immerse themselves in their new Skule community! Frosh week has a lot going on, so unwind with this engaging experience including activities, food, and fun!',
+  },
+  {
+    title: 'What is provided?',
+    description: [
+      '3 healthy, diverse meals for Frosh (lunch, dinner, breakfast) as well as snacks to keep the fun-fuelled!',
+      'An assortment of engaging activities',
+      'Transportation to and from Hart House Farms',
+    ],
+  },
+  {
+    title:
+      'What do I need to bring (a more comprehensive list will be sent to attendees at a later date)?',
+    description: [
+      'Sleeping bags, tents, pillows and blankets to sleep in',
+      'Bathing suits, towels, and comfy clothes to enjoy all the activities retreat has to offer',
+      'Water bottle, personal medications, and any extra snacks you want to bring to stay safe and hydrated during the trip',
+      'Anything appropriate for a 36-hour camping trip on a farm!',
+    ],
+  },
+];
+
+const FroshRetreatFAQ = () => {
+  return (
+    <>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          color: 'var(--white)',
+          width: '70%',
+          alignSelf: 'center',
+        }}
+      >
+        <img src={egglinton} style={{ width: '200px', margin: '20px' }}></img>
+        <h2 style={{ marginBottom: '20px' }}>
+          Get Moo-ving with our FAQs: Prepare for a Good Time Down on the Farm!
+        </h2>
+        {retreatFAQs.map((item, index) => {
+          const [isOpen, setIsOpen] = useState(false);
+          return (
+            <React.Fragment key={item.title}>
+              <SingleAccordion
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                header={<div className={'faq-search-result-question-accordion'}>{item.title}</div>}
+                style={{
+                  backgroundColor: 'var(--faq-answer-containers)',
+                  margin: '10px',
+                  padding: '0px 30px',
+                  width: '100%',
+                  textAlign: 'left',
+                }}
+              >
+                {Array.isArray(item.description) ? (
+                  <>
+                    <ul className="frosh-retreat-faq-bullet">
+                      {item.description.map((listItem, index) => {
+                        return <li key={listItem}>{listItem}</li>;
+                      })}
+                    </ul>
+                  </>
+                ) : (
+                  <>
+                    <p style={{ margin: 0 }}>{item.description}</p>
+                  </>
+                )}
+              </SingleAccordion>
+            </React.Fragment>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

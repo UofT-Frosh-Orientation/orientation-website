@@ -263,7 +263,7 @@ export const ProfilePageRetreat = () => {
               </div>
               <div className="desktop-only">
                 <Button
-                  label={'Learn More'}
+                  label={'Buy Tickets Now'}
                   isSecondary
                   style={{ margin: 0, marginLeft: '10px' }}
                 />
@@ -271,7 +271,7 @@ export const ProfilePageRetreat = () => {
             </div>
             <div className="mobile-only" style={{ marginTop: '10px', width: '100%' }}>
               <Button
-                label={'Learn More'}
+                label={'Buy Tickets Now'}
                 isSecondary
                 style={{
                   margin: '-1px',
