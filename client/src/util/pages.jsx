@@ -205,9 +205,9 @@ export const pages = {
     {
       label: 'frosh-retreat',
       component: (
-        // <AuthorizedPage>
-        <FroshRetreat />
-        // </AuthorizedPage>
+        <AuthorizedPage>
+          <FroshRetreat />
+        </AuthorizedPage>
       ),
       path: '/frosh-retreat',
       includeFooter: true,
