@@ -98,71 +98,55 @@ export function scannedUserKeys() {
 }
 
 export function parseQRCode(qrString) {
-  if (qrString?.includes('|')) {
-    return { email: qrString?.split('|')[0] };
-  } else {
-    return {
-      email: qrString,
-    };
+  console.log('qrString', qrString);
+  try {
+    return { id: qrString };
+  } catch (error) {
+    console.error('error parsing QR code', error);
   }
 }
 
 export function getQRCodeString(user) {
   try {
-    return user?.email;
+    return user?.id;
   } catch (error) {
-    console.error(error);
+    console.error('error getting QR code string', error);
   }
 }
 
 //Return true if successful
 //Return an error string if not
-export async function signInFrosh(email) {
+export async function signInFrosh(userID) {
   try {
     const date = new Date();
     const result = await axios.put('/qr/scan', {
-      email: email,
+      userID: userID,
       date: date.toISOString(),
       tzOffset: date.getTimezoneOffset(),
     });
 
     return result;
   } catch (error) {
+    console.error('error signing frosh', error);
     return error;
   }
 }
 
-export async function searchForFrosh(email) {
+export async function searchForFrosh(userID) {
   try {
     const response = await axios.get('/qr/search', {
       params: {
-        search: email,
+        search: userID,
       },
     });
 
     return response.data.QrInfo;
   } catch (error) {
+    console.error('error searching for frosh', error);
     return error;
   }
 }
 
 export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-export async function getFroshData() {
-  try {
-    const response = await axios.get('/user/info');
-    const { user } = response.data;
-    return {
-      froshGroupIcon: 'λ',
-      froshGroup: user.froshGroup, //TODO: add non-static icons that changes depending on froshGroup
-      firstName: user.firstName,
-      lastName: user.lastName,
-      discipline: user.discipline,
-      email: user.email,
-    };
-  } catch (error) {
-    console.error(error);
-  }
 }

@@ -13,7 +13,10 @@ newUserSubscription.process((job, done) => {
       'signup_confirmation',
       [job.data.email],
       'tech@orientation.skule.ca',
-    ); 
+    );
+    result.then((response) => {
+      console.log('Email API response', response);
+    });
     done();
   } catch (error) {
     done(error);

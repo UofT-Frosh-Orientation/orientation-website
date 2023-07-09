@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './ImageCarousel.scss';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const ImageCarousel = ({ items }) => {
   const [currentLabel, setCurrentLabel] = useState(0);
@@ -45,7 +46,11 @@ const ImageCarousel = ({ items }) => {
                           currentLabel === index ? `var(--sponsor-border-${item.rank})` : 'none',
                       }}
                     >
-                      <img className="carousel-slide" src={item.image} alt={item.name} />
+                      <LazyLoadImage
+                        className="carousel-slide"
+                        src={item.image}
+                        alt={item.name}
+                      ></LazyLoadImage>
                     </div>
                   </div>
                 </a>
@@ -83,7 +88,11 @@ const ImageCarousel = ({ items }) => {
                           currentLabel === index ? `var(--sponsor-border-${item.rank})` : 'none',
                       }}
                     >
-                      <img className="carousel-slide" src={item.image} alt={item.name} />
+                      <LazyLoadImage
+                        className="carousel-slide"
+                        src={item.image}
+                        alt={item.name}
+                      ></LazyLoadImage>
                     </div>
                   </div>
                 </a>

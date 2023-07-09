@@ -126,6 +126,7 @@ export const fields = {
       isRequiredInput: true,
       noEdit: true,
       errorMessage: 'Please enter a valid date',
+      localStorageKey: 'registration-birthdate',
       className: 'half-width-input',
       validation: (value) => {
         if (

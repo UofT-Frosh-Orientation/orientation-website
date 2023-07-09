@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { fields, terms } from './RegistrationFields';
 import { TextInput } from '../../components/input/TextInput/TextInput';
@@ -13,9 +13,11 @@ import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOut
 import { Link, useNavigate } from 'react-router-dom';
 import { PopupModal } from '../../components/popup/PopupModal';
 import useAxios from '../../hooks/useAxios';
-import { initialsSelector, registeredSelector, userSelector } from '../../state/user/userSlice';
+import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useSelector } from 'react-redux';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
+import { MakeReceipt } from '../../components/MakeReceipt/MakeReceipt';
+import ReactPDF from '@react-pdf/renderer';
 
 const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
   const steps = Object.keys(fields);
@@ -47,11 +49,20 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
       return setCanRegister(true);
     } else {
       try {
-        const response = await axios.post('/frosh/register', froshObject);
+        let formData = new FormData();
+        for (const [key, value] of Object.entries(froshObject)) {
+          if (value === undefined) continue;
+          formData.append(key, value);
+        }
+        froshObject['id'] = user.id;
+        const dataReceipt = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
+        formData.append('dataReceipt', dataReceipt);
+        const response = await axios.post('/frosh/register', formData, {
+          headers: { 'content-type': 'multipart/form-data' },
+        });
         window.location.href = response.data.url;
-        // setCheckoutUrl(response.data.url);
-        // setShowPopUp(true);
       } catch (error) {
+        console.log(error);
         setCanRegister(true);
       }
     }
@@ -157,6 +168,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       : field.isDisabled
                   }
                   inputTitle={field.inputTitle}
+                  autoFocus={index === 0 ? true : false}
                 />
               </div>
             );
@@ -183,6 +195,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       : field.isDisabled
                   }
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
+                  autoFocus={index === 0 ? true : false}
                 />
               </div>
             );
@@ -239,6 +252,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   }}
                   values={field.values}
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
+                  autoFocus={index === 0 ? true : false}
                 />
               </div>
             );
