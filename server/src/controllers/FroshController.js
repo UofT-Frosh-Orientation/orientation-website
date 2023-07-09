@@ -27,16 +27,23 @@ const FroshController = {
         await FroshServices.upgradeToFrosh(user, registrationInfo, payment_intent)
       ).getResponseObject();
       if (frosh) {
+        req.log.info({
+          msg: 'Successful frosh registration by user ' + user.id,
+          user: user.getResponseObject(),
+        });
         newFroshSubscription.add({
-          preferredName: user.preferredName || user.firstName,
+          preferredName: user.preferredName,
           email: user.email,
           file: req.file,
         });
-        req.log.info({msg: "Successful frosh registration by user " + user.id , user: user.getResponseObject()});
         res.status(200).send({ url });
       }
     } catch (e) {
-      req.log.fatal({msg: "Unable to register Frosh: user " + user.id, e, user: user.getResponseObject()});
+      req.log.fatal({
+        msg: 'Unable to register Frosh: user ' + user.id,
+        e,
+        user: user.getResponseObject(),
+      });
       next(e);
     }
   },
@@ -65,7 +72,11 @@ const FroshController = {
         user: frosh.getResponseObject(),
       });
     } catch (e) {
-      req.log.fatal({msg: "Unable to update frosh info: user " + user.id, e, user: user.getResponseObject()});
+      req.log.fatal({
+        msg: 'Unable to update frosh info: user ' + user.id,
+        e,
+        user: user.getResponseObject(),
+      });
       next(e);
     }
   },
@@ -114,7 +125,11 @@ const FroshController = {
       const users = await FroshServices.getFilteredUserInfo(query, filter);
       return res.status(200).send({ frosh, users });
     } catch (e) {
-      req.log.fatal({msg: "Unable to get frosh info: user " + req.user.id, e, user: req.user.getResponseObject()});
+      req.log.fatal({
+        msg: 'Unable to get frosh info: user ' + req.user.id,
+        e,
+        user: req.user.getResponseObject(),
+      });
       next(e);
     }
   },

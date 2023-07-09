@@ -17,7 +17,6 @@ import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnn
 import { QRNormal } from 'react-qrbtf';
 import { ButtonBubble } from '../../components/button/ButtonBubble/ButtonBubble';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
-import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import { ButtonSelector } from '../../components/buttonSelector/buttonSelector/ButtonSelector';
 import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
@@ -30,8 +29,6 @@ import InstagramIcon from '../../assets/social/instagram-brands.svg';
 import CampingIcon from '../../assets/misc/camping-tent.png';
 import NitelifeIcon from '../../assets/misc/nitelife.png';
 import ScuntIcon from '../../assets/misc/magnifier.png';
-import Arrow from '../../../assets/icons/angle-down-solid.svg';
-import ArrowDarkMode from '../../assets/darkmode/icons/angle-down-solid.svg';
 import DataDashboardIcon from '../../assets/dashboarddropdown/data-icon.svg';
 import OutreachDashboardIcon from '../../assets/dashboarddropdown/outreach-icon.svg';
 import ScuntDashboardIcon from '../../assets/dashboarddropdown/scunt-icon.svg';
@@ -772,8 +769,8 @@ const ProfilePageQRScanner = () => {
           <div>
             <h3>Current Scanned Data</h3>
             <div style={{ height: '7px' }} />
-            <b>{'Email: '}</b>
-            {scannedData?.email?.toString()}
+            <b>{'ID: '}</b>
+            {scannedData?.id?.toString()}
           </div>
         )}
       </div>
@@ -828,10 +825,9 @@ const ProfilePageQRScanner = () => {
             setSnackbar('Please scan a QR code first!', true);
             return;
           }
-          const result = await signInFrosh(scannedData.email);
-          setScannedUserData(result?.data?.returnedUser);
-
-          if (result) {
+          const result = await signInFrosh(scannedData?.id?.toString());
+          if (result.status === 200) {
+            setScannedUserData(result?.data?.returnedUser);
             setScannedData('');
             setSubmitSuccess(true);
             setTimeout(() => {
@@ -844,7 +840,8 @@ const ProfilePageQRScanner = () => {
               setResults([]);
             }
           } else {
-            setSubmitError(result);
+            setSubmitError(result.response.data.message);
+            setScannedData('');
           }
         }}
       />

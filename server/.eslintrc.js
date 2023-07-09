@@ -16,7 +16,7 @@ module.exports = {
     'no-multiple-empty-lines': ['error'],
     'no-new-symbol': ['error'],
     'no-trailing-spaces': ['error'],
-    'no-undef': ['error'],
+    'no-undef': ['warn'],
     'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],
     'object-curly-spacing': ['error', 'always'],
     'object-shorthand': ['error'],
