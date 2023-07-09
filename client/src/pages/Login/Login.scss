@@ -117,16 +117,31 @@
 
 @keyframes scrolling {
   from {
-    transform: translateY(0);
+    transform: translate(0, 0);
   }
   33% {
-    transform: translateY(10%);
+    transform: translate(0, 10%);
   }
   66% {
-    transform: translateY(-10%);
+    transform: translate(0, -10%);
   }
   to {
-    transform: translateY(0);
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes cloud-scrolling {
+  from {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(0, 3%);
+  }
+  66% {
+    transform: translate(0, -3%);
+  }
+  to {
+    transform: translate(0, 0);
   }
 }
 
@@ -137,7 +152,7 @@
 }
 
 .bg {
-  overflow: hidden;
+  // overflow: hidden;
   position: absolute;
   left: 0;
   bottom: -8vh;
@@ -148,32 +163,32 @@
 
 .birds {
   position: absolute;
-  overflow: hidden;
-  height: 85%;
+  height: 100%;
   top: 2%;
   animation: scrolling 30s linear infinite;
   animation-duration: 30s;
 }
 
 .clouds {
-  overflow: hidden;
   position: absolute;
   top: 5%;
   height: 95%;
-  opacity: 0.2;
+  opacity: 0.9;
+  animation: cloud-scrolling 30s linear infinite;
+  animation-duration: 30s;
 }
 
 .clouds-long {
-  overflow: hidden;
   position: absolute;
   top: 10%;
-  height: 75%;
-  opacity: 0.2;
+  height: 50%;
+  opacity: 0.5;
   left: 0;
+  animation: cloud-scrolling 30s linear infinite;
+  animation-duration: 60s;
 }
 
 .midground {
-  overflow: hidden;
   position: absolute;
   bottom: -8vh;
   height: 100vh;
@@ -182,7 +197,6 @@
 }
 
 .foreground {
-  overflow: hidden;
   position: absolute;
   bottom: -5vh;
   height: 100vh;
