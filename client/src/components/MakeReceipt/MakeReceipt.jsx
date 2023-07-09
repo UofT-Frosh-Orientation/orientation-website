@@ -16,6 +16,9 @@ const styles = StyleSheet.create({
 });
 
 const MakeReceipt = (froshObject) => {
+  if (!froshObject.id) {
+    throw new Error('No ID provided to MakeReceipt.jsx');
+  }
   const qr = (
     <QRNormal
       value={froshObject.id}
@@ -110,7 +113,9 @@ const MakeReceipt = (froshObject) => {
 };
 
 MakeReceipt.propTypes = {
-  froshObject: PropTypes.object,
+  froshObject: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export { MakeReceipt };

@@ -30,6 +30,7 @@ const PaymentController = {
       }
       res.status(200).send({ message: 'Webhook processed' });
     } catch (err) {
+      req.log.fatal({ msg: 'Unable to process payment', err });
       next(err);
     }
   },
@@ -40,6 +41,7 @@ const PaymentController = {
       const { url } = await PaymentServices.createCheckoutSession(email, 'orientation');
       res.redirect(303, url);
     } catch (err) {
+      req.log.fatal({ msg: 'Unable to create checkout', err });
       next(new Error('UNABLE_TO_CREATE_CHECKOUT'));
     }
   },
@@ -51,6 +53,7 @@ const PaymentController = {
       const remaining = process.env.RETREAT_MAX_TICKETS - count;
       res.status(200).send({ count: remaining < 0 ? 0 : remaining });
     } catch (e) {
+      req.log.error({ msg: 'Unable to get frosh retreat ticket count', e });
       next(e);
     }
   },
@@ -76,6 +79,11 @@ const PaymentController = {
         });
       }
     } catch (e) {
+      req.log.fatal({
+        msg: 'Unable to process frosh retreat payment: user ' + user.id,
+        e,
+        user: user.getResponseObject(),
+      });
       next(e);
     }
   },

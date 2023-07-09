@@ -54,6 +54,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
           if (value === undefined) continue;
           formData.append(key, value);
         }
+        froshObject['id'] = user.id;
         const dataReceipt = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
         formData.append('dataReceipt', dataReceipt);
         const response = await axios.post('/frosh/register', formData, {
@@ -167,6 +168,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       : field.isDisabled
                   }
                   inputTitle={field.inputTitle}
+                  autoFocus={index === 0 ? true : false}
                 />
               </div>
             );
@@ -193,6 +195,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       : field.isDisabled
                   }
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
+                  autoFocus={index === 0 ? true : false}
                 />
               </div>
             );
@@ -249,6 +252,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   }}
                   values={field.values}
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
+                  autoFocus={index === 0 ? true : false}
                 />
               </div>
             );
@@ -410,7 +414,11 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       />
                       <p className="register-terms-of-service" style={{ marginTop: '20px' }}>
                         If you&apos;re looking to apply for a bursary, click{' '}
-                        <a href="https://forms.gle/UFajTRoBF8iWah2MA" target="_blank" rel="noreferrer">
+                        <a
+                          href="https://forms.gle/UFajTRoBF8iWah2MA"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
                           here
                         </a>{' '}
                         to submit in an application

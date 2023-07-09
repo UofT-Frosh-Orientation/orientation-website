@@ -125,6 +125,7 @@ export const fields = {
       isRequiredInput: true,
       noEdit: true,
       errorMessage: 'Please enter a valid date',
+      localStorageKey: 'registration-birthdate',
       className: 'half-width-input',
       validation: (value) => {
         if (
@@ -443,6 +444,22 @@ export const fields = {
       type: 'radio',
       label: 'Are you okay with being photographed during Frosh Week?',
       values: ['Yes', 'No'],
+      initialSelectedIndex: 1,
+      onChanged: (value, disableField) => {
+        if (value === 'Yes') {
+          disableField(false, 'commuterProgramInformation', 'Misc');
+        } else {
+          disableField(true, 'commuterProgramInformation', 'Misc');
+          disableField(true, 'commuterProgramOther', 'Misc');
+          disableField(true, 'commuterProgramStop', 'Misc');
+        }
+      },
+      localStorageKey: 'registration-commuter',
+    },
+    commuterProgramInformation: {
+      type: 'dropdown',
+      label: 'What is you main method of commuting to campus?',
+      values: ['Car', 'Subway', 'Bus', 'Go Train', 'Walking', 'Biking', 'Other'],
       initialSelectedIndex: 0,
       localStorageKey: 'registration-photograph',
     },
