@@ -210,12 +210,13 @@ export const ProfilePageRetreat = () => {
     remainingTicketsSetter();
   }, []);
 
-  // if (!isRegistered) {
-  //   return <></>;
-  // }
-  // if (remainingTickets <= 0 && !isRetreat) {
-  //   return <></>;
-  // }
+  if (!isRegistered) {
+    return <></>;
+  }
+  if (remainingTickets <= 0 && !isRetreat) {
+    return <></>;
+  }
+
   return (
     <Link to={'/frosh-retreat'} className="no-link-style">
       <div className="retreat-profile-container">
