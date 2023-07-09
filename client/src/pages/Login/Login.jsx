@@ -13,6 +13,7 @@ import CloudsLongDark from '../../assets/darkmode/login/clouds-long-dark.svg';
 import ForegroundDark from '../../assets/darkmode/login/foreground-dark.svg';
 import MidgroundDark from '../../assets/darkmode/login/midground-dark.svg';
 
+import BackgroundColour from '../../assets/login/background-colour.svg';
 import Background from '../../assets/login/background.svg';
 import Birds from '../../assets/login/birds.svg';
 import Clouds from '../../assets/login/clouds.svg';
@@ -29,6 +30,7 @@ import { requestPasswordResetSelector, userSelector } from '../../state/user/use
 import { login, requestPasswordReset } from '../../state/user/saga';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
+import { LazyLoadComponent, LazyLoadImage } from 'react-lazy-load-image-component';
 
 // Messages!
 const popupTitle = 'Reset Password';
@@ -135,49 +137,51 @@ const LoginBackgroundImages = () => {
 
   return (
     <>
-      <div className="login-bg-images">
-        {!darkMode ? (
-          <img className="bg-colour" alt="background-colour"></img>
-        ) : (
-          <img className="bg-colour" src={BackgroundColourDark} alt="background-colour"></img>
-        )}
+      <LazyLoadComponent>
+        <div className="login-bg-images">
+          {!darkMode ? (
+            <img className="bg-colour" src={BackgroundColour} alt="background-colour"></img>
+          ) : (
+            <img className="bg-colour" src={BackgroundColourDark} alt="background-colour"></img>
+          )}
 
-        {!darkMode ? (
-          <img className="bg" src={Background} alt="background"></img>
-        ) : (
-          <img className="bg" src={BackgroundDark} alt="background"></img>
-        )}
+          {!darkMode ? (
+            <img className="bg" src={Background} alt="background"></img>
+          ) : (
+            <img className="bg" src={BackgroundDark} alt="background"></img>
+          )}
 
-        {!darkMode ? (
-          <img className="birds" src={Birds} alt="birds"></img>
-        ) : (
-          <img className="birds" src={Birds} alt="birds"></img>
-        )}
+          {!darkMode ? (
+            <img className="birds" src={Birds} alt="birds"></img>
+          ) : (
+            <img className="birds" src={Birds} alt="birds"></img>
+          )}
 
-        {!darkMode ? (
-          <img className="clouds" src={Clouds} alt="clouds"></img>
-        ) : (
-          <img className="clouds" src={CloudsDark} alt="clouds"></img>
-        )}
+          {!darkMode ? (
+            <img className="clouds" src={Clouds} alt="clouds"></img>
+          ) : (
+            <img className="clouds" src={CloudsDark} alt="clouds"></img>
+          )}
 
-        {!darkMode ? (
-          <img className="clouds-long" src={CloudsLong} alt="clouds"></img>
-        ) : (
-          <img className="clouds-long" src={CloudsLongDark} alt="clouds"></img>
-        )}
+          {!darkMode ? (
+            <img className="clouds-long" src={CloudsLong} alt="clouds"></img>
+          ) : (
+            <img className="clouds-long" src={CloudsLongDark} alt="clouds"></img>
+          )}
 
-        {!darkMode ? (
-          <img className="midground" src={Midground} alt="midground"></img>
-        ) : (
-          <img className="midground" src={MidgroundDark} alt="midground"></img>
-        )}
+          {!darkMode ? (
+            <img className="midground" src={Midground} alt="midground"></img>
+          ) : (
+            <img className="midground" src={MidgroundDark} alt="midground"></img>
+          )}
 
-        {!darkMode ? (
-          <img className="foreground" src={Foreground} alt="foreground"></img>
-        ) : (
-          <img className="foreground" src={ForegroundDark} alt="foreground"></img>
-        )}
-      </div>
+          {!darkMode ? (
+            <img className="foreground" src={Foreground} alt="foreground"></img>
+          ) : (
+            <img className="foreground" src={ForegroundDark} alt="foreground"></img>
+          )}
+        </div>
+      </LazyLoadComponent>
     </>
   );
 };

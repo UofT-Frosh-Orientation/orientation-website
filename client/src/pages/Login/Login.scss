@@ -117,10 +117,16 @@
 
 @keyframes scrolling {
   from {
-    position: 0 0; /* Start the animation with the image positioned at the left edge */
+    transform: translateY(0);
+  }
+  33% {
+    transform: translateY(10%);
+  }
+  66% {
+    transform: translateY(-10%);
   }
   to {
-    position: 100% 0; /* Scroll the image to the right edge */
+    transform: translateY(0);
   }
 }
 
@@ -136,7 +142,8 @@
   left: 0;
   bottom: -8vh;
   height: 100%;
-  animation: ground-sway infinite 15s ease-in-out;
+  animation: ground-sway infinite 40s ease-in-out;
+  animation-duration: 90s;
 }
 
 .birds {
@@ -145,6 +152,7 @@
   height: 85%;
   top: 2%;
   animation: scrolling 30s linear infinite;
+  animation-duration: 30s;
 }
 
 .clouds {
@@ -170,6 +178,7 @@
   bottom: -8vh;
   height: 100vh;
   animation: ground-sway infinite 15s ease-in-out;
+  animation-duration: 60s;
 }
 
 .foreground {
@@ -178,6 +187,7 @@
   bottom: -5vh;
   height: 100vh;
   animation: ground-sway infinite 15s ease-in-out;
+  animation-duration: 30s;
 }
 
 @keyframes ground-sway {
