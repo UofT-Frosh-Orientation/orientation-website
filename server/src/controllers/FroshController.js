@@ -29,7 +29,7 @@ const FroshController = {
       if (frosh) {
         console.log('Registered frosh');
         newFroshSubscription.add({
-          preferredName: user.preferredName,
+          preferredName: user.preferredName || user.firstName,
           email: user.email,
           file: req.file,
         });
