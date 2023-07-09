@@ -6,6 +6,7 @@ const TimelineController = {
       const allTimelines = await TimelineServices.getAllTimelines();
       return res.status(200).send({ timelines: allTimelines });
     } catch (e) {
+      req.log.error({ msg: 'Unable to get timeline', e });
       next(e);
     }
   },
@@ -24,6 +25,7 @@ const TimelineController = {
       );
       return res.status(200).send({ message: 'Successfully updated Timeline element!' });
     } catch (e) {
+      req.log.fatal({ msg: 'Unable to update timeline event', e });
       next(e);
     }
   },
@@ -34,6 +36,7 @@ const TimelineController = {
       await TimelineServices.saveNewTimelineElement(date, eventName, description, link, linkLabel);
       return res.status(200).send({ message: 'Successfully added Timeline element!' });
     } catch (e) {
+      req.log.fatal({ msg: 'Unable to create timeline event', e });
       next(e);
     }
   },
@@ -45,6 +48,7 @@ const TimelineController = {
       await TimelineServices.deleteTimelineElement(id);
       return res.status(200).send({ message: 'Successfully deleted Timeline element!' });
     } catch (e) {
+      req.log.fatal({ msg: 'Unable to update timeline event ' + id, e });
       next(e);
     }
   },

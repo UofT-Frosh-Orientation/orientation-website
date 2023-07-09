@@ -768,8 +768,8 @@ const ProfilePageQRScanner = () => {
           <div>
             <h3>Current Scanned Data</h3>
             <div style={{ height: '7px' }} />
-            <b>{'Email: '}</b>
-            {scannedData?.email?.toString()}
+            <b>{'ID: '}</b>
+            {scannedData?.id?.toString()}
           </div>
         )}
       </div>
@@ -824,10 +824,9 @@ const ProfilePageQRScanner = () => {
             setSnackbar('Please scan a QR code first!', true);
             return;
           }
-          const result = await signInFrosh(scannedData.email);
-          setScannedUserData(result?.data?.returnedUser);
-
-          if (result) {
+          const result = await signInFrosh(scannedData?.id?.toString());
+          if (result.status === 200) {
+            setScannedUserData(result?.data?.returnedUser);
             setScannedData('');
             setSubmitSuccess(true);
             setTimeout(() => {
@@ -840,7 +839,8 @@ const ProfilePageQRScanner = () => {
               setResults([]);
             }
           } else {
-            setSubmitError(result);
+            setSubmitError(result.response.data.message);
+            setScannedData('');
           }
         }}
       />

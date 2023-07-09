@@ -43,6 +43,12 @@
     background-color: var(--dropdown-hover);
   }
   color: var(--black);
+  &:focus {
+    outline: none;
+    background-color: var(--textinput-bg);
+    box-shadow: 0px 0px 15px -3px var(--textinput-shadow-focus);
+    transition: background-color 500ms, box-shadow 500ms;
+  }
 }
 
 .dropdown-selected-disabled {
@@ -87,7 +93,9 @@
   cursor: pointer;
   transition: background-color 300ms ease-in-out;
 
-  &:hover {
+  &:hover,
+  &:focus {
+    outline: none;
     background-color: var(--dropdown-hover);
   }
   @include devices(tablet) {

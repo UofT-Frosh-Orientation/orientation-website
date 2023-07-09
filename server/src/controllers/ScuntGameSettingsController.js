@@ -9,6 +9,7 @@ const ScuntGameSettingsController = {
         settings: gameSettings.map((u) => u.getResponseObject()),
       });
     } catch (e) {
+      req.log.fatal({ msg: 'Unable to retrieve scunt game settings', e });
       next(e);
     }
   },
@@ -49,6 +50,7 @@ const ScuntGameSettingsController = {
         settings: [newSettings],
       });
     } catch (e) {
+      req.log.fatal({ msg: 'Unable to update scunt game settings', e });
       next(e);
     }
   },

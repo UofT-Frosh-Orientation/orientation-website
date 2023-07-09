@@ -190,24 +190,7 @@ const EmailServices = {
 
     msg.body.push(alternateEntity);
 
-    for (const filePath of attachments) {
-      const filemime = mime.getType(path.basename(filePath));
-
-      const fileData = await fs.readFile(filePath, {
-        encoding: 'base64',
-      });
-
-      const attachment = mimemessage.factory({
-        contentType: filemime,
-        contentTransferEncoding: 'base64',
-        body: fileData,
-      });
-
-      attachment.header('Content-Disposition', `attachment ;filename="${path.basename(filePath)}"`);
-
-      msg.body.push(attachment);
-    }
-
+    await this.handleAttachments(msg, attachments);
     const params = {
       Content: {
         Raw: {
@@ -226,71 +209,42 @@ const EmailServices = {
     return SES.send(command);
   },
 
-  /**
-   * Send raw MIME format email which can include attachment buffers from multer
-   * @param {String} html html part of the message
-   * @param {String} text text part of the message
-   * @param {String} subject subject of the email
-   * @param {String[]} attachments an array of multer buffers
-   * @param {String[]} toAddresses array of email addresses to send to
-   * @param {String} fromAddress the email adress the email is being sent from
-   * @returns {Promise} promise
-   */
-  async sendRawEmailMulterFiles(html, text, subject, files, toAddresses, fromAddress) {
-    const msg = mimemessage.factory({
-      contentType: 'multipart/mixed',
-      body: [],
-    });
-    msg.header('From', fromAddress);
-    msg.header('To', toAddresses);
-    msg.header('Subject', subject);
-    const alternateEntity = mimemessage.factory({
-      contentType: 'multipart/alternate',
-      body: [],
-    });
-
-    const htmlEntity = mimemessage.factory({
-      contentType: 'text/html;charset=utf-8',
-      body: html,
-    });
-
-    const plainEntity = mimemessage.factory({
-      body: text,
-    });
-
-    alternateEntity.body.push(htmlEntity);
-    alternateEntity.body.push(plainEntity);
-
-    msg.body.push(alternateEntity);
-
+  async handleAttachments(msg, files) {
     for (const file of files) {
-      const attachment = mimemessage.factory({
-        contentType: file.mimetype,
-        contentTransferEncoding: 'base64',
-        body: Buffer.from(file.buffer).toString('base64'),
-      });
+      if (file.type === 'static') {
+        const fileMIME = mime.getType(path.basename(file.filePath));
 
-      attachment.header('Content-Disposition', `attachment; filename="${file.fieldname}"`);
+        const fileData = await fs.readFile(`${__dirname}/emailAssets/${file.filePath}`, {
+          encoding: 'base64',
+        });
 
-      msg.body.push(attachment);
+        const attachment = mimemessage.factory({
+          contentType: fileMIME,
+          contentTransferEncoding: 'base64',
+          body: fileData,
+        });
+
+        attachment.header('Content-ID', `${file.filePath.split('.')[0].replace(/-/g, '')}`);
+        attachment.header(
+          'Content-Disposition',
+          `${file.contentDisposition}; filename="${path.basename(file.filePath)}"`,
+        );
+        msg.body.push(attachment);
+      } else if (file.type === 'non-static') {
+        const attachment = mimemessage.factory({
+          contentType: file.content.mimetype,
+          contentTransferEncoding: 'base64',
+          body: Buffer.from(file.content.buffer).toString('base64'),
+        });
+
+        attachment.header(
+          'Content-Disposition',
+          `${file.contentDisposition}; filename="${file.content.fieldname}"`,
+        );
+
+        msg.body.push(attachment);
+      }
     }
-
-    const params = {
-      Content: {
-        Raw: {
-          Data: Buffer.from(msg.toString(), 'ascii'),
-        },
-      },
-      Destination: {
-        ToAddresses: toAddresses,
-      },
-
-      FromEmailAddress: fromAddress,
-    };
-
-    const command = new SendEmailCommand(params);
-
-    return SES.send(command);
   },
 };
 

@@ -10,6 +10,7 @@ const ScuntMissionController = {
         missions: allMissions.map((m) => m.getResponseObject()),
       });
     } catch (e) {
+      req.log.fatal({ msg: 'Unable to get scunt missions', e });
       next(e);
     }
   },
@@ -36,6 +37,7 @@ const ScuntMissionController = {
         message: 'Successfully created mission #' + number.toString() + ' - ' + name.toString(),
       });
     } catch (e) {
+      req.log.fatal({ msg: 'Unable to create scunt mission', e });
       next(e);
     }
   },
@@ -46,6 +48,7 @@ const ScuntMissionController = {
       await ScuntMissionServices.deleteMission(id);
       return res.status(200).send({ message: `Successfully deleted mission: ${id}` });
     } catch (e) {
+      req.log.fatal({ msg: 'Unable to delete scunt mission ' + id, e });
       next(e);
     }
   },
@@ -64,6 +67,7 @@ const ScuntMissionController = {
         }`,
       });
     } catch (e) {
+      req.log.fatal({ msg: 'Unable to update mission visibility', e });
       next(e);
     }
   },
@@ -74,6 +78,7 @@ const ScuntMissionController = {
       );
       res.status(200).send({ missions });
     } catch (e) {
+      req.log.fatal({ msg: 'Unable to create multiple missions', e });
       next(e);
     }
   },
