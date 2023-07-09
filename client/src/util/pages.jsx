@@ -52,12 +52,12 @@ export const pages = {
       path: '/about',
       includeFooter: true,
     },
-    // {
-    //   label: 'FAQ',
-    //   component: <PageFAQ />,
-    //   path: '/faq',
-    //   includeFooter: true,
-    // },
+    {
+      label: 'FAQ',
+      component: <PageFAQ />,
+      path: '/faq',
+      includeFooter: true,
+    },
   ],
   special: [
     {

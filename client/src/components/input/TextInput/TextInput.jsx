@@ -33,6 +33,7 @@ const TextInput = ({
   autocomplete,
   cancelEdit,
   oldValue,
+  autoFocus,
 }) => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
@@ -157,13 +158,14 @@ const TextInput = ({
             required={isRequiredInput}
             disabled={isDisabled}
             onKeyPress={onKeyPress}
-            value={value}
+            value={value ?? ''}
             placeholder={placeholder}
             type={type}
             autoComplete={autocomplete}
             onChange={onInputChange}
             {...inputArgs}
             style={{ ...style }}
+            autoFocus={autoFocus ?? false}
           />
         ) : (
           <input
@@ -176,12 +178,13 @@ const TextInput = ({
             required={isRequiredInput}
             disabled={isDisabled}
             onKeyPress={onKeyPress}
-            value={value}
+            value={type === 'date' ? localStorage.getItem(localStorageKey) : value ?? ''}
             placeholder={placeholder}
             type={type}
             autoComplete={autocomplete}
             onChange={onInputChange}
             {...inputArgs}
+            autoFocus={autoFocus ?? false}
           />
         )}
         {inputType == 'password' ? (
@@ -241,6 +244,7 @@ TextInput.propTypes = {
   setClearText: PropTypes.func,
   cancelEdit: PropTypes.bool,
   oldValue: PropTypes.string,
+  autoFocus: PropTypes.bool,
 };
 
 export { TextInput };

@@ -25,11 +25,12 @@ const FroshController = {
       ).getResponseObject();
 
       if (frosh) {
+        req.log.info({msg: "Successful frosh registration by user " + user.id , user: user.getResponseObject()});
+
         res.status(200).send({ url });
       }
     } catch (e) {
-      console.log(req.body);
-      console.log(e);
+      req.log.fatal({msg: "Unable to register Frosh: user " + user.id, e, user: user.getResponseObject()});
       next(e);
     }
   },
@@ -58,7 +59,7 @@ const FroshController = {
         user: frosh.getResponseObject(),
       });
     } catch (e) {
-      console.log(e);
+      req.log.fatal({msg: "Unable to update frosh info: user " + user.id, e, user: user.getResponseObject()});
       next(e);
     }
   },
@@ -107,7 +108,7 @@ const FroshController = {
       const users = await FroshServices.getFilteredUserInfo(query, filter);
       return res.status(200).send({ frosh, users });
     } catch (e) {
-      console.log(e);
+      req.log.fatal({msg: "Unable to get frosh info: user " + req.user.id, e, user: req.user.getResponseObject()});
       next(e);
     }
   },
