@@ -245,86 +245,86 @@ export const pages = {
     },
   ],
   scunt: [
-    {
-      label: 'Scunt',
-      scuntLabel: 'Home',
-      component: <PageScuntHome />,
-      path: '/scunt',
-      includeFooter: true,
-    },
-    {
-      label: 'Judges',
-      scuntLabel: 'Judges',
-      component: <ScuntJudges />,
-      path: '/scunt-judges',
-      includeFooter: true,
-    },
-    {
-      label: 'Missions',
-      scuntLabel: 'Missions',
-      component: <PageScuntMissionsList />,
-      path: '/scunt-missions',
-      includeFooter: true,
-    },
-    {
-      label: 'Leaderboard',
-      scuntLabel: 'Leaderboard',
-      component: <ScuntLeaderboard />,
-      path: '/scunt-leaderboard',
-      includeFooter: true,
-    },
-    {
-      label: 'Rules',
-      scuntLabel: 'Rules',
-      component: <PageScuntRules />,
-      path: '/scunt-rules',
-      includeFooter: true,
-    },
+    // {
+    //   label: 'Scunt',
+    //   scuntLabel: 'Home',
+    //   component: <PageScuntHome />,
+    //   path: '/scunt',
+    //   includeFooter: true,
+    // },
+    // {
+    //   label: 'Judges',
+    //   scuntLabel: 'Judges',
+    //   component: <ScuntJudges />,
+    //   path: '/scunt-judges',
+    //   includeFooter: true,
+    // },
+    // {
+    //   label: 'Missions',
+    //   scuntLabel: 'Missions',
+    //   component: <PageScuntMissionsList />,
+    //   path: '/scunt-missions',
+    //   includeFooter: true,
+    // },
+    // {
+    //   label: 'Leaderboard',
+    //   scuntLabel: 'Leaderboard',
+    //   component: <ScuntLeaderboard />,
+    //   path: '/scunt-leaderboard',
+    //   includeFooter: true,
+    // },
+    // {
+    //   label: 'Rules',
+    //   scuntLabel: 'Rules',
+    //   component: <PageScuntRules />,
+    //   path: '/scunt-rules',
+    //   includeFooter: true,
+    // },
   ],
   scuntHidden: [
-    {
-      label: 'Scunt Judge Form',
-      component: (
-        <AuthorizedPage leaderOnly>
-          <PageScuntJudgeForm />
-        </AuthorizedPage>
-      ),
-      path: '/scunt-judge-form',
-      includeFooter: true,
-    },
-    {
-      label: 'start-scunt',
-      component: (
-        <AuthorizedPage authScopes={['scunt:exec game controls']}>
-          <ScuntGameSettings />
-        </AuthorizedPage>
-      ),
-      path: '/scunt-game-controls',
-    },
-    {
-      label: 'Scunt Missions Dashboard',
-      component: (
-        <AuthorizedPage
-          authScopes={[
-            'scunt:exec show missions',
-            'scunt:exec hide missions',
-            'scunt:exec create missions',
-            'scunt:exec delete missions',
-          ]}
-        >
-          <PageScuntMissionsDashboard />
-        </AuthorizedPage>
-      ),
-      path: '/scunt-missions-dashboard',
-    },
-    {
-      label: 'Scunt Point Transactions',
-      path: '/scunt-transactions',
-      component: (
-        <AuthorizedPage authScopes={['scunt:exec view transactions']}>
-          <ScuntTransactions />
-        </AuthorizedPage>
-      ),
-    },
+    // {
+    //   label: 'Scunt Judge Form',
+    //   component: (
+    //     <AuthorizedPage leaderOnly>
+    //       <PageScuntJudgeForm />
+    //     </AuthorizedPage>
+    //   ),
+    //   path: '/scunt-judge-form',
+    //   includeFooter: true,
+    // },
+    // {
+    //   label: 'start-scunt',
+    //   component: (
+    //     <AuthorizedPage authScopes={['scunt:exec game controls']}>
+    //       <ScuntGameSettings />
+    //     </AuthorizedPage>
+    //   ),
+    //   path: '/scunt-game-controls',
+    // },
+    // {
+    //   label: 'Scunt Missions Dashboard',
+    //   component: (
+    //     <AuthorizedPage
+    //       authScopes={[
+    //         'scunt:exec show missions',
+    //         'scunt:exec hide missions',
+    //         'scunt:exec create missions',
+    //         'scunt:exec delete missions',
+    //       ]}
+    //     >
+    //       <PageScuntMissionsDashboard />
+    //     </AuthorizedPage>
+    //   ),
+    //   path: '/scunt-missions-dashboard',
+    // },
+    // {
+    //   label: 'Scunt Point Transactions',
+    //   path: '/scunt-transactions',
+    //   component: (
+    //     <AuthorizedPage authScopes={['scunt:exec view transactions']}>
+    //       <ScuntTransactions />
+    //     </AuthorizedPage>
+    //   ),
+    // },
   ],
 };
