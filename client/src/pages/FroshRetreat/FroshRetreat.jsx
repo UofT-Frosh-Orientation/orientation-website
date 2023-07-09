@@ -58,6 +58,9 @@ export const FroshRetreat = () => {
         <FroshRetreatFAQ />
       </Header>
       <div style={{ height: '20px' }} />
+      <h3 style={{ color: 'var(--white)', margin: '20px 0', textAlign: 'center' }}>
+        See this video of Retreat 2T0 for a sense of the trip!
+      </h3>
       <iframe
         className="frosh-retreat-video"
         src="https://www.youtube.com/embed/eGwsNvgroCI?autoplay=1"
@@ -66,6 +69,15 @@ export const FroshRetreat = () => {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       ></iframe>
+
+      <p style={{ color: 'var(--text-dynamic)', margin: '10px 0', textAlign: 'center' }}>
+        Interested to see more of retreat? Retreat 2T2 was the perfect camping getaway after the
+        rush of frosh week!{' '}
+        <a href="https://photos.skule.ca/2T2-2T3/Frosh-Week/Events/Retreat" target="_blank" rel="noreferrer">
+          Check out the photos here!{' '}
+        </a>
+      </p>
+
       <div style={{ height: '20px' }} />
       <h1>Registration</h1>
       <RetreatRegistration />
@@ -82,19 +94,19 @@ const retreatFAQs = [
   {
     title: 'What is provided?',
     description: [
-      '3 healthy, diverse meals for Frosh (lunch, dinner, breakfast) as well as snacks to keep the fun-fuelled!',
-      'An assortment of engaging activities',
-      'Transportation to and from Hart House Farms',
+      '• 3 healthy, diverse meals for Frosh (lunch, dinner, breakfast) as well as snacks to keep the fun-fuelled!',
+      '• An assortment of engaging activities',
+      '• Transportation to and from Hart House Farms',
     ],
   },
   {
     title:
       'What do I need to bring (a more comprehensive list will be sent to attendees at a later date)?',
     description: [
-      'Sleeping bags, tents, pillows and blankets to sleep in',
-      'Bathing suits, towels, and comfy clothes to enjoy all the activities retreat has to offer',
-      'Water bottle, personal medications, and any extra snacks you want to bring to stay safe and hydrated during the trip',
-      'Anything appropriate for a 36-hour camping trip on a farm!',
+      '• Sleeping bags, tents, pillows and blankets to sleep in',
+      '• Bathing suits, towels, and comfy clothes to enjoy all the activities retreat has to offer',
+      '• Water bottle, personal medications, and any extra snacks you want to bring to stay safe and hydrated during the trip',
+      '• Anything appropriate for a 36-hour camping trip on a farm!',
     ],
   },
 ];
@@ -248,14 +260,11 @@ const RetreatRegistration = () => {
             }}
             style={{ marginBottom: '25px' }}
           />
-          <h3>
-            I have read and agree to the Frosh Retreat Waiver. By selecting &apos;Yes&apos; I
-            understand the terms laid out by this agreement.
-          </h3>
+          <h3>I have read and agree to the Frosh Retreat Waiver.</h3>
           <h4>
             <i>
-              Please bring a signed copy of the waiver to retreat. This can be a digital or physical
-              and must be signed by your parent/guardian before retreat, you are still under 18.
+              By pressing &apos;Yes&apos; you/a guardian if you are under 18 have digitally signed
+              the waiver.
             </i>
           </h4>
           <div style={{ height: '10px' }} />
@@ -265,8 +274,7 @@ const RetreatRegistration = () => {
               values={['Yes', 'No']}
               onSelected={(value) => {
                 setWaiverValue(value);
-                if (value === 'Yes')
-                  setSnackbar('Please bring a signed copy of the waiver to retreat!');
+                if (value === 'Yes') setSnackbar('Thanks for reading the waiver!');
               }}
             />
           ) : (
