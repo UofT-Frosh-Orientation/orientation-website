@@ -329,7 +329,7 @@ export const fields = {
         'No Red meat',
         'Other',
       ],
-      isRequiredInput: true,
+      isRequiredInput: false,
       noEdit: false,
       localStorageKey: 'registration-allergies',
       onChanged: (values, disableField) => {
