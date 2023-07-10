@@ -9,6 +9,17 @@
   pointer-events: none;
 }
 
+.error404-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+  filter: blur(2px);
+}
+
 .error404-flex {
   position: absolute;
   display: flex;
@@ -16,13 +27,6 @@
   user-select: none;
   pointer-events: none;
   width: 100%;
-}
-
-.error404-bg {
-  position: absolute;
-  bottom: -50vh;
-  left: -25vw;
-  width: 80vw;
 }
 
 .error404-tree {
