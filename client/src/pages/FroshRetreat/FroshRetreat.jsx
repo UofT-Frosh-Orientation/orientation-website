@@ -29,9 +29,9 @@ export const FroshRetreat = () => {
   }, []);
 
   useEffect(() => {
-    // if (!isRegistered) {
-    //   navigate('/profile');
-    // }
+    if (!isRegistered) {
+      navigate('/profile');
+    }
   }, [isRegistered]);
 
   return (
