@@ -77,7 +77,6 @@ const PageLogin = ({ incorrectEntry }) => {
             <h1 className="login-title">Login</h1>
             <form onSubmit={handleSubmit}>
               <TextInput
-                label={'email'}
                 inputType={'text'}
                 placeholder={'Email'}
                 autocomplete={'email'}
