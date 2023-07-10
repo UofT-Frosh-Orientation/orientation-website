@@ -91,7 +91,7 @@ const EditAnnounce = () => {
                       )}
                     </div>
                   </td>
-                  <td className="all-account-data" style={{ 'overflow-wrap': 'anywhere' }}>
+                  <td className="all-account-data" style={{ overflowWrap: 'anywhere' }}>
                     {announcement.editMode ? (
                       <TextInput
                         onChange={(value) => {

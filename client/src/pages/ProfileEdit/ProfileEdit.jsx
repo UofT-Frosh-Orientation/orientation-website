@@ -1,6 +1,6 @@
 import React from 'react';
 import './ProfileEdit.scss';
-import { ProfilePageHeader } from '../Profile/Profile';
+import { ProfilePageFroshHeader } from '../Profile/PageProfileFrosh';
 import { PageRegistrationForm } from '../Registration/RegistrationForm';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,7 +22,7 @@ const PageProfileEdit = () => {
     <>
       {isRegistered && (
         <>
-          <ProfilePageHeader leader={false} editButton={false} />
+          <ProfilePageFroshHeader editButton={false} />
           <div className="edit-form-container">
             <PageRegistrationForm
               editFieldsPage={true}
