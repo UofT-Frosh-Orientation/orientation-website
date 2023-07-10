@@ -48,7 +48,7 @@ export const fields = {
       placeholder: 'john.doe@email.com',
       label: 'Email',
       isRequiredInput: true,
-      // noEdit: true,
+      noEdit: true,
     },
     firstName: {
       type: 'text',
@@ -57,7 +57,7 @@ export const fields = {
       label: 'First Name',
       className: 'half-width-input',
       isRequiredInput: true,
-      // noEdit: true,
+      noEdit: true,
     },
     lastName: {
       type: 'text',
@@ -66,7 +66,7 @@ export const fields = {
       label: 'Last Name',
       className: 'half-width-input',
       isRequiredInput: true,
-      // noEdit: true,
+      noEdit: true,
     },
     preferredName: {
       type: 'text',
@@ -74,6 +74,7 @@ export const fields = {
       placeholder: 'Joey',
       label: 'Preferred Name',
       localStorageKey: 'registration-preferred-name',
+      noEdit: false,
     },
   },
   General: {
@@ -366,6 +367,7 @@ export const fields = {
         'I would like to be able to access a quiet space to relax when the activities get overwhelming',
       hasRestrictedInput: true,
       isRequiredInput: false,
+      noEdit: true,
       localStorageKey: 'registration-accessibility',
       onChanged: (value, disableField) => {
         if (value !== '' && value !== undefined) {
@@ -381,6 +383,7 @@ export const fields = {
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       isRequiredInput: false,
+      noEdit: false,
       localStorageKey: 'registration-accommodation',
     },
   },
@@ -394,6 +397,12 @@ export const fields = {
       localStorageKey: 'registration-scunt',
       noEdit: false,
       isRequiredInput: true,
+    },
+    scuntInfo: {
+      type: 'label',
+      label:
+        "What is Havenget Scunt? Havenger Scunt is a scavenger hunt around the city of Toronto! Don't miss out on one of the most popular f!rosh week events! Scunt is an exciting night of challenges for all comfort levels.",
+      isBold: true,
     },
     summerLocationLabel: {
       type: 'label',
@@ -444,23 +453,8 @@ export const fields = {
       type: 'radio',
       label: 'Are you okay with being photographed during Frosh Week?',
       values: ['Yes', 'No'],
-      initialSelectedIndex: 1,
-      onChanged: (value, disableField) => {
-        if (value === 'Yes') {
-          disableField(false, 'commuterProgramInformation', 'Misc');
-        } else {
-          disableField(true, 'commuterProgramInformation', 'Misc');
-          disableField(true, 'commuterProgramOther', 'Misc');
-          disableField(true, 'commuterProgramStop', 'Misc');
-        }
-      },
-      localStorageKey: 'registration-commuter',
-    },
-    commuterProgramInformation: {
-      type: 'dropdown',
-      label: 'What is you main method of commuting to campus?',
-      values: ['Car', 'Subway', 'Bus', 'Go Train', 'Walking', 'Biking', 'Other'],
       initialSelectedIndex: 0,
+      noEdit: true,
       localStorageKey: 'registration-photograph',
     },
   },
