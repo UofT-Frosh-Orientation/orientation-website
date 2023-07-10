@@ -75,14 +75,14 @@ const MakeReceipt = (froshObject) => {
   for (const [key, value] of Object.entries(froshObject)) {
     if (irrelevantFields.includes(key)) continue;
     t2.push(
-      <>
+      <React.Fragment key={key}>
         <Text style={{ fontSize: 14 }} key={key}>
           {key}:
         </Text>
         <Text style={{ fontSize: 14, padding: '0 0 10px 0', color: '#28093A' }} key={key + value}>
           {`${value}`}
         </Text>
-      </>,
+      </React.Fragment>,
     );
   }
 
