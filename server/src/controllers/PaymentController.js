@@ -11,7 +11,6 @@ const PaymentController = {
     } catch (err) {
       next(new Error('UNAUTHORIZED'));
     }
-    console.log(event.type);
     try {
       switch (event.type) {
         case 'payment_intent.succeeded': {
