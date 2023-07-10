@@ -24,7 +24,7 @@ import { sponsors } from '../../util/sponsors';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { useSelector } from 'react-redux';
 import { loggedInSelector, userSelector } from '../../state/user/userSlice';
-import { LazyLoadComponent, LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import ProgressiveImage from '../../components/progressiveImg/ProgressiveImg';
 
 const PageHome = () => {
@@ -52,6 +52,7 @@ const HomePageHeader = () => {
       <div className="home-page-header-text">
         <h2>Welcome to F!rosh Week!</h2>
         <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p>
+        <HomeHeaderButton />
       </div>
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />
@@ -62,6 +63,45 @@ const HomePageHeader = () => {
         <img src={Wave} className="wave-image home-page-top-wave-image" alt="wave-img" />
       )}
     </div>
+  );
+};
+
+const HomeHeaderButton = () => {
+  const loggedIn = useSelector(loggedInSelector);
+
+  return (
+    <>
+      <Link
+        key={loggedIn ? '/profile' : '/registration'}
+        to={loggedIn ? '/profile' : '/registration'}
+        style={{ textDecoration: 'none' }}
+      >
+        <div className="home-page-header-register-button">
+          <div className="desktop-only">
+            <Button
+              label={loggedIn ? 'View Profile' : 'Register Now!'}
+              isSecondary
+              style={{
+                margin: '0px',
+                width: '100%',
+                height: '100%',
+                fontSize: 'unset',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            />
+          </div>
+          <div className="mobile-only">
+            <Button
+              label={loggedIn ? 'View Profile' : 'Register Now!'}
+              isSecondary
+              style={{ margin: '0px' }}
+            />
+          </div>
+        </div>
+      </Link>
+    </>
   );
 };
 

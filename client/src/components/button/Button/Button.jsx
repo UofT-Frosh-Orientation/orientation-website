@@ -25,7 +25,7 @@ Button.propTypes = {
   isSecondary: PropTypes.bool,
   isDisabled: PropTypes.bool,
   style: PropTypes.object,
-  class_options: PropTypes.object,
+  class_options: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
 
 Button.defaultProps = {

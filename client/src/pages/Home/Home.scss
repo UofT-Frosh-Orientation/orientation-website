@@ -70,16 +70,14 @@
 .home-page-header-register-button {
   margin-top: 15px;
   display: flex;
-  display: grid;
-  margin: auto;
+  align-items: center;
+  justify-content: center;
   @include devices(tablet) {
     text-align: center;
     width: unset;
     height: unset;
     font-size: unset;
   }
-  width: max(15vh, 150px);
-  height: max(5vh, 50px);
   font-size: max(1.8vh, 18px);
 }
 
