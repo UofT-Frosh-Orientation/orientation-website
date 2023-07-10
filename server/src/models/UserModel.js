@@ -57,6 +57,11 @@ const UserSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    confirmedEmail: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
     accountCreatedAt: {
       type: Date,
       required: true,

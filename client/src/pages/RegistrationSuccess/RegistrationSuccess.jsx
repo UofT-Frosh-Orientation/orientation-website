@@ -49,7 +49,7 @@ const PageRegistrationSuccess = () => {
       {user && (
         <>
           <Confetti animate={animate} />
-          <div className="navbar-space-top" />
+
           <div className="registration-success-page-progress-bar" />
           <div className="registration-success-page-progress-bar registration-success-page-progress-bar2" />
           <div style={{ padding: '0 5%' }}>
@@ -59,7 +59,7 @@ const PageRegistrationSuccess = () => {
                   <h1 style={{ color: 'var(--black)' }}>Thank you for Registering</h1>
                 </div>
                 <div className="registration-success-page-step1-2-disappear">
-                  <h2 style={{ color: 'var(--black)' }}>for F!rosh Week 2T2</h2>
+                  <h2 style={{ color: 'var(--black)' }}>for F!rosh Week 2T3</h2>
                   <p style={{ color: 'var(--black)' }} className="registration-success-wait-msg">
                     {`${
                       user.preferredName === '' || !user.preferredName
@@ -80,7 +80,6 @@ const PageRegistrationSuccess = () => {
                     {user.froshGroupIcon}
                   </text>
                 </svg>
-                {/* <h1>{data.froshGroupIcon}</h1> */}
                 <div className="registration-success-page-step4">
                   <h2 style={{ color: 'var(--black)' }}>{user.froshGroup + '!'}</h2>
                 </div>

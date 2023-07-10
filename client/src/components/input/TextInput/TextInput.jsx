@@ -33,6 +33,7 @@ const TextInput = ({
   autocomplete,
   cancelEdit,
   oldValue,
+  autoFocus,
 }) => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
@@ -78,11 +79,11 @@ const TextInput = ({
 
   const [type, setType] = useState(inputType ? inputType : 'text');
 
-  const onKeyPress = (target) => {
-    if (target.charCode === 13) {
-      if (onEnterKey) onEnterKey(value);
-    }
-  };
+  // const onKeyPress = (target) => {
+  //   if (target.charCode === 13) {
+  //     if (onEnterKey) onEnterKey(value);
+  //   }
+  // };
 
   const onInputChange = (event) => {
     let value = event.target.value;
@@ -156,7 +157,7 @@ const TextInput = ({
             }
             required={isRequiredInput}
             disabled={isDisabled}
-            onKeyPress={onKeyPress}
+            // onKeyPress={onKeyPress}
             value={value}
             placeholder={placeholder}
             type={type}
@@ -164,6 +165,7 @@ const TextInput = ({
             onChange={onInputChange}
             {...inputArgs}
             style={{ ...style }}
+            autoFocus={autoFocus ?? false}
           />
         ) : (
           <input
@@ -175,13 +177,14 @@ const TextInput = ({
             }
             required={isRequiredInput}
             disabled={isDisabled}
-            onKeyPress={onKeyPress}
+            // onKeyPress={onKeyPress}
             value={value}
             placeholder={placeholder}
             type={type}
             autoComplete={autocomplete}
             onChange={onInputChange}
             {...inputArgs}
+            autoFocus={autoFocus ?? false}
           />
         )}
         {inputType == 'password' ? (
@@ -241,6 +244,7 @@ TextInput.propTypes = {
   setClearText: PropTypes.func,
   cancelEdit: PropTypes.bool,
   oldValue: PropTypes.string,
+  autoFocus: PropTypes.bool,
 };
 
 export { TextInput };

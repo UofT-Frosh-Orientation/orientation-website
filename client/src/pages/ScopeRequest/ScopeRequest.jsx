@@ -37,17 +37,7 @@ export const PageScopeRequest = () => {
       }}
     >
       <div className="scope-request-page">
-        <div className="navbar-space-top" />
         <h1>Leadur Permissions Request</h1>
-        {/* {user?.authScopes?.approved?.length <= 0 && user?.authScopes?.froshDataFields?.length <=0 ? <></> : <div className='scope-request-current-permissions'>
-        <h3>You currently have these permissions:</h3>
-        {user?.authScopes?.approved.map((scope)=>{
-          return <p>{convertCamelToLabel(scope.split(":")[0]) + " : " + convertCamelToLabel(scope.split(":")[1])}</p>
-        })}
-        {user?.froshDataFields?.approved.map((scope)=>{
-          return <p>{convertCamelToLabel(scope)}</p>
-        })}</div>
-        } */}
         <h2>General Permissions</h2>
         <Button
           onClick={() => {
@@ -80,6 +70,7 @@ export const PageScopeRequest = () => {
             return (
               <div key={scope} style={{ paddingRight: '25px' }}>
                 <Checkboxes
+                  name={scope}
                   highlightValues={highlightFields}
                   disabledValues={disabledFields}
                   label={convertCamelToLabel(scope)}

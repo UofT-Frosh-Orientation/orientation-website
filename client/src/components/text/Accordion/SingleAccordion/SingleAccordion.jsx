@@ -5,7 +5,7 @@ import './SingleAccordion.scss';
 import { DarkModeContext } from '../../../../util/DarkModeProvider';
 
 const SingleAccordion = ({ header, children, isOpen, setIsOpen, canOpen, className, style }) => {
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
 
   const [height, setHeight] = useState('0px');
   const [rotate, setRotate] = useState('accord-icon');
@@ -51,8 +51,8 @@ const SingleAccordion = ({ header, children, isOpen, setIsOpen, canOpen, classNa
 };
 
 SingleAccordion.propTypes = {
-  header: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired,
+  header: PropTypes.element.isRequired,
+  children: PropTypes.element.isRequired,
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
   canOpen: PropTypes.bool.isRequired,

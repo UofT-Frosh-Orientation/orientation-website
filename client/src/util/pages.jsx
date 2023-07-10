@@ -7,6 +7,7 @@ import { PageMaintenance } from '../pages/Maintenance/Maintenance';
 import { PagePaymentError } from '../pages/PaymentError/PaymentError';
 import { PageProfile } from '../pages/Profile/Profile';
 import { PageProfileEdit } from '../pages/ProfileEdit/ProfileEdit';
+import { PageProfileEditUnregistered } from '../pages/ProfileEditUnregistered/ProfileEditUnregistered';
 import { PageRegistrationForm } from '../pages/Registration/RegistrationForm';
 import { PageLogin } from '../pages/Login/Login';
 import { PageRegistrationSuccess } from '../pages/RegistrationSuccess/RegistrationSuccess';
@@ -31,6 +32,7 @@ import { PagePaymentSuccess } from '../pages/PagePaymentSuccess/PagePaymentSucce
 import { ScuntGameSettings } from '../pages/ScuntGameSettings/ScuntGameSettings';
 import { PageScuntMissionsDashboard } from '../pages/ScuntMissionsDashboard/ScuntMissionsDashboard';
 import { ScuntTransactions } from '../pages/ScuntTransactions/ScuntTransactions';
+import { PageEmailConfirmed } from '../pages/EmailConfirmed/EmailConfirmed';
 
 export const pages = {
   404: {
@@ -50,20 +52,20 @@ export const pages = {
       path: '/about',
       includeFooter: true,
     },
-    // {
-    //   label: 'FAQ',
-    //   component: <PageFAQ />,
-    //   path: '/faq',
-    //   includeFooter: true,
-    // },
+    {
+      label: 'FAQ',
+      component: <PageFAQ />,
+      path: '/faq',
+      includeFooter: true,
+    },
   ],
   special: [
-    //   {
-    //     label: 'Login',
-    //     component: <PageLogin />,
-    //     path: '/login',
-    //     includeFooter: false,
-    //   },
+    {
+      label: 'Login',
+      component: <PageLogin />,
+      path: '/login',
+      includeFooter: false,
+    },
     {
       label: 'Profile',
       component: (
@@ -74,22 +76,28 @@ export const pages = {
       path: '/profile',
       includeFooter: true,
     },
-    //   {
-    //     label: 'Unsubscribe',
-    //     component: <PageUnsubscribe />,
-    //     path: '/unsubscribe',
-    //     includeFooter: false,
-    //   },
-    //   {
-    //     label: 'Resubscribe',
-    //     component: (
-    //       <AuthorizedPage>
-    //         <PageResubscribe />
-    //       </AuthorizedPage>
-    //     ),
-    //     path: '/resubscribe',
-    //     includeFooter: false,
-    //   },
+    {
+      label: 'Email Confirmed',
+      component: <PageEmailConfirmed />,
+      path: '/verify-user-email/:email/:emailToken',
+      includeFooter: false,
+    },
+    {
+      label: 'Unsubscribe',
+      component: <PageUnsubscribe />,
+      path: '/unsubscribe',
+      includeFooter: false,
+    },
+    {
+      label: 'Resubscribe',
+      component: (
+        <AuthorizedPage>
+          <PageResubscribe />
+        </AuthorizedPage>
+      ),
+      path: '/resubscribe',
+      includeFooter: false,
+    },
   ],
   hidden: [
     {
@@ -176,6 +184,15 @@ export const pages = {
       path: '/profile-edit',
     },
     {
+      label: 'profile-edit-unregistered',
+      component: (
+        <AuthorizedPage>
+          <PageProfileEditUnregistered />
+        </AuthorizedPage>
+      ),
+      path: '/profile-edit-unregistered',
+    },
+    {
       label: 'payment-error',
       component: <PagePaymentError link={'/registration'} />,
       path: '/payment-error',
@@ -238,86 +255,86 @@ export const pages = {
     },
   ],
   scunt: [
-    {
-      label: 'Scunt',
-      scuntLabel: 'Home',
-      component: <PageScuntHome />,
-      path: '/scunt',
-      includeFooter: true,
-    },
-    {
-      label: 'Judges',
-      scuntLabel: 'Judges',
-      component: <ScuntJudges />,
-      path: '/scunt-judges',
-      includeFooter: true,
-    },
-    {
-      label: 'Missions',
-      scuntLabel: 'Missions',
-      component: <PageScuntMissionsList />,
-      path: '/scunt-missions',
-      includeFooter: true,
-    },
-    {
-      label: 'Leaderboard',
-      scuntLabel: 'Leaderboard',
-      component: <ScuntLeaderboard />,
-      path: '/scunt-leaderboard',
-      includeFooter: true,
-    },
-    {
-      label: 'Rules',
-      scuntLabel: 'Rules',
-      component: <PageScuntRules />,
-      path: '/scunt-rules',
-      includeFooter: true,
-    },
+    // {
+    //   label: 'Scunt',
+    //   scuntLabel: 'Home',
+    //   component: <PageScuntHome />,
+    //   path: '/scunt',
+    //   includeFooter: true,
+    // },
+    // {
+    //   label: 'Judges',
+    //   scuntLabel: 'Judges',
+    //   component: <ScuntJudges />,
+    //   path: '/scunt-judges',
+    //   includeFooter: true,
+    // },
+    // {
+    //   label: 'Missions',
+    //   scuntLabel: 'Missions',
+    //   component: <PageScuntMissionsList />,
+    //   path: '/scunt-missions',
+    //   includeFooter: true,
+    // },
+    // {
+    //   label: 'Leaderboard',
+    //   scuntLabel: 'Leaderboard',
+    //   component: <ScuntLeaderboard />,
+    //   path: '/scunt-leaderboard',
+    //   includeFooter: true,
+    // },
+    // {
+    //   label: 'Rules',
+    //   scuntLabel: 'Rules',
+    //   component: <PageScuntRules />,
+    //   path: '/scunt-rules',
+    //   includeFooter: true,
+    // },
   ],
   scuntHidden: [
-    {
-      label: 'Scunt Judge Form',
-      component: (
-        <AuthorizedPage leaderOnly>
-          <PageScuntJudgeForm />
-        </AuthorizedPage>
-      ),
-      path: '/scunt-judge-form',
-      includeFooter: true,
-    },
-    {
-      label: 'start-scunt',
-      component: (
-        <AuthorizedPage authScopes={['scunt:exec game controls']}>
-          <ScuntGameSettings />
-        </AuthorizedPage>
-      ),
-      path: '/scunt-game-controls',
-    },
-    {
-      label: 'Scunt Missions Dashboard',
-      component: (
-        <AuthorizedPage
-          authScopes={[
-            'scunt:exec show missions',
-            'scunt:exec hide missions',
-            'scunt:exec create missions',
-            'scunt:exec delete missions',
-          ]}
-        >
-          <PageScuntMissionsDashboard />
-        </AuthorizedPage>
-      ),
-      path: '/scunt-missions-dashboard',
-    },
-    {
-      label: 'Scunt Point Transactions',
-      path: '/scunt-transactions',
-      component: (
-        <AuthorizedPage authScopes={['scunt:exec view transactions']}>
-          <ScuntTransactions />
-        </AuthorizedPage>
-      ),
-    },
+    // {
+    //   label: 'Scunt Judge Form',
+    //   component: (
+    //     <AuthorizedPage leaderOnly>
+    //       <PageScuntJudgeForm />
+    //     </AuthorizedPage>
+    //   ),
+    //   path: '/scunt-judge-form',
+    //   includeFooter: true,
+    // },
+    // {
+    //   label: 'start-scunt',
+    //   component: (
+    //     <AuthorizedPage authScopes={['scunt:exec game controls']}>
+    //       <ScuntGameSettings />
+    //     </AuthorizedPage>
+    //   ),
+    //   path: '/scunt-game-controls',
+    // },
+    // {
+    //   label: 'Scunt Missions Dashboard',
+    //   component: (
+    //     <AuthorizedPage
+    //       authScopes={[
+    //         'scunt:exec show missions',
+    //         'scunt:exec hide missions',
+    //         'scunt:exec create missions',
+    //         'scunt:exec delete missions',
+    //       ]}
+    //     >
+    //       <PageScuntMissionsDashboard />
+    //     </AuthorizedPage>
+    //   ),
+    //   path: '/scunt-missions-dashboard',
+    // },
+    // {
+    //   label: 'Scunt Point Transactions',
+    //   path: '/scunt-transactions',
+    //   component: (
+    //     <AuthorizedPage authScopes={['scunt:exec view transactions']}>
+    //       <ScuntTransactions />
+    //     </AuthorizedPage>
+    //   ),
+    // },
   ],
 };

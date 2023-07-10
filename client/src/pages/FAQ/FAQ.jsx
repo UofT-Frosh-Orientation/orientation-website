@@ -31,7 +31,7 @@ const PageFAQ = () => {
   const [errorLoading, setErrorLoading] = useState(false);
   const { setSnackbar } = useContext(SnackbarContext);
 
-  useEffect(async () => {
+  const loadQuestions = async () => {
     const data = await getQuestions(setSnackbar);
     if (!data) {
       setSnackbar('There was an error getting FAQ questions');
@@ -72,6 +72,10 @@ const PageFAQ = () => {
 
     setLoading(false);
     setIsSearch(false);
+  };
+
+  useEffect(() => {
+    loadQuestions();
   }, []);
 
   return (
@@ -188,7 +192,6 @@ const FAQPageHeader = ({
   };
   return (
     <>
-      <div className="navbar-space-top" />
       <div className={'faq-page-header'}>
         <div className={'faq-page-header-container'}>
           <div className="faq-page-header-text">

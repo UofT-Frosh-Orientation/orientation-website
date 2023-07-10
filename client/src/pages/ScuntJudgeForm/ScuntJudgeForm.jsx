@@ -71,8 +71,6 @@ export const PageScuntJudgeForm = () => {
 
   return (
     <>
-      {/* <Header text={"Missions"}/> */}
-      <div className="navbar-space-top" />
       <div className="scunt-judge-form-page">
         <div className="scunt-judge-form-container">
           <h1>Judge Dashboard</h1>

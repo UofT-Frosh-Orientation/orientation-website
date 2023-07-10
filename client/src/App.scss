@@ -4,7 +4,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Helvetica';
+  font-family: 'Nunito', sans-serif;
   @include devices(tablet) {
     user-select: none;
   }
@@ -28,11 +28,25 @@
   src: url('../assets/fonts/Inter-Bold.ttf');
 }
 
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/Nunito-VariableFont_wght.ttf');
+}
+
+@font-face {
+  font-family: 'Nunito-Bold';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../assets/fonts/Nunito-VariableFont_wght.ttf');
+}
+
 html {
   background-color: var(--page-bg);
   scroll-behavior: smooth;
   overflow-x: hidden;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 h1,
@@ -40,7 +54,7 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: 'Inter-Bold', sans-serif;
+  font-family: 'Nunito-Bold', sans-serif;
   margin: 0px;
   padding: 0px;
 }
@@ -55,6 +69,10 @@ a {
   background-position: 0% 100%, 0 100%;
   background-repeat: no-repeat;
   transition: background-size 400ms;
+}
+
+button {
+  all: unset;
 }
 
 input {
@@ -137,10 +155,10 @@ a:hover {
   border-radius: 3px;
 }
 
-.navbar-space-top {
-  height: 45px;
+.content-container {
+  margin-top: 45px;
   @include devices(tablet) {
-    height: 0px;
+    margin-top: 0px;
   }
 }
 

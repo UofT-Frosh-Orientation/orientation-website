@@ -2,6 +2,9 @@ import { createAction } from '@reduxjs/toolkit';
 import { put, call, takeLeading } from 'redux-saga/effects';
 
 import {
+  signupStart,
+  signupFail,
+  signupSuccess,
   loginStart,
   loginFail,
   loginSuccess,
@@ -65,15 +68,35 @@ export function* getUserInfoSaga({ payload: navigate }) {
 
 export const updateUserInfo = createAction('updateUserInfoSaga');
 
-export function* updateUserInfoSaga({ payload: { newInfo, navigate } }) {
+export function* updateUserInfoSaga({
+  payload: { setSnackbar, setIsLoading, newInfo, navigate, isRegistered },
+}) {
   const { axios } = useAxios();
+  let result = {};
   try {
-    const result = yield call(axios.put, '/frosh/info', newInfo);
-
+    if (isRegistered) {
+      result = yield call(axios.put, '/frosh/info', newInfo);
+    } else {
+      result = yield call(axios.put, '/user/update-info', newInfo);
+    }
     yield put(setUserInfo(result.data.user));
-    if (navigate) navigate('/profile');
+    setSnackbar('Successfully Updated User Info', false);
+    if (navigate) {
+      setTimeout(() => {
+        navigate('/profile');
+      }, 1000);
+    }
   } catch (error) {
-    console.error(error);
+    setSnackbar(
+      error.response?.data?.message
+        ? error.response?.data?.message.toString()
+        : error.response?.data
+        ? error.response?.data.toString()
+        : error.toString(),
+      true,
+    );
+    // console.error(error);
+    setIsLoading(false);
     yield put(loginFail(error.response.data));
   }
 }
@@ -83,9 +106,9 @@ export const signUp = createAction('createUserSaga');
 export function* createUserSaga({ payload: { setSnackbar, setIsLoading, user } }) {
   const { axios } = useAxios();
   try {
-    yield put(loginStart());
+    yield put(signupStart());
     const result = yield call(axios.post, '/user/signup', user);
-    yield put(loginSuccess(result.data.user));
+    yield put(signupSuccess(result.data.user));
   } catch (error) {
     setSnackbar(
       error.response?.data?.message
@@ -96,8 +119,7 @@ export function* createUserSaga({ payload: { setSnackbar, setIsLoading, user } }
       true,
     );
     setIsLoading(false);
-    console.error(error);
-    yield put(loginFail(error.response.data));
+    yield put(signupFail(error.response.data));
   }
 }
 

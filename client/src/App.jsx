@@ -9,16 +9,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { initialsSelector, loggedInSelector, registeredSelector } from './state/user/userSlice';
 import { useEffect } from 'react';
 import { getUserInfo } from './state/user/saga';
+import { AskQuestionButton } from './components/button/AskQuestionButton/AskQuestionButton';
 import { DarkModeProvider } from './util/DarkModeProvider';
 import { SnackbarProvider } from './util/SnackbarProvider';
-import { getScuntSettings } from './state/scuntSettings/saga';
-import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
+
+// import { getScuntSettings } from './state/scuntSettings/saga';
+// import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
+
 
 export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserInfo());
-    dispatch(getScuntSettings());
+    // dispatch(getScuntSettings());
   }, []);
 
   return (
@@ -37,7 +40,7 @@ const TransitionRoutes = () => {
   const loggedIn = useSelector(loggedInSelector);
   const registered = useSelector(registeredSelector);
   const initials = useSelector(initialsSelector);
-  const scuntSettings = useSelector(scuntSettingsSelector);
+  // const scuntSettings = useSelector(scuntSettingsSelector);
 
   return (
     <TransitionGroup>
@@ -49,31 +52,31 @@ const TransitionRoutes = () => {
             ...pages.main,
             ...pages.hidden,
             ...pages.special,
-            ...pages.scunt,
-            ...pages.scuntHidden,
+            {
+              /* ...pages.scunt,
+            ...pages.scuntHidden, */
+            },
           ].map((page) => {
             return (
-              <>
-                {page.label === 'Home' || page.label === 'About' ? (
-                  <Route
-                    path={page.path}
-                    key={page.path}
-                    element={
-                      <div style={{ position: 'absolute', right: 0, left: 0, bottom: 0, top: 0 }}>
-                        <div style={{ minHeight: '100vh' }}>{page.component}</div>
-                        {page.includeFooter ? <Footer /> : <></>}
-                      </div>
-                    }
-                  />
-                ) : (
-                  <></>
-                )}
-              </>
+              <Route
+                path={page.path}
+                key={page.path}
+                element={
+                  <div
+                    className="content-container"
+                    style={{ position: 'absolute', right: 0, left: 0, bottom: 0, top: 0 }}
+                  >
+                    <div style={{ minHeight: '100vh' }}>{page.component}</div>
+                    {page.includeFooter ? <Footer /> : <></>}
+                  </div>
+                }
+              />
             );
           })}
           <Route path="*" element={pages['404'].component} />
         </Routes>
       </CSSTransition>
+      <AskQuestionButton />
     </TransitionGroup>
   );
 };

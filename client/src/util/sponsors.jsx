@@ -6,7 +6,8 @@ import Hatchery from '../assets/sponsors/Hatchery.png';
 
 import MainFroshLogo from '../assets/logo/frosh-main-logo.svg';
 
-{ /* OLD SPONSORS
+{
+  /* OLD SPONSORS
   {
     website: 'https://alumni.engineering.utoronto.ca/engineering-alumni-network/',
     image: EngineeringAlumniNetwork,
@@ -50,6 +51,7 @@ import MainFroshLogo from '../assets/logo/frosh-main-logo.svg';
     rank: 'none',
     label: 'sponsorship@orientation.skule.ca',
   }, 
-*/}
+*/
+}
 
-export const sponsors = [ ];
+export const sponsors = [];
