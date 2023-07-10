@@ -70,6 +70,7 @@ const HomeHeaderButton = () => {
         key={loggedIn ? '/profile' : '/sign-up'}
         to={loggedIn ? '/profile' : '/sign-up'}
         style={{ textDecoration: 'none' }}
+        className="no-link-style"
       >
         <div className="home-page-header-register-button">
           <div className="desktop-only">
@@ -78,7 +79,6 @@ const HomeHeaderButton = () => {
               isSecondary
               style={{
                 margin: '0px',
-                width: '100%',
                 height: '100%',
                 fontSize: 'unset',
                 display: 'flex',
