@@ -93,14 +93,6 @@ const PaymentServices = {
             quantity: 1,
           },
         ],
-        discounts:
-          type === 'orientation'
-            ? [
-                {
-                  coupon: process.env.STRIPE_EARLY_BIRD_COUPON_ID,
-                },
-              ]
-            : [],
         mode: 'payment',
         success_url: `${process.env.CLIENT_BASE_URL}${
           products[type]?.relativeUrlSuccess ?? products['orientation'].relativeUrlSuccess
