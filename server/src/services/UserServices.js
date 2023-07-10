@@ -160,6 +160,18 @@ const UserServices = {
     });
   },
 
+  async getUserByID(userID) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOne({ _id: userID }, (err, user) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(user);
+        }
+      });
+    });
+  },
+
   async getAllUsers() {
     return new Promise((resolve, reject) => {
       UserModel.find({}, (err, users) => {

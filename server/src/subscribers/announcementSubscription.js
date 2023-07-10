@@ -2,7 +2,7 @@ const Queue = require('bull');
 const EmailServices = require('../services/EmailServices');
 const UserServices = require('../services/UserServices');
 
-const announcementSubscription = new Queue('newFrosh', {
+const announcementSubscription = new Queue('newAnnouncement', {
   redis: { port: process.env.REDIS_PORT, host: 'redis', password: process.env.REDIS_PASSWORD },
 });
 
