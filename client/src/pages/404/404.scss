@@ -1,97 +1,143 @@
 @import '../../scssStyles/mixins';
 
 .error404-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  position: relative;
+  overflow: hidden;
   width: 100vw;
   height: 100vh;
-  text-align: center;
-  h1 {
-    color: var(--white);
-    font-size: 100px;
-    text-shadow: 10px 10px 10px #6c2525;
-    @include devices(tablet) {
-      font-size: 50px;
-    }
-  }
-  h2 {
-    color: var(--white);
-    font-size: 60px;
-    text-shadow: 10px 10px 10px #6c2525;
-    @include devices(tablet) {
-      font-size: 30px;
-    }
-  }
+  user-select: none;
+  pointer-events: none;
 }
 
-.error404-sky {
+.error404-bg {
   position: absolute;
-  left: 0;
   top: 0;
-  height: 30vh;
-  width: 100vw;
-  background-color: rgb(97, 97, 162);
-  z-index: -1;
-}
-
-.error404-grass {
-  position: absolute;
   left: 0;
-  top: 25vh;
-  height: 10vh;
-  width: 100vw;
-  background-repeat: repeat-x;
-  background-size: 50vh 5vh;
-  animation: grass-sway infinite;
-  animation-duration: 4110ms;
-  animation-timing-function: linear;
-}
-
-@keyframes grass-sway {
-  0% {
-    transform: skewX(-10deg);
-  }
-  33% {
-    transform: skewX(10deg);
-  }
-  66% {
-    transform: skewX(0deg);
-  }
-  100% {
-    transform: skewX(-10deg);
-  }
-}
-
-.error404-bg-image {
-  position: absolute;
-  left: 0;
-  top: 30vh;
-  background-color: #7b3f3f;
-  z-index: -1;
-  width: 100vw;
-  height: 70vh;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  opacity: 0.3;
+  filter: blur(2px);
 }
 
-.error404-meteor-image {
+.error404-flex {
   position: absolute;
-  top: 5vh;
-  right: 10vw;
-  height: 20vh;
-  animation: meteor-sway infinite;
-  animation-duration: 5000ms;
+  display: flex;
+  justify-content: center;
+  user-select: none;
+  pointer-events: none;
+  width: 100%;
 }
 
-@keyframes meteor-sway {
-  0% {
-    transform: translateY(1vh) translateX(-1vw);
+.error404-tree {
+  position: absolute;
+  height: 100%;
+  right: -50px;
+
+  @include devices(tablet) {
+    right: -80vw;
   }
-  30% {
-    transform: translateY(0px) translateX(0vw);
+}
+
+.error404-msg {
+  width: 285px;
+  height: auto;
+  margin-top: 140px;
+  animation: move-up-down ease-in-out infinite;
+  animation-duration: 15s;
+
+  @include devices(tablet) {
+    width: 45vw;
+    margin-top: 15vh;
+  }
+}
+
+.error404-sign {
+  position: absolute;
+  bottom: -64px;
+  left: 25vw;
+  width: 250px;
+  height: auto;
+
+  @include devices(tablet) {
+    width: 180px;
+    left: 10vw;
+    bottom: 0;
+  }
+}
+
+.error404-cat {
+  height: 90vh;
+  transform-origin: top center;
+  animation: swing-cat 15s ease-in-out infinite;
+
+  @include devices(tablet) {
+    margin-top: 12px;
+    height: 70vh;
+  }
+}
+
+@keyframes swing-cat {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform-origin: top center;
+    transform: rotate(7deg);
+  }
+  70% {
+    transform-origin: top center;
+    transform: rotate(-7deg);
   }
   100% {
-    transform: translateY(1vh) translateX(-1vw);
+    transform-origin: top center;
+    transform: rotate(0deg);
+  }
+}
+
+.error404-four {
+  height: 40vh;
+  margin: 270px 40px 0 40px;
+  animation: move-up-down ease-in-out infinite;
+  animation-duration: 15s;
+
+  @include devices(tablet) {
+    // margin-top: 250px;
+    margin-top: 30vh;
+    height: 20vh;
+  }
+}
+
+.error404-right {
+  margin-right: -267px;
+
+  @include devices(tablet) {
+    margin-right: -190px;
+  }
+}
+
+.error404-left {
+  margin-right: 431px;
+
+  @include devices(tablet) {
+    margin-right: 250px;
+  }
+}
+
+@keyframes move-up-down {
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-5px);
+  }
+  40% {
+    transform: translateY(0px);
+  }
+  60% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0px);
   }
 }

@@ -115,67 +115,93 @@
   pointer-events: none;
 }
 
-.ptero {
-  position: absolute;
-  top: 8vh;
-  left: 5vw;
-  width: 20vw;
-  z-index: 8;
-
-  animation: ptero-fly infinite 15s ease-in-out;
-}
-@keyframes ptero-fly {
-  0% {
-    transform: translateX(-10px) rotate(-5deg);
+@keyframes scrolling {
+  from {
+    transform: translate(0, 0);
   }
-  50% {
-    transform: translateX(10px) rotate(5deg);
+  33% {
+    transform: translate(0, 10%);
   }
-  100% {
-    transform: translateX(-10px) rotate(-5deg);
+  66% {
+    transform: translate(0, -10%);
+  }
+  to {
+    transform: translate(0, 0);
   }
 }
 
-.brachio-left {
+@keyframes cloud-scrolling {
+  from {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(0, 3%);
+  }
+  66% {
+    transform: translate(0, -3%);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+.bg-colour {
+  color: #e8e0eb;
   position: absolute;
-  bottom: -7px;
-  width: 40vw;
-  z-index: 8;
+  height: 100%;
+}
+
+.bg {
+  // overflow: hidden;
+  position: absolute;
   left: 0;
-
-  animation: brachio-sway infinite 15s ease-in-out;
+  bottom: -8vh;
+  height: 100%;
+  animation: ground-sway infinite 40s ease-in-out;
+  animation-duration: 90s;
 }
 
-.brachio-right {
+.birds {
   position: absolute;
-  bottom: -10px;
-  z-index: 8;
-  height: 80%;
-  right: -2vw;
-
-  animation: brachio-sway infinite 15s ease-in-out;
+  height: 100%;
+  top: 2%;
+  animation: scrolling 30s linear infinite;
+  animation-duration: 30s;
 }
 
-@keyframes brachio-sway {
-  0% {
-    transform: translateY(-5px) rotate(-1deg) scale(1);
-  }
-  50% {
-    transform: translateY(5px) rotate(1deg) scale(1.02);
-  }
-  100% {
-    transform: translateY(-5px) rotate(-1deg) scale(1);
-  }
-}
-
-.ground {
-  overflow: hidden;
+.clouds {
   position: absolute;
-  bottom: -33%;
-  width: 100vw;
-  z-index: 7;
+  top: 5%;
+  height: 95%;
+  opacity: 0.9;
+  animation: cloud-scrolling 30s linear infinite;
+  animation-duration: 30s;
+}
 
+.clouds-long {
+  position: absolute;
+  top: 10%;
+  height: 50%;
+  opacity: 0.5;
+  left: 0;
+  animation: cloud-scrolling 30s linear infinite;
+  animation-duration: 60s;
+}
+
+.midground {
+  position: absolute;
+  bottom: -8vh;
+  height: 100vh;
   animation: ground-sway infinite 15s ease-in-out;
+  animation-duration: 60s;
+}
+
+.foreground {
+  position: absolute;
+  bottom: -5vh;
+  height: 100vh;
+  animation: ground-sway infinite 15s ease-in-out;
+  animation-duration: 30s;
 }
 
 @keyframes ground-sway {
@@ -190,95 +216,11 @@
   }
 }
 
-.mountain-back {
-  position: absolute;
-  bottom: -50vh;
-  left: -25vw;
-  width: 80vw;
-  z-index: -10;
-}
-
-.mountain-front-left {
-  overflow: hidden;
-  position: absolute;
-  left: 0;
-  bottom: -10vh;
-  height: 100vh;
-}
-
-.mountain-front-right {
-  overflow: hidden;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin-top: 40vh;
-  width: 35%;
-  z-index: -1;
-}
-
-.mountain-mid {
-  position: absolute;
-  overflow: hidden;
-  bottom: -65vh;
-  width: 90vw;
-  left: 4vw;
-  z-index: 0;
-}
-
 @include devices(tablet) {
   .login-bg-images {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-  }
-
-  .ptero {
-    top: 25vh;
-    left: 10vw;
-    width: 20vw;
-  }
-
-  .brachio-left {
-    bottom: 35px;
-    width: 25vw;
-    left: 5px;
-  }
-
-  .brachio-right {
-    bottom: 30px;
-    width: 60%;
-    right: 0;
-    height: auto;
-  }
-
-  .ground {
-    bottom: 0;
-    width: 100vw;
-  }
-
-  .mountain-back {
-    bottom: 10vh;
-    left: -40vw;
-    width: 100vw;
-  }
-
-  .mountain-front-left {
-    left: 0;
-    bottom: -10vh;
-    height: 50vh;
-  }
-
-  .mountain-front-right {
-    bottom: 0;
-    right: -5vw;
-    // height: 80vh;
-    width: 80%;
-  }
-
-  .mountain-mid {
-    bottom: 0;
-    width: 90vw;
-    left: 8vw;
   }
 }
 

@@ -135,7 +135,7 @@ const AskQuestionButton = () => {
       <div className={'faq-fab'}>
         <Button
           style={{ boxShadow: '5px 5px 20px #13131362' }}
-          class_options={'faq-fab-button'}
+          class_options="faq-fab-button"
           label={
             <div className={'faq-fab-container'}>
               <img
