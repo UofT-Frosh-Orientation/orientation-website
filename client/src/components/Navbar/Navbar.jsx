@@ -20,36 +20,17 @@ import ProfileIcon from '../../assets/navbar/circle-user-solid-purple.svg';
 import ProfileIconDarkMode from '../../assets/darkmode/navbar/circle-user-solid-purple.svg';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
 
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { pages } from '../../util/pages';
 import { profilePages } from '../../util/profile-pages';
-import { PopupModal } from '../popup/PopupModal';
-import { Button } from '../button/Button/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../state/user/saga';
+import { useSelector } from 'react-redux';
 import { ProfileDropdown } from '../ProfileDropdown/ProfileDropdown';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { userSelector } from '../../state/user/userSlice';
 
 const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-
   return (
     <>
-      {/* <div
-        onClick={() => {
-          setDarkModeStatus(!darkMode);
-        }}
-        style={{
-          height: '100px',
-          width: '100px',
-          backgroundColor: 'red',
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          zIndex: 100,
-        }}
-      ></div> */}
       <div className="navbar-desktop">
         <NavbarDesktop
           isLoggedIn={isLoggedIn}
