@@ -2,8 +2,9 @@ import React from 'react';
 import { resources } from '../../../util/resources';
 import { ButtonBubble } from '../../button/ButtonBubble/ButtonBubble';
 import './ProfilePageResources.scss';
+import PropTypes from 'prop-types';
 
-export const ProfilePageResources = () => {
+export const ProfilePageResources = ({ froshObject }) => {
   return (
     <div className="profile-page-resources profile-page-side-section">
       <h2>Resources</h2>
@@ -24,6 +25,29 @@ export const ProfilePageResources = () => {
           </a>
         );
       })}
+      {froshObject ? (
+        <a key={'5Download'} className="no-link-style">
+          <ButtonBubble
+            label={'Download Information PDF'}
+            onClick={async () => {
+              const ReactPDF = await import('@react-pdf/renderer');
+              const { MakeReceipt } = await import('../../MakeReceipt/MakeReceipt');
+              const blob = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
+              const fileURL = URL.createObjectURL(blob);
+              const pdfWindow = window.open(fileURL, '_blank');
+              pdfWindow && pdfWindow.focus();
+            }}
+            isSecondary
+            style={{ margin: 0, marginTop: '10px' }}
+          />
+        </a>
+      ) : (
+        <></>
+      )}
     </div>
   );
+};
+
+ProfilePageResources.propTypes = {
+  froshObject: PropTypes.object,
 };

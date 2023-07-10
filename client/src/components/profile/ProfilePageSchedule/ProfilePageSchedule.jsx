@@ -3,10 +3,9 @@ import { useSelector } from 'react-redux';
 import { userSelector } from '../../../state/user/userSlice';
 import { getDaysSchedule, getFroshGroupSchedule } from '../../../pages/Profile/functions';
 import { ButtonSelector } from '../../buttonSelector/buttonSelector/ButtonSelector';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { ScheduleComponentAccordion } from '../../schedule/ScheduleHome/ScheduleHome';
 import './ProfilePageSchedule.scss';
-import { froshGroups } from '../../../util/frosh-groups';
+// import { froshGroups } from '../../../util/frosh-groups';
 
 export const ProfilePageSchedule = () => {
   const { user } = useSelector(userSelector);
@@ -70,15 +69,11 @@ export const ProfilePageSchedule = () => {
         <div className="profile-page-schedule-accordions">
           {scheduleData[Object.keys(scheduleData)[selectedDayIndex]].map((scheduleDay, index) => {
             return (
-              <React.Fragment key={`${scheduleDay}-${index}`}>
-                <LazyLoadComponent>
-                  <ScheduleComponentAccordion
-                    key={Object.keys(scheduleData)[index] + index}
-                    scheduleDay={scheduleDay}
-                    closeAll={closeAll}
-                  />
-                </LazyLoadComponent>
-              </React.Fragment>
+              <ScheduleComponentAccordion
+                key={index}
+                scheduleDay={scheduleDay}
+                closeAll={closeAll}
+              />
             );
           })}
         </div>

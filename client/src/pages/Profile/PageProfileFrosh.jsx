@@ -9,11 +9,11 @@ import { QRNormal } from 'react-qrbtf';
 import { Button } from '../../components/button/Button/Button';
 import EditIcon from '../../assets/misc/pen-solid.svg';
 import CampingIcon from '../../assets/misc/camping-tent.png';
-import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
+// import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Link } from 'react-router-dom';
 import { instagramAccounts } from '../../util/instagramAccounts';
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
-import NitelifeIcon from '../../assets/misc/nitelife.png';
+// import NitelifeIcon from '../../assets/misc/nitelife.png';
 import ScuntIcon from '../../assets/misc/magnifier.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
@@ -29,11 +29,10 @@ import { completedAnnouncementsSelector } from '../../state/announcements/announ
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import useAxios from '../../hooks/useAxios';
 import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { ProfilePageSchedule } from '../../components/profile/ProfilePageSchedule/ProfilePageSchedule';
 import { ProfilePageResources } from '../../components/profile/ProfilePageResources/ProfilePageResources';
-import { ProfilePageFroshScuntTeamsSelection } from '../../components/profile/scunt/ProfilePageFroshScuntTeamsSelection/ProfilePageFroshScuntTeamsSelection';
-import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
+// import { ProfilePageFroshScuntTeamsSelection } from '../../components/profile/scunt/ProfilePageFroshScuntTeamsSelection/ProfilePageFroshScuntTeamsSelection';
+// import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
 
 const { axios } = useAxios();
 
@@ -71,21 +70,17 @@ const PageProfileFrosh = () => {
         <div className="profile-info-row-right">
           {/* <ProfilePageFroshScuntMessage /> */}
           {user?.isRegistered && <ProfilePageRetreat />}
-          <ProfilePageNitelife />
+          {/* <ProfilePageNitelife /> */}
           <ProfilePageInstagrams />
           <ProfilePageAnnouncements />
-          <LazyLoadComponent>
-            <ProfilePageSchedule />
-          </LazyLoadComponent>
+          <ProfilePageSchedule />
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <ProfilePageQRCode />
           {/* Remove scunt stuff for now! */}
           {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> */}
           {/* <ProfilePageFroshScuntTeamsSelection /> */}
-          <LazyLoadComponent>
-            <ProfilePageResources />
-          </LazyLoadComponent>
+          <ProfilePageResources froshObject={user?.isRegistered ? user : null} />
         </div>
       </div>
     </>
@@ -93,15 +88,19 @@ const PageProfileFrosh = () => {
 };
 
 export const ProfilePageRetreat = () => {
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
   const { user } = useSelector(userSelector);
   const isRegistered = useSelector(registeredSelector);
   const isRetreat = user?.isRetreat === true;
   const { setSnackbar } = useContext(SnackbarContext);
   const [remainingTickets, setRemainingTickets] = useState();
 
-  useEffect(async () => {
+  const remainingTicketsSetter = async () => {
     setRemainingTickets(await getRemainingTickets(setSnackbar));
+  };
+
+  useEffect(() => {
+    remainingTicketsSetter();
   }, []);
 
   if (!isRegistered) {
@@ -165,7 +164,7 @@ export const ProfilePageRetreat = () => {
             </div>
             <div className="mobile-only" style={{ marginTop: '10px', width: '100%' }}>
               <Button
-                label={'Learn More'}
+                label={'Buy Now!'}
                 isSecondary
                 style={{
                   margin: '-1px',
@@ -218,7 +217,7 @@ export const ProfilePageFroshScuntMessage = () => {
 const ProfilePageFroshHeader = ({ editButton }) => {
   const { user } = useSelector(userSelector);
   const isRegistered = useSelector(registeredSelector);
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
   const currentYear = new Date().getFullYear();
   const gradYear = currentYear + 4;
   const firstDigitF = gradYear.toString().slice(-2, -1);
@@ -290,38 +289,38 @@ ProfilePageFroshHeader.propTypes = {
   editButton: PropTypes.bool,
 };
 
-const ProfilePageNitelife = () => {
-  const isRegistered = useSelector(registeredSelector);
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+// const ProfilePageNitelife = () => {
+//   const isRegistered = useSelector(registeredSelector);
+//   const { darkMode } = useContext(DarkModeContext);
 
-  return isRegistered ? (
-    <a
-      href={'https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'}
-      className="no-link-style"
-      target={'_blank'}
-      rel="noreferrer"
-    >
-      <div className="frosh-instagram-container">
-        <img
-          src={NitelifeIcon}
-          alt="Nitelife"
-          style={{ filter: darkMode ? 'invert(1)' : 'unset' }}
-        />
-        <div>
-          <h2>Nitelife Event Schedule & Map</h2>
-          <p>F!rosh Week doesn&apos;t end at 6:00! Learn more by clicking here.</p>
-        </div>
-      </div>
-    </a>
-  ) : (
-    <></>
-  );
-};
+//   return isRegistered ? (
+//     <a
+//       href={'https://drive.google.com/file/d/1-C3Pq7neNUuPlIC5an4W031vWLajS1HD/view'}
+//       className="no-link-style"
+//       target={'_blank'}
+//       rel="noreferrer"
+//     >
+//       <div className="frosh-instagram-container">
+//         <img
+//           src={NitelifeIcon}
+//           alt="Nitelife"
+//           style={{ filter: darkMode ? 'invert(1)' : 'unset' }}
+//         />
+//         <div>
+//           <h2>Nitelife Event Schedule & Map</h2>
+//           <p>F!rosh Week doesn&apos;t end at 6:00! Learn more by clicking here.</p>
+//         </div>
+//       </div>
+//     </a>
+//   ) : (
+//     <></>
+//   );
+// };
 
 const ProfilePageInstagrams = () => {
   const { user } = useSelector(userSelector);
   const isRegistered = useSelector(registeredSelector);
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
 
   const getInstagramFromLink = (link) => {
     if (link === undefined) return '';

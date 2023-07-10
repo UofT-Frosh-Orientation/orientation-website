@@ -5,17 +5,17 @@ import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
 import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
 import { Button } from '../../components/button/Button/Button';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
-import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
+// import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import EditIcon from '../../assets/misc/pen-solid.svg';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { userSelector } from '../../state/user/userSlice';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
-import { scuntDiscord } from '../../util/scunt-constants';
+// import { scuntDiscord } from '../../util/scunt-constants';
 import {
   getScuntTeamObjFromTeamName,
-  getScuntTeamObjFromTeamNumber,
+  // getScuntTeamObjFromTeamNumber,
 } from '../ScuntJudgeForm/ScuntJudgeForm';
 import ScuntIcon from '../../assets/misc/magnifier.png';
 import useAxios from '../../hooks/useAxios';
@@ -57,7 +57,7 @@ const PageProfileLeader = () => {
 
   return (
     <>
-      <ProfilePageLeaderHeader editButton={true} />
+      <ProfilePageLeaderHeader />
       <div className="profile-info-row">
         <div className="profile-info-row-right">
           <ProfilePageLeaderPermissionDashboardLinks />
@@ -188,7 +188,7 @@ export const ProfilePageLeaderScuntMessage = () => {
 //   scuntTeamObjs: PropTypes.array,
 // };
 
-const ProfilePageLeaderHeader = ({ editButton }) => {
+const ProfilePageLeaderHeader = () => {
   const { user } = useSelector(userSelector);
   const leaderApproved = user?.approved === true;
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
@@ -244,10 +244,6 @@ const ProfilePageLeaderHeader = ({ editButton }) => {
       )}
     </>
   );
-};
-
-ProfilePageLeaderHeader.propTypes = {
-  editButton: PropTypes.bool,
 };
 
 export { PageProfileLeader, ProfilePageLeaderHeader };

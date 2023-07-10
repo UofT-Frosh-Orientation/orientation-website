@@ -1,23 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import './ProfilePageLeaderPermissionDashboardLinks.scss';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { userSelector } from '../../../../state/user/userSlice';
-import { DarkModeContext } from '../../../../util/DarkModeProvider';
 import { Button } from '../../../button/Button/Button';
 import { DashboardDropdown } from '../../../DashboardDropdown/DashboardDropdown';
-
 import DataDashboardIcon from '../../../../assets/dashboarddropdown/data-icon.svg';
 import OutreachDashboardIcon from '../../../../assets/dashboarddropdown/outreach-icon.svg';
 import ScuntDashboardIcon from '../../../../assets/dashboarddropdown/scunt-icon.svg';
 
 export const ProfilePageLeaderPermissionDashboardLinks = () => {
   const { user } = useSelector(userSelector);
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
   const [openDataDropdown, setOpenDataDropdown] = useState(false);
   const [openOutreachDropdown, setOpenOutreachDropdown] = useState(false);
   const [openScuntDropdown, setOpenScuntDropdown] = useState(false);
-  const leader = user?.userType === 'leadur';
   const approved = user?.approved === true;
 
   const dropdowns = [
@@ -160,7 +156,7 @@ export const ProfilePageLeaderPermissionDashboardLinks = () => {
 
   return (
     <div className={'profile-leader-dashboard-links'}>
-      {leader && approved ? (
+      {approved ? (
         <>
           <div className={'profile-leader-dashboard-permissions-links'}>
             <Link
@@ -174,15 +170,14 @@ export const ProfilePageLeaderPermissionDashboardLinks = () => {
           <div className={'profile-leader-dashboard-other-links'}>
             {userDropdown.map((dropdown, index) => {
               return (
-                <React.Fragment key={`${dropdown.label}-${index}`}>
-                  <DashboardDropdown
-                    open={dropdown.state}
-                    setOpen={dropdown.setState}
-                    items={dropdown.items}
-                    title={dropdown.title}
-                    icon={dropdown.icon}
-                  />
-                </React.Fragment>
+                <DashboardDropdown
+                  key={`${dropdown.label}-${index}`}
+                  open={dropdown.state}
+                  setOpen={dropdown.setState}
+                  items={dropdown.items}
+                  title={dropdown.title}
+                  icon={dropdown.icon}
+                />
               );
             })}
           </div>

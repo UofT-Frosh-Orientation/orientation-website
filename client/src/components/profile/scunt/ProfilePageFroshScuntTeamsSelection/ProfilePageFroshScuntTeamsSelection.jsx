@@ -73,8 +73,8 @@ export const ProfilePageFroshScuntTeamsSelection = () => {
             teammatesCopy[teammatesCopy.length] = user?.email;
 
             for (let userEmail of teammatesCopy) {
-              let response;
               try {
+                let response;
                 response = await axios.put('/user/user-exist', { email: userEmail });
               } catch (e) {
                 if (e?.response?.status === 404) {
