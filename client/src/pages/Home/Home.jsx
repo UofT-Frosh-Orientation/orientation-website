@@ -24,7 +24,7 @@ import { sponsors } from '../../util/sponsors';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { useSelector } from 'react-redux';
 import { loggedInSelector, userSelector } from '../../state/user/userSlice';
-import { LazyLoadComponent, LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import ProgressiveImage from '../../components/progressiveImg/ProgressiveImg';
 
 const PageHome = () => {
@@ -134,9 +134,13 @@ const HomePageTimeline = () => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState({});
   const [dates, setDates] = useState();
-  useEffect(async () => {
+  const datesSetter = async () => {
     setDates(await getTimelineEvents());
+  };
+  useEffect(() => {
+    datesSetter();
   }, []);
+
   return (
     !(dates === undefined || dates?.length === 0) && (
       <div className="home-page-timeline">

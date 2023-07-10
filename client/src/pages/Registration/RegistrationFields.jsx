@@ -95,6 +95,7 @@ export const fields = {
       hasRestrictedInput: true,
       isRequiredInput: true,
       errorMessage: 'Please enter a valid date',
+      localStorageKey: 'registration-birthdate',
       className: 'half-width-input',
       validation: (value) => {
         if (
@@ -419,6 +420,8 @@ export const fields = {
           disableField(false, 'commuterProgramInformation', 'Misc');
         } else {
           disableField(true, 'commuterProgramInformation', 'Misc');
+          disableField(true, 'commuterProgramOther', 'Misc');
+          disableField(true, 'commuterProgramStop', 'Misc');
         }
       },
       localStorageKey: 'registration-commuter',

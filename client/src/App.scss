@@ -71,6 +71,10 @@ a {
   transition: background-size 400ms;
 }
 
+button {
+  all: unset;
+}
+
 input {
   background-color: (--faq-searchbar-bg);
 }

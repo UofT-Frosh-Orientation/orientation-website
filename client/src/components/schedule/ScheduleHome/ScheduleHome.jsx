@@ -127,7 +127,7 @@ export const ScheduleComponentAccordion = ({ scheduleDay, closeAll }) => {
         className={`schedule-background-${scheduleDay['Color']}`}
         header={
           <div className="schedule-accordion-header-container">
-            <div className="schedule-accordion-header" closeAll={closeAll}>
+            <div className="schedule-accordion-header">
               <h1>{scheduleDay['Event Name']}</h1>
               {scheduleDay['Event Location'] ? (
                 <div className="schedule-accordion-header-location-container">

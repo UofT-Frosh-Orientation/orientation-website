@@ -190,24 +190,7 @@ const EmailServices = {
 
     msg.body.push(alternateEntity);
 
-    for (const filePath of attachments) {
-      const filemime = mime.getType(path.basename(filePath));
-
-      const fileData = await fs.readFile(filePath, {
-        encoding: 'base64',
-      });
-
-      const attachment = mimemessage.factory({
-        contentType: filemime,
-        contentTransferEncoding: 'base64',
-        body: fileData,
-      });
-
-      attachment.header('Content-Disposition', `attachment ;filename="${path.basename(filePath)}"`);
-
-      msg.body.push(attachment);
-    }
-
+    await this.handleAttachments(msg, attachments);
     const params = {
       Content: {
         Raw: {
@@ -224,6 +207,44 @@ const EmailServices = {
     const command = new SendEmailCommand(params);
 
     return SES.send(command);
+  },
+
+  async handleAttachments(msg, files) {
+    for (const file of files) {
+      if (file.type === 'static') {
+        const fileMIME = mime.getType(path.basename(file.filePath));
+
+        const fileData = await fs.readFile(`${__dirname}/emailAssets/${file.filePath}`, {
+          encoding: 'base64',
+        });
+
+        const attachment = mimemessage.factory({
+          contentType: fileMIME,
+          contentTransferEncoding: 'base64',
+          body: fileData,
+        });
+
+        attachment.header('Content-ID', `${file.filePath.split('.')[0].replace(/-/g, '')}`);
+        attachment.header(
+          'Content-Disposition',
+          `${file.contentDisposition}; filename="${path.basename(file.filePath)}"`,
+        );
+        msg.body.push(attachment);
+      } else if (file.type === 'non-static') {
+        const attachment = mimemessage.factory({
+          contentType: file.content.mimetype,
+          contentTransferEncoding: 'base64',
+          body: Buffer.from(file.content.buffer).toString('base64'),
+        });
+
+        attachment.header(
+          'Content-Disposition',
+          `${file.contentDisposition}; filename="${file.content.fieldname}"`,
+        );
+
+        msg.body.push(attachment);
+      }
+    }
   },
 };
 
