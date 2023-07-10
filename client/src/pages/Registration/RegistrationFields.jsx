@@ -32,6 +32,11 @@ const textLengthValidation = (value) => {
   }
 };
 
+const phoneNumberValidation = (value) => {
+  if (value.length > 5 && value.length < 16) return true;
+  else return 'Please enter a valid phone number';
+};
+
 let allergiesList = [];
 
 export const fields = {
@@ -230,6 +235,7 @@ export const fields = {
       className: 'fill-remaining-width-input',
       isPhoneNumber: true,
       inputTitle: 'Phone Number',
+      validation: phoneNumberValidation,
     },
     emergencyContactName: {
       type: 'text',
@@ -270,6 +276,7 @@ export const fields = {
       className: 'half-width-input',
       isPhoneNumber: true,
       inputTitle: 'Phone Number',
+      validation: phoneNumberValidation,
     },
   },
   HealthSafety: {
