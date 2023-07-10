@@ -40,7 +40,7 @@ const FroshSchema = new mongoose.Schema(
     },
     pronouns: {
       type: String,
-      enum: ['He/Him', 'They/Them', 'She/Her', 'Other', 'Prefer not to say'],
+      enum: ['he/him', 'they/them', 'she/her', 'other', 'prefer not to say'],
       required: true,
     },
     pronounOther: {
@@ -142,7 +142,7 @@ const FroshSchema = new mongoose.Schema(
     },
     moveToToronto: {
       type: String,
-      enum: ['N/A', 'July', 'August', 'September'],
+      enum: ['Already in Toronto', 'July', 'August', 'September'],
       required: false,
     },
     photograph: {
