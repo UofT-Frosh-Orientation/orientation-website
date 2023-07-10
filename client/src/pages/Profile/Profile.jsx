@@ -103,7 +103,7 @@ const PageProfileFrosh = () => {
         <div>
           {leader === false ? (
             <>
-              {/* <ProfilePageScuntMessage /> */}
+              <ProfilePageScuntMessage />
               {user?.isRegistered && <ProfilePageRetreat />}
               <ProfilePageNitelife />
               <ProfilePageInstagrams />
@@ -111,9 +111,9 @@ const PageProfileFrosh = () => {
             </>
           ) : (
             <>
-              {/* <div style={{ marginTop: '20px' }} />
+              <div style={{ marginTop: '20px' }} />
               <ProfilePageScuntMessage />
-              <div style={{ marginTop: '-20px' }} /> */}
+              <div style={{ marginTop: '-20px' }} />
             </>
           )}
           <ProfilePageSchedule />
@@ -127,8 +127,8 @@ const PageProfileFrosh = () => {
           ) : (
             <></>
           )}
-          {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
-          <ProfilePageScuntTeamsSelection /> */}
+          <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
+          <ProfilePageScuntTeamsSelection />
           <ProfilePageResources />
           {leader ? (
             <ProfilePageScuntTeamSelectionLeader
