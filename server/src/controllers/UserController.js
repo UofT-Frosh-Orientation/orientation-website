@@ -74,7 +74,7 @@ const UserController = {
       if (err || !user) {
         //req.log.info("Incorrect Email and Password entered by user");
         res.status(403).send({ message: 'Please ensure your email and password are correct.' });
-      } else if (!user.confirmed) {
+      } else if (!user.confirmedEmail) {
         // req.log.error(err, "Attempt to login with unverified email");
         res.status(403).send({ message: 'Please ensure that you have verified your email.' });
       } else {
@@ -183,7 +183,7 @@ const UserController = {
       if (!existingUser || existingUser.email !== result) {
         next(new Error('INVALID_VERIFICATION_LINK'));
       } else {
-        await UserServices.updateUserInfo(existingUser.id, { confirmed: true });
+        await UserServices.updateUserInfo(existingUser.id, { confirmedEmail: true });
         newUserSubscription.add(existingUser);
 
         res.status(200).send({
