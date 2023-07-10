@@ -87,7 +87,7 @@ const ScheduleComponent = () => {
           );
         })}
       </div>
-      <div>
+      <div style={{ width: '100%' }}>
         {data[Object.keys(data)[selectedDayIndex]].map((scheduleDay, index) => {
           return (
             <ScheduleComponentAccordion key={index} scheduleDay={scheduleDay} closeAll={closeAll} />

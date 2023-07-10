@@ -20,20 +20,15 @@ import ProfileIcon from '../../assets/navbar/circle-user-solid-purple.svg';
 import ProfileIconDarkMode from '../../assets/darkmode/navbar/circle-user-solid-purple.svg';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
 
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { pages } from '../../util/pages';
 import { profilePages } from '../../util/profile-pages';
-import { PopupModal } from '../popup/PopupModal';
-import { Button } from '../button/Button/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../state/user/saga';
+import { useSelector } from 'react-redux';
 import { ProfileDropdown } from '../ProfileDropdown/ProfileDropdown';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { userSelector } from '../../state/user/userSlice';
 
 const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-
   return (
     <>
       <div className="navbar-desktop">
@@ -91,20 +86,22 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
           {/* MAIN PAGES - Home, About, FAQ */}
           {pages.main.map((page) => {
             return (
-              <Link
-                to={pathname === page.path ? {} : page.path}
-                key={page.path}
-                style={pathname === page.path ? { pointerEvents: 'none' } : {}}
-              >
-                <div className="navbar-sub-container" key={page.path}>
-                  <div className="navbar-link"> {page.label} </div>
-                  {pathname === page.path ? (
-                    <div className="underline-page-selected"></div>
-                  ) : (
-                    <div className="navbar-underline"></div>
-                  )}
-                </div>
-              </Link>
+              <React.Fragment key={page.path}>
+                <Link
+                  to={pathname === page.path ? {} : page.path}
+                  key={page.path}
+                  style={pathname === page.path ? { pointerEvents: 'none' } : {}}
+                >
+                  <div className="navbar-sub-container" key={page.path}>
+                    <div className="navbar-link"> {page.label} </div>
+                    {pathname === page.path ? (
+                      <div className="underline-page-selected"></div>
+                    ) : (
+                      <div className="navbar-underline"></div>
+                    )}
+                  </div>
+                </Link>
+              </React.Fragment>
             );
           })}
         </div>
@@ -195,82 +192,84 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
           {/* MAIN PAGES - Home, About, FAQ */}
           {pages.main.map((page) => {
             return (
-              <Link
-                to={page.path}
-                key={page.path}
-                style={pathname === page.path ? { pointerEvents: 'none' } : {}}
-              >
-                <div className="navbar-sub-container">
-                  <div className="navbar-menu-icon">
-                    {!darkMode ? (
-                      <img
-                        className="navbar-svg-icon"
-                        alt={
-                          page.label === 'Home'
-                            ? 'home'
-                            : page.label === 'About'
-                            ? 'about'
-                            : page.label === 'FAQ'
-                            ? 'faq'
-                            : ''
-                        }
-                        src={
-                          pathname === page.path
-                            ? page.label === 'Home'
-                              ? HomeIconPurple
+              <React.Fragment key={page.path}>
+                <Link
+                  to={page.path}
+                  key={page.path}
+                  style={pathname === page.path ? { pointerEvents: 'none' } : {}}
+                >
+                  <div className="navbar-sub-container">
+                    <div className="navbar-menu-icon">
+                      {!darkMode ? (
+                        <img
+                          className="navbar-svg-icon"
+                          alt={
+                            page.label === 'Home'
+                              ? 'home'
                               : page.label === 'About'
-                              ? AboutIconPurple
+                              ? 'about'
                               : page.label === 'FAQ'
-                              ? MessageIconPurple
+                              ? 'faq'
+                              : ''
+                          }
+                          src={
+                            pathname === page.path
+                              ? page.label === 'Home'
+                                ? HomeIconPurple
+                                : page.label === 'About'
+                                ? AboutIconPurple
+                                : page.label === 'FAQ'
+                                ? MessageIconPurple
+                                : {}
+                              : page.label === 'Home'
+                              ? HomeIconGrey
+                              : page.label === 'About'
+                              ? AboutIconGrey
+                              : page.label === 'FAQ'
+                              ? MessageIconGrey
                               : {}
-                            : page.label === 'Home'
-                            ? HomeIconGrey
-                            : page.label === 'About'
-                            ? AboutIconGrey
-                            : page.label === 'FAQ'
-                            ? MessageIconGrey
-                            : {}
-                        }
-                      ></img>
+                          }
+                        ></img>
+                      ) : (
+                        <img
+                          className="navbar-svg-icon"
+                          alt={
+                            page.label === 'Home'
+                              ? 'home'
+                              : page.label === 'About'
+                              ? 'about'
+                              : page.label === 'FAQ'
+                              ? 'faq'
+                              : ''
+                          }
+                          src={
+                            pathname === page.path
+                              ? page.label === 'Home'
+                                ? HomeIconHighlightDarkMode
+                                : page.label === 'About'
+                                ? AboutIconHighlightDarkMode
+                                : page.label === 'FAQ'
+                                ? MessageIconHighlightDarkMode
+                                : {}
+                              : page.label === 'Home'
+                              ? HomeIconDefaultDarkMode
+                              : page.label === 'About'
+                              ? AboutIconDefaultDarkMode
+                              : page.label === 'FAQ'
+                              ? MessageIconDefaultDarkMode
+                              : {}
+                          }
+                        ></img>
+                      )}
+                    </div>
+                    {pathname === page.path ? (
+                      <div className="underline-page-selected"></div>
                     ) : (
-                      <img
-                        className="navbar-svg-icon"
-                        alt={
-                          page.label === 'Home'
-                            ? 'home'
-                            : page.label === 'About'
-                            ? 'about'
-                            : page.label === 'FAQ'
-                            ? 'faq'
-                            : ''
-                        }
-                        src={
-                          pathname === page.path
-                            ? page.label === 'Home'
-                              ? HomeIconHighlightDarkMode
-                              : page.label === 'About'
-                              ? AboutIconHighlightDarkMode
-                              : page.label === 'FAQ'
-                              ? MessageIconHighlightDarkMode
-                              : {}
-                            : page.label === 'Home'
-                            ? HomeIconDefaultDarkMode
-                            : page.label === 'About'
-                            ? AboutIconDefaultDarkMode
-                            : page.label === 'FAQ'
-                            ? MessageIconDefaultDarkMode
-                            : {}
-                        }
-                      ></img>
+                      <div className="navbar-underline"></div>
                     )}
                   </div>
-                  {pathname === page.path ? (
-                    <div className="underline-page-selected"></div>
-                  ) : (
-                    <div className="navbar-underline"></div>
-                  )}
-                </div>
-              </Link>
+                </Link>
+              </React.Fragment>
             );
           })}
         </div>
