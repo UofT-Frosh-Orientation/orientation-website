@@ -9,24 +9,45 @@ import background from '../../assets/404/bg.png';
 import cat from '../../assets/404/cat.svg';
 import errorMsg from '../../assets/404/ERROR.svg';
 import four from '../../assets/404/four.svg';
-import sign from '../../assets/404/tree.svg';
+import sign from '../../assets/404/sign.svg';
 import tree from '../../assets/404/tree.svg';
 
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Page404 = () => {
   return (
-    <div className="error404-container">
-      {/* <img src={background} className='error404-bg'></img> */}
-      <img src={four} className="error404-bg"></img>
-      <img src={cat} className="error404-bg"></img>
-      <img src={four} className="error404-bg"></img>
-      <img src={sign} className="error404-bg"></img>
-      <img src={errorMsg} className="error404-bg"></img>
-      <img src={tree} className="error404-bg"></img>
+    <>
+      {/* <div className="error404-main">
 
-      {/* <LazyLoadImage src={background} className='error404-bg' /> */}
-    </div>
+    </div> */}
+      {/* FOREGROUND */}
+      <div className="error404-container">
+        <div className="error404-main">
+          <img src={four} className="error404-four"></img>
+        </div>
+        <div className="error404-main">
+          <img src={cat} className="error404-cat"></img>
+        </div>
+        <div className="error404-main">
+          <img src={four} className="error404-four"></img>
+        </div>
+        {/* <img src={background} className='error404-bg'></img> */}
+        {/* <img src={four} className="error404-bg"></img>
+      <img src={cat} className="error404-bg"></img>
+      <img src={four} className="error404-bg"></img> */}
+        <img src={sign} className="error404-sign"></img>
+
+        <img src={tree} className="error404-tree"></img>
+
+        {/* <LazyLoadImage src={background} className='error404-bg' /> */}
+        <div className="error404-main">
+          <img src={errorMsg} className="error404-msg"></img>
+        </div>
+      </div>
+      {/* <div className="error404-main">
+      <img src={errorMsg} className="error404-msg"></img>
+    </div> */}
+    </>
     // <div className="error404-container">
     //   <div className="error404-sky" />
     //   <div style={{ backgroundImage: `url(${Grass})` }} className="error404-grass" />

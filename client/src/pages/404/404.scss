@@ -9,6 +9,15 @@
   pointer-events: none;
 }
 
+.error404-main {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  user-select: none;
+  pointer-events: none;
+  width: 100%;
+}
+
 .error404-bg {
   position: absolute;
   bottom: -50vh;
@@ -19,6 +28,72 @@
   // width: 100vw;
   // background-image: url(/src/assets/404/bg.png);
   // background-size: cover;
+}
+
+.error404-tree {
+  position: absolute;
+  height: 100%;
+  right: -20px;
+
+  @include devices(tablet) {
+    right: -60vw;
+  }
+}
+
+.error404-msg {
+  width: 30%;
+  margin-top: 15%;
+
+  @include devices(tablet) {
+    width: 45%;
+    margin-top: 150px;
+  }
+  // position: absolute;
+  // top: 20%;
+  // left: 50%;
+  // height: 10vh;
+}
+
+.error404-sign {
+  position: absolute;
+  bottom: -64px;
+  left: 25vw;
+  width: 250px;
+  height: auto;
+
+  @include devices(tablet) {
+    width: 180px;
+    left: 10vw;
+    bottom: 0;
+  }
+}
+
+.error404-cat {
+  height: 90vh;
+  transform-origin: top center;
+  animation: swing-cat 15s ease-in-out infinite;
+}
+
+@keyframes swing-cat {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform-origin: top center;
+    transform: rotate(7deg);
+  }
+  70% {
+    transform-origin: top center;
+    transform: rotate(-7deg);
+  }
+  100% {
+    transform-origin: top center;
+    transform: rotate(0deg);
+  }
+}
+
+.object {
+  animation: swingAnimation 2s ease-in-out infinite;
 }
 
 // .error404-container {
