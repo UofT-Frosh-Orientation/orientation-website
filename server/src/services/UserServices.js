@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
 const UserModel = require('../models/UserModel');
-const emailConfirmationSubscription = require("../subscribers/emailConfirmationSubscription");
+const emailConfirmationSubscription = require('../subscribers/emailConfirmationSubscription');
 
 function createScuntToken() {
   let result = '';
@@ -60,7 +60,7 @@ const UserServices = {
               if (err) {
                 reject(err);
               } else {
-                emailConfirmationSubscription.add(newUser);   
+                emailConfirmationSubscription.add(newUser);
                 resolve(newUser);
               }
             },
@@ -151,6 +151,18 @@ const UserServices = {
   async getUserByEmail(email) {
     return new Promise((resolve, reject) => {
       UserModel.findOne({ email }, (err, user) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(user);
+        }
+      });
+    });
+  },
+
+  async getUserByID(userID) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOne({ _id: userID }, (err, user) => {
         if (err) {
           reject(err);
         } else {

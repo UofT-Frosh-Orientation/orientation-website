@@ -76,7 +76,7 @@ const EditAnnounce = () => {
                 <tr className="all-accounts-row" key={announcement.id}>
                   <td
                     className="all-account-data-verified-container"
-                    style={{ 'overflow-wrap': 'anywhere' }}
+                    style={{ overflowWrap: 'anywhere' }}
                   >
                     <div>
                       {announcement.editMode ? (
@@ -91,7 +91,7 @@ const EditAnnounce = () => {
                       )}
                     </div>
                   </td>
-                  <td className="all-account-data" style={{ 'overflow-wrap': 'anywhere' }}>
+                  <td className="all-account-data" style={{ overflowWrap: 'anywhere' }}>
                     {announcement.editMode ? (
                       <TextInput
                         onChange={(value) => {

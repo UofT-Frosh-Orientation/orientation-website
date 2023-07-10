@@ -10,10 +10,9 @@ import WaveReverseDarkmode from '../../assets/darkmode/misc/wave-reverse.png';
 import { Button } from '../../components/button/Button/Button';
 import { Link } from 'react-router-dom';
 
-import Landing1 from '../../assets/landing/landing-1.jpg';
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
 import { ImageCarousel } from '../../components/ImageCarousel/ImageCarousel';
-import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
+import MainFroshLogo from '../../assets/logo/frosh-main-logo-outline.svg';
 import FroshHardHatWhite from '../../assets/logo/frosh-hard-hat-white.svg';
 
 import 'react-slideshow-image/dist/styles.css';
@@ -24,7 +23,7 @@ import { sponsors } from '../../util/sponsors';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { useSelector } from 'react-redux';
 import { loggedInSelector, userSelector } from '../../state/user/userSlice';
-import { LazyLoadComponent, LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import ProgressiveImage from '../../components/progressiveImg/ProgressiveImg';
 
 const PageHome = () => {
@@ -44,14 +43,15 @@ const HomePageHeader = () => {
   return (
     <div className="home-page-header">
       <LazyLoadImage
-        src={FroshHardHatWhite}
+        src={MainFroshLogo}
         className="FroshHardHatWhite-logo"
-        alt="White Fr!osh Hard Hat Logo"
+        alt="home page frosh logo"
         effect="blur"
       ></LazyLoadImage>
       <div className="home-page-header-text">
         <h2>Welcome to F!rosh Week!</h2>
         <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p>
+        <HomeHeaderButton />
       </div>
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />
@@ -62,6 +62,45 @@ const HomePageHeader = () => {
         <img src={Wave} className="wave-image home-page-top-wave-image" alt="wave-img" />
       )}
     </div>
+  );
+};
+
+const HomeHeaderButton = () => {
+  const loggedIn = useSelector(loggedInSelector);
+
+  return (
+    <>
+      <Link
+        key={loggedIn ? '/profile' : '/registration'}
+        to={loggedIn ? '/profile' : '/registration'}
+        style={{ textDecoration: 'none' }}
+      >
+        <div className="home-page-header-register-button">
+          <div className="desktop-only">
+            <Button
+              label={loggedIn ? 'View Profile' : 'Register Now!'}
+              isSecondary
+              style={{
+                margin: '0px',
+                width: '100%',
+                height: '100%',
+                fontSize: 'unset',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            />
+          </div>
+          <div className="mobile-only">
+            <Button
+              label={loggedIn ? 'View Profile' : 'Register Now!'}
+              isSecondary
+              style={{ margin: '0px' }}
+            />
+          </div>
+        </div>
+      </Link>
+    </>
   );
 };
 

@@ -1,0 +1,46 @@
+@import '../../../scssStyles/mixins';
+
+.profile-page-schedule {
+  // margin-left: 50px;
+  // margin-right: 2%;
+  flex: 1;
+  max-width: 1000px;
+  margin-top: 20px;
+  @include devices(tablet) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.profile-page-section-header {
+  padding-top: 15px;
+  font-size: 42px;
+  color: var(--black);
+  padding-bottom: 5px;
+  @include devices(tablet) {
+    margin-left: 1%;
+    font-size: 34px;
+    padding-top: 25px;
+  }
+}
+
+.profile-page-section-header-schedule {
+  padding-bottom: 15px;
+}
+
+.profile-page-schedule-content {
+  @include devices(tablet) {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+}
+
+.profile-page-schedule-accordions {
+  margin-top: -8px;
+  margin-right: -15px;
+  @include devices(tablet) {
+    margin-top: -13px;
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+}
