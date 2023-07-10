@@ -9,7 +9,7 @@
   pointer-events: none;
 }
 
-.error404-main {
+.error404-flex {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -23,35 +23,29 @@
   bottom: -50vh;
   left: -25vw;
   width: 80vw;
-  // left: 0;
-  // height: auto;
-  // width: 100vw;
-  // background-image: url(/src/assets/404/bg.png);
-  // background-size: cover;
 }
 
 .error404-tree {
   position: absolute;
   height: 100%;
-  right: -20px;
+  right: -50px;
 
   @include devices(tablet) {
-    right: -60vw;
+    right: -80vw;
   }
 }
 
 .error404-msg {
-  width: 30%;
-  margin-top: 15%;
+  width: 285px;
+  height: auto;
+  margin-top: 140px;
+  animation: move-up-down ease-in-out infinite;
+  animation-duration: 15s;
 
   @include devices(tablet) {
-    width: 45%;
-    margin-top: 150px;
+    width: 45vw;
+    margin-top: 15vh;
   }
-  // position: absolute;
-  // top: 20%;
-  // left: 50%;
-  // height: 10vh;
 }
 
 .error404-sign {
@@ -72,6 +66,11 @@
   height: 90vh;
   transform-origin: top center;
   animation: swing-cat 15s ease-in-out infinite;
+
+  @include devices(tablet) {
+    margin-top: 12px;
+    height: 70vh;
+  }
 }
 
 @keyframes swing-cat {
@@ -92,102 +91,49 @@
   }
 }
 
-.object {
-  animation: swingAnimation 2s ease-in-out infinite;
+.error404-four {
+  height: 40vh;
+  margin: 270px 40px 0 40px;
+  animation: move-up-down ease-in-out infinite;
+  animation-duration: 15s;
+
+  @include devices(tablet) {
+    // margin-top: 250px;
+    margin-top: 30vh;
+    height: 20vh;
+  }
 }
 
-// .error404-container {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   flex-direction: column;
-//   width: 100vw;
-//   height: 100vh;
-//   text-align: center;
-//   h1 {
-//     color: var(--white);
-//     font-size: 100px;
-//     text-shadow: 10px 10px 10px #6c2525;
-//     @include devices(tablet) {
-//       font-size: 50px;
-//     }
-//   }
-//   h2 {
-//     color: var(--white);
-//     font-size: 60px;
-//     text-shadow: 10px 10px 10px #6c2525;
-//     @include devices(tablet) {
-//       font-size: 30px;
-//     }
-//   }
-// }
+.error404-right {
+  margin-right: -267px;
 
-// .error404-sky {
-//   position: absolute;
-//   left: 0;
-//   top: 0;
-//   height: 30vh;
-//   width: 100vw;
-//   background-color: rgb(97, 97, 162);
-//   z-index: -1;
-// }
+  @include devices(tablet) {
+    margin-right: -190px;
+  }
+}
 
-// .error404-grass {
-//   position: absolute;
-//   left: 0;
-//   top: 25vh;
-//   height: 10vh;
-//   width: 100vw;
-//   background-repeat: repeat-x;
-//   background-size: 50vh 5vh;
-//   animation: grass-sway infinite;
-//   animation-duration: 4110ms;
-//   animation-timing-function: linear;
-// }
+.error404-left {
+  margin-right: 431px;
 
-// @keyframes grass-sway {
-//   0% {
-//     transform: skewX(-10deg);
-//   }
-//   33% {
-//     transform: skewX(10deg);
-//   }
-//   66% {
-//     transform: skewX(0deg);
-//   }
-//   100% {
-//     transform: skewX(-10deg);
-//   }
-// }
+  @include devices(tablet) {
+    margin-right: 250px;
+  }
+}
 
-// .error404-bg-image {
-//   position: absolute;
-//   left: 0;
-//   top: 30vh;
-//   background-color: #7b3f3f;
-//   z-index: -1;
-//   width: 100vw;
-//   height: 70vh;
-//   object-fit: cover;
-// }
-
-// .error404-meteor-image {
-//   position: absolute;
-//   top: 5vh;
-//   right: 10vw;
-//   height: 20vh;
-//   animation: meteor-sway infinite;
-//   animation-duration: 5000ms;
-// }
-
-// @keyframes meteor-sway {
-//   0% {
-//     transform: translateY(1vh) translateX(-1vw);
-//   }
-//   30% {
-//     transform: translateY(0px) translateX(0vw);
-//   }
-//   100% {
-//     transform: translateY(1vh) translateX(-1vw);
-//   }
-// }
+@keyframes move-up-down {
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-5px);
+  }
+  40% {
+    transform: translateY(0px);
+  }
+  60% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
