@@ -131,9 +131,9 @@ export const pages = {
     {
       label: 'Registration',
       component: (
-        // <AuthorizedPage>
-        <PageRegistrationForm />
-        // </AuthorizedPage>
+        <AuthorizedPage>
+          <PageRegistrationForm />
+        </AuthorizedPage>
         // <div
         //   style={{
         //     display: 'flex',
