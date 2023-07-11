@@ -17,15 +17,15 @@ const FroshGroupSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  'they/them': {
+  'They/Them': {
     type: Number,
     default: 0,
   },
-  'he/him': {
+  'He/Him': {
     type: Number,
     default: 0,
   },
-  'she/her': {
+  'She/Her': {
     type: Number,
     default: 0,
   },
