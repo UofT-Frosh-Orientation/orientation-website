@@ -107,25 +107,35 @@ const UserController = {
    */
   async logout(req, res, next) {
     const user = req.user;
-    req.logout((err) => {
-      if (err) {
-        req.log.error({
-          msg: 'User Logout Failure: user ' + user.id,
-          err,
-          user: user.getResponseObject(),
-        });
-        return next(err);
-      } else {
-        req.log.info({
-          msg: 'Successful Logout by user ' + user.id,
-          user: user.getResponseObject(),
-        });
-        return res.status(200).send({
-          message: 'Successful Logout by user ' + user.id,
-          user: user.getResponseObject(),
-        });
-      }
-    });
+
+    try {
+      req.logout((err) => {
+        if (err) {
+          req.log.error({
+            msg: 'User Logout Failure: user ' + user.id,
+            err,
+            user: user.getResponseObject(),
+          });
+          return next(err);
+        } else {
+          req.log.info({
+            msg: 'Successful Logout by user ' + user.id,
+            user: user.getResponseObject(),
+          });
+          return res.status(200).send({
+            message: 'Successful Logout by user ' + user.id,
+            user: user.getResponseObject(),
+          });
+        }
+      });
+    } catch (error) {
+      req.log.error({
+        msg: 'User Logout Failure: user ' + user.id,
+        err,
+        user: user.getResponseObject(),
+      });
+      next(error);
+    }
   },
 
   async requestPasswordReset(req, res, next) {
@@ -142,9 +152,8 @@ const UserController = {
       });
     } catch (err) {
       req.log.fatal({
-        msg: 'User Password Reset Request Failure: user ' + user.id,
+        msg: 'User Password Reset Request Failure: user ' + req.body,
         err,
-        user: user.getResponseObject(),
       });
       next(err);
     }
@@ -166,9 +175,8 @@ const UserController = {
       }
     } catch (err) {
       req.log.fatal({
-        msg: 'User Password Reset Request Failure: user ' + user.id,
+        msg: 'User Password Reset Request Failure: user ' + req.body,
         err,
-        user: user.getResponseObject(),
       });
       next(err);
     }
@@ -193,7 +201,7 @@ const UserController = {
       }
     } catch (err) {
       req.log.fatal({
-        msg: 'Error with password reset page: user ' + user.id,
+        msg: 'Error with password reset page: user ' + req.body.email,
         err,
         user: user.getResponseObject(),
       });

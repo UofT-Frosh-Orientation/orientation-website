@@ -7,11 +7,9 @@ const PaymentController = {
     const signature = req.headers['stripe-signature'];
     try {
       event = await PaymentServices.decodeWebhookEvent(req.body, signature);
-      console.log('event', event);
     } catch (err) {
       next(new Error('UNAUTHORIZED'));
     }
-    console.log(event.type);
     try {
       switch (event.type) {
         case 'payment_intent.succeeded': {
@@ -51,7 +49,7 @@ const PaymentController = {
   async froshRetreatTicketCount(req, res, next) {
     try {
       const count = await PaymentServices.getNonExpiredPaymentsCountForItem('Retreat Ticket');
-      console.log(`count is : ${count}`);
+      console.log(`retreat tickets being purchased : ${count}`);
       const remaining = process.env.RETREAT_MAX_TICKETS - count;
       res.status(200).send({ count: remaining < 0 ? 0 : remaining });
     } catch (e) {
@@ -82,9 +80,9 @@ const PaymentController = {
       }
     } catch (e) {
       req.log.fatal({
-        msg: 'Unable to process frosh retreat payment: user ' + user.id,
+        msg: 'Unable to process frosh retreat payment: user ' + req.user.id,
         e,
-        user: user.getResponseObject(),
+        user: req.user.getResponseObject(),
       });
       next(e);
     }

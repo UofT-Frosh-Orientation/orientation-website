@@ -128,7 +128,6 @@ const FroshServices = {
           if (err || !Frosh) {
             reject('UNABLE_TO_UPDATE_FROSH');
           } else {
-            console.log(Frosh);
             resolve(Frosh);
           }
         },
