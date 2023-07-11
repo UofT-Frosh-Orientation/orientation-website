@@ -17,7 +17,7 @@ const ButtonOutlined = ({ label, onClick, isSecondary, isDisabled, style, classN
 };
 
 ButtonOutlined.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   onClick: PropTypes.func,
   isSecondary: PropTypes.bool,
   isDisabled: PropTypes.bool,

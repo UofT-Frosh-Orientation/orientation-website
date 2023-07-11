@@ -1,0 +1,51 @@
+@import '../../../../scssStyles/mixins';
+
+.profile-page-scunt-token {
+  text-align: center;
+  padding: 0 30px;
+  padding-top: 30px;
+  margin-top: 20px;
+  padding-bottom: 10px;
+  h2 {
+    padding: 0px !important;
+    margin: 0px;
+    font-size: 28px !important;
+    color: var(--black) !important;
+  }
+  h3 {
+    padding-bottom: 5px;
+    user-select: all;
+    transition: filter 500ms;
+    font-size: 28px !important;
+    color: var(--white) !important;
+    background-color: var(--light-purple);
+    padding: 10px !important;
+    margin: 5px;
+    border-radius: 10px;
+  }
+  h4 {
+    font-size: 22px !important;
+    margin-bottom: 5px;
+  }
+  p {
+    margin-top: 5px;
+    color: var(--black) !important;
+  }
+}
+
+.profile-page-side-section {
+  max-width: 350px;
+  background-color: var(--container-bg);
+  box-shadow: var(--shadow);
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 15px;
+  @include devices(tablet) {
+    max-width: 90vw;
+    width: 90vw;
+    margin-top: 20px;
+  }
+  color: var(--text-dynamic);
+}
