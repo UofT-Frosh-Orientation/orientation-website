@@ -22,7 +22,6 @@ const LeadurServices = {
             { email, hashedPassword, firstName, lastName, preferredName, scuntTeam },
             async (err, newUser) => {
               if (err) {
-                console.log(err);
                 reject(err);
               } else {
                 emailConfirmationSubscription.add(newUser);

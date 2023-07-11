@@ -18,7 +18,6 @@ const ScuntTeamServices = {
           if (err || !Leadur) {
             reject('UNABLE_TO_UPDATE_LEADER');
           } else {
-            console.log(Leadur);
             resolve(Leadur);
           }
         },
@@ -191,7 +190,6 @@ const ScuntTeamServices = {
                   reject(err);
                 } else {
                   LeaderboardSubscription.add({ team: res.number, score: res.points });
-                  console.log(res);
                   resolve(name);
                 }
               });
@@ -244,7 +242,6 @@ const ScuntTeamServices = {
   },
 
   async viewTransactions(teamNumber) {
-    console.log(teamNumber);
     return new Promise((resolve, reject) => {
       ScuntTeamModel.findOne({ number: teamNumber }, {}, {}, (err, teams) => {
         if (err) {

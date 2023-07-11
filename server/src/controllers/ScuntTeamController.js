@@ -147,7 +147,7 @@ const ScuntTeamController = {
       await ScuntTeamServices.deleteTransaction(teamNumber, id);
       res.status(200).send({ message: 'Successfully deleted the transaction!' });
     } catch (e) {
-      req.log.fatal({ msg: 'Unable to delete scunt team transaction ' + id, e });
+      req.log.fatal({ msg: 'Unable to delete scunt team transaction ' + req.body.id, e });
       next(e);
     }
   },
@@ -159,7 +159,6 @@ const ScuntTeamController = {
         async (teamObj, index) =>
           await ScuntTeamServices.setTeamName(teamObjs[index]['number'], teamObjs[index]['name']),
       );
-      console.log('Successfully renamed scunt teams!');
       res.status(200).send({ message: `Successfully renamed scunt teams!` });
     } catch (e) {
       req.log.error({ msg: 'Unable to rename scunt teams', e });
