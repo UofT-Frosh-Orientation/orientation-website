@@ -2,7 +2,7 @@
 name: Backend Issue
 about: Submit an issue regarding the server and API
 title: ''
-labels: backend
+labels: back-end
 
 ---
 
