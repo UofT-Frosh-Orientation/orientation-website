@@ -158,7 +158,7 @@ export const fields = {
       localStorageKey: 'registration-utorid',
       className: 'half-width-input',
       validation: (value) => {
-        if (value !== undefined && value.toString().length <= 9 && value.toString().length >= 7) {
+        if (value !== undefined && value.toString().length <= 9 && value.toString().length >= 6) {
           return true;
         } else {
           return 'Your UtorID should be 7-9 characters long';
