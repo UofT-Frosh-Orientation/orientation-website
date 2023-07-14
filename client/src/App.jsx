@@ -16,6 +16,7 @@ import { SnackbarProvider } from './util/SnackbarProvider';
 // import { getScuntSettings } from './state/scuntSettings/saga';
 // import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
 
+
 export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {

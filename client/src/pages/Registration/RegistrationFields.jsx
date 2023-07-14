@@ -97,7 +97,7 @@ export const fields = {
     pronouns: {
       type: 'dropdown',
       label: 'What are your pronouns?',
-      values: ['He/Him', 'They/Them', 'She/Her', 'Other', 'Prefer not to say'],
+      values: ['he/him', 'they/them', 'she/her', 'Other', 'Prefer Not to Say'],
       isRequiredInput: true,
       initialSelectedIndex: 4,
       noEdit: true,
@@ -158,10 +158,10 @@ export const fields = {
       localStorageKey: 'registration-utorid',
       className: 'half-width-input',
       validation: (value) => {
-        if (value !== undefined && value.toString().length <= 9 && value.toString().length >= 7) {
+        if (value !== undefined && value.toString().length <= 9 && value.toString().length >= 5) {
           return true;
         } else {
-          return 'Your UtorID should be 7-9 characters long';
+          return 'Your UtorID should be 5-9 characters long';
         }
       },
       isUtorID: true,

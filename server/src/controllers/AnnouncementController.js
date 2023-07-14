@@ -20,9 +20,9 @@ const AnnouncementController = {
       return res.status(200).send({ announcements: completedAnnouncements });
     } catch (e) {
       req.log.fatal({
-        msg: 'Unable to get completed announcements: user ' + user.id,
+        msg: 'Unable to get completed announcements: user ' + req.user.id,
         e,
-        user: user.getResponseObject(),
+        user: req.user.getResponseObject(),
       });
       next(e);
     }
@@ -40,9 +40,9 @@ const AnnouncementController = {
       // res.status(200).send({ message: 'Successfully completed announcement element!' });
     } catch (e) {
       req.log.fatal({
-        msg: 'User unable to complete announcement: user ' + user.id,
+        msg: 'User unable to complete announcement: user ' + req.user.id,
         e,
-        user: user.getResponseObject(),
+        user: req.user.getResponseObject(),
       });
       next(e);
     }

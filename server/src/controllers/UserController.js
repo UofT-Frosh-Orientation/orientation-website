@@ -74,7 +74,7 @@ const UserController = {
       if (err || !user) {
         //req.log.info("Incorrect Email and Password entered by user");
         res.status(403).send({ message: 'Please ensure your email and password are correct.' });
-      } else if (!user.confirmed) {
+      } else if (!user.confirmedEmail) {
         // req.log.error(err, "Attempt to login with unverified email");
         res.status(403).send({ message: 'Please ensure that you have verified your email.' });
       } else {
@@ -107,25 +107,35 @@ const UserController = {
    */
   async logout(req, res, next) {
     const user = req.user;
-    req.logout((err) => {
-      if (err) {
-        req.log.error({
-          msg: 'User Logout Failure: user ' + user.id,
-          err,
-          user: user.getResponseObject(),
-        });
-        return next(err);
-      } else {
-        req.log.info({
-          msg: 'Successful Logout by user ' + user.id,
-          user: user.getResponseObject(),
-        });
-        return res.status(200).send({
-          message: 'Successful Logout by user ' + user.id,
-          user: user.getResponseObject(),
-        });
-      }
-    });
+
+    try {
+      req.logout((err) => {
+        if (err) {
+          req.log.error({
+            msg: 'User Logout Failure: user ' + user.id,
+            err,
+            user: user.getResponseObject(),
+          });
+          return next(err);
+        } else {
+          req.log.info({
+            msg: 'Successful Logout by user ' + user.id,
+            user: user.getResponseObject(),
+          });
+          return res.status(200).send({
+            message: 'Successful Logout by user ' + user.id,
+            user: user.getResponseObject(),
+          });
+        }
+      });
+    } catch (error) {
+      req.log.error({
+        msg: 'User Logout Failure: user ' + user.id,
+        err,
+        user: user.getResponseObject(),
+      });
+      next(error);
+    }
   },
 
   async requestPasswordReset(req, res, next) {
@@ -142,9 +152,8 @@ const UserController = {
       });
     } catch (err) {
       req.log.fatal({
-        msg: 'User Password Reset Request Failure: user ' + user.id,
+        msg: 'User Password Reset Request Failure: user ' + req.body,
         err,
-        user: user.getResponseObject(),
       });
       next(err);
     }
@@ -166,9 +175,8 @@ const UserController = {
       }
     } catch (err) {
       req.log.fatal({
-        msg: 'User Password Reset Request Failure: user ' + user.id,
+        msg: 'User Password Reset Request Failure: user ' + req.body,
         err,
-        user: user.getResponseObject(),
       });
       next(err);
     }
@@ -183,7 +191,7 @@ const UserController = {
       if (!existingUser || existingUser.email !== result) {
         next(new Error('INVALID_VERIFICATION_LINK'));
       } else {
-        await UserServices.updateUserInfo(existingUser.id, { confirmed: true });
+        await UserServices.updateUserInfo(existingUser.id, { confirmedEmail: true });
         newUserSubscription.add(existingUser);
 
         res.status(200).send({
@@ -193,7 +201,7 @@ const UserController = {
       }
     } catch (err) {
       req.log.fatal({
-        msg: 'Error with password reset page: user ' + user.id,
+        msg: 'Error with password reset page: user ' + req.body.email,
         err,
         user: user.getResponseObject(),
       });

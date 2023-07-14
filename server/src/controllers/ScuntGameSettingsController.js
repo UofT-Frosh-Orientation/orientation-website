@@ -16,7 +16,6 @@ const ScuntGameSettingsController = {
 
   async setGameSettings(req, res, next) {
     try {
-      console.log(req.body);
       const {
         name,
         amountOfTeams,

@@ -40,7 +40,7 @@ const FroshSchema = new mongoose.Schema(
     },
     pronouns: {
       type: String,
-      enum: ['He/Him', 'They/Them', 'She/Her', 'Other', 'Prefer not to say'],
+      enum: ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'],
       required: true,
     },
     pronounOther: {

@@ -57,7 +57,7 @@ const UserSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
-    confirmed: {
+    confirmedEmail: {
       type: Boolean,
       required: true,
       default: false,

@@ -67,8 +67,8 @@ const HomeHeaderButton = () => {
   return (
     <>
       <Link
-        key={loggedIn ? '/profile' : '/registration'}
-        to={loggedIn ? '/profile' : '/registration'}
+        key={loggedIn ? '/profile' : '/sign-up'}
+        to={loggedIn ? '/profile' : '/sign-up'}
         style={{ textDecoration: 'none' }}
       >
         <div className="home-page-header-register-button">

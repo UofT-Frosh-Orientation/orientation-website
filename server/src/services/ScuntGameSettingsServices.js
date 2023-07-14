@@ -6,7 +6,6 @@ const ScuntSettingsSubscription = require('../subscribers/scuntGameSettingsSubsc
 const ScuntGameSettingsServices = {
   // default scunt settings set in loaders > mongoLoader.js
   async initScuntGameSettings(settings) {
-    console.log('init game settings');
     return new Promise((resolve, reject) => {
       ScuntGameSettingModel.findOne({}, {}, {}, (err, result) => {
         if (err) {
@@ -45,7 +44,6 @@ const ScuntGameSettingsServices = {
   },
 
   async getGameSettings() {
-    console.log('Getting game settings!');
     return new Promise((resolve, reject) => {
       ScuntGameSettingModel.find({}, (err, settings) => {
         if (err) {

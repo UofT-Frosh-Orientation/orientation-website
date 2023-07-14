@@ -26,6 +26,11 @@ const ScuntController = {
         const updateScuntLogin = { isScuntDiscordLoggedIn: true };
         await UserServices.updateUserInfo(existingUser.id, updateScuntLogin);
       } catch (err) {
+        req.log.fatal({
+          msg: 'User Scunt Login Failure: user ' + existingUser.id,
+          err,
+          user: existingUser.getResponseObject(),
+        });
         next(err);
       }
 
@@ -42,9 +47,8 @@ const ScuntController = {
       return res.status(200).send({ ...userInfo });
     } catch (err) {
       req.log.fatal({
-        msg: 'User Scunt Login Failure: user ' + existingUser.id,
+        msg: 'User Scunt Login Failure ' + req.body,
         err,
-        user: existingUser.getResponseObject(),
       });
       next(err);
     }
