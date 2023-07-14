@@ -56,11 +56,11 @@ const TransitionRoutes = () => {
               /* ...pages.scunt,
             ...pages.scuntHidden, */
             },
-          ].map((page) => {
+          ].map((page, index) => {
             return (
               <Route
                 path={page.path}
-                key={page.path}
+                key={page.path + index}
                 element={
                   <div
                     className="content-container"

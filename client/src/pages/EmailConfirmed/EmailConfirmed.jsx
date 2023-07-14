@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '../../components/button/Button/Button';
 import './EmailConfirmed.scss';
 import { Link, useParams } from 'react-router-dom';

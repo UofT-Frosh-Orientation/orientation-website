@@ -101,7 +101,7 @@ export const pages = {
   ],
   hidden: [
     {
-      lable: 'Announcements Dashboard',
+      label: 'Announcements Dashboard',
       component: (
         <AuthorizedPage
           authScopes={['announcements:delete', 'announcements:create', 'announcements:edit']}

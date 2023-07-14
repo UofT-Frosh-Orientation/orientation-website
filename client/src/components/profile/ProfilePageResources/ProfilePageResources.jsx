@@ -1,4 +1,3 @@
-import React from 'react';
 import { resources } from '../../../util/resources';
 import { ButtonBubble } from '../../button/ButtonBubble/ButtonBubble';
 import './ProfilePageResources.scss';
@@ -30,8 +29,8 @@ export const ProfilePageResources = ({ froshObject }) => {
           <ButtonBubble
             label={'Download Information PDF'}
             onClick={async () => {
+              const MakeReceipt = (await import('../../MakeReceipt/MakeReceipt')).MakeReceipt;
               const ReactPDF = await import('@react-pdf/renderer');
-              const { MakeReceipt } = await import('../../MakeReceipt/MakeReceipt');
               const blob = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
               const fileURL = URL.createObjectURL(blob);
               const pdfWindow = window.open(fileURL, '_blank');

@@ -9,7 +9,6 @@ import './ApproveDenyCheckbox.scss';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { Button } from '../../components/button/Button/Button';
 import { ApproveDenyCheckbox } from './ApproveDenyCheckbox';
-import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 
 import ArrowRight from '../../assets/steps/arrow-right-solid-purple.svg';
 import ArrowLeft from '../../assets/steps/arrow-left-solid-purple.svg';
