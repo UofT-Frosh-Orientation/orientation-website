@@ -31,7 +31,7 @@ const PageHome = () => {
     <>
       <HomePageHeader />
       {/* <HomePageTimeline /> */}
-      {/* <HomePageSchedule /> */}
+      <HomePageSchedule />
       <HomePageSponsors />
     </>
   );

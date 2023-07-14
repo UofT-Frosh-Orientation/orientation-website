@@ -16,8 +16,6 @@ import useAxios from '../../hooks/useAxios';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useSelector } from 'react-redux';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
-import { MakeReceipt } from '../../components/MakeReceipt/MakeReceipt';
-import ReactPDF from '@react-pdf/renderer';
 
 const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
   const steps = Object.keys(fields);
@@ -55,6 +53,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
           formData.append(key, value);
         }
         froshObject['id'] = user.id;
+        const ReactPDF = await import('@react-pdf/renderer');
+        const { MakeReceipt } = await import('../../components/MakeReceipt/MakeReceipt');
         const dataReceipt = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
         formData.append('dataReceipt', dataReceipt);
         const response = await axios.post('/frosh/register', formData, {
@@ -248,7 +248,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       values.push(field.values[index]);
                     }
                     froshObject[key] = values;
-                    if (field.onChanged) field.onChanged(value, disableField);
+                    if (field.onChanged) field.onChanged(values, disableField);
                   }}
                   values={field.values}
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
@@ -358,7 +358,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     return (
       <div>
         <div className="registration-form-flex">
-          <div className="registration-form">
+          <div className="registration-form" style={{ marginBottom: '65px' }}>
             <Tabs
               scrollToTopAfterChange={true}
               selectedTabPassed={selectedTab}
@@ -392,7 +392,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                 },
                 {
                   title: 'Extra Events',
-                  component: generateStepComponent(formFields['Misc'], 'Misc'),
+                  component: generateStepComponent(formFields['ExtraEvents'], 'ExtraEvents'),
                 },
                 {
                   title: 'Payment',
@@ -412,6 +412,17 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                         onClick={handleRegister}
                         isDisabled={!canRegister}
                       />
+                      <p className="register-terms-of-service" style={{ marginTop: '20px' }}>
+                        If you&apos;re looking to apply for a bursary, click{' '}
+                        <a
+                          href="https://forms.gle/UFajTRoBF8iWah2MA"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          here
+                        </a>{' '}
+                        to submit in an application
+                      </p>
                     </div>
                   ),
                 },

@@ -111,6 +111,17 @@
 }
 
 .profile-page-announcements {
+  margin-left: 50px;
+  margin-right: 2%;
+  flex: 1;
+  max-width: 1000px;
+  @include devices(tablet) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.profile-page-schedule {
   // margin-left: 50px;
   // margin-right: 2%;
   flex: 1;
@@ -273,8 +284,8 @@
 }
 
 .retreat-profile-container {
-  // margin-left: 50px;
-  // margin-right: 2%;
+  margin-left: 50px;
+  margin-right: 2%;
   flex: 1;
   max-width: 1000px;
   background-color: var(--purple-shades-light);
@@ -358,6 +369,14 @@
 
 .profile-info-row-right {
   margin-left: 6%;
+
+  @include devices(tablet) {
+    margin-left: 0;
+  }
+}
+
+.profile-page-divider {
+  margin-left: 50px;
 
   @include devices(tablet) {
     margin-left: 0;

@@ -2,6 +2,7 @@
 // These must be included, even if the input type does not require this info
 //
 // isRequiredInput: if the field can be undefined before submission
+// hasRestrictedInput (optional): replaces symbols like +-/{},etc. with ''
 // errorMessage: The message to show if the field is missing but is required
 // onChanged(value, disableFields): disable/enable fields based on a value (dependancies)
 // className: the class name applied around the child form input component
@@ -9,6 +10,34 @@
 //         Note: noEdit does not work for checkboxes
 // validation(value): if set, return true for a valid input, return a string as the error message. The check will fail if a string is returned.
 // isBold: field.type of label! (bolds the label)
+
+// checking for Aa-Zz characters and 1-50 character length
+const textValidation = (value) => {
+  if (value.length >= 1 && value.length <= 50) {
+    if (/^[A-Za-z]*$/.test(value)) {
+      return true;
+    } else {
+      return 'Please use Aa-Zz characters';
+    }
+  } else {
+    return 'Please ensure that your full name is between 1 and 50 characters';
+  }
+};
+
+const textLengthValidation = (value) => {
+  if (value.length > 50) {
+    return 'Please try to use 50 characters or less';
+  } else {
+    return true;
+  }
+};
+
+const phoneNumberValidation = (value) => {
+  if (value.length > 5 && value.length < 16) return true;
+  else return 'Please enter a valid phone number';
+};
+
+let allergiesList = [];
 
 export const fields = {
   EditFieldsOnly: {
@@ -24,7 +53,7 @@ export const fields = {
       placeholder: 'john.doe@email.com',
       label: 'Email',
       isRequiredInput: true,
-      // noEdit: true,
+      noEdit: true,
     },
     firstName: {
       type: 'text',
@@ -33,7 +62,7 @@ export const fields = {
       label: 'First Name',
       className: 'half-width-input',
       isRequiredInput: true,
-      // noEdit: true,
+      noEdit: true,
     },
     lastName: {
       type: 'text',
@@ -42,7 +71,7 @@ export const fields = {
       label: 'Last Name',
       className: 'half-width-input',
       isRequiredInput: true,
-      // noEdit: true,
+      noEdit: true,
     },
     preferredName: {
       type: 'text',
@@ -50,6 +79,7 @@ export const fields = {
       placeholder: 'Joey',
       label: 'Preferred Name',
       localStorageKey: 'registration-preferred-name',
+      noEdit: false,
     },
   },
   General: {
@@ -59,14 +89,18 @@ export const fields = {
       placeholder: 'John Doe',
       label: 'Legal Name',
       isRequiredInput: true,
-      errorMessage: 'Please enter your legal name',
-      localStorageKey: 'registration-legal-name',
+      noEdit: true,
+      errorMessage: 'Please enter your full name',
+      localStorageKey: 'registration-full-name',
+      validation: textLengthValidation,
     },
     pronouns: {
       type: 'dropdown',
-      label: 'Pronoun',
-      values: ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'],
-      initialSelectedIndex: 0,
+      label: 'What are your pronouns?',
+      values: ['He/Him', 'They/Them', 'She/Her', 'Other', 'Prefer not to say'],
+      isRequiredInput: true,
+      initialSelectedIndex: 4,
+      noEdit: true,
       className: 'half-width-input',
       onChanged: (value, disableField) => {
         if (value === 'Other') {
@@ -81,19 +115,21 @@ export const fields = {
       type: 'text',
       inputType: 'text',
       label: 'Other Pronoun',
-      hasRestrictedInput: true,
       isRequiredInput: false,
+      noEdit: true,
       errorMessage: 'Please enter a pronoun',
       className: 'fill-remaining-width-input',
       localStorageKey: 'registration-other-pronoun',
+      validation: textLengthValidation,
     },
     birthDate: {
       type: 'text',
       inputType: 'date',
       label: 'Birthday',
-      placeholder: '1852-12-25',
+      placeholder: '',
       hasRestrictedInput: true,
       isRequiredInput: true,
+      noEdit: true,
       errorMessage: 'Please enter a valid date',
       localStorageKey: 'registration-birthdate',
       className: 'half-width-input',
@@ -114,17 +150,18 @@ export const fields = {
       type: 'text',
       inputType: 'text',
       label: 'UtorID',
-      placeholder: 'doejohn1',
+      placeholder: 'doejon11',
       hasRestrictedInput: true,
       isRequiredInput: true,
+      noEdit: true,
       errorMessage: 'Please enter your UtorID',
       localStorageKey: 'registration-utorid',
       className: 'half-width-input',
       validation: (value) => {
-        if (value !== undefined && value.toString().length <= 9 && value.toString().length >= 5) {
+        if (value !== undefined && value.toString().length <= 9 && value.toString().length >= 7) {
           return true;
         } else {
-          return 'Your UtorID should be 5 - 9 characters long';
+          return 'Your UtorID should be 7-9 characters long';
         }
       },
       isUtorID: true,
@@ -143,33 +180,48 @@ export const fields = {
         'Mineral',
         'Track One (Undeclared)',
       ],
-      className: 'inline-block-remaining',
+      className: 'half-width-input',
       initialSelectedIndex: 0,
+      isRequiredInput: true,
+      noEdit: true,
       localStorageKey: 'registration-discipline',
     },
     shirtSize: {
       type: 'dropdown',
-      label: 'T-shirt size',
-      values: ['S', 'M', 'L', 'XL'],
+      label: 'T-shirt Size',
+      values: ['S', 'M', 'L', 'XL', '2XL', '3XL'],
       initialSelectedIndex: 1,
-      className: 'inline-block-remaining',
+      className: 'half-width-input',
+      isRequiredInput: true,
       noEdit: true,
       localStorageKey: 'registration-shirtSize',
     },
     phoneNumberLabel: {
       type: 'label',
-      label: 'Phone number?',
+      label: 'Phone Number',
       isRequiredInput: true,
     },
-    phoneNumberAreaCode: {
+    phoneNumberCountryCode: {
       type: 'text',
       inputType: 'text',
       placeholder: '+1',
-      hasRestrictedInput: true,
-      localStorageKey: 'registration-phoneNumberAreaCode',
+      hasRestrictedInput: false,
+      localStorageKey: 'registration-phoneNumberCountryCode',
       className: 'small-width-input',
-      inputTitle: 'Area Code',
+      inputTitle: 'Country Code',
       maxLength: 3,
+      noEdit: false,
+      validation: (value) => {
+        if (/^[+0-9]*$/.test(value)) {
+          if (value.length <= 3) {
+            return true;
+          } else {
+            return 'Must be at most 3 characters';
+          }
+        } else {
+          return 'Must contain characters 0-9 or +';
+        }
+      },
     },
     phoneNumber: {
       type: 'text',
@@ -177,143 +229,153 @@ export const fields = {
       placeholder: '(416) 123-4567',
       hasRestrictedInput: true,
       isRequiredInput: true,
+      noEdit: false,
       errorMessage: 'Please enter a valid phone number',
       localStorageKey: 'registration-phoneNumber',
       className: 'fill-remaining-width-input',
       isPhoneNumber: true,
       inputTitle: 'Phone Number',
-    },
-    instagram: {
-      type: 'text',
-      inputType: 'text',
-      label: 'Instagram handle',
-      placeholder: '@bestfrosh',
-      hasRestrictedInput: true,
-      isRequiredInput: false,
-      localStorageKey: 'registration-instagram',
-      isInstagram: true,
+      validation: phoneNumberValidation,
     },
     emergencyContactName: {
       type: 'text',
       inputType: 'text',
-      label: 'Emergency contact full name (first & last):',
+      label: 'Emergency Contact Full Name',
       placeholder: 'Jane Doe',
       hasRestrictedInput: true,
       isRequiredInput: true,
+      noEdit: false,
       errorMessage: 'Please enter a valid name',
       localStorageKey: 'registration-emergencyContactName',
-      className: 'half-width-input',
+      className: 'full-width-input',
+      validation: textLengthValidation,
     },
     emergencyContactRelationship: {
       type: 'text',
       inputType: 'text',
-      label: 'Emergency contact relationship',
+      label: 'Emergency Contact Relationship',
       placeholder: 'Parent / Guardian',
       hasRestrictedInput: true,
       isRequiredInput: true,
+      noEdit: false,
       errorMessage: 'Please enter an emergency contact relationship',
       localStorageKey: 'registration-emergencyContactRelationship',
       className: 'half-width-input',
-    },
-    phoneNumberEmergencyLabel: {
-      type: 'label',
-      label: 'Emergency contact phone number',
-      isRequiredInput: true,
-    },
-    emergencyContactNumberAreaCode: {
-      type: 'text',
-      inputType: 'text',
-      placeholder: '+1',
-      hasRestrictedInput: true,
-      localStorageKey: 'registration-emergencyContactNumberAreaCode',
-      className: 'small-width-input',
-      inputTitle: 'Area Code',
-      maxLength: 3,
+      validation: textLengthValidation,
     },
     emergencyContactNumber: {
       type: 'text',
       inputType: 'text',
+      label: 'Emergency Contact Phone Number',
       placeholder: '(416) 123-4567',
       hasRestrictedInput: true,
       isRequiredInput: true,
+      noEdit: false,
       errorMessage: 'Please enter a valid phone number',
       localStorageKey: 'registration-emergencyContactNumber',
-      className: 'fill-remaining-width-input',
+      className: 'half-width-input',
       isPhoneNumber: true,
       inputTitle: 'Phone Number',
-    },
-    bursaryRequested: {
-      type: 'radio',
-      label:
-        'Would you like to be considered for a bursary to cover some or all of your registration cost? Note: if you select yes you will still have to pay in full at this time to be considered registered but you will be contacted later this summer to fill out a bursary application form to become eligable to recieve a partial or full refund of your registration cost on a need basis. If you cannont cover the registration cost at this time please contact us at froshweek@orientation.skule.ca',
-      values: ['Yes', 'No'],
-      initialSelectedIndex: 1,
-      localStorageKey: 'registration-bursaryRequested',
+      validation: phoneNumberValidation,
     },
   },
   HealthSafety: {
     medicalInfo: {
-      type: 'text',
-      inputType: 'textArea',
-      label: 'Allergies and/or Medical Conditions',
-      placeholder: 'Nut allergy',
-      hasRestrictedInput: true,
-      isRequiredInput: false,
+      type: 'radio',
+      values: ['Yes', 'No'],
+      initialSelectedIndex: 1,
+      label: 'Medical Conditions',
+      placeholder: '',
+      isRequiredInput: true,
+      noEdit: false,
       localStorageKey: 'registration-medicalInfo',
       className: 'half-width-input',
+      onChanged: (value, disableField) => {
+        if (value === 'Yes') {
+          disableField(false, 'specficMedicalInfo', 'HealthSafety');
+          disableField(false, 'medication', 'HealthSafety');
+        } else {
+          disableField(true, 'specficMedicalInfo', 'HealthSafety');
+          disableField(true, 'medication', 'HealthSafety');
+        }
+      },
+    },
+    specficMedicalInfo: {
+      type: 'text',
+      inputType: 'text',
+      label: 'Specific Medical Conditions',
+      placeholder: 'Respiratory Conditions',
+      isRequiredInput: false,
+      noEdit: false,
+      localStorageKey: 'registration-specificMedicalInfo',
+      className: 'half-width-input',
+      validation: textLengthValidation,
     },
     medication: {
       type: 'text',
       inputType: 'text',
-      label: 'Medication (Epi-Pen, inhaler, etc.)',
-      placeholder: 'Carries 2 Epi-Pens',
-      hasRestrictedInput: true,
+      label: 'Medication (e.g. Epi-Pen, inhaler, ...)',
+      placeholder: 'Carries 2 Inhalers',
       isRequiredInput: false,
+      noEdit: false,
       localStorageKey: 'registration-medication',
       className: 'half-width-input',
+      validation: textLengthValidation,
     },
     allergies: {
       type: 'checkbox',
-      label: 'Please select the following dietary restrictions or allergies if any.',
+      label: 'Do you have any of the following dietary restrictions or allergies?',
       values: [
-        'Lactose Intolerance',
-        'Gluten Intolerance',
+        'Lactose Intolerance/Dairy-Free',
+        'Gluten Intolerance/Allergy',
         'Vegetarian',
         'Vegan',
         'Kosher',
-        'Dairy-Free',
-        'Pork',
-        'Nuts',
+        'Nut Allergy',
+        'No Pork & Pork by-products',
+        'No Red meat',
+        'Other',
       ],
+      isRequiredInput: false,
+      noEdit: false,
       localStorageKey: 'registration-allergies',
+      onChanged: (values, disableField) => {
+        if (values.includes('Other')) {
+          disableField(false, 'allergiesOther', 'HealthSafety');
+        } else {
+          disableField(true, 'allergiesOther', 'HealthSafety');
+        }
+      },
     },
     allergiesOther: {
       type: 'text',
-      inputType: 'text',
-      label:
-        'If there are any other restrictions not listed above, please write them in the box below.',
+      inputType: 'textArea',
+      label: 'If you have any other restrictions not listed above, please list them here.',
       placeholder: 'Allergic to berries',
       hasRestrictedInput: true,
       isRequiredInput: false,
+      noEdit: false,
       localStorageKey: 'registration-allergiesMore',
-    },
-    photograph: {
-      type: 'radio',
-      label: 'Are you okay with being photographed during Frosh Week?',
-      values: ['Yes', 'No'],
-      initialSelectedIndex: 0,
-      localStorageKey: 'registration-photograph',
+      isDisabled: true, // to initially set to disabled until 'Other' is clicked
+      validation: (value) => {
+        if (value.length > 100) {
+          return 'Please use less than 100 characters';
+        } else {
+          return true;
+        }
+      },
     },
     accessibility: {
       type: 'text',
-      inputType: 'text',
+      inputType: 'textArea',
       label:
         "Do you have any accessibility requirements or accommodations you'd like to share with us?",
       placeholder:
         'I would like to be able to access a quiet space to relax when the activities get overwhelming',
       hasRestrictedInput: true,
       isRequiredInput: false,
-      localStorageKey: 'registration-areaGTA',
+      noEdit: true,
+      localStorageKey: 'registration-accessibility',
       onChanged: (value, disableField) => {
         if (value !== '' && value !== undefined) {
           disableField(false, 'accommodation', 'HealthSafety');
@@ -326,142 +388,81 @@ export const fields = {
       type: 'radio',
       label: 'Would you like us to reach out to you about how we can best accommodate you?',
       values: ['Yes', 'No'],
-      initialSelectedIndex: 1,
-      onChanged: (value, disableField) => {
-        if (value === 'Yes') {
-          disableField(false, 'accommodationContact', 'HealthSafety');
-        } else {
-          disableField(true, 'accommodationContact', 'HealthSafety');
-        }
-      },
+      initialSelectedIndex: 0,
+      isRequiredInput: false,
+      noEdit: false,
       localStorageKey: 'registration-accommodation',
     },
-    accommodationContact: {
-      type: 'dropdown',
-      label: 'Accommodation Contact Information',
-      values: ['Phone', 'Email', 'Other'],
-      initialSelectedIndex: 0,
-      onChanged: (value, disableField) => {
-        if (value === 'Other') {
-          disableField(false, 'accommodationOther', 'HealthSafety');
-        } else {
-          disableField(true, 'accommodationOther', 'HealthSafety');
-        }
-      },
-      className: 'half-width-input',
-      localStorageKey: 'registration-accommodationContact',
-    },
-    accommodationOther: {
-      type: 'text',
-      inputType: 'text',
-      label: 'Other Accommodation Contact Information',
-      hasRestrictedInput: true,
-      isRequiredInput: false,
-      className: 'fill-remaining-width-input',
-      localStorageKey: 'registration-accommodationOther',
-    },
   },
-  Misc: {
-    infoLabel: {
-      type: 'label',
-      label:
-        'The following information will be used to help in the planning and coordination some Frosh Week events including Havenger Scunt, Summer Meetups, and Commuter Buddies.',
-      isRequiredInput: true,
-      isBold: true,
-    },
-    scunt: {
+  ExtraEvents: {
+    attendingScunt: {
       type: 'radio',
       label:
-        'Would you like to participate in Havenger Scunt? (It will take place on the evening of Wednesday, September 7th)',
+        'Would you like to participate in Havenger Scunt? (It will take place on the evening of Wednesday, September 6th)',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       localStorageKey: 'registration-scunt',
-      noEdit: true,
+      noEdit: false,
+      isRequiredInput: true,
     },
-    summerLocation: {
-      type: 'radio',
-      label: 'Do you plan on living in the GTA this summer?',
-      values: ['Yes', 'No'],
-      initialSelectedIndex: 0,
-      onChanged: (value, disableField) => {
-        if (value === 'Yes') {
-          disableField(false, 'moveToToronto', 'Misc');
-          disableField(true, 'summerLocationOther', 'Misc');
-        } else {
-          disableField(true, 'moveToToronto', 'Misc');
-          disableField(false, 'summerLocationOther', 'Misc');
-        }
-      },
-      localStorageKey: 'registration-summerLocation',
+    scuntInfo: {
+      type: 'label',
+      label:
+        "What is Havenget Scunt? Havenger Scunt is a scavenger hunt around the city of Toronto! Don't miss out on one of the most popular f!rosh week events! Scunt is an exciting night of challenges for all comfort levels.",
+      isBold: true,
     },
-    summerLocationOther: {
+    summerLocationLabel: {
+      type: 'label',
+      label: 'Where will you be located for the majority of the summer?',
+    },
+    summerLocationCity: {
       type: 'text',
       inputType: 'text',
-      label: 'Where will you be located this summer?',
-      placeholder: 'Vancouver',
+      label: 'City',
+      placeholder: 'Toronto',
+      isRequiredInput: true,
+      noEdit: false,
+      localStorageKey: 'registration-summerLocationCity',
+      errorMessage: 'Please enter your city',
+      className: 'half-width-input',
+      validation: textLengthValidation,
+    },
+    summerLocationCountry: {
+      type: 'text',
+      inputType: 'text',
+      label: 'Country (2 character code)',
+      placeholder: 'CA',
       hasRestrictedInput: true,
-      isRequiredInput: false,
-      localStorageKey: 'registration-summerLocationOther',
+      isRequiredInput: true,
+      noEdit: false,
+      localStorageKey: 'registration-summerLocationCountry',
+      errorMessage: 'Please enter your country',
+      className: 'half-width-input',
+      validation: (value) => {
+        if (/^[A-Z]*$/.test(value) && value.length === 2) {
+          return true;
+        } else {
+          return 'Please use the 2 letter country code';
+        }
+      },
     },
     moveToToronto: {
       type: 'dropdown',
-      label: 'Approximately when are you planning to move to Toronto?',
-      values: ['N/A', 'May', 'June', 'July', 'August', 'September'],
+      label:
+        'If you are not in the GTA (Greater Toronto Area) already, approximately when are you planning to move to Toronto?',
+      values: ['Already in Toronto', 'July', 'August', 'September'],
       initialSelectedIndex: 0,
+      isRequiredInput: false,
+      noEdit: false,
       localStorageKey: 'registration-moveToToronto',
     },
-    commuterProgram: {
+    photograph: {
       type: 'radio',
-      label: 'Do you plan to commute to campus for Frosh Week and / or the school year?',
+      label: 'Are you okay with being photographed during Frosh Week?',
       values: ['Yes', 'No'],
-      initialSelectedIndex: 1,
-      onChanged: (value, disableField) => {
-        if (value === 'Yes') {
-          disableField(false, 'commuterProgramInformation', 'Misc');
-        } else {
-          disableField(true, 'commuterProgramInformation', 'Misc');
-          disableField(true, 'commuterProgramOther', 'Misc');
-          disableField(true, 'commuterProgramStop', 'Misc');
-        }
-      },
-      localStorageKey: 'registration-commuter',
-    },
-    commuterProgramInformation: {
-      type: 'dropdown',
-      label: 'What is you main method of commuting to campus?',
-      values: ['Car', 'Subway', 'Bus', 'Go Train', 'Walking', 'Biking', 'Other'],
       initialSelectedIndex: 0,
-      onChanged: (value, disableField) => {
-        if (value === 'Subway' || value === 'Go Train') {
-          disableField(false, 'commuterProgramStop', 'Misc');
-        } else {
-          disableField(true, 'commuterProgramStop', 'Misc');
-        }
-        if (value === 'Other') {
-          disableField(false, 'commuterProgramOther', 'Misc');
-        } else {
-          disableField(true, 'commuterProgramOther', 'Misc');
-        }
-      },
-      isRequiredInput: false,
-      className: 'half-width-input',
-      localStorageKey: 'registration-commuterProgramInfo',
-    },
-    commuterProgramOther: {
-      type: 'text',
-      inputType: 'text',
-      label: 'Other Commuter Option',
-      hasRestrictedInput: true,
-      isRequiredInput: false,
-      className: 'fill-remaining-width-input',
-      localStorageKey: 'registration-commuterOther',
-    },
-    commuterProgramStop: {
-      type: 'text',
-      inputType: 'text',
-      label: 'Which stop do you get on for the subway or go train?',
-      isRequiredInput: false,
-      localStorageKey: 'registration-commuterProgramStop',
+      noEdit: true,
+      localStorageKey: 'registration-photograph',
     },
   },
 };

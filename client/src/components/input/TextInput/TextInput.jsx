@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './TextInput.scss';
 import EyeSolid from '../../../../assets/icons/eye-solid.svg';
@@ -79,11 +79,11 @@ const TextInput = ({
 
   const [type, setType] = useState(inputType ? inputType : 'text');
 
-  const onKeyPress = (target) => {
-    if (target.charCode === 13) {
-      if (onEnterKey) onEnterKey(value);
-    }
-  };
+  // const onKeyPress = (target) => {
+  //   if (target.charCode === 13) {
+  //     if (onEnterKey) onEnterKey(value);
+  //   }
+  // };
 
   const onInputChange = (event) => {
     let value = event.target.value;
@@ -157,7 +157,7 @@ const TextInput = ({
             }
             required={isRequiredInput}
             disabled={isDisabled}
-            onKeyPress={onKeyPress}
+            // onKeyPress={onKeyPress}
             value={value ?? ''}
             placeholder={placeholder}
             type={type}
@@ -177,8 +177,8 @@ const TextInput = ({
             }
             required={isRequiredInput}
             disabled={isDisabled}
-            onKeyPress={onKeyPress}
-            value={type === 'date' ? localStorage.getItem(localStorageKey) : value ?? ''}
+            // onKeyPress={onKeyPress}
+            value={value ?? ''}
             placeholder={placeholder}
             type={type}
             autoComplete={autocomplete}

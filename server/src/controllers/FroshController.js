@@ -40,9 +40,9 @@ const FroshController = {
       }
     } catch (e) {
       req.log.fatal({
-        msg: 'Unable to register Frosh: user ' + user.id,
+        msg: 'Unable to register Frosh: user ' + req.user.id,
         e,
-        user: user.getResponseObject(),
+        user: req.user.getResponseObject(),
       });
       next(e);
     }
