@@ -1,19 +1,6 @@
-import React, {
-  createContext,
-  createRef,
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
-import { colors } from './colors';
+import React, { createContext, forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ErrorSuccessBox } from '../components/containers/ErrorSuccessBox/ErrorSuccessBox';
-
-// const { setSnackbar } = useContext(SnackbarContext);
-// setSnackbar("Error", true)
-// setSnackbar("Success", false)
 
 const SnackbarContext = createContext();
 
