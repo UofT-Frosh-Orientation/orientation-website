@@ -1,26 +1,4 @@
-import {
-  data,
-  dataAlpha,
-  dataBeta,
-  dataChi,
-  dataDelta,
-  dataGamma,
-  dataIota,
-  dataKappa,
-  dataLambda,
-  dataNu,
-  dataOmega,
-  dataOmicron,
-  dataPhi,
-  dataPi,
-  dataPsi,
-  dataRho,
-  dataSigma,
-  dataTau,
-  dataTheta,
-  dataUpsilon,
-  dataZeta,
-} from '../../assets/schedule/data';
+import { data } from '../../assets/schedule/data';
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
 
