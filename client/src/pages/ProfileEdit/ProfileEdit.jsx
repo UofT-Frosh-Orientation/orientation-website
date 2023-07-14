@@ -1,6 +1,5 @@
 import React from 'react';
 import './ProfileEdit.scss';
-import { ProfilePageFroshHeader } from '../Profile/PageProfileFrosh';
 import { PageRegistrationForm } from '../Registration/RegistrationForm';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,6 +17,8 @@ const PageProfileEdit = () => {
   if (!isRegistered) {
     navigate('/profile');
   }
+  const { ProfilePageFroshHeader } = import('../Profile/PageProfileFrosh');
+
   return (
     <>
       {isRegistered && (

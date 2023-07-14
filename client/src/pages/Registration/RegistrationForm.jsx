@@ -16,8 +16,6 @@ import useAxios from '../../hooks/useAxios';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useSelector } from 'react-redux';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
-import { MakeReceipt } from '../../components/MakeReceipt/MakeReceipt';
-import ReactPDF from '@react-pdf/renderer';
 
 const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
   const steps = Object.keys(fields);
@@ -55,6 +53,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
           formData.append(key, value);
         }
         froshObject['id'] = user.id;
+        const ReactPDF = await import('@react-pdf/renderer');
+        const { MakeReceipt } = await import('../../components/MakeReceipt/MakeReceipt');
         const dataReceipt = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
         formData.append('dataReceipt', dataReceipt);
         const response = await axios.post('/frosh/register', formData, {
@@ -414,7 +414,11 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       />
                       <p className="register-terms-of-service" style={{ marginTop: '20px' }}>
                         If you&apos;re looking to apply for a bursary, click{' '}
-                        <a href="https://forms.gle/UFajTRoBF8iWah2MA" target="_blank" rel="noreferrer">
+                        <a
+                          href="https://forms.gle/UFajTRoBF8iWah2MA"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
                           here
                         </a>{' '}
                         to submit in an application
