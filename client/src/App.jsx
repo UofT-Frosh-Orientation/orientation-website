@@ -48,19 +48,11 @@ const TransitionRoutes = () => {
       <ScrollToTop />
       <CSSTransition key={location.key} classNames="page" timeout={300}>
         <Routes location={location}>
-          {[
-            ...pages.main,
-            ...pages.hidden,
-            ...pages.special,
-            {
-              /* ...pages.scunt,
-            ...pages.scuntHidden, */
-            },
-          ].map((page, index) => {
+          {[...pages.main, ...pages.hidden, ...pages.special].map((page) => {
             return (
               <Route
                 path={page.path}
-                key={page.path + index}
+                key={page.path}
                 element={
                   <div
                     className="content-container"
