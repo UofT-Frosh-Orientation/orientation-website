@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const registrationSubscription = require('./subscribers/registrationDataSubscriber');
-const {logger, loggerMiddleware} = require('./util/logger');
+const { loggerMiddleware } = require('./util/logger');
 registrationSubscription.add({}, { repeat: { cron: '0 9 * * *' } });
 
 const app = express();

@@ -29,9 +29,9 @@ export const FroshRetreat = () => {
   }, []);
 
   useEffect(() => {
-    // if (!isRegistered) {
-    //   navigate('/profile');
-    // }
+    if (!isRegistered) {
+      navigate('/profile');
+    }
   }, [isRegistered]);
 
   return (
@@ -193,7 +193,7 @@ const RetreatRegistration = () => {
   const { user } = useSelector(userSelector);
   const { setSnackbar } = useContext(SnackbarContext);
   const { axios } = useAxios();
-  const isRetreat = user?.interestedInRetreat === true;
+  const isRetreat = user?.isRetreat === true;
 
   const [outOfTickets, setOutOfTickets] = useState(false);
 

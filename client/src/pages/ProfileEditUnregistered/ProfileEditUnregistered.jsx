@@ -74,7 +74,7 @@ const PageProfileEditUnregistered = () => {
               <div className="profile-edit-container">
                 <img className={`profile-edit-logo`} src={MainFroshLogo}></img>
                 <h1 style={{ color: 'var(--black)' }}>Edit Account Info</h1>
-                <h3 style={{ color: 'var(--black)' }}>For F!rosh Week 2T2, UofT Engineering</h3>
+                <h3 style={{ color: 'var(--black)' }}>For F!rosh Week 2T3, UofT Engineering</h3>
 
                 {!isLoading ? (
                   <>

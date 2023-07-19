@@ -130,12 +130,10 @@ const ScuntMissionServices = {
         { strictQuery: false },
         (err, result) => {
           if (err) {
-            console.log(err);
             reject(err);
           } else if (!result) {
             reject('INTERNAL_ERROR');
           } else {
-            console.log('result', result);
             resolve(result);
           }
         },

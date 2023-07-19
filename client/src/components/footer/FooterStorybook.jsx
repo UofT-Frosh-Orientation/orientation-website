@@ -52,7 +52,7 @@ const FooterStorybook = () => {
           })}
           {/* <img className="svg-icons" alt="instagram" src={InstagramLogo}></img> */}
         </div>
-        <div className="footer-message">Made with 💜 by the F!rosh Week 2T2 Tech Team</div>
+        <div className="footer-message">Made with 💜 by the F!rosh Week 2T3 Tech Team</div>
       </div>
     </div>
   );

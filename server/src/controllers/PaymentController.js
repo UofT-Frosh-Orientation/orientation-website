@@ -7,11 +7,9 @@ const PaymentController = {
     const signature = req.headers['stripe-signature'];
     try {
       event = await PaymentServices.decodeWebhookEvent(req.body, signature);
-      console.log('event', event);
     } catch (err) {
       next(new Error('UNAUTHORIZED'));
     }
-    console.log(event.type);
     try {
       switch (event.type) {
         case 'payment_intent.succeeded': {
@@ -32,7 +30,7 @@ const PaymentController = {
       }
       res.status(200).send({ message: 'Success!' });
     } catch (err) {
-      req.log.fatal({msg: "Unable to process payment", err});
+      req.log.fatal({ msg: 'Unable to process payment', err });
       next(err);
     }
   },
@@ -43,7 +41,7 @@ const PaymentController = {
       const { url } = await PaymentServices.createCheckoutSession(email, 'orientation');
       res.redirect(303, url);
     } catch (err) {
-      req.log.fatal({msg: "Unable to create checkout", err});
+      req.log.fatal({ msg: 'Unable to create checkout', err });
       next(new Error('UNABLE_TO_CREATE_CHECKOUT'));
     }
   },
@@ -51,11 +49,11 @@ const PaymentController = {
   async froshRetreatTicketCount(req, res, next) {
     try {
       const count = await PaymentServices.getNonExpiredPaymentsCountForItem('Retreat Ticket');
-      console.log(`count is : ${count}`);
+      console.log(`retreat tickets being purchased : ${count}`);
       const remaining = process.env.RETREAT_MAX_TICKETS - count;
       res.status(200).send({ count: remaining < 0 ? 0 : remaining });
     } catch (e) {
-      req.log.error({msg: "Unable to get frosh retreat ticket count", e});
+      req.log.error({ msg: 'Unable to get frosh retreat ticket count', e });
       next(e);
     }
   },
@@ -81,7 +79,11 @@ const PaymentController = {
         });
       }
     } catch (e) {
-      req.log.fatal({msg: "Unable to process frosh retreat payment: user " + user.id, e, user: user.getResponseObject()});
+      req.log.fatal({
+        msg: 'Unable to process frosh retreat payment: user ' + req.user.id,
+        e,
+        user: req.user.getResponseObject(),
+      });
       next(e);
     }
   },
