@@ -17,21 +17,21 @@ import AuthorizedPage from './AuthorizedPage';
 import { PasswordReset } from '../pages/PasswordReset/PasswordReset';
 import { PageFroshInfoTable } from '../pages/FroshInfoTable/FroshInfoTable';
 import { PageScopeRequest } from '../pages/ScopeRequest/ScopeRequest';
-import { PageScuntJudgeForm } from '../pages/ScuntJudgeForm/ScuntJudgeForm';
-import { PageScuntMissionsList } from '../pages/ScuntMissionsList/ScuntMissionsList';
-import { PageScuntHome } from '../pages/ScuntHome/ScuntHome';
-import { PageScuntRules } from '../pages/ScuntRules/ScuntRules';
+// import { PageScuntJudgeForm } from '../pages/ScuntJudgeForm/ScuntJudgeForm';
+// import { PageScuntMissionsList } from '../pages/ScuntMissionsList/ScuntMissionsList';
+// import { PageScuntHome } from '../pages/ScuntHome/ScuntHome';
+// import { PageScuntRules } from '../pages/ScuntRules/ScuntRules';
 import { PageTimelineAdmin } from '../pages/TimelineAdmin/TimelineAdmin';
 import { PageAnnounceDash } from '../pages/AnnouncementDashboard/AnnounceDash';
 import { PageUnsubscribe } from '../pages/Unsubscribe/Unsubscribe';
 import { PageResubscribe } from '../pages/Resubscribe/Resubscribe';
-import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
-import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
+// import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
+// import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
 import { FroshRetreat } from '../pages/FroshRetreat/FroshRetreat';
 import { PagePaymentSuccess } from '../pages/PagePaymentSuccess/PagePaymentSuccess';
-import { ScuntGameSettings } from '../pages/ScuntGameSettings/ScuntGameSettings';
-import { PageScuntMissionsDashboard } from '../pages/ScuntMissionsDashboard/ScuntMissionsDashboard';
-import { ScuntTransactions } from '../pages/ScuntTransactions/ScuntTransactions';
+// import { ScuntGameSettings } from '../pages/ScuntGameSettings/ScuntGameSettings';
+// import { PageScuntMissionsDashboard } from '../pages/ScuntMissionsDashboard/ScuntMissionsDashboard';
+// import { ScuntTransactions } from '../pages/ScuntTransactions/ScuntTransactions';
 import { PageEmailConfirmed } from '../pages/EmailConfirmed/EmailConfirmed';
 
 export const pages = {
@@ -101,7 +101,7 @@ export const pages = {
   ],
   hidden: [
     {
-      lable: 'Announcements Dashboard',
+      label: 'Announcements Dashboard',
       component: (
         <AuthorizedPage
           authScopes={['announcements:delete', 'announcements:create', 'announcements:edit']}
@@ -134,20 +134,6 @@ export const pages = {
         <AuthorizedPage>
           <PageRegistrationForm />
         </AuthorizedPage>
-        // <div
-        //   style={{
-        //     display: 'flex',
-        //     alignItems: 'center',
-        //     justifyContent: 'center',
-        //     textAlign: 'center',
-        //     height: '80vh',
-        //     width: '100%',
-        //     color: 'var(--text-dynamic)',
-        //     margin: '20px',
-        //   }}
-        // >
-        //   <h1>Sorry, you can no longer signup for Frosh events.</h1>
-        // </div>
       ),
       path: '/registration',
       includeFooter: true,

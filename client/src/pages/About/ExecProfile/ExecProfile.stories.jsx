@@ -9,10 +9,3 @@ export default {
 
 export const ExecProfileStory = (args) => <ExecProfile {...args} />;
 ExecProfileStory.storyName = 'ExecProfile';
-
-// ExecProfileStory.args = {
-//     name: PropTypes.string,
-//     role: PropTypes.string,
-//     description: PropTypes.string,
-//     image:
-// };

@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import './ProfileEdit.scss';
 import { PageRegistrationForm } from '../Registration/RegistrationForm';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from '../../state/user/saga';
 import { useNavigate } from 'react-router-dom';
+
+const ProfilePageFroshHeader = lazy(() =>
+  import('../Profile/PageProfileFrosh').then((module) => ({
+    default: module.ProfilePageFroshHeader,
+  })),
+);
 
 const PageProfileEdit = () => {
   const { user } = useSelector(userSelector);
@@ -17,24 +23,19 @@ const PageProfileEdit = () => {
   if (!isRegistered) {
     navigate('/profile');
   }
-  const { ProfilePageFroshHeader } = import('../Profile/PageProfileFrosh');
 
-  return (
-    <>
-      {isRegistered && (
-        <>
-          <ProfilePageFroshHeader editButton={false} />
-          <div className="edit-form-container">
-            <PageRegistrationForm
-              editFieldsPage={true}
-              initialValues={user}
-              onEditSubmit={submit}
-            />
-          </div>
-        </>
-      )}
-    </>
-  );
+  if (isRegistered) {
+    return (
+      <Suspense>
+        <ProfilePageFroshHeader editButton={false} />
+        <div className="edit-form-container">
+          <PageRegistrationForm editFieldsPage={true} initialValues={user} onEditSubmit={submit} />
+        </div>
+      </Suspense>
+    );
+  } else {
+    return <></>;
+  }
 };
 
 export { PageProfileEdit };

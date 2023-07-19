@@ -7,6 +7,7 @@
     "build": "vite build",
     "build:beta": "VITE_API_BASE_URL=https://api.beta.orientation.skule.ca vite build",
     "preview": "vite preview",
+    "preview:build": "vite build && vite preview",
     "lint": "eslint src",
     "format": "prettier --write \"**/*.+(js|jsx|css|scss|json)\"",
     "storybook": "start-storybook -p 6006",

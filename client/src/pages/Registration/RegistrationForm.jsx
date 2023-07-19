@@ -137,7 +137,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
 
   const generateStepComponent = (formFieldsAtStep, step) => {
     return (
-      <div className="registration-tab-content">
+      <div key={step} className="registration-tab-content">
         {Object.keys(formFieldsAtStep).map((key, index) => {
           const field = formFieldsAtStep[key];
           if (field.type === 'text') {

@@ -1,25 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOMServer from 'react-dom/server';
-
-const styles = StyleSheet.create({
-  page: {
-    backgroundColor: '#E4E4E4',
-  },
-  qrcode: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-const { Document, Page, Text, View, Svg, Circle, StyleSheet, Link } = import('@react-pdf/renderer');
+import { QRNormal } from 'react-qrbtf';
+import { Document, Page, Text, View, Svg, Circle, Link } from '@react-pdf/renderer';
 
 const MakeReceipt = (froshObject) => {
   if (!froshObject.id) {
     throw new Error('No ID provided to MakeReceipt.jsx');
   }
-  const { QRNormal } = import('react-qrbtf');
 
   const qr = (
     <QRNormal
@@ -90,8 +78,19 @@ const MakeReceipt = (froshObject) => {
 
   return (
     <Document>
-      <Page size="A4" style={styles.page}>
-        <View style={styles.qrcode}>
+      <Page
+        size="A4"
+        style={{
+          backgroundColor: '#E4E4E4',
+        }}
+      >
+        <View
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <Svg fill="white" style={{ width: '250px', padding: '10px 0 0 0' }}>
             {t1}
           </Svg>
