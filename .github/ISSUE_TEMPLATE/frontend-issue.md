@@ -2,7 +2,7 @@
 name: Frontend Issue
 about: Submit an issue regarding the appearance and visuals
 title: ''
-labels: frontend
+labels: front-end
 assignees: 
 
 ---

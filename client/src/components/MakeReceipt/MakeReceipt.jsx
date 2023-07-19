@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Document, Page, Text, View, Svg, Circle, StyleSheet, Link } from '@react-pdf/renderer';
-import { QRNormal } from 'react-qrbtf';
 import ReactDOMServer from 'react-dom/server';
 
 const styles = StyleSheet.create({
@@ -15,10 +13,14 @@ const styles = StyleSheet.create({
   },
 });
 
+const { Document, Page, Text, View, Svg, Circle, StyleSheet, Link } = import('@react-pdf/renderer');
+
 const MakeReceipt = (froshObject) => {
   if (!froshObject.id) {
     throw new Error('No ID provided to MakeReceipt.jsx');
   }
+  const { QRNormal } = import('react-qrbtf');
+
   const qr = (
     <QRNormal
       value={froshObject.id}
