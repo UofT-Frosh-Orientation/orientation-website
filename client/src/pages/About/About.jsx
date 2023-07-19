@@ -11,14 +11,11 @@ import { subComs } from '../../util/about/subcoms';
 import { ExecProfile } from './ExecProfile/ExecProfile';
 import ExecLogo from '../../assets/about/about-page.svg';
 import { useEffect } from 'react';
-import { object } from 'prop-types';
 import { Header } from '../../components/text/Header/Header';
 
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
-import MailIcon from '../../assets/social/envelope-solid.svg';
 import { instagramAccounts } from '../../util/instagramAccounts';
 
-import PropTypes from 'prop-types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const PageAbout = () => {

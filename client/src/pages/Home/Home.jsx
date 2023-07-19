@@ -1,20 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
-import PropTypes from 'prop-types';
 import { getSlideshowImages, getTimelineEvents } from './functions';
 import './Home.scss';
 import Wave from '../../assets/misc/wave.png';
 import WaveReverse from '../../assets/misc/wave-reverse.png';
 import WaveDarkMode from '../../assets/darkmode/misc/wave.png';
 import WaveReverseDarkmode from '../../assets/darkmode/misc/wave-reverse.png';
-
 import { Button } from '../../components/button/Button/Button';
 import { Link } from 'react-router-dom';
 
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
 import { ImageCarousel } from '../../components/ImageCarousel/ImageCarousel';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo-outline.svg';
-import FroshHardHatWhite from '../../assets/logo/frosh-hard-hat-white.svg';
-
 import 'react-slideshow-image/dist/styles.css';
 import { Slide } from 'react-slideshow-image';
 import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
@@ -30,7 +26,7 @@ const PageHome = () => {
   return (
     <>
       <HomePageHeader />
-      {/* <HomePageTimeline /> */}
+      <HomePageTimeline />
       <HomePageSchedule />
       <HomePageSponsors />
     </>
@@ -38,7 +34,7 @@ const PageHome = () => {
 };
 
 const HomePageHeader = () => {
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
 
   return (
     <div className="home-page-header">
@@ -71,9 +67,10 @@ const HomeHeaderButton = () => {
   return (
     <>
       <Link
-        key={loggedIn ? '/profile' : '/registration'}
-        to={loggedIn ? '/profile' : '/registration'}
+        key={loggedIn ? '/profile' : '/sign-up'}
+        to={loggedIn ? '/profile' : '/sign-up'}
         style={{ textDecoration: 'none' }}
+        className="no-link-style"
       >
         <div className="home-page-header-register-button">
           <div className="desktop-only">
@@ -82,7 +79,6 @@ const HomeHeaderButton = () => {
               isSecondary
               style={{
                 margin: '0px',
-                width: '100%',
                 height: '100%',
                 fontSize: 'unset',
                 display: 'flex',

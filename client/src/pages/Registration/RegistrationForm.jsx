@@ -378,7 +378,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                                 : user?.preferredName)}
                           </h1>
                           <h2 className="registration-first-step-subtitle">
-                            Let&apos;s register for UofT Engineering&apos;s F!rosh Week 2T2
+                            Let&apos;s register for UofT Engineering&apos;s F!rosh Week 2T3
                           </h2>
                         </div>
                       </div>

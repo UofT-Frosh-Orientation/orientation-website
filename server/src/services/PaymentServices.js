@@ -30,7 +30,6 @@ const PaymentServices = {
       const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentId });
       if (frosh) {
         frosh.authScopes = { requested: [], approved: [] };
-        console.log(frosh);
         const idx = frosh.payments.findIndex((p) => p.paymentIntent === paymentId);
         frosh.payments[idx].amountDue = frosh.payments[idx].amountDue - amountReceived;
         if (frosh.payments[idx].item === 'Orientation Ticket') {
@@ -40,6 +39,7 @@ const PaymentServices = {
         }
         //TODO: update frosh balance
         await frosh.save({ validateModifiedOnly: true });
+        console.log('Frosh payment completed! Frosh info: ', frosh);
         return frosh;
       }
       return null;
@@ -93,14 +93,6 @@ const PaymentServices = {
             quantity: 1,
           },
         ],
-        discounts:
-          type === 'orientation'
-            ? [
-                {
-                  coupon: process.env.STRIPE_EARLY_BIRD_COUPON_ID,
-                },
-              ]
-            : [],
         mode: 'payment',
         success_url: `${process.env.CLIENT_BASE_URL}${
           products[type]?.relativeUrlSuccess ?? products['orientation'].relativeUrlSuccess

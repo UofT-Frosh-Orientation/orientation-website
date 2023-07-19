@@ -59,7 +59,7 @@ const ScheduleComponent = () => {
           const dayOfWeek = day.split(' ')[0];
           const date = day.split(' ')[1] + ' ' + day.split(' ')[2];
           return (
-            <div className="schedule-container-left" key={day + index}>
+            <div className="schedule-container-left" key={index}>
               <div
                 style={{
                   top: index === 0 ? '42.5px' : 'unset',
@@ -90,11 +90,7 @@ const ScheduleComponent = () => {
       <div style={{ width: '100%' }}>
         {data[Object.keys(data)[selectedDayIndex]].map((scheduleDay, index) => {
           return (
-            <ScheduleComponentAccordion
-              key={Object.keys(data)[index] + index}
-              scheduleDay={scheduleDay}
-              closeAll={closeAll}
-            />
+            <ScheduleComponentAccordion key={index} scheduleDay={scheduleDay} closeAll={closeAll} />
           );
         })}
       </div>
