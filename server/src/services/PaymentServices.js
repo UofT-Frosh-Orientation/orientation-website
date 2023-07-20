@@ -4,7 +4,7 @@ const FroshModel = require('../models/FroshModel');
 
 const PaymentServices = {
   /**
-   * Decodes a webhook event from stripe and verifies that it was sent by stripe
+   * @description Decodes a webhook event from stripe and verifies that it was sent by stripe
    * @param {Buffer} data
    * @param {String} signature
    * @return {Promise<Stripe.Event>}
@@ -20,7 +20,7 @@ const PaymentServices = {
   },
 
   /**
-   * Updates a payment for a given frosh.
+   * @description Updates a payment for a given frosh.
    * @param {String} paymentId
    * @param {Number} amountReceived
    * @return {Promise<Query<Document<unknown, any, Omit<unknown, never>> & Omit<unknown, never> & {_id: Omit<unknown, never>["_id"]}, Document<unknown, any, Omit<unknown, never>> & Omit<unknown, never> & {_id: Omit<unknown, never>["_id"]}, {}, Omit<unknown, never>>>}
@@ -37,7 +37,6 @@ const PaymentServices = {
         } else if (frosh.payments[idx].item === 'Retreat Ticket') {
           frosh.isRetreat = true;
         }
-        //TODO: update frosh balance
         await frosh.save({ validateModifiedOnly: true });
         console.log('Frosh payment completed! Frosh info: ', frosh);
         return frosh;
@@ -48,22 +47,24 @@ const PaymentServices = {
     }
   },
 
+  /**
+   * @description Gets the number of non-expired payments for a given item.
+   * @param {Object} item payment item
+   * @returns {Number} number of non-expired payments for a given item
+   */
   async getNonExpiredPaymentsCountForItem(item) {
-    return new Promise((resolve, reject) => {
-      FroshModel.where({ payments: { $elemMatch: { item, expired: false } } }).count(
-        (err, count) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(count);
-          }
-        },
-      );
-    });
+    return FroshModel.countDocuments({
+      payments: { $elemMatch: { item, expired: false } },
+    }).then(
+      (count) => count,
+      (error) => {
+        throw new Error('UNABLE_TO_GET_COUNT_OF_PAYMENTS', { cause: error });
+      },
+    );
   },
 
   /**
-   * Creates a checkout session for a user to pay with.
+   * @description Creates a checkout session for a user to pay with.
    * @param {String} email
    * @param {String} type
    * @return {Promise<Stripe.Checkout.Session & {lastResponse: {headers: {[p: string]: string}; requestId: string; statusCode: number; apiVersion?: string; idempotencyKey?: string; stripeAccount?: string}}>}
@@ -131,6 +132,12 @@ const PaymentServices = {
       throw err;
     }
   },
+
+  /**
+   * @description Expires a checkout session.
+   * @param {Object} paymentIntent payment intent object
+   * @returns {Frosh}
+   */
   async expirePayment(paymentIntent) {
     try {
       const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentIntent });
