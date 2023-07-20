@@ -25,14 +25,7 @@ const ScuntMissionController = {
         isHidden = false,
         isJudgingStation = false,
       } = req.body;
-      await ScuntMissionServices.createMission(
-        number,
-        name,
-        category,
-        points,
-        isHidden,
-        isJudgingStation,
-      );
+      await ScuntMissionServices.create(number, name, category, points, isHidden, isJudgingStation);
       return res.status(200).send({
         message: 'Successfully created mission #' + number.toString() + ' - ' + name.toString(),
       });
@@ -48,7 +41,7 @@ const ScuntMissionController = {
       await ScuntMissionServices.deleteMission(id);
       return res.status(200).send({ message: `Successfully deleted mission: ${id}` });
     } catch (e) {
-      req.log.fatal({ msg: 'Unable to delete scunt mission ' + id, e });
+      req.log.fatal({ msg: 'Unable to delete scunt mission ' + req.params.id, e });
       next(e);
     }
   },

@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 const ScuntTeamModel = require('../models/ScuntTeamModel');
 const LeadurModel = require('../models/LeadurModel');
 const ScuntGameSettingsModel = require('../models/ScuntGameSettingsModel');
@@ -8,286 +6,331 @@ const LeaderboardSubscription = require('../subscribers/leaderboardSubscriber');
 const mongoose = require('mongoose');
 
 const ScuntTeamServices = {
+  /**
+   * @description Updates a Leedurs team
+   * @param {String} userId
+   * @param {Number} teamNumber
+   * @returns {Leadur}
+   */
   async updateLeaderTeam(userId, teamNumber) {
-    return new Promise((resolve, reject) => {
-      LeadurModel.findOneAndUpdate(
-        { _id: userId },
-        { scuntTeam: teamNumber },
-        { returnDocument: 'after' },
-        (err, Leadur) => {
-          if (err || !Leadur) {
-            reject('UNABLE_TO_UPDATE_LEADER');
-          } else {
-            resolve(Leadur);
-          }
-        },
-      );
-    });
+    return LeadurModel.findOneAndUpdate(
+      { _id: userId },
+      { scuntTeam: teamNumber },
+      { returnDocument: 'after' },
+    ).then(
+      (leadur) => {
+        if (!leadur) throw new Error('INVALID_LEADUR_ID');
+        return leadur;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_UPDATE_LEADER', { cause: error });
+      },
+    );
   },
 
+  /**
+   * @description Gets team points
+   * @returns {ScuntTeam[]}
+   */
   async getTeamPoints() {
     //Get amount of teams (Scunt Game Settings) and points for each team
     //Add up and calculate all tranactions for each team
-    return new Promise((resolve, reject) => {
-      ScuntTeamModel.find({}, { name: 1, number: 1, points: 1 }, {}, (err, teams) => {
-        if (err) {
-          reject(err);
-        } else if (!teams) {
-          reject('UNABLE_TO_GET_TEAM_POINTS');
-        } else {
-          resolve(teams);
-        }
-      });
-    });
+    return ScuntTeamModel.find({}, { name: 1, number: 1, points: 1 }).then(
+      (teams) => teams,
+      (error) => {
+        throw new Error('UNABLE_TO_GET_TEAM_POINTS', { cause: error });
+      },
+    );
   },
 
+  /**
+   * @description Gets teams
+   * @returns {ScuntTeam[]}
+   */
   async getTeams() {
-    return new Promise((resolve, reject) => {
-      ScuntTeamModel.find({}, { name: 1 }, {}, (err, teams) => {
-        if (err) {
-          reject(err);
-        } else if (!teams) {
-          reject('UNABLE_TO_GET_TEAMS');
-        } else {
-          resolve(teams);
-        }
-      });
-    });
+    return ScuntTeamModel.find({}, { name: 1, number: 1 }).then(
+      (teams) => {
+        if (!teams) throw new Error('UNABLE_TO_GET_TEAMS');
+        return teams;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_GET_TEAMS', { cause: error });
+      },
+    );
   },
 
+  /**
+   * @description Adds bribe points to a team
+   * @param {Number} teamNumber
+   * @param {Number} points
+   * @param {User} user
+   * @returns {ScuntTeam , Leadur}
+   */
   async bribeTransaction(teamNumber, points, user) {
-    return new Promise((resolve, reject) => {
-      if (!user.scuntJudgeBribePoints || points > user.scuntJudgeBribePoints) {
-        reject('NOT_ENOUGH_BRIBE_POINTS');
-      } else {
-        ScuntGameSettingsModel.findOne({}, (err, settings) => {
-          if (err) {
-            reject(err);
-          } else if (!settings || !settings.allowJudging) {
-            reject('INVALID_SETTINGS');
-          } else {
-            LeadurModel.findByIdAndUpdate(
-              user.id,
-              { $set: { scuntJudgeBribePoints: user.scuntJudgeBribePoints - points } },
-              { upsert: false, returnDocument: 'after' },
-              (err, leadur) => {
-                if (err) {
-                  reject(err);
-                } else if (!leadur) {
-                  reject('INTERNAL_ERROR');
-                } else {
-                  ScuntTeamModel.findOneAndUpdate(
-                    { number: teamNumber },
-                    {
-                      $inc: { points },
-                      $push: {
-                        transactions: [
-                          {
-                            name: `${points.toString()} points bribe from ${user.firstName} ${
-                              user.lastName
-                            }`,
-                            points,
-                          },
-                        ],
-                      },
-                    },
-                    { upsert: false, returnDocument: 'after' },
-                    (err, team) => {
-                      if (err) {
-                        reject(err);
-                      } else if (!team) {
-                        reject('INVALID_TEAM_NUMBER');
-                      } else {
-                        LeaderboardSubscription.add({ team: team.number, score: team.points });
-                        resolve({ team, leadur });
-                      }
-                    },
-                  );
-                }
-              },
-            );
-          }
-        });
-      }
-      // Need to get remaining bribe points of the judge user;
-    });
-  },
+    if (!user.scuntJudgeBribePoints || points > user.scuntJudgeBribePoints)
+      throw new Error('NOT_ENOUGH_BRIBE_POINTS');
 
-  async getScuntJudges() {
-    return new Promise((resolve, reject) => {
-      LeadurModel.find(
-        {
-          $or: [
-            { 'authScopes.approved': 'scunt:judge bribe points' },
-            { 'authScopes.approved': 'scunt:judge missions' },
+    const settings = ScuntGameSettingsModel.findOne({}).then(
+      (settings) => {
+        if (!settings) throw new Error('INVALID_SETTINGS');
+        return settings;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_GET_SCUNT_SETTINGS', { cause: error });
+      },
+    );
+
+    if (!settings.allowJudging) throw new Error('NOT_ALLOWED_TO_JUDGE');
+
+    const leadur = LeadurModel.findByIdAndUpdate(
+      user.id,
+      { $set: { scuntJudgeBribePoints: user.scuntJudgeBribePoints - points } },
+      { upsert: false, returnDocument: 'after' },
+    ).then(
+      (leadur) => {
+        if (!leadur) throw new Error('INVALID_LEADUR_ID');
+        return leadur;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_UPDATE_LEADUR', { cause: error });
+      },
+    );
+    if (leadur.scuntJudgeBribePoints !== user.scuntJudgeBribePoints - points)
+      throw new Error('UNABLE_TO_UPDATE_LEADUR');
+
+    return ScuntTeamModel.findOneAndUpdate(
+      { number: teamNumber },
+      {
+        $inc: { points },
+        $push: {
+          transactions: [
+            {
+              name: `${points.toString()} points bribe from ${user.firstName} ${user.lastName}`,
+              points,
+            },
           ],
         },
-        (err, judgeUsers) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(judgeUsers);
-          }
-        },
-      );
-    });
+      },
+      { upsert: false, returnDocument: 'after' },
+    ).then(
+      (team) => {
+        if (!team) throw new Error('INVALID_TEAM_NUMBER');
+        LeaderboardSubscription.add({ team: team.number, score: team.points });
+        return { team, leadur };
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_UPDATE_TEAM', { cause: error });
+      },
+    );
   },
 
+  /**
+   * @description Gets all scunt judges
+   * @returns {Leadur[]}
+   */
+  async getScuntJudges() {
+    return LeadurModel.find({
+      $or: [
+        { 'authScopes.approved': 'scunt:judge bribe points' },
+        { 'authScopes.approved': 'scunt:judge missions' },
+      ],
+    }).then(
+      (judgeUsers) => {
+        if (!judgeUsers) throw new Error('UNABLE_TO_GET_SCUNT_JUDGES');
+        return judgeUsers;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_GET_SCUNT_JUDGES', { cause: error });
+      },
+    );
+  },
+
+  /**
+   * @description Change a judge's bribe points
+   * @param {String} judgeUserId
+   * @param {Number} points
+   * @param {Boolean} isAddPoints
+   * @returns {Leadur}
+   */
   async refillBribePoints(judgeUserId, points, isAddPoints) {
-    return new Promise((resolve, reject) => {
-      LeadurModel.findByIdAndUpdate(
-        judgeUserId,
-        isAddPoints
-          ? { $inc: { scuntJudgeBribePoints: points } }
-          : { $set: { scuntJudgeBribePoints: points } },
-        { upsert: false, returnDocument: 'after' },
-        (err, leadur) => {
-          if (err) {
-            reject(err);
-          } else if (!leadur) {
-            reject('INVALID_LEADUR_ID');
-          } else {
-            resolve(leadur);
-          }
-        },
-      );
-    });
+    return LeadurModel.findByIdAndUpdate(
+      judgeUserId,
+      isAddPoints
+        ? { $inc: { scuntJudgeBribePoints: points } }
+        : { $set: { scuntJudgeBribePoints: points } },
+      { upsert: false, returnDocument: 'after' },
+    ).then(
+      (leadur) => {
+        if (!leadur) throw new Error('INVALID_LEADUR_ID');
+        return leadur;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_UPDATE_LEADUR', { cause: error });
+      },
+    );
   },
 
+  /**
+   * @description Adds a transaction
+   * @param {Number} teamNumber
+   * @param {Number} missionNumber
+   * @param {Number} points
+   * @returns {String}
+   */
   async addTransaction(teamNumber, missionNumber, points) {
-    return new Promise((resolve, reject) => {
-      //TODO look up mission to get amount of points
-      ScuntGameSettingsModel.findOne({}, (err, settings) => {
-        if (err) {
-          reject(err);
-        } else if (!settings || !settings.allowJudging) {
-          reject('INVALID_SETTINGS');
-        } else {
-          //Compare with maxAmountPointsPercent and minAmountPointsPercent to ensure within bounds set by game rules
-          ScuntTeamModel.findOne({ number: teamNumber }, (err, team) => {
-            if (err) {
-              reject(err);
-            } else {
-              const prevPoints = team.transactions.reduce((prev, curr) => {
-                if (curr.missionNumber === missionNumber && curr.points > prev) {
-                  prev = curr.points;
-                }
-                return prev;
-              }, 0);
-              if (prevPoints < points) {
-                team.points += points - prevPoints;
-              }
-              const name =
-                (!prevPoints ? 'Added ' : prevPoints < points ? 'Updated to ' : '') +
-                points.toString() +
-                ' points for mission #' +
-                missionNumber.toString() +
-                ' for team ' +
-                teamNumber.toString();
-              team.transactions.push({ name, missionNumber, points });
-              team.save((err, res) => {
-                if (err) {
-                  reject(err);
-                } else {
-                  LeaderboardSubscription.add({ team: res.number, score: res.points });
-                  resolve(name);
-                }
-              });
-            }
-          });
-        }
-      });
+    // check if judging is allowed
+    await ScuntGameSettingsModel.findOne({}).then(
+      (settings) => {
+        if (!settings) throw new Error('INVALID_SETTINGS');
+        if (!settings.allowJudging) throw new Error('NOT_ALLOWED_TO_JUDGE');
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_GET_SCUNT_SETTINGS', { cause: error });
+      },
+    );
 
-      // Get max and min possible points by multiplying missionNumber's mission by minAmountPointsPercent and maxAmountPointsPercent from game settings
-      return true;
-    });
+    // check if team exists
+    const team = await ScuntTeamModel.findOne({ number: teamNumber }).then(
+      (team) => {
+        if (!team) throw new Error('INVALID_TEAM_NUMBER');
+        return team;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_GET_TEAM', { cause: error });
+      },
+    );
+
+    // check if team has already been judged for this mission
+    const prevPoints = team.transactions.reduce((prev, curr) => {
+      if (curr.missionNumber === missionNumber && curr.points > prev) {
+        prev = curr.points;
+      }
+      return prev;
+    }, 0);
+    if (prevPoints < points) {
+      team.points += points - prevPoints;
+    }
+
+    // add transaction to team
+    const transaction =
+      (!prevPoints ? 'Added ' : prevPoints < points ? 'Updated to ' : '') +
+      points.toString() +
+      ' points for mission #' +
+      missionNumber.toString() +
+      ' for team ' +
+      teamNumber.toString();
+    team.transactions.push({ name: transaction, missionNumber, points });
+
+    return team.save().then(
+      (team) => {
+        LeaderboardSubscription.add({ team: team.number, score: team.points });
+        return { name: transaction };
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_UPDATE_TEAM', { cause: error });
+      },
+    );
   },
 
+  /**
+   * @description Subtracts points from a team
+   * @param {Number} teamNumber
+   * @param {Number} points
+   * @returns {ScuntTeam}
+   */
   async subtractTransaction(teamNumber, points) {
-    return new Promise((resolve, reject) => {
-      ScuntGameSettingsModel.findOne({}, (err, settings) => {
-        if (err) {
-          reject(err);
-        } else if (!settings || !settings.allowJudging) {
-          reject('INVALID_SETTINGS');
-        } else {
-          ScuntTeamModel.findOneAndUpdate(
-            { number: teamNumber },
+    // check if judging is allowed
+    await ScuntGameSettingsModel.findOne({}).then(
+      (settings) => {
+        if (!settings) throw new Error('INVALID_SETTINGS');
+        if (!settings.allowJudging) throw new Error('NOT_ALLOWED_TO_JUDGE');
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_GET_SCUNT_SETTINGS', { cause: error });
+      },
+    );
+    // check if team exists and subtract points
+    return ScuntTeamModel.findOneAndUpdate(
+      { number: teamNumber },
+      {
+        $inc: { points: Math.abs(points) * -1 },
+        $push: {
+          transactions: [
             {
-              $inc: { points: Math.abs(points) * -1 },
-              $push: {
-                transactions: [
-                  {
-                    name: 'Subtracted ' + points.toString() + ' from team ' + teamNumber.toString(),
-                    points: Math.abs(points) * -1,
-                  },
-                ],
-              },
+              name: 'Subtracted ' + points.toString() + ' from team ' + teamNumber.toString(),
+              points: Math.abs(points) * -1,
             },
-            { upsert: false, returnDocument: 'after' },
-            (err, team) => {
-              if (err) {
-                reject(err);
-              } else if (!team) {
-                reject('INVALID_TEAM_NAME');
-              } else {
-                LeaderboardSubscription.add({ team: team.number, score: team.points });
-                resolve(team);
-              }
-            },
-          );
-        }
-      });
-    });
+          ],
+        },
+      },
+      { upsert: false, returnDocument: 'after' },
+    ).then(
+      (team) => {
+        if (!team) throw new Error('INVALID_TEAM_NUMBER');
+        LeaderboardSubscription.add({ team: team.number, score: team.points });
+        return team;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_UPDATE_TEAM', { cause: error });
+      },
+    );
   },
 
+  /**
+   * @description Gets a team's transactions
+   * @param {Number} teamNumber
+   * @returns {ScuntTeam}
+   */
   async viewTransactions(teamNumber) {
-    return new Promise((resolve, reject) => {
-      ScuntTeamModel.findOne({ number: teamNumber }, {}, {}, (err, teams) => {
-        if (err) {
-          reject(err);
-        } else if (!teams) {
-          reject('UNABLE_TO_GET_TEAM_INFO');
-        } else {
-          resolve(teams);
-        }
-      });
-    });
+    return ScuntTeamModel.findOne({ number: teamNumber }).then(
+      (team) => {
+        if (!team) throw new Error('INVALID_TEAM_NUMBER');
+        return team;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_GET_TRANSACTIONS', { cause: error });
+      },
+    );
   },
 
+  /**
+   * @description Gets a team's transactions
+   * @param {Number} teamNumber
+   * @param {Number} missionNumber
+   * @returns {Number}
+   */
   async checkTransaction(teamNumber, missionNumber) {
-    return new Promise((resolve, reject) => {
-      ScuntTeamModel.findOne(
-        { number: teamNumber },
-        {
-          transactions: {
-            $filter: {
-              input: '$transactions',
-              as: 'transaction',
-              cond: { $eq: ['$$transaction.missionNumber', missionNumber] },
-            },
+    return ScuntTeamModel.findOne(
+      { number: teamNumber },
+      {
+        transactions: {
+          $filter: {
+            input: '$transactions',
+            as: 'transaction',
+            cond: { $eq: ['$$transaction.missionNumber', missionNumber] },
           },
         },
-        {},
-        (err, team) => {
-          if (err) {
-            reject(err);
-          } else if (!team) {
-            reject('INVALID_TEAM');
-          } else {
-            resolve(
-              team.transactions.reduce((prev, curr) => {
-                if (curr.points > prev) {
-                  prev = curr.points;
-                }
-                return prev;
-              }, 0),
-            );
+      },
+    ).then(
+      (team) => {
+        if (!team) throw new Error('INVALID_TEAM_NUMBER');
+        return team.transactions.reduce((prev, curr) => {
+          if (curr.points > prev) {
+            prev = curr.points;
           }
-        },
-      );
-    });
+          return prev;
+        }, 0);
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_GET_TRANSACTIONS', { cause: error });
+      },
+    );
   },
+
+  /**
+   * @description Initializes teams
+   * @returns {ScuntTeam[]}
+   */
   async initializeTeams() {
     /*
     General approach is to:
@@ -295,199 +338,214 @@ const ScuntTeamServices = {
       2. Create the correct number of teams and upsert them into mongo
       3. Assign each frosh to a team based off their froshGroup, discipline, and pronouns
     */
-    return new Promise((resolve, reject) => {
-      ScuntGameSettingsModel.findOne({}, {}, {}, async (err, settings) => {
-        if (err) {
-          reject(err);
-        } else if (!settings || !settings.amountOfTeams) {
-          reject('INVALID_OR_MISSING_SCUNT_SETTINGS');
-        } else {
-          const numTeams = settings.amountOfTeams;
-          const teams = [];
-          for (let i = 1; i <= numTeams; i++) {
-            teams.push({
-              number: i,
-              name: `Team ${i}`,
-              froshGroups: {},
-              pronouns: {},
-              disciplines: {},
-              count: 0,
-            });
-          }
-          // upsert the scunt teams
-          ScuntTeamModel.collection.bulkWrite(
-            teams.map((t) => ({
-              updateOne: {
-                filter: {
-                  number: t.number,
-                },
-                update: {
-                  $set: {
-                    number: t.number,
-                    name: t.name,
-                    points: 0,
-                    transactions: [],
-                  },
-                },
-                upsert: true,
-              },
-            })),
-            {},
-            (err) => {
-              if (err) {
-                reject(err);
-              } else {
-                FroshModel.find({ scunt: true }, {}, {}, (err, frosh) => {
-                  if (err) {
-                    reject(err);
-                  } else {
-                    const scuntTeamDict = {};
-                    // create an array of promises to save the updated frosh
-                    const updates = frosh.map((f) => {
-                      if (f.scuntPreferredMembers.length) {
-                        let isMatch = true;
-                        for (let i = 0; i < f.scuntPreferredMembers.length; i++) {
-                          if (f.scuntPreferredMembers[i] !== f.email) {
-                            FroshModel.find({ email: f.scuntPreferredMembers[i] }, (err, frosh) => {
-                              if (err) {
-                                reject(err);
-                              } else {
-                                // there should only be one user with a particular email so map is not needed
-                                const sortedFPreferred = f.scuntPreferredMembers.sort();
-                                const sortedFroshPreferred = frosh[0].scuntPreferredMembers.sort();
-                                if (sortedFPreferred !== sortedFroshPreferred) {
-                                  isMatch = false;
-                                }
-                              }
-                            });
-                            if (!isMatch) {
-                              break;
-                            }
-                          }
-                        }
+    // get the number of teams from the scunt game settings
+    const numTeams = await ScuntGameSettingsModel.findOne({}).then(
+      (settings) => {
+        if (!settings) throw new Error('INVALID_SETTINGS');
+        if (!settings.amountOfTeams) throw new Error('MISSING_SCUNT_SETTINGS');
+        return settings.amountOfTeams;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_GET_SCUNT_SETTINGS', { cause: error });
+      },
+    );
 
-                        if (isMatch) {
-                          let teamIndex = -1;
-                          for (let i = 0; i < f.scuntPreferredMembers.length; i++) {
-                            if (f.scuntPreferredMembers[i] !== f.email) {
-                              if (scuntTeamDict[f.scuntPreferredMembers[i]] !== undefined) {
-                                teamIndex = scuntTeamDict[f.scuntPreferredMembers[i]];
-                                break;
-                              }
-                            }
-                          }
-
-                          if (teamIndex === -1) {
-                            let minCount = 100000;
-                            for (let i = 0; i < teams.length; i++) {
-                              if (teams[i].count === 0) {
-                                teamIndex = i;
-                                break;
-                              }
-                              if (teams[i].count < minCount) {
-                                minCount = teams[i].count;
-                                teamIndex = i;
-                              }
-                            }
-                          }
-
-                          const team = teams[teamIndex];
-                          f.scuntTeam = team.number;
-                          scuntTeamDict[f.email] = teamIndex;
-                          team.froshGroups[f.froshGroup] =
-                            (team.froshGroups[f.froshGroup] ?? 0) + 1;
-                          team.pronouns[f.pronouns] = (team.pronouns[f.pronouns] ?? 0) + 1;
-                          team.disciplines[f.discipline] =
-                            (team.disciplines[f.discipline] ?? 0) + 1;
-                          team.count += 1;
-                          return f.save({ validateModifiedOnly: true });
-                        }
-                      }
-                      let minScore = 100000;
-                      let teamIndex = -1;
-                      for (let i = 0; i < teams.length; i++) {
-                        const score =
-                          0.5 * (teams[i].froshGroups[f.froshGroup] ?? 0) +
-                          0.5 * (teams[i].pronouns[f.pronouns] ?? 0) +
-                          0.5 * (teams[i].disciplines[f.discipline] ?? 0) +
-                          teams[i].count;
-
-                        if (score < minScore) {
-                          minScore = score;
-                          teamIndex = i;
-                        }
-                      }
-                      const team = teams[teamIndex];
-                      f.scuntTeam = team.number;
-                      team.froshGroups[f.froshGroup] = (team.froshGroups[f.froshGroup] ?? 0) + 1;
-                      team.pronouns[f.pronouns] = (team.pronouns[f.pronouns] ?? 0) + 1;
-                      team.disciplines[f.discipline] = (team.disciplines[f.discipline] ?? 0) + 1;
-                      team.count += 1;
-                      return f.save({ validateModifiedOnly: true });
-                    });
-                    // await the resolution of the full array, and then resolve only if every frosh saved successfully
-                    Promise.all(updates)
-                      .then(() => resolve(teams))
-                      .catch(() => reject('INTERNAL_ERROR'));
-                  }
-                });
-              }
-            },
-          );
-        }
-      });
-    });
-  },
-
-  async deleteTransaction(teamNumber, id) {
-    return new Promise((resolve, reject) => {
-      ScuntTeamModel.findOneAndUpdate(
-        { number: teamNumber },
-        { $pull: { transactions: { _id: { $in: [mongoose.Types.ObjectId(id)] } } } },
-        { returnDocument: 'after' },
-        (err, team) => {
-          if (err) {
-            reject(err);
-          } else if (!team) {
-            reject('INVALID_TEAM');
-          } else {
-            resolve(true);
-          }
+    // create an array of teams to upsert
+    const teams = [...Array(numTeams).keys()].map((i) => ({
+      updateOne: {
+        filter: {
+          number: i + 1,
         },
-      );
-    });
+        update: {
+          $set: {
+            number: i + 1,
+            name: `Team ${i + 1}`,
+            points: 0,
+            transactions: [],
+          },
+        },
+        upsert: true,
+      },
+    }));
+
+    // upsert the teams
+    await ScuntTeamModel.collection.bulkWrite(teams).then(
+      (result) => {
+        if (result.modifiedCount !== numTeams) throw new Error('UNABLE_TO_UPDATE_TEAMS');
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_UPDATE_TEAMS', { cause: error });
+      },
+    );
+
+    // get all the frosh who signed up for scunt
+    const scuntFrosh = await FroshModel.find({ attendingScunt: true }).then(
+      (allFroshList) => {
+        if (!allFroshList) throw new Error('UNABLE_TO_GET_ALL_FROSH');
+        return allFroshList;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_GET_ALL_FROSH', { cause: error });
+      },
+    );
+
+    const scuntTeamDict = {};
+
+    // create an array of promises to save the updated frosh
+    return Promise.all(
+      scuntFrosh.map((f) => {
+        if (f.scuntPreferredMembers.length) {
+          let isMatch = true;
+          for (let i = 0; i < f.scuntPreferredMembers.length; i++) {
+            if (f.scuntPreferredMembers[i] !== f.email) {
+              const frosh = FroshModel.find({ email: f.scuntPreferredMembers[i] }).then(
+                (frosh) => {
+                  if (!frosh) throw new Error('UNABLE_TO_GET_FROSH');
+                },
+                (error) => {
+                  throw new Error('UNABLE_TO_GET_FROSH', { cause: error });
+                },
+              );
+
+              const sortedFPreferred = f.scuntPreferredMembers.sort();
+              const sortedFroshPreferred = frosh[0].scuntPreferredMembers.sort();
+              if (sortedFPreferred !== sortedFroshPreferred) {
+                isMatch = false;
+              }
+            }
+          }
+
+          if (isMatch) {
+            let teamIndex = -1;
+            for (let i = 0; i < f.scuntPreferredMembers.length; i++) {
+              if (f.scuntPreferredMembers[i] !== f.email) {
+                if (scuntTeamDict[f.scuntPreferredMembers[i]] !== undefined) {
+                  teamIndex = scuntTeamDict[f.scuntPreferredMembers[i]];
+                  break;
+                }
+              }
+            }
+
+            if (teamIndex === -1) {
+              let minCount = 100000;
+              for (let i = 0; i < teams.length; i++) {
+                if (teams[i].count === 0) {
+                  teamIndex = i;
+                  break;
+                }
+                if (teams[i].count < minCount) {
+                  minCount = teams[i].count;
+                  teamIndex = i;
+                }
+              }
+            }
+
+            const team = teams[teamIndex];
+            f.scuntTeam = team.number;
+            scuntTeamDict[f.email] = teamIndex;
+            team.froshGroups[f.froshGroup] = (team.froshGroups[f.froshGroup] ?? 0) + 1;
+            team.pronouns[f.pronouns] = (team.pronouns[f.pronouns] ?? 0) + 1;
+            team.disciplines[f.discipline] = (team.disciplines[f.discipline] ?? 0) + 1;
+            team.count += 1;
+            return f.save({ validateModifiedOnly: true });
+          }
+        }
+        let minScore = 100000;
+        let teamIndex = -1;
+        for (let i = 0; i < teams.length; i++) {
+          const score =
+            0.5 * (teams[i].froshGroups[f.froshGroup] ?? 0) +
+            0.5 * (teams[i].pronouns[f.pronouns] ?? 0) +
+            0.5 * (teams[i].disciplines[f.discipline] ?? 0) +
+            teams[i].count;
+
+          if (score < minScore) {
+            minScore = score;
+            teamIndex = i;
+          }
+        }
+        const team = teams[teamIndex];
+        f.scuntTeam = team.number;
+        team.froshGroups[f.froshGroup] = (team.froshGroups[f.froshGroup] ?? 0) + 1;
+        team.pronouns[f.pronouns] = (team.pronouns[f.pronouns] ?? 0) + 1;
+        team.disciplines[f.discipline] = (team.disciplines[f.discipline] ?? 0) + 1;
+        team.count += 1;
+        return f.save({ validateModifiedOnly: true }).then(
+          (frosh) => {
+            if (!frosh) throw new Error('UNABLE_TO_UPDATE_FROSH');
+            return frosh;
+          },
+          (error) => {
+            throw new Error('UNABLE_TO_UPDATE_FROSH', { cause: error });
+          },
+        );
+      }),
+    );
   },
+
+  /**
+   * @description Deletes a transaction
+   * @param {Number} teamNumber
+   * @param {String} id
+   * @returns {ScuntTeam}
+   */
+  async deleteTransaction(teamNumber, id) {
+    return ScuntTeamModel.findOneAndUpdate(
+      { number: teamNumber },
+      { $pull: { transactions: { _id: { $in: [mongoose.Types.ObjectId(id)] } } } },
+      { returnDocument: 'after' },
+    ).then(
+      (team) => {
+        if (!team) throw new Error('INVALID_TEAM_NUMBER');
+        return team;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_UPDATE_TEAM', { cause: error });
+      },
+    );
+  },
+
+  /**
+   * @description Gets recent transactions
+   * @returns {Transaction[]}
+   */
   async viewRecentTransactions() {
-    return new Promise((resolve, reject) => {
-      ScuntTeamModel.aggregate([
-        { $project: { transactions: 1, number: 1, name: 1 } },
-        { $unwind: { path: '$transactions' } },
-        { $sort: { createdAt: 1 } },
-        { $limit: 50 },
-      ]).exec((err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-    });
+    return ScuntTeamModel.aggregate([
+      { $project: { transactions: 1, number: 1, name: 1 } },
+      { $unwind: { path: '$transactions' } },
+      { $sort: { createdAt: 1 } },
+      { $limit: 50 },
+    ]).then(
+      (transactions) => {
+        return transactions;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_GET_TRANSACTIONS', { cause: error });
+      },
+    );
   },
+
+  /**
+   * @description Updates a team's name
+   * @param {Number} teamNumber
+   * @param {String} rename
+   * @returns {ScuntTeam}
+   */
   async setTeamName(teamNumber, rename) {
-    return new Promise((resolve, reject) => {
-      ScuntTeamModel.findOneAndUpdate({ number: teamNumber }, { name: rename }, (err, team) => {
-        if (err) {
-          reject(err);
-        } else if (!team) {
-          reject('INVALID_TEAM_NUMBER');
-        } else {
-          resolve({ team });
-        }
-      });
-    });
+    return ScuntTeamModel.findOneAndUpdate(
+      { number: teamNumber },
+      { name: rename },
+      { new: true, returnDocument: 'after' },
+    ).then(
+      (team) => {
+        if (!team) throw new Error('INVALID_TEAM_NUMBER');
+        return team;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_UPDATE_TEAM', { cause: error });
+      },
+    );
   },
 };
 
 module.exports = ScuntTeamServices;
-
-/* eslint-enable no-unused-vars */
