@@ -14,13 +14,10 @@
   "license": "ISC",
   "devDependencies": {
     "husky": "^8.0.0",
-    "lint-staged": "^12.4.1"
+    "lint-staged": "^13.2.3"
   },
   "dependencies": {
-    "concurrently": "^7.1.0",
-    "react-full-screen": "^1.1.1",
-    "react-lazy-load-image-component": "^1.5.5",
-    "react-lazyload": "^3.2.0",
-    "socket.io-client": "^4.5.2"  
+    "concurrently": "^8.2.0",
+    "socket.io-client": "^4.5.2"
   }
 }
