@@ -1,25 +1,11 @@
-import calum from '../../assets/about/techteam/calum.jpg';
-import emily from '../../assets/about/techteam/emily.jpg';
-import farbod from '../../assets/about/techteam/farbod.jpg';
-import james from '../../assets/about/techteam/james.jpg';
-import luke from '../../assets/about/techteam/luke.jpg';
-import neo from '../../assets/about/techteam/neo.jpg';
+import farbod from '../../assets/about/techteam/sherry.jpg';
 import natalie from '../../assets/about/techteam/natalie.jpg';
+import sherry from '../../assets/about/techteam/sherry.jpg';
+import tanu from '../../assets/about/techteam/tanu.jpg';
+import uzma from '../../assets/about/techteam/uzma.jpg';
 
 export const techTeam = {
   first: [
-    {
-      fullName: 'Calum Murray',
-      discipline: 'EngSci ECE 2T4',
-      quote: 'Tech team best team',
-      img: calum,
-    },
-    {
-      fullName: 'Emily Nguyen',
-      discipline: 'EngSci MI 2T4',
-      quote: 'Join BrewofT and brew ur own spicy water!',
-      img: emily,
-    },
     {
       fullName: 'Farbod Mohammadzadeh',
       discipline: 'EngSci 2T5',
@@ -27,28 +13,34 @@ export const techTeam = {
       img: farbod,
     },
     {
-      fullName: 'James Kokoska',
-      discipline: 'CE 2T2',
-      quote: "This website's repo is open source :)",
-      img: james,
-    },
-    {
-      fullName: 'Luke Yang',
-      discipline: 'EngSci ROBO 2T4',
-      quote: "Help I'm addicted to Valorant",
-      img: luke,
-    },
-    {
-      fullName: 'Neo Lou',
-      discipline: 'EngSci ECE 2T4',
-      quote: "I don't like bugs, both physical and digital ones",
-      img: neo,
-    },
-    {
       fullName: 'Natalie Chan',
       discipline: 'ECE 2T4',
-      quote: 'Secret member of tech team 🤫',
+      quote: '💜',
       img: natalie,
+    },
+    {
+      fullName: 'Shiran (Sherry) Zhang',
+      discipline: 'T1 + Indy 2T6 + PEY',
+      quote: 'Be free. Be true. Be you.',
+      img: sherry,
+    },
+    {
+      fullName: 'Tanushanth Thavanenthiran',
+      discipline: 'ECE 2T5',
+      quote: '(╯°□°)╯︵ ┻━┻',
+      img: tanu,
+    },
+    {
+      fullName: 'Uzma Ferdous',
+      discipline: 'ECE 2T5',
+      quote: '🤠',
+      img: uzma,
+    },
+    {
+      fullName: 'Vraj Prajapati',
+      discipline: 'ECE 2T5',
+      quote: '🤠',
+      img: uzma,
     },
   ],
 };
