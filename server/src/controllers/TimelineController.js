@@ -3,7 +3,7 @@ const TimelineServices = require('../services/TimelineServices');
 const TimelineController = {
   async getTimeline(req, res, next) {
     try {
-      const allTimelines = await TimelineServices.getAllTimelines();
+      const allTimelines = await TimelineServices.getAll();
       return res.status(200).send({ timelines: allTimelines });
     } catch (e) {
       req.log.error({ msg: 'Unable to get timeline', e });
@@ -15,14 +15,7 @@ const TimelineController = {
     const { date, eventName, description, link, linkLabel } = req.body;
     const { id } = req.params;
     try {
-      await TimelineServices.updateTimelineElement(
-        id,
-        date,
-        eventName,
-        description,
-        link,
-        linkLabel,
-      );
+      await TimelineServices.update(id, date, eventName, description, link, linkLabel);
       return res.status(200).send({ message: 'Successfully updated Timeline element!' });
     } catch (e) {
       req.log.fatal({ msg: 'Unable to update timeline event', e });
@@ -33,7 +26,7 @@ const TimelineController = {
   async createTimelineElement(req, res, next) {
     const { date, eventName, description, link, linkLabel } = req.body;
     try {
-      await TimelineServices.saveNewTimelineElement(date, eventName, description, link, linkLabel);
+      await TimelineServices.create(date, eventName, description, link, linkLabel);
       return res.status(200).send({ message: 'Successfully added Timeline element!' });
     } catch (e) {
       req.log.fatal({ msg: 'Unable to create timeline event', e });

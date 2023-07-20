@@ -11,7 +11,7 @@ const FaqController = {
    */
   async getAnsweredFaqList(req, res, next) {
     try {
-      const answeredQuestions = await FaqServices.getAnsweredQuestions();
+      const answeredQuestions = await FaqServices.getAnswered();
       res.status(200).send({ faqs: answeredQuestions });
     } catch (err) {
       req.log.fatal({ msg: 'Unable to get answered FAQ questions', err });
@@ -29,7 +29,7 @@ const FaqController = {
    */
   async getUnansweredFaqList(req, res, next) {
     try {
-      const unansweredQuestions = await FaqServices.getUnansweredQuestions();
+      const unansweredQuestions = await FaqServices.getUnanswered();
       res.status(200).send({ faqs: unansweredQuestions });
     } catch (err) {
       req.log.fatal({ msg: 'Unable to get unanswered FAQ questions', err });
@@ -47,7 +47,7 @@ const FaqController = {
    */
   async getAllFaqList(req, res, next) {
     try {
-      const allQuestions = await FaqServices.getAllQuestions();
+      const allQuestions = await FaqServices.getAll();
       res.status(200).send({ faqs: allQuestions });
     } catch (err) {
       req.log.fatal({ msg: 'Unable to get all FAQ questions', err });
@@ -67,7 +67,7 @@ const FaqController = {
     try {
       const { email, question, category } = req.body;
       // Don't allow frosh to post an answer - set it to undefined
-      const newFaq = await FaqServices.createNewQuestion(email, question, undefined, category);
+      const newFaq = await FaqServices.create(email, question, undefined, category);
       res.status(200).send(newFaq.toObject());
     } catch (err) {
       req.log.fatal({ msg: 'Unable to create FAQ question', err });
@@ -86,7 +86,7 @@ const FaqController = {
   async createQuestionWithAns(req, res, next) {
     try {
       const { email, question, answer, category } = req.body;
-      const newFaq = await FaqServices.createNewQuestion(email, question, answer, category);
+      const newFaq = await FaqServices.create(email, question, answer, category);
       res.status(200).send(newFaq.toObject());
     } catch (err) {
       req.log.fatal({ msg: 'Unable to create FAQ question with answer', err });
@@ -105,7 +105,7 @@ const FaqController = {
   async deleteQuestion(req, res, next) {
     try {
       const { faqId } = req.params;
-      await FaqServices.deleteQuestion(faqId);
+      await FaqServices.delete(faqId);
       res.status(200).send({ message: 'Successfully deleted FAQ!', deletedId: faqId });
     } catch (err) {
       req.log.fatal({ msg: 'Unable to delete FAQ question', err });
@@ -126,7 +126,7 @@ const FaqController = {
       const { faqId } = req.params;
       const update = req.body;
       update.isAnswered = update.answer ? true : false;
-      const updatedFaq = await FaqServices.updateQuestion(faqId, update);
+      const updatedFaq = await FaqServices.update(faqId, update);
       res.status(200).send(updatedFaq.toObject());
     } catch (err) {
       req.log.fatal({ msg: 'Unable to update FAQ question', err });
