@@ -6,7 +6,8 @@
   "scripts": {
     "format": "prettier --write \"**/*.+(js|json)\"",
     "lint": "eslint src",
-    "test": "jest --runInBand",
+    "test": "nyc --reporter=lcov --reporter=text mocha --recursive --exit",
+    "test:actions": "nyc --reporter=text-summary mocha --recursive --exit",
     "start:dev": "set NODE_ENV=development && nodemon -L src/server.js",
     "start": "set NODE_ENV=production && node src/server.js"
   },
@@ -23,13 +24,12 @@
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jest": "^26.2.2",
-    "eslint-plugin-prettier": "^5.0.0",
-    "jest": "^28.1.0",
     "lint-staged": "^13.0.0",
-    "mongodb-memory-server": "^8.6.0",
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0",
+    "eslint-plugin-prettier": "^5.0.0",
     "nodemon": "^3.0.1",
-    "prettier": "^3.0.0",
-    "supertest": "^6.2.3"
+    "prettier": "^3.0.0"
   },
   "dependencies": {
     "@aws-sdk/client-sesv2": "^3.100.0",
@@ -44,13 +44,13 @@
     "jsonwebtoken": "^9.0.1",
     "mime": "^3.0.0",
     "mimemessage": "^1.0.5",
+    "mongodb": "^5.7.0",
     "mongoose": "^7.4.0",
     "multer": "^1.4.5-lts.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pino": "^8.14.1",
     "pino-http": "^8.3.3",
-    "react-full-screen": "^1.1.1",
     "socket.io": "^4.5.1",
     "socket.io-client": "^4.5.2",
     "stripe": "^12.13.0",

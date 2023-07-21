@@ -15,3 +15,14 @@ jobs:
 
       - name: Build client
         run: cd client && yarn install && yarn build
+  test_backend:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3.5.3
+
+      - name: Start Docker
+        uses: docker-compose -f docker-compose.test.yml up --build -d
+
+      - name: Run Tests
+        run: cd server && yarn install && yarn test:actions
