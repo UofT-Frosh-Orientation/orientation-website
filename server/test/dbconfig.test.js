@@ -1,5 +1,6 @@
+/* eslint-disable no-undef */
 const mongoose = require('mongoose');
-const mongoURI = `mongodb://admin:root@localhost:27017/testingDatabase?authSource=admin`;
+const mongoURI = `mongodb://admin:root@127.0.0.1:27017/testingDatabase?authSource=admin`;
 
 mongoose.connect(mongoURI);
 
