@@ -22,5 +22,8 @@ const AnnouncementSchema = new mongoose.Schema({
 });
 
 const AnnouncementModel = mongoose.model('Announcement', AnnouncementSchema);
-
+/**
+ * Global Announcement objet
+ * @typedef {typeof AnnouncementModel.schema.obj} Announcement
+ */
 module.exports = AnnouncementModel;

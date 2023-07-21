@@ -1,112 +1,129 @@
+/**
+ * Global Announcement objet
+ * @typedef {import("../models/AnnouncementModel").Announcement} Announcement
+ */
 const AnnouncementModel = require('../models/AnnouncementModel');
 const UserModel = require('../models/UserModel');
 const announcementSubscription = require('../subscribers/announcementSubscription');
 
 const AnnouncementServices = {
-  async getAllAnnouncements() {
-    return new Promise((resolve, reject) => {
-      AnnouncementModel.find({}, (err, announcements) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(announcements);
-        }
-      }).sort({ dateCreated: -1 });
-    });
+  /**
+   * @description Gets all announcements
+   * @returns {Announcement[]} All announcements
+   */
+  async getAll() {
+    return AnnouncementModel.find({}).then(
+      (announcements) => {
+        return announcements.sort({ dateCreated: -1 });
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_GET_ALL_ANNOUNCEMENTS', { cause: error });
+      },
+    );
   },
 
-  async completeAnnouncementElement(id, currentUser) {
+  /**
+   * @description marks an announcement as completed for a user
+   * @param {String} id announcement id
+   * @param {User} currentUser current user
+   * @returns {User} updated user
+   */
+  async complete(id, currentUser) {
     var listOfCompleted = currentUser.completedAnnouncements;
-    return new Promise((resolve, reject) => {
-      AnnouncementModel.findOne({ _id: id }, (err, announcement) => {
-        if (err) {
-          reject(err);
-        } else {
-          let removeIndex;
-          if (
-            listOfCompleted.every((value, index) => {
-              if (value.id === announcement.id) {
-                removeIndex = index;
-              }
-              return value.id != announcement.id;
-            })
-          ) {
-            listOfCompleted.push({ _id: announcement.id, announcementName: announcement.name });
-          } else {
-            listOfCompleted.splice(removeIndex, 1);
-          }
-
-          UserModel.findOneAndUpdate(
-            { _id: currentUser._id },
-            { completedAnnouncements: listOfCompleted },
-            (err, user) => {
-              if (err || !user) {
-                reject('UNABLE_TO_UPDATE_USER');
-              } else {
-                resolve(user);
-              }
-            },
-          );
+    const completedAnnouncement = AnnouncementModel.findOne({ _id: id }).then(
+      (announcement) => announcement,
+      (error) => {
+        throw error;
+      },
+    );
+    let removeIndex;
+    if (
+      listOfCompleted.every((value, index) => {
+        if (value.id === completedAnnouncement.id) {
+          removeIndex = index;
         }
+        return value.id != completedAnnouncement.id;
+      })
+    ) {
+      listOfCompleted.push({
+        _id: completedAnnouncement.id,
+        announcementName: completedAnnouncement.name,
+      });
+    } else {
+      listOfCompleted.splice(removeIndex, 1);
+    }
+    return UserModel.findOneAndUpdate(
+      { _id: currentUser._id },
+      { completedAnnouncements: listOfCompleted },
+    ).then(
+      (user) => user,
+      (error) => {
+        throw new Error('UNABLE_TO_UPDATE_USER', { cause: error });
+      },
+    );
+  },
+
+  /**
+   * @description Gets all announcements that have been completed by a user
+   * @param {user} currentUser current user
+   * @returns {Announcement[]}
+   */
+  async getCompleted(currentUser) {
+    return AnnouncementModel.find({
+      _id: { $in: currentUser.completedAnnouncements },
+    }).then((announcements) => {
+      return announcements.sort({ dateCreated: -1 }, (error) => {
+        throw new Error('UNABLE_TO_GET_COMPLETED_ANNOUNCEMENTS', { cause: error });
       });
     });
   },
 
-  async getCompletedAnnouncements(currentUser) {
-    return new Promise((resolve, reject) => {
-      AnnouncementModel.find(
-        {
-          _id: { $in: currentUser.completedAnnouncements },
-        },
-        (err, announcements) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(announcements);
-          }
-        },
-      ).sort({ dateCreated: -1 });
-    });
+  /**
+   * @description Updates an announcement
+   * @param {String} id announcement id
+   * @param {Announcement} announcementElement announcement fields to be updated
+   * @returns {Announcement}
+   */
+  async update(id, announcementElement) {
+    return AnnouncementModel.findOneAndUpdate({ _id: id }, announcementElement).then(
+      (announcement) => announcement,
+      (error) => {
+        throw new Error('UNABLE_TO_UPDATE_ANNOUNCEMENT', { cause: error });
+      },
+    );
   },
 
-  async updateAnnouncementElement(id, announcementElement) {
-    return new Promise((resolve, reject) => {
-      AnnouncementModel.findOneAndUpdate({ _id: id }, announcementElement, (err, announcement) => {
-        if (err || !announcement) {
-          reject('UNABLE_TO_UPDATE_ANNOUNCEMENT');
-        } else {
-          resolve(announcement);
+  /**
+   * @description Creates a new announcement
+   * @param {Announcement} announcementElement new announcement to be created
+   * @returns {Announcement}
+   */
+  async create(announcementElement) {
+    return AnnouncementModel.create(announcementElement).then(
+      (newAnnouncement) => {
+        if (newAnnouncement.sendAsEmail === true) {
+          announcementSubscription.add(newAnnouncement);
         }
-      });
-    });
+        return newAnnouncement;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_CREATE_ANNOUNCEMENT', { cause: error });
+      },
+    );
   },
 
-  async saveNewAnnouncementElement(announcementElement) {
-    return new Promise((resolve, reject) => {
-      AnnouncementModel.create(announcementElement, (err, newAnnouncement) => {
-        if (err) {
-          reject(err);
-        } else {
-          if (announcementElement.sendAsEmail === true) {
-            announcementSubscription.add(announcementElement);
-          }
-          resolve(newAnnouncement);
-        }
-      });
-    });
-  },
-
-  async deleteAnnouncementElement(id) {
-    return new Promise((resolve, reject) => {
-      AnnouncementModel.findOneAndDelete({ _id: id }, (err, deleteAnnouncement) => {
-        if (err || !deleteAnnouncement) {
-          reject('UNABLE_TO_DELETE_ANNOUNCEMENT');
-        } else {
-          resolve(deleteAnnouncement);
-        }
-      });
-    });
+  /**
+   * @description Deletes an announcement
+   * @param {String} id announcement id
+   * @returns {Announcement}
+   */
+  async delete(id) {
+    return AnnouncementModel.findOneAndDelete({ _id: id }).then(
+      (deletedAnnouncement) => deletedAnnouncement,
+      (error) => {
+        throw new Error('UNABLE_TO_DELETE_ANNOUNCEMENT', { cause: error });
+      },
+    );
   },
 };
-
 module.exports = AnnouncementServices;

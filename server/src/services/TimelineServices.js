@@ -1,61 +1,72 @@
 const TimelineModel = require('../models/TimelineModel');
 
 const TimelineServices = {
-  async getAllTimelines() {
-    return new Promise((resolve, reject) => {
-      TimelineModel.find({})
-        .sort({ date: 1 })
-        .exec(function (err, Timelines) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(Timelines);
-          }
-        });
-    });
+  /**
+   * @description Gets all the timeline elements
+   * @returns {Timeline[]}
+   */
+  async getAll() {
+    return TimelineModel.find({}).then(
+      (result) => result.sort({ date: 1 }),
+      (error) => {
+        throw new Error('UNABLE_TO_GET_TIMELINE', { cause: error });
+      },
+    );
   },
 
-  async updateTimelineElement(id, date, eventName, description, link, linkLabel) {
-    return new Promise((resolve, reject) => {
-      TimelineModel.findOneAndUpdate(
-        { _id: id },
-        { date, eventName, description, link, linkLabel },
-        (err, Timeline) => {
-          if (err || !Timeline) {
-            reject('UNABLE_TO_UPDATE_TIMELiNE');
-          } else {
-            resolve(Timeline);
-          }
-        },
-      );
-    });
+  /**
+   * @description Updates a timeline element
+   * @param {String} id
+   * @param {Date} date
+   * @param {String} eventName
+   * @param {String} description
+   * @param {String} link
+   * @param {String} linkLabel
+   * @returns {Timeline}
+   */
+  async update(id, date, eventName, description, link, linkLabel) {
+    return TimelineModel.findOneAndUpdate(
+      { _id: id },
+      { date, eventName, description, link, linkLabel },
+      { new: true, returnDocument: 'after' },
+    ).then(
+      (result) => result,
+      (error) => {
+        throw new Error('UNABLE_TO_UPDATE_TIMELINE', { cause: error });
+      },
+    );
   },
 
-  async saveNewTimelineElement(date, eventName, description, link, linkLabel) {
-    return new Promise((resolve, reject) => {
-      TimelineModel.create(
-        { date, eventName, description, link, linkLabel },
-        (err, newTimeline) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(newTimeline);
-          }
-        },
-      );
-    });
+  /**
+   * @description Creates a timeline element
+   * @param {Date} date
+   * @param {String} eventName
+   * @param {String} description
+   * @param {String} link
+   * @param {String} linkLabel
+   * @returns {Timeline}
+   */
+  async create(date, eventName, description, link, linkLabel) {
+    return TimelineModel.create({ date, eventName, description, link, linkLabel }).then(
+      (result) => result,
+      (error) => {
+        throw new Error('UNABLE_TO_CREATE_TIMELINE', { cause: error });
+      },
+    );
   },
 
+  /**
+   * @description Deletes a timeline element
+   * @param {String} id timeline element id
+   * @returns {Timeline}
+   */
   async deleteTimelineElement(id) {
-    return new Promise((resolve, reject) => {
-      TimelineModel.findOneAndDelete({ _id: id }, (err, deleteTimeline) => {
-        if (err || !deleteTimeline) {
-          reject('UNABLE_TO_DELETE_Timeline');
-        } else {
-          resolve(deleteTimeline);
-        }
-      });
-    });
+    return TimelineModel.findOneAndDelete({ _id: id }).then(
+      (result) => result,
+      (error) => {
+        throw new Error('UNABLE_TO_DELETE_TIMELINE', { cause: error });
+      },
+    );
   },
 };
 

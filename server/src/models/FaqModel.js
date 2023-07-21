@@ -27,5 +27,8 @@ const FaqSchema = new Schema(
 );
 
 const FaqModel = mongoose.model('FAQ', FaqSchema);
-
+/**
+ * Global Faq objet
+ * @typedef {typeof FaqModel.schema.obj} Faq
+ */
 module.exports = FaqModel;
