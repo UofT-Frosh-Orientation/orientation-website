@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v3.5.3
 
       - name: Start Docker
-        uses: docker-compose -f docker-compose.test.yml up --build -d
+        run: docker-compose -f docker-compose.test.yml up --build -d
 
       - name: Run Tests
         run: cd server && yarn install && yarn test:actions
