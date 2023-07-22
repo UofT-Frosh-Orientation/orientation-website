@@ -130,6 +130,60 @@ const FroshController = {
       next(e);
     }
   },
+
+
+  async reassignFrosh(req, res, next) {
+    try {
+      if (!req.user?.froshDataFields?.approved?.length) {
+        return next(new Error('UNAUTHORIZED'));
+      }
+      const filter = req.user?.froshDataFields?.approved.reduce(
+        (prev, curr) => {
+          prev[curr] = 1;
+          return prev;
+        },
+        { _id: 1 },
+      );
+      const froshGroupFilters = [null];
+      const scuntTeamFilters = [null];
+      if (req.user?.authScopes?.approved) {
+        for (const authScope of req.user.authScopes.approved) {
+          if (authScope.includes('froshGroupData:')) {
+            froshGroupFilters.push(authScope.replace('froshGroupData:', ''));
+          }
+          if (authScope.includes('scuntGroupData:')) {
+            scuntTeamFilters.push(parseInt(authScope.replace('scuntGroupData:', '')));
+          }
+        }
+      }
+      let query = {
+        $or: [{ froshGroup: { $in: froshGroupFilters } }, { scuntTeam: { $in: scuntTeamFilters } }],
+      };
+      const allFroshGroups = req.user?.authScopes?.approved?.includes('froshGroupData:all');
+      if (allFroshGroups) {
+        query = {};
+      }
+
+      const frosh = await FroshServices.getFilteredFroshInfo(query, filter);
+      //Add code for reassigning users
+
+      
+      return res.status(200).send({frosh});
+
+    } catch (e) {
+      req.log.fatal({
+        msg: 'Unable to reassign requested frosh users',
+        e,
+        user: req.user.getResponseObject(),
+      });
+      next(e);
+    }
+  },
 };
+
+
+
+
+
 
 module.exports = FroshController;

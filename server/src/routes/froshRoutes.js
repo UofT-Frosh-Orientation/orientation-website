@@ -66,4 +66,12 @@ router.get(
   FroshController.getFilteredFroshInfo,
 );
 
+
+router.post(
+  '/reassign',
+  checkLoggedIn,
+  hasAuthScopes(['admin:all']),
+  FroshController.reassignFrosh,
+);
+
 module.exports = router;
