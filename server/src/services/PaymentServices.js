@@ -42,8 +42,8 @@ const PaymentServices = {
         return frosh;
       }
       return null;
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      throw new Error('UNABLE_TO_UPDATE_PAYMENT', { cause: error });
     }
   },
 
