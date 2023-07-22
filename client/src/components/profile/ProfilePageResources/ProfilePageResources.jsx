@@ -26,7 +26,8 @@ export const ProfilePageResources = ({ froshObject }) => {
           </a>
         );
       })}
-      {froshObject ? (
+      {froshObject ? ( 
+      <>
         <a key={'5Download'} className="no-link-style">
           <ButtonBubble
             label={'Download Information PDF'}
@@ -42,6 +43,7 @@ export const ProfilePageResources = ({ froshObject }) => {
             style={{ margin: 0, marginTop: '10px' }}
           />
         </a>
+      </>
       ) : (
         <></>
       )}
@@ -50,7 +52,7 @@ export const ProfilePageResources = ({ froshObject }) => {
         onClick={async () => {
           const ReactPDF = await import('@react-pdf/renderer');
           const { MakeSchedulePDF } = await import('../../MakeSchedulePDF/MakeSchedulePDF');
-          const blob = await ReactPDF.pdf(MakeSchedulePDF()).toBlob();
+          const blob = await ReactPDF.pdf(MakeSchedulePDF(froshObject)).toBlob();
           const fileURL = URL.createObjectURL(blob);
           const pdfWindow = window.open(fileURL, '_blank');
           pdfWindow && pdfWindow.focus();
