@@ -134,6 +134,26 @@ const FroshController = {
 
   async reassignFrosh(req, res, next) {
     try {
+      async function mapFroshUsers(frosh, index) {
+        if(index >= frosh.length){
+          return;
+        }
+        const froshUser = frosh[index];
+        const { froshGroup, froshGroupIcon } = await FroshServices.getNewFroshGroup(
+          froshUser.discipline,
+          froshUser.pronouns,
+        );
+        if(froshGroup == froshUser.froshGroup){
+          //Redo this index
+          await mapFroshUsers(frosh, index);
+        }
+        else{
+          //Change frosh group of this user
+          await FroshServices.updateFroshInfo(froshUser.id, {froshGroup: froshGroup, froshGroupIcon: froshGroupIcon});
+          await mapFroshUsers(frosh, index + 1);
+        }
+      }
+      
       if (!req.user?.froshDataFields?.approved?.length) {
         return next(new Error('UNAUTHORIZED'));
       }
@@ -165,9 +185,10 @@ const FroshController = {
       }
 
       const frosh = await FroshServices.getFilteredFroshInfo(query, filter);
-      //Add code for reassigning users
 
-      
+      //Add code for reassigning users
+      mapFroshUsers(frosh, 0);
+
       return res.status(200).send({frosh});
 
     } catch (e) {
