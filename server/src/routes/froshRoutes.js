@@ -68,7 +68,7 @@ router.get(
 
 
 router.post(
-  '/reassign',
+  '/redistribute',
   checkLoggedIn,
   hasAuthScopes(['admin:all']),
   FroshController.reassignFrosh,

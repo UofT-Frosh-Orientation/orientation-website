@@ -134,22 +134,29 @@ const FroshController = {
 
   async reassignFrosh(req, res, next) {
     try {
-      async function mapFroshUsers(frosh, index) {
+      
+      async function mapFroshUsers(frosh, index) {   
         if(index >= frosh.length){
           return;
         }
-        const froshUser = frosh[index];
-        const { froshGroup, froshGroupIcon } = await FroshServices.getNewFroshGroup(
-          froshUser.discipline,
-          froshUser.pronouns,
-        );
-        if(froshGroup == froshUser.froshGroup){
-          //Redo this index
-          await mapFroshUsers(frosh, index);
+        if (frosh[index]['pronouns'] !== undefined && (frosh[index][pronouns].toString().includes('He/Him') || frosh[index][pronouns].toString().includes('She/Her')) ) {
+          const froshUser = frosh[index];
+          const { froshGroup, froshGroupIcon } = await FroshServices.getNewFroshGroup(
+            froshUser.discipline,
+            froshUser.pronouns,
+          );
+          
+          if(froshGroup == froshUser.froshGroup){
+            //Redo this index
+            await mapFroshUsers(frosh, index);
+          }
+          else{
+            //Change frosh group of this user
+            await FroshServices.updateFroshInfo(froshUser.id, {froshGroup: froshGroup, froshGroupIcon: froshGroupIcon});
+            await mapFroshUsers(frosh, index + 1);
+          }
         }
         else{
-          //Change frosh group of this user
-          await FroshServices.updateFroshInfo(froshUser.id, {froshGroup: froshGroup, froshGroupIcon: froshGroupIcon});
           await mapFroshUsers(frosh, index + 1);
         }
       }
@@ -164,26 +171,7 @@ const FroshController = {
         },
         { _id: 1 },
       );
-      const froshGroupFilters = [null];
-      const scuntTeamFilters = [null];
-      if (req.user?.authScopes?.approved) {
-        for (const authScope of req.user.authScopes.approved) {
-          if (authScope.includes('froshGroupData:')) {
-            froshGroupFilters.push(authScope.replace('froshGroupData:', ''));
-          }
-          if (authScope.includes('scuntGroupData:')) {
-            scuntTeamFilters.push(parseInt(authScope.replace('scuntGroupData:', '')));
-          }
-        }
-      }
-      let query = {
-        $or: [{ froshGroup: { $in: froshGroupFilters } }, { scuntTeam: { $in: scuntTeamFilters } }],
-      };
-      const allFroshGroups = req.user?.authScopes?.approved?.includes('froshGroupData:all');
-      if (allFroshGroups) {
-        query = {};
-      }
-
+      query = {isRegistered: true };
       const frosh = await FroshServices.getFilteredFroshInfo(query, filter);
 
       //Add code for reassigning users
