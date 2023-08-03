@@ -55,6 +55,12 @@ const ScuntTeamServices = {
     });
   },
 
+  async calculatePoints(teamPosition, points) {
+    const teams = [];
+    teams = getTeams();
+    return (teamPosition / teams.length) * points;
+  },
+
   async bribeTransaction(teamNumber, points, user) {
     return new Promise((resolve, reject) => {
       if (!user.scuntJudgeBribePoints || points > user.scuntJudgeBribePoints) {
