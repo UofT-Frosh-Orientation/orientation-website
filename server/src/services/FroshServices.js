@@ -9,8 +9,10 @@ const FroshServices = {
    * @param {String} pronouns -  the pronouns of the frosh
    * @return {Promise<Object>} - the name of the frosh group
    */
-  async getNewFroshGroup(discipline, pronouns) {
-    const froshGroupList = await FroshGroupModel.find();
+  async getNewFroshGroup(discipline, pronouns, froshGroupList) {
+    if(froshGroupList === null){
+      froshGroupList = await FroshGroupModel.find();
+    }
     let minNumber = 10000;
     let minScore = 10000;
     let froshGroup = '';
@@ -172,6 +174,55 @@ const FroshServices = {
       );
     });
   },
+
+  async mapFroshUsers(frosh) {   
+
+    // Recreating froshGroupList, to not include the broken ones
+    let froshGroupList = await FroshGroupModel.find();
+    let disciplines = [
+      'Chemical',
+      'Civil',
+      'Electrical & Computer',
+      'Engineering Science',
+      'Industrial',
+      'Materials',
+      'Mechanical',
+      'Mineral',
+      'Track One (Undeclared)',
+    ];
+    
+    let pronouns = ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'];
+    let teams = [];
+    for(let i = 0 ; i < froshGroupList.length; i++){
+      teams.push(froshGroupList[i].name)
+      for(discipline in disciplines){
+        froshGroupList[i][discipline] = 0;
+      }
+      for(pronoun in pronouns){
+        froshGroupList[i][pronoun] = 0;
+      }
+    }
+    for(curFrosh in frosh){
+      if(disciplines.includes(curFrosh.discipline) && pronouns.includes(curFrosh.pronouns)){
+        froshGroupList[teams.indexOf(curFrosh.froshGroup)][curFrosh.discipline]++;
+        froshGroupList[teams.indexOf(curFrosh.froshGroup)][curFrosh.pronouns]++;
+      }
+    }
+
+
+    for(curFrosh in frosh){
+      if (curFrosh.pronouns !== undefined && (!pronouns.includes(curFrosh.pronouns)) ) {
+        const froshUser = curFrosh;
+        const { froshGroup, froshGroupIcon } = await FroshServices.getNewFroshGroup(
+          froshUser.discipline,
+          froshUser.pronouns,
+          froshGroupList,
+        );
+        await FroshServices.updateFroshInfo(froshUser.id, {froshGroup: froshGroup, froshGroupIcon: froshGroupIcon});
+        
+      }
+    }
+  }
 };
 
 module.exports = FroshServices;
