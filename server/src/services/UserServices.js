@@ -47,9 +47,14 @@ const UserServices = {
    * @param {String} preferredName
    * @return {Promise<Object>}
    */
-  async createUser(email, password, firstName, lastName, preferredName) {
+  async create(email, password, firstName, lastName, preferredName) {
     const scuntToken = createScuntToken();
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10).then(
+      (hash) => hash,
+      (error) => {
+        throw new Error('UNABLE_TO_HASH_PASSWORD', { cause: error });
+      },
+    );
 
     return UserModel.create({
       email,
@@ -79,17 +84,22 @@ const UserServices = {
       (user) => {
         if (!user) throw new Error('INVALID_EMAIL');
         const { email } = user;
-        return jwt
-          .sign({ email, timestamp: Date.now() }, process.env.JWT_RESET_TOKEN, { expiresIn: '7d' })
-          .then(
-            (token) => token,
-            (error) => {
-              throw new Error('UNABLE_TO_GENERATE_PASSWORD_RESET_TOKEN', { cause: error });
-            },
-          );
+        return jwt.sign(
+          { email, timestamp: Date.now() },
+          process.env.JWT_RESET_TOKEN,
+          {
+            expiresIn: '7d',
+          },
+          function (err, decoded) {
+            if (err) {
+              throw new Error('UNABLE_TO_GENERATE_PASSWORD_RESET_TOKEN', { cause: err });
+            }
+            return decoded;
+          },
+        );
       },
       (error) => {
-        throw new Error('UNABLE_TO_FIND_USER', { cause: error });
+        throw new Error('UNABLE_TO_GET_USER', { cause: error });
       },
     );
   },
