@@ -6,8 +6,8 @@
   "scripts": {
     "format": "prettier --write \"**/*.+(js|json)\"",
     "lint": "eslint src",
-    "test": "nyc --reporter=lcov --reporter=text mocha --recursive --exit",
-    "test:actions": "nyc --reporter=text-summary mocha --recursive --exit",
+    "test": "nyc --reporter=lcov --reporter=text --check-coverage=true mocha --recursive --exit",
+    "test:actions": "nyc --reporter=text-summary --check-coverage=true mocha --recursive --exit",
     "start:dev": "set NODE_ENV=development && nodemon -L src/server.js",
     "start": "set NODE_ENV=production && node src/server.js"
   },
