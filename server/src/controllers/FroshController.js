@@ -131,12 +131,10 @@ const FroshController = {
     }
   },
 
-
   async reassignFrosh(req, res, next) {
     try {
-      if (!req.user?.froshDataFields?.approved?.length) {
-        return next(new Error('UNAUTHORIZED'));
-      }
+      if (!req.user?.froshDataFields?.approved?.length) return next(new Error('UNAUTHORIZED'));
+
       const filter = req.user?.froshDataFields?.approved.reduce(
         (prev, curr) => {
           prev[curr] = 1;
@@ -144,12 +142,12 @@ const FroshController = {
         },
         { _id: 1 },
       );
-      query = {isRegistered: true };
+      const query = { isRegistered: true };
       const frosh = await FroshServices.getFilteredFroshInfo(query, filter);
-      FroshServices.mapFroshUsers(frosh);
 
-      return res.status(200).send({frosh});
+      const reassignedFrosh = await FroshServices.mapFroshUsers(frosh);
 
+      return res.status(200).send({ reassignedFrosh });
     } catch (e) {
       req.log.fatal({
         msg: 'Unable to reassign requested frosh users',
@@ -160,10 +158,5 @@ const FroshController = {
     }
   },
 };
-
-
-
-
-
 
 module.exports = FroshController;

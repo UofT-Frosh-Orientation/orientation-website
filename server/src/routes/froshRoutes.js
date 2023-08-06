@@ -3,7 +3,7 @@ const express = require('express');
 const FroshController = require('../controllers/FroshController');
 const checkLoggedIn = require('../middlewares/checkLoggedIn');
 const checkUserType = require('../middlewares/checkUserType');
-const hasAuthScopes = require ("../middlewares/hasAuthScopes");
+const hasAuthScopes = require('../middlewares/hasAuthScopes');
 const multer = require('multer');
 
 const storage = multer.memoryStorage();
@@ -65,7 +65,6 @@ router.get(
   checkUserType('leadur'),
   FroshController.getFilteredFroshInfo,
 );
-
 
 router.post(
   '/redistribute',

@@ -1,7 +1,14 @@
 import { createAction } from '@reduxjs/toolkit';
 import useAxios from '../../hooks/useAxios';
 import { put, call, takeLeading } from 'redux-saga/effects';
-import { getFroshFailure, getFroshStart, getFroshSuccess, redistributeFroshFailure, redistributeFroshStart, redistributeFroshSuccess} from './froshSlice';
+import {
+  getFroshFailure,
+  getFroshStart,
+  getFroshSuccess,
+  redistributeFroshFailure,
+  redistributeFroshStart,
+  redistributeFroshSuccess,
+} from './froshSlice';
 
 export const getFrosh = createAction('getFroshSaga');
 
@@ -17,7 +24,6 @@ export function* getFroshSaga({ payload: { showAllUsers } }) {
   }
 }
 
-
 export const redistributeFrosh = createAction('redistributeFroshSaga');
 
 export function* redistributeFroshSaga() {
@@ -25,15 +31,14 @@ export function* redistributeFroshSaga() {
   try {
     yield put(redistributeFroshStart());
     const result = yield call(axios.post, '/frosh/redistribute');
-    yield put(redistributeFroshSuccess());
+    yield put(redistributeFroshSuccess(result?.data?.reassignedFrosh));
   } catch (e) {
     console.error(e);
     yield put(redistributeFroshFailure(e));
   }
 }
 
-
 export default function* froshSaga() {
   yield takeLeading(getFrosh.type, getFroshSaga);
-  yield takeLeading(getFrosh.type, redistributeFroshSaga);
+  yield takeLeading(redistributeFrosh.type, redistributeFroshSaga);
 }

@@ -28,9 +28,10 @@ const froshSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    redistributeFroshSuccess: (state) => {
+    redistributeFroshSuccess: (state, { payload: reassignedFrosh }) => {
       state.loading = false;
       state.error = null;
+      state.frosh = reassignedFrosh;
     },
     redistributeFroshFailure: (state, { payload: error }) => {
       state.loading = false;
@@ -39,7 +40,14 @@ const froshSlice = createSlice({
   },
 });
 
-export const { getFroshStart, getFroshSuccess, getFroshFailure, redistributeFroshStart, redistributeFroshSuccess, redistributeFroshFailure} = froshSlice.actions;
+export const {
+  getFroshStart,
+  getFroshSuccess,
+  getFroshFailure,
+  redistributeFroshStart,
+  redistributeFroshSuccess,
+  redistributeFroshFailure,
+} = froshSlice.actions;
 
 export default froshSlice.reducer;
 
