@@ -1,9 +1,9 @@
 {
     "all": false,
     "include": [
-        "models/*.js",
-        "services/*.js",
-        "routes/*.js"
+        "src/models/*.js",
+        "src/services/*.js",
+        "src/routes/*.js"
     ],
     "check-coverage": true,
     "branches": 80,
