@@ -1,11 +1,6 @@
 import { React, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import {
-  //getTimelineEvents,
-  deleteTimelineEvent,
-  editTimelineEvent,
-  createTimelineEvent,
-} from './functions';
+import { deleteTimelineEvent, editTimelineEvent, createTimelineEvent } from './functions';
 import { Button } from '../../components/button/Button/Button';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { SnackbarContext } from '../../util/SnackbarProvider';

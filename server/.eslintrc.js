@@ -11,6 +11,12 @@ module.exports = {
   },
   parser: '@babel/eslint-parser',
   rules: {
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     'comma-dangle': ['error', 'always-multiline'],
     'comma-spacing': ['error', { before: false, after: true }],
     'no-multiple-empty-lines': ['error'],

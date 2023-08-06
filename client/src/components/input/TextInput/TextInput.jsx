@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './TextInput.scss';
 import EyeSolid from '../../../../assets/icons/eye-solid.svg';

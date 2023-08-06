@@ -1,6 +1,7 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const FroshModel = require('../models/FroshModel');
+const FroshGroupModel = require('../models/FroshGroupModel');
 
 const PaymentServices = {
   /**
@@ -40,11 +41,19 @@ const PaymentServices = {
         //TODO: update frosh balance
         await frosh.save({ validateModifiedOnly: true });
         console.log('Frosh payment completed! Frosh info: ', frosh);
+        await FroshGroupModel.findOneAndUpdate(
+          { name: frosh.froshGroup },
+          { $inc: { totalNum: 1 } },
+          { new: true },
+        ).then((doc) => {
+          console.log(`Group ${doc.name} total: ${doc.totalNum}`);
+        });
         return frosh;
       }
       return null;
     } catch (e) {
       console.log(e);
+      throw new Error('Error updating payment', { cause: e });
     }
   },
 
@@ -131,6 +140,7 @@ const PaymentServices = {
       throw err;
     }
   },
+
   async expirePayment(paymentIntent) {
     try {
       const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentIntent });

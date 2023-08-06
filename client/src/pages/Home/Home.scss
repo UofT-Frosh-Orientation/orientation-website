@@ -10,6 +10,7 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  margin-top: 0;
   @include devices(tablet) {
     justify-content: center;
   }
@@ -26,7 +27,12 @@
 }
 
 .home-page-header-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 0 3%;
+  text-align: center;
   h1 {
     text-align: center;
     font-size: max(14vh, 140px);
@@ -70,6 +76,7 @@
 .home-page-header-register-button {
   margin-top: 15px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   @include devices(tablet) {
