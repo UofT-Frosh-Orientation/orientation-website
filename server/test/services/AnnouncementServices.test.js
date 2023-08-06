@@ -113,7 +113,7 @@ describe('Testing Announcements Services', () => {
     testUser = await UserModel.create({
       firstName: 'Test',
       lastName: 'User',
-      email: 'test@test.com',
+      email: 'test@test1.com',
       hashedPassword: 'test',
     });
     const announcement = {
