@@ -393,7 +393,7 @@ const ScuntUploadMissions = () => {
             required: true,
             errorMessage: 'The mission number must be a positive integer!',
           },
-          Item: {
+          Mission: {
             key: 'name',
             parseFunction: (val) => val,
             validator: (val) => val.length > 0,
