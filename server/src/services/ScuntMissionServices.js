@@ -46,63 +46,14 @@ const ScuntMissionServices = {
     });
   },
 
-  async createMultipleMissions(csvString, array) {
-    const { data, errors } = parseCsvString(csvString, {
-      '#': {
-        key: 'number',
-        parseFunction: (val) => parseInt(val),
-        validator: (val) => Number.isInteger(val) && val >= 0,
-        required: true,
-        errorMessage: 'The mission number must be a positive integer!',
-      },
-      Mission: {
-        key: 'name',
-        parseFunction: (val) => val,
-        validator: (val) => val.length > 0,
-        required: true,
-        errorMessage: 'The mission name must be at least one character!',
-      },
-      Category: {
-        key: 'category',
-        parseFunction: (val) => val,
-        validator: (val) => val.length > 0,
-        required: true,
-        errorMessage: 'The mission category must be at least one character!',
-      },
-      Points: {
-        key: 'points',
-        parseFunction: (val) => parseInt(val),
-        validator: (val) => Number.isInteger(val) && val >= 0,
-        required: true,
-        errorMessage: 'The mission points must be a positive integer!',
-      },
-      Hidden: {
-        key: 'isHidden',
-        parseFunction: (val) => val.toLowerCase() === 'true',
-        validator: () => true,
-        required: false,
-        errorMessage: '',
-      },
-      'Judging Station?': {
-        key: 'isJudgingStation',
-        parseFunction: (val) => val.toLowerCase() === 'true',
-        validator: () => true,
-        required: false,
-        errorMessage: '',
-      },
-    });
-    console.log(array);
-
+  async createMultipleMissions(array) {
     return new Promise((resolve, reject) => {
-      if (errors.length > 0) {
-        reject(errors);
-      }
       ScuntMissionModel.remove({}, (err1) => {
         if (err1) {
           reject(err1);
         }
 
-        ScuntMissionModel.create(data, {}, (err2, result) => {
+        ScuntMissionModel.create(array, {}, (err2, result) => {
           if (err2) {
             reject(err2);
           }
