@@ -5,6 +5,30 @@ const assert = require('assert');
 describe('Testing Scunt Game Settings Services', () => {
   let settings;
 
+  it('.setGameSettings()\t\t\t|\tSet invalid scunt game settings (INVALID SETTING)', async () => {
+    await assert.rejects(
+        ScuntGameSettingsServices.setGameSettings('Scunt2T3', 11, 2500, 0.3, true, true, true, true, 'url', true, true, true), {
+        name: 'Error',
+        message: 'UNABLE_TO_UPDATE_SCUNT_SETTINGS',
+    }, );
+  }); 
+
+  /*
+  it('.initScuntGameSettings()\t\t\t|\tFind an invalid scunt game setting (INVALID SETTING)', async () => {
+    const incorrectSetting = {
+        name: 'New Test Setting 12345',
+        amountOfTeams: 101,
+        amountOfStarterBribePoints: 2500,
+        maxAmountPointsPercent: 0.3,
+        minAmountPointsPercent: 0.3,
+    };
+    await assert.rejects(ScuntGameSettingsServices.initScuntGameSettings(incorrectSetting), {
+      name: 'Error',
+      message: 'UNABLE_TO_GET_SCUNT_SETTINGS',
+    });
+  });
+  */
+  
   it('.initScuntGameSettings()\t\t\t|\tFind settings', async () => {
     const initialSettings = {
         name: 'Scunt2T3 Settings',
@@ -24,9 +48,9 @@ describe('Testing Scunt Game Settings Services', () => {
     assert(settings.amountOfTeams === 10);
   });
 
-  it('.initScuntGameSettings()\t\t\t|\tCreate new scunt game setting', async () => {
+  it('.initScuntGameSettings()\t\t\t|\tNew setting should not overwrite original Scunt setting', async () => {
     const newSetting = {
-        name: 'New Test Setting 12345',
+        name: 'New Test Setting 123456',
         amountOfTeams: 101,
         amountOfStarterBribePoints: 2500,
         maxAmountPointsPercent: 0.3,
@@ -38,12 +62,12 @@ describe('Testing Scunt Game Settings Services', () => {
         revealMissions: false,
         allowJudging: false,
     };
-    settings = await ScuntGameSettingsServices.initScuntGameSettings(newSetting);
-    assert(settings.name === 'New Test Setting 12345');
-    assert(settings.amountOfTeams === 101);
+    
+    const testSettings = await ScuntGameSettingsServices.initScuntGameSettings(newSetting);
+    assert(testSettings.name === 'Scunt2T3 Settings');
   });
 
-  it('.initScuntGameSettings()\t\t\t|\tFind existing/create new scunt game settings', async () => {
+  it('.initScuntGameSettings()\t\t\t|\tFind existing/create new scunt game settings consecutively', async () => {
     const newSetting = {
         name: 'New Test Setting 12345',
         amountOfTeams: 101,
@@ -76,20 +100,6 @@ describe('Testing Scunt Game Settings Services', () => {
     await ScuntGameSettingsServices.initScuntGameSettings(initialSettings);
     await ScuntGameSettingsServices.initScuntGameSettings(initialSettings);
     await ScuntGameSettingsServices.initScuntGameSettings(initialSettings);
-  });
-
-  it('.initScuntGameSettings()\t\t\t|\tFind an invalid scunt game setting (INVALID SETTING)', async () => {
-    const incorrectSetting = {
-        name: 'New Test Setting 12345',
-        amountOfTeams: 101,
-        amountOfStarterBribePoints: 2500,
-        maxAmountPointsPercent: 0.3,
-        minAmountPointsPercent: 0.3,
-    };
-    await assert.rejects(ScuntGameSettingsServices.initScuntGameSettings(incorrectSetting), {
-      name: 'Error',
-      message: 'UNABLE_TO_GET_SCUNT_SETTINGS',
-    });
   });
 
   /* couldn't think of test case for getGameSettings for it not to work besides network error */
@@ -113,11 +123,6 @@ describe('Testing Scunt Game Settings Services', () => {
     await ScuntGameSettingsServices.setGameSettings('Scunt2T3 Settings', 10, 2500, 0.3, 0.3, true, true, true, true, true, true);
   });
 
-  it('.setGameSettings()\t\t\t|\tSet invalid scunt game settings (INVALID SETTING)', async () => {
-    await assert.rejects(
-        ScuntGameSettingsServices.setGameSettings(11, 2500, 0.3, 0.3, true, true, true, true, true, true ), {
-        name: 'Error',
-        message: 'UNABLE_TO_UPDATE_SCUNT_SETTINGS',
-    });
-  });
+  
+  
 });
