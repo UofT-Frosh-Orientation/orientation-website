@@ -46,7 +46,7 @@ const ScuntMissionServices = {
     });
   },
 
-  async createMultipleMissions(csvString) {
+  async createMultipleMissions(csvString, array) {
     const { data, errors } = parseCsvString(csvString, {
       '#': {
         key: 'number',
@@ -91,6 +91,8 @@ const ScuntMissionServices = {
         errorMessage: '',
       },
     });
+    console.log(array);
+
     return new Promise((resolve, reject) => {
       if (errors.length > 0) {
         reject(errors);

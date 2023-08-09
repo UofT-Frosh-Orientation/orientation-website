@@ -73,8 +73,10 @@ const ScuntMissionController = {
   },
   async createMultipleMissions(req, res, next) {
     try {
+      console.log(req.array)
+      console.log("^ contorller")
       const missions = await ScuntMissionServices.createMultipleMissions(
-        req.file.buffer.toString(),
+        req.file.buffer.toString(), req.array
       );
       res.status(200).send({ missions });
     } catch (e) {

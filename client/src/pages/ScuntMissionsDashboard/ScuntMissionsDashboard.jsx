@@ -437,7 +437,7 @@ const ScuntUploadMissions = () => {
   };
 
   const uploadMissions = () => {
-    dispatch(createMultipleMissions({ file, setSnackbar }));
+    dispatch(createMultipleMissions({ file, array, setSnackbar }));
   };
 
   return (
