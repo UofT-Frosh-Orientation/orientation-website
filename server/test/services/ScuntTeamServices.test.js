@@ -6,6 +6,7 @@ const UserModel = require('../../src/models/UserModel');
 const ScuntTeamModel = require('../../src/models/ScuntTeamModel');
 const ScuntGameSettingsModel = require('../../src/models/ScuntGameSettingsModel');
 const assert = require('assert');
+const ScuntMissionModel = require('../../src/models/ScuntMissionModel');
 
 describe('Testing Scunt Team Services', () => {
     let testLeadur;
@@ -13,20 +14,7 @@ describe('Testing Scunt Team Services', () => {
     let teamPoints = [];
     let teams = [];
     let scuntJudges = [];
-
-    /*
-    const scuntGameSettings = {
-        name: 'Scunt2T3 Settings',
-        amountOfTeams: 10,
-        amountOfStarterBribePoints: 1000,
-        maxAmountPointsPercent: 0.3,
-        minAmountPointsPercent: 0.3,
-        discordLink: 'https://discord.gg/mRutbwuCK9',
-        allowJudging: true,
-    };
-
-    ScuntGameSettingsServices.initScuntGameSettings(scuntGameSettings);
-    */
+    let tranactions = [];
 
     it('.updateLeaderTeam()\t\t\t|\tUpdate a leaders scunt team number', async () => {
         const leadur = await LeadurModel.create({
@@ -77,19 +65,23 @@ describe('Testing Scunt Team Services', () => {
         assert(teams.length > 0);
     });
     
-    /*
     it('.bribeTransaction()\t\t\t|\tUpdate a bribe transaction', async () => {
         const scuntGameSettings = {
-            name: 'Scunt2T3 Settings',
+            name: 'Scunt 2T3 Settings',
             amountOfTeams: 10,
-            amountOfStarterBribePoints: 1000,
+            amountOfStarterBribePoints: 10000,
             maxAmountPointsPercent: 0.3,
             minAmountPointsPercent: 0.3,
+            revealJudgesAndBribes: true,
+            revealTeams: true,
+            showDiscordLink: true,
             discordLink: 'https://discord.gg/mRutbwuCK9',
+            revealLeaderboard: true,
+            revealMissions: true,
             allowJudging: true,
         };
-
-        const testSettings = await ScuntGameSettingsServices.initScuntGameSettings(scuntGameSettings);
+    
+        const settings = await ScuntGameSettingsServices.initScuntGameSettings(scuntGameSettings);
 
         const leadur = await LeadurModel.create({
             lastName: 'Testerson',
@@ -101,10 +93,10 @@ describe('Testing Scunt Team Services', () => {
             scuntTeam: 1,
             scuntJudgeBribePoints: 20,
         });
+
         const { testTeam, testLeadur } = await ScuntTeamServices.bribeTransaction(1, 10, leadur);
         assert(testLeadur.scuntJudgeBribePoints === 10);
     });
-    */
     
     it('.bribeTransaction()\t\t\t|\tUpdate a bribe transaction (NOT ENOUGH BRIBE POINTS)', async () => {
         const leadur = await LeadurModel.create({
@@ -236,16 +228,85 @@ describe('Testing Scunt Team Services', () => {
         });
     });
 
+    it('.checkTransaction()\t\t\t|\tCheck a transaction', async () => {
+        const scuntTeam = await ScuntTeamModel.create({
+            number: 5,
+            name: "hey",
+            points: 10,
+        });
+        const mission = await ScuntMissionModel.create({
+            number: 1,
+            name: 'Test Mission',
+            category: '',
+            points: 10,
+            isHidden: false,
+            isJudgingStation: false,
+        })
+        const points = await ScuntTeamServices.checkTransaction(1, 1);
+        assert(points === 0);
+    });
+
+    it('.checkTransaction()\t\t\t|\tCheck a transaction (INVALID TEAM NUMBER)', async () => {
+        await assert.rejects(ScuntTeamServices.checkTransaction(1000, 10), {
+            name: 'Error',
+            message: 'INVALID_TEAM_NUMBER',
+        });
+    });
+
     /*
-    // lost for checkTransaction
-    
     it('.initializeTeams()\t\t\t|\tInitialize scunt teams', async () => {
         const teams = await ScuntTeamServices.initializeTeams();
         assert(teams.length > 0);
     });
 
-    // lost for deleteTransaction
-    // lost for viewRecentTransactions
+    it('.deleteTransaction()\t\t\t|\tDelete a transaction', async () => {
+        const scuntTeam = await ScuntTeamModel.create({
+            number: 10,
+            name: "Test Team",
+            points: 10,
+        });
+        const mission = await ScuntMissionModel.create({
+            number: 2,
+            name: 'Test Mission',
+            category: '',
+            points: 10,
+            isHidden: false,
+            isJudgingStation: false,
+        })
+        const points = await ScuntTeamServices.checkTransaction(10, 2);
+        assert(points === 0);
+        
+        scuntTeam = await ScuntTeamServices.deleteTransaction(10, scuntTeam.transactions[0]._id);
+        assert(scuntTeam.transactions.length === 0);
+    });
+
+    */
+
+    it('.viewRecentTransactions()\t\t\t|\tView recent transactions (empty)', async () => {
+        transactions = await ScuntTeamServices.viewRecentTransactions();
+        assert(transactions.length === 0);
+    });
+
+    /*
+    it('.viewRecentTransactions()\t\t\t|\tView recent transactions', async () => {
+        const scuntTeam = await ScuntTeamModel.create({
+            number: 7,
+            name: "hey",
+            points: 10,
+        });
+        const mission = await ScuntMissionModel.create({
+            number: 3,
+            name: 'Test Mission',
+            category: '',
+            points: 10,
+            isHidden: false,
+            isJudgingStation: false,
+        })
+        const points = await ScuntTeamServices.checkTransaction(7, 3);
+
+        transactions = await ScuntTeamServices.viewRecentTransactions();
+        assert(transactions.length === 0);
+    });
     */
 
     it('.setTeamName()\t\t\t|\tSet new team name', async () => {
