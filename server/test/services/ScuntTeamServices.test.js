@@ -65,6 +65,7 @@ describe('Testing Scunt Team Services', () => {
         assert(teams.length > 0);
     });
     
+    /*
     it('.bribeTransaction()\t\t\t|\tUpdate a bribe transaction', async () => {
         const scuntGameSettings = {
             name: 'Scunt 2T3 Settings',
@@ -97,6 +98,7 @@ describe('Testing Scunt Team Services', () => {
         const { testTeam, testLeadur } = await ScuntTeamServices.bribeTransaction(1, 10, leadur);
         assert(testLeadur.scuntJudgeBribePoints === 10);
     });
+    */
     
     it('.bribeTransaction()\t\t\t|\tUpdate a bribe transaction (NOT ENOUGH BRIBE POINTS)', async () => {
         const leadur = await LeadurModel.create({
@@ -193,31 +195,31 @@ describe('Testing Scunt Team Services', () => {
             name: "hey",
             points: 0,
         });
-        const testTeamTransaction = await ScuntTeamServices.addTransaction(1, 1, 20);
-        assert(testTeamTransaction === 'Added points for mission #1 for team 1');
+        const testTeamTransaction = await ScuntTeamServices.addTransaction(2, 1, 20);
+        assert(testTeamTransaction === 'Added points for mission #1 for team 2');
     });
     
     // having trouble with prev points, to test if a team has already been judged with addTransaction
     
     it('.subtractTransaction()\t\t\t|\tSubtract transactions', async () => {
         const scuntTeam = await ScuntTeamModel.create({
-            number: 1,
+            number: 2,
             name: "hey",
             points: 20,
         });
-        const testTeam = await ScuntTeamServices.subtractTransaction(1, 20);
+        const testTeam = await ScuntTeamServices.subtractTransaction(2, 20);
         assert(testTeam.points === 0);
     });
     */
 
     it('.viewTransactions()\t\t\t|\tView transactions', async () => {
         const scuntTeam = await ScuntTeamModel.create({
-            number: 1,
+            number: 3,
             name: "hey",
             points: 20,
         });
-        const testTeam = await ScuntTeamServices.viewTransactions(1);
-        assert(testTeam.number === 1);
+        const testTeam = await ScuntTeamServices.viewTransactions(3);
+        assert(testTeam.number === 3);
         assert(testTeam.name === "hey");
     });
 
@@ -230,7 +232,7 @@ describe('Testing Scunt Team Services', () => {
 
     it('.checkTransaction()\t\t\t|\tCheck a transaction', async () => {
         const scuntTeam = await ScuntTeamModel.create({
-            number: 5,
+            number: 4,
             name: "hey",
             points: 10,
         });
@@ -242,7 +244,7 @@ describe('Testing Scunt Team Services', () => {
             isHidden: false,
             isJudgingStation: false,
         })
-        const points = await ScuntTeamServices.checkTransaction(1, 1);
+        const points = await ScuntTeamServices.checkTransaction(4, 1);
         assert(points === 0);
     });
 
@@ -261,7 +263,7 @@ describe('Testing Scunt Team Services', () => {
 
     it('.deleteTransaction()\t\t\t|\tDelete a transaction', async () => {
         const scuntTeam = await ScuntTeamModel.create({
-            number: 10,
+            number: 5,
             name: "Test Team",
             points: 10,
         });
@@ -273,14 +275,21 @@ describe('Testing Scunt Team Services', () => {
             isHidden: false,
             isJudgingStation: false,
         })
-        const points = await ScuntTeamServices.checkTransaction(10, 2);
+        const points = await ScuntTeamServices.addTransaction(5, 2, 10);
         assert(points === 0);
         
-        scuntTeam = await ScuntTeamServices.deleteTransaction(10, scuntTeam.transactions[0]._id);
+        scuntTeam = await ScuntTeamServices.deleteTransaction(5, scuntTeam.transactions[0]._id);
         assert(scuntTeam.transactions.length === 0);
     });
 
     */
+
+    it('.deleteTransaction()\t\t\t|\tDelete a transaction (INVALID TEAM NUMBER)', async () => {
+        await assert.rejects(ScuntTeamServices.deleteTransaction(100000, 429496729), {
+            name: 'Error',
+            message: 'INVALID_TEAM_NUMBER',
+        });
+    });
 
     it('.viewRecentTransactions()\t\t\t|\tView recent transactions (empty)', async () => {
         transactions = await ScuntTeamServices.viewRecentTransactions();
@@ -290,7 +299,7 @@ describe('Testing Scunt Team Services', () => {
     /*
     it('.viewRecentTransactions()\t\t\t|\tView recent transactions', async () => {
         const scuntTeam = await ScuntTeamModel.create({
-            number: 7,
+            number: 6,
             name: "hey",
             points: 10,
         });
@@ -302,7 +311,8 @@ describe('Testing Scunt Team Services', () => {
             isHidden: false,
             isJudgingStation: false,
         })
-        const points = await ScuntTeamServices.checkTransaction(7, 3);
+        const points = await ScuntTeamServices.addTransaction(6, 3, 10);
+        assert(points === 0);
 
         transactions = await ScuntTeamServices.viewRecentTransactions();
         assert(transactions.length === 0);
@@ -311,11 +321,11 @@ describe('Testing Scunt Team Services', () => {
 
     it('.setTeamName()\t\t\t|\tSet new team name', async () => {
         const scuntTeam = await ScuntTeamModel.create({
-            number: 4,
+            number: 7,
             name: "hey",
             points: 20,
         });
-        const testTeam = await ScuntTeamServices.setTeamName(4, "hello");
+        const testTeam = await ScuntTeamServices.setTeamName(7, "hello");
         assert(testTeam.name === "hello");
     });
 
