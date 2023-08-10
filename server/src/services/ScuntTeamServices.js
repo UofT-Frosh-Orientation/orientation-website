@@ -56,7 +56,7 @@ const ScuntTeamServices = {
   },
 
   async calculatePoints(teamNumber, totalPoints) {
-    const teams = ScuntTeamModel.find({}, { name: 1, number: 1, points: 1 }, {}).sort((a, b) => b.points - a.points);
+    const teams = ScuntTeamModel.find({}, { name: 1, number: 1, points: 1 }, {}).sort({ points: -1 });
     
     const teamPosition = teams.map((t, pos) => {
       if(teamNumber === t.number) {
