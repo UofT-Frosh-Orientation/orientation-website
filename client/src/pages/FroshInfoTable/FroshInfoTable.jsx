@@ -63,10 +63,14 @@ const PageFroshInfoTable = () => {
     });
     if (searchTerm && searchTerm !== '') {
       const output = [];
+
       for (let singleton of froshData) {
         for (let key of Object.keys(singleton)) {
           if (singleton[key] !== undefined && singleton[key].toString().includes(searchTerm)) {
-            output.push(singleton);
+            if (!output.some((obj) => obj['_id'] === singleton['_id'])) {
+              // to prevent duplicate users (check the mongo id)
+              output.push(singleton);
+            }
           }
         }
       }
