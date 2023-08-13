@@ -63,58 +63,11 @@ const ScuntMissionServices = {
    * @param {String} csvString
    * @returns {ScuntMission[]}
    */
-  async createMultipleMissions(csvString) {
-    const { data, errors } = parseCsvString(csvString, {
-      '#': {
-        key: 'number',
-        parseFunction: (val) => parseInt(val),
-        validator: (val) => Number.isInteger(val) && val >= 0,
-        required: true,
-        errorMessage: 'The mission number must be a positive integer!',
-      },
-      Mission: {
-        key: 'name',
-        parseFunction: (val) => val,
-        validator: (val) => val.length > 0,
-        required: true,
-        errorMessage: 'The mission name must be at least one character!',
-      },
-      Category: {
-        key: 'category',
-        parseFunction: (val) => val,
-        validator: (val) => val.length > 0,
-        required: true,
-        errorMessage: 'The mission category must be at least one character!',
-      },
-      Points: {
-        key: 'points',
-        parseFunction: (val) => parseInt(val),
-        validator: (val) => Number.isInteger(val) && val >= 0,
-        required: true,
-        errorMessage: 'The mission points must be a positive integer!',
-      },
-      Hidden: {
-        key: 'isHidden',
-        parseFunction: (val) => val.toLowerCase() === 'true',
-        validator: () => true,
-        required: false,
-        errorMessage: '',
-      },
-      'Judging Station?': {
-        key: 'isJudgingStation',
-        parseFunction: (val) => val.toLowerCase() === 'true',
-        validator: () => true,
-        required: false,
-        errorMessage: '',
-      },
-    });
-    if (errors.length > 0) {
-      throw new Error('INVALID_CSV', { cause: errors });
-    }
+  async createMultipleMissions(array) {
 
     return ScuntMissionModel.remove({}).then(
       () => {
-        return ScuntMissionModel.create(data).then(
+        return ScuntMissionModel.create(array).then(
           (result) => result,
           (error) => {
             throw new Error('UNABLE_TO_CREATE_SCUNT_MISSIONS', { cause: error });
