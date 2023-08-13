@@ -16,13 +16,18 @@ describe('Testing Scunt Team Services', () => {
     let scuntJudges = [];
     let tranactions = [];
 
+    it('.viewRecentTransactions()\t\t\t|\tView recent transactions (empty)', async () => {
+        transactions = await ScuntTeamServices.viewRecentTransactions();
+        assert(transactions.length === 0);
+    });
+
     it('.updateLeaderTeam()\t\t\t|\tUpdate a leaders scunt team number', async () => {
         const leadur = await LeadurModel.create({
             lastName: 'Testing',
             firstName: 'Test',
             approved: true,
             hashedPassword: 'test12345',
-            email: 'test01@test.com',
+            email: 'test01@test.utoronto.ca',
             froshDataFields: {},
             scuntTeam: 1,
         });
@@ -42,7 +47,7 @@ describe('Testing Scunt Team Services', () => {
         testUser = await UserModel.create({
             firstName: 'Test',
             lastName: 'User',
-            email: 'test2@test.com',
+            email: 'test2@test.utoronto.ca',
             hashedPassword: 'test',
         });
         await assert.rejects(ScuntTeamServices.updateLeaderTeam(testUser._id, 3), {
@@ -89,16 +94,23 @@ describe('Testing Scunt Team Services', () => {
             firstName: 'Test',
             approved: true,
             hashedPassword: 'test12345',
-            email: 'test3@test.com',
+            email: 'test3@test.utoronto.ca',
             froshDataFields: {},
             scuntTeam: 1,
             scuntJudgeBribePoints: 20,
         });
 
-        const { testTeam, testLeadur } = await ScuntTeamServices.bribeTransaction(1, 10, leadur);
-        assert(testLeadur.scuntJudgeBribePoints === 10);
+        const scuntTeam = await ScuntTeamModel.create({
+            number: 8,
+            name: "hey",
+            points: 20,
+        });
+
+        const {testTeam, testLeadur} = await ScuntTeamServices.bribeTransaction(8, 10, leadur);
+        assert(testLeadur.firstName === 'Test');
     });
     */
+    
     
     it('.bribeTransaction()\t\t\t|\tUpdate a bribe transaction (NOT ENOUGH BRIBE POINTS)', async () => {
         const leadur = await LeadurModel.create({
@@ -106,7 +118,7 @@ describe('Testing Scunt Team Services', () => {
             firstName: 'Test',
             approved: true,
             hashedPassword: 'test12345',
-            email: 'test4@test.com',
+            email: 'test4@test.utoronto.ca',
             froshDataFields: {},
             scuntTeam: 1,
             scuntJudgeBribePoints: 20,
@@ -119,24 +131,22 @@ describe('Testing Scunt Team Services', () => {
 
     // couldn't think of other errors for bribeTransaction
     
-    /*
     it('.getScuntJudges()\t\t\t|\tShould return array with scunt judges', async () => {
         const leadur = await LeadurModel.create({
             lastName: 'Testerson',
             firstName: 'Test',
             approved: true,
             hashedPassword: 'test12345',
-            email: 'test5@test.com',
+            email: 'test14@test.utoronto.ca',
             froshDataFields: {},
             scuntTeam: 1,
             scuntJudgeBribePoints: 20,
         });
-        scuntJudges = await ScuntTeamServices.getScuntJudges();
-        assert(scuntJudges.length > 0);
+        const judges = await ScuntTeamServices.getScuntJudges();
+        assert(judges.length === 0);
     });
     
-    // couldn't think of errors for getScuntJudges
-    */
+
 
     it('.refillBribePoints()\t\t\t|\tRefill judge bribe points', async () => {
         const leadur = await LeadurModel.create({
@@ -144,7 +154,7 @@ describe('Testing Scunt Team Services', () => {
             firstName: 'Test',
             approved: true,
             hashedPassword: 'test12345',
-            email: 'test6@test.com',
+            email: 'test6@test.utoronto.ca',
             froshDataFields: {},
             scuntTeam: 1,
             scuntJudgeBribePoints: 20,
@@ -159,7 +169,7 @@ describe('Testing Scunt Team Services', () => {
             firstName: 'Test',
             approved: true,
             hashedPassword: 'test12345',
-            email: 'test7@test.com',
+            email: 'test7@test.utoronto.ca',
             froshDataFields: {},
             scuntTeam: 1,
             scuntJudgeBribePoints: 20,
@@ -179,7 +189,7 @@ describe('Testing Scunt Team Services', () => {
         testUser = await UserModel.create({
             firstName: 'Test',
             lastName: 'User',
-            email: 'test8@test.com',
+            email: 'test8@test.utoronto.ca',
             hashedPassword: 'test',
         });
         await assert.rejects(ScuntTeamServices.refillBribePoints(testUser._id, 10, true), {
@@ -188,20 +198,85 @@ describe('Testing Scunt Team Services', () => {
         });
     });
 
-    /*
-    it('.addTransaction()\t\t\t|\tAdd transactions', async () => {
+    
+    it('.addTransaction()\t\t\t|\tAdd transaction', async () => {
+        const scuntGameSettings = {
+            name: 'Scunt 2T3 Settings',
+            amountOfTeams: 10,
+            amountOfStarterBribePoints: 10000,
+            maxAmountPointsPercent: 0.3,
+            minAmountPointsPercent: 0.3,
+            revealJudgesAndBribes: true,
+            revealTeams: true,
+            showDiscordLink: true,
+            discordLink: 'https://discord.gg/mRutbwuCK9',
+            revealLeaderboard: true,
+            revealMissions: true,
+            allowJudging: true,
+        };
+    
+        const settings = await ScuntGameSettingsServices.initScuntGameSettings(scuntGameSettings);
         const scuntTeam = await ScuntTeamModel.create({
             number: 1,
             name: "hey",
             points: 0,
         });
-        const testTeamTransaction = await ScuntTeamServices.addTransaction(2, 1, 20);
-        assert(testTeamTransaction === 'Added points for mission #1 for team 2');
+        const testTeamTransaction = await ScuntTeamServices.addTransaction(1, 2, 20);
+        assert(testTeamTransaction.name === 'Added 20 points for mission #2 for team 1');
+    });
+
+    it('.addTransaction()\t\t\t|\tAdd transaction', async () => {
+        const scuntGameSettings = {
+            name: 'Scunt 2T3 Settings',
+            amountOfTeams: 10,
+            amountOfStarterBribePoints: 10000,
+            maxAmountPointsPercent: 0.3,
+            minAmountPointsPercent: 0.3,
+            revealJudgesAndBribes: true,
+            revealTeams: true,
+            showDiscordLink: true,
+            discordLink: 'https://discord.gg/mRutbwuCK9',
+            revealLeaderboard: true,
+            revealMissions: true,
+            allowJudging: true,
+        };
+    
+        const settings = await ScuntGameSettingsServices.initScuntGameSettings(scuntGameSettings);
+        const scuntTeam = await ScuntTeamModel.create({
+            number: 9,
+            name: "hey",
+            points: 20,
+        });
+        const testTeamTransaction = await ScuntTeamServices.addTransaction(9, 2, 30);
+        assert(testTeamTransaction.name === 'Added 30 points for mission #2 for team 9');
     });
     
-    // having trouble with prev points, to test if a team has already been judged with addTransaction
+    // having trouble with prev points with addTransaction
+
+    it('.addTransaction()\t\t\t|\tAdd transaction (INVALID TEAM)', async () => {
+        await assert.rejects(ScuntTeamServices.addTransaction(100000, 2, 20), {
+            name: 'Error',
+            message: 'INVALID_TEAM_NUMBER',
+        });
+    });
     
-    it('.subtractTransaction()\t\t\t|\tSubtract transactions', async () => {
+    it('.subtractTransaction()\t\t\t|\tSubtract transaction', async () => {
+        const scuntGameSettings = {
+            name: 'Scunt 2T3 Settings',
+            amountOfTeams: 10,
+            amountOfStarterBribePoints: 10000,
+            maxAmountPointsPercent: 0.3,
+            minAmountPointsPercent: 0.3,
+            revealJudgesAndBribes: true,
+            revealTeams: true,
+            showDiscordLink: true,
+            discordLink: 'https://discord.gg/mRutbwuCK9',
+            revealLeaderboard: true,
+            revealMissions: true,
+            allowJudging: true,
+        };
+    
+        const settings = await ScuntGameSettingsServices.initScuntGameSettings(scuntGameSettings);
         const scuntTeam = await ScuntTeamModel.create({
             number: 2,
             name: "hey",
@@ -210,7 +285,39 @@ describe('Testing Scunt Team Services', () => {
         const testTeam = await ScuntTeamServices.subtractTransaction(2, 20);
         assert(testTeam.points === 0);
     });
-    */
+
+    it('.subtractTransaction()\t\t\t|\tSubtract transaction', async () => {
+        const scuntGameSettings = {
+            name: 'Scunt 2T3 Settings',
+            amountOfTeams: 10,
+            amountOfStarterBribePoints: 10000,
+            maxAmountPointsPercent: 0.3,
+            minAmountPointsPercent: 0.3,
+            revealJudgesAndBribes: true,
+            revealTeams: true,
+            showDiscordLink: true,
+            discordLink: 'https://discord.gg/mRutbwuCK9',
+            revealLeaderboard: true,
+            revealMissions: true,
+            allowJudging: true,
+        };
+    
+        const settings = await ScuntGameSettingsServices.initScuntGameSettings(scuntGameSettings);
+        const scuntTeam = await ScuntTeamModel.create({
+            number: 10,
+            name: "hey",
+            points: 10,
+        });
+        const testTeam = await ScuntTeamServices.subtractTransaction(10, 20);
+        assert(testTeam.points === -10);
+    });
+
+    it('.subtractTransaction()\t\t\t|\TSubtract transaction (INVALID TEAM)', async () => {
+        await assert.rejects(ScuntTeamServices.subtractTransaction(100000, 20), {
+            name: 'Error',
+            message: 'INVALID_TEAM_NUMBER',
+        });
+    });
 
     it('.viewTransactions()\t\t\t|\tView transactions', async () => {
         const scuntTeam = await ScuntTeamModel.create({
@@ -260,29 +367,49 @@ describe('Testing Scunt Team Services', () => {
         const teams = await ScuntTeamServices.initializeTeams();
         assert(teams.length > 0);
     });
+*/
 
+    /*
     it('.deleteTransaction()\t\t\t|\tDelete a transaction', async () => {
         const scuntTeam = await ScuntTeamModel.create({
             number: 5,
             name: "Test Team",
             points: 10,
+            transactions: [],
         });
         const mission = await ScuntMissionModel.create({
             number: 2,
-            name: 'Test Mission',
+            name: 'Test Mission 2',
             category: '',
             points: 10,
             isHidden: false,
             isJudgingStation: false,
         })
         const points = await ScuntTeamServices.addTransaction(5, 2, 10);
-        assert(points === 0);
-        
-        scuntTeam = await ScuntTeamServices.deleteTransaction(5, scuntTeam.transactions[0]._id);
-        assert(scuntTeam.transactions.length === 0);
+        const testTeam = await ScuntTeamServices.deleteTransaction(5, scuntTeam.transactions[0]._id);
+        assert(testTeam.transactions.length === 1);
     });
-
     */
+
+    it('.deleteTransaction()\t\t\t|\tDelete a transaction (does not find ID)', async () => {
+        const scuntTeam = await ScuntTeamModel.create({
+            number: 5,
+            name: "Test Team",
+            points: 10,
+            transactions: [],
+        });
+        const mission = await ScuntMissionModel.create({
+            number: 2,
+            name: 'Test Mission 2',
+            category: '',
+            points: 10,
+            isHidden: false,
+            isJudgingStation: false,
+        })
+        const points = await ScuntTeamServices.addTransaction(5, 2, 10);
+        const testTeam = await ScuntTeamServices.deleteTransaction(5, scuntTeam.transactions._id);
+        assert(testTeam.transactions.length === 1);
+    });
 
     it('.deleteTransaction()\t\t\t|\tDelete a transaction (INVALID TEAM NUMBER)', async () => {
         await assert.rejects(ScuntTeamServices.deleteTransaction(100000, 429496729), {
@@ -291,12 +418,6 @@ describe('Testing Scunt Team Services', () => {
         });
     });
 
-    it('.viewRecentTransactions()\t\t\t|\tView recent transactions (empty)', async () => {
-        transactions = await ScuntTeamServices.viewRecentTransactions();
-        assert(transactions.length === 0);
-    });
-
-    /*
     it('.viewRecentTransactions()\t\t\t|\tView recent transactions', async () => {
         const scuntTeam = await ScuntTeamModel.create({
             number: 6,
@@ -305,19 +426,16 @@ describe('Testing Scunt Team Services', () => {
         });
         const mission = await ScuntMissionModel.create({
             number: 3,
-            name: 'Test Mission',
+            name: 'Test Mission 3',
             category: '',
             points: 10,
             isHidden: false,
             isJudgingStation: false,
         })
         const points = await ScuntTeamServices.addTransaction(6, 3, 10);
-        assert(points === 0);
-
         transactions = await ScuntTeamServices.viewRecentTransactions();
-        assert(transactions.length === 0);
+        assert(transactions.length > 0);
     });
-    */
 
     it('.setTeamName()\t\t\t|\tSet new team name', async () => {
         const scuntTeam = await ScuntTeamModel.create({

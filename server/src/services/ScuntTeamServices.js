@@ -70,7 +70,7 @@ const ScuntTeamServices = {
     if (!user.scuntJudgeBribePoints || points > user.scuntJudgeBribePoints)
       throw new Error('NOT_ENOUGH_BRIBE_POINTS');
 
-    const settings = ScuntGameSettingsModel.findOne({}).then(
+    const settings = await ScuntGameSettingsModel.findOne({}).then(
       (settings) => {
         if (!settings) throw new Error('INVALID_SETTINGS');
         return settings;
@@ -82,7 +82,7 @@ const ScuntTeamServices = {
 
     if (!settings.allowJudging) throw new Error('NOT_ALLOWED_TO_JUDGE');
 
-    const leadur = LeadurModel.findByIdAndUpdate(
+    const leadur = await LeadurModel.findByIdAndUpdate(
       user.id,
       { $set: { scuntJudgeBribePoints: user.scuntJudgeBribePoints - points } },
       { upsert: false, returnDocument: 'after' },
