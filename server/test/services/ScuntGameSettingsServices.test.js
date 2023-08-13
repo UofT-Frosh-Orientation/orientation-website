@@ -12,23 +12,8 @@ describe('Testing Scunt Game Settings Services', () => {
         message: 'UNABLE_TO_UPDATE_SCUNT_SETTINGS',
     }, );
   }); 
-
-  /*
-  it('.initScuntGameSettings()\t\t\t|\tFind an invalid scunt game setting (INVALID SETTING)', async () => {
-    const incorrectSetting = {
-        name: 'New Test Setting 12345',
-        amountOfTeams: 101,
-        amountOfStarterBribePoints: 2500,
-        maxAmountPointsPercent: 0.3,
-        minAmountPointsPercent: 0.3,
-    };
-    await assert.rejects(ScuntGameSettingsServices.initScuntGameSettings(incorrectSetting), {
-      name: 'Error',
-      message: 'UNABLE_TO_GET_SCUNT_SETTINGS',
-    });
-  });
-  */
   
+  /* couldn't think of test case for initScuntGameSettings for it not to work besides network error */
   it('.initScuntGameSettings()\t\t\t|\tFind settings', async () => {
     const initialSettings = {
         name: 'Scunt2T3 Settings',
@@ -99,13 +84,16 @@ describe('Testing Scunt Game Settings Services', () => {
     await ScuntGameSettingsServices.initScuntGameSettings(newSetting);
     await ScuntGameSettingsServices.initScuntGameSettings(initialSettings);
     await ScuntGameSettingsServices.initScuntGameSettings(initialSettings);
-    await ScuntGameSettingsServices.initScuntGameSettings(initialSettings);
+    const testSettings = await ScuntGameSettingsServices.initScuntGameSettings(initialSettings);
+    assert(testSettings.name === 'Scunt2T3 Settings');
   });
 
   /* couldn't think of test case for getGameSettings for it not to work besides network error */
   it('.getGameSettings()\t\t\t|\tGet scunt game settings', async () => {
     settings = await ScuntGameSettingsServices.getGameSettings();
     assert(settings !== null);
+    assert(settings.name === 'Scunt2T3 Settings');
+    assert(settings.amountOfStarterBribePoints === 2500);
   });
 
   it('.setGameSettings()\t\t\t|\tSet scunt game settings', async () => {
@@ -118,11 +106,10 @@ describe('Testing Scunt Game Settings Services', () => {
   it('.setGameSettings()\t\t\t|\tSet multiple scunt game settings', async () => {
     await ScuntGameSettingsServices.setGameSettings('Scunt2T3 Settings', 11, 2500, 0.3, 0.3, true, true, true, true, true, true);
     await ScuntGameSettingsServices.setGameSettings('Scunt2T3 Settings', 10, 2500, 0.3, 0.3, true, true, true, true, true, true);
-    await ScuntGameSettingsServices.setGameSettings('Scunt2T3 Settings', 11, 2500, 0.3, 0.3, true, true, false, true, false, true);
-    await ScuntGameSettingsServices.setGameSettings('Scunt2T3 Settings', 11, 2500, 0.3, 0.3, false, true, false, true, false, true);
+    await ScuntGameSettingsServices.setGameSettings('Scunt2T3 Settings', 11, 2500, 0.3, 0.3, true, true, false, true, true, true);
+    const testSettings = await ScuntGameSettingsServices.setGameSettings(
+      'Scunt2T3 Settings', 11, 2400, 0.3, 0.3, false, true, false, true, false, true);
+    assert(testSettings.amountOfStarterBribePoints === 2400);
     await ScuntGameSettingsServices.setGameSettings('Scunt2T3 Settings', 10, 2500, 0.3, 0.3, true, true, true, true, true, true);
   });
-
-  
-  
 });
