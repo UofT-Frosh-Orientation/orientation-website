@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
 import './FroshInfoTable.scss';
 // import { fields } from '../Registration/RegistrationFields';
 import { Button } from '../../components/button/Button/Button';
@@ -13,21 +13,52 @@ import { SnackbarContext } from '../../util/SnackbarProvider';
 import { PopupModal } from '../../components/popup/PopupModal';
 import { getUneditableFields, downloadDataAsFile, deleteUser } from './functions';
 import DownloadIcon from '../../assets/misc/file-export-solid.svg';
-import { DarkModeContext } from '../../util/DarkModeProvider';
+import {
+  useReactTable,
+  getCoreRowModel,
+  flexRender,
+  getPaginationRowModel,
+} from '@tanstack/react-table';
 
 const PageFroshInfoTable = () => {
   const noEditFields = getUneditableFields();
   const { frosh } = useSelector(froshSelector);
   const [objectKeys, setObjectKeys] = useState([]);
-  const [sortedParam, setSortedParam] = useState();
-  const [sortedOrder, setSortedOrder] = useState(1);
   const [showAllUsers, setShowAllUsers] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortedFrosh, setSortedFrosh] = useState([]);
-  const [searchedFrosh, setSearchedFrosh] = useState([]);
   const [showPopUp, setShowPopUp] = useState(false);
   const [selectedUserID, setSelectedUserID] = useState();
   const [editMade, setEditMade] = useState(false);
+  const [sorting, setSorting] = useState([]);
+
+  const columns = useMemo(
+    () => [
+      ...objectKeys.map((key) => ({
+        header: convertCamelToLabel(key),
+        accessorKey: key,
+      })),
+      {
+        header: 'Delete Account',
+        accessorKey: '_id',
+        id: 'delete',
+        cell: (value) => (
+          <Button
+            label={'X'}
+            style={{
+              margin: 0,
+              padding: '10px 25px',
+              backgroundColor: 'var(--red-error)',
+            }}
+            onClick={() => {
+              setSelectedUserID(value.getValue());
+              setShowPopUp(true);
+            }}
+          />
+        ),
+      },
+    ],
+    [objectKeys],
+  );
 
   const { setSnackbar } = useContext(SnackbarContext);
 
@@ -43,24 +74,29 @@ const PageFroshInfoTable = () => {
     if (frosh?.length > 0) {
       setObjectKeys(Object.keys(Object.assign({}, ...frosh)));
     }
-    setSortedFrosh(frosh);
   }, [frosh]);
 
   useEffect(() => {
-    const froshData = [...sortedFrosh];
-    if (sortedParam === '') return froshData;
-    froshData.sort((a, b) => {
-      if (a[sortedParam] === undefined) {
-        return 1000000000;
-      } else if (b[sortedParam] === undefined) {
-        return -1000000000;
-      }
-      return a?.[sortedParam] > b?.[sortedParam]
-        ? sortedOrder
-        : b?.[sortedParam] > a?.[sortedParam]
-        ? -1 * sortedOrder
-        : 0;
-    });
+    if (user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') === false)
+      setShowAllUsers(false);
+  }, []);
+
+  const dataToDisplay = useMemo(() => {
+    let froshData = [...frosh];
+    if (sorting.length !== 0) {
+      froshData.sort((a, b) => {
+        if (a[sorting[0].id] === undefined) {
+          return 1000000000;
+        } else if (b[sorting[0].id] === undefined) {
+          return -1000000000;
+        }
+        if (sorting[0].desc) {
+          return a?.[sorting[0].id] > b?.[sorting[0].id] ? -1 : 1;
+        }
+        return a?.[sorting[0].id] > b?.[sorting[0].id] ? 1 : -1;
+      });
+    }
+
     if (searchTerm && searchTerm !== '') {
       const output = [];
 
@@ -74,18 +110,33 @@ const PageFroshInfoTable = () => {
           }
         }
       }
-      setSearchedFrosh(output);
-    } else {
-      setSortedFrosh(froshData);
+      froshData = output;
     }
-  }, [sortedParam, sortedOrder, showAllUsers, searchTerm]);
+    return froshData;
+  }, [sorting, showAllUsers, searchTerm, frosh]);
 
-  useEffect(() => {
-    if (user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') === false)
-      setShowAllUsers(false);
-  }, []);
-
-  const dataToDisplay = searchTerm && searchTerm !== '' ? searchedFrosh : sortedFrosh;
+  const {
+    getHeaderGroups,
+    getRowModel,
+    getCanPreviousPage,
+    getCanNextPage,
+    previousPage,
+    nextPage,
+    getPageCount,
+    setPageIndex,
+    setPageSize,
+    getState,
+  } = useReactTable({
+    columns,
+    data: dataToDisplay || [],
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    autoResetPageIndex: true,
+  });
   return (
     <div className="frosh-info-table">
       <div className="header">
@@ -225,71 +276,113 @@ const PageFroshInfoTable = () => {
         )}
         {frosh?.length >= 0 ? (
           <table>
-            <tr>
-              <th
-                style={{ cursor: 'pointer' }}
-                onClick={() => {
-                  setSortedFrosh(frosh);
-                  setSortedParam('');
-                }}
-              >
-                #
-              </th>
-              {objectKeys.map((key) => {
-                return (
-                  <th
-                    key={key}
-                    onClick={() => {
-                      if (sortedParam === key) setSortedOrder(sortedOrder * -1);
-                      else setSortedParam(key);
-                    }}
-                  >
-                    {sortedParam === key ? (
-                      <i>{convertCamelToLabel(key)}</i>
-                    ) : (
-                      <>{convertCamelToLabel(key)}</>
-                    )}
-                  </th>
-                );
-              })}
-              <th>Delete Account</th>
-            </tr>
-            {dataToDisplay.map((datum, index) => {
-              return (
-                <tr key={index}>
-                  <td>
-                    <b>{index}</b>
-                  </td>
-                  {objectKeys.map((key) => {
+            <thead>
+              {getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
                     return (
-                      <td key={key + index} style={{ width: '500px' }}>
-                        {datum?.[key]?.toString()}
-                      </td>
+                      <th key={header.id} colSpan={header.colSpan}>
+                        {header.isPlaceholder ? null : (
+                          <div
+                            {...{
+                              className: header.column.getCanSort()
+                                ? 'cursor-pointer select-none'
+                                : '',
+                              onClick: header.column.getToggleSortingHandler(),
+                            }}
+                          >
+                            {flexRender(header.column.columnDef.header, header.getContext())}
+                            {{
+                              asc: ' 🔼',
+                              desc: ' 🔽',
+                            }[header.column.getIsSorted()] ?? null}
+                          </div>
+                        )}
+                      </th>
                     );
                   })}
-                  <td style={{ textAlign: 'center' }}>
-                    <Button
-                      label={'X'}
-                      style={{
-                        margin: 0,
-                        padding: '10px 25px',
-                        backgroundColor: 'var(--red-error)',
-                      }}
-                      onClick={() => {
-                        setSelectedUserID(datum._id);
-                        setShowPopUp(true);
-                      }}
-                    />
-                  </td>
                 </tr>
-              );
-            })}
+              ))}
+            </thead>
+            <tbody>
+              {getRowModel().rows.map((row) => {
+                return (
+                  <tr key={row.id}>
+                    {row.getVisibleCells().map((cell) => {
+                      return (
+                        <td key={cell.id}>
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
         ) : (
           <h2>No data</h2>
         )}
       </div>
 
+      <div className="pagination-buttons-container">
+        <Button
+          className="pagination-control"
+          onClick={() => setPageIndex(0)}
+          disabled={!getCanPreviousPage()}
+          label={'First Page'}
+        />
+        <Button
+          className="pagination-control"
+          onClick={() => previousPage()}
+          disabled={!getCanPreviousPage()}
+          label={'Previous Page'}
+        />
+        <Button
+          className="pagination-control"
+          onClick={() => nextPage()}
+          label={'Next Page'}
+          disabled={!getCanNextPage()}
+        />
+        <Button
+          className="pagination-control"
+          onClick={() => setPageIndex(getPageCount() - 1)}
+          disabled={!getCanNextPage()}
+          label={'Last Page'}
+        />
+        <span>
+          Page{' '}
+          <strong>
+            {getState().pagination.pageIndex + 1} of {getPageCount()}
+          </strong>
+        </span>
+        <span>
+          Go to page:{' '}
+          <input
+            className="pagination-number"
+            type="number"
+            defaultValue={getState().pagination.pageIndex + 1}
+            onChange={(e) => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0;
+              setPageIndex(page);
+            }}
+            style={{ width: '100px' }}
+          />
+        </span>
+        <select
+          className="pagination-pages"
+          value={getState().pagination.pageSize}
+          onChange={(e) => {
+            setPageSize(Number(e.target.value));
+          }}
+        >
+          {[10, 20, 30, 40, 50].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+      </div>
       <PopupModal
         trigger={showPopUp}
         setTrigger={setShowPopUp}
@@ -320,9 +413,5 @@ const PageFroshInfoTable = () => {
     </div>
   );
 };
-
-// const DeleteButton = ({ label, style, onClick }) => {
-//   return <Button label={label} style={style} onClick={onClick()} />;
-// };
 
 export { PageFroshInfoTable };
