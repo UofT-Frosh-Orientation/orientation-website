@@ -4,15 +4,13 @@
   position: relative;
   height: 100vh;
   min-height: 500px;
-  background-image: linear-gradient(
-    to right,
-    var(--purple-transparent) 20%,
-    var(--purple-transparent-more)
-  );
+  background: radial-gradient(50% 42.09% at 50% 57.91%, #711f8bbf 43.23%, #3d0f58bf 100%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  margin-top: 0;
   @include devices(tablet) {
     justify-content: center;
   }
@@ -20,17 +18,21 @@
 
 .FroshHardHatWhite-logo {
   text-align: center;
-  width: 50%;
   object-fit: fill;
-  height: 22vh;
+  height: 400px;
   @include devices(tablet) {
     text-align: center;
-    width: 40%;
+    height: 220px;
   }
 }
 
 .home-page-header-text {
-  padding: 3%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 3%;
+  text-align: center;
   h1 {
     text-align: center;
     font-size: max(14vh, 140px);
@@ -53,7 +55,6 @@
     line-height: 1.2;
   }
   @include devices(tablet) {
-    padding-left: 0%;
     padding: 0px 25px;
     h1 {
       font-size: 100px;
@@ -75,16 +76,15 @@
 .home-page-header-register-button {
   margin-top: 15px;
   display: flex;
-  display: grid;
-  margin: auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   @include devices(tablet) {
     text-align: center;
     width: unset;
     height: unset;
     font-size: unset;
   }
-  width: max(15vh, 150px);
-  height: max(5vh, 50px);
   font-size: max(1.8vh, 18px);
 }
 

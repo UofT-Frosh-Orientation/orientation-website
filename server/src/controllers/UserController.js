@@ -40,8 +40,8 @@ const UserController = {
         );
       }
       return res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
-    } 
-    catch(err) {
+    } catch (err) {
+      req.log.fatal({ message: 'Unable to create user', err });
       next(err);
     }
   },
@@ -72,14 +72,25 @@ const UserController = {
   async login(req, res, next) {
     passport.authenticate('local', (err, user) => {
       if (err || !user) {
+        //req.log.info("Incorrect Email and Password entered by user");
         res.status(403).send({ message: 'Please ensure your email and password are correct.' });
-      } else if (!user.confirmed) {
+      } else if (!user.confirmedEmail) {
+        // req.log.error(err, "Attempt to login with unverified email");
         res.status(403).send({ message: 'Please ensure that you have verified your email.' });
       } else {
         req.logIn(user, (err) => {
           if (err) {
+            req.log.fatal({
+              msg: 'User Login Failure',
+              err,
+              // user: user.getResponseObject(),
+            });
             next(err);
           } else {
+            req.log.info({
+              msg: 'Successful login by user ' + user.id,
+              user: user.getResponseObject(),
+            });
             res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
           }
         });
@@ -95,13 +106,36 @@ const UserController = {
    * @return {Promise<void>}
    */
   async logout(req, res, next) {
-    req.logout((err) => {
-      if (err) {
-        return next(err);
-      } else {
-        return res.status(200).send({ message: 'Successfully logged out!' });
-      }
-    });
+    const user = req.user;
+
+    try {
+      req.logout((err) => {
+        if (err) {
+          req.log.error({
+            msg: 'User Logout Failure: user ' + user.id,
+            err,
+            user: user.getResponseObject(),
+          });
+          return next(err);
+        } else {
+          req.log.info({
+            msg: 'Successful Logout by user ' + user.id,
+            user: user.getResponseObject(),
+          });
+          return res.status(200).send({
+            message: 'Successful Logout by user ' + user.id,
+            user: user.getResponseObject(),
+          });
+        }
+      });
+    } catch (error) {
+      req.log.error({
+        msg: 'User Logout Failure: user ' + user.id,
+        err,
+        user: user.getResponseObject(),
+      });
+      next(error);
+    }
   },
 
   async requestPasswordReset(req, res, next) {
@@ -117,7 +151,10 @@ const UserController = {
           'If we have an account matching your email, we have sent an email to you. Please check there for instructions on how to reset your password',
       });
     } catch (err) {
-      console.log('Error in password reset request', err);
+      req.log.fatal({
+        msg: 'User Password Reset Request Failure: user ' + req.body,
+        err,
+      });
       next(err);
     }
   },
@@ -137,6 +174,10 @@ const UserController = {
         });
       }
     } catch (err) {
+      req.log.fatal({
+        msg: 'User Password Reset Request Failure: user ' + req.body,
+        err,
+      });
       next(err);
     }
   },
@@ -150,15 +191,20 @@ const UserController = {
       if (!existingUser || existingUser.email !== result) {
         next(new Error('INVALID_VERIFICATION_LINK'));
       } else {
-        await UserServices.updateUserInfo(existingUser.id, { confirmed: true });
-        newUserSubscription.add(existingUser);  
-        
+        await UserServices.updateUserInfo(existingUser.id, { confirmedEmail: true });
+        newUserSubscription.add(existingUser);
+
         res.status(200).send({
           message:
             'Successfully verified your email! Log in with your email and password to get started.',
         });
       }
     } catch (err) {
+      req.log.fatal({
+        msg: 'Error with password reset page: user ' + req.body.email,
+        err,
+        user: user.getResponseObject(),
+      });
       next(err);
     }
   },
@@ -173,6 +219,11 @@ const UserController = {
         .status(200)
         .send({ message: 'You have been successfully unsubscribed from announcement emails.' });
     } catch (error) {
+      req.log.error({
+        msg: 'User Announcement Unsubscribe Error: user ' + user.id,
+        err,
+        user: user.getResponseObject(),
+      });
       next(error);
     }
   },
@@ -183,8 +234,13 @@ const UserController = {
       await UserServices.resubscribeUser(email);
       res
         .status(200)
-        .send({ message: 'You have been successfully resubscribed from announcement emails.' });
+        .send({ message: 'You have been successfully resubscribed to announcement emails.' });
     } catch (error) {
+      req.log.error({
+        msg: 'User Announcement Resubscribe Error: user ' + user.id,
+        err,
+        user: user.getResponseObject(),
+      });
       next(error);
     }
   },
@@ -210,6 +266,11 @@ const UserController = {
           .send({ message: 'Successfully updated user!', user: updatedUser.getResponseObject() });
       }
     } catch (err) {
+      req.log.fatal({
+        msg: 'User Request Auth Scope Error: user ' + user.id,
+        err,
+        user: user.getResponseObject(),
+      });
       next(err);
     }
   },
@@ -222,6 +283,7 @@ const UserController = {
         unapprovedUsers: unapprovedUsers.map((u) => u.getResponseObject()),
       });
     } catch (err) {
+      req.log.error({ msg: 'Error Getting Unapproved Users', err });
       next(err);
     }
   },
@@ -234,6 +296,7 @@ const UserController = {
         authRequests: usersAuthScopes.map((u) => u.getResponseObject()),
       });
     } catch (err) {
+      req.log.error({ msg: 'Error Getting User Auth Scopes', err });
       next(err);
     }
   },
@@ -255,6 +318,7 @@ const UserController = {
         res.status(200).send({ message: 'Successfully approved users!' });
       }
     } catch (err) {
+      req.log.error({ msg: 'Error updating account statuses', err });
       next(err);
     }
   },
@@ -265,6 +329,11 @@ const UserController = {
       await UserServices.updateAuthScopes(userAuthScopes);
       return res.status(200).send({ message: 'Auth scopes updated!' });
     } catch (err) {
+      req.log.error({
+        msg: 'Error Updating Auth Scopes: user ' + user.id,
+        err,
+        user: updatedUser.getResponseObject(),
+      });
       next(err);
     }
   },
@@ -277,6 +346,7 @@ const UserController = {
         authRequests: judgeUsers.map((u) => u.getResponseObject()),
       });
     } catch (e) {
+      req.log.error({ msg: 'Error Getting Scunt Judge Users ', e });
       next(e);
     }
   },
@@ -294,6 +364,7 @@ const UserController = {
       await UserServices.deleteUser(id);
       res.status(200).send({ message: 'Successfully deleted User!', deletedId: id });
     } catch (err) {
+      req.log.fatal({ msg: 'Error Deleting User ' + id, err });
       next(err);
     }
   },
@@ -320,7 +391,29 @@ const UserController = {
         });
       }
     } catch (e) {
-      console.log(e);
+      req.log.error({ msg: 'Error Determining if User Exists', e });
+      next(e);
+    }
+  },
+
+  /**
+   * Update a users info
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @return {Promise<void>}
+   */
+  async updateInfo(req, res, next) {
+    const userId = req.user.id;
+    const updateInfo = req.body;
+
+    try {
+      const user = await UserServices.updateUserInfo(userId, updateInfo);
+      return res.status(200).send({
+        message: 'Successfully updated User Information!',
+        user: user.getResponseObject(),
+      });
+    } catch (e) {
       next(e);
     }
   },

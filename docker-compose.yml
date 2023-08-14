@@ -81,10 +81,17 @@ services:
       - "3000:3000"
     volumes:
       - ./client/src:/app/src
-  docs:
-    build: ./docs
-    container_name: docs
-    ports:
-      - "4000:4000"
-    volumes:
-      - ./docs:/srv/jekyll
+
+
+###############################################
+# Uncomment below to run a local instance of  #
+# the documentation website on localhost:4000 #
+###############################################
+  
+  # docs:
+  #   build: ./docs
+  #   container_name: docs
+  #   ports:
+  #     - "4000:4000"
+  #   volumes:
+  #     - ./docs:/srv/jekyll

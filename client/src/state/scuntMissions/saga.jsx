@@ -33,15 +33,11 @@ export function* getScuntMissionsSaga({ payload: { showHidden, setSnackbar } }) 
 
 export const createMultipleMissions = createAction('createMultipleMissionsSaga');
 
-export function* createMultipleMissionsSaga({ payload: { file, setSnackbar } }) {
+export function* createMultipleMissionsSaga({ payload: { array, setSnackbar } }) {
   const { axios } = useAxios();
   try {
     yield put(getScuntMissionsStart());
-    const formData = new FormData();
-    formData.append('missions', file);
-    const result = yield call(axios.post, 'scunt-missions/bulk', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    const result = yield call(axios.post, 'scunt-missions/bulk', { array });
     yield put(getScuntMissionsSuccess(result.data.missions));
     setSnackbar('Successfully uploaded missions!', false);
   } catch (e) {

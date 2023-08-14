@@ -13,13 +13,16 @@ emailConfirmationSubscription.process((job, done) => {
       job.data.email,
       process.env.JWT_EMAIL_CONFIRMATION_TOKEN,
     );
-    const url = process.env.CLIENT_BASE_URL + '/verify-user-email/' + job.data.email + '/' + emailToken;
+ 
+    const url =
+      process.env.CLIENT_BASE_URL + '/verify-user-email/' + job.data.email + '/' + emailToken;
+    
     EmailServices.sendSimpleEmail(
-       [job.data.email],
-       '',
-       'Please use this URL to confirm your email: ' + url,
-       'F!rosh Email Confirmation',
-       'tech@orientation.skule.ca',
+      [job.data.email],
+      '',
+      'Please use this URL to confirm your email: ' + url,
+      'F!rosh Email Confirmation',
+      'tech@orientation.skule.ca',
     );
     done();
   } catch (error) {

@@ -21,7 +21,7 @@ export const rules = {
         'Human, or near human (Engineering Science students will be accepted).',
         'A F!rosh (2T6!).',
         'Currently enrolled within the Faculty of Applied Science and Engineering at the University of Toronto.',
-        'Have officially registered for the event via F!rosh Week 2T2.',
+        'Have officially registered for the event via F!rosh Week 2T3.',
       ],
     },
     {

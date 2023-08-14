@@ -1,6 +1,28 @@
 import useAxios from '../../hooks/useAxios.jsx';
 const { axios } = useAxios();
 
+import slideshow1 from '../../assets/homeSlideshow/DSC_0309.webp';
+import slideshow2 from '../../assets/homeSlideshow/DSC_0336.webp';
+import slideshow3 from '../../assets/homeSlideshow/DSC_0411.webp';
+import slideshow4 from '../../assets/homeSlideshow/DSC_0898.webp';
+import slideshow5 from '../../assets/homeSlideshow/IMG_293.webp';
+import slideshow6 from '../../assets/homeSlideshow/IMG_7642.webp';
+import slideshow7 from '../../assets/homeSlideshow/IMG_7848.webp';
+import slideshow8 from '../../assets/homeSlideshow/IMG_8857.webp';
+import slideshow9 from '../../assets/homeSlideshow/IMG_8879.webp';
+import slideshow10 from '../../assets/homeSlideshow/IMG_9541.webp';
+
+import slideshowTiny1 from '../../assets/homeSlideshow/tiny/DSC_0309.webp';
+import slideshowTiny2 from '../../assets/homeSlideshow/tiny/DSC_0336.webp';
+import slideshowTiny3 from '../../assets/homeSlideshow/tiny/DSC_0411.webp';
+import slideshowTiny4 from '../../assets/homeSlideshow/tiny/DSC_0898.webp';
+import slideshowTiny5 from '../../assets/homeSlideshow/tiny/IMG_293.webp';
+import slideshowTiny6 from '../../assets/homeSlideshow/tiny/IMG_7642.webp';
+import slideshowTiny7 from '../../assets/homeSlideshow/tiny/IMG_7848.webp';
+import slideshowTiny8 from '../../assets/homeSlideshow/tiny/IMG_8857.webp';
+import slideshowTiny9 from '../../assets/homeSlideshow/tiny/IMG_8879.webp';
+import slideshowTiny10 from '../../assets/homeSlideshow/tiny/IMG_9541.webp';
+
 export async function getTimelineEvents() {
   try {
     const response = await axios.get('/timeline');
@@ -13,17 +35,46 @@ export async function getTimelineEvents() {
 
 export function getSlideshowImages() {
   return shuffleArray([
-    'https://photos.smugmug.com/photos/i-LB9g6Pz/0/L/i-LB9g6Pz-L.jpg',
-    'https://photos.smugmug.com/photos/i-bgkRBSR/0/L/i-bgkRBSR-L.jpg',
-    'https://photos.smugmug.com/photos/i-q3gvVgQ/0/L/i-q3gvVgQ-L.jpg',
-    'https://photos.smugmug.com/photos/i-qW5qHLf/0/L/i-qW5qHLf-L.jpg',
-    'https://photos.smugmug.com/photos/i-MR2Cwz3/0/L/i-MR2Cwz3-L.jpg',
-    'https://photos.smugmug.com/photos/i-TSH4vRv/0/L/i-TSH4vRv-L.jpg',
-    'https://photos.smugmug.com/photos/i-hc2CZ98/0/L/i-hc2CZ98-L.jpg',
-    'https://photos.smugmug.com/photos/i-xQgqRnW/0/L/i-xQgqRnW-L.jpg',
-    'https://photos.smugmug.com/photos/i-5wbnHLZ/0/L/i-5wbnHLZ-L.jpg',
-    'https://photos.smugmug.com/photos/i-GfcnGmx/0/L/i-GfcnGmx-L.jpg',
-    'https://photos.smugmug.com/photos/i-HHVczSc/0/L/i-HHVczSc-L.jpg',
+    {
+      src: slideshow1,
+      placeholder: slideshowTiny1,
+    },
+    {
+      src: slideshow2,
+      placeholder: slideshowTiny2,
+    },
+    {
+      src: slideshow3,
+      placeholder: slideshowTiny3,
+    },
+    {
+      src: slideshow4,
+      placeholder: slideshowTiny4,
+    },
+    {
+      src: slideshow5,
+      placeholder: slideshowTiny5,
+    },
+    {
+      src: slideshow6,
+      placeholder: slideshowTiny6,
+    },
+    {
+      src: slideshow7,
+      placeholder: slideshowTiny7,
+    },
+    {
+      src: slideshow8,
+      placeholder: slideshowTiny8,
+    },
+    {
+      src: slideshow9,
+      placeholder: slideshowTiny9,
+    },
+    {
+      src: slideshow10,
+      placeholder: slideshowTiny10,
+    },
   ]);
 }
 

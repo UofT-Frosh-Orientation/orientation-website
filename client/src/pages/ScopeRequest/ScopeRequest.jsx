@@ -70,6 +70,7 @@ export const PageScopeRequest = () => {
             return (
               <div key={scope} style={{ paddingRight: '25px' }}>
                 <Checkboxes
+                  name={scope}
                   highlightValues={highlightFields}
                   disabledValues={disabledFields}
                   label={convertCamelToLabel(scope)}

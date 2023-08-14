@@ -1,0 +1,19 @@
+name: Frontend Tests
+
+on:
+  push:
+    paths:
+      - client/**
+  pull_request:
+    paths:
+      - client/**
+
+jobs:
+  build_frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3.5.3
+
+      - name: Build client
+        run: cd client && yarn install && yarn build

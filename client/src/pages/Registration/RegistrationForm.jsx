@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { fields, terms } from './RegistrationFields';
 import { TextInput } from '../../components/input/TextInput/TextInput';
@@ -13,7 +13,7 @@ import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOut
 import { Link, useNavigate } from 'react-router-dom';
 import { PopupModal } from '../../components/popup/PopupModal';
 import useAxios from '../../hooks/useAxios';
-import { initialsSelector, registeredSelector, userSelector } from '../../state/user/userSlice';
+import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useSelector } from 'react-redux';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 
@@ -47,11 +47,22 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
       return setCanRegister(true);
     } else {
       try {
-        const response = await axios.post('/frosh/register', froshObject);
+        let formData = new FormData();
+        for (const [key, value] of Object.entries(froshObject)) {
+          if (value === undefined) continue;
+          formData.append(key, value);
+        }
+        froshObject['id'] = user.id;
+        const ReactPDF = await import('@react-pdf/renderer');
+        const { MakeReceipt } = await import('../../components/MakeReceipt/MakeReceipt');
+        const dataReceipt = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
+        formData.append('dataReceipt', dataReceipt);
+        const response = await axios.post('/frosh/register', formData, {
+          headers: { 'content-type': 'multipart/form-data' },
+        });
         window.location.href = response.data.url;
-        // setCheckoutUrl(response.data.url);
-        // setShowPopUp(true);
       } catch (error) {
+        console.log(error);
         setCanRegister(true);
       }
     }
@@ -126,7 +137,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
 
   const generateStepComponent = (formFieldsAtStep, step) => {
     return (
-      <div className="registration-tab-content">
+      <div key={step} className="registration-tab-content">
         {Object.keys(formFieldsAtStep).map((key, index) => {
           const field = formFieldsAtStep[key];
           if (field.type === 'text') {
@@ -157,6 +168,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       : field.isDisabled
                   }
                   inputTitle={field.inputTitle}
+                  autoFocus={index === 0 ? true : false}
                 />
               </div>
             );
@@ -183,6 +195,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       : field.isDisabled
                   }
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
+                  autoFocus={index === 0 ? true : false}
                 />
               </div>
             );
@@ -235,10 +248,11 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       values.push(field.values[index]);
                     }
                     froshObject[key] = values;
-                    if (field.onChanged) field.onChanged(value, disableField);
+                    if (field.onChanged) field.onChanged(values, disableField);
                   }}
                   values={field.values}
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
+                  autoFocus={index === 0 ? true : false}
                 />
               </div>
             );
@@ -344,7 +358,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     return (
       <div>
         <div className="registration-form-flex">
-          <div className="registration-form">
+          <div className="registration-form" style={{ marginBottom: '65px' }}>
             <Tabs
               scrollToTopAfterChange={true}
               selectedTabPassed={selectedTab}
@@ -364,7 +378,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                                 : user?.preferredName)}
                           </h1>
                           <h2 className="registration-first-step-subtitle">
-                            Let&apos;s register for UofT Engineering&apos;s F!rosh Week 2T2
+                            Let&apos;s register for UofT Engineering&apos;s F!rosh Week 2T3
                           </h2>
                         </div>
                       </div>
@@ -378,7 +392,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                 },
                 {
                   title: 'Extra Events',
-                  component: generateStepComponent(formFields['Misc'], 'Misc'),
+                  component: generateStepComponent(formFields['ExtraEvents'], 'ExtraEvents'),
                 },
                 {
                   title: 'Payment',
@@ -398,6 +412,17 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                         onClick={handleRegister}
                         isDisabled={!canRegister}
                       />
+                      <p className="register-terms-of-service" style={{ marginTop: '20px' }}>
+                        If you&apos;re looking to apply for a bursary, click{' '}
+                        <a
+                          href="https://forms.gle/UFajTRoBF8iWah2MA"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          here
+                        </a>{' '}
+                        to submit in an application
+                      </p>
                     </div>
                   ),
                 },

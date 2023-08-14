@@ -1,24 +1,27 @@
-import { React, useState } from 'react';
+import {
+  React,
+  // useState
+} from 'react';
 import './About.scss';
-import { getInformation } from './functions';
 
 import { aboutUsInfo } from '../../util/about/aboutus';
-import { execInfo } from '../../util/about/execs';
-import { techTeam } from '../../util/about/techteam';
-import { headLeedurs } from '../../util/about/headleedurs';
-import { subComs } from '../../util/about/subcoms';
+// import { execInfo } from '../../util/about/execs';
+// import { techTeam } from '../../util/about/techteam';
+// import { headLeedurs } from '../../util/about/headleedurs';
+// import { subComs } from '../../util/about/subcoms';
 
-import { ExecProfile } from './ExecProfile/ExecProfile';
-import ExecLogo from '../../assets/about/exec-tshirt-logo.svg';
-import { useEffect } from 'react';
-import { object } from 'prop-types';
+// import { ExecProfile } from './ExecProfile/ExecProfile';
+import ExecLogo from '../../assets/about/about-page.svg';
+// import { useEffect } from 'react';
+// import { object } from 'prop-types';
 import { Header } from '../../components/text/Header/Header';
 
-import InstagramIcon from '../../assets/social/instagram-brands.svg';
-import MailIcon from '../../assets/social/envelope-solid.svg';
-import { instagramAccounts } from '../../util/instagramAccounts';
+// import InstagramIcon from '../../assets/social/instagram-brands.svg';
+// import MailIcon from '../../assets/social/envelope-solid.svg';
+// import { instagramAccounts } from '../../util/instagramAccounts';
 
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const PageAbout = () => {
   return (
@@ -49,7 +52,7 @@ const AboutUsSection = () => {
     <Header text="About Us">
       <div className="aboutus-subsubcontainer">
         <div className="aboutus-image-container">
-          <img className="aboutus-image" src={ExecLogo} alt="logo"></img>
+          <LazyLoadImage className="aboutus-image" src={ExecLogo} alt="logo"></LazyLoadImage>
         </div>
 
         <div className="aboutus-info-container">
@@ -67,336 +70,337 @@ const AboutUsSection = () => {
   );
 };
 
-const OCSection = () => {
-  return (
-    <div className="aboutus-oc-container">
-      {[execInfo.oc].map((info) => {
-        return (
-          <ExecProfile
-            key={info.name}
-            image={info.image}
-            name={info.name}
-            role={info.role}
-            discipline={info.discipline}
-            roleDescription={info.description}
-            favPart={info.favPart}
-            exec={true}
-          />
-        );
-      })}
-    </div>
-  );
-};
+// const OCSection = () => {
+//   return (
+//     <div className="aboutus-oc-container">
+//       {[execInfo.oc].map((info) => {
+//         return (
+//           <ExecProfile
+//             key={info.name}
+//             image={info.image}
+//             name={info.name}
+//             role={info.role}
+//             discipline={info.discipline}
+//             roleDescription={info.description}
+//             favPart={info.favPart}
+//             exec={true}
+//           />
+//         );
+//       })}
+//     </div>
+//   );
+// };
 
-const VCSection = () => {
-  return (
-    <div className="aboutus-vc-grid-container">
-      {[...execInfo.vcs].map((info) => {
-        return (
-          <ExecProfile
-            key={info.name}
-            className="vc-grid-item"
-            image={info.image}
-            name={info.name}
-            role={info.role}
-            discipline={info.discipline}
-            roleDescription={info.description}
-            favPart={info.favPart}
-            exec={true}
-          />
-        );
-      })}
-    </div>
-  );
-};
+// const VCSection = () => {
+//   return (
+//     <div className="aboutus-vc-grid-container">
+//       {[...execInfo.vcs].map((info) => {
+//         return (
+//           <ExecProfile
+//             key={info.name}
+//             className="vc-grid-item"
+//             image={info.image}
+//             name={info.name}
+//             role={info.role}
+//             discipline={info.discipline}
+//             roleDescription={info.description}
+//             favPart={info.favPart}
+//             exec={true}
+//           />
+//         );
+//       })}
+//     </div>
+//   );
+// };
 
-const AboutUsExecTeam = () => {
-  return (
-    <>
-      <OCSection />
-      <VCSection />
-    </>
-  );
-};
+// const AboutUsExecTeam = () => {
+//   return (
+//     <>
+//       <OCSection />
+//       <VCSection />
+//     </>
+//   );
+// };
 
-const AboutUsTechTeam = () => {
-  let count = 0;
-  let members = techTeam.length;
+// const AboutUsTechTeam = () => {
+//   let count = 0;
+//   let members = techTeam.length;
 
-  return (
-    <>
-      <div className="aboutus-techteam-grid-container" style={{ marginBottom: '0px' }}>
-        {techTeam.first.map((info) => {
-          return (
-            <ExecProfile
-              key={info.fullName}
-              className="vc-grid-item"
-              image={info.img}
-              name={info.fullName}
-              discipline={info.discipline}
-              quote={info.quote}
-              exec={false}
-            />
-          );
-        })}
-      </div>
-    </>
-  );
-};
+//   return (
+//     <>
+//       <div className="aboutus-techteam-grid-container" style={{ marginBottom: '0px' }}>
+//         {techTeam.first.map((info) => {
+//           return (
+//             <ExecProfile
+//               key={info.fullName}
+//               className="vc-grid-item"
+//               image={info.img}
+//               name={info.fullName}
+//               discipline={info.discipline}
+//               quote={info.quote}
+//               exec={false}
+//             />
+//           );
+//         })}
+//       </div>
+//     </>
+//   );
+// };
 
-const AboutUsSubcom = () => {
-  let subcomGroups = Object.keys(subComs);
+// const AboutUsSubcom = () => {
+//   let subcomGroups = Object.keys(subComs);
 
-  return (
-    <>
-      {/* <div className="check-back-message">
-        <h2>Check back to see our photos and our roles in F!rosh Week!</h2>
-      </div> */}
-      {subcomGroups.map((com) => {
-        return (
-          <div key={com} className="aboutus-commitee-container">
-            <h1 className="aboutus-subcom">{com}</h1>
-            <div className="aboutus-subcom-grid-container">
-              {subComs[com].map((subcom) => {
-                return (
-                  <ExecProfile
-                    key={subcom.subcom}
-                    className="vc-grid-item"
-                    name={subcom.subcom}
-                    exec={false}
-                    subcom={true}
-                    roleDescription={subcom.description}
-                    cochairs={subcom.coChair}
-                    image={subcom.img}
-                  />
-                );
-              })}
-            </div>
-          </div>
-        );
-      })}
-    </>
-  );
-};
+//   return (
+//     <>
+//       {/* <div className="check-back-message">
+//         <h2>Check back to see our photos and our roles in F!rosh Week!</h2>
+//       </div> */}
+//       {subcomGroups.map((com) => {
+//         return (
+//           <div key={com} className="aboutus-commitee-container">
+//             <h1 className="aboutus-subcom">{com}</h1>
+//             <div className="aboutus-subcom-grid-container">
+//               {subComs[com].map((subcom) => {
+//                 return (
+//                   <ExecProfile
+//                     key={subcom.subcom}
+//                     className="vc-grid-item"
+//                     name={subcom.subcom}
+//                     exec={false}
+//                     subcom={true}
+//                     roleDescription={subcom.description}
+//                     cochairs={subcom.coChair}
+//                     image={subcom.img}
+//                   />
+//                 );
+//               })}
+//             </div>
+//           </div>
+//         );
+//       })}
+//     </>
+//   );
+// };
 
-const AboutUsHL = () => {
-  return (
-    <>
-      <div className="aboutus-hl-grid-container">
-        {headLeedurs.map((info) => {
-          const [open, setOpen] = useState(true); // open is set to hl with greek letter page
-          const [clickLink, setClickLink] = useState(false); // icon links have not been clicked
-          const [hover, setHover] = useState(false);
+// const AboutUsHL = () => {
+//   return (
+//     <>
+//       <div className="aboutus-hl-grid-container">
+//         {headLeedurs.map((info) => {
+//           const [open, setOpen] = useState(true); // open is set to hl with greek letter page
+//           const [clickLink, setClickLink] = useState(false); // icon links have not been clicked
+//           const [hover, setHover] = useState(false);
 
-          useEffect(() => {
-            if (clickLink) {
-              setOpen(false);
-            }
-            setClickLink(false);
-          }, [clickLink]);
+//           useEffect(() => {
+//             if (clickLink) {
+//               setOpen(false);
+//             }
+//             setClickLink(false);
+//           }, [clickLink]);
 
-          return (
-            <div
-              onMouseOver={() => {
-                setHover(true);
-                if (hover === false)
-                  setTimeout(() => {
-                    setHover(false);
-                  }, 1000);
-              }}
-              key={info.group}
-              className="aboutus-hl-container"
-              onClick={() => {
-                if (!clickLink) {
-                  setOpen(!open);
-                } else {
-                  setOpen(open);
-                }
-              }}
-            >
-              <div
-                className={`${open ? 'aboutus-hl-container-show' : 'aboutus-hl-container-hide'}`}
-              >
-                <div className="aboutus-hl-frosh-group-container">
-                  <h1
-                    className={`aboutus-hl-frosh-group ${
-                      hover ? 'aboutus-hl-frosh-group-spin' : ''
-                    }`}
-                  >
-                    {info.letter}
-                  </h1>
-                  <h3 className="aboutus-hl-frosh-group-name">{info.group}</h3>
-                </div>
-                <p className="aboutus-leedur">{info.leedur1}</p>
-                <p className="aboutus-leedur">{info.leedur2}</p>
-              </div>
+//           return (
+//             <div
+//               onMouseOver={() => {
+//                 setHover(true);
+//                 if (hover === false)
+//                   setTimeout(() => {
+//                     setHover(false);
+//                   }, 1000);
+//               }}
+//               key={info.group}
+//               className="aboutus-hl-container"
+//               onClick={() => {
+//                 if (!clickLink) {
+//                   setOpen(!open);
+//                 } else {
+//                   setOpen(open);
+//                 }
+//               }}
+//             >
+//               <div
+//                 className={`${open ? 'aboutus-hl-container-show' : 'aboutus-hl-container-hide'}`}
+//               >
+//                 <div className="aboutus-hl-frosh-group-container">
+//                   <h1
+//                     className={`aboutus-hl-frosh-group ${
+//                       hover ? 'aboutus-hl-frosh-group-spin' : ''
+//                     }`}
+//                   >
+//                     {info.letter}
+//                   </h1>
+//                   <h3 className="aboutus-hl-frosh-group-name">{info.group}</h3>
+//                 </div>
+//                 <p className="aboutus-leedur">{info.leedur1}</p>
+//                 <p className="aboutus-leedur">{info.leedur2}</p>
+//               </div>
 
-              <div
-                style={{ position: 'absolute' }}
-                className={`${open ? 'aboutus-hl-container-hide' : 'aboutus-hl-container-show'}`}
-              >
-                <p className="aboutus-leedur aboutus-leedur-contact-message">
-                  Contact Your Head Leedurs!
-                </p>
-                <div className="aboutus-hl-contacts-container">
-                  {instagramAccounts[info.group] ? (
-                    <a
-                      className="no-link-style"
-                      href={instagramAccounts[info.group]}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={() => {
-                        setClickLink(true);
-                      }}
-                    >
-                      <img
-                        className="aboutus-hl-contacts-icon"
-                        src={InstagramIcon}
-                        alt="instagram-icon"
-                      ></img>
-                    </a>
-                  ) : (
-                    <></>
-                  )}
-                  {/* <a
-                    className="no-link-style"
-                    href={`mailto:${info.email}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => {
-                      setClickLink(true);
-                    }}
-                  >
-                    <img className="aboutus-hl-contacts-icon" src={MailIcon} alt="email-icon"></img>
-                  </a> */}
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </>
-  );
-};
+//               <div
+//                 style={{ position: 'absolute' }}
+//                 className={`${open ? 'aboutus-hl-container-hide' : 'aboutus-hl-container-show'}`}
+//               >
+//                 <p className="aboutus-leedur aboutus-leedur-contact-message">
+//                   Contact Your Head Leedurs!
+//                 </p>
+//                 <div className="aboutus-hl-contacts-container">
+//                   {instagramAccounts[info.group] ? (
+//                     <a
+//                       className="no-link-style"
+//                       href={instagramAccounts[info.group]}
+//                       target="_blank"
+//                       rel="noreferrer"
+//                       onClick={() => {
+//                         setClickLink(true);
+//                       }}
+//                     >
+//                       <img
+//                         className="aboutus-hl-contacts-icon"
+//                         src={InstagramIcon}
+//                         alt="instagram-icon"
+//                       ></img>
+//                     </a>
+//                   ) : (
+//                     <></>
+//                   )}
+//                   {/* <a
+//                     className="no-link-style"
+//                     href={`mailto:${info.email}`}
+//                     target="_blank"
+//                     rel="noreferrer"
+//                     onClick={() => {
+//                       setClickLink(true);
+//                     }}
+//                   >
+//                     <img className="aboutus-hl-contacts-icon" src={MailIcon} alt="email-icon"></img>
+//                   </a> */}
+//                 </div>
+//               </div>
+//             </div>
+//           );
+//         })}
+//       </div>
+//     </>
+//   );
+// };
 
 const tabs = [
-  {
-    title: 'Exec Team',
-    component: <AboutUsExecTeam />,
-    active: true,
-    wantToLoad: false,
-  },
-  {
-    title: 'Tech Team',
-    component: <AboutUsTechTeam />,
-    active: true,
-    wantToLoad: false,
-  },
-  {
-    title: 'Subcoms',
-    component: <AboutUsSubcom />,
-    active: true,
-    wantToLoad: false,
-  },
-  {
-    title: 'Head Leedurs',
-    component: <AboutUsHL />,
-    active: true,
-    wantToLoad: false,
-  },
+  // {
+  //   title: 'Exec Team',
+  //   component: <AboutUsExecTeam />,
+  //   active: true,
+  //   wantToLoad: false,
+  // },
+  // {
+  //   title: 'Tech Team',
+  //   component: <AboutUsTechTeam />,
+  //   active: true,
+  //   wantToLoad: false,
+  // },
+  // {
+  //   title: 'Subcoms',
+  //   component: <AboutUsSubcom />,
+  //   active: true,
+  //   wantToLoad: false,
+  // },
+  // {
+  //   title: 'Head Leedurs',
+  //   component: <AboutUsHL />,
+  //   active: true,
+  //   wantToLoad: false,
+  // },
 ];
 
-const AboutUsTeamsTab = () => {
-  const wantedTabs = tabs.filter((tab) => tab.wantToLoad);
+// const AboutUsTeamsTab = () => {
+//   const wantedTabs = tabs.filter((tab) => tab.wantToLoad);
 
-  const [currentTab, setCurrentTab] = useState(
-    wantedTabs.length > 0 ? wantedTabs.at(0).title : 'Exec Team',
-  );
+//   const [currentTab, setCurrentTab] = useState(
+//     wantedTabs.length > 0 ? wantedTabs.at(0).title : 'Exec Team',
+//   );
 
-  let tabsCounter = 0;
-  let numTabs = tabs.length;
-  let tabComponent;
+//   let tabsCounter = 0;
+//   let numTabs = tabs.length;
+//   let tabComponent;
 
-  return (
-    <>
-      <div className="aboutus-teams-all-tabs">
-        <div className="aboutus-teams-all-tabs-scroll">
-          {tabs.map((tab) => {
-            if (tab.active) {
-              tabsCounter++;
+//   return (
+//     <>
+//       <div className="aboutus-teams-all-tabs">
+//         <div className="aboutus-teams-all-tabs-scroll">
+//           {tabs.map((tab) => {
+//             if (tab.active) {
+//               tabsCounter++;
 
-              return (
-                <div key={tab.title} className="aboutus-teams-tabs">
-                  <div
-                    className="aboutus-teams-tabs-container"
-                    onClick={() => {
-                      setCurrentTab(tab.title);
-                    }}
-                  >
-                    {tabsCounter > 1 ? <div className="aboutus-short-vertical-line"></div> : <></>}
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'start',
-                      }}
-                    >
-                      <h1
-                        className={
-                          currentTab === tab.title
-                            ? 'aboutus-teams-tabs-title-selected'
-                            : 'aboutus-teams-tabs-title'
-                        }
-                      >
-                        {tab.title}
-                      </h1>
-                      <div
-                        className={`aboutus-yellow-bubble ${
-                          currentTab === tab.title
-                            ? 'aboutus-yellow-bubble-show'
-                            : 'aboutus-yellow-bubble-noshow'
-                        }`}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-              );
-            } else {
-              return;
-            }
-          })}
-        </div>
-      </div>
+//               return (
+//                 <div key={tab.title} className="aboutus-teams-tabs">
+//                   <div
+//                     className="aboutus-teams-tabs-container"
+//                     onClick={() => {
+//                       setCurrentTab(tab.title);
+//                     }}
+//                   >
+//                     {tabsCounter > 1 ? <div className="aboutus-short-vertical-line"></div> : <></>}
+//                     <div
+//                       style={{
+//                         display: 'flex',
+//                         flexDirection: 'column',
+//                         justifyContent: 'start',
+//                       }}
+//                     >
+//                       <h1
+//                         className={
+//                           currentTab === tab.title
+//                             ? 'aboutus-teams-tabs-title-selected'
+//                             : 'aboutus-teams-tabs-title'
+//                         }
+//                       >
+//                         {tab.title}
+//                       </h1>
+//                       <div
+//                         className={`aboutus-yellow-bubble ${
+//                           currentTab === tab.title
+//                             ? 'aboutus-yellow-bubble-show'
+//                             : 'aboutus-yellow-bubble-noshow'
+//                         }`}
+//                       ></div>
+//                     </div>
+//                   </div>
+//                 </div>
+//               );
+//             } else {
+//               return;
+//             }
+//           })}
+//         </div>
+//       </div>
 
-      <div className="aboutus-tabs-component">
-        {tabs.map((tab) => {
-          if (currentTab === tab.title && tab.active) {
-            return tab.component;
-          }
-        })}
-      </div>
-    </>
-  );
-};
+//       <div className="aboutus-tabs-component">
+//         {tabs.map((tab) => {
+//           if (currentTab === tab.title && tab.active) {
+//             return tab.component;
+//           }
+//         })}
+//       </div>
+//     </>
+//   );
+// };
 
 const AboutUsTeamsTabWrapper = () => {
-  let showAboutUs = false;
+  // let showAboutUs = false;
 
-  tabs.map((tab) => (tab.active = showAboutUs ? tab.wantToLoad : false));
+  // tabs.map((tab) => (tab.active = showAboutUs ? tab.wantToLoad : false));
 
   // set showAboutUs in case every single tab is false
 
-  showAboutUs = !tabs.every((tab, i, a) => !tab.wantToLoad);
+  // showAboutUs = !tabs.every((tab, i, a) => !tab.wantToLoad);
 
-  return (
-    <>
-      {showAboutUs ? (
-        <AboutUsTeamsTab />
-      ) : (
-        <h2 className="about-introduction-title">Stay tuned to meet the team!</h2>
-      )}
-    </>
-  );
+  // return (
+  //   <>
+  //     {showAboutUs ? (
+  //       <AboutUsTeamsTab />
+  //     ) : (
+  //       <h2 className="about-introduction-title">Stay tuned to meet the team!</h2>
+  //     )}
+  //   </>
+  // );
+  return <h2 className="about-introduction-title">Stay tuned to meet the team!</h2>;
 };
 
 export { PageAbout };

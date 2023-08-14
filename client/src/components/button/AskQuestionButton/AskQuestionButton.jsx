@@ -115,7 +115,9 @@ const AskQuestionButton = () => {
   const { user } = useSelector(userSelector);
 
   const leader = user?.userType === 'leadur';
-  if (leader) {
+
+  if (leader || !user) {
+    // don't show FAQ button if leadur or if not logged in
     return <></>;
   }
   return (
@@ -135,7 +137,7 @@ const AskQuestionButton = () => {
       <div className={'faq-fab'}>
         <Button
           style={{ boxShadow: '5px 5px 20px #13131362' }}
-          class_options={'faq-fab-button'}
+          class_options="faq-fab-button"
           label={
             <div className={'faq-fab-container'}>
               <img

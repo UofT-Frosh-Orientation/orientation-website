@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-
 import './Dropdown.scss';
 import { useWrapperRef } from '../../../hooks/useWrapperRef';
 import Arrow from '../../../../assets/icons/angle-down-solid.svg';
@@ -17,7 +16,7 @@ const Dropdown = ({
   filterLabel,
   maxLetters,
 }) => {
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
     if (localStorageKey !== undefined) {
@@ -47,7 +46,7 @@ const Dropdown = ({
     initialSelectedIndex === undefined ? values[0] : values[initialSelectedIndex],
   );
 
-  const dropdownItems = values.map((value, index) => (
+  const dropdownItems = values.map((value) => (
     <div
       className={'dropdown-item'}
       onClick={() => {
@@ -58,9 +57,20 @@ const Dropdown = ({
         }
         setIsOpen(false);
       }}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') {
+          onSelect(value);
+          setSelected(value);
+          if (localStorageKey) {
+            localStorage.setItem(localStorageKey, value);
+          }
+          setIsOpen(false);
+        }
+      }}
       key={`dropdownItem-${value}`}
+      tabIndex="0"
     >
-      {filterLabel ? filterLabel(value.toString()) : value.toString()}
+      {filterLabel ? filterLabel(value) : value}
     </div>
   ));
 
@@ -77,20 +87,20 @@ const Dropdown = ({
         <div
           onClick={() => !isDisabled && setIsOpen(!isOpen)}
           className={`dropdown-selected${isDisabled ? '-disabled' : ''}`}
+          tabIndex="0"
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              !isDisabled && setIsOpen(!isOpen);
+            }
+          }}
         >
           <div className={'dropdown-selected-label'}>
             {maxLetters
-              ? (filterLabel ? filterLabel(selected.toString()) : selected.toString()).substring(
-                  0,
-                  maxLetters,
-                ) +
-                ((filterLabel ? filterLabel(selected.toString()) : selected.toString()).length >
-                maxLetters
-                  ? '...'
-                  : '')
+              ? (filterLabel ? filterLabel(selected) : selected).substring(0, maxLetters) +
+                ((filterLabel ? filterLabel(selected) : selected).length > maxLetters ? '...' : '')
               : filterLabel
-              ? filterLabel(selected.toString())
-              : selected.toString()}
+              ? filterLabel(selected)
+              : selected}
           </div>
           <div className={`dropdown-image${isOpen ? ' open' : ''}`}>
             {darkMode ? (

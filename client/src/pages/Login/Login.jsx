@@ -6,23 +6,20 @@ import { useNavigate } from 'react-router-dom';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
 
-import BrachioR from '../../assets/login/brachiosaurus-ground-right.svg';
-import BrachioL from '../../assets/login/brachiosaurus-ground-left.svg';
-import Ground from '../../assets/login/ground.svg';
-import MountainB from '../../assets/login/mountain-back.svg';
-import MountainFL from '../../assets/login/mountain-front-left.svg';
-import MountainFR from '../../assets/login/mountain-front-right.svg';
-import MountainM from '../../assets/login/mountain-mid.svg';
-import Ptero from '../../assets/login/ptero.svg';
+import BackgroundColourDark from '../../assets/darkmode/login/background-colour-dark.svg';
+import BackgroundDark from '../../assets/darkmode/login/background-dark.svg';
+import CloudsDark from '../../assets/darkmode/login/clouds-dark.svg';
+import CloudsLongDark from '../../assets/darkmode/login/clouds-long-dark.svg';
+import ForegroundDark from '../../assets/darkmode/login/foreground-dark.svg';
+import MidgroundDark from '../../assets/darkmode/login/midground-dark.svg';
 
-import BrachioRDarkMode from '../../assets/darkmode/login/brachiosaurus-ground-right.svg';
-import BrachioLDarkMode from '../../assets/darkmode/login/brachiosaurus-ground-left.svg';
-import GroundDarkMode from '../../assets/darkmode/login/ground.svg';
-import MountainBDarkMode from '../../assets/darkmode/login/mountain-back.svg';
-import MountainFLDarkMode from '../../assets/darkmode/login/mountain-front-left.svg';
-import MountainFRDarkMode from '../../assets/darkmode/login/mountain-front-right.svg';
-import MountainMDarkMode from '../../assets/darkmode/login/mountain-mid.svg';
-import PteroDarkMode from '../../assets/darkmode/login/ptero.svg';
+import BackgroundColour from '../../assets/login/background-colour.svg';
+import Background from '../../assets/login/background.svg';
+import Birds from '../../assets/login/birds.svg';
+import Clouds from '../../assets/login/clouds.svg';
+import CloudsLong from '../../assets/login/clouds-long.svg';
+import Foreground from '../../assets/login/foreground.svg';
+import Midground from '../../assets/login/midground.svg';
 
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
@@ -33,6 +30,7 @@ import { requestPasswordResetSelector, userSelector } from '../../state/user/use
 import { login, requestPasswordReset } from '../../state/user/saga';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
+import { LazyLoadComponent, LazyLoadImage } from 'react-lazy-load-image-component';
 
 // Messages!
 const popupTitle = 'Reset Password';
@@ -41,8 +39,6 @@ const emailSuccessMessage = `Success, an email has been sent!`;
 const emailErrorMessage = `We didn't recognize that email, please try again!`;
 
 const PageLogin = ({ incorrectEntry }) => {
-  // pop up when clicking forget password
-  // deafult -- popup off
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -51,10 +47,15 @@ const PageLogin = ({ incorrectEntry }) => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { loading, user } = useSelector(userSelector);
-  // const [loginState, setLoginState] = useState('');
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    loginButtonPress();
+  };
 
   function loginButtonPress() {
     setIsLoading(true);
@@ -74,44 +75,46 @@ const PageLogin = ({ incorrectEntry }) => {
         <div className="login-bg">
           <div className={`login-container ${loading ? 'login-container-disappear' : ''}`}>
             <h1 className="login-title">Login</h1>
-            <TextInput
-              inputType={'text'}
-              placeholder={'Email'}
-              autocomplete={'email'}
-              onChange={(value) => {
-                setEmail(value);
-              }}
-              localStorageKey="email-login"
-            />
-            <TextInput
-              inputType={'password'}
-              placeholder={'Password'}
-              autocomplete={'current-password'}
-              onChange={(value) => {
-                setPassword(value);
-              }}
-              onEnterKey={loginButtonPress}
-            />
-            <p
-              className="forgot-message"
-              onClick={() => setShowPopUp(true)}
-            >{`Forgot Password?`}</p>
-
-            <div className="login-button-container">
-              <ButtonOutlined
-                label="Create account"
-                isSecondary
-                onClick={() => {
-                  navigate('/sign-up');
+            <form onSubmit={handleSubmit}>
+              <TextInput
+                inputType={'text'}
+                placeholder={'Email'}
+                autocomplete={'email'}
+                onChange={(value) => {
+                  setEmail(value);
                 }}
+                localStorageKey="email-login"
               />
+              <TextInput
+                inputType={'password'}
+                placeholder={'Password'}
+                autocomplete={'current-password'}
+                onChange={(value) => {
+                  setPassword(value);
+                }}
+                onEnterKey={loginButtonPress}
+              />
+              <p
+                className="forgot-message"
+                onClick={() => setShowPopUp(true)}
+              >{`Forgot Password?`}</p>
 
-              <Button label={'Log in'} onClick={loginButtonPress} />
-            </div>
+              <div className="login-button-container">
+                <ButtonOutlined
+                  label="Create account"
+                  isSecondary
+                  onClick={() => {
+                    navigate('/sign-up');
+                  }}
+                />
+
+                <Button label={'Log in'} type="submit" />
+              </div>
+            </form>
           </div>
         </div>
         <div
-          style={{ zIndex: 1 }}
+          style={{ zIndex: 50 }}
           className={`login-loading ${isLoading === true ? 'login-loading-appear' : ''}`}
         >
           <LoadingAnimation size={'60px'} />
@@ -139,55 +142,51 @@ const LoginBackgroundImages = () => {
 
   return (
     <>
-      <div className="login-bg-images">
-        {!darkMode ? (
-          <img className="mountain-back" src={MountainB} alt="mountain"></img>
-        ) : (
-          <img className="mountain-back" src={MountainBDarkMode} alt="mountain"></img>
-        )}
+      <LazyLoadComponent>
+        <div className="login-bg-images">
+          {!darkMode ? (
+            <img className="bg-colour" src={BackgroundColour} alt="background-colour"></img>
+          ) : (
+            <img className="bg-colour" src={BackgroundColourDark} alt="background-colour"></img>
+          )}
 
-        {!darkMode ? (
-          <img className="mountain-front-right" src={MountainFR} alt="mountain"></img>
-        ) : (
-          <img className="mountain-front-right" src={MountainFRDarkMode} alt="mountain"></img>
-        )}
+          {!darkMode ? (
+            <img className="bg" src={Background} alt="background"></img>
+          ) : (
+            <img className="bg" src={BackgroundDark} alt="background"></img>
+          )}
 
-        {!darkMode ? (
-          <img className="mountain-mid" src={MountainM} alt="mountain"></img>
-        ) : (
-          <img className="mountain-mid" src={MountainMDarkMode} alt="mountain"></img>
-        )}
+          {!darkMode ? (
+            <img className="birds" src={Birds} alt="birds"></img>
+          ) : (
+            <img className="birds" src={Birds} alt="birds"></img>
+          )}
 
-        {!darkMode ? (
-          <img className="mountain-front-left" src={MountainFL} alt="mountain"></img>
-        ) : (
-          <img className="mountain-front-left" src={MountainFLDarkMode} alt="mountain"></img>
-        )}
+          {!darkMode ? (
+            <img className="clouds" src={Clouds} alt="clouds"></img>
+          ) : (
+            <img className="clouds" src={CloudsDark} alt="clouds"></img>
+          )}
 
-        {!darkMode ? (
-          <img className="ground" src={Ground} alt="ground"></img>
-        ) : (
-          <img className="ground" src={GroundDarkMode} alt="ground"></img>
-        )}
+          {!darkMode ? (
+            <img className="clouds-long" src={CloudsLong} alt="clouds"></img>
+          ) : (
+            <img className="clouds-long" src={CloudsLongDark} alt="clouds"></img>
+          )}
 
-        {!darkMode ? (
-          <img className="brachio-left" src={BrachioL} alt="brachiosaurus"></img>
-        ) : (
-          <img className="brachio-left" src={BrachioLDarkMode} alt="brachiosaurus"></img>
-        )}
+          {!darkMode ? (
+            <img className="midground" src={Midground} alt="midground"></img>
+          ) : (
+            <img className="midground" src={MidgroundDark} alt="midground"></img>
+          )}
 
-        {!darkMode ? (
-          <img className="brachio-right" src={BrachioR} alt="brachiosaurus"></img>
-        ) : (
-          <img className="brachio-right" src={BrachioRDarkMode} alt="brachiosaurus"></img>
-        )}
-
-        {!darkMode ? (
-          <img className="ptero" src={Ptero} alt="ptero"></img>
-        ) : (
-          <img className="ptero" src={PteroDarkMode} alt="ptero"></img>
-        )}
-      </div>
+          {!darkMode ? (
+            <img className="foreground" src={Foreground} alt="foreground"></img>
+          ) : (
+            <img className="foreground" src={ForegroundDark} alt="foreground"></img>
+          )}
+        </div>
+      </LazyLoadComponent>
     </>
   );
 };

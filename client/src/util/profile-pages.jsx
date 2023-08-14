@@ -1,13 +1,9 @@
 import { logout } from '../state/user/saga';
 
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-
 // profile dropdown icons
 import LoginIcon from '../assets/profiledropdown/arrow-right-to-bracket-solid.svg';
 import RegisterIcon from '../assets/profiledropdown/file-invoice-dollar-solid.svg';
 import ProfileIcon from '../assets/profiledropdown/user-solid.svg';
-import DarkModeIcon from '../assets/profiledropdown/moon-solid.svg';
 import LogoutIcon from '../assets/profiledropdown/arrow-right-from-bracket-solid.svg';
 
 import LoginIconDarkMode from '../assets/darkmode/profiledropdown/arrow-right-to-bracket-solid.svg';
@@ -27,12 +23,6 @@ export const profilePages = {
       iconDark: LoginIconDarkMode,
       path: '/login',
     },
-    // {
-    //   label: 'Dark Mode',
-    //   icon: DarkModeIcon,
-    //   iconDark: DarkModeIconDarkMode,
-    //   function: darkmodefunc,
-    // },
   ],
   login: [
     {
@@ -47,13 +37,6 @@ export const profilePages = {
       iconDark: ProfileIconDarkMode,
       path: '/profile',
     },
-    // {
-    //   label: 'Dark Mode',
-    //   icon: DarkModeIcon,
-    //   iconDark: DarkModeIconDarkMode,
-    //   function: darkmodefunc,
-    //   // add a function here that will be called on onClick
-    // },
     {
       label: 'Log Out',
       icon: LogoutIcon,
@@ -68,11 +51,6 @@ export const profilePages = {
       iconDark: ProfileIconDarkMode,
       path: '/profile',
     },
-    // {
-    //   label: 'Dark Mode',
-    //   icon: DarkModeIcon,
-    //   function: darkmodefunc,
-    // },
     {
       label: 'Log Out',
       icon: LogoutIcon,
@@ -80,5 +58,4 @@ export const profilePages = {
       function: logoutFunction,
     },
   ],
-  preRegistration: [],
 };

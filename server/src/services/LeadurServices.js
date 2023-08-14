@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const LeadurModel = require('../models/LeadurModel');
+const emailConfirmationSubscription = require('../subscribers/emailConfirmationSubscription');
 
 const LeadurServices = {
   /**
@@ -21,7 +22,6 @@ const LeadurServices = {
             { email, hashedPassword, firstName, lastName, preferredName, scuntTeam },
             async (err, newUser) => {
               if (err) {
-                console.log(err);
                 reject(err);
               } else {
                 emailConfirmationSubscription.add(newUser);

@@ -7,6 +7,7 @@
     "build": "vite build",
     "build:beta": "VITE_API_BASE_URL=https://api.beta.orientation.skule.ca vite build",
     "preview": "vite preview",
+    "preview:build": "vite build && vite preview",
     "lint": "eslint src",
     "format": "prettier --write \"**/*.+(js|jsx|css|scss|json)\"",
     "storybook": "start-storybook -p 6006",
@@ -17,7 +18,9 @@
     "*.{js, jsx, css, scss}": "prettier --write"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^3.1.12",
     "@reduxjs/toolkit": "^1.9.5",
+    "@tanstack/react-table": "^8.9.3",
     "axios": "^1.4.0",
     "email-validator": "^2.0.4",
     "export-from-json": "^1.7.2",

@@ -1,6 +1,7 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const FroshModel = require('../models/FroshModel');
+const FroshGroupModel = require('../models/FroshGroupModel');
 
 const PaymentServices = {
   /**
@@ -30,7 +31,6 @@ const PaymentServices = {
       const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentId });
       if (frosh) {
         frosh.authScopes = { requested: [], approved: [] };
-        console.log(frosh);
         const idx = frosh.payments.findIndex((p) => p.paymentIntent === paymentId);
         frosh.payments[idx].amountDue = frosh.payments[idx].amountDue - amountReceived;
         if (frosh.payments[idx].item === 'Orientation Ticket') {
@@ -40,11 +40,20 @@ const PaymentServices = {
         }
         //TODO: update frosh balance
         await frosh.save({ validateModifiedOnly: true });
+        console.log('Frosh payment completed! Frosh info: ', frosh);
+        await FroshGroupModel.findOneAndUpdate(
+          { name: frosh.froshGroup },
+          { $inc: { totalNum: 1 } },
+          { new: true },
+        ).then((doc) => {
+          console.log(`Group ${doc.name} total: ${doc.totalNum}`);
+        });
         return frosh;
       }
       return null;
     } catch (e) {
       console.log(e);
+      throw new Error('Error updating payment', { cause: e });
     }
   },
 
@@ -93,14 +102,6 @@ const PaymentServices = {
             quantity: 1,
           },
         ],
-        discounts:
-          type === 'orientation'
-            ? [
-                {
-                  coupon: process.env.STRIPE_EARLY_BIRD_COUPON_ID,
-                },
-              ]
-            : [],
         mode: 'payment',
         success_url: `${process.env.CLIENT_BASE_URL}${
           products[type]?.relativeUrlSuccess ?? products['orientation'].relativeUrlSuccess
@@ -139,6 +140,7 @@ const PaymentServices = {
       throw err;
     }
   },
+
   async expirePayment(paymentIntent) {
     try {
       const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentIntent });

@@ -3,6 +3,12 @@ const express = require('express');
 const FroshController = require('../controllers/FroshController');
 const checkLoggedIn = require('../middlewares/checkLoggedIn');
 const checkUserType = require('../middlewares/checkUserType');
+const hasAuthScopes = require('../middlewares/hasAuthScopes');
+const multer = require('multer');
+
+const storage = multer.memoryStorage();
+
+const upload = multer({ storage });
 
 const router = express.Router();
 /**
@@ -18,7 +24,12 @@ const router = express.Router();
  *             $ref: '#/components/schemas/NewFrosh'
  *
  */
-router.post('/register', checkLoggedIn, FroshController.registerFrosh);
+router.post(
+  '/register',
+  checkLoggedIn,
+  upload.single('dataReceipt'),
+  FroshController.registerFrosh,
+);
 
 /**
  * @swagger
@@ -53,6 +64,13 @@ router.get(
   checkLoggedIn,
   checkUserType('leadur'),
   FroshController.getFilteredFroshInfo,
+);
+
+router.post(
+  '/redistribute',
+  checkLoggedIn,
+  hasAuthScopes(['admin:all']),
+  FroshController.reassignFrosh,
 );
 
 module.exports = router;

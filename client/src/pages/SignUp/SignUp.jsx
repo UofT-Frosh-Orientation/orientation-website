@@ -56,7 +56,7 @@ const PageSignUp = () => {
       anyErrorsNow = true;
     } else if (validatePassword(accountObj['password']) === null) {
       errorsCopy['password'] =
-        'Your password is too weak, it should be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter, 1 digit, and one special character';
+        'Your password is too weak, it should be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character (forward/backward slashes, square, round brackets and single, double quotation marks are not accepted)';
       anyErrorsNow = true;
     }
     if (accountObj['confirmPassword'] === undefined || accountObj['confirmPassword'] === '') {
@@ -106,7 +106,7 @@ const PageSignUp = () => {
             onClick={handleLeaderReveal}
           ></img>
           <h1 style={{ color: 'var(--black)' }}>Create an Account</h1>
-          <h3 style={{ color: 'var(--black)' }}>For F!rosh Week 2T2, UofT Engineering</h3>
+          <h3 style={{ color: 'var(--black)' }}>For F!rosh Week 2T3, UofT Engineering</h3>
           <div className="full-width-input">
             <TextInput
               label="Email"

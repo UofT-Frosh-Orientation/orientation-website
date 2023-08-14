@@ -11,12 +11,18 @@ module.exports = {
   },
   parser: '@babel/eslint-parser',
   rules: {
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     'comma-dangle': ['error', 'always-multiline'],
     'comma-spacing': ['error', { before: false, after: true }],
     'no-multiple-empty-lines': ['error'],
     'no-new-symbol': ['error'],
     'no-trailing-spaces': ['error'],
-    'no-undef': ['error'],
+    'no-undef': ['warn'],
     'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],
     'object-curly-spacing': ['error', 'always'],
     'object-shorthand': ['error'],

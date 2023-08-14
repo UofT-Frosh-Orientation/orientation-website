@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { React, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import './AccountsApproval.scss';
 import './AccountsPageNumber.scss';
