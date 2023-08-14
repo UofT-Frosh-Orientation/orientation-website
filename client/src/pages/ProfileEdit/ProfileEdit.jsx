@@ -1,11 +1,11 @@
 import React, { lazy, Suspense } from 'react';
 import './ProfileEdit.scss';
-import { PageRegistrationForm } from '../Registration/RegistrationForm';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from '../../state/user/saga';
 import { useNavigate } from 'react-router-dom';
 
+const PageRegistrationForm = lazy(() => import('../Registration/RegistrationForm'));
 const ProfilePageFroshHeader = lazy(() =>
   import('../Profile/PageProfileFrosh').then((module) => ({
     default: module.ProfilePageFroshHeader,

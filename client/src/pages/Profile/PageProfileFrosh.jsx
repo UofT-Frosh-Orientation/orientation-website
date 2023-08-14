@@ -366,7 +366,7 @@ const ProfilePageAnnouncements = () => {
   useEffect(() => {
     let orderedAnnouncements = [];
 
-    announcements.forEach((announcement) => {
+    announcements?.forEach((announcement) => {
       if (
         completedAnnouncements.every((value) => {
           return value._id !== announcement._id;

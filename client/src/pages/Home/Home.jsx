@@ -274,4 +274,4 @@ const PleaseSponsor = () => {
   );
 };
 
-export { PageHome };
+export default PageHome;

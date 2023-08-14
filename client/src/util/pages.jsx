@@ -1,14 +1,17 @@
-import { Page404 } from '../pages/404/404';
+import { lazy } from 'react';
+const Page404 = lazy(() => import('../pages/404/404'));
+
 import { PageAbout } from '../pages/About/About';
 import { PageFAQ } from '../pages/FAQ/FAQ';
 import { PageFAQLeaders } from '../pages/FAQLeaders/FAQLeaders';
-import { PageHome } from '../pages/Home/Home';
+const PageHome = lazy(() => import('../pages/Home/Home'));
 import { PageMaintenance } from '../pages/Maintenance/Maintenance';
 import { PagePaymentError } from '../pages/PaymentError/PaymentError';
 import { PageProfile } from '../pages/Profile/Profile';
 import { PageProfileEdit } from '../pages/ProfileEdit/ProfileEdit';
 import { PageProfileEditUnregistered } from '../pages/ProfileEditUnregistered/ProfileEditUnregistered';
-import { PageRegistrationForm } from '../pages/Registration/RegistrationForm';
+// import { PageRegistrationForm } from '../pages/Registration/RegistrationForm';
+const PageRegistrationForm = lazy(() => import('../pages/Registration/RegistrationForm'));
 import { PageLogin } from '../pages/Login/Login';
 import { PageRegistrationSuccess } from '../pages/RegistrationSuccess/RegistrationSuccess';
 import { PageSignUp } from '../pages/SignUp/SignUp';
@@ -34,7 +37,6 @@ import { PagePaymentSuccess } from '../pages/PagePaymentSuccess/PagePaymentSucce
 // import { PageScuntMissionsDashboard } from '../pages/ScuntMissionsDashboard/ScuntMissionsDashboard';
 // import { ScuntTransactions } from '../pages/ScuntTransactions/ScuntTransactions';
 import { PageEmailConfirmed } from '../pages/EmailConfirmed/EmailConfirmed';
-
 export const pages = {
   404: {
     label: '404',

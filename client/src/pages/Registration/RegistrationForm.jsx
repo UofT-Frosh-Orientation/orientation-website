@@ -441,4 +441,4 @@ PageRegistrationForm.propTypes = {
   onEditSubmit: PropTypes.func,
 };
 
-export { PageRegistrationForm };
+export default PageRegistrationForm;
