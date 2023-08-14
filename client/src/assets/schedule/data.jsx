@@ -4526,7 +4526,7 @@ export const data = {
   ],
   'Tuesday September 5': [
     {
-      'Event Name': 'Engineering Success Seminar',
+      'Event Name': 'Academic Strategies Seminar',
       'Event Description':
         "Learn from some of your amazing new TA's about all the strategies you need to know for success here at UofT Engineering!",
       'Start Time': '9:00 AM',
