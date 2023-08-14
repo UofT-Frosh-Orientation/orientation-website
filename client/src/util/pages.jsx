@@ -1,42 +1,46 @@
 import { lazy } from 'react';
 const Page404 = lazy(() => import('../pages/404/404'));
-
-import { PageAbout } from '../pages/About/About';
-import { PageFAQ } from '../pages/FAQ/FAQ';
-import { PageFAQLeaders } from '../pages/FAQLeaders/FAQLeaders';
+const PageAbout = lazy(() => import('../pages/About/About'));
+const PageFAQ = lazy(() => import('../pages/FAQ/FAQ'));
+const PageFAQLeaders = lazy(() => import('../pages/FAQLeaders/FAQLeaders'));
 const PageHome = lazy(() => import('../pages/Home/Home'));
-import { PageMaintenance } from '../pages/Maintenance/Maintenance';
-import { PagePaymentError } from '../pages/PaymentError/PaymentError';
-import { PageProfile } from '../pages/Profile/Profile';
-import { PageProfileEdit } from '../pages/ProfileEdit/ProfileEdit';
-import { PageProfileEditUnregistered } from '../pages/ProfileEditUnregistered/ProfileEditUnregistered';
-// import { PageRegistrationForm } from '../pages/Registration/RegistrationForm';
+const PageMaintenance = lazy(() => import('../pages/Maintenance/Maintenance'));
+const PagePaymentError = lazy(() => import('../pages/PaymentError/PaymentError'));
+const PageProfile = lazy(() => import('../pages/Profile/Profile'));
+const PageProfileEdit = lazy(() => import('../pages/ProfileEdit/ProfileEdit'));
+const PageProfileEditUnregistered = lazy(() =>
+  import('../pages/ProfileEditUnregistered/ProfileEditUnregistered'),
+);
 const PageRegistrationForm = lazy(() => import('../pages/Registration/RegistrationForm'));
-import { PageLogin } from '../pages/Login/Login';
-import { PageRegistrationSuccess } from '../pages/RegistrationSuccess/RegistrationSuccess';
-import { PageSignUp } from '../pages/SignUp/SignUp';
-import { PageAccountsApproval } from '../pages/AccountsApproval/AccountsApproval';
+const PageLogin = lazy(() => import('../pages/Login/Login'));
+const PageRegistrationSuccess = lazy(() =>
+  import('../pages/RegistrationSuccess/RegistrationSuccess'),
+);
+const PageSignUp = lazy(() => import('../pages/SignUp/SignUp'));
+const PageAccountsApproval = lazy(() => import('../pages/AccountsApproval/AccountsApproval'));
 import AuthorizedPage from './AuthorizedPage';
-import { PasswordReset } from '../pages/PasswordReset/PasswordReset';
-import { PageFroshInfoTable } from '../pages/FroshInfoTable/FroshInfoTable';
-import { PageFroshRedistribution } from '../pages/FroshRedistribution/FroshRedistribution';
-import { PageScopeRequest } from '../pages/ScopeRequest/ScopeRequest';
-// import { PageScuntJudgeForm } from '../pages/ScuntJudgeForm/ScuntJudgeForm';
-// import { PageScuntMissionsList } from '../pages/ScuntMissionsList/ScuntMissionsList';
-// import { PageScuntHome } from '../pages/ScuntHome/ScuntHome';
-// import { PageScuntRules } from '../pages/ScuntRules/ScuntRules';
-import { PageTimelineAdmin } from '../pages/TimelineAdmin/TimelineAdmin';
-import { PageAnnounceDash } from '../pages/AnnouncementDashboard/AnnounceDash';
-import { PageUnsubscribe } from '../pages/Unsubscribe/Unsubscribe';
-import { PageResubscribe } from '../pages/Resubscribe/Resubscribe';
-// import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
-// import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
-import { FroshRetreat } from '../pages/FroshRetreat/FroshRetreat';
-import { PagePaymentSuccess } from '../pages/PagePaymentSuccess/PagePaymentSuccess';
-// import { ScuntGameSettings } from '../pages/ScuntGameSettings/ScuntGameSettings';
-// import { PageScuntMissionsDashboard } from '../pages/ScuntMissionsDashboard/ScuntMissionsDashboard';
-// import { ScuntTransactions } from '../pages/ScuntTransactions/ScuntTransactions';
-import { PageEmailConfirmed } from '../pages/EmailConfirmed/EmailConfirmed';
+const PasswordReset = lazy(() => import('../pages/PasswordReset/PasswordReset'));
+const PageFroshInfoTable = lazy(() => import('../pages/FroshInfoTable/FroshInfoTable'));
+const PageFroshRedistribution = lazy(() =>
+  import('../pages/FroshRedistribution/FroshRedistribution'),
+);
+const PageScopeRequest = lazy(() => import('../pages/ScopeRequest/ScopeRequest'));
+// const PageScuntJudgeForm  = lazy(() => import('../pages/ScuntJudgeForm/ScuntJudgeForm'));
+// const PageScuntMissionsList  = lazy(() => import('../pages/ScuntMissionsList/ScuntMissionsList'));
+// const PageScuntHome  = lazy(() => import('../pages/ScuntHome/ScuntHome'));
+// const PageScuntRules  = lazy(() => import('../pages/ScuntRules/ScuntRules'));
+const PageTimelineAdmin = lazy(() => import('../pages/TimelineAdmin/TimelineAdmin'));
+const PageAnnounceDash = lazy(() => import('../pages/AnnouncementDashboard/AnnounceDash'));
+const PageUnsubscribe = lazy(() => import('../pages/Unsubscribe/Unsubscribe'));
+const PageResubscribe = lazy(() => import('../pages/Resubscribe/Resubscribe'));
+// const ScuntJudges  = lazy(() => import('../pages/ScuntJudges/ScuntJudges'));
+// const ScuntLeaderboard  = lazy(() => import('../pages/ScuntLeaderboard/ScuntLeaderboard'));
+const FroshRetreat = lazy(() => import('../pages/FroshRetreat/FroshRetreat'));
+const PagePaymentSuccess = lazy(() => import('../pages/PagePaymentSuccess/PagePaymentSuccess'));
+// const ScuntGameSettings  = lazy(() => import('../pages/ScuntGameSettings/ScuntGameSettings'));
+// const PageScuntMissionsDashboard  = lazy(() => import('../pages/ScuntMissionsDashboard/ScuntMissionsDashboard'));
+// const ScuntTransactions  = lazy(() => import('../pages/ScuntTransactions/ScuntTransactions'));
+const PageEmailConfirmed = lazy(() => import('../pages/EmailConfirmed/EmailConfirmed'));
 export const pages = {
   404: {
     label: '404',
