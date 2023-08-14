@@ -30,9 +30,9 @@ export const ProfilePageResources = ({ froshObject }) => {
             <ButtonBubble
               label={'Download Information PDF'}
               onClick={async () => {
-                const MakeReceipt = (await import('../../MakeReceipt/MakeReceipt')).MakeReceipt;
-                const { pdf } = await import('@react-pdf/renderer/lib/react-pdf.browser.cjs');
-                const blob = await pdf(MakeReceipt(froshObject)).toBlob();
+                const { MakeReceipt } = await import('../../MakeReceipt/MakeReceipt');
+                const ReactPDF = await import('@react-pdf/renderer');
+                const blob = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
                 const fileURL = URL.createObjectURL(blob);
                 const pdfWindow = window.open(fileURL, '_blank');
                 pdfWindow && pdfWindow.focus();
@@ -48,9 +48,9 @@ export const ProfilePageResources = ({ froshObject }) => {
       <ButtonBubble
         label={'Download Schedule PDF'}
         onClick={async () => {
-          const { pdf } = await import('@react-pdf/renderer/lib/react-pdf.browser.cjs');
+          const ReactPDF = await import('@react-pdf/renderer');
           const { MakeSchedulePDF } = await import('../../MakeSchedulePDF/MakeSchedulePDF');
-          const blob = await pdf(MakeSchedulePDF(froshObject)).toBlob();
+          const blob = await ReactPDF.pdf(MakeSchedulePDF(froshObject)).toBlob();
           const fileURL = URL.createObjectURL(blob);
           const pdfWindow = window.open(fileURL, '_blank');
           pdfWindow && pdfWindow.focus();
