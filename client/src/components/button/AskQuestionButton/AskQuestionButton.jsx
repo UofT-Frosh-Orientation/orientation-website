@@ -115,7 +115,9 @@ const AskQuestionButton = () => {
   const { user } = useSelector(userSelector);
 
   const leader = user?.userType === 'leadur';
-  if (leader) {
+
+  if (leader || !user) {
+    // don't show FAQ button if leadur or if not logged in
     return <></>;
   }
   return (
