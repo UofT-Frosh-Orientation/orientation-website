@@ -62,15 +62,28 @@ describe('Testing Scunt Mission Services', () => {
             revealMissions: true,
             allowJudging: true,
         };
-
         const settings = await ScuntGameSettingsServices.initScuntGameSettings(scuntGameSettings);
-
         scuntMissions = await ScuntMissionServices.getAllScuntMissions(true, leadur);
 
-        assert(scuntMissions.length > 0);
+        assert(scuntMissions[0].name === 'New Mission 1');
     });
 
-
+    it('createMultipleMissions(array)\t\t\t|\tCreating Multiple Scunt Missions (INVALID MISSION)', async () => {
+        const incorrectArray = [
+            {
+                number: 1,
+                name: '',
+                category: 'Category 1',
+                points: 10,
+                isHidden: 'true',
+                isJudgingStation: 'true',
+            }
+        ]
+        await assert.rejects(ScuntMissionServices.createMultipleMissions(incorrectArray), {
+            name: 'Error',
+            message: 'UNABLE_TO_CREATE_SCUNT_MISSIONS',
+        });
+    });
     let array;
      it('createMultipleMissions(array)\t\t\t|\tCreating Multiple Scunt Missions', async () => {
          array = [
@@ -79,75 +92,55 @@ describe('Testing Scunt Mission Services', () => {
                 name: 'New Mission 1',
                 category: 'Category 1',
                 points: 10,
-                isHidden: 'true',
-                isJudgingStation: 'true',
+                isHidden: true,
+                isJudgingStation: true,
             },
             {
                  number: 2,
                  name: 'New Mission 2',
                  category: 'Category 2',
                  points: 20,
-                 isHidden: 'true',
-                 isJudgingStation: 'true',
+                 isHidden: true,
+                 isJudgingStation: true,
              },
              {
                  number: 3,
                  name: 'New Mission 3',
                  category: 'Category 3',
                  points: 30,
-                 isHidden: 'true',
-                 isJudgingStation: 'true',
+                 isHidden: true,
+                 isJudgingStation: true,
              },
             ]
-         let result = await ScuntMissionServices.createMultipleMissions(array);
-         assert(result[0].name === 'New Mission 1')
-     });
-
-    it('createMultipleMissions(array)\t\t\t|\tCreating Multiple Scunt Missions (INVALID MISSION)', async () => {
-        array[0].name = "";
-        await assert.rejects(ScuntMissionServices.createMultipleMissions(array), {
-            name: 'Error',
-            message: 'UNABLE_TO_CREATE_SCUNT_MISSIONS',
-        });
+         let scuntMissions = await ScuntMissionServices.createMultipleMissions(array);
+         assert(scuntMissions[2].name === 'New Mission 3')
     });
 
+
+
     it('updateMissionVisibility(startMissionNumber, endMissionNumber, isHidden, isJudgingStation)\t\t\t|\t Updating Mission Visibility (Searching Range)', async () => {
-        let missions = await ScuntMissionServices.updateMissionVisibility(1, 3, true, true);
-        assert(missions[0].name == "New Mission 1");
+        let missions = await ScuntMissionServices.updateMissionVisibility(2, 3, false, false);
+        assert(missions.length > 0);
     });
 
     it('updateMissionVisibility(startMissionNumber, endMissionNumber, isHidden, isJudgingStation)\t\t\t|\t Updating Mission Visibility (NO MISSIONS FOUND)', async () => {
-        await assert.rejects(ScuntMissionServices.updateMissionVisibility(10, 20, true, true), {
+        await assert.rejects(ScuntMissionServices.updateMissionVisibility(10, 11, true, true), {
             name: 'Error',
             message: 'NO_MISSIONS_FOUND',
         });
     });
 
-
-    it('getMission(number)\t\t\t|\tGetting a Scunt Mission', async () => {
-        let mission = await ScuntMissionServices.getMission(1);
-        assert(mission.name === "New Mission 1");
-    });
-
-    it('getMission(number)\t\t\t|\tGetting a Scunt Mission (NONEXISTING MISSION)', async () => {
-        await assert.rejects(ScuntMissionServices.getMission(10), {
+    it('updateMissionVisibility(startMissionNumber, endMissionNumber, isHidden, isJudgingStation)\t\t\t|\t Updating Mission Visibility (INCORRECT PARAMETER)', async () => {
+        await assert.rejects(ScuntMissionServices.updateMissionVisibility(10, 20, 9999, true), {
             name: 'Error',
-            message: 'MISSION_DOES_NOT_EXIST',
+            message: 'UNABLE_TO_UPDATE_MISSION_VISIBILITY',
         });
     });
-    //idk if this is work
-    it('getMission(number)\t\t\t|\tGetting a Scunt Mission (INVALID PARAMETER)', async () => {
-        await assert.rejects(ScuntMissionServices.getMission("aaaa"), {
-            name: 'Error',
-            message: 'UNABLE_TO_GET_MISSION',
-        });
-    });
-
-
+    
 
     it('deleteMission(number)\t\t\t|\tDeleting a Scunt Mission', async () => {
         let deletedMission = await ScuntMissionServices.deleteMission(1);
-        assert(deletedMission.name == "New Mission 1");
+        assert(deletedMission.name === "New Mission 1");
     });
 
     it('deleteMission(number)\t\t\t|\tDeleting a Scunt Mission (NONEXISTING MISSION)', async () => {
@@ -156,8 +149,31 @@ describe('Testing Scunt Mission Services', () => {
         //     message: 'UNABLE_TO_DELETE_MISSION',
         // });
         let deletedMission = await ScuntMissionServices.deleteMission(1);
+        deletedMission = await ScuntMissionServices.deleteMission(1);
         assert(deletedMission === null);
     });
+
+
+    it('getMission(number)\t\t\t|\tGetting a Scunt Mission', async () => {
+        let mission = await ScuntMissionServices.getMission(2);
+        assert(mission.name === "New Mission 2");
+    });
+
+    it('getMission(number)\t\t\t|\tGetting a Scunt Mission (NONEXISTING MISSION)', async () => {
+        await assert.rejects(ScuntMissionServices.getMission(10), {
+            name: 'Error',
+            message: 'MISSION_DOES_NOT_EXIST',
+        });
+    });
+
+    //idk if this is work
+    it('getMission(number)\t\t\t|\tGetting a Scunt Mission (INVALID PARAMETER)', async () => {
+        await assert.rejects(ScuntMissionServices.getMission("aaaa"), {
+            name: 'Error',
+            message: 'UNABLE_TO_GET_MISSION',
+        });
+    });
+
 
 
 

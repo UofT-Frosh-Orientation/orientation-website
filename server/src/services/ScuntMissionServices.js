@@ -20,7 +20,7 @@ const ScuntMissionServices = {
           throw new Error('INVALID_SETTINGS');
         // finds documents with isHidden property set to false
         return ScuntMissionModel.find(showHidden ? {} : { isHidden: false }).then(
-          (result) => result.sort({ number: 1 }), //  sort by number in ascending order (1)
+          (result) => result.sort(), //  sort by number in ascending order (1)
           (error) => {
             throw new Error('UNABLE_TO_GET_SCUNT_MISSIONS', { cause: error });
           },
@@ -65,7 +65,7 @@ const ScuntMissionServices = {
    */
   async createMultipleMissions(array) {
 
-    return ScuntMissionModel.remove({}).then(
+    return ScuntMissionModel.deleteMany({}).then(
       () => {
         return ScuntMissionModel.create(array).then(
           (result) => result,
