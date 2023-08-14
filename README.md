@@ -1,3 +1,4 @@
+![Backed Tests](https://github.com/UofT-Frosh-Orientation/orientation-website/blob/687-refactor-testing/.github/workflows/automated_tests.yml)
 ![image](https://user-images.githubusercontent.com/50821962/195210327-87d8570e-d5c1-4704-be5b-eb2a609c0972.png)
 
 # Orientation Website
