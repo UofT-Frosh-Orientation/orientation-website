@@ -12,7 +12,6 @@ const FroshController = {
    */
   async registerFrosh(req, res, next) {
     console.log('Start frosh registration');
-
     try {
       const user = req.user;
       const registrationInfo = req.body;
