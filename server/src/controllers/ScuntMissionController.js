@@ -73,9 +73,7 @@ const ScuntMissionController = {
   },
   async createMultipleMissions(req, res, next) {
     try {
-      const missions = await ScuntMissionServices.createMultipleMissions(
-        req.body.array
-      );
+      const missions = await ScuntMissionServices.createMultipleMissions(req.body.array);
       res.status(200).send({ missions });
     } catch (e) {
       req.log.fatal({ msg: 'Unable to create multiple missions', e });
