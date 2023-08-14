@@ -224,8 +224,14 @@ const ProfilePageFroshHeader = ({ editButton }) => {
     <>
       <div className="profile-page-header">
         <div className="profile-page-header-group">
-          <h1>{user?.froshGroupIcon}</h1>
-          <p>{user?.froshGroup}</p>
+          {isRegistered ? (
+            <>
+              <h1>{user?.froshGroupIcon}</h1>
+              <p>{user?.froshGroup}</p>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-info">

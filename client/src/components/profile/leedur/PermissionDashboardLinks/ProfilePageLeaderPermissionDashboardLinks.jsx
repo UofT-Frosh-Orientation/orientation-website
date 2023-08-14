@@ -36,6 +36,12 @@ export const ProfilePageLeaderPermissionDashboardLinks = () => {
           link: '/frosh-info-table',
           authScopes: [],
         },
+        {
+          label: 'Frosh Redistribution',
+          anyRegisterScope: false,
+          link: '/frosh-redistribution',
+          authScopes: ['admin:all'],
+        },
       ],
     },
     {

@@ -7,10 +7,6 @@ on:
   pull_request:
     paths:
       - server/**
-    branches:
-      - dev
-      - prod
-      - beta
 
 jobs:
   test_backend:

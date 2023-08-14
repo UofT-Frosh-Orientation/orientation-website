@@ -4,6 +4,7 @@ import './ProfilePageResources.scss';
 import PropTypes from 'prop-types';
 
 export const ProfilePageResources = ({ froshObject }) => {
+
   return (
     <div className="profile-page-resources profile-page-side-section">
       <h2>Resources</h2>
@@ -24,7 +25,8 @@ export const ProfilePageResources = ({ froshObject }) => {
           </a>
         );
       })}
-      {froshObject ? (
+      {froshObject ? ( 
+      <>
         <a key={'5Download'} className="no-link-style">
           <ButtonBubble
             label={'Download Information PDF'}
@@ -40,9 +42,23 @@ export const ProfilePageResources = ({ froshObject }) => {
             style={{ margin: 0, marginTop: '10px' }}
           />
         </a>
+      </>
       ) : (
         <></>
       )}
+      <ButtonBubble
+        label={'Download Schedule PDF'}
+        onClick={async () => {
+          const ReactPDF = await import('@react-pdf/renderer');
+          const { MakeSchedulePDF } = await import('../../MakeSchedulePDF/MakeSchedulePDF');
+          const blob = await ReactPDF.pdf(MakeSchedulePDF(froshObject)).toBlob();
+          const fileURL = URL.createObjectURL(blob);
+          const pdfWindow = window.open(fileURL, '_blank');
+          pdfWindow && pdfWindow.focus();
+        }}
+        isSecondary
+        style={{ margin: 0, marginTop: '10px' }}
+      />
     </div>
   );
 };
