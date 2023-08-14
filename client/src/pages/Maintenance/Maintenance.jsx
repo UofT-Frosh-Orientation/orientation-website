@@ -16,4 +16,4 @@ const PageMaintenance = () => {
   );
 };
 
-export { PageMaintenance };
+export default PageMaintenance;

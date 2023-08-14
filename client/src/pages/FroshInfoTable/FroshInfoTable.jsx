@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext, useMemo } from 'react';
 import './FroshInfoTable.scss';
 // import { fields } from '../Registration/RegistrationFields';
 import { Button } from '../../components/button/Button/Button';
-// import exportFromJSON from 'export-from-json';
 import { useDispatch, useSelector } from 'react-redux';
 import { froshSelector } from '../../state/frosh/froshSlice';
 import { getFrosh } from '../../state/frosh/saga';

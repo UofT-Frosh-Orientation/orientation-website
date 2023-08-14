@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import './ProfileEdit.scss';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,9 +20,12 @@ const PageProfileEdit = () => {
   const submit = (newInfo) => {
     dispatch(updateUserInfo({ newInfo, navigate, isRegistered }));
   };
-  if (!isRegistered) {
-    navigate('/profile');
-  }
+
+  useEffect(() => {
+    if (!isRegistered) {
+      navigate('/profile');
+    }
+  }, [isRegistered, navigate]);
 
   if (isRegistered) {
     return (
@@ -38,4 +41,4 @@ const PageProfileEdit = () => {
   }
 };
 
-export { PageProfileEdit };
+export default PageProfileEdit;

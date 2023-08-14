@@ -71,6 +71,14 @@
     }
   }
 }
+.wave-image {
+  width: 100vw;
+  height: min(10vh, 80px);
+  object-fit: fill;
+  @include devices(tablet) {
+    height: min(10vh, 40px);
+  }
+}
 
 .profile-page-header-group {
   display: flex;

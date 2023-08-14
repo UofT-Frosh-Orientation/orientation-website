@@ -55,4 +55,4 @@ const PageEmailConfirmed = () => {
   );
 };
 
-export { PageEmailConfirmed };
+export default PageEmailConfirmed;

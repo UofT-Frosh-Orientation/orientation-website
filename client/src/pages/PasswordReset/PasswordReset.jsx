@@ -12,7 +12,7 @@ import { passwordResetSelector } from '../../state/user/userSlice';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 
-export const PasswordReset = () => {
+const PasswordReset = () => {
   const { token } = useParams();
   const [formErrors, setFormErrors] = useState({});
   const [email, setEmail] = useState(undefined);
@@ -201,3 +201,5 @@ export const PasswordReset = () => {
     </div>
   );
 };
+
+export default PasswordReset;

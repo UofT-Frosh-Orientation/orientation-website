@@ -403,4 +403,4 @@ const AboutUsTeamsTabWrapper = () => {
   return <h2 className="about-introduction-title">Stay tuned to meet the team!</h2>;
 };
 
-export { PageAbout };
+export default PageAbout;

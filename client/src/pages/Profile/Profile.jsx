@@ -17,4 +17,4 @@ const PageProfile = () => {
   return <Suspense>{leader === true ? <PageProfileLeader /> : <PageProfileFrosh />}</Suspense>;
 };
 
-export { PageProfile };
+export default PageProfile;

@@ -143,4 +143,4 @@ const PageProfileEditUnregistered = () => {
   );
 };
 
-export { PageProfileEditUnregistered };
+export default PageProfileEditUnregistered;

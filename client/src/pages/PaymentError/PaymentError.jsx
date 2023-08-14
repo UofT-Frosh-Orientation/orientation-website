@@ -88,4 +88,4 @@ PagePaymentError.propTypes = {
   link: PropTypes.string,
 };
 
-export { PagePaymentError };
+export default PagePaymentError;

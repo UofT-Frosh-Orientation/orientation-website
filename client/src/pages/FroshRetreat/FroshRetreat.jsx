@@ -14,7 +14,7 @@ import useAxios from '../../hooks/useAxios';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import egglinton from '../../assets/mascots/Egglinton-1.png';
 
-export const FroshRetreat = () => {
+const FroshRetreat = () => {
   const [remainingTickets, setRemainingTickets] = useState();
   const { setSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
@@ -333,3 +333,5 @@ const RetreatRegistration = () => {
     </div>
   );
 };
+
+export default FroshRetreat;
