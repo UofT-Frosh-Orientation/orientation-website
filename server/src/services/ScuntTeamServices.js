@@ -56,10 +56,12 @@ const ScuntTeamServices = {
   },
 
   async calculatePoints(teamNumber, totalPoints) {
-    const teams = ScuntTeamModel.find({}, { name: 1, number: 1, points: 1 }, {}).sort({ points: -1 });
-    
+    const teams = ScuntTeamModel.find({}, { name: 1, number: 1, points: 1 }, {}).sort({
+      points: -1,
+    });
+
     const teamPosition = teams.map((t, pos) => {
-      if(teamNumber === t.number) {
+      if (teamNumber === t.number) {
         return pos + 1;
       }
     });
@@ -68,7 +70,7 @@ const ScuntTeamServices = {
   },
 
   async bribeTransaction(teamNumber, points, user) {
-    const curvedPoints = await calculatePoints(teamNumber, points);
+    const curvedPoints = await this.calculatePoints(teamNumber, points);
 
     return new Promise((resolve, reject) => {
       if (!user.scuntJudgeBribePoints || curvedPoints > user.scuntJudgeBribePoints) {
@@ -169,7 +171,7 @@ const ScuntTeamServices = {
   },
 
   async addTransaction(teamNumber, missionNumber, points) {
-    const curvedPoints = await calculatePoints(teamNumber, points);
+    const curvedPoints = await this.calculatePoints(teamNumber, points);
 
     return new Promise((resolve, reject) => {
       //TODO look up mission to get amount of points
