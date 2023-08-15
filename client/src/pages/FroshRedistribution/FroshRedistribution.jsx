@@ -21,18 +21,13 @@ const PageFroshRedistribution = () => {
   return (
     <>
       <Button label="Redistribute Frosh" onClick={submitForm} />
-      {frosh?.map((frosh) =>
-        frosh.to ? (
-          <div key={frosh?.firstName}>
-            <h2>
-              Frosh: {frosh?.firstName} {frosh?.lastName} ({frosh?.email})
-            </h2>
-            <h2>Reassigned to: {frosh?.to}</h2>
-          </div>
-        ) : (
-          <></>
-        ),
-      )}
+      {frosh?.map((frosh, index) => (
+        <div key={index} style={frosh?.to ? { color: 'var(--text-dynamic)' } : { display: 'none' }}>
+          <h2>{`Frosh: ${frosh?.firstName} ${frosh?.lastName} (${frosh?.email})`}</h2>
+          <h2>Reassigned to: {frosh?.to}</h2>
+          <br />
+        </div>
+      ))}
     </>
   );
 };

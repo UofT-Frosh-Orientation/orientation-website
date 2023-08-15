@@ -39,16 +39,9 @@ export function* loginSaga({ payload: { setSnackbar, setIsLoading, email, passwo
     const result = yield call(axios.post, '/user/login', { email, password });
     yield put(loginSuccess(result.data.user));
   } catch (error) {
-    setSnackbar(
-      error.response?.data?.message
-        ? error.response?.data?.message.toString()
-        : error.response?.data
-        ? error.response?.data.toString()
-        : error.toString(),
-      true,
-    );
+    setSnackbar(error.response?.data?.errorMessage, true);
     setIsLoading(false);
-    yield put(loginFail(error.response.data));
+    yield put(loginFail(error.response?.data?.errorMessage));
   }
 }
 
@@ -110,16 +103,9 @@ export function* createUserSaga({ payload: { setSnackbar, setIsLoading, user } }
     const result = yield call(axios.post, '/user/signup', user);
     yield put(signupSuccess(result.data.user));
   } catch (error) {
-    setSnackbar(
-      error.response?.data?.message
-        ? error.response?.data?.message.toString()
-        : error.response?.data
-        ? error.response?.data.toString()
-        : error.toString(),
-      true,
-    );
+    setSnackbar(error.response?.data?.errorMessage, true);
     setIsLoading(false);
-    yield put(signupFail(error.response.data));
+    yield put(signupFail(error.response?.data?.errorMessage));
   }
 }
 
