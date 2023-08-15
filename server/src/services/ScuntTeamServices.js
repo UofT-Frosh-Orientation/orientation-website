@@ -202,7 +202,7 @@ const ScuntTeamServices = {
                 missionNumber.toString() +
                 ' for team ' +
                 teamNumber.toString();
-              team.transactions.push({ name, missionNumber, curvedPoints });
+              team.transactions.push({ name, missionNumber, points: curvedPoints });
               team.save((err, res) => {
                 if (err) {
                   reject(err);
