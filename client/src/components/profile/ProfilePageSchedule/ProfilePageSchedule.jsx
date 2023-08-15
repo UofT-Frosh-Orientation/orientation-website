@@ -61,7 +61,7 @@ export const ProfilePageSchedule = () => {
             setCloseAll(!closeAll);
           }}
           style={{
-            maxWidth: '250px',
+            maxWidth: '160px',
             marginTop: '0px',
             marginBottom: '10px',
             padding: '11px 15px',
