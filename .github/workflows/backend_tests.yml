@@ -1,0 +1,22 @@
+name: Backend Tests
+
+on:
+  push:
+    paths:
+      - server/**
+  pull_request:
+    paths:
+      - server/**
+
+jobs:
+  test_backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3.5.3
+
+      - name: Start Docker
+        run: docker-compose -f docker-compose.test.yml up --build -d
+
+      - name: Run Tests
+        run: cd server && yarn install && yarn test:actions

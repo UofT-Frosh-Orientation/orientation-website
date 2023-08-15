@@ -8,17 +8,12 @@ import location from '../../../assets/misc/location.png';
 import { DarkModeContext } from '../../../util/DarkModeProvider';
 
 function getDaysSchedule() {
-  const scheduleData = data;
-  const days = [];
-  for (let day of Object.keys(scheduleData)) {
-    days.push(day.split(' ')[0]);
-  }
-  return days;
+  return Object.keys(data);
 }
 
 const ScheduleComponent = () => {
   const today = new Date();
-  const options = { weekday: 'long' };
+  const options = { weekday: 'long', month: 'long', day: 'numeric' };
   const todayString = today.toLocaleDateString('en-US', options).replace(',', '');
   let count = 0;
   for (let day of getDaysSchedule()) {
