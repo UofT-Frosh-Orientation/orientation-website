@@ -15,7 +15,7 @@ import { SnackbarProvider } from './util/SnackbarProvider';
 
 // import { getScuntSettings } from './state/scuntSettings/saga';
 // import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
-
+import { PageMaintenance } from './pages/Maintenance/Maintenance';
 export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -25,11 +25,12 @@ export default function App() {
 
   return (
     <DarkModeProvider>
-      <SnackbarProvider>
+      {/* <SnackbarProvider>
         <BrowserRouter>
           <TransitionRoutes />
         </BrowserRouter>
-      </SnackbarProvider>
+      </SnackbarProvider> */}
+      <PageMaintenance />
     </DarkModeProvider>
   );
 }
