@@ -73,10 +73,12 @@ const UserController = {
     passport.authenticate('local', (err, user) => {
       if (err || !user) {
         //req.log.info("Incorrect Email and Password entered by user");
-        res.status(403).send({ message: 'Please ensure your email and password are correct.' });
+        res
+          .status(403)
+          .send({ errorMessage: 'Please ensure your email and password are correct.' });
       } else if (!user.confirmedEmail) {
         // req.log.error(err, "Attempt to login with unverified email");
-        res.status(403).send({ message: 'Please ensure that you have verified your email.' });
+        res.status(403).send({ errorMessage: 'Please ensure that you have verified your email.' });
       } else {
         req.logIn(user, (err) => {
           if (err) {
