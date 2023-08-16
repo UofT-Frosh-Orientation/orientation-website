@@ -42,7 +42,6 @@ describe('Testing Scunt Team Services', () => {
             message: 'UNABLE_TO_UPDATE_LEADER',
         });
     });
-
     
     it('.updateLeaderTeam()\t\t\t|\tUpdate a non-leaders scunt team number (INVALID LEADUR ID)', async () => {
         testUser = await UserModel.create({
@@ -90,7 +89,7 @@ describe('Testing Scunt Team Services', () => {
     
         const settings = await ScuntGameSettingsServices.initScuntGameSettings(scuntGameSettings);
 
-        const leadur = await LeadurModel.create({
+        const leadur = await UserModel.create({
             lastName: 'Testerson',
             firstName: 'Test',
             approved: true,
@@ -103,15 +102,14 @@ describe('Testing Scunt Team Services', () => {
 
         const scuntTeam = await ScuntTeamModel.create({
             number: 8,
-            name: "hey",
+            name: "Scunt Team 8",
             points: 20,
         });
 
         const {testTeam, testLeadur} = await ScuntTeamServices.bribeTransaction(8, 10, leadur);
-        assert(testLeadur.firstName === 'Test');
+        assert(testLeadur !== null);
     });
     */
-    
     
     it('.bribeTransaction()\t\t\t|\tUpdate a bribe transaction (NOT ENOUGH BRIBE POINTS)', async () => {
         const leadur = await LeadurModel.create({
@@ -146,8 +144,6 @@ describe('Testing Scunt Team Services', () => {
         const judges = await ScuntTeamServices.getScuntJudges();
         assert(judges.length === 0);
     });
-    
-
 
     it('.refillBribePoints()\t\t\t|\tRefill judge bribe points', async () => {
         const leadur = await LeadurModel.create({
