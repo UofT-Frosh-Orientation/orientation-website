@@ -21,7 +21,7 @@ export const ProfilePageFroshScuntTeamsSelection = () => {
 
   if (
     !isRegistered ||
-    !user?.scunt ||
+    !user?.attendingScunt ||
     (scuntSettings !== undefined &&
       scuntSettings.length >= 1 &&
       scuntSettings[0]?.revealTeams === true)

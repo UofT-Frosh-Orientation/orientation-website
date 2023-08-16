@@ -28,7 +28,7 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   ) {
     return <></>;
   }
-  if (!user?.scunt && user?.userType !== 'leadur') {
+  if (!user?.attendingScunt && user?.userType !== 'leadur') {
     return (
       <div className="profile-page-scunt-token profile-page-side-section">
         <p>
