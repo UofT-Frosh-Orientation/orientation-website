@@ -17,12 +17,12 @@ describe('Testing Scunt Team Services', () => {
     let scuntJudges = [];
     let tranactions = [];
 
-    it('.viewRecentTransactions()\t\t\t|\tView recent transactions (empty)', async () => {
+    it('.viewRecentTransactions()\t\t|\tView recent transactions (empty)', async () => {
         transactions = await ScuntTeamServices.viewRecentTransactions();
         assert(transactions.length === 0);
     });
 
-    it('.updateLeaderTeam()\t\t\t|\tUpdate a leaders scunt team number', async () => {
+    it('.updateLeaderTeam()\t\t|\tUpdate a leaders scunt team number', async () => {
         const leadur = await LeadurModel.create({
             lastName: 'Testing',
             firstName: 'Test',
@@ -36,14 +36,14 @@ describe('Testing Scunt Team Services', () => {
         assert(testLeadur.scuntTeam === 2);
     });
 
-    it('.updateLeaderTeam()\t\t\t|\tUpdate a leaders scunt team number with wrong ID (UNABLE TO UPDATE LEADER)', async () => {
+    it('.updateLeaderTeam()\t\t|\tUpdate a leaders scunt team number with wrong ID (UNABLE TO UPDATE LEADER)', async () => {
         await assert.rejects(ScuntTeamServices.updateLeaderTeam('1234567890', 3), {
             name: 'Error',
             message: 'UNABLE_TO_UPDATE_LEADER',
         });
     });
     
-    it('.updateLeaderTeam()\t\t\t|\tUpdate a non-leaders scunt team number (INVALID LEADUR ID)', async () => {
+    it('.updateLeaderTeam()\t\t|\tUpdate a non-leaders scunt team number (INVALID LEADUR ID)', async () => {
         testUser = await UserModel.create({
             firstName: 'Test',
             lastName: 'User',
@@ -71,7 +71,7 @@ describe('Testing Scunt Team Services', () => {
     });
     
     /*
-    it('.bribeTransaction()\t\t\t|\tUpdate a bribe transaction', async () => {
+    it('.bribeTransaction()\t\t|\tUpdate a bribe transaction', async () => {
         const scuntGameSettings = {
             name: 'Scunt 2T3 Settings',
             amountOfTeams: 10,
@@ -111,7 +111,7 @@ describe('Testing Scunt Team Services', () => {
     });
     */
     
-    it('.bribeTransaction()\t\t\t|\tUpdate a bribe transaction (NOT ENOUGH BRIBE POINTS)', async () => {
+    it('.bribeTransaction()\t\t|\tUpdate a bribe transaction (NOT ENOUGH BRIBE POINTS)', async () => {
         const leadur = await LeadurModel.create({
             lastName: 'Testerson',
             firstName: 'Test',
@@ -145,7 +145,7 @@ describe('Testing Scunt Team Services', () => {
         assert(judges.length === 0);
     });
 
-    it('.refillBribePoints()\t\t\t|\tRefill judge bribe points', async () => {
+    it('.refillBribePoints()\t\t|\tRefill judge bribe points', async () => {
         const leadur = await LeadurModel.create({
             lastName: 'Testerson',
             firstName: 'Test',
@@ -160,7 +160,7 @@ describe('Testing Scunt Team Services', () => {
         assert(refilledleadur.scuntJudgeBribePoints === 30);
     });
 
-    it('.refillBribePoints()\t\t\t|\tRefill judge bribe points', async () => {
+    it('.refillBribePoints()\t\t|\tRefill judge bribe points', async () => {
         const leadur = await LeadurModel.create({
             lastName: 'Testerson',
             firstName: 'Test',
@@ -175,14 +175,14 @@ describe('Testing Scunt Team Services', () => {
         assert(refilledleadur.scuntJudgeBribePoints === 10);
     });
 
-    it('.refillBribePoints()\t\t\t|\tRefill judge bribe points with wrong ID (UNABLE TO UPDATE LEADUR)', async () => {
+    it('.refillBribePoints()\t\t|\tRefill judge bribe points with wrong ID (UNABLE TO UPDATE LEADUR)', async () => {
         await assert.rejects(ScuntTeamServices.refillBribePoints('1234567890', 10, true), {
             name: 'Error',
             message: 'UNABLE_TO_UPDATE_LEADUR',
         });
     });
 
-    it('.refillBribePoints()\t\t\t|\tRefill judge bribe points with wrong ID (INVALID LEADUR ID)', async () => {
+    it('.refillBribePoints()\t\t|\tRefill judge bribe points with wrong ID (INVALID LEADUR ID)', async () => {
         testUser = await UserModel.create({
             firstName: 'Test',
             lastName: 'User',
@@ -241,7 +241,7 @@ describe('Testing Scunt Team Services', () => {
         });
     });
     
-    it('.subtractTransaction()\t\t\t|\tSubtract transaction', async () => {
+    it('.subtractTransaction()\t\t|\tSubtract transaction', async () => {
         const scuntTeam = await ScuntTeamModel.create({
             number: 2,
             name: "Scunt Team 2",
@@ -251,7 +251,7 @@ describe('Testing Scunt Team Services', () => {
         assert(testTeam.points === 0);
     });
 
-    it('.subtractTransaction()\t\t\t|\tSubtract transaction', async () => {
+    it('.subtractTransaction()\t\t|\tSubtract transaction', async () => {
         const scuntTeam = await ScuntTeamModel.create({
             number: 10,
             name: "Scunt Team 10",
@@ -261,14 +261,14 @@ describe('Testing Scunt Team Services', () => {
         assert(testTeam.points === -10);
     });
 
-    it('.subtractTransaction()\t\t\t|\TSubtract transaction (INVALID TEAM)', async () => {
+    it('.subtractTransaction()\t\t|\tSubtract transaction (INVALID TEAM)', async () => {
         await assert.rejects(ScuntTeamServices.subtractTransaction(100000, 20), {
             name: 'Error',
             message: 'INVALID_TEAM_NUMBER',
         });
     });
 
-    it('.viewTransactions()\t\t\t|\tView transactions', async () => {
+    it('.viewTransactions()\t\t|\tView transactions', async () => {
         const scuntTeam = await ScuntTeamModel.create({
             number: 3,
             name: "Scunt Team 3",
@@ -279,14 +279,14 @@ describe('Testing Scunt Team Services', () => {
         assert(testTeam.name === "Scunt Team 3");
     });
 
-    it('.viewTransactions()\t\t\t|\tView transactions (INVALID TEAM)', async () => {
+    it('.viewTransactions()\t\t|\tView transactions (INVALID TEAM)', async () => {
         await assert.rejects(ScuntTeamServices.viewTransactions(100000), {
             name: 'Error',
             message: 'INVALID_TEAM_NUMBER',
         });
     });
 
-    it('.checkTransaction()\t\t\t|\tCheck a transaction', async () => {
+    it('.checkTransaction()\t\t|\tCheck a transaction', async () => {
         const scuntTeam = await ScuntTeamModel.create({
             number: 4,
             name: "Scunt Team 4",
@@ -304,7 +304,7 @@ describe('Testing Scunt Team Services', () => {
         assert(points === 0);
     });
 
-    it('.checkTransaction()\t\t\t|\tCheck a transaction (INVALID TEAM NUMBER)', async () => {
+    it('.checkTransaction()\t\t|\tCheck a transaction (INVALID TEAM NUMBER)', async () => {
         await assert.rejects(ScuntTeamServices.checkTransaction(1000, 10), {
             name: 'Error',
             message: 'INVALID_TEAM_NUMBER',
@@ -318,7 +318,7 @@ describe('Testing Scunt Team Services', () => {
     });
     */
     
-    it('.deleteTransaction()\t\t\t|\tDelete a transaction', async () => {
+    it('.deleteTransaction()\t\t|\tDelete a transaction', async () => {
         const scuntTeam = await ScuntTeamModel.create({
             number: 11,
             name: "Scunt Team 11",
@@ -338,14 +338,14 @@ describe('Testing Scunt Team Services', () => {
         assert(testTeam.transactions.length === 0);
     });
 
-    it('.deleteTransaction()\t\t\t|\tDelete a transaction (INVALID TEAM NUMBER)', async () => {
+    it('.deleteTransaction()\t\t|\tDelete a transaction (INVALID TEAM NUMBER)', async () => {
         await assert.rejects(ScuntTeamServices.deleteTransaction(100000, 429496729), {
             name: 'Error',
             message: 'INVALID_TEAM_NUMBER',
         });
     });
 
-    it('.viewRecentTransactions()\t\t\t|\tView recent transactions', async () => {
+    it('.viewRecentTransactions()\t\t|\tView recent transactions', async () => {
         const scuntTeam = await ScuntTeamModel.create({
             number: 16,
             name: "Scunt Team 16",
