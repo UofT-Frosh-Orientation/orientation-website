@@ -157,20 +157,16 @@ const PageScuntMissionsListShow = () => {
     const response = await axios.post('/scunt-teams/transactions', {
       teamNumber: teamNumber,
     });
-    // console.log(response?.data?.transactions);
     const teamTransactions = response?.data?.transactions?.transactions || [];
-    console.log(teamTransactions);
 
     teamTransactions.forEach((transaction) => {
       const missionNum = transaction?.missionNumber;
-      console.log(transaction);
 
       if (missionNum !== -1) {
+        // -1 for bribes for deleted points
         completedMissions[missionNum] = transaction?.points;
       }
     });
-
-    console.log(completedMissions);
   };
 
   let previousCategory = '';
