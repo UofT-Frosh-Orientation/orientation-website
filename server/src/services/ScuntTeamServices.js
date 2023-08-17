@@ -171,7 +171,6 @@ const ScuntTeamServices = {
     const curvedPoints = await this.calculatePoints(teamNumber, points);
 
     return new Promise((resolve, reject) => {
-      //TODO look up mission to get amount of points
       ScuntGameSettingsModel.findOne({}, (err, settings) => {
         if (err) {
           reject(err);
@@ -204,7 +203,6 @@ const ScuntTeamServices = {
                 points: curvedPoints,
                 missionNumber,
               });
-              // TODO: add completed missions here
               team.save((err, res) => {
                 if (err) {
                   reject(err);
