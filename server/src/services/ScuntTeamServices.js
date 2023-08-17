@@ -56,15 +56,12 @@ const ScuntTeamServices = {
   },
 
   async calculatePoints(teamNumber, totalPoints) {
-    const teams = ScuntTeamModel.find({}, { name: 1, number: 1, points: 1 }, {}).sort({
+    const teams = await ScuntTeamModel.find({}, { name: 1, number: 1, points: 1 }, {}).sort({
       points: -1,
     });
 
-    const teamPosition = teams.map((t, pos) => {
-      if (teamNumber === t.number) {
-        return pos + 1;
-      }
-    });
+    // finds the rank of the team (i.e., index in teams array)
+    const teamPosition = teams.findIndex((t) => teamNumber === t.number);
 
     return (teamPosition / teams.length) * totalPoints;
   },
