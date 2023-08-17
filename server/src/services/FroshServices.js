@@ -9,8 +9,10 @@ const FroshServices = {
    * @param {String} pronouns -  the pronouns of the frosh
    * @return {Promise<Object>} - the name of the frosh group
    */
-  async getNewFroshGroup(discipline, pronouns) {
-    const froshGroupList = await FroshGroupModel.find();
+  async getNewFroshGroup(discipline, pronouns, froshGroupList) {
+    if (!froshGroupList) {
+      froshGroupList = await FroshGroupModel.find();
+    }
     let minNumber = 10000;
     let minScore = 10000;
     let froshGroup = '';
