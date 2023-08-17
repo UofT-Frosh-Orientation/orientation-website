@@ -84,6 +84,7 @@ describe('Testing Scunt Mission Services', () => {
             message: 'UNABLE_TO_CREATE_SCUNT_MISSIONS',
         });
     });
+
     let array;
      it('createMultipleMissions(array)\t\t\t|\tCreating Multiple Scunt Missions', async () => {
          array = [
@@ -119,15 +120,14 @@ describe('Testing Scunt Mission Services', () => {
 
 
     it('updateMissionVisibility(startMissionNumber, endMissionNumber, isHidden, isJudgingStation)\t\t\t|\t Updating Mission Visibility (Searching Range)', async () => {
-        let missions = await ScuntMissionServices.updateMissionVisibility(2, 3, false, false);
-        assert(missions.length > 0);
+        let missions = await ScuntMissionServices.updateMissionVisibility(1, 3, false, false);
+        assert(missions.modifiedCount === 3);
+
     });
 
     it('updateMissionVisibility(startMissionNumber, endMissionNumber, isHidden, isJudgingStation)\t\t\t|\t Updating Mission Visibility (NO MISSIONS FOUND)', async () => {
-        await assert.rejects(ScuntMissionServices.updateMissionVisibility(10, 11, true, true), {
-            name: 'Error',
-            message: 'NO_MISSIONS_FOUND',
-        });
+        let missions = await ScuntMissionServices.updateMissionVisibility(11, 12, true, true)
+        assert(missions.modifiedCount === 0);
     });
 
     it('updateMissionVisibility(startMissionNumber, endMissionNumber, isHidden, isJudgingStation)\t\t\t|\t Updating Mission Visibility (INCORRECT PARAMETER)', async () => {
@@ -143,14 +143,11 @@ describe('Testing Scunt Mission Services', () => {
         assert(deletedMission.name === "New Mission 1");
     });
 
-    it('deleteMission(number)\t\t\t|\tDeleting a Scunt Mission (NONEXISTING MISSION)', async () => {
-        // await assert.rejects(ScuntMissionServices.deleteMission(1), {
-        //     name: 'Error',
-        //     message: 'UNABLE_TO_DELETE_MISSION',
-        // });
-        let deletedMission = await ScuntMissionServices.deleteMission(1);
-        deletedMission = await ScuntMissionServices.deleteMission(1);
-        assert(deletedMission === null);
+    it('deleteMission(number)\t\t\t|\tDeleting a Scunt Mission (INVALID INPUT)', async () => {
+        await assert.rejects(ScuntMissionServices.deleteMission("aaa"), {
+             name: 'Error',
+             message: 'UNABLE_TO_DELETE_MISSION',
+        });
     });
 
 
