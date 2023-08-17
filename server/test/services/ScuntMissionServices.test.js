@@ -124,8 +124,10 @@ describe('Testing Scunt Mission Services', () => {
     });
 
     it('updateMissionVisibility(startMissionNumber, endMissionNumber, isHidden, isJudgingStation)\t\t|\tUpdating Mission Visibility (NO MISSIONS FOUND)', async () => {
-        let missions = await ScuntMissionServices.updateMissionVisibility(11, 12, true, true)
-        assert(missions.modifiedCount === 0);
+        await assert.rejects(ScuntMissionServices.updateMissionVisibility(11, 12, true, true), {
+            name: 'Error',
+            message: 'NO_MISSIONS_FOUND',
+        });
     });
 
     it('updateMissionVisibility(startMissionNumber, endMissionNumber, isHidden, isJudgingStation)\t\t|\tUpdating Mission Visibility (INCORRECT PARAMETER)', async () => {

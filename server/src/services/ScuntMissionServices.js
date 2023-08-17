@@ -109,7 +109,7 @@ const ScuntMissionServices = {
       { strictQuery: false },
     ).then(
       (missions) => {
-        if (!missions) throw new Error('NO_MISSIONS_FOUND');
+        if (missions.modifiedCount === 0) throw new Error('NO_MISSIONS_FOUND');
         return missions;
       },
       (error) => {
