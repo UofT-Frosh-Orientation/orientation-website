@@ -12,8 +12,9 @@ export const ProfilePageSchedule = () => {
   const [froshGroup, setFroshGroup] = useState(user?.froshGroup);
   const scheduleData = getFroshGroupSchedule(froshGroup);
   const days = getDaysSchedule(scheduleData);
+
   const today = new Date();
-  const options = { weekday: 'long' };
+  const options = { weekday: 'long', month: 'long', day: 'numeric' };
   const todayString = today.toLocaleDateString('en-US', options).replace(',', '');
 
   let count = 0;
@@ -60,7 +61,7 @@ export const ProfilePageSchedule = () => {
             setCloseAll(!closeAll);
           }}
           style={{
-            maxWidth: '250px',
+            maxWidth: '160px',
             marginTop: '0px',
             marginBottom: '10px',
             padding: '11px 15px',

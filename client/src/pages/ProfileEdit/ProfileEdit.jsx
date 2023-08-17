@@ -1,10 +1,11 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect, useContext } from 'react';
 import './ProfileEdit.scss';
 import { PageRegistrationForm } from '../Registration/RegistrationForm';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from '../../state/user/saga';
 import { useNavigate } from 'react-router-dom';
+import { SnackbarContext } from '../../util/SnackbarProvider';
 
 const ProfilePageFroshHeader = lazy(() =>
   import('../Profile/PageProfileFrosh').then((module) => ({
@@ -17,12 +18,17 @@ const PageProfileEdit = () => {
   const isRegistered = useSelector(registeredSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { setSnackbar } = useContext(SnackbarContext);
+
   const submit = (newInfo) => {
-    dispatch(updateUserInfo({ newInfo, navigate, isRegistered }));
+    dispatch(updateUserInfo({ setSnackbar, newInfo, navigate, isRegistered }));
   };
-  if (!isRegistered) {
-    navigate('/profile');
-  }
+
+  useEffect(() => {
+    if (!isRegistered) {
+      navigate('/profile');
+    }
+  }, [isRegistered]);
 
   if (isRegistered) {
     return (
