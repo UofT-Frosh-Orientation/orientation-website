@@ -99,7 +99,7 @@ const ScuntTeamServices = {
                             name: `${curvedPoints.toString()} points bribe from ${user.firstName} ${
                               user.lastName
                             }`,
-                            curvedPoints,
+                            points: curvedPoints,
                           },
                         ],
                       },
@@ -199,7 +199,11 @@ const ScuntTeamServices = {
                 missionNumber.toString() +
                 ' for team ' +
                 teamNumber.toString();
-              team.transactions.push({ name, missionNumber, curvedPoints });
+              team.transactions.push({
+                name,
+                points: curvedPoints,
+                missionNumber,
+              });
               // TODO: add completed missions here
               team.save((err, res) => {
                 if (err) {
