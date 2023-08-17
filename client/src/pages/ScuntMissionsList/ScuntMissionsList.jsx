@@ -82,6 +82,11 @@ const PageScuntMissionsListShow = () => {
   const [selectedSort, setSelectedSort] = useState('ID');
   const [missionStatus, setMissionStatus] = useState(undefined);
   const loggedIn = useSelector(loggedInSelector);
+  const [completedMissions, setCompletedMissions] = useState({});
+
+  useEffect(() => {
+    getAllTeamTransactions(user?.scuntTeam);
+  }, [missions]); // inital run and whenever missions updated
 
   useEffect(() => {
     setMission(undefined);
@@ -146,6 +151,26 @@ const PageScuntMissionsListShow = () => {
       missionNumber: missionPassed?.number,
     });
     setMissionStatus(response?.data?.missionStatus);
+  };
+
+  const getAllTeamTransactions = async (teamNumber) => {
+    const response = await axios.post('/scunt-teams/transactions', {
+      teamNumber: teamNumber,
+    });
+    // console.log(response?.data?.transactions);
+    const teamTransactions = response?.data?.transactions?.transactions || [];
+    console.log(teamTransactions);
+
+    teamTransactions.forEach((transaction) => {
+      const missionNum = transaction?.missionNumber;
+      console.log(transaction);
+
+      if (missionNum !== -1) {
+        completedMissions[missionNum] = transaction?.points;
+      }
+    });
+
+    console.log(completedMissions);
   };
 
   let previousCategory = '';
@@ -245,7 +270,12 @@ const PageScuntMissionsListShow = () => {
                 setClearText(true);
               }}
             >
-              <ScuntMissionEntry mission={mission} selected />
+              <ScuntMissionEntry
+                mission={mission}
+                selected={true}
+                completed={mission?.number in completedMissions}
+                pointsAwarded={completedMissions[mission?.number]}
+              />
             </div>
           ) : (
             searchedMissions.map((mission) => {
@@ -257,13 +287,17 @@ const PageScuntMissionsListShow = () => {
                     setMission(mission);
                   }}
                 >
-                  <ScuntMissionEntry mission={mission} />
+                  <ScuntMissionEntry
+                    mission={mission}
+                    completed={mission?.number in completedMissions}
+                    pointsAwarded={completedMissions[mission?.number]}
+                  />
                 </div>
               );
               if (previousCategory !== mission?.category) {
                 previousCategory = mission?.category;
                 return (
-                  <div className="scunt-mission-category-separator">
+                  <div key={mission?.number} className="scunt-mission-category-separator">
                     <div className="separator" />
                     <h3>{mission?.category}</h3>
                     {missionEntry}

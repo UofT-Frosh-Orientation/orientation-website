@@ -14,6 +14,7 @@ import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSl
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { submitBribePoints } from './functions';
 import star from '../../assets/misc/star-solid.svg';
+import greenCheck from '../../assets/misc/check-solid-green.svg';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
 import { getScuntMissions } from '../../state/scuntMissions/saga';
 import useAxios from '../../hooks/useAxios';
@@ -637,7 +638,7 @@ ScuntMissionSelection.propTypes = {
   teamObjs: PropTypes.array,
 };
 
-export const ScuntMissionEntry = ({ mission, selected }) => {
+export const ScuntMissionEntry = ({ mission, selected, completed, pointsAwarded }) => {
   return (
     <div className={`scunt-mission-entry ${selected ? 'scunt-mission-entry-selected' : ''}`}>
       <h3 className="mission-id">{mission?.number}</h3>
@@ -650,14 +651,36 @@ export const ScuntMissionEntry = ({ mission, selected }) => {
       ) : (
         <></>
       )}
+      {completed ? (
+        <img
+          src={greenCheck}
+          alt="judging station indication"
+          className="scunt-mission-entry-judging-star"
+        />
+      ) : (
+        <></>
+      )}
       <p className="mission-name">{mission?.name}</p>
 
-      <h3 className="mission-points">{mission?.points}</h3>
+      {completed ? (
+        <h3 className="mission-points">
+          {pointsAwarded}/{mission?.points}
+        </h3>
+      ) : (
+        <h3 className="mission-points">{mission?.points}</h3>
+      )}
     </div>
   );
 };
 
 ScuntMissionEntry.propTypes = {
+  completed: PropTypes.bool,
+  pointsAwarded: PropTypes.number,
   mission: PropTypes.object,
   selected: PropTypes.bool,
+};
+
+ScuntMissionEntry.defaultProps = {
+  completed: false,
+  pointsAwarded: 0,
 };
