@@ -16,7 +16,7 @@ import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
-import star from '../../assets/misc/star-solid.svg';
+import greenCheck from '../../assets/misc/check-solid-green.svg';
 
 function getMissionCategories(missions) {
   let currentCategory = '';
@@ -188,8 +188,12 @@ const PageScuntMissionsListShow = () => {
           <Link to={'/scunt-judges'}>Don&apos;t forget to bribe the judges!</Link>
         </div>
         <div className="scunt-missions-judging-station-info">
-          <img src={star} className="judging-station-info-star" alt="judging station indication" />
-          <p>These indicate Judging Stations, photo/video evidence is not accepted!</p>
+          <img
+            src={greenCheck}
+            className="judging-station-info-star"
+            alt="judging station indication"
+          />
+          <p>These indicate completed missions!</p>
         </div>
       </div>
 

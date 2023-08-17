@@ -13,7 +13,6 @@ import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { submitBribePoints } from './functions';
-import star from '../../assets/misc/star-solid.svg';
 import greenCheck from '../../assets/misc/check-solid-green.svg';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
 import { getScuntMissions } from '../../state/scuntMissions/saga';
@@ -642,15 +641,6 @@ export const ScuntMissionEntry = ({ mission, selected, completed, pointsAwarded 
   return (
     <div className={`scunt-mission-entry ${selected ? 'scunt-mission-entry-selected' : ''}`}>
       <h3 className="mission-id">{mission?.number}</h3>
-      {mission?.isJudgingStation ? (
-        <img
-          src={star}
-          alt="judging station indication"
-          className="scunt-mission-entry-judging-star"
-        />
-      ) : (
-        <></>
-      )}
       {completed ? (
         <img
           src={greenCheck}
