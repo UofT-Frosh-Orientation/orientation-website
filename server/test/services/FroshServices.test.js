@@ -6,8 +6,6 @@ const FroshGroupModel = require('../../src/models/FroshGroupModel');
 const assert = require('assert');
 
 describe('Testing Frosh Services', () => {
-
-
   it('.getNewFroshGroup(discipline, pronouns, froshGroupList)\t|\tGetting a new Frosh Group (PREMADE LIST)', async () => {
     const discipline = "Electrical & Computer";
     const pronouns = "she/her";
@@ -29,7 +27,7 @@ describe('Testing Frosh Services', () => {
       discipline,
       pronouns,
     );
-    assert(froshGroup === "alpha");
+    assert(froshGroup === "alpha" && froshGroupIcon === 'α');
   });
 
   // it('.initFroshGroups(groups)\t\t\t|\tInitializing Frosh Groups (INVALID GROUP)', async () => {
@@ -139,7 +137,7 @@ describe('Testing Frosh Services', () => {
     assert(returnedFrosh.froshGroup === frosh.froshGroup);
   });
 
-  it('.getFroshInfo(id)\t\t\t\t\t\t|\tGetting Frosh ("NONEXISTING USER ID)', async () => {
+  it('.getFroshInfo(id)\t\t\t\t\t\t|\tGetting Frosh (INVALID USER ID)', async () => {
     await assert.rejects(FroshServices.getFroshInfo('999999'), {
       name: 'Error',
       message: 'UNABLE_TO_GET_FROSH',
@@ -166,7 +164,7 @@ describe('Testing Frosh Services', () => {
   });
 
 
-  it('.getFilteredFroshInfo(query, projection)\t\t\t|\tUpdating Frosh Information (Get All Frosh)', async () => {
+  it('.getFilteredFroshInfo(query, projection)\t\t\t|\tGetting Frosh Information', async () => {
     const query = {};
     const query2 = { isRegistered: true };
     const filter = { _id: 1 };
@@ -176,7 +174,7 @@ describe('Testing Frosh Services', () => {
   });
 
 
-  it('.getFilteredUserInfo(query, projection)\t\t\t|\tUpdating User Information', async () => {
+  it('.getFilteredUserInfo(query, projection)\t\t\t|\tGetting User Information', async () => {
     const query = {};
     const query2 = { isRegistered: true };
     const filter = { _id: 1 };
