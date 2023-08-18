@@ -73,8 +73,6 @@ const ScuntTeamServices = {
     return (teamPosition / teams.length) * totalPoints;
   },
 
-  async bribeTransaction(teamNumber, points, user) {
-    
   /**
    * @description Adds bribe points to a team
    * @param {Number} teamNumber
@@ -122,7 +120,9 @@ const ScuntTeamServices = {
         $push: {
           transactions: [
             {
-              name: `${curvedPoints.toString()} points bribe from ${user.firstName} ${user.lastName}`,
+              name: `${curvedPoints.toString()} points bribe from ${user.firstName} ${
+                user.lastName
+              }`,
               points: curvedPoints,
             },
           ],
