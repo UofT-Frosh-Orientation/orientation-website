@@ -1,4 +1,4 @@
-name: beta_deployment
+name: Beta Deployment
 
 on:
   workflow_dispatch:
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.5.3
 
       - name: Build server image
         run: cd server && docker build -t orientation-server:beta -f beta.Dockerfile .
@@ -49,7 +49,7 @@ jobs:
       - build_server
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.5.3
 
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v1.3
