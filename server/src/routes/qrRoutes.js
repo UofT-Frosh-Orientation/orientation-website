@@ -35,8 +35,17 @@ const router = express.Router();
 router.put(
   '/scan',
   checkLoggedIn,
-  hasAuthScopes(['signInFrosh:qr-code registration']),
+  hasAuthScopes(['scanner:registration']),
   QRController.getScannedUser,
 );
+
+router.put(
+  '/sign-in',
+  checkLoggedIn,
+  hasAuthScopes(['scanner:registration']),
+  QRController.signInFrosh,
+);
+
+router.put('/prekit', checkLoggedIn, hasAuthScopes(['scanner:kits']), QRController.preKitPickUp);
 
 module.exports = router;

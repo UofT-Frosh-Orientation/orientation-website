@@ -138,7 +138,7 @@ const UserServices = {
 
   async validateEmailConfirmationToken(token) {
     return new Promise((resolve, reject) => {
-      jwt.verify(token, process.env.JWT_RESET_TOKEN, (err, decoded) => {
+      jwt.verify(token, process.env.JWT_EMAIL_CONFIRMATION_TOKEN, (err, decoded) => {
         if (err) {
           reject(err);
         } else {

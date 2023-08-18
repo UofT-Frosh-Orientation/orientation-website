@@ -3,7 +3,7 @@ const express = require('express');
 const FroshController = require('../controllers/FroshController');
 const checkLoggedIn = require('../middlewares/checkLoggedIn');
 const checkUserType = require('../middlewares/checkUserType');
-
+const hasAuthScopes = require('../middlewares/hasAuthScopes');
 const multer = require('multer');
 
 const storage = multer.memoryStorage();
@@ -64,6 +64,15 @@ router.get(
   checkLoggedIn,
   checkUserType('leadur'),
   FroshController.getFilteredFroshInfo,
+);
+
+router.post('/search', checkLoggedIn, checkUserType('leadur'), FroshController.searchFrosh);
+
+router.post(
+  '/redistribute',
+  checkLoggedIn,
+  hasAuthScopes(['admin:all']),
+  FroshController.reassignFrosh,
 );
 
 module.exports = router;

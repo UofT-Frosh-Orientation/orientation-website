@@ -97,7 +97,7 @@ export const fields = {
     pronouns: {
       type: 'dropdown',
       label: 'What are your pronouns?',
-      values: ['he/him', 'they/them', 'she/her', 'Other', 'Prefer Not to Say'],
+      values: ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'],
       isRequiredInput: true,
       initialSelectedIndex: 4,
       noEdit: true,

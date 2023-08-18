@@ -13,8 +13,10 @@ import { AskQuestionButton } from './components/button/AskQuestionButton/AskQues
 import { DarkModeProvider } from './util/DarkModeProvider';
 import { SnackbarProvider } from './util/SnackbarProvider';
 
+ 
 import { getScuntSettings } from './state/scuntSettings/saga';
 import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
+ 
 
 export default function App() {
   const dispatch = useDispatch();

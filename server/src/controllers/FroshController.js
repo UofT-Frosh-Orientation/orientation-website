@@ -130,6 +130,62 @@ const FroshController = {
       next(e);
     }
   },
+
+  async searchFrosh(req, res, next) {
+    const { searchTerm, fields } = req.body;
+    try {
+      if (!req.user?.froshDataFields?.approved?.length) {
+        return next(new Error('UNAUTHORIZED'));
+      }
+
+      const allowedData = fields.reduce(
+        (prev, curr) => {
+          if (req.user?.froshDataFields?.approved?.includes(curr)) prev[curr] = 1;
+          return prev;
+        },
+        { _id: 1 },
+      );
+
+      const query = {
+        $or: Object.keys(allowedData).reduce((list, key) => {
+          if (key !== '_id') list.push({ [key]: searchTerm });
+          return list;
+        }, []),
+      };
+      const frosh = await FroshServices.getFilteredFroshInfo(query, allowedData);
+
+      return res.status(200).send({ frosh });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async reassignFrosh(req, res, next) {
+    try {
+      if (!req.user?.froshDataFields?.approved?.length) return next(new Error('UNAUTHORIZED'));
+
+      const filter = req.user?.froshDataFields?.approved.reduce(
+        (prev, curr) => {
+          prev[curr] = 1;
+          return prev;
+        },
+        { _id: 1 },
+      );
+      const query = { isRegistered: true };
+      const frosh = await FroshServices.getFilteredFroshInfo(query, filter);
+
+      const reassignedFrosh = await FroshServices.mapFroshUsers(frosh);
+
+      return res.status(200).send({ reassignedFrosh });
+    } catch (e) {
+      req.log.fatal({
+        msg: 'Unable to reassign requested frosh users',
+        e,
+        user: req.user.getResponseObject(),
+      });
+      next(e);
+    }
+  },
 };
 
 module.exports = FroshController;

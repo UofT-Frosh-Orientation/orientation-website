@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getQRCodeString } from './functions';
 import './Profile.scss';
 import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
 import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
@@ -224,8 +223,14 @@ const ProfilePageFroshHeader = ({ editButton }) => {
     <>
       <div className="profile-page-header">
         <div className="profile-page-header-group">
-          <h1>{user?.froshGroupIcon}</h1>
-          <p>{user?.froshGroup}</p>
+          {isRegistered ? (
+            <>
+              <h1>{user?.froshGroupIcon}</h1>
+              <p>{user?.froshGroup}</p>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-info">
@@ -424,7 +429,7 @@ const ProfilePageQRCode = () => {
   const { user } = useSelector(userSelector);
 
   useEffect(() => {
-    setQRCodeString(getQRCodeString(user));
+    setQRCodeString(user?.id);
   }, []);
 
   if (!isRegistered) {

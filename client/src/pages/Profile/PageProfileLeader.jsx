@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import './Profile.scss';
 import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
 import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
@@ -53,7 +52,7 @@ const PageProfileLeader = () => {
 
   useEffect(() => {
     getScuntTeams();
-  }, []);
+  }, []); 
 
   return (
     <>
@@ -69,7 +68,7 @@ const PageProfileLeader = () => {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {qrCodeLeader === true ? (
             <>
-              <ProfilePageQRScanner />
+              <ProfilePageQRScanner scopes={user?.authScopes?.approved} />
             </>
           ) : (
             <></>

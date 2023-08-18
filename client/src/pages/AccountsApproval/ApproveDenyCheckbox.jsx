@@ -1,10 +1,6 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { React, useEffect } from 'react';
 import './ApproveDenyCheckbox.scss';
 
-import GrayCross from '../../assets/misc/xmark-solid-gray.svg';
-import WhiteCross from '../../assets/misc/xmark-solid-white.svg';
 import GrayCheck from '../../assets/misc/check-solid-gray.svg';
 import WhiteCheck from '../../assets/misc/check-solid-white.svg';
 
@@ -15,7 +11,6 @@ const ApproveDenyCheckbox = ({
   setApprove,
   setDeny,
   pointerEvents,
-  changesMade,
   setChangesMade,
 }) => {
   return (
@@ -43,23 +38,6 @@ const ApproveDenyCheckbox = ({
           alt="approval check"
         />
       </div>
-
-      {/* deny checkbox */}
-      {/* <div
-        onClick={() => {
-          setChangesMade(true);
-          if (approve === true) {
-            setApprove(false);
-            setDeny(true);
-          } else {
-            setDeny(!deny);
-          }
-        }}
-        className={`approve-deny-checkbox ${deny ? 'approve-red-cross' : 'approve-gray-checkbox'}`}
-        style={pointerEvents}
-      >
-        <img className="deny-icon" src={`${deny ? WhiteCross : GrayCross}`} alt="deny cross" />
-      </div> */}
     </div>
   );
 };
@@ -71,7 +49,6 @@ ApproveDenyCheckbox.propTypes = {
   setApprove: PropTypes.func,
   setDeny: PropTypes.func,
   pointerEvents: PropTypes.object,
-  changesMade: PropTypes.bool,
   setChangesMade: PropTypes.func,
 };
 
