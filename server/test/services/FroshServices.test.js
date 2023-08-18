@@ -1,74 +1,70 @@
 /* eslint-disable no-undef */
 const FroshServices = require('../../src/services/FroshServices');
 const UserModel = require('../../src/models/UserModel');
-const FroshModel = require('../../src/models/FroshModel');
 const FroshGroupModel = require('../../src/models/FroshGroupModel');
 const assert = require('assert');
 
 describe('Testing Frosh Services', () => {
   it('.getNewFroshGroup(discipline, pronouns, froshGroupList)\t|\tGetting a new Frosh Group (PREMADE LIST)', async () => {
-    const discipline = "Electrical & Computer";
-    const pronouns = "she/her";
+    const discipline = 'Electrical & Computer';
+    const pronouns = 'she/her';
     const alphaGroup = await FroshGroupModel.create({ name: 'alpha', icon: 'α' });
     const betaGroup = await FroshGroupModel.create({ name: 'beta', icon: 'β' });
-    const froshGroupList = [ alphaGroup, betaGroup ]
+    const froshGroupList = [alphaGroup, betaGroup];
     const { froshGroup, froshGroupIcon } = await FroshServices.getNewFroshGroup(
       discipline,
       pronouns,
-      froshGroupList
+      froshGroupList,
     );
-    assert(froshGroup === "alpha" && froshGroupIcon === 'α');
+    assert(froshGroup === 'alpha' && froshGroupIcon === 'α');
+  });
+
+  it('.getNewFroshGroup(discipline, pronouns, froshGroupList)\t|\tGetting a new Frosh Group (PREMADE LIST)', async () => {
+    const discipline = 'Electrical & Computer';
+    const pronouns = 'she/her';
+    const [group1, group2] = await FroshGroupModel.find({});
+
+    group1['Electrical & Computer'] = 100;
+    await group1.save();
+    await FroshServices.getNewFroshGroup(discipline, pronouns);
+
+    group1['Electrical & Computer'] = 0;
+    await group1.save();
   });
 
   it('.getNewFroshGroup(discipline, pronouns, froshGroupList)\t|\tGetting a new Frosh Group (Using .find() FroshGroupModel)', async () => {
-    const discipline = "Electrical & Computer";
-    const pronouns = "she/her";
+    const discipline = 'Electrical & Computer';
+    const pronouns = 'she/her';
     const { froshGroup, froshGroupIcon } = await FroshServices.getNewFroshGroup(
       discipline,
       pronouns,
     );
-    assert(froshGroup === "alpha" && froshGroupIcon === 'α');
+    assert(froshGroup === 'alpha' && froshGroupIcon === 'α');
   });
-
-  // it('.initFroshGroups(groups)\t\t\t|\tInitializing Frosh Groups (INVALID GROUP)', async () => {
-  //   const groups = [
-  //     {
-  //       name: ''
-  //     },
-  //   ]
-  //   const froshGroupList = await FroshServices.initFroshGroups(
-  //     groups
-  //   );
-  //    await assert.rejects(FroshServices.initFroshGroups(groups), {
-  //      name: 'Error',
-  //      message: 'UNABLE_TO_INIT_FROSH_GROUP',
-  //    })
-  // });
 
   it('.initFroshGroups(groups)\t\t\t\t\t|\tInitializing Frosh Groups', async () => {
     const groups = [
       {
         name: 'alpha',
-        icon: 'α'
+        icon: 'α',
       },
       {
         name: 'beta',
-        icon: 'α'
+        icon: 'α',
       },
       {
         name: 'gamma',
-        icon: 'γ'
+        icon: 'γ',
       },
       {
         name: 'delta',
-        icon: 'δ'
+        icon: 'δ',
       },
       {
         name: 'epsilon',
-        icon: 'ε'
-      }
-
-    ]
+        icon: 'ε',
+      },
+    ];
     const froshGroupList = await FroshServices.initFroshGroups(groups);
     assert(froshGroupList[1].name === 'beta');
   });
@@ -89,7 +85,7 @@ describe('Testing Frosh Services', () => {
       email: 'froshtest2@test.com',
       hashedPassword: 'test2',
     });
-    const user3 = await UserModel.create({
+    await UserModel.create({
       firstName: 'Test3',
       lastName: 'User3',
       email: 'froshtest3@test.com',
@@ -112,25 +108,24 @@ describe('Testing Frosh Services', () => {
       photograph: true,
       froshGroup: 'alpha',
       froshGroupIcon: 'α',
-    }
+    };
     frosh = await FroshServices.upgradeToFrosh(user, newInfo, paymentIntent);
-    const frosh2 = await FroshServices.upgradeToFrosh(user2, newInfo, paymentIntent);
+    await FroshServices.upgradeToFrosh(user2, newInfo, paymentIntent);
     assert(frosh.froshGroup === 'alpha');
   });
 
   it('.addRetreatPayment(user, paymentIntent)\t\t\t|\tAdding Retreat Payment to Frosh (INVALID USER)', async () => {
-    const fakeUser = { id: '999999' }
+    const fakeUser = { id: '999999' };
     await assert.rejects(FroshServices.addRetreatPayment(fakeUser, paymentIntent), {
       name: 'Error',
       message: 'UNABLE_TO_ADD_PAYMENT',
-    })
+    });
   });
 
   it('.addRetreatPayment(user, paymentIntent)\t\t\t|\tAdding Retreat Payment to Frosh', async () => {
     const returnedFrosh = await FroshServices.addRetreatPayment(frosh, paymentIntent);
     assert(returnedFrosh.froshGroup === frosh.froshGroup);
   });
-
 
   it('.getFroshInfo(id)\t\t\t\t\t\t|\tGetting Frosh', async () => {
     const returnedFrosh = await FroshServices.getFroshInfo(frosh.id);
@@ -141,7 +136,7 @@ describe('Testing Frosh Services', () => {
     await assert.rejects(FroshServices.getFroshInfo('999999'), {
       name: 'Error',
       message: 'UNABLE_TO_GET_FROSH',
-    })
+    });
   });
 
   let updateInfo;
@@ -150,19 +145,18 @@ describe('Testing Frosh Services', () => {
       firstName: 'TestButUpdated',
       lastName: 'UserButUpdated',
       phoneNumber: '999-999-9999',
-      isRegistered: true
+      isRegistered: true,
     };
     frosh = await FroshServices.updateFroshInfo(frosh.id, updateInfo);
-    assert(frosh.firstName === "TestButUpdated");
+    assert(frosh.firstName === 'TestButUpdated');
   });
 
   it('.updateFroshInfo(userId, updateInfo)\t\t\t|\tUpdating Frosh Information (INVALID USER ID)', async () => {
     await assert.rejects(FroshServices.updateFroshInfo('999999', updateInfo), {
       name: 'Error',
       message: 'UNABLE_TO_UPDATE_FROSH',
-    })
+    });
   });
-
 
   it('.getFilteredFroshInfo(query, projection)\t\t\t|\tGetting Frosh Information', async () => {
     const query = {};
@@ -173,7 +167,6 @@ describe('Testing Frosh Services', () => {
     assert(filteredFrosh.length > 0 && filteredFrosh2.length > 0);
   });
 
-
   it('.getFilteredUserInfo(query, projection)\t\t\t|\tGetting User Information', async () => {
     const query = {};
     const query2 = { isRegistered: true };
@@ -182,5 +175,4 @@ describe('Testing Frosh Services', () => {
     const filteredUsers2 = await FroshServices.getFilteredUserInfo(query2, filter);
     assert(filteredUsers.length > 0 && filteredUsers2.length > 0);
   });
-  
 });
