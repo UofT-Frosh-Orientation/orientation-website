@@ -8,6 +8,7 @@
     "lint": "eslint src",
     "test": "nyc --reporter=lcov --reporter=text mocha --recursive --exit",
     "test:actions": "nyc --reporter=text-summary mocha --recursive --exit",
+    "testing": "set JWT_RESET_TOKEN=123 && nodemon -x nyc --reporter=lcov --reporter=text mocha --recursive --exit",
     "start:dev": "set NODE_ENV=development && nodemon -L src/server.js",
     "start": "set NODE_ENV=production && node src/server.js"
   },
