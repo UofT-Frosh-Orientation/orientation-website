@@ -1,5 +1,6 @@
 const ScuntMissionServices = require('../../src/services/ScuntMissionServices');
 const LeadurModel = require('../../src/models/LeadurModel');
+const ScuntGameSettingModel = require('../../src/models/ScuntGameSettingsModel');
 const ScuntGameSettingsServices = require('../../src/services/ScuntGameSettingsServices');
 const assert = require('assert');
 
@@ -36,6 +37,7 @@ describe('Testing Scunt Mission Services', () => {
   });
 
   it('.getAllScuntMissions(showHidden, user)\t\t\t\t\t\t\t\t|\tGetting Scunt Missions (NO SETTINGS)', async () => {
+    ScuntGameSettingModel.collection.drop();
     leadur = await LeadurModel.create({
       lastName: 'aaa',
       firstName: 'aaa',

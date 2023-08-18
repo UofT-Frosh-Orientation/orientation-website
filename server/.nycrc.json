@@ -1,0 +1,13 @@
+{
+    "all": false,
+    "include": [
+        "src/models/*.js",
+        "src/services/*.js",
+        "src/routes/*.js"
+    ],
+    "check-coverage": true,
+    "branches": 80,
+    "lines": 80,
+    "functions": 75,
+    "statements": 80
+}
