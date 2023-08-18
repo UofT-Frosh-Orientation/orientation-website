@@ -1,6 +1,4 @@
 import { data } from '../../assets/schedule/data';
-import useAxios from '../../hooks/useAxios';
-const { axios } = useAxios();
 
 // function checks if email is valid and sends a reset password email
 export async function resetPassword(email) {
@@ -69,60 +67,6 @@ export function getFroshGroupSchedule(froshGroup) {
   // } else {
   //   return data;
   // }
-}
-
-export function scannedUserKeys() {
-  return ['email', 'pronouns', 'discipline', 'froshGroup', 'photograph', 'shirtSize'];
-}
-
-export function parseQRCode(qrString) {
-  console.log('qrString', qrString);
-  try {
-    return { id: qrString };
-  } catch (error) {
-    console.error('error parsing QR code', error);
-  }
-}
-
-export function getQRCodeString(user) {
-  try {
-    return user?.id;
-  } catch (error) {
-    console.error('error getting QR code string', error);
-  }
-}
-
-//Return true if successful
-//Return an error string if not
-export async function signInFrosh(userID) {
-  try {
-    const date = new Date();
-    const result = await axios.put('/qr/scan', {
-      userID: userID,
-      date: date.toISOString(),
-      tzOffset: date.getTimezoneOffset(),
-    });
-
-    return result;
-  } catch (error) {
-    console.error('error signing frosh', error);
-    return error;
-  }
-}
-
-export async function searchForFrosh(userID) {
-  try {
-    const response = await axios.get('/qr/search', {
-      params: {
-        search: userID,
-      },
-    });
-
-    return response.data.QrInfo;
-  } catch (error) {
-    console.error('error searching for frosh', error);
-    return error;
-  }
 }
 
 export function capitalizeFirstLetter(string) {
