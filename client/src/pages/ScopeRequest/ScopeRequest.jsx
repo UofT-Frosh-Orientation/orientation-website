@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useContext } from 'react';
 import './ScopeRequest.scss';
 import { getTotalRegistrationScopes, getTotalScopes } from './functions';
-import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import { Button } from '../../components/button/Button/Button';
-import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestAuthScopes } from '../../state/user/saga';
@@ -20,7 +17,6 @@ export const PageScopeRequest = () => {
   const [selectAllRegistrationScopes, setSelectAllRegistrationScopes] = useState(false);
   const [selectAllGeneralScopes, setSelectAllGeneralScopes] = useState(false);
   const [requestScopes, setRequestedScopes] = useState({ authScopes: {}, froshDataFields: {} });
-  // const [requestRegistrationScopes, setRequestedRegistrationScopes] = useState({});
   const { setSnackbar } = useContext(SnackbarContext);
   const totalScopes = getTotalScopes();
   const totalRegistrationScopes = getTotalRegistrationScopes();
