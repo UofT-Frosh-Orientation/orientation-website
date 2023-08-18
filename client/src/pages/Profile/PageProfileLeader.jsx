@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import './Profile.scss';
 import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
 import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
@@ -29,7 +28,9 @@ const { axios } = useAxios();
 
 const PageProfileLeader = () => {
   const { user } = useSelector(userSelector);
-  const qrCodeLeader = user?.authScopes?.approved.includes('signInFrosh:qr-code registration');
+  const qrCodeLeader =
+    user?.authScopes?.approved.includes('scanner:registration') ||
+    user?.authScopes?.approved.includes('scanner:kits');
   // const [scuntTeams, setScuntTeams] = useState([]);
   // const [scuntTeamObjs, setScuntTeamObjs] = useState();
 
@@ -70,7 +71,7 @@ const PageProfileLeader = () => {
           {/* <ProfilePageQRCode /> */}
           {qrCodeLeader === true ? (
             <>
-              <ProfilePageQRScanner />
+              <ProfilePageQRScanner scopes={user?.authScopes?.approved} />
             </>
           ) : (
             <></>
