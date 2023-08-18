@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getQRCodeString } from './functions';
 import './Profile.scss';
 import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
 import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
@@ -430,7 +429,7 @@ const ProfilePageQRCode = () => {
   const { user } = useSelector(userSelector);
 
   useEffect(() => {
-    setQRCodeString(getQRCodeString(user));
+    setQRCodeString(user?.id);
   }, []);
 
   if (!isRegistered) {
