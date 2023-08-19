@@ -13,14 +13,16 @@ import { AskQuestionButton } from './components/button/AskQuestionButton/AskQues
 import { DarkModeProvider } from './util/DarkModeProvider';
 import { SnackbarProvider } from './util/SnackbarProvider';
 
-// import { getScuntSettings } from './state/scuntSettings/saga';
-// import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
+ 
+import { getScuntSettings } from './state/scuntSettings/saga';
+import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
+ 
 
 export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserInfo());
-    // dispatch(getScuntSettings());
+    dispatch(getScuntSettings());
   }, []);
 
   return (
@@ -39,7 +41,7 @@ const TransitionRoutes = () => {
   const loggedIn = useSelector(loggedInSelector);
   const registered = useSelector(registeredSelector);
   const initials = useSelector(initialsSelector);
-  // const scuntSettings = useSelector(scuntSettingsSelector);
+  const scuntSettings = useSelector(scuntSettingsSelector);
 
   return (
     <TransitionGroup>
@@ -47,7 +49,13 @@ const TransitionRoutes = () => {
       <ScrollToTop />
       <CSSTransition key={location.key} classNames="page" timeout={300}>
         <Routes location={location}>
-          {[...pages.main, ...pages.hidden, ...pages.special].map((page) => {
+          {[
+            ...pages.main,
+            ...pages.hidden,
+            ...pages.special,
+            ...pages.scunt,
+            ...pages.scuntHidden,
+          ].map((page) => {
             return (
               <Route
                 path={page.path}

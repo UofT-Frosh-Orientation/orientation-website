@@ -15,7 +15,7 @@ const TextInput = ({
   isRequiredInput,
   errorFeedback,
   onChange,
-  onEnterKey,
+  onKeyDown,
   localStorageKey,
   isDisabled,
   inputArgs,
@@ -78,12 +78,6 @@ const TextInput = ({
   }, [cancelEdit]);
 
   const [type, setType] = useState(inputType ? inputType : 'text');
-
-  // const onKeyPress = (target) => {
-  //   if (target.charCode === 13) {
-  //     if (onEnterKey) onEnterKey(value);
-  //   }
-  // };
 
   const onInputChange = (event) => {
     let value = event.target.value;
@@ -157,7 +151,7 @@ const TextInput = ({
             }
             required={isRequiredInput}
             disabled={isDisabled}
-            // onKeyPress={onKeyPress}
+            onKeyDown={onKeyDown}
             value={value ?? ''}
             placeholder={placeholder}
             type={type}
@@ -177,7 +171,7 @@ const TextInput = ({
             }
             required={isRequiredInput}
             disabled={isDisabled}
-            // onKeyPress={onKeyPress}
+            onKeyDown={onKeyDown}
             value={value ?? ''}
             placeholder={placeholder}
             type={type}
@@ -226,7 +220,7 @@ TextInput.propTypes = {
   isRequiredInput: PropTypes.bool,
   errorFeedback: PropTypes.string,
   onChange: PropTypes.func,
-  onEnterKey: PropTypes.func,
+  onKeyDown: PropTypes.func,
   localStorageKey: PropTypes.string,
   isDisabled: PropTypes.bool,
   inputArgs: PropTypes.object,

@@ -4,8 +4,8 @@ import './FroshInfoTable.scss';
 import { Button } from '../../components/button/Button/Button';
 // import exportFromJSON from 'export-from-json';
 import { useDispatch, useSelector } from 'react-redux';
-import { froshSelector } from '../../state/frosh/froshSlice';
-import { getFrosh } from '../../state/frosh/saga';
+import { froshListSelector } from '../../state/frosh/froshSlice';
+import { getFroshList } from '../../state/frosh/saga';
 import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { userSelector } from '../../state/user/userSlice';
@@ -22,7 +22,7 @@ import {
 
 const PageFroshInfoTable = () => {
   const noEditFields = getUneditableFields();
-  const { frosh } = useSelector(froshSelector);
+  const { froshList } = useSelector(froshListSelector);
   const [objectKeys, setObjectKeys] = useState([]);
   const [showAllUsers, setShowAllUsers] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -67,14 +67,14 @@ const PageFroshInfoTable = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getFrosh({ showAllUsers }));
+    dispatch(getFroshList({ showAllUsers }));
   }, [showAllUsers, editMade]);
 
   useEffect(() => {
-    if (frosh?.length > 0) {
-      setObjectKeys(Object.keys(Object.assign({}, ...frosh)));
+    if (froshList?.length > 0) {
+      setObjectKeys(Object.keys(Object.assign({}, ...froshList)));
     }
-  }, [frosh]);
+  }, [froshList]);
 
   useEffect(() => {
     if (user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') === false)
@@ -82,7 +82,7 @@ const PageFroshInfoTable = () => {
   }, []);
 
   const dataToDisplay = useMemo(() => {
-    let froshData = [...frosh];
+    let froshData = [...froshList];
     if (sorting.length !== 0) {
       froshData.sort((a, b) => {
         if (a[sorting[0].id] === undefined) {
@@ -113,7 +113,7 @@ const PageFroshInfoTable = () => {
       froshData = output;
     }
     return froshData;
-  }, [sorting, showAllUsers, searchTerm, frosh]);
+  }, [sorting, showAllUsers, searchTerm, froshList]);
 
   const {
     getHeaderGroups,
@@ -265,7 +265,7 @@ const PageFroshInfoTable = () => {
         )}
       </p>
       <div className="table-wrap">
-        {frosh?.length === 0 ? (
+        {froshList?.length === 0 ? (
           <div style={{ margin: '5%', textAlign: 'center' }}>
             <h2>It looks a bit empty here...</h2>
             <h2>Please read notes listed above and ensure you have the correct permissions.</h2>
@@ -274,7 +274,7 @@ const PageFroshInfoTable = () => {
         ) : (
           <></>
         )}
-        {frosh?.length >= 0 ? (
+        {froshList?.length >= 0 ? (
           <table>
             <thead>
               {getHeaderGroups().map((headerGroup) => (

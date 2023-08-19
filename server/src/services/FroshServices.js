@@ -129,8 +129,10 @@ const FroshServices = {
         updateInfo,
         { returnDocument: 'after' },
         (err, Frosh) => {
-          if (err || !Frosh) {
-            reject('UNABLE_TO_UPDATE_FROSH');
+          if (err) {
+            reject(new Error('UNABLE_TO_UPDATE_FROSH', { cause: err }));
+          } else if (!Frosh) {
+            reject(new Error('FROSH_NOT_FOUND'));
           } else {
             resolve(Frosh);
           }
@@ -142,14 +144,14 @@ const FroshServices = {
   async getFilteredFroshInfo(query, projection) {
     return new Promise((resolve, reject) => {
       FroshModel.find(
-        query,
-        { ...projection, isRegistered: 1 },
+        { ...query, isRegistered: true },
+        projection,
         { strictQuery: false },
         (err, frosh) => {
           if (err) {
             reject(err);
           } else if (!frosh) {
-            reject('INTERNAL_ERROR');
+            reject('FROSH_NOT_FOUND');
           } else {
             resolve(frosh);
           }
@@ -161,8 +163,8 @@ const FroshServices = {
   async getFilteredUserInfo(query, projection) {
     return new Promise((resolve, reject) => {
       UserModel.find(
-        query,
-        { ...projection, isRegistered: 1 },
+        { ...query, isRegistered: true },
+        projection,
         { strictQuery: false },
         (err, frosh) => {
           if (err) {

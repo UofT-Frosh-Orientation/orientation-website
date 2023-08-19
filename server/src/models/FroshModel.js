@@ -183,6 +183,11 @@ const FroshSchema = new mongoose.Schema(
       type: Date,
       required: false,
     },
+    preKit: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   { discriminatorKey: 'userType' },
 );
