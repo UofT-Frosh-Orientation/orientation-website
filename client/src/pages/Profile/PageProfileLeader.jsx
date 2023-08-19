@@ -12,6 +12,7 @@ import { userSelector } from '../../state/user/userSlice';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntDiscord } from '../../util/scunt-constants';
+import PropTypes from 'prop-types';
 import {
   getScuntTeamObjFromTeamName,
   getScuntTeamObjFromTeamNumber,
@@ -28,7 +29,9 @@ const { axios } = useAxios();
 
 const PageProfileLeader = () => {
   const { user } = useSelector(userSelector);
-  const qrCodeLeader = user?.authScopes?.approved.includes('signInFrosh:qr-code registration');
+  const qrCodeLeader =
+    user?.authScopes?.approved.includes('scanner:registration') ||
+    user?.authScopes?.approved.includes('scanner:kits');
   const [scuntTeams, setScuntTeams] = useState([]);
   const [scuntTeamObjs, setScuntTeamObjs] = useState();
 
@@ -52,7 +55,7 @@ const PageProfileLeader = () => {
 
   useEffect(() => {
     getScuntTeams();
-  }, []); 
+  }, []);
 
   return (
     <>
