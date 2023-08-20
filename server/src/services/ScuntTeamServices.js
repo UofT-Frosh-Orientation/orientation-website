@@ -341,7 +341,7 @@ const ScuntTeamServices = {
     // get the number of teams from the scunt game settings
     const numTeams = await ScuntGameSettingsModel.findOne({}).then(
       (settings) => {
-        if (!settings) throw new Error('INVALID_SETTINGS');
+        if (!settings) throw new Error('NO_SCUNT_SETTINGS');
         if (!settings.amountOfTeams) throw new Error('MISSING_SCUNT_SETTINGS');
         return settings.amountOfTeams;
       },
@@ -371,10 +371,10 @@ const ScuntTeamServices = {
     // upsert the teams
     await ScuntTeamModel.collection.bulkWrite(teams).then(
       (result) => {
-        if (result.modifiedCount !== numTeams) throw new Error('UNABLE_TO_UPDATE_TEAMS');
+        if (result.upsertedCount !== numTeams) throw new Error('TEAM_COUNT_MISMATCH');
       },
       (error) => {
-        throw new Error('UNABLE_TO_UPDATE_TEAMS', { cause: error });
+        throw new Error('UNABLE_TO_CREATE_TEAMS', { cause: error });
       },
     );
 
@@ -492,11 +492,11 @@ const ScuntTeamServices = {
   async deleteTransaction(teamNumber, id) {
     return ScuntTeamModel.findOneAndUpdate(
       { number: teamNumber },
-      { $pull: { transactions: { _id: { $in: [mongoose.Types.ObjectId(id)] } } } },
+      { $pull: { transactions: { _id: { $in: [new mongoose.Types.ObjectId(id)] } } } },
       { returnDocument: 'after' },
     ).then(
       (team) => {
-        if (!team) throw new Error('INVALID_TEAM_NUMBER');
+        if (!team) throw new Error('TEAM_NOT_FOUND');
         return team;
       },
       (error) => {
