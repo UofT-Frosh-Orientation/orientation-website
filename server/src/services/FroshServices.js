@@ -144,8 +144,8 @@ const FroshServices = {
   async getFilteredFroshInfo(query, projection) {
     return new Promise((resolve, reject) => {
       FroshModel.find(
-        { ...query, isRegistered: true },
-        projection,
+        query,
+        { ...projection, isRegistered: 1 },
         { strictQuery: false },
         (err, frosh) => {
           if (err) {
@@ -163,8 +163,8 @@ const FroshServices = {
   async getFilteredUserInfo(query, projection) {
     return new Promise((resolve, reject) => {
       UserModel.find(
-        { ...query, isRegistered: true },
-        projection,
+        query,
+        { ...projection, isRegistered: 1 },
         { strictQuery: false },
         (err, frosh) => {
           if (err) {
