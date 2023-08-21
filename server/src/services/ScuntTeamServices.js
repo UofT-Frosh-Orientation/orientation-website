@@ -87,17 +87,15 @@ const ScuntTeamServices = {
     if (!user.scuntJudgeBribePoints || curvedPoints > user.scuntJudgeBribePoints)
       throw new Error('NOT_ENOUGH_BRIBE_POINTS');
 
-    const settings = await ScuntGameSettingsModel.findOne({}).then(
+    await ScuntGameSettingsModel.findOne({}).then(
       (settings) => {
         if (!settings) throw new Error('INVALID_SETTINGS');
-        return settings;
+        if (!settings.allowJudging) throw new Error('NOT_ALLOWED_TO_JUDGE');
       },
       (error) => {
         throw new Error('UNABLE_TO_GET_SCUNT_SETTINGS', { cause: error });
       },
     );
-
-    if (!settings.allowJudging) throw new Error('NOT_ALLOWED_TO_JUDGE');
 
     const leadur = await LeadurModel.findByIdAndUpdate(
       user.id,
@@ -105,15 +103,15 @@ const ScuntTeamServices = {
       { upsert: false, returnDocument: 'after' },
     ).then(
       (leadur) => {
-        if (!leadur) throw new Error('INVALID_LEADUR_ID');
+        if (!leadur) throw new Error('LEADUR_NOT_FOUND');
+        if (leadur.scuntJudgeBribePoints !== user.scuntJudgeBribePoints - curvedPoints)
+          throw new Error('UNABLE_TO_UPDATE_LEADUR');
         return leadur;
       },
       (error) => {
         throw new Error('UNABLE_TO_UPDATE_LEADUR', { cause: error });
       },
     );
-    if (leadur.scuntJudgeBribePoints !== user.scuntJudgeBribePoints - curvedPoints)
-      throw new Error('UNABLE_TO_UPDATE_LEADUR');
 
     return ScuntTeamModel.findOneAndUpdate(
       { number: teamNumber },
@@ -122,9 +120,7 @@ const ScuntTeamServices = {
         $push: {
           transactions: [
             {
-              name: `${curvedPoints.toString()} points bribe from ${user.firstName} ${
-                user.lastName
-              }`,
+              name: `${points.toString()} points bribe from ${user.firstName} ${user.lastName}`,
               points: curvedPoints,
             },
           ],
@@ -133,11 +129,17 @@ const ScuntTeamServices = {
       { upsert: false, returnDocument: 'after' },
     ).then(
       (team) => {
-        if (!team) throw new Error('INVALID_TEAM_NUMBER');
+        if (!team) {
+          leadur.scuntJudgeBribePoints += curvedPoints;
+          leadur.save();
+          throw new Error('INVALID_TEAM_NUMBER');
+        }
         LeaderboardSubscription.add({ team: team.number, score: team.points });
         return { team, leadur };
       },
       (error) => {
+        leadur.scuntJudgeBribePoints += curvedPoints;
+        leadur.save();
         throw new Error('UNABLE_TO_UPDATE_TEAM', { cause: error });
       },
     );
