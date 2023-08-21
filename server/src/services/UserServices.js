@@ -16,6 +16,15 @@ function createScuntToken() {
   return result;
 }
 
+/**
+ * @description Creates an email confirmation token for a user
+ * @param {string} email
+ * @returns {Token}
+ */
+function generateEmailConfirmationToken(email) {
+  return jwt.sign(email, process.env.JWT_EMAIL_CONFIRMATION_TOKEN);
+}
+
 const UserServices = {
   /**
    * Validates the fields for a user.
@@ -65,7 +74,8 @@ const UserServices = {
       scuntToken,
     }).then(
       (newUser) => {
-        emailConfirmationSubscription.add(newUser);
+        const token = generateEmailConfirmationToken(newUser.email);
+        emailConfirmationSubscription.add(token);
         return newUser;
       },
       (error) => {
@@ -80,28 +90,30 @@ const UserServices = {
    * @returns {Token}
    */
   async generatePasswordResetToken(email) {
-    return UserModel.findOne({ email }).then(
+    const userEmail = await UserModel.findOne({ email }).then(
       (user) => {
-        if (!user) throw new Error('INVALID_EMAIL');
-        const { email } = user;
-        return jwt.sign(
-          { email, timestamp: Date.now() },
-          process.env.JWT_RESET_TOKEN,
-          {
-            expiresIn: '7d',
-          },
-          function (err, decoded) {
-            if (err) {
-              throw new Error('UNABLE_TO_GENERATE_PASSWORD_RESET_TOKEN', { cause: err });
-            }
-            return decoded;
-          },
-        );
+        if (!user) throw new Error('USER_NOT_FOUND');
+        return email;
       },
       (error) => {
         throw new Error('UNABLE_TO_GET_USER', { cause: error });
       },
     );
+    return new Promise((resolve, reject) => {
+      jwt.sign(
+        { userEmail, timestamp: Date.now() },
+        process.env.JWT_RESET_TOKEN,
+        {
+          expiresIn: '7d',
+        },
+        function (error, decoded) {
+          if (error) {
+            reject(new Error('UNABLE_TO_GENERATE_PASSWORD_RESET_TOKEN', { cause: error }));
+          }
+          resolve(decoded);
+        },
+      );
+    });
   },
 
   checkScuntToken(existingUser) {
@@ -125,7 +137,7 @@ const UserServices = {
       { new: true, returnDocument: 'after' },
     ).then(
       (user) => {
-        if (!user) throw new Error('UNABLE_TO_FIND_USER');
+        if (!user) throw new Error('USER_NOT_FOUND');
         return user;
       },
       (error) => {
@@ -143,7 +155,7 @@ const UserServices = {
     return new Promise((resolve, reject) => {
       jwt.verify(token, process.env.JWT_RESET_TOKEN, (err, decoded) => {
         if (err) {
-          reject(err);
+          reject(new Error('UNABLE_TO_VALIDATE_PASSWORD_RESET_TOKEN', { cause: err }));
         } else {
           resolve(decoded);
         }
@@ -158,9 +170,9 @@ const UserServices = {
    */
   async validateEmailConfirmationToken(token) {
     return new Promise((resolve, reject) => {
-      jwt.verify(token, process.env.JWT_EMAIL_CONFIRMATION_TOKEN, (err, decoded) => {
-        if (err) {
-          reject(err);
+      jwt.verify(token, process.env.JWT_EMAIL_CONFIRMATION_TOKEN, (error, decoded) => {
+        if (error) {
+          reject(new Error('UNABLE_TO_VALIDATE_EMAIL_CONFIRMATION_TOKEN', { cause: error }));
         } else {
           resolve(decoded);
         }
@@ -174,15 +186,15 @@ const UserServices = {
    * @returns {User}
    */
   async getUserByEmail(email) {
-    return new Promise((resolve, reject) => {
-      UserModel.findOne({ email }, (err, user) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(user);
-        }
-      });
-    });
+    return UserModel.findOne({ email }).then(
+      (user) => {
+        if (!user) throw new Error('USER_NOT_FOUND');
+        return user;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_GET_USER', { cause: error });
+      },
+    );
   },
 
   /**
@@ -191,15 +203,15 @@ const UserServices = {
    * @returns {User}
    */
   async getUserByID(userID) {
-    return new Promise((resolve, reject) => {
-      UserModel.findOne({ _id: userID }, (err, user) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(user);
-        }
-      });
-    });
+    return UserModel.findById(userID).then(
+      (user) => {
+        if (!user) throw new Error('USER_NOT_FOUND');
+        return user;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_GET_USER', { cause: error });
+      },
+    );
   },
 
   /**
@@ -209,11 +221,11 @@ const UserServices = {
   async getAllUsers() {
     return UserModel.find({}).then(
       (users) => {
-        if (!users) throw new Error('UNABLE_TO_FIND_USERS');
+        if (!users.length) throw new Error('USERS_NOT_FOUND');
         return users;
       },
       (error) => {
-        throw new Error('UNABLE_TO_FIND_USERS', { cause: error });
+        throw new Error('UNABLE_TO_GET_USERS', { cause: error });
       },
     );
   },
@@ -237,7 +249,7 @@ const UserServices = {
       { returnDocument: 'after' },
     ).then(
       (user) => {
-        if (!user) throw new Error('UNABLE_TO_FIND_USER');
+        if (!user) throw new Error('USER_NOT_FOUND');
         return user;
       },
       (error) => {
@@ -248,18 +260,18 @@ const UserServices = {
 
   /**
    * @description Updates a user's Auth Scopes
-   * @param {User} user
+   * @param {String} userID
    * @param {String[]} scopes
    * @returns {User}
    */
-  async requestAuthScopes(user, scopes) {
+  async requestAuthScopes(userID, scopes) {
     return UserModel.findByIdAndUpdate(
-      user.id,
+      userID,
       { 'authScopes.requested': scopes },
       { returnDocument: 'after' },
     ).then(
       (updatedUser) => {
-        if (!updatedUser) throw new Error('UNABLE_TO_FIND_USER');
+        if (!updatedUser) throw new Error('USER_NOT_FOUND');
         return updatedUser;
       },
       (error) => {
@@ -280,11 +292,11 @@ const UserServices = {
       { returnDocument: 'after' },
     ).then(
       (updatedUser) => {
-        if (!updatedUser) throw new Error('UNABLE_TO_FIND_USER');
+        if (!updatedUser) throw new Error('USER_NOT_FOUND');
         return updatedUser;
       },
       (error) => {
-        throw new Error('UNABLE_TO_UPDATE_AUTH_SCOPES_FOR_USER', { cause: error });
+        throw new Error('UNABLE_TO_UNSUBSCRIBE_USER', { cause: error });
       },
     );
   },
@@ -301,7 +313,7 @@ const UserServices = {
       { returnDocument: 'after' },
     ).then(
       (updatedUser) => {
-        if (!updatedUser) throw new Error('UNABLE_TO_FIND_USER');
+        if (!updatedUser) throw new Error('USER_NOT_FOUND');
         return updatedUser;
       },
       (error) => {
@@ -321,7 +333,7 @@ const UserServices = {
       { strictQuery: false },
     ).then(
       (users) => {
-        if (!users) throw new Error('UNABLE_TO_FIND_USERS');
+        if (!users.length) throw new Error('USERS_NOT_FOUND');
         return users;
       },
       (error) => {
@@ -348,7 +360,7 @@ const UserServices = {
       { strictQuery: false },
     ).then(
       (users) => {
-        if (!users) throw new Error('UNABLE_TO_FIND_USERS');
+        if (!users.length) throw new Error('USERS_NOT_FOUND');
         return users;
       },
       (error) => {
@@ -365,17 +377,17 @@ const UserServices = {
   async approveAccountsByIds(accountIds) {
     return UserModel.collection
       .updateMany(
-        { _id: { $in: accountIds.map((id) => mongoose.Types.ObjectId(id)) } },
+        { _id: { $in: accountIds.map((id) => new mongoose.Types.ObjectId(id)) } },
         { $set: { approved: true } },
         { strictQuery: false },
       )
       .then(
-        (users) => {
-          if (!users) throw new Error('UNABLE_TO_FIND_USERS');
-          return users;
+        (results) => {
+          if (results.matchedCount !== accountIds.length) throw new Error('USERS_NOT_FOUND');
+          return results;
         },
         (error) => {
-          throw new Error('UNABLE_TO_FIND_USERS', { cause: error });
+          throw new Error('UNABLE_TO_APPROVE_USERS', { cause: error });
         },
       );
   },
@@ -420,7 +432,7 @@ const UserServices = {
           );
           return {
             updateOne: {
-              filter: { _id: { $eq: mongoose.Types.ObjectId(user.id) } },
+              filter: { _id: { $eq: new mongoose.Types.ObjectId(user.id) } },
               update: {
                 $set: {
                   'authScopes.approved': [...new Set(authScopesApproved)],
@@ -434,12 +446,12 @@ const UserServices = {
         }),
       )
       .then(
-        (users) => {
-          if (!users) throw new Error('UNABLE_TO_FIND_USERS');
-          return users;
+        (results) => {
+          if (results.modifiedCount !== userAuthScopes.length) throw new Error('USERS_NOT_FOUND');
+          return results;
         },
         (error) => {
-          throw new Error('UNABLE_TO_FIND_USERS', { cause: error });
+          throw new Error('UNABLE_TO_UPDATE_USERS', { cause: error });
         },
       );
   },
@@ -462,7 +474,7 @@ const UserServices = {
       { strictQuery: false },
     ).then(
       (users) => {
-        if (!users) throw new Error('UNABLE_TO_FIND_USERS');
+        if (!users.length) throw new Error('USERS_NOT_FOUND');
         return users;
       },
       (error) => {
@@ -478,15 +490,15 @@ const UserServices = {
    * @returns {User}
    */
   async updateUserInfo(userId, updateInfo) {
-    return UserModel.findOneAndUpdate({ _id: userId }, updateInfo, {
+    return UserModel.findByIdAndUpdate(userId, updateInfo, {
       returnDocument: 'after',
     }).then(
       (user) => {
-        if (!user) throw new Error('INVALID_USER_ID');
+        if (!user) throw new Error('USER_NOT_FOUND');
         return user;
       },
       (error) => {
-        throw new Error('UNABLE_TO_UPDATE_USER_INFO_FOR_USER', { cause: error });
+        throw new Error('UNABLE_TO_UPDATE_USER', { cause: error });
       },
     );
   },
@@ -497,9 +509,9 @@ const UserServices = {
    * @return {User} - the user which was deleted
    */
   async deleteUser(id) {
-    return UserModel.findOneAndDelete({ _id: id }).then(
+    return UserModel.findByIdAndDelete(id).then(
       (deletedUser) => {
-        if (!deletedUser) throw new Error('INVALID_USER_ID');
+        if (!deletedUser) throw new Error('USER_NOT_FOUND');
         return deletedUser;
       },
       (error) => {
