@@ -16,6 +16,7 @@ import { PageAccountsApproval } from '../pages/AccountsApproval/AccountsApproval
 import AuthorizedPage from './AuthorizedPage';
 import { PasswordReset } from '../pages/PasswordReset/PasswordReset';
 import { PageFroshInfoTable } from '../pages/FroshInfoTable/FroshInfoTable';
+import { PageFroshRedistribution } from '../pages/FroshRedistribution/FroshRedistribution';
 import { PageScopeRequest } from '../pages/ScopeRequest/ScopeRequest';
 // import { PageScuntJudgeForm } from '../pages/ScuntJudgeForm/ScuntJudgeForm';
 // import { PageScuntMissionsList } from '../pages/ScuntMissionsList/ScuntMissionsList';
@@ -238,6 +239,15 @@ export const pages = {
         </AuthorizedPage>
       ),
       path: '/frosh-info-table',
+    },
+    {
+      label: 'frosh-redistribution',
+      component: (
+        <AuthorizedPage leaderOnly>
+          <PageFroshRedistribution />
+        </AuthorizedPage>
+      ),
+      path: '/frosh-redistribution',
     },
   ],
   scunt: [

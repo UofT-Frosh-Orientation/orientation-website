@@ -9,8 +9,10 @@ const FroshServices = {
    * @param {String} pronouns -  the pronouns of the frosh
    * @return {Promise<Object>} - the name of the frosh group
    */
-  async getNewFroshGroup(discipline, pronouns) {
-    const froshGroupList = await FroshGroupModel.find();
+  async getNewFroshGroup(discipline, pronouns, froshGroupList) {
+    if (!froshGroupList) {
+      froshGroupList = await FroshGroupModel.find();
+    }
     let minNumber = 10000;
     let minScore = 10000;
     let froshGroup = '';
@@ -163,6 +165,111 @@ const FroshServices = {
         throw new Error('UNABLE_TO_GET_USER', { cause: error });
       },
     );
+  },
+
+  /* istanbul ignore next */
+  async mapFroshUsers(frosh) {
+    // Recreating froshGroupList, to not include the broken ones
+    const froshGroupList = await FroshGroupModel.find();
+    const disciplines = [
+      'Chemical',
+      'Civil',
+      'Electrical & Computer',
+      'Engineering Science',
+      'Industrial',
+      'Materials',
+      'Mechanical',
+      'Mineral',
+      'Track One (Undeclared)',
+    ];
+
+    const pronouns = ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'];
+    const teams = [];
+
+    // Initialize froshGroupList with 0s
+    for (let i = 0; i < froshGroupList.length; i++) {
+      teams.push({
+        name: froshGroupList[i].name,
+        icon: froshGroupList[i].icon,
+        totalNum: 0,
+      });
+      pronouns.forEach((pronoun) => {
+        teams[i][pronoun] = 0;
+      });
+      disciplines.forEach((discipline) => {
+        teams[i][discipline] = 0;
+        frosh.forEach((curFrosh) => {
+          if (
+            discipline === curFrosh.discipline &&
+            pronouns.includes(curFrosh.pronouns) &&
+            curFrosh.froshGroup === froshGroupList[i].name
+          ) {
+            teams[i][discipline] += 1;
+            teams[i][curFrosh.pronouns] += 1;
+            teams[i].totalNum += 1;
+          }
+        });
+      });
+    }
+
+    // redistribute frosh with bad data and update teams
+    const reassignedFrom = [];
+    frosh.forEach((curFrosh) => {
+      if (!pronouns.includes(curFrosh.pronouns)) {
+        let pronoun;
+        switch (curFrosh.pronouns) {
+          case 'He/Him':
+            pronoun = 'he/him';
+            break;
+          case 'She/Her':
+            pronoun = 'she/her';
+            break;
+          case 'They/Them':
+            pronoun = 'they/them';
+            break;
+          case 'Prefer not to say':
+            pronoun = 'Prefer Not to Say';
+            break;
+          default:
+            pronoun = curFrosh.pronouns;
+            break;
+        }
+        let minNumber = 10000;
+        let minScore = 10000;
+        let froshGroup = '';
+        let froshGroupIcon = '';
+        for (let i = 0; i < teams.length; i++) {
+          const score = 0.5 * teams[i][curFrosh.discipline] + 0.5 * teams[i][pronoun];
+          if (teams[i].totalNum < minNumber) {
+            minNumber = teams[i].totalNum;
+            froshGroup = teams[i].name;
+            froshGroupIcon = teams[i].icon;
+            minScore = score;
+          }
+          if (teams[i].totalNum === minNumber && score < minScore) {
+            froshGroup = teams[i].name;
+            froshGroupIcon = teams[i].icon;
+            minScore = score;
+          }
+        }
+
+        const i = teams.findIndex((team) => team.name === froshGroup);
+        teams[i][pronoun] += 1;
+        teams[i][curFrosh.discipline] += 1;
+        teams[i].totalNum += 1;
+        curFrosh.froshGroup = froshGroup;
+        curFrosh.froshGroupIcon = froshGroupIcon;
+        curFrosh.pronouns = pronoun;
+        reassignedFrom.push({
+          firstName: curFrosh.firstName,
+          lastName: curFrosh.lastName,
+          to: froshGroup,
+          email: curFrosh.email,
+        });
+        curFrosh.save();
+      }
+    });
+    return reassignedFrom;
   },
 };
 

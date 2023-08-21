@@ -3,7 +3,6 @@
  * @typedef {import("../models/FaqModel").Faq} Faq
  */
 const FaqModel = require('../models/FaqModel');
-const mongoose = require('mongoose');
 
 const FaqServices = {
   /**
@@ -12,7 +11,10 @@ const FaqServices = {
    */
   async getAll() {
     return FaqModel.find({ deleted: false }).then(
-      (faqs) => faqs,
+      (faqs) => {
+        if (!faqs.length) throw new Error('FAQS_NOT_FOUND');
+        return faqs;
+      },
       (error) => {
         throw new Error('UNABLE_TO_GET_FAQS', { cause: error });
       },
@@ -25,7 +27,10 @@ const FaqServices = {
    */
   async getAnswered() {
     return FaqModel.find({ isAnswered: true, deleted: false }).then(
-      (faqs) => faqs,
+      (faqs) => {
+        if (!faqs.length) throw new Error('FAQS_NOT_FOUND');
+        return faqs;
+      },
       (error) => {
         throw new Error('UNABLE_TO_GET_ANSWERED_FAQS', { cause: error });
       },
@@ -38,7 +43,10 @@ const FaqServices = {
    */
   async getUnanswered() {
     return FaqModel.find({ isAnswered: false, deleted: false }).then(
-      (faqs) => faqs,
+      (faqs) => {
+        if (!faqs.length) throw new Error('FAQS_NOT_FOUND');
+        return faqs;
+      },
       (error) => {
         throw new Error('UNABLE_TO_GET_UNANSWERED_FAQS', { cause: error });
       },
@@ -82,7 +90,10 @@ const FaqServices = {
    */
   async delete(faqId) {
     return FaqModel.findByIdAndUpdate(faqId, { deleted: true }).then(
-      (faq) => faq,
+      (faq) => {
+        if (!faq) throw new Error('FAQ_NOT_FOUND');
+        return faq;
+      },
       (error) => {
         throw new Error('UNABLE_TO_DELETE_FAQ', { cause: error });
       },
@@ -96,12 +107,14 @@ const FaqServices = {
    * @return {Faq} - the updated FAQ
    */
   async update(faqId, update) {
-    return FaqModel.findOneAndUpdate({ _id: faqId ?? new mongoose.Types.ObjectId() }, update, {
-      upsert: true,
+    return FaqModel.findByIdAndUpdate(faqId, update, {
       new: true,
       runValidators: true,
     }).then(
-      (faq) => faq,
+      (faq) => {
+        if (!faq) throw new Error('FAQ_NOT_FOUND');
+        return faq;
+      },
       (error) => {
         throw new Error('UNABLE_TO_UPDATE_FAQ', { cause: error });
       },

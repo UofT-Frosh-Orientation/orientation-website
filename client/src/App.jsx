@@ -39,6 +39,7 @@ const TransitionRoutes = () => {
   const loggedIn = useSelector(loggedInSelector);
   const registered = useSelector(registeredSelector);
   const initials = useSelector(initialsSelector);
+
   // const scuntSettings = useSelector(scuntSettingsSelector);
 
   return (

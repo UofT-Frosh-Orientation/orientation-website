@@ -59,6 +59,20 @@ const ScuntTeamServices = {
     );
   },
 
+  async calculatePoints(teamNumber, totalPoints) {
+    const teams = ScuntTeamModel.find({}, { name: 1, number: 1, points: 1 }, {}).sort({
+      points: -1,
+    });
+
+    const teamPosition = teams.map((t, pos) => {
+      if (teamNumber === t.number) {
+        return pos + 1;
+      }
+    });
+
+    return (teamPosition / teams.length) * totalPoints;
+  },
+
   /**
    * @description Adds bribe points to a team
    * @param {Number} teamNumber
@@ -67,7 +81,8 @@ const ScuntTeamServices = {
    * @returns {ScuntTeam , Leadur}
    */
   async bribeTransaction(teamNumber, points, user) {
-    if (!user.scuntJudgeBribePoints || points > user.scuntJudgeBribePoints)
+    const curvedPoints = await this.calculatePoints(teamNumber, points);
+    if (!user.scuntJudgeBribePoints || curvedPoints > user.scuntJudgeBribePoints)
       throw new Error('NOT_ENOUGH_BRIBE_POINTS');
 
     const settings = await ScuntGameSettingsModel.findOne({}).then(
@@ -84,7 +99,7 @@ const ScuntTeamServices = {
 
     const leadur = await LeadurModel.findByIdAndUpdate(
       user.id,
-      { $set: { scuntJudgeBribePoints: user.scuntJudgeBribePoints - points } },
+      { $set: { scuntJudgeBribePoints: user.scuntJudgeBribePoints - curvedPoints } },
       { upsert: false, returnDocument: 'after' },
     ).then(
       (leadur) => {
@@ -95,18 +110,20 @@ const ScuntTeamServices = {
         throw new Error('UNABLE_TO_UPDATE_LEADUR', { cause: error });
       },
     );
-    if (leadur.scuntJudgeBribePoints !== user.scuntJudgeBribePoints - points)
+    if (leadur.scuntJudgeBribePoints !== user.scuntJudgeBribePoints - curvedPoints)
       throw new Error('UNABLE_TO_UPDATE_LEADUR');
 
     return ScuntTeamModel.findOneAndUpdate(
       { number: teamNumber },
       {
-        $inc: { points },
+        $inc: { curvedPoints },
         $push: {
           transactions: [
             {
-              name: `${points.toString()} points bribe from ${user.firstName} ${user.lastName}`,
-              points,
+              name: `${curvedPoints.toString()} points bribe from ${user.firstName} ${
+                user.lastName
+              }`,
+              points: curvedPoints,
             },
           ],
         },
@@ -178,6 +195,7 @@ const ScuntTeamServices = {
    * @returns {String}
    */
   async addTransaction(teamNumber, missionNumber, points) {
+    const curvedPoints = await this.calculatePoints(teamNumber, points);
     // check if judging is allowed
     await ScuntGameSettingsModel.findOne({}).then(
       (settings) => {
@@ -207,19 +225,19 @@ const ScuntTeamServices = {
       }
       return prev;
     }, 0);
-    if (prevPoints < points) {
-      team.points += points - prevPoints;
+    if (prevPoints < curvedPoints) {
+      team.points += curvedPoints - prevPoints;
     }
 
     // add transaction to team
     const transaction =
-      (!prevPoints ? 'Added ' : prevPoints < points ? 'Updated to ' : '') +
-      points.toString() +
+      (!prevPoints ? 'Added ' : prevPoints < curvedPoints ? 'Updated to ' : '') +
+      curvedPoints.toString() +
       ' points for mission #' +
       missionNumber.toString() +
       ' for team ' +
       teamNumber.toString();
-    team.transactions.push({ name: transaction, missionNumber, points });
+    team.transactions.push({ name: transaction, missionNumber, points: curvedPoints });
 
     return team.save().then(
       (team) => {

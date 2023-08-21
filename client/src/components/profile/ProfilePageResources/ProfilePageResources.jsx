@@ -25,24 +25,39 @@ export const ProfilePageResources = ({ froshObject }) => {
         );
       })}
       {froshObject ? (
-        <a key={'5Download'} className="no-link-style">
-          <ButtonBubble
-            label={'Download Information PDF'}
-            onClick={async () => {
-              const MakeReceipt = (await import('../../MakeReceipt/MakeReceipt')).MakeReceipt;
-              const ReactPDF = await import('@react-pdf/renderer');
-              const blob = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
-              const fileURL = URL.createObjectURL(blob);
-              const pdfWindow = window.open(fileURL, '_blank');
-              pdfWindow && pdfWindow.focus();
-            }}
-            isSecondary
-            style={{ margin: 0, marginTop: '10px' }}
-          />
-        </a>
+        <>
+          <a key={'5Download'} className="no-link-style">
+            <ButtonBubble
+              label={'Download Information PDF'}
+              onClick={async () => {
+                const MakeReceipt = (await import('../../MakeReceipt/MakeReceipt')).MakeReceipt;
+                const ReactPDF = await import('@react-pdf/renderer');
+                const blob = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
+                const fileURL = URL.createObjectURL(blob);
+                const pdfWindow = window.open(fileURL, '_blank');
+                pdfWindow && pdfWindow.focus();
+              }}
+              isSecondary
+              style={{ margin: 0, marginTop: '10px' }}
+            />
+          </a>
+        </>
       ) : (
         <></>
       )}
+      <ButtonBubble
+        label={'Download Schedule PDF'}
+        onClick={async () => {
+          const ReactPDF = await import('@react-pdf/renderer');
+          const { MakeSchedulePDF } = await import('../../MakeSchedulePDF/MakeSchedulePDF');
+          const blob = await ReactPDF.pdf(MakeSchedulePDF(froshObject)).toBlob();
+          const fileURL = URL.createObjectURL(blob);
+          const pdfWindow = window.open(fileURL, '_blank');
+          pdfWindow && pdfWindow.focus();
+        }}
+        isSecondary
+        style={{ margin: 0, marginTop: '10px' }}
+      />
     </div>
   );
 };
