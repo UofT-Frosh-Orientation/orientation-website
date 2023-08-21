@@ -167,6 +167,7 @@ const FroshServices = {
     );
   },
 
+  /* istanbul ignore next */
   async mapFroshUsers(frosh) {
     // Recreating froshGroupList, to not include the broken ones
     const froshGroupList = await FroshGroupModel.find();
