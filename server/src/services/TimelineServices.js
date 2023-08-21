@@ -6,8 +6,8 @@ const TimelineServices = {
    * @returns {Timeline[]}
    */
   async getAll() {
-    return TimelineModel.find({}).then(
-      (result) => result.sort({ date: 1 }),
+    return TimelineModel.find({}, null, { sort: { date: 1 } }).then(
+      (result) => result,
       (error) => {
         throw new Error('UNABLE_TO_GET_TIMELINE', { cause: error });
       },
@@ -25,12 +25,15 @@ const TimelineServices = {
    * @returns {Timeline}
    */
   async update(id, date, eventName, description, link, linkLabel) {
-    return TimelineModel.findOneAndUpdate(
-      { _id: id },
+    return TimelineModel.findByIdAndUpdate(
+      id,
       { date, eventName, description, link, linkLabel },
       { new: true, returnDocument: 'after' },
     ).then(
-      (result) => result,
+      (result) => {
+        if (!result) throw new Error('TIMELINE_NOT_FOUND');
+        return result;
+      },
       (error) => {
         throw new Error('UNABLE_TO_UPDATE_TIMELINE', { cause: error });
       },
@@ -60,9 +63,12 @@ const TimelineServices = {
    * @param {String} id timeline element id
    * @returns {Timeline}
    */
-  async deleteTimelineElement(id) {
-    return TimelineModel.findOneAndDelete({ _id: id }).then(
-      (result) => result,
+  async delete(id) {
+    return TimelineModel.findByIdAndDelete(id).then(
+      (result) => {
+        if (!result) throw new Error('TIMELINE_NOT_FOUND');
+        return result;
+      },
       (error) => {
         throw new Error('UNABLE_TO_DELETE_TIMELINE', { cause: error });
       },
