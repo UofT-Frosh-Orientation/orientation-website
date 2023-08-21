@@ -3,7 +3,7 @@ const AnnouncementServices = require('../../src/services/AnnouncementServices');
 const UserModel = require('../../src/models/UserModel');
 const assert = require('assert');
 
-describe('Testing Announcements Services', () => {
+describe('AnnouncementsServices', () => {
   let createdAnnouncement;
 
   it('.create()\t\t\t|\tCreate an announcement', async () => {
