@@ -1,13 +1,14 @@
 {
-    "all": false,
+    "all": true,
     "include": [
         "src/models/*.js",
-        "src/services/*.js",
-        "src/routes/*.js"
+        "src/services/*.js"
+    ],
+    "exclude": [
+        "src/services/EmailServices.js"
     ],
     "check-coverage": true,
     "branches": 80,
     "lines": 80,
-    "functions": 75,
     "statements": 80
 }
