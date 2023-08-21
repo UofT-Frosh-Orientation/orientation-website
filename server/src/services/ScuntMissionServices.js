@@ -9,7 +9,7 @@ const ScuntMissionServices = {
    * @returns {ScuntMission[]}
    */
   async getAllScuntMissions(showHidden, user) {
-    return ScuntGameSettingsModel.findOne().then(
+    await ScuntGameSettingsModel.findOne().then(
       (settings) => {
         if (
           // if settings is null or revealMissions is false and user does not have the required auth scope
@@ -19,24 +19,23 @@ const ScuntMissionServices = {
         )
           throw new Error('INVALID_SETTINGS');
         // finds documents with isHidden property set to false
-
-        return ScuntMissionModel.find(
-          showHidden ? {} : { isHidden: false },
-          {},
-          {
-            sort: {
-              number: 1, //Sort by Date Added DESC
-            },
-          },
-        ).then(
-          (result) => result,
-          (error) => {
-            throw new Error('UNABLE_TO_GET_SCUNT_MISSIONS', { cause: error });
-          },
-        );
       },
       (error) => {
         throw new Error('UNABLE_TO_GET_SCUNT_SETTINGS', { cause: error });
+      },
+    );
+    return ScuntMissionModel.find(
+      showHidden ? {} : { isHidden: false },
+      {},
+      {
+        sort: {
+          number: 1, //Sort by Date Added DESC
+        },
+      },
+    ).then(
+      (result) => result,
+      (error) => {
+        throw new Error('UNABLE_TO_GET_SCUNT_MISSIONS', { cause: error });
       },
     );
   },
