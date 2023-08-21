@@ -112,21 +112,20 @@ const ScuntCreateMissions = () => {
           <div className="scunt-create-missions-textinput">
             {missioninput.map((i) => {
               return (
-                <>
-                  <TextInput
-                    label={i.label}
-                    placeholder={i.label}
-                    isRequiredInput={i.key === 'number' || i.key === 'name' ? true : false}
-                    onChange={
-                      (input) => {
-                        handleInput(input, i.key);
-                      }
-                      // TODO: update the state var -- DONE
+                <TextInput
+                  key={i.key}
+                  label={i.label}
+                  placeholder={i.label}
+                  isRequiredInput={i.key === 'number' || i.key === 'name' ? true : false}
+                  onChange={
+                    (input) => {
+                      handleInput(input, i.key);
                     }
-                    style={{ width: '100%', flexGrow: '1' }}
-                    description={i.des}
-                  />
-                </>
+                    // TODO: update the state var -- DONE
+                  }
+                  style={{ width: '100%', flexGrow: '1' }}
+                  description={i.des}
+                />
               );
             })}
             <Checkboxes
@@ -149,9 +148,11 @@ const ScuntCreateMissions = () => {
               {newMission !== undefined ? (
                 keys?.map((i) => {
                   return (
-                    <p key={i} style={{ color: 'var(--text-dynamic)', marginBottom: '8px' }}>
-                      <b>{convertCamelToLabel(i)}</b>
-                      <span>{': '}</span>
+                    <div key={i}>
+                      <p style={{ color: 'var(--text-dynamic)', marginBottom: '8px' }}>
+                        <b>{convertCamelToLabel(i)}</b>
+                        <span>{': '}</span>
+                      </p>
                       {newMission[i] === true || newMission[i] === false ? (
                         <div
                           style={{
@@ -165,7 +166,7 @@ const ScuntCreateMissions = () => {
                       ) : (
                         newMission[i].toString()
                       )}
-                    </p>
+                    </div>
                   );
                 })
               ) : (
@@ -276,87 +277,85 @@ const ScuntAllMissions = () => {
           </tr>
           {missions.map((mission) => {
             return (
-              <>
-                <tr
-                  className="all-accounts-row"
-                  key={mission.number + mission.name}
-                  style={mission?.isHidden ? hiddenMissionCell : {}}
+              <tr
+                className="all-accounts-row"
+                key={mission.number + mission.name}
+                style={mission?.isHidden ? hiddenMissionCell : {}}
+              >
+                <td className="all-account-data" style={{ padding: '8px', textAlign: 'center' }}>
+                  {mission?.number}
+                </td>
+                <td
+                  className="all-account-data"
+                  style={{ padding: '8px', width: '600px', overflowWrap: 'anywhere' }}
                 >
-                  <td className="all-account-data" style={{ padding: '8px', textAlign: 'center' }}>
-                    {mission?.number}
-                  </td>
-                  <td
-                    className="all-account-data"
-                    style={{ padding: '8px', width: '600px', overflowWrap: 'anywhere' }}
-                  >
-                    {mission?.name}
-                  </td>
-                  <td
-                    className="all-account-data"
-                    style={{ padding: '8px', overflowWrap: 'anywhere' }}
-                  >
-                    {mission?.category}
-                  </td>
-                  <td className="all-account-data" style={{ padding: '8px', textAlign: 'center' }}>
-                    {mission?.points}
-                  </td>
-                  <td className="all-account-data-verified-container" style={{ padding: '8px' }}>
-                    <div
-                      onClick={async () => {
-                        await setVisibility(
-                          setSnackbar,
-                          mission?.number,
-                          mission?.number,
-                          !mission?.isHidden,
-                        );
-                      }}
-                      style={{ marginRight: 'auto', marginLeft: 'auto', width: 'fit-content' }}
-                    >
-                      <img
-                        src={
-                          mission?.isHidden
-                            ? darkMode
-                              ? hiddenEyeDark
-                              : hiddenEye
-                            : darkMode
-                            ? openEyeDark
-                            : openEye
-                        }
-                        alt="show/hide missions"
-                        style={{
-                          width: '20px',
-                          height: '20px',
-                          marginRight: 'auto',
-                          marginLeft: 'auto',
-                        }}
-                      />
-                    </div>
-                  </td>
-                  <td
-                    className="all-account-data"
-                    style={{
-                      padding: '8px',
-                      textAlign: 'center',
-                      color: mission?.isJudgingStation
-                        ? 'var(--green-success-dark)'
-                        : 'var(--red-error)',
+                  {mission?.name}
+                </td>
+                <td
+                  className="all-account-data"
+                  style={{ padding: '8px', overflowWrap: 'anywhere' }}
+                >
+                  {mission?.category}
+                </td>
+                <td className="all-account-data" style={{ padding: '8px', textAlign: 'center' }}>
+                  {mission?.points}
+                </td>
+                <td className="all-account-data-verified-container" style={{ padding: '8px' }}>
+                  <div
+                    onClick={async () => {
+                      await setVisibility(
+                        setSnackbar,
+                        mission?.number,
+                        mission?.number,
+                        !mission?.isHidden,
+                      );
                     }}
+                    style={{ marginRight: 'auto', marginLeft: 'auto', width: 'fit-content' }}
                   >
-                    {mission?.isJudgingStation.toString()}
-                  </td>
-                  <td className="all-account-data" style={{ padding: '8px' }}>
-                    <div
-                      onClick={async () => {
-                        await deleteMission(setSnackbar, mission.number);
+                    <img
+                      src={
+                        mission?.isHidden
+                          ? darkMode
+                            ? hiddenEyeDark
+                            : hiddenEye
+                          : darkMode
+                          ? openEyeDark
+                          : openEye
+                      }
+                      alt="show/hide missions"
+                      style={{
+                        width: '20px',
+                        height: '20px',
+                        marginRight: 'auto',
+                        marginLeft: 'auto',
                       }}
-                      className={'approve-deny-checkbox approve-red-cross'}
-                      style={{ marginRight: 'auto', marginLeft: 'auto' }}
-                    >
-                      <img className="deny-icon" src={WhiteCross} alt="delete mission" />
-                    </div>
-                  </td>
-                </tr>
-              </>
+                    />
+                  </div>
+                </td>
+                <td
+                  className="all-account-data"
+                  style={{
+                    padding: '8px',
+                    textAlign: 'center',
+                    color: mission?.isJudgingStation
+                      ? 'var(--green-success-dark)'
+                      : 'var(--red-error)',
+                  }}
+                >
+                  {mission?.isJudgingStation.toString()}
+                </td>
+                <td className="all-account-data" style={{ padding: '8px' }}>
+                  <div
+                    onClick={async () => {
+                      await deleteMission(setSnackbar, mission.number);
+                    }}
+                    className={'approve-deny-checkbox approve-red-cross'}
+                    style={{ marginRight: 'auto', marginLeft: 'auto' }}
+                  >
+                    <img className="deny-icon" src={WhiteCross} alt="delete mission" />
+                  </div>
+                </td>
+              </tr>
             );
           })}
         </tbody>
@@ -379,56 +378,58 @@ const ScuntUploadMissions = () => {
     setFile(e.target.files[0]);
   };
 
+  const csvFields = {
+    '#': {
+      key: 'number',
+      parseFunction: (val) => parseInt(val),
+      validator: (val) => Number.isInteger(val) && val >= 0,
+      required: true,
+      errorMessage: 'The mission number must be a positive integer!',
+    },
+    Mission: {
+      key: 'name',
+      parseFunction: (val) => val,
+      validator: (val) => val.length > 0,
+      required: true,
+      errorMessage: 'The mission name must be at least one character!',
+    },
+    Category: {
+      key: 'category',
+      parseFunction: (val) => val,
+      validator: (val) => val.length > 0,
+      required: true,
+      errorMessage: 'The mission category must be at least one character!',
+    },
+    Points: {
+      key: 'points',
+      parseFunction: (val) => parseInt(val),
+      validator: (val) => Number.isInteger(val) && val >= 0,
+      required: true,
+      errorMessage: 'The mission points must be a positive integer!',
+    },
+    Hidden: {
+      key: 'isHidden',
+      parseFunction: (val) => val.toLowerCase() === 'true',
+      validator: () => true,
+      required: false,
+      errorMessage: '',
+    },
+    'Judging Station?': {
+      key: 'isJudgingStation',
+      parseFunction: (val) => val.toLowerCase() === 'true',
+      validator: () => true,
+      required: false,
+      errorMessage: '',
+    },
+  };
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
     if (file) {
       fileReader.onload = function (event) {
         const text = event.target.result;
-        const { data, errors } = parseCsvString(text, {
-          '#': {
-            key: 'number',
-            parseFunction: (val) => parseInt(val),
-            validator: (val) => Number.isInteger(val) && val >= 0,
-            required: true,
-            errorMessage: 'The mission number must be a positive integer!',
-          },
-          Item: {
-            key: 'name',
-            parseFunction: (val) => val,
-            validator: (val) => val.length > 0,
-            required: true,
-            errorMessage: 'The mission name must be at least one character!',
-          },
-          Category: {
-            key: 'category',
-            parseFunction: (val) => val,
-            validator: (val) => val.length > 0,
-            required: true,
-            errorMessage: 'The mission category must be at least one character!',
-          },
-          Points: {
-            key: 'points',
-            parseFunction: (val) => parseInt(val),
-            validator: (val) => Number.isInteger(val) && val >= 0,
-            required: true,
-            errorMessage: 'The mission points must be a positive integer!',
-          },
-          Hidden: {
-            key: 'isHidden',
-            parseFunction: (val) => val.toLowerCase() === 'true',
-            validator: () => true,
-            required: false,
-            errorMessage: '',
-          },
-          'Judging Station?': {
-            key: 'isJudgingStation',
-            parseFunction: (val) => val.toLowerCase() === 'true',
-            validator: () => true,
-            required: false,
-            errorMessage: '',
-          },
-        });
+        const { data, errors } = parseCsvString(text, csvFields);
         setArray(data);
       };
 
@@ -437,7 +438,17 @@ const ScuntUploadMissions = () => {
   };
 
   const uploadMissions = () => {
-    dispatch(createMultipleMissions({ file, setSnackbar }));
+    if (array.length > 0) return dispatch(createMultipleMissions({ array, setSnackbar }));
+    if (file) {
+      fileReader.onload = function (event) {
+        const text = event.target.result;
+        const { data, errors } = parseCsvString(text, csvFields);
+        dispatch(createMultipleMissions({ array: data, setSnackbar }));
+        setArray(data);
+      };
+
+      fileReader.readAsText(file);
+    }
   };
 
   return (
@@ -468,10 +479,7 @@ const ScuntUploadMissions = () => {
           label="Upload Missions"
           style={{ width: 'fit-content' }}
           onClick={() => {
-            if (array !== undefined) {
-              // calling backend!
-              uploadMissions();
-            }
+            uploadMissions();
           }}
         />
       </div>
@@ -578,7 +586,6 @@ const parseCsvString = (csvString, mapping, delimiter = ',') => {
     },
     { data: [], errors: [] },
   );
-  console.table(data);
   return { data, errors };
 };
 

@@ -19,8 +19,17 @@ const ScuntMissionServices = {
         )
           throw new Error('INVALID_SETTINGS');
         // finds documents with isHidden property set to false
-        return ScuntMissionModel.find(showHidden ? {} : { isHidden: false }).then(
-          (result) => result.sort({ number: 1 }), //  sort by number in ascending order (1)
+
+        return ScuntMissionModel.find(
+          showHidden ? {} : { isHidden: false },
+          {},
+          {
+            sort: {
+              number: 1, //Sort by Date Added DESC
+            },
+          },
+        ).then(
+          (result) => result,
           (error) => {
             throw new Error('UNABLE_TO_GET_SCUNT_MISSIONS', { cause: error });
           },
@@ -63,58 +72,10 @@ const ScuntMissionServices = {
    * @param {String} csvString
    * @returns {ScuntMission[]}
    */
-  async createMultipleMissions(csvString) {
-    const { data, errors } = parseCsvString(csvString, {
-      '#': {
-        key: 'number',
-        parseFunction: (val) => parseInt(val),
-        validator: (val) => Number.isInteger(val) && val >= 0,
-        required: true,
-        errorMessage: 'The mission number must be a positive integer!',
-      },
-      Mission: {
-        key: 'name',
-        parseFunction: (val) => val,
-        validator: (val) => val.length > 0,
-        required: true,
-        errorMessage: 'The mission name must be at least one character!',
-      },
-      Category: {
-        key: 'category',
-        parseFunction: (val) => val,
-        validator: (val) => val.length > 0,
-        required: true,
-        errorMessage: 'The mission category must be at least one character!',
-      },
-      Points: {
-        key: 'points',
-        parseFunction: (val) => parseInt(val),
-        validator: (val) => Number.isInteger(val) && val >= 0,
-        required: true,
-        errorMessage: 'The mission points must be a positive integer!',
-      },
-      Hidden: {
-        key: 'isHidden',
-        parseFunction: (val) => val.toLowerCase() === 'true',
-        validator: () => true,
-        required: false,
-        errorMessage: '',
-      },
-      'Judging Station?': {
-        key: 'isJudgingStation',
-        parseFunction: (val) => val.toLowerCase() === 'true',
-        validator: () => true,
-        required: false,
-        errorMessage: '',
-      },
-    });
-    if (errors.length > 0) {
-      throw new Error('INVALID_CSV', { cause: errors });
-    }
-
-    return ScuntMissionModel.remove({}).then(
+  async createMultipleMissions(array) {
+    return ScuntMissionModel.deleteMany({}).then(
       () => {
-        return ScuntMissionModel.create(data).then(
+        return ScuntMissionModel.create(array).then(
           (result) => result,
           (error) => {
             throw new Error('UNABLE_TO_CREATE_SCUNT_MISSIONS', { cause: error });
@@ -156,7 +117,7 @@ const ScuntMissionServices = {
       { strictQuery: false },
     ).then(
       (missions) => {
-        if (!missions) throw new Error('NO_MISSIONS_FOUND');
+        if (missions.modifiedCount === 0) throw new Error('NO_MISSIONS_FOUND');
         return missions;
       },
       (error) => {
@@ -181,59 +142,6 @@ const ScuntMissionServices = {
       },
     );
   },
-};
-
-/**
- * @description Parses a csv string into an object
- * @param {String} csvString
- * @param {Object} mapping
- * @param {String} delimiter
- * @returns {Object}
- */
-const parseCsvString = (csvString, mapping, delimiter = ',') => {
-  // regex checks for delimiters that are not contained within quotation marks
-  const regex = new RegExp(`(?!\\B"[^"]*)${delimiter}(?![^"]*"\\B)`);
-  if (csvString.length === 0 || !/\r\b|\r|\n/.test(csvString)) {
-    return { data: [] };
-  }
-  const rows = csvString.split(/\r\n|\r|\n/).filter((elem) => elem !== '');
-  const headers = rows[0].split(regex).map((h) => h.replace(/^(["'])(.*)\1$/, '$2'));
-  const requiredHeaders = Object.keys(mapping).filter((m) => mapping[m].required);
-  const headerErrors = [];
-  requiredHeaders.forEach((header) => {
-    if (!headers.includes(header)) {
-      headerErrors.push({ row: 1, column: header, errorMessage: `Missing header ${header}` });
-    }
-  });
-  if (headerErrors.length > 0) {
-    return { data: [], errors: headerErrors };
-  }
-  const allowedHeaders = Object.keys(mapping);
-  const dataRows = rows.slice(1);
-  const { data, errors } = dataRows.reduce(
-    (previous, row, rowIndex) => {
-      const values = row.split(regex);
-      const parsedRow = headers.reduce((previousObj, current, index) => {
-        if (allowedHeaders.includes(current)) {
-          const val = mapping[current].parseFunction(values[index].replace(/^(["'])(.*)\1$/, '$2')); // removes any surrounding quotation marks
-          if (mapping[current].validator(val)) {
-            previousObj[mapping[current].key] = val;
-          } else {
-            previous.errors.push({
-              row: rowIndex + 2,
-              column: current,
-              errorMessage: mapping[current].errorMessage,
-            });
-          }
-        }
-        return previousObj;
-      }, {});
-      previous.data.push(parsedRow);
-      return previous;
-    },
-    { data: [], errors: [] },
-  );
-  return { data, errors };
 };
 
 module.exports = ScuntMissionServices;

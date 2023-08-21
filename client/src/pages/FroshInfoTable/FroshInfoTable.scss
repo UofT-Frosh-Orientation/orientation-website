@@ -1,6 +1,7 @@
 @import '../../scssStyles/mixins';
 
 .frosh-info-table {
+  padding-bottom: 15px;
   .buttons-container {
     display: block;
     margin-right: -5px;
@@ -57,6 +58,7 @@
   }
   .table-wrap {
     padding: 15px 5%;
+    padding-bottom: 0;
     @include devices(tablet) {
       padding: 15px 1%;
     }
@@ -88,11 +90,33 @@
     border: none;
     text-align: left;
     padding: 8px 10px;
+    user-select: none;
   }
   tr:nth-child(odd) {
     background-color: var(--purple-shades-light-light);
   }
   tr:nth-child(even) {
     background-color: var(--purple-shades-light);
+  }
+
+  .pagination-buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0 5%;
+    background-color: var(--purple);
+    color: var(--white);
+    border-radius: 0 0 15px 15px;
+  }
+
+  .pagination-pages,
+  .pagination-number {
+    background-color: var(--dark-grey);
+    border: 1px solid var(--light-accent);
+    border-radius: 15px;
+    color: var(--white);
+    padding: 0.5vh 1vw;
+    font-size: 16px;
   }
 }

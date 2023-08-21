@@ -111,8 +111,6 @@
 }
 
 .profile-page-announcements {
-  margin-left: 50px;
-  margin-right: 2%;
   flex: 1;
   max-width: 1000px;
   @include devices(tablet) {
@@ -284,8 +282,6 @@
 }
 
 .retreat-profile-container {
-  margin-left: 50px;
-  margin-right: 2%;
   flex: 1;
   max-width: 1000px;
   background-color: var(--purple-shades-light);

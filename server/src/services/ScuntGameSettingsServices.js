@@ -89,7 +89,6 @@ const ScuntGameSettingsServices = {
     ).then(
       (settings) => {
         if (!settings) throw new Error('UNABLE_TO_UPDATE_SCUNT_SETTINGS');
-        console.log('Updated settings!');
         ScuntSettingsSubscription.add(settings);
         return settings;
       },

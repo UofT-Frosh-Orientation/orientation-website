@@ -12,7 +12,6 @@ const FroshController = {
    */
   async registerFrosh(req, res, next) {
     console.log('Start frosh registration');
-
     try {
       const user = req.user;
       const registrationInfo = req.body;
@@ -124,6 +123,33 @@ const FroshController = {
     } catch (e) {
       req.log.fatal({
         msg: 'Unable to get frosh info: user ' + req.user.id,
+        e,
+        user: req.user.getResponseObject(),
+      });
+      next(e);
+    }
+  },
+
+  async reassignFrosh(req, res, next) {
+    try {
+      if (!req.user?.froshDataFields?.approved?.length) return next(new Error('UNAUTHORIZED'));
+
+      const filter = req.user?.froshDataFields?.approved.reduce(
+        (prev, curr) => {
+          prev[curr] = 1;
+          return prev;
+        },
+        { _id: 1 },
+      );
+      const query = { isRegistered: true };
+      const frosh = await FroshServices.getFilteredFroshInfo(query, filter);
+
+      const reassignedFrosh = await FroshServices.mapFroshUsers(frosh);
+
+      return res.status(200).send({ reassignedFrosh });
+    } catch (e) {
+      req.log.fatal({
+        msg: 'Unable to reassign requested frosh users',
         e,
         user: req.user.getResponseObject(),
       });
