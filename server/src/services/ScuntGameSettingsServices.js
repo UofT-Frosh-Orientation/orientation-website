@@ -4,20 +4,11 @@ const ScuntSettingsSubscription = require('../subscribers/scuntGameSettingsSubsc
 const ScuntGameSettingsServices = {
   /**
    * @description Initializes the scunt game settings
-   * @param {Object} settings object containing all the settings
    * @returns {Settings}
    */
-  async initScuntGameSettings(settings) {
-    return ScuntGameSettingModel.findOne().then(
-      (result) => {
-        if (!result) {
-          return ScuntGameSettingModel.create({ ...settings }).then((newSettings) => {
-            return newSettings;
-          });
-        } else {
-          return result;
-        }
-      },
+  async initScuntGameSettings() {
+    return ScuntGameSettingModel.findOneAndUpdate({}, {}, { upsert: true, new: true }).then(
+      (settings) => settings,
       (error) => {
         throw new Error('UNABLE_TO_GET_SCUNT_SETTINGS', { cause: error });
       },
