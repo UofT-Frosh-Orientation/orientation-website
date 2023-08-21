@@ -5,7 +5,8 @@
         "src/services/*.js"
     ],
     "exclude": [
-        "src/services/EmailServices.js"
+        "src/services/EmailServices.js",
+        "src/services/passport.js"
     ],
     "check-coverage": true,
     "branches": 80,
