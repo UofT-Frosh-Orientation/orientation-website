@@ -4,7 +4,7 @@ const UserModel = require('../../src/models/UserModel');
 const FroshGroupModel = require('../../src/models/FroshGroupModel');
 const assert = require('assert');
 
-describe('Testing Frosh Services', () => {
+describe('FroshServices', () => {
   it('.getNewFroshGroup(discipline, pronouns, froshGroupList)\t|\tGetting a new Frosh Group (PREMADE LIST)', async () => {
     const discipline = 'Electrical & Computer';
     const pronouns = 'she/her';
@@ -22,7 +22,7 @@ describe('Testing Frosh Services', () => {
   it('.getNewFroshGroup(discipline, pronouns, froshGroupList)\t|\tGetting a new Frosh Group (PREMADE LIST)', async () => {
     const discipline = 'Electrical & Computer';
     const pronouns = 'she/her';
-    const [group1, group2] = await FroshGroupModel.find({});
+    const [group1] = await FroshGroupModel.find({});
 
     group1['Electrical & Computer'] = 100;
     await group1.save();

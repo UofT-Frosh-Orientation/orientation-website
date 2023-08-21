@@ -3,7 +3,7 @@ const AnnouncementServices = require('../../src/services/AnnouncementServices');
 const UserModel = require('../../src/models/UserModel');
 const assert = require('assert');
 
-describe('Testing Announcements Services', () => {
+describe('AnnouncementsServices', () => {
   let createdAnnouncement;
 
   it('.create()\t\t\t|\tCreate an announcement', async () => {
@@ -113,7 +113,7 @@ describe('Testing Announcements Services', () => {
     testUser = await UserModel.create({
       firstName: 'Test',
       lastName: 'User',
-      email: 'test@test.com',
+      email: 'test@test1.com',
       hashedPassword: 'test',
     });
     const announcement = {

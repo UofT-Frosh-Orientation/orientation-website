@@ -1,10 +1,11 @@
+/* eslint-disable no-undef */
 const ScuntMissionServices = require('../../src/services/ScuntMissionServices');
 const LeadurModel = require('../../src/models/LeadurModel');
 const ScuntGameSettingModel = require('../../src/models/ScuntGameSettingsModel');
 const ScuntGameSettingsServices = require('../../src/services/ScuntGameSettingsServices');
 const assert = require('assert');
 
-describe('Testing Scunt Mission Services', () => {
+describe('ScuntMissionServices', () => {
   let scuntMissions;
   let leadur;
   it('create(number, name, category, points, isHidden, isJudgingStation)\t\t\t\t|\tCreating A Scunt Mission', async () => {
