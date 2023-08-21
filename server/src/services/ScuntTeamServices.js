@@ -36,7 +36,10 @@ const ScuntTeamServices = {
     //Get amount of teams (Scunt Game Settings) and points for each team
     //Add up and calculate all tranactions for each team
     return ScuntTeamModel.find({}, { name: 1, number: 1, points: 1 }).then(
-      (teams) => teams,
+      (teams) => {
+        if (!teams.length) throw new Error('TEAMS_NOT_FOUND');
+        return teams;
+      },
       (error) => {
         throw new Error('UNABLE_TO_GET_TEAM_POINTS', { cause: error });
       },
@@ -50,7 +53,7 @@ const ScuntTeamServices = {
   async getTeams() {
     return ScuntTeamModel.find({}, { name: 1, number: 1 }).then(
       (teams) => {
-        if (!teams) throw new Error('UNABLE_TO_GET_TEAMS');
+        if (!teams.length) throw new Error('TEAMS_NOT_FOUND');
         return teams;
       },
       (error) => {
@@ -60,15 +63,14 @@ const ScuntTeamServices = {
   },
 
   async calculatePoints(teamNumber, totalPoints) {
-    const teams = ScuntTeamModel.find({}, { name: 1, number: 1, points: 1 }, {}).sort({
-      points: -1,
-    });
+    const teams = await ScuntTeamModel.find(
+      {},
+      { name: 1, number: 1, points: 1 },
+      { sort: { points: -1 } },
+    );
 
-    const teamPosition = teams.map((t, pos) => {
-      if (teamNumber === t.number) {
-        return pos + 1;
-      }
-    });
+    // finds the rank of the team (i.e., index in teams array)
+    const teamPosition = teams.findIndex((t) => teamNumber === t.number) + 1;
 
     return (teamPosition / teams.length) * totalPoints;
   },
@@ -116,7 +118,7 @@ const ScuntTeamServices = {
     return ScuntTeamModel.findOneAndUpdate(
       { number: teamNumber },
       {
-        $inc: { curvedPoints },
+        $inc: { points: curvedPoints },
         $push: {
           transactions: [
             {

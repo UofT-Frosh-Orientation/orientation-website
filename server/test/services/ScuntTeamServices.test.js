@@ -5,15 +5,23 @@ const LeadurModel = require('../../src/models/LeadurModel');
 const UserModel = require('../../src/models/UserModel');
 const ScuntTeamModel = require('../../src/models/ScuntTeamModel');
 const ScuntMissionModel = require('../../src/models/ScuntMissionModel');
+const ScuntGameSettingModel = require('../../src/models/ScuntGameSettingsModel');
 const assert = require('assert');
 
-describe('Testing Scunt Team Services', () => {
+describe('ScuntTeamServices', () => {
   let testLeadur;
   let team;
   let teamPoints = [];
   let teams = [];
   let scuntJudges = [];
   let tranactions = [];
+
+  it('.getTeams()\t\t\t|\tShould return array with teams (NO TEAMS)', async () => {
+    await assert.rejects(ScuntTeamServices.getTeams(), {
+      name: 'Error',
+      message: 'TEAMS_NOT_FOUND',
+    });
+  });
 
   it('.viewRecentTransactions()\t\t|\tView recent transactions (empty)', async () => {
     transactions = await ScuntTeamServices.viewRecentTransactions();
@@ -55,6 +63,13 @@ describe('Testing Scunt Team Services', () => {
   });
 
   it('.getTeamPoints()\t\t\t|\tShould return array with teams and their points', async () => {
+    await assert.rejects(ScuntTeamServices.getTeamPoints(), {
+      name: 'Error',
+      message: 'TEAMS_NOT_FOUND',
+    });
+  });
+
+  it('.getTeamPoints()\t\t\t|\tShould return array with teams and their points', async () => {
     await ScuntTeamModel.create({
       name: 'Test Team',
       points: 10,
@@ -69,23 +84,11 @@ describe('Testing Scunt Team Services', () => {
   });
 
   it('.bribeTransaction()\t\t|\tUpdate a bribe transaction', async () => {
-    const scuntGameSettings = {
-      name: 'Scunt 2T3 Settings',
-      amountOfTeams: 10,
-      amountOfStarterBribePoints: 10000,
-      maxAmountPointsPercent: 0.3,
-      minAmountPointsPercent: 0.3,
-      revealJudgesAndBribes: true,
-      revealTeams: true,
-      showDiscordLink: true,
-      discordLink: 'https://discord.gg/mRutbwuCK9',
-      revealLeaderboard: true,
-      revealMissions: true,
-      allowJudging: true,
-    };
-
-    await ScuntGameSettingsServices.initScuntGameSettings(scuntGameSettings);
-
+    await ScuntGameSettingModel.findOneAndUpdate(
+      {},
+      { $set: { allowJudging: true } },
+      { upsert: true },
+    );
     const leadur = await LeadurModel.create({
       lastName: 'Testerson',
       firstName: 'Test',
@@ -116,9 +119,9 @@ describe('Testing Scunt Team Services', () => {
       email: 'test4@test.utoronto.ca',
       froshDataFields: {},
       scuntTeam: 1,
-      scuntJudgeBribePoints: 20,
+      scuntJudgeBribePoints: 1,
     });
-    await assert.rejects(ScuntTeamServices.bribeTransaction(1, 30, leadur), {
+    await assert.rejects(ScuntTeamServices.bribeTransaction(8, 3000, leadur), {
       name: 'Error',
       message: 'NOT_ENOUGH_BRIBE_POINTS',
     });
@@ -224,7 +227,7 @@ describe('Testing Scunt Team Services', () => {
       points: 20,
     });
     const testTeamTransaction = await ScuntTeamServices.addTransaction(9, 2, 30);
-    assert(testTeamTransaction.name === 'Added 30 points for mission #2 for team 9');
+    assert.equal(testTeamTransaction.name, 'Added 22.5 points for mission #2 for team 9');
   });
 
   // having trouble with prev points with addTransaction
