@@ -20,7 +20,7 @@ const ScuntGameSettingsServices = {
    * @returns {Settings}
    */
   async getGameSettings() {
-    return ScuntGameSettingModel.findOne().then(
+    return ScuntGameSettingModel.findOne({}).then(
       (settings) => settings,
       (error) => {
         throw new Error('UNABLE_TO_GET_SCUNT_SETTINGS', { cause: error });

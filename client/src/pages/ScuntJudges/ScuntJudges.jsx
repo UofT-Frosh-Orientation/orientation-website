@@ -22,7 +22,7 @@ const ScuntJudges = () => {
 
   useEffect(() => {
     if (scuntSettings !== undefined) {
-      setRevealJudgesAndBribes(scuntSettings[0]?.revealJudgesAndBribes);
+      setRevealJudgesAndBribes(scuntSettings?.revealJudgesAndBribes);
     }
   }, [scuntSettings]);
 

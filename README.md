@@ -97,7 +97,7 @@ Pages are stored in `./client/src/util/pages.jsx`. To add a page, add it to the 
 The Snackbar provider is wrapped at the root of the app. Therefore it can be accessed by the child components. You can use setSnackbar to show a snackbar message. 
 
 An example usage:
-```js
+```jsx
 // Import useContext from React
 import React, { useState, useEffect, useContext } from 'react';
 // Import the context

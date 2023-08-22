@@ -183,13 +183,7 @@ export const ProfilePageFroshScuntMessage = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   const code = user?.scuntToken;
-  if (
-    code === undefined ||
-    !isRegistered ||
-    !scuntSettings ||
-    scuntSettings.length <= 0 ||
-    scuntSettings[0]?.revealTeams === false
-  ) {
+  if (code === undefined || !isRegistered || !scuntSettings?.revealTeams) {
     return <></>;
   }
 

@@ -58,7 +58,7 @@ const ScuntController = {
     try {
       const { missionNumber, teamNumber } = req.query;
       const gameSettings = await ScuntGameSettingsServices.getGameSettings();
-      if (!gameSettings[0].revealMissions) {
+      if (!gameSettings.revealMissions) {
         return next(new Error('MISSIONS_NOT_REVEALED'));
       }
       const mission = await ScuntMissionServices.getMission(missionNumber);
@@ -88,9 +88,9 @@ const ScuntController = {
       const teams = await ScuntTeamServices.getTeamPoints();
       const teamScores = await teams.sort((a, b) => b.number - a.number).map((t) => t.points);
       res.status(200).send({ teamScores });
-    } catch (e) {
-      req.log.fatal({ msg: 'Unable to retrieve scunt leaderboard', e });
-      next(e);
+    } catch (error) {
+      req.log.fatal({ msg: 'Unable to retrieve scunt leaderboard', e: error });
+      next(error);
     }
   },
 };

@@ -22,8 +22,8 @@ const ScuntTeamController = {
   },
   async getTeamPoints(req, res, next) {
     try {
-      const teamPoints = await ScuntTeamServices.getTeamPoints();
-      return res.status(200).send({ message: 'Team points', teamPoints });
+      const teams = await ScuntTeamServices.getTeamPoints();
+      return res.status(200).send({ message: 'Team points', teams });
     } catch (e) {
       req.log.fatal({ msg: 'Unable to get team points', e });
       next(e);
@@ -133,11 +133,12 @@ const ScuntTeamController = {
 
   async intializeTeams(req, res, next) {
     try {
-      const createdTeams = await ScuntTeamServices.initializeTeams();
-      res.status(200).send({ message: `Successfully created ${createdTeams.length} teams!` });
-    } catch (e) {
-      req.log.fatal({ msg: 'Unable to initialize scunt teams', e });
-      next(e);
+      await ScuntTeamServices.initializeTeams();
+      const teams = await ScuntTeamServices.getTeams();
+      res.status(200).send({ teams, message: `Successfully created ${teams.length} teams!` });
+    } catch (error) {
+      req.log.fatal({ msg: 'Unable to initialize scunt teams', error });
+      next(error);
     }
   },
 
@@ -155,11 +156,10 @@ const ScuntTeamController = {
   async renameScuntTeams(req, res, next) {
     const teamObjs = req.body.teamObjs;
     try {
-      teamObjs.map(
-        async (teamObj, index) =>
-          await ScuntTeamServices.setTeamName(teamObjs[index]['number'], teamObjs[index]['name']),
+      const scuntTeams = await Promise.all(
+        teamObjs.map((teamObj) => ScuntTeamServices.setTeamName(teamObj.number, teamObj.name)),
       );
-      res.status(200).send({ message: `Successfully renamed scunt teams!` });
+      res.status(200).send({ scuntTeams, message: `Successfully renamed scunt teams!` });
     } catch (e) {
       req.log.error({ msg: 'Unable to rename scunt teams', e });
       next(e);

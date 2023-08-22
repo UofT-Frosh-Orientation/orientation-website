@@ -10,22 +10,14 @@ import { getScuntTeamObjFromTeamNumber } from '../../../../pages/ScuntJudgeForm/
 import { scuntDiscord } from '../../../../util/scunt-constants';
 
 export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
-  const { scuntSettings } = useSelector(scuntSettingsSelector);
+  const { scuntSettings, error } = useSelector(scuntSettingsSelector);
   const { user } = useSelector(userSelector);
   const isRegistered = useSelector(registeredSelector);
   const { setSnackbar } = useContext(SnackbarContext);
   const [showToken, setShowToken] = useState(false);
 
   const code = user?.scuntToken;
-  if (
-    code === undefined ||
-    !isRegistered ||
-    !scuntSettings ||
-    scuntSettings.length <= 0 ||
-    (scuntSettings !== undefined &&
-      scuntSettings.length >= 1 &&
-      scuntSettings[0]?.revealTeams === false)
-  ) {
+  if (code === undefined || !isRegistered || !scuntSettings?.revealTeams) {
     return <></>;
   }
   if (!user?.scunt && user?.userType !== 'leadur') {

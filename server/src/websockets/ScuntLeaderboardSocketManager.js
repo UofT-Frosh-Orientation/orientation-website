@@ -16,7 +16,7 @@ class ScuntLeaderboardSocketManager {
 
   async initSettings() {
     const currentSettings = await ScuntGameSettingServices.getGameSettings();
-    this.settings = currentSettings[0];
+    this.settings = currentSettings;
   }
 
   addSocket(socket) {
@@ -65,21 +65,26 @@ class ScuntLeaderboardSocketManager {
           return done();
         } else if (newSettings.revealLeaderboard) {
           console.log('Revealing leaderboard!');
-          ScuntTeamServices.getTeamPoints().then((scores) => {
-            console.log('team scores');
-            console.log(scores);
-            this.io.to('leaderboard').emit('scores', scores);
-            this.settings = newSettings ?? this.settings;
-            return done();
-          });
+          ScuntTeamServices.getTeamPoints().then(
+            (scores) => {
+              console.log('team scores');
+              console.log(scores);
+              this.io.to('leaderboard').emit('scores', scores);
+              this.settings = newSettings ?? this.settings;
+              return done();
+            },
+            (error) => {
+              done(error);
+            },
+          );
         } else {
           this.settings = newSettings ?? this.settings;
           console.log(this.settings);
           return done();
         }
-      } catch (e) {
-        console.log(e);
-        done();
+      } catch (error) {
+        console.log(error);
+        done(error);
       }
     });
   }

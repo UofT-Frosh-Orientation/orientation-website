@@ -347,8 +347,8 @@ const ScuntMissionSelection = ({ missions, teams: teamsPassed, teamObjs }) => {
   useEffect(() => {
     if (scuntSettings !== undefined) {
       if (Array.isArray(scuntSettings)) {
-        setMinAmountPointsPercent(scuntSettings[0]?.minAmountPointsPercent);
-        setMaxAmountPointsPercent(scuntSettings[0]?.maxAmountPointsPercent);
+        setMinAmountPointsPercent(scuntSettings?.minAmountPointsPercent);
+        setMaxAmountPointsPercent(scuntSettings?.maxAmountPointsPercent);
       }
     }
   }, [scuntSettings]);

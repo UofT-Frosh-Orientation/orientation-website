@@ -21,78 +21,15 @@ const { axios } = useAxios();
 export const PageScuntHome = () => {
   return (
     <>
-      <div className="navbar-space-top"></div>
       <ScuntCountdown />
       <ScuntLinks />
-      <ScuntDiscord />
       <AboutScunt />
     </>
   );
 };
 
-const ScuntDiscord = () => {
-  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
-  const [showDiscordLink, setShowDiscordLink] = useState(false);
-  const [discordLink, setDiscordLink] = useState('');
-  const [revealTeams, setRevealTeams] = useState(false);
-
-  const { user } = useSelector(userSelector);
-  const leader = user?.userType === 'leadur';
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (scuntSettings !== undefined) {
-      let settings = scuntSettings[0];
-
-      setRevealTeams(settings?.revealTeams);
-      setShowDiscordLink(settings?.showDiscordLink);
-      setDiscordLink(settings?.discordLink);
-    }
-  }, [scuntSettings]);
-
-  if (showDiscordLink !== true && revealTeams !== true && !leader) {
-    // catch the undef states of the selector using !== true
-    return <div />;
-  } else {
-    const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-    return (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginTop: '-20px',
-          overflowWrap: 'anywhere',
-        }}
-      >
-        <a href={discordLink} className="no-link-style" target={'_blank'} rel="noreferrer">
-          <div
-            className="frosh-instagram-container"
-            style={{ padding: '15px 20px', margin: '10px 9px' }}
-          >
-            <img
-              src={DiscordIcon}
-              alt="Discord"
-              style={{ filter: darkMode ? 'unset' : 'invert(1)' }}
-            />
-            <div>
-              {!leader && user?.attendingScunt === true ? (
-                <h2 style={{ fontSize: '15px' }}>You are in team {user.scuntTeam}!</h2>
-              ) : (
-                <></>
-              )}
-              <p>Join the discord to chat with your team!</p>
-              <p>{discordLink}</p>
-            </div>
-          </div>
-        </a>
-      </div>
-    );
-  }
-};
-
 const AboutScunt = () => {
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
   const [scuntTeams, setScuntTeams] = useState([]);
   const [scuntTeamObjs, setScuntTeamObjs] = useState();
 
@@ -109,8 +46,8 @@ const AboutScunt = () => {
           }),
         );
       }
-    } catch (e) {
-      console.error(e.toString());
+    } catch (error) {
+      console.error(error.toString());
       setScuntTeams(['Error loading teams']);
     }
   };
@@ -155,7 +92,7 @@ const ScuntCountdown = () => {
 
   useEffect(() => {
     if (scuntSettings !== undefined) {
-      let settings = scuntSettings[0];
+      let settings = scuntSettings;
       const tempDate = new Date(settings?.scuntDate);
       const tempCountDownDate = new Date(tempDate).getTime();
 

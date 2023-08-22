@@ -13,13 +13,13 @@ const ScuntTeamServices = {
    * @returns {Leadur}
    */
   async updateLeaderTeam(userId, teamNumber) {
-    return LeadurModel.findOneAndUpdate(
-      { _id: userId },
+    return LeadurModel.findByIdAndUpdate(
+      userId,
       { scuntTeam: teamNumber },
       { returnDocument: 'after' },
     ).then(
       (leadur) => {
-        if (!leadur) throw new Error('INVALID_LEADUR_ID');
+        if (!leadur) throw new Error('LEADUR_NOT_FOUND');
         return leadur;
       },
       (error) => {
@@ -33,8 +33,6 @@ const ScuntTeamServices = {
    * @returns {ScuntTeam[]}
    */
   async getTeamPoints() {
-    //Get amount of teams (Scunt Game Settings) and points for each team
-    //Add up and calculate all tranactions for each team
     return ScuntTeamModel.find({}, { name: 1, number: 1, points: 1 }).then(
       (teams) => {
         if (!teams.length) throw new Error('TEAMS_NOT_FOUND');
@@ -396,7 +394,7 @@ const ScuntTeamServices = {
       disciplines: {},
       count: 0,
     }));
-
+    await ScuntTeamModel.collection.drop();
     // upsert the teams
     await ScuntTeamModel.collection.bulkWrite(teams).then(
       (result) => {

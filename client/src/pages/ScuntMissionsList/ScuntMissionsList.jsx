@@ -41,7 +41,7 @@ const PageScuntMissionsList = () => {
 
   useEffect(() => {
     if (scuntSettings !== undefined) {
-      setRevealMissions(scuntSettings[0]?.revealMissions);
+      setRevealMissions(scuntSettings?.revealMissions);
     }
   }, [scuntSettings]);
 
@@ -263,7 +263,7 @@ const PageScuntMissionsListShow = () => {
               if (previousCategory !== mission?.category) {
                 previousCategory = mission?.category;
                 return (
-                  <div className="scunt-mission-category-separator">
+                  <div key={mission?.number} className="scunt-mission-category-separator">
                     <div className="separator" />
                     <h3>{mission?.category}</h3>
                     {missionEntry}

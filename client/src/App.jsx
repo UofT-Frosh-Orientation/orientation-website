@@ -14,7 +14,6 @@ import { DarkModeProvider } from './util/DarkModeProvider';
 import { SnackbarProvider } from './util/SnackbarProvider';
 
 import { getScuntSettings } from './state/scuntSettings/saga';
-import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -39,7 +38,6 @@ const TransitionRoutes = () => {
   const loggedIn = useSelector(loggedInSelector);
   const registered = useSelector(registeredSelector);
   const initials = useSelector(initialsSelector);
-  const scuntSettings = useSelector(scuntSettingsSelector);
 
   return (
     <TransitionGroup>
