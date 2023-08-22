@@ -17,6 +17,8 @@ import star from '../../assets/misc/star-solid.svg';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
 import { getScuntMissions } from '../../state/scuntMissions/saga';
 import useAxios from '../../hooks/useAxios';
+import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
+import { getScuntTeams } from '../../state/scuntTeams/saga';
 const { axios } = useAxios();
 
 export const getScuntTeamObjFromTeamName = (teamName, teamObjs) => {
@@ -42,32 +44,15 @@ export const PageScuntJudgeForm = () => {
   const dispatch = useDispatch();
   const { missions } = useSelector(scuntMissionsSelector);
   const { setSnackbar } = useContext(SnackbarContext);
+  const { scuntTeams: teams } = useSelector(scuntTeamsSelector);
 
-  const [teams, setTeams] = useState(['Select Team']);
+  // const [teams, setTeams] = useState(['Select Team']);
   const [teamObjs, setTeamObjs] = useState();
-
-  const getScuntTeams = async () => {
-    try {
-      const response = await axios.get('/scunt-teams');
-      const { teamPoints } = response.data;
-      if (teamPoints.length <= 0 || !teamPoints) setTeams([]);
-      else {
-        setTeamObjs(teamPoints);
-        setTeams(
-          teamPoints.map((team) => {
-            return team?.name;
-          }),
-        );
-      }
-    } catch (e) {
-      setTeams(['Error loading teams']);
-    }
-  };
 
   useEffect(() => {
     dispatch(getScuntMissions({ showHidden: false }));
-    getScuntTeams();
-  }, []);
+    dispatch(getScuntTeams({ setSnackbar }));
+  }, [dispatch]);
 
   return (
     <>
