@@ -46,7 +46,6 @@ export function* searchFroshListSaga({ payload: { searchTerm, fields } }) {
   try {
     yield put(searchFroshListStart());
     const result = yield call(axios.post, '/frosh/search', { searchTerm, fields });
-    console.log(result?.data?.frosh);
     yield put(searchFroshListSuccess(result?.data?.frosh));
   } catch (error) {
     console.error(error);

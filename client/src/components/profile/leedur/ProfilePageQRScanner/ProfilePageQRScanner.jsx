@@ -98,12 +98,12 @@ export const ProfilePageQRScanner = ({ scopes }) => {
     <div className="profile-page-qr-code-scanner profile-page-side-section">
       <h2 className="profile-page-manual-entry-header">{`Scanning for ${scannerType}`}</h2>
       <QRScannerDisplay
-        setScannedData={(id) => {
-          if (id) {
+        setScannedData={(userID) => {
+          if (userID) {
             if (scannerType === 'registration') {
-              dispatch(signInFrosh({ userID: id }));
+              dispatch(signInFrosh({ userID }));
             } else if (scannerType === 'kits') {
-              dispatch(preKitPickUp({ userID: id }));
+              dispatch(preKitPickUp({ userID }));
             }
           }
         }}

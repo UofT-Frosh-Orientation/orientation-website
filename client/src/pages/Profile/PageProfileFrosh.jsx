@@ -12,7 +12,7 @@ import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm'
 import { Link } from 'react-router-dom';
 import { instagramAccounts } from '../../util/instagramAccounts';
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
-import NitelifeIcon from '../../assets/misc/nitelife.png';
+// import NitelifeIcon from '../../assets/misc/nitelife.png';
 import ScuntIcon from '../../assets/misc/magnifier.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
@@ -76,7 +76,6 @@ const PageProfileFrosh = () => {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <ProfilePageQRCode />
-          {/* Remove scunt stuff for now! */}
           <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
           <ProfilePageFroshScuntTeamsSelection />
           <ProfilePageResources froshObject={user?.isRegistered ? user : null} />
