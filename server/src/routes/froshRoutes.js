@@ -66,6 +66,8 @@ router.get(
   FroshController.getFilteredFroshInfo,
 );
 
+router.post('/search', checkLoggedIn, checkUserType('leadur'), FroshController.searchFrosh);
+
 router.post(
   '/redistribute',
   checkLoggedIn,

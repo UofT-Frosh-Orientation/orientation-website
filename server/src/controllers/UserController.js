@@ -73,10 +73,12 @@ const UserController = {
     passport.authenticate('local', (err, user) => {
       if (err || !user) {
         //req.log.info("Incorrect Email and Password entered by user");
-        res.status(403).send({ message: 'Please ensure your email and password are correct.' });
+        res
+          .status(403)
+          .send({ errorMessage: 'Please ensure your email and password are correct.' });
       } else if (!user.confirmedEmail) {
         // req.log.error(err, "Attempt to login with unverified email");
-        res.status(403).send({ message: 'Please ensure that you have verified your email.' });
+        res.status(403).send({ errorMessage: 'Please ensure that you have verified your email.' });
       } else {
         req.logIn(user, (err) => {
           if (err) {
@@ -164,7 +166,7 @@ const UserController = {
       const { email, password, token } = req.body;
       const result = await UserServices.validatePasswordResetToken(token);
       const existingUser = await UserServices.getUserByEmail(email);
-      if (!existingUser || existingUser.email !== result) {
+      if (!existingUser || existingUser.email !== result.email) {
         next(new Error('INVALID_PASSWORD_RESET_EMAIL'));
       } else {
         await UserServices.updatePassword(email, password);

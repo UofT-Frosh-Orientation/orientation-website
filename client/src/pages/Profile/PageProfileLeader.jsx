@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import './Profile.scss';
 import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
 import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
 import { Button } from '../../components/button/Button/Button';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
-// import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
+import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import EditIcon from '../../assets/misc/pen-solid.svg';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -13,23 +12,26 @@ import { userSelector } from '../../state/user/userSlice';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 // import { scuntDiscord } from '../../util/scunt-constants';
-import {
-  getScuntTeamObjFromTeamName,
-  // getScuntTeamObjFromTeamNumber,
-} from '../ScuntJudgeForm/ScuntJudgeForm';
-import ScuntIcon from '../../assets/misc/magnifier.png';
+import PropTypes from 'prop-types';
+// import {
+//   getScuntTeamObjFromTeamName,
+//   getScuntTeamObjFromTeamNumber,
+// } from '../ScuntJudgeForm/ScuntJudgeForm';
+// import ScuntIcon from '../../assets/misc/magnifier.png';
 import useAxios from '../../hooks/useAxios';
 import { ProfilePageLeaderPermissionDashboardLinks } from '../../components/profile/leedur/PermissionDashboardLinks/ProfilePageLeaderPermissionDashboardLinks';
 import { ProfilePageQRScanner } from '../../components/profile/leedur/ProfilePageQRScanner/ProfilePageQRScanner';
 import { ProfilePageSchedule } from '../../components/profile/ProfilePageSchedule/ProfilePageSchedule';
 import { ProfilePageResources } from '../../components/profile/ProfilePageResources/ProfilePageResources';
-import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
+// import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
 
 const { axios } = useAxios();
 
 const PageProfileLeader = () => {
   const { user } = useSelector(userSelector);
-  const qrCodeLeader = user?.authScopes?.approved.includes('signInFrosh:qr-code registration');
+  const qrCodeLeader =
+    user?.authScopes?.approved.includes('scanner:registration') ||
+    user?.authScopes?.approved.includes('scanner:kits');
   // const [scuntTeams, setScuntTeams] = useState([]);
   // const [scuntTeamObjs, setScuntTeamObjs] = useState();
 
@@ -67,10 +69,9 @@ const PageProfileLeader = () => {
           <ProfilePageSchedule />
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {/* <ProfilePageQRCode /> */}
           {qrCodeLeader === true ? (
             <>
-              <ProfilePageQRScanner />
+              <ProfilePageQRScanner scopes={user?.authScopes?.approved} />
             </>
           ) : (
             <></>

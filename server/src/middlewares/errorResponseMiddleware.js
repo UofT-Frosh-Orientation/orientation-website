@@ -1,6 +1,7 @@
 function errorResponseMiddleware(err, req, res, next) {
   let statusCode, errorMessage;
-  console.log('errorMiddleware: ', err);
+  console.log('errorMiddleware: ');
+  console.error(err);
 
   if (err.message === 'DUPLICATE_EMAIL') {
     statusCode = 400;

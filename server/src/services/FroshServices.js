@@ -126,11 +126,14 @@ const FroshServices = {
    * @returns {User}
    */
   async updateFroshInfo(userId, updateInfo) {
-    return FroshModel.findByIdAndUpdate({ _id: userId }, updateInfo, {
+    return FroshModel.findByIdAndUpdate(userId, updateInfo, {
       new: true,
       returnDocument: 'after',
     }).then(
-      (frosh) => frosh,
+      (frosh) => {
+        if (!frosh) throw new Error('FROSH_NOT_FOUND');
+        return frosh;
+      },
       (error) => {
         throw new Error('UNABLE_TO_UPDATE_FROSH', { cause: error });
       },
@@ -145,7 +148,10 @@ const FroshServices = {
    */
   async getFilteredFroshInfo(query, projection) {
     return FroshModel.find(query, { ...projection, isRegistered: 1 }, { strictQuery: false }).then(
-      (frosh) => frosh,
+      (frosh) => {
+        if (!frosh.length) throw new Error('FROSH_NOT_FOUND');
+        return frosh;
+      },
       (error) => {
         throw new Error('UNABLE_TO_GET_FROSH', { cause: error });
       },
@@ -183,7 +189,7 @@ const FroshServices = {
       'Track One (Undeclared)',
     ];
 
-    const pronouns = ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'];
+    const validPronouns = ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'];
     const teams = [];
 
     // Initialize froshGroupList with 0s
@@ -193,15 +199,15 @@ const FroshServices = {
         icon: froshGroupList[i].icon,
         totalNum: 0,
       });
-      pronouns.forEach((pronoun) => {
+      validPronouns.forEach((pronoun) => {
         teams[i][pronoun] = 0;
       });
       disciplines.forEach((discipline) => {
         teams[i][discipline] = 0;
         frosh.forEach((curFrosh) => {
           if (
-            discipline === curFrosh.discipline &&
-            pronouns.includes(curFrosh.pronouns) &&
+            curFrosh.discipline === discipline &&
+            validPronouns.includes(curFrosh.pronouns) &&
             curFrosh.froshGroup === froshGroupList[i].name
           ) {
             teams[i][discipline] += 1;
@@ -215,7 +221,7 @@ const FroshServices = {
     // redistribute frosh with bad data and update teams
     const reassignedFrom = [];
     frosh.forEach((curFrosh) => {
-      if (!pronouns.includes(curFrosh.pronouns)) {
+      if (!validPronouns.includes(curFrosh.pronouns)) {
         let pronoun;
         switch (curFrosh.pronouns) {
           case 'He/Him':
@@ -253,10 +259,10 @@ const FroshServices = {
           }
         }
 
-        const i = teams.findIndex((team) => team.name === froshGroup);
-        teams[i][pronoun] += 1;
-        teams[i][curFrosh.discipline] += 1;
-        teams[i].totalNum += 1;
+        const index = teams.findIndex((team) => team.name === froshGroup);
+        teams[index][pronoun] += 1;
+        teams[index][curFrosh.discipline] += 1;
+        teams[index].totalNum += 1;
         curFrosh.froshGroup = froshGroup;
         curFrosh.froshGroupIcon = froshGroupIcon;
         curFrosh.pronouns = pronoun;
@@ -269,6 +275,7 @@ const FroshServices = {
         curFrosh.save();
       }
     });
+    await this.initFroshGroups(teams);
     return reassignedFrom;
   },
 };
