@@ -31,7 +31,7 @@ const UserController = {
           scuntTeam,
         );
       } else {
-        user = await UserServices.createUser(
+        user = await UserServices.create(
           email.toLowerCase(),
           password,
           firstName,
@@ -133,7 +133,7 @@ const UserController = {
     } catch (error) {
       req.log.error({
         msg: 'User Logout Failure: user ' + user.id,
-        err,
+        error,
         user: user.getResponseObject(),
       });
       next(error);
@@ -201,13 +201,13 @@ const UserController = {
             'Successfully verified your email! Log in with your email and password to get started.',
         });
       }
-    } catch (err) {
+    } catch (error) {
       req.log.fatal({
         msg: 'Error with password reset page: user ' + req.body.email,
-        err,
-        user: user.getResponseObject(),
+        error,
+        user: req.body,
       });
-      next(err);
+      next(error);
     }
   },
 
@@ -222,9 +222,9 @@ const UserController = {
         .send({ message: 'You have been successfully unsubscribed from announcement emails.' });
     } catch (error) {
       req.log.error({
-        msg: 'User Announcement Unsubscribe Error: user ' + user.id,
-        err,
-        user: user.getResponseObject(),
+        msg: 'User Announcement Unsubscribe Error: user ' + req.body.email,
+        error,
+        user: req.body,
       });
       next(error);
     }
@@ -239,9 +239,9 @@ const UserController = {
         .send({ message: 'You have been successfully resubscribed to announcement emails.' });
     } catch (error) {
       req.log.error({
-        msg: 'User Announcement Resubscribe Error: user ' + user.id,
-        err,
-        user: user.getResponseObject(),
+        msg: 'User Announcement Resubscribe Error: user ' + req?.body?.email,
+        error,
+        user: req.body,
       });
       next(error);
     }
@@ -269,9 +269,9 @@ const UserController = {
       }
     } catch (err) {
       req.log.fatal({
-        msg: 'User Request Auth Scope Error: user ' + user.id,
+        msg: 'User Request Auth Scope Error: user ' + req.user.id,
         err,
-        user: user.getResponseObject(),
+        user: req.user,
       });
       next(err);
     }
@@ -330,13 +330,13 @@ const UserController = {
       const { userAuthScopes } = req.body;
       await UserServices.updateAuthScopes(userAuthScopes);
       return res.status(200).send({ message: 'Auth scopes updated!' });
-    } catch (err) {
+    } catch (error) {
       req.log.error({
-        msg: 'Error Updating Auth Scopes: user ' + user.id,
-        err,
-        user: updatedUser.getResponseObject(),
+        msg: 'Error Updating Auth Scopes: user ' + req.user.id,
+        error,
+        user: req.user,
       });
-      next(err);
+      next(error);
     }
   },
 
@@ -365,9 +365,9 @@ const UserController = {
       const { id } = req.params;
       await UserServices.deleteUser(id);
       res.status(200).send({ message: 'Successfully deleted User!', deletedId: id });
-    } catch (err) {
-      req.log.fatal({ msg: 'Error Deleting User ' + id, err });
-      next(err);
+    } catch (error) {
+      req.log.fatal({ msg: 'Error Deleting User ' + req.id, error });
+      next(error);
     }
   },
 

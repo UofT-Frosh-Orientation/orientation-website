@@ -55,8 +55,7 @@ announcementSubscription.process((job, done) => {
         );
 
         result.then((response) => {
-          console.log('response:');
-          console.log(response);
+          console.log('email API response:', response);
           done();
         });
       });

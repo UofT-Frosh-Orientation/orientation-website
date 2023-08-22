@@ -3,7 +3,7 @@ const AnnouncementServices = require('../services/AnnouncementServices');
 const AnnouncementController = {
   async getAnnouncement(req, res, next) {
     try {
-      const allAnnouncements = await AnnouncementServices.getAllAnnouncements();
+      const allAnnouncements = await AnnouncementServices.getAll();
       return res.status(200).send({ announcements: allAnnouncements });
     } catch (e) {
       req.log.fatal({ msg: 'Unable to get announcement', e });
@@ -14,9 +14,7 @@ const AnnouncementController = {
   async getCompletedAnnouncements(req, res, next) {
     const currentUser = req.user;
     try {
-      const completedAnnouncements = await AnnouncementServices.getCompletedAnnouncements(
-        currentUser,
-      );
+      const completedAnnouncements = await AnnouncementServices.getCompleted(currentUser);
       return res.status(200).send({ announcements: completedAnnouncements });
     } catch (e) {
       req.log.fatal({
@@ -32,7 +30,7 @@ const AnnouncementController = {
     const currentUser = req.user;
     const announcementId = req.params.id;
     try {
-      const completedAnnouncements = await AnnouncementServices.completeAnnouncementElement(
+      const completedAnnouncements = await AnnouncementServices.complete(
         announcementId,
         currentUser,
       );
@@ -53,7 +51,7 @@ const AnnouncementController = {
     const id = req.params.id;
 
     try {
-      await AnnouncementServices.updateAnnouncementElement(id, data);
+      await AnnouncementServices.update(id, data);
       return res.status(200).send({ message: 'Successfully updated announcement element!' });
     } catch (e) {
       req.log.fatal({ msg: 'Unable to update announcement element', e });
@@ -65,7 +63,7 @@ const AnnouncementController = {
     const data = req.body.announcementData;
 
     try {
-      await AnnouncementServices.saveNewAnnouncementElement(data);
+      await AnnouncementServices.create(data);
       return res.status(200).send({ message: 'Successfully added announcement element!' });
     } catch (e) {
       req.log.fatal({ msg: 'Unable to create announcement', e });
@@ -77,7 +75,7 @@ const AnnouncementController = {
     const id = req.params.id;
 
     try {
-      await AnnouncementServices.deleteAnnouncementElement(id);
+      await AnnouncementServices.delete(id);
       return res.status(200).send({ message: 'Successfully deleted announcement element!' });
     } catch (e) {
       req.log.fatal({ msg: 'Unable to delete announcement', e });

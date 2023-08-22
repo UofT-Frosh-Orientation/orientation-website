@@ -4,7 +4,7 @@ const UserModel = require('../models/UserModel');
 
 const FroshServices = {
   /**
-   * Gets the frosh group for a new frosh.
+   * @description Gets the frosh group for a new frosh.
    * @param {String} discipline - the discipline of the frosh
    * @param {String} pronouns -  the pronouns of the frosh
    * @return {Promise<Object>} - the name of the frosh group
@@ -35,7 +35,7 @@ const FroshServices = {
   },
 
   /**
-   * Upgrades an existing user account to a frosh account.
+   * @description Upgrades an existing user account to a frosh account.
    * @param {Object} user - the existing user document
    * @param {Object} newInfo - the new info required to register the frosh
    * @param {String} paymentIntent
@@ -58,127 +58,125 @@ const FroshServices = {
     return await frosh.save();
   },
 
+  /**
+   * @description Adds a payment to the user's payment history for the retreat.
+   * @param {User} user current user
+   * @param {Payment} paymentIntent Payment object from stripe
+   * @returns {User} updated user
+   */
   async addRetreatPayment(user, paymentIntent) {
-    return new Promise((resolve, reject) => {
-      FroshModel.findByIdAndUpdate(
-        user.id,
-        {
-          $push: {
-            payments: [
-              {
-                item: 'Retreat Ticket',
-                paymentIntent: paymentIntent.toString(),
-                amountDue: 9500,
-              },
-            ],
+    return FroshModel.findByIdAndUpdate(user.id, {
+      $push: {
+        payments: [
+          {
+            item: 'Retreat Ticket',
+            paymentIntent: paymentIntent.toString(),
+            amountDue: 9500,
           },
-        },
-        {},
-        (err, user) => {
-          if (err) {
-            reject(err);
-          } else if (!user) {
-            reject('INVALID_USER');
-          } else {
-            resolve(user);
-          }
-        },
-      );
-    });
+        ],
+      },
+    }).then(
+      (frosh) => frosh,
+      (error) => {
+        throw new Error('UNABLE_TO_ADD_PAYMENT', { cause: error });
+      },
+    );
   },
 
   /**
-   * Get a frosh by their id
-   * @param id
-   * @return {Promise<Object>}
+   * @description Gets the frosh info from ID.
+   * @param {String} id user id
+   * @returns {User}
    */
   async getFroshInfo(id) {
-    return FroshModel.findById(id);
+    return FroshModel.findById(id).then(
+      (frosh) => frosh,
+      (error) => {
+        throw new Error('UNABLE_TO_GET_FROSH', { cause: error });
+      },
+    );
   },
 
   /**
-   * Initializes a list of frosh groups with default values in the database.
-   * @constructor
-   * @param {Array<Object>} groups - List of frosh groups as javascript objects
+   * @description Initializes the frosh groups in the database.
+   * @param {Object[]} groups an array of frosh groups
+   * @returns {FroshGroup[]}
    */
   async initFroshGroups(groups) {
-    return await Promise.all(
+    return Promise.all(
       groups.map((group) => {
-        return new Promise((resolve, reject) => {
-          FroshGroupModel.findOneAndUpdate(
-            { name: group.name },
-            { ...group },
-            { upsert: true },
-            (err, result) => {
-              if (err) {
-                reject(err);
-              } else {
-                resolve(result);
-              }
-            },
-          );
-        });
+        return FroshGroupModel.findOneAndUpdate(
+          { name: group.name },
+          { ...group },
+          { upsert: true },
+        ).then(
+          (result) => result,
+          (error) => {
+            throw new Error(`UNABLE_TO_INIT_FROSH_GROUP: ${group.name}`, { cause: error });
+          },
+        );
       }),
     );
   },
 
+  /**
+   * @description Updates the user info.
+   * @param {String} userId user id
+   * @param {User} updateInfo updated user info
+   * @returns {User}
+   */
   async updateFroshInfo(userId, updateInfo) {
-    return new Promise((resolve, reject) => {
-      FroshModel.findOneAndUpdate(
-        { _id: userId },
-        updateInfo,
-        { returnDocument: 'after' },
-        (err, Frosh) => {
-          if (err) {
-            reject(new Error('UNABLE_TO_UPDATE_FROSH', { cause: err }));
-          } else if (!Frosh) {
-            reject(new Error('FROSH_NOT_FOUND'));
-          } else {
-            resolve(Frosh);
-          }
-        },
-      );
-    });
+    return FroshModel.findByIdAndUpdate(userId, updateInfo, {
+      new: true,
+      returnDocument: 'after',
+    }).then(
+      (frosh) => {
+        if (!frosh) throw new Error('FROSH_NOT_FOUND');
+        return frosh;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_UPDATE_FROSH', { cause: error });
+      },
+    );
   },
 
+  /**
+   * @description Gets all frosh matching query.
+   * @param {Object} query query object
+   * @param {Object} projection projection object
+   * @returns {User[]}
+   */
   async getFilteredFroshInfo(query, projection) {
-    return new Promise((resolve, reject) => {
-      FroshModel.find(
-        { ...query, isRegistered: true },
-        projection,
-        { strictQuery: false },
-        (err, frosh) => {
-          if (err) {
-            reject(err);
-          } else if (!frosh) {
-            reject('FROSH_NOT_FOUND');
-          } else {
-            resolve(frosh);
-          }
-        },
-      );
-    });
+    return FroshModel.find(query, { ...projection, isRegistered: 1 }, { strictQuery: false }).then(
+      (frosh) => {
+        if (!frosh.length) throw new Error('FROSH_NOT_FOUND');
+        return frosh;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_GET_FROSH', { cause: error });
+      },
+    );
   },
 
+  /**
+   * @description Gets all users matching query.
+   * @param {Object} query query object
+   * @param {Object} projection projection object
+   * @returns {User[]}
+   */
   async getFilteredUserInfo(query, projection) {
-    return new Promise((resolve, reject) => {
-      UserModel.find(
-        { ...query, isRegistered: true },
-        projection,
-        { strictQuery: false },
-        (err, frosh) => {
-          if (err) {
-            reject(err);
-          } else if (!frosh) {
-            reject('INTERNAL_ERROR');
-          } else {
-            resolve(frosh);
-          }
-        },
-      );
-    });
+    return UserModel.find(query, { ...projection, isRegistered: 1 }, { strictQuery: false }).then(
+      (user) => {
+        if (!user.length) throw new Error('USERS_NOT_FOUND');
+        return user;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_GET_USER', { cause: error });
+      },
+    );
   },
 
+  /* istanbul ignore next */
   async mapFroshUsers(frosh) {
     // Recreating froshGroupList, to not include the broken ones
     const froshGroupList = await FroshGroupModel.find();
