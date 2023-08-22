@@ -85,6 +85,7 @@ describe('ScuntTeamServices', () => {
   });
 
   it('.bribeTransaction()\t\t|\tUpdate a bribe transaction (INVALID_SETTINGS)', async () => {
+    await ScuntGameSettingModel.collection.drop();
     await assert.rejects(
       ScuntTeamServices.bribeTransaction(8, 10, { scuntJudgeBribePoints: 10000 }),
       {
@@ -94,7 +95,7 @@ describe('ScuntTeamServices', () => {
     );
   });
 
-  it('.bribeTransaction()\t\t|\tUpdate a bribe transaction (INVALID_SETTINGS)', async () => {
+  it('.bribeTransaction()\t\t|\tUpdate a bribe transaction (NOT_ALLOWED_TO_JUDGE)', async () => {
     await ScuntGameSettingModel.findOneAndUpdate(
       {},
       { $set: { allowJudging: false } },
@@ -507,7 +508,7 @@ describe('ScuntTeamServices', () => {
       points: 10,
     });
     await ScuntMissionModel.create({
-      number: 2,
+      number: 200,
       name: 'Test Mission 2',
       category: '',
       points: 10,
@@ -534,7 +535,7 @@ describe('ScuntTeamServices', () => {
       points: 10,
     });
     await ScuntMissionModel.create({
-      number: 3,
+      number: 30,
       name: 'Test Mission 3',
       category: '',
       points: 10,
