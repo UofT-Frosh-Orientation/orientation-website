@@ -126,7 +126,7 @@ const ScuntNegativePoints = ({ teams, teamObjs }) => {
           <div>
             <TextInput
               label={'Points'}
-              placeholder={assignedPoints}
+              placeholder={`${assignedPoints}`}
               onChange={(value) => {
                 if (isNaN(parseInt(value))) {
                   return;
