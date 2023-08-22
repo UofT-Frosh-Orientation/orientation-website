@@ -1,0 +1,184 @@
+POST {{$dotenv API_BASE_URL}}/user/signup
+Content-Type: application/json
+
+{ "email": "test@test{{$randomInt 1000 9999}}.com", "password":"Password!2", "firstName":"FirstName", "lastName":"LastName" }
+
+###
+
+post {{$dotenv API_BASE_URL}}/user/login
+Content-Type: application/json
+// 9050, 6397, 9070, 8383, 5246
+
+{
+    "email": "test@test5246.com",
+    "password": "Password!2"
+}
+
+###
+
+post {{$dotenv API_BASE_URL}}/user/verify-user-email
+Content-Type: application/json
+
+{
+    "email":"test@test5246.com",
+    "emailToken":""
+}
+
+###
+
+post {{$dotenv API_BASE_URL}}/user/logout
+
+
+###
+
+get {{$dotenv API_BASE_URL}}/user/info
+
+###
+
+post {{$dotenv API_BASE_URL}}/user/request-password-reset
+
+###
+
+post {{$dotenv API_BASE_URL}}/user/reset-password
+
+
+
+###
+
+post {{$dotenv API_BASE_URL}}/user/request-auth-scopes
+
+###
+
+get {{$dotenv API_BASE_URL}}/user/unapproved-users
+
+###
+
+get {{$dotenv API_BASE_URL}}/user/all-auth-scopes
+
+###
+
+put {{$dotenv API_BASE_URL}}/user/update-info
+
+###
+
+put {{$dotenv API_BASE_URL}}/user/unsubscribe
+
+###
+
+put {{$dotenv API_BASE_URL}}/user/resubscribe
+
+###
+
+put {{$dotenv API_BASE_URL}}/user/account-statuses
+
+###
+
+put {{$dotenv API_BASE_URL}}/user/auth-scopes
+
+###
+
+get {{$dotenv API_BASE_URL}}/user/scunt-judge-users
+
+###
+
+delete {{$dotenv API_BASE_URL}}/user/:id
+
+###
+
+put {{$dotenv API_BASE_URL}}/user/user-exist
+
+###
+
+post {{$dotenv API_BASE_URL}}/frosh/register
+
+###
+
+put {{$dotenv API_BASE_URL}}/frosh/info
+
+###
+
+get {{$dotenv API_BASE_URL}}/frosh/filtered-data
+
+###
+
+post {{$dotenv API_BASE_URL}}/frosh/search
+
+###
+
+post {{$dotenv API_BASE_URL}}/frosh/redistribute
+
+###
+
+get {{$dotenv API_BASE_URL}}/scunt-game-controls/
+
+###
+
+post {{$dotenv API_BASE_URL}}/scunt-game-controls/
+
+###
+
+get {{$dotenv API_BASE_URL}}/scunt-missions/
+
+###
+
+post {{$dotenv API_BASE_URL}}/scunt-missions/
+
+###
+
+delete {{$dotenv API_BASE_URL}}/scunt-missions/:id
+
+###
+
+put {{$dotenv API_BASE_URL}}/scunt-missions/set-visibility
+
+###
+
+post {{$dotenv API_BASE_URL}}/scunt-missions/bulk 
+
+###
+
+get {{$dotenv API_BASE_URL}}/scunt-teams/
+
+###
+
+post {{$dotenv API_BASE_URL}}/scunt-teams/update-team
+
+###
+
+post {{$dotenv API_BASE_URL}}/scunt-teams/transaction/bribe
+
+###
+
+get {{$dotenv API_BASE_URL}}/scunt-teams/judges
+
+###
+
+post {{$dotenv API_BASE_URL}}/scunt-teams/transaction/refill-bribe
+
+###
+
+post {{$dotenv API_BASE_URL}}/scunt-teams/transaction/add
+
+###
+
+post {{$dotenv API_BASE_URL}}/scunt-teams/transactions
+
+###
+
+post {{$dotenv API_BASE_URL}}/scunt-teams/transaction/subtract
+
+###
+
+post {{$dotenv API_BASE_URL}}/scunt-teams/transaction/check
+
+###
+
+post {{$dotenv API_BASE_URL}}/scunt-teams/transaction/delete
+
+###
+
+post {{$dotenv API_BASE_URL}}/scunt-teams/shuffle
+
+###
+
+put {{$dotenv API_BASE_URL}}/scunt-teams/rename-teams
