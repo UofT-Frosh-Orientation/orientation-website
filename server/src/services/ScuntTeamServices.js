@@ -104,8 +104,6 @@ const ScuntTeamServices = {
     ).then(
       (leadur) => {
         if (!leadur) throw new Error('LEADUR_NOT_FOUND');
-        if (leadur.scuntJudgeBribePoints !== user.scuntJudgeBribePoints - curvedPoints)
-          throw new Error('UNABLE_TO_UPDATE_LEADUR');
         return leadur;
       },
       (error) => {
@@ -130,7 +128,7 @@ const ScuntTeamServices = {
     ).then(
       (team) => {
         if (!team) {
-          leadur.scuntJudgeBribePoints += curvedPoints;
+          leadur.set({ scuntJudgeBribePoints: user.scuntJudgeBribePoints });
           leadur.save();
           throw new Error('INVALID_TEAM_NUMBER');
         }
@@ -138,7 +136,7 @@ const ScuntTeamServices = {
         return { team, leadur };
       },
       (error) => {
-        leadur.scuntJudgeBribePoints += curvedPoints;
+        leadur.set({ scuntJudgeBribePoints: user.scuntJudgeBribePoints });
         leadur.save();
         throw new Error('UNABLE_TO_UPDATE_TEAM', { cause: error });
       },
@@ -157,7 +155,7 @@ const ScuntTeamServices = {
       ],
     }).then(
       (judgeUsers) => {
-        if (!judgeUsers) throw new Error('UNABLE_TO_GET_SCUNT_JUDGES');
+        if (!judgeUsers.length) throw new Error('JUDGES_NOT_FOUND');
         return judgeUsers;
       },
       (error) => {
@@ -236,7 +234,7 @@ const ScuntTeamServices = {
     // add transaction to team
     const transaction =
       (!prevPoints ? 'Added ' : prevPoints < curvedPoints ? 'Updated to ' : '') +
-      curvedPoints.toString() +
+      points.toString() +
       ' points for mission #' +
       missionNumber.toString() +
       ' for team ' +
@@ -390,6 +388,15 @@ const ScuntTeamServices = {
       },
     }));
 
+    const scuntTeamsStats = [...Array(numTeams)].map((_, index) => ({
+      number: index + 1,
+      name: `Team ${index + 1}`,
+      froshGroups: {},
+      pronouns: {},
+      disciplines: {},
+      count: 0,
+    }));
+
     // upsert the teams
     await ScuntTeamModel.collection.bulkWrite(teams).then(
       (result) => {
@@ -403,7 +410,7 @@ const ScuntTeamServices = {
     // get all the frosh who signed up for scunt
     const scuntFrosh = await FroshModel.find({ attendingScunt: true }).then(
       (allFroshList) => {
-        if (!allFroshList) throw new Error('UNABLE_TO_GET_ALL_FROSH');
+        if (!allFroshList.length) throw new Error('UNABLE_TO_GET_ALL_FROSH');
         return allFroshList;
       },
       (error) => {
@@ -415,34 +422,37 @@ const ScuntTeamServices = {
 
     // create an array of promises to save the updated frosh
     return Promise.all(
-      scuntFrosh.map((f) => {
-        if (f.scuntPreferredMembers.length) {
+      scuntFrosh.map(async (currFrosh) => {
+        if (currFrosh.scuntPreferredMembers.length) {
           let isMatch = true;
-          for (let i = 0; i < f.scuntPreferredMembers.length; i++) {
-            if (f.scuntPreferredMembers[i] !== f.email) {
-              const frosh = FroshModel.find({ email: f.scuntPreferredMembers[i] }).then(
-                (frosh) => {
-                  if (!frosh) throw new Error('UNABLE_TO_GET_FROSH');
-                },
-                (error) => {
-                  throw new Error('UNABLE_TO_GET_FROSH', { cause: error });
-                },
-              );
+          for (let i = 0; i < currFrosh.scuntPreferredMembers.length; i++) {
+            if (currFrosh.scuntPreferredMembers[i] != currFrosh.email) {
+              const preferredTeamMember = scuntFrosh.filter(
+                (frosh) => frosh.email == currFrosh.scuntPreferredMembers[i],
+              )[0];
 
-              const sortedFPreferred = f.scuntPreferredMembers.sort();
-              const sortedFroshPreferred = frosh[0].scuntPreferredMembers.sort();
-              if (sortedFPreferred !== sortedFroshPreferred) {
+              if (!preferredTeamMember) {
                 isMatch = false;
+                break;
+              }
+
+              if (
+                !currFrosh.scuntPreferredMembers.every((val) =>
+                  preferredTeamMember.scuntPreferredMembers.includes(val),
+                )
+              ) {
+                isMatch = false;
+                break;
               }
             }
           }
 
           if (isMatch) {
             let teamIndex = -1;
-            for (let i = 0; i < f.scuntPreferredMembers.length; i++) {
-              if (f.scuntPreferredMembers[i] !== f.email) {
-                if (scuntTeamDict[f.scuntPreferredMembers[i]] !== undefined) {
-                  teamIndex = scuntTeamDict[f.scuntPreferredMembers[i]];
+            for (let i = 0; i < currFrosh.scuntPreferredMembers.length; i++) {
+              if (currFrosh.scuntPreferredMembers[i] !== currFrosh.email) {
+                if (scuntTeamDict[currFrosh.scuntPreferredMembers[i]] !== undefined) {
+                  teamIndex = scuntTeamDict[currFrosh.scuntPreferredMembers[i]];
                   break;
                 }
               }
@@ -450,53 +460,52 @@ const ScuntTeamServices = {
 
             if (teamIndex === -1) {
               let minCount = 100000;
-              for (let i = 0; i < teams.length; i++) {
-                if (teams[i].count === 0) {
+              for (let i = 0; i < scuntTeamsStats.length; i++) {
+                if (scuntTeamsStats[i].count === 0) {
                   teamIndex = i;
                   break;
                 }
-                if (teams[i].count < minCount) {
-                  minCount = teams[i].count;
+                if (scuntTeamsStats[i].count < minCount) {
+                  minCount = scuntTeamsStats[i].count;
                   teamIndex = i;
                 }
               }
             }
 
-            const team = teams[teamIndex];
-            f.scuntTeam = team.number;
-            scuntTeamDict[f.email] = teamIndex;
-            team.froshGroups[f.froshGroup] = (team.froshGroups[f.froshGroup] ?? 0) + 1;
-            team.pronouns[f.pronouns] = (team.pronouns[f.pronouns] ?? 0) + 1;
-            team.disciplines[f.discipline] = (team.disciplines[f.discipline] ?? 0) + 1;
+            const team = scuntTeamsStats[teamIndex];
+            currFrosh.scuntTeam = team.number;
+            scuntTeamDict[currFrosh.email] = teamIndex;
+            team.froshGroups[currFrosh.froshGroup] =
+              (team.froshGroups[currFrosh.froshGroup] ?? 0) + 1;
+            team.pronouns[currFrosh.pronouns] = (team.pronouns[currFrosh.pronouns] ?? 0) + 1;
+            team.disciplines[currFrosh.discipline] =
+              (team.disciplines[currFrosh.discipline] ?? 0) + 1;
             team.count += 1;
-            return f.save({ validateModifiedOnly: true });
+            return await currFrosh.save({ validateModifiedOnly: true });
           }
         }
         let minScore = 100000;
         let teamIndex = -1;
-        for (let i = 0; i < teams.length; i++) {
+        for (let i = 0; i < scuntTeamsStats.length; i++) {
           const score =
-            0.5 * (teams[i].froshGroups[f.froshGroup] ?? 0) +
-            0.5 * (teams[i].pronouns[f.pronouns] ?? 0) +
-            0.5 * (teams[i].disciplines[f.discipline] ?? 0) +
-            teams[i].count;
+            0.5 * (scuntTeamsStats[i].froshGroups[currFrosh.froshGroup] ?? 0) +
+            0.5 * (scuntTeamsStats[i].pronouns[currFrosh.pronouns] ?? 0) +
+            0.5 * (scuntTeamsStats[i].disciplines[currFrosh.discipline] ?? 0) +
+            scuntTeamsStats[i].count;
 
           if (score < minScore) {
             minScore = score;
             teamIndex = i;
           }
         }
-        const team = teams[teamIndex];
-        f.scuntTeam = team.number;
-        team.froshGroups[f.froshGroup] = (team.froshGroups[f.froshGroup] ?? 0) + 1;
-        team.pronouns[f.pronouns] = (team.pronouns[f.pronouns] ?? 0) + 1;
-        team.disciplines[f.discipline] = (team.disciplines[f.discipline] ?? 0) + 1;
+        const team = scuntTeamsStats[teamIndex];
+        currFrosh.scuntTeam = team.number;
+        team.froshGroups[currFrosh.froshGroup] = (team.froshGroups[currFrosh.froshGroup] ?? 0) + 1;
+        team.pronouns[currFrosh.pronouns] = (team.pronouns[currFrosh.pronouns] ?? 0) + 1;
+        team.disciplines[currFrosh.discipline] = (team.disciplines[currFrosh.discipline] ?? 0) + 1;
         team.count += 1;
-        return f.save({ validateModifiedOnly: true }).then(
-          (frosh) => {
-            if (!frosh) throw new Error('UNABLE_TO_UPDATE_FROSH');
-            return frosh;
-          },
+        return currFrosh.save({ validateModifiedOnly: true }).then(
+          (frosh) => frosh,
           (error) => {
             throw new Error('UNABLE_TO_UPDATE_FROSH', { cause: error });
           },

@@ -7,6 +7,7 @@ const ScuntTeamModel = require('../../src/models/ScuntTeamModel');
 const ScuntMissionModel = require('../../src/models/ScuntMissionModel');
 const ScuntGameSettingModel = require('../../src/models/ScuntGameSettingsModel');
 const assert = require('assert');
+const FroshModel = require('../../src/models/FroshModel');
 
 describe('ScuntTeamServices', () => {
   let testLeadur;
@@ -83,6 +84,48 @@ describe('ScuntTeamServices', () => {
     assert(teams.length > 0);
   });
 
+  it('.bribeTransaction()\t\t|\tUpdate a bribe transaction (INVALID_SETTINGS)', async () => {
+    await assert.rejects(
+      ScuntTeamServices.bribeTransaction(8, 10, { scuntJudgeBribePoints: 10000 }),
+      {
+        name: 'Error',
+        message: 'INVALID_SETTINGS',
+      },
+    );
+  });
+
+  it('.bribeTransaction()\t\t|\tUpdate a bribe transaction (INVALID_SETTINGS)', async () => {
+    await ScuntGameSettingModel.findOneAndUpdate(
+      {},
+      { $set: { allowJudging: false } },
+      { upsert: true },
+    );
+    await assert.rejects(
+      ScuntTeamServices.bribeTransaction(8, 10, { scuntJudgeBribePoints: 10000 }),
+      {
+        name: 'Error',
+        message: 'NOT_ALLOWED_TO_JUDGE',
+      },
+    );
+    ScuntGameSettingModel.collection.drop();
+  });
+
+  it('.bribeTransaction()\t\t|\tUpdate a bribe transaction (LEADUR_NOT_FOUND)', async () => {
+    await ScuntGameSettingModel.findOneAndUpdate(
+      {},
+      { $set: { allowJudging: true } },
+      { upsert: true },
+    );
+    await assert.rejects(
+      ScuntTeamServices.bribeTransaction(8, 10, { scuntJudgeBribePoints: 10000 }),
+      {
+        name: 'Error',
+        message: 'LEADUR_NOT_FOUND',
+      },
+    );
+    ScuntGameSettingModel.collection.drop();
+  });
+
   it('.bribeTransaction()\t\t|\tUpdate a bribe transaction', async () => {
     await ScuntGameSettingModel.findOneAndUpdate(
       {},
@@ -127,7 +170,46 @@ describe('ScuntTeamServices', () => {
     });
   });
 
-  // couldn't think of other errors for bribeTransaction
+  it('.bribeTransaction()\t\t|\tUpdate a bribe transaction (INVALID_TEAM_NUMBER)', async () => {
+    const leadur = await LeadurModel.create({
+      lastName: 'Testerson',
+      firstName: 'Test',
+      approved: true,
+      hashedPassword: 'test12345',
+      email: 'test4@t43534est.utoronto.ca',
+      froshDataFields: {},
+      scuntTeam: 1,
+      scuntJudgeBribePoints: 1000000,
+    });
+    await assert.rejects(ScuntTeamServices.bribeTransaction(1200, 3000, leadur), {
+      name: 'Error',
+      message: 'INVALID_TEAM_NUMBER',
+    });
+  });
+
+  it('.bribeTransaction()\t\t|\tUpdate a bribe transaction (UNABLE_TO_UPDATE_TEAM)', async () => {
+    const leadur = await LeadurModel.create({
+      lastName: 'Testerson',
+      firstName: 'Test',
+      approved: true,
+      hashedPassword: 'test12345',
+      email: 'test4@t4355345534est.utoronto.ca',
+      froshDataFields: {},
+      scuntTeam: 1,
+      scuntJudgeBribePoints: 1000000,
+    });
+    await assert.rejects(ScuntTeamServices.bribeTransaction('dfsdf', 3000, leadur), {
+      name: 'Error',
+      message: 'UNABLE_TO_UPDATE_TEAM',
+    });
+  });
+
+  it('.getScuntJudges()\t\t\t|\tShould return array with scunt judges', async () => {
+    await assert.rejects(ScuntTeamServices.getScuntJudges(), {
+      name: 'Error',
+      message: 'JUDGES_NOT_FOUND',
+    });
+  });
 
   it('.getScuntJudges()\t\t\t|\tShould return array with scunt judges', async () => {
     await LeadurModel.create({
@@ -138,10 +220,13 @@ describe('ScuntTeamServices', () => {
       email: 'test14@test.utoronto.ca',
       froshDataFields: {},
       scuntTeam: 1,
+      authScopes: {
+        approved: ['scunt:judge bribe points'],
+      },
       scuntJudgeBribePoints: 20,
     });
     const judges = await ScuntTeamServices.getScuntJudges();
-    assert(judges.length === 0);
+    assert(judges.length === 1);
   });
 
   it('.refillBribePoints()\t\t|\tRefill judge bribe points', async () => {
@@ -195,29 +280,24 @@ describe('ScuntTeamServices', () => {
   });
 
   it('.addTransaction()\t\t\t|\tAdd transaction', async () => {
-    const scuntGameSettings = {
-      name: 'Scunt 2T3 Settings',
-      amountOfTeams: 10,
-      amountOfStarterBribePoints: 10000,
-      maxAmountPointsPercent: 0.3,
-      minAmountPointsPercent: 0.3,
-      revealJudgesAndBribes: true,
-      revealTeams: true,
-      showDiscordLink: true,
-      discordLink: 'https://discord.gg/mRutbwuCK9',
-      revealLeaderboard: true,
-      revealMissions: true,
-      allowJudging: true,
-    };
-
-    await ScuntGameSettingsServices.initScuntGameSettings(scuntGameSettings);
+    await ScuntGameSettingsServices.initScuntGameSettings();
     await ScuntTeamModel.create({
       number: 1,
       name: 'Scunt Team 1',
       points: 0,
     });
     const testTeamTransaction = await ScuntTeamServices.addTransaction(1, 2, 20);
-    assert(testTeamTransaction.name === 'Added 20 points for mission #2 for team 1');
+    assert.equal(testTeamTransaction.name, 'Added 20 points for mission #2 for team 1');
+  });
+
+  it('.addTransaction()\t\t\t|\tAdd transaction same mission', async () => {
+    const testTeamTransaction = await ScuntTeamServices.addTransaction(1, 2, 200);
+    assert.equal(testTeamTransaction.name, 'Updated to 200 points for mission #2 for team 1');
+  });
+
+  it('.addTransaction()\t\t\t|\tAdd transaction same mission', async () => {
+    const testTeamTransaction = await ScuntTeamServices.addTransaction(1, 2, 10);
+    assert.equal(testTeamTransaction.name, '10 points for mission #2 for team 1');
   });
 
   it('.addTransaction()\t\t\t|\tAdd transaction', async () => {
@@ -227,10 +307,40 @@ describe('ScuntTeamServices', () => {
       points: 20,
     });
     const testTeamTransaction = await ScuntTeamServices.addTransaction(9, 2, 30);
-    assert.equal(testTeamTransaction.name, 'Added 22.5 points for mission #2 for team 9');
+    assert.equal(testTeamTransaction.name, 'Added 30 points for mission #2 for team 9');
   });
 
   // having trouble with prev points with addTransaction
+
+  it('.addTransaction()\t\t\t|\tAdd transaction (INVALID_SETTINGS)', async () => {
+    await ScuntGameSettingModel.collection.drop();
+    await assert.rejects(ScuntTeamServices.addTransaction(100000, 2, 20), {
+      name: 'Error',
+      message: 'INVALID_SETTINGS',
+    });
+    await ScuntGameSettingModel.findOneAndUpdate(
+      {},
+      { $set: { allowJudging: true } },
+      { upsert: true },
+    );
+  });
+
+  it('.addTransaction()\t\t\t|\tAdd transaction (NOT_ALLOWED_TO_JUDGE)', async () => {
+    await ScuntGameSettingModel.findOneAndUpdate(
+      {},
+      { $set: { allowJudging: false } },
+      { upsert: true },
+    );
+    await assert.rejects(ScuntTeamServices.addTransaction(100000, 2, 20), {
+      name: 'Error',
+      message: 'NOT_ALLOWED_TO_JUDGE',
+    });
+    await ScuntGameSettingModel.findOneAndUpdate(
+      {},
+      { $set: { allowJudging: true } },
+      { upsert: true },
+    );
+  });
 
   it('.addTransaction()\t\t\t|\tAdd transaction (INVALID TEAM)', async () => {
     await assert.rejects(ScuntTeamServices.addTransaction(100000, 2, 20), {
@@ -299,7 +409,14 @@ describe('ScuntTeamServices', () => {
       isJudgingStation: false,
     });
     const points = await ScuntTeamServices.checkTransaction(4, 1);
-    assert(points === 0);
+    assert.equal(points, 0);
+  });
+
+  it('.checkTransaction()\t\t|\tCheck a transaction', async () => {
+    await ScuntTeamServices.addTransaction(4, 1, 20);
+    await ScuntTeamServices.addTransaction(4, 1, 10);
+    const points = await ScuntTeamServices.checkTransaction(4, 1);
+    assert.equal(points, 15);
   });
 
   it('.checkTransaction()\t\t|\tCheck a transaction (INVALID TEAM NUMBER)', async () => {
@@ -309,8 +426,77 @@ describe('ScuntTeamServices', () => {
     });
   });
 
-  it('.initializeTeams()\t\t\t|\tInitialize scunt teams', async () => {
+  it('.initializeTeams()\t\t|\tInitialize scunt teams (NO_SCUNT_SETTINGS)', async () => {
+    await ScuntGameSettingModel.collection.drop();
+    await assert.rejects(ScuntTeamServices.initializeTeams(), {
+      name: 'Error',
+      message: 'NO_SCUNT_SETTINGS',
+    });
+  });
+
+  it('.initializeTeams()\t\t|\tInitialize scunt teams (MISSING_SCUNT_SETTINGS)', async () => {
+    await ScuntGameSettingModel.findOneAndUpdate(
+      {},
+      { $set: { amountOfTeams: null } },
+      { upsert: true },
+    );
+    await assert.rejects(ScuntTeamServices.initializeTeams(), {
+      name: 'Error',
+      message: 'MISSING_SCUNT_SETTINGS',
+    });
+    await ScuntGameSettingModel.collection.drop();
+    await ScuntGameSettingModel.findOneAndUpdate(
+      {},
+      { $set: { allowJudging: true, amountOfTeams: 10 } },
+      { upsert: true },
+    );
+  });
+
+  it('.initializeTeams()\t\t|\tInitialize scunt teams (UNABLE_TO_GET_ALL_FROSH)', async () => {
     await ScuntTeamModel.collection.drop();
+    await FroshModel.collection.drop();
+    await assert.rejects(ScuntTeamServices.initializeTeams(), {
+      name: 'Error',
+      message: 'UNABLE_TO_GET_ALL_FROSH',
+    });
+  });
+
+  it('.initializeTeams()\t\t|\tInitialize scunt teams', async () => {
+    await ScuntTeamModel.collection.drop();
+    for (let i = 0; i < 10; i += 1) {
+      await FroshModel.create({
+        scuntPreferredMembers: [1, 2, 3].includes(i)
+          ? ['test1@test.com', 'test2@test.com', 'test3@test.com']
+          : i === 4
+          ? ['fdfgdfgdfgdfgdfgdfgdfgdf', 'test1@test.com', 'test2@test.com']
+          : i === 5
+          ? ['test4@test.com', 'test2@test.com', 'test3@test.com']
+          : [],
+        hashedPassword: 'test',
+        firstName: `Test ${i}`,
+        lastName: `Test ${i}`,
+        email: `test${i}@test.com`,
+        legalName: `Test ${i}`,
+        pronouns: 'Other',
+        birthDate: new Date(),
+        utorid: 'test123',
+        discipline: 'Chemical',
+        shirtSize: 'L',
+        phoneNumber: '123456',
+        emergencyContactName: 'test',
+        emergencyContactRelationship: 'test',
+        emergencyContactNumber: 'test',
+        bursaryRequested: false,
+        attendingScunt: true,
+        summerLocationCity: 'test',
+        summerLocationCountry: 'test',
+        photograph: true,
+        froshGroup: 'test',
+        isRegistered: true,
+        froshGroupIcon: 'test',
+        scuntTeam: 0,
+      });
+    }
     await ScuntTeamServices.initializeTeams();
   });
 
