@@ -13,12 +13,10 @@ import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { submitBribePoints } from './functions';
-import star from '../../assets/misc/star-solid.svg';
+import greenCheck from '../../assets/misc/check-solid-green.svg';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
 import { getScuntMissions } from '../../state/scuntMissions/saga';
 import useAxios from '../../hooks/useAxios';
-import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
-import { getScuntTeams } from '../../state/scuntTeams/saga';
 const { axios } = useAxios();
 
 export const getScuntTeamObjFromTeamName = (teamName, teamObjs) => {
@@ -44,15 +42,32 @@ export const PageScuntJudgeForm = () => {
   const dispatch = useDispatch();
   const { missions } = useSelector(scuntMissionsSelector);
   const { setSnackbar } = useContext(SnackbarContext);
-  const { scuntTeams: teams } = useSelector(scuntTeamsSelector);
 
-  // const [teams, setTeams] = useState(['Select Team']);
+  const [teams, setTeams] = useState(['Select Team']);
   const [teamObjs, setTeamObjs] = useState();
+
+  const getScuntTeams = async () => {
+    try {
+      const response = await axios.get('/scunt-teams');
+      const { teamPoints } = response.data;
+      if (teamPoints.length <= 0 || !teamPoints) setTeams([]);
+      else {
+        setTeamObjs(teamPoints);
+        setTeams(
+          teamPoints.map((team) => {
+            return team?.name;
+          }),
+        );
+      }
+    } catch (e) {
+      setTeams(['Error loading teams']);
+    }
+  };
 
   useEffect(() => {
     dispatch(getScuntMissions({ showHidden: false }));
-    dispatch(getScuntTeams({ setSnackbar }));
-  }, [dispatch]);
+    getScuntTeams();
+  }, []);
 
   return (
     <>
@@ -111,7 +126,7 @@ const ScuntNegativePoints = ({ teams, teamObjs }) => {
           <div>
             <TextInput
               label={'Points'}
-              placeholder={`${assignedPoints}`}
+              placeholder={assignedPoints}
               onChange={(value) => {
                 if (isNaN(parseInt(value))) {
                   return;
@@ -332,8 +347,8 @@ const ScuntMissionSelection = ({ missions, teams: teamsPassed, teamObjs }) => {
   useEffect(() => {
     if (scuntSettings !== undefined) {
       if (Array.isArray(scuntSettings)) {
-        setMinAmountPointsPercent(scuntSettings?.minAmountPointsPercent);
-        setMaxAmountPointsPercent(scuntSettings?.maxAmountPointsPercent);
+        setMinAmountPointsPercent(scuntSettings[0]?.minAmountPointsPercent);
+        setMaxAmountPointsPercent(scuntSettings[0]?.maxAmountPointsPercent);
       }
     }
   }, [scuntSettings]);
@@ -622,13 +637,13 @@ ScuntMissionSelection.propTypes = {
   teamObjs: PropTypes.array,
 };
 
-export const ScuntMissionEntry = ({ mission, selected }) => {
+export const ScuntMissionEntry = ({ mission, selected, completed, pointsAwarded }) => {
   return (
     <div className={`scunt-mission-entry ${selected ? 'scunt-mission-entry-selected' : ''}`}>
       <h3 className="mission-id">{mission?.number}</h3>
-      {mission?.isJudgingStation ? (
+      {completed ? (
         <img
-          src={star}
+          src={greenCheck}
           alt="judging station indication"
           className="scunt-mission-entry-judging-star"
         />
@@ -637,12 +652,25 @@ export const ScuntMissionEntry = ({ mission, selected }) => {
       )}
       <p className="mission-name">{mission?.name}</p>
 
-      <h3 className="mission-points">{mission?.points}</h3>
+      {completed ? (
+        <h3 className="mission-points">
+          {pointsAwarded}/{mission?.points}
+        </h3>
+      ) : (
+        <h3 className="mission-points">{mission?.points}</h3>
+      )}
     </div>
   );
 };
 
 ScuntMissionEntry.propTypes = {
+  completed: PropTypes.bool,
+  pointsAwarded: PropTypes.number,
   mission: PropTypes.object,
   selected: PropTypes.bool,
+};
+
+ScuntMissionEntry.defaultProps = {
+  completed: false,
+  pointsAwarded: 0,
 };
