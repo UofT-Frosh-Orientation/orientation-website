@@ -16,7 +16,7 @@ import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
-import star from '../../assets/misc/star-solid.svg';
+import greenCheck from '../../assets/misc/check-solid-green.svg';
 
 function getMissionCategories(missions) {
   let currentCategory = '';
@@ -82,6 +82,11 @@ const PageScuntMissionsListShow = () => {
   const [selectedSort, setSelectedSort] = useState('ID');
   const [missionStatus, setMissionStatus] = useState(undefined);
   const loggedIn = useSelector(loggedInSelector);
+  const [completedMissions, setCompletedMissions] = useState({});
+
+  useEffect(() => {
+    getAllTeamTransactions(user?.scuntTeam);
+  }, [missions]); // inital run and whenever missions updated
 
   useEffect(() => {
     setMission(undefined);
@@ -148,6 +153,22 @@ const PageScuntMissionsListShow = () => {
     setMissionStatus(response?.data?.missionStatus);
   };
 
+  const getAllTeamTransactions = async (teamNumber) => {
+    const response = await axios.post('/scunt-teams/transactions', {
+      teamNumber: teamNumber,
+    });
+    const teamTransactions = response?.data?.transactions?.transactions || [];
+
+    teamTransactions.forEach((transaction) => {
+      const missionNum = transaction?.missionNumber;
+
+      if (missionNum !== -1) {
+        // -1 for bribes for deleted points
+        completedMissions[missionNum] = transaction?.points;
+      }
+    });
+  };
+
   let previousCategory = '';
 
   let missionStatusText = '';
@@ -167,8 +188,12 @@ const PageScuntMissionsListShow = () => {
           <Link to={'/scunt-judges'}>Don&apos;t forget to bribe the judges!</Link>
         </div>
         <div className="scunt-missions-judging-station-info">
-          <img src={star} className="judging-station-info-star" alt="judging station indication" />
-          <p>These indicate Judging Stations, photo/video evidence is not accepted!</p>
+          <img
+            src={greenCheck}
+            className="judging-station-info-star"
+            alt="judging station indication"
+          />
+          <p>These indicate completed missions!</p>
         </div>
       </div>
 
@@ -245,7 +270,12 @@ const PageScuntMissionsListShow = () => {
                 setClearText(true);
               }}
             >
-              <ScuntMissionEntry mission={mission} selected />
+              <ScuntMissionEntry
+                mission={mission}
+                selected={true}
+                completed={mission?.number in completedMissions}
+                pointsAwarded={completedMissions[mission?.number]}
+              />
             </div>
           ) : (
             searchedMissions.map((mission) => {
@@ -257,7 +287,11 @@ const PageScuntMissionsListShow = () => {
                     setMission(mission);
                   }}
                 >
-                  <ScuntMissionEntry mission={mission} />
+                  <ScuntMissionEntry
+                    mission={mission}
+                    completed={mission?.number in completedMissions}
+                    pointsAwarded={completedMissions[mission?.number]}
+                  />
                 </div>
               );
               if (previousCategory !== mission?.category) {

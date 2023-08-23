@@ -67,7 +67,7 @@ const PageProfileFrosh = () => {
       <ProfilePageFroshHeader editButton={true} />
       <div className="profile-info-row">
         <div className="profile-info-row-right">
-          {/* <ProfilePageFroshScuntMessage /> */}
+          <ProfilePageFroshScuntMessage />
           {user?.isRegistered && <ProfilePageRetreat />}
           {/* <ProfilePageNitelife /> */}
           <ProfilePageInstagrams />
@@ -184,7 +184,7 @@ export const ProfilePageFroshScuntMessage = () => {
 
   const code = user?.scuntToken;
   if (code === undefined || !isRegistered || !scuntSettings?.revealTeams) {
-    return <></>;
+    return null;
   }
 
   return isRegistered ? (

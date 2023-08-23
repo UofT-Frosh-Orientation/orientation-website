@@ -4,6 +4,7 @@ import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
 import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
 import { Button } from '../../components/button/Button/Button';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
+import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import EditIcon from '../../assets/misc/pen-solid.svg';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -32,6 +33,30 @@ const PageProfileLeader = () => {
   const qrCodeLeader =
     user?.authScopes?.approved.includes('scanner:registration') ||
     user?.authScopes?.approved.includes('scanner:kits');
+  const [scuntTeams, setScuntTeams] = useState([]);
+  const [scuntTeamObjs, setScuntTeamObjs] = useState();
+
+  const getScuntTeams = async () => {
+    try {
+      const response = await axios.get('/scunt-teams');
+      const { teamPoints } = response.data;
+      if (teamPoints.length <= 0 || !teamPoints) setScuntTeams([]);
+      else {
+        setScuntTeamObjs(teamPoints);
+        setScuntTeams(
+          teamPoints.map((team) => {
+            return team?.name;
+          }),
+        );
+      }
+    } catch (e) {
+      setScuntTeams(['Error loading teams']);
+    }
+  };
+
+  useEffect(() => {
+    getScuntTeams();
+  }, []);
 
   return (
     <>
@@ -45,52 +70,59 @@ const PageProfileLeader = () => {
           <ProfilePageSchedule />
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {qrCodeLeader ? <ProfilePageQRScanner scopes={user?.authScopes?.approved} /> : null}
+          {/* <ProfilePageQRCode /> */}
+          {qrCodeLeader === true ? (
+            <>
+              <ProfilePageQRScanner />
+            </>
+          ) : (
+            <></>
+          )}
+          <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
           <ProfilePageResources />
-          <ProfilePageScuntToken />
-          <ProfilePageScuntTeamSelectionLeader />
+          <ProfilePageScuntTeamSelectionLeader
+            scuntTeamObjs={scuntTeamObjs}
+            scuntTeams={scuntTeams}
+          />
         </div>
       </div>
     </>
   );
 };
 
-const ProfilePageScuntTeamSelectionLeader = ({ scuntTeamObjs }) => {
-  const dispatch = useDispatch();
-  const { scuntTeams } = useSelector(scuntTeamsSelector);
+const ProfilePageScuntTeamSelectionLeader = ({ scuntTeams, scuntTeamObjs }) => {
   const { setSnackbar } = useContext(SnackbarContext);
   const [selectedScuntTeamNumber, setSelectedScuntTeamNumber] = useState();
   const { user } = useSelector(userSelector);
 
-  useEffect(() => {
-    dispatch(getScuntTeams({ setSnackbar }));
-  }, [dispatch]);
-
-  if (!scuntTeams.length) {
-    return null;
-  }
+  const changeScuntTeam = async (teamNumber) => {
+    const result = await axios.post('/scunt-teams/update-team', { teamNumber: teamNumber });
+    setSnackbar(result?.data?.message + ' The page will refresh in 2 seconds.');
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
+  };
 
   return (
-    <div className="profile-page-side-section" style={{ marginTop: '20px', textAlign: 'center' }}>
-      <div style={{ height: '10px' }} />
-      <h2>Scunt Team</h2>
-      <RadioButtons
-        initialSelectedIndex={user?.scuntTeam - 1}
-        values={scuntTeams?.map((team) => team.name)}
-        onSelected={(value) => {
-          if (value) {
-            const [selectedTeam] = scuntTeams.filter((team) => team.name == value);
-            setSelectedScuntTeamNumber(selectedTeam.number);
-          }
-        }}
-      />
-      <Button
-        label={'Change Scunt Team'}
-        onClick={() => {
-          dispatch(changeScuntTeam({ teamNumber: selectedScuntTeamNumber, setSnackbar }));
-        }}
-      />
-    </div>
+    <>
+      <div className="profile-page-side-section" style={{ marginTop: '20px', textAlign: 'center' }}>
+        <div style={{ height: '10px' }} />
+        <h2>Scunt Team</h2>
+        <RadioButtons
+          initialSelectedIndex={user?.scuntTeam - 1}
+          values={scuntTeams}
+          onSelected={(value) => {
+            setSelectedScuntTeamNumber(getScuntTeamObjFromTeamName(value, scuntTeamObjs)?.number);
+          }}
+        />
+        <Button
+          label={'Change Scunt Team'}
+          onClick={() => {
+            changeScuntTeam(selectedScuntTeamNumber);
+          }}
+        />
+      </div>
+    </>
   );
 };
 
@@ -114,45 +146,6 @@ export const ProfilePageLeaderScuntMessage = () => {
     </Link>
   );
 };
-
-// export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
-//   const { user } = useSelector(userSelector);
-//   const { setSnackbar } = useContext(SnackbarContext);
-//   const [showToken, setShowToken] = useState(false);
-//   const code = user?.scuntToken;
-
-//   return (
-//     <div className="profile-page-scunt-token profile-page-side-section">
-//       <h2>{getScuntTeamObjFromTeamNumber(user?.scuntTeam, scuntTeamObjs)?.name}</h2>
-//       <i>
-//         <h4>Team {user?.scuntTeam ? user?.scuntTeam.toString() : '‽'}</h4>
-//       </i>
-//       <h3
-//         style={{ filter: showToken ? '' : 'blur(10px)' }}
-//         onClick={() => {
-//           setSnackbar('Copied to clipboard');
-//           navigator.clipboard.writeText(code);
-//         }}
-//       >
-//         {code}
-//       </h3>
-//       <p>Scunt Login Token</p>
-//       <p style={{ fontSize: '13px' }}>
-//         Use this token to login to the{' '}
-//         <a href={scuntDiscord} target="_blank" rel="noreferrer">
-//           Scunt Discord
-//         </a>
-//       </p>
-//       <ButtonOutlined
-//         isSecondary={showToken}
-//         label={showToken ? 'Hide' : 'Show'}
-//         onClick={() => {
-//           setShowToken(!showToken);
-//         }}
-//       />
-//     </div>
-//   );
-// };
 
 ProfilePageScuntToken.propTypes = {
   scuntTeams: PropTypes.array,
