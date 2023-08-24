@@ -4,58 +4,65 @@ const emailConfirmationSubscription = require('../subscribers/emailConfirmationS
 
 const LeadurServices = {
   /**
-   * Creates a new user with type Leadur.
+   * @description Creates a new user with type Leadur.
    * @param {String} email
    * @param {String} password
    * @param {String} firstName
    * @param {String} lastName
    * @param {String} preferredName
    * @param {Number} scuntTeam
-   * @return {Promise<unknown>}
+   * @return {Leedur}
    */
   async createLeadur(email, password, firstName, lastName, preferredName, scuntTeam) {
-    return new Promise((resolve, reject) => {
-      bcrypt
-        .hash(password, 10)
-        .then((hashedPassword) => {
-          LeadurModel.create(
-            { email, hashedPassword, firstName, lastName, preferredName, scuntTeam },
-            async (err, newUser) => {
-              if (err) {
-                reject(err);
-              } else {
-                emailConfirmationSubscription.add(newUser);
-                resolve(newUser);
-              }
-            },
-          );
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    });
+    const hashedPassword = await bcrypt.hash(password, 10).then(
+      (hashedPassword) => hashedPassword,
+      (error) => {
+        throw new Error('UNABLE_TO_HASH_PASSWORD', { cause: error });
+      },
+    );
+
+    return LeadurModel.create({
+      email,
+      hashedPassword,
+      firstName,
+      lastName,
+      preferredName,
+      scuntTeam,
+    }).then(
+      (newLeedur) => {
+        emailConfirmationSubscription.add(newLeedur);
+        return newLeedur;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_CREATE_LEEDUR', { cause: error });
+      },
+    );
   },
 
-  async requestScopesAndData(user, requestedFields, requestedAuthScopes) {
-    return new Promise((resolve, reject) => {
-      LeadurModel.findByIdAndUpdate(
-        user.id,
-        {
-          'froshDataFields.requested': requestedFields,
-          'authScopes.requested': requestedAuthScopes,
-        },
-        { returnDocument: 'after' },
-        (err, leadur) => {
-          if (err) {
-            reject(err);
-          } else if (!leadur) {
-            reject('INVALID_USER');
-          } else {
-            resolve(leadur);
-          }
-        },
-      );
-    });
+  /**
+   * @description Update leedur permissions
+   * @param {String} userID leeduur to update
+   * @param {String[]} requestedFields fields requested by user
+   * @param {String[]} requestedAuthScopes auth scopes requested by user
+   * @returns {Leedur} updated leedur
+   */
+  async requestScopesAndData(userID, requestedFields, requestedAuthScopes) {
+    return LeadurModel.findByIdAndUpdate(
+      userID,
+      {
+        'froshDataFields.requested': requestedFields,
+        'authScopes.requested': requestedAuthScopes,
+      },
+      { returnDocument: 'after' },
+    ).then(
+      (updatedLeedur) => {
+        if (!updatedLeedur) throw new Error('USER_NOT_FOUND');
+        return updatedLeedur;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_UPDATE_LEEDUR', { cause: error });
+      },
+    );
   },
 };
 

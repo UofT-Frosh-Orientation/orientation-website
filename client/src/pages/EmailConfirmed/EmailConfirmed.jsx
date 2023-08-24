@@ -5,28 +5,19 @@ import { Link, useParams } from 'react-router-dom';
 import useAxios from '../../hooks/useAxios';
 
 const PageEmailConfirmed = () => {
-  const { email } = useParams();
-  const { emailToken } = useParams();
-  const [validEmailToken, setvalidEmailToken] = useState(false);
-
-  function verifyEmailToken(email, emailToken) {
-    const { axios } = useAxios();
-
-    try {
-      const emailAndEmailToken = {
-        email: email,
-        emailToken: emailToken,
-      };
-      axios.post('/user/verify-user-email', emailAndEmailToken);
-      setvalidEmailToken(true);
-    } catch (err) {
-      setvalidEmailToken(false);
-    }
-  }
+  const { email, emailToken } = useParams();
+  const [validEmailToken, setValidEmailToken] = useState(false);
+  const { axios } = useAxios();
 
   useEffect(() => {
-    verifyEmailToken(email, emailToken);
-  }, []);
+    if (emailToken && email) {
+      setValidEmailToken(true);
+    }
+  }, [emailToken, email]);
+
+  useEffect(() => {
+    if (validEmailToken) axios.post('/user/verify-user-email', { emailToken, email });
+  }, [validEmailToken]);
 
   return (
     <div>
@@ -43,7 +34,7 @@ const PageEmailConfirmed = () => {
       ) : (
         <div className="email-confirmed-page">
           <div className="email-confirmed-container">
-            <h1>Oh no! :( </h1>
+            <h1>{'Oh no! :( '}</h1>
             <h2>An error occurred when trying to verify your email. Please try again later.</h2>
             <Link to={'/login'} style={{ textDecoration: 'none' }} className={'no-link-style'}>
               <Button label="Go back to login page" />

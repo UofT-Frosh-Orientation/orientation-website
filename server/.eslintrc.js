@@ -1,15 +1,13 @@
 module.exports = {
-  plugins: ['jest'],
   extends: ['eslint:recommended', 'plugin:prettier/recommended'],
   env: {
     es6: true,
     node: true,
-    jest: true,
   },
+  parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaVersion: 2020,
   },
-  parser: '@babel/eslint-parser',
   rules: {
     'prettier/prettier': [
       'error',
@@ -22,7 +20,7 @@ module.exports = {
     'no-multiple-empty-lines': ['error'],
     'no-new-symbol': ['error'],
     'no-trailing-spaces': ['error'],
-    'no-undef': ['warn'],
+    'no-undef': ['error'],
     'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],
     'object-curly-spacing': ['error', 'always'],
     'object-shorthand': ['error'],
