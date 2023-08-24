@@ -54,7 +54,7 @@
     "pino-http": "^8.3.3",
     "socket.io": "^4.5.1",
     "socket.io-client": "^4.5.2",
-    "stripe": "^12.13.0",
+    "stripe": "^9.9.0", // ! DO NOT UPDATE, WILL 100% BREAK PAYMENTS :)
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.4.0"
   }
