@@ -14,7 +14,7 @@ const LeadurServices = {
    * @return {Leedur}
    */
   async createLeadur(email, password, firstName, lastName, preferredName, scuntTeam) {
-    const hashedPassword = bcrypt.hash(password, 10).then(
+    const hashedPassword = await bcrypt.hash(password, 10).then(
       (hashedPassword) => hashedPassword,
       (error) => {
         throw new Error('UNABLE_TO_HASH_PASSWORD', { cause: error });
@@ -41,14 +41,14 @@ const LeadurServices = {
 
   /**
    * @description Update leedur permissions
-   * @param {Leedur} user leeduur to update
+   * @param {String} userID leeduur to update
    * @param {String[]} requestedFields fields requested by user
    * @param {String[]} requestedAuthScopes auth scopes requested by user
    * @returns {Leedur} updated leedur
    */
-  async requestScopesAndData(user, requestedFields, requestedAuthScopes) {
+  async requestScopesAndData(userID, requestedFields, requestedAuthScopes) {
     return LeadurModel.findByIdAndUpdate(
-      user.id,
+      userID,
       {
         'froshDataFields.requested': requestedFields,
         'authScopes.requested': requestedAuthScopes,
@@ -56,7 +56,7 @@ const LeadurServices = {
       { returnDocument: 'after' },
     ).then(
       (updatedLeedur) => {
-        if (!updatedLeedur) throw new Error('INVALID_USER');
+        if (!updatedLeedur) throw new Error('USER_NOT_FOUND');
         return updatedLeedur;
       },
       (error) => {
