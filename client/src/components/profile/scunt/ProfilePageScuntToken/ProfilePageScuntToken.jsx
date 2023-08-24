@@ -24,7 +24,7 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
     scuntSettings.length <= 0 ||
     (scuntSettings !== undefined &&
       scuntSettings.length >= 1 &&
-      scuntSettings[0]?.revealTeams === false)
+      scuntSettings?.revealTeams === false)
   ) {
     return <></>;
   }
