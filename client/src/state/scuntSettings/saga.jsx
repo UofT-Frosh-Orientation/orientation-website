@@ -13,15 +13,15 @@ import useAxios from '../../hooks/useAxios';
 
 export const getScuntSettings = createAction('getScuntSettingsSaga');
 
-export function* getScuntSettingsSaga() {
+export function* getScuntSettingsSaga({ payload: setSnackbar }) {
   const { axios } = useAxios();
   try {
     yield put(getScuntSettingsStart());
     const result = yield call(axios.get, '/scunt-game-controls');
-
     yield put(getScuntSettingsSuccess(result.data.settings));
   } catch (error) {
-    yield put(getScuntSettingsFailure(error.response.data));
+    yield put(getScuntSettingsFailure(error?.response?.data?.errorMessage));
+    setSnackbar && setSnackbar(error?.response?.data?.errorMessage, true);
   }
 }
 
@@ -65,40 +65,12 @@ export function* setGameSettingsSaga({
     yield put(setScuntSettingsSuccess(result.data.settings));
   } catch (error) {
     console.error(error);
-    setSnackbar(
-      error.response?.data?.message
-        ? error.response?.data?.message.toString()
-        : error.response?.data
-        ? error.response?.data.toString()
-        : error.toString(),
-      true,
-    );
-    console.error(error);
-    yield put(setScuntSettingsFailure(error.response.data));
-  }
-}
-
-export const shuffleScuntTeams = createAction('shuffleScuntTeamsSaga');
-
-export function* shuffleScuntTeamsSaga({ payload: setSnackbar }) {
-  const { axios } = useAxios();
-  try {
-    yield call(axios.post, '/scunt-teams/shuffle');
-    setSnackbar('Teams shuffled successfully!', false);
-  } catch (error) {
-    setSnackbar(
-      error.response?.data?.message
-        ? error.response?.data?.message.toString()
-        : error.response?.data
-        ? error.response?.data.toString()
-        : error.toString(),
-      true,
-    );
+    setSnackbar(error.response?.data?.errorMessage, true);
+    yield put(setScuntSettingsFailure(error.response?.data?.errorMessage));
   }
 }
 
 export default function* scuntSettingsSaga() {
   yield takeLeading(getScuntSettings.type, getScuntSettingsSaga);
   yield takeLeading(setScuntSettings.type, setGameSettingsSaga);
-  yield takeLeading(shuffleScuntTeams.type, shuffleScuntTeamsSaga);
 }
