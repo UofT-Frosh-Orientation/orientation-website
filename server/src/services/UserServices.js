@@ -74,8 +74,8 @@ const UserServices = {
       scuntToken,
     }).then(
       (newUser) => {
-        const token = generateEmailConfirmationToken(newUser.email);
-        emailConfirmationSubscription.add(token);
+        const token = generateEmailConfirmationToken(email);
+        emailConfirmationSubscription.add({ token, email });
         return newUser;
       },
       (error) => {
