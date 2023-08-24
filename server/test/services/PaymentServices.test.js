@@ -189,6 +189,73 @@ describe('PaymentServices', () => {
   });
 
   it('.getNonExpiredPaymentsCountForItem(...)\t|\tGetting the number of non-expired payments for a given item', async () => {
+    await FroshModel.collection.drop();
+    await FroshModel.create({
+      scuntPreferredMembers: [1, 2, 3],
+      hashedPassword: 'test',
+      firstName: `Test`,
+      lastName: `Test`,
+      email: `frosh@payments3.com`,
+      legalName: `Test`,
+      pronouns: 'Other',
+      birthDate: new Date(),
+      utorid: 'test123',
+      discipline: 'Chemical',
+      shirtSize: 'L',
+      phoneNumber: '123456',
+      emergencyContactName: 'test',
+      emergencyContactRelationship: 'test',
+      emergencyContactNumber: 'test',
+      bursaryRequested: false,
+      attendingScunt: true,
+      summerLocationCity: 'test',
+      summerLocationCountry: 'test',
+      photograph: true,
+      froshGroup: 'none',
+      isRegistered: false,
+      froshGroupIcon: 'test',
+      scuntTeam: 0,
+      payments: [
+        {
+          item: 'Orientation Ticket',
+          paymentIntent: 'test',
+          amountDue: 123,
+        },
+      ],
+    });
+    await FroshModel.create({
+      scuntPreferredMembers: [1, 2, 3],
+      hashedPassword: 'test',
+      firstName: `Test`,
+      lastName: `Test`,
+      email: `frosh@payments4.com`,
+      legalName: `Test`,
+      pronouns: 'Other',
+      birthDate: new Date(),
+      utorid: 'test123',
+      discipline: 'Chemical',
+      shirtSize: 'L',
+      phoneNumber: '123456',
+      emergencyContactName: 'test',
+      emergencyContactRelationship: 'test',
+      emergencyContactNumber: 'test',
+      bursaryRequested: false,
+      attendingScunt: true,
+      summerLocationCity: 'test',
+      summerLocationCountry: 'test',
+      photograph: true,
+      froshGroup: 'none',
+      isRegistered: false,
+      froshGroupIcon: 'test',
+      scuntTeam: 0,
+      payments: [
+        {
+          item: 'Orientation Ticket',
+          paymentIntent: 'test2',
+          amountDue: 123,
+        },
+      ],
+    });
     const count = await PaymentServices.getNonExpiredPaymentsCountForItem('Orientation Ticket');
     assert.equal(count, 2);
   });
