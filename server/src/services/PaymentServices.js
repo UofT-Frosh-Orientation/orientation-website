@@ -14,9 +14,9 @@ const PaymentServices = {
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
     try {
       return await stripe.webhooks.constructEventAsync(data, signature, endpointSecret);
-    } catch (err) {
-      console.log('Stripe webhook verification failed', err.message);
-      throw err;
+    } catch (error) {
+      console.error('Stripe webhook verification failed', error);
+      throw new Error('UNABLE_TO_VERIFY_STRIPE_WEBHOOK', { cause: error });
     }
   },
 
@@ -27,31 +27,52 @@ const PaymentServices = {
    * @return {Promise<Query<Document<unknown, any, Omit<unknown, never>> & Omit<unknown, never> & {_id: Omit<unknown, never>["_id"]}, Document<unknown, any, Omit<unknown, never>> & Omit<unknown, never> & {_id: Omit<unknown, never>["_id"]}, {}, Omit<unknown, never>>>}
    */
   async updatePayment(paymentId, amountReceived) {
-    try {
-      const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentId });
-      if (frosh) {
-        frosh.authScopes = { requested: [], approved: [] };
-        const idx = frosh.payments.findIndex((p) => p.paymentIntent === paymentId);
-        frosh.payments[idx].amountDue = frosh.payments[idx].amountDue - amountReceived;
-        if (frosh.payments[idx].item === 'Orientation Ticket') {
-          frosh.isRegistered = true;
-        } else if (frosh.payments[idx].item === 'Retreat Ticket') {
-          frosh.isRetreat = true;
-        }
-        await frosh.save({ validateModifiedOnly: true });
-        console.log('Frosh payment completed! Frosh info: ', frosh);
-        await FroshGroupModel.findOneAndUpdate(
-          { name: frosh.froshGroup },
-          { $inc: { totalNum: 1 } },
-          { new: true },
-        ).then((doc) => {
-          console.log(`Group ${doc.name} total: ${doc.totalNum}`);
-        });
+    const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentId }).then(
+      (frosh) => {
+        if (!frosh) throw new Error('FROSH_NOT_FOUND');
         return frosh;
-      }
-      return null;
-    } catch (error) {
-      throw new Error('UNABLE_TO_UPDATE_PAYMENT', { cause: error });
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_FIND_FROSH', { cause: error });
+      },
+    );
+    frosh.set({ authScopes: { requested: [], approved: [] } });
+    const idx = frosh.payments.findIndex((p) => p.paymentIntent === paymentId);
+    frosh.payments[idx].amountDue = frosh.payments[idx].amountDue - amountReceived;
+    if (frosh.payments[idx].item === 'Orientation Ticket') {
+      frosh.set({ isRegistered: true });
+      await frosh.save({ validateModifiedOnly: true }).then(
+        (frosh) => frosh,
+        (error) => {
+          throw new Error('UNABLE_TO_UPDATE_FROSH', { cause: error });
+        },
+      );
+      console.log('Frosh payment completed! Frosh info: ', frosh);
+      return FroshGroupModel.findOneAndUpdate(
+        { name: frosh.froshGroup },
+        { $inc: { totalNum: 1 } },
+        { new: true },
+      ).then(
+        (doc) => {
+          if (!doc) console.log(new Error('FROSH_GROUP_NOT_FOUND'));
+          else console.log(`Group ${doc.name} total: ${doc.totalNum}`);
+          return frosh;
+        },
+        (error) => {
+          console.log(new Error('UNABLE_TO_UPDATE_FROSH_GROUP', { cause: error }));
+          return frosh;
+        },
+      );
+    } else if (frosh.payments[idx].item === 'Retreat Ticket') {
+      frosh.set({ isRetreat: true });
+      return frosh.save({ validateModifiedOnly: true }).then(
+        (frosh) => frosh,
+        (error) => {
+          throw new Error('UNABLE_TO_UPDATE_FROSH', { cause: error });
+        },
+      );
+    } else {
+      throw new Error('UNABLE_TO_UPDATE_FROSH', { cause: new Error('INVALID_PAYMENT_ITEM') });
     }
   },
 
@@ -77,6 +98,7 @@ const PaymentServices = {
    * @param {String} type
    * @return {Promise<Stripe.Checkout.Session & {lastResponse: {headers: {[p: string]: string}; requestId: string; statusCode: number; apiVersion?: string; idempotencyKey?: string; stripeAccount?: string}}>}
    */
+  /* istanbul ignore next */
   async createCheckoutSession(email, type = 'orientation') {
     const products = {
       orientation: {
@@ -90,55 +112,56 @@ const PaymentServices = {
         relativeUrlFailure: '/payment-error-retreat',
       },
     };
-    try {
-      return await stripe.checkout.sessions.create({
-        customer_email: email,
-        submit_type: 'pay',
-        expires_at: type === 'retreat' ? Math.floor(Date.now() / 1000 + 30 * 60) : undefined,
-        billing_address_collection: 'auto',
-        line_items: [
-          {
-            price: products[type]?.priceId ?? products['orientation'].priceId,
-            quantity: 1,
-          },
-        ],
-        mode: 'payment',
-        success_url: `${process.env.CLIENT_BASE_URL}${
-          products[type]?.relativeUrlSuccess ?? products['orientation'].relativeUrlSuccess
-        }`,
-        cancel_url: `${process.env.CLIENT_BASE_URL}${
-          products[type]?.relativeUrlFailure ?? products['orientation'].relativeUrlFailure
-        }`,
-      });
-    } catch (err) {
-      if (err.raw?.code === 'coupon_expired') {
-        try {
-          return await stripe.checkout.sessions.create({
-            customer_email: email,
-            submit_type: 'pay',
-            expires_at: type === 'retreat' ? Math.floor(Date.now() / 1000 + 30 * 60) : undefined,
-            billing_address_collection: 'auto',
-            line_items: [
-              {
-                price: products[type]?.priceId ?? products['orientation'].priceId,
-                quantity: 1,
-              },
-            ],
-            mode: 'payment',
-            success_url: `${process.env.CLIENT_BASE_URL}${
-              products[type]?.relativeUrlSuccess ?? products['orientation'].relativeUrlSuccess
-            }`,
-            cancel_url: `${process.env.CLIENT_BASE_URL}${
-              products[type]?.relativeUrlFailure ?? products['orientation'].relativeUrlFailure
-            }`,
-          });
-        } catch (e) {
-          console.log('Error creating checkout session', e.message);
-        }
-      }
-      console.log('Error creating checkout session', err.message);
-      throw err;
-    }
+    // try {
+    return stripe.checkout.sessions.create({
+      customer_email: email,
+      submit_type: 'pay',
+      expires_at: type === 'retreat' ? Math.floor(Date.now() / 1000 + 30 * 60) : undefined,
+      billing_address_collection: 'auto',
+      line_items: [
+        {
+          price: products[type]?.priceId ?? products['orientation'].priceId,
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: `${process.env.CLIENT_BASE_URL}${
+        products[type]?.relativeUrlSuccess ?? products['orientation'].relativeUrlSuccess
+      }`,
+      cancel_url: `${process.env.CLIENT_BASE_URL}${
+        products[type]?.relativeUrlFailure ?? products['orientation'].relativeUrlFailure
+      }`,
+    });
+    // } catch (error) {
+    //   if (error.raw?.code === 'coupon_expired') {
+    //     try {
+    //       return await stripe.checkout.sessions.create({
+    //         customer_email: email,
+    //         submit_type: 'pay',
+    //         expires_at: type === 'retreat' ? Math.floor(Date.now() / 1000 + 30 * 60) : undefined,
+    //         billing_address_collection: 'auto',
+    //         line_items: [
+    //           {
+    //             price: products[type]?.priceId ?? products['orientation'].priceId,
+    //             quantity: 1,
+    //           },
+    //         ],
+    //         mode: 'payment',
+    //         success_url: `${process.env.CLIENT_BASE_URL}${
+    //           products[type]?.relativeUrlSuccess ?? products['orientation'].relativeUrlSuccess
+    //         }`,
+    //         cancel_url: `${process.env.CLIENT_BASE_URL}${
+    //           products[type]?.relativeUrlFailure ?? products['orientation'].relativeUrlFailure
+    //         }`,
+    //       });
+    //     } catch (e) {
+    //       console.log('Error creating checkout session', e.message);
+    //       throw new Error('UNABLE_TO_CREATE_CHECKOUT_SESSION', { cause: e });
+    //     }
+    //   }
+    //   console.log('Error creating checkout session', error.message);
+    //   throw new Error('UNABLE_TO_CREATE_CHECKOUT_SESSION', { cause: error });
+    // }
   },
 
   /**
@@ -147,23 +170,33 @@ const PaymentServices = {
    * @returns {Frosh}
    */
   async expirePayment(paymentIntent) {
-    try {
-      const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentIntent });
-      if (!frosh) {
-        return null;
-      }
-      frosh.authScopes = { requested: [], approved: [] };
-      frosh.payments.forEach((p) => {
-        if (p.paymentIntent === paymentIntent) {
-          p.expired = true;
+    const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentIntent }).then(
+      (frosh) => {
+        if (!frosh) {
+          throw new Error('FROSH_NOT_FOUND');
         }
-      });
-      await frosh.save({ validateModifiedOnly: true });
-      return frosh;
-    } catch (e) {
-      console.log(e);
-      throw e;
-    }
+        return frosh;
+      },
+      (error) => {
+        throw new Error('UNABLE_TO_FIND_FROSH', { cause: error });
+      },
+    );
+
+    frosh.set({ authScopes: { requested: [], approved: [] } });
+    frosh.set({
+      payments: frosh.payments.map((payment) => {
+        if (payment.paymentIntent === paymentIntent) {
+          payment.expired = true;
+        }
+        return payment;
+      }),
+    });
+    return frosh.save({ validateModifiedOnly: true }).then(
+      (frosh) => frosh,
+      (error) => {
+        throw new Error('UNABLE_TO_UPDATE_FROSH', { cause: error });
+      },
+    );
   },
 };
 

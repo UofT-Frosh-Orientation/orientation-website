@@ -190,7 +190,7 @@ const UserController = {
       const result = await UserServices.validateEmailConfirmationToken(emailToken);
       const existingUser = await UserServices.getUserByEmail(email);
 
-      if (!existingUser || existingUser.email !== result) {
+      if (existingUser.email !== result) {
         next(new Error('INVALID_VERIFICATION_LINK'));
       } else {
         await UserServices.updateUserInfo(existingUser.id, { confirmedEmail: true });
