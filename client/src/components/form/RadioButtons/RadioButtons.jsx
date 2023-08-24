@@ -41,7 +41,15 @@ const RadioButtons = ({
   return (
     <div className={`${isDisabled ? 'radio-input-disabled-container' : ''}`}>
       {label !== undefined ? <p className="radio-input-title">{label}</p> : <></>}
-      <div style={{ display: 'flex', alignItems: 'flex-start' }} className={'radio-buttons'}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'flex-start',
+          flexWrap: 'wrap',
+          justifyContent: 'space-around',
+        }}
+        className={'radio-buttons'}
+      >
         {values.map((value, index) => {
           let isDisabledValue = false;
           if (disabledIndices !== undefined) isDisabledValue = disabledIndices?.includes(index);
