@@ -5,6 +5,7 @@ import announcementsReducer from './state/announcements/announcementsSlice';
 import froshReducer from './state/frosh/froshSlice';
 import scuntSettingsReducer from './state/scuntSettings/scuntSettingsSlice';
 import scuntMissionsReducer from './state/scuntMissions/scuntMissionsSlice';
+import scuntTeamsReducer from './state/scuntTeams/scuntTeamsSlice';
 
 const rootReducer = combineReducers({
   userReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   scuntSettingsReducer,
   scuntMissionsReducer,
   announcementsReducer,
+  scuntTeamsReducer,
 });
 
 export default rootReducer;
