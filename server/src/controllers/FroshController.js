@@ -22,6 +22,7 @@ const FroshController = {
       registrationInfo.froshGroup = froshGroup;
       registrationInfo.froshGroupIcon = froshGroupIcon;
       const { url, payment_intent } = await PaymentServices.createCheckoutSession(user.email);
+
       const frosh = (
         await FroshServices.upgradeToFrosh(user, registrationInfo, payment_intent)
       ).getResponseObject();
@@ -38,6 +39,7 @@ const FroshController = {
         res.status(200).send({ url });
       }
     } catch (e) {
+      console.log(e);
       req.log.fatal({
         msg: 'Unable to register Frosh: user ' + req.user.id,
         e,
