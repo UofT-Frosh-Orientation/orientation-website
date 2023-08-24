@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  mongodb-test:
+    image: mongo
+    container_name: mongo-test
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=testingDatabase
+    ports:
+      - "27017:27017"
+
+  redis-test:
+    image: redis
+    container_name: redis-test
+    restart: unless-stopped
+    ports:
+      - "7001:7001"
+    environment:
+      - REDIS_PORT_NUMBER=7001
+      - REDIS_PASSWORD=root

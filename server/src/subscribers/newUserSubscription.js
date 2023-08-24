@@ -8,13 +8,12 @@ const newUserSubscription = new Queue('existingUser', {
 newUserSubscription.process((job, done) => {
   try {
     // sending successful user creation email
-    const result = EmailServices.sendTemplateEmail(
+    EmailServices.sendTemplateEmail(
       {},
       'signup_confirmation',
       [job.data.email],
       'tech@orientation.skule.ca',
-    );
-    result.then((response) => {
+    ).then((response) => {
       console.log('Email API response', response);
     });
     done();

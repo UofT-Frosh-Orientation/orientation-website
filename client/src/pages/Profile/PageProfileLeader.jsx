@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import './Profile.scss';
 import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
 import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
@@ -18,6 +17,7 @@ import {
   getScuntTeamObjFromTeamNumber,
 } from '../ScuntJudgeForm/ScuntJudgeForm';
 import ScuntIcon from '../../assets/misc/magnifier.png';
+import PropTypes from 'prop-types';
 import useAxios from '../../hooks/useAxios';
 import { ProfilePageLeaderPermissionDashboardLinks } from '../../components/profile/leedur/PermissionDashboardLinks/ProfilePageLeaderPermissionDashboardLinks';
 import { ProfilePageQRScanner } from '../../components/profile/leedur/ProfilePageQRScanner/ProfilePageQRScanner';
@@ -29,7 +29,9 @@ const { axios } = useAxios();
 
 const PageProfileLeader = () => {
   const { user } = useSelector(userSelector);
-  const qrCodeLeader = user?.authScopes?.approved.includes('signInFrosh:qr-code registration');
+  const qrCodeLeader =
+    user?.authScopes?.approved.includes('scanner:registration') ||
+    user?.authScopes?.approved.includes('scanner:kits');
   const [scuntTeams, setScuntTeams] = useState([]);
   const [scuntTeamObjs, setScuntTeamObjs] = useState();
 
@@ -67,10 +69,9 @@ const PageProfileLeader = () => {
           <ProfilePageSchedule />
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {/* <ProfilePageQRCode /> */}
           {qrCodeLeader === true ? (
             <>
-              <ProfilePageQRScanner />
+              <ProfilePageQRScanner scopes={user?.authScopes?.approved} />
             </>
           ) : (
             <></>

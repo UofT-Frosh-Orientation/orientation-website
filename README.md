@@ -1,6 +1,6 @@
 ![image](https://user-images.githubusercontent.com/50821962/195210327-87d8570e-d5c1-4704-be5b-eb2a609c0972.png)
 
-# Orientation Website
+# Orientation Website [![Backend Tests](https://github.com/UofT-Frosh-Orientation/orientation-website/actions/workflows/backend_tests.yml/badge.svg?event=push)](https://github.com/UofT-Frosh-Orientation/orientation-website/actions/workflows/backend_tests.yml) [![Frontend Tests](https://github.com/UofT-Frosh-Orientation/orientation-website/actions/workflows/frontend_tests.yml/badge.svg?event=push)](https://github.com/UofT-Frosh-Orientation/orientation-website/actions/workflows/frontend_tests.yml)
 
 Welcome to the University of Toronto's Frosh engineering orientation website, used by more than 1,000 incoming students each year. This website serves as the primary platform for registering and paying for orientation events, and offers a range of features including a main schedule, announcements, a personal profile page with the ability to edit, a Scunt (scavenger hunt) game, sign-up for the Frosh retreat, QR code scanning for automated registration on event day, and more.
 

@@ -8,9 +8,12 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
-    done(err, user);
-  });
+  User.findById(id).then(
+    (user) => {
+      done(null, user);
+    },
+    (error) => done(new Error('UNABLE_TO_DESERIALIZE_USER', { cause: error }), null),
+  );
 });
 
 passport.use(
@@ -18,11 +21,11 @@ passport.use(
     User.findOne({ email: email.toLowerCase() })
       .then((user) => {
         if (!user) {
-          return done(null, false, { message: 'NO_USER' });
+          return done(new Error('USER_NOT_FOUND'));
         }
-        bcrypt.compare(password, user.hashedPassword, (err, isMatch) => {
-          if (err) {
-            throw err;
+        bcrypt.compare(password, user.hashedPassword, (error, isMatch) => {
+          if (error) {
+            throw done(new Error('UNABLE_TO_VERIFY_PASSWORD', { cause: error }));
           }
           if (isMatch) {
             return done(null, user);
@@ -31,9 +34,7 @@ passport.use(
           }
         });
       })
-      .catch((err) => {
-        return done(null, false, { message: err });
-      });
+      .catch((error) => done(new Error('UNABLE_TO_FIND_USER', { cause: error })));
   }),
 );
 

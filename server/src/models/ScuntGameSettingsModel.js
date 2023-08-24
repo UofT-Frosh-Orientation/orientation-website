@@ -5,7 +5,7 @@ const ScuntGameSettingSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    default: 'Scunt 2T2 Settings',
+    default: 'Scunt 2T3 Settings',
   },
   amountOfTeams: {
     type: Number,
@@ -40,16 +40,16 @@ const ScuntGameSettingSchema = new mongoose.Schema({
     required: false,
     default: false,
   },
-  showDiscordLink: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  discordLink: {
-    type: String,
-    required: true,
-    default: 'https://discord.gg/mRutbwuCK9',
-  },
+  // showDiscordLink: {
+  //   type: Boolean,
+  //   required: false,
+  //   default: false,
+  // },
+  // discordLink: {
+  //   type: String,
+  //   required: true,
+  //   default: 'https://discord.gg/mRutbwuCK9',
+  // },
   revealLeaderboard: {
     type: Boolean,
     required: false,
@@ -68,7 +68,7 @@ const ScuntGameSettingSchema = new mongoose.Schema({
   scuntDate: {
     type: String,
     required: false,
-    default: 'September 7, 2022 18:00:00',
+    default: 'September 6, 2023 18:00:00',
   },
 });
 

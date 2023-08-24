@@ -12,7 +12,6 @@ const FroshController = {
    */
   async registerFrosh(req, res, next) {
     console.log('Start frosh registration');
-
     try {
       const user = req.user;
       const registrationInfo = req.body;
@@ -23,6 +22,7 @@ const FroshController = {
       registrationInfo.froshGroup = froshGroup;
       registrationInfo.froshGroupIcon = froshGroupIcon;
       const { url, payment_intent } = await PaymentServices.createCheckoutSession(user.email);
+
       const frosh = (
         await FroshServices.upgradeToFrosh(user, registrationInfo, payment_intent)
       ).getResponseObject();
@@ -39,6 +39,7 @@ const FroshController = {
         res.status(200).send({ url });
       }
     } catch (e) {
+      console.log(e);
       req.log.fatal({
         msg: 'Unable to register Frosh: user ' + req.user.id,
         e,
@@ -128,6 +129,35 @@ const FroshController = {
         user: req.user.getResponseObject(),
       });
       next(e);
+    }
+  },
+
+  async searchFrosh(req, res, next) {
+    const { searchTerm, fields } = req.body;
+    try {
+      if (!req.user?.froshDataFields?.approved?.length) {
+        return next(new Error('UNAUTHORIZED'));
+      }
+
+      const allowedData = fields.reduce(
+        (prev, curr) => {
+          if (req.user?.froshDataFields?.approved?.includes(curr)) prev[curr] = 1;
+          return prev;
+        },
+        { _id: 1 },
+      );
+
+      const query = {
+        $or: Object.keys(allowedData).reduce((list, key) => {
+          if (key !== '_id') list.push({ [key]: searchTerm });
+          return list;
+        }, []),
+      };
+      const frosh = await FroshServices.getFilteredFroshInfo(query, allowedData);
+
+      return res.status(200).send({ frosh });
+    } catch (error) {
+      next(error);
     }
   },
 

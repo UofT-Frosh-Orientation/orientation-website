@@ -7,8 +7,8 @@ const PaymentController = {
     const signature = req.headers['stripe-signature'];
     try {
       event = await PaymentServices.decodeWebhookEvent(req.body, signature);
-    } catch (err) {
-      next(new Error('UNAUTHORIZED'));
+    } catch (error) {
+      next(error);
     }
     try {
       switch (event.type) {
@@ -28,10 +28,10 @@ const PaymentController = {
         default:
           console.log(`Unhandled event type: ${event.type}`);
       }
-      res.status(200).send({ message: 'Success!' });
-    } catch (err) {
-      req.log.fatal({ msg: 'Unable to process payment', err });
-      next(err);
+      res.status(200).send({ message: 'Webhook processed' });
+    } catch (error) {
+      req.log.fatal({ msg: 'Unable to process payment', error });
+      next(error);
     }
   },
 
