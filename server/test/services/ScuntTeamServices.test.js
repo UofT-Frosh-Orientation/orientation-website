@@ -44,13 +44,13 @@ describe('ScuntTeamServices', () => {
   });
 
   it('.updateLeaderTeam()\t\t|\tUpdate a leaders scunt team number with wrong ID (UNABLE TO UPDATE LEADER)', async () => {
-    await assert.rejects(ScuntTeamServices.updateLeaderTeam('1234567890', 3), {
+    await assert.rejects(ScuntTeamServices.updateLeaderTeam('   ', 3), {
       name: 'Error',
       message: 'UNABLE_TO_UPDATE_LEADER',
     });
   });
 
-  it('.updateLeaderTeam()\t\t|\tUpdate a non-leaders scunt team number (INVALID LEADUR ID)', async () => {
+  it('.updateLeaderTeam()\t\t|\tUpdate a non-leaders scunt team number (LEADUR_NOT_FOUND)', async () => {
     testUser = await UserModel.create({
       firstName: 'Test',
       lastName: 'User',
@@ -59,7 +59,7 @@ describe('ScuntTeamServices', () => {
     });
     await assert.rejects(ScuntTeamServices.updateLeaderTeam(testUser._id, 3), {
       name: 'Error',
-      message: 'INVALID_LEADUR_ID',
+      message: 'LEADUR_NOT_FOUND',
     });
   });
 

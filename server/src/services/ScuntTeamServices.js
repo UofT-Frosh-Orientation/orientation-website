@@ -13,13 +13,13 @@ const ScuntTeamServices = {
    * @returns {Leadur}
    */
   async updateLeaderTeam(userId, teamNumber) {
-    return LeadurModel.findOneAndUpdate(
-      { _id: userId },
+    return LeadurModel.findByIdAndUpdate(
+      userId,
       { scuntTeam: teamNumber },
       { returnDocument: 'after' },
     ).then(
       (leadur) => {
-        if (!leadur) throw new Error('INVALID_LEADUR_ID');
+        if (!leadur) throw new Error('LEADUR_NOT_FOUND');
         return leadur;
       },
       (error) => {
