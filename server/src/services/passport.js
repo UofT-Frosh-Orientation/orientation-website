@@ -10,12 +10,9 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
   User.findById(id).then(
     (user) => {
-      if (!user) {
-        return done(new Error('USER_NOT_FOUND'));
-      }
       done(null, user);
     },
-    (error) => done(new Error('UNABLE_TO_DESERIALIZE_USER', { cause: error })),
+    (error) => done(new Error('UNABLE_TO_DESERIALIZE_USER', { cause: error }), null),
   );
 });
 
