@@ -19,7 +19,9 @@ emailConfirmationSubscription.process((job, done) => {
       'Please use this URL to confirm your email: ' + url,
       'F!rosh Email Confirmation',
       'tech@orientation.skule.ca',
-    );
+    ).then((response) => {
+      console.log('Email API response', response);
+    });
     done();
   } catch (error) {
     done(error);
