@@ -112,56 +112,56 @@ const PaymentServices = {
         relativeUrlFailure: '/payment-error-retreat',
       },
     };
-    try {
-      return await stripe.checkout.sessions.create({
-        customer_email: email,
-        submit_type: 'pay',
-        expires_at: type === 'retreat' ? Math.floor(Date.now() / 1000 + 30 * 60) : undefined,
-        billing_address_collection: 'auto',
-        line_items: [
-          {
-            price: products[type]?.priceId ?? products['orientation'].priceId,
-            quantity: 1,
-          },
-        ],
-        mode: 'payment',
-        success_url: `${process.env.CLIENT_BASE_URL}${
-          products[type]?.relativeUrlSuccess ?? products['orientation'].relativeUrlSuccess
-        }`,
-        cancel_url: `${process.env.CLIENT_BASE_URL}${
-          products[type]?.relativeUrlFailure ?? products['orientation'].relativeUrlFailure
-        }`,
-      });
-    } catch (error) {
-      if (error.raw?.code === 'coupon_expired') {
-        try {
-          return await stripe.checkout.sessions.create({
-            customer_email: email,
-            submit_type: 'pay',
-            expires_at: type === 'retreat' ? Math.floor(Date.now() / 1000 + 30 * 60) : undefined,
-            billing_address_collection: 'auto',
-            line_items: [
-              {
-                price: products[type]?.priceId ?? products['orientation'].priceId,
-                quantity: 1,
-              },
-            ],
-            mode: 'payment',
-            success_url: `${process.env.CLIENT_BASE_URL}${
-              products[type]?.relativeUrlSuccess ?? products['orientation'].relativeUrlSuccess
-            }`,
-            cancel_url: `${process.env.CLIENT_BASE_URL}${
-              products[type]?.relativeUrlFailure ?? products['orientation'].relativeUrlFailure
-            }`,
-          });
-        } catch (e) {
-          console.log('Error creating checkout session', e.message);
-          throw new Error('UNABLE_TO_CREATE_CHECKOUT_SESSION', { cause: e });
-        }
-      }
-      console.log('Error creating checkout session', error.message);
-      throw new Error('UNABLE_TO_CREATE_CHECKOUT_SESSION', { cause: error });
-    }
+    // try {
+    return stripe.checkout.sessions.create({
+      customer_email: email,
+      submit_type: 'pay',
+      expires_at: type === 'retreat' ? Math.floor(Date.now() / 1000 + 30 * 60) : undefined,
+      billing_address_collection: 'auto',
+      line_items: [
+        {
+          price: products[type]?.priceId ?? products['orientation'].priceId,
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: `${process.env.CLIENT_BASE_URL}${
+        products[type]?.relativeUrlSuccess ?? products['orientation'].relativeUrlSuccess
+      }`,
+      cancel_url: `${process.env.CLIENT_BASE_URL}${
+        products[type]?.relativeUrlFailure ?? products['orientation'].relativeUrlFailure
+      }`,
+    });
+    // } catch (error) {
+    //   if (error.raw?.code === 'coupon_expired') {
+    //     try {
+    //       return await stripe.checkout.sessions.create({
+    //         customer_email: email,
+    //         submit_type: 'pay',
+    //         expires_at: type === 'retreat' ? Math.floor(Date.now() / 1000 + 30 * 60) : undefined,
+    //         billing_address_collection: 'auto',
+    //         line_items: [
+    //           {
+    //             price: products[type]?.priceId ?? products['orientation'].priceId,
+    //             quantity: 1,
+    //           },
+    //         ],
+    //         mode: 'payment',
+    //         success_url: `${process.env.CLIENT_BASE_URL}${
+    //           products[type]?.relativeUrlSuccess ?? products['orientation'].relativeUrlSuccess
+    //         }`,
+    //         cancel_url: `${process.env.CLIENT_BASE_URL}${
+    //           products[type]?.relativeUrlFailure ?? products['orientation'].relativeUrlFailure
+    //         }`,
+    //       });
+    //     } catch (e) {
+    //       console.log('Error creating checkout session', e.message);
+    //       throw new Error('UNABLE_TO_CREATE_CHECKOUT_SESSION', { cause: e });
+    //     }
+    //   }
+    //   console.log('Error creating checkout session', error.message);
+    //   throw new Error('UNABLE_TO_CREATE_CHECKOUT_SESSION', { cause: error });
+    // }
   },
 
   /**
