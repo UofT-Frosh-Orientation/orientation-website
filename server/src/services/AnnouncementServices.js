@@ -31,7 +31,7 @@ const AnnouncementServices = {
    * @returns {User} updated user
    */
   async complete(id, userID) {
-    const currentUser = await UserModel.findOne({ _id: userID }).then(
+    const currentUser = await UserModel.findById(userID).then(
       (user) => {
         if (!user) throw new Error('USER_NOT_FOUND');
         return user;
@@ -41,7 +41,7 @@ const AnnouncementServices = {
       },
     );
     var listOfCompleted = currentUser.completedAnnouncements;
-    const completedAnnouncement = await AnnouncementModel.findOne({ _id: id }).then(
+    const completedAnnouncement = await AnnouncementModel.findById(id).then(
       (announcement) => {
         if (!announcement) throw new Error('ANNOUNCEMENT_NOT_FOUND');
         return announcement;

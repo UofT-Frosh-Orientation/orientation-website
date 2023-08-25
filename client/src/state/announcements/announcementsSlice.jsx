@@ -58,9 +58,10 @@ const announcementSlice = createSlice({
       state.loading = false;
       state.error = error;
     },
-    completeAnnouncementsSuccess: (state) => {
+    completeAnnouncementsSuccess: (state, { payload: completedAnnouncements }) => {
       state.loading = false;
       state.error = null;
+      state.completedAnnouncements = completedAnnouncements;
     },
     editAnnouncementsStart: (state) => {
       state.loading = true;

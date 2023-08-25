@@ -63,16 +63,9 @@ export function* createAnnouncementsSaga({
     const response = yield call(axios.post, `/announcements/create`, { announcementData });
     yield put(createAnnouncementsSuccess());
     setSnackbar('Successfully Created!');
-  } catch (e) {
-    setSnackbar(
-      e.response?.data?.message
-        ? e.response?.data?.message.toString()
-        : e.response?.data
-        ? e.response?.data.toString()
-        : e.toString(),
-      true,
-    );
-    yield put(createAnnouncementsFailure(e));
+  } catch (error) {
+    setSnackbar(error.response?.data?.errorMessage, true);
+    yield put(createAnnouncementsFailure(error));
   }
 }
 
@@ -83,9 +76,9 @@ export function* completeAnnouncementsSaga({ payload: { announcementData } }) {
   try {
     yield put(completeAnnouncementsStart());
     const response = yield call(axios.put, `/announcements/${announcementData.id}/complete`);
-    yield put(completeAnnouncementsSuccess());
-  } catch (e) {
-    yield put(completeAnnouncementsFailure(e));
+    yield put(completeAnnouncementsSuccess(response.data?.announcements));
+  } catch (error) {
+    yield put(completeAnnouncementsFailure(error.response?.data?.errorMessage));
   }
 }
 
@@ -100,16 +93,9 @@ export function* editAnnouncementSaga({ payload: { setSnackbar, announcementData
     });
     yield put(editAnnouncementsSuccess());
     setSnackbar('Successfully Edited!');
-  } catch (e) {
-    setSnackbar(
-      e.response?.data?.message
-        ? e.response?.data?.message.toString()
-        : e.response?.data
-        ? e.response?.data.toString()
-        : e.toString(),
-      true,
-    );
-    yield put(editAnnouncementsFailure(e));
+  } catch (error) {
+    yield put(editAnnouncementsFailure(error.response?.data?.errorMessage));
+    setSnackbar(error.response?.data?.errorMessage, true);
   }
 }
 
@@ -122,16 +108,9 @@ export function* deleteAnnouncementSaga({ payload: { setSnackbar, announcementDa
     const response = yield call(axios.delete, `/announcements/${announcementData.id}/delete`);
     yield put(deleteAnnouncementsSuccess());
     setSnackbar('Successfully Deleted!');
-  } catch (e) {
-    setSnackbar(
-      e.response?.data?.message
-        ? e.response?.data?.message.toString()
-        : e.response?.data
-        ? e.response?.data.toString()
-        : e.toString(),
-      true,
-    );
-    yield put(deleteAnnouncementsFailure(e));
+  } catch (error) {
+    yield put(deleteAnnouncementsFailure(error.response?.data?.errorMessage));
+    setSnackbar(error.response?.data?.errorMessage, true);
   }
 }
 
