@@ -5,7 +5,7 @@ const assert = require('assert');
 describe('ScuntGameSettingsServices', () => {
   let settings;
 
-  it('.setGameSettings()\t\t\t|\tSet invalid scunt game settings (INVALID SETTING)', async () => {
+  it('.setGameSettings()\t\t\t|\tSet invalid scunt game settings (SETTINGS_NOT_FOUND)', async () => {
     await assert.rejects(
       ScuntGameSettingsServices.setGameSettings(
         'Scunt2T3',
@@ -23,7 +23,7 @@ describe('ScuntGameSettingsServices', () => {
       ),
       {
         name: 'Error',
-        message: 'UNABLE_TO_UPDATE_SCUNT_SETTINGS',
+        message: 'SETTINGS_NOT_FOUND',
       },
     );
   });

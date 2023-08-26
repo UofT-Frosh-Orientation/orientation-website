@@ -33,7 +33,10 @@ const ScuntMissionServices = {
         },
       },
     ).then(
-      (result) => result,
+      (results) => {
+        if (!results.length) throw new Error('NO_MISSIONS_FOUND');
+        return results;
+      },
       (error) => {
         throw new Error('UNABLE_TO_GET_SCUNT_MISSIONS', { cause: error });
       },
@@ -82,7 +85,7 @@ const ScuntMissionServices = {
         );
       },
       (error) => {
-        throw new Error('UNABLE_TO_DELETE_SCUNT_MISSIONS', { cause: error });
+        throw new Error('UNABLE_TO_CREATE_SCUNT_MISSIONS', { cause: error });
       },
     );
   },
@@ -94,7 +97,10 @@ const ScuntMissionServices = {
    */
   async deleteMission(number) {
     return ScuntMissionModel.findOneAndDelete({ number }).then(
-      (mission) => mission,
+      (mission) => {
+        if (!mission) throw new Error('MISSION_NOT_FOUND');
+        return mission;
+      },
       (error) => {
         throw new Error('UNABLE_TO_DELETE_MISSION', { cause: error });
       },
@@ -133,7 +139,7 @@ const ScuntMissionServices = {
   async getMission(number) {
     return ScuntMissionModel.findOne({ number }).then(
       (mission) => {
-        if (!mission || mission.isHidden) throw new Error('MISSION_DOES_NOT_EXIST');
+        if (!mission || mission.isHidden) throw new Error('MISSION_NOT_FOUND');
         return mission;
       },
       (error) => {

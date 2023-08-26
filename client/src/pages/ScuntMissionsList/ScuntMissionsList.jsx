@@ -16,7 +16,9 @@ import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
-import star from '../../assets/misc/star-solid.svg';
+import greenCheck from '../../assets/misc/check-solid-green.svg';
+import { scuntTeamTransactionsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
+import { getScuntTeamTransactions } from '../../state/scuntTeams/saga';
 
 function getMissionCategories(missions) {
   let currentCategory = '';
@@ -40,14 +42,12 @@ const PageScuntMissionsList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (scuntSettings !== undefined) {
-      setRevealMissions(scuntSettings[0]?.revealMissions);
-    }
+    if (scuntSettings) setRevealMissions(scuntSettings?.revealMissions);
   }, [scuntSettings]);
 
   useEffect(() => {
-    dispatch(getScuntMissions({ showHidden: false, setSnackbar }));
-  }, []);
+    dispatch(getScuntMissions({ showHidden: false }));
+  }, [dispatch]);
 
   if (revealMissions !== true && !leader) {
     return (
@@ -75,6 +75,7 @@ const PageScuntMissionsList = () => {
 const PageScuntMissionsListShow = () => {
   const { user } = useSelector(userSelector);
   const { missions } = useSelector(scuntMissionsSelector);
+  const { scuntTeamTransactions } = useSelector(scuntTeamTransactionsSelector);
   const [mission, setMission] = useState(undefined);
   const [searchedMissions, setSearchedMissions] = useState(missions);
   const [clearText, setClearText] = useState(false);
@@ -82,6 +83,28 @@ const PageScuntMissionsListShow = () => {
   const [selectedSort, setSelectedSort] = useState('ID');
   const [missionStatus, setMissionStatus] = useState(undefined);
   const loggedIn = useSelector(loggedInSelector);
+  const [completedMissions, setCompletedMissions] = useState({});
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getScuntTeamTransactions({ teamNumber: user?.scuntTeam }));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (scuntTeamTransactions?.length) {
+      setCompletedMissions(
+        scuntTeamTransactions.reduce((missions, transaction) => {
+          if (transaction?.missionNumber > 0) {
+            // -1 for bribes for deleted points
+            missions[transaction?.missionNumber] = transaction?.points;
+          }
+
+          return missions;
+        }, {}),
+      );
+    }
+  }, [scuntTeamTransactions]);
 
   useEffect(() => {
     setMission(undefined);
@@ -167,8 +190,12 @@ const PageScuntMissionsListShow = () => {
           <Link to={'/scunt-judges'}>Don&apos;t forget to bribe the judges!</Link>
         </div>
         <div className="scunt-missions-judging-station-info">
-          <img src={star} className="judging-station-info-star" alt="judging station indication" />
-          <p>These indicate Judging Stations, photo/video evidence is not accepted!</p>
+          <img
+            src={greenCheck}
+            className="judging-station-info-star"
+            alt="judging station indication"
+          />
+          <p>These indicate completed missions!</p>
         </div>
       </div>
 
@@ -245,7 +272,12 @@ const PageScuntMissionsListShow = () => {
                 setClearText(true);
               }}
             >
-              <ScuntMissionEntry mission={mission} selected />
+              <ScuntMissionEntry
+                mission={mission}
+                selected={true}
+                completed={mission?.number in completedMissions}
+                pointsAwarded={completedMissions[mission?.number]}
+              />
             </div>
           ) : (
             searchedMissions.map((mission) => {
@@ -257,13 +289,17 @@ const PageScuntMissionsListShow = () => {
                     setMission(mission);
                   }}
                 >
-                  <ScuntMissionEntry mission={mission} />
+                  <ScuntMissionEntry
+                    mission={mission}
+                    completed={mission?.number in completedMissions}
+                    pointsAwarded={completedMissions[mission?.number]}
+                  />
                 </div>
               );
               if (previousCategory !== mission?.category) {
                 previousCategory = mission?.category;
                 return (
-                  <div className="scunt-mission-category-separator">
+                  <div key={mission?.number} className="scunt-mission-category-separator">
                     <div className="separator" />
                     <h3>{mission?.category}</h3>
                     {missionEntry}

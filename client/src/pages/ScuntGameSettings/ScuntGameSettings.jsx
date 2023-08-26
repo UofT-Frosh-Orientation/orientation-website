@@ -1,6 +1,5 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useNavigate } from 'react-router-dom';
 
 import './ScuntGameSettings.scss';
 
@@ -10,21 +9,25 @@ import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  getJudges,
+  giveJudgeBribePoints,
   getScuntSettings,
   setScuntSettings,
-  shuffleScuntTeams,
 } from '../../state/scuntSettings/saga';
-import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
+import { shuffleScuntTeams, setScuntTeams, getScuntTeams } from '../../state/scuntTeams/saga';
+import {
+  scuntJudgeSelector,
+  scuntSettingsSelector,
+} from '../../state/scuntSettings/scuntSettingsSlice';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 
 import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 
-import useAxios from '../../hooks/useAxios';
 import { PopupModal } from '../../components/popup/PopupModal';
-const { axios } = useAxios();
+import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
 
-const scuntsettings = [
+const scuntSettingsInfo = [
   {
     parameter: 'Amount of Teams',
     key: 'amountOfTeams', // key in the model
@@ -50,12 +53,6 @@ const scuntsettings = [
       'The min amount of points allowed to be given out over the recommended amount for missions',
     placeholder: 0.3,
   },
-  {
-    parameter: 'Discord Link',
-    key: 'discordLink',
-    description: 'if blank the discord link will be set to the one in the database',
-    placeholder: 'https://discord.com/',
-  },
 ];
 
 const scuntsettingbool = [
@@ -63,14 +60,10 @@ const scuntsettingbool = [
     parameter: 'Reveal Judges and Bribes',
     key: 'revealJudgesAndBribes',
   },
-  {
-    parameter: 'Reveal Teams',
-    key: 'revealTeams',
-  },
-  {
-    parameter: 'Show Discord Link',
-    key: 'showDiscordLink',
-  },
+  // {
+  //   parameter: 'Show Discord Link',
+  //   key: 'showDiscordLink',
+  // },
   {
     parameter: 'Reveal Leaderboard',
     key: 'revealLeaderboard',
@@ -78,6 +71,10 @@ const scuntsettingbool = [
   {
     parameter: 'Reveal Missions',
     key: 'revealMissions',
+  },
+  {
+    parameter: 'Reveal Teams',
+    key: 'revealTeams',
   },
   {
     parameter: 'Allow Judging',
@@ -93,13 +90,17 @@ const ScuntGameSettings = () => {
   const { setSnackbar } = useContext(SnackbarContext);
 
   useEffect(() => {
-    if (scuntSettings !== undefined) {
-      setNewSettings(scuntSettings[0]);
-    }
+    if (scuntSettings) setNewSettings(scuntSettings);
   }, [scuntSettings]);
 
+  useEffect(() => {
+    dispatch(getScuntSettings(setSnackbar));
+    dispatch(getScuntTeams(setSnackbar));
+    dispatch(getJudges(setSnackbar));
+  }, [dispatch]);
+
   const initialSettings = {
-    name: 'Scunt2T3 Settings',
+    name: 'Scunt 2T3 Settings',
     amountOfTeams: 10,
     amountOfStarterBribePoints: 2500,
     maxAmountPointsPercent: 0.3,
@@ -118,17 +119,16 @@ const ScuntGameSettings = () => {
 
       <div className="scunt-game-settings-container">
         <div style={{ marginBottom: '10px' }}>
-          {scuntsettings.map((i) => {
+          {scuntSettingsInfo.map((setting) => {
             return (
-              <div key={i.parameter}>
+              <div key={setting.parameter}>
                 <ScuntGameSettingsTextbox
-                  objKey={i.key}
-                  parameter={i.parameter}
-                  description={i.description}
+                  objKey={setting.key}
+                  parameter={setting.parameter}
+                  description={setting.description}
                   placeholder={
-                    scuntSettings && scuntSettings[0] && scuntSettings[0][i.key]
-                      ? scuntSettings[0][i.key]
-                      : 'Not set yet - e.g. value: ' + i.placeholder.toString()
+                    scuntSettings?.[setting.key] ||
+                    'Not set yet - e.g. value: ' + setting.placeholder.toString()
                   }
                   newSettings={newSettings}
                   setNewSettings={setNewSettings}
@@ -138,53 +138,22 @@ const ScuntGameSettings = () => {
             );
           })}
         </div>
-        <ShuffleTeamsButton />
-
-        <div className="separator" />
-        <br />
-
-        <RefillJudgeBribePoints />
-
-        <div className="separator" />
-        <br />
-
-        {/* <DeleteMission /> */}
-
-        {/* <div className="separator" />
-        <br /> */}
-
-        {/* <HideRevealMissions /> */}
-
-        {/* <div className="separator" />
-        <br /> */}
-
-        <RenameTeams />
-
-        <div className="separator" />
-        <br />
-
         <div style={{ marginBottom: '30px' }}>
-          {scuntsettingbool.map((i) => {
-            let selectedCheck = [];
-
-            if (newSettings && newSettings[i.key] === true) {
-              selectedCheck = [0];
-            }
-
-            return (
-              <div key={i.parameter}>
-                <Checkboxes
-                  values={[i.parameter]}
-                  initialSelectedIndices={selectedCheck}
-                  onSelected={(value, index, state, selectedIndices) => {
-                    let tempSettings = { ...newSettings }; // create a copy
-                    tempSettings[i.key] = state;
-                    setNewSettings(tempSettings);
-                  }}
-                />
-              </div>
-            );
-          })}
+          {newSettings ? (
+            <Checkboxes
+              values={scuntsettingbool.map((setting) => setting.parameter)}
+              initialSelectedIndices={scuntsettingbool.reduce((prev, setting, index) => {
+                if (newSettings?.[setting.key]) prev.push(index);
+                return prev;
+              }, [])}
+              onSelected={(value, index, state) => {
+                setNewSettings({
+                  ...newSettings,
+                  [scuntsettingbool[index].key]: state,
+                });
+              }}
+            />
+          ) : null}
         </div>
 
         <div
@@ -271,6 +240,19 @@ const ScuntGameSettings = () => {
             }}
           />
         </div>
+
+        <div className="separator" />
+        <br />
+
+        <RefillJudgeBribePoints />
+
+        <div className="separator" />
+        <br />
+
+        <RenameTeams />
+        <ShuffleTeamsButton />
+        <div className="separator" />
+        <br />
       </div>
     </div>
   );
@@ -323,31 +305,16 @@ const RefillJudgeBribePoints = () => {
   const [assignedBribeRefillPoints, setAssignedBribeRefillPoints] = useState(0);
   const [assignedJudge, setAssignedJudge] = useState('');
   const [clearPointsInput, setClearPointsInput] = useState(false);
-  const [judges, setJudges] = useState([]);
+  // const [judges, setJudges] = useState([]);
+  const { judges } = useSelector(scuntJudgeSelector);
 
-  const getJudgeUsers = async () => {
-    try {
-      const response = await axios.get('/scunt-teams/judges');
-      const { users } = response.data;
-      if (users.length <= 0 || !users) setJudges([]);
-      else setJudges(users);
-    } catch (e) {
-      setJudges([]);
-    }
-  };
-  const judgeUsersGetter = async () => {
-    getJudgeUsers();
-  };
-
-  useEffect(() => {
-    judgeUsersGetter();
-  }, []);
+  const dispatch = useDispatch();
 
   return (
     <div style={{ margin: '0 5px' }}>
       <h2>Judge Status</h2>
       <div style={{ height: '8px' }} />
-      {judges.map((judge) => {
+      {judges?.map((judge) => {
         return (
           <p key={judge?._id}>
             <b>{judge?.firstName + ' ' + judge?.lastName}</b>
@@ -384,6 +351,7 @@ const RefillJudgeBribePoints = () => {
         <div className="fill-remaining-width-input">
           <TextInput
             placeholder={'# Points'}
+            type={'number'}
             onChange={(value) => {
               setAssignedBribeRefillPoints(value);
             }}
@@ -399,13 +367,21 @@ const RefillJudgeBribePoints = () => {
             setSnackbar('Please set a points value', true);
           } else {
             //Refill judges bribe points here
-            const response = await axios.post('/scunt-teams/transaction/refill-bribe', {
-              judgeUserId: assignedJudge?._id,
-              points: assignedBribeRefillPoints,
-              isAddPoints: true,
-            });
-            setSnackbar(response?.data?.message + ' to ' + assignedJudge?.firstName);
-            getJudgeUsers();
+            // const response = await axios.post('/scunt-teams/transaction/refill-bribe', {
+            //   judgeUserId: assignedJudge?._id,
+            //   points: assignedBribeRefillPoints,
+            //   isAddPoints: true,
+            // });
+            // setSnackbar(response?.data?.message + ' to ' + assignedJudge?.firstName);
+            // getJudgeUsers();
+            dispatch(
+              giveJudgeBribePoints({
+                setSnackbar,
+                judgeUserId: assignedJudge?._id,
+                points: assignedBribeRefillPoints,
+                isAddPoints: true,
+              }),
+            );
             setAssignedBribeRefillPoints(0);
             setClearPointsInput(true);
           }
@@ -416,37 +392,18 @@ const RefillJudgeBribePoints = () => {
 };
 
 const RenameTeams = () => {
+  const dispatch = useDispatch();
   const { setSnackbar } = useContext(SnackbarContext);
-
+  const { scuntTeams } = useSelector(scuntTeamsSelector);
   const [teamObjs, setTeamObjs] = useState([]);
 
-  const getScuntTeams = async () => {
-    try {
-      const response = await axios.get('/scunt-teams');
-      const { teamPoints } = response.data;
-      if (teamPoints.length <= 0 || !teamPoints) setTeamObjs([]);
-      else {
-        setTeamObjs(teamPoints);
-      }
-    } catch (e) {
-      setTeamObjs(['Error loading teams']);
-    }
-  };
-
-  const renameScuntTeams = async () => {
-    try {
-      const result = await axios.put('/scunt-teams/rename-teams', {
-        teamObjs: teamObjs,
-      });
-      setSnackbar(result?.data?.message);
-    } catch (e) {
-      setSnackbar(e.toString(), true);
-    }
-  };
+  useEffect(() => {
+    if (scuntTeams?.length) setTeamObjs(scuntTeams);
+  }, [scuntTeams]);
 
   useEffect(() => {
-    getScuntTeams();
-  }, []);
+    dispatch(getScuntTeams(setSnackbar));
+  }, [dispatch]);
 
   return (
     <div style={{ margin: '0 5px' }}>
@@ -454,23 +411,27 @@ const RenameTeams = () => {
       <div style={{ height: '5px' }} />
       {teamObjs.map((teamObj, index) => {
         return (
-          <>
-            <TextInput
-              placeholder={'Team Name'}
-              onChange={(value) => {
-                teamObjs[index]['name'] = value;
-              }}
-              initialValue={teamObj?.name}
-              label={'Team ' + teamObj?.number}
-            />
-          </>
+          <TextInput
+            key={index}
+            placeholder={teamObj.name}
+            onChange={(value) => {
+              setTeamObjs(
+                teamObjs.map((team, i) => (i === index ? { ...team, name: value } : team)),
+              );
+            }}
+            initialValue={teamObj?.name}
+            label={'Team ' + teamObj?.number}
+          />
         );
       })}
       <div></div>
       <Button
         label={'Rename Teams'}
+        isDisabled={!teamObjs?.length}
         onClick={() => {
-          renameScuntTeams();
+          teamObjs?.length
+            ? dispatch(setScuntTeams({ setSnackbar, scuntTeams: teamObjs }))
+            : setSnackbar('No teams to rename', true);
         }}
       />
     </div>
@@ -594,15 +555,7 @@ const HideRevealMissions = () => {
 };
 
 const CurrentScuntGameSettings = () => {
-  const { scuntSettings } = useSelector(scuntSettingsSelector); // returns an array of scunt settings
-  const [keys, setKeys] = useState([]);
-
-  useEffect(() => {
-    // this is to catch the initially undefined settings
-    if (scuntSettings && scuntSettings[0]) {
-      setKeys(Object.keys(scuntSettings[0]));
-    }
-  }, [scuntSettings]);
+  const { scuntSettings } = useSelector(scuntSettingsSelector);
 
   return (
     <div className="current-scunt-game-settings-container">
@@ -610,28 +563,30 @@ const CurrentScuntGameSettings = () => {
         Current Scunt Settings
       </h3>
 
-      {scuntSettings !== undefined ? (
-        keys?.map((i) => {
-          if (i !== 'name' && i !== 'id') {
+      {scuntSettings ? (
+        Object.keys(scuntSettings)?.map((settingKey) => {
+          if (!['_id', 'name', '__v'].includes(settingKey)) {
             // no need to show the parameters above
             return (
-              <p key={i} style={{ color: 'var(--text-dynamic)', marginBottom: '8px' }}>
-                <b>{convertCamelToLabel(i)}</b>
+              <p key={settingKey} style={{ color: 'var(--text-dynamic)', marginBottom: '8px' }}>
+                <b>{convertCamelToLabel(settingKey)}</b>
                 <span>{': '}</span>
-                {scuntSettings[0][i] === true || scuntSettings[0][i] === false ? (
-                  <div
+                {scuntSettings[settingKey] === true || scuntSettings[settingKey] === false ? (
+                  <b
                     style={{
                       display: 'inline-block',
                       color:
-                        scuntSettings[0][i] === true ? 'var(--green-success)' : 'var(--red-error)',
+                        scuntSettings[settingKey] === true
+                          ? 'var(--green-success)'
+                          : 'var(--red-error)',
                     }}
                   >
-                    <b>{scuntSettings[0][i].toString()}</b>
-                  </div>
-                ) : scuntSettings[0][i] == null ? (
+                    {scuntSettings[settingKey].toString()}
+                  </b>
+                ) : scuntSettings[settingKey] == null ? (
                   ''
                 ) : (
-                  scuntSettings[0][i].toString()
+                  scuntSettings[settingKey].toString()
                 )}
               </p>
             );
@@ -651,7 +606,6 @@ const ScuntGameSettingsTextbox = ({
   parameter,
   description,
   placeholder,
-  initialValue,
   newSettings,
   setNewSettings,
 }) => {
@@ -675,11 +629,10 @@ const ScuntGameSettingsTextbox = ({
           inputType={'text'}
           label={parameter}
           description={description}
-          // initialValue={initialValue}
           onChange={(input) => handleInput(input, objKey)}
           placeholder={String(placeholder)}
           onEnterKey={(input) => handleInput(input, objKey)}
-        ></TextInput>
+        />
       </div>
     </div>
   );

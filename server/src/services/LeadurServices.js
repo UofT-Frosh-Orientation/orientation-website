@@ -1,6 +1,16 @@
 const bcrypt = require('bcrypt');
 const LeadurModel = require('../models/LeadurModel');
 const emailConfirmationSubscription = require('../subscribers/emailConfirmationSubscription');
+const jwt = require('jsonwebtoken');
+
+/**
+ * @description Creates an email confirmation token for a user
+ * @param {string} email
+ * @returns {Token}
+ */
+function generateEmailConfirmationToken(email) {
+  return jwt.sign(email, process.env.JWT_EMAIL_CONFIRMATION_TOKEN);
+}
 
 const LeadurServices = {
   /**
@@ -30,7 +40,8 @@ const LeadurServices = {
       scuntTeam,
     }).then(
       (newLeedur) => {
-        emailConfirmationSubscription.add(newLeedur);
+        const token = generateEmailConfirmationToken(email);
+        emailConfirmationSubscription.add({ token, email });
         return newLeedur;
       },
       (error) => {

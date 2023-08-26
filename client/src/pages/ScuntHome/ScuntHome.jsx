@@ -8,7 +8,6 @@ import { Confetti } from '../../components/misc/Confetti/Confetti';
 import { Link, useLocation } from 'react-router-dom';
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 import { DarkModeContext } from '../../util/DarkModeProvider';
-// import { ProfilePageScuntToken } from '../Profile/PageProfileFrosh';
 import DiscordIcon from '../../assets/social/discord-brands.svg';
 import { aboutScunt, okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,108 +15,54 @@ import { userSelector } from '../../state/user/userSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import useAxios from '../../hooks/useAxios';
 import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
+import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
+import { getScuntSettings } from '../../state/scuntSettings/saga';
+import { getScuntTeams } from '../../state/scuntTeams/saga';
 const { axios } = useAxios();
 
 export const PageScuntHome = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getScuntSettings());
+    dispatch(getScuntTeams());
+  }, [dispatch]);
+
   return (
     <>
-      <div className="navbar-space-top"></div>
       <ScuntCountdown />
       <ScuntLinks />
-      <ScuntDiscord />
       <AboutScunt />
     </>
   );
 };
 
-const ScuntDiscord = () => {
-  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
-  const [showDiscordLink, setShowDiscordLink] = useState(false);
-  const [discordLink, setDiscordLink] = useState('');
-  const [revealTeams, setRevealTeams] = useState(false);
-
-  const { user } = useSelector(userSelector);
-  const leader = user?.userType === 'leadur';
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (scuntSettings !== undefined) {
-      let settings = scuntSettings[0];
-
-      setRevealTeams(settings?.revealTeams);
-      setShowDiscordLink(settings?.showDiscordLink);
-      setDiscordLink(settings?.discordLink);
-    }
-  }, [scuntSettings]);
-
-  if (showDiscordLink !== true && revealTeams !== true && !leader) {
-    // catch the undef states of the selector using !== true
-    return <div />;
-  } else {
-    const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-    return (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginTop: '-20px',
-          overflowWrap: 'anywhere',
-        }}
-      >
-        <a href={discordLink} className="no-link-style" target={'_blank'} rel="noreferrer">
-          <div
-            className="frosh-instagram-container"
-            style={{ padding: '15px 20px', margin: '10px 9px' }}
-          >
-            <img
-              src={DiscordIcon}
-              alt="Discord"
-              style={{ filter: darkMode ? 'unset' : 'invert(1)' }}
-            />
-            <div>
-              {!leader && user?.attendingScunt === true ? (
-                <h2 style={{ fontSize: '15px' }}>You are in team {user.scuntTeam}!</h2>
-              ) : (
-                <></>
-              )}
-              <p>Join the discord to chat with your team!</p>
-              <p>{discordLink}</p>
-            </div>
-          </div>
-        </a>
-      </div>
-    );
-  }
-};
-
 const AboutScunt = () => {
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-  const [scuntTeams, setScuntTeams] = useState([]);
+  const { darkMode } = useContext(DarkModeContext);
   const [scuntTeamObjs, setScuntTeamObjs] = useState();
+  const { scuntTeams } = useSelector(scuntTeamsSelector);
+  // const getScuntTeams = async () => {
+  //   try {
+  //     const response = await axios.get('/scunt-teams');
+  //     const { teamPoints } = response.data;
+  //     if (teamPoints.length <= 0 || !teamPoints) setScuntTeams([]);
+  //     else {
+  //       setScuntTeamObjs(teamPoints);
+  //       setScuntTeams(
+  //         teamPoints.map((team) => {
+  //           return team?.name;
+  //         }),
+  //       );
+  //     }
+  //   } catch (e) {
+  //     console.error(e.toString());
+  //     setScuntTeams(['Error loading teams']);
+  //   }
+  // };
 
-  const getScuntTeams = async () => {
-    try {
-      const response = await axios.get('/scunt-teams');
-      const { teamPoints } = response.data;
-      if (teamPoints.length <= 0 || !teamPoints) setScuntTeams([]);
-      else {
-        setScuntTeamObjs(teamPoints);
-        setScuntTeams(
-          teamPoints.map((team) => {
-            return team?.name;
-          }),
-        );
-      }
-    } catch (e) {
-      console.error(e.toString());
-      setScuntTeams(['Error loading teams']);
-    }
-  };
-
-  useEffect(() => {
-    getScuntTeams();
-  }, []);
+  // useEffect(() => {
+  //   getScuntTeams();
+  // }, []);
 
   return (
     <>
@@ -151,11 +96,11 @@ const ScuntCountdown = () => {
   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
   const [targetDate, setTargetDate] = useState();
   const [countDownDate, setCountDownDate] = useState();
-  //const [targetDate, targetDate]
+  const [countDown, setCountDown] = useState(countDownDate - new Date().getTime());
 
   useEffect(() => {
     if (scuntSettings !== undefined) {
-      let settings = scuntSettings[0];
+      let settings = scuntSettings;
       const tempDate = new Date(settings?.scuntDate);
       const tempCountDownDate = new Date(tempDate).getTime();
 
@@ -163,11 +108,6 @@ const ScuntCountdown = () => {
       setCountDownDate(tempCountDownDate);
     }
   }, [scuntSettings]);
-
-  //const targetDate = new Date(scuntDate);
-  //const countDownDate = new Date(targetDate).getTime();
-
-  const [countDown, setCountDown] = useState(countDownDate - new Date().getTime());
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -222,3 +162,62 @@ const ScuntCountdown = () => {
     </div>
   );
 };
+
+// const ScuntDiscord = () => {
+//   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
+//   const [showDiscordLink, setShowDiscordLink] = useState(false);
+//   const [discordLink, setDiscordLink] = useState('');
+//   const [revealTeams, setRevealTeams] = useState(false);
+
+//   const { user } = useSelector(userSelector);
+//   const leader = user?.userType === 'leadur';
+
+//   useEffect(() => {
+//     if (scuntSettings !== undefined) {
+//       let settings = scuntSettings[0];
+
+//       setRevealTeams(settings?.revealTeams);
+//       setShowDiscordLink(settings?.showDiscordLink);
+//       setDiscordLink(settings?.discordLink);
+//     }
+//   }, [scuntSettings]);
+
+//   if (showDiscordLink !== true && revealTeams !== true && !leader) {
+//     // catch the undef states of the selector using !== true
+//     return null;
+//   } else {
+//     const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+//     return (
+//       <div
+//         style={{
+//           display: 'flex',
+//           justifyContent: 'center',
+//           marginTop: '-20px',
+//           overflowWrap: 'anywhere',
+//         }}
+//       >
+//         <a href={discordLink} className="no-link-style" target={'_blank'} rel="noreferrer">
+//           <div
+//             className="frosh-instagram-container"
+//             style={{ padding: '15px 20px', margin: '10px 9px' }}
+//           >
+//             <img
+//               src={DiscordIcon}
+//               alt="Discord"
+//               style={{ filter: darkMode ? 'unset' : 'invert(1)' }}
+//             />
+//             <div>
+//               {!leader && user?.attendingScunt === true ? (
+//                 <h2 style={{ fontSize: '15px' }}>You are in team {user.scuntTeam}!</h2>
+//               ) : (
+//                 <></>
+//               )}
+//               <p>Join the discord to chat with your team!</p>
+//               <p>{discordLink}</p>
+//             </div>
+//           </div>
+//         </a>
+//       </div>
+//     );
+//   }
+// };

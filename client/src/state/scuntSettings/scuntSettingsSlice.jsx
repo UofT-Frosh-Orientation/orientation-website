@@ -5,6 +5,7 @@ export const initialState = {
   loading: false,
   error: null,
   scuntSettings: undefined,
+  judges: [],
 };
 
 const scuntSettingsSlice = createSlice({
@@ -38,6 +39,32 @@ const scuntSettingsSlice = createSlice({
       state.loading = false;
       state.error = error;
     },
+    getJudgesStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    getJudgesSuccess: (state, { payload: judges }) => {
+      state.loading = false;
+      state.error = null;
+      state.judges = judges;
+    },
+    getJudgesFailure: (state, { payload: error }) => {
+      state.loading = false;
+      state.error = error;
+    },
+    giveJudgeBribePointsStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    giveJudgeBribePointsSuccess: (state, { payload: judges }) => {
+      state.loading = false;
+      state.error = null;
+      state.judges = judges;
+    },
+    giveJudgeBribePointsFailure: (state, { payload: error }) => {
+      state.loading = false;
+      state.error = error;
+    },
   },
 });
 
@@ -48,6 +75,12 @@ export const {
   setScuntSettingsStart,
   setScuntSettingsSuccess,
   setScuntSettingsFailure,
+  getJudgesStart,
+  getJudgesSuccess,
+  getJudgesFailure,
+  giveJudgeBribePointsStart,
+  giveJudgeBribePointsSuccess,
+  giveJudgeBribePointsFailure,
 } = scuntSettingsSlice.actions;
 
 export default scuntSettingsSlice.reducer;
@@ -76,12 +109,17 @@ export const maxAmountPointsPercentSelector = createSelector(
   ({ scuntSettings }) => scuntSettings?.maxAmountPointsPercent,
 );
 
-export const showDiscordLinkSelector = createSelector(
-  scuntSettingsReducerSelector,
-  ({ scuntSettings }) => scuntSettings?.showDiscordLink,
-);
+// export const showDiscordLinkSelector = createSelector(
+//   scuntSettingsReducerSelector,
+//   ({ scuntSettings }) => scuntSettings?.showDiscordLink,
+// );
 
-export const discordLinkSelector = createSelector(
+// export const discordLinkSelector = createSelector(
+//   scuntSettingsReducerSelector,
+//   ({ scuntSettings }) => scuntSettings?.discordLink,
+// );
+
+export const scuntJudgeSelector = createSelector(
   scuntSettingsReducerSelector,
-  ({ scuntSettings }) => scuntSettings?.discordLink,
+  ({ judges, loading, error }) => ({ judges, loading, error }),
 );

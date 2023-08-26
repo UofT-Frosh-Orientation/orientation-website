@@ -25,8 +25,10 @@ describe('ScuntTeamServices', () => {
   });
 
   it('.viewRecentTransactions()\t\t|\tView recent transactions (empty)', async () => {
-    transactions = await ScuntTeamServices.viewRecentTransactions();
-    assert(transactions.length === 0);
+    await assert.rejects(ScuntTeamServices.viewRecentTransactions(), {
+      name: 'Error',
+      message: 'TRANSACTIONS_NOT_FOUND',
+    });
   });
 
   it('.updateLeaderTeam()\t\t|\tUpdate a leaders scunt team number', async () => {
@@ -267,7 +269,7 @@ describe('ScuntTeamServices', () => {
     });
   });
 
-  it('.refillBribePoints()\t\t|\tRefill judge bribe points with wrong ID (INVALID LEADUR ID)', async () => {
+  it('.refillBribePoints()\t\t|\tRefill judge bribe points with wrong ID (LEADUR_NOT_FOUND)', async () => {
     testUser = await UserModel.create({
       firstName: 'Test',
       lastName: 'User',
@@ -276,7 +278,7 @@ describe('ScuntTeamServices', () => {
     });
     await assert.rejects(ScuntTeamServices.refillBribePoints(testUser._id, 10, true), {
       name: 'Error',
-      message: 'INVALID_LEADUR_ID',
+      message: 'LEADUR_NOT_FOUND',
     });
   });
 
@@ -288,17 +290,17 @@ describe('ScuntTeamServices', () => {
       points: 0,
     });
     const testTeamTransaction = await ScuntTeamServices.addTransaction(1, 2, 20);
-    assert.equal(testTeamTransaction.name, 'Added 20 points for mission #2 for team 1');
+    assert.equal(testTeamTransaction, 'Added 20 points for mission #2 for team 1');
   });
 
   it('.addTransaction()\t\t\t|\tAdd transaction same mission', async () => {
     const testTeamTransaction = await ScuntTeamServices.addTransaction(1, 2, 200);
-    assert.equal(testTeamTransaction.name, 'Updated to 200 points for mission #2 for team 1');
+    assert.equal(testTeamTransaction, 'Updated to 200 points for mission #2 for team 1');
   });
 
   it('.addTransaction()\t\t\t|\tAdd transaction same mission', async () => {
     const testTeamTransaction = await ScuntTeamServices.addTransaction(1, 2, 10);
-    assert.equal(testTeamTransaction.name, '10 points for mission #2 for team 1');
+    assert.equal(testTeamTransaction, '10 points for mission #2 for team 1');
   });
 
   it('.addTransaction()\t\t\t|\tAdd transaction', async () => {
@@ -308,7 +310,7 @@ describe('ScuntTeamServices', () => {
       points: 20,
     });
     const testTeamTransaction = await ScuntTeamServices.addTransaction(9, 2, 30);
-    assert.equal(testTeamTransaction.name, 'Added 30 points for mission #2 for team 9');
+    assert.equal(testTeamTransaction, 'Added 30 points for mission #2 for team 9');
   });
 
   // having trouble with prev points with addTransaction
@@ -378,14 +380,11 @@ describe('ScuntTeamServices', () => {
   });
 
   it('.viewTransactions()\t\t|\tView transactions', async () => {
-    await ScuntTeamModel.create({
-      number: 3,
-      name: 'Scunt Team 3',
-      points: 20,
-    });
-    const testTeam = await ScuntTeamServices.viewTransactions(3);
-    assert(testTeam.number === 3);
-    assert(testTeam.name === 'Scunt Team 3');
+    await ScuntTeamServices.subtractTransaction(10, 20);
+    await ScuntTeamServices.subtractTransaction(10, 20);
+    await ScuntTeamServices.subtractTransaction(10, 20);
+    const transactions = await ScuntTeamServices.viewTransactions(10);
+    assert.equal(transactions.length, 4);
   });
 
   it('.viewTransactions()\t\t|\tView transactions (INVALID TEAM)', async () => {
@@ -417,7 +416,7 @@ describe('ScuntTeamServices', () => {
     await ScuntTeamServices.addTransaction(4, 1, 20);
     await ScuntTeamServices.addTransaction(4, 1, 10);
     const points = await ScuntTeamServices.checkTransaction(4, 1);
-    assert.equal(points, 15);
+    assert.equal(points, 14);
   });
 
   it('.checkTransaction()\t\t|\tCheck a transaction (INVALID TEAM NUMBER)', async () => {
@@ -427,11 +426,11 @@ describe('ScuntTeamServices', () => {
     });
   });
 
-  it('.initializeTeams()\t\t|\tInitialize scunt teams (NO_SCUNT_SETTINGS)', async () => {
+  it('.initializeTeams()\t\t|\tInitialize scunt teams (INVALID_SETTINGS)', async () => {
     await ScuntGameSettingModel.collection.drop();
     await assert.rejects(ScuntTeamServices.initializeTeams(), {
       name: 'Error',
-      message: 'NO_SCUNT_SETTINGS',
+      message: 'INVALID_SETTINGS',
     });
   });
 
@@ -453,12 +452,12 @@ describe('ScuntTeamServices', () => {
     );
   });
 
-  it('.initializeTeams()\t\t|\tInitialize scunt teams (UNABLE_TO_GET_ALL_FROSH)', async () => {
+  it('.initializeTeams()\t\t|\tInitialize scunt teams (SCUNT_FROSH_NOT_FOUND)', async () => {
     await ScuntTeamModel.collection.drop();
     await FroshModel.collection.drop();
     await assert.rejects(ScuntTeamServices.initializeTeams(), {
       name: 'Error',
-      message: 'UNABLE_TO_GET_ALL_FROSH',
+      message: 'SCUNT_FROSH_NOT_FOUND',
     });
   });
 

@@ -173,7 +173,7 @@ describe('ScuntMissionServices', () => {
   it('getMission(number)\t\t\t\t\t\t\t\t\t\t|\tGetting a Scunt Mission (NONEXISTING MISSION)', async () => {
     await assert.rejects(ScuntMissionServices.getMission(10), {
       name: 'Error',
-      message: 'MISSION_DOES_NOT_EXIST',
+      message: 'MISSION_NOT_FOUND',
     });
   });
 

@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-
+const formatInteger = (value) => parseInt(value || 0, 10);
 const ScuntTeamTransactionsSchema = new mongoose.Schema(
   {
     name: { type: String, default: '' },
-    points: { type: Number, default: 0 },
+    points: { type: Number, default: 0, set: formatInteger },
     missionNumber: { type: Number, default: -1, index: true },
   },
   { timestamps: true },
@@ -27,6 +27,7 @@ const ScuntTeamSchema = new mongoose.Schema({
     type: Number,
     required: true,
     default: 0,
+    set: formatInteger,
   },
   transactions: [ScuntTeamTransactionsSchema],
 });

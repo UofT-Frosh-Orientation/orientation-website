@@ -8,27 +8,22 @@ import { ButtonOutlined } from '../../../button/ButtonOutlined/ButtonOutlined';
 import './ProfilePageScuntToken.scss';
 import { getScuntTeamObjFromTeamNumber } from '../../../../pages/ScuntJudgeForm/ScuntJudgeForm';
 import { scuntDiscord } from '../../../../util/scunt-constants';
+import { scuntTeamsSelector } from '../../../../state/scuntTeams/scuntTeamsSlice';
 
-export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
+export const ProfilePageScuntToken = () => {
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { user } = useSelector(userSelector);
+  const { scuntTeams } = useSelector(scuntTeamsSelector);
   const isRegistered = useSelector(registeredSelector);
   const { setSnackbar } = useContext(SnackbarContext);
   const [showToken, setShowToken] = useState(false);
 
   const code = user?.scuntToken;
-  if (
-    code === undefined ||
-    !isRegistered ||
-    !scuntSettings ||
-    scuntSettings.length <= 0 ||
-    (scuntSettings !== undefined &&
-      scuntSettings.length >= 1 &&
-      scuntSettings[0]?.revealTeams === false)
-  ) {
-    return <></>;
+  if (code === undefined || !isRegistered || (scuntSettings && !scuntSettings?.revealTeams)) {
+    return null;
   }
-  if (!user?.scunt && user?.userType !== 'leadur') {
+
+  if (!user?.attendingScunt && user?.userType !== 'leadur') {
     return (
       <div className="profile-page-scunt-token profile-page-side-section">
         <p>
@@ -41,15 +36,15 @@ export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
   }
   return (
     <div className="profile-page-scunt-token profile-page-side-section">
-      <h2>{getScuntTeamObjFromTeamNumber(user?.scuntTeam, scuntTeamObjs)?.name}</h2>
+      <h2>{getScuntTeamObjFromTeamNumber(user?.scuntTeam, scuntTeams)?.name}</h2>
       <i>
         <h4>Team {user?.scuntTeam ? user?.scuntTeam.toString() : '‽'}</h4>
       </i>
       <h3
         style={{ filter: showToken ? '' : 'blur(10px)' }}
         onClick={() => {
-          setSnackbar('Copied to clipboard');
           navigator.clipboard.writeText(code);
+          setSnackbar('Copied to clipboard');
         }}
       >
         {code}

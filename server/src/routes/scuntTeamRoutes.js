@@ -120,7 +120,7 @@ router.post(
 router.post(
   '/transactions',
   checkLoggedIn,
-  hasAuthScopes(['scunt:exec view transactions']),
+  // hasAuthScopes(['scunt:exec view transactions']),
   ScuntTeamController.viewTransactions,
 );
 

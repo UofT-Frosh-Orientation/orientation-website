@@ -63,16 +63,20 @@ const ScuntTeamServices = {
   },
 
   async calculatePoints(teamNumber, totalPoints) {
-    const teams = await ScuntTeamModel.find(
-      {},
-      { name: 1, number: 1, points: 1 },
-      { sort: { points: -1 } },
-    );
+    try {
+      const teams = await ScuntTeamModel.find(
+        {},
+        { name: 1, number: 1, points: 1 },
+        { sort: { points: -1 } },
+      );
 
-    // finds the rank of the team (i.e., index in teams array)
-    const teamPosition = teams.findIndex((t) => teamNumber === t.number) + 1;
+      // finds the rank of the team (i.e., index in teams array)
+      const teamPosition = teams?.findIndex((t) => teamNumber === t.number) + 1;
 
-    return (teamPosition / teams.length) * totalPoints;
+      return (teamPosition / teams.length) * totalPoints;
+    } catch (error) {
+      throw new Error('UNABLE_TO_CALCULATE_POINTS', { cause: error });
+    }
   },
 
   /**
@@ -180,7 +184,7 @@ const ScuntTeamServices = {
       { upsert: false, returnDocument: 'after' },
     ).then(
       (leadur) => {
-        if (!leadur) throw new Error('INVALID_LEADUR_ID');
+        if (!leadur) throw new Error('LEADUR_NOT_FOUND');
         return leadur;
       },
       (error) => {
@@ -244,7 +248,7 @@ const ScuntTeamServices = {
     return team.save().then(
       (team) => {
         LeaderboardSubscription.add({ team: team.number, score: team.points });
-        return { name: transaction };
+        return transaction;
       },
       (error) => {
         throw new Error('UNABLE_TO_UPDATE_TEAM', { cause: error });
@@ -305,7 +309,7 @@ const ScuntTeamServices = {
     return ScuntTeamModel.findOne({ number: teamNumber }).then(
       (team) => {
         if (!team) throw new Error('INVALID_TEAM_NUMBER');
-        return team;
+        return team.transactions;
       },
       (error) => {
         throw new Error('UNABLE_TO_GET_TRANSACTIONS', { cause: error });
@@ -361,7 +365,7 @@ const ScuntTeamServices = {
     // get the number of teams from the scunt game settings
     const numTeams = await ScuntGameSettingsModel.findOne({}).then(
       (settings) => {
-        if (!settings) throw new Error('NO_SCUNT_SETTINGS');
+        if (!settings) throw new Error('INVALID_SETTINGS');
         if (!settings.amountOfTeams) throw new Error('MISSING_SCUNT_SETTINGS');
         return settings.amountOfTeams;
       },
@@ -410,7 +414,7 @@ const ScuntTeamServices = {
     // get all the frosh who signed up for scunt
     const scuntFrosh = await FroshModel.find({ attendingScunt: true }).then(
       (allFroshList) => {
-        if (!allFroshList.length) throw new Error('UNABLE_TO_GET_ALL_FROSH');
+        if (!allFroshList.length) throw new Error('SCUNT_FROSH_NOT_FOUND');
         return allFroshList;
       },
       (error) => {
@@ -548,6 +552,7 @@ const ScuntTeamServices = {
       { $limit: 50 },
     ]).then(
       (transactions) => {
+        if (!transactions.length) throw new Error('TRANSACTIONS_NOT_FOUND');
         return transactions;
       },
       (error) => {
