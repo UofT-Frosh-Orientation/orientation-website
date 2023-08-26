@@ -19,14 +19,8 @@ export const ProfilePageFroshScuntTeamsSelection = () => {
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { axios } = useAxios();
 
-  if (
-    !isRegistered ||
-    !user?.attendingScunt ||
-    (scuntSettings !== undefined &&
-      scuntSettings.length >= 1 &&
-      scuntSettings[0]?.revealTeams === true)
-  ) {
-    return <></>;
+  if (!isRegistered || !user?.attendingScunt || !scuntSettings || scuntSettings?.revealTeams) {
+    return null;
   }
 
   return (
