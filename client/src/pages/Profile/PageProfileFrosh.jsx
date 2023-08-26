@@ -8,11 +8,11 @@ import { QRNormal } from 'react-qrbtf';
 import { Button } from '../../components/button/Button/Button';
 import EditIcon from '../../assets/misc/pen-solid.svg';
 import CampingIcon from '../../assets/misc/camping-tent.png';
-import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
+// import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Link } from 'react-router-dom';
 import { instagramAccounts } from '../../util/instagramAccounts';
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
-import NitelifeIcon from '../../assets/misc/nitelife.png';
+// import NitelifeIcon from '../../assets/misc/nitelife.png';
 import ScuntIcon from '../../assets/misc/magnifier.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
@@ -26,41 +26,25 @@ import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { completedAnnouncementsSelector } from '../../state/announcements/announcementsSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
-import useAxios from '../../hooks/useAxios';
 import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
 import { ProfilePageSchedule } from '../../components/profile/ProfilePageSchedule/ProfilePageSchedule';
 import { ProfilePageResources } from '../../components/profile/ProfilePageResources/ProfilePageResources';
 import { ProfilePageFroshScuntTeamsSelection } from '../../components/profile/scunt/ProfilePageFroshScuntTeamsSelection/ProfilePageFroshScuntTeamsSelection';
-import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
-
-const { axios } = useAxios();
+import { getScuntTeams } from '../../state/scuntTeams/saga';
+import { getScuntSettings } from '../../state/scuntSettings/saga';
+import { scuntTeamSelector, scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
+// import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
 
 const PageProfileFrosh = () => {
   const { user } = useSelector(userSelector);
-  const [scuntTeams, setScuntTeams] = useState([]);
-  const [scuntTeamObjs, setScuntTeamObjs] = useState();
+  const isRegistered = useSelector(registeredSelector);
 
-  const getScuntTeams = async () => {
-    try {
-      const response = await axios.get('/scunt-teams');
-      const { teamPoints } = response.data;
-      if (teamPoints.length <= 0 || !teamPoints) setScuntTeams([]);
-      else {
-        setScuntTeamObjs(teamPoints);
-        setScuntTeams(
-          teamPoints.map((team) => {
-            return team?.name;
-          }),
-        );
-      }
-    } catch (e) {
-      setScuntTeams(['Error loading teams']);
-    }
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getScuntTeams();
-  }, []);
+    dispatch(getScuntSettings());
+    dispatch(getScuntTeams());
+  }, [dispatch]);
 
   return (
     <>
@@ -68,7 +52,7 @@ const PageProfileFrosh = () => {
       <div className="profile-info-row">
         <div className="profile-info-row-right">
           <ProfilePageFroshScuntMessage />
-          {user?.isRegistered && <ProfilePageRetreat />}
+          {isRegistered ? <ProfilePageRetreat /> : null}
           {/* <ProfilePageNitelife /> */}
           <ProfilePageInstagrams />
           <ProfilePageAnnouncements />
@@ -76,7 +60,8 @@ const PageProfileFrosh = () => {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <ProfilePageQRCode />
-          <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
+          {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
+          <ProfilePageScuntTeam />
           <ProfilePageFroshScuntTeamsSelection />
           <ProfilePageResources froshObject={user?.isRegistered ? user : null} />
         </div>
@@ -85,7 +70,7 @@ const PageProfileFrosh = () => {
   );
 };
 
-export const ProfilePageRetreat = () => {
+const ProfilePageRetreat = () => {
   const { darkMode } = useContext(DarkModeContext);
   const { user } = useSelector(userSelector);
   const isRegistered = useSelector(registeredSelector);
@@ -101,11 +86,8 @@ export const ProfilePageRetreat = () => {
     remainingTicketsSetter();
   }, []);
 
-  if (!isRegistered) {
-    return <></>;
-  }
-  if (remainingTickets <= 0 && !isRetreat) {
-    return <></>;
+  if (!isRegistered || (remainingTickets <= 0 && !isRetreat)) {
+    return null;
   }
   return (
     <Link to={'/frosh-retreat'} className="no-link-style">
@@ -176,24 +158,18 @@ export const ProfilePageRetreat = () => {
   );
 };
 
-export const ProfilePageFroshScuntMessage = () => {
+const ProfilePageFroshScuntMessage = () => {
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { user } = useSelector(userSelector);
   const isRegistered = useSelector(registeredSelector);
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
 
   const code = user?.scuntToken;
-  if (
-    code === undefined ||
-    !isRegistered ||
-    !scuntSettings ||
-    scuntSettings.length <= 0 ||
-    scuntSettings[0]?.revealTeams === false
-  ) {
-    return <></>;
+  if (code === undefined || !isRegistered || !scuntSettings || !scuntSettings?.revealTeams) {
+    return null;
   }
 
-  return isRegistered ? (
+  return (
     <Link to="/scunt">
       <div className="frosh-instagram-container">
         <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
@@ -203,8 +179,6 @@ export const ProfilePageFroshScuntMessage = () => {
         </div>
       </div>
     </Link>
-  ) : (
-    <></>
   );
 };
 
@@ -227,9 +201,7 @@ const ProfilePageFroshHeader = ({ editButton }) => {
               <h1>{user?.froshGroupIcon}</h1>
               <p>{user?.froshGroup}</p>
             </>
-          ) : (
-            <></>
-          )}
+          ) : null}
         </div>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-info">
@@ -255,16 +227,15 @@ const ProfilePageFroshHeader = ({ editButton }) => {
             <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
               <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
             </Link>
-          ) : (
-            <></>
-          )}
+          ) : null}
         </div>
       </div>
-      {darkMode ? (
-        <img src={WaveReverseFlipDarkMode} className="wave-image home-page-bottom-wave-image" />
-      ) : (
-        <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
-      )}
+
+      <img
+        src={darkMode ? WaveReverseFlipDarkMode : WaveReverseFlip}
+        className="wave-image home-page-bottom-wave-image"
+      />
+
       {!isRegistered ? (
         <div className={'profile-not-registered'}>
           <h1>You are not registered!</h1>
@@ -278,9 +249,7 @@ const ProfilePageFroshHeader = ({ editButton }) => {
             <Button label="Register" style={{}} />
           </Link>
         </div>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </>
   );
 };
@@ -328,8 +297,8 @@ const ProfilePageInstagrams = () => {
   };
 
   const instagramLink = instagramAccounts[user?.froshGroup];
-
-  return isRegistered ? (
+  if (!isRegistered) return null;
+  return (
     <a href={instagramLink} className="no-link-style" target={'_blank'} rel="noreferrer">
       <div className="frosh-instagram-container">
         <img
@@ -343,8 +312,6 @@ const ProfilePageInstagrams = () => {
         </div>
       </div>
     </a>
-  ) : (
-    <></>
   );
 };
 
@@ -405,7 +372,7 @@ const ProfilePageAnnouncements = () => {
   return (
     <div className="profile-page-announcements">
       <h2 className="profile-page-section-header">Tasks and Announcements</h2>
-      {user?.canEmail === false ? (
+      {!user?.canEmail ? (
         <Link
           key={'/resubscribe'}
           to={'/resubscribe'}
@@ -414,9 +381,7 @@ const ProfilePageAnnouncements = () => {
         >
           <Button label="Resubscribe To Announcements Emails" />
         </Link>
-      ) : (
-        <></>
-      )}
+      ) : null}
       <TaskAnnouncement tasks={announcementList} onDone={onDoneTask} />
     </div>
   );
@@ -432,7 +397,7 @@ const ProfilePageQRCode = () => {
   }, []);
 
   if (!isRegistered) {
-    return <></>;
+    return null;
   }
 
   if (QRCodeString === undefined) {
@@ -456,6 +421,30 @@ const ProfilePageQRCode = () => {
         backgroundColor="white"
       />
       <p style={{ color: 'var(--purple)' }}>Your Sign-in QR Code</p>
+    </div>
+  );
+};
+
+const ProfilePageScuntTeam = () => {
+  const isRegistered = useSelector(registeredSelector);
+  const { scuntSettings } = useSelector(scuntSettingsSelector);
+  const { scuntTeams } = useSelector(scuntTeamsSelector);
+  const { user } = useSelector(userSelector);
+  const [scuntTeam, setScuntTeam] = useState();
+
+  if (!isRegistered || !scuntSettings || !scuntSettings?.revealTeams) return null;
+  useEffect(() => {
+    const [team] = scuntTeams.filter((team) => {
+      return team.number === user?.scuntTeam;
+    });
+    setScuntTeam(team);
+  }, [scuntTeams]);
+  return (
+    <div className="profile-page-scunt-team profile-page-side-section">
+      <h3>Your Scunt Team:</h3>
+      <h2>
+        <b>{scuntTeam ? scuntTeam.name : null}</b>
+      </h2>
     </div>
   );
 };

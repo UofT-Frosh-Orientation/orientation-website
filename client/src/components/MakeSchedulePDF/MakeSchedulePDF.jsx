@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
 });
 
 const MakeSchedulePDF = (froshObject) => {
+  if (!froshObject) return null;
   const froshGroup = froshObject?.froshGroup;
   const scheduleData = getFroshGroupSchedule(froshGroup);
 
@@ -66,14 +67,10 @@ const MakeSchedulePDF = (froshObject) => {
                   </Text>
                   {scheduleDay['Event Location'] ? (
                     <Text style={styles.eventLoc}>{scheduleDay['Event Location']}</Text>
-                  ) : (
-                    <></>
-                  )}
+                  ) : null}
                   {scheduleDay['Event Description'] ? (
                     <Text style={styles.eventDesc}>{scheduleDay['Event Description']}</Text>
-                  ) : (
-                    <></>
-                  )}
+                  ) : null}
                 </div>
               ))}
             </div>
