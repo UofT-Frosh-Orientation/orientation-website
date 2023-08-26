@@ -15,19 +15,10 @@ export function* getScuntMissionsSaga({ payload: { showHidden, setSnackbar } }) 
     yield put(getScuntMissionsStart());
     const result = yield call(axios.get, `/scunt-missions/?showHidden=${showHidden}`);
     yield put(getScuntMissionsSuccess(result.data.missions));
-    // setSnackbar("Successfully retrieved missions")
-  } catch (e) {
-    yield put(getScuntMissionsFailure(e));
-    setSnackbar(
-      e.response.data.message
-        ? e.response.data.message.toString()
-        : e.response.data.errorMessage
-        ? e.response.data.errorMessage.toString()
-        : e.response.data
-        ? e.response.data.toString()
-        : 'Uh oh, something went wrong! Please try again later.',
-      true,
-    );
+    setSnackbar && setSnackbar('Successfully retrieved missions');
+  } catch (error) {
+    yield put(getScuntMissionsFailure(error.response.data?.errorMessage));
+    setSnackbar && setSnackbar(error.response.data?.errorMessage, true);
   }
 }
 
@@ -39,20 +30,11 @@ export function* createMultipleMissionsSaga({ payload: { array, setSnackbar } })
     yield put(getScuntMissionsStart());
     const result = yield call(axios.post, 'scunt-missions/bulk', { array });
     yield put(getScuntMissionsSuccess(result.data.missions));
-    setSnackbar('Successfully uploaded missions!', false);
-  } catch (e) {
-    console.error(e);
-    yield put(getScuntMissionsFailure(e));
-    setSnackbar(
-      e.response.data.message
-        ? e.response.data.message.toString()
-        : e.response.data.errorMessage
-        ? e.response.data.errorMessage.toString()
-        : e.response.data
-        ? e.response.data.toString()
-        : 'Uh oh, something went wrong! Please try again later.',
-      true,
-    );
+    setSnackbar && setSnackbar('Successfully uploaded missions!', false);
+  } catch (error) {
+    console.error(error);
+    yield put(getScuntMissionsFailure(error));
+    setSnackbar && setSnackbar(error.response.data?.errorMessage, true);
   }
 }
 
