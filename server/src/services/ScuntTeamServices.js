@@ -401,6 +401,8 @@ const ScuntTeamServices = {
       count: 0,
     }));
 
+    await ScuntTeamModel.collection.drop();
+
     // upsert the teams
     await ScuntTeamModel.collection.bulkWrite(teams).then(
       (result) => {
