@@ -4,8 +4,9 @@ import { createSelector } from 'reselect';
 export const initialState = {
   loading: false,
   error: null,
-  scuntTeams: [],
+  scuntTeamTransactions: [],
   scuntTeam: {},
+  missionStatus: null,
 };
 
 const scuntTeamsSlice = createSlice({
@@ -25,7 +26,6 @@ const scuntTeamsSlice = createSlice({
       state.loading = false;
       state.error = error;
     },
-
     setScuntTeamsStart: (state) => {
       state.loading = true;
       state.error = null;
@@ -39,16 +39,16 @@ const scuntTeamsSlice = createSlice({
       state.loading = false;
       state.error = error;
     },
-    getScuntTeamStart: (state) => {
+    getScuntTeamTransactionsStart: (state) => {
       state.loading = true;
       state.error = null;
     },
-    getScuntTeamSuccess: (state, { payload: scuntTeam }) => {
+    getScuntTeamTransactionsSuccess: (state, { payload: scuntTeamTransactions }) => {
       state.loading = false;
       state.error = null;
-      state.scuntTeam = scuntTeam;
+      state.scuntTeamTransactions = scuntTeamTransactions;
     },
-    getScuntTeamFailure: (state, { payload: error }) => {
+    getScuntTeamTransactionsFailure: (state, { payload: error }) => {
       state.loading = false;
       state.error = error;
     },
@@ -65,6 +65,45 @@ const scuntTeamsSlice = createSlice({
       state.loading = false;
       state.error = error;
     },
+    addPointsStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    addPointsSuccess: (state, { payload: scuntTeams }) => {
+      state.loading = false;
+      state.error = null;
+      state.scuntTeams = scuntTeams;
+    },
+    addPointsFailure: (state, { payload: error }) => {
+      state.loading = false;
+      state.error = error;
+    },
+    subtractPointsStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    subtractPointsSuccess: (state, { payload: scuntTeams }) => {
+      state.loading = false;
+      state.error = null;
+      state.scuntTeams = scuntTeams;
+    },
+    subtractPointsFailure: (state, { payload: error }) => {
+      state.loading = false;
+      state.error = error;
+    },
+    getMissionStatusStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    getMissionStatusSuccess: (state, { payload: missionStatus }) => {
+      state.loading = false;
+      state.error = null;
+      state.missionStatus = missionStatus;
+    },
+    getMissionStatusFailure: (state, { payload: error }) => {
+      state.loading = false;
+      state.error = error;
+    },
   },
 });
 
@@ -75,12 +114,21 @@ export const {
   setScuntTeamsStart,
   setScuntTeamsSuccess,
   setScuntTeamsFailure,
-  getScuntTeamStart,
-  getScuntTeamSuccess,
-  getScuntTeamFailure,
+  getScuntTeamTransactionsStart,
+  getScuntTeamTransactionsSuccess,
+  getScuntTeamTransactionsFailure,
   updateScuntTeamsStart,
   updateScuntTeamsSuccess,
   updateScuntTeamsFailure,
+  addPointsStart,
+  addPointsSuccess,
+  addPointsFailure,
+  subtractPointsStart,
+  subtractPointsSuccess,
+  subtractPointsFailure,
+  getMissionStatusStart,
+  getMissionStatusSuccess,
+  getMissionStatusFailure,
 } = scuntTeamsSlice.actions;
 
 export default scuntTeamsSlice.reducer;
@@ -92,7 +140,12 @@ export const scuntTeamsSelector = createSelector(
   ({ scuntTeams, loading, error }) => ({ scuntTeams, loading, error }),
 );
 
-export const scuntTeamSelector = createSelector(
+export const scuntTeamTransactionsSelector = createSelector(
   scuntTeamsReducerSelector,
-  ({ scuntTeam, loading, error }) => ({ scuntTeam, loading, error }),
+  ({ scuntTeamTransactions, loading, error }) => ({ scuntTeamTransactions, loading, error }),
+);
+
+export const missionStatusSelector = createSelector(
+  scuntTeamsReducerSelector,
+  ({ missionStatus, loading, error }) => ({ missionStatus, loading, error }),
 );
