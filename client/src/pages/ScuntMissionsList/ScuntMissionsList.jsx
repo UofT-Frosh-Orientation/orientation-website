@@ -17,6 +17,8 @@ import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSl
 import useAxios from '../../hooks/useAxios';
 const { axios } = useAxios();
 import greenCheck from '../../assets/misc/check-solid-green.svg';
+import { scuntTeamTransactionsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
+import { getScuntTeamTransactions } from '../../state/scuntTeams/saga';
 
 function getMissionCategories(missions) {
   let currentCategory = '';
@@ -40,14 +42,12 @@ const PageScuntMissionsList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (scuntSettings !== undefined) {
-      setRevealMissions(scuntSettings[0]?.revealMissions);
-    }
+    if (scuntSettings) setRevealMissions(scuntSettings?.revealMissions);
   }, [scuntSettings]);
 
   useEffect(() => {
-    dispatch(getScuntMissions({ showHidden: false, setSnackbar }));
-  }, []);
+    dispatch(getScuntMissions({ showHidden: false }));
+  }, [dispatch]);
 
   if (revealMissions !== true && !leader) {
     return (
@@ -75,6 +75,7 @@ const PageScuntMissionsList = () => {
 const PageScuntMissionsListShow = () => {
   const { user } = useSelector(userSelector);
   const { missions } = useSelector(scuntMissionsSelector);
+  const { scuntTeamTransactions } = useSelector(scuntTeamTransactionsSelector);
   const [mission, setMission] = useState(undefined);
   const [searchedMissions, setSearchedMissions] = useState(missions);
   const [clearText, setClearText] = useState(false);
@@ -84,9 +85,26 @@ const PageScuntMissionsListShow = () => {
   const loggedIn = useSelector(loggedInSelector);
   const [completedMissions, setCompletedMissions] = useState({});
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getAllTeamTransactions(user?.scuntTeam);
-  }, [missions]); // inital run and whenever missions updated
+    dispatch(getScuntTeamTransactions({ teamNumber: user?.scuntTeam }));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (scuntTeamTransactions?.length) {
+      setCompletedMissions(
+        scuntTeamTransactions.reduce((missions, transaction) => {
+          if (transaction?.missionNumber > 0) {
+            // -1 for bribes for deleted points
+            missions[transaction?.missionNumber] = transaction?.points;
+          }
+
+          return missions;
+        }, {}),
+      );
+    }
+  }, [scuntTeamTransactions]);
 
   useEffect(() => {
     setMission(undefined);
@@ -151,22 +169,6 @@ const PageScuntMissionsListShow = () => {
       missionNumber: missionPassed?.number,
     });
     setMissionStatus(response?.data?.missionStatus);
-  };
-
-  const getAllTeamTransactions = async (teamNumber) => {
-    const response = await axios.post('/scunt-teams/transactions', {
-      teamNumber: teamNumber,
-    });
-    const teamTransactions = response?.data?.transactions?.transactions || [];
-
-    teamTransactions.forEach((transaction) => {
-      const missionNum = transaction?.missionNumber;
-
-      if (missionNum !== -1) {
-        // -1 for bribes for deleted points
-        completedMissions[missionNum] = transaction?.points;
-      }
-    });
   };
 
   let previousCategory = '';
