@@ -66,7 +66,7 @@ const ProfilePageScuntTeamSelectionLeader = () => {
 
   const dispatch = useDispatch();
 
-  if (!scuntTeams.length) return null;
+  if (!scuntTeams?.length) return null;
 
   return (
     <div className="profile-page-side-section" style={{ marginTop: '20px', textAlign: 'center' }}>
