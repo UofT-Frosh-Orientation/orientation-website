@@ -78,7 +78,7 @@ const ProfilePageScuntTeamSelectionLeader = () => {
         values={scuntTeams.map((team) => team.name)}
         onSelected={(value) => {
           const [team] = scuntTeams.filter((team) => team.name === value);
-          setTeamNumber(team.number);
+          setTeamNumber(team?.number);
         }}
       />
       <Button
