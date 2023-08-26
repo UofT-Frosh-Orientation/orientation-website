@@ -1,6 +1,5 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useNavigate } from 'react-router-dom';
 
 import './ScuntGameSettings.scss';
 
@@ -9,18 +8,24 @@ import { Button } from '../../components/button/Button/Button';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getScuntSettings, setScuntSettings } from '../../state/scuntSettings/saga';
+import {
+  getJudges,
+  giveJudgeBribePoints,
+  getScuntSettings,
+  setScuntSettings,
+} from '../../state/scuntSettings/saga';
 import { shuffleScuntTeams, setScuntTeams, getScuntTeams } from '../../state/scuntTeams/saga';
-import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
+import {
+  scuntJudgeSelector,
+  scuntSettingsSelector,
+} from '../../state/scuntSettings/scuntSettingsSlice';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 
 import { convertCamelToLabel } from '../ScopeRequest/ScopeRequest';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 
-import useAxios from '../../hooks/useAxios';
 import { PopupModal } from '../../components/popup/PopupModal';
 import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
-const { axios } = useAxios();
 
 const scuntSettingsInfo = [
   {
@@ -55,14 +60,10 @@ const scuntsettingbool = [
     parameter: 'Reveal Judges and Bribes',
     key: 'revealJudgesAndBribes',
   },
-  {
-    parameter: 'Reveal Teams',
-    key: 'revealTeams',
-  },
-  {
-    parameter: 'Show Discord Link',
-    key: 'showDiscordLink',
-  },
+  // {
+  //   parameter: 'Show Discord Link',
+  //   key: 'showDiscordLink',
+  // },
   {
     parameter: 'Reveal Leaderboard',
     key: 'revealLeaderboard',
@@ -70,6 +71,10 @@ const scuntsettingbool = [
   {
     parameter: 'Reveal Missions',
     key: 'revealMissions',
+  },
+  {
+    parameter: 'Reveal Teams',
+    key: 'revealTeams',
   },
   {
     parameter: 'Allow Judging',
@@ -85,17 +90,17 @@ const ScuntGameSettings = () => {
   const { setSnackbar } = useContext(SnackbarContext);
 
   useEffect(() => {
-    if (scuntSettings !== undefined) {
-      setNewSettings(scuntSettings);
-    }
+    if (scuntSettings) setNewSettings(scuntSettings);
   }, [scuntSettings]);
 
   useEffect(() => {
     dispatch(getScuntSettings(setSnackbar));
+    dispatch(getScuntTeams(setSnackbar));
+    dispatch(getJudges(setSnackbar));
   }, [dispatch]);
 
   const initialSettings = {
-    name: 'Scunt2T3 Settings',
+    name: 'Scunt 2T3 Settings',
     amountOfTeams: 10,
     amountOfStarterBribePoints: 2500,
     maxAmountPointsPercent: 0.3,
@@ -122,9 +127,8 @@ const ScuntGameSettings = () => {
                   parameter={setting.parameter}
                   description={setting.description}
                   placeholder={
-                    scuntSettings && scuntSettings[setting.key]
-                      ? scuntSettings[setting.key]
-                      : 'Not set yet - e.g. value: ' + setting.placeholder.toString()
+                    scuntSettings?.[setting.key] ||
+                    'Not set yet - e.g. value: ' + setting.placeholder.toString()
                   }
                   newSettings={newSettings}
                   setNewSettings={setNewSettings}
@@ -134,43 +138,22 @@ const ScuntGameSettings = () => {
             );
           })}
         </div>
-        <ShuffleTeamsButton />
-
-        <div className="separator" />
-        <br />
-
-        <RefillJudgeBribePoints />
-
-        <div className="separator" />
-        <br />
-
-        <RenameTeams />
-
-        <div className="separator" />
-        <br />
-
         <div style={{ marginBottom: '30px' }}>
-          {scuntsettingbool.map((i) => {
-            let selectedCheck = [];
-
-            if (newSettings && newSettings[i.key] === true) {
-              selectedCheck = [0];
-            }
-
-            return (
-              <div key={i.parameter}>
-                <Checkboxes
-                  values={[i.parameter]}
-                  initialSelectedIndices={selectedCheck}
-                  onSelected={(value, index, state, selectedIndices) => {
-                    let tempSettings = { ...newSettings }; // create a copy
-                    tempSettings[i.key] = state;
-                    setNewSettings(tempSettings);
-                  }}
-                />
-              </div>
-            );
-          })}
+          {newSettings ? (
+            <Checkboxes
+              values={scuntsettingbool.map((setting) => setting.parameter)}
+              initialSelectedIndices={scuntsettingbool.reduce((prev, setting, index) => {
+                if (newSettings?.[setting.key]) prev.push(index);
+                return prev;
+              }, [])}
+              onSelected={(value, index, state) => {
+                setNewSettings({
+                  ...newSettings,
+                  [scuntsettingbool[index].key]: state,
+                });
+              }}
+            />
+          ) : null}
         </div>
 
         <div
@@ -257,6 +240,19 @@ const ScuntGameSettings = () => {
             }}
           />
         </div>
+
+        <div className="separator" />
+        <br />
+
+        <RefillJudgeBribePoints />
+
+        <div className="separator" />
+        <br />
+
+        <RenameTeams />
+        <ShuffleTeamsButton />
+        <div className="separator" />
+        <br />
       </div>
     </div>
   );
@@ -309,31 +305,16 @@ const RefillJudgeBribePoints = () => {
   const [assignedBribeRefillPoints, setAssignedBribeRefillPoints] = useState(0);
   const [assignedJudge, setAssignedJudge] = useState('');
   const [clearPointsInput, setClearPointsInput] = useState(false);
-  const [judges, setJudges] = useState([]);
+  // const [judges, setJudges] = useState([]);
+  const { judges } = useSelector(scuntJudgeSelector);
 
-  const getJudgeUsers = async () => {
-    try {
-      const response = await axios.get('/scunt-teams/judges');
-      const { users } = response.data;
-      if (users.length <= 0 || !users) setJudges([]);
-      else setJudges(users);
-    } catch (e) {
-      setJudges([]);
-    }
-  };
-  const judgeUsersGetter = async () => {
-    getJudgeUsers();
-  };
-
-  useEffect(() => {
-    judgeUsersGetter();
-  }, []);
+  const dispatch = useDispatch();
 
   return (
     <div style={{ margin: '0 5px' }}>
       <h2>Judge Status</h2>
       <div style={{ height: '8px' }} />
-      {judges.map((judge) => {
+      {judges?.map((judge) => {
         return (
           <p key={judge?._id}>
             <b>{judge?.firstName + ' ' + judge?.lastName}</b>
@@ -370,6 +351,7 @@ const RefillJudgeBribePoints = () => {
         <div className="fill-remaining-width-input">
           <TextInput
             placeholder={'# Points'}
+            type={'number'}
             onChange={(value) => {
               setAssignedBribeRefillPoints(value);
             }}
@@ -385,13 +367,21 @@ const RefillJudgeBribePoints = () => {
             setSnackbar('Please set a points value', true);
           } else {
             //Refill judges bribe points here
-            const response = await axios.post('/scunt-teams/transaction/refill-bribe', {
-              judgeUserId: assignedJudge?._id,
-              points: assignedBribeRefillPoints,
-              isAddPoints: true,
-            });
-            setSnackbar(response?.data?.message + ' to ' + assignedJudge?.firstName);
-            getJudgeUsers();
+            // const response = await axios.post('/scunt-teams/transaction/refill-bribe', {
+            //   judgeUserId: assignedJudge?._id,
+            //   points: assignedBribeRefillPoints,
+            //   isAddPoints: true,
+            // });
+            // setSnackbar(response?.data?.message + ' to ' + assignedJudge?.firstName);
+            // getJudgeUsers();
+            dispatch(
+              giveJudgeBribePoints({
+                setSnackbar,
+                judgeUserId: assignedJudge?._id,
+                points: assignedBribeRefillPoints,
+                isAddPoints: true,
+              }),
+            );
             setAssignedBribeRefillPoints(0);
             setClearPointsInput(true);
           }
@@ -408,11 +398,11 @@ const RenameTeams = () => {
   const [teamObjs, setTeamObjs] = useState([]);
 
   useEffect(() => {
-    if (scuntTeams && scuntTeams.length) setTeamObjs(scuntTeams);
+    if (scuntTeams?.length) setTeamObjs(scuntTeams);
   }, [scuntTeams]);
 
   useEffect(() => {
-    dispatch(getScuntTeams({ setSnackbar }));
+    dispatch(getScuntTeams(setSnackbar));
   }, [dispatch]);
 
   return (
@@ -437,8 +427,11 @@ const RenameTeams = () => {
       <div></div>
       <Button
         label={'Rename Teams'}
+        isDisabled={!teamObjs?.length}
         onClick={() => {
-          dispatch(setScuntTeams({ setSnackbar, scuntTeams: teamObjs }));
+          teamObjs?.length
+            ? dispatch(setScuntTeams({ setSnackbar, scuntTeams: teamObjs }))
+            : setSnackbar('No teams to rename', true);
         }}
       />
     </div>
@@ -613,7 +606,6 @@ const ScuntGameSettingsTextbox = ({
   parameter,
   description,
   placeholder,
-  initialValue,
   newSettings,
   setNewSettings,
 }) => {
@@ -637,11 +629,10 @@ const ScuntGameSettingsTextbox = ({
           inputType={'text'}
           label={parameter}
           description={description}
-          // initialValue={initialValue}
           onChange={(input) => handleInput(input, objKey)}
           placeholder={String(placeholder)}
           onEnterKey={(input) => handleInput(input, objKey)}
-        ></TextInput>
+        />
       </div>
     </div>
   );
