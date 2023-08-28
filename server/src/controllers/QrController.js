@@ -42,6 +42,7 @@ const QrController = {
             email: 1,
             preKit: 1,
             signInDate: 1,
+            shirtSize: 1,
             photograph: 1,
           },
         )
