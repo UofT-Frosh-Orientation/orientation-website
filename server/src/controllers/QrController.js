@@ -31,22 +31,20 @@ const QrController = {
     const { userID, date, tzOffset } = req.body;
     const day = new Date(Date.parse(date) - tzOffset * 60 * 1000);
     try {
-      const frosh = (
-        await FroshServices.getFilteredFroshInfo(
-          { _id: userID },
-          {
-            firstName: 1,
-            lastName: 1,
-            preferredName: 1,
-            pronouns: 1,
-            email: 1,
-            preKit: 1,
-            signInDate: 1,
-            shirtSize: 1,
-            photograph: 1,
-          },
-        )
-      )[0];
+      const [frosh] = await FroshServices.getFilteredFroshInfo(
+        { _id: userID, isRegistered: true },
+        {
+          firstName: 1,
+          lastName: 1,
+          preferredName: 1,
+          pronouns: 1,
+          email: 1,
+          preKit: 1,
+          signInDate: 1,
+          shirtSize: 1,
+          photograph: 1,
+        },
+      );
 
       if (frosh.signInDate) {
         return res.status(200).send({ message: 'Frosh already marked as present', frosh });
