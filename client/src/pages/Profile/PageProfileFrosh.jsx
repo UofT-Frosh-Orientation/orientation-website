@@ -434,10 +434,12 @@ const ProfilePageScuntTeam = () => {
 
   if (!isRegistered || !scuntSettings || !scuntSettings?.revealTeams) return null;
   useEffect(() => {
-    const [team] = scuntTeams.filter((team) => {
-      return team.number === user?.scuntTeam;
-    });
-    setScuntTeam(team);
+    if (scuntTeams.length) {
+      const [team] = scuntTeams.filter((team) => {
+        return team.number === user?.scuntTeam;
+      });
+      setScuntTeam(team);
+    }
   }, [scuntTeams]);
   return (
     <div className="profile-page-scunt-team profile-page-side-section">
