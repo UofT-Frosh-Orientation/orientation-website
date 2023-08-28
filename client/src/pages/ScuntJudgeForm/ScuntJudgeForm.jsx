@@ -49,7 +49,7 @@ export const PageScuntJudgeForm = () => {
   const getScuntTeams = async () => {
     try {
       const response = await axios.get('/scunt-teams');
-      const { teamPoints } = response.data;
+      const { teams: teamPoints } = response.data;
       if (teamPoints.length <= 0 || !teamPoints) setTeams([]);
       else {
         setTeamObjs(teamPoints);
@@ -70,24 +70,22 @@ export const PageScuntJudgeForm = () => {
   }, []);
 
   return (
-    <>
-      <div className="scunt-judge-form-page">
-        <div className="scunt-judge-form-container">
-          <h1>Judge Dashboard</h1>
-          <h3>
-            Hello,{' '}
-            {user?.preferredName === '' || !user?.preferredName
-              ? user?.firstName
-              : user?.preferredName}
-          </h3>
-          <ScuntMissionSelection teams={teams} missions={missions} teamObjs={teamObjs} />
-          <div className="separator" />
-          <ScuntBribePoints teams={teams} teamObjs={teamObjs} />
-          <div className="separator" />
-          <ScuntNegativePoints teams={teams} teamObjs={teamObjs} />
-        </div>
+    <div className="scunt-judge-form-page">
+      <div className="scunt-judge-form-container">
+        <h1>Judge Dashboard</h1>
+        <h3>
+          Hello,{' '}
+          {user?.preferredName === '' || !user?.preferredName
+            ? user?.firstName
+            : user?.preferredName}
+        </h3>
+        <ScuntMissionSelection teams={teams} missions={missions} teamObjs={teamObjs} />
+        <div className="separator" />
+        <ScuntBribePoints teams={teams} teamObjs={teamObjs} />
+        <div className="separator" />
+        <ScuntNegativePoints teams={teams} teamObjs={teamObjs} />
       </div>
-    </>
+    </div>
   );
 };
 
@@ -347,8 +345,8 @@ const ScuntMissionSelection = ({ missions, teams: teamsPassed, teamObjs }) => {
   useEffect(() => {
     if (scuntSettings !== undefined) {
       if (Array.isArray(scuntSettings)) {
-        setMinAmountPointsPercent(scuntSettings[0]?.minAmountPointsPercent);
-        setMaxAmountPointsPercent(scuntSettings[0]?.maxAmountPointsPercent);
+        setMinAmountPointsPercent(scuntSettings?.minAmountPointsPercent);
+        setMaxAmountPointsPercent(scuntSettings?.maxAmountPointsPercent);
       }
     }
   }, [scuntSettings]);
