@@ -29,23 +29,23 @@ export const sponsors = [
   },
   {
     website: 'https://www.peo.on.ca/',
-    image: PEO, // the sponsor image displayed on homepage (from "./client/src/assets/sponsors")
-    scale: 0.82, // can be used to display each image at a different size
-    rank: 'bronze', // rank of sponsor, can be used to display border
-    label: 'Bronze sponsor: PEO', // the label when user hovers on image in 'View All' state
+    image: PEO,
+    scale: 0.82,
+    rank: 'bronze',
+    label: 'Bronze sponsor: PEO',
   },
   {
     website: 'https://ospe.on.ca/',
     image: OSPE,
     scale: 0.82,
-    rank: 'bronze', // rank of sponsor, can be used to display border
-    label: 'Bronze sponsor: OSPE', // the label when user hovers on image in 'View All' state
+    rank: 'bronze',
+    label: 'Bronze sponsor: OSPE',
   },
   {
     website: 'https://hatchery.engineering.utoronto.ca/',
-    image: Hatchery, // the sponsor image displayed on homepage (from "./client/src/assets/sponsors")
-    scale: 0.82, // can be used to display each image at a different size
-    rank: 'bronze', // rank of sponsor, can be used to display border
-    label: 'Bronze sponsor: Engineering Alumni Network', // the label when user hovers on image in 'View All' state
+    image: Hatchery,
+    scale: 0.82,
+    rank: 'bronze',
+    label: 'Bronze sponsor: Engineering Alumni Network',
   },
 ];
