@@ -26,16 +26,16 @@ const ScuntJudges = () => {
     }
   }, [scuntSettings]);
 
-  if (revealJudgesAndBribes !== true && !leader) {
-    return (
-      <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
-        <ScuntLinks />
-        <div className="scunt-check-soon-title">
-          <h1 style={{ color: 'var(--text-light)' }}>Check back soon!</h1>
-        </div>
-      </Header>
-    );
-  }
+  // if (revealJudgesAndBribes !== true && !leader) {
+  //   return (
+  //     <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
+  //       <ScuntLinks />
+  //       <div className="scunt-check-soon-title">
+  //         <h1 style={{ color: 'var(--text-light)' }}>Check back soon!</h1>
+  //       </div>
+  //     </Header>
+  //   );
+  // }
 
   return (
     <>
