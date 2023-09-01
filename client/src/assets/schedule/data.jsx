@@ -73,7 +73,7 @@
       Color: 'purple',
     },
     {
-      'Event Name': 'Engineering Success Seminar',
+      'Event Name': 'Engineering Entrance Seminar',
       'Start Time': '9:00:00 a1/p1',
       'End Time': '10:30:00 a1/p1',
       Color: 'yellow',
@@ -164,7 +164,7 @@
       Color: 'yellow',
     },
     {
-      'Event Name': 'Havenger Scunt',
+      'Event Name': 'S!cavenger H!unt',
       'Event Description':
         "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
