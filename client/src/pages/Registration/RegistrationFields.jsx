@@ -398,7 +398,7 @@ export const fields = {
     attendingScunt: {
       type: 'radio',
       label:
-        'Would you like to participate in Havenger Scunt? (It will take place on the evening of Wednesday, September 6th)',
+        'Would you like to participate in S!cavenger H!unt? (It will take place on the evening of Wednesday, September 6th)',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       localStorageKey: 'registration-scunt',
@@ -408,7 +408,7 @@ export const fields = {
     scuntInfo: {
       type: 'label',
       label:
-        "What is Havenget Scunt? Havenger Scunt is a scavenger hunt around the city of Toronto! Don't miss out on one of the most popular f!rosh week events! Scunt is an exciting night of challenges for all comfort levels.",
+        "What is S!cavenger H!unt? It is a scavenger hunt around the city of Toronto! Don't miss out on one of the most popular f!rosh week events! The H!unt is an exciting night of challenges for all comfort levels.",
       isBold: true,
     },
     summerLocationLabel: {
