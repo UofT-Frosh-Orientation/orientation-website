@@ -1,7 +1,7 @@
 import erika from '../assets/scuntjudges/erika.jpg';
 import celin from '../assets/scuntjudges/celin.jpg';
 import ben from '../assets/scuntjudges/ben.jpg';
-import Kaija from '../assets/scuntjudges/Kaija.jpg';
+import kaija from '../assets/scuntjudges/kaija.jpg';
 import alexi from '../assets/scuntjudges/alexi.jpg';
 import karen from '../assets/scuntjudges/karen.jpg';
 import nat from '../assets/scuntjudges/nat.jpg';
@@ -75,7 +75,7 @@ export const scuntJudges = [
       'Make me cool new earrings',
       'Any number of bees',
     ],
-    img: Kaija,
+    img: kaija,
   },
   {
     name: 'Alexi',
