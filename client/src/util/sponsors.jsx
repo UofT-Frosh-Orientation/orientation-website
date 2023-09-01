@@ -23,7 +23,7 @@ export const sponsors = [
   {
     website: 'https://www.utsu.ca/',
     image: UTSU,
-    scale: 0.82,
+    scale: 0.7,
     rank: 'bronze',
     label: 'Bronze sponsor: UTSU',
   },
