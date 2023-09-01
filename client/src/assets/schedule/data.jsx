@@ -4526,7 +4526,7 @@ export const data = {
   ],
   'Tuesday September 5': [
     {
-      'Event Name': 'Academic Strategies Seminar',
+      'Event Name': 'Engineering Entrance Seminar',
       'Event Description':
         "Learn from some of your amazing new TA's about all the strategies you need to know for success here at UofT Engineering!",
       'Start Time': '9:00 AM',
@@ -4564,9 +4564,9 @@ export const data = {
       Color: 'gray',
     },
     {
-      'Event Name': 'Havenger Scunt',
+      'Event Name': 'S!cavenger H!unt',
       'Event Description':
-        'Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!',
+        'S!cavenger H!unt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'dark-purple',
