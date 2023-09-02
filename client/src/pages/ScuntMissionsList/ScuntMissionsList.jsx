@@ -128,10 +128,8 @@ const ReportMissionPopup = () => {
         category: 'Scunt Reports',
       };
 
-      console.log(reqObj);
       try {
         const result = await axios.post('/faq/create', reqObj);
-        console.log(result);
         if (result.status !== 200) {
           setSnackbar('There was an error submitting your report' + result, true);
         } else {
