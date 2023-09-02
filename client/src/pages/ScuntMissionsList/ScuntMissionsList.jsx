@@ -51,18 +51,18 @@ const PageScuntMissionsList = () => {
     dispatch(getScuntMissions({ showHidden: false }));
   }, [dispatch]);
 
-  // if (revealMissions !== true && !leader) {
-  //   return (
-  //     <>
-  //       <Header text={'Missions'} underlineDesktop={'300px'} underlineMobile={'210px'}>
-  //         <ScuntLinks />
-  //         <div className="scunt-check-soon-title">
-  //           <h1 style={{ color: 'var(--text-light)' }}>Check back soon!</h1>
-  //         </div>
-  //       </Header>
-  //     </>
-  //   );
-  // }
+  if (revealMissions !== true && !leader) {
+    return (
+      <>
+        <Header text={'Missions'} underlineDesktop={'300px'} underlineMobile={'210px'}>
+          <ScuntLinks />
+          <div className="scunt-check-soon-title">
+            <h1 style={{ color: 'var(--text-light)' }}>Check back soon!</h1>
+          </div>
+        </Header>
+      </>
+    );
+  }
 
   return (
     <>
