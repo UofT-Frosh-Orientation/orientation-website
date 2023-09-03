@@ -1,20 +1,20 @@
-import erika from '../assets/scunt-judges/erika.jpg';
-import celin from '../assets/scunt-judges/celin.jpg';
-import ben from '../assets/scunt-judges/ben.jpg';
-import Kaija from '../assets/scunt-judges/Kaija.jpeg';
-import alexi from '../assets/scunt-judges/alexi.jpg';
-import karen from '../assets/scunt-judges/karen.jpg';
-import nat from '../assets/scunt-judges/nat.jpg';
-import khalil from '../assets/scunt-judges/khalil.jpg';
-import tanya from '../assets/scunt-judges/tanya.jpg';
-import luka from '../assets/scunt-judges/luka.jpg';
-import novera from '../assets/scunt-judges/novera.jpg';
-import jeremy from '../assets/scunt-judges/jeremy.jpg';
-import rimjot from '../assets/scunt-judges/rimjot.HEIC';
-import katie from '../assets/scunt-judges/katie.jpg';
-import emaan from '../assets/scunt-judges/emaan.jpg';
-import amelie from '../assets/scunt-judges/amelie.jpg';
-import tech from '../assets/scunt-judges/tech.png';
+import erika from '../assets/judges/erika.jpg';
+import celin from '../assets/judges/celin.jpg';
+import ben from '../assets/judges/ben.jpg';
+import Kaija from '../assets/judges/Kaija.jpeg';
+import alexi from '../assets/judges/alexi.jpg';
+import karen from '../assets/judges/karen.jpg';
+import nat from '../assets/judges/nat.jpg';
+import khalil from '../assets/judges/khalil.jpg';
+import tanya from '../assets/judges/tanya.jpg';
+import luka from '../assets/judges/luka.jpg';
+import novera from '../assets/judges/novera.jpg';
+import jeremy from '../assets/judges/jeremy.jpg';
+import rimjot from '../assets/judges/rimjot.HEIC';
+import katie from '../assets/judges/katie.jpg';
+import emaan from '../assets/judges/emaan.jpg';
+import amelie from '../assets/judges/amelie.jpg';
+import tech from '../assets/judges/tech.png';
 
 export const scuntJudges = [
   {
