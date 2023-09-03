@@ -20,9 +20,15 @@ const ScuntJudges = () => {
   const { scuntSettings, loading } = useSelector(scuntSettingsSelector); // returns array
   const [revealJudgesAndBribes, setRevealJudgesAndBribes] = useState(false);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getScuntSettings());
+  }, [dispatch]);
+
   useEffect(() => {
     if (scuntSettings !== undefined) {
-      setRevealJudgesAndBribes(scuntSettings[0]?.revealJudgesAndBribes);
+      setRevealJudgesAndBribes(scuntSettings?.revealJudgesAndBribes);
     }
   }, [scuntSettings]);
 

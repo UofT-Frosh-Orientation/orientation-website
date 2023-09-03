@@ -29,7 +29,7 @@ import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSl
 import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
 import { ProfilePageSchedule } from '../../components/profile/ProfilePageSchedule/ProfilePageSchedule';
 import { ProfilePageResources } from '../../components/profile/ProfilePageResources/ProfilePageResources';
-import { ProfilePageFroshScuntTeamsSelection } from '../../components/profile/scunt/ProfilePageFroshScuntTeamsSelection/ProfilePageFroshScuntTeamsSelection';
+// import { ProfilePageFroshScuntTeamsSelection } from '../../components/profile/scunt/ProfilePageFroshScuntTeamsSelection/ProfilePageFroshScuntTeamsSelection';
 import { getScuntTeams } from '../../state/scuntTeams/saga';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
@@ -42,16 +42,18 @@ const PageProfileFrosh = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getScuntSettings());
-    dispatch(getScuntTeams());
-  }, [dispatch]);
+    if (user?.attendingScunt) {
+      dispatch(getScuntSettings());
+      dispatch(getScuntTeams());
+    }
+  }, [dispatch, user]);
 
   return (
     <>
       <ProfilePageFroshHeader editButton={true} />
       <div className="profile-info-row">
         <div className="profile-info-row-right">
-          <ProfilePageFroshScuntMessage />
+          {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null}
           {isRegistered ? <ProfilePageRetreat /> : null}
           {/* <ProfilePageNitelife /> */}
           <ProfilePageInstagrams />
@@ -61,9 +63,9 @@ const PageProfileFrosh = () => {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <ProfilePageQRCode />
           {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
-          <ProfilePageScuntTeam />
-          <ProfilePageFroshScuntTeamsSelection />
-          <ProfilePageResources froshObject={user?.isRegistered ? user : null} />
+          {user?.attendingScunt ? <ProfilePageScuntTeam /> : null}
+          {/* <ProfilePageFroshScuntTeamsSelection /> */}
+          <ProfilePageResources froshObject={isRegistered ? user : null} />
         </div>
       </div>
     </>
@@ -164,8 +166,7 @@ const ProfilePageFroshScuntMessage = () => {
   const isRegistered = useSelector(registeredSelector);
   const { darkMode } = useContext(DarkModeContext);
 
-  const code = user?.scuntToken;
-  if (code === undefined || !isRegistered || !scuntSettings || !scuntSettings?.revealTeams) {
+  if (!isRegistered || !scuntSettings || !scuntSettings?.revealTeams) {
     return null;
   }
 
@@ -174,8 +175,8 @@ const ProfilePageFroshScuntMessage = () => {
       <div className="frosh-instagram-container">
         <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
         <div>
-          <h2>Havenger Scunt!</h2>
-          <p>Find more information about Scunt by clicking here!</p>
+          <h2>SkavENGer Hunt!</h2>
+          <p>Find more information about The Hunt by clicking here!</p>
         </div>
       </div>
     </Link>
@@ -425,22 +426,30 @@ const ProfilePageQRCode = () => {
   );
 };
 
-const ProfilePageScuntTeam = () => {
+export const ProfilePageScuntTeam = () => {
   const isRegistered = useSelector(registeredSelector);
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const { scuntTeams } = useSelector(scuntTeamsSelector);
   const { user } = useSelector(userSelector);
-  const [scuntTeam, setScuntTeam] = useState();
+  const [scuntTeam, setScuntTeam] = useState(null);
 
-  if (!isRegistered || !scuntSettings || !scuntSettings?.revealTeams) return null;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getScuntSettings());
+    dispatch(getScuntTeams());
+  }, [dispatch]);
+
   useEffect(() => {
     if (scuntTeams?.length) {
       const [team] = scuntTeams.filter((team) => {
-        return team.number === user?.scuntTeam;
+        return team?.number === user?.scuntTeam;
       });
       setScuntTeam(team);
     }
   }, [scuntTeams]);
+
+  if (!isRegistered || !scuntSettings || !scuntSettings?.revealTeams) return null;
   return (
     <div className="profile-page-scunt-team profile-page-side-section">
       <h3>Your Scunt Team:</h3>

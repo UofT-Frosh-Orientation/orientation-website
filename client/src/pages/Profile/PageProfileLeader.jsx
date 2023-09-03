@@ -25,7 +25,8 @@ const PageProfileLeader = () => {
   const { user } = useSelector(userSelector);
   const qrCodeLeader =
     user?.authScopes?.approved.includes('scanner:registration') ||
-    user?.authScopes?.approved.includes('scanner:kits');
+    user?.authScopes?.approved.includes('scanner:kits') ||
+    user?.authScopes?.approved.includes('scanner:food');
 
   const dispatch = useDispatch();
 

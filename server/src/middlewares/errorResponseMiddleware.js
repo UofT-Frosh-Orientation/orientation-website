@@ -85,6 +85,9 @@ function errorResponseMiddleware(err, req, res, next) {
   } else if (err.message === 'UNABLE_TO_UPDATE_SCUNT_SETTINGS') {
     statusCode = 400;
     errorMessage = 'Unable to update scunt settings. Please input valid values.';
+  } else if (err.message === 'FROSH_NOT_FOUND') {
+    statusCode = 404;
+    errorMessage = 'Frosh not found. They might not be registered.';
   } else {
     statusCode = 500;
     errorMessage = 'whoops we have no idea what happened!?';

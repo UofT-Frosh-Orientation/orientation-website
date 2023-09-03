@@ -12,7 +12,7 @@ import thirdPlace from '../../assets/scuntleaderboard/third-medal.svg';
 import { Button } from '../../components/button/Button/Button';
 
 import { useSelector } from 'react-redux';
-import { userSelector } from '../../state/user/userSlice';
+import { loggedInSelector, userSelector } from '../../state/user/userSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import io from 'socket.io-client';
 
@@ -54,6 +54,7 @@ const buttonStyle = { width: 'fit-content' };
 const ScuntLeaderboard = () => {
   const { user } = useSelector(userSelector);
   const leader = user?.userType === 'leadur';
+  const loggedIn = useSelector(loggedInSelector);
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const [revealJudgesAndBribes, setRevealJudgesAndBribes] = useState(false);
   const socket = io(`${import.meta.env.VITE_API_BASE_URL}/leaderboard`, { autoConnect: false });
@@ -98,7 +99,7 @@ const ScuntLeaderboard = () => {
     }
   }, [scuntSettings]);
 
-  if (revealJudgesAndBribes !== true && !leader) {
+  if ((revealJudgesAndBribes !== true && !leader) || !loggedIn || !user?.attendingScunt) {
     return (
       <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
         <ScuntLinks />
