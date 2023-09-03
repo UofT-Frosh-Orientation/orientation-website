@@ -96,22 +96,20 @@ const QrController = {
     const { userID } = req.body;
 
     try {
-      const frosh = (
-        await FroshServices.getFilteredFroshInfo(
-          { _id: userID },
-          {
-            firstName: 1,
-            lastName: 1,
-            preferredName: 1,
-            pronouns: 1,
-            medicalInfo: 1,
-            specficMedicalInfo: 1,
-            medication: 1,
-            allergies: 1,
-            allergiesOther: 1,
-          },
-        )
-      )[0];
+      const [frosh] = await FroshServices.getFilteredFroshInfo(
+        { _id: userID },
+        {
+          firstName: 1,
+          lastName: 1,
+          preferredName: 1,
+          pronouns: 1,
+          medicalInfo: 1,
+          specficMedicalInfo: 1,
+          allergies: 1,
+          allergiesOther: 1,
+          gotFood: 1,
+        },
+      );
 
       if (frosh.gotFood) {
         return res.status(200).send({ message: 'Food already picked up', frosh });

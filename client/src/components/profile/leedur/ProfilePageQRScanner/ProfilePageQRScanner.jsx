@@ -11,6 +11,7 @@ import {
   preKitPickUp,
   searchFroshList,
   clearFroshList,
+  getFood,
 } from '../../../../state/frosh/saga';
 import PropTypes from 'prop-types';
 import { capitalizeFirstLetter } from '../../../../pages/Profile/functions';
@@ -96,7 +97,7 @@ export const ProfilePageQRScanner = ({ scopes }) => {
       case 'food':
         return (
           <>
-            {frosh?.gotFood ? (
+            {frosh['gotFood'] ? (
               <div style={{ color: 'black' }}>
                 <ErrorSuccessBox error content={'Food already picked up'} />
               </div>
@@ -121,7 +122,7 @@ export const ProfilePageQRScanner = ({ scopes }) => {
             } else if (scannerType === 'kits') {
               dispatch(preKitPickUp({ userID }));
             } else if (scannerType === 'food') {
-              dispatch(preKitPickUp({ userID }));
+              dispatch(getFood({ userID }));
             }
           }
         }}
@@ -144,9 +145,16 @@ export const ProfilePageQRScanner = ({ scopes }) => {
             {Object.keys(frosh).map((keyPassed) => {
               const key = keyPassed.toString();
               return (
-                !['_id', 'signInDate', 'userType', 'firstName', 'preferredName', 'preKit'].includes(
-                  key,
-                ) && (
+                ![
+                  '_id',
+                  'signInDate',
+                  'userType',
+                  'firstName',
+                  'preferredName',
+                  'preKit',
+                  'isRegistered',
+                  'gotFood',
+                ].includes(key) && (
                   <div key={key}>
                     <b>{capitalizeFirstLetter(key) + ': '}</b>
                     {frosh[key]?.toString()}
@@ -197,6 +205,8 @@ export const ProfilePageQRScanner = ({ scopes }) => {
                   dispatch(signInFrosh({ userID: searchResultFrosh._id }));
                 } else if (scannerType === 'kits') {
                   dispatch(preKitPickUp({ userID: searchResultFrosh._id }));
+                } else if (scannerType === 'food') {
+                  dispatch(getFood({ userID: searchResultFrosh._id }));
                 }
               }}
               key={searchResultFrosh.email + index}

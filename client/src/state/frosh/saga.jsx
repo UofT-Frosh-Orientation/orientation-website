@@ -114,8 +114,6 @@ export function* getFoodSaga({ payload: { userID } }) {
     const date = new Date();
     const result = yield call(axios.put, '/qr/food', {
       userID,
-      date: date.toISOString(),
-      tzOffset: date.getTimezoneOffset(),
     });
     yield put(preKitPickUpSuccess(result?.data?.frosh));
   } catch (error) {
