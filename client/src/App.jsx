@@ -12,7 +12,7 @@ import { getUserInfo } from './state/user/saga';
 import { AskQuestionButton } from './components/button/AskQuestionButton/AskQuestionButton';
 import { DarkModeProvider } from './util/DarkModeProvider';
 import { SnackbarProvider } from './util/SnackbarProvider';
-
+import { PageMaintenance } from './pages/Maintenance/Maintenance';
 // import { getScuntSettings } from './state/scuntSettings/saga';
 // import { scuntSettingsSelector } from './state/scuntSettings/scuntSettingsSlice';
 
@@ -26,9 +26,10 @@ export default function App() {
   return (
     <DarkModeProvider>
       <SnackbarProvider>
-        <BrowserRouter>
+        {/* <BrowserRouter>
           <TransitionRoutes />
-        </BrowserRouter>
+        </BrowserRouter> */}
+        <PageMaintenance />
       </SnackbarProvider>
     </DarkModeProvider>
   );
