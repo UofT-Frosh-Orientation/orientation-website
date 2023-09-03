@@ -1,9 +1,12 @@
 import Alumni from '../assets/sponsors/Alumni.jpg';
 import Hatchery from '../assets/sponsors/Hatchery.jpg';
 import Neo from '../assets/sponsors/Neo.jpg';
+import Coco from '../assets/sponsors/Coco.jpg';
 import OSPE from '../assets/sponsors/OSPE.jpg';
 import PEO from '../assets/sponsors/PEO.png';
 import UTSU from '../assets/sponsors/UTSU.jpg';
+import Mogu from '../assets/sponsors/MoguMogu.png';
+import Nani from '../assets/sponsors/Nanis.png';
 
 export const sponsors = [
   {
@@ -19,6 +22,13 @@ export const sponsors = [
     scale: 0.7,
     rank: 'gold',
     label: 'Gold sponsor: Neo Performance',
+  },
+  {
+    website: 'https://www.cocofreshtea.ca/',
+    image: Coco,
+    scale: 0.7,
+    rank: 'gold',
+    label: 'Silver sponsor: Coco',
   },
   {
     website: 'https://www.utsu.ca/',
@@ -42,10 +52,15 @@ export const sponsors = [
     label: 'Bronze sponsor: OSPE',
   },
   {
-    website: 'https://hatchery.engineering.utoronto.ca/',
-    image: Hatchery,
+    image: Mogu,
     scale: 0.82,
     rank: 'bronze',
-    label: 'Bronze sponsor: Engineering Alumni Network',
+    label: 'Bronze sponsor: Mogu',
+  },
+  {
+    image: Nani,
+    scale: 0.82,
+    rank: 'bronze',
+    label: 'Bronze sponsor: Nani’s Gelato',
   },
 ];
