@@ -5,19 +5,20 @@ import WaveDarkMode from '../../assets/darkmode/misc/wave.png';
 import waveBottom from '../../assets/misc/wave-reverse.png';
 import waveBottomDarkMode from '../../assets/darkmode/misc/wave-reverse.png';
 import { Confetti } from '../../components/misc/Confetti/Confetti';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 import { DarkModeContext } from '../../util/DarkModeProvider';
-import DiscordIcon from '../../assets/social/discord-brands.svg';
+// import DiscordIcon from '../../assets/social/discord-brands.svg';
 import { aboutScunt, okayToInviteToScunt, scuntDiscord } from '../../util/scunt-constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { userSelector } from '../../state/user/userSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import useAxios from '../../hooks/useAxios';
-import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
+// import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
 import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { getScuntTeams } from '../../state/scuntTeams/saga';
+// import { ProfilePageScuntTeam } from '../Profile/PageProfileFrosh';
 const { axios } = useAxios();
 
 export const PageScuntHome = () => {
@@ -39,54 +40,27 @@ export const PageScuntHome = () => {
 
 const AboutScunt = () => {
   const { darkMode } = useContext(DarkModeContext);
-  const [scuntTeamObjs, setScuntTeamObjs] = useState();
-  const { scuntTeams } = useSelector(scuntTeamsSelector);
-  // const getScuntTeams = async () => {
-  //   try {
-  //     const response = await axios.get('/scunt-teams');
-  //     const { teamPoints } = response.data;
-  //     if (teamPoints.length <= 0 || !teamPoints) setScuntTeams([]);
-  //     else {
-  //       setScuntTeamObjs(teamPoints);
-  //       setScuntTeams(
-  //         teamPoints.map((team) => {
-  //           return team?.name;
-  //         }),
-  //       );
-  //     }
-  //   } catch (e) {
-  //     console.error(e.toString());
-  //     setScuntTeams(['Error loading teams']);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getScuntTeams();
-  // }, []);
 
   return (
     <>
-      {darkMode ? (
-        <img src={WaveDarkMode} className="wave-image wave-image-footer" />
-      ) : (
-        <img src={Wave} className="wave-image wave-image-footer" />
-      )}
+      <img src={darkMode ? WaveDarkMode : Wave} className="wave-image wave-image-footer" />
       <div className="about-scunt-container">
         <div className="about-scunt-content">
-          <div className="about-scunt-token">
-            <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} />
-          </div>
+          {/* <div className="about-scunt-token">
+            <ProfilePageScuntTeam />
+          </div> */}
           <div dangerouslySetInnerHTML={{ __html: aboutScunt }} />
           <h4>
             Check the <Link to={'/scunt-rules'}>Rules</Link> for more information
           </h4>
         </div>
       </div>
-      {darkMode ? (
-        <img className="header-page-wave-bottom" src={waveBottomDarkMode} alt="wave"></img>
-      ) : (
-        <img className="header-page-wave-bottom" src={waveBottom} alt="wave"></img>
-      )}
+      <img
+        className="header-page-wave-bottom"
+        src={darkMode ? waveBottomDarkMode : waveBottom}
+        alt="wave"
+      ></img>
+
       <div style={{ height: '30px' }} />
     </>
   );
