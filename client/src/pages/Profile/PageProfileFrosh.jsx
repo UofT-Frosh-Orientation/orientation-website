@@ -32,7 +32,7 @@ import { ProfilePageResources } from '../../components/profile/ProfilePageResour
 import { ProfilePageFroshScuntTeamsSelection } from '../../components/profile/scunt/ProfilePageFroshScuntTeamsSelection/ProfilePageFroshScuntTeamsSelection';
 import { getScuntTeams } from '../../state/scuntTeams/saga';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
-import { scuntTeamSelector, scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
+import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
 // import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
 
 const PageProfileFrosh = () => {
