@@ -1,5 +1,4 @@
 import Alumni from '../assets/sponsors/Alumni.jpg';
-import Hatchery from '../assets/sponsors/Hatchery.jpg';
 import Neo from '../assets/sponsors/Neo.jpg';
 import Coco from '../assets/sponsors/Coco.jpg';
 import OSPE from '../assets/sponsors/OSPE.jpg';
