@@ -19,6 +19,8 @@ const { axios } = useAxios();
 import greenCheck from '../../assets/misc/check-solid-green.svg';
 import { scuntTeamTransactionsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
 import { getScuntTeamTransactions } from '../../state/scuntTeams/saga';
+import { PopupModal } from '../../components/popup/PopupModal';
+import { Button } from '../../components/button/Button/Button';
 
 function getMissionCategories(missions) {
   let currentCategory = '';
@@ -70,6 +72,117 @@ const PageScuntMissionsList = () => {
       </Header>
       <PageScuntMissionsListShow />
     </>
+  );
+};
+
+const ReportMission = () => {
+  const [click, setClick] = useState(false);
+
+  return (
+    <>
+      <PopupModal trigger={click} setTrigger={setClick} exitIcon={true} blurBackground={false}>
+        <ReportMissionPopup></ReportMissionPopup>
+      </PopupModal>
+      <Button
+        style={{ boxShadow: '5px 5px 20px #13131362' }}
+        class_options=""
+        label={<div className="scunt-report-popup-button">Report Mission</div>}
+        isSecondary
+        onClick={() => {
+          setClick(true);
+        }}
+      ></Button>
+    </>
+  );
+};
+
+const ReportMissionPopup = () => {
+  const initialFormData = {
+    optionalName: '',
+    reportReason: '',
+    preferredAction: '',
+  };
+  const [formData, setFormData] = useState(initialFormData);
+  const { setSnackbar } = useContext(SnackbarContext);
+  const [clearText, setClearText] = useState(false);
+
+  const handleInputChange = (text, field) => {
+    let newFormData = { ...formData };
+    newFormData[field] = text;
+    setFormData(newFormData);
+  };
+
+  async function handleSubmit(text) {
+    if (formData.reportReason?.length <= 0) {
+      setSnackbar('Please provide a reason for reporting', true);
+    } else if (formData.preferredAction?.length <= 0) {
+      setSnackbar('Please provide a preferred action', true);
+    } else {
+      // using faq services
+      const reqObj = {
+        email: formData.name,
+        question:
+          'Report Reason: ' +
+          formData.reportReason +
+          ' | Preferred Action: ' +
+          formData.preferredAction,
+        category: 'Scunt Reports',
+      };
+
+      try {
+        const result = await axios.post('/faq/create', reqObj);
+        if (result.status !== 200) {
+          setSnackbar('There was an error submitting your report' + result, true);
+        } else {
+          setSnackbar('Thank you for submitting your report!', false);
+          setClearText(true);
+        }
+      } catch (error) {
+        return error;
+      }
+    }
+  }
+
+  return (
+    <div className="scunt-report-popup-container">
+      <h1>Report Mission</h1>
+      <p style={{ marginBottom: '20px' }}>
+        Your report will be shared with F!rosh Execs, we aim to review reports within 30 minutes.
+      </p>
+
+      <div className="scunt-report-input">
+        <TextInput
+          label={'Name (Optional)'}
+          onChange={(text) => handleInputChange(text, 'optionalName')}
+          inputType={'text'}
+          clearText={clearText}
+          setClearText={setClearText}
+        />
+        <TextInput
+          label={'Reason for Reporting'}
+          isRequiredInput={true}
+          onChange={(text) => handleInputChange(text, 'reportReason')}
+          inputType={'textArea'}
+          clearText={clearText}
+          setClearText={setClearText}
+        />
+        <TextInput
+          label={'Preferred Action'}
+          isRequiredInput={true}
+          onChange={(text) => handleInputChange(text, 'preferredAction')}
+          inputType={'textArea'}
+          placeholder={'Remove the item'}
+          clearText={clearText}
+          setClearText={setClearText}
+        />
+      </div>
+
+      <div style={{ textAlign: 'center' }}>
+        <Button label={'Submit'} onClick={handleSubmit}>
+          Submit
+        </Button>
+      </div>
+    </div>
   );
 };
 
@@ -198,6 +311,7 @@ const PageScuntMissionsListShow = () => {
           />
           <p>These indicate completed missions!</p>
         </div>
+        <ReportMission></ReportMission>
       </div>
 
       <div className="scunt-mission-list">

@@ -70,7 +70,6 @@
   justify-content: center;
   align-items: center;
 
-  margin: 20px 0;
   padding: 0 25%;
 
   font-size: 12px;
@@ -86,4 +85,25 @@
   font-size: 18px;
   margin: 5px 20px;
   color: var(--text-dynamic);
+}
+
+.scunt-report-popup-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 16px;
+}
+
+.scunt-report-popup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scunt-report-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
