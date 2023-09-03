@@ -39,7 +39,7 @@ export const getTotalScopes = () => {
     accounts: ['read', 'edit', 'delete'],
     email: ['send'],
     timeline: ['create', 'edit', 'delete'],
-    scanner: ['registration', 'kits'],
+    scanner: ['registration', 'kits', 'food'],
     scunt: [
       'judge missions',
       'judge bribe points',

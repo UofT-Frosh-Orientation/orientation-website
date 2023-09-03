@@ -10,7 +10,7 @@ import tanya from '../assets/judges/tanya.jpg';
 import luka from '../assets/judges/luka.jpg';
 import novera from '../assets/judges/novera.jpg';
 import jeremy from '../assets/judges/jeremy.jpg';
-import rimjot from '../assets/judges/rimjot.HEIC';
+import rimjot from '../assets/judges/rimjot.jpg';
 import katie from '../assets/judges/katie.jpg';
 import emaan from '../assets/judges/emaan.jpg';
 import amelie from '../assets/judges/amelie.jpg';

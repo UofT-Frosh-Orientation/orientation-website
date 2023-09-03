@@ -29,6 +29,8 @@ export const ProfilePageQRScanner = ({ scopes }) => {
       setScannerType('registration');
     } else if (scopes?.includes('scanner:kits')) {
       setScannerType('kits');
+    } else if (scopes?.includes('scanner:food')) {
+      setScannerType('food');
     }
   }, [scopes]);
 
@@ -91,6 +93,20 @@ export const ProfilePageQRScanner = ({ scopes }) => {
             )}
           </>
         );
+      case 'food':
+        return (
+          <>
+            {frosh?.gotFood ? (
+              <div style={{ color: 'black' }}>
+                <ErrorSuccessBox error content={'Food already picked up'} />
+              </div>
+            ) : (
+              <div style={{ color: 'black' }}>
+                <ErrorSuccessBox success content={'Food picked up!'} />
+              </div>
+            )}
+          </>
+        );
     }
   };
 
@@ -103,6 +119,8 @@ export const ProfilePageQRScanner = ({ scopes }) => {
             if (scannerType === 'registration') {
               dispatch(signInFrosh({ userID }));
             } else if (scannerType === 'kits') {
+              dispatch(preKitPickUp({ userID }));
+            } else if (scannerType === 'food') {
               dispatch(preKitPickUp({ userID }));
             }
           }

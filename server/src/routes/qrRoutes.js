@@ -48,4 +48,6 @@ router.put(
 
 router.put('/prekit', checkLoggedIn, hasAuthScopes(['scanner:kits']), QRController.preKitPickUp);
 
+router.put('/food', checkLoggedIn, hasAuthScopes(['scanner:food']), QRController.getFood);
+
 module.exports = router;

@@ -105,6 +105,25 @@ export function* preKitPickUpSaga({ payload: { userID } }) {
   }
 }
 
+export const getFood = createAction('getFoodSaga');
+
+export function* getFoodSaga({ payload: { userID } }) {
+  const { axios } = useAxios();
+  try {
+    yield put(preKitPickUpStart());
+    const date = new Date();
+    const result = yield call(axios.put, '/qr/food', {
+      userID,
+      date: date.toISOString(),
+      tzOffset: date.getTimezoneOffset(),
+    });
+    yield put(preKitPickUpSuccess(result?.data?.frosh));
+  } catch (error) {
+    console.error(error);
+    yield put(preKitPickUpFailure(error?.response?.data?.errorMessage));
+  }
+}
+
 export default function* froshSaga() {
   yield takeLeading(getFroshList.type, getFroshListSaga);
   yield takeLeading(redistributeFrosh.type, redistributeFroshSaga);
@@ -112,4 +131,5 @@ export default function* froshSaga() {
   yield takeLeading(preKitPickUp.type, preKitPickUpSaga);
   yield takeLeading(searchFroshList.type, searchFroshListSaga);
   yield takeLeading(clearFroshList.type, clearFroshListSaga);
+  yield takeLeading(getFood.type, getFoodSaga);
 }
