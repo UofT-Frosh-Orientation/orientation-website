@@ -34,6 +34,7 @@ function getMissionCategories(missions) {
 
 const PageScuntMissionsList = () => {
   const { user } = useSelector(userSelector);
+  const loggedIn = useSelector(loggedInSelector);
   const { setSnackbar } = useContext(SnackbarContext);
   const leader = user?.userType === 'leadur';
   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
@@ -42,14 +43,14 @@ const PageScuntMissionsList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (scuntSettings) setRevealMissions(scuntSettings?.revealMissions);
+    if (scuntSettings?.revealMissions) setRevealMissions(true);
   }, [scuntSettings]);
 
   useEffect(() => {
     dispatch(getScuntMissions({ showHidden: false }));
   }, [dispatch]);
 
-  if (revealMissions !== true && !leader) {
+  if ((revealMissions !== true && !leader) || !loggedIn) {
     return (
       <>
         <Header text={'Missions'} underlineDesktop={'300px'} underlineMobile={'210px'}>
@@ -315,16 +316,12 @@ const PageScuntMissionsListShow = () => {
             <p>No search results</p>
           ) : mission === undefined ? (
             <div className="separator" />
-          ) : (
-            <></>
-          )}
+          ) : null}
         </div>
       </div>
       {!loggedIn ? (
         <p>To see mission status and mission QR code please login to your account.</p>
-      ) : (
-        <></>
-      )}
+      ) : null}
       {loggedIn && mission !== undefined ? (
         missionStatus?.completed ? (
           <>
@@ -338,12 +335,8 @@ const PageScuntMissionsListShow = () => {
               </p>
             </div>
           </>
-        ) : (
-          <></>
-        )
-      ) : (
-        <></>
-      )}
+        ) : null
+      ) : null}
       {loggedIn && user?.scuntTeam && mission !== undefined ? (
         <div className="scunt-mission-qr-code">
           <QRNormal
@@ -357,9 +350,7 @@ const PageScuntMissionsListShow = () => {
             backgroundColor="white"
           />
         </div>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </div>
   );
 };

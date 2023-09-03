@@ -42,16 +42,18 @@ const PageProfileFrosh = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getScuntSettings());
-    dispatch(getScuntTeams());
-  }, [dispatch]);
+    if (user?.attendingScunt) {
+      dispatch(getScuntSettings());
+      dispatch(getScuntTeams());
+    }
+  }, [dispatch, user]);
 
   return (
     <>
       <ProfilePageFroshHeader editButton={true} />
       <div className="profile-info-row">
         <div className="profile-info-row-right">
-          <ProfilePageFroshScuntMessage />
+          {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null}
           {isRegistered ? <ProfilePageRetreat /> : null}
           {/* <ProfilePageNitelife /> */}
           <ProfilePageInstagrams />
@@ -61,9 +63,9 @@ const PageProfileFrosh = () => {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <ProfilePageQRCode />
           {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
-          <ProfilePageScuntTeam />
+          {user?.attendingScunt ? <ProfilePageScuntTeam /> : null}
           {/* <ProfilePageFroshScuntTeamsSelection /> */}
-          <ProfilePageResources froshObject={user?.isRegistered ? user : null} />
+          <ProfilePageResources froshObject={isRegistered ? user : null} />
         </div>
       </div>
     </>
