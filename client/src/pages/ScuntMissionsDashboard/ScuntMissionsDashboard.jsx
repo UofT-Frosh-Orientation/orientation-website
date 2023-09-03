@@ -2,7 +2,6 @@
 
 import { React, useState, useEffect, useContext } from 'react';
 
-import { list } from '../ScuntJudgeForm/scuntTempData';
 import './ScuntMissionsDashboard.scss';
 import '../AccountsApproval/AccountsApproval.scss';
 
@@ -68,7 +67,6 @@ const ScuntCreateMissions = () => {
   };
 
   const { setSnackbar } = useContext(SnackbarContext); // use Snackbar to send messages --> successfull hidden/deleted, etc.
-  const { darkMode } = useContext(DarkModeContext);
   const [newMission, setNewMission] = useState(initialMission);
 
   let keys = Object.keys(newMission);
@@ -106,89 +104,87 @@ const ScuntCreateMissions = () => {
   };
 
   return (
-    <>
-      <div className="scunt-create-missions-tab-container">
-        <div className="scunt-create-missions-container">
-          <div className="scunt-create-missions-textinput">
-            {missioninput.map((i) => {
-              return (
-                <TextInput
-                  key={i.key}
-                  label={i.label}
-                  placeholder={i.label}
-                  isRequiredInput={i.key === 'number' || i.key === 'name' ? true : false}
-                  onChange={
-                    (input) => {
-                      handleInput(input, i.key);
-                    }
-                    // TODO: update the state var -- DONE
+    <div className="scunt-create-missions-tab-container">
+      <div className="scunt-create-missions-container">
+        <div className="scunt-create-missions-textinput">
+          {missioninput.map((i) => {
+            return (
+              <TextInput
+                key={i.key}
+                label={i.label}
+                placeholder={i.label}
+                isRequiredInput={i.key === 'number' || i.key === 'name' ? true : false}
+                onChange={
+                  (input) => {
+                    handleInput(input, i.key);
                   }
-                  style={{ width: '100%', flexGrow: '1' }}
-                  description={i.des}
-                />
-              );
-            })}
-            <Checkboxes
-              values={['isHidden']}
-              onSelected={(value, index, state, selectedIndices) => {
-                handleInput(state, 'isHidden');
-              }}
-            />
-            <Checkboxes
-              values={['isJudgingStation']}
-              onSelected={(value, index, state, selectedIndices) => {
-                handleInput(state, 'isJudgingStation');
-              }}
-            />
+                  // TODO: update the state var -- DONE
+                }
+                style={{ width: '100%', flexGrow: '1' }}
+                description={i.des}
+              />
+            );
+          })}
+          <Checkboxes
+            values={['isHidden']}
+            onSelected={(value, index, state, selectedIndices) => {
+              handleInput(state, 'isHidden');
+            }}
+          />
+          <Checkboxes
+            values={['isJudgingStation']}
+            onSelected={(value, index, state, selectedIndices) => {
+              handleInput(state, 'isJudgingStation');
+            }}
+          />
+        </div>
+        <div className="scunt-create-missions-preview-container">
+          <div className="scunt-create-missions-preview">
+            <h3 style={{ marginBottom: '20px' }}>Mission Preview</h3>
+
+            {newMission !== undefined ? (
+              keys?.map((i) => {
+                return (
+                  <div key={i}>
+                    <p style={{ color: 'var(--text-dynamic)', marginBottom: '8px' }}>
+                      <b>{convertCamelToLabel(i)}</b>
+                      <span>{': '}</span>
+                    </p>
+                    {newMission[i] === true || newMission[i] === false ? (
+                      <div
+                        style={{
+                          display: 'inline-block',
+                          color:
+                            newMission[i] === true ? 'var(--green-success)' : 'var(--red-error)',
+                        }}
+                      >
+                        <b>{newMission[i].toString()}</b>
+                      </div>
+                    ) : (
+                      newMission[i].toString()
+                    )}
+                  </div>
+                );
+              })
+            ) : (
+              <></>
+            )}
           </div>
-          <div className="scunt-create-missions-preview-container">
-            <div className="scunt-create-missions-preview">
-              <h3 style={{ marginBottom: '20px' }}>Mission Preview</h3>
 
-              {newMission !== undefined ? (
-                keys?.map((i) => {
-                  return (
-                    <div key={i}>
-                      <p style={{ color: 'var(--text-dynamic)', marginBottom: '8px' }}>
-                        <b>{convertCamelToLabel(i)}</b>
-                        <span>{': '}</span>
-                      </p>
-                      {newMission[i] === true || newMission[i] === false ? (
-                        <div
-                          style={{
-                            display: 'inline-block',
-                            color:
-                              newMission[i] === true ? 'var(--green-success)' : 'var(--red-error)',
-                          }}
-                        >
-                          <b>{newMission[i].toString()}</b>
-                        </div>
-                      ) : (
-                        newMission[i].toString()
-                      )}
-                    </div>
-                  );
-                })
-              ) : (
-                <></>
-              )}
-            </div>
+          <Button
+            label="Create Mission"
+            onClick={() => {
+              // TODO: call backend to submit mission
+              // delete the object or set it back to initial state
 
-            <Button
-              label="Create Mission"
-              onClick={() => {
-                // TODO: call backend to submit mission
-                // delete the object or set it back to initial state
-
-                handleSubmit();
-              }}
-              isSecondary={true}
-              style={{ width: 'fit-content' }}
-            />
-          </div>
+              handleSubmit();
+            }}
+            isSecondary={true}
+            style={{ width: 'fit-content' }}
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -429,7 +425,7 @@ const ScuntUploadMissions = () => {
     if (file) {
       fileReader.onload = function (event) {
         const text = event.target.result;
-        const { data, errors } = parseCsvString(text, csvFields);
+        const { data } = parseCsvString(text, csvFields);
         setArray(data);
       };
 
