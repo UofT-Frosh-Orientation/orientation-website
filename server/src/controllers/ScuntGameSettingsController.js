@@ -6,7 +6,7 @@ const ScuntGameSettingsController = {
       const gameSettings = await ScuntGameSettingsServices.getGameSettings();
       return res.status(200).send({
         message: 'Found game settings',
-        settings: gameSettings.map((u) => u.getResponseObject()),
+        settings: gameSettings,
       });
     } catch (e) {
       req.log.fatal({ msg: 'Unable to retrieve scunt game settings', e });
@@ -46,7 +46,7 @@ const ScuntGameSettingsController = {
       );
       return res.status(200).send({
         message: 'Successfully updated Scunt game settings',
-        settings: [newSettings],
+        settings: newSettings,
       });
     } catch (e) {
       req.log.fatal({ msg: 'Unable to update scunt game settings', e });

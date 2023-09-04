@@ -31,20 +31,20 @@ const QrController = {
     const { userID, date, tzOffset } = req.body;
     const day = new Date(Date.parse(date) - tzOffset * 60 * 1000);
     try {
-      const frosh = (
-        await FroshServices.getFilteredFroshInfo(
-          { _id: userID },
-          {
-            firstName: 1,
-            lastName: 1,
-            preferredName: 1,
-            pronouns: 1,
-            email: 1,
-            preKit: 1,
-            signInDate: 1,
-          },
-        )
-      )[0];
+      const [frosh] = await FroshServices.getFilteredFroshInfo(
+        { _id: userID, isRegistered: true },
+        {
+          firstName: 1,
+          lastName: 1,
+          preferredName: 1,
+          pronouns: 1,
+          email: 1,
+          preKit: 1,
+          signInDate: 1,
+          shirtSize: 1,
+          photograph: 1,
+        },
+      );
 
       if (frosh.signInDate) {
         return res.status(200).send({ message: 'Frosh already marked as present', frosh });
@@ -66,7 +66,7 @@ const QrController = {
     try {
       const frosh = (
         await FroshServices.getFilteredFroshInfo(
-          { _id: userID },
+          { _id: userID, isRegistered: true },
           {
             firstName: 1,
             lastName: 1,
@@ -87,6 +87,39 @@ const QrController = {
       });
 
       return res.status(200).send({ message: 'Pre kit picked up', frosh });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async getFood(req, res, next) {
+    const { userID } = req.body;
+
+    try {
+      const [frosh] = await FroshServices.getFilteredFroshInfo(
+        { _id: userID },
+        {
+          firstName: 1,
+          lastName: 1,
+          preferredName: 1,
+          pronouns: 1,
+          medicalInfo: 1,
+          specficMedicalInfo: 1,
+          allergies: 1,
+          allergiesOther: 1,
+          gotFood: 1,
+        },
+      );
+
+      if (frosh.gotFood) {
+        return res.status(200).send({ message: 'Food already picked up', frosh });
+      }
+
+      await FroshServices.updateFroshInfo(userID, {
+        gotFood: true,
+      });
+
+      return res.status(200).send({ message: 'Food picked up', frosh });
     } catch (error) {
       next(error);
     }

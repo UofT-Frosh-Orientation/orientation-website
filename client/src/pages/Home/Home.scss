@@ -247,6 +247,12 @@
   justify-content: center;
 }
 .sponsor-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
   background-color: var(--sponsor-background);
   width: min(50%, 350px);
   height: 200px;
@@ -254,10 +260,10 @@
   padding: 5px 20px;
   margin: 5px;
   border-radius: 10px;
+
   img {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(5px 5px 10px #23232342);
     object-fit: contain;
   }
   &:hover {
@@ -267,14 +273,18 @@
   @include devices(tablet) {
     width: min(90%, 350px);
   }
+
   p {
+    position: absolute;
     opacity: 0;
     transition: opacity 500ms, transform 500ms;
     background-color: var(--sponsor-container);
     padding: 10px 20px;
     display: inline-block;
     border-radius: 8px;
+    bottom: -20px;
   }
+
   &:hover p {
     transform: translateY(calc(-100% + -10px));
     opacity: 1;

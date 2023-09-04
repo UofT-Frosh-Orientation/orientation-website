@@ -188,6 +188,11 @@ const FroshSchema = new mongoose.Schema(
       required: false,
       default: false,
     },
+    gotFood: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   { discriminatorKey: 'userType' },
 );

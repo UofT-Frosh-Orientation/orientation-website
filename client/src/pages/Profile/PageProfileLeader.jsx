@@ -4,58 +4,36 @@ import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
 import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
 import { Button } from '../../components/button/Button/Button';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
-import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import EditIcon from '../../assets/misc/pen-solid.svg';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { userSelector } from '../../state/user/userSlice';
+import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 // import { scuntDiscord } from '../../util/scunt-constants';
-import PropTypes from 'prop-types';
-// import {
-//   getScuntTeamObjFromTeamName,
-//   getScuntTeamObjFromTeamNumber,
-// } from '../ScuntJudgeForm/ScuntJudgeForm';
-// import ScuntIcon from '../../assets/misc/magnifier.png';
-import useAxios from '../../hooks/useAxios';
+import ScuntIcon from '../../assets/misc/magnifier.png';
 import { ProfilePageLeaderPermissionDashboardLinks } from '../../components/profile/leedur/PermissionDashboardLinks/ProfilePageLeaderPermissionDashboardLinks';
 import { ProfilePageQRScanner } from '../../components/profile/leedur/ProfilePageQRScanner/ProfilePageQRScanner';
 import { ProfilePageSchedule } from '../../components/profile/ProfilePageSchedule/ProfilePageSchedule';
 import { ProfilePageResources } from '../../components/profile/ProfilePageResources/ProfilePageResources';
+import { changeScuntTeam, getScuntTeams } from '../../state/scuntTeams/saga';
+import { getScuntSettings } from '../../state/scuntSettings/saga';
 // import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
-
-const { axios } = useAxios();
 
 const PageProfileLeader = () => {
   const { user } = useSelector(userSelector);
   const qrCodeLeader =
     user?.authScopes?.approved.includes('scanner:registration') ||
-    user?.authScopes?.approved.includes('scanner:kits');
-  // const [scuntTeams, setScuntTeams] = useState([]);
-  // const [scuntTeamObjs, setScuntTeamObjs] = useState();
+    user?.authScopes?.approved.includes('scanner:kits') ||
+    user?.authScopes?.approved.includes('scanner:food');
 
-  // const getScuntTeams = async () => {
-  //   try {
-  //     const response = await axios.get('/scunt-teams');
-  //     const { teamPoints } = response.data;
-  //     if (teamPoints.length <= 0 || !teamPoints) setScuntTeams([]);
-  //     else {
-  //       setScuntTeamObjs(teamPoints);
-  //       setScuntTeams(
-  //         teamPoints.map((team) => {
-  //           return team?.name;
-  //         }),
-  //       );
-  //     }
-  //   } catch (e) {
-  //     setScuntTeams(['Error loading teams']);
-  //   }
-  // };
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   getScuntTeams();
-  // }, []);
+  useEffect(() => {
+    dispatch(getScuntTeams());
+    dispatch(getScuntSettings());
+  }, [dispatch]);
 
   return (
     <>
@@ -64,130 +42,71 @@ const PageProfileLeader = () => {
         <div className="profile-info-row-right">
           <ProfilePageLeaderPermissionDashboardLinks />
           <div style={{ marginTop: '20px' }} />
-          {/* <ProfilePageLeaderScuntMessage /> */}
+          <ProfilePageLeaderScuntMessage />
           <div style={{ marginTop: '-20px' }} />
           <ProfilePageSchedule />
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {qrCodeLeader === true ? (
-            <>
-              <ProfilePageQRScanner scopes={user?.authScopes?.approved} />
-            </>
-          ) : (
-            <></>
-          )}
-          {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> */}
+            <ProfilePageQRScanner scopes={user?.authScopes?.approved} />
+          ) : null}
+          {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
           <ProfilePageResources />
-          {/* <ProfilePageScuntTeamSelectionLeader
-            scuntTeamObjs={scuntTeamObjs}
-            scuntTeams={scuntTeams}
-          /> */}
+          <ProfilePageScuntTeamSelectionLeader />
         </div>
       </div>
     </>
   );
 };
 
-// const ProfilePageScuntTeamSelectionLeader = ({ scuntTeams, scuntTeamObjs }) => {
-//   const { setSnackbar } = useContext(SnackbarContext);
-//   const [selectedScuntTeamNumber, setSelectedScuntTeamNumber] = useState();
-//   const { user } = useSelector(userSelector);
+const ProfilePageScuntTeamSelectionLeader = () => {
+  const { setSnackbar } = useContext(SnackbarContext);
+  const [teamNumber, setTeamNumber] = useState();
+  const { user } = useSelector(userSelector);
+  const { scuntTeams } = useSelector(scuntTeamsSelector);
 
-//   const changeScuntTeam = async (teamNumber) => {
-//     const result = await axios.post('/scunt-teams/update-team', { teamNumber: teamNumber });
-//     setSnackbar(result?.data?.message + ' The page will refresh in 2 seconds.');
-//     setTimeout(() => {
-//       window.location.reload();
-//     }, 2000);
-//   };
+  const dispatch = useDispatch();
 
-//   return (
-//     <>
-//       <div className="profile-page-side-section" style={{ marginTop: '20px', textAlign: 'center' }}>
-//         <div style={{ height: '10px' }} />
-//         <h2>Scunt Team</h2>
-//         <RadioButtons
-//           initialSelectedIndex={user?.scuntTeam - 1}
-//           values={scuntTeams}
-//           onSelected={(value) => {
-//             setSelectedScuntTeamNumber(getScuntTeamObjFromTeamName(value, scuntTeamObjs)?.number);
-//           }}
-//         />
-//         <Button
-//           label={'Change Scunt Team'}
-//           onClick={() => {
-//             changeScuntTeam(selectedScuntTeamNumber);
-//           }}
-//         />
-//       </div>
-//     </>
-//   );
-// };
+  if (!scuntTeams?.length) return null;
 
-// ProfilePageScuntTeamSelectionLeader.propTypes = {
-//   scuntTeams: PropTypes.array,
-//   scuntTeamObjs: PropTypes.array,
-// };
+  return (
+    <div className="profile-page-side-section" style={{ marginTop: '20px', textAlign: 'center' }}>
+      <div style={{ height: '10px' }} />
+      <h2>Scunt Team</h2>
 
-// export const ProfilePageLeaderScuntMessage = () => {
-//   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+      <RadioButtons
+        initialSelectedIndex={user?.scuntTeam - 1}
+        values={scuntTeams.map((team) => team.name)}
+        onSelected={(value) => {
+          const [team] = scuntTeams.filter((team) => team.name === value);
+          setTeamNumber(team?.number);
+        }}
+      />
+      <Button
+        label={'Change Scunt Team'}
+        onClick={() => {
+          dispatch(changeScuntTeam({ setSnackbar, teamNumber }));
+        }}
+      />
+    </div>
+  );
+};
 
-//   return (
-//     <Link to="/scunt">
-//       <div className="frosh-instagram-container">
-//         <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
-//         <div>
-//           <h2>Havenger Scunt!</h2>
-//           <p>Find more information about Scunt by clicking here!</p>
-//         </div>
-//       </div>
-//     </Link>
-//   );
-// };
+export const ProfilePageLeaderScuntMessage = () => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
-// export const ProfilePageScuntToken = ({ scuntTeams, scuntTeamObjs }) => {
-//   const { user } = useSelector(userSelector);
-//   const { setSnackbar } = useContext(SnackbarContext);
-//   const [showToken, setShowToken] = useState(false);
-//   const code = user?.scuntToken;
-
-//   return (
-//     <div className="profile-page-scunt-token profile-page-side-section">
-//       <h2>{getScuntTeamObjFromTeamNumber(user?.scuntTeam, scuntTeamObjs)?.name}</h2>
-//       <i>
-//         <h4>Team {user?.scuntTeam ? user?.scuntTeam.toString() : '‽'}</h4>
-//       </i>
-//       <h3
-//         style={{ filter: showToken ? '' : 'blur(10px)' }}
-//         onClick={() => {
-//           setSnackbar('Copied to clipboard');
-//           navigator.clipboard.writeText(code);
-//         }}
-//       >
-//         {code}
-//       </h3>
-//       <p>Scunt Login Token</p>
-//       <p style={{ fontSize: '13px' }}>
-//         Use this token to login to the{' '}
-//         <a href={scuntDiscord} target="_blank" rel="noreferrer">
-//           Scunt Discord
-//         </a>
-//       </p>
-//       <ButtonOutlined
-//         isSecondary={showToken}
-//         label={showToken ? 'Hide' : 'Show'}
-//         onClick={() => {
-//           setShowToken(!showToken);
-//         }}
-//       />
-//     </div>
-//   );
-// };
-
-// ProfilePageScuntToken.propTypes = {
-//   scuntTeams: PropTypes.array,
-//   scuntTeamObjs: PropTypes.array,
-// };
+  return (
+    <Link to="/scunt">
+      <div className="frosh-instagram-container">
+        <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
+        <div>
+          <h2>Havenger Scunt!</h2>
+          <p>Find more information about Scunt by clicking here!</p>
+        </div>
+      </div>
+    </Link>
+  );
+};
 
 const ProfilePageLeaderHeader = () => {
   const { user } = useSelector(userSelector);
@@ -217,7 +136,6 @@ const ProfilePageLeaderHeader = () => {
                 <b>{user?.preferredName}</b>
               )}
             </p>
-            {user?.discipline && <p>{`Incoming ${user['discipline']} Engineering student`}</p>}
             <p>
               <u>{user?.email}</u>
             </p>
@@ -230,19 +148,16 @@ const ProfilePageLeaderHeader = () => {
           </Link>
         </div>
       </div>
-      {darkMode ? (
-        <img src={WaveReverseFlipDarkMode} className="wave-image home-page-bottom-wave-image" />
-      ) : (
-        <img src={WaveReverseFlip} className="wave-image home-page-bottom-wave-image" />
-      )}
+      <img
+        src={darkMode ? WaveReverseFlipDarkMode : WaveReverseFlip}
+        className="wave-image home-page-bottom-wave-image"
+      />
       {leaderApproved === false ? (
         <div className={'profile-not-registered'}>
           <h1>Your Leedur Account is not Approved!</h1>
           <h2>Please contact a VC to get your account approved.</h2>
         </div>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </>
   );
 };
