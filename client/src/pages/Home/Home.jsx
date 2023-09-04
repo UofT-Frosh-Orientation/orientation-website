@@ -67,15 +67,15 @@ const HomeHeaderButton = () => {
   return (
     <>
       <Link
-        key={loggedIn ? '/profile' : '/login'}
-        to={loggedIn ? '/profile' : '/login'}
+        key={loggedIn ? '/profile' : '/sign-up'}
+        to={loggedIn ? '/profile' : '/sign-up'}
         style={{ textDecoration: 'none' }}
         className="no-link-style"
       >
         <div className="home-page-header-register-button">
           <div className="desktop-only">
             <Button
-              label={loggedIn ? 'View Profile' : 'Log In'}
+              label={loggedIn ? 'View Profile' : 'Register Now!'}
               isSecondary
               style={{
                 margin: '0px',

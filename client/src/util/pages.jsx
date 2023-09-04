@@ -129,16 +129,16 @@ export const pages = {
       path: '/maintenance',
       includeFooter: false,
     },
-    // {
-    //   label: 'Registration',
-    //   component: (
-    //     <AuthorizedPage>
-    //       <PageRegistrationForm />
-    //     </AuthorizedPage>
-    //   ),
-    //   path: '/registration',
-    //   includeFooter: true,
-    // },
+    {
+      label: 'Registration',
+      component: (
+        <AuthorizedPage>
+          <PageRegistrationForm />
+        </AuthorizedPage>
+      ),
+      path: '/registration',
+      includeFooter: true,
+    },
     {
       label: 'Registration Success',
       component: <PageRegistrationSuccess />,
@@ -156,11 +156,11 @@ export const pages = {
       ),
       path: '/registration-success-retreat',
     },
-    // {
-    //   label: 'sign-up',
-    //   component: <PageSignUp />,
-    //   path: '/sign-up',
-    // },
+    {
+      label: 'sign-up',
+      component: <PageSignUp />,
+      path: '/sign-up',
+    },
     {
       label: 'profile-edit',
       component: (
