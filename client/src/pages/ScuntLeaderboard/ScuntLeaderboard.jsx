@@ -16,39 +16,6 @@ import { loggedInSelector, userSelector } from '../../state/user/userSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import io from 'socket.io-client';
 
-const test = [
-  {
-    name: 'HIHIHI jhjhj',
-    number: 3, // group #3
-    points: 2000,
-  },
-  {
-    name: 'igsdkfj ea',
-    number: 3, // group #3
-    points: 2000,
-  },
-  {
-    name: 'asdfsgadjdd',
-    number: 3, // group #3
-    points: 50,
-  },
-  {
-    name: 'jhjhjh',
-    number: 12, // group #3
-    points: 50,
-  },
-  {
-    name: 'happi happi happi fgf fg',
-    number: 6, // group #3
-    points: 5110,
-  },
-  {
-    name: 'AADA DSAFKDGKAD',
-    number: 14, // group #3
-    points: 780,
-  },
-];
-
 const buttonStyle = { width: 'fit-content' };
 
 const ScuntLeaderboard = () => {
@@ -56,7 +23,7 @@ const ScuntLeaderboard = () => {
   const leader = user?.userType === 'leadur';
   const loggedIn = useSelector(loggedInSelector);
   const { scuntSettings } = useSelector(scuntSettingsSelector);
-  const [revealJudgesAndBribes, setRevealJudgesAndBribes] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
   const socket = io(`${import.meta.env.VITE_API_BASE_URL}/leaderboard`, { autoConnect: false });
   const [leaderboard, setLeaderboard] = useState([]);
 
@@ -95,11 +62,11 @@ const ScuntLeaderboard = () => {
 
   useEffect(() => {
     if (scuntSettings) {
-      setRevealJudgesAndBribes(scuntSettings?.revealJudgesAndBribes);
+      setShowLeaderboard(scuntSettings?.revealLeaderboard);
     }
   }, [scuntSettings]);
 
-  if ((revealJudgesAndBribes !== true && !leader) || !loggedIn || !user?.attendingScunt) {
+  if ((showLeaderboard !== true && !leader) || !loggedIn) {
     return (
       <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
         <ScuntLinks />
