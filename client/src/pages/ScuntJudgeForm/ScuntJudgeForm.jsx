@@ -11,7 +11,7 @@ import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDis
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
-import { submitBribePoints } from './functions';
+// import { submitBribePoints } from './functions';
 import greenCheck from '../../assets/misc/check-solid-green.svg';
 import { scuntMissionsSelector } from '../../state/scuntMissions/scuntMissionsSlice';
 import { getScuntMissions } from '../../state/scuntMissions/saga';
@@ -20,6 +20,7 @@ import {
   addPoints,
   getMissionStatus,
   getScuntTeams,
+  submitBribePoints,
   subtractPoints,
 } from '../../state/scuntTeams/saga';
 
@@ -219,19 +220,19 @@ const ScuntBribePoints = ({ teams, teamObjs }) => {
   const [assignedTeam, setAssignedTeam] = useState('');
   const [clearPointsInput, setClearPointsInput] = useState(false);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setRemainingBribePoints(user?.scuntJudgeBribePoints);
+  }, [user]);
+
   const { setSnackbar } = useContext(SnackbarContext);
   const submitBribe = async (teamNumber, points) => {
     if (points <= 0 || points === undefined) {
       setSnackbar('You cannot give 0 points!', true);
     } else {
-      const req = { teamNumber: teamNumber, points: points };
-      const result = await submitBribePoints(req);
-      if (result !== true) {
-        setSnackbar('Error - You may not have enough bribe points', true);
-      } else {
-        setSnackbar(`Added ${assignedPoints} points to ${assignedTeam?.name}`, false);
-        setAssignedPoints(0);
-      }
+      dispatch(submitBribePoints({ teamNumber, points, setSnackbar }));
+      setAssignedPoints(0);
     }
   };
 
@@ -323,8 +324,19 @@ const ScuntBribePoints = ({ teams, teamObjs }) => {
                 }
 
                 setClearPointsInput(true);
-                submitBribe(assignedTeam?.number, assignedPoints);
-                setRemainingBribePoints(remainingBribePoints - assignedPoints);
+                if (assignedPoints <= 0 || assignedPoints === undefined) {
+                  setSnackbar('You cannot give 0 points!', true);
+                } else {
+                  dispatch(
+                    submitBribePoints({
+                      teamNumber: assignedTeam?.number,
+                      assignedPoints,
+                      setSnackbar,
+                    }),
+                  );
+                  setAssignedPoints(0);
+                }
+                // setRemainingBribePoints(remainingBribePoints - assignedPoints);
               }}
             />
           </div>

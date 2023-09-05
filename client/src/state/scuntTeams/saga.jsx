@@ -167,6 +167,26 @@ export function* getMissionStatusSaga({ payload: { teamNumber, missionNumber, se
   }
 }
 
+export const submitBribePoints = createAction('submitBribePointsSaga');
+
+export function* submitBribePointsSaga({ payload: { teamNumber, points, setSnackbar } }) {
+  const { axios } = useAxios();
+  try {
+    yield put(addPointsStart());
+    yield put(updateUserInfoStart());
+    const result = yield call(axios.post, '/scunt-teams/transaction/bribe', {
+      teamNumber,
+      points,
+    });
+    yield put(addPointsSuccess(result.data.scuntTeams));
+    yield put(updateUserInfoSuccess(result.data.user));
+  } catch (error) {
+    yield put(addPointsFailure(error.response?.data?.errorMessage));
+    yield put(updateUserInfoFailure(error.response?.data?.errorMessage));
+    setSnackbar && setSnackbar(error.response?.data?.errorMessage, true);
+  }
+}
+
 export default function* scuntTeamsSaga() {
   yield takeLeading(getScuntTeams.type, getScuntTeamsSaga);
   yield takeLeading(getScuntTeamTransactions.type, getScuntTeamSaga);
@@ -176,4 +196,5 @@ export default function* scuntTeamsSaga() {
   yield takeLeading(subtractPoints.type, subtractPointsSaga);
   yield takeLeading(getMissionStatus.type, getMissionStatusSaga);
   yield takeLeading(addPoints.type, addPointsSaga);
+  yield takeLeading(submitBribePoints.type, submitBribePointsSaga);
 }
