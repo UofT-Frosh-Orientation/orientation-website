@@ -28,11 +28,11 @@ const ScuntMissionSchema = new mongoose.Schema({
     required: false,
     default: false,
   },
-  isJudgingStation: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
+  // isJudgingStation: {
+  //   type: Boolean,
+  //   required: false,
+  //   default: false,
+  // },
 });
 ScuntMissionSchema.methods.getResponseObject = getResponseObject;
 const ScuntMissionModel = mongoose.model('ScuntMission', ScuntMissionSchema);

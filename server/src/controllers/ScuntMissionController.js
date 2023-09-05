@@ -23,9 +23,16 @@ const ScuntMissionController = {
         category,
         points,
         isHidden = false,
-        isJudgingStation = false,
+        // isJudgingStation = false,
       } = req.body;
-      await ScuntMissionServices.create(number, name, category, points, isHidden, isJudgingStation);
+      await ScuntMissionServices.create(
+        number,
+        name,
+        category,
+        points,
+        isHidden,
+        // isJudgingStation
+      );
       return res.status(200).send({
         message: 'Successfully created mission #' + number.toString() + ' - ' + name.toString(),
       });
