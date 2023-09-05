@@ -655,13 +655,9 @@ export const ScuntMissionEntry = ({ mission, selected, completed, pointsAwarded 
       ) : null}
       <p className="mission-name">{mission?.name}</p>
 
-      {completed ? (
-        <h3 className="mission-points">
-          {pointsAwarded}/{mission?.points}
-        </h3>
-      ) : (
-        <h3 className="mission-points">{mission?.points}</h3>
-      )}
+      <h3 className="mission-points">
+        {completed ? pointsAwarded / mission?.points : mission?.points}
+      </h3>
     </div>
   );
 };

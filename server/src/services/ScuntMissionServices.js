@@ -53,14 +53,21 @@ const ScuntMissionServices = {
    * @param {Boolean} isJudgingStation
    * @returns {ScuntMission}
    */
-  async create(number, name, category, points, isHidden, isJudgingStation) {
+  async create(
+    number,
+    name,
+    category,
+    points,
+    isHidden,
+    //  isJudgingStation
+  ) {
     return ScuntMissionModel.create({
       number,
       name,
       category,
       points,
       isHidden,
-      isJudgingStation,
+      // isJudgingStation,
     }).then(
       (mission) => mission,
       (error) => {
@@ -115,10 +122,20 @@ const ScuntMissionServices = {
    * @param {Boolean} isJudgingStation
    * @returns {ScuntMission[]}
    */
-  async updateMissionVisibility(startMissionNumber, endMissionNumber, isHidden, isJudgingStation) {
+  async updateMissionVisibility(
+    startMissionNumber,
+    endMissionNumber,
+    isHidden,
+    // isJudgingStation
+  ) {
     return ScuntMissionModel.updateMany(
       { number: { $gte: startMissionNumber, $lte: endMissionNumber } },
-      { $set: { isHidden, isJudgingStation } },
+      {
+        $set: {
+          isHidden,
+          // isJudgingStation
+        },
+      },
       { strictQuery: false },
     ).then(
       (missions) => {
