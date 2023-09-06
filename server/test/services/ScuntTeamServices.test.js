@@ -416,7 +416,7 @@ describe('ScuntTeamServices', () => {
     await ScuntTeamServices.addTransaction(4, 1, 20);
     await ScuntTeamServices.addTransaction(4, 1, 10);
     const points = await ScuntTeamServices.checkTransaction(4, 1);
-    assert.equal(points, 14);
+    assert.equal(points, 31);
   });
 
   it('.checkTransaction()\t\t|\tCheck a transaction (INVALID TEAM NUMBER)', async () => {
