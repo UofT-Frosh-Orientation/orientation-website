@@ -204,6 +204,8 @@ const ScuntLeaderboardFullScreen = ({ arr }) => {
 };
 
 const ScuntLeaderboardDesktop = ({ arr }) => {
+  arr?.sort((a, b) => b.computedPoints - a.computedPoints);
+
   return (
     <div className="leaderboard-page-desktop">
       <table className="leaderboard-page-table">
@@ -225,7 +227,7 @@ const ScuntLeaderboardDesktop = ({ arr }) => {
 };
 
 const ScuntLeaderboardMobile = ({ arr }) => {
-  arr.sort((a, b) => b.computedPoints - a.computedPoints);
+  arr?.sort((a, b) => b.computedPoints - a.computedPoints);
 
   return (
     <div className="leaderboard-page-mobile">
