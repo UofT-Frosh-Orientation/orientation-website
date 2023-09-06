@@ -79,8 +79,8 @@ jobs:
       - name: Push client image to container registry
         run: docker push registry.digitalocean.com/uoft-orientation/orientation-client:beta
 
-      - name: Run garbage collector
-        run: doctl registry garbage-collection start --include-untagged-manifests --force uoft-orientation
+      # - name: Run garbage collector
+      #   run: doctl registry garbage-collection start --include-untagged-manifests --force uoft-orientation
 
   deploy_beta:
     runs-on: ubuntu-20.04
