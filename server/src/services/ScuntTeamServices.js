@@ -103,7 +103,7 @@ const ScuntTeamServices = {
 
     const leadur = await LeadurModel.findByIdAndUpdate(
       user.id,
-      { $set: { scuntJudgeBribePoints: user.scuntJudgeBribePoints - curvedPoints } },
+      { $set: { scuntJudgeBribePoints: user.scuntJudgeBribePoints - points } },
       { upsert: false, returnDocument: 'after' },
     ).then(
       (leadur) => {

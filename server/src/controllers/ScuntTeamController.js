@@ -32,12 +32,9 @@ const ScuntTeamController = {
   async bribeTransaction(req, res, next) {
     try {
       const { teamNumber, points } = req.body;
-      // const userId = req.user.id;
-      const { scuntTeam, leadur } = await ScuntTeamServices.bribeTransaction(
-        teamNumber,
-        points,
-        req.user,
-      );
+      const { leadur } = await ScuntTeamServices.bribeTransaction(teamNumber, points, req.user);
+      const scuntTeams = await ScuntTeamServices.getTeamPoints();
+
       return res.status(200).send({
         message:
           'Successfully added bribe points for team #' +
@@ -45,11 +42,11 @@ const ScuntTeamController = {
           ' of ' +
           points.toString(),
         user: leadur,
-        scuntTeam,
+        scuntTeams,
       });
-    } catch (e) {
-      req.log.fatal({ msg: 'Unable to process bribe transaction', e });
-      next(e);
+    } catch (error) {
+      req.log.fatal({ msg: 'Unable to process bribe transaction', error });
+      next(error);
     }
   },
 
