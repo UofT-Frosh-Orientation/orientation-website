@@ -35,7 +35,13 @@ const ScuntTeamServices = {
   async getTeamPoints() {
     //Get amount of teams (Scunt Game Settings) and points for each team
     //Add up and calculate all tranactions for each team
-    return ScuntTeamModel.find({}, { name: 1, number: 1, points: 1 }).then(
+    return ScuntTeamModel.find(
+      {},
+      { name: 1, number: 1, points: 1 },
+      {
+        sort: { points: -1 },
+      },
+    ).then(
       (teams) => {
         if (!teams.length) throw new Error('TEAMS_NOT_FOUND');
         return teams;
