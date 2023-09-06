@@ -56,7 +56,7 @@ const ScuntLeaderboard = () => {
   const leader = user?.userType === 'leadur';
   const loggedIn = useSelector(loggedInSelector);
   const { scuntSettings } = useSelector(scuntSettingsSelector);
-  const [revealJudgesAndBribes, setRevealJudgesAndBribes] = useState(false);
+  const [revealLeaderboard, setRevealLeaderboard] = useState(false);
   const socket = io(`${import.meta.env.VITE_API_BASE_URL}/leaderboard`, { autoConnect: false });
   const [leaderboard, setLeaderboard] = useState([]);
 
@@ -95,11 +95,11 @@ const ScuntLeaderboard = () => {
 
   useEffect(() => {
     if (scuntSettings) {
-      setRevealJudgesAndBribes(scuntSettings?.revealJudgesAndBribes);
+      setRevealLeaderboard(scuntSettings?.revealLeaderboard);
     }
   }, [scuntSettings]);
 
-  if ((revealJudgesAndBribes !== true && !leader) || !loggedIn || !user?.attendingScunt) {
+  if ((revealLeaderboard !== true && !leader) || !loggedIn) {
     return (
       <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
         <ScuntLinks />
