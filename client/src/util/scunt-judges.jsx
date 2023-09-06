@@ -15,6 +15,8 @@ import katie from '../assets/judges/katie.jpg';
 import emaan from '../assets/judges/emaan.jpg';
 import amelie from '../assets/judges/amelie.jpg';
 import tech from '../assets/judges/tech.png';
+import tyler from '../assets/judges/tyler.png';
+import will from '../assets/judges/will.jpg';
 
 export const scuntJudges = [
   {
@@ -274,5 +276,32 @@ export const scuntJudges = [
       'Haiku on why I should not go into work tomorrow',
     ],
     img: amelie,
+  },
+  {
+    name: 'Tyler',
+    description: 'Hello fellow kids, I enjoy CFCs and tobogganing down hills on concrete.',
+    content: [
+      'An unusual but delicious food combination',
+      'Convince the bnad to crash me and join them',
+      'Artwork of a cool train',
+      'Show me your fursona',
+      'Bring me all of my roommates',
+      'Find the city bylaw that allows me to sue my landlord for not having running water',
+    ],
+    img: tyler,
+  },
+  {
+    name: 'Will',
+    description:
+      'Hay there! My name is Will I’m a chem 2T5 I’m one of the scunt co-chairs and I L O V E love animal facts',
+    content: [
+      'Get sturdy for me',
+      'Get something new banded from the SUDS, the pit or SkavEnger Hunt’ that wasn’t banned before',
+      'Make fan art of me and Tyler',
+      'Best performance of“Jamaica there trapped down in…”',
+      'Bring me a grocery store cake, I’ll pay you back',
+      'Decorate my hat',
+    ],
+    img: will,
   },
 ];
