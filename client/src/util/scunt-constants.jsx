@@ -101,16 +101,6 @@ export const rules = {
       sub: 'The group that accumulates the most points, in the absence of any obvious cheating and/or other misconduct, by the end of the night shall be declared the winners.',
     },
     {
-      title: 'Prizes',
-      sub: 'The winners of the S!cavenger H!unt will receive a super cool first tier prize! The second place team will receive a super cool second tier prize! The third place group will receive a super cool third tier prize! All of these groups will earn the ability to go to other teams and say "Neener, neener, etc.", "HAHAHAHA HAHAHAHA! IN YOUR FACE #%$@*#*$*#!" or something similar. Essentially bragging rights forever.',
-
-      items: [
-        'Prizes will be available for pickup at Engineering Stores (located in the Pit) from Thursday, September 8th to Friday, September 16th, 2022.',
-        'Winners are only entitled to the prize designated for their place, however, trading prizes is allowed.',
-        'Any prizes left unclaimed by closing on Friday, September 16th will become a free-for-all for any F!rosh or upper year volunteers (limit 1 prize per person). Leftover prizes can be claimed starting Monday, September 19th.',
-      ],
-    },
-    {
       title: 'Kidnapping',
       sub: 'Any kidnapping requested by judges that occurs during the S!cavenger H!unt must follow this code:',
       items: [
@@ -133,7 +123,7 @@ export const rules = {
         'The Chairs have the reserved right to deduct up to infinity points from any team found to be in violation of Section 12 rules (Kidnapping) as laid out above or for breaking the law. This is only an option for situations that can be resolved to the satisfaction of all parties.',
         'The Chairs have the reserved right to disqualify teams or individuals that are found to be in irreparable breach of these rules. Furthermore, it is the Chairs’ responsibilities to bar judges that have proven to be in breach of their expected conduct.',
         'We may decide to have certain “requests” throughout the evening. Do keep in mind that we can give out as many points as we please while the judges have only so many… ',
-        'Our names are Christine and Tobin. You can probably find out more about us if you try. ',
+        'Our names are Tyler and William. You can probably find out more about us if you try.',
       ],
     },
     {
