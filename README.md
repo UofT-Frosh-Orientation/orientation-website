@@ -11,7 +11,10 @@ split into two "packages". First, there is the frontend package, `client`, and s
 package `server`.
 
 ## The Frosh 2T3 Web Team
-* Soon to come!
+### Team Leads
+* [Farbod M](https://github.com/Freeassassin), [Natalie Chan](https://github.com/natapokie)
+### Team members
+* [Vraj](https://github.com/vproHacks), [Uzma](https://github.com/uzFer), [Tanushanth](https://github.com/Tanushanth), [Sherry](https://github.com/Sherryzh0830)
 
 ## The Frosh 2T2 Web Team
 ### Webmasters
