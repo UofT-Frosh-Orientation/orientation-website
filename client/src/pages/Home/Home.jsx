@@ -76,8 +76,6 @@ const HomePageHeader = () => {
  checkIfRegistrationClosed();
 }, []);
 */ //commented out code that can call the backend to check if registration is closed
-
-
 const HomeHeaderButton = () => {
  const loggedIn = useSelector(loggedInSelector);
  const [isRegistrationClosed, setIsRegistrationClosed] = useState(true); //set to true makes registration closed
