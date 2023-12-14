@@ -33,32 +33,32 @@ const ScuntLeaderboard = () => {
       socket.emit('getScores');
     });
     socket.on('scores', (scores) => {
-      setLeaderboard(
-        scores.map((team) => {
-          if (team.points < 0) {
-            team.points = 0;
-          }
-          return team;
-        }),
-      );
+      // Sort the scores before setting the leaderboard state
+      const sortedScores = scores.map((team) => ({
+        ...team,
+        points: team.points < 0 ? 0 : team.points
+      })).sort((a, b) => b.points - a.points); // Sort by points in descending order
+  
+      setLeaderboard(sortedScores);
     });
     socket.on('update', (teamNumber, points) => {
       setLeaderboard((prevLeaderboard) => {
-        return prevLeaderboard.map((team) => {
-          if (team.number === teamNumber) {
-            team.points = points < 0 ? 0 : points;
-          }
-          return team;
-        });
+        const updatedLeaderboard = prevLeaderboard.map((team) => ({
+          ...team,
+          points: team.number === teamNumber ? Math.max(points, 0) : team.points
+        }));
+        // Sort again after updating
+        return updatedLeaderboard.sort((a, b) => b.points - a.points);
       });
     });
-
+  
     return () => {
       socket.off('connect');
       socket.off('scores');
       socket.disconnect();
     };
   }, []);
+  
 
   useEffect(() => {
     if (scuntSettings) {
@@ -130,17 +130,17 @@ const ScuntLeaderboardShow = ({ leaderboard }) => {
       </h2>
 
       <FullScreen handle={handle}>
-        <ScuntLeaderboardFullScreen arr={computedLeaderboard} />
+        <ScuntLeaderboardFullScreen arr={leaderboard} />
       </FullScreen>
 
       <div className="display-only-desktop">
         <div className="scunt-leaderboard">
           <Button style={buttonStyle} label="View Fullscreen" onClick={handle.enter} />
         </div>
-        <ScuntLeaderboardDesktop arr={computedLeaderboard} />
+        <ScuntLeaderboardDesktop arr={leaderboard} />
       </div>
       <div className="display-only-tablet">
-        <ScuntLeaderboardMobile arr={computedLeaderboard} />
+        <ScuntLeaderboardMobile arr={leaderboard} />
       </div>
     </>
   );
@@ -192,7 +192,6 @@ const ScuntLeaderboardDesktop = ({ arr }) => {
 };
 
 const ScuntLeaderboardMobile = ({ arr }) => {
-  arr.sort((a, b) => b.computedPoints - a.computedPoints);
 
   return (
     <div className="leaderboard-page-mobile">
