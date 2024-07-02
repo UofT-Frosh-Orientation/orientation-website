@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "concurrently": "^8.2.0",
+    "dotenv": "^16.4.5",
     "socket.io-client": "^4.5.2",
     "yarn": "^1.22.22"
   }

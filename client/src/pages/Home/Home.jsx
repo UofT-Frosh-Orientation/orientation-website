@@ -74,7 +74,7 @@ const HomeHeaderButton = () => {
       >
         <div className="home-page-header-register-button">
           <div className="desktop-only">
-            {/* <Button
+            <Button
               label={loggedIn ? 'View Profile' : 'Register Now!'}
               isSecondary
               style={{
@@ -85,14 +85,14 @@ const HomeHeaderButton = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-            /> */}
+            />
           </div>
           <div className="mobile-only">
-            {/* <Button
+            <Button
               label={loggedIn ? 'View Profile' : 'Register Now!'}
               isSecondary
               style={{ margin: '0px' }}
-            /> */}
+            />
           </div>
         </div>
       </Link>
