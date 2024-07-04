@@ -11,12 +11,7 @@ app.use(loggerMiddleware);
 
 const corsOptions = {
   credentials: true,
-  origin: [
-    process.env.CLIENT_BASE_URL,
-    process.env.API_BASE_URL,
-    'https://checkout.stripe.com',
-    'https://www.beta.orientation.skule.ca',
-  ],
+  origin: '*',
 };
 
 app.use(cors(corsOptions));
