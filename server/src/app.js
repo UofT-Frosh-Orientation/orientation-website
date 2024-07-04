@@ -17,6 +17,8 @@ const corsOptions = {
     'https://checkout.stripe.com',
     'https://www.beta.orientation.skule.ca',
   ],
+    methods: ['GET', 'POST', 'DELETE' ,'HEAD','PUT','PATCH'],
+    optionsSuccessStatus: 200 //
 };
 
 app.use(cors(corsOptions));
