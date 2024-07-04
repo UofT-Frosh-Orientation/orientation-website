@@ -14,6 +14,8 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // handle preflight requests for all routes
+
 
 app.use('/payment/stripe-callback', bodyParser.raw({ type: '*/*' }));
 app.use(bodyParser.json());
