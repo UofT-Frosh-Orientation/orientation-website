@@ -15,7 +15,7 @@ const corsOptions = {
     process.env.CLIENT_BASE_URL,
     process.env.API_BASE_URL,
     'https://checkout.stripe.com',
-    'https://www.orientation.skule.ca',
+    'https://www.beta.orientation.skule.ca',
   ],
 };
 
