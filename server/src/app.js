@@ -10,7 +10,13 @@ const app = express();
 app.use(loggerMiddleware);
 
 const corsOptions = {
-  origin: '*',
+  credentials: true,
+  origin: [
+    process.env.CLIENT_BASE_URL,
+    process.env.API_BASE_URL,
+    'https://checkout.stripe.com',
+    'https://www.beta.orientation.skule.ca',
+  ],
 };
 
 app.use(cors(corsOptions));
