@@ -10,7 +10,6 @@ const app = express();
 app.use(loggerMiddleware);
 
 const corsOptions = {
-  credentials: true,
   origin: '*',
 };
 
