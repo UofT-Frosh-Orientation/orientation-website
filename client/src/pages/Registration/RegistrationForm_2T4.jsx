@@ -18,6 +18,7 @@ import { useSelector } from 'react-redux';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 
 const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
+  console.log('This is a new version of Registration Form since 2T4 uu aa');
   const steps = Object.keys(fields);
   const [froshObject, setFroshObject] = useState({});
   const [formFields, setFormFields] = useState(fields);
@@ -38,7 +39,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     if (registered && !editFieldsPage) {
       navigate('/profile');
     }
-  }, []);
+  }, [registered, editFieldsPage, navigate]);
 
   const handleRegister = async () => {
     setCanRegister(false);
@@ -84,6 +85,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
         //   console.log(`${key}: ${value}`);
         // }
         froshObject['id'] = user.id;
+        console.log(user.id);
         const ReactPDF = await import('@react-pdf/renderer');
         const { MakeReceipt } = await import('../../components/MakeReceipt/MakeReceipt');
         const dataReceipt = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
@@ -119,11 +121,10 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   useEffect(() => {
     for (let step of steps) {
       Object.keys(formFields[step]).map((key, index) => {
-        // The form components will run onChange at mount if given a default value (so it will already be populated, we don't want to overwrite this value)
         if (froshObject[key] === undefined) return (froshObject[key] = undefined);
       });
     }
-  }, []);
+  }, [formFields, froshObject, steps]);
 
   const validateForm = () => {
     let validated = true;
