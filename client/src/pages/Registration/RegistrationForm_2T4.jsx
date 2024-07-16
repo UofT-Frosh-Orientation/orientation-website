@@ -200,7 +200,10 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
                   placeholder={field.placeholder}
                   onChange={(value) => {
-                    froshObject[key] = value;
+                    setFroshObject((prevState) => ({
+                      ...prevState,
+                      [key]: value,
+                    }));
                     if (field.onChanged) field.onChanged(value, disableField);
                   }}
                   isPhoneNumber={field.isPhoneNumber}
