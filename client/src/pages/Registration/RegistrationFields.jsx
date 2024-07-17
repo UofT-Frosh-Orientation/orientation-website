@@ -1,7 +1,7 @@
 // All the attributes of the objects correspond to their input type... except:
 // These must be included, even if the input type does not require this info
 //
-// isRequiredInput: if the field can be undefined before submission
+// isRequiredInput: if the field can be undefined before submission (text, label, dropdown, radio)
 // hasRestrictedInput (optional): replaces symbols like +-/{},etc. with ''
 // errorMessage: The message to show if the field is missing but is required
 // onChanged(value, disableFields): disable/enable fields based on a value (dependancies)

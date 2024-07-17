@@ -102,3 +102,22 @@
     padding: 0.5em 0.5em 0.5em 0.5em;
   }
 }
+
+.dropdown-input-required-star {
+  color: var(--red-error);
+  display: inline-block;
+  font-size: 13px;
+  margin-top: 17px;
+  margin-bottom: -10px;
+  font-weight: 800;
+  padding-left: 2px;
+}
+
+.dropdown-input-title-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.dropdown-input-title-container-disabled {
+  opacity: 0.4;
+}

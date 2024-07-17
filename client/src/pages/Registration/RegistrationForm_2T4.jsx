@@ -127,6 +127,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   }, [formFields, froshObject, steps]);
 
   const validateForm = () => {
+    console.log('Validating Form');
     let validated = true;
     const formFieldsCopy = { ...formFields };
     for (let step of steps) {
@@ -148,6 +149,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
               //We subtract one because the first key, which is EditFieldsOnly is skipped by the registration form
               setSelectedTab(steps.indexOf(step, 0) - 1);
               setSelectedTabGo(!selectedTabGo);
+              console.log('Not Good 1: ');
               validated = false;
             }
           }
@@ -156,13 +158,16 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
           (froshObject[key] === undefined || froshObject[key] === '') &&
           formFields[step][key].isRequiredInput === true
         ) {
-          formFieldsCopy[step][key].errorFeedback = formFields[step][key].errorMessage;
+          formFieldsCopy[step][key].errorFeedback = 'this is a mistake;'; //formFields[step][key].errorMessage;
           localValidated = false;
           if (validated === true) {
             //We subtract one because the first key, which is EditFieldsOnly is skipped by the registration form
             setSelectedTab(steps.indexOf(step, 0) - 1);
             setSelectedTabGo(!selectedTabGo);
             validated = false;
+            console.log('Not Good: ');
+            console.log(key);
+            console.log(formFields[step][key].errorMessage);
           }
         }
         if (localValidated !== false) {
@@ -171,6 +176,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
       }
     }
     setFormFields(formFieldsCopy);
+    console.log('Validation result:');
+    console.log(validated);
     return validated;
   };
 
@@ -244,6 +251,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   }
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
                   autoFocus={index === 0 ? true : false}
+                  isRequiredInput={field.isRequiredInput}
                 />
               </div>
             );
@@ -269,6 +277,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       : field.isDisabled
                   }
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
+                  isRequiredInput={field.isRequiredInput}
                 />
               </div>
             );

@@ -15,6 +15,7 @@ const Dropdown = ({
   localStorageKey,
   filterLabel,
   maxLetters,
+  isRequiredInput,
 }) => {
   const { darkMode } = useContext(DarkModeContext);
 
@@ -76,13 +77,26 @@ const Dropdown = ({
 
   return (
     <>
-      {label !== undefined ? (
-        <div className={`dropdown-header ${isDisabled === true ? 'dropdown-header-disabled' : ''}`}>
-          {label}
-        </div>
-      ) : (
-        <></>
-      )}
+      <div
+        className={
+          'dropdown-input-title-container' +
+          (isDisabled ? ' dropdown-input-title-container-disabled' : '')
+        }
+      >
+        {label !== undefined ? (
+          <p className={`dropdown-header ${isDisabled === true ? 'dropdown-header-disabled' : ''}`}>
+            {label}
+          </p>
+        ) : (
+          <></>
+        )}
+        {isRequiredInput !== undefined && isRequiredInput === true && label !== undefined ? (
+          <p className="dropdown-input-required-star">*</p>
+        ) : (
+          <></>
+        )}
+      </div>
+
       <div className={'dropdown-container'} ref={wrapperRef}>
         <div
           onClick={() => !isDisabled && setIsOpen(!isOpen)}
@@ -129,6 +143,7 @@ Dropdown.propTypes = {
   localStorageKey: PropTypes.string,
   filterLabel: PropTypes.func,
   maxLetters: PropTypes.number,
+  isRequiredInput: PropTypes.bool,
 };
 
 export { Dropdown };
