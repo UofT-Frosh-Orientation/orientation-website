@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { getQuestions } from './functions';
 import './FAQ.scss';
@@ -16,7 +16,7 @@ import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnim
 import Dragon from '../../assets/faq/dragon.svg';
 
 const PageFAQ = () => {
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isSearch, setIsSearch] = useState(false);
   const [isMultiSearch, setIsMultiSearch] = useState(false);
@@ -31,6 +31,10 @@ const PageFAQ = () => {
   const [loading, setLoading] = useState(true);
   const [errorLoading, setErrorLoading] = useState(false);
   const { setSnackbar } = useContext(SnackbarContext);
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   const loadQuestions = async () => {
     const data = await getQuestions(setSnackbar);
@@ -78,6 +82,29 @@ const PageFAQ = () => {
   useEffect(() => {
     loadQuestions();
   }, []);
+
+  useEffect(() => {
+    // Reset current page to 1 when category (activeIndex) changes
+    setCurrentPage(1);
+  }, [activeIndex]);
+
+  // Calculate total pages
+  const totalPages = Math.ceil((allQuestions[activeIndex]?.length || 0) / itemsPerPage);
+
+  // Handle page change
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  // Get current page questions
+  const currentQuestions = allQuestions[activeIndex]?.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  );
+
+  console.log('Current Page:', currentPage);
+  console.log('Total Pages:', totalPages);
+  console.log('Current Questions:', currentQuestions);
 
   return (
     <div>
@@ -129,9 +156,14 @@ const PageFAQ = () => {
               }`}
             >
               <FAQCategoryAccordions
-                allQuestions={allQuestions}
+                currentQuestions={currentQuestions}
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
+              />
+              <PaginationControls
+                currentPage={currentPage}
+                totalPages={totalPages}
+                handlePageChange={handlePageChange}
               />
             </div>
             <div
@@ -175,7 +207,7 @@ const FAQPageHeader = ({
   setActiveIndex,
   questionCategories,
 }) => {
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
   const filterQuestions = (questions, query) => {
     if (!query) {
       return questions;
@@ -313,9 +345,9 @@ FAQButtons.propTypes = {
   questionCategories: PropTypes.array.isRequired,
 };
 
-const FAQCategoryAccordions = ({ allQuestions, activeIndex }) => {
-  if (allQuestions[activeIndex] === undefined) return <></>;
-  const questionsAccordion = allQuestions[activeIndex].map((question, index) => (
+const FAQCategoryAccordions = ({ currentQuestions, activeIndex }) => {
+  if (!currentQuestions) return <></>;
+  const questionsAccordion = currentQuestions.map((question, index) => (
     <div key={index} className={'faq-accordion-wrapper'}>
       <FAQAccordionWrapper scheduleData={question} openStatus={false} activeIndex={activeIndex} />
     </div>
@@ -324,7 +356,7 @@ const FAQCategoryAccordions = ({ allQuestions, activeIndex }) => {
 };
 
 FAQCategoryAccordions.propTypes = {
-  allQuestions: PropTypes.array.isRequired,
+  currentQuestions: PropTypes.array.isRequired,
   activeIndex: PropTypes.number.isRequired,
 };
 
@@ -421,6 +453,26 @@ const FAQDisplayAllSearchQuestion = ({ selectedQuestions, questions }) => {
 FAQDisplayAllSearchQuestion.propTypes = {
   selectedQuestions: PropTypes.array.isRequired,
   questions: PropTypes.array.isRequired,
+};
+
+const PaginationControls = ({ currentPage, totalPages, handlePageChange }) => (
+  <div className="pagination-controls">
+    {Array.from({ length: totalPages }, (_, i) => (
+      <button
+        key={i + 1}
+        onClick={() => handlePageChange(i + 1)}
+        className={currentPage === i + 1 ? 'active' : ''}
+      >
+        {i + 1}
+      </button>
+    ))}
+  </div>
+);
+
+PaginationControls.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  handlePageChange: PropTypes.func.isRequired,
 };
 
 export { PageFAQ };

@@ -43,25 +43,69 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   const handleRegister = async () => {
     setCanRegister(false);
     const isFormValid = validateForm();
+    // console.log(isFormValid)
     if (!isFormValid) {
       return setCanRegister(true);
     } else {
       try {
+        // const convertedFroshObject = { ...froshObject };
+
+        // // Convert string values to booleans
+        // if (convertedFroshObject.attendingScunt === 'Yes') {
+        //   convertedFroshObject.attendingScunt = true;
+        // } else if (convertedFroshObject.attendingScunt === 'No') {
+        //   convertedFroshObject.attendingScunt = false;
+        // }
+
+        // if (convertedFroshObject.photograph === 'Yes') {
+        //   convertedFroshObject.photograph = true;
+        // } else if (convertedFroshObject.photograph === 'No') {
+        //   convertedFroshObject.photograph = false;
+        // }
+
+        // if (convertedFroshObject.accommodation === 'Yes') {
+        //   convertedFroshObject.accommodation = true;
+        // } else if (convertedFroshObject.accommodation === 'No') {
+        //   convertedFroshObject.accommodation = false;
+        // }
+
+        // if (convertedFroshObject.summerLocationQuery === 'Yes') {
+        //   convertedFroshObject.summerLocationQuery = true;
+        // } else if (convertedFroshObject.summerLocationQuery === 'No') {
+        //   convertedFroshObject.summerLocationQuery = false;
+        // }
+        
         let formData = new FormData();
         for (const [key, value] of Object.entries(froshObject)) {
           if (value === undefined) continue;
           formData.append(key, value);
         }
+        // for (let [key, value] of formData.entries()) {
+        //   console.log(`${key}: ${value}`);
+        // }
         froshObject['id'] = user.id;
         const ReactPDF = await import('@react-pdf/renderer');
         const { MakeReceipt } = await import('../../components/MakeReceipt/MakeReceipt');
         const dataReceipt = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
         formData.append('dataReceipt', dataReceipt);
+        // console.log(formData)
+        // console.log("form data executed")
         const response = await axios.post('/frosh/register', formData, {
           headers: { 'content-type': 'multipart/form-data' },
         });
+        // console.log("response executed")
+        // console.log(response.data.url)
         window.location.href = response.data.url;
       } catch (error) {
+        // console.error('Error message:', error.message);
+        // console.error('Error code:', error.code);
+        // console.error('Request config:', error.config);
+        // console.error('Request data:', error.config.data);
+        // if (error.response) {
+        //   console.error('Response data:', error.response.data);
+        //   console.error('Response status:', error.response.status);
+        //   console.error('Response headers:', error.response.headers);
+        // }
         console.log(error);
         setCanRegister(true);
       }
@@ -372,13 +416,15 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                         <img className="registration-icon-logo" src={MainFroshLogo}></img>
                         <div>
                           <h1 className="registration-first-step-title">
-                            {'Hello ' +
-                              (user?.preferredName === '' || !user?.preferredName
-                                ? user?.firstName
-                                : user?.preferredName)}
+                            {'HELLO ' +
+                              (user && (user.preferredName === '' || !user.preferredName)
+                                ? user.firstName
+                                : user
+                                ? user.preferredName.toUpperCase()
+                                : '')}
                           </h1>
                           <h2 className="registration-first-step-subtitle">
-                            Let&apos;s register for UofT Engineering&apos;s F!rosh Week 2T3
+                            LET&apos;S REGISTER FOR UOFT ENGINEERING&apos;S F!ROSH WEEK 2T4
                           </h2>
                         </div>
                       </div>
@@ -413,15 +459,10 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                         isDisabled={!canRegister}
                       />
                       <p className="register-terms-of-service" style={{ marginTop: '20px' }}>
-                        If you&apos;re looking to apply for a bursary, click{' '}
-                        <a
-                          href="https://forms.gle/UFajTRoBF8iWah2MA"
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          here
-                        </a>{' '}
-                        to submit in an application
+                        Note: We will be making bursary decisions after Frosh week and will refund
+                        the amount to the students after the decisions. Our team will reach out to
+                        you for more details regarding the bursary program. Bursaries range from
+                        partial to complete settlement of the ticket price.
                       </p>
                     </div>
                   ),

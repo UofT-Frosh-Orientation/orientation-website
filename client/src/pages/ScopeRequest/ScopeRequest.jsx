@@ -33,8 +33,8 @@ export const PageScopeRequest = () => {
       }}
     >
       <div className="scope-request-page">
-        <h1>Leadur Permissions Request</h1>
-        <h2>General Permissions</h2>
+        <h1>LEEDUR PERMISSIONS REQUEST</h1>
+        <h2>GENERAL PERMISSIONS</h2>
         <Button
           onClick={() => {
             setSelectAllGeneralScopes(true);
@@ -86,7 +86,7 @@ export const PageScopeRequest = () => {
           })}
         </div>
         <br />
-        <h2>Frosh Registration Information</h2>
+        <h2>FROSH REGISTRATION INFORMATION</h2>
         <Button
           onClick={() => {
             setSelectAllRegistrationScopes(true);

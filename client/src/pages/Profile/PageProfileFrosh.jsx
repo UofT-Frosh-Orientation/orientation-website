@@ -54,7 +54,7 @@ const PageProfileFrosh = () => {
       <div className="profile-info-row">
         <div className="profile-info-row-right">
           {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null}
-          {isRegistered ? <ProfilePageRetreat /> : null}
+          {/* {isRegistered ? <ProfilePageRetreat /> : null} */}
           {/* <ProfilePageNitelife /> */}
           <ProfilePageInstagrams />
           <ProfilePageAnnouncements />
@@ -130,7 +130,7 @@ const ProfilePageRetreat = () => {
               }}
             >
               <div>
-                <h2>Want to participate in F!rosh Retreat?</h2>
+                <h2>WANT TO PARTICIPATE IN F!ROSH RETREAT?</h2>
                 <p>
                   There are only a limited number of tickets, so get yours before it&apos;s too
                   late!{' '}
@@ -175,7 +175,7 @@ const ProfilePageFroshScuntMessage = () => {
       <div className="frosh-instagram-container">
         <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
         <div>
-          <h2>SkavENGer Hunt!</h2>
+          <h2>SKULE™ HUNT</h2>
           <p>Find more information about The Hunt by clicking here!</p>
         </div>
       </div>
@@ -239,8 +239,9 @@ const ProfilePageFroshHeader = ({ editButton }) => {
 
       {!isRegistered ? (
         <div className={'profile-not-registered'}>
-          <h1>You are not registered!</h1>
-          <h2>You will not be able to participate in F!rosh week events until you register.</h2>
+          <h1>YOU ARE NOT REGISTERED!</h1>
+          <h2>YOU WILL NOT BE ABLE TO PARTICIPATE IN F!ROSH WEEK EVENTS UNTIL YOU REGISTER.</h2>
+          {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
           <Link
             key={'/registration'}
             to={'/registration'}
@@ -372,7 +373,7 @@ const ProfilePageAnnouncements = () => {
 
   return (
     <div className="profile-page-announcements">
-      <h2 className="profile-page-section-header">Tasks and Announcements</h2>
+      <h2 className="profile-page-section-header">TASKS AND ANNOUNCEMENTS</h2>
       {!user?.canEmail ? (
         <Link
           key={'/resubscribe'}

@@ -20,7 +20,7 @@ const CreateAnnounce = () => {
 
   return (
     <div className="announcement-creator">
-      <h3>Send an Announcement</h3>
+      <h3>SEND AN ANNOUNCEMENT</h3>
       <div className="full-width-input">
         <TextInput
           label="Announcement Name"

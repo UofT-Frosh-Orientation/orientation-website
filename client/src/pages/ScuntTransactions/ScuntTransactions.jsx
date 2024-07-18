@@ -48,7 +48,7 @@ export const ScuntTransactions = () => {
       <div className="navbar-space-top"></div>
       <div className="scunt-point-transactions-page">
         <div className="scunt-point-transactions-container">
-          <h1>Point Transactions</h1>
+          <h1>POINT TRANSACTIONS</h1>
           <div className="separator" />
           <p>Transactions of all points that have been distributed to teams</p>
           <p>When displaying all teams, only the latest 50 transactions are shown</p>
@@ -67,7 +67,7 @@ export const ScuntTransactions = () => {
                 alignItems: 'center',
               }}
             >
-              <h2>Team:</h2>
+              <h2>TEAM:</h2>
               <div style={{ width: '10px' }}></div>
               <Dropdown
                 initialSelectedIndex={0}

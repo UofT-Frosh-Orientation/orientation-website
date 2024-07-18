@@ -85,6 +85,13 @@ const HomeHeaderButton = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
+              // hidden button xD
+              // style={{
+              // width: '0.px',
+              // height: '0.px',
+              // fontSize: '0px',
+              // opacity: '0',
+              // }}
             />
           </div>
           <div className="mobile-only">

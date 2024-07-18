@@ -1,5 +1,5 @@
 import oc1Photo from '../../assets/about/execs/Lily_pfp.png';
-import oc2Photo from '../../assets/about/execs/vedant_pfp.png';
+import oc2Photo from '../../assets/about/execs/vedant_pfp.webp';
 import vcFinance from '../../assets/about/execs/finance_pfp.png';
 import vcEvents1 from '../../assets/about/execs/vc-events_pfp.png';
 import vcEvents2 from '../../assets/about/execs/events_pfp.png';

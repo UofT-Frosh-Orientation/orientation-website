@@ -1,5 +1,10 @@
 @import '../../scssStyles/mixins';
 
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../../../../client/assets/fonts/proximanova_regular.ttf') format('opentype');
+}
+
 .sign-up-page {
   display: flex;
   flex-direction: column;
@@ -93,6 +98,7 @@
   width: 100vw;
   height: 100vh;
   display: flex;
+  font-family: 'Proxima Nova', sans-serif;
   // flex-direction: column;
   // align-items: center;
   // justify-content: center;
@@ -148,4 +154,8 @@
         opacity 1000ms ease-in-out ($i - 1.5) * 700ms;
     }
   }
+}
+
+.proxima-nova-text {
+  font-family: 'Proxima Nova', sans-serif;
 }

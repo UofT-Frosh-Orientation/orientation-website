@@ -6,6 +6,8 @@ import { WilliamLanding } from './WilliamLanding/WilliamLanding';
 import { AlissaLanding } from './AlissaLanding/AlissaLanding';
 import { AsmitaLanding } from './AsmitaLanding/AsmitaLanding';
 
+const currentYear = '2T4';
+
 const landingPages = [
   {
     key: 0,
@@ -25,25 +27,28 @@ const landingPages = [
   },
 ];
 
+// Change this logic to determine which landing pages to show
+const landingPagesFiltered = landingPages.filter((page) => page.year === currentYear);
+
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 export const LandingPage = () => {
   const [pageIndex, setPageIndex] = useState(null);
-
   useEffect(() => {
-    let randIdx = randomNumber(0, landingPages.length - 1);
-    const localIdx = window.localStorage.getItem('landing_page_idx');
+    if (landingPagesFiltered.length !== 1) {
+      let randIdx = randomNumber(0, landingPagesFiltered.length - 1);
+      const localIdx = window.localStorage.getItem('landing_page_idx');
 
-    if (localIdx !== null) {
-      while (randIdx === JSON.parse(localIdx)) {
-        randIdx = randomNumber(0, landingPages.length - 1);
+      if (localIdx !== null) {
+        while (randIdx === JSON.parse(localIdx)) {
+          randIdx = randomNumber(0, landingPagesFiltered.length - 1);
+        }
       }
+      window.localStorage.setItem('landing_page_idx', JSON.stringify(randIdx));
+      setPageIndex(JSON.parse(randIdx));
     }
-    window.localStorage.setItem('landing_page_idx', JSON.stringify(randIdx));
-
-    setPageIndex(JSON.parse(randIdx));
   }, []);
 
   useEffect(() => {
@@ -54,11 +59,14 @@ export const LandingPage = () => {
 
   return (
     <>
-      {landingPages.map((item) => {
-        if (item.key == pageIndex) {
-          return <div key={item.key}>{item.component}</div>;
-        }
-      })}
+      {landingPagesFiltered.length === 1
+        ? landingPagesFiltered[0].component
+        : landingPagesFiltered.map((item) => {
+            if (item.key === pageIndex) {
+              return <div key={item.key}>{item.component}</div>;
+            }
+            return null;
+          })}
     </>
   );
 };

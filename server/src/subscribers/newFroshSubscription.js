@@ -87,7 +87,7 @@ newFroshSubscription.process((job, done) => {
             <br />
             <div class="text-container">
               <h1>Hi ${job.data.preferredName},</h1>
-              <p><b>Thank you for registering for F!rosh Week 2T3!!!</b></p>
+              <p><b>Thank you for registering for F!rosh Week 2T4!!!</b></p>
               <p>
                 Please find attached your information PDF which includes a receipt of your data and your
                 unique QR code that you will use for a variety of activities during F!rosh Week.

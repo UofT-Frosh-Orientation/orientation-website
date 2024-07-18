@@ -99,7 +99,7 @@
   transition: transform 200ms, opacity 500ms;
   &:hover {
     transform: scale(1.03);
-    cursor: pointer;
+    cursor: url('../../../../assets/cursor/cursor-2t4.png'), auto; // Apply custom cursor here
   }
   h1 {
     font-size: 28px;

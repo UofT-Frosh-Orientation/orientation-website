@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import './PasswordReset.scss';
-import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
+import MainFroshLogo from '../../assets/logo/main-logo.png';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { validateEmail, validatePassword, validatePasswordLength } from '../SignUp/functions';
 import { Button } from '../../components/button/Button/Button';
@@ -94,8 +94,8 @@ export const PasswordReset = () => {
         <div className={'navbar-space-top'} />
         <div className={'password-reset-container'}>
           <img className={'password-reset-logo'} src={MainFroshLogo} alt={'Frosh week logo'} />
-          <h1 style={{ color: 'var(--text-dynamic)' }}>Reset your password</h1>
-          <h3 style={{ color: 'var(--text-dynamic)' }}>For F!rosh Week 2T3, UofT Engineering</h3>
+          <h1 style={{ color: 'var(--text-dynamic)' }}>RESET YOUR PASSWORD</h1>
+          <h3 style={{ color: 'var(--text-dynamic)' }}>For F!rosh Week 2T4, UofT Engineering</h3>
           <div className={'full-width-input'}>
             <TextInput
               label={'Email'}

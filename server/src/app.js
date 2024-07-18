@@ -26,6 +26,6 @@ app.options('*', cors(corsOptions)); // handle preflight requests for all routes
 
 
 app.use('/payment/stripe-callback', bodyParser.raw({ type: '*/*' }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
 
 module.exports = app;

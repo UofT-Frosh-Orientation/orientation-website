@@ -166,7 +166,7 @@ const UserController = {
       const { email, password, token } = req.body;
       const result = await UserServices.validatePasswordResetToken(token);
       const existingUser = await UserServices.getUserByEmail(email);
-      if (!existingUser || existingUser.email !== result.email) {
+      if (!existingUser || existingUser.email !== result.userEmail) {
         next(new Error('INVALID_PASSWORD_RESET_EMAIL'));
       } else {
         await UserServices.updatePassword(email, password);

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 export const ProfilePageResources = ({ froshObject }) => {
   return (
     <div className="profile-page-resources profile-page-side-section">
-      <h2>Resources</h2>
+      <h2>RESOURCES</h2>
       {resources.map((resource, index) => {
         return (
           <a

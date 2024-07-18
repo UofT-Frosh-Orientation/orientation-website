@@ -560,7 +560,7 @@ const CurrentScuntGameSettings = () => {
   return (
     <div className="current-scunt-game-settings-container">
       <h3 style={{ color: 'var(--text-dynamic)', textAlign: 'center', marginBottom: '20px' }}>
-        Current Scunt Settings
+        CURRENT SCUNT SETTINGS
       </h3>
 
       {scuntSettings ? (

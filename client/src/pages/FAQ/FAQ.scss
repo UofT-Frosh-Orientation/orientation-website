@@ -293,3 +293,30 @@
   text-align: center;
   color: var(--text-dynamic);
 }
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
+  button {
+    margin: 0 5px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--purple);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+      background-color: var(--light-purple);
+      color: var(--purple-shades-dark);
+    }
+
+    &.active {
+      background-color: var(--purple-shades-dark);
+      color: white;
+    }
+  }
+}

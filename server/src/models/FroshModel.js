@@ -91,6 +91,10 @@ const FroshSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    emergencyContactCountryCode: {
+      type: String,
+      required: false,
+    },
     emergencyContactNumber: {
       type: String,
       required: true,
@@ -132,12 +136,12 @@ const FroshSchema = new mongoose.Schema(
       type: Boolean, // true is attending scunt, false is not attending
       required: true,
     },
-    summerLocationCity: {
-      type: String,
+    attendingRetreat: {
+      type: Boolean, // true is attending retreat, false is not attending
       required: true,
     },
-    summerLocationCountry: {
-      type: String,
+    summerLocationQuery: {
+      type: Boolean,
       required: true,
     },
     moveToToronto: {
@@ -148,6 +152,14 @@ const FroshSchema = new mongoose.Schema(
     photograph: {
       type: Boolean, // true is okay with being photographed, false it not
       required: true,
+    },
+    marketing: {
+      type: [String],
+      required: false,
+    },
+    marketingOther: {
+      type: String,
+      required: false,
     },
     froshGroup: {
       type: String, //TODO: add enum validation to frosh groups with all valid Frosh Group names

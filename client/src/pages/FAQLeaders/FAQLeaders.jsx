@@ -28,7 +28,7 @@ const PageFAQLeaders = () => {
     <div>
       <div className={'faq-leaders-page'}>
         <div className={'faq-leaders-create-question-container'}>
-          <h1 className={'faq-leaders-titles'}>Create a new question!</h1>
+          <h1 className={'faq-leaders-titles'}>CREATE A NEW QUESTION!</h1>
           <FAQLeadersNewPost editMade={editMade} setEditMade={setEditMade} />
         </div>
         <div className={'faq-leaders-edit-question-container'}>
@@ -313,7 +313,7 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
         </span>
       </PopupModal>
       <div className={`${isEdit ? 'faq-leaders-hide' : ''}`}>
-        <h1 className={'faq-leaders-questions-titles'}>{questionText}</h1>
+        <h1 className={'faq-leaders-questions-titles' }>{questionText}</h1>
         <p className={'faq-leaders-description'}>
           <b>Answer:</b> {answerText}
         </p>
@@ -346,7 +346,7 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
           </div>
           <label>
             <div className={''}>
-              <h1 className={'faq-leaders-subtitles'}>Question</h1>
+              <h1 className={'faq-leaders-subtitles'}>QUESTION</h1>
               <TextInput
                 onChange={(text) => handleEditQuestion(text)}
                 inputType={'text'}
@@ -360,7 +360,7 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
           </label>
           <label>
             <div className={''}>
-              <h1 className={'faq-leaders-subtitles'}>Answer</h1>
+              <h1 className={'faq-leaders-subtitles'}>ANSWER</h1>
               <TextInput
                 onChange={(text) => handleEditAnswer(text)}
                 inputType={'textArea'}
@@ -374,7 +374,7 @@ const FAQLeadersQuestionWrapper = ({ question, editMade, setEditMade }) => {
           </label>
           <label>
             <div className={''}>
-              <h1 className={'faq-leaders-subtitles'}>Category</h1>
+              <h1 className={'faq-leaders-subtitles'}>CATEGORY</h1>
               <TextInput
                 onChange={(text) => handleEditCategory(text)}
                 inputType={'text'}

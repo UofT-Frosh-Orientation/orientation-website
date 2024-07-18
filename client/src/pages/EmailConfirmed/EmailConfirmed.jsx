@@ -24,7 +24,7 @@ const PageEmailConfirmed = () => {
       {validEmailToken ? (
         <div className="email-confirmed-page">
           <div className="email-confirmed-container">
-            <h1>Perfect!</h1>
+            <h1>PERFECT!</h1>
             <h2>Your email is now verified. Head to the login page to get started!</h2>
             <Link to={'/login'} style={{ textDecoration: 'none' }} className={'no-link-style'}>
               <Button label="Login Page" />

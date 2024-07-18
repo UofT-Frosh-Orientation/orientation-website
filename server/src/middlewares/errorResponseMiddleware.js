@@ -9,7 +9,7 @@ function errorResponseMiddleware(err, req, res, next) {
   } else if (err.errors) {
     // TODO: finish error handling when implementing proper backend validation
     statusCode = 400;
-    errorMessage = 'Please provide your full name.';
+    errorMessage = err.message;
   } else if (err.message === 'INVALID_EMAIL') {
     statusCode = 400;
     errorMessage = 'Please submit a valid email address.';
@@ -90,7 +90,7 @@ function errorResponseMiddleware(err, req, res, next) {
     errorMessage = 'Frosh not found. They might not be registered.';
   } else {
     statusCode = 500;
-    errorMessage = 'whoops we have no idea what happened!?';
+    errorMessage = err.errors;
   }
   //... for more error messages ...
 

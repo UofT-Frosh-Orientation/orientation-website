@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../../../../client/assets/fonts/proximanova_regular.ttf') format('opentype');
+}
+
 .email-confirmed-page {
   color: var(--text-dynamic);
   display: flex;
@@ -26,6 +31,7 @@
     margin-bottom: 30px;
   }
   h2 {
+    font-family: 'Proxima Nova', sans-serif;
     font-size: 25px;
     text-align: center;
     margin-bottom: 25px;

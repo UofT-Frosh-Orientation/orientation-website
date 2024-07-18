@@ -164,9 +164,9 @@
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -379,9 +379,9 @@ export const dataBeta = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -602,9 +602,9 @@ export const dataChi = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -825,9 +825,9 @@ export const dataDelta = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1048,9 +1048,9 @@ export const dataGamma = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1273,9 +1273,9 @@ export const dataIota = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1498,9 +1498,9 @@ export const dataKappa = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1723,9 +1723,9 @@ export const dataLambda = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -1948,9 +1948,9 @@ export const dataNu = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2171,9 +2171,9 @@ export const dataOmega = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2396,9 +2396,9 @@ export const dataOmicron = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2619,9 +2619,9 @@ export const dataPhi = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -2844,9 +2844,9 @@ export const dataPi = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3067,9 +3067,9 @@ export const dataPsi = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3298,9 +3298,9 @@ export const dataRho = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3529,9 +3529,9 @@ export const dataSigma = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3760,9 +3760,9 @@ export const dataTau = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -3985,9 +3985,9 @@ export const dataTheta = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -4208,9 +4208,9 @@ export const dataUpsilon = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -4431,9 +4431,9 @@ export const dataZeta = {
       Color: 'yellow',
     },
     {
-      'Event Name': 'HAVENGER SCUNT',
+      'Event Name': 'SKULE™ HUNT',
       'Event Description':
-        "Havenger Scunt: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
+        "SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!\nNitelife: You thought F!rosh week stopped at 6:00 pm? Think again we have activities every day of F!rosh Week for you to engage in! More details during the event on your <a href='/profile'>Profile</a> page.",
       'Start Time': '18:00:00 a1/p1',
       'End Time': 'Late',
       Color: 'dark-purple',
@@ -4540,7 +4540,7 @@ export const data = {
     {
       'Event Name': 'CAMPUS TOUR & BUILD BATTLE',
       'Event Description':
-        "Campus Tour: Be guided by your F!rosh Leedurs on a tour of our gorgeous campus, showing you all the best places to study, grab food, participate in extracurriculars, and nap! \nBuild Battle: Your first of many design challenges at UofT Engineering, except its probably the one of the coolest ones you do! Work with your frosh group to tackle your piece of the puzzle for this year's unique design challenge, coming together to build something truly amazing as a 2T7 class!",
+        "Campus Tour: Be guided by your F!rosh Leedurs on a tour of our gorgeous campus, showing you all the best places to study, grab food, participate in extracurriculars, and nap! \nBuild Battle: Your first of many design challenges at UofT Engineering, except its probably the one of the coolest ones you do! Work with your frosh group to tackle your piece of the puzzle for this year's unique design challenge, coming together to build something truly amazing as a 2T8 class!",
       'Start Time': '10:00 AM',
       'End Time': '12:00 PM',
       Color: 'yellow',
@@ -4562,7 +4562,7 @@ export const data = {
     {
       'Event Name': 'CAMPUS TOUR & BUILD BATTLE',
       'Event Description':
-        "Campus Tour: Be guided by your F!rosh Leedurs on a tour of our gorgeous campus, showing you all the best places to study, grab food, participate in extracurriculars, and nap! \nBuild Battle: Your first of many design challenges at UofT Engineering, except its probably the one of the coolest ones you do! Work with your frosh group to tackle your piece of the puzzle for this year's unique design challenge, coming together to build something truly amazing as a 2T7 class!",
+        "Campus Tour: Be guided by your F!rosh Leedurs on a tour of our gorgeous campus, showing you all the best places to study, grab food, participate in extracurriculars, and nap! \nBuild Battle: Your first of many design challenges at UofT Engineering, except its probably the one of the coolest ones you do! Work with your frosh group to tackle your piece of the puzzle for this year's unique design challenge, coming together to build something truly amazing as a 2T8 class!",
       'Start Time': '2:00 PM',
       'End Time': '5:00 PM',
       Color: 'yellow',
@@ -4616,7 +4616,7 @@ export const data = {
   ],
   'FRIDAY AUGUST 30': [
     {
-      'Event Name': 'F!ROSH OLYMPICS',
+      'Event Name': 'F!ROSH OLYMPIKS',
       'Start Time': '9:00 AM',
       'End Time': '5:00 PM',
       Color: 'gray',

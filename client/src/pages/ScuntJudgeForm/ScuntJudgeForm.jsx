@@ -70,7 +70,7 @@ export const PageScuntJudgeForm = () => {
     return (
       <div className="scunt-judge-form-page">
         <div className="scunt-judge-form-container">
-          <h1>Judging is not currently allowed.</h1>
+          <h1>JUDGING IS NOT CURRENTLY ALLOWED.</h1>
         </div>
       </div>
     );
@@ -78,7 +78,7 @@ export const PageScuntJudgeForm = () => {
   return (
     <div className="scunt-judge-form-page">
       <div className="scunt-judge-form-container">
-        <h1>Judge Dashboard</h1>
+        <h1>JUDGE DASHBOARD</h1>
         <h3>
           Hello,{' '}
           {user?.preferredName === '' || !user?.preferredName
@@ -108,7 +108,7 @@ const ScuntNegativePoints = ({ teams, teamObjs }) => {
   return (
     <div style={{ width: '100%' }}>
       <div style={{ height: '15px' }} />
-      <h2>Remove Points</h2>
+      <h2>REMOVE POINTS</h2>
       <>
         <div
           style={{

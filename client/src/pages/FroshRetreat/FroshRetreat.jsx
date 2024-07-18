@@ -36,14 +36,14 @@ export const FroshRetreat = () => {
 
   return (
     <div className="frosh-retreat-page">
-      <Header text={'Retreat'} underlineDesktop={'260px'} underlineMobile={'185px'}>
+      <Header text={'RETREAT'} underlineDesktop={'260px'} underlineMobile={'185px'}>
         <div className="info-header">
-          <h1>Remaining Tickets: {remainingTickets}</h1>
+          <h1>REMAINING TICKETS: {remainingTickets}</h1>
           <h3 style={{ color: 'var(--white)', margin: '20px 0', textAlign: 'center' }}>
-            Escape the city to the lovely Hart House Farms for a weekend of wholesome camp vibes!
+            ESCAPE THE CITY TO THE LOVELY HART HOUSE FARMS FOR A WEEKEND OF WHOLESOME CAMP VIBES!
           </h3>
           <p style={{ color: 'var(--white)' }}>
-            The retreat is taking place on September 9th and September 10th, 2023 at Hart House
+            The retreat is taking place on August 31st and September 1st, 2024 at Hart House
             Farm.
           </p>
           <p style={{ color: 'var(--white)' }}>
@@ -59,7 +59,7 @@ export const FroshRetreat = () => {
       </Header>
       <div style={{ height: '20px' }} />
       <h3 style={{ color: 'var(--white)', margin: '20px 0', textAlign: 'center' }}>
-        See this video of Retreat 2T0 for a sense of the trip!
+        SEE THIS VIDEO OF RETREAT 2T0 FOR A SENSE OF THE TRIP!
       </h3>
       <iframe
         className="frosh-retreat-video"
@@ -83,7 +83,7 @@ export const FroshRetreat = () => {
       </p>
 
       <div style={{ height: '20px' }} />
-      <h1>Registration</h1>
+      <h1>REGISTRATION</h1>
       <RetreatRegistration />
     </div>
   );
@@ -132,7 +132,7 @@ const FroshRetreatFAQ = () => {
       >
         <img src={egglinton} style={{ width: '200px', margin: '20px' }}></img>
         <h2 style={{ marginBottom: '20px' }}>
-          Get Moo-ving with our FAQs: Prepare for a Good Time Down on the Farm!
+          GET MOO-VING WITH OUR FAQS: PREPARE FOR A GOOD TIME DOWN ON THE FARM!
         </h2>
         {retreatFAQs.map((item, index) => {
           const [isOpen, setIsOpen] = useState(false);
@@ -214,7 +214,7 @@ const RetreatRegistration = () => {
       </p>
       <div className="retreat-registration-form">
         <div className="display-field">
-          <h3>Full name:</h3>{' '}
+          <h3>FULL NAME:</h3>{' '}
           <p>
             {user?.firstName +
               ' ' +
@@ -223,10 +223,10 @@ const RetreatRegistration = () => {
           </p>
         </div>
         <div className="display-field">
-          <h3>Email:</h3> <p>{user?.email}</p>
+          <h3>EMAIL:</h3> <p>{user?.email}</p>
         </div>
         <div className="display-field">
-          <h3>Phone Number:</h3>{' '}
+          <h3>PHONE NUMBER:</h3>{' '}
           <p>
             {(!user?.phoneNumberCountryCode ? '' : user?.phoneNumberCountryCode) +
               ' ' +
@@ -234,14 +234,14 @@ const RetreatRegistration = () => {
           </p>
         </div>
         <div className="display-field">
-          <h3>Dietary Restrictions:</h3>{' '}
+          <h3>DIETARY RESTRICTIONS:</h3>{' '}
           <p>
             {!user?.allergies || user?.allergies.length <= 0 ? 'None' : user?.allergies.join(', ')}
           </p>
           {!user?.allergiesOther ? <p>{user?.allergiesOther}</p> : <></>}
         </div>
         <div className="display-field">
-          <h3>Medical Info:</h3>{' '}
+          <h3>MEDICAL INFO:</h3>{' '}
           <p>{!user?.medicalInfo || user?.medicalInfo === '' ? 'None' : user?.medicalInfo}</p>
           <p>
             {!user?.specficMedicalInfo || user?.specficMedicalInfo === ''
@@ -250,11 +250,11 @@ const RetreatRegistration = () => {
           </p>
         </div>
         <div className="display-field">
-          <h3>Medication:</h3>{' '}
+          <h3>MEDICATION:</h3>{' '}
           <p>{!user?.medication || user?.medication === '' ? 'None' : user?.medication}</p>
         </div>
         <div className="display-field">
-          <h3>Emergency Contact:</h3>{' '}
+          <h3>EMERGENCY CONTACT:</h3>{' '}
           <p>{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${user?.emergencyContactNumber}`}</p>
         </div>
         <div className="radio-buttons-retreat">
@@ -267,7 +267,7 @@ const RetreatRegistration = () => {
             }}
             style={{ marginBottom: '25px' }}
           />
-          <h3>I have read and agree to the Frosh Retreat Waiver.</h3>
+          <h3>I HAVE READ AND AGREE TO THE FROSH RETREAT WAIVER.</h3>
           <h4>
             <i>
               By pressing &apos;Yes&apos; you/a guardian if you are under 18 have digitally signed

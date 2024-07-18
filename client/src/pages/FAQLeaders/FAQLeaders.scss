@@ -1,5 +1,10 @@
 @import '../../scssStyles/mixins';
 
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../../../../client/assets/fonts/proximanova_regular.ttf') format('opentype');
+}
+
 .faq-leaders-page {
   margin: 100px auto;
   width: 80%;
@@ -94,6 +99,7 @@
 .faq-leaders-titles {
   margin: 10px;
   text-align: center;
+  font-family: 'Proxima Nova', sans-serif;
   font-size: 30px;
   font-weight: bold;
   color: var(--text-dark-use);
@@ -106,6 +112,7 @@
   margin: 7px;
   font-size: 18px;
   color: var(--text-dark-use);
+  font-family: 'Proxima Nova', sans-serif;
   @include devices(tablet) {
     font-size: 15px;
   }
@@ -149,4 +156,8 @@
   font-weight: bold;
   margin: 10px;
   color: var(--text-dark-use);
+}
+
+.proxima-nova-text {
+  font-family: 'Proxima Nova', sans-serif;
 }

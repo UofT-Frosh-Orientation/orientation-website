@@ -28,6 +28,7 @@
   text-align: center;
   padding-top: 20%;
 }
+
 .ash-title-text {
   font-size: 64px;
   font-style: bold;
@@ -35,6 +36,7 @@
   margin-bottom: 24px;
   text-shadow: 0px 7px 10px rgba(0, 0, 0, 0.25);
 }
+
 hr.ash-line {
   top: 10px;
   width: 851px;
@@ -43,6 +45,7 @@ hr.ash-line {
   border-radius: 100px;
   margin-bottom: 24px;
 }
+
 .ash-subtitle {
   font-size: 20px;
   letter-spacing: 0.05em;
@@ -58,6 +61,7 @@ hr.ash-line {
   margin: 0 auto;
   padding-top: 70px;
 }
+
 .ash-button-container {
   display: grid;
   grid-template-columns: 1fr;
@@ -69,6 +73,7 @@ hr.ash-line {
     grid-template-columns: 1fr 1fr;
   }
 }
+
 .ash-button {
   display: flex;
   align-items: center;
@@ -101,6 +106,7 @@ hr.ash-line {
   color: var(--purple-shades-dark);
   transition: 0.3s;
 }
+
 .ash-button-icon {
   width: 30px;
   height: 30px;
@@ -121,6 +127,7 @@ hr.ash-line {
   align-items: center;
   color: var(--purple-shades-muted);
 }
+
 .ash-footer-text {
   text-align: center;
   font-size: 20px;
@@ -148,6 +155,7 @@ hr.ash-line {
     text-align: center;
     padding-top: 60%;
   }
+
   .ash-title-text {
     font-style: bold;
     font-size: 20px;
@@ -158,12 +166,14 @@ hr.ash-line {
 
     margin-bottom: 10px;
   }
+
   hr.ash-line {
     width: 274px;
     border: 1px solid var(--yellow);
     border-radius: 100px;
     margin-bottom: 10px;
   }
+
   .ash-subtitle {
     font-size: 12px;
     max-width: 274px;

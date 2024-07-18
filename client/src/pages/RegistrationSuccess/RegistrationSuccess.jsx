@@ -56,22 +56,21 @@ const PageRegistrationSuccess = () => {
             <div className="registration-success-page-container">
               <div className="registration-success-page-step1">
                 <div className="registration-success-page-step1-1-disappear">
-                  <h1 style={{ color: 'var(--black)' }}>Thank you for Registering</h1>
+                  <h1 style={{ color: 'var(--black)' }}>THANK YOU FOR REGISTERING</h1>
                 </div>
                 <div className="registration-success-page-step1-2-disappear">
-                  <h2 style={{ color: 'var(--black)' }}>for F!rosh Week 2T3</h2>
+                  <h2 style={{ color: 'var(--black)' }}>FOR F!ROSH WEEK 2T4</h2>
                   <p style={{ color: 'var(--black)' }} className="registration-success-wait-msg">
-                    {`${
-                      user.preferredName === '' || !user.preferredName
+                    {`${user.preferredName === '' || !user.preferredName
                         ? user.firstName
                         : user.preferredName
-                    }, your F!rosh group is...`}
+                      }, your F!rosh group is`}
                   </p>
                 </div>
               </div>
               <div className="registration-success-page-step2-disappear">
                 <div className="registration-success-page-step2">
-                  <h1 style={{ color: 'var(--black)' }}>Welcome to...</h1>
+                  <h1 style={{ color: 'var(--black)' }}>WELCOME TO...</h1>
                 </div>
               </div>
               <div className="registration-success-page-step3">
@@ -81,11 +80,11 @@ const PageRegistrationSuccess = () => {
                   </text>
                 </svg>
                 <div className="registration-success-page-step4">
-                  <h2 style={{ color: 'var(--black)' }}>{user.froshGroup + '!'}</h2>
+                  <h2 style={{ color: 'var(--black)' }}>{user.froshGroup.toUpperCase() + '!'}</h2>
                 </div>
                 <div className="registration-success-page-step5">
                   <Link to={'/profile'} className="no-link-style">
-                    <Button label="View My F!rosh Profile" />
+                    <Button label="VIEW MY F!ROSH PROFILE" />
                   </Link>
                 </div>
                 <div className="registration-success-page-step6">

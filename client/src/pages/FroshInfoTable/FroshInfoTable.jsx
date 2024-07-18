@@ -140,7 +140,7 @@ const PageFroshInfoTable = () => {
   return (
     <div className="frosh-info-table">
       <div className="header">
-        <h1>Frosh Data</h1>
+        <h1>FROSH DATA</h1>
         <div className="buttons-container">
           {user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') ? (
             <Button
@@ -267,8 +267,8 @@ const PageFroshInfoTable = () => {
       <div className="table-wrap">
         {froshList?.length === 0 ? (
           <div style={{ margin: '5%', textAlign: 'center' }}>
-            <h2>It looks a bit empty here...</h2>
-            <h2>Please read notes listed above and ensure you have the correct permissions.</h2>
+            <h2>IT LOOKS A BIT EMPTY HERE...</h2>
+            <h2>PLEASE READ NOTES LISTED ABOVE AND ENSURE YOU HAVE THE CORRECT PERMISSIONS.</h2>
             <br />
           </div>
         ) : (

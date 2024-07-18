@@ -69,9 +69,9 @@ const ScuntTeamServices = {
       );
 
       // finds the rank of the team (i.e., index in teams array)
-      const teamPosition = teams?.findIndex((t) => teamNumber === t.number) + 1;
+      const teamPosition = teams?.findIndex((t) => teamNumber === t.number);
 
-      return (teamPosition / teams.length) * totalPoints;
+      return (teamPosition / teams.length + 1.0) * totalPoints;
     } catch (error) {
       throw new Error('UNABLE_TO_CALCULATE_POINTS', { cause: error });
     }
@@ -85,8 +85,7 @@ const ScuntTeamServices = {
    * @returns {ScuntTeam , Leadur}
    */
   async bribeTransaction(teamNumber, points, user) {
-    const curvedPoints = await this.calculatePoints(teamNumber, points);
-    if (!user.scuntJudgeBribePoints || curvedPoints > user.scuntJudgeBribePoints)
+    if (!user.scuntJudgeBribePoints || points > user.scuntJudgeBribePoints)
       throw new Error('NOT_ENOUGH_BRIBE_POINTS');
 
     await ScuntGameSettingsModel.findOne({}).then(
@@ -116,12 +115,12 @@ const ScuntTeamServices = {
     return ScuntTeamModel.findOneAndUpdate(
       { number: teamNumber },
       {
-        $inc: { points: curvedPoints },
+        $inc: { points },
         $push: {
           transactions: [
             {
               name: `${points.toString()} points bribe from ${user.firstName} ${user.lastName}`,
-              points: curvedPoints,
+              points,
             },
           ],
         },

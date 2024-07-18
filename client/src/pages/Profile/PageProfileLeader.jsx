@@ -101,8 +101,8 @@ export const ProfilePageLeaderScuntMessage = () => {
       <div className="frosh-instagram-container">
         <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
         <div>
-          <h2>Havenger Scunt!</h2>
-          <p>Find more information about Scunt by clicking here!</p>
+          <h2>SKULE™ HUNT!</h2>
+          <p>Find more information about The Hunt by clicking here!</p>
         </div>
       </div>
     </Link>

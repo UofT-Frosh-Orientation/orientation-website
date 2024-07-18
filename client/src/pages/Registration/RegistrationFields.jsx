@@ -199,14 +199,14 @@ export const fields = {
       localStorageKey: 'registration-phoneNumberCountryCode',
       className: 'small-width-input',
       inputTitle: 'Country Code',
-      maxLength: 3,
+      maxLength: 4,
       noEdit: false,
       validation: (value) => {
         if (/^[+0-9]*$/.test(value)) {
-          if (value.length <= 3) {
+          if (value.length <= 4) {
             return true;
           } else {
-            return 'Must be at most 3 characters';
+            return 'Must be at most 4 characters';
           }
         } else {
           return 'Must contain characters 0-9 or +';
@@ -253,17 +253,43 @@ export const fields = {
       className: 'half-width-input',
       validation: textLengthValidation,
     },
+    emergencyContactNumberLabel: {
+      type: 'label',
+      label: 'Emergency Contact Phone Number',
+      isRequiredInput: true,
+    },
+    emergencyContactCountryCode: {
+      type: 'text',
+      inputType: 'text',
+      placeholder: '+1',
+      hasRestrictedInput: false,
+      localStorageKey: 'registration-emergencyContactNumberCountryCode',
+      className: 'small-width-input',
+      inputTitle: 'Country Code',
+      maxLength: 4,
+      noEdit: false,
+      validation: (value) => {
+        if (/^[+0-9]*$/.test(value)) {
+          if (value.length <= 4) {
+            return true;
+          } else {
+            return 'Must be at most 4 characters';
+          }
+        } else {
+          return 'Must contain characters 0-9 or +';
+        }
+      },
+    },
     emergencyContactNumber: {
       type: 'text',
       inputType: 'text',
-      label: 'Emergency Contact Phone Number',
       placeholder: '(416) 123-4567',
       hasRestrictedInput: true,
       isRequiredInput: true,
       noEdit: false,
       errorMessage: 'Please enter a valid phone number',
       localStorageKey: 'registration-emergencyContactNumber',
-      className: 'half-width-input',
+      className: 'fill-remaining-width-input',
       isPhoneNumber: true,
       inputTitle: 'Phone Number',
       validation: phoneNumberValidation,
@@ -271,7 +297,7 @@ export const fields = {
   },
   HealthSafety: {
     medicalInfo: {
-      type: 'dropdown',
+      type: 'radio',
       values: ['Yes', 'No'],
       initialSelectedIndex: 1,
       label: 'Medical Conditions',
@@ -375,10 +401,9 @@ export const fields = {
       },
     },
     accommodation: {
-      type: 'dropdown',
+      type: 'radio',
       label: 'Would you like us to reach out to you about how we can best accommodate you?',
       values: ['Yes', 'No'],
-      initialSelectedIndex: 0,
       isRequiredInput: false,
       noEdit: false,
       localStorageKey: 'registration-accommodation',
@@ -396,9 +421,9 @@ export const fields = {
       localStorageKey: 'registration-shirtSize',
     },
     attendingScunt: {
-      type: 'dropdown',
+      type: 'radio',
       label:
-        'Would you like to participate in Havenger Scunt? (It will take place on the evening of Wednesday, August 28th)',
+        'Would you like to participate in SKULE™ HUNT? (It will take place on the evening of Wednesday, August 28th)',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       localStorageKey: 'registration-scunt',
@@ -408,22 +433,13 @@ export const fields = {
     scuntInfo: {
       type: 'label',
       label:
-        "What is Havenget Scunt? Havenger Scunt is a scavenger hunt around the city of Toronto! Don't miss out on one of the most popular f!rosh week events! Scunt is an exciting night of challenges for all comfort levels.",
+        "What is SKULE™ HUNT? SKULE™ HUNT is a scavenger hunt around the city of Toronto! Don't miss out on one of the most popular f!rosh week events! Hunt is an exciting night of challenges for all comfort levels.",
       isBold: true,
     },
-    attendingNiteLifeCarnival: {
-      type: 'dropdown',
-      label: 'Would you be interested in attending a carnival with other UofT Departments?',
-      values: ['Yes', 'No'],
-      initialSelectedIndex: 0,
-      isRequiredInput: false,
-      noEdit: false,
-      localStorageKey: 'registration-attendingNiteLifeCarnival',
-    },
     attendingRetreat: {
-      type: 'dropdown',
+      type: 'radio',
       label:
-        'Would you like to attend an overnight retreat on September 9th-10th at Hart House Farms (at an additional cost)?',
+        'Would you like to attend an overnight retreat on August 31st-September 1st at Hart House Farms (at an additional cost)?',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       isRequiredInput: false,
@@ -432,12 +448,12 @@ export const fields = {
     },
 
     summerLocationQuery: {
-      type: 'dropdown',
+      type: 'radio',
       label:
         'Will you be based in Toronto or the GTA over the summer?  (or would you be available for events)',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
-      isRequiredInput: false,
+      isRequiredInput: true,
       noEdit: false,
       localStorageKey: 'registration-summerLocationQuery',
     },
@@ -451,41 +467,61 @@ export const fields = {
       noEdit: false,
       localStorageKey: 'registration-moveToToronto',
     },
-    commuterProgramQuery: {
-      type: 'dropdown',
-      label:
-        'Will you take part in the Commuter Program (you can still sign up via links on Instagram and Frosh week website)?',
-      values: ['Yes', 'No', 'Put me on the Waitlist'],
-      initialSelectedIndex: 0,
-      isRequiredInput: false,
-      noEdit: false,
-      localStorageKey: 'registration-commuterProgramQuery',
-    },
-    commuterChestnutQuery: {
-      type: 'dropdown',
-      label: 'Would you like to stay up at Chestnut during Frosh week with an additional cost?',
+    photograph: {
+      type: 'radio',
+      label: 'Are you okay with being photographed during Frosh Week?',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
-      isRequiredInput: false,
-      noEdit: false,
-      localStorageKey: 'registration-commuterChestnutQuery',
+      noEdit: true,
+      localStorageKey: 'registration-photograph',
     },
-    bursary: {
-      type: 'dropdown',
-      label: 'Would you be interested in a bursary?',
+    priceInfo: {
+      type: 'label',
+      label: 'The price of one Frosh Week ticket is 130 CAD.',
+      isBold: true,
+    },
+    bursaryRequested: {
+      type: 'radio',
+      label: 'Do you require any bursary or financial aid for your Frosh Week ticket?',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       isRequiredInput: false,
       noEdit: false,
       localStorageKey: 'registration-bursary',
     },
-    photograph: {
-      type: 'dropdown',
-      label: 'Are you okay with being photographed during Frosh Week?',
-      values: ['Yes', 'No'],
-      initialSelectedIndex: 0,
-      noEdit: true,
-      localStorageKey: 'registration-photograph',
+    marketing: {
+      type: 'checkbox',
+      label: 'How did you hear about F!rosh Week?',
+      values: ['Instagram', 'First Year News Feed', 'Word of Mouth', 'Discord', 'Other'],
+      isRequiredInput: false,
+      noEdit: false,
+      localStorageKey: 'registration-marketing',
+      onChanged: (values, disableField) => {
+        if (values.includes('Other')) {
+          disableField(false, 'marketingOther', 'ExtraEvents');
+        } else {
+          disableField(true, 'marketingOther', 'ExtraEvents');
+        }
+      },
+    },
+    marketingOther: {
+      type: 'text',
+      inputType: 'textArea',
+      label:
+        'If you heard about F!rosh Week through a different method not listed above, please list it here.',
+      placeholder: 'Facebook',
+      hasRestrictedInput: true,
+      isRequiredInput: false,
+      noEdit: false,
+      localStorageKey: 'registration-marketingMore',
+      isDisabled: true, // to initially set to disabled until 'Other' is clicked
+      validation: (value) => {
+        if (value.length > 100) {
+          return 'Please use less than 100 characters';
+        } else {
+          return true;
+        }
+      },
     },
   },
 };

@@ -6,6 +6,7 @@ import PEO from '../assets/sponsors/PEO.png';
 import UTSU from '../assets/sponsors/UTSU.jpg';
 import Mogu from '../assets/sponsors/MoguMogu.png';
 import Nani from '../assets/sponsors/Nanis.png';
+import Longos from '../assets/sponsors/Longos.jpg';
 
 export const sponsors = [
   {
@@ -16,27 +17,6 @@ export const sponsors = [
     label: 'Diamond sponsor: Alumni Office', // the label when user hovers on image in 'View All' state
   },
   {
-    website: 'https://www.neomaterials.com/',
-    image: Neo,
-    scale: 0.7,
-    rank: 'gold',
-    label: 'Gold sponsor: Neo Performance',
-  },
-  {
-    website: 'https://www.cocofreshtea.ca/',
-    image: Coco,
-    scale: 0.7,
-    rank: 'gold',
-    label: 'Silver sponsor: Coco',
-  },
-  {
-    website: 'https://www.utsu.ca/',
-    image: UTSU,
-    scale: 0.7,
-    rank: 'bronze',
-    label: 'Bronze sponsor: UTSU',
-  },
-  {
     website: 'https://www.peo.on.ca/',
     image: PEO,
     scale: 0.82,
@@ -44,22 +24,50 @@ export const sponsors = [
     label: 'Bronze sponsor: PEO',
   },
   {
-    website: 'https://ospe.on.ca/',
-    image: OSPE,
-    scale: 0.82,
-    rank: 'bronze',
-    label: 'Bronze sponsor: OSPE',
-  },
-  {
-    image: Mogu,
-    scale: 0.82,
-    rank: 'bronze',
-    label: 'Bronze sponsor: Mogu',
-  },
-  {
     image: Nani,
     scale: 0.82,
     rank: 'bronze',
     label: 'Bronze sponsor: Nani’s Gelato',
   },
+  {
+    website: 'https://www.longos.com/about-us/in-the-community',
+    image: Longos,
+    scale: 0.82,
+    rank: 'bronze',
+    label: 'Bronze sponsor: Longos',
+  },
+  // {
+  //   website: 'https://ospe.on.ca/',
+  //   image: OSPE,
+  //   scale: 0.82,
+  //   rank: 'bronze',
+  //   label: 'Bronze sponsor: OSPE',
+  // },
+  // {
+  //   image: Mogu,
+  //   scale: 0.82,
+  //   rank: 'bronze',
+  //   label: 'Bronze sponsor: Mogu',
+  // },
+  // {
+  //   website: 'https://www.neomaterials.com/',
+  //   image: Neo,
+  //   scale: 0.7,
+  //   rank: 'gold',
+  //   label: 'Gold sponsor: Neo Performance',
+  // },
+  // {
+  //   website: 'https://www.cocofreshtea.ca/',
+  //   image: Coco,
+  //   scale: 0.7,
+  //   rank: 'gold',
+  //   label: 'Silver sponsor: Coco',
+  // },
+  // {
+  //   website: 'https://www.utsu.ca/',
+  //   image: UTSU,
+  //   scale: 0.7,
+  //   rank: 'bronze',
+  //   label: 'Bronze sponsor: UTSU',
+  // },
 ];

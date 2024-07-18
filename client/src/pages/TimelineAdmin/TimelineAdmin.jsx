@@ -14,11 +14,11 @@ const PageTimelineAdmin = () => {
   return (
     <div className={'timeline-admin-page'}>
       <div className={'timeline-admin-create-event-container'}>
-        <h1 className={'timeline-admin-titles'}>Create a new timeline event!</h1>
+        <h1 className={'timeline-admin-titles'}>CREATE A NEW TIMELINE EVENT!</h1>
         <CreateNewTimelineEvent editMade={editMade} setEditMade={setEditMade} />
       </div>
       <div className={'timeline-admin-existing-events-container'}>
-        <h1 className={'timeline-admin-titles'}>Existing events</h1>
+        <h1 className={'timeline-admin-titles'}>EXISTING EVENTS</h1>
         <ExistingTimelineEvents editMade={editMade} setEditMade={setEditMade} />
       </div>
     </div>
@@ -109,7 +109,7 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
     <form>
       <label>
         <div>
-          <h1 className={'timeline-admin-subtitles'}>Event Name</h1>
+          <h1 className={'timeline-admin-subtitles'}>EVENT NAME</h1>
           <TextInput
             onChange={(text) => handleEditEventName(text)}
             inputType={'text'}
@@ -123,7 +123,7 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
       </label>
       <label>
         <div>
-          <h1 className={'timeline-admin-subtitles'}>Date</h1>
+          <h1 className={'timeline-admin-subtitles'}>DATE</h1>
           <TextInput
             onChange={(date) => handleEditDate(date)}
             inputType={'date'}
@@ -138,7 +138,7 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
       </label>
       <label>
         <div>
-          <h1 className={'timeline-admin-subtitles'}>Description</h1>
+          <h1 className={'timeline-admin-subtitles'}>DESCRIPTION</h1>
           <TextInput
             onChange={(text) => handleEditDescription(text)}
             inputType={'textArea'}
@@ -152,7 +152,7 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
       </label>
       <label>
         <div>
-          <h1 className={'timeline-admin-subtitles'}>Link</h1>
+          <h1 className={'timeline-admin-subtitles'}>LINK</h1>
           <TextInput
             onChange={(text) => handleEditLink(text)}
             inputType={'text'}
@@ -166,7 +166,7 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
       </label>
       <label>
         <div>
-          <h1 className={'timeline-admin-subtitles'}>Label for the link</h1>
+          <h1 className={'timeline-admin-subtitles'}>LABEL FOR THE LINK</h1>
           <TextInput
             onChange={(text) => handleEditLinkLabel(text)}
             inputType={'text'}

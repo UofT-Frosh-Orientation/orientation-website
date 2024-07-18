@@ -16,7 +16,7 @@ export const rules = {
       sub: 'To compete in the S!cavenger H!unt, one must be:',
       items: [
         'Human, or near human (Engineering Science students will be accepted).',
-        'A F!rosh (2T7!).',
+        'A F!rosh (2T8!).',
         'Currently enrolled within the Faculty of Applied Science and Engineering at the University of Toronto.',
         'Have officially registered for the event via F!rosh Week 2T3.',
       ],
