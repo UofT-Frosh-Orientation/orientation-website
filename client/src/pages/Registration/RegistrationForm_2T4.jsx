@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { fields, terms } from './RegistrationFields';
 import { TextInput } from '../../components/input/TextInput/TextInput';
@@ -18,8 +18,8 @@ import { useSelector } from 'react-redux';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 
 const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
-  console.log('This is a new version of Registration Form since 2T4 uu aa');
-  const steps = Object.keys(fields);
+  console.log('This is a new version of Registration Form since 2T4, by ChatGPT');
+  const steps = useMemo(() => Object.keys(fields), [fields]);
   const [froshObject, setFroshObject] = useState({});
   const [formFields, setFormFields] = useState(fields);
   const [selectedTab, setSelectedTab] = useState(0);
@@ -30,10 +30,10 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   const [errorAfterEdit, setErrorAfterEdit] = useState(false);
 
   const { axios } = useAxios();
-
   const navigate = useNavigate();
 
   const registered = useSelector(registeredSelector);
+  const user = useSelector(userSelector)?.user;
 
   useEffect(() => {
     if (registered && !editFieldsPage) {
@@ -41,95 +41,22 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     }
   }, [registered, editFieldsPage, navigate]);
 
-  const handleRegister = async () => {
-    setCanRegister(false);
-    const isFormValid = validateForm();
-    // console.log(isFormValid)
-    if (!isFormValid) {
-      return setCanRegister(true);
-    } else {
-      try {
-        // const convertedFroshObject = { ...froshObject };
-
-        // // Convert string values to booleans
-        // if (convertedFroshObject.attendingScunt === 'Yes') {
-        //   convertedFroshObject.attendingScunt = true;
-        // } else if (convertedFroshObject.attendingScunt === 'No') {
-        //   convertedFroshObject.attendingScunt = false;
-        // }
-
-        // if (convertedFroshObject.photograph === 'Yes') {
-        //   convertedFroshObject.photograph = true;
-        // } else if (convertedFroshObject.photograph === 'No') {
-        //   convertedFroshObject.photograph = false;
-        // }
-
-        // if (convertedFroshObject.accommodation === 'Yes') {
-        //   convertedFroshObject.accommodation = true;
-        // } else if (convertedFroshObject.accommodation === 'No') {
-        //   convertedFroshObject.accommodation = false;
-        // }
-
-        // if (convertedFroshObject.summerLocationQuery === 'Yes') {
-        //   convertedFroshObject.summerLocationQuery = true;
-        // } else if (convertedFroshObject.summerLocationQuery === 'No') {
-        //   convertedFroshObject.summerLocationQuery = false;
-        // }
-
-        let formData = new FormData();
-        for (const [key, value] of Object.entries(froshObject)) {
-          if (value === undefined) continue;
-          formData.append(key, value);
-        }
-        // for (let [key, value] of formData.entries()) {
-        //   console.log(`${key}: ${value}`);
-        // }
-        froshObject['id'] = user.id;
-        console.log(user.id);
-        const ReactPDF = await import('@react-pdf/renderer');
-        const { MakeReceipt } = await import('../../components/MakeReceipt/MakeReceipt');
-        const dataReceipt = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
-        formData.append('dataReceipt', dataReceipt);
-        // console.log(formData)
-        // console.log("form data executed")
-        const response = await axios.post('/frosh/register', formData, {
-          headers: { 'content-type': 'multipart/form-data' },
-        });
-        // console.log("response executed")
-        // console.log(response.data.url)
-        window.location.href = response.data.url;
-      } catch (error) {
-        // console.error('Error message:', error.message);
-        // console.error('Error code:', error.code);
-        // console.error('Request config:', error.config);
-        // console.error('Request data:', error.config.data);
-        // if (error.response) {
-        //   console.error('Response data:', error.response.data);
-        //   console.error('Response status:', error.response.status);
-        //   console.error('Response headers:', error.response.headers);
-        // }
-        console.log(error);
-        setCanRegister(true);
-      }
-    }
-  };
-
-  const handleCheckout = () => {
-    window.location.href = checkoutUrl;
-  };
-
   useEffect(() => {
+    const initialFroshObject = {};
     for (let step of steps) {
-      Object.keys(formFields[step]).map((key, index) => {
-        if (froshObject[key] === undefined) return (froshObject[key] = undefined);
+      Object.keys(formFields[step]).forEach((key) => {
+        initialFroshObject[key] = undefined;
       });
     }
-  }, [formFields, froshObject, steps]);
+    setFroshObject(initialFroshObject);
+  }, [formFields, steps]);
 
   const validateForm = () => {
     console.log('Validating Form');
     let validated = true;
     const formFieldsCopy = { ...formFields };
+    const updatedFroshObject = { ...froshObject };
+
     for (let step of steps) {
       if (step === 'EditFieldsOnly' && !editFieldsPage) {
         continue;
@@ -137,32 +64,42 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
 
       for (let key of Object.keys(formFields[step])) {
         let localValidated = true;
+
         if (formFields[step][key].type === 'label') {
           continue;
         }
-        if (formFields[step][key].validation !== undefined) {
-          const validateResult = formFields[step][key].validation(froshObject[key]);
+
+        const value = updatedFroshObject[key];
+        const field = formFields[step][key];
+
+        if (field.validation) {
+          if (value === undefined || value === '') {
+            formFieldsCopy[step][key].errorFeedback = field.errorMessage || 'This should be empty!';
+          }
+          console.log('the value here is ');
+          console.log(step);
+          console.log(key);
+          console.log(value.length);
+          const validateResult = field.validation(value);
           if (validateResult !== true) {
             formFieldsCopy[step][key].errorFeedback = validateResult;
             localValidated = false;
-            if (validated === true) {
+            if (validated) {
               //We subtract one because the first key, which is EditFieldsOnly is skipped by the registration form
-              setSelectedTab(steps.indexOf(step, 0) - 1);
+              setSelectedTab(steps.indexOf(step) - 1);
               setSelectedTabGo(!selectedTabGo);
               console.log('Not Good 1: ');
               validated = false;
             }
           }
         }
-        if (
-          (froshObject[key] === undefined || froshObject[key] === '') &&
-          formFields[step][key].isRequiredInput === true
-        ) {
-          formFieldsCopy[step][key].errorFeedback = 'this is a mistake;'; //formFields[step][key].errorMessage;
+
+        if ((value === undefined || value === '') && field.isRequiredInput) {
+          formFieldsCopy[step][key].errorFeedback = field.errorMessage || 'This field is required';
           localValidated = false;
-          if (validated === true) {
+          if (validated) {
             //We subtract one because the first key, which is EditFieldsOnly is skipped by the registration form
-            setSelectedTab(steps.indexOf(step, 0) - 1);
+            setSelectedTab(steps.indexOf(step) - 1);
             setSelectedTabGo(!selectedTabGo);
             validated = false;
             console.log('Not Good: ');
@@ -170,15 +107,50 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             console.log(formFields[step][key].errorMessage);
           }
         }
-        if (localValidated !== false) {
+
+        if (localValidated) {
           formFieldsCopy[step][key].errorFeedback = '';
         }
       }
     }
+
     setFormFields(formFieldsCopy);
     console.log('Validation result:');
     console.log(validated);
     return validated;
+  };
+
+  const handleRegister = async () => {
+    setCanRegister(false);
+    const isFormValid = validateForm();
+    if (!isFormValid) {
+      setCanRegister(true);
+      return;
+    }
+
+    try {
+      let formData = new FormData();
+      for (const [key, value] of Object.entries(froshObject)) {
+        if (value !== undefined) {
+          formData.append(key, value);
+        }
+      }
+
+      froshObject['id'] = user.id;
+      const ReactPDF = await import('@react-pdf/renderer');
+      const { MakeReceipt } = await import('../../components/MakeReceipt/MakeReceipt');
+      const dataReceipt = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
+      formData.append('dataReceipt', dataReceipt);
+
+      const response = await axios.post('/frosh/register', formData, {
+        headers: { 'content-type': 'multipart/form-data' },
+      });
+
+      window.location.href = response.data.url;
+    } catch (error) {
+      console.error(error);
+      setCanRegister(true);
+    }
   };
 
   const disableField = (isDisabled, fieldKey, step) => {
@@ -223,7 +195,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       : field.isDisabled
                   }
                   inputTitle={field.inputTitle}
-                  autoFocus={index === 0 ? true : false}
+                  autoFocus={index === 0}
                 />
               </div>
             );
@@ -241,7 +213,10 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   }
                   values={field.values}
                   onSelected={(value) => {
-                    froshObject[key] = value === 'Yes';
+                    setFroshObject((prevState) => ({
+                      ...prevState,
+                      [key]: value === 'Yes',
+                    }));
                     if (field.onChanged) field.onChanged(value, disableField);
                   }}
                   isDisabled={
@@ -250,7 +225,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       : field.isDisabled
                   }
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
-                  autoFocus={index === 0 ? true : false}
+                  autoFocus={index === 0}
                   isRequiredInput={field.isRequiredInput}
                 />
               </div>
@@ -268,7 +243,10 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   }
                   values={field.values}
                   onSelect={(value) => {
-                    froshObject[key] = value;
+                    setFroshObject((prevState) => ({
+                      ...prevState,
+                      [key]: value,
+                    }));
                     if (field.onChanged) field.onChanged(value, disableField);
                   }}
                   isDisabled={
@@ -304,12 +282,15 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                     for (let index of indicesSelected) {
                       values.push(field.values[index]);
                     }
-                    froshObject[key] = values;
+                    setFroshObject((prevState) => ({
+                      ...prevState,
+                      [key]: values,
+                    }));
                     if (field.onChanged) field.onChanged(values, disableField);
                   }}
                   values={field.values}
                   localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
-                  autoFocus={index === 0 ? true : false}
+                  autoFocus={index === 0}
                 />
               </div>
             );
@@ -343,8 +324,6 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
       </div>
     );
   };
-
-  const user = useSelector(userSelector)?.user;
 
   if (editFieldsPage === true) {
     return (
@@ -426,7 +405,11 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   component: (
                     <>
                       <div className="registration-first-step-header-container">
-                        <img className="registration-icon-logo" src={MainFroshLogo}></img>
+                        <img
+                          className="registration-icon-logo"
+                          src={MainFroshLogo}
+                          alt="Main Frosh Logo"
+                        ></img>
                         <div>
                           <h1 className="registration-first-step-title">
                             {'HELLO ' +
