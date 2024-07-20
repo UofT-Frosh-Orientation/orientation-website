@@ -19,7 +19,7 @@ import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/Err
 
 const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
   console.log('This is a new version of Registration Form since 2T4, by ChatGPT');
-  const steps = useMemo(() => Object.keys(fields), [fields]);
+  const steps = useMemo(() => Object.keys(fields), []);
   const [froshObject, setFroshObject] = useState({});
   const [formFields, setFormFields] = useState(fields);
   const [selectedTab, setSelectedTab] = useState(0);
@@ -45,94 +45,77 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     const initialFroshObject = {};
     for (let step of steps) {
       Object.keys(formFields[step]).forEach((key) => {
-        initialFroshObject[key] = undefined;
+        const initialValue = editFieldsPage
+          ? initialValues[key]
+          : formFields[step][key].initialValue;
+        const validation = validateField(initialValue, formFields[step][key]);
+        initialFroshObject[key] = { value: initialValue, ...validation };
       });
     }
+    console.log('Initial Frosh Object:', initialFroshObject);
     setFroshObject(initialFroshObject);
-  }, [formFields, steps]);
+  }, [formFields, steps, initialValues, editFieldsPage]);
+
+  const validateField = (value, field) => {
+    console.log(`Validating field ${field.label} with value:`, value);
+    if (value === undefined || value === '') {
+      return {
+        isValid: !field.isRequiredInput,
+        errorMessage: field.isRequiredInput ? field.errorMessage || 'This field is required' : '',
+      };
+    }
+    if (field.validation) {
+      const validateResult = field.validation(value);
+      if (validateResult !== true) {
+        return { isValid: false, errorMessage: validateResult };
+      }
+    }
+    return { isValid: true, errorMessage: '' };
+  };
 
   const validateForm = () => {
-    console.log('Validating Form');
     let validated = true;
-    const formFieldsCopy = { ...formFields };
     const updatedFroshObject = { ...froshObject };
 
     for (let step of steps) {
       if (step === 'EditFieldsOnly' && !editFieldsPage) {
         continue;
       }
-
       for (let key of Object.keys(formFields[step])) {
-        let localValidated = true;
-
-        if (formFields[step][key].type === 'label') {
-          continue;
-        }
-
-        const value = updatedFroshObject[key];
+        const value = updatedFroshObject[key]?.value;
         const field = formFields[step][key];
+        const validation = validateField(value, field);
+        updatedFroshObject[key] = { value, ...validation };
 
-        if (field.validation) {
-          if (value === undefined || value === '') {
-            formFieldsCopy[step][key].errorFeedback = field.errorMessage || 'This should be empty!';
-          }
-          console.log('the value here is ');
-          console.log(step);
-          console.log(key);
-          console.log(value.length);
-          const validateResult = field.validation(value);
-          if (validateResult !== true) {
-            formFieldsCopy[step][key].errorFeedback = validateResult;
-            localValidated = false;
-            if (validated) {
-              //We subtract one because the first key, which is EditFieldsOnly is skipped by the registration form
-              setSelectedTab(steps.indexOf(step) - 1);
-              setSelectedTabGo(!selectedTabGo);
-              console.log('Not Good 1: ');
-              validated = false;
-            }
-          }
-        }
-
-        if ((value === undefined || value === '') && field.isRequiredInput) {
-          formFieldsCopy[step][key].errorFeedback = field.errorMessage || 'This field is required';
-          localValidated = false;
-          if (validated) {
-            //We subtract one because the first key, which is EditFieldsOnly is skipped by the registration form
-            setSelectedTab(steps.indexOf(step) - 1);
-            setSelectedTabGo(!selectedTabGo);
-            validated = false;
-            console.log('Not Good: ');
-            console.log(key);
-            console.log(formFields[step][key].errorMessage);
-          }
-        }
-
-        if (localValidated) {
-          formFieldsCopy[step][key].errorFeedback = '';
+        if (!validation.isValid && validated) {
+          console.log(`Invalid field detected: ${field.label}`);
+          setSelectedTab(steps.indexOf(step));
+          setSelectedTabGo(!selectedTabGo);
+          validated = false;
         }
       }
     }
 
-    setFormFields(formFieldsCopy);
-    console.log('Validation result:');
-    console.log(validated);
+    console.log('Updated Frosh Object after validation:', updatedFroshObject);
+    setFroshObject(updatedFroshObject);
     return validated;
   };
 
   const handleRegister = async () => {
-    setCanRegister(false);
+    console.log('Handling registration');
     const isFormValid = validateForm();
     if (!isFormValid) {
       setCanRegister(true);
+      console.log('Form is not valid, cannot register');
       return;
     }
 
+    setCanRegister(false);
     try {
       let formData = new FormData();
-      for (const [key, value] of Object.entries(froshObject)) {
-        if (value !== undefined) {
-          formData.append(key, value);
+      for (const [key, obj] of Object.entries(froshObject)) {
+        if (obj.value !== undefined) {
+          formData.append(key, obj.value);
         }
       }
 
@@ -146,9 +129,10 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
         headers: { 'content-type': 'multipart/form-data' },
       });
 
+      console.log('Registration successful, redirecting to:', response.data.url);
       window.location.href = response.data.url;
     } catch (error) {
-      console.error(error);
+      console.error('Error during registration:', error);
       setCanRegister(true);
     }
   };
@@ -159,11 +143,24 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     setFormFields(formFieldsCopy);
   };
 
+  const handleChange = (key, step) => (value) => {
+    console.log(`Handling change for field ${key} in step ${step} with value:`, value);
+    const field = formFields[step][key];
+    const validation = validateField(value, field);
+    setFroshObject((prevState) => ({
+      ...prevState,
+      [key]: { value, ...validation },
+    }));
+  };
+
   const generateStepComponent = (formFieldsAtStep, step) => {
     return (
       <div key={step} className="registration-tab-content">
         {Object.keys(formFieldsAtStep).map((key, index) => {
           const field = formFieldsAtStep[key];
+          const fieldError = froshObject[key]?.errorMessage || '';
+          const isFieldValid = froshObject[key]?.isValid ?? true;
+
           if (field.type === 'text') {
             return (
               <div key={index} className={field.className ? field.className : 'full-width-input'}>
@@ -171,31 +168,24 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
                   description={field.description}
-                  errorFeedback={field.errorFeedback}
+                  errorFeedback={fieldError}
                   hasRestrictedInput={field.hasRestrictedInput}
-                  initialValue={editFieldsPage === true ? initialValues[key] : field.initialValue}
+                  initialValue={froshObject[key]?.value || ''}
                   inputType={field.inputType}
                   isRequiredInput={field.isRequiredInput}
-                  localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
+                  localStorageKey={editFieldsPage ? undefined : field.localStorageKey}
                   placeholder={field.placeholder}
-                  onChange={(value) => {
-                    setFroshObject((prevState) => ({
-                      ...prevState,
-                      [key]: value,
-                    }));
-                    if (field.onChanged) field.onChanged(value, disableField);
-                  }}
+                  onChange={handleChange(key, step)}
                   isPhoneNumber={field.isPhoneNumber}
                   isInstagram={field.isInstagram}
                   isUtorID={field.isUtorID}
                   maxLength={field.maxLength}
                   isDisabled={
-                    editFieldsPage === true && field.isDisabled !== true
-                      ? field.noEdit
-                      : field.isDisabled
+                    editFieldsPage && field.isDisabled !== true ? field.noEdit : field.isDisabled
                   }
                   inputTitle={field.inputTitle}
                   autoFocus={index === 0}
+                  isValid={isFieldValid}
                 />
               </div>
             );
@@ -206,27 +196,20 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
                   disabledIndices={field.disabledIndices}
-                  initialSelectedIndex={
-                    editFieldsPage === true
-                      ? field.values.findIndex((val) => (val === 'Yes') === initialValues[key])
-                      : field.initialSelectedIndex
-                  }
+                  initialSelectedIndex={parseInt(froshObject[key]?.value || 0)}
                   values={field.values}
                   onSelected={(value) => {
-                    setFroshObject((prevState) => ({
-                      ...prevState,
-                      [key]: value === 'Yes',
-                    }));
+                    handleChange(key, step)(value === 'Yes');
                     if (field.onChanged) field.onChanged(value, disableField);
                   }}
                   isDisabled={
-                    editFieldsPage === true && field.isDisabled !== true
-                      ? field.noEdit
-                      : field.isDisabled
+                    editFieldsPage && field.isDisabled !== true ? field.noEdit : field.isDisabled
                   }
-                  localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
+                  localStorageKey={editFieldsPage ? undefined : field.localStorageKey}
                   autoFocus={index === 0}
                   isRequiredInput={field.isRequiredInput}
+                  errorFeedback={fieldError}
+                  isValid={isFieldValid}
                 />
               </div>
             );
@@ -236,26 +219,19 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                 <Dropdown
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
-                  initialSelectedIndex={
-                    editFieldsPage === true
-                      ? field.values.findIndex((val) => val === initialValues[key])
-                      : field.initialSelectedIndex
-                  }
+                  initialSelectedIndex={parseInt(froshObject[key]?.value || 0)}
                   values={field.values}
                   onSelect={(value) => {
-                    setFroshObject((prevState) => ({
-                      ...prevState,
-                      [key]: value,
-                    }));
+                    handleChange(key, step)(value);
                     if (field.onChanged) field.onChanged(value, disableField);
                   }}
                   isDisabled={
-                    editFieldsPage === true && field.isDisabled !== true
-                      ? field.noEdit
-                      : field.isDisabled
+                    editFieldsPage && field.isDisabled !== true ? field.noEdit : field.isDisabled
                   }
-                  localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
+                  localStorageKey={editFieldsPage ? undefined : field.localStorageKey}
                   isRequiredInput={field.isRequiredInput}
+                  errorFeedback={fieldError}
+                  isValid={isFieldValid}
                 />
               </div>
             );
@@ -266,31 +242,21 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
                   disabledIndices={field.disabledIndices}
-                  initialSelectedIndices={
-                    editFieldsPage === true
-                      ? field.values.reduce((prev, curr, index) => {
-                          if (initialValues[key].includes(curr)) {
-                            prev.push(index);
-                          }
-                          return prev;
-                        }, [])
-                      : field.initialSelectedIndices
-                  }
+                  initialSelectedIndices={froshObject[key]?.value || []}
                   maxCanSelect={field.maxCanSelect}
                   onSelected={(value, index, status, indicesSelected) => {
                     let values = [];
                     for (let index of indicesSelected) {
                       values.push(field.values[index]);
                     }
-                    setFroshObject((prevState) => ({
-                      ...prevState,
-                      [key]: values,
-                    }));
+                    handleChange(key, step)(values);
                     if (field.onChanged) field.onChanged(values, disableField);
                   }}
                   values={field.values}
-                  localStorageKey={editFieldsPage === true ? undefined : field.localStorageKey}
+                  localStorageKey={editFieldsPage ? undefined : field.localStorageKey}
                   autoFocus={index === 0}
+                  errorFeedback={fieldError}
+                  isValid={isFieldValid}
                 />
               </div>
             );
@@ -362,7 +328,6 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                 alignItems: 'center',
               }}
             >
-              {/* TODO: SHow popup to ask if they would like to discard all changes when editing fields */}
               <ButtonOutlined
                 label={'Discard changes'}
                 onClick={() => {
@@ -378,7 +343,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                 }}
               />
             </div>
-            {errorAfterEdit == true ? (
+            {errorAfterEdit === true ? (
               <ErrorSuccessBox
                 content={'Please make sure you have completed all necessary fields.'}
                 error={true}
