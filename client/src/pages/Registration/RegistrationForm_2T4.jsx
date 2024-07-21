@@ -42,19 +42,21 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   }, [registered, editFieldsPage, navigate]);
 
   useEffect(() => {
-    const initialFroshObject = {};
-    for (let step of steps) {
-      Object.keys(formFields[step]).forEach((key) => {
-        const initialValue = editFieldsPage
-          ? initialValues[key]
-          : formFields[step][key].initialValue;
-        const validation = validateField(initialValue, formFields[step][key]);
-        initialFroshObject[key] = { value: initialValue, ...validation };
-      });
+    if (Object.keys(froshObject).length === 0) {
+      const initialFroshObject = {};
+      for (let step of steps) {
+        Object.keys(formFields[step]).forEach((key) => {
+          const initialValue = editFieldsPage
+            ? initialValues[key]
+            : formFields[step][key].initialValue;
+          const validation = validateField(initialValue, formFields[step][key]);
+          initialFroshObject[key] = { value: initialValue, ...validation };
+        });
+      }
+      console.log('Initial Frosh Object:', initialFroshObject);
+      setFroshObject(initialFroshObject);
     }
-    console.log('Initial Frosh Object:', initialFroshObject);
-    setFroshObject(initialFroshObject);
-  }, [formFields, steps, initialValues, editFieldsPage]);
+  }, [formFields, steps, initialValues, editFieldsPage, froshObject]);
 
   const validateField = (value, field) => {
     console.log(`Validating field ${field.label} with value:`, value);
@@ -246,8 +248,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   maxCanSelect={field.maxCanSelect}
                   onSelected={(value, index, status, indicesSelected) => {
                     let values = [];
-                    for (let index of indicesSelected) {
-                      values.push(field.values[index]);
+                    for (let idx of indicesSelected) {
+                      values.push(field.values[idx]);
                     }
                     handleChange(key, step)(values);
                     if (field.onChanged) field.onChanged(values, disableField);
