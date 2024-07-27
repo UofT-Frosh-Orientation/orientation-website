@@ -99,7 +99,7 @@ const PaymentServices = {
    * @return {Promise<Stripe.Checkout.Session & {lastResponse: {headers: {[p: string]: string}; requestId: string; statusCode: number; apiVersion?: string; idempotencyKey?: string; stripeAccount?: string}}>}
    */
   /* istanbul ignore next */
-  async createCheckoutSession(email, type = 'orientation') {
+  async createCheckoutSession(email, type = 'orientation', userId) {
     const products = {
       orientation: {
         priceId: process.env.STRIPE_TICKET_PRICE_ID,
@@ -131,6 +131,9 @@ const PaymentServices = {
       cancel_url: `${process.env.CLIENT_BASE_URL}${
         products[type]?.relativeUrlFailure ?? products['orientation'].relativeUrlFailure
       }`,
+      metadata: {
+        userId, // Add user ID to metadata for webhook processing
+      },
     });
     // } catch (error) {
     //   if (error.raw?.code === 'coupon_expired') {

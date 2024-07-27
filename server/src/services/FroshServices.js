@@ -64,8 +64,10 @@ const FroshServices = {
    * @param {Payment} paymentIntent Payment object from stripe
    * @returns {User} updated user
    */
-  async addRetreatPayment(user, paymentIntent) {
-    return FroshModel.findByIdAndUpdate(user.id, {
+  async addRetreatPayment(userID, paymentIntent) {
+    console.log('Adding retreat payment for userID:', userID);
+    console.log('PaymentIntent:', paymentIntent);
+    return FroshModel.findByIdAndUpdate(userID, {
       $push: {
         payments: [
           {

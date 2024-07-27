@@ -13,10 +13,15 @@ const PaymentController = {
     try {
       switch (event.type) {
         case 'payment_intent.succeeded': {
-          const { id, amount_received } = event.data.object;
+          const { id, amount_received, payment_intent } = event.data.object;
+          const user = req.user;
 
           console.log('Handling payment intent');
+          console.log('UserID:', user.id); // Log the userID
+          console.log('PaymentIntent:', payment_intent); // Log the paymentIntent
+
           // update frosh model to have paid successfully
+          await FroshServices.addRetreatPayment(user.id, payment_intent);
           await PaymentServices.updatePayment(id, amount_received);
           break;
         }
@@ -63,16 +68,8 @@ const PaymentController = {
       const user = req.user;
       const count = await PaymentServices.getNonExpiredPaymentsCountForItem('Retreat Ticket');
       if (count < process.env.RETREAT_MAX_TICKETS) {
-        const { url, payment_intent } = await PaymentServices.createCheckoutSession(
-          user.email,
-          'retreat',
-        );
-
-        const frosh = await FroshServices.addRetreatPayment(user, payment_intent);
-        if (!frosh) {
-          res.status(400).send({ message: 'Something went wrong!' });
-        }
-        res.status(200).send({ url });
+        const session = await PaymentServices.createCheckoutSession(user.email, 'retreat', user.id);
+        res.status(200).send({ url: session.url });
       } else {
         res.status(400).send({
           message: 'Sold out! Please check back later in case more tickets become available',
