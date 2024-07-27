@@ -39,14 +39,19 @@ const TextInput = ({
 
   useEffect(() => {
     if (localStorageKey !== undefined) {
+      console.log('localStorageKey is defined');
       const storedString = localStorage.getItem(localStorageKey);
+      console.log(`stored string is ${storedString}`);
       if (storedString === null) {
+        console.log('undefined stored string for the key');
         if (initialValue !== undefined) {
           onChange(initialValue);
         } else {
+          console.log('intial value is undefined');
           onChange('');
         }
       } else {
+        console.log('using the stored string');
         onChange(storedString);
       }
     } else if (initialValue !== undefined) {

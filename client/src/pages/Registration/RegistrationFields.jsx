@@ -105,7 +105,9 @@ export const fields = {
       onChanged: (value, disableField) => {
         if (value === 'Other') {
           disableField(false, 'pronounOther', 'General');
+          console.log('pronounOther is selected!');
         } else {
+          console.log('pronounOther is not selected!');
           disableField(true, 'pronounOther', 'General');
         }
       },
@@ -404,6 +406,7 @@ export const fields = {
       type: 'radio',
       label: 'Would you like us to reach out to you about how we can best accommodate you?',
       values: ['Yes', 'No'],
+      initialSelectedIndex: 0,
       isRequiredInput: false,
       noEdit: false,
       localStorageKey: 'registration-accommodation',
@@ -484,7 +487,7 @@ export const fields = {
       type: 'radio',
       label: 'Do you require any bursary or financial aid for your Frosh Week ticket?',
       values: ['Yes', 'No'],
-      initialSelectedIndex: 0,
+      initialSelectedIndex: 1,
       isRequiredInput: false,
       noEdit: false,
       localStorageKey: 'registration-bursary',

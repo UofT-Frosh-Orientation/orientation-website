@@ -18,7 +18,7 @@ import { useSelector } from 'react-redux';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 
 const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) => {
-  console.log('This is a new version of Registration Form since 2T4, by ChatGPT');
+  console.log('This is a new version of Registration Form since 2T4');
   const steps = useMemo(() => Object.keys(fields), []);
   const [froshObject, setFroshObject] = useState({});
   const [formFields, setFormFields] = useState(fields);
@@ -60,6 +60,11 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
 
   const validateField = (value, field) => {
     console.log(`Validating field ${field.label} with value:`, value);
+    if (field.type === 'label') {
+      return {
+        isValid: true,
+      };
+    }
     if (value === undefined || value === '') {
       return {
         isValid: !field.isRequiredInput,
@@ -84,6 +89,9 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
         continue;
       }
       for (let key of Object.keys(formFields[step])) {
+        if (formFields[step][key].type === 'label') {
+          continue;
+        }
         const value = updatedFroshObject[key]?.value;
         const field = formFields[step][key];
         const validation = validateField(value, field);
@@ -114,17 +122,31 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
 
     setCanRegister(false);
     try {
+      console.log('Submitting Frosh Object:', froshObject);
+      const valuedFroshObject = (froshObject) => {
+        const values = {};
+
+        for (const [key, obj] of Object.entries(froshObject)) {
+          if (obj.value !== undefined) {
+            values[key] = obj.value;
+          }
+        }
+
+        return values;
+      };
       let formData = new FormData();
       for (const [key, obj] of Object.entries(froshObject)) {
         if (obj.value !== undefined) {
           formData.append(key, obj.value);
         }
       }
-
-      froshObject['id'] = user.id;
+      console.log('Submitting formData', formData);
+      valuedFroshObject['id'] = user.id;
+      console.log('user id is', user.id);
       const ReactPDF = await import('@react-pdf/renderer');
       const { MakeReceipt } = await import('../../components/MakeReceipt/MakeReceipt');
-      const dataReceipt = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
+      console.log('Making receipt from Frosh Object:', valuedFroshObject);
+      const dataReceipt = await ReactPDF.pdf(MakeReceipt(valuedFroshObject)).toBlob();
       formData.append('dataReceipt', dataReceipt);
 
       const response = await axios.post('/frosh/register', formData, {
@@ -132,7 +154,16 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
       });
 
       console.log('Registration successful, redirecting to:', response.data.url);
-      window.location.href = response.data.url;
+      // window.location.href = response.data.url;
+      const url = response.data.url;
+
+      // Log or perform other debug actions
+      console.log('Redirecting to:', url);
+
+      // Delay the redirection by 5 seconds (5000 milliseconds)
+      setTimeout(() => {
+        window.location.href = url;
+      }, 5000); // Adjust the delay time as needed
     } catch (error) {
       console.error('Error during registration:', error);
       setCanRegister(true);
@@ -244,7 +275,16 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
                   disabledIndices={field.disabledIndices}
-                  initialSelectedIndices={froshObject[key]?.value || []}
+                  initialSelectedIndices={
+                    editFieldsPage === true
+                      ? field.values.reduce((prev, curr, index) => {
+                          if (initialValues[key].includes(curr)) {
+                            prev.push(index);
+                          }
+                          return prev;
+                        }, [])
+                      : field.initialSelectedIndices
+                  }
                   maxCanSelect={field.maxCanSelect}
                   onSelected={(value, index, status, indicesSelected) => {
                     let values = [];
