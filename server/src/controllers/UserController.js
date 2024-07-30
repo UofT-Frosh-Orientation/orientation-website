@@ -38,8 +38,8 @@ const UserController = {
           lastName,
           preferredName,
         );
-        if (req.file){
-          user.waiver = req.file.path
+        if (req.file) {
+          user.waiver = req.file.path;
         }
       }
       return res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
@@ -420,6 +420,33 @@ const UserController = {
       });
     } catch (e) {
       next(e);
+    }
+  },
+
+  async viewWaiver(req, res) {
+    try {
+      const userId = req.params.id; // get user id from request
+      const user = await UserServices.getUserByID(userId); // get user from DB
+
+      if (!user) {
+        console.log('User not found.');
+        return res.status(404).send('User not found.');
+      }
+
+      if (!user.waiver) {
+        console.log('No waiver found for this user.');
+        return res.status(404).send('No waiver found for this user.');
+      }
+
+      const { filename, data, contentType } = user.waiver;
+
+      res.setHeader('Content-Disposition', `inline; filename="${filename}"`);
+      res.setHeader('Content-Type', contentType);
+      res.send(data);
+    } catch (error) {
+      console.error(error);
+      console.log('Error retrieving file.');
+      res.status(500).send('Error retrieving file.');
     }
   },
 };

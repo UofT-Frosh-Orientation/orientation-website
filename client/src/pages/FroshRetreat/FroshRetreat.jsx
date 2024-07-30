@@ -253,6 +253,21 @@ const RetreatRegistration = () => {
     }
   };
 
+  const handleViewWaiver = async () => {
+    try {
+      const { axios } = useAxios();
+      const response = await axios.get(`/frosh/view-waiver/`, {
+        responseType: 'blob', //  handling binary data
+      });
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    } catch (e) {
+      console.error(e);
+      setSnackbar('Error viewing waiver', true);
+    }
+  };
+
   return (
     <div style={{ margin: '0 20px' }}>
       <p style={{ textAlign: 'center' }}>
@@ -339,9 +354,7 @@ const RetreatRegistration = () => {
             <Button
               label="View Uploaded Waiver"
               isSecondary
-              onClick={() => {
-                window.open(`/view-waiver`, '_blank').focus();
-              }}
+              onClick={handleViewWaiver}
               style={{ marginBottom: '25px' }}
             />
           ) : (
