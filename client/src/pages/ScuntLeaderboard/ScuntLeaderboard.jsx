@@ -71,7 +71,7 @@ const ScuntLeaderboard = () => {
       <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
         <ScuntLinks />
         <div className="scunt-check-soon-title">
-          <h1 style={{ color: 'var(--text-light)' }}>Check back soon!</h1>
+          <h1 style={{ color: 'var(--text-light)' }}>CHECK BACK SOON!</h1>
         </div>
       </Header>
     );
@@ -126,7 +126,7 @@ const ScuntLeaderboardShow = ({ leaderboard }) => {
   return (
     <>
       <h2 style={{ textAlign: 'center', color: 'var(--text-dark-use)', padding: '25px 4% 0 4%' }}>
-        Leaderboard updates in real time!
+        LEADERBOARD UPDATES IN REAL TIME!
       </h2>
 
       <FullScreen handle={handle}>

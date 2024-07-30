@@ -23,7 +23,7 @@ export function* getScuntSettingsSaga({ payload: setSnackbar }) {
   const { axios } = useAxios();
   try {
     yield put(getScuntSettingsStart());
-    const result = yield call(axios.get, '/scunt-game-controls');
+    const result = yield call(axios.get, '/skule-hunt-game-controls');
     yield put(getScuntSettingsSuccess(result.data.settings));
   } catch (error) {
     yield put(getScuntSettingsFailure(error?.response?.data?.errorMessage));
@@ -53,7 +53,7 @@ export function* setGameSettingsSaga({
   const { axios } = useAxios();
   try {
     yield put(setScuntSettingsStart());
-    const result = yield call(axios.post, '/scunt-game-controls', {
+    const result = yield call(axios.post, '/skule-hunt-game-controls', {
       name,
       amountOfTeams,
       amountOfStarterBribePoints,

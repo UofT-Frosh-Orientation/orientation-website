@@ -68,7 +68,7 @@ const ScuntGameSettingSchema = new mongoose.Schema({
   scuntDate: {
     type: String,
     required: false,
-    default: 'September 6, 2023 18:00:00',
+    default: 'August 28, 2024 18:00:00',
   },
 });
 

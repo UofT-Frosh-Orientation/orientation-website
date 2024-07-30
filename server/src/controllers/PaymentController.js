@@ -68,8 +68,8 @@ const PaymentController = {
           'retreat',
         );
 
-        const frosh = await FroshServices.addRetreatPayment(user, payment_intent);
-        if (!frosh) {
+        const updatedUser = await FroshServices.addRetreatPayment(user, payment_intent);
+        if (!updatedUser) {
           res.status(400).send({ message: 'Something went wrong!' });
         }
         res.status(200).send({ url });

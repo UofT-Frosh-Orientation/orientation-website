@@ -3,7 +3,7 @@ const { axios } = useAxios();
 
 export async function getGameSettings() {
   try {
-    const response = await axios.get('/scunt-game-controls');
+    const response = await axios.get('/skule-hunt-game-controls');
 
     return response.data.settings;
   } catch (error) {
@@ -13,7 +13,7 @@ export async function getGameSettings() {
 
 export async function setGameSettings(setting) {
   try {
-    const response = await axios.post('/scunt-game-controls', setting);
+    const response = await axios.post('/skule-hunt-game-controls', setting);
 
     return response.data.settings;
   } catch (error) {

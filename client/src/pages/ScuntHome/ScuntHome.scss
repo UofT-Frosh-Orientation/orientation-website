@@ -32,6 +32,17 @@
     }
   }
 }
+
+.scunt-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 0px;
+  text-align: center;
+  color: var(--text-dark);
+}
 .scunt-countdown-wrap {
   display: flex;
   flex-direction: column;
@@ -114,4 +125,18 @@
   font-size: 20px;
   margin: 10px 10px;
   color: var(--text-dynamic);
+}
+
+.back-button {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-block;
+  background: none; 
+}
+
+.back-icon {
+  width: 24px;
+  height: 24px;
+  fill: purple;
 }

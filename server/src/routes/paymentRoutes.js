@@ -18,7 +18,7 @@ router.get(
 router.post(
   '/frosh-retreat-payment',
   checkLoggedIn,
-  checkUserType('frosh'),
+  // checkUserType('frosh'),
   PaymentController.froshRetreatPayment,
 );
 

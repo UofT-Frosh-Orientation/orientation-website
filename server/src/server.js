@@ -5,10 +5,16 @@ const passportLoader = require('./loaders/passportLoader');
 const errorResponseMiddleware = require('./middlewares/errorResponseMiddleware');
 const routerLoader = require('./loaders/routerLoader');
 const app = require('./app');
+const express = require('express');
+const path = require('path');
+const serveIndex = require('serve-index');
 
 const ScuntLeaderboardSocketManger = require('./websockets/ScuntLeaderboardSocketManager');
 const LeaderboardSubscription = require('./subscribers/leaderboardSubscriber');
 const SettingsSubscription = require('./subscribers/scuntGameSettingsSubscription');
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', serveIndex(path.join(__dirname, 'uploads'), { icons: true }));
 
 mongoLoader(app).then(async () => {
   const server = http.createServer(app);

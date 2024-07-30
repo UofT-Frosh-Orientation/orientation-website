@@ -1,5 +1,10 @@
 @import '../../scssStyles/mixins';
 
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../../../../client/assets/fonts/proximanova_regular.ttf') format('opentype');
+}
+
 .payment-success-page {
   color: var(--text-dynamic);
   text-align: center;
@@ -18,6 +23,9 @@
   h3 {
     font-size: 22px;
     margin-bottom: 20px;
+  }
+  h3 .proxima-nova-text{
+    font-family: 'Proxima Nova', sans-serif;
   }
   @for $i from 1 to 4 {
     :nth-child(#{$i}) {

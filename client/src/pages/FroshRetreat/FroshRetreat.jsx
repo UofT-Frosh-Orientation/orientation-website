@@ -19,6 +19,24 @@ export const FroshRetreat = () => {
   const { setSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
   const isRegistered = useSelector(registeredSelector);
+  const { user } = useSelector(userSelector);
+  const accountObj = {
+    firstName: user.firstName || '',
+    lastName: user.lastName || '',
+    preferredName: user.preferredName || '',
+    phoneNumber: user.phoneNumber || '',
+    phoneNumberCountryCode: user.phoneNumberCountryCode || '',
+    emergencyContactName: user.emergencyContactName || '',
+    emergencyContactRelationship: user.emergencyContactRelationship || '',
+    emergencyContactCountryCode: user.emergencyContactCountryCode || '',
+    emergencyContactNumber: user.emergencyContactNumber || '',
+    email: user.email || '',
+    allergies: user.allergies || [],
+    allergiesOther: user.allergiesOther || '',
+    medicalInfo: user.medicalInfo || '',
+    specficMedicalInfo: user.specficMedicalInfo || '',
+    medication: user.medication || '',
+  };
 
   const remainingTicketsSetter = async () => {
     setRemainingTickets(await getRemainingTickets(setSnackbar));
@@ -28,11 +46,11 @@ export const FroshRetreat = () => {
     remainingTicketsSetter();
   }, []);
 
-  useEffect(() => {
-    if (!isRegistered) {
-      navigate('/profile');
-    }
-  }, [isRegistered]);
+  // useEffect(() => {
+  //   if (!isRegistered) {
+  //     navigate('/profile');
+  //   }
+  // }, [isRegistered]);
 
   return (
     <div className="frosh-retreat-page">
@@ -43,8 +61,7 @@ export const FroshRetreat = () => {
             ESCAPE THE CITY TO THE LOVELY HART HOUSE FARMS FOR A WEEKEND OF WHOLESOME CAMP VIBES!
           </h3>
           <p style={{ color: 'var(--white)' }}>
-            The retreat is taking place on August 31st and September 1st, 2024 at Hart House
-            Farm.
+            The retreat is taking place on August 31st and September 1st, 2024 at Hart House Farm.
           </p>
           <p style={{ color: 'var(--white)' }}>
             Due to limited spaces, we are selling a limited number of tickets so purchase yours
@@ -187,6 +204,7 @@ const RetreatRegistration = () => {
   const [viewedWaiver, setViewedWaiver] = useState(false);
   const [waiverValue, setWaiverValue] = useState();
   const [buttonClicked, setButtonClicked] = useState(false);
+  const isRegistered = useSelector(registeredSelector);
 
   const waiverLink = '../../assests/retreatWaiver/frosh-retreat-2T3-waiver.pdf';
 
@@ -194,6 +212,9 @@ const RetreatRegistration = () => {
   const { setSnackbar } = useContext(SnackbarContext);
   const { axios } = useAxios();
   const isRetreat = user?.isRetreat === true;
+
+  const [file, setFile] = useState(null);
+  const [isUploaded, setIsUploaded] = useState(false);
 
   const [outOfTickets, setOutOfTickets] = useState(false);
 
@@ -205,12 +226,39 @@ const RetreatRegistration = () => {
     outOfTicketsSetter();
   }, []);
 
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    if (!file) {
+      setSnackbar('Please select a PDF file to upload.');
+      return;
+    }
+    const formData = new FormData();
+    formData.append('waiver', file);
+    formData.append('username', user.firstName);
+
+    try {
+      const response = await axios.post('/frosh/upload-waiver', formData, {
+        headers: { 'content-type': 'multipart/form-data' },
+      });
+      setSnackbar('File uploaded successfully!');
+      setIsUploaded(true);
+    } catch (error) {
+      console.error('File upload failed:', error);
+      setSnackbar('File upload failed. Please try again.');
+      setIsUploaded(false);
+    }
+  };
+
   return (
     <div style={{ margin: '0 20px' }}>
       <p style={{ textAlign: 'center' }}>
         In order to register, the following information will be collected from your account. Please
         ensure this information is accurate and up to date. If any information needs to be modified,
-        please edit your information <Link to={'/profile-edit'}>here</Link>.
+        please edit your information{' '}
+        <Link to={isRegistered ? '/profile-edit' : '/profile-edit-unregistered'}>here</Link>.
       </p>
       <div className="retreat-registration-form">
         <div className="display-field">
@@ -267,37 +315,34 @@ const RetreatRegistration = () => {
             }}
             style={{ marginBottom: '25px' }}
           />
-          <h3>I HAVE READ AND AGREE TO THE FROSH RETREAT WAIVER.</h3>
-          <h4>
-            <i>
-              By pressing &apos;Yes&apos; you/a guardian if you are under 18 have digitally signed
-              the waiver.
-            </i>
-          </h4>
-          <div style={{ height: '10px' }} />
-          {viewedWaiver ? (
-            <RadioButtons
-              initialSelectedIndex={1}
-              values={['Yes', 'No']}
-              onSelected={(value) => {
-                setWaiverValue(value);
-                if (value === 'Yes') setSnackbar('Thanks for reading the waiver!');
-              }}
-            />
-          ) : (
-            <></>
-          )}
+          <div className="display-field">
+            <h3>UPLOAD SIGNED WAIVER:</h3>
+            <p>Only PDF files are accepted</p>
+            {viewedWaiver ? (
+              <>
+                <input type="file" accept=".pdf" onChange={handleFileChange} />
+                <Button
+                  label="Upload PDF"
+                  isSecondary
+                  onClick={handleUpload}
+                  style={{ marginTop: '10px' }}
+                />
+              </>
+            ) : (
+              <p>Please view the waiver before uploading the signed copy.</p>
+            )}
+          </div>
         </div>
         {isRetreat ? (
-          <h2>You have already payed for Frosh Retreat!</h2>
+          <h2>You have already paid for Frosh Retreat!</h2>
         ) : outOfTickets ? (
           <h2>Sorry there are no more tickets available!</h2>
         ) : viewedWaiver ? (
           <Button
             label={'Continue to Payment'}
-            isDisabled={waiverValue !== 'Yes' || buttonClicked}
+            isDisabled={!isUploaded || buttonClicked}
             onClick={() => {
-              if (waiverValue === 'Yes') {
+              if (isUploaded) {
                 setButtonClicked(true);
                 axios
                   .post('/payment/frosh-retreat-payment')

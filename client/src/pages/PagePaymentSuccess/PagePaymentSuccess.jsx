@@ -9,9 +9,9 @@ export const PagePaymentSuccess = ({ title, message }) => {
     <>
       <div className="navbar-space-top"></div>
       <div className="payment-success-page">
-        <h1>{title}</h1>
+        <h1>{title.toUpperCase()}</h1>
         <p>Payment Successful!</p>
-        <h3>{message}</h3>
+        <h3 className='proxima-nova-text'>{message}</h3>
         <div>
           <Link to={'/profile'} className="no-link-style">
             <Button label="Profile" />

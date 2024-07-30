@@ -20,6 +20,9 @@ import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { getScuntTeams } from '../../state/scuntTeams/saga';
 // import { ProfilePageScuntTeam } from '../Profile/PageProfileFrosh';
 const { axios } = useAxios();
+import scuntLogo from '../../assets/scuntlogo/scunt_color_2t4.svg';
+import arrowLogo from '../../assets/misc/left-arrow-svgrepo-com.svg'
+import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 
 export const PageScuntHome = () => {
   const dispatch = useDispatch();
@@ -31,10 +34,20 @@ export const PageScuntHome = () => {
 
   return (
     <>
+      <BackToProfileButton />
       <ScuntCountdown />
       <ScuntLinks />
       <AboutScunt />
     </>
+  );
+};
+
+const BackToProfileButton = () => {
+
+  return (
+    <Link to="/profile" className="back-button">
+      <img src={arrowLogo} alt="Back" className="back-icon" />
+    </Link>
   );
 };
 
@@ -43,23 +56,43 @@ const AboutScunt = () => {
 
   return (
     <>
+      <br />
+      <br />
       <img src={darkMode ? WaveDarkMode : Wave} className="wave-image wave-image-footer" />
+
       <div className="about-scunt-container">
         <div className="about-scunt-content">
           {/* <div className="about-scunt-token">
             <ProfilePageScuntTeam />
           </div> */}
-          <div dangerouslySetInnerHTML={{ __html: aboutScunt }} />
-          <h4>
-            Check the <Link to={'/scunt-rules'}>Rules</Link> for more information
-          </h4>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <img src={scuntLogo} style={{ width: '300px', margin: '20px' }} />
+            <div style={{ display: 'block' }}>
+              <h2 style={{ display: 'block' }}>THE HUNT</h2>
+              Come participate in the most iconic event that is part of Frosh Week: Skule™ Hunt!
+              <br />
+              <br />
+              Skule™ Hunt takes place the night of <b>Wednesday August 28th from 6PM to 11PM</b>. It
+              is completely free, so hurry and sign up by clicking YES on your registration!
+              <br />
+              <br />
+              {/* <div dangerouslySetInnerHTML={{ __html: aboutScunt }} /> */}
+              {/* <h4>
+                CHECK THE <Link to={'/skule-hunt-rules'}>RULES</Link> FOR MORE INFORMATION
+              </h4> */}
+            </div>
+          </div>
         </div>
       </div>
       <img
         className="header-page-wave-bottom"
         src={darkMode ? waveBottomDarkMode : waveBottom}
         alt="wave"
-      ></img>
+      />
+
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <SkuleHuntFAQ />
+      </div>
 
       <div style={{ height: '30px' }} />
     </>
@@ -75,7 +108,8 @@ const ScuntCountdown = () => {
   useEffect(() => {
     if (scuntSettings !== undefined) {
       let settings = scuntSettings;
-      const tempDate = new Date(settings?.scuntDate);
+      //const tempDate = new Date(settings?.scuntDate);
+      const tempDate = new Date('2024-08-28T18:00:00'); // Hardcoded date??
       const tempCountDownDate = new Date(tempDate).getTime();
 
       setTargetDate(tempDate);
@@ -116,24 +150,100 @@ const ScuntCountdown = () => {
       <div className="scunt-countdown">
         <div className="scunt-countdown-number">
           <h1>{checkNaN(getDateValues(countDown)[0])}</h1>
-          <h3>days</h3>
+          <h3>DAYS</h3>
         </div>
         <div className="scunt-countdown-number">
           <h1>{checkNaN(getDateValues(countDown)[1])}</h1>
-          <h3>hours</h3>
+          <h3>HOURS</h3>
         </div>
         <div className="scunt-countdown-number">
           <h1>{checkNaN(getDateValues(countDown)[2])}</h1>
-          <h3>minutes</h3>
+          <h3>MINUTES</h3>
         </div>
         <div className="scunt-countdown-number">
           <h1>{checkNaN(getDateValues(countDown)[3])}</h1>
-          <h3>seconds</h3>
+          <h3>SECONDS</h3>
         </div>
       </div>
       {/* Only show confetti for the first 100 seconds overtime */}
       {countDown <= 0 && countDown / 1000 >= -100 ? <Confetti animate={true} /> : <></>}
     </div>
+  );
+};
+
+const scuntFAQs = [
+  {
+    title: 'What is Skule™ Hunt?',
+    description: [
+      "Skule™ Hunt is a long-standing traditional event that is part of Skule's annual Frosh Week.",
+      'Frosh are placed in teams and participate in a city-wide scavenger hunt where the tasks are designed to help them learn about Skule™ history and traditions, all while exploring the city of Toronto.',
+      "We safely encourage you to step out of your comfort zone for an unforgettable and fun night! It's the last event of Frosh Week for a reason, gotta go big before you go home right?",
+      ' ',
+      'Trust us, this is going to be the craziest scavenger hunt of your life so you do NOT want to miss signing up!',
+    ],
+  },
+  {
+    title: 'Am I expected to stay for the entire event?',
+    description: [
+      'Absolutely not! You can stay for as long as you feel like, and we have leedurs to help you get home safely if you need them.',
+    ],
+  },
+  {
+    title: 'How much does Skule™ Hunt cost?',
+    description: ['NOTHING. We’re talking about 0 (zero) dollars here. '],
+  },
+];
+
+const SkuleHuntFAQ = () => {
+  return (
+    <>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          color: 'var(--white)',
+          width: '70%',
+          alignSelf: 'center',
+        }}
+      >
+        {scuntFAQs.map((item, index) => {
+          const [isOpen, setIsOpen] = useState(false);
+          return (
+            <React.Fragment key={item.title}>
+              <SingleAccordion
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                header={<div className={'faq-search-result-question-accordion'}>{item.title}</div>}
+                style={{
+                  backgroundColor: 'var(--faq-answer-containers)',
+                  margin: '10px',
+                  padding: '0px 30px',
+                  width: '100%',
+                  textAlign: 'left',
+                }}
+              >
+                {Array.isArray(item.description) ? (
+                  <>
+                    <ul className="frosh-retreat-faq-bullet">
+                      {item.description.map((listItem, index) => {
+                        return <li key={listItem}>{listItem}</li>;
+                      })}
+                    </ul>
+                  </>
+                ) : (
+                  <>
+                    <p style={{ margin: 0 }}>{item.description}</p>
+                  </>
+                )}
+              </SingleAccordion>
+            </React.Fragment>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

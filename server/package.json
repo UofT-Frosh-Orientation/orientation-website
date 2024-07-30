@@ -8,7 +8,7 @@
     "lint": "eslint src",
     "test": "nyc --reporter=lcov --reporter=text mocha --recursive --exit",
     "testing": "nodemon -x nyc --reporter=lcov --reporter=text mocha --recursive --exit",
-    "test:actions": "nyc --reporter=text-summary mocha --recursive --exit", 
+    "test:actions": "nyc --reporter=text-summary mocha --recursive --exit",
     "start:dev": "set NODE_ENV=development && nodemon -L src/server.js",
     "start": "set NODE_ENV=production && node src/server.js"
   },
@@ -25,11 +25,11 @@
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jest": "^26.2.2",
+    "eslint-plugin-prettier": "^5.0.0",
     "lint-staged": "^13.0.0",
     "mocha": "^10.2.0",
-    "nyc": "^15.1.0",
-    "eslint-plugin-prettier": "^5.0.0",
     "nodemon": "^3.0.1",
+    "nyc": "^15.1.0",
     "prettier": "^3.0.0"
   },
   "dependencies": {
@@ -52,9 +52,10 @@
     "passport-local": "^1.0.0",
     "pino": "^8.14.1",
     "pino-http": "^8.3.3",
+    "serve-index": "^1.9.1",
     "socket.io": "^4.5.1",
     "socket.io-client": "^4.5.2",
-    "stripe": "^9.9.0", 
+    "stripe": "^9.9.0",
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.4.0"
   }

@@ -156,7 +156,7 @@ const ScuntJudgeDescription = ({ name, bribes, description }) => {
         style={{ textAlign: 'center' }}
       >
         <div className="exec-profile-title-cont" style={{ marginBottom: '10px' }}>
-          <h3 className="exec-profile-name">{name}</h3>
+          <h3 className="exec-profile-name">{name.toUpperCase()}</h3>
         </div>
 
         {description !== undefined ? (

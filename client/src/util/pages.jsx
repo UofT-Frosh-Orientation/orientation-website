@@ -252,63 +252,63 @@ export const pages = {
   ],
   scunt: [
     {
-      label: 'Scunt',
+      label: 'Skule™ Hunt',
       scuntLabel: 'Home',
       component: <PageScuntHome />,
-      path: '/scunt',
+      path: '/skule-hunt',
       includeFooter: true,
     },
     {
       label: 'Judges',
       scuntLabel: 'Judges',
       component: <ScuntJudges />,
-      path: '/scunt-judges',
+      path: '/skule-hunt-judges',
       includeFooter: true,
     },
     {
       label: 'Missions',
       scuntLabel: 'Missions',
       component: <PageScuntMissionsList />,
-      path: '/scunt-missions',
+      path: '/skule-hunt-missions',
       includeFooter: true,
     },
     {
       label: 'Leaderboard',
       scuntLabel: 'Leaderboard',
       component: <ScuntLeaderboard />,
-      path: '/scunt-leaderboard',
+      path: '/skule-hunt-leaderboard',
       includeFooter: true,
     },
     {
       label: 'Rules',
       scuntLabel: 'Rules',
       component: <PageScuntRules />,
-      path: '/scunt-rules',
+      path: '/skule-hunt-rules',
       includeFooter: true,
     },
   ],
   scuntHidden: [
     {
-      label: 'Scunt Judge Form',
+      label: 'Skule™ Hunt Judge Form',
       component: (
         <AuthorizedPage leaderOnly>
           <PageScuntJudgeForm />
         </AuthorizedPage>
       ),
-      path: '/scunt-judge-form',
+      path: '/skule-hunt-judge-form',
       includeFooter: true,
     },
     {
-      label: 'start-scunt',
+      label: 'start-skule-hunt',
       component: (
         <AuthorizedPage authScopes={['scunt:exec game controls']}>
           <ScuntGameSettings />
         </AuthorizedPage>
       ),
-      path: '/scunt-game-controls',
+      path: '/skule-hunt-game-controls',
     },
     {
-      label: 'Scunt Missions Dashboard',
+      label: 'Skule™ Hunt Missions Dashboard',
       component: (
         <AuthorizedPage
           authScopes={[
@@ -321,11 +321,11 @@ export const pages = {
           <PageScuntMissionsDashboard />
         </AuthorizedPage>
       ),
-      path: '/scunt-missions-dashboard',
+      path: '/skule-hunt-missions-dashboard',
     },
     {
-      label: 'Scunt Point Transactions',
-      path: '/scunt-transactions',
+      label: 'Skule™ Hunt Point Transactions',
+      path: '/skule-hunt-transactions',
       component: (
         <AuthorizedPage authScopes={['scunt:exec view transactions']}>
           <ScuntTransactions />

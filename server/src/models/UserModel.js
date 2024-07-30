@@ -104,6 +104,54 @@ const UserSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    phoneNumberCountryCode: {
+      type: String,
+      required: false,
+    },
+    phoneNumber: {
+      type: String,
+      required: false,
+    },
+    emergencyContactName: {
+      type: String,
+      required: false,
+    },
+    emergencyContactRelationship: {
+      type: String,
+      required: false,
+    },
+    emergencyContactCountryCode: {
+      type: String,
+      required: false,
+    },
+    emergencyContactNumber: {
+      type: String,
+      required: false,
+    },
+    medicalInfo: {
+      type: String,
+      required: false,
+    },
+    specficMedicalInfo: {
+      type: String,
+      required: false,
+    },
+    medication: {
+      type: String,
+      required: false,
+    },
+    allergies: {
+      type: [String],
+      required: false,
+    },
+    allergiesOther: {
+      type: String,
+      required: false,
+    },
+    waiver: {
+      type: String,
+      required: false,
+    }
   },
   { discriminatorKey: 'userType' },
 );

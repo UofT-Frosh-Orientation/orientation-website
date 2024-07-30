@@ -19,7 +19,7 @@ export const ProfilePageLeaderPermissionDashboardLinks = () => {
   const dropdowns = [
     {
       label: 'data',
-      title: 'DATA',
+      title: 'Data',
       state: openDataDropdown,
       setState: setOpenDataDropdown,
       icon: DataDashboardIcon,
@@ -46,7 +46,7 @@ export const ProfilePageLeaderPermissionDashboardLinks = () => {
     },
     {
       label: 'outreach',
-      title: 'OUTREACH',
+      title: 'Outreach',
       state: openOutreachDropdown,
       setState: setOpenOutreachDropdown,
       icon: OutreachDashboardIcon,
@@ -81,7 +81,7 @@ export const ProfilePageLeaderPermissionDashboardLinks = () => {
         {
           label: 'Skule™ Hunt Judge Panel',
           anyRegisterScope: false,
-          link: '/scunt-judge-form',
+          link: '/skule-hunt-judge-form',
           authScopes: [
             'scunt:exec allow leaderboard',
             'scunt:exec allow missions page',
@@ -98,7 +98,7 @@ export const ProfilePageLeaderPermissionDashboardLinks = () => {
         {
           label: 'Skule™ Hunt Mission Panel',
           anyRegisterScope: false,
-          link: '/scunt-missions-dashboard',
+          link: '/skule-hunt-missions-dashboard',
           authScopes: [
             'scunt:exec show missions',
             'scunt:exec hide missions',
@@ -109,13 +109,13 @@ export const ProfilePageLeaderPermissionDashboardLinks = () => {
         {
           label: 'Skule™ Hunt Point Transactions',
           anyRegisterScope: false,
-          link: '/scunt-transactions',
+          link: '/skule-hunt-transactions',
           authScopes: ['scunt:exec view transactions'],
         },
         {
           label: 'Skule™ Hunt Settings',
           anyRegisterScope: false,
-          link: '/scunt-game-controls',
+          link: '/skule-hunt-game-controls',
           authScopes: ['scunt:exec game controls'],
         },
       ],

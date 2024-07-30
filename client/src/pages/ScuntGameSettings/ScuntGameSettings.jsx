@@ -312,7 +312,7 @@ const RefillJudgeBribePoints = () => {
 
   return (
     <div style={{ margin: '0 5px' }}>
-      <h2>Judge Status</h2>
+      <h2>JUDGE STATUS</h2>
       <div style={{ height: '8px' }} />
       {judges?.map((judge) => {
         return (
@@ -323,7 +323,7 @@ const RefillJudgeBribePoints = () => {
         );
       })}
       <div style={{ height: '20px' }} />
-      <h2>Refill Bribe Points</h2>
+      <h2>REFILL BRIBE POINTS</h2>
       <div style={{ height: '5px' }} />
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <Dropdown
@@ -407,7 +407,7 @@ const RenameTeams = () => {
 
   return (
     <div style={{ margin: '0 5px' }}>
-      <h2>Rename Teams</h2>
+      <h2>RENAME TEAMS</h2>
       <div style={{ height: '5px' }} />
       {teamObjs.map((teamObj, index) => {
         return (

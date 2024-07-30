@@ -38,6 +38,9 @@ const UserController = {
           lastName,
           preferredName,
         );
+        if (req.file){
+          user.waiver = req.file.path
+        }
       }
       return res.status(200).send({ message: 'Success!', user: user.getResponseObject() });
     } catch (err) {

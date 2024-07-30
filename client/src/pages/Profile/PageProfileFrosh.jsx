@@ -171,9 +171,9 @@ const ProfilePageFroshScuntMessage = () => {
   }
 
   return (
-    <Link to="/scunt">
+    <Link to="/skule-hunt">
       <div className="frosh-instagram-container">
-        <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
+        <img src={ScuntIcon} alt="Skule™ Hunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
         <div>
           <h2>SKULE™ HUNT</h2>
           <p>Find more information about The Hunt by clicking here!</p>
@@ -192,6 +192,9 @@ const ProfilePageFroshHeader = ({ editButton }) => {
   const firstDigitF = gradYear.toString().slice(-2, -1);
   const lastDigitF = gradYear.toString().slice(-1);
   let froshYear = `${firstDigitF}T${lastDigitF}`;
+
+  console.log('ProfilePageFroshHeader user:', user);
+  console.log('ProfilePageFroshHeader isRegistered:', isRegistered);
 
   return (
     <>
@@ -224,10 +227,14 @@ const ProfilePageFroshHeader = ({ editButton }) => {
             <p>Class of</p>
             <h2>{froshYear}</h2>
           </div>
-          {editButton !== false && isRegistered ? (
-            <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
+          {editButton !== false ? (
+          // {editButton !== false && isRegistered ? (
+            <Link to={isRegistered ? '/profile-edit' : '/profile-edit-unregistered'} className={'profile-edit-icon-link no-link-style'}>
               <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
             </Link>
+            // <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
+            //   <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
+            // </Link>
           ) : null}
         </div>
       </div>

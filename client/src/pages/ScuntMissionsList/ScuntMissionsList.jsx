@@ -58,7 +58,7 @@ const PageScuntMissionsList = () => {
         <Header text={'Missions'} underlineDesktop={'300px'} underlineMobile={'210px'}>
           <ScuntLinks />
           <div className="scunt-check-soon-title">
-            <h1 style={{ color: 'var(--text-light)' }}>Check back soon!</h1>
+            <h1 style={{ color: 'var(--text-light)' }}>CHECK BACK SOON!</h1>
           </div>
         </Header>
       </>
@@ -299,9 +299,9 @@ const PageScuntMissionsListShow = () => {
   return (
     <div>
       <div className="scunt-missions-header">
-        <h2>Want another way to earn points?</h2>
+        <h2>WANT ANOTHER WAY TO EARN POINTS?</h2>
         <div className="scunt-missions-header-link">
-          <Link to={'/scunt-judges'}>Don&apos;t forget to bribe the judges!</Link>
+          <Link to={'/skule-hunt-judges'}>Don&apos;t forget to bribe the judges!</Link>
         </div>
         <div className="scunt-missions-judging-station-info">
           <img

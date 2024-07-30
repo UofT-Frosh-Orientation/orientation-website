@@ -25,6 +25,16 @@ const PageProfileEdit = () => {
   };
 
   useEffect(() => {
+    if (!user) {
+      console.log('User not found, fetching user info...');
+      dispatch(getUserInfo(navigate));
+    }
+  }, [user]);
+
+  console.log('PageProfileEdit user:', user);
+  console.log('PageProfileEdit isRegistered:', isRegistered);
+
+  useEffect(() => {
     if (!isRegistered) {
       navigate('/profile');
     }
@@ -35,7 +45,7 @@ const PageProfileEdit = () => {
       <Suspense>
         <ProfilePageFroshHeader editButton={false} />
         <div className="edit-form-container">
-          <PageRegistrationForm editFieldsPage={true} initialValues={user} onEditSubmit={submit} />
+            <PageRegistrationForm editFieldsPage={true} initialValues={user} onEditSubmit={submit} />
         </div>
       </Suspense>
     );

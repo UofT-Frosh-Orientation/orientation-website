@@ -93,6 +93,10 @@ post {{$dotenv API_BASE_URL}}/frosh/register
 
 ###
 
+post {{$dotenv API_BASE_URL}}/frosh/upload-waiver
+
+###
+
 put {{$dotenv API_BASE_URL}}/frosh/info
 
 ###
@@ -117,23 +121,23 @@ post {{$dotenv API_BASE_URL}}/scunt-game-controls/
 
 ###
 
-get {{$dotenv API_BASE_URL}}/scunt-missions/
+get {{$dotenv API_BASE_URL}}/skule-hunt-missions/
 
 ###
 
-post {{$dotenv API_BASE_URL}}/scunt-missions/
+post {{$dotenv API_BASE_URL}}/skule-hunt-missions/
 
 ###
 
-delete {{$dotenv API_BASE_URL}}/scunt-missions/:id
+delete {{$dotenv API_BASE_URL}}/skule-hunt-missions/:id
 
 ###
 
-put {{$dotenv API_BASE_URL}}/scunt-missions/set-visibility
+put {{$dotenv API_BASE_URL}}/skule-hunt-missions/set-visibility
 
 ###
 
-post {{$dotenv API_BASE_URL}}/scunt-missions/bulk 
+post {{$dotenv API_BASE_URL}}/skule-hunt-missions/bulk 
 
 ###
 

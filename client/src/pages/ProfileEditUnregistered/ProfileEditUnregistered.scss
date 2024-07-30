@@ -1,5 +1,10 @@
 @import '../../scssStyles/mixins';
 
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../../../../client/assets/fonts/proximanova_regular.ttf') format('opentype');
+}
+
 .profile-edit-page {
   display: flex;
   flex-direction: column;
@@ -40,10 +45,21 @@
     margin-bottom: 15px;
     width: 100%;
   }
+  h3 .proxima-nova-text{
+    font-family: 'Proxima Nova', sans-serif;
+  }
 }
 
 .profile-edit-input {
   width: 100%;
+}
+
+.small-width-input {
+  width: 75px;
+}
+
+.fill-remaining-width-input {
+  flex: 1;
 }
 
 .profile-edit-button {

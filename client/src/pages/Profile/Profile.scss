@@ -1,5 +1,10 @@
 @import '../../scssStyles/mixins';
 
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../../../../client/assets/fonts/proximanova_regular.ttf') format('opentype');
+}
+
 .profile-page-header {
   display: flex;
   align-items: center;
@@ -279,6 +284,10 @@
   margin-top: 15px;
   text-align: center;
   padding: 0px 20px;
+}
+
+.profile-not-registered h2{
+  font-family: 'Proxima Nova', sans-serif;
 }
 
 .retreat-profile-container {
