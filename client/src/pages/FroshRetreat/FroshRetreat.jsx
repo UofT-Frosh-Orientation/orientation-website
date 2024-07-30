@@ -212,6 +212,7 @@ const RetreatRegistration = () => {
   const { setSnackbar } = useContext(SnackbarContext);
   const { axios } = useAxios();
   const isRetreat = user?.isRetreat === true;
+  const isWaiverUploaded = user?.waiver?.filename !== undefined;
 
   const [file, setFile] = useState(null);
   const [isUploaded, setIsUploaded] = useState(false);
@@ -315,6 +316,7 @@ const RetreatRegistration = () => {
             }}
             style={{ marginBottom: '25px' }}
           />
+
           <div className="display-field">
             <h3>UPLOAD SIGNED WAIVER:</h3>
             <p>Only PDF files are accepted</p>
@@ -332,7 +334,21 @@ const RetreatRegistration = () => {
               <p>Please view the waiver before uploading the signed copy.</p>
             )}
           </div>
+
+          {isWaiverUploaded ? (
+            <Button
+              label="View Uploaded Waiver"
+              isSecondary
+              onClick={() => {
+                window.open(`/view-waiver`, '_blank').focus();
+              }}
+              style={{ marginBottom: '25px' }}
+            />
+          ) : (
+            <></>
+          )}
         </div>
+
         {isRetreat ? (
           <h2>You have already paid for Frosh Retreat!</h2>
         ) : outOfTickets ? (
