@@ -18,17 +18,17 @@ const ScuntGameSettingSchema = new mongoose.Schema({
     required: false,
     default: 10000,
   },
-  // The max amount of points allowed to be given out over the recommended amount for missions
+  // The max percentage of points allowed to be given out (enter as decimal value: 1.5 = 150)
   maxAmountPointsPercent: {
     type: Number,
     required: false,
-    default: 0.3,
+    default: 1.5,
   },
-  // The min amount of points allowed to be given out over the recommended amount for missions
+  // The min percentage of points allowed to be given out (enter as decimal value: 0.5 = 50)
   minAmountPointsPercent: {
     type: Number,
     required: false,
-    default: 0.3,
+    default: 0.5,
   },
   revealJudgesAndBribes: {
     type: Boolean,

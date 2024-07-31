@@ -60,6 +60,8 @@
 .about-scunt-content {
   color: var(--text-white);
   width: 100%;
+  display: flex;
+  align-items: center;
   h4 {
     font-size: 22px;
   }
@@ -67,6 +69,28 @@
     color: var(--text-link-for-dark);
   }
 }
+
+.about-scunt-content img {
+  width: 300px;
+  margin: 20px;
+}
+
+.about-scunt-content .text-content {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .about-scunt-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .about-scunt-content img {
+    width: 100%; /* Adjust as needed */
+    margin: 10px 0;
+  }
+}
+
 .about-scunt-token {
   padding: 20px;
   float: right;
@@ -132,11 +156,28 @@
   top: 16px;
   left: 16px;
   display: inline-block;
-  background: none; 
+  background: none;
 }
 
 .back-icon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   fill: purple;
+  filter: invert(1) opacity(100%);
+}
+
+.back-button:hover .back-icon,
+.back-button:active .back-icon {
+  filter: invert(1) opacity(50%);
+}
+
+.circle {
+  position: absolute;
+  top: -0.5px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-52%);
+  width: 22px; /* Adjust size */
+  height: 22px;
+  background-color: #a04fb9; /* Light purple */
+  border-radius: 50%;
 }

@@ -43,15 +43,15 @@ const scuntSettingsInfo = [
     parameter: 'Max Amount of Points',
     key: 'maxAmountPointsPercent',
     description:
-      'The max amount of points allowed to be given out over the recommended amount for missions',
-    placeholder: 0.3,
+      'The max percentage of points allowed to be given out (enter as decimal value: 1.5 = 150%)',
+    placeholder: 1.5,
   },
   {
     parameter: 'Min Amount of Points',
     key: 'minAmountPointsPercent',
     description:
-      'The min amount of points allowed to be given out over the recommended amount for missions',
-    placeholder: 0.3,
+      'The min percentage of points allowed to be given out (enter as decimal value: 0.5 = 50%)',
+    placeholder: 0.5,
   },
 ];
 
@@ -103,8 +103,8 @@ const ScuntGameSettings = () => {
     name: 'Scunt 2T3 Settings',
     amountOfTeams: 10,
     amountOfStarterBribePoints: 2500,
-    maxAmountPointsPercent: 0.3,
-    minAmountPointsPercent: 0.3,
+    maxAmountPointsPercent: 1.5,
+    minAmountPointsPercent: 0.5,
     revealJudgesAndBribes: true,
     revealTeams: true,
     showDiscordLink: true,

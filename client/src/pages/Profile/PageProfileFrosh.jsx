@@ -54,7 +54,7 @@ const PageProfileFrosh = () => {
       <div className="profile-info-row">
         <div className="profile-info-row-right">
           {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null}
-          {/* {isRegistered ? <ProfilePageRetreat /> : null} */}
+          <ProfilePageRetreat />
           {/* <ProfilePageNitelife /> */}
           <ProfilePageInstagrams />
           <ProfilePageAnnouncements />
@@ -88,7 +88,7 @@ const ProfilePageRetreat = () => {
     remainingTicketsSetter();
   }, []);
 
-  if (!isRegistered || (remainingTickets <= 0 && !isRetreat)) {
+  if (remainingTickets <= 0 && !isRetreat) {
     return null;
   }
   return (
@@ -173,7 +173,11 @@ const ProfilePageFroshScuntMessage = () => {
   return (
     <Link to="/skule-hunt">
       <div className="frosh-instagram-container">
-        <img src={ScuntIcon} alt="Skule™ Hunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
+        <img
+          src={ScuntIcon}
+          alt="Skule™ Hunt"
+          style={{ filter: darkMode ? 'invert(1)' : 'unset' }}
+        />
         <div>
           <h2>SKULE™ HUNT</h2>
           <p>Find more information about The Hunt by clicking here!</p>
@@ -228,14 +232,17 @@ const ProfilePageFroshHeader = ({ editButton }) => {
             <h2>{froshYear}</h2>
           </div>
           {editButton !== false ? (
-          // {editButton !== false && isRegistered ? (
-            <Link to={isRegistered ? '/profile-edit' : '/profile-edit-unregistered'} className={'profile-edit-icon-link no-link-style'}>
+            // {editButton !== false && isRegistered ? (
+            <Link
+              to={isRegistered ? '/profile-edit' : '/profile-edit-unregistered'}
+              className={'profile-edit-icon-link no-link-style'}
+            >
               <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
             </Link>
-            // <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
-            //   <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
-            // </Link>
-          ) : null}
+          ) : // <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
+          //   <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
+          // </Link>
+          null}
         </div>
       </div>
 

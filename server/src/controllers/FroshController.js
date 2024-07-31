@@ -32,6 +32,7 @@ const FroshController = {
           user: user.getResponseObject(),
         });
         newFroshSubscription.add({
+          firstName: user.firstName,
           preferredName: user.preferredName,
           email: user.email,
           file: req.file,

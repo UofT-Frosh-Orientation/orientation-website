@@ -61,6 +61,7 @@ newFroshSubscription.process((job, done) => {
             .text-container p {
               font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
               font-size: 20px;
+              color: white;
             }
             a {
               color: #a77ad7;
@@ -86,25 +87,27 @@ newFroshSubscription.process((job, done) => {
             />
             <br />
             <div class="text-container">
-              <h1>Hi ${job.data.preferredName},</h1>
-              <p><b>Thank you for registering for F!rosh Week 2T4!!!</b></p>
+              <h1>Hi ${job.data.preferredName ? job.data.preferredName : job.data.firstName},</h1>
+              <p><b>Thank you for inputting your information on your Frosh Week 2T4 account!!</b></p>
               <p>
-                Please find attached your information PDF which includes a receipt of your data and your
-                unique QR code that you will use for a variety of activities during F!rosh Week.
+                This email is <b>NOT A CONFIRMATION OF REGISTRATION</b>. To confirm that you have registered (filled out your information AND paid the registration fee) 
+                you will see your <b>group name and a QR code on your profile</b> when you login to your profile on <a href="http://orientation.skule.ca">orientation.skule.ca</a>. 
+                This QR code will be important for signing into numerous events during F!rosh Week.
               </p>
               <br />
-              <p>We look forward to seeing you soon!</p>
+              <p>If you do not see these two items (group name and QR code), make sure you complete your payment to secure your spot at F!rosh Week 2T4! This can be found on the 
+                payment page when you hit “Pay Now.”
+              </p>
               <br />
               <p>
                 To keep up to date with all the info you need to know before you arrive here for
                 orientation, and to learn more about our meetup events running over the summer make sure
-                to follow our Instagram page <a href="https://bit.ly/froshig">@froshweek</a> or check us
-                out on our other social media platforms.
+                to follow our Instagram page <a href="https://bit.ly/froshig">@froshweek</a> and <a href="https://discord.gg/RQrPQMYrHw">join our Discord community</a>!
               </p>
               <br />
               <p>
                 If you have any questions or want to learn more feel free to email us at
-                <a href="mailto:orientation@skule.ca">orientation@skule.ca!</a>
+                <a href="mailto:marketing@orientation.skule.ca">marketing@orientation.skule.ca!</a>
               </p>
               <br />
               <p>With HYPE, <br />F!rosh Week Orientation Committee</p>
@@ -123,11 +126,9 @@ newFroshSubscription.process((job, done) => {
                   src="cid:instagrambrands"
                   alt="instagram logo"
                   class="social-icon" /></a
-              ><a href="https://discord.com/invite/6D9bBkU4ka" class="social-link"
+              ><a href="https://discord.gg/RQrPQMYrHw" class="social-link"
                 ><img src="cid:discordbrands" alt="discord logo" class="social-icon" /></a
-              ><a href="https://chat.whatsapp.com/L5ZKvpJIOD0JtiJDU9hj1U" class="social-link"
-                ><img src="cid:whatsapp" alt="whatsapp logo" class="social-icon"
-              /></a>
+              >
             </div>
             <img
               class="frosh-logo"

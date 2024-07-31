@@ -553,11 +553,12 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
                     return;
                   }
                   const maxPoints =
-                    parseInt(assignedMission?.points) +
+                    //parseInt(assignedMission?.points) +
                     parseInt(assignedMission?.points * maxAmountPointsPercent);
                   const minPoints =
-                    parseInt(assignedMission?.points) -
+                    // parseInt(assignedMission?.points) -
                     parseInt(assignedMission?.points * minAmountPointsPercent);
+
                   if (value === '' || value === undefined) {
                     setAssignedPoints(assignedMission?.points);
                   } else if (parseInt(value) >= maxPoints) {
@@ -590,11 +591,11 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
             value={assignedPoints}
             defaultValue={parseInt(assignedMission?.points)}
             max={
-              parseInt(assignedMission?.points) +
+              //parseInt(assignedMission?.points) +
               parseInt(assignedMission?.points * maxAmountPointsPercent)
             }
             min={
-              parseInt(assignedMission?.points) -
+              //parseInt(assignedMission?.points) -
               parseInt(assignedMission?.points * minAmountPointsPercent)
             }
             className="horizontal-slider"

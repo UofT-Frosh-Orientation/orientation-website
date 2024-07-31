@@ -9,42 +9,42 @@ const MakeReceipt = (froshObject) => {
     throw new Error('No ID provided to MakeReceipt.jsx');
   }
 
-  const qr = (
-    <QRNormal
-      value={froshObject.id}
-      type="round"
-      opacity={100}
-      posType="round"
-      otherColor="#320846"
-      posColor="#28093A"
-      backgroundColor="white"
-    />
-  );
+  // const qr = (
+  //   <QRNormal
+  //     value={froshObject.id}
+  //     type="round"
+  //     opacity={100}
+  //     posType="round"
+  //     otherColor="#320846"
+  //     posColor="#28093A"
+  //     backgroundColor="white"
+  //   />
+  // );
 
-  const qr64 = ReactDOMServer.renderToString(qr);
+  // const qr64 = ReactDOMServer.renderToString(qr);
   // create dummy element to hold the children
   const svgg = document.createElement('div');
-  svgg.innerHTML = qr64;
+  // svgg.innerHTML = qr64;
   const svg = svgg.childNodes[0];
 
   let currKey = 1,
-    t1 = [],
+    // t1 = [],
     t2 = [];
 
-  svg.childNodes.forEach((node, key, parent) => {
-    t1.push(
-      <Circle
-        key={currKey}
-        cx={Number.parseFloat(node.getAttribute('cx')) * 10}
-        cy={Number.parseFloat(node.getAttribute('cy')) * 10}
-        r={Number.parseFloat(node.getAttribute('r')) * 10}
-        fill={node.getAttribute('fill')}
-        stroke={node.getAttribute('stroke')}
-        strokeWidth={Number.parseFloat(node.getAttribute('stroke-width')) * 10}
-      />,
-    );
-    currKey++;
-  });
+  // svg.childNodes.forEach((node, key, parent) => {
+  //   t1.push(
+  //     <Circle
+  //       key={currKey}
+  //       cx={Number.parseFloat(node.getAttribute('cx')) * 10}
+  //       cy={Number.parseFloat(node.getAttribute('cy')) * 10}
+  //       r={Number.parseFloat(node.getAttribute('r')) * 10}
+  //       fill={node.getAttribute('fill')}
+  //       stroke={node.getAttribute('stroke')}
+  //       strokeWidth={Number.parseFloat(node.getAttribute('stroke-width')) * 10}
+  //     />,
+  //   );
+  //   currKey++;
+  // });
 
   // All nonintrusive displayable form information
   const irrelevantFields = [
@@ -84,7 +84,7 @@ const MakeReceipt = (froshObject) => {
           backgroundColor: '#E4E4E4',
         }}
       >
-        <View
+        {/* <View
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -93,11 +93,11 @@ const MakeReceipt = (froshObject) => {
         >
           <Svg fill="white" style={{ width: '250px', padding: '10px 0 0 0' }}>
             {t1}
-          </Svg>
+          </Svg> 
           <Text style={{ fontSize: 16, padding: '10px 0 0 0' }} key={currKey++}>
             Your Unique QRCode
           </Text>
-        </View>
+        </View> */}
         <View style={{ padding: '0 10px' }}>
           <Text style={{ fontSize: 16, padding: '20px 0' }} key={currKey++}>
             Please check all of your information to ensure it is correct. If you need to make any
