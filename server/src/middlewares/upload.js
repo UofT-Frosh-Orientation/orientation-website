@@ -57,6 +57,10 @@ router.post('/upload-waiver', (req, res) => {
         req.file.originalname,
       )}`;
 
+      if (!user.waiver) {
+        user.waiver = {};
+      }
+
       // save to MongoDB
       user.waiver = {
         filename,
