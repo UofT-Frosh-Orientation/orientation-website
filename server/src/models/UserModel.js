@@ -153,6 +153,11 @@ const UserSchema = new mongoose.Schema(
       contentType: String,
       data: Buffer,
     },
+    isRetreat: {
+      // used for F!rosh that paid for retreat
+      type: Boolean,
+      required: false,
+    },
   },
   { discriminatorKey: 'userType' },
 );
