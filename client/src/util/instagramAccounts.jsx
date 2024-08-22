@@ -6,11 +6,11 @@ export const instagramAccounts = {
   Psi: 'https://www.instagram.com/psi_frosh_2t4/',
   Rho: 'https://www.instagram.com/rho_frosh_2t4/',
   Zeta: 'https://www.instagram.com/zeta_frosh_2t4/',
-  Gamma: 'https://www.instagram.com/gamma_frosh_2t4/', //not available
+  Gamma: 'https://www.instagram.com/gamma__frosh__2t4',
   Omega: 'https://www.instagram.com/omega_frosh_2t4/',
   Chi: 'https://www.instagram.com/chi_frosh_2t4/',
   Upsilon: 'https://www.instagram.com/upsilon_frosh_2t4/',
-  Pi: 'https://www.instagram.com/pi_frosh_2t4/', //not available
+  Pi: 'https://www.instagram.com/pi_frosh_2t4/',
   Nu: 'https://www.instagram.com/nu_frosh_2t4/',
   Delta: 'https://www.instagram.com/delta_frosh_2t4/',
   Sigma: 'https://www.instagram.com/sigma_frosh_2t4/',

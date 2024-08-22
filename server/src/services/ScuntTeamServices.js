@@ -98,6 +98,13 @@ const ScuntTeamServices = {
       },
     );
 
+    if (isNaN(points)) {
+      // POINTS IS NAN
+      console.log(points); // undefined
+      console.log(typeof points); // wanna seewhat type it is; its also undefined wtf
+      throw new Error('INVALID_POINTS_VALUE');
+    }
+
     const leadur = await LeadurModel.findByIdAndUpdate(
       user.id,
       { $set: { scuntJudgeBribePoints: user.scuntJudgeBribePoints - points } },

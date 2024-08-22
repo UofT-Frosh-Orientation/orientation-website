@@ -32,6 +32,11 @@ const ScuntTeamController = {
   async bribeTransaction(req, res, next) {
     try {
       const { teamNumber, points } = req.body;
+
+      // if (!points || isNaN(points)) {;
+      //   return res.status(400).send({ message: 'Invalid points value' }); // this gets triggered (rip)
+      // }
+
       const { leadur } = await ScuntTeamServices.bribeTransaction(teamNumber, points, req.user);
       const scuntTeams = await ScuntTeamServices.getTeamPoints();
 

@@ -279,6 +279,10 @@ const ScuntBribePoints = ({ teams, teamObjs }) => {
                     setAssignedPoints(remainingBribePoints);
                   } else {
                     setAssignedPoints(parseInt(value));
+                    // console.log(parseInt(value)); /// this is right
+                    // console.log(typeof parseInt(value)); /// this is right
+                    // console.log(assignedPoints); /// this is right
+                    // console.log(typeof assignedPoints); /// this is right
                   }
                 }}
                 setClearText={setClearPointsInput}
@@ -298,6 +302,8 @@ const ScuntBribePoints = ({ teams, teamObjs }) => {
             renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
             onChange={(value) => {
               setAssignedPoints(value);
+              // console.log(value); // this is right
+              // console.log(typeof value); // this is right
               setClearPointsInput(true);
             }}
           />
@@ -327,13 +333,20 @@ const ScuntBribePoints = ({ teams, teamObjs }) => {
                 if (assignedPoints <= 0 || assignedPoints === undefined) {
                   setSnackbar('You cannot give 0 points!', true);
                 } else {
-                  dispatch(
-                    submitBribePoints({
-                      teamNumber: assignedTeam?.number,
-                      assignedPoints,
-                      setSnackbar,
-                    }),
-                  );
+                  console.log('assignedPoints before dispatch:', assignedPoints);
+                  if (
+                    assignedTeam?.number !== undefined &&
+                    assignedPoints !== undefined &&
+                    setSnackbar
+                  ) {
+                    dispatch(
+                      submitBribePoints({
+                        teamNumber: assignedTeam.number,
+                        points: assignedPoints,
+                        setSnackbar,
+                      }),
+                    );
+                  }
                   setAssignedPoints(0);
                 }
                 // setRemainingBribePoints(remainingBribePoints - assignedPoints);

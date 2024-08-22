@@ -76,11 +76,11 @@ export const FroshRetreat = () => {
       </Header>
       <div style={{ height: '20px' }} />
       <h3 style={{ color: 'var(--white)', margin: '20px 0', textAlign: 'center' }}>
-        SEE THIS VIDEO OF RETREAT 2T0 FOR A SENSE OF THE TRIP!
+        SEE THIS VIDEO OF LEEDUR RETREAT 2T4 FOR A SENSE OF THE TRIP!
       </h3>
       <iframe
         className="frosh-retreat-video"
-        src="https://www.youtube.com/embed/eGwsNvgroCI?autoplay=1"
+        src="https://drive.google.com/file/d/1_lpjxS90MrYfqsgOosCd1gRf2xd7phoY/view?usp=sharing"
         title="F!rosh Retreat Info"
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -131,12 +131,11 @@ const retreatFAQs = [
     ],
   },
   {
-    title:
-      'What time does the bus leave?',
+    title: 'What time does the bus leave?',
     description: [
       'The bus leaves from campus at 11:00am on August 31st and returns to campus at 1:00pm on September 1st.',
     ],
-  }
+  },
 ];
 
 const FroshRetreatFAQ = () => {
@@ -155,9 +154,7 @@ const FroshRetreatFAQ = () => {
         }}
       >
         <img src={dragon} style={{ width: '350px', margin: '20px' }}></img>
-        <h2 style={{ marginBottom: '20px' }}>
-          FAQS: PREPARE FOR A GOOD TIME DOWN ON THE FARM!
-        </h2>
+        <h2 style={{ marginBottom: '20px' }}>FAQS: PREPARE FOR A GOOD TIME DOWN ON THE FARM!</h2>
         {retreatFAQs.map((item, index) => {
           const [isOpen, setIsOpen] = useState(false);
           return (
@@ -219,6 +216,7 @@ const RetreatRegistration = () => {
   const { setSnackbar } = useContext(SnackbarContext);
   const { axios } = useAxios();
   const isRetreat = user?.isRetreat === true;
+  console.log(isRetreat);
   const isWaiverUploaded = user?.waiver?.filename !== undefined;
 
   const [file, setFile] = useState(null);

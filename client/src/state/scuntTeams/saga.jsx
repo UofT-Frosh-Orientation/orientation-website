@@ -171,6 +171,7 @@ export const submitBribePoints = createAction('submitBribePointsSaga');
 
 export function* submitBribePointsSaga({ payload: { teamNumber, points, setSnackbar } }) {
   const { axios } = useAxios();
+  console.log('Saga payload:', { teamNumber, points, setSnackbar }); // getting undefined points here
   try {
     yield put(addPointsStart());
     yield put(updateUserInfoStart());

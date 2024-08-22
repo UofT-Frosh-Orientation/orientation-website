@@ -38,12 +38,12 @@ export async function getQuestions(setSnackbar) {
       lastUpdated: '2:00 pm',
       category: 'General',
     },
-    {
-      question: "What if I can't afford the ticket for F!rosh Week?",
-      answer: 'That’s okay! You can apply for a bursary when you sign up for F!rosh Week!',
-      lastUpdated: '12:17pm, Jun 22, 2024',
-      category: 'General',
-    },
+    // {
+    //   question: "What if I can't afford the ticket for F!rosh Week?",
+    //   answer: 'That’s okay! You can apply for a bursary when you sign up for F!rosh Week!',
+    //   lastUpdated: '12:17pm, Jun 22, 2024',
+    //   category: 'General',
+    // },
     {
       question: 'What should I bring on the first day?',
       answer:

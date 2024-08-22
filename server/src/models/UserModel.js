@@ -5,6 +5,36 @@ const validateName = function (name) {
   return !(name === '' || name === null || name === undefined);
 };
 
+const paymentSchema = new mongoose.Schema({
+  item: {
+    type: String,
+    required: true,
+  },
+  paymentIntent: {
+    type: String,
+    required: true,
+  },
+  amountDue: {
+    type: Number,
+    required: true,
+  },
+  bursaryRequested: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  bursaryApproved: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  expired: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+});
+
 const UserSchema = new mongoose.Schema(
   {
     firstName: {
@@ -104,6 +134,7 @@ const UserSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    payments: [paymentSchema],
     phoneNumberCountryCode: {
       type: String,
       required: false,
@@ -154,9 +185,9 @@ const UserSchema = new mongoose.Schema(
       data: Buffer,
     },
     isRetreat: {
-      // used for F!rosh that paid for retreat
       type: Boolean,
       required: false,
+      // default: false,
     },
   },
   { discriminatorKey: 'userType' },

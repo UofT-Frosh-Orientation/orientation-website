@@ -103,10 +103,10 @@ describe('PaymentServices', () => {
     assert.equal(updatedFrosh.isRetreat, true);
   });
 
-  it('.updatePayment(...)\t|\tUpdating a payment (FROSH_NOT_FOUND)', async () => {
+  it('.updatePayment(...)\t|\tUpdating a payment (PAYMENT_NOT_FOUND)', async () => {
     await assert.rejects(PaymentServices.updatePayment('123452131326', 123), {
       name: 'Error',
-      message: 'FROSH_NOT_FOUND',
+      message: 'PAYMENT_NOT_FOUND',
     });
   });
 
@@ -148,7 +148,7 @@ describe('PaymentServices', () => {
     assert.equal(updatedFrosh.isRegistered, true);
   });
 
-  it('.updatePayment(...)\t|\tUpdating a payment (UNABLE_TO_UPDATE_FROSH)', async () => {
+  it('.updatePayment(...)\t|\tUpdating a payment (INVALID_PAYMENT_ITEM)', async () => {
     await FroshModel.create({
       scuntPreferredMembers: [1, 2, 3],
       hashedPassword: 'test',
@@ -184,7 +184,7 @@ describe('PaymentServices', () => {
     });
     await assert.rejects(PaymentServices.updatePayment('test2', 123), {
       name: 'Error',
-      message: 'UNABLE_TO_UPDATE_FROSH',
+      message: 'INVALID_PAYMENT_ITEM',
     });
   });
 
@@ -303,10 +303,10 @@ describe('PaymentServices', () => {
     assert.equal(updatedFrosh.payments[0].expired, true);
   });
 
-  it('.expirePayment(...)\t|\tExpiring a payment (FROSH_NOT_FOUND)', async () => {
+  it('.expirePayment(...)\t|\tExpiring a payment (PAYMENT_NOT_FOUND)', async () => {
     await assert.rejects(PaymentServices.expirePayment('none existent'), {
       name: 'Error',
-      message: 'FROSH_NOT_FOUND',
+      message: 'PAYMENT_NOT_FOUND',
     });
   });
 });

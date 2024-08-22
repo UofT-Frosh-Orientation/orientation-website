@@ -2,6 +2,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const FroshModel = require('../models/FroshModel');
 const FroshGroupModel = require('../models/FroshGroupModel');
+const UserModel = require('../models/UserModel');
 
 const PaymentServices = {
   /**
@@ -27,52 +28,85 @@ const PaymentServices = {
    * @return {Promise<Query<Document<unknown, any, Omit<unknown, never>> & Omit<unknown, never> & {_id: Omit<unknown, never>["_id"]}, Document<unknown, any, Omit<unknown, never>> & Omit<unknown, never> & {_id: Omit<unknown, never>["_id"]}, {}, Omit<unknown, never>>>}
    */
   async updatePayment(paymentId, amountReceived) {
-    const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentId }).then(
-      (frosh) => {
-        if (!frosh) throw new Error('FROSH_NOT_FOUND');
-        return frosh;
-      },
+    let user;
+
+    const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentId }).catch(
       (error) => {
         throw new Error('UNABLE_TO_FIND_FROSH', { cause: error });
       },
     );
-    frosh.set({ authScopes: { requested: [], approved: [] } });
-    const idx = frosh.payments.findIndex((p) => p.paymentIntent === paymentId);
-    frosh.payments[idx].amountDue = frosh.payments[idx].amountDue - amountReceived;
-    if (frosh.payments[idx].item === 'Orientation Ticket') {
-      frosh.set({ isRegistered: true });
-      await frosh.save({ validateModifiedOnly: true }).then(
-        (frosh) => frosh,
-        (error) => {
+    console.log();
+
+    if (!frosh) {
+      console.log(`Cant not in frosh model`);
+      user = await UserModel.findOne({ 'payments.paymentIntent': paymentId }).catch((error) => {
+        throw new Error('UNABLE_TO_FIND_USER', { cause: error });
+      });
+
+      if (!user) {
+        throw new Error('PAYMENT_NOT_FOUND');
+      }
+    }
+
+    //if found in FroshModel
+    if (frosh) {
+      console.log(`found in frosh model`);
+      const idx = frosh.payments.findIndex((p) => p.paymentIntent === paymentId);
+      frosh.payments[idx].amountDue -= amountReceived;
+
+      if (frosh.payments[idx].item === 'Orientation Ticket') {
+        frosh.set({ isRegistered: true });
+        await frosh.save({ validateModifiedOnly: true }).catch((error) => {
           throw new Error('UNABLE_TO_UPDATE_FROSH', { cause: error });
-        },
-      );
-      console.log('Frosh payment completed! Frosh info: ', frosh);
-      return FroshGroupModel.findOneAndUpdate(
-        { name: frosh.froshGroup },
-        { $inc: { totalNum: 1 } },
-        { new: true },
-      ).then(
-        (doc) => {
-          if (!doc) console.log(new Error('FROSH_GROUP_NOT_FOUND'));
-          else console.log(`Group ${doc.name} total: ${doc.totalNum}`);
-          return frosh;
-        },
-        (error) => {
-          console.log(new Error('UNABLE_TO_UPDATE_FROSH_GROUP', { cause: error }));
-          return frosh;
-        },
-      );
-    } else if (frosh.payments[idx].item === 'Retreat Ticket') {
-      frosh.set({ isRetreat: true });
-      return frosh.save({ validateModifiedOnly: true }).then(
-        (frosh) => frosh,
-        (error) => {
+        });
+
+        console.log(`Frosh payment completed! Frosh info: `, frosh);
+        return FroshGroupModel.findOneAndUpdate(
+          { name: frosh.froshGroup },
+          { $inc: { totalNum: 1 } },
+          { new: true },
+        ).then(
+          (doc) => {
+            if (!doc) console.log(new Error('FROSH_GROUP_NOT_FOUND'));
+            else console.log(`Group ${doc.name} total: ${doc.totalNum}`);
+            return frosh;
+          },
+          (error) => {
+            console.log(new Error('UNABLE_TO_UPDATE_FROSH_GROUP', { cause: error }));
+            return frosh;
+          },
+        );
+      } else if (frosh.payments[idx].item === 'Retreat Ticket') {
+        console.log(`frosh payment type is retreat ticket`);
+        frosh.set({ isRetreat: true });
+        await frosh.save({ validateModifiedOnly: true }).catch((error) => {
           throw new Error('UNABLE_TO_UPDATE_FROSH', { cause: error });
-        },
-      );
-    } else {
-      throw new Error('UNABLE_TO_UPDATE_FROSH', { cause: new Error('INVALID_PAYMENT_ITEM') });
+        });
+
+        console.log('Frosh retreat payment completed! Frosh info: ', frosh);
+        return frosh;
+      } else {
+        throw new Error('INVALID_PAYMENT_ITEM');
+      }
+    }
+
+    // If found in UserModel
+    if (user) {
+      const idx = user.payments.findIndex((p) => p.paymentIntent === paymentId);
+      user.payments[idx].amountDue -= amountReceived;
+
+      if (user.payments[idx].item === 'Retreat Ticket') {
+        console.log(`frosh payment type is retreat ticket`);
+        user.set({ isRetreat: true });
+        await user.save({ validateModifiedOnly: true }).catch((error) => {
+          throw new Error('UNABLE_TO_UPDATE_USER', { cause: error });
+        });
+
+        console.log(`User retreat payment completed! User info: `, user);
+        return user;
+      } else {
+        throw new Error('INVALID_PAYMENT_ITEM');
+      }
     }
   },
 
@@ -82,14 +116,25 @@ const PaymentServices = {
    * @returns {Number} number of non-expired payments for a given item
    */
   async getNonExpiredPaymentsCountForItem(item) {
-    return FroshModel.countDocuments({
-      payments: { $elemMatch: { item, expired: false } },
-    }).then(
-      (count) => count,
-      (error) => {
-        throw new Error('UNABLE_TO_GET_COUNT_OF_PAYMENTS', { cause: error });
-      },
-    );
+    try {
+      let froshCount = 0;
+      let userCount = 0;
+
+      if (item === 'Retreat Ticket') {
+        userCount = await UserModel.countDocuments({
+          payments: { $elemMatch: { item, expired: false } },
+        });
+      } else {
+        froshCount = await FroshModel.countDocuments({
+          payments: { $elemMatch: { item, expired: false } },
+        });
+      }
+
+      const totalCount = froshCount + userCount;
+      return totalCount;
+    } catch (error) {
+      throw new Error('UNABLE_TO_GET_COUNT_OF_PAYMENTS', { cause: error });
+    }
   },
 
   /**
@@ -173,7 +218,7 @@ const PaymentServices = {
     const frosh = await FroshModel.findOne({ 'payments.paymentIntent': paymentIntent }).then(
       (frosh) => {
         if (!frosh) {
-          throw new Error('FROSH_NOT_FOUND');
+          throw new Error('PAYMENT_NOT_FOUND');
         }
         return frosh;
       },

@@ -74,7 +74,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
         // } else if (convertedFroshObject.summerLocationQuery === 'No') {
         //   convertedFroshObject.summerLocationQuery = false;
         // }
-        
+
         let formData = new FormData();
         for (const [key, value] of Object.entries(froshObject)) {
           if (value === undefined) continue;
@@ -462,7 +462,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                         Note: We will be making bursary decisions after Frosh week and will refund
                         the amount to the students after the decisions. Our team will reach out to
                         you for more details regarding the bursary program. Bursaries range from
-                        partial to complete settlement of the ticket price.
+                        partial to complete settlement of the ticket price. Bursary applications are
+                        now closed.
                       </p>
                     </div>
                   ),

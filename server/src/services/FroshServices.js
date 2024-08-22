@@ -65,46 +65,46 @@ const FroshServices = {
    * @returns {User} updated user
    */
   async addRetreatPayment(user, paymentIntent) {
-    try {
-      const updatedUser = await UserModel.findByIdAndUpdate(user.id, {
-        $push: {
-          payments: [
-            {
-              item: 'Retreat Ticket',
-              paymentIntent: paymentIntent.toString(),
-              amountDue: 9500,
-            },
-          ],
-        },
-      }, { new: true});
+    //   try {
+    //     const updatedUser = await UserModel.findByIdAndUpdate(user.id, {
+    //       $push: {
+    //         payments: [
+    //           {
+    //             item: 'Retreat Ticket',
+    //             paymentIntent: paymentIntent.toString(),
+    //             amountDue: 10300,
+    //           },
+    //         ],
+    //       },
+    //     }, { new: true});
 
-      if (!updatedUser){
-        throw new Error('user not found');
-      }
+    //     if (!updatedUser){
+    //       throw new Error('user not found');
+    //     }
 
-      return updatedUser;
+    //     return updatedUser;
 
-    } catch (error) {
-      throw new Error('UNABLE_TO_ADD_PAYMENT', { cause: error });
-    }
+    //   } catch (error) {
+    //     throw new Error('UNABLE_TO_ADD_PAYMENT', { cause: error });
+    //   }
+    // },
+    return UserModel.findByIdAndUpdate(user.id, {
+      $push: {
+        payments: [
+          {
+            item: 'Retreat Ticket',
+            paymentIntent: paymentIntent.toString(),
+            amountDue: 10300,
+          },
+        ],
+      },
+    }).then(
+      (user) => user,
+      (error) => {
+        throw new Error('UNABLE_TO_ADD_PAYMENT', { cause: error });
+      },
+    );
   },
-  //   return FroshModel.findByIdAndUpdate(user.id, {
-  //     $push: {
-  //       payments: [
-  //         {
-  //           item: 'Retreat Ticket',
-  //           paymentIntent: paymentIntent.toString(),
-  //           amountDue: 9500,
-  //         },
-  //       ],
-  //     },
-  //   }).then(
-  //     (frosh) => frosh,
-  //     (error) => {
-  //       throw new Error('UNABLE_TO_ADD_PAYMENT', { cause: error });
-  //     },
-  //   );
-  // },
 
   /**
    * @description Gets the frosh info from ID.
