@@ -252,9 +252,9 @@ export const dataMSE = {
       Color: 'yellow',
     },
   ],
-  'Front Campus': [
+  'GB Quad': [
     {
-      'Activity Name': 'TBog Slip n Slide',
+      'Activity Name': 'Snowball Fight',
       'Start Time': '9:00:00 a1/p1',
       'End Time': '12:00:00 a1/p1',
       'Activity Description':
@@ -271,7 +271,7 @@ export const dataMSE = {
       Color: 'green',
     },
     {
-      'Activity Name': 'TBog Slip n Slide',
+      'Activity Name': 'Snowball Fight',
       'Start Time': '13:00:00 a1/p1',
       'End Time': '17:00:00 a1/p1',
       'Activity Description':
@@ -321,11 +321,11 @@ export const dataMSE = {
       Color: 'purple',
     },
     {
-      'Activity Name': 'Skule Commuter Bikeshare Races',
+      'Activity Name': 'Skule Commuter Scooter Races',
       'Start Time': '14:30:00 a1/p1',
       'End Time': '16:00:00 a1/p1',
       'Activity Description':
-        "Represent your discipline in a relay style bike race around King's College Circle!",
+        "Represent your discipline in a relay style scooter race around King's College Circle!",
       'Participant Limit': '4',
       Color: 'yellow',
     },
@@ -658,9 +658,9 @@ export const dataMech = {
       Color: 'yellow',
     },
   ],
-  'Front Campus': [
+  'GB Quad': [
     {
-      'Activity Name': 'TBog Slip n Slide',
+      'Activity Name': 'Snowball Fight',
       'Start Time': '9:00:00 a1/p1',
       'End Time': '12:00:00 a1/p1',
       'Activity Description':
@@ -677,7 +677,7 @@ export const dataMech = {
       Color: 'green',
     },
     {
-      'Activity Name': 'TBog Slip n Slide',
+      'Activity Name': 'Snowball Fight',
       'Start Time': '13:00:00 a1/p1',
       'End Time': '17:00:00 a1/p1',
       'Activity Description':
@@ -727,11 +727,11 @@ export const dataMech = {
       Color: 'purple',
     },
     {
-      'Activity Name': 'Skule Commuter Bikeshare Races',
+      'Activity Name': 'Skule Commuter Scooter Races',
       'Start Time': '14:30:00 a1/p1',
       'End Time': '16:00:00 a1/p1',
       'Activity Description':
-        "Represent your discipline in a relay style bike race around King's College Circle!",
+        "Represent your discipline in a relay style scooter race around King's College Circle!",
       'Participant Limit': '4',
       Color: 'yellow',
     },
@@ -1073,9 +1073,9 @@ export const dataCivMin = {
       Color: 'yellow',
     },
   ],
-  'Front Campus': [
+  'GB Quad': [
     {
-      'Activity Name': 'TBog Slip n Slide',
+      'Activity Name': 'Snowball Fight',
       'Start Time': '9:00:00 a1/p1',
       'End Time': '12:00:00 a1/p1',
       'Activity Description':
@@ -1092,7 +1092,7 @@ export const dataCivMin = {
       Color: 'green',
     },
     {
-      'Activity Name': 'TBog Slip n Slide',
+      'Activity Name': 'Snowball Fight',
       'Start Time': '13:00:00 a1/p1',
       'End Time': '17:00:00 a1/p1',
       'Activity Description':
@@ -1142,11 +1142,11 @@ export const dataCivMin = {
       Color: 'purple',
     },
     {
-      'Activity Name': 'Skule Commuter Bikeshare Races',
+      'Activity Name': 'Skule Commuter Scooter Races',
       'Start Time': '14:30:00 a1/p1',
       'End Time': '16:00:00 a1/p1',
       'Activity Description':
-        "Represent your discipline in a relay style bike race around King's College Circle!",
+        "Represent your discipline in a relay style scooter race around King's College Circle!",
       'Participant Limit': '4',
       Color: 'yellow',
     },
@@ -1478,9 +1478,9 @@ export const dataIndy = {
       Color: 'yellow',
     },
   ],
-  'Front Campus': [
+  'GB Quad': [
     {
-      'Activity Name': 'TBog Slip n Slide',
+      'Activity Name': 'Snowball Fight',
       'Start Time': '9:00:00 a1/p1',
       'End Time': '12:00:00 a1/p1',
       'Activity Description':
@@ -1497,7 +1497,7 @@ export const dataIndy = {
       Color: 'green',
     },
     {
-      'Activity Name': 'TBog Slip n Slide',
+      'Activity Name': 'Snowball Fight',
       'Start Time': '13:00:00 a1/p1',
       'End Time': '17:00:00 a1/p1',
       'Activity Description':
@@ -1547,11 +1547,11 @@ export const dataIndy = {
       Color: 'purple',
     },
     {
-      'Activity Name': 'Skule Commuter Bikeshare Races',
+      'Activity Name': 'Skule Commuter Scooter Races',
       'Start Time': '14:30:00 a1/p1',
       'End Time': '16:00:00 a1/p1',
       'Activity Description':
-        "Represent your discipline in a relay style bike race around King's College Circle!",
+        "Represent your discipline in a relay style scooter race around King's College Circle!",
       'Participant Limit': '4',
       Color: 'yellow',
     },
@@ -1893,9 +1893,9 @@ export const dataTrackOne = {
       Color: 'yellow',
     },
   ],
-  'Front Campus': [
+  'GB Quad': [
     {
-      'Activity Name': 'TBog Slip n Slide',
+      'Activity Name': 'Snowball Fight',
       'Start Time': '9:00:00 a1/p1',
       'End Time': '12:00:00 a1/p1',
       'Activity Description':
@@ -1912,7 +1912,7 @@ export const dataTrackOne = {
       Color: 'green',
     },
     {
-      'Activity Name': 'TBog Slip n Slide',
+      'Activity Name': 'Snowball Fight',
       'Start Time': '13:00:00 a1/p1',
       'End Time': '17:00:00 a1/p1',
       'Activity Description':
@@ -1962,11 +1962,11 @@ export const dataTrackOne = {
       Color: 'purple',
     },
     {
-      'Activity Name': 'Skule Commuter Bikeshare Races',
+      'Activity Name': 'Skule Commuter Scooter Races',
       'Start Time': '14:30:00 a1/p1',
       'End Time': '16:00:00 a1/p1',
       'Activity Description':
-        "Represent your discipline in a relay style bike race around King's College Circle!",
+        "Represent your discipline in a relay style scooter race around King's College Circle!",
       'Participant Limit': '4',
       Color: 'yellow',
     },
@@ -2309,9 +2309,9 @@ export const dataECE = {
       Color: 'yellow',
     },
   ],
-  'Front Campus': [
+  'GB Quad': [
     {
-      'Activity Name': 'TBog Slip n Slide',
+      'Activity Name': 'Snowball Fight',
       'Start Time': '9:00:00 a1/p1',
       'End Time': '12:00:00 a1/p1',
       'Activity Description':
@@ -2328,7 +2328,7 @@ export const dataECE = {
       Color: 'green',
     },
     {
-      'Activity Name': 'TBog Slip n Slide',
+      'Activity Name': 'Snowball Fight',
       'Start Time': '13:00:00 a1/p1',
       'End Time': '17:00:00 a1/p1',
       'Activity Description':
@@ -2378,11 +2378,11 @@ export const dataECE = {
       Color: 'purple',
     },
     {
-      'Activity Name': 'Skule Commuter Bikeshare Races',
+      'Activity Name': 'Skule Commuter Scooter Races',
       'Start Time': '14:30:00 a1/p1',
       'End Time': '16:00:00 a1/p1',
       'Activity Description':
-        "Represent your discipline in a relay style bike race around King's College Circle!",
+        "Represent your discipline in a relay style scooter race around King's College Circle!",
       'Participant Limit': '4',
       Color: 'yellow',
     },
@@ -2724,9 +2724,9 @@ export const dataEngSci = {
       Color: 'purple',
     },
   ],
-  'Front Campus': [
+  'GB Quad': [
     {
-      'Activity Name': 'TBog Slip n Slide',
+      'Activity Name': 'Snowball Fight',
       'Start Time': '9:00:00 a1/p1',
       'End Time': '12:00:00 a1/p1',
       'Activity Description':
@@ -2743,7 +2743,7 @@ export const dataEngSci = {
       Color: 'green',
     },
     {
-      'Activity Name': 'TBog Slip n Slide',
+      'Activity Name': 'Snowball Fight',
       'Start Time': '13:00:00 a1/p1',
       'End Time': '17:00:00 a1/p1',
       'Activity Description':
@@ -2793,11 +2793,11 @@ export const dataEngSci = {
       Color: 'purple',
     },
     {
-      'Activity Name': 'Skule Commuter Bikeshare Races',
+      'Activity Name': 'Skule Commuter Scooter Races',
       'Start Time': '14:30:00 a1/p1',
       'End Time': '16:00:00 a1/p1',
       'Activity Description':
-        "Represent your discipline in a relay style bike race around King's College Circle!",
+        "Represent your discipline in a relay style scooter race around King's College Circle!",
       'Participant Limit': '4',
       Color: 'yellow',
     },
@@ -3130,9 +3130,9 @@ export const dataChem = {
       Color: 'yellow',
     },
   ],
-  'Front Campus': [
+  'GB Quad': [
     {
-      'Activity Name': 'TBog Slip n Slide',
+      'Activity Name': 'Snowball Fight',
       'Start Time': '9:00:00 a1/p1',
       'End Time': '12:00:00 a1/p1',
       'Activity Description':
@@ -3149,7 +3149,7 @@ export const dataChem = {
       Color: 'green',
     },
     {
-      'Activity Name': 'TBog Slip n Slide',
+      'Activity Name': 'Snowball Fight',
       'Start Time': '13:00:00 a1/p1',
       'End Time': '17:00:00 a1/p1',
       'Activity Description':
@@ -3199,11 +3199,11 @@ export const dataChem = {
       Color: 'purple',
     },
     {
-      'Activity Name': 'Skule Commuter Bikeshare Races',
+      'Activity Name': 'Skule Commuter Scooter Races',
       'Start Time': '14:30:00 a1/p1',
       'End Time': '16:00:00 a1/p1',
       'Activity Description':
-        "Represent your discipline in a relay style bike race around King's College Circle!",
+        "Represent your discipline in a relay style scooter race around King's College Circle!",
       'Participant Limit': '4',
       Color: 'yellow',
     },
