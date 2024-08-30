@@ -330,7 +330,7 @@ export const dataMSE = {
       Color: 'yellow',
     },
   ],
-  'Court 1': [
+  'Court 1 - 9-11 Athletic Centre Field House, 11-4 Athletic Centre Sports Gym': [
     {
       'Activity Name': 'free for all',
       'Start Time': '15:00:00 a1/p1',
@@ -341,7 +341,7 @@ export const dataMSE = {
       Color: 'purple',
     },
   ],
-  'Court 2': [
+  'Court 2 - 9-11 Athletic Centre Field House, 11-4 Athletic Centre Sports Gym': [
     {
       'Activity Name': 'Basketball',
       'Start Time': '10:00:00 a1/p1',
@@ -736,7 +736,7 @@ export const dataMech = {
       Color: 'yellow',
     },
   ],
-  'Court 1': [
+  'Court 1 - 9-11 Athletic Centre Field House, 11-4 Athletic Centre Sports Gym': [
     {
       'Activity Name': 'Volleyball',
       'Start Time': '11:00:00 a1/p1',
@@ -763,7 +763,7 @@ export const dataMech = {
       Color: 'purple',
     },
   ],
-  'Court 2': [
+  'Court 2 - 9-11 Athletic Centre Field House, 11-4 Athletic Centre Sports Gym': [
     {
       'Activity Name': 'Basketball',
       'Start Time': '9:00:00 a1/p1',
@@ -1151,7 +1151,7 @@ export const dataCivMin = {
       Color: 'yellow',
     },
   ],
-  'Court 1': [
+  'Court 1 - 9-11 Athletic Centre Field House, 11-4 Athletic Centre Sports Gym': [
     {
       'Activity Name': 'Basketball',
       'Start Time': '10:00:00 a1/p1',
@@ -1178,7 +1178,7 @@ export const dataCivMin = {
       Color: 'purple',
     },
   ],
-  'Court 2': [
+  'Court 2 - 9-11 Athletic Centre Field House, 11-4 Athletic Centre Sports Gym': [
     {
       'Activity Name': 'Volleyball',
       'Start Time': '12:00:00 a1/p1',
@@ -1556,7 +1556,7 @@ export const dataIndy = {
       Color: 'yellow',
     },
   ],
-  'Court 1': [
+  'Court 1 - 9-11 Athletic Centre Field House, 11-4 Athletic Centre Sports Gym': [
     {
       'Activity Name': 'free for all',
       'Start Time': '15:00:00 a1/p1',
@@ -1567,7 +1567,7 @@ export const dataIndy = {
       Color: 'purple',
     },
   ],
-  'Court 2': [
+  'Court 2 - 9-11 Athletic Centre Field House, 11-4 Athletic Centre Sports Gym': [
     {
       'Activity Name': 'Basketball',
       'Start Time': '9:00:00 a1/p1',
@@ -1971,7 +1971,7 @@ export const dataTrackOne = {
       Color: 'yellow',
     },
   ],
-  'Court 1': [
+  'Court 1 - 9-11 Athletic Centre Field House, 11-4 Athletic Centre Sports Gym': [
     {
       'Activity Name': 'Basketball',
       'Start Time': '10:00:00 a1/p1',
@@ -2007,7 +2007,7 @@ export const dataTrackOne = {
       Color: 'yellow',
     },
   ],
-  'Court 2': [
+  'Court 2 - 9-11 Athletic Centre Field House, 11-4 Athletic Centre Sports Gym': [
     {
       'Activity Name': 'free for all',
       'Start Time': '15:00:00 a1/p1',
@@ -2802,7 +2802,7 @@ export const dataEngSci = {
       Color: 'yellow',
     },
   ],
-  'Court 1': [
+  'Court 1 - 9-11 Athletic Centre Field House, 11-4 Athletic Centre Sports Gym': [
     {
       'Activity Name': 'Volleyball',
       'Start Time': '12:00:00 a1/p1',
@@ -2821,7 +2821,7 @@ export const dataEngSci = {
       Color: 'yellow',
     },
   ],
-  'Court 2': [
+  'Court 2 - 9-11 Athletic Centre Field House, 11-4 Athletic Centre Sports Gym': [
     {
       'Activity Name': 'Basketball',
       'Start Time': '10:00:00 a1/p1',
@@ -3208,7 +3208,7 @@ export const dataChem = {
       Color: 'yellow',
     },
   ],
-  'Court 1': [
+  'Court 1 - 9-11 Athletic Centre Field House, 11-4 Athletic Centre Sports Gym': [
     {
       'Activity Name': 'Basketball',
       'Start Time': '9:00:00 a1/p1',
@@ -3235,7 +3235,7 @@ export const dataChem = {
       Color: 'purple',
     },
   ],
-  'Court 2': [
+  'Court 2 - 9-11 Athletic Centre Field House, 11-4 Athletic Centre Sports Gym': [
     {
       'Activity Name': 'Volleyball',
       'Start Time': '12:00:00 a1/p1',
