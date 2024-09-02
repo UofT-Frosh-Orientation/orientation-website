@@ -208,7 +208,7 @@ const PageSignUp = () => {
               margin: '20px',
             }}
           >
-            <h2>F!rosh 2T4 is over! Check back next year.</h2>
+            <h2>F!ROSH 2T4 IS OVER! CHECK BACK NEXT YEAR.</h2>
           </div>
           <div
             className="sign-up-button"
