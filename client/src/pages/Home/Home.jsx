@@ -69,20 +69,48 @@ const HomePageHeader = () => {
 
 const HomeHeaderButton = () => {
   const loggedIn = useSelector(loggedInSelector);
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
 
   return (
     <>
-      <Link
-        key={loggedIn ? '/profile' : '/sign-up'}
-        to={loggedIn ? '/profile' : '/sign-up'}
-        style={{ textDecoration: 'none' }}
-        className="no-link-style"
-      >
+      {isRegistrationOpen || loggedIn ? (
+        <Link
+          key={loggedIn ? '/profile' : '/sign-up'}
+          to={loggedIn ? '/profile' : '/sign-up'}
+          style={{ textDecoration: 'none' }}
+          className="no-link-style"
+        >
+          <div className="home-page-header-register-button">
+            <div className="desktop-only">
+              <Button
+                label={loggedIn ? 'View Profile' : 'Register Now!'}
+                isSecondary
+                style={{
+                  margin: '0px',
+                  height: '100%',
+                  fontSize: 'unset',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              />
+            </div>
+            <div className="mobile-only">
+              <Button
+                label={loggedIn ? 'View Profile' : 'Register Now!'}
+                isSecondary
+                style={{ margin: '0px' }}
+              />
+            </div>
+          </div>
+        </Link>
+      ) : (
         <div className="home-page-header-register-button">
           <div className="desktop-only">
             <Button
-              label={loggedIn ? 'View Profile' : 'Register Now!'}
+              label="Registration Closed"
               isSecondary
+              isDisabled
               style={{
                 margin: '0px',
                 height: '100%',
@@ -91,24 +119,20 @@ const HomeHeaderButton = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-              // hidden button xD
-              // style={{
-              // width: '0.px',
-              // height: '0.px',
-              // fontSize: '0px',
-              // opacity: '0',
-              // }}
+              disabled
             />
           </div>
           <div className="mobile-only">
             <Button
-              label={loggedIn ? 'View Profile' : 'Register Now!'}
+              label="Registration Closed"
               isSecondary
+              isDisabled
               style={{ margin: '0px' }}
+              disabled
             />
           </div>
         </div>
-      </Link>
+      )}
     </>
   );
 };
