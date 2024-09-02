@@ -199,7 +199,7 @@ const PageSignUp = () => {
           ) : (
             <></>
           )}
-          {/* <div
+          <div
             style={{
               color: 'var(--text-dynamic)',
               textAlign: 'center',
@@ -208,26 +208,26 @@ const PageSignUp = () => {
               margin: '20px',
             }}
           >
-            <h2>You can no longer signup and register for Frosh events.</h2>
-          </div> */}
-          {/* <div
+            <h2>F!rosh 2T4 is over! Check back next year.</h2>
+          </div>
+          <div
             className="sign-up-button"
             onMouseOver={() => {
               checkErrors(true);
             }}
-          > */}
-          <Button
-            label="Create Account"
-            style={{ margin: 15 }}
-            isDisabled={anyErrors}
-            onClick={async () => {
-              const anyErrors = checkErrors(true);
-              if (anyErrors === false) {
-                submitForm();
-              }
-            }}
-          />
-          {/* </div> */}
+          >
+            <Button
+              label="Create Account"
+              style={{ margin: 15 }}
+              isDisabled={anyErrors}
+              onClick={async () => {
+                const anyErrors = checkErrors(true);
+                if (anyErrors === false) {
+                  submitForm();
+                }
+              }}
+            />
+          </div>
         </div>
       </div>
       <div
@@ -242,7 +242,7 @@ const PageSignUp = () => {
           className={`sign-up-success ${pageState === 'success' ? 'sign-up-success-appear' : ''}`}
         >
           <div style={{ margin: 'auto auto' }}>
-            <h2 class="proxima-nova-text">{`Thank you for creating an account, ${
+            <h2 className="proxima-nova-text">{`Thank you for creating an account, ${
               accountObj['preferredName'] === null ||
               accountObj['preferredName'] === undefined ||
               accountObj['preferredName'] === ''
@@ -250,16 +250,17 @@ const PageSignUp = () => {
                 : accountObj['preferredName']
             }.`}</h2>
             {accountObj['leadur'] === true ? (
-              <h3 class="proxima-nova-text">
-                Check your inbox for an email from tech@orientation.skule.ca for a link to verify your email. Your account will be reviewed and
-                shortly become an official Leedur account.
+              <h3 className="proxima-nova-text">
+                Check your inbox for an email from tech@orientation.skule.ca for a link to verify
+                your email. Your account will be reviewed and shortly become an official Leedur
+                account.
               </h3>
             ) : (
               <>
-                <h1 class="proxima-nova-text">You aren&apos;t done just yet!</h1>
-                <h3 class="proxima-nova-text">
-                  Check your inbox for an email from tech@orientation.skule.cafor a link to verify your email. You still need to register and
-                  pay for the F!rosh Week event.
+                <h1 className="proxima-nova-text">You aren&apos;t done just yet!</h1>
+                <h3 className="proxima-nova-text">
+                  Check your inbox for an email from tech@orientation.skule.cafor a link to verify
+                  your email. You still need to register and pay for the F!rosh Week event.
                 </h3>
               </>
             )}
