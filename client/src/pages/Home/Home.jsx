@@ -69,7 +69,7 @@ const HomePageHeader = () => {
 
 const HomeHeaderButton = () => {
   const loggedIn = useSelector(loggedInSelector);
-  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(true);
 
   return (
     <>
@@ -108,7 +108,7 @@ const HomeHeaderButton = () => {
         <div className="home-page-header-register-button">
           <div className="desktop-only">
             <Button
-              label="Registration Closed"
+              label={loggedIn ? 'View Profile' : 'Register Now!'}
               isSecondary
               isDisabled
               style={{
@@ -119,12 +119,11 @@ const HomeHeaderButton = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-              disabled
             />
           </div>
           <div className="mobile-only">
             <Button
-              label="Registration Closed"
+              label={loggedIn ? 'View Profile' : 'Register Now!'}
               isSecondary
               isDisabled
               style={{ margin: '0px' }}

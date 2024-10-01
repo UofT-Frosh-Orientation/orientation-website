@@ -199,7 +199,7 @@ const PageSignUp = () => {
           ) : (
             <></>
           )}
-          <div
+          {/* <div
             style={{
               color: 'var(--text-dynamic)',
               textAlign: 'center',
@@ -209,25 +209,25 @@ const PageSignUp = () => {
             }}
           >
             <h2>F!rosh 2T4 is over! Check back next year.</h2>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             className="sign-up-button"
             onMouseOver={() => {
               checkErrors(true);
             }}
-          >
-            <Button
-              label="Create Account"
-              style={{ margin: 15 }}
-              isDisabled={anyErrors}
-              onClick={async () => {
-                const anyErrors = checkErrors(true);
-                if (anyErrors === false) {
-                  submitForm();
-                }
-              }}
-            />
-          </div>
+          > */}
+          <Button
+            label="Create Account"
+            style={{ margin: 15 }}
+            isDisabled={anyErrors}
+            onClick={async () => {
+              const anyErrors = checkErrors(true);
+              if (anyErrors === false) {
+                submitForm();
+              }
+            }}
+          />
+          {/* </div> */}
         </div>
       </div>
       <div
