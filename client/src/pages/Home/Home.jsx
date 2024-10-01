@@ -69,7 +69,7 @@ const HomePageHeader = () => {
 
 const HomeHeaderButton = () => {
   const loggedIn = useSelector(loggedInSelector);
-  const [isRegistrationOpen, setIsRegistrationOpen] = useState(true);
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
 
   return (
     <>
