@@ -17,6 +17,7 @@
     "lint-staged": "^13.2.3"
   },
   "dependencies": {
+    "@splinetool/react-spline": "^4.0.0",
     "concurrently": "^8.2.0",
     "dotenv": "^16.4.5",
     "serve-index": "^1.9.1",
