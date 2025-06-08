@@ -151,7 +151,7 @@ li {
   margin-left: auto;
   margin-right: 15px;
   margin-top: 4px;
-  cursor: url('../../../assets/cursor/cursor-2t4.png'), auto; // Apply custom cursor here;
+  cursor: url('../../../assets/cursor/cursor.png'), auto; // Apply custom cursor here;
 
   @include devices(tablet) {
     margin-right: 10px;
