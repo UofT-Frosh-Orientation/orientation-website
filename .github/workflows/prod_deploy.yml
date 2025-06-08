@@ -18,7 +18,7 @@ env:
 
 jobs:
   build_server:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3.5.3
@@ -44,7 +44,7 @@ jobs:
         run: docker push registry.digitalocean.com/uoft-orientation/orientation-server:prod
 
   build_client:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3.5.3

@@ -20,6 +20,8 @@
   "dependencies": {
     "@react-pdf/renderer": "^3.1.12",
     "@reduxjs/toolkit": "^1.9.5",
+    "@splinetool/react-spline": "^4.0.0",
+    "@splinetool/runtime": "^1.10.2",
     "@tanstack/react-table": "^8.9.3",
     "axios": "^1.4.0",
     "email-validator": "^2.0.4",
