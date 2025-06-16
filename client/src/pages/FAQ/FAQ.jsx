@@ -213,7 +213,7 @@ const FAQPageHeader = ({
       return questions;
     }
     return questions.filter((question) => {
-      const questionName = question.question.toLowerCase();
+      const questionName = question.question.toLowerCase() + question.answer.toLowerCase();
       return questionName.includes(query.toLowerCase());
     });
   };
