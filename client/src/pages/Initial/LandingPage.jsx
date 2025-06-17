@@ -4,14 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { AshLanding } from './AshLanding/AshLanding';
 import { WilliamLanding } from './WilliamLanding/WilliamLanding';
 import { AlissaLanding } from './AlissaLanding/AlissaLanding';
-import { SplineLanding } from './SplineLanding/SplineLanding';
+import { CountdownLanding } from './CountdownLanding/CountdownLanding';
 
 const currentYear = '2T5';
 
 export const LandingPage = () => {
   return (
     <div>
-      <SplineLanding />
+      <CountdownLanding/>
     </div>
   );
 };
