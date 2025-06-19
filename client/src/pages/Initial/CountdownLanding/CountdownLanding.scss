@@ -1,0 +1,722 @@
+@import '../../../scssStyles/mixins';
+
+// Update the purple variables to be clearly purple
+:root {
+  --purple-dark: #2d0a49;
+  --purple-darker: #1a0826;
+  --light-purple-dark: #5c2c85;
+}
+
+.countdown-landing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    180deg,
+    var(--purple-dark) 0%,
+    var(--light-purple-dark) 50%,
+    var(--purple-darker) 100%
+  );
+  color: var(--white);
+  text-align: center;
+  padding: 2rem 1rem;
+  overflow: hidden;
+  position: relative;
+  font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  
+  // Subtle arcade theme additions
+  &.arcade-theme {
+    // Very subtle scanline effect
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 4px,
+        rgba(0, 255, 255, 0.02) 4px,
+        rgba(0, 255, 255, 0.02) 6px
+      );
+      pointer-events: none;
+      z-index: 10;
+    }
+  }
+}
+
+// Subtle arcade header
+.arcade-header {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  right: 30px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 3;
+  
+  .arcade-score, .arcade-level {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+  }
+  
+  .score-label, .level-label {
+    font-size: 0.7rem;
+    color: rgba(0, 255, 255, 0.8);
+    margin-bottom: 0.2rem;
+    letter-spacing: 0.1em;
+  }
+  
+  .score-value, .level-value {
+    font-size: 1rem;
+    color: var(--yellow);
+    font-weight: 600;
+  }
+  
+  @include devices(mobile) {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    margin-bottom: 1rem;
+    
+    .arcade-score, .arcade-level {
+      padding: 0.3rem 0.8rem;
+      
+      .score-label, .level-label {
+        font-size: 0.6rem;
+      }
+      
+      .score-value, .level-value {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+.countdown-container {
+  max-width: 800px;
+  width: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 3rem;
+  
+  @include devices(mobile) {
+    margin-top: 1rem;
+  }
+}
+
+.countdown-logo {
+  width: 180px;
+  height: auto;
+  
+  @include devices(tablet) {
+    width: 140px;
+  }
+  
+  @include devices(mobile) {
+    width: 120px;
+  }
+}
+
+.countdown-title {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 800;
+  margin: 0;
+  color: var(--white);
+  text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  
+  // Subtle glow effect for arcade theme
+  .arcade-theme & {
+    text-shadow: 
+      0px 4px 12px rgba(0, 0, 0, 0.4),
+      0 0 20px rgba(255, 255, 255, 0.1);
+  }
+}
+
+// Update the countdown-subtitle with yellow text
+.countdown-subtitle {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  color: var(--yellow);
+  text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.1em;
+  
+  .arcade-theme & {
+    color: #ffff00;
+    text-shadow: 
+      0px 2px 8px rgba(0, 0, 0, 0.3),
+      0 0 15px rgba(255, 255, 0, 0.6),
+      0 0 30px rgba(255, 255, 0, 0.4),
+      0 0 45px rgba(255, 255, 0, 0.2);
+    animation: yellow-glow 3s ease-in-out infinite alternate;
+  }
+}
+
+// Progress Section Styles with arcade touches
+.progress-section {
+  width: 100%;
+  max-width: 700px;
+  margin: 1rem 0 2rem 0;
+}
+
+.progress-heading {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  font-weight: 700;
+  margin: 0 0 2rem 0;
+  color: var(--yellow);
+  text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.15em;
+  animation: pulse 2s ease-in-out infinite;
+  
+  // Enhanced arcade glow in yellow
+  .arcade-theme & {
+    color: #ffff00;
+    text-shadow: 
+      0px 2px 8px rgba(0, 0, 0, 0.3),
+      0 0 15px rgba(255, 255, 0, 0.8),
+      0 0 30px rgba(255, 255, 0, 0.6),
+      0 0 45px rgba(255, 255, 0, 0.4),
+      0 0 60px rgba(255, 255, 0, 0.2);
+    animation: yellow-strong-glow 2s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.progress-container {
+  width: 100%;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  font-weight: 500;
+  color: var(--white);
+  opacity: 0.8;
+  
+  .arcade-theme & {
+    font-weight: 600;
+    
+    .progress-start-label {
+      color: #00ff88;
+    }
+    
+    .progress-end-label {
+      color: #ff0080;
+    }
+  }
+  
+  @include devices(mobile) {
+    font-size: 0.8rem;
+  }
+}
+
+.progress-bar {
+  width: 100%;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 3px 15px rgba(0, 0, 0, 0.3),
+    0 6px 25px rgba(0, 0, 0, 0.15);
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  margin-bottom: 1rem;
+  
+  // Subtle arcade styling
+  .arcade-theme & {
+    border-color: rgba(0, 255, 255, 0.3);
+    box-shadow: 
+      inset 0 3px 15px rgba(0, 0, 0, 0.3),
+      0 6px 25px rgba(0, 0, 0, 0.15),
+      0 0 20px rgba(0, 255, 255, 0.1);
+  }
+  
+  @include devices(tablet) {
+    height: 45px;
+  }
+  
+  @include devices(mobile) {
+    height: 40px;
+  }
+}
+
+.progress-fill {
+  height: 100%;
+  background: #00ff00; // Solid bright green
+  border-radius: 30px;
+  transition: width 1s ease-out;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 0, 0.8),
+    0 0 40px rgba(0, 255, 0, 0.6),
+    0 0 60px rgba(0, 255, 0, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+  
+  .arcade-theme & {
+    background: #00ff00; // Keep solid green
+    box-shadow: 
+      0 0 25px rgba(0, 255, 0, 1),
+      0 0 50px rgba(0, 255, 0, 0.8),
+      0 0 75px rgba(0, 255, 0, 0.6),
+      0 0 100px rgba(0, 255, 0, 0.4),
+      inset 0 0 20px rgba(255, 255, 255, 0.2);
+    animation: green-bar-glow 2s ease-in-out infinite alternate;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.4) 50%,
+      transparent 100%
+    );
+    animation: shimmer 3s infinite;
+  }
+}
+
+.progress-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.7) 50%,
+    transparent 100%
+  );
+  animation: shine 4s infinite;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@keyframes shimmer {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+}
+
+.progress-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  
+  @include devices(mobile) {
+    gap: 0.8rem;
+  }
+}
+
+.progress-percentage {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 900;
+  color: var(--yellow);
+  text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.05em;
+  text-align: center;
+  
+  .arcade-theme & {
+    color: #ffff00;
+    text-shadow: 
+      0px 3px 10px rgba(0, 0, 0, 0.6),
+      0 0 20px rgba(255, 255, 0, 0.8),
+      0 0 40px rgba(255, 255, 0, 0.6),
+      0 0 60px rgba(255, 255, 0, 0.4),
+      0 0 80px rgba(255, 255, 0, 0.2);
+    animation: yellow-glow 2s ease-in-out infinite alternate;
+  }
+}
+
+.progress-status {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  font-weight: 600;
+  color: var(--white);
+  opacity: 0.9;
+  letter-spacing: 0.05em;
+  text-align: center;
+  
+  .arcade-theme & {
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  }
+}
+
+@keyframes percentage-glow {
+  from { 
+    text-shadow: 
+      0px 3px 10px rgba(0, 0, 0, 0.6),
+      0 0 20px rgba(0, 255, 136, 0.8),
+      0 0 40px rgba(0, 255, 136, 0.6),
+      0 0 60px rgba(0, 255, 136, 0.4),
+      0 0 80px rgba(0, 255, 136, 0.2);
+  }
+  to { 
+    text-shadow: 
+      0px 3px 10px rgba(0, 0, 0, 0.6),
+      0 0 30px rgba(0, 255, 136, 1),
+      0 0 60px rgba(0, 255, 136, 0.8),
+      0 0 90px rgba(0, 255, 136, 0.6),
+      0 0 120px rgba(0, 255, 136, 0.3);
+  }
+}
+
+// Enhanced Time Display
+.time-remaining {
+  margin: 1rem 0;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
+  .arcade-theme & {
+    border-color: rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+  }
+  
+  @include devices(mobile) {
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+.time-text {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  
+  .time-prefix, .time-suffix {
+    opacity: 0.8;
+    font-weight: 500;
+  }
+  
+  .time-value {
+    color: var(--yellow);
+    font-weight: 700;
+    margin: 0 0.2rem;
+    text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4);
+    
+    .arcade-theme & {
+      color: #ffff00;
+      text-shadow: 
+        0px 2px 6px rgba(0, 0, 0, 0.4), 
+        0 0 10px rgba(255, 255, 0, 0.6),
+        0 0 20px rgba(255, 255, 0, 0.4),
+        0 0 30px rgba(255, 255, 0, 0.2);
+      animation: yellow-glow 2.5s ease-in-out infinite alternate;
+    }
+  }
+}
+
+.countdown-description {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--white);
+  opacity: 0.9;
+  max-width: 500px;
+  margin: 2rem 0;
+  
+  @include devices(mobile) {
+    margin: 1rem 0;
+  }
+}
+
+.countdown-social {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  p {
+    margin: 0;
+    color: var(--white);
+    opacity: 0.8;
+  }
+  
+  @include devices(mobile) {
+    gap: 0.3rem;
+  }
+}
+
+.countdown-link {
+  font-family: 'Proxima Nova', sans-serif;
+  color: var(--yellow);
+  text-decoration: none;
+  margin-left: 0.5rem;
+  font-weight: 600;
+  transition: all 200ms ease;
+
+  &:hover {
+    color: var(--white);
+    text-decoration: underline;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  &:visited {
+    color: var(--yellow);
+  }
+  
+  .arcade-theme & {
+    color: #00ffff;
+    
+    &:hover {
+      color: var(--yellow);
+      text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5), 0 0 8px rgba(255, 235, 59, 0.4);
+    }
+  }
+}
+
+.countdown-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 1;
+  opacity: 0.6;
+}
+
+// Background decorative elements
+.countdown-landing::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+      circle at 20% 80%,
+      rgba(255, 235, 59, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(156, 39, 176, 0.05) 0%,
+      transparent 50%
+    );
+  animation: rotate 30s linear infinite;
+  z-index: 1;
+  
+  .arcade-theme & {
+    background: radial-gradient(
+        circle at 20% 80%,
+        rgba(0, 255, 255, 0.04) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(255, 0, 128, 0.04) 0%,
+        transparent 50%
+      );
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Remove the error 404 styles since they're not needed for countdown
+.error404-container,
+.error404-bg,
+.error404-flex,
+.error404-tree,
+.error404-msg,
+.error404-sign,
+.error404-cat,
+.error404-four,
+.error404-right,
+.error404-left {
+  display: none;
+}
+
+// Registration Notice Styles
+.registration-notice {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--yellow);
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 2rem 0;
+  backdrop-filter: blur(10px);
+  max-width: 500px;
+  
+  .arcade-theme & {
+    border-color: #00ffff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  }
+  
+  @include devices(mobile) {
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+}
+
+.registration-title {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: var(--yellow);
+  letter-spacing: 0.05em;
+  
+  .arcade-theme & {
+    color: #00ffff;
+    text-shadow: 
+      0 0 10px rgba(0, 255, 255, 0.8),
+      0 0 20px rgba(0, 255, 255, 0.6),
+      0 0 30px rgba(0, 255, 255, 0.4),
+      0 0 40px rgba(0, 255, 255, 0.2);
+    animation: cyan-glow 2.5s ease-in-out infinite alternate;
+  }
+}
+
+.registration-text {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-weight: 500;
+  margin: 0;
+  color: var(--white);
+  line-height: 1.5;
+  
+  .arcade-theme & {
+    color: #ffffff;
+  }
+}
+
+// Add keyframe animations for the neon effects
+@keyframes subtle-glow {
+  from { 
+    text-shadow: 
+      0px 2px 8px rgba(0, 0, 0, 0.3),
+      0 0 15px rgba(0, 255, 136, 0.6),
+      0 0 30px rgba(0, 255, 136, 0.4),
+      0 0 45px rgba(0, 255, 136, 0.2);
+  }
+  to { 
+    text-shadow: 
+      0px 2px 8px rgba(0, 0, 0, 0.3),
+      0 0 20px rgba(0, 255, 136, 0.8),
+      0 0 40px rgba(0, 255, 136, 0.6),
+      0 0 60px rgba(0, 255, 136, 0.3);
+  }
+}
+
+@keyframes strong-glow {
+  from { 
+    text-shadow: 
+      0px 2px 8px rgba(0, 0, 0, 0.3),
+      0 0 15px rgba(0, 255, 136, 0.8),
+      0 0 30px rgba(0, 255, 136, 0.6),
+      0 0 45px rgba(0, 255, 136, 0.4),
+      0 0 60px rgba(0, 255, 136, 0.2);
+  }
+  to { 
+    text-shadow: 
+      0px 2px 8px rgba(0, 0, 0, 0.3),
+      0 0 25px rgba(255, 255, 0, 1),
+      0 0 50px rgba(255, 255, 0, 0.8),
+      0 0 75px rgba(255, 255, 0, 0.6),
+      0 0 100px rgba(255, 255, 0, 0.3);
+  }
+}
+
+@keyframes cyan-glow {
+  from { 
+    text-shadow: 
+      0 0 10px rgba(0, 255, 255, 0.8),
+      0 0 20px rgba(0, 255, 255, 0.6),
+      0 0 30px rgba(0, 255, 255, 0.4),
+      0 0 40px rgba(0, 255, 255, 0.2);
+  }
+  to { 
+    text-shadow: 
+      0 0 15px rgba(0, 255, 255, 1),
+      0 0 30px rgba(0, 255, 255, 0.8),
+      0 0 45px rgba(0, 255, 255, 0.6),
+      0 0 60px rgba(0, 255, 255, 0.4);
+  }
+}
+
+// Update background decorative elements with darker purple
+.countdown-landing::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+      circle at 20% 80%,
+      rgba(255, 235, 59, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(156, 39, 176, 0.05) 0%,
+      transparent 50%
+    );
+  animation: rotate 30s linear infinite;
+  z-index: 1;
+  
+  .arcade-theme & {
+    background: radial-gradient(
+        circle at 20% 80%,
+        rgba(0, 255, 255, 0.04) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(255, 0, 128, 0.04) 0%,
+        transparent 50%
+      );
+  }
+}
