@@ -4,7 +4,7 @@ import './CountdownLanding.scss';
 import { DarkModeContext } from '../../../util/DarkModeProvider';
 
 // Import existing assets from the project
-import MainFroshLogo from '../../../assets/logo/main-logo.png';
+import MainFroshLogo from '../../../assets/logo/main-logo-2T5.png';
 import Wave from '../../../assets/misc/wave.png';
 import WaveDarkMode from '../../../assets/darkmode/misc/wave.png';
 
@@ -17,23 +17,23 @@ const CountdownLanding = () => {
     // Set your target date and start date for progress calculation
     const targetDate = new Date('2025-08-26T07:30:00').getTime();
     const startDate = new Date('2025-03-30T07:30:00').getTime();
-    
+
     const timer = setInterval(() => {
       const now = new Date().getTime();
       const distance = targetDate - now;
       const totalDuration = targetDate - startDate;
       const elapsed = now - startDate;
-      
+
       // Calculate progress percentage (0-100)
       const progressPercent = Math.max(0, Math.min(100, (elapsed / totalDuration) * 100));
       setProgress(progressPercent);
-      
+
       if (distance > 0) {
         setTimeLeft({
           days: Math.floor(distance / (1000 * 60 * 60 * 24)),
           hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
           minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((distance % (1000 * 60)) / 1000)
+          seconds: Math.floor((distance % (1000 * 60)) / 1000),
         });
       } else {
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -49,8 +49,8 @@ const CountdownLanding = () => {
       {/* Subtle arcade header */}
       <div className="arcade-header">
         <div className="arcade-level">
-          <span className="level-label">SKULE</span>
-          <span className="level-value">2T5</span>
+          <span className="level-label">LEVEL</span>
+          <span className="level-value">2025</span>
         </div>
       </div>
 
@@ -62,30 +62,27 @@ const CountdownLanding = () => {
           effect="blur"
         />
 
-        <h1 className="countdown-title">F!ROSH WEEK 2T5</h1>
         <h2 className="countdown-subtitle">COMING AUGUST 26TH</h2>
+        <h1 className="countdown-title">F!ROSH WEEK 2T5</h1>
 
         {/* Secondary time display */}
-        <div className="time-remaining">
+        {/* <div className="time-remaining">
           <div className="time-text">
             <span className="time-prefix">Only </span>
             {timeLeft.days > 0 && <span className="time-value">{timeLeft.days}d </span>}
             {timeLeft.hours > 0 && <span className="time-value">{timeLeft.hours}h </span>}
             {timeLeft.minutes > 0 && <span className="time-value">{timeLeft.minutes}m </span>}
             <span className="time-value">{timeLeft.seconds || 0}s</span>
-            <span className="time-suffix"> until F!ROSH WEEK!</span>
+            <span className="time-suffix"> until F!ROSH WEEK</span>
           </div>
-        </div>
-        
+        </div> */}
+
         {/* Progress Bar Section with arcade touch */}
         <div className="progress-section">
-          <h2 className="progress-heading">F!ROSH WEEK IS LOADING...</h2>
+          <h2 className="progress-heading">CURRENTLY LOADING...</h2>
           <div className="progress-container">
             <div className="progress-bar">
-              <div 
-                className="progress-fill" 
-                style={{ width: `${progress}%` }}
-              >
+              <div className="progress-fill" style={{ width: `${progress}%` }}>
                 <div className="progress-shine"></div>
               </div>
             </div>
@@ -94,43 +91,51 @@ const CountdownLanding = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Registration Notice */}
         <div className="registration-notice">
           <h3 className="registration-title">Registration Opens Soon!</h3>
-          <p className="registration-text">
-            Check back here for registration details and updates
-          </p>
+          <p className="registration-text">Check back here for registration details and updates</p>
         </div>
-        
-        <p className="countdown-description">
+
+        {/* <p className="countdown-description">
           🕹️ Get ready for the most epic week of your university life! 
           <br />
           <strong>Monday, August 26th at 7:30 AM</strong>
-        </p>
-        
+        </p> */}
+
         <div className="countdown-social">
           <p>
-            Follow us for updates: 
-            <a href="https://bit.ly/froshig" target="_blank" rel="noreferrer" className="countdown-link">
+            Follow us for updates:
+            <a
+              href="https://bit.ly/froshig"
+              target="_blank"
+              rel="noreferrer"
+              className="countdown-link"
+            >
               @froshweek
             </a>
           </p>
           <p>
-            Join our Discord: 
-            <a href="https://discord.com/invite/39uyG95KaU" target="_blank" rel="noreferrer" className="countdown-link">
+            Join our Discord:
+            <a
+              href="https://discord.gg/Fnxr7tp34E"
+              target="_blank"
+              rel="noreferrer"
+              className="countdown-link"
+            >
               F!rosh Discord
             </a>
           </p>
           <p>
-            Contact us: 
+            Contact us:
             <a href="mailto:orientation@skule.ca" className="countdown-link">
               orientation@skule.ca
             </a>
           </p>
         </div>
       </div>
-      
+
       {/* Wave background image from existing assets */}
       <LazyLoadImage
         src={darkMode ? WaveDarkMode : Wave}
