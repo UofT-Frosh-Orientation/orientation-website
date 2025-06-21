@@ -1,33 +1,87 @@
 @import '../../../../scssStyles/mixins';
 
+:root {
+  --accordian-pixel-border: url('../../../../assets/accordion/accordian-pixel-border.png');
+}
+
 .accordion {
   padding: 0px 20px 0px 20px;
   //background-color: var(--purple-shades-light);
-  border-radius: 12px;
+  border-radius: 17px;
   color: var(--text-dark);
+  border-image-source: var(--accordian-pixel-border);
+  border-image-slice: 12;
+  border-image-width: 12px;
+  border-image-outset: 1px;
+  border-image-repeat: repeat;
+  box-shadow: 2px 3px 5px #512c6b, 0px 0px 5px #0000004d;
+}
+
+.accordion-clickable {
+  * {
+    cursor: url('../../../../assets/cursor/pointer.png'), auto !important;
+  }
+}
+
+// Hover overlay effect for clickable accordion
+.accordion.accordion-clickable {
+  position: relative;
+  z-index: 0;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 19px;
+    background: #ffe60023;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+// Disable hover effect on touch/mobile devices
+@media (hover: none) and (pointer: coarse) {
+  .accordion.accordion-clickable:hover::after {
+    opacity: 0 !important;
+  }
 }
 
 .accord-header {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
 }
 
 .accord-content {
+  position: relative;
+  z-index: 1;
   color: var(--text-dark);
   overflow: hidden;
   transition: max-height 0.2s ease;
 }
 
 .accord-text {
+  position: relative;
+  z-index: 1;
   padding: 10px 0px 10px 0px;
   color: var(--text-dark);
 }
 
 .accord-icon {
+  position: relative;
+  z-index: 1;
   transition: transform 0.2s ease;
   user-select: none;
 }
 
 .rotate {
+  position: relative;
+  z-index: 1;
   transform: rotate(180deg);
 }
