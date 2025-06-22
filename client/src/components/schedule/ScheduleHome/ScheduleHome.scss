@@ -130,7 +130,7 @@
 
 .schedule-container-dates-container,
 .schedule-container-dates-container * {
-  cursor: url('../../../../assets/cursor/pointer.png'), auto;
+  cursor: url('../../../../assets/cursor/pointer.png'), auto !important;
 }
 
 .schedule-container-dates-container-selected,
