@@ -67,7 +67,7 @@ const Footer = () => {
             </div>
           </a>
 
-          <div className="footer-message">Made with 💜 by the F!rosh Week 2T4 Tech Team</div>
+          <div className="footer-message">Made with 💜 by the F!rosh Week 2T5 Tech Team</div>
         </div>
       </div>
     </>
