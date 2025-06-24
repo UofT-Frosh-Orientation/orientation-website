@@ -25,7 +25,7 @@ input[type='checkbox'] {
   appearance: none;
   background-color: var(--form-background);
   margin: 0;
-  cursor: pointer;
+  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
   transition: transform 220ms;
 }
 

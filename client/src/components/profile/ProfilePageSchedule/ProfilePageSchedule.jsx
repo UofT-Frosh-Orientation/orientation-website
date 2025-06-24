@@ -76,6 +76,7 @@ export const ProfilePageSchedule = () => {
           {scheduleData[Object.keys(scheduleData)[selectedDayIndex]].map((scheduleDay, index) => {
             return (
               <ScheduleComponentAccordion
+                className="profile-page-schedule-accordion"
                 key={index}
                 scheduleDay={scheduleDay}
                 closeAll={closeAll}

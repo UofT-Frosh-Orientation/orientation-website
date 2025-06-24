@@ -137,7 +137,7 @@ li {
   font-size: 15px;
   color: var(--yellow);
   float: right;
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto;
 
   @include devices(tablet) {
     margin-right: 10px;

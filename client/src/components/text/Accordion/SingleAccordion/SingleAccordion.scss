@@ -2,6 +2,7 @@
 
 :root {
   --accordian-pixel-border: url('../../../../assets/accordion/accordian-pixel-border.png');
+  //--profile-accordian-pixel-border: url('../../../../assets/accordion/profile-accordian-pixel-border.png');
 }
 
 .accordion {
@@ -17,6 +18,10 @@
   box-shadow: 2px 3px 5px #512c6b, 0px 0px 5px #0000004d;
   cursor: url('../../../../assets/cursor/cursor.png'), auto;
 }
+
+//.profile-page-schedule-accordion {
+//border-image-source: var(--profile-accordian-pixel-border);
+//}
 
 .accordion-clickable {
   * {
