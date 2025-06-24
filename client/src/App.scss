@@ -24,6 +24,15 @@
 @font-face {
   font-family: 'Proxima Nova';
   src: url('../assets/fonts/proximanova_regular.ttf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../assets/fonts/proximanova_bold.ttf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
 }
 
 @font-face {
@@ -66,7 +75,7 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: 'LittleWitches', serif;
+  font-family: 'Proxima Nova', sans-serif;
   margin: 0px;
   padding: 0px;
 }
