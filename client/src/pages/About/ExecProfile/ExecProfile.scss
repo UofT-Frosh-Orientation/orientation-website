@@ -24,10 +24,10 @@
   display: block;
   width: 100%;
   height: auto;
+  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
 }
 
 .exec-image-hover {
-  cursor: pointer;
   transition: transform 200ms;
 
   &:hover {

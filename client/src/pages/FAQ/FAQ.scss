@@ -90,6 +90,7 @@
   height: 18px;
   //opacity: 0.6;
   transition: 200ms opacity;
+  cursor: url('../../assets/cursor/pointer.png'), auto;
 }
 
 .deleteIcon {
@@ -104,7 +105,7 @@
 }
 
 .deleteIcon:hover {
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto;
 
   img {
     opacity: 1;
@@ -139,6 +140,7 @@
 
 .faq-search-input-container {
   background-color: var(--faq-searchbar-bg) !important;
+  cursor: url('../../assets/cursor/textpointer.png'), auto !important;
 }
 
 .faq-data-result {
@@ -306,7 +308,7 @@
     border-radius: 5px;
     background-color: var(--purple);
     color: white;
-    cursor: pointer;
+    cursor: url('../../assets/cursor/pointer.png'), auto;
     transition: background-color 0.3s, color 0.3s;
 
     &:hover {

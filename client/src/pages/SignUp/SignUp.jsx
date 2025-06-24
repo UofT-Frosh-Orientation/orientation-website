@@ -259,7 +259,7 @@ const PageSignUp = () => {
               <>
                 <h1 className="proxima-nova-text">You aren&apos;t done just yet!</h1>
                 <h3 className="proxima-nova-text">
-                  Check your inbox for an email from tech@orientation.skule.cafor a link to verify
+                  Check your inbox for an email from tech@orientation.skule.ca for a link to verify
                   your email. You still need to register and pay for the F!rosh Week event.
                 </h3>
               </>

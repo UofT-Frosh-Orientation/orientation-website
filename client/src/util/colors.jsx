@@ -18,8 +18,8 @@ export const colors = {
   '--green-success-dark': ['#56964b', '#56964b'],
   '--red-error': ['#dd4343', '#dd4343'],
   '--red-error-light': ['#ffacac', '#ffacac'],
-  '--text-link': ['#4471d9', '#00d1ff'],
-  '--text-link-for-dark': ['#8AA8EC', '#5EB3EC'],
+  '--text-link': ['#FFC600', '#FED34C'],
+  '--text-link-for-dark': ['#7a5f00', '#FED34C'],
   '--text-dark': ['#20002e', '#20002e'], // for a dark-text in both light and darkmode
   '--text-dark-use': ['#20002e', '#ffffff'], // use this for dark-text that changes in light and darkmode
   '--text-light': ['#f3f3f3', '#f3f3f3'],

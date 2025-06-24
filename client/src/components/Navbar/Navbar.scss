@@ -74,6 +74,11 @@ li {
   }
 }
 
+.navbar-sub-container,
+.navbar-sub-container * {
+  cursor: url('../../assets/cursor/pointer.png'), pointer !important;
+}
+
 .navbar-link {
   position: absolute;
   color: var(--navbar-link);
@@ -106,7 +111,6 @@ li {
 
 .underline-page-unselected {
   opacity: 0;
-
   transition: background-color 200ms;
 }
 
@@ -151,7 +155,7 @@ li {
   margin-left: auto;
   margin-right: 15px;
   margin-top: 4px;
-  cursor: url('../../../assets/cursor/cursor.png'), auto; // Apply custom cursor here;
+  cursor: url('../../../assets/cursor/pointer.png'), auto; // Apply custom cursor here;
 
   @include devices(tablet) {
     margin-right: 10px;
@@ -301,6 +305,7 @@ li {
     &:hover {
       transform: scale(0.97);
       transition: transform 150ms;
+      cursor: url('../../assets/cursor/pointer.png'), auto !important;
     }
   }
 }
