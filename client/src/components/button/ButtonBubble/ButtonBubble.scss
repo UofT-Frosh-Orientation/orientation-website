@@ -5,6 +5,11 @@
   background-color: var(--button-outlined-bg);
   color: var(--button-outlined-font);
   border-radius: 14px;
+  border-image-source: var(--pixel-border);
+  border-image-slice: 30;
+  border-image-width: 30px;
+  border-image-outset: 1px;
+  border-image-repeat: repeat;
   padding: 13px 20px;
   box-shadow: var(--shadow);
   font-size: 20px;

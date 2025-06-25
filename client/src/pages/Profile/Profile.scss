@@ -64,7 +64,12 @@
     height: 40px;
     padding: 10px;
     background-color: var(--yellow);
-    border-radius: 10px;
+    border-radius: 12px;
+    border-image-source: var(--yellow-pixel-border);
+    border-image-slice: 12;
+    border-image-width: 12px;
+    border-image-outset: 2px;
+    border-image-repeat: repeat;
     box-shadow: var(--shadow);
     &:hover {
       transform: scale(1.05);

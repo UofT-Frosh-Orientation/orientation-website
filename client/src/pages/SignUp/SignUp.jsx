@@ -106,7 +106,7 @@ const PageSignUp = () => {
             onClick={handleLeaderReveal}
           ></img>
           <h1 style={{ color: 'var(--black)' }}>CREATE AN ACCOUNT</h1>
-          <h3 style={{ color: 'var(--black)' }}>FOR F!ROSH WEEK 2T4, UOFT ENGINEERING</h3>
+          <h3 style={{ color: 'var(--black)' }}>FOR F!ROSH WEEK 2T5, UOFT ENGINEERING</h3>
           <div className="full-width-input">
             <TextInput
               label="Email"

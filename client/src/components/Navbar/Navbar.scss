@@ -145,7 +145,7 @@ li {
 }
 
 .icon-profile-person-container {
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
 }
 
 .icon-profile-person {
@@ -155,7 +155,7 @@ li {
   margin-left: auto;
   margin-right: 15px;
   margin-top: 4px;
-  cursor: url('../../../assets/cursor/pointer.png'), auto; // Apply custom cursor here;
+  cursor: url('../../assets/cursor/pointer.png'), auto; // Apply custom cursor here;
 
   @include devices(tablet) {
     margin-right: 10px;

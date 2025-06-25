@@ -106,6 +106,12 @@
   @include devices(tablet) {
     padding: 10px 15px !important;
   }
+  border-image-source: var(--yellow-pixel-border);
+  border-image-slice: 12;
+  border-image-width: 12px;
+  border-image-outset: 2px;
+  border-image-repeat: repeat;
+  box-shadow: 2px 2px 2px #00000038;
 }
 
 .faq-fab-container {

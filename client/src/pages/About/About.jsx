@@ -37,11 +37,21 @@ const PageAbout = () => {
         <div className="about-attribution-container">
           <p className="about-attribution-message">
             Thank you to{' '}
-            <a href="https://fontawesome.com/" target="_blank" rel="noreferrer">
+            <a
+              className="text-link-dark"
+              href="https://fontawesome.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
               Font Awesome
             </a>{' '}
             and{' '}
-            <a href="https://www.freepik.com/" target="_blank" rel="noreferrer">
+            <a
+              className="text-link-dark"
+              href="https://www.freepik.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
               Freepik
             </a>{' '}
             for various icons and graphics used throughout the website!

@@ -1,13 +1,29 @@
 @import '../../../scssStyles/mixins';
 
+:root {
+  --purple-pixel-border: url('../../../assets/buttons/purple-pixel-border-light.png');
+  --yellow-pixel-border: url('../../../assets/buttons/yellow-pixel-border-light.png');
+}
+
+.dark-mode {
+  --purple-pixel-border: url('../../../assets/buttons/purple-pixel-border-dark.png');
+  --yellow-pixel-border: url('../../../assets/buttons/yellow-pixel-border-dark.png');
+}
+
 .button {
   margin: 15px 10px;
   background-color: var(--light-purple);
   color: var(--white);
   display: inline-block;
   border-radius: 14px;
+  border-image-source: var(--purple-pixel-border);
+  border-image-slice: 30;
+  border-image-width: 30px;
+  border-image-outset: 1px;
+  border-image-repeat: repeat;
+
   padding: 14px 30px;
-  box-shadow: var(--shadow);
+  box-shadow: 4px 4px 4px #00000038;
   text-align: center;
   font-size: 17px;
   font-weight: 600;
@@ -39,6 +55,12 @@
 .button-secondary {
   background-color: var(--yellow);
   color: var(--text-dark);
+  border-image-source: var(--yellow-pixel-border);
+  border-image-slice: 12;
+  border-image-width: 12px;
+  border-image-outset: 2px;
+  border-image-repeat: repeat;
+  box-shadow: 4px 4px 4px #00000038;
 }
 
 .button-disabled {
