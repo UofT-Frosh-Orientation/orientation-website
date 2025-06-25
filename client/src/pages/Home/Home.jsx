@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
 import { ImageCarousel } from '../../components/ImageCarousel/ImageCarousel';
-import MainFroshLogo from '../../assets/logo/main-logo.png';
+import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
 import 'react-slideshow-image/dist/styles.css';
 import { Slide } from 'react-slideshow-image';
 import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
