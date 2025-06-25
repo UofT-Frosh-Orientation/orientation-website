@@ -83,6 +83,7 @@ h5 {
 a {
   text-decoration: none;
   color: var(--text-link);
+  cursor: url('../assets/cursor/pointer.png'), auto !important;
   transition: text-decoration-color 250ms;
   background: linear-gradient(to left, var(--text-link), var(--text-link));
   background-size: 100% 2px, 0 2px;

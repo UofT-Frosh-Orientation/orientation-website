@@ -344,6 +344,8 @@
     font-size: 18px;
     margin-bottom: 0px;
     padding-bottom: 0px;
+    color: var(--text-link-for-dark);
+    cursor: url('../../assets/cursor/pointer.png'), auto !important;
   }
 
   .please-sponsor {
@@ -368,13 +370,17 @@
   justify-content: center;
 }
 
+.sponsor-container,
+.sponsor-container * {
+  cursor: url('../../assets/cursor/pointer.png'), pointer !important;
+}
+
 .sponsor-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-
   background-color: var(--sponsor-background);
   width: min(50%, 350px);
   height: 200px;

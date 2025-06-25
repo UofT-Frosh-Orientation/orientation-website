@@ -424,7 +424,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                                 : '')}
                           </h1>
                           <h2 className="registration-first-step-subtitle">
-                            LET&apos;S REGISTER FOR UOFT ENGINEERING&apos;S F!ROSH WEEK 2T4
+                            LET&apos;S REGISTER FOR UOFT ENGINEERING&apos;S F!ROSH WEEK 2T5
                           </h2>
                         </div>
                       </div>

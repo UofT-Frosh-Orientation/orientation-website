@@ -14,7 +14,7 @@
   width: 20px;
   height: 20px;
   border-radius: 3px;
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
   transition: transform 200ms, background-color 400ms;
 
   &:hover {

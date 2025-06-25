@@ -80,7 +80,7 @@
   th {
     background-color: var(--purple);
     color: var(--white);
-    cursor: pointer;
+    cursor: url('../../assets/cursor/pointer.png') auto !important;
   }
   td {
     word-wrap: break-word;

@@ -90,6 +90,11 @@
 .aboutus-info {
   background: rgba(255, 255, 255, 0.25);
   border-radius: 10px;
+  border-image-source: var(--pixel-border);
+  border-image-slice: 12;
+  border-image-width: 12px;
+  border-image-outset: 1px;
+  border-image-repeat: repeat;
   box-shadow: var(--shadow);
 
   display: flex;
@@ -226,6 +231,10 @@
   }
 }
 
+.text-link-dark {
+  color: var(--text-link-for-dark);
+}
+
 .aboutus-teams-all-tabs {
   display: flex;
   flex-direction: row;
@@ -260,7 +269,7 @@
     }
     &::-webkit-scrollbar-thumb {
       background: var(--light-purple);
-      cursor: pointer;
+      cursor: url('../../assets/cursor/pointer.png'), auto !important;
     }
   }
 }
@@ -273,7 +282,7 @@
   transition: color 200ms;
 
   &:hover {
-    cursor: pointer;
+    cursor: url('../../assets/cursor/pointer.png'), auto !important;
 
     .aboutus-yellow-bubble {
       background-color: var(--purple-shades-muted);
@@ -383,7 +392,7 @@
 
   color: var(--white);
 
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
 
   @include devices(tablet) {
     width: 160px;
@@ -510,7 +519,7 @@
   width: 40px;
   height: 40px;
   font-size: 24px;
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
 }
 
 /*changing the properties of the arrow button if mouse hovers*/
@@ -556,7 +565,7 @@
   padding: 15px;
   border-radius: 15px;
   margin-bottom: 55px;
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
   height: calc(350px - 50px);
 
   @include devices(tablet) {
@@ -571,7 +580,7 @@
   padding: 15px;
   border-radius: 15px;
   margin-bottom: 55px;
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
   height: calc(320px - 50px);
   @include devices(tablet) {
     width: 80%;
@@ -629,7 +638,7 @@
   border-radius: 5px;
   background-color: #f0f0f0; /* Background color for the carousel tabs */
   margin-right: 10px; /* Adjust the right margin as needed */
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
   transition: background-color 0.3s ease;
 }
 

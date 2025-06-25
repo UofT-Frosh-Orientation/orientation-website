@@ -80,7 +80,7 @@
 .task-check:hover,
 .task-check:active {
   box-shadow: var(--shadow);
-  cursor: pointer;
+  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
   border: 2px solid var(--light-purple);
   transition: border 500ms, box-shadow 500ms;
   .task-img {

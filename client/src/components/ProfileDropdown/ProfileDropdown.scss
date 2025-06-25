@@ -61,8 +61,6 @@
   width: 230px;
   height: 40px;
 
-  cursor: url('../../../assets/cursor/cursor.png'), auto;
-
   transition: background-color 400ms, opacity 400ms, font-weight 400ms;
 
   &:hover,
@@ -70,6 +68,11 @@
     background-color: var(--purple-shades-muted);
     transition: background-color 400ms, font-weight 400ms;
   }
+}
+
+.profile-dropdown-item-container,
+.profile-dropdown-item-container * {
+  cursor: url('../../../assets/cursor/pointer.png'), auto;
 }
 
 .profile-dropdown-item-container-selected {

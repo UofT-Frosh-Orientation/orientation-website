@@ -220,7 +220,7 @@
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -461,7 +461,7 @@ export const dataBeta = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -686,7 +686,7 @@ export const dataChi = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -911,7 +911,7 @@ export const dataDelta = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -1128,7 +1128,7 @@ export const dataGamma = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -1369,7 +1369,7 @@ export const dataIota = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -1602,7 +1602,7 @@ export const dataKappa = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -1843,7 +1843,7 @@ export const dataLambda = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -2084,7 +2084,7 @@ export const dataNu = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -2309,7 +2309,7 @@ export const dataOmega = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -2550,7 +2550,7 @@ export const dataOmicron = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -2783,7 +2783,7 @@ export const dataPhi = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -3008,7 +3008,7 @@ export const dataPi = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -3233,7 +3233,7 @@ export const dataPsi = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -3474,7 +3474,7 @@ export const dataRho = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -3715,7 +3715,7 @@ export const dataSigma = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -3956,7 +3956,7 @@ export const dataTau = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -4181,7 +4181,7 @@ export const dataTheta = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -4414,7 +4414,7 @@ export const dataUpsilon = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -4631,7 +4631,7 @@ export const dataZeta = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
@@ -4651,7 +4651,7 @@ export const data = {
       'Start Time': '7:30 AM',
       'Event Location': 'GB Front Steps',
       'End Time': '8:30 AM',
-      Color: 'purple',
+      Color: 'green',
     },
     {
       'Event Name': 'MATRICULATION',
@@ -4690,7 +4690,7 @@ export const data = {
         'Join us for a lovely tour of Toronto’s downtown with 1000 of your newest friends and classmates',
       'Start Time': '3:00 PM',
       'End Time': '6:00 PM',
-      Color: 'green',
+      Color: 'yellow',
     },
     {
       'Event Name': 'UNWIND NIGHT',
@@ -4704,7 +4704,7 @@ export const data = {
       'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
       'End Time': '11:00 PM',
-      Color: 'purple',
+      Color: 'magenta',
     },
   ],
   'TUESDAY AUGUST 27': [
@@ -4713,7 +4713,7 @@ export const data = {
       'Event Location': 'Front Campus',
       'Start Time': '8:15:00 a1/p1',
       'End Time': '8:45:00 a1/p1',
-      Color: 'purple',
+      Color: 'green',
     },
     {
       'Event Name': 'CONSENT WORKSHOP',
@@ -4721,7 +4721,7 @@ export const data = {
       'End Time': '10:30 AM',
       'Event Description':
         'If you attend the consent workshop, you can be entered to win amazing prizes, ranging from $50 to $1000, including a tablet and a laptop!',
-      Color: 'dark-purple',
+      Color: 'purple',
     },
     {
       'Event Name': 'CAMPUS TOUR & BUILD BATTLE',
@@ -4729,7 +4729,7 @@ export const data = {
         "Campus Tour: Be guided by your F!rosh Leedurs on a tour of our gorgeous campus, showing you all the best places to study, grab food, participate in extracurriculars, and nap! <br />Build Battle: Your first of many design challenges at UofT Engineering, except its probably the one of the coolest ones you do! Work with your frosh group to tackle your piece of the puzzle for this year's unique design challenge, coming together to build something truly amazing as a 2T8 class!",
       'Start Time': '11:00 AM',
       'End Time': '12:10 PM',
-      Color: 'yellow',
+      Color: 'purple',
     },
     {
       'Event Name': 'LUNCH',
@@ -4743,7 +4743,7 @@ export const data = {
         "Learn from some of your amazing new TA's about all the strategies you need to know for success here at UofT Engineering!",
       'Start Time': '1:30 PM',
       'End Time': '3:00 PM',
-      Color: 'dark-purple',
+      Color: 'purple',
     },
     {
       'Event Name': 'CAMPUS TOUR & BUILD BATTLE',
@@ -4751,13 +4751,13 @@ export const data = {
         "Campus Tour: Be guided by your F!rosh Leedurs on a tour of our gorgeous campus, showing you all the best places to study, grab food, participate in extracurriculars, and nap! <br />Build Battle: Your first of many design challenges at UofT Engineering, except its probably the one of the coolest ones you do! Work with your frosh group to tackle your piece of the puzzle for this year's unique design challenge, coming together to build something truly amazing as a 2T8 class!",
       'Start Time': '3:00 PM',
       'End Time': '6:00 PM',
-      Color: 'yellow',
+      Color: 'purple',
     },
     {
       'Event Name': 'CHEER OFF',
       'Start Time': '6:00 PM',
       'End Time': '6:30 PM',
-      Color: 'green',
+      Color: 'yellow',
     },
     {
       'Event Name': 'TOTES & TRIVIA',
@@ -4771,7 +4771,7 @@ export const data = {
       'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
       'End Time': '11:00 PM',
-      Color: 'purple',
+      Color: 'magenta',
     },
   ],
   'WEDNESDAY AUGUST 28': [
@@ -4795,7 +4795,7 @@ export const data = {
       'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
       'End Time': '11:00 PM',
-      Color: 'purple',
+      Color: 'magenta',
     },
   ],
   'THURSDAY AUGUST 29': [
@@ -4829,7 +4829,7 @@ export const data = {
       'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
       'End Time': '11:00 PM',
-      Color: 'purple',
+      Color: 'magenta',
     },
   ],
   'FRIDAY AUGUST 30': [
@@ -4837,7 +4837,7 @@ export const data = {
       'Event Name': 'F!ROSH OLYMPIKS',
       'Start Time': '10:00 AM',
       'End Time': '5:00 PM',
-      Color: 'purple',
+      Color: 'yellow',
     },
     {
       'Event Name': 'SKULE’S GOT TALENT',
@@ -4846,14 +4846,14 @@ export const data = {
       'Event Location': 'GB Front Steps',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'yellow',
+      Color: 'dark-purple',
     },
     {
       'Event Name': '****',
       'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
       'End Time': '11:00 PM',
-      Color: 'purple',
+      Color: 'magenta',
     },
   ],
   'SATURDAY AUGUST 31': [

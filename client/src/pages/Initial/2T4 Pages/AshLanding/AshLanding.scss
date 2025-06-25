@@ -86,7 +86,7 @@ hr.ash-line {
   font-weight: bold;
   letter-spacing: 0.05em;
   text-align: center;
-  cursor: pointer;
+  cursor: url('../../../../assets/cursor/pointer.png'), auto !important;
   user-select: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), var(--shadow);
   transition: transform 200ms, background-color 200ms, box-shadow 0.3s;

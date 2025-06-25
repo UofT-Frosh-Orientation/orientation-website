@@ -45,7 +45,7 @@ const AlissaLanding = () => {
         </div>
       </div>
       <div className="ax-footer">
-        <h1 className="footer-text">Made with 💜 by the F!rosh Week 2T4 Tech Team</h1>
+        <h1 className="footer-text">Made with 💜 by the F!rosh Week 2T5 Tech Team</h1>
       </div>
     </div>
   );

@@ -55,15 +55,22 @@
       top: 5px;
     }
   }
+  .profile-edit-icon-link,
+  .profile-edit-icon-link * {
+    cursor: url('/assets/cursor/pointer.png'), auto !important;
+  }
   .profile-edit-icon {
     width: 40px;
     height: 40px;
     padding: 10px;
     background-color: var(--yellow);
-    border-radius: 10px;
+    border-radius: 12px;
+    border-image-source: var(--yellow-pixel-border);
+    border-image-slice: 12;
+    border-image-width: 12px;
+    border-image-outset: 2px;
+    border-image-repeat: repeat;
     box-shadow: var(--shadow);
-    cursor: pointer;
-    transition: transform 200ms;
     &:hover {
       transform: scale(1.05);
     }
@@ -160,7 +167,7 @@
 .profile-page-accordion-container {
   color: var(--text-dynamic);
   margin: 15px 0px;
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png') auto !important;
 }
 
 .profile-page-accordion-header {
@@ -258,7 +265,7 @@
   border-radius: 10px;
   box-shadow: var(--shadow);
 
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png') auto !important;
   transition: transform 200ms;
   &:hover {
     transform: scale(1.05);
@@ -286,7 +293,7 @@
   padding: 0px 20px;
 }
 
-.profile-not-registered h2{
+.profile-not-registered h2 {
   font-family: 'Proxima Nova', sans-serif;
 }
 

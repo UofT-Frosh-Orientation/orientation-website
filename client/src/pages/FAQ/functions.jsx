@@ -61,7 +61,7 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'How do I register for F!rosh Week?',
       answer:
-        'Register for F!rosh Week at orientation.skule.ca starting July 5th! Follow us on Instagram @froshweek and join the F!rosh Week 2T4 Discord server. To stay up to date throughout the summer! Important links can also be found at linktr.ee/froshweek. Link to Discord server: https://discord.gg/RQrPQMYrHw',
+        'Register for F!rosh Week at orientation.skule.ca starting July 5th! Follow us on Instagram @froshweek and join the F!rosh Week 2T5 Discord server. To stay up to date throughout the summer! Important links can also be found at linktr.ee/froshweek. Link to Discord server: https://discord.gg/RQrPQMYrHw',
       lastUpdated: '12:30pm, Jun 22, 2024',
       category: 'Registration',
     },
@@ -97,7 +97,7 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'When and How are we getting the F!rosh kits?',
       answer:
-        "You will get your MEGAkit (pre-kit + F!rosh kit) the day of F!rosh during registration.",
+        'You will get your MEGAkit (pre-kit + F!rosh kit) the day of F!rosh during registration.',
       lastUpdated: '3:00 am, Aug 23, 2024',
       category: 'F!rosh Kits',
     },

@@ -23,9 +23,9 @@ const SingleAccordion = ({ header, children, isOpen, setIsOpen, canOpen, classNa
 
   return (
     <div
-      className={`accordion ${className}`}
+      className={`accordion ${className} ${canOpen ? 'accordion-clickable' : ''}`}
       onClick={toggleAccordion}
-      style={{ cursor: canOpen ? 'pointer' : 'unset', ...style }}
+      //style={{ cursor: canOpen ? 'pointer' : 'unset', ...style }} // Removed to allow custom cursor
     >
       <div className="accord-header">
         {header}

@@ -204,26 +204,26 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                         <img
                           className="navbar-svg-icon"
                           alt={
-                            page.label === 'HOME'
-                              ? 'HOME'
-                              : page.label === 'ABOUT'
-                              ? 'ABOUT'
+                            page.label === 'Home'
+                              ? 'Home'
+                              : page.label === 'About'
+                              ? 'About'
                               : page.label === 'FAQ'
                               ? 'FAQ'
                               : ''
                           }
                           src={
                             pathname === page.path
-                              ? page.label === 'HOME'
+                              ? page.label === 'Home'
                                 ? HomeIconPurple
-                                : page.label === 'ABOUT'
+                                : page.label === 'About'
                                 ? AboutIconPurple
                                 : page.label === 'FAQ'
                                 ? MessageIconPurple
                                 : {}
-                              : page.label === 'HOME'
+                              : page.label === 'Home'
                               ? HomeIconGrey
-                              : page.label === 'ABOUT'
+                              : page.label === 'About'
                               ? AboutIconGrey
                               : page.label === 'FAQ'
                               ? MessageIconGrey
@@ -234,26 +234,26 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                         <img
                           className="navbar-svg-icon"
                           alt={
-                            page.label === 'HOME'
-                              ? 'HOME'
-                              : page.label === 'ABOUT'
-                              ? 'ABOUT'
+                            page.label === 'Home'
+                              ? 'Home'
+                              : page.label === 'About'
+                              ? 'About'
                               : page.label === 'FAQ'
                               ? 'FAQ'
                               : ''
                           }
                           src={
                             pathname === page.path
-                              ? page.label === 'HOME'
+                              ? page.label === 'Home'
                                 ? HomeIconHighlightDarkMode
-                                : page.label === 'ABOUT'
+                                : page.label === 'About'
                                 ? AboutIconHighlightDarkMode
                                 : page.label === 'FAQ'
                                 ? MessageIconHighlightDarkMode
                                 : {}
-                              : page.label === 'HOME'
+                              : page.label === 'Home'
                               ? HomeIconDefaultDarkMode
-                              : page.label === 'ABOUT'
+                              : page.label === 'About'
                               ? AboutIconDefaultDarkMode
                               : page.label === 'FAQ'
                               ? MessageIconDefaultDarkMode
