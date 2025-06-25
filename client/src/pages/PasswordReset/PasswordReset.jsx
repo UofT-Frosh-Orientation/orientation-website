@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import './PasswordReset.scss';
-import MainFroshLogo from '../../assets/logo/main-logo.png';
+import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { validateEmail, validatePassword, validatePasswordLength } from '../SignUp/functions';
 import { Button } from '../../components/button/Button/Button';
