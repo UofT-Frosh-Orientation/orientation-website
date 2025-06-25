@@ -15,8 +15,8 @@ import { execInfo } from '../../util/about/execs';
 
 import { ExecProfile } from './ExecProfile/ExecProfile';
 import ExecLogo from '../../assets/about/about-page.svg';
-import newAboutLogo from '../../assets/about/F! Crest light.png';
-import newPurpleLogo from '../../assets/about/F! Crest Purple.png';
+import newAboutLogo from '../../assets/about/F! White.png';
+import newPurpleLogo from '../../assets/about/F! Purple.png';
 import { useEffect } from 'react';
 import { object } from 'prop-types';
 import { Header } from '../../components/text/Header/Header';
