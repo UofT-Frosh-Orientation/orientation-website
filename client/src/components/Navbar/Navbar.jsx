@@ -82,7 +82,9 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
 
       <div className="navbar-container">
         <div className="navbar-main">
-          <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
+          <Link to="/" key="/">
+            <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
+          </Link>
           {/* MAIN PAGES - Home, About, FAQ */}
           {pages.main.map((page) => {
             return (
@@ -90,15 +92,16 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
                 <Link
                   to={pathname === page.path ? {} : page.path}
                   key={page.path}
-                  style={pathname === page.path ? { pointerEvents: 'none' } : {}}
+                  // style={pathname === page.path ? { pointerEvents: 'none' } : {}}
                 >
                   <div className="navbar-sub-container" key={page.path}>
                     <div className="navbar-link"> {page.label} </div>
-                    {pathname === page.path ? (
+                    {/* {pathname === page.path ? (
                       <div className="underline-page-selected"></div>
                     ) : (
                       <div className="navbar-underline"></div>
-                    )}
+                    )} */}
+                    <div className="navbar-underline"></div>
                   </div>
                 </Link>
               </React.Fragment>

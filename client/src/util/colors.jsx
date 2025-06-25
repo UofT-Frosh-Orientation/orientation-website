@@ -47,6 +47,11 @@ export const colors = {
   '--login-bg': ['#e8e0eb', '#e8e0eb'],
   '--gray-time-label': ['#858087', '#D6D6D6'],
 
+  // 2T5 Redesign Colours
+  '--neutral-secondary': ['#EBEBEB', '#2E194C'],
+  '--text-primary': ['#000000', '#FFFFFF'],
+  '--text-secondary': ['#5E5E5E', '#DFCDF3'],
+
   // unique colors for each component
   '--schedule-container': ['#f0e6f2', '#8c60b3'],
   '--schedule-container-selected': ['#bca1d1', '#593875'],
@@ -54,8 +59,8 @@ export const colors = {
   '--control-dot': ['#6f1e88', '#8c60b3'],
 
   //navbar
-  '--navbar-bg': ['#ebebeb', '#41225A'],
-  '--navbar-link': ['#989898', '#ffffff'],
+  '--navbar-bg': ['#FFFFFF', '#382159'],
+  '--navbar-link': ['#000000', '#ffffff'],
   '--navbar-underline': ['#e2e2e2', '#3C2152'],
   '--navbar-underline-desktop': ['#6f1e88', '#8c60b3'],
   '--navbar-underline-highlight': ['#6f1e88', '#8c60b3'],
