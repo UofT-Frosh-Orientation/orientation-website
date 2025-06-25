@@ -48,6 +48,7 @@ export const colors = {
   '--gray-time-label': ['#858087', '#D6D6D6'],
 
   // 2T5 Redesign Colours
+  '--bg-primary': ['#FFFFFF', '#382159'],
   '--neutral-secondary': ['#EBEBEB', '#2E194C'],
   '--text-primary': ['#000000', '#FFFFFF'],
   '--text-secondary': ['#5E5E5E', '#DFCDF3'],
@@ -94,8 +95,8 @@ export const colors = {
 
   //text-input
   '--textinput-bg': ['#f3f3f3', '#8c60b3'],
-  '--textinput-shadow-hover': ['#a04fb9', '#8c60b3'],
-  '--textinput-shadow-focus': ['#6f1e88', '#8C64AD'],
+  '--textinput-shadow-hover': ['#EBEBEB', '#8c60b3'],
+  '--textinput-shadow-focus': ['#EBEBEB', '#8C64AD'],
   '--disabled': ['#F3F3F3', '#300150'],
   '--placeholder-text': ['#D2D2D2', '#A282BE'],
 

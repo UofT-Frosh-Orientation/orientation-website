@@ -66,7 +66,7 @@ const FAQAskQuestion = () => {
             pageState !== 'form' ? 'faq-page-disappear' : 'faq-page-appear'
           }`}
         >
-          <h1 className={'faq-ask-question-title'}>ASK A QUESTION</h1>
+          <h1 className={'faq-ask-question-title'}>Ask a Question</h1>
           <p className="faq-ask-question-paragraph">We will get back to you in an email soon!</p>
           <form>
             <label>
@@ -147,7 +147,8 @@ const AskQuestionButton = () => {
                 height={30}
               />
               <div className="desktop-only">
-                <span className={'faq-fab-content'}>Ask a Question</span>
+                {/* Add text in this element below for ask question button */}
+                <span className={'faq-fab-content'}></span>
               </div>
             </div>
           }
