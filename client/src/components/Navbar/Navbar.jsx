@@ -189,8 +189,9 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
       )}
 
       <div className="navbar-container">
-        <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
-
+        <Link to="/" key="/">
+          <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
+        </Link>
         <div className="navbar-main">
           {/* MAIN PAGES - Home, About, FAQ */}
           {pages.main.map((page) => {
@@ -199,7 +200,7 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                 <Link
                   to={page.path}
                   key={page.path}
-                  style={pathname === page.path ? { pointerEvents: 'none' } : {}}
+                  // style={pathname === page.path ? { pointerEvents: 'none' } : {}}
                 >
                   <div className="navbar-sub-container">
                     <div className="navbar-menu-icon">
@@ -265,11 +266,11 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                         ></img>
                       )}
                     </div>
-                    {pathname === page.path ? (
+                    {/* {pathname === page.path ? (
                       <div className="underline-page-selected"></div>
                     ) : (
                       <div className="navbar-underline"></div>
-                    )}
+                    )} */}
                   </div>
                 </Link>
               </React.Fragment>
