@@ -137,6 +137,7 @@ export const ScheduleComponentAccordion = ({ scheduleDay, closeAll }) => {
                     className="schedule-accordion-header-location-icon"
                   ></img>
                   <h3 className="schedule-accordion-location">{scheduleDay['Event Location']}</h3>
+                  {/* <h3>{scheduleDay['Event Location']}</h3> */}
                 </div>
               ) : (
                 <></>

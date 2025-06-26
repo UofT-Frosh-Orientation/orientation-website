@@ -218,6 +218,8 @@
 
   .home-page-schedule-warning {
     font-size: 18px;
+    font-family: 'Proxima Nova';
+    font-weight: 400;
     color: var(--text-primary);
     padding-left: min(40px, 3.5%);
     margin-top: -25px;
@@ -319,11 +321,11 @@
 }
 
 .home-page-section-header {
-  font-size: 30px;
+  font-size: 45px;
   color: var(--text-primary);
   padding-left: min(40px, 3.5%);
   padding-top: 35px;
-  margin-bottom: 24px;
+  margin-bottom: 40px;
   font-family: 'Proxima Nova', sans-serif;
   font-weight: 800;
 
@@ -332,6 +334,11 @@
     margin-bottom: 10px;
     font-size: 35px;
   }
+}
+
+.schedule-link {
+  color: var(--link-dynamic);
+  text-decoration-color: var(--link-dynamic);
 }
 
 .home-page-bottom-wave-image {

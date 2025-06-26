@@ -230,8 +230,12 @@ const HomePageSchedule = () => {
       <h2 className="home-page-section-header">SCHEDULE</h2>
       {loggedIn ? (
         <div className="home-page-schedule-warning">
-          *Different Frosh groups have different schedules. The homepage schedule is the basic
-          schedule. To see yours, visit the <Link to={'/profile'}>Profile</Link> page.
+          *Different F!rosh groups have different schedules. This is the basic schedule. To see your
+          individual schedule, visit the{' '}
+          <Link className="schedule-link" to={'/profile'}>
+            Profile
+          </Link>{' '}
+          page.
         </div>
       ) : (
         <></>

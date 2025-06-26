@@ -51,8 +51,10 @@ export const colors = {
   '--bg-primary': ['#FFFFFF', '#382159'],
   '--neutral-secondary': ['#EBEBEB', '#2E194C'],
   '--text-primary': ['#000000', '#FFFFFF'],
+  '--text-inverted': ['#e9dff5', '#000000'],
   '--text-secondary': ['#5E5E5E', '#DFCDF3'],
   '--vignette': ['#00000040', '#00000040'],
+  '--link-dynamic': ['#A77AD7', '#FFC600'],
 
   '--monster': ['#3D0F58', '#3D0F58'],
   '--jam': ['#711F8B', '#711F8B'],
@@ -63,6 +65,15 @@ export const colors = {
   '--palegold': ['#FBDC70', '#FBDC70'],
   '--dusk': ['#EBEBEB', '#EBEBEB'],
   '--dawn': ['#3C3C3C', '#3C3C3C'],
+
+  // 2T5 Schedule Colours
+  '--sc-general': ['#A77AD7', '#3C3C3C'],
+  '--sc-long': ['#711F8B', '#3C3C3C'],
+  '--sc-break': ['#FBDC70', '#3C3C3C'],
+  '--sc-night': ['#3D0F58', '#3C3C3C'],
+  '--sc-special': ['#FFC600', '#3C3C3C'],
+  '--sc-other': ['#EBEBEB', '#3C3C3C'],
+  '--sc-highlight': ['#00000042', '#FFFFFF42'],
 
   // unique colors for each component
   '--schedule-container': ['#f0e6f2', '#8c60b3'],

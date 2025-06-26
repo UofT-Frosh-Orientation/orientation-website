@@ -1,13 +1,13 @@
 ﻿export const dataAlpha = {
   'MONDAY AUGUST 26': [
     {
-      'Event Name': 'CHECK-IN & MEET YOUR F!ROSH GROUP',
+      'Event Name': 'Check in & meet your F!rosh group',
       'Start Time': '7:30:00 a1/p1',
       'End Time': '8:30:00 a1/p1',
       Color: 'purple',
     },
     {
-      'Event Name': 'MATRICULATION',
+      'Event Name': 'Matriculation',
       'Event Description':
         'Our kickoff the frosh week, and introduction to all things SKULE™. We all gather in to Convocation Hall',
       'Start Time': '8:30:00 a1/p1',
@@ -4647,64 +4647,64 @@ export const dataZeta = {
 export const data = {
   'MONDAY AUGUST 26': [
     {
-      'Event Name': 'CHECK-IN AND MEET WITH GROUP',
+      'Event Name': 'Check-in and Meet Your F!rosh group',
       'Start Time': '7:30 AM',
       'Event Location': 'GB Front Steps',
       'End Time': '8:30 AM',
-      Color: 'green',
+      Color: 'break',
     },
     {
-      'Event Name': 'MATRICULATION',
-      'Event Location': 'CONVOCATION HALL',
+      'Event Name': 'Matriculation',
+      'Event Location': 'Convocation Hall',
       'Event Description':
         'Our kickoff to F!rosh Week, and an introduction to all things Skule! Hear from clubs, design teams, and other student groups about all the amazing opportunities waiting for you here at UofT Engineering, while also learning about some of our many Skule traditions!',
       'Start Time': '8:30 AM',
       'End Time': '10:30 AM',
-      Color: 'yellow',
+      Color: 'long',
     },
     {
-      'Event Name': 'F!ROSH GAMES + D!YE STATION',
+      'Event Name': 'F!rosh Games + D!ye Station',
       'Event Description':
         'Frosh Games: Compete against other frosh groups in the craziest competitions imaginable.<br />Dye: When I say purple you say purple! Where F!rosh and Leedurs alike dye their bodies (or parts thereof) purple. The colour purple represents great significance in the traditions of engineering schools across Canada.',
       'Start Time': '10:30 AM',
       'End Time': '12:30 PM',
-      Color: 'purple',
+      Color: 'general',
     },
     {
-      'Event Name': 'LUNCH',
+      'Event Name': 'Lunch',
       'Start Time': '12:30 PM',
       'End Time': '1:30 PM',
-      Color: 'green',
+      Color: 'break',
     },
     {
-      'Event Name': 'F!ROSH GAMES + D!YE STATION',
+      'Event Name': 'F!rosh Games + D!ye Station',
       'Event Description':
         'Frosh Games: Compete against other frosh groups in the craziest competitions imaginable.<br />Dye: When I say purple you say purple! Where F!rosh and Leedurs alike dye their bodies (or parts thereof) purple. The colour purple represents great significance in the traditions of engineering schools across Canada.',
       'Start Time': '1:30 AM',
       'End Time': '3:00 PM',
-      Color: 'purple',
+      Color: 'general',
     },
     {
-      'Event Name': 'DOWNTOWN WALKAROUND',
+      'Event Name': 'Downtown Walkaround',
       'Event Description':
         'Join us for a lovely tour of Toronto’s downtown with 1000 of your newest friends and classmates',
       'Start Time': '3:00 PM',
       'End Time': '6:00 PM',
-      Color: 'yellow',
+      Color: 'long',
     },
     {
-      'Event Name': 'UNWIND NIGHT',
+      'Event Name': 'Unwind Night',
       'Event Location': 'GB303',
       'Start Time': '6:00 PM',
       'End Time': '9:00 PM',
-      Color: 'dark-purple',
+      Color: 'night',
     },
     {
       'Event Name': '****',
       'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
       'End Time': '11:00 PM',
-      Color: 'magenta',
+      Color: 'special',
     },
   ],
   'TUESDAY AUGUST 27': [
