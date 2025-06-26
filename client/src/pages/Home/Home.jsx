@@ -6,6 +6,7 @@ import WaveReverse from '../../assets/misc/wave-reverse.png';
 import WaveDarkMode from '../../assets/darkmode/misc/wave.png';
 import WaveReverseDarkmode from '../../assets/darkmode/misc/wave-reverse.png';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { Link } from 'react-router-dom';
 
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
@@ -44,15 +45,17 @@ const HomePageHeader = () => {
 
   return (
     <div className="home-page-header">
-      <LazyLoadImage
+      {/* <LazyLoadImage
         src={MainFroshLogo}
         className="FroshHardHatWhite-logo"
         alt="home page frosh logo"
         effect="blur"
-      ></LazyLoadImage>
+      ></LazyLoadImage> */}
       <div className="home-page-header-text">
-        <h2>WELCOME TO F!ROSH WEEK!</h2>
-        <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p>
+        <h2>Welcome to</h2>
+        <h1>F!rosh</h1>
+        <h1>Week</h1>
+        {/* <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p> */}
         <HomeHeaderButton />
       </div>
       <div className="home-page-landing-image-container">
@@ -82,8 +85,8 @@ const HomeHeaderButton = () => {
         >
           <div className="home-page-header-register-button">
             <div className="desktop-only">
-              <Button
-                label={loggedIn ? 'View Profile' : 'Register Now!'}
+              <ButtonRound
+                label={loggedIn ? 'View Profile' : 'Register Now'}
                 isSecondary
                 style={{
                   margin: '0px',
@@ -96,8 +99,8 @@ const HomeHeaderButton = () => {
               />
             </div>
             <div className="mobile-only">
-              <Button
-                label={loggedIn ? 'View Profile' : 'Register Now!'}
+              <ButtonRound
+                label={loggedIn ? 'View Profile' : 'Register Now'}
                 isSecondary
                 style={{ margin: '0px' }}
               />

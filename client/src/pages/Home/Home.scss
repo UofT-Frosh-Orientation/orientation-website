@@ -1,16 +1,29 @@
 @import '../../scssStyles/mixins';
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
 
 .home-page-header {
   position: relative;
   height: 100vh;
   min-height: 500px;
-  background: radial-gradient(50% 42.09% at 50% 57.91%, #711f8bbf 43.23%, #3d0f58bf 100%);
+  // background: radial-gradient(50% 42.09% at 50% 57.91%, #711f8bbf 43.23%, #3d0f58bf 100%);
+  background: 
+  // linear-gradient(
+  // to left, 
+  // #00000080 40%, 
+  // #00000000 100%, 
+  // );
+    linear-gradient(to left, #2b003866 40%, #2b003800 100%);
+  // linear-gradient(
+  // to bottom,
+  // #00000040 0%,
+  // #00000000 20%,
+  // );
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  // justify-content: center;
+  // align-items: center;
   overflow: hidden;
-  margin-top: 0;
+  // margin-top: 20px;
 
   @include devices(tablet) {
     justify-content: center;
@@ -18,7 +31,7 @@
 }
 
 .FroshHardHatWhite-logo {
-  text-align: center;
+  // text-align: center;
   object-fit: fill;
   height: 300px;
   // background-color: rgba(220, 191, 225, 0.8);
@@ -31,30 +44,40 @@
 }
 
 .home-page-header-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 3% 0 3%;
-  text-align: center;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  padding: 150px 5% 0px 5%;
+  text-align: right;
 
   h1 {
-    text-align: center;
-    font-size: max(14vh, 140px);
-    color: var(--text-light);
-    line-height: 1;
+    font-family: 'Jersey 20';
+    font-weight: 400;
+    font-size: clamp(120px, 24vh, 180px);
+    text-transform: uppercase;
+    color: var(--mikado);
+    text-shadow: -5px -5px 0 var(--jam), 5px -5px 0 var(--jam), -5px 5px 0 var(--jam),
+      5px 5px 0 var(--jam);
+    // -5px -5px 0 var(--monster),
+    //  5px -5px 0 var(--monster),
+    // -5px  5px 0 var(--monster),
+    //  5px  5px 0 var(--monster);
+    line-height: 0.8;
   }
 
   h2 {
-    text-align: center;
-    font-size: max(6vh, 60px);
+    text-align: right;
+    font-size: max(1vh, 48px);
+    font-weight: 800;
     color: var(--text-light);
-    line-height: 0.7;
-    line-height: 1;
+    margin-bottom: 20px;
+    // line-height: 0.7;
+    // line-height: 1;
   }
 
   p {
-    text-align: center;
+    text-align: right;
     font-size: max(3vh, 14px);
     margin-bottom: min(2vh, 20px);
     margin-top: min(3vh, 10px);
@@ -66,33 +89,34 @@
     padding: 0px 25px;
 
     h1 {
-      font-size: 100px;
-      text-align: center;
+      font-size: 150px;
+      text-align: right;
     }
 
     h2 {
       font-size: 32px;
-      text-align: center;
+      text-align: right;
       line-height: 1;
     }
 
     p {
       font-size: 15px;
       padding: 0px 20px;
-      text-align: center;
+      text-align: right;
     }
   }
 }
 
 .home-page-header-register-button {
-  margin-top: 15px;
+  margin-top: 40px;
+  margin-right: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: end;
+  justify-content: end;
 
   @include devices(tablet) {
-    text-align: center;
+    // text-align: center;
     width: unset;
     height: unset;
     font-size: unset;

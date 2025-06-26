@@ -52,6 +52,17 @@ export const colors = {
   '--neutral-secondary': ['#EBEBEB', '#2E194C'],
   '--text-primary': ['#000000', '#FFFFFF'],
   '--text-secondary': ['#5E5E5E', '#DFCDF3'],
+  '--vignette': ['#00000040', '#00000040'],
+
+  '--monster': ['#3D0F58', '#3D0F58'],
+  '--jam': ['#711F8B', '#711F8B'],
+  '--wisteria': ['#A77AD7', '#A77AD7'],
+  '--lavender': ['#DFCDF3', '#DFCDF3'],
+  '--mikado': ['#FFC600', '#FFC600'],
+  '--sandstorm': ['#FED34C', '#FED34C'],
+  '--palegold': ['#FBDC70', '#FBDC70'],
+  '--dusk': ['#EBEBEB', '#EBEBEB'],
+  '--dawn': ['#3C3C3C', '#3C3C3C'],
 
   // unique colors for each component
   '--schedule-container': ['#f0e6f2', '#8c60b3'],
