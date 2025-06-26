@@ -227,7 +227,7 @@ const HomePageSchedule = () => {
   const loggedIn = useSelector(loggedInSelector);
   return (
     <div className="home-page-schedule">
-      <h2 className="home-page-section-header">SCHEDULE{loggedIn ? '*' : ''}</h2>
+      <h2 className="home-page-section-header">SCHEDULE</h2>
       {loggedIn ? (
         <div className="home-page-schedule-warning">
           *Different Frosh groups have different schedules. The homepage schedule is the basic

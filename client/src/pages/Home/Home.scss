@@ -319,11 +319,13 @@
 }
 
 .home-page-section-header {
-  font-size: 45px;
+  font-size: 30px;
   color: var(--text-primary);
   padding-left: min(40px, 3.5%);
   padding-top: 35px;
   margin-bottom: 24px;
+  font-family: 'Proxima Nova', sans-serif;
+  font-weight: 800;
 
   @include devices(tablet) {
     padding-top: 30px;
