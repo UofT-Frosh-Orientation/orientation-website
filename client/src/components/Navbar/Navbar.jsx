@@ -190,7 +190,11 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
 
       <div className="navbar-container">
         <Link to="/" key="/">
-          <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
+          <img
+            className={isLoggedIn ? 'icon-logo' : 'icon-logo-not-logged'}
+            src={MainFroshLogo}
+            alt="frosh logo"
+          ></img>
         </Link>
         <div className="navbar-main">
           {/* MAIN PAGES - Home, About, FAQ */}
