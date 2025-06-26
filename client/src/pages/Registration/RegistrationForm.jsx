@@ -8,7 +8,7 @@ import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import { Button } from '../../components/button/Button/Button';
 import { Tabs } from '../../components/tabs/tabs';
 import './RegistrationForm.scss';
-import MainFroshLogo from '../../assets/logo/main-logo.png';
+import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { Link, useNavigate } from 'react-router-dom';
 import { PopupModal } from '../../components/popup/PopupModal';
@@ -424,7 +424,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                                 : '')}
                           </h1>
                           <h2 className="registration-first-step-subtitle">
-                            LET&apos;S REGISTER FOR UOFT ENGINEERING&apos;S F!ROSH WEEK 2T4
+                            LET&apos;S REGISTER FOR UOFT ENGINEERING&apos;S F!ROSH WEEK 2T5
                           </h2>
                         </div>
                       </div>

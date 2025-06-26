@@ -1,5 +1,13 @@
 @import '../../scssStyles/mixins';
 
+:root {
+  --faq-pixel-border: url('../../assets/faq/faq-pixel-border-light.png');
+}
+
+.dark-mode {
+  --faq-pixel-border: url('../../assets/faq/faq-pixel-border-dark.png');
+}
+
 .faq-page-header {
   position: relative;
   max-height: 700px;
@@ -63,7 +71,12 @@
   margin-top: 50px;
   display: grid;
   grid-template-columns: 50px auto 50px;
-  box-shadow: var(--shadow);
+  //box-shadow: var(--shadow);
+  border-image-source: var(--faq-pixel-border);
+  border-image-slice: 30;
+  border-image-width: 30px;
+  border-image-outset: 1px;
+  border-image-repeat: repeat;
 }
 
 .searchIcon {
@@ -90,6 +103,7 @@
   height: 18px;
   //opacity: 0.6;
   transition: 200ms opacity;
+  cursor: url('../../assets/cursor/pointer.png'), auto;
 }
 
 .deleteIcon {
@@ -103,9 +117,11 @@
   border-radius: 0px 15px 15px 0px;
 }
 
-.deleteIcon:hover {
-  cursor: pointer;
+.deleteIcon:hover * {
+  cursor: url('../../assets/cursor/pointer.png'), auto;
+}
 
+.deleteIcon:hover {
   img {
     opacity: 1;
     transition: 200ms opacity;
@@ -139,6 +155,7 @@
 
 .faq-search-input-container {
   background-color: var(--faq-searchbar-bg) !important;
+  cursor: url('../../assets/cursor/textpointer.png'), auto !important;
 }
 
 .faq-data-result {
@@ -176,7 +193,7 @@
 }
 
 .faq-data-item:hover {
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
 }
 
 .faq-data-result div:hover {
@@ -214,7 +231,7 @@
 }
 
 .faq-accordion-wrapper:hover {
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
 }
 
 .faq-all-search-results {
@@ -306,7 +323,7 @@
     border-radius: 5px;
     background-color: var(--purple);
     color: white;
-    cursor: pointer;
+    cursor: url('../../assets/cursor/pointer.png'), auto;
     transition: background-color 0.3s, color 0.3s;
 
     &:hover {

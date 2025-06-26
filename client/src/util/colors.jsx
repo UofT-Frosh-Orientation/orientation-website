@@ -18,9 +18,9 @@ export const colors = {
   '--green-success-dark': ['#56964b', '#56964b'],
   '--red-error': ['#dd4343', '#dd4343'],
   '--red-error-light': ['#ffacac', '#ffacac'],
-  '--text-link': ['#4471d9', '#00d1ff'],
-  '--text-link-for-dark': ['#8AA8EC', '#5EB3EC'],
-  '--text-dark': ['#20002e', '#20002e'], // for a dark-text in bothe light and darkmode
+  '--text-link': ['#FFC600', '#FED34C'],
+  '--text-link-for-dark': ['#7a5f00', '#FED34C'],
+  '--text-dark': ['#20002e', '#20002e'], // for a dark-text in both light and darkmode
   '--text-dark-use': ['#20002e', '#ffffff'], // use this for dark-text that changes in light and darkmode
   '--text-light': ['#f3f3f3', '#f3f3f3'],
   '--text-dynamic': ['#20002e', '#f3f3f3'],
@@ -38,33 +38,67 @@ export const colors = {
     'invert(43%) sepia(0%) saturate(0%) hue-rotate(189deg) brightness(100%) contrast(88%)',
   ],
   '--purple-bg': ['#eed8ff', '#8E6FA7'],
-  '--yellow-bg': ['#ffffe4', '#8B8B4F'],
+  '--yellow-bg': ['#ffffe4', '#92804F'],
   '--dark-purple-bg': ['#d8c0ff', '#2E2145'],
-  '--gray-bg': ['#d4d4d4', '#767676'],
-  '--green-bg': ['#e9ffe9', '#3E723E'],
-  '--blue-bg': ['#d2d9ff', '#3A4688'],
+  '--gray-bg': ['#D7D2DC', '#6F6079'],
+  '--green-bg': ['#e9ffe9', '#51726E'],
+  '--blue-bg': ['#d2e1f7', '#424785'],
+  '--magenta-bg': ['#f7d2e1', '#6E2B5B'],
   '--login-bg': ['#e8e0eb', '#e8e0eb'],
-  '--gray-time-label': ['#989898', '#D6D6D6'],
+  '--gray-time-label': ['#858087', '#D6D6D6'],
+
+  // 2T5 Redesign Colours
+  '--bg-primary': ['#FFFFFF', '#382159'],
+  '--neutral-secondary': ['#EBEBEB', '#2E194C'],
+  '--text-primary': ['#000000', '#FFFFFF'],
+  '--text-inverted': ['#e9dff5', '#000000'],
+  '--text-secondary': ['#5E5E5E', '#DFCDF3'],
+  '--vignette': ['#00000040', '#00000040'],
+  '--link-dynamic': ['#A77AD7', '#FFC600'],
+
+  '--monster': ['#3D0F58', '#3D0F58'],
+  '--jam': ['#711F8B', '#711F8B'],
+  '--wisteria': ['#A77AD7', '#A77AD7'],
+  '--lavender': ['#DFCDF3', '#DFCDF3'],
+  '--mikado': ['#FFC600', '#FFC600'],
+  '--sandstorm': ['#FED34C', '#FED34C'],
+  '--palegold': ['#FBDC70', '#FBDC70'],
+  '--dusk': ['#EBEBEB', '#EBEBEB'],
+  '--dawn': ['#3C3C3C', '#3C3C3C'],
+
+  // 2T5 Schedule Colours
+  '--sc-general': ['#A77AD7', '#3C3C3C'],
+  '--sc-long': ['#711F8B', '#3C3C3C'],
+  '--sc-break': ['#FBDC70', '#3C3C3C'],
+  '--sc-night': ['#3D0F58', '#3C3C3C'],
+  '--sc-special': ['#FFC600', '#3C3C3C'],
+  '--sc-other': ['#EBEBEB', '#3C3C3C'],
+  '--sc-highlight': ['#00000042', '#FFFFFF42'],
 
   // unique colors for each component
-  '--schedule-container': ['#ffffff', '#8c60b3'],
+  '--schedule-container': ['#f0e6f2', '#8c60b3'],
+  '--schedule-container-selected': ['#bca1d1', '#593875'],
+  '--accordian-hover-bg': ['#00000018', '#8c60b3'],
   '--control-dot': ['#6f1e88', '#8c60b3'],
 
   //navbar
-  '--navbar-bg': ['#ebebeb', '#41225A'],
-  '--navbar-link': ['#989898', '#ffffff'],
+  '--navbar-bg': ['#FFFFFF', '#382159'],
+  '--navbar-link': ['#000000', '#ffffff'],
   '--navbar-underline': ['#e2e2e2', '#3C2152'],
   '--navbar-underline-desktop': ['#6f1e88', '#8c60b3'],
   '--navbar-underline-highlight': ['#6f1e88', '#8c60b3'],
   '--user-icon-bg': ['#6f1e88', '#8c60b3'],
 
   //button
-  '--button-outlined-bg': ['#ecd6ff', '#442066'],
-  '--button-outlined-bg-secondary': ['#f3f3f3', '#654A7E'],
+  '--button-outlined-bg': ['#bca1d1', '#442066'],
+  '--button-outlined-bg-secondary': ['#f0e6f1', '#654A7E'],
   '--button-outlined-border': ['#b297c7', '#8c60b3'],
   '--button-outlined-font': ['#20002e', '#ffffff'],
   '--button-outlined-disabled-border': ['#989898', '#8c60b3'],
   '--button-disabled': ['#BBBBBB', '#300150'],
+  '--button-pressed-highlight': ['#cdb4e0', '#795696'],
+  '--button-pressed-shadow': ['#ad91c2', '#00000038'],
+  '--button-active-bg': ['#DFCFE6', '#7b539e'],
 
   //about us teams tab
   '--aboutus-tabs-color': ['#b297c7', '#b297c7'],
@@ -83,8 +117,8 @@ export const colors = {
 
   //text-input
   '--textinput-bg': ['#f3f3f3', '#8c60b3'],
-  '--textinput-shadow-hover': ['#a04fb9', '#8c60b3'],
-  '--textinput-shadow-focus': ['#6f1e88', '#8C64AD'],
+  '--textinput-shadow-hover': ['#EBEBEB', '#8c60b3'],
+  '--textinput-shadow-focus': ['#EBEBEB', '#8C64AD'],
   '--disabled': ['#F3F3F3', '#300150'],
   '--placeholder-text': ['#D2D2D2', '#A282BE'],
 

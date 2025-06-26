@@ -59,7 +59,7 @@
   width: 100%;
   padding: 10px;
 
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
 
   transition: background-color 400ms, opacity 400ms, font-weight 400ms;
 
@@ -97,7 +97,7 @@
     flex-direction: row;
     border-radius: 6px;
     border: 2px solid var(--purple-shades-muted);
-    cursor: pointer;
+    cursor: url('../../assets/cursor/pointer.png'), auto !important;
     margin: auto;
 
     .dashboard-dropdown-icon {

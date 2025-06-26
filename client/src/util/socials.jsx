@@ -6,6 +6,8 @@ import YoutubeIcon from '../assets/social/youtube.svg';
 import DiscordIcon from '../assets/social/discord-brands.svg';
 import TikTokIcon from '../assets/social/tiktok-brands.svg';
 import WhatsAppIcon from '../assets/social/whatsapp.svg';
+import GitHubIcon from '../assets/social/github-white.svg';
+import EmailIcon from '../assets/social/mail-white.svg';
 
 export const socials = [
   {
@@ -15,8 +17,18 @@ export const socials = [
   },
   {
     label: 'Discord',
-    link: 'https://discord.com/invite/39uyG95KaU',
+    link: 'https://discord.gg/Fnxr7tp34E',
     icon: DiscordIcon,
+  },
+  {
+    label: 'Email',
+    link: 'mailto:tech@orientation.skule.ca',
+    icon: EmailIcon,
+  },
+  {
+    label: 'Github',
+    link: 'https://github.com/UofT-Frosh-Orientation/orientation-website',
+    icon: GitHubIcon,
   },
   /*{
     label: 'WhatsApp',

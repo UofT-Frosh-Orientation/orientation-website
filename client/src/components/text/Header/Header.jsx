@@ -23,11 +23,11 @@ const Header = ({ text, children, underlineDesktop, underlineMobile }) => {
           ></div>
           {children}
         </div>
-        {darkMode ? (
+        {/* {darkMode ? (
           <img className="header-page-wave-bottom" src={waveBottomDarkMode} alt="wave"></img>
         ) : (
           <img className="header-page-wave-bottom" src={waveBottom} alt="wave"></img>
-        )}
+        )} */}
       </div>
     </>
   );

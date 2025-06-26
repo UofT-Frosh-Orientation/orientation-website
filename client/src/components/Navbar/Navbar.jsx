@@ -18,7 +18,7 @@ import MessageIconDefaultDarkMode from '../../assets/darkmode/navbar/message-sol
 
 import ProfileIcon from '../../assets/navbar/circle-user-solid-purple.svg';
 import ProfileIconDarkMode from '../../assets/darkmode/navbar/circle-user-solid-purple.svg';
-import MainFroshLogo from '../../assets/logo/main-logo.png';
+import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
 
 import { Link, useLocation } from 'react-router-dom';
 import { pages } from '../../util/pages';
@@ -82,7 +82,9 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
 
       <div className="navbar-container">
         <div className="navbar-main">
-          <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
+          <Link to="/" key="/">
+            <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
+          </Link>
           {/* MAIN PAGES - Home, About, FAQ */}
           {pages.main.map((page) => {
             return (
@@ -90,15 +92,16 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
                 <Link
                   to={pathname === page.path ? {} : page.path}
                   key={page.path}
-                  style={pathname === page.path ? { pointerEvents: 'none' } : {}}
+                  // style={pathname === page.path ? { pointerEvents: 'none' } : {}}
                 >
                   <div className="navbar-sub-container" key={page.path}>
                     <div className="navbar-link"> {page.label} </div>
-                    {pathname === page.path ? (
+                    {/* {pathname === page.path ? (
                       <div className="underline-page-selected"></div>
                     ) : (
                       <div className="navbar-underline"></div>
-                    )}
+                    )} */}
+                    <div className="navbar-underline"></div>
                   </div>
                 </Link>
               </React.Fragment>
@@ -186,8 +189,13 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
       )}
 
       <div className="navbar-container">
-        <img className="icon-logo" src={MainFroshLogo} alt="frosh logo"></img>
-
+        <Link to="/" key="/">
+          <img
+            className={isLoggedIn ? 'icon-logo' : 'icon-logo-not-logged'}
+            src={MainFroshLogo}
+            alt="frosh logo"
+          ></img>
+        </Link>
         <div className="navbar-main">
           {/* MAIN PAGES - Home, About, FAQ */}
           {pages.main.map((page) => {
@@ -196,7 +204,7 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                 <Link
                   to={page.path}
                   key={page.path}
-                  style={pathname === page.path ? { pointerEvents: 'none' } : {}}
+                  // style={pathname === page.path ? { pointerEvents: 'none' } : {}}
                 >
                   <div className="navbar-sub-container">
                     <div className="navbar-menu-icon">
@@ -204,26 +212,26 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                         <img
                           className="navbar-svg-icon"
                           alt={
-                            page.label === 'HOME'
-                              ? 'HOME'
-                              : page.label === 'ABOUT'
-                              ? 'ABOUT'
+                            page.label === 'Home'
+                              ? 'Home'
+                              : page.label === 'About'
+                              ? 'About'
                               : page.label === 'FAQ'
                               ? 'FAQ'
                               : ''
                           }
                           src={
                             pathname === page.path
-                              ? page.label === 'HOME'
+                              ? page.label === 'Home'
                                 ? HomeIconPurple
-                                : page.label === 'ABOUT'
+                                : page.label === 'About'
                                 ? AboutIconPurple
                                 : page.label === 'FAQ'
                                 ? MessageIconPurple
                                 : {}
-                              : page.label === 'HOME'
+                              : page.label === 'Home'
                               ? HomeIconGrey
-                              : page.label === 'ABOUT'
+                              : page.label === 'About'
                               ? AboutIconGrey
                               : page.label === 'FAQ'
                               ? MessageIconGrey
@@ -234,26 +242,26 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                         <img
                           className="navbar-svg-icon"
                           alt={
-                            page.label === 'HOME'
-                              ? 'HOME'
-                              : page.label === 'ABOUT'
-                              ? 'ABOUT'
+                            page.label === 'Home'
+                              ? 'Home'
+                              : page.label === 'About'
+                              ? 'About'
                               : page.label === 'FAQ'
                               ? 'FAQ'
                               : ''
                           }
                           src={
                             pathname === page.path
-                              ? page.label === 'HOME'
+                              ? page.label === 'Home'
                                 ? HomeIconHighlightDarkMode
-                                : page.label === 'ABOUT'
+                                : page.label === 'About'
                                 ? AboutIconHighlightDarkMode
                                 : page.label === 'FAQ'
                                 ? MessageIconHighlightDarkMode
                                 : {}
-                              : page.label === 'HOME'
+                              : page.label === 'Home'
                               ? HomeIconDefaultDarkMode
-                              : page.label === 'ABOUT'
+                              : page.label === 'About'
                               ? AboutIconDefaultDarkMode
                               : page.label === 'FAQ'
                               ? MessageIconDefaultDarkMode
@@ -262,11 +270,11 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                         ></img>
                       )}
                     </div>
-                    {pathname === page.path ? (
+                    {/* {pathname === page.path ? (
                       <div className="underline-page-selected"></div>
                     ) : (
                       <div className="navbar-underline"></div>
-                    )}
+                    )} */}
                   </div>
                 </Link>
               </React.Fragment>

@@ -94,7 +94,7 @@
 }
 
 .slider-thumb {
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
   position: absolute;
   z-index: 100;
   border: 10px solid var(--light-purple);
@@ -138,7 +138,7 @@
 }
 
 .dropdown-selected {
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
   border-radius: 6px;
   border: 2px solid var(--purple-shades-muted);
   display: flex;
@@ -211,7 +211,7 @@
 
 .dropdown-item {
   padding: 0.5em 1em 0.5em 1em;
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
   transition: background-color 300ms ease-in-out;
 
   &:hover,

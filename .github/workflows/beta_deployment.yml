@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - beta
-      - dev
 
 concurrency: beta-deployment
 

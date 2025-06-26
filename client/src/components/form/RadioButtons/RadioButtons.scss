@@ -16,6 +16,7 @@
   margin-bottom: 0px;
   gap: 10px;
   user-select: none;
+  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
 }
 
 .form-control + .form-control {
@@ -34,7 +35,7 @@ input[type='radio'] {
   border-radius: 100%;
   display: grid;
   place-content: center;
-  cursor: pointer;
+  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
   -webkit-appearance: none;
   appearance: none;
   transition: transform 220ms;

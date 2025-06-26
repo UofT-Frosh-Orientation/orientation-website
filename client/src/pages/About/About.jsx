@@ -15,8 +15,8 @@ import { execInfo } from '../../util/about/execs';
 
 import { ExecProfile } from './ExecProfile/ExecProfile';
 import ExecLogo from '../../assets/about/about-page.svg';
-import newAboutLogo from '../../assets/about/F! Crest light.png';
-import newPurpleLogo from '../../assets/about/F! Crest Purple.png';
+import newAboutLogo from '../../assets/about/F! White.png';
+import newPurpleLogo from '../../assets/about/F! Purple.png';
 import { useEffect } from 'react';
 import { object } from 'prop-types';
 import { Header } from '../../components/text/Header/Header';
@@ -37,11 +37,21 @@ const PageAbout = () => {
         <div className="about-attribution-container">
           <p className="about-attribution-message">
             Thank you to{' '}
-            <a href="https://fontawesome.com/" target="_blank" rel="noreferrer">
+            <a
+              className="text-link-dark"
+              href="https://fontawesome.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
               Font Awesome
             </a>{' '}
             and{' '}
-            <a href="https://www.freepik.com/" target="_blank" rel="noreferrer">
+            <a
+              className="text-link-dark"
+              href="https://www.freepik.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
               Freepik
             </a>{' '}
             for various icons and graphics used throughout the website!

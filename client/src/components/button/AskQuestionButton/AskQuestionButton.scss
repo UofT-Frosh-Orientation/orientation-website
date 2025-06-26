@@ -1,4 +1,5 @@
 @import '../../../scssStyles/mixins';
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
 
 .faq-ask-question-container {
   display: flex;
@@ -37,19 +38,23 @@
 
 .faq-ask-question-title {
   text-align: center;
+  font-family: 'Jersey 20', sans-serif;
+  font-size: 50px;
 }
 .faq-ask-question-paragraph {
   text-align: center;
-  color: var(--white);
+  color: var(--text-primary);
+  margin-top: 15px;
+  margin-bottom: 20px;
 }
 
 .faq-ask-question-email-box {
-  margin: 20px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
   text-align: center;
 }
 
 .faq-ask-question-box {
-  margin: 20px 0px 0px 0px;
+  margin: 20px 0px 20px 0px;
   text-align: center;
 }
 
@@ -76,19 +81,21 @@
 
 .ask-question-popup {
   h1 {
-    color: var(--white);
+    color: var(--text-primary);
   }
   width: 45vw;
+  // height: 45vh;
   max-width: 500px;
+  // max-height: 500px;
   @include devices(tablet) {
     width: 100%;
   }
 }
 
 .faq-ask-question-outer-container {
-  @include devices(tablet) {
-    width: 100%;
-  }
+  // @include devices(tablet) {
+  width: 100%;
+  // }
 }
 
 .faq-fab {
@@ -97,15 +104,21 @@
   position: fixed;
   z-index: 10;
   @include devices(tablet) {
-    bottom: 50px;
-    right: 5px;
+    bottom: 85px;
+    left: 10px;
   }
 }
 
 .faq-fab-button {
-  @include devices(tablet) {
-    padding: 10px 15px !important;
-  }
+  // @include devices(tablet) {
+  padding: 10px 15px !important;
+  // }
+  border-image-source: var(--yellow-pixel-border);
+  border-image-slice: 12;
+  border-image-width: 12px;
+  border-image-outset: 2px;
+  border-image-repeat: repeat;
+  box-shadow: 2px 2px 2px #00000038;
 }
 
 .faq-fab-container {
@@ -114,8 +127,8 @@
 }
 
 .faq-fab-icon {
-  margin-right: 15px;
-  @include devices(tablet) {
-    margin-right: 0px;
-  }
+  // margin-right: 15px;
+  // @include devices(tablet) {
+  margin-right: 0px;
+  // }
 }

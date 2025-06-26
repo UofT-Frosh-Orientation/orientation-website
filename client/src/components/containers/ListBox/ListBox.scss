@@ -14,7 +14,7 @@
 }
 
 .list-box-container-click:hover {
-  cursor: pointer;
+  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
   user-select: none;
   .list-box-label p {
     transform: scale(1.1);

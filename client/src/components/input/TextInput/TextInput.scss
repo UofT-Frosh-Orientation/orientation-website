@@ -25,7 +25,7 @@
   margin: 4px;
   width: 100%;
   color: var(--black);
-
+  cursor: url('../../../assets/cursor/textpointer.png'), auto !important;
   &:hover {
     background-color: var(--textinput-bg);
     box-shadow: 0px 0px 6px 1px var(--textinput-shadow-hover);
@@ -91,11 +91,11 @@
 .text-input-disabled {
   opacity: 0.4;
   background-color: var(--disabled);
+  cursor: url('../../../assets/cursor/cursordisabled.png'), auto !important;
 
   &:hover {
     background-color: var(--on-white);
     box-shadow: none;
-    cursor: no-drop;
   }
 }
 

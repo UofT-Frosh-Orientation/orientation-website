@@ -21,9 +21,9 @@ const ImageCarousel = ({ items }) => {
           centerSlidePercentage={33}
           autoPlay={true}
           showThumbs={false}
-          interval={4000}
+          interval={8000}
           emulateTouch={true}
-          stopOnHover={false}
+          stopOnHover={true}
           onChange={(number, item) => {
             setCurrentLabel(number);
           }}
@@ -68,8 +68,8 @@ const ImageCarousel = ({ items }) => {
           centerMode={false}
           autoPlay={true}
           showThumbs={false}
-          interval={4000}
-          stopOnHover={false}
+          interval={8000}
+          stopOnHover={true}
           onChange={(number, item) => {
             setCurrentLabelMobile(number);
           }}

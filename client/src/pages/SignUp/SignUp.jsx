@@ -3,7 +3,7 @@ import { TextInput } from '../../components/input/TextInput/TextInput';
 import './SignUp.scss';
 import { Button } from '../../components/button/Button/Button';
 import { validateEmail, validatePassword, validatePasswordLength } from './functions';
-import MainFroshLogo from '../../assets/logo/main-logo.png';
+import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -106,7 +106,7 @@ const PageSignUp = () => {
             onClick={handleLeaderReveal}
           ></img>
           <h1 style={{ color: 'var(--black)' }}>CREATE AN ACCOUNT</h1>
-          <h3 style={{ color: 'var(--black)' }}>FOR F!ROSH WEEK 2T4, UOFT ENGINEERING</h3>
+          <h3 style={{ color: 'var(--black)' }}>FOR F!ROSH WEEK 2T5, UOFT ENGINEERING</h3>
           <div className="full-width-input">
             <TextInput
               label="Email"
@@ -259,7 +259,7 @@ const PageSignUp = () => {
               <>
                 <h1 className="proxima-nova-text">You aren&apos;t done just yet!</h1>
                 <h3 className="proxima-nova-text">
-                  Check your inbox for an email from tech@orientation.skule.cafor a link to verify
+                  Check your inbox for an email from tech@orientation.skule.ca for a link to verify
                   your email. You still need to register and pay for the F!rosh Week event.
                 </h3>
               </>
