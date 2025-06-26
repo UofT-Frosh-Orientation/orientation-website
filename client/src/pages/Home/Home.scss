@@ -12,7 +12,7 @@
   // #00000080 40%, 
   // #00000000 100%, 
   // );
-    linear-gradient(to left, #2b003866 40%, #2b003800 100%);
+    linear-gradient(to left, #2b003866 60%, #2b003800 100%);
   // linear-gradient(
   // to bottom,
   // #00000040 0%,
@@ -70,7 +70,7 @@
     text-align: right;
     font-size: max(1vh, 48px);
     font-weight: 800;
-    color: var(--text-light);
+    color: var(--white);
     margin-bottom: 20px;
     // line-height: 0.7;
     // line-height: 1;
@@ -78,11 +78,13 @@
 
   p {
     text-align: right;
-    font-size: max(3vh, 14px);
+    font-size: 16px;
+    font-weight: 800;
     margin-bottom: min(2vh, 20px);
-    margin-top: min(3vh, 10px);
-    color: var(--text-light);
-    line-height: 1.2;
+    margin-top: min(3vh, 20px);
+    margin-right: 1%;
+    color: var(--white);
+    line-height: 1.4;
   }
 
   @include devices(tablet) {

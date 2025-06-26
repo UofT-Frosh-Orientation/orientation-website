@@ -22,11 +22,13 @@ import { useSelector } from 'react-redux';
 import { loggedInSelector, userSelector } from '../../state/user/userSlice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Header } from '../../components/text/Header/Header';
+import { EventCard } from '../../components/OtherEventsCard/EventCard';
 import { otherEventsData } from './otherevents';
 
 import ProgressiveImage from '../../components/progressiveImg/ProgressiveImg';
 import facultylogo from '../../assets/misc/facultylogo.png';
 import bsologo from '../../assets/misc/bsologo.svg';
+import slideshow1 from '../../assets/homeSlideshow/2T5/back.jpg';
 
 const PageHome = () => {
   return (
@@ -57,6 +59,7 @@ const HomePageHeader = () => {
         <h1>Week</h1>
         {/* <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p> */}
         <HomeHeaderButton />
+        <p>Check back soon for registration</p>
       </div>
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />
@@ -72,7 +75,7 @@ const HomePageHeader = () => {
 
 const HomeHeaderButton = () => {
   const loggedIn = useSelector(loggedInSelector);
-  const [isRegistrationOpen, setIsRegistrationOpen] = useState(true);
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
 
   return (
     <>
@@ -110,7 +113,7 @@ const HomeHeaderButton = () => {
       ) : (
         <div className="home-page-header-register-button">
           <div className="desktop-only">
-            <Button
+            <ButtonRound
               label={loggedIn ? 'View Profile' : 'Register Now!'}
               isSecondary
               isDisabled
@@ -125,7 +128,7 @@ const HomeHeaderButton = () => {
             />
           </div>
           <div className="mobile-only">
-            <Button
+            <ButtonRound
               label={loggedIn ? 'View Profile' : 'Register Now!'}
               isSecondary
               isDisabled
@@ -262,24 +265,33 @@ const AboutUsSection = () => {
       <>
         {otherEventsData.map((info, index) => {
           return (
-            <div className="otherevents-subsubcontainer" key={info.title}>
-              <div className="otherevents-image-container">
-                <LazyLoadImage
-                  className="otherevents-image"
-                  src={index === 0 ? bsologo : facultylogo}
-                  alt={info.title}
-                ></LazyLoadImage>
-              </div>
-              <div className="otherevents-info-container" key={info.title}>
-                <div className="otherevents-info">
-                  <h2 className="otherevents-info-title">{info.title}</h2>
-                  <p
-                    className="otherevents-info-des"
-                    dangerouslySetInnerHTML={{ __html: info.description }}
-                  ></p>
-                </div>
-              </div>
-            </div>
+            // <div>hi</div>
+            <EventCard
+              key={index}
+              title={info.title}
+              content={info.description}
+              photoUrl={slideshow1}
+              bgColor="bg-yellow"
+              textColor="text-black"
+            />
+            // <div className="otherevents-subsubcontainer" key={info.title}>
+            //   <div className="otherevents-image-container">
+            //     <LazyLoadImage
+            //       className="otherevents-image"
+            //       src={index === 0 ? bsologo : facultylogo}
+            //       alt={info.title}
+            //     ></LazyLoadImage>
+            //   </div>
+            //   <div className="otherevents-info-container" key={info.title}>
+            //     <div className="otherevents-info">
+            //       <h2 className="otherevents-info-title">{info.title}</h2>
+            //       <p
+            //         className="otherevents-info-des"
+            //         dangerouslySetInnerHTML={{ __html: info.description }}
+            //       ></p>
+            //     </div>
+            //   </div>
+            // </div>
           );
         })}
       </>

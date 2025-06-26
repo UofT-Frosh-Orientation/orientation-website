@@ -4645,12 +4645,12 @@ export const dataZeta = {
 
 // for home page
 export const data = {
-  'MONDAY AUGUST 26': [
+  'MONDAY AUGUST 25': [
     {
-      'Event Name': 'Check-in and Meet Your F!rosh group',
-      'Start Time': '7:30 AM',
+      'Event Name': 'Meet your F!rosh Group',
+      'Start Time': '8:00 AM',
       'Event Location': 'GB Front Steps',
-      'End Time': '8:30 AM',
+      'End Time': '9:00 AM',
       Color: 'break',
     },
     {
@@ -4658,222 +4658,184 @@ export const data = {
       'Event Location': 'Convocation Hall',
       'Event Description':
         'Our kickoff to F!rosh Week, and an introduction to all things Skule! Hear from clubs, design teams, and other student groups about all the amazing opportunities waiting for you here at UofT Engineering, while also learning about some of our many Skule traditions!',
-      'Start Time': '8:30 AM',
-      'End Time': '10:30 AM',
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
       Color: 'long',
     },
     {
-      'Event Name': 'F!rosh Games + D!ye Station',
-      'Event Description':
-        'Frosh Games: Compete against other frosh groups in the craziest competitions imaginable.<br />Dye: When I say purple you say purple! Where F!rosh and Leedurs alike dye their bodies (or parts thereof) purple. The colour purple represents great significance in the traditions of engineering schools across Canada.',
-      'Start Time': '10:30 AM',
-      'End Time': '12:30 PM',
-      Color: 'general',
-    },
-    {
       'Event Name': 'Lunch',
-      'Start Time': '12:30 PM',
-      'End Time': '1:30 PM',
+      'Start Time': '11:00 AM',
+      'End Time': '12:00 PM',
       Color: 'break',
     },
     {
       'Event Name': 'F!rosh Games + D!ye Station',
       'Event Description':
-        'Frosh Games: Compete against other frosh groups in the craziest competitions imaginable.<br />Dye: When I say purple you say purple! Where F!rosh and Leedurs alike dye their bodies (or parts thereof) purple. The colour purple represents great significance in the traditions of engineering schools across Canada.',
-      'Start Time': '1:30 AM',
+        '<b>F!rosh Games:</b> Compete against other frosh groups in the craziest competitions imaginable.<br /><b>D!ye:</b> When I say purple you say purple! Where F!rosh and Leedurs alike dye their bodies (or parts thereof) purple. The colour purple represents great significance in the traditions of engineering schools across Canada.',
+      'Start Time': '12:00 PM',
       'End Time': '3:00 PM',
-      Color: 'general',
+      Color: 'long',
     },
     {
       'Event Name': 'Downtown Walkaround',
       'Event Description':
-        'Join us for a lovely tour of Toronto’s downtown with 1000 of your newest friends and classmates',
+        'Join us for a lovely tour of Toronto’s downtown with 1000 of your newest friends and classmates!',
       'Start Time': '3:00 PM',
-      'End Time': '6:00 PM',
+      'End Time': '5:00 PM',
       Color: 'long',
     },
     {
-      'Event Name': 'Unwind Night',
-      'Event Location': 'GB303',
+      'Event Name': 'Break/Dinner',
+      // 'Event Location': 'GB303',
+      'Start Time': '5:00 PM',
+      'End Time': '6:00 PM',
+      Color: 'break',
+    },
+    {
+      'Event Name': 'Nitelife',
+      'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
-      'End Time': '9:00 PM',
+      'End Time': 'Late',
       Color: 'night',
     },
-    {
-      'Event Name': '****',
-      'Event Location': 'The Pit',
-      'Start Time': '6:00 PM',
-      'End Time': '11:00 PM',
-      Color: 'special',
-    },
   ],
-  'TUESDAY AUGUST 27': [
+  'TUESDAY AUGUST 26': [
     {
-      'Event Name': 'MEET WITH YOUR GROUP',
-      'Event Location': 'Front Campus',
-      'Start Time': '8:15:00 a1/p1',
-      'End Time': '8:45:00 a1/p1',
-      Color: 'green',
-    },
-    {
-      'Event Name': 'CONSENT WORKSHOP',
-      'Start Time': '9:30 AM',
-      'End Time': '10:30 AM',
-      'Event Description':
-        'If you attend the consent workshop, you can be entered to win amazing prizes, ranging from $50 to $1000, including a tablet and a laptop!',
-      Color: 'purple',
-    },
-    {
-      'Event Name': 'CAMPUS TOUR & BUILD BATTLE',
-      'Event Description':
-        "Campus Tour: Be guided by your F!rosh Leedurs on a tour of our gorgeous campus, showing you all the best places to study, grab food, participate in extracurriculars, and nap! <br />Build Battle: Your first of many design challenges at UofT Engineering, except its probably the one of the coolest ones you do! Work with your frosh group to tackle your piece of the puzzle for this year's unique design challenge, coming together to build something truly amazing as a 2T8 class!",
-      'Start Time': '11:00 AM',
-      'End Time': '12:10 PM',
-      Color: 'purple',
-    },
-    {
-      'Event Name': 'LUNCH',
-      'Start Time': '12:30 PM',
-      'End Time': '1:30 PM',
-      Color: 'green',
-    },
-    {
-      'Event Name': 'ACADEMIC SUCCESS SEMINAR',
+      'Event Name': 'Academic Success Seminar',
+      // 'Event Location': 'Front Campus',
       'Event Description':
         "Learn from some of your amazing new TA's about all the strategies you need to know for success here at UofT Engineering!",
-      'Start Time': '1:30 PM',
-      'End Time': '3:00 PM',
-      Color: 'purple',
+      'Start Time': '8:00 AM',
+      'End Time': '10:00 AM',
+      Color: 'other',
     },
     {
-      'Event Name': 'CAMPUS TOUR & BUILD BATTLE',
+      'Event Name': 'Campus Tours + Build Battle',
       'Event Description':
-        "Campus Tour: Be guided by your F!rosh Leedurs on a tour of our gorgeous campus, showing you all the best places to study, grab food, participate in extracurriculars, and nap! <br />Build Battle: Your first of many design challenges at UofT Engineering, except its probably the one of the coolest ones you do! Work with your frosh group to tackle your piece of the puzzle for this year's unique design challenge, coming together to build something truly amazing as a 2T8 class!",
-      'Start Time': '3:00 PM',
-      'End Time': '6:00 PM',
-      Color: 'purple',
+        "<b>Campus Tour:</b> Be guided by your F!rosh Leedurs on a tour of our gorgeous campus, showing you all the best places to study, grab food, participate in extracurriculars, and nap! <br /><b>Build Battle:</b> Your first of many design challenges at UofT Engineering, except its probably the one of the coolest ones you do! Work with your frosh group to tackle your piece of the puzzle for this year's unique design challenge, coming together to build something truly amazing as a 2T9 class!",
+      'Start Time': '10:00 AM',
+      'End Time': '12:00 PM',
+      Color: 'long',
     },
     {
-      'Event Name': 'CHEER OFF',
-      'Start Time': '6:00 PM',
-      'End Time': '6:30 PM',
-      Color: 'yellow',
+      'Event Name': 'Lunch',
+      'Start Time': '12:00 PM',
+      'End Time': '1:00 PM',
+      Color: 'break',
     },
     {
-      'Event Name': 'TOTES & TRIVIA',
-      'Event Location': 'GB303',
-      'Start Time': '7:00 PM',
-      'End Time': '9:00 PM',
-      Color: 'dark-purple',
-    },
-    {
-      'Event Name': '****',
-      'Event Location': 'The Pit',
-      'Start Time': '6:00 PM',
-      'End Time': '11:00 PM',
-      Color: 'magenta',
-    },
-  ],
-  'WEDNESDAY AUGUST 28': [
-    {
-      'Event Name': 'FACULTY EVENTS',
-      'Event Description': `Check out more information about Faculty Events here: <a href='https://undergrad.engineering.utoronto.ca/event/faculty-orientation-events/'>Faculty Events</a>`,
-      'Start Time': ' ',
-      'End Time': ' ',
-      Color: 'gray',
-    },
-    {
-      'Event Name': 'SKULE™ HUNT',
+      'Event Name': 'Campus Tours + Build Battle',
       'Event Description':
-        'SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!',
+        "<b>Campus Tour:</b> Be guided by your F!rosh Leedurs on a tour of our gorgeous campus, showing you all the best places to study, grab food, participate in extracurriculars, and nap! <br /><b>Build Battle:</b> Your first of many design challenges at UofT Engineering, except its probably the one of the coolest ones you do! Work with your frosh group to tackle your piece of the puzzle for this year's unique design challenge, coming together to build something truly amazing as a 2T9 class!",
+      'Start Time': '1:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'long',
+    },
+    {
+      'Event Name': 'Cheer-Off!',
       'Start Time': '5:00 PM',
-      'End Time': '11:00 PM',
-      Color: 'dark-purple',
+      'End Time': '6:00 PM',
+      Color: 'general',
     },
     {
-      'Event Name': '****',
-      'Event Location': 'The Pit',
+      'Event Name': 'Break/Dinner',
+      // 'Event Location': 'GB303',
       'Start Time': '6:00 PM',
-      'End Time': '11:00 PM',
-      Color: 'magenta',
+      'End Time': '7:00 PM',
+      Color: 'break',
+    },
+    {
+      'Event Name': 'Nitelife',
+      'Event Location': 'The Pit',
+      'Start Time': '7:00 PM',
+      'End Time': 'Late',
+      Color: 'night',
     },
   ],
-  'THURSDAY AUGUST 29': [
+  'WEDNESDAY AUGUST 27': [
     {
-      'Event Name': 'FACULTY EVENTS',
-      'Event Description': `Check out more information about Faculty Events here: <a href='https://undergrad.engineering.utoronto.ca/event/faculty-orientation-events/'>Faculty Events</a>`,
-      'Start Time': ' ',
-      'End Time': ' ',
-      Color: 'gray',
+      'Event Name': 'Consent Seminar',
+      'Event Description': `Attend the consent workshop and be entered to win some amazing prizes!`,
+      'Start Time': '9:00 AM',
+      'End Time': '11:00 AM',
+      Color: 'other',
     },
     {
-      'Event Name': 'CLUBS FAIR',
+      'Event Name': 'Clubs Fair',
       'Event Location': 'Bahen Lobby',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.</a>.',
+        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.</a>',
       'Start Time': '11:00 AM',
-      'End Time': '2:00 PM',
-      Color: 'yellow',
+      'End Time': '5:00 PM',
+      Color: 'long',
     },
     {
-      'Event Name': 'COMMON ROOM GAME NIGHT',
+      'Event Name': 'Break/Dinner',
+      // 'Event Location': 'GB303',
+      'Start Time': '5:00 PM',
+      'End Time': '6:00 PM',
+      Color: 'break',
+    },
+    {
+      'Event Name': 'Skule™ Hunt',
       'Event Description':
-        "Sign up for game night <a href='https://docs.google.com/forms/d/e/1FAIpQLSfDGU1ejsC8bIwtHwCWC0YiEIULjcpsCm4yJ3x2cRvwCBIA7Q/viewform'>here</a>!",
-      'Event Location': 'MB225',
+        'SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!',
       'Start Time': '6:00 PM',
-      'End Time': '9:00 PM',
-      Color: 'dark-purple',
-    },
-    {
-      'Event Name': '****',
-      'Event Location': 'The Pit',
-      'Start Time': '6:00 PM',
-      'End Time': '11:00 PM',
-      Color: 'magenta',
+      'End Time': 'Late',
+      Color: 'night',
     },
   ],
-  'FRIDAY AUGUST 30': [
+  'THURSDAY AUGUST 28': [
     {
-      'Event Name': 'F!ROSH OLYMPIKS',
+      'Event Name': 'Faculty Events',
+      'Event Description': `Check out more information about Faculty Events here: <a href='https://undergrad.engineering.utoronto.ca/event/faculty-orientation-events/'>Faculty Events</a>`,
+      'Start Time': '9:00 AM',
+      'End Time': '5:00 PM',
+      Color: 'other',
+    },
+    {
+      'Event Name': 'Nitelife',
+      'Event Location': 'The Pit',
+      'Start Time': '6:00 PM',
+      'End Time': 'Late',
+      Color: 'night',
+    },
+  ],
+  'FRIDAY AUGUST 29': [
+    {
+      'Event Name': 'F!rosh Olympiks',
       'Start Time': '10:00 AM',
       'End Time': '5:00 PM',
-      Color: 'yellow',
+      Color: 'long',
     },
     {
-      'Event Name': 'SKULE’S GOT TALENT',
-      'Event Description':
-        "Sign up for the talent show <a href='https://docs.google.com/forms/d/e/1FAIpQLSf4O3uIvwVlFQ-kuobHp_OUWwPA9f7kfUvzSWhrBMv_jQqgZg/viewform'>here</a>!",
-      'Event Location': 'GB Front Steps',
-      'Start Time': '6:00 PM',
-      'End Time': '9:00 PM',
-      Color: 'dark-purple',
-    },
-    {
-      'Event Name': '****',
+      'Event Name': 'Nitelife',
       'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
-      'End Time': '11:00 PM',
-      Color: 'magenta',
+      'End Time': 'Late',
+      Color: 'night',
     },
   ],
-  'SATURDAY AUGUST 31': [
+  'SATURDAY AUGUST 30': [
     {
-      'Event Name': 'F!ROSH RETREAT',
+      'Event Name': 'F!rosh Retreat',
+      'Event Location': 'Hart House Farm',
       'Event Description':
         'Come with us out of the concrete jungle to enjoy a weekend of camp nostalgia, filled with swimming, games, campfires and more!',
       'Start Time': '10:00 AM',
       'End Time': 'Late',
-      Color: 'purple',
+      Color: 'long',
     },
   ],
-  'SUNDAY SEPTEMBER 1': [
+  'SUNDAY AUGUST 31': [
     {
-      'Event Name': 'F!ROSH RETREAT',
+      'Event Name': 'F!rosh Retreat',
+      'Event Location': 'Hart House Farm',
       'Event Description':
         'Come with us out of the concrete jungle to enjoy a weekend of camp nostalgia, filled with swimming, games, campfires and more!',
       'Start Time': 'Early',
       'End Time': '2:00 PM',
-      Color: 'purple',
+      Color: 'long',
     },
   ],
 };

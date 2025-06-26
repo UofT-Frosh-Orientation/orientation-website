@@ -67,13 +67,16 @@ export const colors = {
   '--dawn': ['#3C3C3C', '#3C3C3C'],
 
   // 2T5 Schedule Colours
-  '--sc-general': ['#A77AD7', '#3C3C3C'],
-  '--sc-long': ['#711F8B', '#3C3C3C'],
-  '--sc-break': ['#FBDC70', '#3C3C3C'],
-  '--sc-night': ['#3D0F58', '#3C3C3C'],
-  '--sc-special': ['#FFC600', '#3C3C3C'],
-  '--sc-other': ['#EBEBEB', '#3C3C3C'],
-  '--sc-highlight': ['#00000042', '#FFFFFF42'],
+  '--sc-general': ['#711F8B', '#711F8B'],
+  '--sc-long': ['#FFC600', '#FFC600'],
+  '--sc-break': ['#A77AD7', '#A77AD7'],
+  '--sc-night': ['#3C0E58', '#3C0E58'],
+  '--sc-special': ['#EBEBEB', '#EBEBEB'],
+  '--sc-other': ['#EBEBEB', '#EBEBEB'],
+  // '--sc-highlight': ['#00000042', '#FFFFFF42'],
+  '--sc-highlight': ['#00000000', '#FFFFFF00'],
+  '--sc-text': ['#3D0F58', '#3D0F58'],
+  '--sc-inverted': ['#FFC600', '#FFC600'],
 
   // unique colors for each component
   '--schedule-container': ['#f0e6f2', '#8c60b3'],

@@ -257,35 +257,31 @@
 // New colours
 
 .schedule-background-general {
-  color: var(--text-inverted);
+  color: var(--sc-inverted);
   background-color: var(--sc-general);
-
-  .schedule-accordion-location {
-    color: white;
-  }
 }
 
 .schedule-background-long {
-  color: var(--text-inverted);
+  color: var(--sc-text);
   background-color: var(--sc-long);
 }
 
 .schedule-background-break {
-  color: var(--text-primary);
+  color: var(--sc-text);
   background-color: var(--sc-break);
 }
 
 .schedule-background-night {
-  color: var(--text-inverted);
+  color: var(--sc-inverted);
   background-color: var(--sc-night);
 }
 
 .schedule-background-special {
-  color: var(--text-primary);
+  color: var(--sc-text);
   background-color: var(--sc-special);
 }
 
 .schedule-background-other {
-  color: var(--text-primary);
+  color: var(--sc-text);
   background-color: var(--sc-other);
 }
