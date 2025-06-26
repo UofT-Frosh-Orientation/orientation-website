@@ -300,65 +300,62 @@ const AboutUsSection = () => {
 };
 
 const HomePageSponsors = () => {
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-  const [viewAll, setViewAll] = useState(false);
+  // To create a seamless infinite scroll, duplicate the sponsors list.
+  const loopedSponsors = [...sponsors, ...sponsors];
 
   return (
     <div className="home-page-sponsors">
-      <h2>OUR SPONSORS</h2>
-      <PleaseSponsor />
+      <div className="home-page-sponsors-header">
+        <h2>OUR SPONSORS</h2>
+        <p>F!rosh Week would not be possible without their generous support.</p>
+      </div>
 
       {sponsors.length > 0 && (
-        <div>
-          {viewAll === false ? (
-            <ImageCarousel items={sponsors} />
-          ) : (
-            <div className="all-sponsors-area">
-              {sponsors.map((item, index) => {
-                return (
-                  <div key={item.name + index} className="sponsor-container">
-                    <a
-                      href={item.website}
-                      key={item.name + index}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="no-link-style"
-                    >
-                      <LazyLoadImage alt={item.name} effect="blur" src={item.image}></LazyLoadImage>
-                    </a>
-                    <p>{item.label}</p>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-          {!viewAll ? (
-            <Button
-              label={'View All'}
-              onClick={() => {
-                setViewAll(true);
-              }}
-            />
-          ) : (
-            <Button
-              label={'View Less'}
-              onClick={() => {
-                setViewAll(false);
-              }}
-            />
-          )}
+        <div className="sponsors-carousel-container">
+          <div className="sponsors-carousel-track">
+            {loopedSponsors.map((item, index) => {
+              // Add a class based on the sponsor's rank for styling
+              const rankClass = item.rank ? `sponsor-card--${item.rank.toLowerCase()}` : '';
+              // Extract only the sponsor's name from the label
+              const sponsorName = item.label.includes(':') ? item.label.split(': ')[1] : item.label;
+              return (
+                <div key={`${item.name}-${index}`} className={`sponsor-card ${rankClass}`}>
+                  <a
+                    href={item.website}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="sponsor-card-link"
+                  >
+                    <div className="sponsor-image-wrapper">
+                      <LazyLoadImage
+                        alt={item.name}
+                        effect="blur"
+                        src={item.image}
+                        className="sponsor-image"
+                      />
+                    </div>
+                    <p className="sponsor-name">{sponsorName}</p>
+                  </a>
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
+      <PleaseSponsor />
     </div>
   );
 };
 
 const PleaseSponsor = () => {
   return (
-    <div className="please-sponsor">
-      <h3>WANT TO SPONSOR F!ROSH WEEK?</h3>
-      <h4>PLEASE CONTACT:</h4>
-      <a href="mailto:sponsorship@orientation.skule.ca">sponsorship@orientation.skule.ca</a>
+    <div className="please-sponsor-container">
+      <h3>Want to Sponsor F!rosh Week?</h3>
+      <p>
+        Please contact us at{' '}
+        <a href="mailto:sponsorship@orientation.skule.ca">sponsorship@orientation.skule.ca</a> to
+        learn more about our sponsorship opportunities.
+      </p>
     </div>
   );
 };
