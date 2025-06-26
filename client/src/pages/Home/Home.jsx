@@ -61,11 +61,11 @@ const HomePageHeader = () => {
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />
       </div>
-      {darkMode ? (
+      {/* {darkMode ? (
         <img src={WaveDarkMode} className="wave-image home-page-top-wave-image" alt="wave-img" />
       ) : (
         <img src={Wave} className="wave-image home-page-top-wave-image" alt="wave-img" />
-      )}
+      )} */}
     </div>
   );
 };
@@ -141,7 +141,7 @@ const HomeHeaderButton = () => {
 
 const HomePageSlideshow = () => {
   const properties = {
-    duration: 8000,
+    duration: 12000,
     autoplay: true,
     transitionDuration: 1000,
     arrows: false,

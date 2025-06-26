@@ -157,7 +157,7 @@
 }
 
 .home-page-timeline {
-  background-color: var(--purple);
+  background-color: var(--bg-primary);
 
   ::-webkit-scrollbar {
     width: 12px;
@@ -175,7 +175,7 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: var(--purple);
+    background: var(--neutral-secondary);
     border-radius: 3px;
   }
 
@@ -213,12 +213,12 @@
 }
 
 .home-page-schedule {
-  background-color: var(--purple);
+  background-color: var(--bg-primary);
   padding-bottom: 30px;
 
   .home-page-schedule-warning {
     font-size: 18px;
-    color: var(--white);
+    color: var(--text-primary);
     padding-left: min(40px, 3.5%);
     margin-top: -25px;
     margin-bottom: 15px;
@@ -286,7 +286,8 @@
 }
 
 .otherevents-info {
-  background: rgba(255, 255, 255, 0.25);
+  // background: rgba(255, 255, 255, 0.25);
+  background-color: var(--bg-primary);
   border-radius: 10px;
   box-shadow: var(--shadow);
 
@@ -305,7 +306,7 @@
   font-size: 24px;
   margin-bottom: 10px;
 
-  color: var(--white);
+  color: var(--text-primary);
   text-align: left;
 
   @include devices(tablet) {
@@ -314,12 +315,12 @@
 }
 .otherevents-info-des {
   font-size: 16px;
-  color: var(--white);
+  color: var(--text-primary);
 }
 
 .home-page-section-header {
   font-size: 45px;
-  color: var(--white);
+  color: var(--text-primary);
   padding-left: min(40px, 3.5%);
   padding-top: 35px;
   margin-bottom: 24px;
@@ -336,7 +337,7 @@
 }
 
 .home-page-sponsors {
-  color: var(--black);
+  color: var(--text-primary);
 
   text-align: center;
 
@@ -373,9 +374,9 @@
   }
 
   .please-sponsor {
-    color: (--text-dark);
+    color: (--text-primary);
     padding-top: 20px;
-    background-color: var(--purple-shades-light);
+    background-color: var(--bg-primary);
     padding-bottom: 20px;
     margin-bottom: 20px;
     transition: transform 500ms;
@@ -405,7 +406,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background-color: var(--sponsor-background);
+  background-color: var(--bg-primary);
   width: min(50%, 350px);
   height: 200px;
   transition: transform 500ms;
@@ -432,7 +433,7 @@
     position: absolute;
     opacity: 0;
     transition: opacity 500ms, transform 500ms;
-    background-color: var(--sponsor-container);
+    background-color: var(--bg-primary);
     padding: 10px 20px;
     display: inline-block;
     border-radius: 8px;

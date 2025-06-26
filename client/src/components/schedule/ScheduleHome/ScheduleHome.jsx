@@ -35,7 +35,7 @@ const ScheduleComponent = () => {
   return (
     <div className="schedule-container">
       <div className="schedule-left-container desktop-only">
-        <img src={LilyDesign} alt="Lily Design" className="lily-design" />
+        {/* <img src={LilyDesign} alt="Lily Design" className="lily-design" /> */}
       </div>
       <div className="schedule-middle-container">
         <div className="mobile-only">
