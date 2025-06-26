@@ -459,7 +459,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                         isDisabled={!canRegister}
                       />
                       <p className="register-terms-of-service" style={{ marginTop: '20px' }}>
-                        Note: We will be making bursary decisions after Frosh week and will refund
+                        Note: We will be making bursary decisions after F!rosh Week and will refund
                         the amount to the students after the decisions. Our team will reach out to
                         you for more details regarding the bursary program. Bursaries range from
                         partial to complete settlement of the ticket price. Bursary applications are
