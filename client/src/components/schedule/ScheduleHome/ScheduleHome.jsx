@@ -35,7 +35,7 @@ const ScheduleComponent = () => {
   return (
     <div className="schedule-container">
       <div className="schedule-left-container desktop-only">
-        <img src={LilyDesign} alt="Lily Design" className="lily-design" />
+        {/* <img src={LilyDesign} alt="Lily Design" className="lily-design" /> */}
       </div>
       <div className="schedule-middle-container">
         <div className="mobile-only">
@@ -137,6 +137,7 @@ export const ScheduleComponentAccordion = ({ scheduleDay, closeAll }) => {
                     className="schedule-accordion-header-location-icon"
                   ></img>
                   <h3 className="schedule-accordion-location">{scheduleDay['Event Location']}</h3>
+                  {/* <h3>{scheduleDay['Event Location']}</h3> */}
                 </div>
               ) : (
                 <></>

@@ -1,4 +1,45 @@
 export const colors = {
+  // 2T5 Redesign Colours Start Here -----------------------------------------------------------------------------------
+  '--bg-primary': ['#FFFFFF', '#291742'],
+  '--bg-secondary': ['#EBEBEB', '#382159'],
+  '--neutral-secondary': ['#EBEBEB', '#2E194C'],
+  '--text-primary': ['#000000', '#FFFFFF'],
+  '--text-inverted': ['#e9dff5', '#000000'],
+  '--text-secondary': ['#5E5E5E', '#DFCDF3'],
+  '--vignette': ['#00000040', '#00000040'],
+  '--link-dynamic': ['#A77AD7', '#FFC600'],
+
+  '--monster': ['#3D0F58', '#3D0F58'],
+  '--jam': ['#711F8B', '#711F8B'],
+  '--wisteria': ['#A77AD7', '#A77AD7'],
+  '--lavender': ['#DFCDF3', '#DFCDF3'],
+  '--mikado': ['#FFC600', '#FFC600'],
+  '--sandstorm': ['#FED34C', '#FED34C'],
+  '--palegold': ['#FBDC70', '#FBDC70'],
+  '--dusk': ['#EBEBEB', '#EBEBEB'],
+  '--dawn': ['#3C3C3C', '#3C3C3C'],
+
+  // 2T5 Schedule Colours
+  '--sc-general': ['#711F8B', '#711F8B'],
+  '--sc-long': ['#FFC600', '#FFC600'],
+  '--sc-break': ['#A77AD7', '#A77AD7'],
+  '--sc-night': ['#3C0E58', '#3C0E58'],
+  '--sc-special': ['#EBEBEB', '#EBEBEB'],
+  '--sc-other': ['#EBEBEB', '#EBEBEB'],
+  // '--sc-highlight': ['#00000042', '#FFFFFF42'],
+  '--sc-highlight': ['#00000000', '#FFFFFF00'],
+  '--sc-text': ['#3D0F58', '#3D0F58'],
+  '--sc-inverted': ['#FFC600', '#FFC600'],
+
+  // 2T5 Other Specific Components
+  '--bg-footer': ['#711F8B', '#1f1033'],
+  '--bg-sponsor': ['#FFFFFF', '#A77AD7'],
+  '--sponsor-bronze': ['#cd7f32', '#cd7f32'],
+  '--sponsor-silver': ['#c0c0c0', '#c0c0c0'],
+  '--sponsor-gold': ['#FFC600', '#FFC600'],
+  '--sponsor-diamond': ['#711F8B', '#711F8B'],
+
+  // 2T4 + Earlier Colours Start Here -----------------------------------------------------------------------------------
   '--purple': ['#6f1e88', '#613480'],
   '--light-purple': ['#a04fb9', '#8c60b3'],
   '--purple-shades-dark': ['#3c0a5a', '#61347f'],
@@ -54,8 +95,8 @@ export const colors = {
   '--control-dot': ['#6f1e88', '#8c60b3'],
 
   //navbar
-  '--navbar-bg': ['#ebebeb', '#41225A'],
-  '--navbar-link': ['#989898', '#ffffff'],
+  '--navbar-bg': ['#FFFFFF', '#382159'], // 2T5 uses this as well
+  '--navbar-link': ['#000000', '#ffffff'],
   '--navbar-underline': ['#e2e2e2', '#3C2152'],
   '--navbar-underline-desktop': ['#6f1e88', '#8c60b3'],
   '--navbar-underline-highlight': ['#6f1e88', '#8c60b3'],
@@ -79,8 +120,8 @@ export const colors = {
   '--leedur-names': ['#ecd6ff', '#ecd6ff'],
 
   //faq page
-  '--faq-answer-containers': ['#ecd6ff', '#522F70'],
-  '--faq-searchbar-bg': ['#ffffff', '#8c60b3'],
+  '--faq-answer-containers': ['#711F8B', '#711F8B'], // Used in 2T5
+  '--faq-searchbar-bg': ['#EBEBEB', '#3D0F58'], // Used in 2T5
 
   //login page
   '--login-title': ['#6f1e88', '#ffffff'],
@@ -89,8 +130,8 @@ export const colors = {
 
   //text-input
   '--textinput-bg': ['#f3f3f3', '#8c60b3'],
-  '--textinput-shadow-hover': ['#a04fb9', '#8c60b3'],
-  '--textinput-shadow-focus': ['#6f1e88', '#8C64AD'],
+  '--textinput-shadow-hover': ['#EBEBEB', '#8c60b3'],
+  '--textinput-shadow-focus': ['#EBEBEB', '#8C64AD'],
   '--disabled': ['#F3F3F3', '#300150'],
   '--placeholder-text': ['#D2D2D2', '#A282BE'],
 

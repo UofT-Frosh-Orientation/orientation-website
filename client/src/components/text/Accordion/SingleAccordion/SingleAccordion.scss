@@ -9,7 +9,7 @@
   padding: 0px 20px 0px 20px;
   //background-color: var(--purple-shades-light);
   border-radius: 17px;
-  color: var(--text-dark);
+  // color: var(--text-dark);
   border-image-source: var(--accordian-pixel-border);
   border-image-slice: 12;
   border-image-width: 12px;
@@ -39,14 +39,14 @@
     position: absolute;
     inset: 0;
     border-radius: 17px;
-    background: #fcf29d42;
+    background: var(--sc-highlight);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s;
   }
 
   &:hover::after {
-    opacity: 1;
+    opacity: 0.5;
   }
 }
 
@@ -67,7 +67,7 @@
 .accord-content {
   position: relative;
   z-index: 1;
-  color: var(--text-dark);
+  // color: var(--text-primary);
   overflow: hidden;
   transition: max-height 0.2s ease;
 }
@@ -76,7 +76,7 @@
   position: relative;
   z-index: 1;
   padding: 10px 0px 10px 0px;
-  color: var(--text-dark);
+  // color: var(--text-primary);
 }
 
 .accord-icon {

@@ -1,0 +1,101 @@
+@import '../../scssStyles/mixins';
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
+
+.event-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
+  padding: 0;
+  background-color: #ffcf00;
+
+  .card-content {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    position: relative;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  .text-section {
+    padding: 1.5rem;
+    flex: 1;
+    z-index: 2;
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    p {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .learn-more-btn {
+      background-color: white;
+      color: black;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
+  }
+
+  .image-section {
+    position: relative;
+    width: 300px;
+    flex-shrink: 0;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .triangle {
+    position: absolute;
+    right: 300px; // same as image width
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    z-index: 1;
+    background-color: inherit;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+/* === COLOR UTILITIES === */
+.bg-yellow {
+  background-color: #ffcf00;
+}
+.bg-purple {
+  background-color: #662e9b;
+}
+.text-black {
+  color: #000;
+}
+.text-white {
+  color: #fff;
+}

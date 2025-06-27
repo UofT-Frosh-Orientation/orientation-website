@@ -12,7 +12,7 @@ const Header = ({ text, children, underlineDesktop, underlineMobile }) => {
     <>
       <div className="header-page-container">
         <div className="header-page-subcontainer">
-          <h2 className="header-page-title">{text.toUpperCase()}</h2>
+          <h2 className="header-page-title">{text}</h2>
           <div
             className="header-page-title-underline display-only-desktop"
             style={{ width: underlineDesktop }}
@@ -23,11 +23,11 @@ const Header = ({ text, children, underlineDesktop, underlineMobile }) => {
           ></div>
           {children}
         </div>
-        {darkMode ? (
+        {/* {darkMode ? (
           <img className="header-page-wave-bottom" src={waveBottomDarkMode} alt="wave"></img>
         ) : (
           <img className="header-page-wave-bottom" src={waveBottom} alt="wave"></img>
-        )}
+        )} */}
       </div>
     </>
   );
