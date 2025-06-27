@@ -1,4 +1,5 @@
 @import '../../../scssStyles/mixins';
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
 
 :root {
   --schedule-dates-pixel-border: url('../../../assets/schedule/schedule-dates-pixel-border.png');
@@ -8,6 +9,8 @@
 .schedule-container {
   display: flex;
   padding: 0 20px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
 
   @include devices(tablet) {
     flex-direction: column;
@@ -103,8 +106,9 @@
   border-image-width: 12px;
   border-image-outset: 1px;
   border-image-repeat: repeat;
-  box-shadow: 6px 6px 6px #00000038, inset 3px 3px #ffffff3f, inset -6px -6px #0000003f;
+  box-shadow: inset -6px -6px #3d0f58;
   background-color: var(--schedule-container);
+  color: var(--mikado);
   padding: 0px 30px;
   margin: 10px;
 
@@ -114,7 +118,8 @@
     //box-shadow: 0px 0px 5px #ddd1e5, 0px 0px 5px #ddd1e5;
   }
   h1 {
-    font-size: 28px;
+    font-size: 48px;
+    font-family: 'Jersey 20', sans-serif;
   }
   h2 {
     font-size: 20px;
@@ -122,9 +127,9 @@
 
   &:active {
     transform: translateY(5px);
-    box-shadow: inset 5px 5px var(--button-pressed-shadow),
-      inset -5px -5px var(--button-pressed-highlight);
-    background-color: var(--button-active-bg);
+    // box-shadow: inset 5px 5px var(--button-pressed-shadow),
+    //   inset -5px -5px var(--button-pressed-highlight);
+    // background-color: var(--button-active-bg);
   }
 }
 
@@ -137,10 +142,13 @@
 .schedule-container-dates-container-selected:hover,
 .schedule-container-dates-container-selected:active {
   border-image-source: var(--schedule-dates-pixel-border);
-  background-color: var(--schedule-container-selected) !important;
+  background-color: var(--monster) !important;
+  color: var(--lavender);
   transform: none !important;
-  box-shadow: inset 8px 8px var(--button-pressed-shadow),
-    inset -7px -7px var(--button-pressed-highlight) !important;
+  // box-shadow: inset 8px 8px var(--button-pressed-shadow),
+  //   inset -7px -7px var(--button-pressed-shadow) !important;
+  box-shadow: inset -7px -7px var(--button-pressed-shadow) !important;
+  box-shadow: none;
 }
 
 .schedule-container-dates-container-selected,

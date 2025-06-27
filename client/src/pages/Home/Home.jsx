@@ -265,14 +265,14 @@ const AboutUsSection = () => {
       <>
         {otherEventsData.map((info, index) => {
           return (
-            // <div>hi</div>
             <EventCard
               key={index}
               title={info.title}
               content={info.description}
-              photoUrl={slideshow1}
+              photoUrl={info.image}
               bgColorClass={index == 1 ? 'bg-purple' : 'bg-yellow'}
               textColorClass={index == 1 ? 'text-white' : 'text-black'}
+              link={info.link}
             />
             // <div className="otherevents-subsubcontainer" key={info.title}>
             //   <div className="otherevents-image-container">

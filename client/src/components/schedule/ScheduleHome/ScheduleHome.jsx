@@ -4,7 +4,8 @@ import { ButtonSelector } from '../../buttonSelector/buttonSelector/ButtonSelect
 import { SingleAccordion } from '../../text/Accordion/SingleAccordion/SingleAccordion';
 import './ScheduleHome.scss';
 import { data } from '../../../assets/schedule/data';
-import location from '../../../assets/misc/location.png';
+import location from '../../../assets/misc/loc.svg';
+import locationdark from '../../../assets/misc/locdark.svg';
 import { DarkModeContext } from '../../../util/DarkModeProvider';
 import LilyDesign from '../../../assets/schedule/lily.svg';
 
@@ -34,9 +35,9 @@ const ScheduleComponent = () => {
 
   return (
     <div className="schedule-container">
-      <div className="schedule-left-container desktop-only">
-        {/* <img src={LilyDesign} alt="Lily Design" className="lily-design" /> */}
-      </div>
+      {/* <div className="schedule-left-container desktop-only">
+        <img src={LilyDesign} alt="Lily Design" className="lily-design" />
+      </div> */}
       <div className="schedule-middle-container">
         <div className="mobile-only">
           <ButtonSelector
@@ -132,8 +133,12 @@ export const ScheduleComponentAccordion = ({ scheduleDay, closeAll }) => {
               {scheduleDay['Event Location'] ? (
                 <div className="schedule-accordion-header-location-container">
                   <img
-                    style={{ filter: darkMode ? 'invert(0.8)' : 'invert(0.6)' }}
-                    src={location}
+                    // style={{ filter: scheduleDay['Color'] == 'night' ? 'invert(1)' : '' }}
+                    src={
+                      scheduleDay['Color'] == 'night' || scheduleDay['Color'] == 'general'
+                        ? locationdark
+                        : location
+                    }
                     className="schedule-accordion-header-location-icon"
                   ></img>
                   <h3 className="schedule-accordion-location">{scheduleDay['Event Location']}</h3>
