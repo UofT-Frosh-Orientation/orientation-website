@@ -271,8 +271,8 @@ const AboutUsSection = () => {
               title={info.title}
               content={info.description}
               photoUrl={slideshow1}
-              bgColor="bg-yellow"
-              textColor="text-black"
+              bgColorClass={index == 1 ? 'bg-purple' : 'bg-yellow'}
+              textColorClass={index == 1 ? 'text-white' : 'text-black'}
             />
             // <div className="otherevents-subsubcontainer" key={info.title}>
             //   <div className="otherevents-image-container">

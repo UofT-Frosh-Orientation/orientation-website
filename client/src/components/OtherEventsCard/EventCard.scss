@@ -7,7 +7,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 1rem;
   padding: 0;
-  background-color: #ffcf00;
 
   .card-content {
     display: flex;
@@ -22,13 +21,15 @@
   }
 
   .text-section {
-    padding: 1.5rem;
+    padding: 50px 50px;
     flex: 1;
     z-index: 2;
 
     h2 {
-      font-size: 1.8rem;
+      font-size: 48px;
+      width: 80%;
       margin-bottom: 0.8rem;
+      font-weight: 900;
     }
 
     p {
@@ -38,17 +39,20 @@
     }
 
     .learn-more-btn {
-      background-color: white;
-      color: black;
+      background-color: transparent;
+      // color: var(--text-primary);
       border: none;
       padding: 0.6rem 1.2rem;
+      border: var(--text-primary) 2px solid;
       border-radius: 25px;
       font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
+      cursor: url('../assets/cursor/pointer.png');
+      transition: all 150ms ease-in-out;
 
       &:hover {
-        background-color: #f0f0f0;
+        transition: all 150ms ease-in-out;
+        background-color: #ffffff20;
+        scale: 103%;
       }
     }
   }
@@ -70,32 +74,42 @@
     }
   }
 
-  .triangle {
-    position: absolute;
-    right: 300px; // same as image width
-    top: 0;
-    bottom: 0;
-    width: 80px;
-    clip-path: polygon(0 0, 100% 0, 0 100%);
-    z-index: 1;
-    background-color: inherit;
+  // .triangle {
+  //   position: absolute;
+  //   right: 300px; // same as image width
+  //   top: 0;
+  //   bottom: 0;
+  //   width: 80px;
+  //   clip-path: polygon(0 0, 100% 0, 0 100%);
+  //   z-index: 1;
+  //   background-color: inherit;
 
-    @media (max-width: 768px) {
-      display: none;
-    }
-  }
+  //   @media (max-width: 768px) {
+  //     display: none;
+  //   }
+  // }
 }
 
 /* === COLOR UTILITIES === */
 .bg-yellow {
-  background-color: #ffcf00;
+  background-color: var(--mikado);
 }
 .bg-purple {
-  background-color: #662e9b;
+  background-color: var(--jam);
 }
 .text-black {
-  color: #000;
+  color: black;
 }
 .text-white {
-  color: #fff;
+  color: white;
+}
+
+.button-white {
+  border: white 2px solid;
+  color: white;
+}
+
+.button-black {
+  border: black 2px solid;
+  color: black;
 }
