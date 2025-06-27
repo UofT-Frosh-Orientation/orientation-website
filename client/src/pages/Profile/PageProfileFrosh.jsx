@@ -8,6 +8,7 @@ import { QRNormal } from 'react-qrbtf';
 import { Button } from '../../components/button/Button/Button';
 import EditIcon from '../../assets/misc/pen-solid.svg';
 import CampingIcon from '../../assets/misc/camping-tent.png';
+import MysteryBoxFroshGroup from '../../assets/profile/mysterybox-froshgroup.png';
 // import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Link } from 'react-router-dom';
 import { instagramAccounts } from '../../util/instagramAccounts';
@@ -54,6 +55,25 @@ const PageProfileFrosh = () => {
       <ProfilePageFroshHeader editButton={true} />
       <div className="profile-info-row">
         <div className="profile-info-row-right">
+          {!isRegistered ? (
+            <div className={'profile-not-registered'}>
+              <div className="profile-not-registered-text">
+                <h1>You are not registered</h1>
+                <p>
+                  Please complete your registration in order to participate in F!rosh week events
+                </p>
+                {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
+              </div>
+              <Link
+                key={'/registration'}
+                to={'/registration'}
+                style={{ textDecoration: 'none' }}
+                className={'no-link-style'}
+              >
+                <Button label="Register" style={{}} />
+              </Link>
+            </div>
+          ) : null}
           {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null}
           <ProfilePageRetreat />
           {isRegistered ? <ProfilePageFroshOlympiks /> : null}
@@ -236,24 +256,43 @@ const ProfilePageFroshHeader = ({ editButton }) => {
           ) : null}
         </div>
         <div className="profile-page-header-info-wrap">
-          <div className="profile-page-header-info">
-            <p className="profile-page-name-title">
-              {user?.preferredName === '' || !user?.preferredName ? (
-                <>
-                  <b>{user?.firstName}</b> {user?.lastName}
-                </>
-              ) : (
-                <b>{user?.preferredName}</b>
-              )}
-            </p>
-            {user?.discipline && <p>{`Incoming ${user['discipline']} Engineering student`}</p>}
-            <p>
-              <u>{user?.email}</u>
-            </p>
+          <div className="profile-page-header-left">
+            <div className="profile-class-circlebg desktop-only">
+              <div className="profile-page-header-class desktop-only">
+                <p>Class of</p>
+                <h2>{froshYear}</h2>
+              </div>
+            </div>
+            <div className="profile-page-header-info">
+              <p className="profile-page-name-title">
+                {user?.preferredName === '' || !user?.preferredName ? (
+                  <>
+                    <b>{user?.firstName}</b> {user?.lastName}
+                  </>
+                ) : (
+                  <b>{user?.preferredName}</b>
+                )}
+              </p>
+              {user?.discipline && <p>{`Incoming ${user['discipline']} Engineering student`}</p>}
+              <p>
+                <u>{user?.email}</u>
+              </p>
+            </div>
           </div>
-          <div className="profile-page-header-class desktop-only">
-            <p>Class of</p>
-            <h2>{froshYear}</h2>
+          <div className="profile-page-frosh-group-image">
+            {isRegistered ? (
+              <img
+                src={user?.froshGroupIcon}
+                alt="Frosh Group"
+                className="frosh-group-image desktop-only"
+              />
+            ) : (
+              <img
+                src={MysteryBoxFroshGroup}
+                alt="Mystery Box"
+                className="frosh-group-image desktop-only"
+              />
+            )}
           </div>
           {editButton !== false ? (
             // {editButton !== false && isRegistered ? (
@@ -274,22 +313,6 @@ const ProfilePageFroshHeader = ({ editButton }) => {
         src={darkMode ? WaveReverseFlipDarkMode : WaveReverseFlip}
         className="wave-image home-page-bottom-wave-image"
       />
-
-      {!isRegistered ? (
-        <div className={'profile-not-registered'}>
-          <h1>YOU ARE NOT REGISTERED!</h1>
-          <h2>YOU WILL NOT BE ABLE TO PARTICIPATE IN F!ROSH WEEK EVENTS UNTIL YOU REGISTER.</h2>
-          {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
-          <Link
-            key={'/registration'}
-            to={'/registration'}
-            style={{ textDecoration: 'none' }}
-            className={'no-link-style'}
-          >
-            <Button label="Register" style={{}} />
-          </Link>
-        </div>
-      ) : null}
     </>
   );
 };
@@ -411,7 +434,7 @@ const ProfilePageAnnouncements = () => {
 
   return (
     <div className="profile-page-announcements">
-      <h2 className="profile-page-section-header">TASKS AND ANNOUNCEMENTS</h2>
+      <h2 className="profile-page-section-header">ANNOUNCEMENTS</h2>
       {!user?.canEmail ? (
         <Link
           key={'/resubscribe'}

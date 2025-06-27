@@ -80,6 +80,7 @@
       width: 35px;
       height: 35px;
       padding: 9px;
+      margin: 5px 12px;
     }
   }
 }
@@ -104,6 +105,23 @@
   }
 }
 
+.profile-page-header-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 32px;
+}
+
+.profile-class-circlebg {
+  background: url('../../assets/profile/class-background.png') center center no-repeat;
+  background-size: contain;
+  width: 140px; // Adjust to fit your image
+  height: 140px; // Adjust to fit your image
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .profile-page-header-info {
   p {
     margin-top: 1px;
@@ -113,6 +131,10 @@
       font-size: 11px;
     }
   }
+}
+
+.frosh-group-image {
+  object-fit: contain;
 }
 
 .profile-page-header-class {
@@ -284,13 +306,32 @@
 .profile-not-registered {
   color: var(--text-dynamic);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  flex-direction: column;
-  margin-bottom: 15px;
+  flex-direction: row;
+  margin-bottom: 25px;
   margin-top: 15px;
-  text-align: center;
-  padding: 0px 20px;
+  text-align: left;
+}
+
+.profile-not-registered-text {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  padding-right: 10px;
+}
+
+@media (max-width: 600px) {
+  .profile-not-registered {
+    flex-direction: column;
+    text-align: center;
+    gap: 2px;
+    padding: 0 20px;
+  }
+  .profile-not-registered-text {
+    align-items: center;
+    padding-right: 0px !important;
+  }
 }
 
 .profile-not-registered h2 {
