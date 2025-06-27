@@ -4,12 +4,14 @@
   //--top-left-corner-border: url('../../../../src/assets/buttons/top-left-corner-border.svg');
   //--bottom-right-corner-border: url('../../../../src/assets/buttons/bottom-right-corner-border.svg');
   --pixel-border: url('../../../assets/buttons/button-pixel-border-light.png');
+  --pixel-border-pressed: url('../../../assets/buttons/button-pixel-border-light-pressed.png');
 }
 
 .dark-mode {
   //--top-left-corner-border: url('../../../../src/assets/buttons/top-left-corner-border-dark.svg');
   //--bottom-right-corner-border: url('../../../../src/assets/buttons/bottom-right-corner-border-dark.svg');
   --pixel-border: url('../../../assets/buttons/button-pixel-border-dark.png');
+  --pixel-border-pressed: url('../../../assets/buttons/button-pixel-border-dark-pressed.png');
 }
 
 .button-outlined {
@@ -17,19 +19,19 @@
   background-color: var(--button-outlined-bg);
   color: var(--button-outlined-font);
   display: inline-block;
-  border-radius: 12px;
+  border-radius: 11.5px;
   padding: 10px 26px;
   box-shadow: var(--shadow);
   text-align: center;
   font-weight: 600;
   cursor: url('../../../../assets/cursor/cursor.png'), auto; // Apply custom cursor here
   user-select: none;
-  border-image-source: var(--pixel-border);
+  border-image-source: var(--pixel-border-pressed);
   border-image-slice: 30;
   border-image-width: 30px;
   border-image-outset: 1px;
   border-image-repeat: repeat;
-  box-shadow: inset 4px 4px #00000028, inset -4px -4px #ffffff25;
+  //box-shadow: inset 4px 4px #00000028, inset -4px -4px #ffffff25;
   position: relative;
 
   //BUTTON BORDERS
@@ -72,6 +74,7 @@
   color: var(--button-outlined-font);
   font-weight: unset;
   box-shadow: 3px 3px 3px #00000038;
+  border-image-source: var(--pixel-border);
 
   &:hover {
     border-color: var(--light-purple);
@@ -81,8 +84,9 @@
 
   &:active {
     transform: translateY(2px);
-    box-shadow: inset 4px 4px #00000038, inset -4px -4px #ffffff44;
+    //box-shadow: inset 4px 4px #00000038, inset -4px -4px #ffffff44;
     background-color: var(--button-active-bg);
+    border-image-source: var(--pixel-border-pressed);
   }
 }
 

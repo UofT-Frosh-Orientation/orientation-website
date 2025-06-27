@@ -1,5 +1,13 @@
 @import '../../scssStyles/mixins';
 
+:root {
+  --pixel-border-regular: url('../../assets/buttons/button-pixel-border-regular-light.png');
+}
+
+.dark-mode {
+  --pixel-border-regular: url('../../assets/buttons/button-pixel-border-regular-dark.png');
+}
+
 .aboutus-page-components {
   display: flex;
   flex-direction: column;
@@ -56,8 +64,10 @@
 
   flex: 1;
   overflow: visible;
+}
 
-  @include devices(tablet) {
+@media (max-width: 930px) {
+  .aboutus-image-container {
     width: 70vw;
     height: fit-content;
     margin-right: 0;
@@ -66,7 +76,7 @@
 }
 
 .aboutus-image {
-  object-fit: cover;
+  object-fit: contain;
   height: 100%;
   width: 100%;
 
@@ -90,7 +100,7 @@
 .aboutus-info {
   background: rgba(255, 255, 255, 0.25);
   border-radius: 10px;
-  border-image-source: var(--pixel-border);
+  border-image-source: var(--pixel-border-regular);
   border-image-slice: 12;
   border-image-width: 12px;
   border-image-outset: 1px;
