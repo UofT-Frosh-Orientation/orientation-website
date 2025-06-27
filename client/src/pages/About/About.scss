@@ -29,7 +29,7 @@
 .about-introduction-title {
   text-align: left;
   font-size: 60px;
-  color: var(--text-dynamic);
+  color: var(--text-primary);
   margin-top: 50px;
   text-align: center;
 
@@ -122,7 +122,7 @@
   font-size: 24px;
   margin-bottom: 10px;
 
-  color: var(--white);
+  color: var(--text-primary);
   text-align: left;
 
   @include devices(tablet) {
@@ -131,7 +131,7 @@
 }
 .aboutus-info-des {
   font-size: 16px;
-  color: var(--white);
+  color: var(--text-primary);
 }
 
 // EXEC TEAM SECTIONS
@@ -150,7 +150,7 @@
 .exec-title {
   text-align: center;
   font-size: 48px;
-  color: var(--purple-shades-dark);
+  color: var(--text-primary);
 
   @include devices(mobile) {
     font-size: 30px;
@@ -233,7 +233,7 @@
 
   padding: 50px;
   text-align: center;
-  color: var(--text-dynamic);
+  color: var(--text-primary);
 
   @include devices(tablet) {
     width: 85vw;
@@ -242,7 +242,7 @@
 }
 
 .text-link-dark {
-  color: var(--text-link-for-dark);
+  color: var(--link-dynamic);
 }
 
 .aboutus-teams-all-tabs {
@@ -295,7 +295,7 @@
     cursor: url('../../assets/cursor/pointer.png'), auto !important;
 
     .aboutus-yellow-bubble {
-      background-color: var(--purple-shades-muted);
+      background-color: var(--bg-primary);
       width: 100%;
       transition: width 400ms, background-color 400ms;
     }
@@ -316,7 +316,7 @@
 .aboutus-short-vertical-line {
   height: 35px;
   width: 3px;
-  background-color: var(--purple-shades-muted);
+  background-color: var(--bg-primary);
   border-radius: 5px;
   margin: 0px 28px;
 
@@ -350,7 +350,7 @@
   width: 0%;
   height: 4px;
   border-radius: 80px;
-  background-color: var(--purple-shades-muted);
+  background-color: var(--bg-primary);
   transition: width 400ms, opacity 400ms;
 }
 .aboutus-yellow-bubble-show {
@@ -397,10 +397,10 @@
   height: 200px;
   margin: 20px;
 
-  background-color: var(--purple);
+  background-color: var(--bg-primary);
   border-radius: 10px;
 
-  color: var(--white);
+  color: var(--text-primary);
 
   cursor: url('../../assets/cursor/pointer.png'), auto !important;
 
@@ -432,7 +432,7 @@
   flex-direction: column;
   text-align: center;
   margin-bottom: 15px;
-  color: var(--white);
+  color: var(--text-primary);
 }
 
 .aboutus-hl-frosh-group {

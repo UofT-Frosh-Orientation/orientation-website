@@ -125,7 +125,7 @@ const ProfilePageRetreat = () => {
               flex: 1,
             }}
           >
-            <h2>Thank you for purchasing a Frosh Retreat Ticket!</h2>
+            <h2>Thank you for purchasing a F!rosh Retreat Ticket!</h2>
             <p>
               We will reach out with more information soon. Keep an eye on your email! Please bring
               a signed copy of the waiver to retreat.
@@ -313,6 +313,22 @@ const ProfilePageFroshHeader = ({ editButton }) => {
         src={darkMode ? WaveReverseFlipDarkMode : WaveReverseFlip}
         className="wave-image home-page-bottom-wave-image"
       />
+
+      {!isRegistered ? (
+        <div className={'profile-not-registered'}>
+          <h1>You are not registered</h1>
+          <h2>Please complete your registration in order to participate in F!rosh Week events</h2>
+          {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
+          <Link
+            key={'/registration'}
+            to={'/registration'}
+            style={{ textDecoration: 'none' }}
+            className={'no-link-style'}
+          >
+            <Button label="Register" style={{}} />
+          </Link>
+        </div>
+      ) : null}
     </>
   );
 };
@@ -370,7 +386,7 @@ const ProfilePageInstagrams = () => {
           style={{ filter: !darkMode ? 'invert(1)' : 'unset' }}
         />
         <div>
-          <p>Go follow your frosh group and meet your Leedurs!</p>
+          <p>Go follow your F!rosh group and meet your Leedurs!</p>
           <h2>@{getInstagramFromLink(instagramLink).slice(0, -1)}</h2>
         </div>
       </div>

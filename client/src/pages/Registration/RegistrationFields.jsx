@@ -433,7 +433,7 @@ export const fields = {
     scuntInfo: {
       type: 'label',
       label:
-        "What is SKULE™ HUNT? SKULE™ HUNT is a scavenger hunt around the city of Toronto! Don't miss out on one of the most popular f!rosh week events! Hunt is an exciting night of challenges for all comfort levels.",
+        "What is SKULE™ HUNT? SKULE™ HUNT is a scavenger hunt around the city of Toronto! Don't miss out on one of the most popular F!rosh Week events! Hunt is an exciting night of challenges for all comfort levels.",
       isBold: true,
     },
     attendingRetreat: {
@@ -469,7 +469,7 @@ export const fields = {
     },
     photograph: {
       type: 'radio',
-      label: 'Are you okay with being photographed during Frosh Week?',
+      label: 'Are you okay with being photographed during F!rosh Week?',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       noEdit: true,
@@ -477,7 +477,7 @@ export const fields = {
     },
     priceInfo: {
       type: 'label',
-      label: 'The price of one Frosh Week ticket is 130 CAD.',
+      label: 'The price of one F!rosh Week ticket is 130 CAD.',
       isBold: true,
     },
     // bursaryRequested: {

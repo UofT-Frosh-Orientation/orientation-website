@@ -69,7 +69,7 @@ const AboutScunt = () => {
           <img src={scuntLogo} style={{ width: '300px', margin: '20px' }} />
           <div className="text-content">
             <h2>THE HUNT</h2>
-            Come participate in the most iconic event that is part of Frosh Week: Skule™ Hunt!
+            Come participate in the most iconic event that is part of F!rosh Week: Skule™ Hunt!
             <br />
             <br />
             Skule™ Hunt takes place the night of <b>Wednesday August 28th from 6PM to 11PM</b>. It
@@ -170,9 +170,9 @@ const scuntFAQs = [
   {
     title: 'What is Skule™ Hunt?',
     description: [
-      "Skule™ Hunt is a long-standing traditional event that is part of Skule's annual Frosh Week.",
+      "Skule™ Hunt is a long-standing traditional event that is part of Skule's annual F!rosh Week.",
       'Frosh are placed in teams and participate in a city-wide scavenger hunt where the tasks are designed to help them learn about Skule™ history and traditions, all while exploring the city of Toronto.',
-      "We safely encourage you to step out of your comfort zone for an unforgettable and fun night! It's the last event of Frosh Week for a reason, gotta go big before you go home right?",
+      "We safely encourage you to step out of your comfort zone for an unforgettable and fun night! It's the last event of F!rosh Week for a reason, gotta go big before you go home right?",
       ' ',
       'Trust us, this is going to be the craziest scavenger hunt of your life so you do NOT want to miss signing up!',
     ],

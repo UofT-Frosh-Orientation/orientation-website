@@ -1,36 +1,29 @@
 import Alumni from '../assets/sponsors/Alumni.jpg';
 import OSPE from '../assets/sponsors/OSPE.jpg';
 import PEO from '../assets/sponsors/PEO.png';
+import peodark from '../assets/sponsors/PEO_white.png';
 import Nani from '../assets/sponsors/Nanis.png';
+import nanidark from '../assets/sponsors/nanis_white.png';
 import Longos from '../assets/sponsors/Longos.png';
 import Troost_iLead from '../assets/sponsors/Troost_iLead.jpg';
+import troostdark from '../assets/sponsors/troost_white.png';
+import EMMO from '../assets/sponsors/EMMO_green.png';
+import EMMOdark from '../assets/sponsors/EMMO_white.png';
 import Panago from '../assets/sponsors/Panago.png';
 
 export const sponsors = [
   {
-    website: 'https://alumni.engineering.utoronto.ca/engineering-alumni-network/',
-    image: Alumni, // the sponsor image displayed on homepage (from "./client/src/assets/sponsors")
-    scale: 0.82, // can be used to display each image at a different size
-    rank: 'diamond', // rank of sponsor, can be used to display border
-    label: 'Diamond sponsor: Alumni Office', // the label when user hovers on image in 'View All' state
-  },
-  {
-    website: 'https://www.panago.com/',
-    image: Panago,
+    website: 'https://emmo.ca/',
+    image: EMMO,
+    darkimage: EMMOdark,
     scale: 0.82,
     rank: 'diamond',
-    label: 'Diamond sponsor: Panago',
-  },
-  {
-    website: 'https://ospe.on.ca/',
-    image: OSPE,
-    scale: 0.82,
-    rank: 'silver',
-    label: 'Silver sponsor: OSPE',
+    label: 'Diamond Sponsor: EMMO',
   },
   {
     website: 'https://www.peo.on.ca/',
     image: PEO,
+    darkimage: peodark,
     scale: 0.82,
     rank: 'bronze',
     label: 'Bronze sponsor: PEO',
@@ -38,22 +31,17 @@ export const sponsors = [
   {
     website: 'https://www.nanisgelato.com/',
     image: Nani,
+    darkimage: nanidark,
     scale: 0.82,
     rank: 'bronze',
     label: 'Bronze sponsor: Nani’s Gelato',
   },
   {
-    website: 'https://www.longos.com/about-us/in-the-community',
-    image: Longos,
-    scale: 0.82,
-    rank: 'bronze',
-    label: 'Bronze sponsor: Longos',
-  },
-  {
     website: 'https://ilead.engineering.utoronto.ca/',
     image: Troost_iLead,
+    darkimage: troostdark,
     scale: 0.82,
     rank: 'bronze',
-    label: 'Bronze sponsor: Troost iLead',
+    label: 'Bronze Sponsor: Troost iLead',
   },
 ];
