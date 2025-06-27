@@ -1,7 +1,7 @@
 @import '../../scssStyles/_mixins.scss';
 
 .footer-container {
-  background-color: var(--jam);
+  background-color: var(--bg-footer);
   box-sizing: border-box;
 
   padding: 3% 5% 0% 5%;
@@ -110,9 +110,9 @@ ul {
   margin: auto;
   text-align: center;
   color: white;
-  background-color: var(--jam);
+  background-color: var(--bg-footer);
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 700;
   padding-bottom: 50px;
   padding-top: 20px;
 }

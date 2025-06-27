@@ -24,7 +24,7 @@
 
 .button-round-disabled {
   opacity: 0.6;
-  cursor: unset; // add disabled cursor
+  cursor: url('../../../assets/cursor/cursordisabled.png'), auto; // add disabled curso
   background-color: var(--bg-primary);
   color: var(--text-secondary);
   border: 2px solid var(--button-outlined-disabled-border);

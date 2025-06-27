@@ -9,6 +9,8 @@ import DarkModeIconDarkMode from '../../assets/darkmode/profiledropdown/sun-soli
 
 import './ProfileDropdown.scss';
 
+const isReady = false;
+
 const ProfileDropdown = ({ open, setOpen, items }) => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
@@ -96,7 +98,16 @@ const ProfileDropdown = ({ open, setOpen, items }) => {
           })}
           <div
             className="profile-dropdown-item-container"
-            style={{ borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px' }}
+            style={{
+              borderBottomLeftRadius: '5px',
+              borderBottomRightRadius: '5px',
+              ...(isReady
+                ? {}
+                : {
+                    borderTopLeftRadius: '5px',
+                    borderTopRightRadius: '5px',
+                  }),
+            }}
             onClick={() => {
               setDarkModeStatus(!darkMode);
             }}
