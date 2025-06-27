@@ -21,10 +21,12 @@
 
 .header-page-title {
   text-align: left;
-  font-size: 60px;
+  font-size: 48px;
   color: var(--text-primary);
   margin-top: 75px;
-  text-align: center;
+  text-align: left;
+  font-family: 'Proxima Nova';
+  font-weight: 900;
 
   @include devices(tablet) {
     margin-top: 50px;

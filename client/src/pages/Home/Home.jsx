@@ -230,7 +230,7 @@ const HomePageSchedule = () => {
   const loggedIn = useSelector(loggedInSelector);
   return (
     <div className="home-page-schedule">
-      <h2 className="home-page-section-header">SCHEDULE</h2>
+      <h2 className="home-page-section-header">Schedule</h2>
       {loggedIn ? (
         <div className="home-page-schedule-warning">
           *Different F!rosh groups have different schedules. This is the basic schedule. To see your
@@ -261,7 +261,7 @@ const PageAbout = () => {
 
 const AboutUsSection = () => {
   return (
-    <Header text="OTHER EVENTS">
+    <Header text="Other Events">
       <>
         {otherEventsData.map((info, index) => {
           return (
@@ -302,16 +302,17 @@ const AboutUsSection = () => {
 const HomePageSponsors = () => {
   // To create a seamless infinite scroll, duplicate the sponsors list.
   const loopedSponsors = [...sponsors, ...sponsors];
+  const { darkMode } = useContext(DarkModeContext);
 
   return (
     <div className="home-page-sponsors">
       <div className="home-page-sponsors-header">
-        <h2>OUR SPONSORS</h2>
-        <p>F!rosh Week would not be possible without their generous support.</p>
+        <h2>Our Sponsors</h2>
+        <p>F!rosh Week was brought to you thanks to the generous support of our sponsors.</p>
       </div>
 
       {sponsors.length > 0 && (
-        <div className="sponsors-carousel-container">
+        <div className="sponsors-carousel-container" style={{ '--item-count': sponsors.length }}>
           <div className="sponsors-carousel-track">
             {loopedSponsors.map((item, index) => {
               // Add a class based on the sponsor's rank for styling
@@ -327,12 +328,21 @@ const HomePageSponsors = () => {
                     className="sponsor-card-link"
                   >
                     <div className="sponsor-image-wrapper">
-                      <LazyLoadImage
-                        alt={item.name}
-                        effect="blur"
-                        src={item.image}
-                        className="sponsor-image"
-                      />
+                      {darkMode ? (
+                        <LazyLoadImage
+                          alt={item.name}
+                          effect="blur"
+                          src={item.darkimage}
+                          className="sponsor-image"
+                        />
+                      ) : (
+                        <LazyLoadImage
+                          alt={item.name}
+                          effect="blur"
+                          src={item.image}
+                          className="sponsor-image"
+                        />
+                      )}
                     </div>
                     <p className="sponsor-name">{sponsorName}</p>
                   </a>
@@ -350,7 +360,7 @@ const HomePageSponsors = () => {
 const PleaseSponsor = () => {
   return (
     <div className="please-sponsor-container">
-      <h3>Want to Sponsor F!rosh Week?</h3>
+      <h3>Become a Sponsor</h3>
       <p>
         Please contact us at{' '}
         <a href="mailto:sponsorship@orientation.skule.ca">sponsorship@orientation.skule.ca</a> to
