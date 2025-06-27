@@ -37,7 +37,7 @@ export const colors = {
   '--sponsor-bronze': ['#cd7f32', '#cd7f32'],
   '--sponsor-silver': ['#c0c0c0', '#c0c0c0'],
   '--sponsor-gold': ['#FFC600', '#FFC600'],
-  '--sponsor-diamond': ['#711F8B', '#711F8B'],
+  '--sponsor-diamond': ['#A0D8EF', '#A0D8EF'],
 
   // 2T4 + Earlier Colours Start Here -----------------------------------------------------------------------------------
   '--purple': ['#6f1e88', '#613480'],

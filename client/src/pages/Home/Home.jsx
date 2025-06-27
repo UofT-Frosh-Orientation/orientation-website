@@ -236,7 +236,7 @@ const HomePageSchedule = () => {
   return (
     <div className="home-page-schedule">
       <h2 className="home-page-section-header">Schedule</h2>
-      {loggedIn ? (
+      {/* {loggedIn ? (
         <div className="home-page-schedule-warning">
           *Different F!rosh groups have different schedules. This is the basic schedule. To see your
           individual schedule, visit the{' '}
@@ -247,7 +247,7 @@ const HomePageSchedule = () => {
         </div>
       ) : (
         <></>
-      )}
+      )} */}
       <ScheduleComponent />
     </div>
   );
@@ -326,7 +326,7 @@ const HomePageSponsors = () => {
               const sponsorName = item.label.includes(':') ? item.label.split(': ')[1] : item.label;
               // Get the appropriate medal icon
               const medalIcon = getMedalIcon(item.rank);
-              
+
               return (
                 <div key={`${item.name}-${index}`} className={`sponsor-card ${rankClass}`}>
                   <a
@@ -336,9 +336,9 @@ const HomePageSponsors = () => {
                     className="sponsor-card-link"
                   >
                     {medalIcon && (
-                      <img 
-                        src={medalIcon} 
-                        alt={`${item.rank} sponsor`} 
+                      <img
+                        src={medalIcon}
+                        alt={`${item.rank} sponsor`}
                         className="sponsor-medal-icon"
                       />
                     )}
