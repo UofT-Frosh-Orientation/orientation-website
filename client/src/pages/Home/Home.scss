@@ -437,7 +437,7 @@
   overflow: hidden;
   position: relative;
   // Add a gradient fade on the left and right edges for a clean look
-  mask-image: linear-gradient(to right, #00000080, black 20%, black 80%, #00000080);
+  mask-image: linear-gradient(to right, #00000000, black 20%, black 80%, #00000000);
   -webkit-mask-image: linear-gradient(to right, #00000000, black 20%, black 80%, #00000000);
 }
 

@@ -14,7 +14,7 @@
 
   @include devices(tablet) {
     flex-direction: column;
-    padding: 0px;
+    margin: 0px 10%;
   }
 }
 
@@ -120,9 +120,11 @@
   h1 {
     font-size: 48px;
     font-family: 'Jersey 20', sans-serif;
+    padding-left: 20px;
   }
   h2 {
     font-size: 20px;
+    padding-left: 20px;
   }
 
   &:active {
