@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useRef } from 'react';
 import './About.scss';
 //import { Carousel } from 'react-responsive-carousel';
 //import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -27,6 +27,9 @@ import { instagramAccounts } from '../../util/instagramAccounts';
 
 // import PropTypes from 'prop-types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+
+import placeholder from '../../assets/logo/main-logo-2t5.png';
+import { get } from 'lodash';
 
 const PageAbout = () => {
   return (
@@ -128,10 +131,67 @@ const VCSection = () => {
 };
 
 const AboutUsExecTeam = () => {
+  const [displayGame, setDisplayGame] = useState(true);
+  const [execIndex, setExecIndex] = useState(0);
+  // need to combine the oc and vc, or just make a new array with both OCs and VCs
+
+  const getNextExec = () => {
+    // Consider implementing randomization
+    shake();
+    setTimeout(() => {
+      setExecIndex((execIndex + 1) % execInfo.vcs.length);
+    }, 2000);
+  };
+
+  const machineRef = useRef(null);
+  const shake = () => {
+    const el = machineRef.current;
+    if (!el) return;
+
+    el.classList.add('shake-animation');
+
+    el.addEventListener(
+      'animationend',
+      () => {
+        el.classList.remove('shake-animation');
+      },
+      { once: true },
+    );
+  };
+
   return (
     <>
-      <OCSection />
-      <VCSection />
+      <button onClick={() => setDisplayGame(!displayGame)} className="exec-display-toggle">
+        {displayGame ? 'Display in Regular View' : 'Display in Game View!'}
+      </button>
+      {displayGame ? (
+        <div className="exec-game-container">
+          <button onClick={getNextExec} ref={machineRef}>
+            <LazyLoadImage
+              src={placeholder}
+              alt="exec-game-machine"
+              className="exec-game-machine"
+            />
+          </button>
+          <div className="aboutus-vc-grid-container">
+            <ExecProfile
+              key={execInfo.vcs[execIndex].name}
+              className="vc-grid-item"
+              image={execInfo.vcs[execIndex].image}
+              name={execInfo.vcs[execIndex].name}
+              role={execInfo.vcs[execIndex].role}
+              discipline={execInfo.vcs[execIndex].discipline}
+              roleDescription={execInfo.vcs[execIndex].description}
+              exec={true}
+            />
+          </div>
+        </div>
+      ) : (
+        <>
+          <OCSection />
+          <VCSection />
+        </>
+      )}
     </>
   );
 };
