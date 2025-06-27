@@ -133,13 +133,12 @@ const VCSection = () => {
 const AboutUsExecTeam = () => {
   const [displayGame, setDisplayGame] = useState(true);
   const [execIndex, setExecIndex] = useState(0);
-  // need to combine the oc and vc, or just make a new array with both OCs and VCs
 
   const getNextExec = () => {
     // Consider implementing randomization
     shake();
     setTimeout(() => {
-      setExecIndex((execIndex + 1) % execInfo.vcs.length);
+      setExecIndex((execIndex + 1) % (execInfo.vcs.length + execInfo.ocs.length));
     }, 2000);
   };
 
@@ -173,18 +172,35 @@ const AboutUsExecTeam = () => {
               className="exec-game-machine"
             />
           </button>
-          <div className="aboutus-vc-grid-container">
-            <ExecProfile
-              key={execInfo.vcs[execIndex].name}
-              className="vc-grid-item"
-              image={execInfo.vcs[execIndex].image}
-              name={execInfo.vcs[execIndex].name}
-              role={execInfo.vcs[execIndex].role}
-              discipline={execInfo.vcs[execIndex].discipline}
-              roleDescription={execInfo.vcs[execIndex].description}
-              exec={true}
-            />
-          </div>
+          {execIndex < execInfo.ocs.length ? (
+            <div className="aboutus-oc-grid-container">
+              <ExecProfile
+                key={execInfo.ocs[execIndex].name}
+                className="oc-grid-item"
+                image={execInfo.ocs[execIndex].image}
+                name={execInfo.ocs[execIndex].name}
+                role={execInfo.ocs[execIndex].role}
+                discipline={execInfo.ocs[execIndex].discipline}
+                roleDescription={execInfo.ocs[execIndex].description}
+                exec={true}
+              />
+            </div>
+          ) : (
+            <div className="aboutus-vc-grid-container">
+              {execInfo.vcs[execIndex - execInfo.ocs.length] && (
+                <ExecProfile
+                  key={execInfo.vcs[execIndex - execInfo.ocs.length].name}
+                  className="vc-grid-item"
+                  image={execInfo.vcs[execIndex - execInfo.ocs.length].image}
+                  name={execInfo.vcs[execIndex - execInfo.ocs.length].name}
+                  role={execInfo.vcs[execIndex - execInfo.ocs.length].role}
+                  discipline={execInfo.vcs[execIndex - execInfo.ocs.length].discipline}
+                  roleDescription={execInfo.vcs[execIndex - execInfo.ocs.length].description}
+                  exec={true}
+                />
+              )}
+            </div>
+          )}
         </div>
       ) : (
         <>
