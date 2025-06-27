@@ -30,6 +30,11 @@ import facultylogo from '../../assets/misc/facultylogo.png';
 import bsologo from '../../assets/misc/bsologo.svg';
 import slideshow1 from '../../assets/homeSlideshow/2T5/back.jpg';
 
+import DiamondMedal from './sponsormedals/diamond.png';
+import GoldMedal from './sponsormedals/gold.png';
+import SilverMedal from './sponsormedals/silver.png';
+import BronzeMedal from './sponsormedals/bronze.png';
+
 const PageHome = () => {
   return (
     <>
@@ -319,6 +324,9 @@ const HomePageSponsors = () => {
               const rankClass = item.rank ? `sponsor-card--${item.rank.toLowerCase()}` : '';
               // Extract only the sponsor's name from the label
               const sponsorName = item.label.includes(':') ? item.label.split(': ')[1] : item.label;
+              // Get the appropriate medal icon
+              const medalIcon = getMedalIcon(item.rank);
+              
               return (
                 <div key={`${item.name}-${index}`} className={`sponsor-card ${rankClass}`}>
                   <a
@@ -327,6 +335,13 @@ const HomePageSponsors = () => {
                     rel="noreferrer"
                     className="sponsor-card-link"
                   >
+                    {medalIcon && (
+                      <img 
+                        src={medalIcon} 
+                        alt={`${item.rank} sponsor`} 
+                        className="sponsor-medal-icon"
+                      />
+                    )}
                     <div className="sponsor-image-wrapper">
                       {darkMode ? (
                         <LazyLoadImage
@@ -368,6 +383,22 @@ const PleaseSponsor = () => {
       </p>
     </div>
   );
+};
+
+// Create a helper function to map ranks to medal images
+const getMedalIcon = (rank) => {
+  switch (rank?.toLowerCase()) {
+    case 'diamond':
+      return DiamondMedal;
+    case 'gold':
+      return GoldMedal;
+    case 'silver':
+      return SilverMedal;
+    case 'bronze':
+      return BronzeMedal;
+    default:
+      return null;
+  }
 };
 
 export { PageHome };
