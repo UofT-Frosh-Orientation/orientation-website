@@ -17,7 +17,7 @@ import { getUserInfo } from './state/user/saga';
 
 import { LandingPage } from './pages/Initial/LandingPage';
 
-const readyForFrosh = false;
+const readyForFrosh = true;
 
 export default function App() {
   const dispatch = useDispatch();

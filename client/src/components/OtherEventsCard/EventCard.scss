@@ -1,0 +1,133 @@
+@import '../../scssStyles/mixins';
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
+
+a.no-link-style {
+  all: unset;
+  display: inline-block;
+}
+
+.event-card {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 1rem 1rem;
+  padding: 0;
+
+  .card-content {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    position: relative;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  .text-section {
+    padding: 50px 50px;
+    flex: 1;
+    z-index: 2;
+
+    @media (max-width: 1000px) {
+      padding-bottom: 5%;
+    }
+
+    h2 {
+      font-size: 48px;
+      width: 80%;
+      margin-bottom: 0.8rem;
+      font-weight: 900;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 40px;
+      line-height: 1.5;
+      width: 80%;
+
+      @media (max-width: 1000px) {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    }
+
+    .learn-more-btn {
+      background-color: transparent;
+      // color: var(--text-primary);
+      padding: 0.6rem 1.2rem;
+      // border: var(--text-primary) 2px solid;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: url('../../../assets/cursor/pointer.png'), auto;
+      transition: all 150ms ease-in-out;
+
+      &:hover {
+        transition: all 150ms ease-in-out;
+        background-color: #ffffff20;
+        scale: 103%;
+      }
+    }
+
+    .button-white {
+      border: white 2px solid;
+      color: white;
+    }
+
+    .button-black {
+      border: black 2px solid;
+      color: black;
+    }
+  }
+
+  .image-section {
+    position: relative;
+    width: 40%;
+    flex-shrink: 0;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media (max-width: 1000px) {
+      width: 0%;
+    }
+
+    // @media (max-width: 800px) {
+    //   width: 100%;
+    // }
+  }
+
+  // .triangle {
+  //   position: absolute;
+  //   right: 300px; // same as image width
+  //   top: 0;
+  //   bottom: 0;
+  //   width: 80px;
+  //   clip-path: polygon(0 0, 100% 0, 0 100%);
+  //   z-index: 1;
+  //   background-color: inherit;
+
+  //   @media (max-width: 768px) {
+  //     display: none;
+  //   }
+  // }
+}
+
+/* === COLOR UTILITIES === */
+.bg-yellow {
+  background-color: var(--mikado);
+}
+.bg-purple {
+  background-color: var(--jam);
+}
+.text-black {
+  color: black;
+}
+.text-white {
+  color: white;
+}

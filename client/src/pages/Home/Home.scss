@@ -12,7 +12,7 @@
   // #00000080 40%, 
   // #00000000 100%, 
   // );
-    linear-gradient(to left, #2b003866 40%, #2b003800 100%);
+    linear-gradient(to left, #2b003866 60%, #2b003800 100%);
   // linear-gradient(
   // to bottom,
   // #00000040 0%,
@@ -70,7 +70,7 @@
     text-align: right;
     font-size: max(1vh, 48px);
     font-weight: 800;
-    color: var(--text-light);
+    color: var(--white);
     margin-bottom: 20px;
     // line-height: 0.7;
     // line-height: 1;
@@ -78,11 +78,13 @@
 
   p {
     text-align: right;
-    font-size: max(3vh, 14px);
+    font-size: 16px;
+    font-weight: 800;
     margin-bottom: min(2vh, 20px);
-    margin-top: min(3vh, 10px);
-    color: var(--text-light);
-    line-height: 1.2;
+    margin-top: min(3vh, 20px);
+    margin-right: 1%;
+    color: var(--white);
+    line-height: 1.4;
   }
 
   @include devices(tablet) {
@@ -321,13 +323,13 @@
 }
 
 .home-page-section-header {
-  font-size: 45px;
+  font-size: 48px;
   color: var(--text-primary);
   padding-left: min(40px, 3.5%);
-  padding-top: 35px;
-  margin-bottom: 40px;
+  padding-top: 40px;
+  margin-bottom: 20px;
   font-family: 'Proxima Nova', sans-serif;
-  font-weight: 800;
+  font-weight: 900;
 
   @include devices(tablet) {
     padding-top: 30px;
@@ -349,22 +351,25 @@
 
 .home-page-sponsors {
   padding: 60px 0; // Use vertical padding only
-  background-color: var(--dusk);
-  color: var(--dawn);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
   text-align: center;
 }
 
 .home-page-sponsors-header {
   margin-bottom: 40px;
   padding: 0 20px; // Add horizontal padding here
+  font-family: 'Proxima Nova';
+
   h2 {
-    font-size: 45px;
+    font-size: 48px;
     margin-bottom: 10px;
+    font-weight: 900;
   }
   p {
     font-size: 18px;
-    color: var(--dawn);
-    max-width: 600px;
+    color: var(--text-primary);
+    max-width: 800px;
     margin: 0 auto;
   }
 }
@@ -376,7 +381,9 @@
   }
   to {
     // Move the track by the width of the first half of the sponsors
-    transform: translateX(calc(-270px * 7)); // Card width (250px + 20px gap) * number of original sponsors
+    transform: translateX(
+      calc(-270px * var(--item-count))
+    ); // Card width (250px + 20px gap) * number of original sponsors
   }
 }
 
@@ -395,6 +402,10 @@
 
 // Apply mobile-specific styles using a media query
 @include devices(tablet) {
+  .home-page-sponsors {
+    padding: 60px 20px;
+  }
+
   .sponsors-carousel-track {
     // Adjust the total track width for the smaller cards
     width: calc(200px * 14);
@@ -426,8 +437,8 @@
   overflow: hidden;
   position: relative;
   // Add a gradient fade on the left and right edges for a clean look
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, #00000080, black 20%, black 80%, #00000080);
+  -webkit-mask-image: linear-gradient(to right, #00000000, black 20%, black 80%, #00000000);
 }
 
 .sponsors-carousel-track {
@@ -445,12 +456,13 @@
 
 .sponsor-card {
   flex: 0 0 250px; // Prevent cards from squeezing
-  background-color: #ffffff;
+  background-color: var(--bg-primary);
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease;
   position: relative; // Needed for the border glow pseudo-element
   border: 1px solid #eee; // A very subtle base border
+  padding: 0.5% 0% 0.2% 0%;
 
   &:hover {
     transform: translateY(-8px);
@@ -479,22 +491,23 @@
 
 .sponsor-card {
   // Add a thick, transparent bottom border by default
+  border-color: transparent;
   border-bottom: 4px solid transparent;
   transition: transform 0.3s ease, border-color 0.3s ease;
 
   // On hover, make the border color match the rank
   &:hover {
     &.sponsor-card--diamond {
-      border-bottom-color: var(--jam);
+      border-bottom-color: var(--sponsor-diamond);
     }
     &.sponsor-card--gold {
-      border-bottom-color: var(--mikado);
+      border-bottom-color: var(--sponsor-gold);
     }
     &.sponsor-card--silver {
-      border-bottom-color: #c0c0c0;
+      border-bottom-color: var(--sponsor-silver);
     }
     &.sponsor-card--bronze {
-      border-bottom-color: #cd7f32;
+      border-bottom-color: var(--sponsor-bronze);
     }
   }
 }
@@ -537,29 +550,36 @@
   font-size: 15px;
   font-weight: 600;
   margin-top: auto;
-  color: #333;
+  color: var(--text-primary);
   line-height: 1.3;
 }
 
 .please-sponsor-container {
-  margin: 60px 20px 0 20px;
-  padding: 30px;
-  background-color: #ffffff;
+  margin: 60px 20px 50px 20px;
+  padding: 40px;
+  background-color: var(--bg-primary);
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  max-width: 800px;
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  font-family: 'Proxima Nova';
+  color: var(--text-primary);
 
   h3 {
     font-size: 24px;
+    // text-transform: uppercase;
     margin-bottom: 10px;
+    font-weight: 900;
+    // color: var(--text-secondary)
   }
   p {
-    font-size: 18px;
+    font-size: 16px;
+    padding: 0% 5%;
+    line-height: 1.6;
   }
   a {
-    color: var(--jam);
+    color: var(--link-dynamic);
     font-weight: 600;
     text-decoration: none;
     &:hover {

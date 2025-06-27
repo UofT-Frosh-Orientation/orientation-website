@@ -28,6 +28,8 @@ import { ProfileDropdown } from '../ProfileDropdown/ProfileDropdown';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { userSelector } from '../../state/user/userSlice';
 
+const isReady = false;
+
 const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
   return (
     <>
@@ -58,25 +60,33 @@ const NavbarDesktop = ({ isLoggedIn, froshInitials, isRegistered }) => {
 
   return (
     <>
-      {isLoggedIn ? (
-        isRegistered === true || leader === true ? (
-          <ProfileDropdown
-            open={openProfileDropdown}
-            setOpen={setOpenProfileDropdown}
-            items={profilePages.register}
-          />
+      {isReady ? (
+        isLoggedIn ? (
+          isRegistered === true || leader === true ? (
+            <ProfileDropdown
+              open={openProfileDropdown}
+              setOpen={setOpenProfileDropdown}
+              items={profilePages.register}
+            />
+          ) : (
+            <ProfileDropdown
+              open={openProfileDropdown}
+              setOpen={setOpenProfileDropdown}
+              items={profilePages.login}
+            />
+          )
         ) : (
           <ProfileDropdown
             open={openProfileDropdown}
             setOpen={setOpenProfileDropdown}
-            items={profilePages.login}
+            items={profilePages.notLogin}
           />
         )
       ) : (
         <ProfileDropdown
           open={openProfileDropdown}
           setOpen={setOpenProfileDropdown}
-          items={profilePages.notLogin}
+          items={profilePages.notReady}
         />
       )}
 
@@ -166,25 +176,33 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
 
   return (
     <>
-      {isLoggedIn ? (
-        isRegistered === true || leader === true ? (
-          <ProfileDropdown
-            open={openProfileDropdown}
-            setOpen={setOpenProfileDropdown}
-            items={profilePages.register}
-          />
+      {isReady ? (
+        isLoggedIn ? (
+          isRegistered === true || leader === true ? (
+            <ProfileDropdown
+              open={openProfileDropdown}
+              setOpen={setOpenProfileDropdown}
+              items={profilePages.register}
+            />
+          ) : (
+            <ProfileDropdown
+              open={openProfileDropdown}
+              setOpen={setOpenProfileDropdown}
+              items={profilePages.login}
+            />
+          )
         ) : (
           <ProfileDropdown
             open={openProfileDropdown}
             setOpen={setOpenProfileDropdown}
-            items={profilePages.login}
+            items={profilePages.notLogin}
           />
         )
       ) : (
         <ProfileDropdown
           open={openProfileDropdown}
           setOpen={setOpenProfileDropdown}
-          items={profilePages.notLogin}
+          items={profilePages.notReady}
         />
       )}
 
