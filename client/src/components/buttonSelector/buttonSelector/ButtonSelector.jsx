@@ -20,14 +20,15 @@ const ButtonSelector = ({
     <ButtonOutlined
       key={index}
       onClick={() => setActiveButton(index)}
-      label={item.name}
+      label={item.title}
+      sub={item.sub}
       style={{
-        backgroundColor: `${item.buttonColor}`,
-        flex: 1,
+        // backgroundColor: `${item.buttonColor}`,
+        // flex: 1,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        maxWidth: maxWidthButton,
+        // maxWidth: maxWidthButton,
         ...style,
       }}
       className={classNameButton}

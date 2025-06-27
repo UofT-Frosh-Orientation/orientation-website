@@ -28,7 +28,7 @@ export const colors = {
   '--sc-other': ['#EBEBEB', '#EBEBEB'],
   // '--sc-highlight': ['#00000042', '#FFFFFF42'],
   '--sc-highlight': ['#00000000', '#FFFFFF00'],
-  '--sc-text': ['#3D0F58', '#3D0F58'],
+  '--sc-text': ['#000000', '#3D0F58'],
   '--sc-inverted': ['#FFC600', '#FFC600'],
 
   // 2T5 Other Specific Components
@@ -89,7 +89,7 @@ export const colors = {
   '--gray-time-label': ['#858087', '#D6D6D6'],
 
   // unique colors for each component
-  '--schedule-container': ['#f0e6f2', '#8c60b3'],
+  '--schedule-container': ['#711F8B', '#711F8B'],
   '--schedule-container-selected': ['#bca1d1', '#593875'],
   '--accordian-hover-bg': ['#00000018', '#8c60b3'],
   '--control-dot': ['#6f1e88', '#8c60b3'],
@@ -110,7 +110,7 @@ export const colors = {
   '--button-outlined-disabled-border': ['#989898', '#8c60b3'],
   '--button-disabled': ['#BBBBBB', '#300150'],
   '--button-pressed-highlight': ['#cdb4e0', '#795696'],
-  '--button-pressed-shadow': ['#ad91c2', '#00000038'],
+  '--button-pressed-shadow': ['#000000a0', '#000000a0'], // Used in 2T5
   '--button-active-bg': ['#DFCFE6', '#7b539e'],
 
   //about us teams tab

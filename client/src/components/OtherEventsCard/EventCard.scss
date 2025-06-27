@@ -1,11 +1,16 @@
 @import '../../scssStyles/mixins';
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
 
+a.no-link-style {
+  all: unset;
+  display: inline-block;
+}
+
 .event-card {
-  border-radius: 12px;
+  border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 1rem;
+  margin: 1rem 1rem;
   padding: 0;
 
   .card-content {
@@ -25,6 +30,10 @@
     flex: 1;
     z-index: 2;
 
+    @media (max-width: 1000px) {
+      padding-bottom: 5%;
+    }
+
     h2 {
       font-size: 48px;
       width: 80%;
@@ -33,20 +42,25 @@
     }
 
     p {
-      font-size: 1rem;
-      margin-bottom: 1rem;
+      font-size: 18px;
+      margin-bottom: 40px;
       line-height: 1.5;
+      width: 80%;
+
+      @media (max-width: 1000px) {
+        width: 100%;
+        margin-bottom: 20px;
+      }
     }
 
     .learn-more-btn {
       background-color: transparent;
       // color: var(--text-primary);
-      border: none;
       padding: 0.6rem 1.2rem;
-      border: var(--text-primary) 2px solid;
+      // border: var(--text-primary) 2px solid;
       border-radius: 25px;
       font-weight: bold;
-      cursor: url('../assets/cursor/pointer.png');
+      cursor: url('../../../assets/cursor/pointer.png'), auto;
       transition: all 150ms ease-in-out;
 
       &:hover {
@@ -55,11 +69,21 @@
         scale: 103%;
       }
     }
+
+    .button-white {
+      border: white 2px solid;
+      color: white;
+    }
+
+    .button-black {
+      border: black 2px solid;
+      color: black;
+    }
   }
 
   .image-section {
     position: relative;
-    width: 300px;
+    width: 40%;
     flex-shrink: 0;
     overflow: hidden;
 
@@ -69,9 +93,13 @@
       object-fit: cover;
     }
 
-    @media (max-width: 768px) {
-      width: 100%;
+    @media (max-width: 1000px) {
+      width: 0%;
     }
+
+    // @media (max-width: 800px) {
+    //   width: 100%;
+    // }
   }
 
   // .triangle {
@@ -102,14 +130,4 @@
 }
 .text-white {
   color: white;
-}
-
-.button-white {
-  border: white 2px solid;
-  color: white;
-}
-
-.button-black {
-  border: black 2px solid;
-  color: black;
 }

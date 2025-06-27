@@ -326,8 +326,8 @@
   font-size: 48px;
   color: var(--text-primary);
   padding-left: min(40px, 3.5%);
-  padding-top: 35px;
-  margin-bottom: 40px;
+  padding-top: 40px;
+  margin-bottom: 20px;
   font-family: 'Proxima Nova', sans-serif;
   font-weight: 900;
 
@@ -437,7 +437,7 @@
   overflow: hidden;
   position: relative;
   // Add a gradient fade on the left and right edges for a clean look
-  mask-image: linear-gradient(to right, #00000080, black 20%, black 80%, #00000080);
+  mask-image: linear-gradient(to right, #00000000, black 20%, black 80%, #00000000);
   -webkit-mask-image: linear-gradient(to right, #00000000, black 20%, black 80%, #00000000);
 }
 
@@ -466,6 +466,23 @@
 
   &:hover {
     transform: translateY(-8px);
+    &.sponsor-card--diamond {
+      // Change from var(--jam) (purple) to a diamond-like color
+      border-bottom-color: #a0d8ef; // Light blue diamond color
+      // Optional: Add a subtle shine/sparkle with box-shadow
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 
+                  0 8px 15px rgba(160, 216, 239, 0.3),
+                  0 0 5px rgba(255, 255, 255, 0.6);
+    }
+    &.sponsor-card--gold {
+      border-bottom-color: var(--mikado);
+    }
+    &.sponsor-card--silver {
+      border-bottom-color: #c0c0c0;
+    }
+    &.sponsor-card--bronze {
+      border-bottom-color: #cd7f32;
+    }
   }
 
   // This pseudo-element creates the unobtrusive but obvious border glow
@@ -585,6 +602,27 @@
     &:hover {
       text-decoration: underline;
     }
+  }
+}
+
+.sponsor-card {
+  // existing styles...
+  position: relative; // Ensure relative positioning for absolute medal positioning
+}
+
+.sponsor-medal-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+  z-index: 2;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+  
+  // Add a subtle shine to the medal icons
+  &:hover {
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2)) brightness(1.1);
   }
 }
 
