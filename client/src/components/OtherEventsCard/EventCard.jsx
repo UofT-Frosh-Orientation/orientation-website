@@ -9,7 +9,13 @@ const EventCard = ({ title, content, photoUrl, bgColorClass, textColorClass }) =
         <div className="text-section">
           <h2>{title}</h2>
           <p>{content}</p>
-          <button className="learn-more-btn">Learn More</button>
+          <button
+            className={`learn-more-btn ${
+              textColorClass == 'bg-white' ? 'button-white' : 'button-black'
+            }`}
+          >
+            Learn More
+          </button>
         </div>
         <div className="triangle" />
         <div className="image-section">
@@ -30,7 +36,7 @@ EventCard.propTypes = {
   textColorClass: PropTypes.string,
 };
 
-EventCard.defaultProps = {
-  bgColorClass: 'bg-yellow',
-  textColorClass: 'text-black',
-};
+// EventCard.defaultProps = {
+//   bgColorClass: 'bg-yellow',
+//   textColorClass: 'text-black',
+// };
