@@ -28,7 +28,11 @@ import { instagramAccounts } from '../../util/instagramAccounts';
 // import PropTypes from 'prop-types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
+<<<<<<< HEAD
 import placeholder from '../../assets/logo/main-logo-2T5.png';
+=======
+import placeholder from '../../assets/logo/main-logo-2t5.png';
+>>>>>>> exec-team-2t5
 import { get } from 'lodash';
 
 const PageAbout = () => {
@@ -87,7 +91,6 @@ const AboutUsSection = () => {
     </Header>
   );
 };
-
 
 const OCSection = () => {
   return (
@@ -162,8 +165,7 @@ const AboutUsExecTeam = () => {
 
   return (
     <>
-
-      
+      {/*testing the slider button*/}
       <div className='toggle-container'>
         <button
           className={`exec-display-toggle ${displayGame ? "game-view" : "card-view"}`}
@@ -184,7 +186,6 @@ const AboutUsExecTeam = () => {
               className="exec-game-machine"
             />
           </button>
-
           {execIndex < execInfo.ocs.length ? (
             <div className='exec-info-container'>
               <h2>You got...</h2>
@@ -200,7 +201,6 @@ const AboutUsExecTeam = () => {
               <p>{execInfo.vcs[execIndex].description}</p>
             </div>
           )}
-
         </div>
       ) : (
         <>
