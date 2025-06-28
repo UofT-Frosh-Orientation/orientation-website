@@ -31,6 +31,7 @@
   border-image-repeat: repeat;
   position: relative;
   min-width: 200px;
+  min-height: 100px;
 
   padding: 10px 26px;
 
@@ -39,7 +40,7 @@
     font-family: 'Jersey 20', sans-serif;
   }
   h2 {
-    font-size: 12px;
+    font-size: 18px;
   }
 
   @include devices(tablet) {

@@ -32,7 +32,7 @@ const ScheduleComponent = () => {
   const buttonList = Object.keys(data).map((item, index) => {
     const dayOfWeek = item.split(' ')[0];
     const date = item.split(' ')[1] + ' ' + item.split(' ')[2];
-    return { name: item, title: dayOfWeek, sub: date };
+    return { name: dayOfWeek, title: dayOfWeek, sub: date };
   });
 
   return (
@@ -151,8 +151,13 @@ export const ScheduleComponentAccordion = ({ scheduleDay, closeAll }) => {
               ) : (
                 <></>
               )}
+              <h2 className="eventtimemobile">
+                {startTime === ' ' && endTime === ' ' ? '' : `${startTime} - ${endTime}`}
+              </h2>
             </div>
-            <h2>{startTime === ' ' && endTime === ' ' ? '' : `${startTime} - ${endTime}`}</h2>
+            <h2 className="eventtimedesktop">
+              {startTime === ' ' && endTime === ' ' ? '' : `${startTime} - ${endTime}`}
+            </h2>
           </div>
         }
         setIsOpen={setIsOpen}
