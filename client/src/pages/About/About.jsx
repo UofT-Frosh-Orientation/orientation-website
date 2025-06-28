@@ -28,7 +28,7 @@ import { instagramAccounts } from '../../util/instagramAccounts';
 // import PropTypes from 'prop-types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-import placeholder from '../../assets/logo/main-logo-2t5.png';
+import placeholder from '../../assets/logo/main-logo-2T5.png';
 import { get } from 'lodash';
 
 const PageAbout = () => {
@@ -83,7 +83,7 @@ const AboutUsSection = () => {
             );
           })}
         </div>
-        
+
       </div>
     </Header>
   );
