@@ -162,7 +162,8 @@ const AboutUsExecTeam = () => {
 
   return (
     <>
-      {/*testing the slider button*/}
+
+      
       <div className='toggle-container'>
         <button
           className={`exec-display-toggle ${displayGame ? "game-view" : "card-view"}`}
@@ -183,6 +184,7 @@ const AboutUsExecTeam = () => {
               className="exec-game-machine"
             />
           </button>
+
           {execIndex < execInfo.ocs.length ? (
             <div className='exec-info-container'>
               <h2>You got...</h2>
@@ -198,6 +200,7 @@ const AboutUsExecTeam = () => {
               <p>{execInfo.vcs[execIndex].description}</p>
             </div>
           )}
+
         </div>
       ) : (
         <>

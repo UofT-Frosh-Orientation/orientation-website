@@ -173,6 +173,7 @@
   }
 }
 
+
 //GAME
 .exec-game-machine {
   width:20vw;
@@ -181,6 +182,22 @@
   display:flex;
   justify-content:space-evenly;
   flex-wrap:wrap;
+
+.exec-display-toggle {
+  display: block;
+  margin: -50px auto 50px auto;
+  padding: 12px;
+  text-align: center;
+  color: var(--text-primary);
+  font-family: 'Jersey 20';
+  border-radius: 100px;
+  border: 2px solid var(--text-primary);
+  background-color: var(--bg-primary);
+  width: 100px;
+  height: auto;
+  font-size: 20px;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
+
 
   width:100vw;
 
@@ -215,9 +232,30 @@
   font-size:30px;
 }
 
+
 //Game View Exec Info
 .exec-img{
   width:70%;
+
+.you-got-exec {
+  font-size: 32px;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  font-family: 'Jersey 20', sans-serif;
+
+  @include devices(tablet) {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+}
+
+.exec-game-machine {
+  width: 50vw;
+  max-height: 500px;
+  height: auto;
+  border-radius: 10px;
+  object-fit: contain;
+
 
   display:block;
 
