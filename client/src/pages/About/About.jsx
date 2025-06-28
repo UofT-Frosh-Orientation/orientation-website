@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useRef } from 'react';
 import './About.scss';
 //import { Carousel } from 'react-responsive-carousel';
 //import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -27,6 +27,9 @@ import { instagramAccounts } from '../../util/instagramAccounts';
 
 // import PropTypes from 'prop-types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+
+import placeholder from '../../assets/logo/main-logo-2T5.png';
+import { get } from 'lodash';
 
 const PageAbout = () => {
   return (
@@ -80,6 +83,7 @@ const AboutUsSection = () => {
             );
           })}
         </div>
+
       </div>
     </Header>
   );
@@ -128,10 +132,83 @@ const VCSection = () => {
 };
 
 const AboutUsExecTeam = () => {
+  const [displayGame, setDisplayGame] = useState(true);
+  const [execIndex, setExecIndex] = useState(0);
+
+  const getNextExec = () => {
+    // Consider implementing randomization
+    shake();
+    setTimeout(() => {
+      setExecIndex((execIndex + 1) % (execInfo.vcs.length + execInfo.ocs.length));
+    }, 2000);
+  };
+
+  const machineRef = useRef(null);
+  const shake = () => {
+    const el = machineRef.current;
+    if (!el) return;
+
+    el.classList.add('shake-animation');
+
+    el.addEventListener(
+      'animationend',
+      () => {
+        el.classList.remove('shake-animation');
+      },
+      { once: true },
+    );
+  };
+
   return (
     <>
-      <OCSection />
-      <VCSection />
+      <button onClick={() => setDisplayGame(!displayGame)} className="exec-display-toggle">
+        {displayGame ? 'Display in Regular View' : 'Display in Game View!'}
+      </button>
+      {displayGame ? (
+        <div className="exec-game-container">
+          <button onClick={getNextExec} ref={machineRef}>
+            <LazyLoadImage
+              src={placeholder}
+              alt="exec-game-machine"
+              className="exec-game-machine"
+            />
+          </button>
+          {execIndex < execInfo.ocs.length ? (
+            <div className="aboutus-oc-grid-container">
+              <ExecProfile
+                key={execInfo.ocs[execIndex].name}
+                className="oc-grid-item"
+                image={execInfo.ocs[execIndex].image}
+                name={execInfo.ocs[execIndex].name}
+                role={execInfo.ocs[execIndex].role}
+                discipline={execInfo.ocs[execIndex].discipline}
+                roleDescription={execInfo.ocs[execIndex].description}
+                exec={true}
+              />
+            </div>
+          ) : (
+            <div className="aboutus-vc-grid-container">
+              {execInfo.vcs[execIndex - execInfo.ocs.length] && (
+                <ExecProfile
+                  key={execInfo.vcs[execIndex - execInfo.ocs.length].name}
+                  className="vc-grid-item"
+                  image={execInfo.vcs[execIndex - execInfo.ocs.length].image}
+                  name={execInfo.vcs[execIndex - execInfo.ocs.length].name}
+                  role={execInfo.vcs[execIndex - execInfo.ocs.length].role}
+                  discipline={execInfo.vcs[execIndex - execInfo.ocs.length].discipline}
+                  roleDescription={execInfo.vcs[execIndex - execInfo.ocs.length].description}
+                  exec={true}
+                />
+              )}
+            </div>
+          )}
+        </div>
+      ) : (
+        <>
+          <OCSection />
+          <VCSection />
+        </>
+      )}
     </>
   );
 };
