@@ -28,7 +28,8 @@ import { instagramAccounts } from '../../util/instagramAccounts';
 // import PropTypes from 'prop-types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-import placeholder from '../../assets/logo/main-logo-2t5.png';
+import placeholder from '../../assets/logo/main-logo-2T5.png';
+import gachamachine from '../../assets/about/gachamachine.png';
 import { get } from 'lodash';
 
 const PageAbout = () => {
@@ -37,7 +38,7 @@ const PageAbout = () => {
       <div className="aboutus-page-components">
         <AboutUsSection />
         <AboutUsTeamsTabWrapper />
-        <div className="about-attribution-container">
+        {/* <div className="about-attribution-container">
           <p className="about-attribution-message">
             Thank you to{' '}
             <a
@@ -59,7 +60,7 @@ const PageAbout = () => {
             </a>{' '}
             for various icons and graphics used throughout the website!
           </p>
-        </div>
+        </div> */}
       </div>
     </>
   );
@@ -167,7 +168,7 @@ const AboutUsExecTeam = () => {
         <div className="exec-game-container">
           <button onClick={getNextExec} ref={machineRef}>
             <LazyLoadImage
-              src={placeholder}
+              src={gachamachine}
               alt="exec-game-machine"
               className="exec-game-machine"
             />
