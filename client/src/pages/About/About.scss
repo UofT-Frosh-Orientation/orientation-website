@@ -1,9 +1,9 @@
 @import '../../scssStyles/mixins';
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
 
-
 :root {
   --pixel-border-regular: url('../../assets/buttons/button-pixel-border-regular-light.png');
+  --frame-border: url('../../assets/about/frame.png');
 }
 
 .dark-mode {
@@ -15,6 +15,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 40px;
 }
 
 .about-contents-container {
@@ -47,12 +48,16 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-top: 40px;
+  align-items: center;
 
-  align-items: stretch;
-
-  @include devices(tablet) {
+  @media (max-width: 1000px) {
     align-items: center;
+    justify-content: center;
+    margin: none !important;
+    padding: 0px 0px !important;
     flex-direction: column;
+    text-align: center;
   }
 }
 
@@ -60,19 +65,30 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  // border-radius: 10px;
   margin: 13px 50px 13px 0;
-  max-width: 650px;
+  // max-width: 650px;
+  min-width: 400px;
+  background-color: var(--mikado);
+
+  border-image-source: var(--frame-border);
+  border-image-slice: 60;
+  border-image-width: 450px;
+  border-image-outset: 20px;
+  border-image-repeat: repeat;
+
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 
   flex: 1;
   overflow: visible;
+  height: fit-content;
 }
 
-@media (max-width: 930px) {
+@media (max-width: 1000px) {
   .aboutus-image-container {
     width: 70vw;
-    height: fit-content;
-    margin-right: 0;
+    margin: 0;
     margin-bottom: 25px;
   }
 }
@@ -81,10 +97,6 @@
   object-fit: contain;
   height: 100%;
   width: 100%;
-
-  @include devices(mobile) {
-    //height: auto;
-  }
 }
 
 .aboutus-info-container {
@@ -94,46 +106,46 @@
   justify-content: center;
   max-width: 1000px;
 
-  @include devices(tablet) {
+  @media (max-width: 1000px) {
     width: 85vw;
   }
 }
 
 .aboutus-info {
   background: rgba(255, 255, 255, 0.25);
-  border-radius: 10px;
-  border-image-source: var(--pixel-border-regular);
-  border-image-slice: 12;
-  border-image-width: 12px;
-  border-image-outset: 1px;
-  border-image-repeat: repeat;
-  box-shadow: var(--shadow);
+  border-radius: 20px;
+  // box-shadow: #00000025 0px 8px 24px;
 
   display: flex;
   flex-direction: column;
 
-  padding: 25px;
+  padding: 40px;
   margin: 13px;
 
-  @include devices(tablet) {
-    margin: 0 0 25px 0;
+  @media (max-width: 1000px) {
+    margin: 0 0 0 0;
   }
 }
 
 .aboutus-info-title {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 28px;
+  margin-bottom: 20px;
 
   color: var(--text-primary);
   text-align: left;
+  font-family: 'Proxima Nova', sans-serif;
+  font-weight: 800;
 
-  @include devices(tablet) {
+  @media (max-width: 1000px) {
     text-align: center;
   }
 }
 .aboutus-info-des {
-  font-size: 16px;
+  font-size: 20px;
   color: var(--text-primary);
+  font-family: 'Proxima Nova', sans-serif;
+  font-weight: 400;
+  line-height: 1.4;
 }
 
 // EXEC TEAM SECTIONS
@@ -175,85 +187,84 @@
 
 //GAME
 .exec-game-machine {
-  width:20vw;
+  width: 20vw;
 }
-.exec-game-container{
-  display:flex;
-  justify-content:space-evenly;
-  flex-wrap:wrap;
+.exec-game-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 
-  width:100vw;
+  width: 100vw;
 
-  margin-top:-20px;
+  margin-top: -20px;
 }
 
 //Testing the button
-.toggle-container{
-  width:100%;
+.toggle-container {
+  width: 100%;
 }
-.exec-display-toggle{
+.exec-display-toggle {
   background-color: white;
 
-  width:150px;
-  height:60px;
+  width: 150px;
+  height: 60px;
 
-  margin-bottom:3vw;
-  margin-left:6vw;
+  margin-bottom: 3vw;
+  margin-left: 6vw;
 
-  border-radius:100px;
-  cursor:pointer;
+  border-radius: 100px;
+  cursor: pointer;
 
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   border: 3px solid #d9d9d9;
 }
-.thumb{
-  font-family:'Jersey 20';
-  color:var(--text-primary);
-  font-size:30px;
+.thumb {
+  font-family: 'Jersey 20';
+  color: var(--text-primary);
+  font-size: 30px;
 }
 
 //Game View Exec Info
-.exec-img{
-  width:70%;
+.exec-img {
+  width: 70%;
 
-  display:block;
+  display: block;
 
-  margin:auto;
-  margin-top:2vw;
-  margin-bottom:2vw;
+  margin: auto;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
 
-  border-radius:50%;
-
+  border-radius: 50%;
 }
-.exec-info-container{
-  width:40%;
+.exec-info-container {
+  width: 40%;
 }
-.exec-info-container p{
-  text-align:center;
+.exec-info-container p {
+  text-align: center;
 
-    color:var(--text-primary);
+  color: var(--text-primary);
 }
-.exec-info-container h1{
-  text-align:center;
+.exec-info-container h1 {
+  text-align: center;
 
-  font-size:60px;
-  letter-spacing:5px;
-  color:var(--purple);
+  font-size: 60px;
+  letter-spacing: 5px;
+  color: var(--purple);
   -webkit-text-stroke: 0.01px #fcc606;
 
-  font-family:'Jersey 20';
+  font-family: 'Jersey 20';
 }
-.exec-info-container h2{
-  font-family:'Jersey 20';
-  letter-spacing:2px;
-  font-size:30px;
+.exec-info-container h2 {
+  font-family: 'Jersey 20';
+  letter-spacing: 2px;
+  font-size: 30px;
 
-  color:var(--text-primary);
+  color: var(--text-primary);
 
-  margin-left:10%;
+  margin-left: 10%;
 }
 
 // VC GRID
@@ -336,8 +347,8 @@
   justify-content: flex-start;
   width: 100%;
 
-  padding-top:50px;
-  padding-left:6vw;
+  padding-top: 50px;
+  padding-left: 6vw;
 
   // padding: 50px;
   align-items: center;
@@ -723,8 +734,7 @@
 }
 
 .aboutus-tabs-component {
-
-  width:100%;
+  width: 100%;
 }
 
 /* AboutUsTeamsCarousel styles */

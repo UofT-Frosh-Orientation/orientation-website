@@ -16,6 +16,7 @@ import { execInfo } from '../../util/about/execs';
 import { ExecProfile } from './ExecProfile/ExecProfile';
 import ExecLogo from '../../assets/about/about-page.svg';
 import newAboutLogo from '../../assets/about/F! Purple.png';
+import frame from '../../assets/about/frame.png';
 import newPurpleLogo from '../../assets/about/F! Purple.png';
 import { useEffect } from 'react';
 import { object } from 'prop-types';
@@ -35,7 +36,7 @@ const PageAbout = () => {
   return (
     <>
       <div className="aboutus-page-components">
-        <AboutUsSection />
+        <AboutUsSection className="header-section-top" />
         <AboutUsTeamsTabWrapper />
         <div className="about-attribution-container">
           <p className="about-attribution-message">
@@ -67,10 +68,11 @@ const PageAbout = () => {
 
 const AboutUsSection = () => {
   return (
-    <Header text="ABOUT US">
+    <Header text="About Us">
       <div className="aboutus-subsubcontainer">
         <div className="aboutus-image-container">
           <LazyLoadImage className="aboutus-image" src={newAboutLogo} alt="logo"></LazyLoadImage>
+          {/* <LazyLoadImage className="aboutus-frame" src={frame} alt="frame"></LazyLoadImage> */}
         </div>
 
         <div className="aboutus-info-container">
@@ -130,7 +132,6 @@ const VCSection = () => {
   );
 };
 
-
 const AboutUsExecTeam = () => {
   const [displayGame, setDisplayGame] = useState(true);
   const [execIndex, setExecIndex] = useState(0);
@@ -162,14 +163,12 @@ const AboutUsExecTeam = () => {
   return (
     <>
       {/*testing the slider button*/}
-      <div className='toggle-container'>
+      <div className="toggle-container">
         <button
-          className={`exec-display-toggle ${displayGame ? "game-view" : "card-view"}`}
+          className={`exec-display-toggle ${displayGame ? 'game-view' : 'card-view'}`}
           onClick={() => setDisplayGame(!displayGame)}
         >
-          <div className='thumb'>
-            {displayGame ? 'Card View' : 'Game View'}
-          </div>
+          <div className="thumb">{displayGame ? 'Card View' : 'Game View'}</div>
         </button>
       </div>
 
@@ -183,17 +182,17 @@ const AboutUsExecTeam = () => {
             />
           </button>
           {execIndex < execInfo.ocs.length ? (
-            <div className='exec-info-container'>
+            <div className="exec-info-container">
               <h2>You got...</h2>
               <h1>{execInfo.ocs[execIndex].name}</h1>
-              <LazyLoadImage src={execInfo.ocs[execIndex].image} className='exec-img'/>
+              <LazyLoadImage src={execInfo.ocs[execIndex].image} className="exec-img" />
               <p>{execInfo.ocs[execIndex].description}</p>
             </div>
           ) : (
-            <div className='exec-info-container'>
+            <div className="exec-info-container">
               <h2>You got...</h2>
               <h1>{execInfo.vcs[execIndex].name}</h1>
-              <LazyLoadImage src={execInfo.vcs[execIndex].image} className='exec-img'/>
+              <LazyLoadImage src={execInfo.vcs[execIndex].image} className="exec-img" />
               <p>{execInfo.vcs[execIndex].description}</p>
             </div>
           )}

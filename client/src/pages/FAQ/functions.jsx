@@ -61,8 +61,8 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'How do I register for F!rosh Week?',
       answer:
-        'Register for F!rosh Week at orientation.skule.ca starting July 5th! Follow us on Instagram @froshweek and join the F!rosh Week 2T5 Discord server. To stay up to date throughout the summer! Important links can also be found at linktr.ee/froshweek. Link to Discord server: https://discord.gg/RQrPQMYrHw',
-      lastUpdated: '12:30pm, Jun 22, 2024',
+        'Register for F!rosh Week at orientation.skule.ca starting July 2nd! Follow us on Instagram @froshweek and join the F!rosh Week 2T5 Discord server. To stay up to date throughout the summer! Important links can also be found at linktr.ee/froshweek. Link to Discord server: https://discord.com/invite/Fnxr7tp34E',
+      lastUpdated: '18:10pm, Jun 28, 2025',
       category: 'Registration',
     },
     {
@@ -75,8 +75,8 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'When is the deadline to register for F!rosh Week?',
       answer:
-        'No official deadline, but you should sign up before August 26th if you want to participate in all of the activities!',
-      lastUpdated: '13:30pm, Jun 30, 2024',
+        'No official deadline, but you should sign up before August 25th if you want to participate in all of the activities!',
+      lastUpdated: '18:12pm, Jun 28, 2025',
       category: 'Registration',
     },
     /*{
