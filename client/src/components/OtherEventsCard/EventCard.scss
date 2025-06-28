@@ -39,6 +39,12 @@ a.no-link-style {
       width: 80%;
       margin-bottom: 0.8rem;
       font-weight: 900;
+
+      @include devices(tablet) {
+        font-size: 36px;
+        // width: 60%;
+        margin-bottom: 25px;
+      }
     }
 
     p {
@@ -50,6 +56,11 @@ a.no-link-style {
       @media (max-width: 1000px) {
         width: 100%;
         margin-bottom: 20px;
+        display: none;
+      }
+
+      @include devices(huge) {
+        font-size: 26px;
       }
     }
 

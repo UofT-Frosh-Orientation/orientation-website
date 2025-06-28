@@ -373,6 +373,7 @@ const FAQAccordionWrapper = ({ scheduleData, openStatus, activeIndex }) => {
       header={<div className={'faq-search-result-question-accordion'}>{scheduleData.question}</div>}
       style={{ backgroundColor: 'var(--faq-answer-containers)', padding: '0px 30px 0px 30px' }}
       className="accordion-clickable"
+      dark={true}
     >
       <div className={'faq-search-result-answer-accordion'}>{scheduleData.answer}</div>
     </SingleAccordion>

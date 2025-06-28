@@ -59,6 +59,10 @@ li {
   height: 30px;
   width: 100px;
 
+  @include devices(tablet) {
+    margin-right: 0px;
+  }
+
   &:hover,
   &:active {
     color: var(--neutral-secondary);
@@ -123,6 +127,10 @@ li {
   margin-right: 40px;
   padding: 4px;
   cursor: url('../../assets/cursor/pointer.png'), auto !important;
+
+  // @include devices(tablet) {
+  //   margin-right: 0px;
+  // }
 }
 
 .icon-logo-not-logged {
@@ -279,6 +287,10 @@ li {
       transition: all 150ms ease-in-out;
       cursor: url('../../assets/cursor/pointer.png'), auto !important;
     }
+
+    @include devices(tablet) {
+      margin-right: 0px;
+    }
   }
 
   .navbar-main {
@@ -288,6 +300,11 @@ li {
     // align-self: center;
     justify-content: space-between;
     gap: 30px;
+
+    @include devices(tablet) {
+      gap: 0px;
+      width: clamp(150px, 40%, 400px);
+    }
   }
 
   .login {
