@@ -83,6 +83,7 @@ const AboutUsSection = () => {
             );
           })}
         </div>
+        
       </div>
     </Header>
   );
