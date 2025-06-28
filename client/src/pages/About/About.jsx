@@ -29,7 +29,6 @@ import { instagramAccounts } from '../../util/instagramAccounts';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import placeholder from '../../assets/logo/main-logo-2T5.png';
-import gachamachine from '../../assets/about/gachamachine.png';
 import { get } from 'lodash';
 
 const PageAbout = () => {
@@ -38,7 +37,7 @@ const PageAbout = () => {
       <div className="aboutus-page-components">
         <AboutUsSection />
         <AboutUsTeamsTabWrapper />
-        {/* <div className="about-attribution-container">
+        <div className="about-attribution-container">
           <p className="about-attribution-message">
             Thank you to{' '}
             <a
@@ -60,7 +59,7 @@ const PageAbout = () => {
             </a>{' '}
             for various icons and graphics used throughout the website!
           </p>
-        </div> */}
+        </div>
       </div>
     </>
   );
@@ -131,6 +130,7 @@ const VCSection = () => {
   );
 };
 
+
 const AboutUsExecTeam = () => {
   const [displayGame, setDisplayGame] = useState(true);
   const [execIndex, setExecIndex] = useState(0);
@@ -161,50 +161,42 @@ const AboutUsExecTeam = () => {
 
   return (
     <>
-      <button onClick={() => setDisplayGame(!displayGame)} className="exec-display-toggle">
-        {displayGame ? 'Grid View' : 'Game View'}
-      </button>
+      {/*testing the slider button*/}
+      <div className='toggle-container'>
+        <button
+          className={`exec-display-toggle ${displayGame ? "game-view" : "card-view"}`}
+          onClick={() => setDisplayGame(!displayGame)}
+        >
+          <div className='thumb'>
+            {displayGame ? 'Card View' : 'Game View'}
+          </div>
+        </button>
+      </div>
+
       {displayGame ? (
         <div className="exec-game-container">
           <button onClick={getNextExec} ref={machineRef}>
             <LazyLoadImage
-              src={gachamachine}
+              src={placeholder}
               alt="exec-game-machine"
               className="exec-game-machine"
             />
           </button>
-          <div className="exec-game-display">
-            <p className="you-got-exec">You got...</p>
-            {execIndex < execInfo.ocs.length ? (
-              <div className="">
-                <ExecProfile
-                  key={execInfo.ocs[execIndex].name}
-                  className="oc-grid-item"
-                  image={execInfo.ocs[execIndex].image}
-                  name={execInfo.ocs[execIndex].name}
-                  role={execInfo.ocs[execIndex].role}
-                  discipline={execInfo.ocs[execIndex].discipline}
-                  roleDescription={execInfo.ocs[execIndex].description}
-                  exec={true}
-                />
-              </div>
-            ) : (
-              <div className="">
-                {execInfo.vcs[execIndex - execInfo.ocs.length] && (
-                  <ExecProfile
-                    key={execInfo.vcs[execIndex - execInfo.ocs.length].name}
-                    className="vc-grid-item"
-                    image={execInfo.vcs[execIndex - execInfo.ocs.length].image}
-                    name={execInfo.vcs[execIndex - execInfo.ocs.length].name}
-                    role={execInfo.vcs[execIndex - execInfo.ocs.length].role}
-                    discipline={execInfo.vcs[execIndex - execInfo.ocs.length].discipline}
-                    roleDescription={execInfo.vcs[execIndex - execInfo.ocs.length].description}
-                    exec={true}
-                  />
-                )}
-              </div>
-            )}
-          </div>
+          {execIndex < execInfo.ocs.length ? (
+            <div className='exec-info-container'>
+              <h2>You got...</h2>
+              <h1>{execInfo.ocs[execIndex].name}</h1>
+              <LazyLoadImage src={execInfo.ocs[execIndex].image} className='exec-img'/>
+              <p>{execInfo.ocs[execIndex].description}</p>
+            </div>
+          ) : (
+            <div className='exec-info-container'>
+              <h2>You got...</h2>
+              <h1>{execInfo.vcs[execIndex].name}</h1>
+              <LazyLoadImage src={execInfo.vcs[execIndex].image} className='exec-img'/>
+              <p>{execInfo.vcs[execIndex].description}</p>
+            </div>
+          )}
         </div>
       ) : (
         <>
@@ -378,7 +370,7 @@ const AboutUsExecTeam = () => {
 
 const tabs = [
   {
-    title: 'EXEC TEAM',
+    title: 'Meet the Executives',
     component: <AboutUsExecTeam />,
     active: true,
     wantToLoad: true,
@@ -408,7 +400,7 @@ const AboutUsTeamsTab = () => {
   const wantedTabs = tabs.filter((tab) => tab.wantToLoad);
 
   const [currentTab, setCurrentTab] = useState(
-    wantedTabs.length > 0 ? wantedTabs.at(0).title : 'EXEC TEAM',
+    wantedTabs.length > 0 ? wantedTabs.at(0).title : 'Meet the Executives',
   );
 
   let tabsCounter = 0;
@@ -448,13 +440,13 @@ const AboutUsTeamsTab = () => {
                       >
                         {tab.title}
                       </h1>
-                      <div
+                      {/* <div
                         className={`aboutus-yellow-bubble ${
                           currentTab === tab.title
                             ? 'aboutus-yellow-bubble-show'
                             : 'aboutus-yellow-bubble-noshow'
                         }`}
-                      ></div>
+                      ></div> */}
                     </div>
                   </div>
                 </div>
