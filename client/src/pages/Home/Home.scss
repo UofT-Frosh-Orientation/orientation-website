@@ -20,7 +20,8 @@
   // );
   display: flex;
   flex-direction: column;
-  // justify-content: center;
+  justify-items: center;
+  justify-content: center;
   // align-items: center;
   overflow: hidden;
   // margin-top: 20px;
@@ -48,8 +49,12 @@
   // flex-direction: column;
   // justify-content: center;
   // align-items: center;
-  padding: 150px 5% 0px 5%;
+  padding: 0% 5% 0% 5%;
   text-align: right;
+
+  // @include devices(ipad) {
+  //   padding: 40% 5% 0px 5%;
+  // }
 
   h1 {
     font-family: 'Jersey 20';
@@ -57,13 +62,19 @@
     font-size: clamp(120px, 24vh, 180px);
     text-transform: uppercase;
     color: var(--mikado);
-    text-shadow: -5px -5px 0 var(--jam), 5px -5px 0 var(--jam), -5px 5px 0 var(--jam),
-      5px 5px 0 var(--jam);
+    text-shadow: 5px 5px 0 var(--jam), -5px -5px 0 var(--jam), 5px -5px 0 var(--jam),
+      -5px 5px 0 var(--jam), 5px 5px 0 var(--jam);
     // -5px -5px 0 var(--monster),
     //  5px -5px 0 var(--monster),
     // -5px  5px 0 var(--monster),
     //  5px  5px 0 var(--monster);
     line-height: 0.8;
+
+    // @include devices(huge) {
+    //   font-size: 300px;
+    //   text-shadow: 10px 10px 0 var(--jam), -10px -10px 0 var(--jam), 10px -10px 0 var(--jam),
+    //     -10px 10px 0 var(--jam);
+    // }
   }
 
   h2 {
@@ -335,6 +346,7 @@
   @include devices(tablet) {
     padding-top: 30px;
     margin-bottom: 10px;
+    margin-left: 20px;
     font-size: 35px;
   }
 }
@@ -397,7 +409,7 @@
   }
   to {
     // Mobile card width (180px + 20px gap) * number of original sponsors
-    transform: translateX(calc(-200px * 7));
+    transform: translateX(calc(-200px * var(--item-count)));
   }
 }
 
@@ -409,7 +421,8 @@
 
   .sponsors-carousel-track {
     // Adjust the total track width for the smaller cards
-    width: calc(200px * 14);
+    // width: calc(200px * 14);
+    width: calc(200px * var(--item-count));
     // Use the new mobile-specific animation
     animation-name: scroll-mobile;
     // Optionally adjust the animation speed for mobile
@@ -445,9 +458,10 @@
 .sponsors-carousel-track {
   display: flex;
   gap: 20px;
-  width: calc(270px * 14); // Card width (250px + 20px gap) * total number of cards (original * 2)
+  // width: calc(270px * 14); // Card width (250px + 20px gap) * total number of cards (original * 2)
+  width: calc(270px * var(--item-count));
   padding: 20px 0;
-  animation: scroll 40s linear infinite;
+  animation: scroll 30s linear infinite;
 
   // Pause animation on hover for better user experience
   &:hover {

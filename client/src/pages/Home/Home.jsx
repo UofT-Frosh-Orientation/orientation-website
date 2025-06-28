@@ -306,7 +306,7 @@ const AboutUsSection = () => {
 
 const HomePageSponsors = () => {
   // To create a seamless infinite scroll, duplicate the sponsors list.
-  const loopedSponsors = [...sponsors, ...sponsors];
+  const loopedSponsors = [...sponsors, ...sponsors, ...sponsors];
   const { darkMode } = useContext(DarkModeContext);
 
   return (
