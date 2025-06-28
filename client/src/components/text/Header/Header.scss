@@ -23,19 +23,21 @@
   text-align: left;
   font-size: 48px;
   color: var(--text-primary);
-  margin-top: 75px;
+  // margin-top: 75px;
   text-align: left;
   font-family: 'Proxima Nova';
   font-weight: 900;
+  margin-left: 20px;
+  margin-bottom: 20px;
 
   @include devices(tablet) {
-    margin-top: 50px;
+    margin-top: 10px;
     font-size: 40px;
   }
 }
 
 .header-page-title-underline {
-  background: var(--yellow);
+  background: var(--transparent);
   border-radius: 10px;
   // width: 300px;
   height: 4px;
@@ -57,8 +59,8 @@
   width: 100vw;
 
   @include devices(tablet) {
-    padding: 10px;
-    align-items: center;
+    padding: 20px;
+    align-items: right;
     justify-content: center;
   }
 }

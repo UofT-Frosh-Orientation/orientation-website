@@ -91,8 +91,9 @@
     padding: 0px 25px;
 
     h1 {
-      font-size: 150px;
+      font-size: 120px;
       text-align: right;
+      margin: 0px 0px 0px 0px;
     }
 
     h2 {
@@ -326,8 +327,8 @@
   font-size: 48px;
   color: var(--text-primary);
   padding-left: min(40px, 3.5%);
-  padding-top: 35px;
-  margin-bottom: 40px;
+  padding-top: 40px;
+  margin-bottom: 20px;
   font-family: 'Proxima Nova', sans-serif;
   font-weight: 900;
 
@@ -437,7 +438,7 @@
   overflow: hidden;
   position: relative;
   // Add a gradient fade on the left and right edges for a clean look
-  mask-image: linear-gradient(to right, #00000080, black 20%, black 80%, #00000080);
+  mask-image: linear-gradient(to right, #00000000, black 20%, black 80%, #00000000);
   -webkit-mask-image: linear-gradient(to right, #00000000, black 20%, black 80%, #00000000);
 }
 
@@ -590,6 +591,27 @@
     &:hover {
       text-decoration: underline;
     }
+  }
+}
+
+.sponsor-card {
+  // existing styles...
+  position: relative; // Ensure relative positioning for absolute medal positioning
+}
+
+.sponsor-medal-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+  z-index: 2;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+
+  // Add a subtle shine to the medal icons
+  &:hover {
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2)) brightness(1.1);
   }
 }
 

@@ -4645,7 +4645,7 @@ export const dataZeta = {
 
 // for home page
 export const data = {
-  'MONDAY AUGUST 25': [
+  'Monday August 25': [
     {
       'Event Name': 'Meet your F!rosh Group',
       'Start Time': '8:00 AM',
@@ -4657,7 +4657,7 @@ export const data = {
       'Event Name': 'Matriculation',
       'Event Location': 'Convocation Hall',
       'Event Description':
-        'Our kickoff to F!rosh Week, and an introduction to all things Skule! Hear from clubs, design teams, and other student groups about all the amazing opportunities waiting for you here at UofT Engineering, while also learning about some of our many Skule traditions!',
+        'F!rosh Week Level 1, your introduction to all things Skule™. The Frosh, faculty, and upper years all gather in Convocation Hall for the Frosh’s teaser trailer at the community and all of the traditions, culture and opportunities offered at UofT Engineering.',
       'Start Time': '9:00 AM',
       'End Time': '11:00 AM',
       Color: 'long',
@@ -4671,7 +4671,7 @@ export const data = {
     {
       'Event Name': 'F!rosh Games + D!ye Station',
       'Event Description':
-        '<b>F!rosh Games:</b> Compete against other frosh groups in the craziest competitions imaginable.<br /><b>D!ye:</b> When I say purple you say purple! Where F!rosh and Leedurs alike dye their bodies (or parts thereof) purple. The colour purple represents great significance in the traditions of engineering schools across Canada.',
+        '<b>F!rosh Games:</b> A series of fun, physical challenges that allows students to let loose, compete against other F!rosh groups and get to know each other in a dynamic fashion. These competitions can range from an obstacle course to a classic sport with an engineering twist.<br /><b>D!ye:</b> A 40+ year tradition where F!rosh and Leedurs dye their bodies purple. This player cosmetic represents great significance in the traditions of engineering schools across Canada, as it honours the engineers that came before us.',
       'Start Time': '12:00 PM',
       'End Time': '3:00 PM',
       Color: 'long',
@@ -4679,7 +4679,7 @@ export const data = {
     {
       'Event Name': 'Downtown Walkaround',
       'Event Description':
-        'Join us for a lovely tour of Toronto’s downtown with 1000 of your newest friends and classmates!',
+        'A tour of downtown Toronto where thousands of students display their Skule™ spirit by parading and emoting from the St. George campus to Nathan Phillips Square.',
       'Start Time': '3:00 PM',
       'End Time': '5:00 PM',
       Color: 'long',
@@ -4693,13 +4693,15 @@ export const data = {
     },
     {
       'Event Name': 'Nitelife',
+      'Event Description':
+        'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
       'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
     },
   ],
-  'TUESDAY AUGUST 26': [
+  'Tuesday August 26': [
     {
       'Event Name': 'Academic Success Seminar',
       // 'Event Location': 'Front Campus',
@@ -4712,7 +4714,7 @@ export const data = {
     {
       'Event Name': 'Campus Tours + Build Battle',
       'Event Description':
-        "<b>Campus Tour:</b> Be guided by your F!rosh Leedurs on a tour of our gorgeous campus, showing you all the best places to study, grab food, participate in extracurriculars, and nap! <br /><b>Build Battle:</b> Your first of many design challenges at UofT Engineering, except its probably the one of the coolest ones you do! Work with your frosh group to tackle your piece of the puzzle for this year's unique design challenge, coming together to build something truly amazing as a 2T9 class!",
+        '<b>Campus Tour:</b> F!rosh Leedurs guide Frosh through a tour of campus to find the best places to study, socialize and share stories about their time across campus. Take your minimap into the real world and find those secret levels. <br /><b>Build Battle:</b> First we mine, now you CRAFT! Put your skills to the test with a *POWER DRILL* *WOOD* *MARKERS* and whatever scraps your inventory picked up to create an epic build!',
       'Start Time': '10:00 AM',
       'End Time': '12:00 PM',
       Color: 'long',
@@ -4726,13 +4728,14 @@ export const data = {
     {
       'Event Name': 'Campus Tours + Build Battle',
       'Event Description':
-        "<b>Campus Tour:</b> Be guided by your F!rosh Leedurs on a tour of our gorgeous campus, showing you all the best places to study, grab food, participate in extracurriculars, and nap! <br /><b>Build Battle:</b> Your first of many design challenges at UofT Engineering, except its probably the one of the coolest ones you do! Work with your frosh group to tackle your piece of the puzzle for this year's unique design challenge, coming together to build something truly amazing as a 2T9 class!",
+        '<b>Campus Tour:</b> F!rosh Leedurs guide Frosh through a tour of campus to find the best places to study, socialize and share stories about their time across campus. Take your minimap into the real world and find those secret levels. <br /><b>Build Battle:</b> First we mine, now you CRAFT! Put your skills to the test with a *POWER DRILL* *WOOD* *MARKERS* and whatever scraps your inventory picked up to create an epic build!',
       'Start Time': '1:00 PM',
       'End Time': '5:00 PM',
       Color: 'long',
     },
     {
       'Event Name': 'Cheer-Off!',
+      'Event Description': 'The Final Boss: AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH',
       'Start Time': '5:00 PM',
       'End Time': '6:00 PM',
       Color: 'general',
@@ -4746,13 +4749,15 @@ export const data = {
     },
     {
       'Event Name': 'Nitelife',
+      'Event Description':
+        'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
       'Event Location': 'The Pit',
       'Start Time': '7:00 PM',
       'End Time': 'Late',
       Color: 'night',
     },
   ],
-  'WEDNESDAY AUGUST 27': [
+  'Wednesday August 27': [
     {
       'Event Name': 'Consent Seminar',
       'Event Description': `Attend the consent workshop and be entered to win some amazing prizes!`,
@@ -4779,29 +4784,31 @@ export const data = {
     {
       'Event Name': 'Skule™ Hunt',
       'Event Description':
-        'SKULE™ HUNT: The longest items list you’ve ever seen. Join us for a full fledged scavenger hunt all over the city of Toronto!',
+        'The Skule™ twist on a traditional Scavenger Hunt, where students search for unique items and hidden easter eggs, collect powerups and points through side quests all across the city of Toronto to bring your team to the top of the leaderboard. The world is your arcade!',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
     },
   ],
-  'THURSDAY AUGUST 28': [
+  'Thursday August 28': [
     {
       'Event Name': 'Faculty Events',
-      'Event Description': `Check out more information about Faculty Events here: <a href='https://undergrad.engineering.utoronto.ca/event/faculty-orientation-events/'>Faculty Events</a>`,
+      'Event Description': `More information on Faculty Events will be added soon!`,
       'Start Time': '9:00 AM',
       'End Time': '5:00 PM',
       Color: 'other',
     },
     {
       'Event Name': 'Nitelife',
+      'Event Description':
+        'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
       'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
     },
   ],
-  'FRIDAY AUGUST 29': [
+  'Friday August 29': [
     {
       'Event Name': 'F!rosh Olympiks',
       'Start Time': '10:00 AM',
@@ -4810,29 +4817,31 @@ export const data = {
     },
     {
       'Event Name': 'Nitelife',
+      'Event Description':
+        'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
       'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
     },
   ],
-  'SATURDAY AUGUST 30': [
+  'Saturday August 30': [
     {
       'Event Name': 'F!rosh Retreat',
       'Event Location': 'Hart House Farm',
       'Event Description':
-        'Come with us out of the concrete jungle to enjoy a weekend of camp nostalgia, filled with swimming, games, campfires and more!',
+        'F!rosh can join Leedurs for a weekend camping trip to touch grass that caps off F!rosh Week, full of swimming, campfires, games, and other fun activities to connect F!rosh.',
       'Start Time': '10:00 AM',
       'End Time': 'Late',
       Color: 'long',
     },
   ],
-  'SUNDAY AUGUST 31': [
+  'Sunday August 31': [
     {
       'Event Name': 'F!rosh Retreat',
       'Event Location': 'Hart House Farm',
       'Event Description':
-        'Come with us out of the concrete jungle to enjoy a weekend of camp nostalgia, filled with swimming, games, campfires and more!',
+        'F!rosh can join Leedurs for a weekend camping trip to touch grass that caps off F!rosh Week, full of swimming, campfires, games, and other fun activities to connect F!rosh.',
       'Start Time': 'Early',
       'End Time': '2:00 PM',
       Color: 'long',

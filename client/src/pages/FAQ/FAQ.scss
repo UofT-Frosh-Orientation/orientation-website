@@ -314,7 +314,7 @@
 .faq-search-result-answer-accordion {
   margin-top: 7px;
   border-radius: 12px;
-  color: var(--text-inverted);
+  color: var(--lilac);
   @include devices(tablet) {
     font-size: 16px;
   }
@@ -330,7 +330,7 @@
 .faq-no-results {
   width: 100%;
   text-align: center;
-  color: var(--text-dynamic);
+  color: var(--text-primary);
 }
 
 .pagination-controls {
@@ -355,7 +355,7 @@
 
     &.active {
       background-color: var(--monster);
-      color: var(--text-inverted);
+      color: var(--mikado);
     }
   }
 }

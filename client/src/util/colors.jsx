@@ -4,7 +4,7 @@ export const colors = {
   '--bg-secondary': ['#EBEBEB', '#382159'],
   '--neutral-secondary': ['#EBEBEB', '#2E194C'],
   '--text-primary': ['#000000', '#FFFFFF'],
-  '--text-inverted': ['#e9dff5', '#000000'],
+  '--text-inverted': ['#E9DFF5', '#000000'],
   '--text-secondary': ['#5E5E5E', '#DFCDF3'],
   '--vignette': ['#00000040', '#00000040'],
   '--link-dynamic': ['#A77AD7', '#FFC600'],
@@ -19,6 +19,8 @@ export const colors = {
   '--dusk': ['#EBEBEB', '#EBEBEB'],
   '--dawn': ['#3C3C3C', '#3C3C3C'],
 
+  '--lilac': ['#E9DFF5', '#E9DFF5'],
+
   // 2T5 Schedule Colours
   '--sc-general': ['#711F8B', '#711F8B'],
   '--sc-long': ['#FFC600', '#FFC600'],
@@ -28,7 +30,7 @@ export const colors = {
   '--sc-other': ['#EBEBEB', '#EBEBEB'],
   // '--sc-highlight': ['#00000042', '#FFFFFF42'],
   '--sc-highlight': ['#00000000', '#FFFFFF00'],
-  '--sc-text': ['#3D0F58', '#3D0F58'],
+  '--sc-text': ['#000000', '#3D0F58'],
   '--sc-inverted': ['#FFC600', '#FFC600'],
 
   // 2T5 Other Specific Components
@@ -37,7 +39,7 @@ export const colors = {
   '--sponsor-bronze': ['#cd7f32', '#cd7f32'],
   '--sponsor-silver': ['#c0c0c0', '#c0c0c0'],
   '--sponsor-gold': ['#FFC600', '#FFC600'],
-  '--sponsor-diamond': ['#711F8B', '#711F8B'],
+  '--sponsor-diamond': ['#A0D8EF', '#A0D8EF'],
 
   // 2T4 + Earlier Colours Start Here -----------------------------------------------------------------------------------
   '--purple': ['#6f1e88', '#613480'],
@@ -66,7 +68,7 @@ export const colors = {
   '--text-light': ['#f3f3f3', '#f3f3f3'],
   '--text-dynamic': ['#20002e', '#f3f3f3'],
   '--text-muted': ['#696969', '#696969'],
-  '--page-bg': ['#efe9f8', '#382159'],
+  '--page-bg': ['#FFFFFF', '#291742'],
   '--purple-transparent': ['#7b33a8d6', '#793DA1B8'],
   '--purple-transparent-more': ['#7b33a830', '#79409F58'],
   '--transparent': ['#00000000', '#00000000'],
@@ -89,7 +91,7 @@ export const colors = {
   '--gray-time-label': ['#858087', '#D6D6D6'],
 
   // unique colors for each component
-  '--schedule-container': ['#f0e6f2', '#8c60b3'],
+  '--schedule-container': ['#711F8B', '#711F8B'],
   '--schedule-container-selected': ['#bca1d1', '#593875'],
   '--accordian-hover-bg': ['#00000018', '#8c60b3'],
   '--control-dot': ['#6f1e88', '#8c60b3'],
@@ -110,7 +112,7 @@ export const colors = {
   '--button-outlined-disabled-border': ['#989898', '#8c60b3'],
   '--button-disabled': ['#BBBBBB', '#300150'],
   '--button-pressed-highlight': ['#cdb4e0', '#795696'],
-  '--button-pressed-shadow': ['#ad91c2', '#00000038'],
+  '--button-pressed-shadow': ['#000000a0', '#000000a0'], // Used in 2T5
   '--button-active-bg': ['#DFCFE6', '#7b539e'],
 
   //about us teams tab
