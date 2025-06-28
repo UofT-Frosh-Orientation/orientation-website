@@ -162,7 +162,7 @@ const AboutUsExecTeam = () => {
   return (
     <>
       <button onClick={() => setDisplayGame(!displayGame)} className="exec-display-toggle">
-        {displayGame ? 'Display in Regular View' : 'Display in Game View!'}
+        {displayGame ? 'Grid View' : 'Game View'}
       </button>
       {displayGame ? (
         <div className="exec-game-container">

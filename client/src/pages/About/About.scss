@@ -1,4 +1,5 @@
 @import '../../scssStyles/mixins';
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
 
 :root {
   --pixel-border-regular: url('../../assets/buttons/button-pixel-border-regular-light.png');
@@ -177,11 +178,12 @@
   margin: -50px auto 50px auto;
   padding: 12px;
   text-align: center;
-  background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: 'Staatliches', sans-serif;
+  font-family: 'Jersey 20';
   border-radius: 100px;
-  width: 200px;
+  border: 2px solid var(--text-primary);
+  background-color: var(--bg-primary);
+  width: 100px;
   height: auto;
   font-size: 20px;
   cursor: url('../../assets/cursor/pointer.png'), auto !important;
@@ -201,6 +203,18 @@
 
   @include devices(tablet) {
     width: 85vw;
+    margin-bottom: 10px;
+  }
+}
+
+.you-got-exec {
+  font-size: 32px;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  font-family: 'Jersey 20', sans-serif;
+
+  @include devices(tablet) {
+    font-size: 24px;
     margin-bottom: 10px;
   }
 }
