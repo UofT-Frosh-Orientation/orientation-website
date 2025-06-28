@@ -171,8 +171,11 @@
     font-size: 24px;
     padding: 15px 5px;
     @include devices(tablet) {
-      font-size: 20px;
-      padding: 10px 0px;
+      // font-size: 20px;
+      // padding: 10px 0px;
+      margin-bottom: 0px !important;
+      padding-bottom: 0px !important;
+      font-weight: 900;
     }
     // color: var(--text-dark);
   }
@@ -182,8 +185,9 @@
     // color: var(--gray-time-label);
     text-align: right;
     @include devices(tablet) {
-      font-size: 15px;
-      padding: 5px 0px;
+      // font-size: 30px;
+      // padding: 5px 0px;
+      font-weight: 700;
     }
   }
   p {
@@ -206,24 +210,61 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+
+  @include devices(tablet) {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
 }
+
+.eventtimedesktop {
+  @include devices(tablet) {
+    display: none;
+  }
+}
+
+.eventtimemobile {
+  @media (min-width: 767px) {
+    display: none;
+  }
+  margin-left: 0px !important;
+  margin-bottom: 10px;
+  padding-top: 5px !important;
+}
+
 .schedule-accordion-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   flex-direction: column;
   user-select: none;
+
+  @include devices(tablet) {
+    align-items: center;
+    justify-content: center;
+  }
 }
 .schedule-accordion-location {
   // color: var(--gray-time-label);
   margin-bottom: 10px;
   font-size: 16px;
+
+  @include devices(tablet) {
+    display: none;
+  }
 }
 .schedule-accordion-header-location-icon {
   width: 14px;
   height: 14px;
   margin-top: 3px;
   margin-right: 3px;
+
+  @include devices(tablet) {
+    visibility: hidden;
+    width: 10px;
+    height: 10px;
+  }
 }
 .schedule-accordion-header-location-container {
   display: flex;

@@ -4,7 +4,7 @@ export const colors = {
   '--bg-secondary': ['#EBEBEB', '#382159'],
   '--neutral-secondary': ['#EBEBEB', '#2E194C'],
   '--text-primary': ['#000000', '#FFFFFF'],
-  '--text-inverted': ['#e9dff5', '#000000'],
+  '--text-inverted': ['#E9DFF5', '#000000'],
   '--text-secondary': ['#5E5E5E', '#DFCDF3'],
   '--vignette': ['#00000040', '#00000040'],
   '--link-dynamic': ['#A77AD7', '#FFC600'],
@@ -18,6 +18,8 @@ export const colors = {
   '--palegold': ['#FBDC70', '#FBDC70'],
   '--dusk': ['#EBEBEB', '#EBEBEB'],
   '--dawn': ['#3C3C3C', '#3C3C3C'],
+
+  '--lilac': ['#E9DFF5', '#E9DFF5'],
 
   // 2T5 Schedule Colours
   '--sc-general': ['#711F8B', '#711F8B'],
@@ -37,7 +39,7 @@ export const colors = {
   '--sponsor-bronze': ['#cd7f32', '#cd7f32'],
   '--sponsor-silver': ['#c0c0c0', '#c0c0c0'],
   '--sponsor-gold': ['#FFC600', '#FFC600'],
-  '--sponsor-diamond': ['#711F8B', '#711F8B'],
+  '--sponsor-diamond': ['#A0D8EF', '#A0D8EF'],
 
   // 2T4 + Earlier Colours Start Here -----------------------------------------------------------------------------------
   '--purple': ['#6f1e88', '#613480'],
@@ -66,7 +68,7 @@ export const colors = {
   '--text-light': ['#f3f3f3', '#f3f3f3'],
   '--text-dynamic': ['#20002e', '#f3f3f3'],
   '--text-muted': ['#696969', '#696969'],
-  '--page-bg': ['#efe9f8', '#382159'],
+  '--page-bg': ['#FFFFFF', '#291742'],
   '--purple-transparent': ['#7b33a8d6', '#793DA1B8'],
   '--purple-transparent-more': ['#7b33a830', '#79409F58'],
   '--transparent': ['#00000000', '#00000000'],
