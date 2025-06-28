@@ -173,7 +173,7 @@
 
 .exec-display-toggle {
   display: block;
-  margin: 0 auto;
+  margin: -50px auto 50px auto;
   padding: 12px;
   text-align: center;
   background-color: var(--bg-primary);
@@ -184,7 +184,6 @@
   height: auto;
   font-size: 20px;
   cursor: url('../../assets/cursor/pointer.png'), auto !important;
-  margin-bottom: 20px;
 
   @include devices(tablet) {
     width: 150px;
@@ -195,9 +194,9 @@
 
 .exec-game-container {
   display: flex;
+  justify-content: center;
   align-items: center;
   width: 100%;
-  height: auto;
 
   @include devices(tablet) {
     width: 85vw;
@@ -206,11 +205,14 @@
 }
 
 .exec-game-machine {
-  width: 30%;
+  width: 50vw;
+  max-height: 500px;
   height: auto;
-  margin-bottom: 20px;
   border-radius: 10px;
   object-fit: contain;
+
+  display: flex;
+  margin: 0 10px -20px -20vw;
 
   @include devices(tablet) {
     width: 30vw;

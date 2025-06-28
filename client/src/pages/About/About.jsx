@@ -174,7 +174,7 @@ const AboutUsExecTeam = () => {
             />
           </button>
           {execIndex < execInfo.ocs.length ? (
-            <div className="aboutus-oc-grid-container">
+            <div className="">
               <ExecProfile
                 key={execInfo.ocs[execIndex].name}
                 className="oc-grid-item"
@@ -187,7 +187,7 @@ const AboutUsExecTeam = () => {
               />
             </div>
           ) : (
-            <div className="aboutus-vc-grid-container">
+            <div className="">
               {execInfo.vcs[execIndex - execInfo.ocs.length] && (
                 <ExecProfile
                   key={execInfo.vcs[execIndex - execInfo.ocs.length].name}
