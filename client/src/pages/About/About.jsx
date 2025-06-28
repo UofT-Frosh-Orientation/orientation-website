@@ -173,35 +173,38 @@ const AboutUsExecTeam = () => {
               className="exec-game-machine"
             />
           </button>
-          {execIndex < execInfo.ocs.length ? (
-            <div className="">
-              <ExecProfile
-                key={execInfo.ocs[execIndex].name}
-                className="oc-grid-item"
-                image={execInfo.ocs[execIndex].image}
-                name={execInfo.ocs[execIndex].name}
-                role={execInfo.ocs[execIndex].role}
-                discipline={execInfo.ocs[execIndex].discipline}
-                roleDescription={execInfo.ocs[execIndex].description}
-                exec={true}
-              />
-            </div>
-          ) : (
-            <div className="">
-              {execInfo.vcs[execIndex - execInfo.ocs.length] && (
+          <div className="exec-game-display">
+            <p className="you-got-exec">You got...</p>
+            {execIndex < execInfo.ocs.length ? (
+              <div className="">
                 <ExecProfile
-                  key={execInfo.vcs[execIndex - execInfo.ocs.length].name}
-                  className="vc-grid-item"
-                  image={execInfo.vcs[execIndex - execInfo.ocs.length].image}
-                  name={execInfo.vcs[execIndex - execInfo.ocs.length].name}
-                  role={execInfo.vcs[execIndex - execInfo.ocs.length].role}
-                  discipline={execInfo.vcs[execIndex - execInfo.ocs.length].discipline}
-                  roleDescription={execInfo.vcs[execIndex - execInfo.ocs.length].description}
+                  key={execInfo.ocs[execIndex].name}
+                  className="oc-grid-item"
+                  image={execInfo.ocs[execIndex].image}
+                  name={execInfo.ocs[execIndex].name}
+                  role={execInfo.ocs[execIndex].role}
+                  discipline={execInfo.ocs[execIndex].discipline}
+                  roleDescription={execInfo.ocs[execIndex].description}
                   exec={true}
                 />
-              )}
-            </div>
-          )}
+              </div>
+            ) : (
+              <div className="">
+                {execInfo.vcs[execIndex - execInfo.ocs.length] && (
+                  <ExecProfile
+                    key={execInfo.vcs[execIndex - execInfo.ocs.length].name}
+                    className="vc-grid-item"
+                    image={execInfo.vcs[execIndex - execInfo.ocs.length].image}
+                    name={execInfo.vcs[execIndex - execInfo.ocs.length].name}
+                    role={execInfo.vcs[execIndex - execInfo.ocs.length].role}
+                    discipline={execInfo.vcs[execIndex - execInfo.ocs.length].discipline}
+                    roleDescription={execInfo.vcs[execIndex - execInfo.ocs.length].description}
+                    exec={true}
+                  />
+                )}
+              </div>
+            )}
+          </div>
         </div>
       ) : (
         <>
