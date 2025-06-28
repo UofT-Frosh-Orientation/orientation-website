@@ -70,11 +70,11 @@
     //  5px  5px 0 var(--monster);
     line-height: 0.8;
 
-    @include devices(huge) {
-      font-size: 350px;
-      text-shadow: 10px 10px 0 var(--jam), -10px -10px 0 var(--jam), 10px -10px 0 var(--jam),
-        -10px 10px 0 var(--jam);
-    }
+    // @include devices(huge) {
+    //   font-size: 300px;
+    //   text-shadow: 10px 10px 0 var(--jam), -10px -10px 0 var(--jam), 10px -10px 0 var(--jam),
+    //     -10px 10px 0 var(--jam);
+    // }
   }
 
   h2 {
