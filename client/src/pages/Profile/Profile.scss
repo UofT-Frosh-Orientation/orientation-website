@@ -1,4 +1,5 @@
 @import '../../scssStyles/mixins';
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
 
 @font-face {
   font-family: 'Proxima Nova';
@@ -10,7 +11,7 @@
   align-items: center;
   flex-direction: row;
   background-color: var(--purple);
-  padding: 0% 9%;
+  padding: 0% 5%;
   padding-top: 60px;
   padding-bottom: 25px;
   @include devices(tablet) {
@@ -26,8 +27,11 @@
     }
   }
   h2 {
-    color: var(--text-light);
-    font-size: 65px;
+    color: var(--jam);
+    font-size: 60px;
+    line-height: 44px;
+    font-family: 'Jersey 20';
+
     @include devices(tablet) {
       font-size: 40px;
     }
@@ -89,7 +93,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 5%;
+  //margin-right: 5%;
   text-align: center;
 }
 
@@ -120,6 +124,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 15px;
+  padding-top: 25px;
+}
+
+.class-of-p {
+  color: var(--jam) !important;
+  margin-bottom: 5px;
 }
 
 .profile-page-header-info {
@@ -422,7 +433,13 @@
 
 .profile-info-row-right {
   margin-left: 6%;
-
+  margin-bottom: 32px;
+  p {
+    font-size: 20px;
+    @include devices(tablet) {
+      font-size: 15px;
+    }
+  }
   @include devices(tablet) {
     margin-left: 0;
   }

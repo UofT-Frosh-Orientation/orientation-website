@@ -512,6 +512,11 @@
   }
 }
 
+.sponsor-card,
+.sponsor-card * {
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
+}
+
 // This is the most forceful way to remove the link's underline
 .sponsor-card-link,
 .sponsor-card-link:link,

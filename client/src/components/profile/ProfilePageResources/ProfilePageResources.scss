@@ -6,10 +6,11 @@
   overflow: hidden;
   flex: 0;
   flex-shrink: 1;
-  padding: 25px 30px !important;
+  padding: 10px;
+  padding-top: 2px;
   h2 {
-    color: var(--text-dynamic);
-    font-size: 32px;
+    color: var(--text-secondary);
+    font-size: 24px;
   }
   @include devices(tablet) {
     max-width: 90vw;
@@ -24,15 +25,22 @@
   max-width: 350px;
   background-color: var(--container-bg);
   box-shadow: var(--shadow);
-  border-radius: 25px;
+  //border-radius: 25px;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 15px;
   @include devices(tablet) {
     max-width: 90vw;
     width: 90vw;
     margin-top: 20px;
   }
   color: var(--text-dynamic);
+}
+
+.resource-links {
+  margin: 10px;
+  margin-left: 0px !important;
+  background: none;
+  text-decoration: underline;
+  color: var(--jam);
 }

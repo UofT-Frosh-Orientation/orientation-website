@@ -50,7 +50,7 @@ export const ProfilePageSchedule = () => {
       >
         <h2 className="profile-page-section-header profile-page-section-header-schedule">
           SCHEDULE
-          <h3 className="profile-page-sesction-header profile-page-section-header-schedule-note">
+          <h3 className="profile-page-section-header-schedule-note">
             *Once you have arrived to F!rosh Week on Monday and Tuesday you do not need to worry
             about the schedule as it is your head leedurs’ responsibility to keep track of the
             schedule of events.

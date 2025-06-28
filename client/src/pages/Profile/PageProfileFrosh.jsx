@@ -259,7 +259,7 @@ const ProfilePageFroshHeader = ({ editButton }) => {
           <div className="profile-page-header-left">
             <div className="profile-class-circlebg desktop-only">
               <div className="profile-page-header-class desktop-only">
-                <p>Class of</p>
+                <p className="class-of-p">Class of</p>
                 <h2>{froshYear}</h2>
               </div>
             </div>
@@ -313,22 +313,6 @@ const ProfilePageFroshHeader = ({ editButton }) => {
         src={darkMode ? WaveReverseFlipDarkMode : WaveReverseFlip}
         className="wave-image home-page-bottom-wave-image"
       />
-
-      {!isRegistered ? (
-        <div className={'profile-not-registered'}>
-          <h1>You are not registered</h1>
-          <h2>Please complete your registration in order to participate in F!rosh Week events</h2>
-          {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
-          <Link
-            key={'/registration'}
-            to={'/registration'}
-            style={{ textDecoration: 'none' }}
-            className={'no-link-style'}
-          >
-            <Button label="Register" style={{}} />
-          </Link>
-        </div>
-      ) : null}
     </>
   );
 };

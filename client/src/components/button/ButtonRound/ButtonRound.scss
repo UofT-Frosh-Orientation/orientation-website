@@ -8,6 +8,7 @@
   text-align: center;
   font-weight: 800;
   transition: all 300ms ease-in-out;
+  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
 
   &:hover {
     transform: scale(1.05);
