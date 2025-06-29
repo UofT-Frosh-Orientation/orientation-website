@@ -123,7 +123,6 @@ const AboutUsExecTeam = () => {
         <h1 className="executive-title">Meet the Executives</h1>
       </div>
 
-      {/*testing the slider button*/}
       <div className="toggle-container">
         <button
           className={`exec-display-toggle ${displayGame ? 'game-view' : 'card-view'}`}

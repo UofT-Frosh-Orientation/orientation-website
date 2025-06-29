@@ -112,7 +112,6 @@
 }
 
 .aboutus-info {
-  // background: rgba(255, 255, 255, 0.25);
   border-radius: 20px;
   // box-shadow: #00000025 0px 8px 24px;
 
@@ -208,6 +207,12 @@
 
   border: 3px solid var(--bg-primary);
   transition: all 150ms ease-in-out;
+
+  @include devices(tablet) {
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .thumb {
@@ -470,6 +475,13 @@
   font-weight: 900;
   margin-bottom: 20px;
   text-align: left;
+
+  @include devices(tablet) {
+    display: flex;
+    font-size: 36px;
+    text-align: center;
+    justify-content: center;
+  }
 }
 
 .aboutus-teams-tabs-title-selected {
