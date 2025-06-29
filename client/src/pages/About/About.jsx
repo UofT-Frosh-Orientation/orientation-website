@@ -5,25 +5,13 @@ import { aboutUsInfo } from '../../util/about/aboutus';
 import { execInfo } from '../../util/about/execs';
 
 import { ExecProfile } from './ExecProfile/ExecProfile';
-import ExecLogo from '../../assets/about/about-page.svg';
 import newAboutLogo from '../../assets/about/F! Purple.png';
-import frame from '../../assets/about/frame.png';
-import newPurpleLogo from '../../assets/about/F! Purple.png';
-import { useEffect } from 'react';
-import { object } from 'prop-types';
 import { Header } from '../../components/text/Header/Header';
 
-import InstagramIcon from '../../assets/social/instagram-brands.svg';
-import MailIcon from '../../assets/social/envelope-solid.svg';
-import { instagramAccounts } from '../../util/instagramAccounts';
-
-// import PropTypes from 'prop-types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-import placeholder from '../../assets/logo/main-logo-2T5.png';
 import gachamachine from '../../assets/about/gachamachine.png';
 import clawmachine from '../../assets/about/clawmachine.png';
-import { get } from 'lodash';
 
 const PageAbout = () => {
   return (
