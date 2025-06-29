@@ -38,14 +38,25 @@
   h1 {
     font-size: 35px;
     font-family: 'Jersey 20', sans-serif;
+
+    @include devices(tablet) {
+      font-size: 25px;
+    }
   }
   h2 {
     font-size: 18px;
+
+    @include devices(tablet) {
+      font-size: 16px;
+    }
   }
 
   @include devices(tablet) {
-    padding: 25px 30px;
-    margin: 8px 6px;
+    min-width: 150px;
+    min-height: 80px;
+    padding: 5px 5px;
+    margin: 4px 3px;
+    background-color: black;
   }
 }
 
