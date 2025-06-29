@@ -54,7 +54,7 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'What do I do if I arrive late?',
       answer:
-        'Please try to arrive on time (Toronto transit and traffic can be unpredictable, so we highly recommend a bit of buffer!), but if you arrive late due to unforeseen circumstances, make your way to The Garden (you can ask anyone wearing a F!rosh Week shirt that isn’t yellow) and we can get you to your group from there! \n\n If you know in advance that you will be arriving late, please send us a message at registration@orientation.skule.ca after registering so your leedurs can plan accordingly!',
+        'Please try to arrive on time (Toronto transit and traffic can be unpredictable, so we highly recommend a bit of buffer!), but if you arrive late due to unforeseen circumstances, make your way to the AFK Lounge (you can ask anyone wearing a F!rosh Week shirt that isn’t yellow) and we can get you to your group from there! \n\n If you know in advance that you will be arriving late, please send us a message at registration@orientation.skule.ca after registering so your leedurs can plan accordingly!',
       lastUpdated: '12:21pm, Jun 22, 2024',
       category: 'General',
     },
