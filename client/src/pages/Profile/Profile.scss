@@ -12,8 +12,9 @@
   flex-direction: row;
   background-color: var(--purple);
   padding: 0% 5%;
-  padding-top: 60px;
+  padding-top: 80px;
   padding-bottom: 25px;
+
   @include devices(tablet) {
     padding: 4% 5%;
     padding-top: 12%;
@@ -36,13 +37,6 @@
       font-size: 40px;
     }
   }
-  .profile-page-name-title {
-    color: var(--text-light);
-    font-size: 55px;
-    @include devices(tablet) {
-      font-size: 30px;
-    }
-  }
   p {
     color: var(--text-light);
     font-size: 18px;
@@ -50,42 +44,60 @@
       font-size: 15px;
     }
   }
-  .profile-edit-icon-link {
+  b {
+    color: var(--text-light);
+    font-size: 80px;
+    font-family: 'Jersey 20' !important;
+    font-weight: normal;
+    //letter-spacing: 0.2rem;
+    @include devices(tablet) {
+      font-size: 30px;
+    }
+  }
+
+  @include devices(tablet) {
+    width: 35px;
+    height: 35px;
+    padding: 9px;
+    margin: 5px 12px;
+  }
+}
+
+.profile-name-edit-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-edit-icon-link {
+  @include devices(tablet) {
     position: absolute;
-    right: 10px;
-    top: 55px;
-    @include devices(tablet) {
-      right: 5px;
-      top: 5px;
-    }
+    right: 5px;
+    top: 5px;
   }
-  .profile-edit-icon-link,
-  .profile-edit-icon-link * {
-    cursor: url('/assets/cursor/pointer.png'), auto !important;
-  }
-  .profile-edit-icon {
-    width: 40px;
-    height: 40px;
-    padding: 10px;
-    background-color: var(--yellow);
-    border-radius: 12px;
-    border-image-source: var(--yellow-pixel-border);
-    border-image-slice: 12;
-    border-image-width: 12px;
-    border-image-outset: 2px;
-    border-image-repeat: repeat;
-    box-shadow: var(--shadow);
-    &:hover {
-      transform: scale(1.05);
-    }
-    right: 10px;
-    top: 55px;
-    @include devices(tablet) {
-      width: 35px;
-      height: 35px;
-      padding: 9px;
-      margin: 5px 12px;
-    }
+}
+
+.profile-edit-icon-link,
+.profile-edit-icon-link * {
+  cursor: url('/assets/cursor/pointer.png'), auto !important;
+}
+
+.profile-edit-icon {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  background-color: var(--yellow);
+  border-radius: 12px;
+  border-image-source: var(--yellow-pixel-border);
+  border-image-slice: 12;
+  border-image-width: 12px;
+  border-image-outset: 2px;
+  border-image-repeat: repeat;
+  box-shadow: var(--shadow);
+  &:hover {
+    transform: scale(1.05);
   }
 }
 
@@ -117,7 +129,7 @@
 }
 
 .profile-class-circlebg {
-  background: url('../../assets/profile/class-background.png') center center no-repeat;
+  background: url('../../assets/profile/class-background.svg') center center no-repeat;
   background-size: contain;
   width: 140px; // Adjust to fit your image
   height: 140px; // Adjust to fit your image
@@ -190,10 +202,24 @@
   justify-content: center;
   align-items: flex-start;
   margin: 0% 5%;
-  @include devices(tablet) {
-    flex-direction: column;
+  @media screen and (max-width: 1375px) {
+    flex-direction: column !important;
     justify-content: center;
     align-items: center;
+  }
+
+  h2 {
+    color: var(--text-secondary);
+    font-size: 24px;
+  }
+  p {
+    color: var(--text-dynamic);
+    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    @include devices(tablet) {
+      font-size: 15px;
+    }
   }
 }
 
@@ -317,7 +343,7 @@
 .profile-not-registered {
   color: var(--text-dynamic);
   display: flex;
-  justify-content: space-between;
+  gap: 30px;
   align-items: center;
   flex-direction: row;
   margin-bottom: 25px;
@@ -432,14 +458,10 @@
 }
 
 .profile-info-row-right {
+  flex: 1;
   margin-left: 6%;
   margin-bottom: 32px;
-  p {
-    font-size: 20px;
-    @include devices(tablet) {
-      font-size: 15px;
-    }
-  }
+
   @include devices(tablet) {
     margin-left: 0;
   }

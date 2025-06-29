@@ -1,5 +1,13 @@
 @import '../../../scssStyles/mixins';
 
+:root {
+  --resource-link: var(--jam);
+}
+
+.dark-mode {
+  --resource-link: var(--yellow-light);
+}
+
 .profile-page-resources {
   margin-top: 20px;
   flex-wrap: wrap;
@@ -11,6 +19,7 @@
   h2 {
     color: var(--text-secondary);
     font-size: 24px;
+    margin-bottom: 8px;
   }
   @include devices(tablet) {
     max-width: 90vw;
@@ -23,8 +32,8 @@
 
 .profile-page-side-section {
   max-width: 350px;
-  background-color: var(--container-bg);
-  box-shadow: var(--shadow);
+  background-color: var(--resource-container-bg);
+  //box-shadow: var(--shadow);
   //border-radius: 25px;
   display: flex;
   justify-content: center;
@@ -42,5 +51,7 @@
   margin-left: 0px !important;
   background: none;
   text-decoration: underline;
-  color: var(--jam);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  color: var(--resource-link);
 }

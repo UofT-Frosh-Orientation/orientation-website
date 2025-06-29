@@ -264,15 +264,29 @@ const ProfilePageFroshHeader = ({ editButton }) => {
               </div>
             </div>
             <div className="profile-page-header-info">
-              <p className="profile-page-name-title">
-                {user?.preferredName === '' || !user?.preferredName ? (
-                  <>
-                    <b>{user?.firstName}</b> {user?.lastName}
-                  </>
-                ) : (
-                  <b>{user?.preferredName}</b>
-                )}
-              </p>
+              <div className="profile-name-edit-wrapper">
+                <>
+                  {user?.preferredName === '' || !user?.preferredName ? (
+                    <>
+                      <b>{user?.firstName}</b> {user?.lastName}
+                    </>
+                  ) : (
+                    <b>{user?.preferredName}</b>
+                  )}
+                </>
+                {editButton !== false ? (
+                  // {editButton !== false && isRegistered ? (
+                  <Link
+                    to={isRegistered ? '/profile-edit' : '/profile-edit-unregistered'}
+                    className={'profile-edit-icon-link no-link-style'}
+                  >
+                    <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
+                  </Link>
+                ) : // <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
+                //   <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
+                // </Link>
+                null}
+              </div>
               {user?.discipline && <p>{`Incoming ${user['discipline']} Engineering student`}</p>}
               <p>
                 <u>{user?.email}</u>
@@ -294,18 +308,6 @@ const ProfilePageFroshHeader = ({ editButton }) => {
               />
             )}
           </div>
-          {editButton !== false ? (
-            // {editButton !== false && isRegistered ? (
-            <Link
-              to={isRegistered ? '/profile-edit' : '/profile-edit-unregistered'}
-              className={'profile-edit-icon-link no-link-style'}
-            >
-              <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
-            </Link>
-          ) : // <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
-          //   <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
-          // </Link>
-          null}
         </div>
       </div>
 

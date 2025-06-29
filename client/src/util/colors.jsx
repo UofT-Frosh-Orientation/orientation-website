@@ -139,6 +139,7 @@ export const colors = {
 
   //signup page, profile page bubbles, payment error page
   '--container-bg': ['#ffffff', '#613480'],
+  '--resource-container-bg': ['#ffffff', '#291742'],
 
   //tasks and announcements
   '--task-container': ['#ffffff', '#8c60b3'], //also for timeline container
