@@ -148,24 +148,25 @@ const AboutUsExecTeam = () => {
               className="exec-game-machine-small"
             />
           </button>
-          {execIndex < execInfo.ocs.length ? (
-            <div className="exec-info-container">
-              <h2>You got...</h2>
-              <h1>{execInfo.ocs[execIndex].name}</h1>
-              <LazyLoadImage src={execInfo.ocs[execIndex].image} className="exec-img" />
-              <p>{execInfo.ocs[execIndex].description}</p>
-            </div>
-          ) : (
-            <div className="exec-info-container">
-              <h2>You got...</h2>
-              <h1>{execInfo.vcs[execIndex - execInfo.ocs.length].name}</h1>
-              <LazyLoadImage
-                src={execInfo.vcs[execIndex - execInfo.ocs.length].image}
-                className="exec-img"
-              />
-              <p>{execInfo.vcs[execIndex - execInfo.ocs.length].description}</p>
-            </div>
-          )}
+          <div className="exec-info-container">
+            <h2>You got...</h2>
+            {execIndex < execInfo.ocs.length ? (
+              <>
+                <h1>{execInfo.ocs[execIndex].name}</h1>
+                <LazyLoadImage src={execInfo.ocs[execIndex].image} className="exec-img" />
+                <p>{execInfo.ocs[execIndex].description}</p>
+              </>
+            ) : (
+              <>
+                <h1>{execInfo.vcs[execIndex - execInfo.ocs.length].name}</h1>
+                <LazyLoadImage
+                  src={execInfo.vcs[execIndex - execInfo.ocs.length].image}
+                  className="exec-img"
+                />
+                <p>{execInfo.vcs[execIndex - execInfo.ocs.length].description}</p>
+              </>
+            )}
+          </div>
         </div>
       ) : (
         <>
