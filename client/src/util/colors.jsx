@@ -4,6 +4,7 @@ export const colors = {
   '--bg-secondary': ['#EBEBEB', '#382159'],
   '--neutral-secondary': ['#EBEBEB', '#2E194C'],
   '--text-primary': ['#000000', '#FFFFFF'],
+  '--text-coloured': ['#711F8B', '#FFC600'],
   '--text-inverted': ['#E9DFF5', '#000000'],
   '--text-secondary': ['#5E5E5E', '#DFCDF3'],
   '--vignette': ['#00000040', '#00000040'],
