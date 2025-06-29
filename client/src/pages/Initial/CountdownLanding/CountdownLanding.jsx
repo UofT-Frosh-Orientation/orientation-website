@@ -62,7 +62,7 @@ const CountdownLanding = () => {
           effect="blur"
         />
 
-        <h2 className="countdown-subtitle">COMING AUGUST 26TH</h2>
+        <h2 className="countdown-subtitle">COMING AUGUST 25TH</h2>
         <h1 className="countdown-title">F!ROSH WEEK 2T5</h1>
 
         {/* Secondary time display */}

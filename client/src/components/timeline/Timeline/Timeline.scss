@@ -78,7 +78,7 @@
 }
 
 .timeline-date-container-clickable {
-  cursor: pointer;
+  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
   transition: transform 500ms;
   &:hover {
     transform: scale(1.05);

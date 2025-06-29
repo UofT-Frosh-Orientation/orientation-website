@@ -65,7 +65,7 @@ const PagePaymentError = ({ link }) => {
                 )}
               </a>
               <a
-                href="mailto:marketing@orientation.skule.ca"
+                href="mailto:tech@orientation.skule.ca"
                 className="no-link-style"
                 target="_blank"
                 rel="noreferrer"

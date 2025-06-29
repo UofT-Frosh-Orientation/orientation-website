@@ -1,88 +1,81 @@
 @import '../../../scssStyles/_mixins.scss';
 
 :root {
-  --top-left-corner-border: url('../../../../src/assets/buttons/top-left-corner-border.svg');
-  --bottom-right-corner-border: url('../../../../src/assets/buttons/bottom-right-corner-border.svg');
+  //--top-left-corner-border: url('../../../../src/assets/buttons/top-left-corner-border.svg');
+  //--bottom-right-corner-border: url('../../../../src/assets/buttons/bottom-right-corner-border.svg');
+  --pixel-border: url('../../../assets/buttons/button-pixel-border-light.png');
+  --pixel-border-pressed: url('../../../assets/buttons/button-pixel-border-light-pressed.png');
 }
 
 .dark-mode {
-  --top-left-corner-border: url('../../../../src/assets/buttons/top-left-corner-border-dark.svg');
-  --bottom-right-corner-border: url('../../../../src/assets/buttons/bottom-right-corner-border-dark.svg');
+  //--top-left-corner-border: url('../../../../src/assets/buttons/top-left-corner-border-dark.svg');
+  //--bottom-right-corner-border: url('../../../../src/assets/buttons/bottom-right-corner-border-dark.svg');
+  --pixel-border: url('../../../assets/buttons/button-pixel-border-dark.png');
+  --pixel-border-pressed: url('../../../assets/buttons/button-pixel-border-dark-pressed.png');
 }
 
 .button-outlined {
   margin: 15px 10px;
-  background-color: var(--button-outlined-bg);
-  color: var(--button-outlined-font);
-  display: inline-block;
-  border-radius: 14px;
-  padding: 10px 26px;
-  box-shadow: var(--shadow);
+
+  border-image-source: var(--schedule-dates-pixel-border);
+  background-color: var(--monster);
+  color: var(--lavender);
+  box-shadow: inset -6px -6px var(--button-pressed-shadow);
+  border-radius: 18px;
   text-align: center;
-  font-size: 17px;
-  font-weight: 600;
   cursor: url('../../../../assets/cursor/cursor.png'), auto; // Apply custom cursor here
-  transition: transform 200ms;
   user-select: none;
-  border-width: 4px;
-  border-color: var(--light-purple);
-  border-style: solid;
+  border-image-slice: 30;
+  border-image-width: 30px;
+  border-image-outset: 1px;
+  border-image-repeat: repeat;
   position: relative;
+  min-width: 200px;
+  min-height: 100px;
 
-  //BUTTON BORDERS
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    background-repeat: no-repeat;
-    z-index: 0;
+  padding: 10px 26px;
+
+  h1 {
+    font-size: 35px;
+    font-family: 'Jersey 20', sans-serif;
   }
-
-  &::before {
-    top: -10px;
-    left: -10px;
-    background-image: var(--top-left-corner-border);
-  }
-
-  &::after {
-    bottom: -45px;
-    right: -15px;
-    background-image: var(--bottom-right-corner-border);
-  }
-
-  //BUTTON BORDERS END
-
-  &:hover {
-    transform: scale(1.02);
-    transition: transform 200ms;
-  }
-
-  &:active {
-    transform: scale(0.97);
-    transition: transform 150ms;
+  h2 {
+    font-size: 18px;
   }
 
   @include devices(tablet) {
-    font-size: 16px;
-    padding: 10px 30px;
-    border-width: 3px;
+    padding: 25px 30px;
     margin: 8px 6px;
   }
 }
 
 .button-outlined-secondary {
-  background-color: var(--button-outlined-bg-secondary);
-  border-color: var(--button-outlined-border); //--purple-shades-muted
-  color: var(--button-outlined-font);
-  font-weight: unset;
-  transition: transform 200ms, background-color 200ms, border-color 200ms;
+  // background-color: var(--button-outlined-bg-secondary);
+  // color: var(--button-outlined-font);
+  // font-weight: unset;
+  // box-shadow: 3px 3px 3px #00000038;
+  box-shadow: inset -6px -6px #3d0f58;
+  color: var(--mikado);
+  background-color: var(--schedule-container);
+  // border-image-source: var(--pixel-border);
+  border-radius: 18px;
+  border-image-source: var(--schedule-dates-pixel-border-selected);
+  border-image-slice: 12;
+  border-image-width: 12px;
+  border-image-outset: 1px;
+  border-image-repeat: repeat;
 
   &:hover {
-    transition: transform 200ms, background-color 200ms, border-color 200ms;
-    background-color: var(--purple-shades-light);
     border-color: var(--light-purple);
+    transform: scale(1.02);
+    cursor: url('../../../assets/cursor/pointer.png'), auto;
+  }
+
+  &:active {
+    transform: translateY(2px);
+    //box-shadow: inset 4px 4px #00000038, inset -4px -4px #ffffff44;
+    // background-color: var(--button-active-bg);
+    // border-image-source: var(--pixel-border-pressed);
   }
 }
 

@@ -58,4 +58,12 @@ export const profilePages = {
       function: logoutFunction,
     },
   ],
+  notReady: [
+    // {
+    //   label: 'Check Back Soon for Registration',
+    //   icon: LoginIcon,
+    //   iconDark: LoginIconDarkMode,
+    //   path: '',
+    // },
+  ],
 };

@@ -1,4 +1,48 @@
 export const colors = {
+  // 2T5 Redesign Colours Start Here -----------------------------------------------------------------------------------
+  '--bg-primary': ['#FFFFFF', '#291742'],
+  '--bg-secondary': ['#EBEBEB', '#382159'],
+  '--neutral-secondary': ['#EBEBEB', '#2E194C'],
+  '--text-primary': ['#000000', '#FFFFFF'],
+  '--text-coloured': ['#711F8B', '#FFC600'],
+  '--text-inverted': ['#E9DFF5', '#000000'],
+  '--text-secondary': ['#5E5E5E', '#DFCDF3'],
+  '--vignette': ['#00000040', '#00000040'],
+  '--link-dynamic': ['#A77AD7', '#FFC600'],
+
+  '--monster': ['#3D0F58', '#3D0F58'],
+  '--jam': ['#711F8B', '#711F8B'],
+  '--wisteria': ['#A77AD7', '#A77AD7'],
+  '--lavender': ['#DFCDF3', '#DFCDF3'],
+  '--mikado': ['#FFC600', '#FFC600'],
+  '--sandstorm': ['#FED34C', '#FED34C'],
+  '--palegold': ['#FBDC70', '#FBDC70'],
+  '--dusk': ['#EBEBEB', '#EBEBEB'],
+  '--dawn': ['#3C3C3C', '#3C3C3C'],
+
+  '--lilac': ['#E9DFF5', '#E9DFF5'],
+
+  // 2T5 Schedule Colours
+  '--sc-general': ['#711F8B', '#711F8B'],
+  '--sc-long': ['#FFC600', '#FFC600'],
+  '--sc-break': ['#A77AD7', '#A77AD7'],
+  '--sc-night': ['#3C0E58', '#3C0E58'],
+  '--sc-special': ['#EBEBEB', '#EBEBEB'],
+  '--sc-other': ['#EBEBEB', '#EBEBEB'],
+  // '--sc-highlight': ['#00000042', '#FFFFFF42'],
+  '--sc-highlight': ['#00000000', '#FFFFFF00'],
+  '--sc-text': ['#000000', '#3D0F58'],
+  '--sc-inverted': ['#FFC600', '#FFC600'],
+
+  // 2T5 Other Specific Components
+  '--bg-footer': ['#711F8B', '#1f1033'],
+  '--bg-sponsor': ['#FFFFFF', '#A77AD7'],
+  '--sponsor-bronze': ['#cd7f32', '#cd7f32'],
+  '--sponsor-silver': ['#c0c0c0', '#c0c0c0'],
+  '--sponsor-gold': ['#FFC600', '#FFC600'],
+  '--sponsor-diamond': ['#A0D8EF', '#A0D8EF'],
+
+  // 2T4 + Earlier Colours Start Here -----------------------------------------------------------------------------------
   '--purple': ['#6f1e88', '#613480'],
   '--light-purple': ['#a04fb9', '#8c60b3'],
   '--purple-shades-dark': ['#3c0a5a', '#61347f'],
@@ -18,14 +62,14 @@ export const colors = {
   '--green-success-dark': ['#56964b', '#56964b'],
   '--red-error': ['#dd4343', '#dd4343'],
   '--red-error-light': ['#ffacac', '#ffacac'],
-  '--text-link': ['#4471d9', '#00d1ff'],
-  '--text-link-for-dark': ['#8AA8EC', '#5EB3EC'],
-  '--text-dark': ['#20002e', '#20002e'], // for a dark-text in bothe light and darkmode
+  '--text-link': ['#FFC600', '#FED34C'],
+  '--text-link-for-dark': ['#7a5f00', '#FED34C'],
+  '--text-dark': ['#20002e', '#20002e'], // for a dark-text in both light and darkmode
   '--text-dark-use': ['#20002e', '#ffffff'], // use this for dark-text that changes in light and darkmode
   '--text-light': ['#f3f3f3', '#f3f3f3'],
   '--text-dynamic': ['#20002e', '#f3f3f3'],
   '--text-muted': ['#696969', '#696969'],
-  '--page-bg': ['#efe9f8', '#382159'],
+  '--page-bg': ['#FFFFFF', '#291742'],
   '--purple-transparent': ['#7b33a8d6', '#793DA1B8'],
   '--purple-transparent-more': ['#7b33a830', '#79409F58'],
   '--transparent': ['#00000000', '#00000000'],
@@ -38,33 +82,39 @@ export const colors = {
     'invert(43%) sepia(0%) saturate(0%) hue-rotate(189deg) brightness(100%) contrast(88%)',
   ],
   '--purple-bg': ['#eed8ff', '#8E6FA7'],
-  '--yellow-bg': ['#ffffe4', '#8B8B4F'],
+  '--yellow-bg': ['#ffffe4', '#92804F'],
   '--dark-purple-bg': ['#d8c0ff', '#2E2145'],
-  '--gray-bg': ['#d4d4d4', '#767676'],
-  '--green-bg': ['#e9ffe9', '#3E723E'],
-  '--blue-bg': ['#d2d9ff', '#3A4688'],
+  '--gray-bg': ['#D7D2DC', '#6F6079'],
+  '--green-bg': ['#e9ffe9', '#51726E'],
+  '--blue-bg': ['#d2e1f7', '#424785'],
+  '--magenta-bg': ['#f7d2e1', '#6E2B5B'],
   '--login-bg': ['#e8e0eb', '#e8e0eb'],
-  '--gray-time-label': ['#989898', '#D6D6D6'],
+  '--gray-time-label': ['#858087', '#D6D6D6'],
 
   // unique colors for each component
-  '--schedule-container': ['#ffffff', '#8c60b3'],
+  '--schedule-container': ['#711F8B', '#711F8B'],
+  '--schedule-container-selected': ['#bca1d1', '#593875'],
+  '--accordian-hover-bg': ['#00000018', '#8c60b3'],
   '--control-dot': ['#6f1e88', '#8c60b3'],
 
   //navbar
-  '--navbar-bg': ['#ebebeb', '#41225A'],
-  '--navbar-link': ['#989898', '#ffffff'],
+  '--navbar-bg': ['#FFFFFF', '#382159'], // 2T5 uses this as well
+  '--navbar-link': ['#000000', '#ffffff'],
   '--navbar-underline': ['#e2e2e2', '#3C2152'],
   '--navbar-underline-desktop': ['#6f1e88', '#8c60b3'],
   '--navbar-underline-highlight': ['#6f1e88', '#8c60b3'],
   '--user-icon-bg': ['#6f1e88', '#8c60b3'],
 
   //button
-  '--button-outlined-bg': ['#ecd6ff', '#442066'],
-  '--button-outlined-bg-secondary': ['#f3f3f3', '#654A7E'],
+  '--button-outlined-bg': ['#bca1d1', '#442066'],
+  '--button-outlined-bg-secondary': ['#f0e6f1', '#654A7E'],
   '--button-outlined-border': ['#b297c7', '#8c60b3'],
   '--button-outlined-font': ['#20002e', '#ffffff'],
   '--button-outlined-disabled-border': ['#989898', '#8c60b3'],
   '--button-disabled': ['#BBBBBB', '#300150'],
+  '--button-pressed-highlight': ['#cdb4e0', '#795696'],
+  '--button-pressed-shadow': ['#000000a0', '#000000a0'], // Used in 2T5
+  '--button-active-bg': ['#DFCFE6', '#7b539e'],
 
   //about us teams tab
   '--aboutus-tabs-color': ['#b297c7', '#b297c7'],
@@ -73,8 +123,8 @@ export const colors = {
   '--leedur-names': ['#ecd6ff', '#ecd6ff'],
 
   //faq page
-  '--faq-answer-containers': ['#ecd6ff', '#522F70'],
-  '--faq-searchbar-bg': ['#ffffff', '#8c60b3'],
+  '--faq-answer-containers': ['#711F8B', '#711F8B'], // Used in 2T5
+  '--faq-searchbar-bg': ['#EBEBEB', '#3D0F58'], // Used in 2T5
 
   //login page
   '--login-title': ['#6f1e88', '#ffffff'],
@@ -83,8 +133,8 @@ export const colors = {
 
   //text-input
   '--textinput-bg': ['#f3f3f3', '#8c60b3'],
-  '--textinput-shadow-hover': ['#a04fb9', '#8c60b3'],
-  '--textinput-shadow-focus': ['#6f1e88', '#8C64AD'],
+  '--textinput-shadow-hover': ['#EBEBEB', '#8c60b3'],
+  '--textinput-shadow-focus': ['#EBEBEB', '#8C64AD'],
   '--disabled': ['#F3F3F3', '#300150'],
   '--placeholder-text': ['#D2D2D2', '#A282BE'],
 

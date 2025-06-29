@@ -1,15 +1,28 @@
 @import '../../../scssStyles/_mixins.scss';
 
+:root {
+  --pixel-border-regular: url('../../../assets/buttons/button-pixel-border-regular-light.png');
+}
+
+.dark-mode {
+  --pixel-border-regular: url('../../../assets/buttons/button-pixel-border-regular-dark.png');
+}
+
 .button-bubble {
   margin: 10px;
   background-color: var(--button-outlined-bg);
   color: var(--button-outlined-font);
   border-radius: 14px;
+  border-image-source: var(--pixel-border-regular);
+  border-image-slice: 30;
+  border-image-width: 30px;
+  border-image-outset: 1px;
+  border-image-repeat: repeat;
   padding: 13px 20px;
   box-shadow: var(--shadow);
   font-size: 20px;
   font-weight: 600;
-  cursor: url('../../../../assets/cursor/cursor.png'), auto; // Apply custom cursor here
+  cursor: url('../../../../assets/cursor/pointer.png'), auto; // Apply custom cursor here
   transition: transform 200ms;
   user-select: none;
   border-width: 4px;

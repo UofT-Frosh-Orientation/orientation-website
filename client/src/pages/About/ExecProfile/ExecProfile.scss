@@ -10,7 +10,7 @@
   margin: min(1vw, 30px);
   box-shadow: var(--shadow);
 
-  cursor: pointer;
+  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
   overflow: hidden;
 
   @include devices(mobile) {
@@ -24,10 +24,10 @@
   display: block;
   width: 100%;
   height: auto;
+  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
 }
 
 .exec-image-hover {
-  cursor: pointer;
   transition: transform 200ms;
 
   &:hover {

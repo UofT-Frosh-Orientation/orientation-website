@@ -8,7 +8,7 @@ import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import { Button } from '../../components/button/Button/Button';
 import { Tabs } from '../../components/tabs/tabs';
 import './RegistrationForm.scss';
-import MainFroshLogo from '../../assets/logo/main-logo.png';
+import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { Link, useNavigate } from 'react-router-dom';
 import { PopupModal } from '../../components/popup/PopupModal';
@@ -424,7 +424,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                                 : '')}
                           </h1>
                           <h2 className="registration-first-step-subtitle">
-                            LET&apos;S REGISTER FOR UOFT ENGINEERING&apos;S F!ROSH WEEK 2T4
+                            LET&apos;S REGISTER FOR UOFT ENGINEERING&apos;S F!ROSH WEEK 2T5
                           </h2>
                         </div>
                       </div>
@@ -459,7 +459,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                         isDisabled={!canRegister}
                       />
                       <p className="register-terms-of-service" style={{ marginTop: '20px' }}>
-                        Note: We will be making bursary decisions after Frosh week and will refund
+                        Note: We will be making bursary decisions after F!rosh Week and will refund
                         the amount to the students after the decisions. Our team will reach out to
                         you for more details regarding the bursary program. Bursaries range from
                         partial to complete settlement of the ticket price. Bursary applications are

@@ -9,7 +9,7 @@ import MessageIconPurple from '../../assets/navbar/message-solid-purple.svg';
 import HomeIconGrey from '../../assets/navbar/house-solid-grey.svg';
 import AboutIconGrey from '../../assets/navbar/circle-info-solid-grey.svg';
 import MessageIconGrey from '../../assets/navbar/message-solid-grey.svg';
-import MainFroshLogo from '../../assets/logo/main-logo.png';
+import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
 
 const pages = {
   main: [
@@ -97,14 +97,29 @@ const NavbarDesktop = ({ selectedPage, isLoggedIn, froshInitials, isRegistered }
               );
             }
             // if not logged in
-            return <img className="icon-profile-person" alt="profile" src={ProfileIcon}></img>;
+            return (
+              <img
+                key={page.label}
+                className="icon-profile-person"
+                alt="profile"
+                src={ProfileIcon}
+              ></img>
+            );
           } // Clicking on register button
           else if (page.label === 'Register' && isLoggedIn && !isRegistered) {
             // if not logged in
-            return <div className="register">{page.label}</div>;
+            return (
+              <div key={page.label} className="register">
+                {page.label}
+              </div>
+            );
           } // Clicking on login button
           else if (page.label === 'Login' && !isLoggedIn) {
-            return <div className="login">{page.label}</div>;
+            return (
+              <div key={page.label} className="login">
+                {page.label}
+              </div>
+            );
           }
         })}
       </div>
@@ -123,7 +138,7 @@ const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
         {pages.main.map((page) => {
           if (page.label === 'Home') {
             return (
-              <div className="navbar-sub-container">
+              <div className="navbar-sub-container" key={page.label}>
                 <div className="menu-icon">
                   <img
                     className="svg-icon"
@@ -140,7 +155,7 @@ const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
             );
           } else if (page.label === 'About') {
             return (
-              <div className="navbar-sub-container">
+              <div className="navbar-sub-container" key={page.label}>
                 <div className="menu-icon">
                   <img
                     className={`svg-icon ${selectedPage === page.label ? 'svg-icon-selected' : ''}`}
@@ -157,7 +172,7 @@ const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
             );
           } else if (page.label === 'FAQ') {
             return (
-              <div className="navbar-sub-container">
+              <div className="navbar-sub-container" key={page.label}>
                 <div className="menu-icon">
                   <img
                     className={`svg-icon ${selectedPage === page.label ? 'svg-icon-selected' : ''}`}
@@ -179,11 +194,18 @@ const NavbarMobile = ({ selectedPage, isLoggedIn, froshInitials }) => {
       {pages.special.map((page) => {
         if (page.label === 'Login') {
           if (!isLoggedIn) {
-            return <div className="login">{page.label}</div>;
+            return (
+              <div key={page.label} className="login">
+                {page.label}
+              </div>
+            );
           } else if (isLoggedIn) {
             return (
               // mobile: profile icon -> link to frosh profile
-              <div className="icon-profile"> {froshInitials} </div>
+              <div key={page.label} className="icon-profile">
+                {' '}
+                {froshInitials}{' '}
+              </div>
             );
           }
         }

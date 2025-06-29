@@ -89,7 +89,7 @@ export const FroshRetreat = () => {
 
       <p style={{ color: 'var(--text-dynamic)', margin: '10px 0', textAlign: 'center' }}>
         Interested to see more of retreat? Retreat 2T2 was the perfect camping getaway after the
-        rush of frosh week!{' '}
+        rush of F!rosh Week!{' '}
         <a
           href="https://photos.skule.ca/2T2-2T3/Frosh-Week/Events/Retreat"
           target="_blank"
@@ -110,7 +110,7 @@ const retreatFAQs = [
   {
     title: 'What is F!rosh Retreat?',
     description:
-      'An overnight camping experience for Frosh at Hart House Farms that allows frosh to play games and immerse themselves in their new Skule community! Frosh week has a lot going on, so unwind with this engaging experience including activities, food, and fun!',
+      'An overnight camping experience for Frosh at Hart House Farms that allows Frosh to play games and immerse themselves in their new Skule community! F!rosh week has a lot going on, so unwind with this engaging experience including activities, food, and fun!',
   },
   {
     title: 'What is provided?',
@@ -375,7 +375,7 @@ const RetreatRegistration = () => {
         </div>
 
         {isRetreat ? (
-          <h2>You have already paid for Frosh Retreat!</h2>
+          <h2>You have already paid for F!rosh Retreat!</h2>
         ) : outOfTickets ? (
           <h2>Sorry there are no more tickets available!</h2>
         ) : viewedWaiver ? (
@@ -401,7 +401,7 @@ const RetreatRegistration = () => {
                   });
                 // Redirect the user to the payment for Retreat here!
               } else {
-                setSnackbar('Please accept the Frosh Waiver before proceeding!', true);
+                setSnackbar('Please accept the F!rosh Waiver before proceeding!', true);
               }
             }}
           />
@@ -414,7 +414,7 @@ const RetreatRegistration = () => {
       ) : viewedWaiver ? (
         <></>
       ) : (
-        <ErrorSuccessBox error content="Please view the Frosh Retreat Waiver before proceeding!" />
+        <ErrorSuccessBox error content="Please view the F!rosh Retreat Waiver before proceeding!" />
       )}
     </div>
   );

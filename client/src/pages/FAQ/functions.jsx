@@ -18,9 +18,9 @@ export async function getQuestions(setSnackbar) {
 
   return [
     {
-      question: 'What is F!rosh week?',
+      question: 'What is F!rosh Week?',
       answer:
-        "F!rosh week is the first week of the Fall semester where incoming first year students are introduced to the SKULE community. Students will join F!rosh groups with other incoming first years and upper year leedurs to learn more about UofT's engineering traditions and culture. For more information check out the About Page. ",
+        "F!rosh Week is the first week of the Fall semester where incoming first year students are introduced to the SKULE community. Students will join F!rosh groups with other incoming first years and upper year leedurs to learn more about UofT's engineering traditions and culture. For more information check out the About Page. ",
       lastUpdated: '2:00 pm',
       category: 'General',
     },
@@ -47,7 +47,7 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'What should I bring on the first day?',
       answer:
-        'Yourself! A good attitude! And a whole lotta HYPE! But also these: Proof of Registration(more info on what proof is needed when you register!); Sunscreen! #safetyissexy; Comfortable shoes; Health Card (just in case you need it)',
+        'Yourself! A good attitude! And a whole lotta HYPE! But also these: Proof of registration (more info on what proof is needed when you register!), sunscreen (#safetyissexy), comfortable shoes, health card (just in case you need it), and a bathing suit!',
       lastUpdated: '12:21pm, Jun 22, 2024',
       category: 'General',
     },
@@ -61,22 +61,22 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'How do I register for F!rosh Week?',
       answer:
-        'Register for F!rosh Week at orientation.skule.ca starting July 5th! Follow us on Instagram @froshweek and join the F!rosh Week 2T4 Discord server. To stay up to date throughout the summer! Important links can also be found at linktr.ee/froshweek. Link to Discord server: https://discord.gg/RQrPQMYrHw',
-      lastUpdated: '12:30pm, Jun 22, 2024',
+        'Register for F!rosh Week at orientation.skule.ca starting July 2nd! Follow us on Instagram @froshweek and join the F!rosh Week 2T5 Discord server. To stay up to date throughout the summer! Important links can also be found at linktr.ee/froshweek. Link to Discord server: https://discord.com/invite/Fnxr7tp34E',
+      lastUpdated: '18:10pm, Jun 28, 2025',
       category: 'Registration',
     },
     {
       question: 'What do I get by registering?',
       answer:
-        'Access to all F!rosh week events! Your very own F!rosh Kit, full of skule-themed items! Memories that will last a lifetime <3',
+        'Access to all F!rosh Week events! Your very own F!rosh Kit, full of skule-themed items! Memories that will last a lifetime <3',
       lastUpdated: '12:30pm, Jun 22, 2024',
       category: 'Registration',
     },
     {
-      question: 'When is the deadline to register for F!rosh week?',
+      question: 'When is the deadline to register for F!rosh Week?',
       answer:
-        'No official deadline, but you should sign up before August 26th if you want to participate in all of the activities!',
-      lastUpdated: '13:30pm, Jun 30, 2024',
+        'No official deadline, but you should sign up before August 25th if you want to participate in all of the activities!',
+      lastUpdated: '18:12pm, Jun 28, 2025',
       category: 'Registration',
     },
     /*{
@@ -97,7 +97,7 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'When and How are we getting the F!rosh kits?',
       answer:
-        "You will get your MEGAkit (pre-kit + F!rosh kit) the day of F!rosh during registration.",
+        'You will get your MEGAkit (pre-kit + F!rosh kit) the day of F!rosh during registration.',
       lastUpdated: '3:00 am, Aug 23, 2024',
       category: 'F!rosh Kits',
     },

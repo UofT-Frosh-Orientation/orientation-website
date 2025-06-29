@@ -24,7 +24,7 @@
   border-left-width: 1px;
   border-top-width: 0px;
   border-bottom-width: 0px;
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
 }
 
 .page-number-arrow-container {
@@ -32,7 +32,7 @@
   justify-content: center;
   align-items: center;
   transition: background-color 200ms;
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
 
   &:hover,
   &:active {

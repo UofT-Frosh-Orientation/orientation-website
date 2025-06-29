@@ -13,7 +13,7 @@ import DeleteIconDarkMode from '../../assets/darkmode/misc/circle-xmark-solid.sv
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
-import Dragon from '../../assets/faq/dragon.svg';
+// import Dragon from '../../assets/faq/dragon.svg';
 
 const PageFAQ = () => {
   const { darkMode } = useContext(DarkModeContext);
@@ -107,7 +107,7 @@ const PageFAQ = () => {
   console.log('Current Questions:', currentQuestions);
 
   return (
-    <div>
+    <div className="bg-primary">
       <div>
         <FAQPageHeader
           questions={unsortedQuestions}
@@ -122,11 +122,11 @@ const PageFAQ = () => {
           setActiveIndex={setActiveIndex}
           questionCategories={questionCategories}
         />
-        {darkMode ? (
+        {/* {darkMode ? (
           <img src={WaveDarkMode} className={'faq-wave-image faq-page-top-wave-image'} />
         ) : (
           <img src={Wave} className={'faq-wave-image faq-page-top-wave-image'} />
-        )}
+        )} */}
         {errorLoading ? <h1 className="faq-error-text">There was an error loading FAQs</h1> : <></>}
         {loading ? (
           <LoadingAnimation size={'55px'} />
@@ -160,11 +160,11 @@ const PageFAQ = () => {
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
               />
-              <PaginationControls
+              {/* <PaginationControls
                 currentPage={currentPage}
                 totalPages={totalPages}
                 handlePageChange={handlePageChange}
-              />
+              /> */}
             </div>
             <div
               className={`faq-display-questions-container ${
@@ -190,6 +190,7 @@ const PageFAQ = () => {
           </>
         )}
       </div>
+      <div className="fill bg-primary">filler</div>
     </div>
   );
 };
@@ -261,7 +262,7 @@ const FAQPageHeader = ({
                 setActiveIndex={setActiveIndex}
                 questionCategories={questionCategories}
               />
-              <img src={Dragon} alt="Dragon" className="dragon-design desktop-only" />
+              {/* <img src={Dragon} alt="Dragon" className="dragon-design desktop-only" /> */}
             </div>
             <div
               className="deleteIcon"
@@ -371,6 +372,8 @@ const FAQAccordionWrapper = ({ scheduleData, openStatus, activeIndex }) => {
       setIsOpen={setIsOpen}
       header={<div className={'faq-search-result-question-accordion'}>{scheduleData.question}</div>}
       style={{ backgroundColor: 'var(--faq-answer-containers)', padding: '0px 30px 0px 30px' }}
+      className="accordion-clickable"
+      dark={true}
     >
       <div className={'faq-search-result-answer-accordion'}>{scheduleData.answer}</div>
     </SingleAccordion>

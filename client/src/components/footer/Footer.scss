@@ -1,10 +1,10 @@
 @import '../../scssStyles/_mixins.scss';
 
 .footer-container {
-  background-color: var(--purple);
+  background-color: var(--bg-footer);
   box-sizing: border-box;
 
-  padding: 0% 4% 2% 4%;
+  padding: 3% 5% 0% 5%;
 
   width: 100%;
   height: auto;
@@ -25,7 +25,7 @@
 }
 
 .footer-container a {
-  text-decoration: underline;
+  text-decoration: none;
   align-items: center;
   justify-content: center;
   background: none;
@@ -38,14 +38,20 @@ ul {
   padding: 0;
 }
 
+.sitemap-links {
+  text-decoration: none;
+}
+
 .links {
   font-size: 14px;
-  color: var(--purple-shades-muted);
+  font-weight: 400;
+  text-decoration: none;
+  color: var(--white);
   transition: color 200ms;
 
   &:hover,
   &:active {
-    color: var(--white);
+    color: var(--pale-gold);
     transition: color 200ms;
   }
 }
@@ -56,20 +62,25 @@ ul {
   padding-top: 15px;
 }
 .sitemap-text {
-  margin-bottom: 4px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  color: var(--mikado);
 }
 
 .socials {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-center;
   margin-top: 20px;
 }
 
 .icons {
   display: flex;
   flex-direction: row;
-  align-self: flex-end;
+  align-self: flex-center;
+  width: 200px;
+  gap: 10px;
+  justify-content: center;
 }
 
 .svg-icons {
@@ -82,6 +93,7 @@ ul {
   &:hover {
     transform: scale(1.1);
     transition: transform 200ms;
+    cursor: url('../../assets/cursor/pointer.png'), auto !important;
   }
   &:active {
     transform: scale(0.97);
@@ -92,6 +104,17 @@ ul {
 .footer-message {
   align-self: flex-end;
   margin-bottom: 5px;
+}
+
+.tech-team {
+  margin: auto;
+  text-align: center;
+  color: white;
+  background-color: var(--bg-footer);
+  font-size: 16px;
+  font-weight: 700;
+  padding-bottom: 50px;
+  padding-top: 20px;
 }
 
 .footer-message-container {
@@ -156,8 +179,9 @@ ul {
 }
 
 .footer-bug-message {
-  font-size: 14px;
-  color: var(--purple-shades-muted);
+  font-size: 12px;
+  color: var(--white);
+  font-weight: 400;
   text-align: right;
   transition: color 200ms;
   margin-bottom: -3px;
@@ -166,14 +190,18 @@ ul {
   }
 }
 
-.footer-bug-message-underline {
-  text-decoration: underline;
-}
+// .footer-bug-message-underline {
+//   text-decoration: underline;
+//   cursor: url('../../assets/cursor/pointer.png'), auto !important;
+
+//   &:hover {
+//     color: var(--text-link);
+//   }
+// }
 
 @include devices(mobile) {
   .footer-container {
     width: 100%;
-    background-color: var(--purple);
     justify-content: center;
     text-align: center;
   }
@@ -181,7 +209,11 @@ ul {
   .sitemap {
     flex-direction: column;
     justify-content: center;
-    padding-top: 25px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  .sitemap-text {
+    padding-top: 35px;
     padding-bottom: 0px;
   }
 
@@ -191,7 +223,7 @@ ul {
   }
   .icons {
     justify-content: center;
-    margin-bottom: 8px;
+    margin-bottom: 40px;
     align-self: center;
   }
   .footer-message {
@@ -202,6 +234,7 @@ ul {
     margin-top: 0px;
     padding-top: 0px;
   }
+
   .footer-bug-message {
     color: var(--white);
   }
