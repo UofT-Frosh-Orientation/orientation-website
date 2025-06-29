@@ -384,33 +384,33 @@ const AboutUsExecTeam = () => {
 //   );
 // };
 
-const tabs = [
-  {
-    title: 'Meet the Executives',
-    component: <AboutUsExecTeam />,
-    active: true,
-    wantToLoad: true,
-  },
+// const tabs = [
+//   {
+//     title: 'Meet the Executives',
+//     component: <AboutUsExecTeam />,
+//     active: true,
+//     wantToLoad: true,
+//   },
 
-  // {
-  //   title: 'Tech Team',
-  //   component: <AboutUsTechTeam />,
-  //   active: true,
-  //   wantToLoad: false,
-  // },
-  // {
-  //   title: 'Subcoms',
-  //   component: <AboutUsSubcom />,
-  //   active: true,
-  //   wantToLoad: false,
-  // },
-  // {
-  //   title: 'Head Leedurs',
-  //   component: <AboutUsHL />,
-  //   active: true,
-  //   wantToLoad: false,
-  // },
-];
+// {
+//   title: 'Tech Team',
+//   component: <AboutUsTechTeam />,
+//   active: true,
+//   wantToLoad: false,
+// },
+// {
+//   title: 'Subcoms',
+//   component: <AboutUsSubcom />,
+//   active: true,
+//   wantToLoad: false,
+// },
+// {
+//   title: 'Head Leedurs',
+//   component: <AboutUsHL />,
+//   active: true,
+//   wantToLoad: false,
+// },
+// ];
 
 // const AboutUsTeamsTab = () => {
 //   const wantedTabs = tabs.filter((tab) => tab.wantToLoad);
