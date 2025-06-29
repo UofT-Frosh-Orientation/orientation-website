@@ -143,7 +143,7 @@ const AboutUsExecTeam = () => {
     // Consider implementing randomization
     shake();
     setTimeout(() => {
-      setExecIndex((execIndex + 1) % (execInfo.vcs.length + execInfo.ocs.length - 1));
+      setExecIndex((execIndex + 1) % (execInfo.vcs.length + execInfo.ocs.length));
     }, 2000);
   };
 
@@ -205,9 +205,12 @@ const AboutUsExecTeam = () => {
           ) : (
             <div className="exec-info-container">
               <h2>You got...</h2>
-              <h1>{execInfo.vcs[execIndex].name}</h1>
-              <LazyLoadImage src={execInfo.vcs[execIndex].image} className="exec-img" />
-              <p>{execInfo.vcs[execIndex].description}</p>
+              <h1>{execInfo.vcs[execIndex - execInfo.ocs.length].name}</h1>
+              <LazyLoadImage
+                src={execInfo.vcs[execIndex - execInfo.ocs.length].image}
+                className="exec-img"
+              />
+              <p>{execInfo.vcs[execIndex - execInfo.ocs.length].description}</p>
             </div>
           )}
         </div>
