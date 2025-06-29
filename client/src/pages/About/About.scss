@@ -284,6 +284,7 @@
   font-weight: 400;
   line-height: 1.6;
 }
+
 .exec-info-container h1 {
   text-align: center;
 
@@ -293,6 +294,10 @@
   // -webkit-text-stroke: 0.01px var(--mikado);
 
   font-family: 'Jersey 20';
+
+  @include devices(tablet) {
+    font-size: 40px;
+  }
 }
 .exec-info-container h2 {
   font-family: 'Jersey 20';
