@@ -148,43 +148,6 @@
   line-height: 1.4;
 }
 
-// EXEC TEAM SECTIONS
-.execteam-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.exec-title-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 25px 10px 10px 10px;
-}
-.exec-title {
-  text-align: center;
-  font-size: 48px;
-  color: var(--text-primary);
-
-  @include devices(mobile) {
-    font-size: 30px;
-  }
-}
-
-.exec-title-underline {
-  background: var(--purple-transparent);
-  border-radius: 10px;
-  width: 480px;
-  height: 4px;
-  margin-bottom: 20px;
-  align-self: center;
-
-  @include devices(tablet) {
-    font-size: 30px;
-    width: 300px;
-  }
-}
-
 //GAME
 .exec-game-machine-large {
   width: 30vw;
