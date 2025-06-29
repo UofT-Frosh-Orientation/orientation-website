@@ -214,6 +214,7 @@
   width: 100vw;
 
   margin-top: -20px;
+  margin-bottom: 60px;
 
   @include devices(tablet) {
     flex-direction: column;
