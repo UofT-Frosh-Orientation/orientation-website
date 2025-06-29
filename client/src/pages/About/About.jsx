@@ -19,30 +19,6 @@ const PageAbout = () => {
       <div className="aboutus-page-components">
         <AboutUsSection className="header-section-top" />
         <AboutUsExecTeam />
-        {/* <AboutUsTeamsTabWrapper /> */}
-        {/* <div className="about-attribution-container">
-          <p className="about-attribution-message">
-            Thank you to{' '}
-            <a
-              className="text-link-dark"
-              href="https://fontawesome.com/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Font Awesome
-            </a>{' '}
-            and{' '}
-            <a
-              className="text-link-dark"
-              href="https://www.freepik.com/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Freepik
-            </a>{' '}
-            for various icons and graphics used throughout the website!
-          </p>
-        </div> */}
       </div>
     </>
   );
@@ -54,7 +30,6 @@ const AboutUsSection = () => {
       <div className="aboutus-subsubcontainer">
         <div className="aboutus-image-container">
           <LazyLoadImage className="aboutus-image" src={newAboutLogo} alt="logo"></LazyLoadImage>
-          {/* <LazyLoadImage className="aboutus-frame" src={frame} alt="frame"></LazyLoadImage> */}
         </div>
 
         <div className="aboutus-info-container">
