@@ -9,7 +9,7 @@ import DarkModeIconDarkMode from '../../assets/darkmode/profiledropdown/sun-soli
 
 import './ProfileDropdown.scss';
 
-const isReady = false;
+const isReady = true;
 
 const ProfileDropdown = ({ open, setOpen, items }) => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
