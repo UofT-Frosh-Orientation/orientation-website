@@ -30,6 +30,7 @@ import { instagramAccounts } from '../../util/instagramAccounts';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import placeholder from '../../assets/logo/main-logo-2T5.png';
+import gachamachine from '../../assets/about/gachamachine.png';
 import { get } from 'lodash';
 
 const PageAbout = () => {
@@ -37,8 +38,9 @@ const PageAbout = () => {
     <>
       <div className="aboutus-page-components">
         <AboutUsSection className="header-section-top" />
-        <AboutUsTeamsTabWrapper />
-        <div className="about-attribution-container">
+        <AboutUsExecTeam />
+        {/* <AboutUsTeamsTabWrapper /> */}
+        {/* <div className="about-attribution-container">
           <p className="about-attribution-message">
             Thank you to{' '}
             <a
@@ -60,7 +62,7 @@ const PageAbout = () => {
             </a>{' '}
             for various icons and graphics used throughout the website!
           </p>
-        </div>
+        </div> */}
       </div>
     </>
   );
@@ -140,7 +142,7 @@ const AboutUsExecTeam = () => {
     // Consider implementing randomization
     shake();
     setTimeout(() => {
-      setExecIndex((execIndex + 1) % (execInfo.vcs.length + execInfo.ocs.length));
+      setExecIndex((execIndex + 1) % (execInfo.vcs.length + execInfo.ocs.length - 1));
     }, 2000);
   };
 
@@ -162,13 +164,19 @@ const AboutUsExecTeam = () => {
 
   return (
     <>
+      <div>
+        <h1 className="executive-title">Meet the Executives</h1>
+      </div>
+
       {/*testing the slider button*/}
       <div className="toggle-container">
         <button
           className={`exec-display-toggle ${displayGame ? 'game-view' : 'card-view'}`}
           onClick={() => setDisplayGame(!displayGame)}
         >
-          <div className="thumb">{displayGame ? 'Card View' : 'Game View'}</div>
+          <div className={`thumb ${displayGame ? 'thumb-game' : 'thumb-card'}`}>
+            {displayGame ? 'Game View' : 'Card View'}
+          </div>
         </button>
       </div>
 
@@ -176,7 +184,7 @@ const AboutUsExecTeam = () => {
         <div className="exec-game-container">
           <button onClick={getNextExec} ref={machineRef}>
             <LazyLoadImage
-              src={placeholder}
+              src={gachamachine}
               alt="exec-game-machine"
               className="exec-game-machine"
             />
@@ -395,98 +403,98 @@ const tabs = [
   // },
 ];
 
-const AboutUsTeamsTab = () => {
-  const wantedTabs = tabs.filter((tab) => tab.wantToLoad);
+// const AboutUsTeamsTab = () => {
+//   const wantedTabs = tabs.filter((tab) => tab.wantToLoad);
 
-  const [currentTab, setCurrentTab] = useState(
-    wantedTabs.length > 0 ? wantedTabs.at(0).title : 'Meet the Executives',
-  );
+//   const [currentTab, setCurrentTab] = useState(
+//     wantedTabs.length > 0 ? wantedTabs.at(0).title : 'Meet the Executives',
+//   );
 
-  let tabsCounter = 0;
-  let numTabs = tabs.length;
-  let tabComponent;
+//   let tabsCounter = 0;
+//   let numTabs = tabs.length;
+//   let tabComponent;
 
-  return (
-    <>
-      <div className="aboutus-teams-all-tabs">
-        <div className="aboutus-teams-all-tabs-scroll">
-          {tabs.map((tab) => {
-            if (tab.active) {
-              tabsCounter++;
+//   return (
+//     <>
+//       <div className="aboutus-teams-all-tabs">
+//         <div className="aboutus-teams-all-tabs-scroll">
+//           {tabs.map((tab) => {
+//             if (tab.active) {
+//               tabsCounter++;
 
-              return (
-                <div key={tab.title} className="aboutus-teams-tabs">
-                  <div
-                    className="aboutus-teams-tabs-container"
-                    onClick={() => {
-                      setCurrentTab(tab.title);
-                    }}
-                  >
-                    {tabsCounter > 1 ? <div className="aboutus-short-vertical-line"></div> : <></>}
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'start',
-                      }}
-                    >
-                      <h1
-                        className={
-                          currentTab === tab.title
-                            ? 'aboutus-teams-tabs-title-selected'
-                            : 'aboutus-teams-tabs-title'
-                        }
-                      >
-                        {tab.title}
-                      </h1>
-                      {/* <div
-                        className={`aboutus-yellow-bubble ${
-                          currentTab === tab.title
-                            ? 'aboutus-yellow-bubble-show'
-                            : 'aboutus-yellow-bubble-noshow'
-                        }`}
-                      ></div> */}
-                    </div>
-                  </div>
-                </div>
-              );
-            } else {
-              return;
-            }
-          })}
-        </div>
-      </div>
+//               return (
+//                 <div key={tab.title} className="aboutus-teams-tabs">
+//                   <div
+//                     className="aboutus-teams-tabs-container"
+//                     onClick={() => {
+//                       setCurrentTab(tab.title);
+//                     }}
+//                   >
+//                     {/* {tabsCounter > 1 ? <div className="aboutus-short-vertical-line"></div> : <></>} */}
+//                     <div
+//                       style={{
+//                         display: 'flex',
+//                         flexDirection: 'column',
+//                         justifyContent: 'start',
+//                       }}
+//                     >
+//                       <h1
+//                         className={
+//                           currentTab === tab.title
+//                             ? 'aboutus-teams-tabs-title-selected'
+//                             : 'aboutus-teams-tabs-title'
+//                         }
+//                       >
+//                         {tab.title}
+//                       </h1>
+//                       {/* <div
+//                         className={`aboutus-yellow-bubble ${
+//                           currentTab === tab.title
+//                             ? 'aboutus-yellow-bubble-show'
+//                             : 'aboutus-yellow-bubble-noshow'
+//                         }`}
+//                       ></div> */}
+//                     </div>
+//                   </div>
+//                 </div>
+//               );
+//             } else {
+//               return;
+//             }
+//           })}
+//         </div>
+//       </div>
 
-      <div className="aboutus-tabs-component">
-        {tabs.map((tab) => {
-          if (currentTab === tab.title && tab.active) {
-            return tab.component;
-          }
-        })}
-      </div>
-    </>
-  );
-};
+//       <div className="aboutus-tabs-component">
+//         {tabs.map((tab) => {
+//           if (currentTab === tab.title && tab.active) {
+//             return tab.component;
+//           }
+//         })}
+//       </div>
+//     </>
+//   );
+// };
 
-const AboutUsTeamsTabWrapper = () => {
-  let showAboutUs = true;
+// const AboutUsTeamsTabWrapper = () => {
+//   let showAboutUs = true;
 
-  tabs.map((tab) => (tab.active = showAboutUs ? tab.wantToLoad : false));
+//   tabs.map((tab) => (tab.active = showAboutUs ? tab.wantToLoad : false));
 
-  // set showAboutUs in case every single tab is false
+//   // set showAboutUs in case every single tab is false
 
-  showAboutUs = !tabs.every((tab, i, a) => !tab.wantToLoad);
+//   showAboutUs = !tabs.every((tab, i, a) => !tab.wantToLoad);
 
-  return (
-    <>
-      {showAboutUs ? (
-        <AboutUsTeamsTab />
-      ) : (
-        <h2 className="about-introduction-title">Stay tuned to meet the team!</h2>
-      )}
-    </>
-  );
-  //return <h2 className="about-introduction-title">Stay tuned to meet the team!</h2>;
-};
+//   return (
+//     <>
+//       {showAboutUs ? (
+//         <AboutUsTeamsTab />
+//       ) : (
+//         <h2 className="about-introduction-title">Stay tuned to meet the team!</h2>
+//       )}
+//     </>
+//   );
+//   //return <h2 className="about-introduction-title">Stay tuned to meet the team!</h2>;
+// };
 
 export { PageAbout };
