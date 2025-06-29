@@ -186,10 +186,26 @@
 }
 
 //GAME
-.exec-game-machine {
+.exec-game-machine-large {
   width: 20vw;
   cursor: url('../../assets/cursor/pointer.png'), auto;
+
+  @include devices(tablet) {
+    display: none;
+  }
 }
+
+.exec-game-machine-small {
+  display: none;
+  width: 90%;
+  cursor: url('../../assets/cursor/pointer.png'), auto;
+  margin: 30px auto;
+
+  @include devices(tablet) {
+    display: block;
+  }
+}
+
 .exec-game-container {
   display: flex;
   justify-content: space-evenly;
@@ -198,6 +214,11 @@
   width: 100vw;
 
   margin-top: -20px;
+
+  @include devices(tablet) {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 //Testing the button

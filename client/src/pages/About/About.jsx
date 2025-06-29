@@ -31,6 +31,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import placeholder from '../../assets/logo/main-logo-2T5.png';
 import gachamachine from '../../assets/about/gachamachine.png';
+import clawmachine from '../../assets/about/clawmachine.png';
 import { get } from 'lodash';
 
 const PageAbout = () => {
@@ -186,7 +187,12 @@ const AboutUsExecTeam = () => {
             <LazyLoadImage
               src={gachamachine}
               alt="exec-game-machine"
-              className="exec-game-machine"
+              className="exec-game-machine-large"
+            />
+            <LazyLoadImage
+              src={clawmachine}
+              alt="claw-machine"
+              className="exec-game-machine-small"
             />
           </button>
           {execIndex < execInfo.ocs.length ? (
