@@ -133,7 +133,7 @@ const HomeHeaderButton = () => {
             />
           </div>
           <div className="mobile-only">
-            <Button
+            <ButtonRound
               label={loggedIn ? 'View Profile' : 'Register Now!'}
               isSecondary
               isDisabled
