@@ -110,7 +110,7 @@
   border-image-width: 12px;
   border-image-outset: 1px;
   border-image-repeat: repeat;
-  box-shadow: inset -6px -6px #3d0f58;
+  box-shadow: inset 4px 4px var(--button-pressed-highlight), inset -7px -7px #0000007a;
   background-color: var(--schedule-container);
   color: var(--mikado);
   padding: 0px 30px;
@@ -153,7 +153,8 @@
   transform: none !important;
   // box-shadow: inset 8px 8px var(--button-pressed-shadow),
   //   inset -7px -7px var(--button-pressed-shadow) !important;
-  box-shadow: inset -7px -7px var(--button-pressed-shadow) !important;
+  box-shadow: inset -5px -5px var(--button-pressed-highlight),
+    inset 8px 8px var(--button-pressed-shadow) !important;
   box-shadow: none;
 }
 

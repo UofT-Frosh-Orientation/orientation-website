@@ -112,8 +112,8 @@ export const colors = {
   '--button-outlined-font': ['#20002e', '#ffffff'],
   '--button-outlined-disabled-border': ['#989898', '#8c60b3'],
   '--button-disabled': ['#BBBBBB', '#300150'],
-  '--button-pressed-highlight': ['#cdb4e0', '#795696'],
-  '--button-pressed-shadow': ['#000000a0', '#000000a0'], // Used in 2T5
+  '--button-pressed-highlight': ['#ffffff36', '#ffffff36'],
+  '--button-pressed-shadow': ['#00000052', '#00000052'], // Used in 2T5
   '--button-active-bg': ['#DFCFE6', '#7b539e'],
 
   //about us teams tab
@@ -140,6 +140,7 @@ export const colors = {
 
   //signup page, profile page bubbles, payment error page
   '--container-bg': ['#ffffff', '#613480'],
+  '--resource-container-bg': ['#ffffff', '#291742'],
 
   //tasks and announcements
   '--task-container': ['#ffffff', '#8c60b3'], //also for timeline container

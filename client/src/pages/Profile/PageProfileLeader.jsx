@@ -128,15 +128,20 @@ const ProfilePageLeaderHeader = () => {
         </div>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-info">
-            <p className="profile-page-name-title">
-              {user?.preferredName === '' || !user?.preferredName ? (
-                <>
-                  <b>{user?.firstName}</b> {user?.lastName}
-                </>
-              ) : (
-                <b>{user?.preferredName}</b>
-              )}
-            </p>
+            <div className="profile-name-edit-wrapper">
+              <p className="profile-page-name-title">
+                {user?.preferredName === '' || !user?.preferredName ? (
+                  <>
+                    <b>{user?.firstName}</b> {user?.lastName}
+                  </>
+                ) : (
+                  <b>{user?.preferredName}</b>
+                )}
+              </p>
+              <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
+                <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
+              </Link>
+            </div>
             <p>
               <u>{user?.email}</u>
             </p>
@@ -144,9 +149,6 @@ const ProfilePageLeaderHeader = () => {
           <div className="profile-page-header-class desktop-only">
             <h2>{leedurYear}</h2>
           </div>
-          <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
-            <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
-          </Link>
         </div>
       </div>
       <img
