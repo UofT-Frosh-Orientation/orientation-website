@@ -10,7 +10,7 @@ import vcRelations from '../../assets/about/execs/vcr.png';
 export const execInfo = {
   ocs: [
     {
-      name: 'SIMONA TENCHE',
+      name: 'Simona Tenche',
       role: 'Orientation Chair',
       discipline: 'MSE 2T6 + PEY',
       image: oc,
@@ -25,7 +25,7 @@ export const execInfo = {
       role: 'VC Finance',
       discipline: 'ECE 2T7',
       image: vcFinance,
-      description: `I transferred from civil engineering to computer engineering based on one course (APS106), I listen to a lot of music (250k mins/year), and I love playing hockey! In my spare time, you’ll catch me not completing my fun facts blurb.`,
+      description: `Some quick fun facts about me: I transferred from civil engineering to computer engineering based on 1 course (APS106), I like to listen to a lot of music (250k mins/year) and I love playing hockey! In my spare time, I like to play video games (league, val) or run events. Broo y’all should come to F!rosh Week because I heard the merch this year is chefs kiss. Also find me during F!rosh Week for a surprise (more merch?) You’ll have to sign up for F!rosh Week and find out!`,
     },
     {
       name: 'Bhoovi R. Handa',

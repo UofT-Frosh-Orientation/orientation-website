@@ -1,7 +1,9 @@
 @import '../../scssStyles/mixins';
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
 
 :root {
   --pixel-border-regular: url('../../assets/buttons/button-pixel-border-regular-light.png');
+  --frame-border: url('../../assets/about/frame.png');
 }
 
 .dark-mode {
@@ -13,6 +15,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 40px;
 }
 
 .about-contents-container {
@@ -45,12 +48,16 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-top: 40px;
+  align-items: center;
 
-  align-items: stretch;
-
-  @include devices(tablet) {
+  @media (max-width: 1000px) {
     align-items: center;
+    justify-content: center;
+    margin: none !important;
+    padding: 0px 0px !important;
     flex-direction: column;
+    text-align: center;
   }
 }
 
@@ -58,19 +65,30 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  // border-radius: 10px;
   margin: 13px 50px 13px 0;
-  max-width: 650px;
+  // max-width: 650px;
+  min-width: 400px;
+  background-color: var(--mikado);
+
+  border-image-source: var(--frame-border);
+  border-image-slice: 60;
+  border-image-width: 450px;
+  border-image-outset: 20px;
+  border-image-repeat: repeat;
+
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 
   flex: 1;
   overflow: visible;
+  height: fit-content;
 }
 
-@media (max-width: 930px) {
+@media (max-width: 1000px) {
   .aboutus-image-container {
     width: 70vw;
-    height: fit-content;
-    margin-right: 0;
+    margin: 0;
     margin-bottom: 25px;
   }
 }
@@ -79,10 +97,6 @@
   object-fit: contain;
   height: 100%;
   width: 100%;
-
-  @include devices(mobile) {
-    //height: auto;
-  }
 }
 
 .aboutus-info-container {
@@ -92,46 +106,46 @@
   justify-content: center;
   max-width: 1000px;
 
-  @include devices(tablet) {
+  @media (max-width: 1000px) {
     width: 85vw;
   }
 }
 
 .aboutus-info {
-  background: rgba(255, 255, 255, 0.25);
-  border-radius: 10px;
-  border-image-source: var(--pixel-border-regular);
-  border-image-slice: 12;
-  border-image-width: 12px;
-  border-image-outset: 1px;
-  border-image-repeat: repeat;
-  box-shadow: var(--shadow);
+  // background: rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  // box-shadow: #00000025 0px 8px 24px;
 
   display: flex;
   flex-direction: column;
 
-  padding: 25px;
+  padding: 40px;
   margin: 13px;
 
-  @include devices(tablet) {
-    margin: 0 0 25px 0;
+  @media (max-width: 1000px) {
+    margin: 0 0 0 0;
   }
 }
 
 .aboutus-info-title {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 28px;
+  margin-bottom: 20px;
 
   color: var(--text-primary);
   text-align: left;
+  font-family: 'Proxima Nova', sans-serif;
+  font-weight: 800;
 
-  @include devices(tablet) {
+  @media (max-width: 1000px) {
     text-align: center;
   }
 }
 .aboutus-info-des {
-  font-size: 16px;
+  font-size: 20px;
   color: var(--text-primary);
+  font-family: 'Proxima Nova', sans-serif;
+  font-weight: 400;
+  line-height: 1.4;
 }
 
 // EXEC TEAM SECTIONS
@@ -147,7 +161,6 @@
   align-items: center;
   padding: 25px 10px 10px 10px;
 }
-
 .exec-title {
   text-align: center;
   font-size: 48px;
@@ -172,100 +185,157 @@
   }
 }
 
-.exec-display-toggle {
-  display: block;
-  margin: -50px auto 50px auto;
-  padding: 12px;
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: 'Staatliches', sans-serif;
-  border-radius: 100px;
-  width: 200px;
-  height: auto;
-  font-size: 20px;
-  cursor: url('../../assets/cursor/pointer.png'), auto !important;
+//GAME
+.exec-game-machine-large {
+  width: 30vw;
+  cursor: url('../../assets/cursor/pointer.png'), auto;
 
   @include devices(tablet) {
-    width: 150px;
-    height: 40px;
-    font-size: 18px;
+    display: none;
+  }
+}
+
+.exec-game-machine-small {
+  display: none;
+  width: 60%;
+  cursor: url('../../assets/cursor/pointer.png'), auto;
+  margin: 30px auto;
+
+  @include devices(tablet) {
+    display: block;
   }
 }
 
 .exec-game-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+
+  width: 100vw;
+
+  margin-top: -20px;
+  margin-bottom: 60px;
 
   @include devices(tablet) {
-    width: 85vw;
-    margin-bottom: 10px;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
-.exec-game-machine {
-  width: 50vw;
-  max-height: 500px;
-  height: auto;
-  border-radius: 10px;
-  object-fit: contain;
+//Testing the button
+.toggle-container {
+  width: 100%;
+}
+
+.exec-display-toggle {
+  background-color: var(--bg-secondary);
+
+  width: 200px;
+  height: 60px;
+
+  margin-bottom: 3vw;
+  margin-left: 6vw;
+
+  border-radius: 100px;
+  cursor: pointer;
 
   display: flex;
-  margin: 0 10px -20px -20vw;
+  justify-content: flex-start;
+  align-items: center;
+
+  border: 3px solid var(--bg-primary);
+  transition: all 150ms ease-in-out;
+}
+
+.thumb {
+  background-color: var(--bg-primary);
+
+  width: 140px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 100px;
+  text-align: center;
+
+  font-family: 'Proxima Nova';
+  color: var(--text-secondary);
+  font-size: 16px;
+  font-weight: 900;
+  text-transform: uppercase;
+  transition: all 150ms ease-in-out;
+}
+
+.thumb-card {
+  margin-right: 5px;
+}
+
+.thumb-game {
+  margin-left: 5px;
+}
+
+.game-view {
+  justify-content: flex-start;
+}
+
+.card-view {
+  justify-content: flex-end;
+}
+
+//Game View Exec Info
+.exec-img {
+  width: 70%;
+
+  display: block;
+
+  margin: auto;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+
+  border-radius: 50%;
+}
+.exec-info-container {
+  width: 40%;
 
   @include devices(tablet) {
-    width: 30vw;
-    height: auto;
-    margin-bottom: 10px;
+    width: 80%;
   }
 }
-
-@keyframes shake {
-  0% {
-    transform: translate(1px, 1px) rotate(0deg);
-  }
-  10% {
-    transform: translate(-1px, -2px) rotate(-1deg);
-  }
-  20% {
-    transform: translate(-3px, 0px) rotate(1deg);
-  }
-  30% {
-    transform: translate(3px, 2px) rotate(0deg);
-  }
-  40% {
-    transform: translate(1px, -1px) rotate(1deg);
-  }
-  50% {
-    transform: translate(-1px, 2px) rotate(-1deg);
-  }
-  60% {
-    transform: translate(-3px, 1px) rotate(0deg);
-  }
-  70% {
-    transform: translate(3px, 1px) rotate(-1deg);
-  }
-  80% {
-    transform: translate(-1px, -1px) rotate(1deg);
-  }
-  90% {
-    transform: translate(1px, 2px) rotate(0deg);
-  }
-  100% {
-    transform: translate(1px, -2px) rotate(-1deg);
-  }
+.exec-info-container p {
+  text-align: center;
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-family: 'Proxima Nova';
+  font-weight: 400;
+  line-height: 1.6;
 }
+.exec-info-container h1 {
+  text-align: center;
 
-.shake-animation {
-  animation: shake 2s;
+  font-size: 60px;
+  letter-spacing: 5px;
+  color: var(--text-coloured);
+  // -webkit-text-stroke: 0.01px var(--mikado);
+
+  font-family: 'Jersey 20';
+}
+.exec-info-container h2 {
+  font-family: 'Jersey 20';
+  letter-spacing: 2px;
+  font-size: 30px;
+
+  color: var(--text-primary);
+
+  margin-left: 10%;
+  margin-bottom: 20px;
 }
 
 // VC GRID
 .aboutus-oc-grid-container {
   display: grid;
-  width: 90vw;
+  width: 100%;
   grid-template-columns: repeat(auto-fit, 450px);
   align-items: center;
   justify-items: center;
@@ -282,7 +352,7 @@
 }
 .aboutus-vc-grid-container {
   display: grid;
-  width: 90vw;
+  width: 100%;
   grid-template-columns: repeat(auto-fit, 450px);
   align-items: center;
   justify-items: center;
@@ -339,9 +409,13 @@
 .aboutus-teams-all-tabs {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  width: 80%;
-  padding: 50px;
+  justify-content: flex-start;
+  width: 100%;
+
+  padding-top: 50px;
+  padding-left: 6vw;
+
+  // padding: 50px;
   align-items: center;
 
   @include devices(tablet) {
@@ -426,13 +500,27 @@
   }
 }
 
-.aboutus-teams-tabs-title-selected {
-  color: var(--aboutus-tabs-color-selected);
-  transition: color 200ms;
+.executive-title {
+  color: var(--text-primary);
+  font-family: 'Proxima Nova';
+  font-size: 48px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  text-align: left;
+}
 
-  @include devices(tablet) {
-    font-size: 20px;
-  }
+.aboutus-teams-tabs-title-selected {
+  color: var(--text-primary);
+  transition: color 200ms;
+  font-family: 'Proxima Nova';
+  font-size: 48px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  text-align: left !important;
+
+  // @include devices(tablet) {
+  //   font-size: 20px;
+  // }
 }
 
 .aboutus-yellow-bubble {
@@ -446,7 +534,7 @@
 }
 .aboutus-yellow-bubble-show {
   width: 100%;
-  background-color: var(--aboutus-tabs-underline-selected) !important;
+  background-color: var(--bg-primary) !important;
   opacity: 1;
   transition: width 500ms, opacity 500ms;
 }
@@ -725,7 +813,7 @@
 }
 
 .aboutus-tabs-component {
-  margin-top: 20px;
+  width: 100%;
 }
 
 /* AboutUsTeamsCarousel styles */
@@ -755,4 +843,44 @@
 
 .aboutus-teams-carousel-tab.active h1 {
   color: #fff; /* Active tab text color */
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+.shake-animation {
+  animation: shake 2s;
 }

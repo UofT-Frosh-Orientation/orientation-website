@@ -16,6 +16,7 @@ import { execInfo } from '../../util/about/execs';
 import { ExecProfile } from './ExecProfile/ExecProfile';
 import ExecLogo from '../../assets/about/about-page.svg';
 import newAboutLogo from '../../assets/about/F! Purple.png';
+import frame from '../../assets/about/frame.png';
 import newPurpleLogo from '../../assets/about/F! Purple.png';
 import { useEffect } from 'react';
 import { object } from 'prop-types';
@@ -30,14 +31,16 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import placeholder from '../../assets/logo/main-logo-2T5.png';
 import gachamachine from '../../assets/about/gachamachine.png';
+import clawmachine from '../../assets/about/clawmachine.png';
 import { get } from 'lodash';
 
 const PageAbout = () => {
   return (
     <>
       <div className="aboutus-page-components">
-        <AboutUsSection />
-        <AboutUsTeamsTabWrapper />
+        <AboutUsSection className="header-section-top" />
+        <AboutUsExecTeam />
+        {/* <AboutUsTeamsTabWrapper /> */}
         {/* <div className="about-attribution-container">
           <p className="about-attribution-message">
             Thank you to{' '}
@@ -68,10 +71,11 @@ const PageAbout = () => {
 
 const AboutUsSection = () => {
   return (
-    <Header text="ABOUT US">
+    <Header text="About Us">
       <div className="aboutus-subsubcontainer">
         <div className="aboutus-image-container">
           <LazyLoadImage className="aboutus-image" src={newAboutLogo} alt="logo"></LazyLoadImage>
+          {/* <LazyLoadImage className="aboutus-frame" src={frame} alt="frame"></LazyLoadImage> */}
         </div>
 
         <div className="aboutus-info-container">
@@ -161,45 +165,52 @@ const AboutUsExecTeam = () => {
 
   return (
     <>
-      <button onClick={() => setDisplayGame(!displayGame)} className="exec-display-toggle">
-        {displayGame ? 'Display in Regular View' : 'Display in Game View!'}
-      </button>
+      <div>
+        <h1 className="executive-title">Meet the Executives</h1>
+      </div>
+
+      {/*testing the slider button*/}
+      <div className="toggle-container">
+        <button
+          className={`exec-display-toggle ${displayGame ? 'game-view' : 'card-view'}`}
+          onClick={() => setDisplayGame(!displayGame)}
+        >
+          <div className={`thumb ${displayGame ? 'thumb-game' : 'thumb-card'}`}>
+            {displayGame ? 'Game View' : 'Card View'}
+          </div>
+        </button>
+      </div>
+
       {displayGame ? (
         <div className="exec-game-container">
           <button onClick={getNextExec} ref={machineRef}>
             <LazyLoadImage
               src={gachamachine}
               alt="exec-game-machine"
-              className="exec-game-machine"
+              className="exec-game-machine-large"
+            />
+            <LazyLoadImage
+              src={clawmachine}
+              alt="claw-machine"
+              className="exec-game-machine-small"
             />
           </button>
           {execIndex < execInfo.ocs.length ? (
-            <div className="">
-              <ExecProfile
-                key={execInfo.ocs[execIndex].name}
-                className="oc-grid-item"
-                image={execInfo.ocs[execIndex].image}
-                name={execInfo.ocs[execIndex].name}
-                role={execInfo.ocs[execIndex].role}
-                discipline={execInfo.ocs[execIndex].discipline}
-                roleDescription={execInfo.ocs[execIndex].description}
-                exec={true}
-              />
+            <div className="exec-info-container">
+              <h2>You got...</h2>
+              <h1>{execInfo.ocs[execIndex].name}</h1>
+              <LazyLoadImage src={execInfo.ocs[execIndex].image} className="exec-img" />
+              <p>{execInfo.ocs[execIndex].description}</p>
             </div>
           ) : (
-            <div className="">
-              {execInfo.vcs[execIndex - execInfo.ocs.length] && (
-                <ExecProfile
-                  key={execInfo.vcs[execIndex - execInfo.ocs.length].name}
-                  className="vc-grid-item"
-                  image={execInfo.vcs[execIndex - execInfo.ocs.length].image}
-                  name={execInfo.vcs[execIndex - execInfo.ocs.length].name}
-                  role={execInfo.vcs[execIndex - execInfo.ocs.length].role}
-                  discipline={execInfo.vcs[execIndex - execInfo.ocs.length].discipline}
-                  roleDescription={execInfo.vcs[execIndex - execInfo.ocs.length].description}
-                  exec={true}
-                />
-              )}
+            <div className="exec-info-container">
+              <h2>You got...</h2>
+              <h1>{execInfo.vcs[execIndex - execInfo.ocs.length].name}</h1>
+              <LazyLoadImage
+                src={execInfo.vcs[execIndex - execInfo.ocs.length].image}
+                className="exec-img"
+              />
+              <p>{execInfo.vcs[execIndex - execInfo.ocs.length].description}</p>
             </div>
           )}
         </div>
@@ -375,7 +386,7 @@ const AboutUsExecTeam = () => {
 
 const tabs = [
   {
-    title: 'EXEC TEAM',
+    title: 'Meet the Executives',
     component: <AboutUsExecTeam />,
     active: true,
     wantToLoad: true,
@@ -401,98 +412,98 @@ const tabs = [
   // },
 ];
 
-const AboutUsTeamsTab = () => {
-  const wantedTabs = tabs.filter((tab) => tab.wantToLoad);
+// const AboutUsTeamsTab = () => {
+//   const wantedTabs = tabs.filter((tab) => tab.wantToLoad);
 
-  const [currentTab, setCurrentTab] = useState(
-    wantedTabs.length > 0 ? wantedTabs.at(0).title : 'EXEC TEAM',
-  );
+//   const [currentTab, setCurrentTab] = useState(
+//     wantedTabs.length > 0 ? wantedTabs.at(0).title : 'Meet the Executives',
+//   );
 
-  let tabsCounter = 0;
-  let numTabs = tabs.length;
-  let tabComponent;
+//   let tabsCounter = 0;
+//   let numTabs = tabs.length;
+//   let tabComponent;
 
-  return (
-    <>
-      <div className="aboutus-teams-all-tabs">
-        <div className="aboutus-teams-all-tabs-scroll">
-          {tabs.map((tab) => {
-            if (tab.active) {
-              tabsCounter++;
+//   return (
+//     <>
+//       <div className="aboutus-teams-all-tabs">
+//         <div className="aboutus-teams-all-tabs-scroll">
+//           {tabs.map((tab) => {
+//             if (tab.active) {
+//               tabsCounter++;
 
-              return (
-                <div key={tab.title} className="aboutus-teams-tabs">
-                  <div
-                    className="aboutus-teams-tabs-container"
-                    onClick={() => {
-                      setCurrentTab(tab.title);
-                    }}
-                  >
-                    {tabsCounter > 1 ? <div className="aboutus-short-vertical-line"></div> : <></>}
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'start',
-                      }}
-                    >
-                      <h1
-                        className={
-                          currentTab === tab.title
-                            ? 'aboutus-teams-tabs-title-selected'
-                            : 'aboutus-teams-tabs-title'
-                        }
-                      >
-                        {tab.title}
-                      </h1>
-                      <div
-                        className={`aboutus-yellow-bubble ${
-                          currentTab === tab.title
-                            ? 'aboutus-yellow-bubble-show'
-                            : 'aboutus-yellow-bubble-noshow'
-                        }`}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-              );
-            } else {
-              return;
-            }
-          })}
-        </div>
-      </div>
+//               return (
+//                 <div key={tab.title} className="aboutus-teams-tabs">
+//                   <div
+//                     className="aboutus-teams-tabs-container"
+//                     onClick={() => {
+//                       setCurrentTab(tab.title);
+//                     }}
+//                   >
+//                     {/* {tabsCounter > 1 ? <div className="aboutus-short-vertical-line"></div> : <></>} */}
+//                     <div
+//                       style={{
+//                         display: 'flex',
+//                         flexDirection: 'column',
+//                         justifyContent: 'start',
+//                       }}
+//                     >
+//                       <h1
+//                         className={
+//                           currentTab === tab.title
+//                             ? 'aboutus-teams-tabs-title-selected'
+//                             : 'aboutus-teams-tabs-title'
+//                         }
+//                       >
+//                         {tab.title}
+//                       </h1>
+//                       {/* <div
+//                         className={`aboutus-yellow-bubble ${
+//                           currentTab === tab.title
+//                             ? 'aboutus-yellow-bubble-show'
+//                             : 'aboutus-yellow-bubble-noshow'
+//                         }`}
+//                       ></div> */}
+//                     </div>
+//                   </div>
+//                 </div>
+//               );
+//             } else {
+//               return;
+//             }
+//           })}
+//         </div>
+//       </div>
 
-      <div className="aboutus-tabs-component">
-        {tabs.map((tab) => {
-          if (currentTab === tab.title && tab.active) {
-            return tab.component;
-          }
-        })}
-      </div>
-    </>
-  );
-};
+//       <div className="aboutus-tabs-component">
+//         {tabs.map((tab) => {
+//           if (currentTab === tab.title && tab.active) {
+//             return tab.component;
+//           }
+//         })}
+//       </div>
+//     </>
+//   );
+// };
 
-const AboutUsTeamsTabWrapper = () => {
-  let showAboutUs = true;
+// const AboutUsTeamsTabWrapper = () => {
+//   let showAboutUs = true;
 
-  tabs.map((tab) => (tab.active = showAboutUs ? tab.wantToLoad : false));
+//   tabs.map((tab) => (tab.active = showAboutUs ? tab.wantToLoad : false));
 
-  // set showAboutUs in case every single tab is false
+//   // set showAboutUs in case every single tab is false
 
-  showAboutUs = !tabs.every((tab, i, a) => !tab.wantToLoad);
+//   showAboutUs = !tabs.every((tab, i, a) => !tab.wantToLoad);
 
-  return (
-    <>
-      {showAboutUs ? (
-        <AboutUsTeamsTab />
-      ) : (
-        <h2 className="about-introduction-title">Stay tuned to meet the team!</h2>
-      )}
-    </>
-  );
-  //return <h2 className="about-introduction-title">Stay tuned to meet the team!</h2>;
-};
+//   return (
+//     <>
+//       {showAboutUs ? (
+//         <AboutUsTeamsTab />
+//       ) : (
+//         <h2 className="about-introduction-title">Stay tuned to meet the team!</h2>
+//       )}
+//     </>
+//   );
+//   //return <h2 className="about-introduction-title">Stay tuned to meet the team!</h2>;
+// };
 
 export { PageAbout };
