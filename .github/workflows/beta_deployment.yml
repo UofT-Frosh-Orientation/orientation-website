@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - beta
+      - dev
 
 concurrency: beta-deployment
 
@@ -99,17 +100,17 @@ jobs:
       # - name: Run garbage collector
       #   run: doctl registry garbage-collection start --include-untagged-manifests --force uoft-orientation
 
-  deploy_beta:
-    runs-on: ubuntu-latest
-    needs:
-      - build_client
-      - build_server
+  # deploy_beta:
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #     - build_client
+  #     - build_server
 
-    steps:
-      - name: Deploy over SSH
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: beta.orientation.skule.ca
-          username: ${{ secrets.DO_SSH_USER }}
-          key: ${{ secrets.DO_SSH_KEY }}
-          script: ${{ secrets.BETA_DEPLOYMENT_SCRIPT }}
+  #   steps:
+  #     - name: Deploy over SSH
+  #       uses: appleboy/ssh-action@v0.1.10
+  #       with:
+  #         host: beta.orientation.skule.ca
+  #         username: ${{ secrets.DO_SSH_USER }}
+  #         key: ${{ secrets.DO_SSH_KEY }}
+  #         script: ${{ secrets.BETA_DEPLOYMENT_SCRIPT }}

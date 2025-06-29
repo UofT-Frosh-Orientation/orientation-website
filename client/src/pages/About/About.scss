@@ -112,7 +112,7 @@
 }
 
 .aboutus-info {
-  background: rgba(255, 255, 255, 0.25);
+  // background: rgba(255, 255, 255, 0.25);
   border-radius: 20px;
   // box-shadow: #00000025 0px 8px 24px;
 
@@ -187,7 +187,7 @@
 
 //GAME
 .exec-game-machine-large {
-  width: 20vw;
+  width: 30vw;
   cursor: url('../../assets/cursor/pointer.png'), auto;
 
   @include devices(tablet) {
@@ -197,7 +197,7 @@
 
 .exec-game-machine-small {
   display: none;
-  width: 90%;
+  width: 60%;
   cursor: url('../../assets/cursor/pointer.png'), auto;
   margin: 30px auto;
 
@@ -298,19 +298,26 @@
 }
 .exec-info-container {
   width: 40%;
+
+  @include devices(tablet) {
+    width: 80%;
+  }
 }
 .exec-info-container p {
   text-align: center;
-
+  font-size: 1rem;
   color: var(--text-primary);
+  font-family: 'Proxima Nova';
+  font-weight: 400;
+  line-height: 1.6;
 }
 .exec-info-container h1 {
   text-align: center;
 
   font-size: 60px;
   letter-spacing: 5px;
-  color: var(--purple);
-  -webkit-text-stroke: 0.01px #fcc606;
+  color: var(--text-coloured);
+  // -webkit-text-stroke: 0.01px var(--mikado);
 
   font-family: 'Jersey 20';
 }
@@ -322,6 +329,7 @@
   color: var(--text-primary);
 
   margin-left: 10%;
+  margin-bottom: 20px;
 }
 
 // VC GRID
@@ -526,7 +534,7 @@
 }
 .aboutus-yellow-bubble-show {
   width: 100%;
-  background-color: var(--aboutus-tabs-underline-selected) !important;
+  background-color: var(--bg-primary) !important;
   opacity: 1;
   transition: width 500ms, opacity 500ms;
 }
