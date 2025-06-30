@@ -16,6 +16,10 @@
   justify-content: center;
   align-items: center;
   margin-top: 40px;
+
+  @include devices(tablet) {
+    margin-top: 20px;
+  }
 }
 
 .about-contents-container {
