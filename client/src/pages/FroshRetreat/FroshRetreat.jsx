@@ -218,7 +218,6 @@ const RetreatRegistration = () => {
   const { setSnackbar } = useContext(SnackbarContext);
   const { axios } = useAxios();
   const isRetreat = user?.isRetreat === true;
-  console.log(isRetreat);
   const isWaiverUploaded = user?.waiver?.filename !== undefined;
 
   const [file, setFile] = useState(null);
@@ -341,43 +340,49 @@ const RetreatRegistration = () => {
 
         <div className="radio-buttons-retreat">
           <Button
-            label="DOWNLOAD"
+            label="Download"
             isSecondary
             onClick={() => {
               window.open(waiverPDF, '_blank').focus();
               setViewedWaiver(true);
             }}
-            style={{ marginBottom: '25px' }}
+            style={{ marginBottom: '25px', padding: '15px 25px 15px 25px' }}
           />
 
           <div className="display-field">
             <h5>Upload Signed Waiver</h5>
-            <p>Only PDF files under 1 MB are accepted</p>
+            
             {viewedWaiver ? (
               <>
-                <input type="file" accept=".pdf" onChange={handleFileChange} />
-                <Button
-                  label="Upload PDF"
-                  isSecondary
-                  onClick={handleUpload}
-                  style={{ marginTop: '10px' }}
-                />
+                <input className='choose-file' type="file" accept=".pdf" onChange={handleFileChange} />
+                <p className="pdf-disclaimer">Only PDF files under 1 MB are accepted</p>
+                <div className='upload-file-container'>
+                  <Button
+                    label="Upload PDF"
+                    isSecondary
+                    onClick={handleUpload}
+                    style={{ marginTop: '10px', backgroundColor:'var(--mikado)', padding:'20px 30px 20px 30px', fontSize:'20px', display:'block' }}
+                  />
+
+                  {isWaiverUploaded ? (
+                    <Button
+                      label="View Uploaded Waiver"
+                      isSecondary
+                      onClick={handleViewWaiver}
+                      style={{ marginBottom: '25px', padding:'0', color:'var(--text-secondary)', backgroundColor:'transparent', display:'block', marginTop:'15px', marginLeft:'20px'}}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </div>
+
               </>
             ) : (
               <p>Please view the waiver before uploading the signed copy.</p>
             )}
+          
+            
           </div>
-
-          {isWaiverUploaded ? (
-            <Button
-              label="View Uploaded Waiver"
-              isSecondary
-              onClick={handleViewWaiver}
-              style={{ marginBottom: '25px' }}
-            />
-          ) : (
-            <></>
-          )}
         </div>
 
         {isRetreat ? (
@@ -385,35 +390,40 @@ const RetreatRegistration = () => {
         ) : outOfTickets ? (
           <h2 className='retreat-h2'>Sorry there are no more tickets available!</h2>
         ) : viewedWaiver ? (
-          <Button
-            label={'Continue to Payment'}
-            isDisabled={!isUploaded || buttonClicked}
-            onClick={() => {
-              if (isUploaded) {
-                setButtonClicked(true);
-                axios
-                  .post('/payment/frosh-retreat-payment')
-                  .then((response) => {
-                    const { url } = response.data;
-                    window.location.href = url;
-                  })
-                  .catch((err) => {
-                    console.error(err);
-                    setSnackbar(
-                      'Something went wrong! Please file a bug report on GitHub if this issue persists',
-                      true,
-                    );
-                    setButtonClicked(false);
-                  });
-                // Redirect the user to the payment for Retreat here!
-              } else {
-                setSnackbar('Please accept the F!rosh Waiver before proceeding!', true);
-              }
-            }}
-          />
+          <div className='payment-container'>
+            <Button
+              label={'Continue to Payment'}
+              isDisabled={!isUploaded || buttonClicked}
+              onClick={() => {
+                if (isUploaded) {
+                  setButtonClicked(true);
+                  axios
+                    .post('/payment/frosh-retreat-payment')
+                    .then((response) => {
+                      const { url } = response.data;
+                      window.location.href = url;
+                    })
+                    .catch((err) => {
+                      console.error(err);
+                      setSnackbar(
+                        'Something went wrong! Please file a bug report on GitHub if this issue persists',
+                        true,
+                      );
+                      setButtonClicked(false);
+                    });
+                  // Redirect the user to the payment for Retreat here!
+                } else {
+                  setSnackbar('Please accept the F!rosh Waiver before proceeding!', true);
+                }
+              }}
+              style={{ marginBottom: '25px', padding:'0', color:'var(--text-dynamic)', backgroundColor:'transparent', display:'block', marginTop:'15px', textAlign:'center', fontSize:'30px'}}
+            />
+            <img className='arrow' src='../../src/assets/misc/backarrow.png'></img>
+          </div>
         ) : (
           <></>
         )}
+
       </div>
       {isRetreat ? (
         <ErrorSuccessBox success content="You have already accepted the agreement!" />

@@ -128,26 +128,6 @@ h5{
   font-size:32px;
 }
 
-// .retreat-registration-form {
-//   text-align: center;
-//   margin: auto;
-//   color: var(--text-dynamic);
-//   .display-field {
-//     text-align: left;
-//   }
-//   .radio-buttons-retreat {
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: center;
-//     align-items: center;
-//     margin: 50px 30px;
-//   }
-//   .radio-buttons {
-//     width: fit-content;
-//     margin: auto;
-//   }
-// }
-
 .frosh-retreat-faq-bullet {
   list-style-type: disc !important;
   color: var(--text-dynamic);
@@ -184,4 +164,78 @@ h5{
 
   padding-right:0px;
   padding-left:40px;
+}
+
+.button{
+  background-color:#d9d9d9;
+
+  border-image:none;
+
+  box-shadow:none;
+  -webkit-box-shadow:none;
+  -moz-box-shadow:none;
+
+  font-size:18px;
+
+  // padding: 15px 25px 15px 25px;
+  border-radius:50px;
+
+  margin-left:0;
+}
+.retreat-registration-form {
+  margin: auto;
+  color: var(--text-dynamic);
+  .display-field {
+    text-align: left;
+  }
+  .radio-buttons-retreat {
+    margin:0;
+  }
+  .radio-buttons {
+    width: fit-content;
+    margin: auto;
+  }
+}
+.choose-file::file-selector-button{
+  background-color:#d9d9d9;
+
+  border-image:none;
+  border:none;
+
+  font-size:18px;
+  font-weight:600;
+
+  padding: 15px 25px 15px 25px;
+  border-radius:50px;
+
+  margin-top:30px;
+  margin-bottom:15px;
+}
+.pdf-disclaimer{
+  font-size: 20px;
+  color:var(--text-secondary);
+  
+  margin-top:15px;
+}
+.upload-file-container{
+  display:flex;
+  flex-wrap:wrap;
+
+  margin-top:15px;
+}
+.arrow{
+  width:30px;
+  height:30px;
+
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+
+  display:block;
+
+  position:relative;
+  top:17px;
+}
+.payment-container{
+  display:flex;
+  justify-content:center;
 }
