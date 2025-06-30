@@ -11,7 +11,7 @@ import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/Err
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import waiverPDF from '../../assets/retreatWaiver/frosh-retreat-2T4-waiver.pdf';
 import useAxios from '../../hooks/useAxios';
-import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
+import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion.jsx';
 import dragon from '../../assets/mascots/dragon-retreat.svg';
 import cardImage from '../../assets/retreatPhotos/cards.jpg';
 
@@ -71,51 +71,39 @@ export const FroshRetreat = () => {
         </div>
       </div>
     
-    <div className='info'>
-      <h3>About</h3>
-      <p>The retreat is taking place on August 31st and September 1st, 2024 at Hart House Farm.</p>
+      <div className='info'>
+        <h3>About</h3>
+        <p>The retreat is taking place on August 31st and September 1st, 2024 at Hart House Farm.</p>
 
-      <h3>Ticket Information</h3>
-      <p>Tickets to Retreat are $103.00 (they include bus transportation; no tickets without bus transportation). Due to limited spaces, we are selling a limited number of tickets so purchase yours before they sell out! </p>
+        <h3>Ticket Information</h3>
+        <p>Tickets to Retreat are $103.00 (they include bus transportation; no tickets without bus transportation). Due to limited spaces, we are selling a limited number of tickets so purchase yours before they sell out! </p>
 
-      <h3>FAQ</h3>
-      <FroshRetreatFAQ />
+        <h3>FAQ</h3>
+        <FroshRetreatFAQ />
 
-      <h3>Past Retreats</h3>
-      <p>2T5 Leedur Retreat Video</p>
-      {/*Need to add new video*/}
-      <iframe
-        className="frosh-retreat-video"
-        src="https://drive.google.com/file/d/1_lpjxS90MrYfqsgOosCd1gRf2xd7phoY/view?usp=sharing"
-        title="F!rosh Retreat Info"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
+        <h3>Past Retreats</h3>
+        <p>2T5 Leedur Retreat Video</p>
+        {/*Need to add new video*/}
+        <iframe
+          className="frosh-retreat-video"
+          src="https://drive.google.com/file/d/1_lpjxS90MrYfqsgOosCd1gRf2xd7phoY/view?usp=sharing"
+          title="F!rosh Retreat Info"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
 
-      <p>F!rosh Retreat Photos</p>
-      {/*Need to add links to prev year photos*/}
+        <p>F!rosh Retreat Photos</p>
+        {/*Need to add links to prev year photos*/}
 
-      <div className="buttons-div">
-        <a className='photos-button' href=''><strong>2T4</strong></a>
-        <a className='photos-button' href=''><strong>2T3</strong></a>
-        <a className='photos-button' href=''><strong>2T2</strong></a>
-      </div>
+        <div className="buttons-div">
+          <a className='photos-button' href=''><strong>2T4</strong></a>
+          <a className='photos-button' href=''><strong>2T3</strong></a>
+          <a className='photos-button' href=''><strong>2T2</strong></a>
+        </div>
 
-      {/* <p style={{ color: 'var(--text-dynamic)', margin: '10px 0', textAlign: 'center' }}>
-        Interested to see more of retreat? Retreat 2T2 was the perfect camping getaway after the
-        rush of F!rosh Week!{' '}
-        <a
-          href="https://photos.skule.ca/2T2-2T3/Frosh-Week/Events/Retreat"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Check out the photos here!{' '}
-        </a>
-      </p> */}
-
-      <h3>Registration</h3>
-      <RetreatRegistration />
+        <h3>Registration</h3>
+        <RetreatRegistration />
       </div>
     </div>
       
@@ -138,8 +126,9 @@ const retreatFAQs = [
   },
   {
     title:
-      'What do I need to bring (a more comprehensive list will be sent to attendees at a later date)?',
+      'What do I need to bring?*',
     description: [
+      '*(a more comprehensive list will be sent to attendees at a later date)',
       '• Sleeping bags, tents, pillows and blankets to sleep in',
       '• Bathing suits, towels, and comfy clothes to enjoy all the activities retreat has to offer',
       '• Water bottle, personal medications, and any extra snacks you want to bring to stay safe and hydrated during the trip',
@@ -176,13 +165,12 @@ const FroshRetreatFAQ = () => {
               <SingleAccordion
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                header={<div className={'faq-search-result-question-accordion'}>{item.title}</div>}
+                header={<div className={'faq-question'}>{item.title}</div>}
                 style={{
-                  backgroundColor: 'var(--faq-answer-containers)',
-                  margin: '10px',
-                  padding: '0px 30px',
+                  backgroundColor: 'red',
                   width: '100%',
                   textAlign: 'left',
+                  color: 'var(--text-dynamic)',
                 }}
               >
                 {Array.isArray(item.description) ? (

@@ -2,24 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
 
 .frosh-retreat-page {
-
-  // .info-header {
-  //   text-align: center;
-  //   margin: 10px 20px;
-  //   h1 {
-  //     color: var(--white) !important;
-  //   }
-  //   h2 {
-  //     color: var(--white) !important;
-  //     text-align: center;
-  //   }
-  // }
-  // p {
-  //   color: var(--text-dynamic);
-  //   max-width: 1000px;
-  //   margin: auto;
-  //   margin-bottom: 10px;
-  // }
   .frosh-retreat-video {
     width: 95%;
     max-width: 1000px;
@@ -52,8 +34,6 @@
 
 }
 .title-text{
-  // position: absolute;
-  // top:20%;
   margin-right:6vw;
   display:block;
 
@@ -76,9 +56,6 @@
   bottom:0;
   right:0;
 
-  // display:flex;
-  // align-items:center;
-  // justify-content:center;
 }
 
 h2{
@@ -108,6 +85,11 @@ h3 {
   margin-top:5vw;
 }
 p{
+  color:var(--text-dynamic);
+  
+  font-size:25px;
+}
+li{
   color:var(--text-dynamic);
   
   font-size:25px;
@@ -170,8 +152,36 @@ h5{
   list-style-type: disc !important;
   color: var(--text-dynamic);
   text-decoration: none !important;
+
+  text-align:left;
+}
+.faq-question{
+  text-align:left;
+
+  color: var(--text-dynamic);
+  font-size:30px;
+}
+.accord-icon{
+  position:absolute;
+  left:-62vw;
+  bottom:2px;
+}
+.accord-text{
+  text-align:left;
+  font-size:20px;
 }
 
 .retreat-h2{
   color:var(--text-dynamic);
+}
+
+.accordion{
+  border-image:none;
+
+  box-shadow:none;
+  -webkit-box-shadow:none;
+  -moz-box-shadow:none;
+
+  padding-right:0px;
+  padding-left:40px;
 }
