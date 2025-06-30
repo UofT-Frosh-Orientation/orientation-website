@@ -55,26 +55,10 @@ export const FroshRetreat = () => {
 
   return (
     <div className="frosh-retreat-page">
-      {/* <Header text={'RETREAT'} underlineDesktop={'260px'} underlineMobile={'185px'}>
+      {/*
         <div className="info-header">
           <h1>REMAINING TICKETS: {remainingTickets}</h1>
-          <h3 style={{ color: 'var(--white)', margin: '20px 0', textAlign: 'center' }}>
-            ESCAPE THE CITY TO THE LOVELY HART HOUSE FARMS FOR A WEEKEND OF WHOLESOME CAMP VIBES!
-          </h3>
-          <p style={{ color: 'var(--white)' }}>
-            The retreat is taking place on August 31st and September 1st, 2024 at Hart House Farm.
-          </p>
-          <p style={{ color: 'var(--white)' }}>
-            Due to limited spaces, we are selling a limited number of tickets so purchase yours
-            before they sell out!{' '}
-          </p>
-          <p style={{ color: 'var(--white)' }}>
-            Tickets to Retreat are $103.00 &#40;they include bus transportation; no tickets without
-            bus transportation&#41;
-          </p>
-        </div>
-        
-      </Header> */}
+        </div>*/}
       <div className="title">
         <div className="gradient"></div>
         <img src={cardImage} className='title-img'></img>
@@ -86,9 +70,17 @@ export const FroshRetreat = () => {
           <h2>at Hart House Farm</h2>
         </div>
       </div>
-      
-      
+    
+    <div className='info'>
+      <h3>About</h3>
+      <p>The retreat is taking place on August 31st and September 1st, 2024 at Hart House Farm.</p>
+
+      <h3>Ticket Information</h3>
+      <p>Tickets to Retreat are $103.00 (they include bus transportation; no tickets without bus transportation). Due to limited spaces, we are selling a limited number of tickets so purchase yours before they sell out! </p>
+
+      <h3>FAQ</h3>
       <FroshRetreatFAQ />
+
       <div style={{ height: '20px' }} />
       <h3 style={{ color: 'var(--white)', margin: '20px 0', textAlign: 'center' }}>
         SEE THIS VIDEO OF LEEDUR RETREAT 2T4 FOR A SENSE OF THE TRIP!
@@ -117,7 +109,9 @@ export const FroshRetreat = () => {
       <div style={{ height: '20px' }} />
       <h1>REGISTRATION</h1>
       <RetreatRegistration />
+      </div>
     </div>
+      
   );
 };
 
@@ -168,7 +162,6 @@ const FroshRetreatFAQ = () => {
           alignSelf: 'center',
         }}
       >
-        <h2 style={{ marginBottom: '20px' }}>FAQS: PREPARE FOR A GOOD TIME DOWN ON THE FARM!</h2>
         {retreatFAQs.map((item, index) => {
           const [isOpen, setIsOpen] = useState(false);
           return (
