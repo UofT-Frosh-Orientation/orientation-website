@@ -84,14 +84,13 @@ const PageLogin = ({ incorrectEntry }) => {
               >{`Forgot Password?`}</p>
 
               <div className="login-button-container">
-                <ButtonOutlined
-                  label="Create account"
+                <Button
+                  label="Create Account"
                   isSecondary
                   onClick={() => {
                     navigate('/sign-up');
                   }}
                 />
-
                 <Button label={'Log in'} type="submit" />
               </div>
             </form>
