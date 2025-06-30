@@ -200,17 +200,6 @@ const PageSignUp = () => {
             <></>
           )}
           <div
-            style={{
-              color: 'var(--text-dynamic)',
-              textAlign: 'center',
-              fontSize: '15px',
-              width: '100%',
-              margin: '20px',
-            }}
-          >
-            <h2>F!rosh 2T4 is over! Check back next year.</h2>
-          </div>
-          <div
             className="sign-up-button"
             onMouseOver={() => {
               checkErrors(true);

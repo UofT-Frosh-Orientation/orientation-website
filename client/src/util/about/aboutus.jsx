@@ -1,6 +1,6 @@
 export const aboutUsInfo = [
   {
-    title: 'WHAT IS F!ROSH WEEK?',
+    title: 'What is F!rosh Week?',
     description: `
       F!rosh Week is a week-long orientation where students and faculty welcome over 1000 incoming students to the U of T Engineering Community! 
       Central to the experience at Skule™, F!rosh Week consists of engaging and exciting events designed to introduce students to the community, 
@@ -9,7 +9,7 @@ export const aboutUsInfo = [
     `,
   },
   {
-    title: 'WHAT IS SKULE™?',
+    title: 'What is SKULE™?',
     description: `
       Skule™ is the name of the University of Toronto's engineering community at the St. George campus. It is made up of about 5000 undergraduate students, 
       hundreds of graduate students, and a range of dedicated alumni. It is also home to hundreds of engineering clubs, athletics teams, design teams, 

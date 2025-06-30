@@ -30,6 +30,12 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+
+  @include devices(tablet) {
+    margin-top: 0px;
+    height: 40vh;
+    min-height: 300px;
+  }
 }
 
 .faq-page-header-container {
@@ -64,7 +70,6 @@
 }
 
 .faq-page-header-text {
-  padding-left: 5%;
   h1 {
     font-size: 90px;
     color: var(--text-primary);
@@ -301,13 +306,17 @@
   font-weight: bold;
   color: var(--sc-inverted) !important;
   @include devices(tablet) {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
 .faq-search-result-question-accordion {
   padding: 20px 20px 20px 0px;
   margin-bottom: 0px;
+
+  @include devices(tablet) {
+    padding: 15px 15px 15px 0px;
+  }
 }
 
 .faq-search-result-answer,

@@ -13,14 +13,10 @@ export const ProfilePageResources = ({ froshObject }) => {
             key={index + resource.name}
             href={resource.link}
             target="_blank"
-            className="no-link-style"
             rel="noreferrer"
+            className="resource-links"
           >
-            <ButtonBubble
-              label={resource.name}
-              isSecondary
-              style={{ margin: 0, marginTop: '10px' }}
-            />
+            {resource.name}
           </a>
         );
       })}

@@ -6,9 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
 
-import BackgroundColourDark from '../../assets/darkmode/login/background-colour-dark.svg';
-import BackgroundColour from '../../assets/login/background-colour.svg';
-
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
@@ -18,7 +15,6 @@ import { requestPasswordResetSelector, userSelector } from '../../state/user/use
 import { login, requestPasswordReset } from '../../state/user/saga';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
-import { LazyLoadComponent, LazyLoadImage } from 'react-lazy-load-image-component';
 
 // Messages!
 const popupTitle = 'Reset Password';
@@ -88,14 +84,13 @@ const PageLogin = ({ incorrectEntry }) => {
               >{`Forgot Password?`}</p>
 
               <div className="login-button-container">
-                <ButtonOutlined
-                  label="Create account"
+                <Button
+                  label="Create Account"
                   isSecondary
                   onClick={() => {
                     navigate('/sign-up');
                   }}
                 />
-
                 <Button label={'Log in'} type="submit" />
               </div>
             </form>
@@ -118,27 +113,7 @@ const PageLogin = ({ incorrectEntry }) => {
         >
           <ForgotPassword trigger={showPopUp} setTrigger={setShowPopUp} />
         </PopupModal>
-
-        <LoginBackgroundImages />
       </div>
-    </>
-  );
-};
-
-const LoginBackgroundImages = () => {
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-
-  return (
-    <>
-      <LazyLoadComponent>
-        <div className="login-bg-images">
-          {!darkMode ? (
-            <img className="bg-colour" src={BackgroundColour} alt="background-colour"></img>
-          ) : (
-            <img className="bg-colour" src={BackgroundColourDark} alt="background-colour"></img>
-          )}
-        </div>
-      </LazyLoadComponent>
     </>
   );
 };

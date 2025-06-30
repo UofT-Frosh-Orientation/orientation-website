@@ -28,7 +28,7 @@ import { ProfileDropdown } from '../ProfileDropdown/ProfileDropdown';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { userSelector } from '../../state/user/userSlice';
 
-const isReady = false;
+const isReady = true;
 
 const Navbar = ({ isLoggedIn, froshInitials, isRegistered }) => {
   return (

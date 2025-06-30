@@ -230,6 +230,11 @@
   background-color: var(--bg-primary);
   padding-bottom: 30px;
 
+  @include devices(tablet) {
+    padding-top: 20px;
+    padding-bottom: 10px;
+  }
+
   .home-page-schedule-warning {
     font-size: 18px;
     font-family: 'Proxima Nova';
@@ -416,7 +421,7 @@
 // Apply mobile-specific styles using a media query
 @include devices(tablet) {
   .home-page-sponsors {
-    padding: 60px 20px;
+    padding: 60px 20px 30px 20px;
   }
 
   .sponsors-carousel-track {
@@ -525,6 +530,11 @@
       border-bottom-color: var(--sponsor-bronze);
     }
   }
+}
+
+.sponsor-card,
+.sponsor-card * {
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
 }
 
 // This is the most forceful way to remove the link's underline
