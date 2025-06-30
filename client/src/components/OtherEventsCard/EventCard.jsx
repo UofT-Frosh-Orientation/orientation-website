@@ -20,7 +20,6 @@ const EventCard = ({ title, content, photoUrl, bgColorClass, textColorClass, lin
             </button>
           </a>
         </div>
-        <div className="triangle" />
         <div className="image-section">
           <img src={photoUrl} alt="event visual" />
         </div>

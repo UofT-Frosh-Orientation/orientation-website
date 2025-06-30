@@ -14,7 +14,7 @@
 
 .profile-page-section-header {
   padding-top: 15px;
-  font-size: 42px;
+  font-size: 32px;
   color: var(--black);
   padding-bottom: 5px;
   @include devices(tablet) {
@@ -25,13 +25,7 @@
 }
 
 .profile-page-section-header-schedule {
-  padding-bottom: 15px;
-
-  .profile-page-section-header-schedule-note {
-    font-size: 16px;
-    padding-bottom: 5px;
-    font-family: 'Nunito', sans-serif;
-  }
+  padding-bottom: 5px;
 }
 
 .profile-page-schedule-content {

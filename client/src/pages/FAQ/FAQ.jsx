@@ -160,11 +160,11 @@ const PageFAQ = () => {
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
               />
-              <PaginationControls
+              {/* <PaginationControls
                 currentPage={currentPage}
                 totalPages={totalPages}
                 handlePageChange={handlePageChange}
-              />
+              /> */}
             </div>
             <div
               className={`faq-display-questions-container ${

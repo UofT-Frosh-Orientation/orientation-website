@@ -10,7 +10,7 @@ import vcRelations from '../../assets/about/execs/vcr.png';
 export const execInfo = {
   ocs: [
     {
-      name: 'SIMONA TENCHE',
+      name: 'Simona Tenche',
       role: 'Orientation Chair',
       discipline: 'MSE 2T6 + PEY',
       image: oc,
