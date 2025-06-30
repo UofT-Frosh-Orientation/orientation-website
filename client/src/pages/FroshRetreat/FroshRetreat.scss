@@ -1,4 +1,5 @@
 @import '../../scssStyles/mixins';
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
 
 .frosh-retreat-page {
   display: flex;
@@ -17,10 +18,10 @@
     }
   }
   h1 {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    text-align: center;
-    color: var(--text-dynamic);
+    // margin-top: 20px;
+    // margin-bottom: 10px;
+    // text-align: center;
+    // color: var(--text-dynamic);
   }
   p {
     color: var(--text-dynamic);
@@ -28,7 +29,6 @@
     margin: auto;
     margin-bottom: 10px;
   }
-
   .frosh-retreat-video {
     width: 95%;
     max-width: 1000px;
@@ -38,6 +38,67 @@
       min-height: 200px;
     }
   }
+}
+
+.title{
+  width:100vw;
+  position:relative;
+}
+.title-img{
+  width:100%;
+
+  margin-bottom:0px;
+  padding-bottom:0px;
+}
+.gradient{
+  height:99%;
+  width:70%;
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(0, 0, 0, 0.8));
+
+  position:absolute;
+  top:0;
+  right:0;
+
+}
+.title-text{
+  // position: absolute;
+  // top:20%;
+  margin-right:6vw;
+  display:block;
+
+  font-family:'Jersey 20';
+  color:var(--mikado);
+  -webkit-text-stroke-color:var(--jam);
+  -webkit-text-stroke-width: 0.3vw;
+  font-size:15vw;
+  line-height:12vw;
+  font-weight:400;
+
+  text-align:right;
+}
+
+.title-container{
+  width:60%;
+  height:75%;
+
+  position:absolute;
+  bottom:0;
+  right:0;
+
+  // display:flex;
+  // align-items:center;
+  // justify-content:center;
+}
+
+h2{
+  color:white;
+  font-size:2.5vw;
+
+  text-align:right;
+  margin-right:6vw;
+}
+.subtitle1{
+  font-size:3vw;
 }
 
 .retreat-registration-form {

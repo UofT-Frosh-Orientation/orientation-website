@@ -13,6 +13,7 @@ import waiverPDF from '../../assets/retreatWaiver/frosh-retreat-2T4-waiver.pdf';
 import useAxios from '../../hooks/useAxios';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import dragon from '../../assets/mascots/dragon-retreat.svg';
+import cardImage from '../../assets/retreatPhotos/cards.jpg';
 
 export const FroshRetreat = () => {
   const [remainingTickets, setRemainingTickets] = useState();
@@ -54,7 +55,7 @@ export const FroshRetreat = () => {
 
   return (
     <div className="frosh-retreat-page">
-      <Header text={'RETREAT'} underlineDesktop={'260px'} underlineMobile={'185px'}>
+      {/* <Header text={'RETREAT'} underlineDesktop={'260px'} underlineMobile={'185px'}>
         <div className="info-header">
           <h1>REMAINING TICKETS: {remainingTickets}</h1>
           <h3 style={{ color: 'var(--white)', margin: '20px 0', textAlign: 'center' }}>
@@ -72,8 +73,22 @@ export const FroshRetreat = () => {
             bus transportation&#41;
           </p>
         </div>
-        <FroshRetreatFAQ />
-      </Header>
+        
+      </Header> */}
+      <div className="title">
+        <div className="gradient"></div>
+        <img src={cardImage} className='title-img'></img>
+        <div className='title-container'>
+          <h2 className='subtitle1'>All about</h2>
+          <h1 className="title-text">F!ROSH<br/>RETREAT </h1>
+          
+          <h2>August 31st - September 1st</h2>
+          <h2>at Hart House Farm</h2>
+        </div>
+      </div>
+      
+      
+      <FroshRetreatFAQ />
       <div style={{ height: '20px' }} />
       <h3 style={{ color: 'var(--white)', margin: '20px 0', textAlign: 'center' }}>
         SEE THIS VIDEO OF LEEDUR RETREAT 2T4 FOR A SENSE OF THE TRIP!
@@ -153,7 +168,6 @@ const FroshRetreatFAQ = () => {
           alignSelf: 'center',
         }}
       >
-        <img src={dragon} style={{ width: '350px', margin: '20px' }}></img>
         <h2 style={{ marginBottom: '20px' }}>FAQS: PREPARE FOR A GOOD TIME DOWN ON THE FARM!</h2>
         {retreatFAQs.map((item, index) => {
           const [isOpen, setIsOpen] = useState(false);
