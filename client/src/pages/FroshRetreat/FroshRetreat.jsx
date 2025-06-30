@@ -81,10 +81,9 @@ export const FroshRetreat = () => {
       <h3>FAQ</h3>
       <FroshRetreatFAQ />
 
-      <div style={{ height: '20px' }} />
-      <h3 style={{ color: 'var(--white)', margin: '20px 0', textAlign: 'center' }}>
-        SEE THIS VIDEO OF LEEDUR RETREAT 2T4 FOR A SENSE OF THE TRIP!
-      </h3>
+      <h3>Past Retreats</h3>
+      <p>2T5 Leedur Retreat Video</p>
+      {/*Need to add new video*/}
       <iframe
         className="frosh-retreat-video"
         src="https://drive.google.com/file/d/1_lpjxS90MrYfqsgOosCd1gRf2xd7phoY/view?usp=sharing"
@@ -94,7 +93,16 @@ export const FroshRetreat = () => {
         allowFullScreen
       ></iframe>
 
-      <p style={{ color: 'var(--text-dynamic)', margin: '10px 0', textAlign: 'center' }}>
+      <p>F!rosh Retreat Photos</p>
+      {/*Need to add links to prev year photos*/}
+
+      <div className="buttons-div">
+        <a className='photos-button' href=''><strong>2T4</strong></a>
+        <a className='photos-button' href=''><strong>2T3</strong></a>
+        <a className='photos-button' href=''><strong>2T2</strong></a>
+      </div>
+
+      {/* <p style={{ color: 'var(--text-dynamic)', margin: '10px 0', textAlign: 'center' }}>
         Interested to see more of retreat? Retreat 2T2 was the perfect camping getaway after the
         rush of F!rosh Week!{' '}
         <a
@@ -104,10 +112,9 @@ export const FroshRetreat = () => {
         >
           Check out the photos here!{' '}
         </a>
-      </p>
+      </p> */}
 
-      <div style={{ height: '20px' }} />
-      <h1>REGISTRATION</h1>
+      <h3>Registration</h3>
       <RetreatRegistration />
       </div>
     </div>
@@ -288,8 +295,8 @@ const RetreatRegistration = () => {
   };
 
   return (
-    <div style={{ margin: '0 20px' }}>
-      <p style={{ textAlign: 'center' }}>
+    <div style={{  }}>
+      <p style={{ textAlign: 'left' }}>
         In order to register, the following information will be collected from your account. Please
         ensure this information is accurate and up to date. If any information needs to be modified,
         please edit your information{' '}
@@ -297,7 +304,7 @@ const RetreatRegistration = () => {
       </p>
       <div className="retreat-registration-form">
         <div className="display-field">
-          <h3>FULL NAME:</h3>{' '}
+          <h4>Full Name:</h4>{' '}
           <p>
             {user?.firstName +
               ' ' +
@@ -306,10 +313,10 @@ const RetreatRegistration = () => {
           </p>
         </div>
         <div className="display-field">
-          <h3>EMAIL:</h3> <p>{user?.email}</p>
+          <h4>Email:</h4> <p>{user?.email}</p>
         </div>
         <div className="display-field">
-          <h3>PHONE NUMBER:</h3>{' '}
+          <h4>Phone Number:</h4>{' '}
           <p>
             {(!user?.phoneNumberCountryCode ? '' : user?.phoneNumberCountryCode) +
               ' ' +
@@ -317,14 +324,14 @@ const RetreatRegistration = () => {
           </p>
         </div>
         <div className="display-field">
-          <h3>DIETARY RESTRICTIONS:</h3>{' '}
+          <h4>Dietary Restrictions:</h4>{' '}
           <p>
             {!user?.allergies || user?.allergies.length <= 0 ? 'None' : user?.allergies.join(', ')}
           </p>
           {!user?.allergiesOther ? <p>{user?.allergiesOther}</p> : <></>}
         </div>
         <div className="display-field">
-          <h3>MEDICAL INFO:</h3>{' '}
+          <h4>Medical Info:</h4>{' '}
           <p>{!user?.medicalInfo || user?.medicalInfo === '' ? 'None' : user?.medicalInfo}</p>
           <p>
             {!user?.specficMedicalInfo || user?.specficMedicalInfo === ''
@@ -333,16 +340,20 @@ const RetreatRegistration = () => {
           </p>
         </div>
         <div className="display-field">
-          <h3>MEDICATION:</h3>{' '}
+          <h4>Medication:</h4>{' '}
           <p>{!user?.medication || user?.medication === '' ? 'None' : user?.medication}</p>
         </div>
         <div className="display-field">
-          <h3>EMERGENCY CONTACT:</h3>{' '}
+          <h4>Emergency Contact:</h4>{' '}
           <p>{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${user?.emergencyContactNumber}`}</p>
         </div>
+        
+        <h3>Frosh Retreat Waiver</h3>
+        <p>Read and download the Frosh Retreat Waiver</p>
+
         <div className="radio-buttons-retreat">
           <Button
-            label="Read and Download the Frosh Retreat Waiver here"
+            label="DOWNLOAD"
             isSecondary
             onClick={() => {
               window.open(waiverPDF, '_blank').focus();
@@ -352,7 +363,7 @@ const RetreatRegistration = () => {
           />
 
           <div className="display-field">
-            <h3>UPLOAD SIGNED WAIVER:</h3>
+            <h5>Upload Signed Waiver</h5>
             <p>Only PDF files under 1 MB are accepted</p>
             {viewedWaiver ? (
               <>
@@ -382,9 +393,9 @@ const RetreatRegistration = () => {
         </div>
 
         {isRetreat ? (
-          <h2>You have already paid for F!rosh Retreat!</h2>
+          <h2 className='retreat-h2'>You have already paid for F!rosh Retreat!</h2>
         ) : outOfTickets ? (
-          <h2>Sorry there are no more tickets available!</h2>
+          <h2 className='retreat-h2'>Sorry there are no more tickets available!</h2>
         ) : viewedWaiver ? (
           <Button
             label={'Continue to Payment'}

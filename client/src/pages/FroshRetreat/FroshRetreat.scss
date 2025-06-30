@@ -99,39 +99,79 @@ h3 {
   font-family:'Jersey 20';
   font-size:64px;
   font-weight:400;
+  color:var(--text-dynamic);
+
 
   text-align:left;
 
   margin-bottom:1vw;
+  margin-top:5vw;
 }
 p{
-  margin-bottom:5vw;
+  color:var(--text-dynamic);
   
   font-size:25px;
 }
 
-.retreat-registration-form {
-  text-align: center;
-  margin: auto;
-  color: var(--text-dynamic);
-  .display-field {
-    text-align: center;
-  }
-  .radio-buttons-retreat {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 50px 30px;
-  }
-  .radio-buttons {
-    width: fit-content;
-    margin: auto;
-  }
+.photos-button{
+  background-color:var(--mikado);
+  text-decoration:none;
+  color:black;
+
+  font-size:22px;
+
+  padding:15px 40px 15px 40px;
+  border-radius:50px;
+
+  margin-right:10px;
+  margin-top:10px;
+
+  display:block;
 }
+.buttons-div{
+  margin-bottom:70px;
+
+  display:flex;
+  flex-wrap:wrap;
+}
+
+h4{
+  color:var(--text-secondary);
+
+  font-size:27px;
+  margin-top:10px;
+}
+
+h5{
+  font-size:32px;
+}
+
+// .retreat-registration-form {
+//   text-align: center;
+//   margin: auto;
+//   color: var(--text-dynamic);
+//   .display-field {
+//     text-align: left;
+//   }
+//   .radio-buttons-retreat {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     margin: 50px 30px;
+//   }
+//   .radio-buttons {
+//     width: fit-content;
+//     margin: auto;
+//   }
+// }
 
 .frosh-retreat-faq-bullet {
   list-style-type: disc !important;
   color: var(--text-dynamic);
   text-decoration: none !important;
+}
+
+.retreat-h2{
+  color:var(--text-dynamic);
 }
