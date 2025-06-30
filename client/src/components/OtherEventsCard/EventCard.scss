@@ -31,7 +31,7 @@ a.no-link-style {
     z-index: 2;
 
     @media (max-width: 1000px) {
-      padding-bottom: 5%;
+      padding: 30px 30px;
     }
 
     h2 {
@@ -107,26 +107,7 @@ a.no-link-style {
     @media (max-width: 1000px) {
       width: 0%;
     }
-
-    // @media (max-width: 800px) {
-    //   width: 100%;
-    // }
   }
-
-  // .triangle {
-  //   position: absolute;
-  //   right: 300px; // same as image width
-  //   top: 0;
-  //   bottom: 0;
-  //   width: 80px;
-  //   clip-path: polygon(0 0, 100% 0, 0 100%);
-  //   z-index: 1;
-  //   background-color: inherit;
-
-  //   @media (max-width: 768px) {
-  //     display: none;
-  //   }
-  // }
 }
 
 /* === COLOR UTILITIES === */

@@ -16,6 +16,10 @@
   justify-content: center;
   align-items: center;
   margin-top: 40px;
+
+  @include devices(tablet) {
+    margin-top: 20px;
+  }
 }
 
 .about-contents-container {
@@ -107,12 +111,11 @@
   max-width: 1000px;
 
   @media (max-width: 1000px) {
-    width: 85vw;
+    width: 95vw;
   }
 }
 
 .aboutus-info {
-  // background: rgba(255, 255, 255, 0.25);
   border-radius: 20px;
   // box-shadow: #00000025 0px 8px 24px;
 
@@ -138,6 +141,7 @@
 
   @media (max-width: 1000px) {
     text-align: center;
+    font-size: 24px;
   }
 }
 .aboutus-info-des {
@@ -146,42 +150,9 @@
   font-family: 'Proxima Nova', sans-serif;
   font-weight: 400;
   line-height: 1.4;
-}
-
-// EXEC TEAM SECTIONS
-.execteam-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.exec-title-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 25px 10px 10px 10px;
-}
-.exec-title {
-  text-align: center;
-  font-size: 48px;
-  color: var(--text-primary);
-
-  @include devices(mobile) {
-    font-size: 30px;
-  }
-}
-
-.exec-title-underline {
-  background: var(--purple-transparent);
-  border-radius: 10px;
-  width: 480px;
-  height: 4px;
-  margin-bottom: 20px;
-  align-self: center;
 
   @include devices(tablet) {
-    font-size: 30px;
-    width: 300px;
+    font-size: 16px;
   }
 }
 
@@ -245,6 +216,12 @@
 
   border: 3px solid var(--bg-primary);
   transition: all 150ms ease-in-out;
+
+  @include devices(tablet) {
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .thumb {
@@ -311,6 +288,7 @@
   font-weight: 400;
   line-height: 1.6;
 }
+
 .exec-info-container h1 {
   text-align: center;
 
@@ -320,6 +298,10 @@
   // -webkit-text-stroke: 0.01px var(--mikado);
 
   font-family: 'Jersey 20';
+
+  @include devices(tablet) {
+    font-size: 40px;
+  }
 }
 .exec-info-container h2 {
   font-family: 'Jersey 20';
@@ -507,6 +489,13 @@
   font-weight: 900;
   margin-bottom: 20px;
   text-align: left;
+
+  @include devices(tablet) {
+    display: flex;
+    font-size: 36px;
+    text-align: center;
+    justify-content: center;
+  }
 }
 
 .aboutus-teams-tabs-title-selected {
