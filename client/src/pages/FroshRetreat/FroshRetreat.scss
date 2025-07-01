@@ -70,60 +70,56 @@
 .retreat-info-container {
   margin: 5vw;
 }
-// h3 {
-//   font-family:'Jersey 20';
-//   font-size:64px;
-//   font-weight:400;
-//   color:var(--text-dynamic);
+.retreat-header {
+  font-family:'Jersey 20';
+  font-size:64px;
+  font-weight:400;
+  color:var(--text-dynamic);
 
-//   text-align:left;
+  text-align:left;
 
-//   margin-bottom:1vw;
-//   margin-top:5vw;
-// }
-// p{
-//   color:var(--text-dynamic);
+  margin-bottom:1vw;
+  margin-top:5vw;
+}
+.retreat-text{
+  color:var(--text-dynamic);
 
-//   font-size:25px;
-// }
-// li{
-//   color:var(--text-dynamic);
+  font-size:25px;
+}
 
-//   font-size:25px;
-// }
+.retreat-photos-button {
+  background-color: var(--mikado);
+  text-decoration: none;
+  color: black;
 
-// .photos-button {
-//   background-color: var(--mikado);
-//   text-decoration: none;
-//   color: black;
+  font-size: 22px;
 
-//   font-size: 22px;
+  padding: 15px 40px 15px 40px;
+  border-radius: 50px;
 
-//   padding: 15px 40px 15px 40px;
-//   border-radius: 50px;
+  margin-right: 10px;
+  margin-top: 10px;
 
-//   margin-right: 10px;
-//   margin-top: 10px;
+  display: block;
+}
 
-//   display: block;
-// }
-// .buttons-div {
-//   margin-bottom: 70px;
+.retreat-buttons-div {
+  margin-bottom: 70px;
 
-//   display: flex;
-//   flex-wrap: wrap;
-// }
+  display: flex;
+  flex-wrap: wrap;
+}
 
-// h4{
-//   color:var(--text-secondary);
+.retreat-subheading{
+  color:var(--text-secondary);
 
-//   font-size:27px;
-//   margin-top:10px;
-// }
+  font-size:27px;
+  margin-top:10px;
+}
 
-// h5{
-//   font-size:32px;
-// }
+.retreat-subheading2{
+  font-size:32px;
+}
 
 .frosh-retreat-faq-bullet {
   list-style-type: disc !important;
@@ -132,12 +128,12 @@
 
   text-align: left;
 }
-// .faq-question {
-//   text-align: left;
+.retreat-faq-question {
+  text-align: left;
 
-//   color: var(--text-dynamic);
-//   font-size: 30px;
-// }
+  color: var(--text-dynamic);
+  font-size: 30px;
+}
 // .accord-icon{
 //   position:absolute;
 //   left:-62vw;
@@ -163,22 +159,6 @@
 //   padding-left:40px;
 // }
 
-// .button {
-//   background-color: #d9d9d9;
-
-//   border-image: none;
-
-//   box-shadow: none;
-//   -webkit-box-shadow: none;
-//   -moz-box-shadow: none;
-
-//   font-size: 18px;
-
-//   // padding: 15px 25px 15px 25px;
-//   border-radius: 50px;
-
-//   margin-left: 0;
-// }
 .retreat-registration-form {
   margin: auto;
   color: var(--text-dynamic);
@@ -193,48 +173,48 @@
     margin: auto;
   }
 }
-// .choose-file::file-selector-button {
-//   background-color: #d9d9d9;
+.retreat-choose-file::file-selector-button {
+  background-color: #d9d9d9;
 
-//   border-image: none;
-//   border: none;
+  border-image: none;
+  border: none;
 
-//   font-size: 18px;
-//   font-weight: 600;
+  font-size: 18px;
+  font-weight: 600;
 
-//   padding: 15px 25px 15px 25px;
-//   border-radius: 50px;
+  padding: 15px 25px 15px 25px;
+  border-radius: 50px;
 
-//   margin-top: 30px;
-//   margin-bottom: 15px;
-// }
-// .pdf-disclaimer {
-//   font-size: 20px;
-//   color: var(--text-secondary);
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+.retreat-pdf-disclaimer {
+  font-size: 20px;
+  color: var(--text-secondary);
 
-//   margin-top: 15px;
-// }
-// .upload-file-container {
-//   display: flex;
-//   flex-wrap: wrap;
+  margin-top: 15px;
+}
+.retreat-upload-file-container {
+  display: flex;
+  flex-wrap: wrap;
 
-//   margin-top: 15px;
-// }
+  margin-top: 15px;
+}
 
-// .arrow {
-//   width: 30px;
-//   height: 30px;
+.retreat-arrow {
+  width: 30px;
+  height: 30px;
 
-//   -webkit-transform: scaleX(-1);
-//   transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
 
-//   display: block;
+  display: block;
 
-//   position: relative;
-//   top: 17px;
-// }
+  position: relative;
+  top: 17px;
+}
 
-// .payment-container {
-//   display: flex;
-//   justify-content: center;
-// }
+.retreat-payment-container {
+  display: flex;
+  justify-content: center;
+}

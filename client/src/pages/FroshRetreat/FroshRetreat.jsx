@@ -72,17 +72,17 @@ export const FroshRetreat = () => {
       </div>
     
       <div className='retreat-info-container'>
-        <h3>About</h3>
-        <p>The retreat is taking place on August 31st and September 1st, 2024 at Hart House Farm.</p>
+        <h3 className="retreat-header">About</h3>
+        <p className="retreat-text">The retreat is taking place on August 31st and September 1st, 2024 at Hart House Farm.</p>
 
-        <h3>Ticket Information</h3>
-        <p>Tickets to Retreat are $103.00 (they include bus transportation; no tickets without bus transportation). Due to limited spaces, we are selling a limited number of tickets so purchase yours before they sell out! </p>
+        <h3 className="retreat-header">Ticket Information</h3>
+        <p className="retreat-text">Tickets to Retreat are $103.00 (they include bus transportation; no tickets without bus transportation). Due to limited spaces, we are selling a limited number of tickets so purchase yours before they sell out! </p>
 
-        <h3>FAQ</h3>
+        <h3 className="retreat-header">FAQ</h3>
         <FroshRetreatFAQ />
 
-        <h3>Past Retreats</h3>
-        <p>2T5 Leedur Retreat Video</p>
+        <h3 className="retreat-header">Past Retreats</h3>
+        <p className="retreat-text">2T5 Leedur Retreat Video</p>
         {/*Need to add new video*/}
         <iframe
           className="frosh-retreat-video"
@@ -93,16 +93,16 @@ export const FroshRetreat = () => {
           allowFullScreen
         ></iframe>
 
-        <p>F!rosh Retreat Photos</p>
+        <p className="retreat-text">F!rosh Retreat Photos</p>
         {/*Need to add links to prev year photos*/}
 
-        <div className="buttons-div">
-          <a className='photos-button' href='https://photos.skule.ca/2T4-2T5/Frosh-Week-2T4/Frosh-Retreat'><strong>2T4</strong></a>
-          <a className='photos-button' href='https://photos.skule.ca/2T3-2T4/Frosh-week/Frosh-Retreat'><strong>2T3</strong></a>
-          <a className='photos-button' href='https://photos.skule.ca/2T2-2T3/Frosh-Week/Events/Retreat'><strong>2T2</strong></a>
+        <div className="retreat-buttons-div">
+          <a className='retreat-photos-button' href='https://photos.skule.ca/2T4-2T5/Frosh-Week-2T4/Frosh-Retreat'><strong>2T4</strong></a>
+          <a className='retreat-photos-button' href='https://photos.skule.ca/2T3-2T4/Frosh-week/Frosh-Retreat'><strong>2T3</strong></a>
+          <a className='retreat-photos-button' href='https://photos.skule.ca/2T2-2T3/Frosh-Week/Events/Retreat'><strong>2T2</strong></a>
         </div>
 
-        <h3>Registration</h3>
+        <h3 className="retreat-header">Registration</h3>
         <RetreatRegistration />
       </div>
     </div>
@@ -165,7 +165,7 @@ const FroshRetreatFAQ = () => {
               <SingleAccordion
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                header={<div className={'faq-question'}>{item.title}</div>}
+                header={<div className={'retreat-faq-question'}>{item.title}</div>}
                 style={{
                   backgroundColor: 'red',
                   width: '100%',
@@ -177,7 +177,7 @@ const FroshRetreatFAQ = () => {
                   <>
                     <ul className="frosh-retreat-faq-bullet">
                       {item.description.map((listItem, index) => {
-                        return <li key={listItem}>{listItem}</li>;
+                        return <li className="retreat-text" key={listItem}>{listItem}</li>;
                       })}
                     </ul>
                   </>
@@ -291,8 +291,8 @@ const RetreatRegistration = () => {
       </p>
       <div className="retreat-registration-form">
         <div className="display-field">
-          <h4>Full Name:</h4>{' '}
-          <p>
+          <h4 className="retreat-subheading">Full Name:</h4>{' '}
+          <p className="retreat-text">
             {user?.firstName +
               ' ' +
               user?.lastName +
@@ -300,43 +300,43 @@ const RetreatRegistration = () => {
           </p>
         </div>
         <div className="display-field">
-          <h4>Email:</h4> <p>{user?.email}</p>
+          <h4 className="retreat-subheading">Email:</h4> <p className="retreat-text">{user?.email}</p>
         </div>
         <div className="display-field">
-          <h4>Phone Number:</h4>{' '}
-          <p>
+          <h4 className="retreat-subheading">Phone Number:</h4>{' '}
+          <p className="retreat-text">
             {(!user?.phoneNumberCountryCode ? '' : user?.phoneNumberCountryCode) +
               ' ' +
               user?.phoneNumber}
           </p>
         </div>
         <div className="display-field">
-          <h4>Dietary Restrictions:</h4>{' '}
-          <p>
+          <h4 className="retreat-subheading">Dietary Restrictions:</h4>{' '}
+          <p className="retreat-text">
             {!user?.allergies || user?.allergies.length <= 0 ? 'None' : user?.allergies.join(', ')}
           </p>
-          {!user?.allergiesOther ? <p>{user?.allergiesOther}</p> : <></>}
+          {!user?.allergiesOther ? <p className="retreat-text">{user?.allergiesOther}</p> : <></>}
         </div>
         <div className="display-field">
-          <h4>Medical Info:</h4>{' '}
-          <p>{!user?.medicalInfo || user?.medicalInfo === '' ? 'None' : user?.medicalInfo}</p>
-          <p>
+          <h4 className="retreat-subheading">Medical Info:</h4>{' '}
+          <p className="retreat-text">{!user?.medicalInfo || user?.medicalInfo === '' ? 'None' : user?.medicalInfo}</p>
+          <p className="retreat-text">
             {!user?.specficMedicalInfo || user?.specficMedicalInfo === ''
               ? 'None'
               : user?.specficMedicalInfo}
           </p>
         </div>
         <div className="display-field">
-          <h4>Medication:</h4>{' '}
-          <p>{!user?.medication || user?.medication === '' ? 'None' : user?.medication}</p>
+          <h4 className="retreat-subheading">Medication:</h4>{' '}
+          <p className="retreat-text">{!user?.medication || user?.medication === '' ? 'None' : user?.medication}</p>
         </div>
         <div className="display-field">
-          <h4>Emergency Contact:</h4>{' '}
-          <p>{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${user?.emergencyContactNumber}`}</p>
+          <h4 className="retreat-subheading">Emergency Contact:</h4>{' '}
+          <p className="retreat-text">{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${user?.emergencyContactNumber}`}</p>
         </div>
         
-        <h3>Frosh Retreat Waiver</h3>
-        <p>Read and download the Frosh Retreat Waiver</p>
+        <h3 className="retreat-header">Frosh Retreat Waiver</h3>
+        <p className="retreat-text">Read and download the Frosh Retreat Waiver</p>
 
         <div className="radio-buttons-retreat">
           <Button
@@ -346,22 +346,22 @@ const RetreatRegistration = () => {
               window.open(waiverPDF, '_blank').focus();
               setViewedWaiver(true);
             }}
-            style={{ marginBottom: '25px', padding: '15px 25px 15px 25px' }}
+            style={{ marginBottom: '25px', padding: '15px 25px 15px 25px', backgroundColor: '#d9d9d9', borderImage: 'none', boxShadow: 'none', webkitBoxShadow: 'none', mozBoxShadow: 'none',fontSize: '18px', borderRadius: '50px', marginLeft: '0' }}
           />
 
           <div className="display-field">
-            <h5>Upload Signed Waiver</h5>
+            <h5 className="retreat-subheading2">Upload Signed Waiver</h5>
             
             {viewedWaiver ? (
               <>
-                <input className='choose-file' type="file" accept=".pdf" onChange={handleFileChange} />
-                <p className="pdf-disclaimer">Only PDF files under 1 MB are accepted</p>
-                <div className='upload-file-container'>
+                <input className='retreat-choose-file' type="file" accept=".pdf" onChange={handleFileChange} />
+                <p className="retreat-pdf-disclaimer">Only PDF files under 1 MB are accepted</p>
+                <div className='retreat-upload-file-container'>
                   <Button
                     label="Upload PDF"
                     isSecondary
                     onClick={handleUpload}
-                    style={{ marginTop: '10px', backgroundColor:'var(--mikado)', padding:'20px 30px 20px 30px', fontSize:'20px', display:'block' }}
+                    style={{ marginTop: '10px', backgroundColor:'var(--mikado)', padding:'20px 30px 20px 30px', fontSize:'20px', display:'block', borderImage: 'none', boxShadow: 'none', webkitBoxShadow: 'none', mozBoxShadow: 'none', borderRadius: '50px', marginLeft: '0' }}
                   />
 
                   {isWaiverUploaded ? (
@@ -369,7 +369,7 @@ const RetreatRegistration = () => {
                       label="View Uploaded Waiver"
                       isSecondary
                       onClick={handleViewWaiver}
-                      style={{ marginBottom: '25px', padding:'0', color:'var(--text-secondary)', backgroundColor:'transparent', display:'block', marginTop:'15px', marginLeft:'20px'}}
+                      style={{ marginBottom: '25px', padding:'0', color:'var(--text-secondary)', backgroundColor:'transparent', display:'block', marginTop:'15px', marginLeft:'20px', borderImage: 'none', boxShadow: 'none', webkitBoxShadow: 'none', mozBoxShadow: 'none',fontSize: '18px', borderRadius: '50px'}}
                     />
                   ) : (
                     <></>
@@ -378,7 +378,7 @@ const RetreatRegistration = () => {
 
               </>
             ) : (
-              <p>Please view the waiver before uploading the signed copy.</p>
+              <p className="retreat-text">Please view the waiver before uploading the signed copy.</p>
             )}
           
             
@@ -390,7 +390,7 @@ const RetreatRegistration = () => {
         ) : outOfTickets ? (
           <h2 className='retreat-h2'>Sorry there are no more tickets available!</h2>
         ) : viewedWaiver ? (
-          <div className='payment-container'>
+          <div className='retreat-payment-container'>
             <Button
               label={'Continue to Payment'}
               isDisabled={!isUploaded || buttonClicked}
@@ -416,9 +416,9 @@ const RetreatRegistration = () => {
                   setSnackbar('Please accept the F!rosh Waiver before proceeding!', true);
                 }
               }}
-              style={{ marginBottom: '25px', padding:'0', color:'var(--text-dynamic)', backgroundColor:'transparent', display:'block', marginTop:'15px', textAlign:'center', fontSize:'30px'}}
+              style={{ marginBottom: '25px', padding:'0', color:'var(--text-dynamic)', backgroundColor:'transparent', display:'block', marginTop:'15px', textAlign:'center', fontSize:'30px',  borderImage: 'none', boxShadow: 'none', webkitBoxShadow: 'none', mozBoxShadow: 'none', borderRadius: '50px', marginLeft: '0'}}
             />
-            <img className='arrow' src='../../src/assets/misc/backarrow.png'></img>
+            <img className='retreat-arrow' src='../../src/assets/misc/backarrow.png'></img>
           </div>
         ) : (
           <></>
