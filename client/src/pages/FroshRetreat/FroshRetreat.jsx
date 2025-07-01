@@ -11,8 +11,9 @@ import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/Err
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import waiverPDF from '../../assets/retreatWaiver/frosh-retreat-2T4-waiver.pdf';
 import useAxios from '../../hooks/useAxios';
-import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
+import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion.jsx';
 import dragon from '../../assets/mascots/dragon-retreat.svg';
+import cardImage from '../../assets/retreatPhotos/cards.jpg';
 
 export const FroshRetreat = () => {
   const [remainingTickets, setRemainingTickets] = useState();
@@ -54,55 +55,58 @@ export const FroshRetreat = () => {
 
   return (
     <div className="frosh-retreat-page">
-      <Header text={'RETREAT'} underlineDesktop={'260px'} underlineMobile={'185px'}>
+      {/*
         <div className="info-header">
           <h1>REMAINING TICKETS: {remainingTickets}</h1>
-          <h3 style={{ color: 'var(--white)', margin: '20px 0', textAlign: 'center' }}>
-            ESCAPE THE CITY TO THE LOVELY HART HOUSE FARMS FOR A WEEKEND OF WHOLESOME CAMP VIBES!
-          </h3>
-          <p style={{ color: 'var(--white)' }}>
-            The retreat is taking place on August 31st and September 1st, 2024 at Hart House Farm.
-          </p>
-          <p style={{ color: 'var(--white)' }}>
-            Due to limited spaces, we are selling a limited number of tickets so purchase yours
-            before they sell out!{' '}
-          </p>
-          <p style={{ color: 'var(--white)' }}>
-            Tickets to Retreat are $103.00 &#40;they include bus transportation; no tickets without
-            bus transportation&#41;
-          </p>
+        </div>*/}
+      <div className="title">
+        <div className="gradient"></div>
+        <img src={cardImage} className='title-img'></img>
+        <div className='title-container'>
+          <h2 className='subtitle1'>All about</h2>
+          <h1 className="title-text">F!ROSH<br/>RETREAT </h1>
+          
+          <h2>August 31st - September 1st</h2>
+          <h2>at Hart House Farm</h2>
         </div>
+      </div>
+    
+      <div className='info'>
+        <h3>About</h3>
+        <p>The retreat is taking place on August 31st and September 1st, 2024 at Hart House Farm.</p>
+
+        <h3>Ticket Information</h3>
+        <p>Tickets to Retreat are $103.00 (they include bus transportation; no tickets without bus transportation). Due to limited spaces, we are selling a limited number of tickets so purchase yours before they sell out! </p>
+
+        <h3>FAQ</h3>
         <FroshRetreatFAQ />
-      </Header>
-      <div style={{ height: '20px' }} />
-      <h3 style={{ color: 'var(--white)', margin: '20px 0', textAlign: 'center' }}>
-        SEE THIS VIDEO OF LEEDUR RETREAT 2T4 FOR A SENSE OF THE TRIP!
-      </h3>
-      <iframe
-        className="frosh-retreat-video"
-        src="https://drive.google.com/file/d/1_lpjxS90MrYfqsgOosCd1gRf2xd7phoY/view?usp=sharing"
-        title="F!rosh Retreat Info"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
 
-      <p style={{ color: 'var(--text-dynamic)', margin: '10px 0', textAlign: 'center' }}>
-        Interested to see more of retreat? Retreat 2T2 was the perfect camping getaway after the
-        rush of F!rosh Week!{' '}
-        <a
-          href="https://photos.skule.ca/2T2-2T3/Frosh-Week/Events/Retreat"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Check out the photos here!{' '}
-        </a>
-      </p>
+        <h3>Past Retreats</h3>
+        <p>2T5 Leedur Retreat Video</p>
+        {/*Need to add new video*/}
+        <iframe
+          className="frosh-retreat-video"
+          src="https://drive.google.com/file/d/1_lpjxS90MrYfqsgOosCd1gRf2xd7phoY/view?usp=sharing"
+          title="F!rosh Retreat Info"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
 
-      <div style={{ height: '20px' }} />
-      <h1>REGISTRATION</h1>
-      <RetreatRegistration />
+        <p>F!rosh Retreat Photos</p>
+        {/*Need to add links to prev year photos*/}
+
+        <div className="buttons-div">
+          <a className='photos-button' href='https://photos.skule.ca/2T4-2T5/Frosh-Week-2T4/Frosh-Retreat'><strong>2T4</strong></a>
+          <a className='photos-button' href='https://photos.skule.ca/2T3-2T4/Frosh-week/Frosh-Retreat'><strong>2T3</strong></a>
+          <a className='photos-button' href='https://photos.skule.ca/2T2-2T3/Frosh-Week/Events/Retreat'><strong>2T2</strong></a>
+        </div>
+
+        <h3>Registration</h3>
+        <RetreatRegistration />
+      </div>
     </div>
+      
   );
 };
 
@@ -122,8 +126,9 @@ const retreatFAQs = [
   },
   {
     title:
-      'What do I need to bring (a more comprehensive list will be sent to attendees at a later date)?',
+      'What do I need to bring?*',
     description: [
+      '*(a more comprehensive list will be sent to attendees at a later date)',
       '• Sleeping bags, tents, pillows and blankets to sleep in',
       '• Bathing suits, towels, and comfy clothes to enjoy all the activities retreat has to offer',
       '• Water bottle, personal medications, and any extra snacks you want to bring to stay safe and hydrated during the trip',
@@ -153,8 +158,6 @@ const FroshRetreatFAQ = () => {
           alignSelf: 'center',
         }}
       >
-        <img src={dragon} style={{ width: '350px', margin: '20px' }}></img>
-        <h2 style={{ marginBottom: '20px' }}>FAQS: PREPARE FOR A GOOD TIME DOWN ON THE FARM!</h2>
         {retreatFAQs.map((item, index) => {
           const [isOpen, setIsOpen] = useState(false);
           return (
@@ -162,13 +165,12 @@ const FroshRetreatFAQ = () => {
               <SingleAccordion
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                header={<div className={'faq-search-result-question-accordion'}>{item.title}</div>}
+                header={<div className={'faq-question'}>{item.title}</div>}
                 style={{
-                  backgroundColor: 'var(--faq-answer-containers)',
-                  margin: '10px',
-                  padding: '0px 30px',
+                  backgroundColor: 'red',
                   width: '100%',
                   textAlign: 'left',
+                  color: 'var(--text-dynamic)',
                 }}
               >
                 {Array.isArray(item.description) ? (
@@ -216,7 +218,6 @@ const RetreatRegistration = () => {
   const { setSnackbar } = useContext(SnackbarContext);
   const { axios } = useAxios();
   const isRetreat = user?.isRetreat === true;
-  console.log(isRetreat);
   const isWaiverUploaded = user?.waiver?.filename !== undefined;
 
   const [file, setFile] = useState(null);
@@ -281,8 +282,8 @@ const RetreatRegistration = () => {
   };
 
   return (
-    <div style={{ margin: '0 20px' }}>
-      <p style={{ textAlign: 'center' }}>
+    <div style={{  }}>
+      <p style={{ textAlign: 'left' }}>
         In order to register, the following information will be collected from your account. Please
         ensure this information is accurate and up to date. If any information needs to be modified,
         please edit your information{' '}
@@ -290,7 +291,7 @@ const RetreatRegistration = () => {
       </p>
       <div className="retreat-registration-form">
         <div className="display-field">
-          <h3>FULL NAME:</h3>{' '}
+          <h4>Full Name:</h4>{' '}
           <p>
             {user?.firstName +
               ' ' +
@@ -299,10 +300,10 @@ const RetreatRegistration = () => {
           </p>
         </div>
         <div className="display-field">
-          <h3>EMAIL:</h3> <p>{user?.email}</p>
+          <h4>Email:</h4> <p>{user?.email}</p>
         </div>
         <div className="display-field">
-          <h3>PHONE NUMBER:</h3>{' '}
+          <h4>Phone Number:</h4>{' '}
           <p>
             {(!user?.phoneNumberCountryCode ? '' : user?.phoneNumberCountryCode) +
               ' ' +
@@ -310,14 +311,14 @@ const RetreatRegistration = () => {
           </p>
         </div>
         <div className="display-field">
-          <h3>DIETARY RESTRICTIONS:</h3>{' '}
+          <h4>Dietary Restrictions:</h4>{' '}
           <p>
             {!user?.allergies || user?.allergies.length <= 0 ? 'None' : user?.allergies.join(', ')}
           </p>
           {!user?.allergiesOther ? <p>{user?.allergiesOther}</p> : <></>}
         </div>
         <div className="display-field">
-          <h3>MEDICAL INFO:</h3>{' '}
+          <h4>Medical Info:</h4>{' '}
           <p>{!user?.medicalInfo || user?.medicalInfo === '' ? 'None' : user?.medicalInfo}</p>
           <p>
             {!user?.specficMedicalInfo || user?.specficMedicalInfo === ''
@@ -326,88 +327,103 @@ const RetreatRegistration = () => {
           </p>
         </div>
         <div className="display-field">
-          <h3>MEDICATION:</h3>{' '}
+          <h4>Medication:</h4>{' '}
           <p>{!user?.medication || user?.medication === '' ? 'None' : user?.medication}</p>
         </div>
         <div className="display-field">
-          <h3>EMERGENCY CONTACT:</h3>{' '}
+          <h4>Emergency Contact:</h4>{' '}
           <p>{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${user?.emergencyContactNumber}`}</p>
         </div>
+        
+        <h3>Frosh Retreat Waiver</h3>
+        <p>Read and download the Frosh Retreat Waiver</p>
+
         <div className="radio-buttons-retreat">
           <Button
-            label="Read and Download the Frosh Retreat Waiver here"
+            label="Download"
             isSecondary
             onClick={() => {
               window.open(waiverPDF, '_blank').focus();
               setViewedWaiver(true);
             }}
-            style={{ marginBottom: '25px' }}
+            style={{ marginBottom: '25px', padding: '15px 25px 15px 25px' }}
           />
 
           <div className="display-field">
-            <h3>UPLOAD SIGNED WAIVER:</h3>
-            <p>Only PDF files under 1 MB are accepted</p>
+            <h5>Upload Signed Waiver</h5>
+            
             {viewedWaiver ? (
               <>
-                <input type="file" accept=".pdf" onChange={handleFileChange} />
-                <Button
-                  label="Upload PDF"
-                  isSecondary
-                  onClick={handleUpload}
-                  style={{ marginTop: '10px' }}
-                />
+                <input className='choose-file' type="file" accept=".pdf" onChange={handleFileChange} />
+                <p className="pdf-disclaimer">Only PDF files under 1 MB are accepted</p>
+                <div className='upload-file-container'>
+                  <Button
+                    label="Upload PDF"
+                    isSecondary
+                    onClick={handleUpload}
+                    style={{ marginTop: '10px', backgroundColor:'var(--mikado)', padding:'20px 30px 20px 30px', fontSize:'20px', display:'block' }}
+                  />
+
+                  {isWaiverUploaded ? (
+                    <Button
+                      label="View Uploaded Waiver"
+                      isSecondary
+                      onClick={handleViewWaiver}
+                      style={{ marginBottom: '25px', padding:'0', color:'var(--text-secondary)', backgroundColor:'transparent', display:'block', marginTop:'15px', marginLeft:'20px'}}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </div>
+
               </>
             ) : (
               <p>Please view the waiver before uploading the signed copy.</p>
             )}
+          
+            
           </div>
-
-          {isWaiverUploaded ? (
-            <Button
-              label="View Uploaded Waiver"
-              isSecondary
-              onClick={handleViewWaiver}
-              style={{ marginBottom: '25px' }}
-            />
-          ) : (
-            <></>
-          )}
         </div>
 
         {isRetreat ? (
-          <h2>You have already paid for F!rosh Retreat!</h2>
+          <h2 className='retreat-h2'>You have already paid for F!rosh Retreat!</h2>
         ) : outOfTickets ? (
-          <h2>Sorry there are no more tickets available!</h2>
+          <h2 className='retreat-h2'>Sorry there are no more tickets available!</h2>
         ) : viewedWaiver ? (
-          <Button
-            label={'Continue to Payment'}
-            isDisabled={!isUploaded || buttonClicked}
-            onClick={() => {
-              if (isUploaded) {
-                setButtonClicked(true);
-                axios
-                  .post('/payment/frosh-retreat-payment')
-                  .then((response) => {
-                    const { url } = response.data;
-                    window.location.href = url;
-                  })
-                  .catch((err) => {
-                    console.error(err);
-                    setSnackbar(
-                      'Something went wrong! Please file a bug report on GitHub if this issue persists',
-                      true,
-                    );
-                    setButtonClicked(false);
-                  });
-                // Redirect the user to the payment for Retreat here!
-              } else {
-                setSnackbar('Please accept the F!rosh Waiver before proceeding!', true);
-              }
-            }}
-          />
+          <div className='payment-container'>
+            <Button
+              label={'Continue to Payment'}
+              isDisabled={!isUploaded || buttonClicked}
+              onClick={() => {
+                if (isUploaded) {
+                  setButtonClicked(true);
+                  axios
+                    .post('/payment/frosh-retreat-payment')
+                    .then((response) => {
+                      const { url } = response.data;
+                      window.location.href = url;
+                    })
+                    .catch((err) => {
+                      console.error(err);
+                      setSnackbar(
+                        'Something went wrong! Please file a bug report on GitHub if this issue persists',
+                        true,
+                      );
+                      setButtonClicked(false);
+                    });
+                  // Redirect the user to the payment for Retreat here!
+                } else {
+                  setSnackbar('Please accept the F!rosh Waiver before proceeding!', true);
+                }
+              }}
+              style={{ marginBottom: '25px', padding:'0', color:'var(--text-dynamic)', backgroundColor:'transparent', display:'block', marginTop:'15px', textAlign:'center', fontSize:'30px'}}
+            />
+            <img className='arrow' src='../../src/assets/misc/backarrow.png'></img>
+          </div>
         ) : (
           <></>
         )}
+
       </div>
       {isRetreat ? (
         <ErrorSuccessBox success content="You have already accepted the agreement!" />
