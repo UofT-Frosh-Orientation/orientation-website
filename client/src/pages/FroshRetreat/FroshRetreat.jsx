@@ -11,7 +11,7 @@ import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/Err
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import waiverPDF from '../../assets/retreatWaiver/frosh-retreat-2T4-waiver.pdf';
 import useAxios from '../../hooks/useAxios';
-import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion.jsx';
+import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAccordion/RetreatSingleAccordion.jsx';
 import dragon from '../../assets/mascots/dragon-retreat.svg';
 import cardImage from '../../assets/retreatPhotos/cards.jpg';
 
@@ -162,7 +162,7 @@ const FroshRetreatFAQ = () => {
           const [isOpen, setIsOpen] = useState(false);
           return (
             <React.Fragment key={item.title}>
-              <SingleAccordion
+              <RetreatSingleAccordion
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
                 header={<div className={'retreat-faq-question'}>{item.title}</div>}
@@ -183,10 +183,10 @@ const FroshRetreatFAQ = () => {
                   </>
                 ) : (
                   <>
-                    <p style={{ margin: 0 }}>{item.description}</p>
+                    <p className='retreat-text'>{item.description}</p>
                   </>
                 )}
-              </SingleAccordion>
+              </RetreatSingleAccordion>
             </React.Fragment>
           );
         })}
@@ -283,7 +283,7 @@ const RetreatRegistration = () => {
 
   return (
     <div style={{  }}>
-      <p style={{ textAlign: 'left' }}>
+      <p className = 'retreat-text'>
         In order to register, the following information will be collected from your account. Please
         ensure this information is accurate and up to date. If any information needs to be modified,
         please edit your information{' '}
