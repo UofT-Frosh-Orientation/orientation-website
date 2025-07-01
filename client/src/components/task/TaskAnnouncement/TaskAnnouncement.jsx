@@ -8,7 +8,7 @@ const TaskAnnouncement = ({ tasks, onDone }) => {
   if (!tasks || tasks.length <= 0) {
     return (
       <div className="task-container">
-        <p>There is nothing here yet</p>
+        <p className="profile-p-text">There is nothing here yet</p>
       </div>
     );
   }

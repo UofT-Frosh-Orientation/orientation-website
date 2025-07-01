@@ -6,9 +6,7 @@ import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-fli
 import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnnouncement';
 import { QRNormal } from 'react-qrbtf';
 import { Button } from '../../components/button/Button/Button';
-import EditIcon from '../../assets/misc/pen-solid.svg';
-import CampingIcon from '../../assets/misc/camping-tent.png';
-import MysteryBoxFroshGroup from '../../assets/profile/mysterybox-froshgroup.png';
+import EditIcon from '../../assets/misc/edit-icontemp.png';
 // import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Link } from 'react-router-dom';
 import { instagramAccounts } from '../../util/instagramAccounts';
@@ -59,7 +57,7 @@ const PageProfileFrosh = () => {
             <div className={'profile-not-registered'}>
               <div className="profile-not-registered-text">
                 <h1>You are not registered</h1>
-                <p>
+                <p className="profile-p-text">
                   Please complete your registration in order to participate in F!rosh week events
                 </p>
                 {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
@@ -116,7 +114,6 @@ const ProfilePageRetreat = () => {
   return (
     <Link to={'/frosh-retreat'} className="no-link-style">
       <div className="retreat-profile-container">
-        <img src={CampingIcon} alt="Camping" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
         {isRetreat ? (
           <div
             style={{
@@ -135,46 +132,35 @@ const ProfilePageRetreat = () => {
           <div
             style={{
               display: 'flex',
-              flexDirection: 'column',
+              flexDirection: 'row',
               flex: 1,
               justifyContent: 'space-between',
-              alignItems: 'flex-start',
+              alignItems: 'stretch',
             }}
           >
             <div
               style={{
                 display: 'flex',
                 flexDirection: 'row',
-                justifyContent: 'space-between',
+                justifyContent: 'start',
                 flex: 1,
                 alignItems: 'center',
                 width: '100%',
+                padding: '20px 30px',
               }}
             >
-              <div>
-                <h2>WANT TO PARTICIPATE IN F!ROSH RETREAT?</h2>
+              <div className="retreat-text">
+                <h2>Click here to buy your ticket to F!rosh Retreat!</h2>
                 <p>
-                  There are only a limited number of tickets, so get yours before it&apos;s too
-                  late!{' '}
+                  There are a limited number of tickets, so get yours before it&apos;s too late!{' '}
                 </p>
               </div>
-              <div className="desktop-only">
-                <Button label={'Buy Now!'} isSecondary style={{ margin: 0, marginLeft: '10px' }} />
-              </div>
             </div>
-            <div className="mobile-only" style={{ marginTop: '10px', width: '100%' }}>
-              <Button
-                label={'Buy Now!'}
-                isSecondary
-                style={{
-                  margin: '-1px',
-                  marginLeft: '10px',
-                  display: 'flex',
-                  flex: '1 0 auto',
-                  justifyContent: 'center',
-                }}
-              />
-            </div>
+            <img
+              className="retreat-image"
+              src="/src/assets/profile/retreat-image.png"
+              alt="Retreat image"
+            />
           </div>
         )}
       </div>
@@ -280,7 +266,11 @@ const ProfilePageFroshHeader = ({ editButton }) => {
                     to={isRegistered ? '/profile-edit' : '/profile-edit-unregistered'}
                     className={'profile-edit-icon-link no-link-style'}
                   >
-                    <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
+                    <img
+                      src={EditIcon}
+                      alt={'edit'}
+                      className={'profile-edit-icon no-link-style'}
+                    />
                   </Link>
                 ) : // <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
                 //   <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
@@ -301,11 +291,7 @@ const ProfilePageFroshHeader = ({ editButton }) => {
                 className="frosh-group-image desktop-only"
               />
             ) : (
-              <img
-                src={MysteryBoxFroshGroup}
-                alt="Mystery Box"
-                className="frosh-group-image desktop-only"
-              />
+              ''
             )}
           </div>
         </div>

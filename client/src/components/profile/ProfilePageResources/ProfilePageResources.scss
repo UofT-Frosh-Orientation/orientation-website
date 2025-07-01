@@ -10,10 +10,10 @@
 
 .profile-page-resources {
   margin-top: 20px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
   overflow: hidden;
-  flex: 0;
-  flex-shrink: 1;
+  flex: 1;
   padding: 10px;
   padding-top: 2px;
   h2 {
@@ -21,11 +21,21 @@
     font-size: 24px;
     margin-bottom: 8px;
   }
+  @media (max-width: 1374px) {
+    margin-bottom: 40px;
+    h2 {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+  }
   @include devices(tablet) {
     max-width: 90vw;
     width: 90vw;
+    margin-top: 20px;
+    margin-bottom: 40px;
     h2 {
       font-size: 26px;
+      margin-bottom: 8px;
     }
   }
 }
@@ -33,25 +43,54 @@
 .profile-page-side-section {
   max-width: 350px;
   background-color: var(--resource-container-bg);
-  //box-shadow: var(--shadow);
-  //border-radius: 25px;
   display: flex;
   justify-content: center;
   flex-direction: column;
+
+  @media (max-width: 1374px) {
+    max-width: 100%;
+  }
+
   @include devices(tablet) {
     max-width: 90vw;
     width: 90vw;
-    margin-top: 20px;
+
+    align-items: center;
+    //flex-direction: row;
   }
   color: var(--text-dynamic);
 }
 
+.resource-link-group {
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 1374px) {
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  @include devices(tablet) {
+    flex-direction: column;
+    gap: 0px;
+  }
+}
+
 .resource-links {
-  margin: 10px;
-  margin-left: 0px !important;
+  font-size: 16px;
+  margin: 10px 0px;
   background: none;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
   color: var(--resource-link);
+
+  @media (max-width: 1374px) {
+    margin: 0;
+  }
+  @include devices(tablet) {
+    margin: 10px 0px;
+  }
 }

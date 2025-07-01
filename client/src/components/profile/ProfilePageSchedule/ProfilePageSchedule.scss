@@ -12,22 +12,6 @@
   }
 }
 
-.profile-page-section-header {
-  padding-top: 15px;
-  font-size: 32px;
-  color: var(--black);
-  padding-bottom: 5px;
-  @include devices(tablet) {
-    margin-left: 1%;
-    font-size: 34px;
-    padding-top: 25px;
-  }
-}
-
-.profile-page-section-header-schedule {
-  padding-bottom: 5px;
-}
-
 .profile-page-schedule-content {
   @include devices(tablet) {
     margin-left: -10px;
