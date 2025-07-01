@@ -59,19 +59,19 @@ export const FroshRetreat = () => {
         <div className="info-header">
           <h1>REMAINING TICKETS: {remainingTickets}</h1>
         </div>*/}
-      <div className="title">
-        <div className="gradient"></div>
-        <img src={cardImage} className='title-img'></img>
-        <div className='title-container'>
-          <h2 className='subtitle1'>All about</h2>
-          <h1 className="title-text">F!ROSH<br/>RETREAT </h1>
+      <div className="retreat-title">
+        <div className="retreat-gradient"></div>
+        <img src={cardImage} className='retreat-title-img'></img>
+        <div className='retreat-title-container'>
+          <h2 className='retreat-subtitle-large retreat-subtitle'>All about</h2>
+          <h1 className="retreat-title-text">F!ROSH<br/>RETREAT </h1>
           
-          <h2>August 31st - September 1st</h2>
-          <h2>at Hart House Farm</h2>
+          <h2 className='retreat-subtitle'>August 31st - September 1st</h2>
+          <h2 className='retreat-subtitle'>at Hart House Farm</h2>
         </div>
       </div>
     
-      <div className='info'>
+      <div className='retreat-info-container'>
         <h3>About</h3>
         <p>The retreat is taking place on August 31st and September 1st, 2024 at Hart House Farm.</p>
 
