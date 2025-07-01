@@ -97,9 +97,9 @@ export const FroshRetreat = () => {
         {/*Need to add links to prev year photos*/}
 
         <div className="buttons-div">
-          <a className='photos-button' href=''><strong>2T4</strong></a>
-          <a className='photos-button' href=''><strong>2T3</strong></a>
-          <a className='photos-button' href=''><strong>2T2</strong></a>
+          <a className='photos-button' href='https://photos.skule.ca/2T4-2T5/Frosh-Week-2T4/Frosh-Retreat'><strong>2T4</strong></a>
+          <a className='photos-button' href='https://photos.skule.ca/2T3-2T4/Frosh-week/Frosh-Retreat'><strong>2T3</strong></a>
+          <a className='photos-button' href='https://photos.skule.ca/2T2-2T3/Frosh-Week/Events/Retreat'><strong>2T2</strong></a>
         </div>
 
         <h3>Registration</h3>
