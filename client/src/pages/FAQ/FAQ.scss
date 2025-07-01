@@ -48,6 +48,10 @@
 .faq-button-selector-container {
   margin: 0px 5% 0px 5%;
   background-color: var(--bg-primary);
+
+  @media only screen and (max-height: 850px) {
+    margin-top: 20px;
+  }
 }
 
 .faq-error-text {
