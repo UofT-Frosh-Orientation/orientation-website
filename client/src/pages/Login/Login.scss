@@ -15,19 +15,24 @@
 }
 
 .login-container {
-  max-width: 600px;
+  max-width: 800px;
   transition: transform 400ms, opacity 400ms;
   width: 50vw;
   z-index: 9;
+  box-shadow: var(--bg-secondary) 0px 8px 24px;
+  border-radius: 15px;
+  padding: 40px min(150px, 5%);
+  margin: 50px;
 }
 
 .login-title {
   text-align: center;
-  color: var(--login-title);
-  font-size: 70px;
+  color: var(--text-primary);
+  font-size: clamp(36px, 5vw, 48px);
+  font-weight: 900;
 
   padding: 5%;
-  text-shadow: 0px 7px 10px rgba(0, 0, 0, 0.25);
+  // text-shadow: 0px 7px 10px rgba(0, 0, 0, 0.25);
 }
 
 .login-error-message {
@@ -47,6 +52,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
 }
 
 .forgot-message {
@@ -57,6 +63,7 @@
   cursor: url('../../../assets/cursor/cursor.png'), auto; // Apply custom cursor here
   transition: color 200ms, transform 200ms;
   font-size: 18px;
+  margin-top: 20px !important;
 
   &:hover {
     color: var(--forgot-message-hover);
@@ -95,9 +102,10 @@
   }
 
   .login-button-container {
+    margin-top: 10px;
     display: flex;
-    flex-direction: column-reverse;
-    justify-content: flex-start;
+    // flex-direction: column-reverse;
+    // justify-content: flex-start;
     align-items: center;
   }
 

@@ -64,7 +64,7 @@ const HomePageHeader = () => {
         <h1>Week</h1>
         {/* <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p> */}
         <HomeHeaderButton />
-        <p>Check back soon for registration</p>
+        {/* <p>Check back soon for registration</p> */}
       </div>
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />

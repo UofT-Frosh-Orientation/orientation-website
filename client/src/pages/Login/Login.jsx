@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
@@ -58,7 +59,7 @@ const PageLogin = ({ incorrectEntry }) => {
       <div className="login-entire-page">
         <div className="login-bg">
           <div className={`login-container ${loading ? 'login-container-disappear' : ''}`}>
-            <h1 className="login-title">LOGIN</h1>
+            <h1 className="login-title">Login</h1>
             <form onSubmit={handleSubmit}>
               <TextInput
                 inputType={'text'}
@@ -84,14 +85,14 @@ const PageLogin = ({ incorrectEntry }) => {
               >{`Forgot Password?`}</p>
 
               <div className="login-button-container">
-                <Button
+                <ButtonRound
                   label="Create Account"
                   isSecondary
                   onClick={() => {
                     navigate('/sign-up');
                   }}
                 />
-                <Button label={'Log in'} type="submit" />
+                <ButtonRound label={'Log in'} type="submit" />
               </div>
             </form>
           </div>
@@ -160,14 +161,14 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
             </div>
           ) : // if not loading, display the buttons
           passwordResetRequest ? (
-            <Button
+            <ButtonRound
               label={'Close'}
               onClick={() => {
                 setTrigger(false);
               }}
             />
           ) : (
-            <Button
+            <ButtonRound
               label={'Send'}
               onClick={() => {
                 setButtonClick(buttonClick + 1);

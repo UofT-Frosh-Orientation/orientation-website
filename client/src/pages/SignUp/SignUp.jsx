@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import './SignUp.scss';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { validateEmail, validatePassword, validatePasswordLength } from './functions';
 import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
@@ -105,8 +106,8 @@ const PageSignUp = () => {
             src={MainFroshLogo}
             onClick={handleLeaderReveal}
           ></img>
-          <h1 style={{ color: 'var(--black)' }}>CREATE AN ACCOUNT</h1>
-          <h3 style={{ color: 'var(--black)' }}>FOR F!ROSH WEEK 2T5, UOFT ENGINEERING</h3>
+          <h1 className="sign-up-title">Create an Account</h1>
+          <h3 className="sign-up-sub">For F!rosh Week 2T5, UofT Engineering</h3>
           <div className="full-width-input">
             <TextInput
               label="Email"
@@ -205,7 +206,7 @@ const PageSignUp = () => {
               checkErrors(true);
             }}
           >
-            <Button
+            <ButtonRound
               label="Create Account"
               style={{ margin: 15 }}
               isDisabled={anyErrors}

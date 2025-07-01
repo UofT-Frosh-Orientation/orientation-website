@@ -11,12 +11,28 @@
   justify-content: center;
   align-items: center;
   transition: transform 700ms, opacity 700ms;
+  margin-top: 20px;
+  background-color: var(--bg-primary);
 }
 .sign-up-logo {
   width: 140px;
   height: 140px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   transition: transform 500ms;
+}
+
+.sign-up-title {
+  font-family: 'Proxima Nova';
+  font-weight: 900;
+  font-size: clamp(36px, 5vw, 48px);
+  color: var(--text-primary);
+}
+
+.sign-up-sub {
+  font-family: 'Proxima Nova';
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-primary);
 }
 
 .sign-up-logo-expand {
@@ -24,11 +40,11 @@
 }
 
 .sign-up-container {
-  background-color: var(--container-bg);
+  background-color: var(--bg-primary);
   border-radius: 15px;
   padding: 40px min(150px, 5%);
   margin: 50px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--bg-secondary) 0px 8px 24px;
   width: 95vw;
   max-width: 1000px;
   display: flex;
@@ -36,11 +52,12 @@
   justify-content: center;
   h1 {
     text-align: center;
-    font-size: 40px;
+    // font-size: 40px;
+    margin-bottom: 10px;
     width: 100%;
   }
   h3 {
-    font-size: 17px;
+    // font-size: 17px;
     text-align: center;
     margin-bottom: 15px;
     width: 100%;
