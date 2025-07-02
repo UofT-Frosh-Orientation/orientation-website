@@ -15,30 +15,47 @@ newFroshSubscription.process((job, done) => {
         <head>
           <meta charset="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title>Congratulations!</title>
-            <style>
+          <title>Thank you for registering!</title>
+          <style>
+            @font-face {
+              font-family: 'Proxima Nova';
+              src: url('./proximanova_regular.ttf') format('opentype');
+              font-weight: 400;
+              font-style: normal;
+            }
+
+            @font-face {
+              font-family: 'Proxima Nova';
+              src: url('./proximanova_bold.otf') format('opentype');
+              font-weight: 700;
+              font-style: normal;
+            }
+
             body {
               padding: 0;
               margin: 0;
             }
             header {
               background-color: #3d0f58;
-              height: 40px;
+              height: 0px;
             }
             .space-bar {
-              background-color: #a77ad7;
-              height: 10px;
+              background-color: #3d0f58;
+              height: 0px;
             }
             footer {
               display: flex;
-              background-color: #3d0f58;
+              background-color: #1f1033;
               height: 100px;
-              padding: 20px 7.5vw;
+              padding: 50px 7.5vw;
             }
             .social-icon {
               color: white;
               height: 3vw;
               padding: 0 5px;
+            }
+            .social-link {
+              margin-left: 25px;
             }
             .engsoc-logo {
               margin: auto 0;
@@ -49,27 +66,29 @@ newFroshSubscription.process((job, done) => {
               height: 5vw;
             }
             .content {
-              padding: 0 7.5vw;
-              background: radial-gradient(
+              padding: 100px 7.5vw;
+              background-color: #382159;
+              /* background: radial-gradient(
                 50% 42.09% at 50% 57.91%,
                 rgba(113, 31, 139, 0.9) 43.23%,
                 rgba(61, 15, 88, 0.75) 100%
-              );
-              color: white;
+              ); */
+              color: #000000,;
               overflow: hidden;
             }
             .text-container p {
-              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              font-family: 'Proxima Nova', sans-serif;
               font-size: 20px;
-              color: white;
+              color: #DFCDF3;
+              line-height: 1.8;
             }
             a {
-              color: #a77ad7;
+              color: #FFC600;
             }
             .frosh-logo-main {
               display: block;
               margin: 0 auto;
-              height: 25vh;
+              height: 30vh;
             }
             .socials-container {
               margin: auto;
@@ -80,34 +99,29 @@ newFroshSubscription.process((job, done) => {
           <header></header>
           <div class="space-bar"></div>
           <div class="content">
-            <img
-              class="frosh-logo-main"
-              src="cid:froshmainlogooutline"
-              alt="frosh logo"
-            />
-            <br />
+            <img class="frosh-logo-main" src="./main-logo-2T5.png" alt="frosh logo" />
             <div class="text-container">
-              <h1>Hi ${job.data.preferredName ? job.data.preferredName : job.data.firstName},</h1>
-              <p><b>Thank you for inputting your information on your Frosh Week 2T4 account!!</b></p>
+              <p>Hi ${job.data.preferredName ? job.data.preferredName : job.data.firstName},</p>
+              <p>Thank you for inputting your information on your F!rosh Week 2T5 account.</p>
               <p>
-                This email is <b>NOT A CONFIRMATION OF REGISTRATION</b>. To confirm that you have registered (filled out your information AND paid the registration fee) 
-                you will see your <b>group name and a QR code on your profile</b> when you login to your profile on <a href="http://orientation.skule.ca">orientation.skule.ca</a>. 
+                This email is <b>not</b> a confirmation that your registration is complete. To confirm that you have completed registration (i.e. filled out your information <u>and</u> paid the registration fee), 
+                make sure you see your <b>group name and a QR code on your profile</b> when you login to your profile on <a href="http://orientation.skule.ca">orientation.skule.ca</a>. 
                 This QR code will be important for signing into numerous events during F!rosh Week.
               </p>
               <br />
-              <p>If you do not see these two items (group name and QR code), make sure you complete your payment to secure your spot at F!rosh Week 2T4! This can be found on the 
-                payment page when you hit “Pay Now.”
+              <p>If you do not see these two items (group name and QR code), make sure you complete your payment to secure your spot at F!rosh Week 2T5! If you have not yet paid,
+                the payment button will be at the top of your profile page. If you are having trouble finding this button, please let us know at <a href="mailto:tech@orientation.skule.ca">tech@orientation.skule.ca</a>.
               </p>
               <br />
               <p>
                 To keep up to date with all the info you need to know before you arrive here for
-                orientation, and to learn more about our meetup events running over the summer make sure
+                orientation, and to learn more about UofT make sure
                 to follow our Instagram page <a href="https://bit.ly/froshig">@froshweek</a> and <a href="https://discord.gg/RQrPQMYrHw">join our Discord community</a>!
               </p>
               <br />
               <p>
                 If you have any questions or want to learn more feel free to email us at
-                <a href="mailto:relations@orientation.skule.ca">relations@orientation.skule.ca!</a>
+                <a href="mailto:relations@orientation.skule.ca">relations@orientation.skule.ca.</a>
               </p>
               <br />
               <p>With HYPE, <br />F!rosh Week Orientation Committee</p>
@@ -117,24 +131,17 @@ newFroshSubscription.process((job, done) => {
           <footer>
             <img
               class="engsoc-logo"
-              src="cid:engineeringsocietylogo"
+              src="./engineering-society-logo.png"
               alt="University of Toronto Engineering Society Logo"
             />
             <div class="socials-container">
               <a href="https://bit.ly/froshig" class="social-link"
-                ><img
-                  src="cid:instagrambrands"
-                  alt="instagram logo"
-                  class="social-icon" /></a
-              ><a href="https://discord.gg/RQrPQMYrHw" class="social-link"
-                ><img src="cid:discordbrands" alt="discord logo" class="social-icon" /></a
+                ><img src="./instagram-brands.png" alt="instagram logo" class="social-icon" /></a
+              ><a href="https://discord.com/invite/Fnxr7tp34E" class="social-link"
+                ><img src="./discord-brands.png" alt="discord logo" class="social-icon" /></a
               >
             </div>
-            <img
-              class="frosh-logo"
-              src="cid:froshhardhatwhite"
-              alt="F!rosh Week Hardhat Logo"
-            />
+            <img class="frosh-logo" src="./frosh-hard-hat-white.png" alt="F!rosh Week Hardhat Logo" />
           </footer>
         </body>
       </html>`,
