@@ -98,8 +98,8 @@ const MakeReceipt = (froshObject) => {
             Your Unique QRCode
           </Text>
         </View> */}
-        <View style={{ padding: '0 10px' }}>
-          <Text style={{ fontSize: 16, padding: '20px 0' }} key={currKey++}>
+        <View style={{ padding: '20px 20px' }}>
+          <Text style={{ fontSize: 14, padding: '20px 0px' }} key={currKey++}>
             Please check all of your information to ensure it is correct. If you need to make any
             changes, please email us at{' '}
             <Link src={'mailto:tech@orientation.skule.ca'}>tech@orientation.skule.ca</Link> or reach
