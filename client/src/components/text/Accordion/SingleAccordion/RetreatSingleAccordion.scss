@@ -8,10 +8,12 @@
 
 .retreat-accordion {
   border-radius: 17px;
-  
+  margin-bottom: 10px;
+}
+
+.retreat-accordion,
+.retreat-accordion * {
   cursor: url('../../../../assets/cursor/pointer.png'), auto !important;
-  
-  margin-bottom:10px;
 }
 
 // Disable hover effect on touch/mobile devices
@@ -28,7 +30,7 @@
   overflow: hidden;
   transition: max-height 0.2s ease;
 
-  margin-left:25px;
+  margin-left: 25px;
 }
 
 .retreat-accord-text {
@@ -39,7 +41,7 @@
   text-align: left;
   font-size: 25px;
 
-  color:var(--text-dynamic);
+  color: var(--text-dynamic);
 }
 
 .retreat-accord-icon {
@@ -48,6 +50,5 @@
   transition: transform 0.2s ease;
   user-select: none;
 
-  margin-right:10px;
+  margin-right: 10px;
 }
-
