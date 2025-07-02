@@ -186,7 +186,7 @@
 
 .profile-page-announcements {
   flex: 1;
-  max-width: 1000px;
+  max-width: 100%;
   @include devices(tablet) {
     margin-left: 0;
     margin-right: 0;
@@ -197,7 +197,8 @@
   // margin-left: 50px;
   // margin-right: 2%;
   flex: 1;
-  max-width: 1000px;
+  max-width: 100%;
+  margin-bottom: 40px;
   @include devices(tablet) {
     margin-left: 0;
     margin-right: 0;
@@ -210,18 +211,23 @@
   p {
     font-size: 18px;
     margin-bottom: 10px;
+    text-align: center;
   }
 }
 
 .profile-info-row {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
   margin: 0% 6%;
+  gap: 40px;
   @media screen and (max-width: 1375px) {
     flex-direction: column !important;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+  }
+  @include devices(tablet) {
+    margin: 0 6%;
   }
 }
 
@@ -364,7 +370,7 @@
   margin-bottom: 25px;
   margin-top: 15px;
   text-align: left;
-  max-width: 1000px;
+  max-width: 100%;
 }
 
 .profile-not-registered-text {
@@ -393,7 +399,7 @@
 
 .retreat-profile-container {
   flex: 1;
-  max-width: 1000px;
+  max-width: 100%;
   background-color: #935ebf;
   border-radius: 15px;
   display: flex;
@@ -466,13 +472,17 @@
   border-bottom-left-radius: 0px !important;
   border-top-left-radius: 0px !important;
   width: 30%;
+
+  @media only screen and (max-width: 500px) {
+    display: none;
+  }
 }
 
 .frosh-instagram-container {
   // margin-left: 50px;
   // margin-right: 2%;
   flex: 1;
-  max-width: 1000px;
+  max-width: 100%;
   background-color: var(--purple-shades-light);
   border-radius: 15px;
   display: flex;
@@ -512,6 +522,19 @@
     p {
       font-size: 15px;
     }
+  }
+}
+
+.profile-info-row-left {
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+  max-width: 1000px;
+  min-width: 0;
+
+  @media (max-width: 1375px) {
+    flex: 1;
+    max-width: 100%;
   }
 }
 

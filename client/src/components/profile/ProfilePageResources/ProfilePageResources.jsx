@@ -6,6 +6,36 @@ import PropTypes from 'prop-types';
 export const ProfilePageResources = ({ froshObject }) => {
   return (
     <div className="profile-page-resources profile-page-side-section">
+      {froshObject ? (
+        <>
+          <ButtonBubble
+            label={'Download Information PDF'}
+            onClick={async () => {
+              const { MakeReceipt } = await import('../../MakeReceipt/MakeReceipt');
+              const ReactPDF = await import('@react-pdf/renderer');
+              const blob = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
+              const fileURL = URL.createObjectURL(blob);
+              const pdfWindow = window.open(fileURL, '_blank');
+              pdfWindow && pdfWindow.focus();
+            }}
+            isSecondary
+            style={{ margin: 0, marginTop: '10px' }}
+          />
+          <ButtonBubble
+            label={'Download Schedule PDF'}
+            onClick={async () => {
+              const ReactPDF = await import('@react-pdf/renderer');
+              const { MakeSchedulePDF } = await import('../../MakeSchedulePDF/MakeSchedulePDF');
+              const blob = await ReactPDF.pdf(MakeSchedulePDF(froshObject)).toBlob();
+              const fileURL = URL.createObjectURL(blob);
+              const pdfWindow = window.open(fileURL, '_blank');
+              pdfWindow && pdfWindow.focus();
+            }}
+            isSecondary
+            style={{ margin: 0, marginTop: '10px' }}
+          />
+        </>
+      ) : null}
       <h2>RESOURCES</h2>
       <div className="resource-link-group">
         {resources.map((resource, index) => {
@@ -21,36 +51,6 @@ export const ProfilePageResources = ({ froshObject }) => {
             </a>
           );
         })}
-        {froshObject ? (
-          <>
-            <ButtonBubble
-              label={'Download Information PDF'}
-              onClick={async () => {
-                const { MakeReceipt } = await import('../../MakeReceipt/MakeReceipt');
-                const ReactPDF = await import('@react-pdf/renderer');
-                const blob = await ReactPDF.pdf(MakeReceipt(froshObject)).toBlob();
-                const fileURL = URL.createObjectURL(blob);
-                const pdfWindow = window.open(fileURL, '_blank');
-                pdfWindow && pdfWindow.focus();
-              }}
-              isSecondary
-              style={{ margin: 0, marginTop: '10px' }}
-            />
-            <ButtonBubble
-              label={'Download Schedule PDF'}
-              onClick={async () => {
-                const ReactPDF = await import('@react-pdf/renderer');
-                const { MakeSchedulePDF } = await import('../../MakeSchedulePDF/MakeSchedulePDF');
-                const blob = await ReactPDF.pdf(MakeSchedulePDF(froshObject)).toBlob();
-                const fileURL = URL.createObjectURL(blob);
-                const pdfWindow = window.open(fileURL, '_blank');
-                pdfWindow && pdfWindow.focus();
-              }}
-              isSecondary
-              style={{ margin: 0, marginTop: '10px' }}
-            />
-          </>
-        ) : null}
       </div>
     </div>
   );

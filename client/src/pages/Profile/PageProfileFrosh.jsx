@@ -52,7 +52,7 @@ const PageProfileFrosh = () => {
     <>
       <ProfilePageFroshHeader editButton={true} />
       <div className="profile-info-row">
-        <div className="profile-info-row-right">
+        <div className="profile-info-row-left">
           {!isRegistered ? (
             <div className={'profile-not-registered'}>
               <div className="profile-not-registered-text">

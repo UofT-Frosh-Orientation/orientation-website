@@ -49,11 +49,10 @@ const RetreatSingleAccordion = ({
       //style={{ cursor: canOpen ? 'pointer' : 'unset', ...style }} // Removed to allow custom cursor
     >
       <div className="accord-header">
-        
         {canOpen !== false ? (
           <div style={{}} className={'retreat-accord-text'}>
             <img
-              src={dark ? faAngleDownDark : faAngleDown}
+              src={darkMode ? faAngleDownDark : faAngleDown}
               className={`${rotate}`}
               // style={{ filter: darkMode ? 'invert(1)' : 'unset' }}
               alt="Accordion Button"
