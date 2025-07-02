@@ -61,7 +61,7 @@ newUserSubscription.process((job, done) => {
               overflow: hidden;
               font-family: Arial, sans-serif;
             }
-            .text-container p {
+            .text-container p, ul, li {
               font-size: 16px;
               color: #dfcdf3;
               line-height: 1.6;
@@ -89,15 +89,15 @@ newUserSubscription.process((job, done) => {
                 Congratulations and thank you for creating an account for F!rosh Week 2T5!
               </p>
               <p>
-                We’re so excited to have you join!
+                We're so excited to have you join!
               </p>
               <p>
                 Important Next Steps:
               </p>
               <ul>
-                <li>Fill out your registration information and pay your registration fee at <a href="${siteLink} style="color: #ffc600; text-decoration: underline;">orientation.skule.ca</a></li>
+                <li>Fill out your registration information and pay your registration fee at <a href="${siteLink}" style="color: #ffc600; text-decoration: underline;">orientation.skule.ca</a></li>
                 <li>Follow us on instagram <a href="https://bit.ly/froshig" style="color: #ffc600; text-decoration: underline;">@froshweek</a></li>
-              <ul>
+              </ul>
               <p>
                 If you have any questions or want to learn more, feel free to email us at
                 <a href="mailto:relations@orientation.skule.ca" style="color: #ffc600; text-decoration: underline;">relations@orientation.skule.ca</a>.

@@ -62,25 +62,20 @@ const PageProfileFrosh = () => {
                 </p>
                 {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
               </div>
-              <Link
-                key={'/registration'}
-                to={'/registration'}
-                style={{ textDecoration: 'none' }}
-                className={'no-link-style'}
-              >
+              <Link key={'/registration'} to={'/registration'} className={'no-link-style'}>
                 <Button label="Register" style={{}} />
               </Link>
             </div>
           ) : null}
-          {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null}
+          {/* {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null} */}
           <ProfilePageRetreat />
-          {isRegistered ? <ProfilePageFroshOlympiks /> : null}
+          {/* {isRegistered ? <ProfilePageFroshOlympiks /> : null} */}
           {/* <ProfilePageNitelife /> */}
           <ProfilePageInstagrams />
           <ProfilePageAnnouncements />
           <ProfilePageSchedule />
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className="profile-info-row-right">
           <ProfilePageQRCode />
           {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
           {user?.attendingScunt ? <ProfilePageScuntTeam /> : null}
@@ -115,13 +110,7 @@ const ProfilePageRetreat = () => {
     <Link to={'/frosh-retreat'} className="no-link-style">
       <div className="retreat-profile-container">
         {isRetreat ? (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              flex: 1,
-            }}
-          >
+          <div>
             <h2>Thank you for purchasing a F!rosh Retreat Ticket!</h2>
             <p>
               We will reach out with more information soon. Keep an eye on your email! Please bring
@@ -129,26 +118,8 @@ const ProfilePageRetreat = () => {
             </p>
           </div>
         ) : (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              flex: 1,
-              justifyContent: 'space-between',
-              alignItems: 'stretch',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'start',
-                flex: 1,
-                alignItems: 'center',
-                width: '100%',
-                padding: '20px 30px',
-              }}
-            >
+          <div className="retreat-ad">
+            <div className="retreat-ad-sub">
               <div className="retreat-container-text">
                 <h2>Click here to buy your ticket to F!rosh Retreat!</h2>
                 <p>
@@ -427,7 +398,7 @@ const ProfilePageAnnouncements = () => {
         <Link
           key={'/resubscribe'}
           to={'/resubscribe'}
-          style={{ textDecoration: 'none' }}
+          // style={{ textDecoration: 'none' }}
           className={'no-link-style'}
         >
           <Button label="Resubscribe To Announcements Emails" />

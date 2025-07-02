@@ -20,7 +20,7 @@ import { SnackbarContext } from '../../util/SnackbarProvider';
 // Messages!
 const popupTitle = 'Reset Password';
 const popupBodyText = `Enter your email address below, and we'll send you an email to reset your password`;
-const emailSuccessMessage = `Success, an email has been sent!`;
+const emailSuccessMessage = `We have sent an email to the address you provided. Please follow the instructions there to reset your password.`;
 const emailErrorMessage = `We didn't recognize that email, please try again!`;
 
 const PageLogin = ({ incorrectEntry }) => {
@@ -140,7 +140,7 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
           <TextInput
             inputType={'text'}
             placeholder={'Email'}
-            localStorageKey={'forgot-password-container-email'}
+            // localStorageKey={'forgot-password-container-email'}
             onChange={(value) => {
               setEmailInput(value);
             }}
@@ -165,6 +165,7 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
               label={'Close'}
               onClick={() => {
                 setTrigger(false);
+                // setButtonClick(0);
               }}
             />
           ) : (
@@ -173,35 +174,21 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
               onClick={() => {
                 setButtonClick(buttonClick + 1);
                 dispatch(requestPasswordReset(email));
-                // setButtonClick(buttonClick + 1);
               }}
             />
           )}
         </div>
 
         <div className="password-reset-result-message">
-          {
-            // added buttonclick, so the message doesn't display immediately
-            buttonClick > 0 && !loading ? (
-              passwordResetRequest ? (
-                <ErrorSuccessBox
-                  content={
-                    passwordResetRequest
-                      ? 'We have sent an email to the address you provided. Please follow the instructions there to reset your password.'
-                      : ''
-                  }
-                  success={true}
-                />
-              ) : (
-                <ErrorSuccessBox
-                  content={error ? 'Something went wrong. Please try again later.' : ''}
-                  error={true}
-                />
-              )
+          {buttonClick > 0 ? (
+            passwordResetRequest ? (
+              <ErrorSuccessBox content={emailSuccessMessage} success={true} />
+            ) : error ? (
+              <ErrorSuccessBox content={emailErrorMessage} error={true} />
             ) : (
-              <></>
+              <ErrorSuccessBox content={emailErrorMessage} error={true} />
             )
-          }
+          ) : null}
         </div>
       </div>
     </>

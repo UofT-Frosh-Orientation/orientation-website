@@ -119,7 +119,7 @@ const PageSignUp = () => {
                 accountObj['email'] = value;
                 checkErrors(false, ['email']);
               }}
-              localStorageKey={'sign-up-email'}
+              // localStorageKey={'sign-up-email'}
             />
           </div>
           <div className="full-width-input">
@@ -160,7 +160,7 @@ const PageSignUp = () => {
                 accountObj['firstName'] = value;
                 checkErrors(false);
               }}
-              localStorageKey={'sign-up-firstName'}
+              // localStorageKey={'sign-up-firstName'}
             />
           </div>
           <div className="half-width-input">
@@ -173,7 +173,7 @@ const PageSignUp = () => {
                 accountObj['lastName'] = value;
                 checkErrors(false);
               }}
-              localStorageKey={'sign-up-lastName'}
+              // localStorageKey={'sign-up-lastName'}
             />
           </div>
           <div className="full-width-input">
@@ -185,7 +185,7 @@ const PageSignUp = () => {
                 accountObj['preferredName'] = value;
                 checkErrors(false);
               }}
-              localStorageKey={'sign-up-preferredName'}
+              // localStorageKey={'sign-up-preferredName'}
             />
           </div>
           {revealLeaderSignup >= 5 ? (

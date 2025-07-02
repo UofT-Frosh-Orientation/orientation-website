@@ -176,3 +176,29 @@
 .proxima-nova-text {
   font-family: 'Proxima Nova', sans-serif;
 }
+
+h1.proxima-nova-text {
+  font-weight: 900;
+  font-size: 48px;
+  width: 90%;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 40px;
+}
+
+h2.proxima-nova-text {
+  font-weight: 700;
+  font-size: 30px;
+  width: 80%;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 40px;
+}
+
+h3.proxima-nova-text {
+  font-weight: 400;
+  font-size: 20px;
+  width: 60%;
+  text-align: center;
+  margin: auto;
+}
