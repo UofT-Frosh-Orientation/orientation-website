@@ -27,7 +27,7 @@ newFroshSubscription.process((job, done) => {
             }
             .space-bar {
               background-color: #382159;
-              height: 10px;
+              height: 0px;
             }
             footer {
               display: flex;
