@@ -6,7 +6,7 @@ import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-fli
 import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnnouncement';
 import { QRNormal } from 'react-qrbtf';
 import { Button } from '../../components/button/Button/Button';
-import EditIcon from '../../assets/misc/edit-icontemp.png';
+import EditIcon from '../../assets/misc/edit-icon.svg';
 // import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Link } from 'react-router-dom';
 import { instagramAccounts } from '../../util/instagramAccounts';
@@ -149,7 +149,7 @@ const ProfilePageRetreat = () => {
                 padding: '20px 30px',
               }}
             >
-              <div className="retreat-text">
+              <div className="retreat-container-text">
                 <h2>Click here to buy your ticket to F!rosh Retreat!</h2>
                 <p>
                   There are a limited number of tickets, so get yours before it&apos;s too late!{' '}
@@ -158,7 +158,7 @@ const ProfilePageRetreat = () => {
             </div>
             <img
               className="retreat-image"
-              src="/src/assets/profile/retreat-image.png"
+              src="/src/assets/profile/retreat-image.jpg"
               alt="Retreat image"
             />
           </div>

@@ -384,7 +384,7 @@
   align-items: center;
 
   margin-bottom: 23px;
-  color: var(--text-dynamic);
+  color: white;
   transition: transform 400ms;
   position: relative;
 
@@ -395,20 +395,21 @@
     &::after {
       content: '';
       position: absolute;
-      width: 60px;
-      height: 60px;
+      width: 80px;
+      height: 80px;
       background-repeat: no-repeat;
+      background-size: contain;
       z-index: 0;
     }
 
     &::before {
-      top: -18px;
+      top: -25px;
       left: -30px;
       background-image: var(--top-left-corner-border);
     }
 
     &::after {
-      bottom: -25px;
+      bottom: -30px;
       right: -25px;
       background-image: var(--bottom-right-corner-border);
     }
@@ -416,6 +417,10 @@
 
   h2 {
     margin-bottom: 4px;
+    font-size: 28px;
+  }
+  p {
+    font-size: 20px;
   }
   @include devices(tablet) {
     margin-left: 0;
@@ -434,18 +439,16 @@
   cursor: url('../../assets/cursor/pointer.png'), auto !important;
 }
 
+.retreat-container-text {
+  padding-left: 10px;
+}
+
 .retreat-image {
   object-fit: cover;
   border-radius: 15px;
-}
-
-.retreat-text,
-.retreat-text * {
-  color: white !important;
-  margin: 0 !important;
-  h2 {
-    margin-bottom: 4px !important;
-  }
+  border-bottom-left-radius: 0px !important;
+  border-top-left-radius: 0px !important;
+  width: 30%;
 }
 
 .frosh-instagram-container {
