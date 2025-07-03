@@ -7,6 +7,7 @@ import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnn
 import { QRNormal } from 'react-qrbtf';
 import { Button } from '../../components/button/Button/Button';
 import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
+import EditIconDark from '../../assets/misc/edit-icon-dark.svg';
 import EditIcon from '../../assets/misc/edit-icon.svg';
 // import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Link } from 'react-router-dom';
@@ -220,7 +221,9 @@ const ProfilePageFroshHeader = ({ editButton }) => {
                 <>
                   {user?.preferredName === '' || !user?.preferredName ? (
                     <>
-                      <b>{user?.firstName}</b> {user?.lastName}
+                      <b>
+                        {user?.firstName} {user?.lastName}
+                      </b>
                     </>
                   ) : (
                     <b>{user?.preferredName}</b>
@@ -233,7 +236,7 @@ const ProfilePageFroshHeader = ({ editButton }) => {
                     className={'profile-edit-icon-link no-link-style'}
                   >
                     <img
-                      src={EditIcon}
+                      src={darkMode ? EditIconDark : EditIcon}
                       alt={'edit'}
                       className={'profile-edit-icon no-link-style'}
                     />
