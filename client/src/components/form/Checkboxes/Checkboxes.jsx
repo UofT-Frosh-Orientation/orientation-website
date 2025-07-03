@@ -16,6 +16,7 @@ const Checkboxes = ({
   selectAll,
   setSelectAll,
   autoFocus,
+  isRequired,
 }) => {
   useEffect(() => {
     if (selectAll) {
@@ -120,7 +121,18 @@ const Checkboxes = ({
 
   return (
     <>
-      {label !== undefined ? <p className="checkbox-input-title">{label}</p> : <></>}
+      {label !== undefined ? (
+        <p className="checkbox-input-title">
+          {label}
+          {isRequired !== undefined && isRequired === true && label !== undefined ? (
+            <p className="text-input-required-star">*</p>
+          ) : (
+            <></>
+          )}
+        </p>
+      ) : (
+        <></>
+      )}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
         {values.map((value, index) => {
           let isDisabled = false;
@@ -173,6 +185,7 @@ Checkboxes.propTypes = {
   selectAll: PropTypes.bool,
   setSelectAll: PropTypes.func,
   autoFocus: PropTypes.bool,
+  isRequired: PropTypes.bool,
 };
 
 export { Checkboxes };

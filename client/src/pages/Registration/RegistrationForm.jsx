@@ -6,6 +6,7 @@ import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { Tabs } from '../../components/tabs/tabs';
 import './RegistrationForm.scss';
 import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
@@ -222,6 +223,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                 <RadioButtons
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
+                  isRequired={
+                    field.isRequiredInput !== undefined &&
+                    field.isRequiredInput === true &&
+                    field.label !== undefined
+                      ? true
+                      : false
+                  }
                   disabledIndices={field.disabledIndices}
                   initialSelectedIndex={
                     editFieldsPage === true
@@ -249,6 +257,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                 <Dropdown
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
+                  isRequired={
+                    field.isRequiredInput !== undefined &&
+                    field.isRequiredInput === true &&
+                    field.label !== undefined
+                      ? true
+                      : false
+                  }
                   initialSelectedIndex={
                     editFieldsPage === true
                       ? field.values.findIndex((val) => val === initialValues[key])
@@ -274,6 +289,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                 <Checkboxes
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
+                  isRequired={
+                    field.isRequiredInput !== undefined &&
+                    field.isRequiredInput === true &&
+                    field.label !== undefined
+                      ? true
+                      : false
+                  }
                   disabledIndices={field.disabledIndices}
                   initialSelectedIndices={
                     editFieldsPage === true
@@ -309,6 +331,8 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       <b>
                         <p className="text-input-title">{field.label}</p>
                       </b>
+                    ) : field.isSub === true ? (
+                      <p className="text-input-sub">{field.label}</p>
                     ) : (
                       <p className="text-input-title">{field.label}</p>
                     )
@@ -347,9 +371,9 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
             <h2>Any changes will be lost.</h2>
             <div className="registration-edit-popup-buttons">
               <Link to={'/profile'} className="no-link-style">
-                <Button label="Discard" isSecondary />
+                <ButtonRound label="Discard" isSecondary />
               </Link>
-              <Button label="Keep editing" onClick={() => setShowPopUp(false)} />
+              <ButtonRound label="Keep editing" onClick={() => setShowPopUp(false)} />
             </div>
           </div>
         </PopupModal>
@@ -371,13 +395,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
               }}
             >
               {/* TODO: SHow popup to ask if they would like to discard all changes when editing fields */}
-              <ButtonOutlined
+              <ButtonRound
                 label={'Discard changes'}
                 onClick={() => {
                   setShowPopUp(true);
                 }}
               />
-              <Button
+              <ButtonRound
                 label={'Save changes'}
                 onClick={() => {
                   setErrorAfterEdit(false);
@@ -416,15 +440,16 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                         <img className="registration-icon-logo" src={MainFroshLogo}></img>
                         <div>
                           <h1 className="registration-first-step-title">
-                            {'HELLO ' +
+                            {'Welcome ' +
                               (user && (user.preferredName === '' || !user.preferredName)
                                 ? user.firstName
                                 : user
-                                ? user.preferredName.toUpperCase()
-                                : '')}
+                                ? user.preferredName
+                                : '') +
+                              '!'}
                           </h1>
                           <h2 className="registration-first-step-subtitle">
-                            LET&apos;S REGISTER FOR UOFT ENGINEERING&apos;S F!ROSH WEEK 2T5
+                            Register here for UofT Engineering&apos;s F!rosh Week 2T5
                           </h2>
                         </div>
                       </div>
@@ -444,6 +469,28 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   title: 'Payment',
                   component: (
                     <div className="registration-payment-page">
+                      {/* <div className={'full-width-input'}>
+                        <RadioButtons
+                          label="Would you like to request a bursary?"
+                          values={['Yes', 'No']}
+                          onSelected={(value) => {
+                            froshObject['isBursary'] = value === 'Yes';
+                          }}
+                          initialSelectedIndex={1}
+                          // localStorageKey={'profile-edit-MedicalInfo'}
+                        />
+                      </div>
+                      <p
+                        className="register-terms-of-service text-input-sub"
+                        style={{ marginTop: '20px', marginBottom: '20px' }}
+                      >
+                        The price of a F!rosh Week ticket is $130 CAD. We will be making bursary
+                        decisions after F!rosh Week and will refund the amount to the students after
+                        the decisions. Our team will reach out to you for more details regarding the
+                        bursary program. Bursaries range from partial to complete settlement of the
+                        ticket price.
+                      </p> */}
+                      <h1 className="notice">Notice</h1>
                       <p className="register-terms-of-service">{terms}</p>
                       <b>
                         <p className="register-terms-of-service-below">
@@ -452,19 +499,12 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                           events
                         </p>
                       </b>
-                      <Button
+                      <ButtonRound
                         style={{ margin: '0 auto', marginTop: '15px' }}
                         label={'Pay Now'}
                         onClick={handleRegister}
                         isDisabled={!canRegister}
                       />
-                      <p className="register-terms-of-service" style={{ marginTop: '20px' }}>
-                        Note: We will be making bursary decisions after F!rosh Week and will refund
-                        the amount to the students after the decisions. Our team will reach out to
-                        you for more details regarding the bursary program. Bursaries range from
-                        partial to complete settlement of the ticket price. Bursary applications are
-                        now closed.
-                      </p>
                     </div>
                   ),
                 },
