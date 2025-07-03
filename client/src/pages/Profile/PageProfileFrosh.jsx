@@ -15,6 +15,7 @@ import InstagramIcon from '../../assets/social/instagram-brands.svg';
 // import NitelifeIcon from '../../assets/misc/nitelife.png';
 import ScuntIcon from '../../assets/misc/magnifier.png';
 import OlympiksIcon from '../../assets/misc/torch.png';
+import RetreatImg from '../../assets/profile/retreat-image.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { announcementsSelector } from '../../state/announcements/announcementsSlice';
@@ -78,7 +79,7 @@ const PageProfileFrosh = () => {
           <ProfilePageSchedule />
           {/* <ScheduleComponent /> */}
         </div>
-        <div className="profile-info-row-right desktop-only">
+        <div className="profile-info-row-right">
           {/* <ProfilePageQRCode /> */}
           {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
           {/* {user?.attendingScunt ? <ProfilePageScuntTeam /> : null} */}
@@ -130,11 +131,7 @@ const ProfilePageRetreat = () => {
                 </p>
               </div>
             </div>
-            <img
-              className="retreat-image"
-              src="/src/assets/profile/retreat-image.jpg"
-              alt="Retreat image"
-            />
+            <img className="retreat-image" src={RetreatImg} alt="Retreat image" />
           </div>
         )}
       </div>

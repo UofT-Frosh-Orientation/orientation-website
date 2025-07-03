@@ -20,35 +20,19 @@
   padding-top: 80px;
   padding-bottom: 60px;
   margin-bottom: 36px;
-
-  @include devices(tablet) {
-    // padding: 4% 5%;
-    // padding-top: 12%;
-    justify-content: space-evenly;
-  }
   h1 {
     color: var(--text-primary);
     font-size: 85px;
-    // @include devices(tablet) {
-    //   font-size: 65px;
-    // }
   }
   h2 {
     color: var(--jam);
     font-size: 60px;
     line-height: 44px;
     font-family: 'Jersey 20';
-
-    // @include devices(tablet) {
-    //   font-size: 40px;
-    // }
   }
   p {
     color: var(--text-primary);
     font-size: 18px;
-    // @include devices(tablet) {
-    //   font-size: 15px;
-    // }
   }
   b {
     color: var(--text-primary);
@@ -56,17 +40,23 @@
     font-family: 'Jersey 20' !important;
     font-weight: normal;
     //letter-spacing: 0.2rem;
-    // @include devices(tablet) {
-    //   font-size: 30px;
-    // }
   }
 
-  // @include devices(tablet) {
-  //   width: 35px;
-  //   height: 35px;
-  //   padding: 9px;
-  //   margin: 5px 12px;
-  // }
+  @include devices(tablet) {
+    h1 {
+      font-size: 65px;
+    }
+    h2 {
+      font-size: 40px;
+    }
+    p {
+      font-size: 15px;
+    }
+    b {
+      font-size: 60px;
+    }
+    justify-content: space-evenly;
+  }
 }
 
 .retreat-ad {
@@ -116,6 +106,10 @@
 
   &:hover {
     transform: scale(1.03);
+  }
+
+  @include devices(tablet) {
+    width: 48px;
   }
 }
 
@@ -245,8 +239,8 @@
   padding-bottom: 5px;
   @include devices(tablet) {
     margin-left: 1%;
-    font-size: 34px;
     padding-top: 25px;
+    font-size: 24px;
   }
 }
 

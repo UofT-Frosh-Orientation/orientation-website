@@ -37,7 +37,7 @@ export const ProfilePageResources = ({ froshObject }) => {
           />
         </>
       ) : null}
-      <h2>RESOURCES</h2>
+      <h2 className="desktop-only">RESOURCES</h2>
       <div className="resource-link-group">
         {resources.map((resource, index) => {
           return (
@@ -46,7 +46,7 @@ export const ProfilePageResources = ({ froshObject }) => {
               href={resource.link}
               target="_blank"
               rel="noreferrer"
-              className="resource-links"
+              className="resource-links desktop-only"
             >
               {resource.name}
             </a>
