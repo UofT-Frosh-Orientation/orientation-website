@@ -32,6 +32,10 @@ const PaymentErrorGraphic = () => {
 const PagePaymentError = ({ link }) => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
+  if (link === '/frosh-retreat') {
+    console.log('Payment Error: Frosh Retreat');
+  }
+
   return (
     <>
       <div className="payment-error-page">

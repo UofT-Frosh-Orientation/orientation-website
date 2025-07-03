@@ -14,6 +14,7 @@ import useAxios from '../../hooks/useAxios';
 import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAccordion/RetreatSingleAccordion.jsx';
 import dragon from '../../assets/mascots/dragon-retreat.svg';
 import cardImage from '../../assets/retreatPhotos/cards.jpg';
+import retreatArrow from '../../assets/misc/backarrow.png';
 
 export const FroshRetreat = () => {
   const [remainingTickets, setRemainingTickets] = useState();
@@ -52,6 +53,8 @@ export const FroshRetreat = () => {
   //     navigate('/profile');
   //   }
   // }, [isRegistered]);
+
+  console.log('Retreat tickets remaining: ', remainingTickets);
 
   return (
     <div className="frosh-retreat-page">
@@ -188,6 +191,7 @@ const FroshRetreatFAQ = () => {
               <RetreatSingleAccordion
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
+                canOpen={true}
                 header={<div className={'retreat-faq-question'}>{item.title}</div>}
                 style={{
                   backgroundColor: 'red',
@@ -387,8 +391,8 @@ const RetreatRegistration = () => {
               backgroundColor: '#d9d9d9',
               borderImage: 'none',
               boxShadow: 'none',
-              webkitBoxShadow: 'none',
-              mozBoxShadow: 'none',
+              WebkitBoxShadow: 'none',
+              MozBoxShadow: 'none',
               fontSize: '18px',
               borderRadius: '50px',
               marginLeft: '0',
@@ -420,8 +424,8 @@ const RetreatRegistration = () => {
                       display: 'block',
                       borderImage: 'none',
                       boxShadow: 'none',
-                      webkitBoxShadow: 'none',
-                      mozBoxShadow: 'none',
+                      WebkitBoxShadow: 'none',
+                      MozBoxShadow: 'none',
                       borderRadius: '50px',
                       marginLeft: '0',
                     }}
@@ -442,8 +446,8 @@ const RetreatRegistration = () => {
                         marginLeft: '20px',
                         borderImage: 'none',
                         boxShadow: 'none',
-                        webkitBoxShadow: 'none',
-                        mozBoxShadow: 'none',
+                        WebkitBoxShadow: 'none',
+                        MozBoxShadow: 'none',
                         fontSize: '18px',
                         borderRadius: '50px',
                       }}
@@ -503,13 +507,13 @@ const RetreatRegistration = () => {
                 fontSize: '30px',
                 borderImage: 'none',
                 boxShadow: 'none',
-                webkitBoxShadow: 'none',
-                mozBoxShadow: 'none',
+                WebkitBoxShadow: 'none',
+                MozBoxShadow: 'none',
                 borderRadius: '50px',
                 marginLeft: '0',
               }}
             />
-            <img className="retreat-arrow" src="../../src/assets/misc/backarrow.png"></img>
+            <img className="retreat-arrow" src={retreatArrow}></img>
           </div>
         ) : (
           <></>
