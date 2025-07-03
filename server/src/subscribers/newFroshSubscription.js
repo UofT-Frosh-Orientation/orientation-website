@@ -89,14 +89,12 @@ newFroshSubscription.process((job, done) => {
                 This email is <b>not</b> a confirmation that your registration is complete.
                 To confirm that you have completed registration (i.e. filled out your
                 information <u>and</u> paid the registration fee), make sure you see your
-                <b>group name and a QR code on your profile</b> when you log in to
+                <b>group name on your profile</b> when you log in to
                 <a href="http://orientation.skule.ca" style="color: #ffc600; text-decoration: underline;">orientation.skule.ca</a>.
-                This QR code will be important for signing into numerous events during
-                F!rosh Week.
               </p>
               <p>
-                If you do not see these two items (group name and QR code), make sure you complete your payment to secure your spot at F!rosh Week 2T5! If you have not yet paid,
-                the payment button will be at the top of your profile page. If you are having trouble finding this button, please let us know at
+                If you do not see your group name, make sure you complete your payment to secure your spot at F!rosh Week 2T5! If you have not yet paid,
+                the register button will be at the top of your profile page. If you are having trouble finding this button, please let us know at
                 <a href="mailto:tech@orientation.skule.ca" style="color: #ffc600; text-decoration: underline;">tech@orientation.skule.ca</a>.
               </p>
               <p>

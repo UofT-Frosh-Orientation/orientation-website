@@ -495,7 +495,7 @@ export const fields = {
     },
     priceInfo: {
       type: 'label',
-      label: 'The price of a F!rosh Retreat ticket is $103 CAD.',
+      label: 'The price of a F!rosh Retreat ticket is $110 CAD.',
       isSub: true,
     },
     summerLocationQuery: {

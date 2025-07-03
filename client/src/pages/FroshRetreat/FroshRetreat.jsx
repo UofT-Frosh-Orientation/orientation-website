@@ -61,22 +61,32 @@ export const FroshRetreat = () => {
         </div>*/}
       <div className="retreat-title">
         <div className="retreat-gradient"></div>
-        <img src={cardImage} className='retreat-title-img'></img>
-        <div className='retreat-title-container'>
-          <h2 className='retreat-subtitle-large retreat-subtitle'>All about</h2>
-          <h1 className="retreat-title-text">F!ROSH<br/>RETREAT </h1>
-          
-          <h2 className='retreat-subtitle'>August 31st - September 1st</h2>
-          <h2 className='retreat-subtitle'>at Hart House Farm</h2>
+        <img src={cardImage} className="retreat-title-img"></img>
+        <div className="retreat-title-container">
+          <h2 className="retreat-subtitle-large retreat-subtitle">All about</h2>
+          <h1 className="retreat-title-text">
+            F!ROSH
+            <br />
+            RETREAT{' '}
+          </h1>
+
+          <h2 className="retreat-subtitle">August 31st - September 1st</h2>
+          <h2 className="retreat-subtitle">at Hart House Farm</h2>
         </div>
       </div>
-    
-      <div className='retreat-info-container'>
+
+      <div className="retreat-info-container">
         <h3 className="retreat-header">About</h3>
-        <p className="retreat-text">The retreat is taking place on August 31st and September 1st, 2024 at Hart House Farm.</p>
+        <p className="retreat-text">
+          The retreat is taking place on August 31st and September 1st, 2024 at Hart House Farm.
+        </p>
 
         <h3 className="retreat-header">Ticket Information</h3>
-        <p className="retreat-text">Tickets to Retreat are $103.00 (they include bus transportation; no tickets without bus transportation). Due to limited spaces, we are selling a limited number of tickets so purchase yours before they sell out! </p>
+        <p className="retreat-text">
+          Tickets to Retreat are $110.00 (they include bus transportation; no tickets without bus
+          transportation). Due to limited spaces, we are selling a limited number of tickets so
+          purchase yours before they sell out!{' '}
+        </p>
 
         <h3 className="retreat-header">FAQ</h3>
         <FroshRetreatFAQ />
@@ -97,16 +107,30 @@ export const FroshRetreat = () => {
         {/*Need to add links to prev year photos*/}
 
         <div className="retreat-buttons-div">
-          <a className='retreat-photos-button' href='https://photos.skule.ca/2T4-2T5/Frosh-Week-2T4/Frosh-Retreat'><strong>2T4</strong></a>
-          <a className='retreat-photos-button' href='https://photos.skule.ca/2T3-2T4/Frosh-week/Frosh-Retreat'><strong>2T3</strong></a>
-          <a className='retreat-photos-button' href='https://photos.skule.ca/2T2-2T3/Frosh-Week/Events/Retreat'><strong>2T2</strong></a>
+          <a
+            className="retreat-photos-button"
+            href="https://photos.skule.ca/2T4-2T5/Frosh-Week-2T4/Frosh-Retreat"
+          >
+            <strong>2T4</strong>
+          </a>
+          <a
+            className="retreat-photos-button"
+            href="https://photos.skule.ca/2T3-2T4/Frosh-week/Frosh-Retreat"
+          >
+            <strong>2T3</strong>
+          </a>
+          <a
+            className="retreat-photos-button"
+            href="https://photos.skule.ca/2T2-2T3/Frosh-Week/Events/Retreat"
+          >
+            <strong>2T2</strong>
+          </a>
         </div>
 
         <h3 className="retreat-header">Registration</h3>
         <RetreatRegistration />
       </div>
     </div>
-      
   );
 };
 
@@ -125,8 +149,7 @@ const retreatFAQs = [
     ],
   },
   {
-    title:
-      'What do I need to bring?*',
+    title: 'What do I need to bring?*',
     description: [
       '*(a more comprehensive list will be sent to attendees at a later date)',
       '• Sleeping bags, tents, pillows and blankets to sleep in',
@@ -177,13 +200,17 @@ const FroshRetreatFAQ = () => {
                   <>
                     <ul className="frosh-retreat-faq-bullet">
                       {item.description.map((listItem, index) => {
-                        return <li className="retreat-text" key={listItem}>{listItem}</li>;
+                        return (
+                          <li className="retreat-text" key={listItem}>
+                            {listItem}
+                          </li>
+                        );
                       })}
                     </ul>
                   </>
                 ) : (
                   <>
-                    <p className='retreat-text'>{item.description}</p>
+                    <p className="retreat-text">{item.description}</p>
                   </>
                 )}
               </RetreatSingleAccordion>
@@ -282,8 +309,8 @@ const RetreatRegistration = () => {
   };
 
   return (
-    <div style={{  }}>
-      <p className = 'retreat-text'>
+    <div style={{}}>
+      <p className="retreat-text">
         In order to register, the following information will be collected from your account. Please
         ensure this information is accurate and up to date. If any information needs to be modified,
         please edit your information{' '}
@@ -300,7 +327,8 @@ const RetreatRegistration = () => {
           </p>
         </div>
         <div className="display-field">
-          <h4 className="retreat-subheading">Email:</h4> <p className="retreat-text">{user?.email}</p>
+          <h4 className="retreat-subheading">Email:</h4>{' '}
+          <p className="retreat-text">{user?.email}</p>
         </div>
         <div className="display-field">
           <h4 className="retreat-subheading">Phone Number:</h4>{' '}
@@ -319,7 +347,9 @@ const RetreatRegistration = () => {
         </div>
         <div className="display-field">
           <h4 className="retreat-subheading">Medical Info:</h4>{' '}
-          <p className="retreat-text">{!user?.medicalInfo || user?.medicalInfo === '' ? 'None' : user?.medicalInfo}</p>
+          <p className="retreat-text">
+            {!user?.medicalInfo || user?.medicalInfo === '' ? 'None' : user?.medicalInfo}
+          </p>
           <p className="retreat-text">
             {!user?.specficMedicalInfo || user?.specficMedicalInfo === ''
               ? 'None'
@@ -328,13 +358,15 @@ const RetreatRegistration = () => {
         </div>
         <div className="display-field">
           <h4 className="retreat-subheading">Medication:</h4>{' '}
-          <p className="retreat-text">{!user?.medication || user?.medication === '' ? 'None' : user?.medication}</p>
+          <p className="retreat-text">
+            {!user?.medication || user?.medication === '' ? 'None' : user?.medication}
+          </p>
         </div>
         <div className="display-field">
           <h4 className="retreat-subheading">Emergency Contact:</h4>{' '}
           <p className="retreat-text">{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${user?.emergencyContactNumber}`}</p>
         </div>
-        
+
         <h3 className="retreat-header">Frosh Retreat Waiver</h3>
         <p className="retreat-text">Read and download the Frosh Retreat Waiver</p>
 
@@ -346,22 +378,50 @@ const RetreatRegistration = () => {
               window.open(waiverPDF, '_blank').focus();
               setViewedWaiver(true);
             }}
-            style={{ marginBottom: '25px', padding: '15px 25px 15px 25px', backgroundColor: '#d9d9d9', borderImage: 'none', boxShadow: 'none', webkitBoxShadow: 'none', mozBoxShadow: 'none',fontSize: '18px', borderRadius: '50px', marginLeft: '0' }}
+            style={{
+              marginBottom: '25px',
+              padding: '15px 25px 15px 25px',
+              backgroundColor: '#d9d9d9',
+              borderImage: 'none',
+              boxShadow: 'none',
+              webkitBoxShadow: 'none',
+              mozBoxShadow: 'none',
+              fontSize: '18px',
+              borderRadius: '50px',
+              marginLeft: '0',
+            }}
           />
 
           <div className="display-field">
             <h5 className="retreat-subheading2">Upload Signed Waiver</h5>
-            
+
             {viewedWaiver ? (
               <>
-                <input className='retreat-choose-file' type="file" accept=".pdf" onChange={handleFileChange} />
+                <input
+                  className="retreat-choose-file"
+                  type="file"
+                  accept=".pdf"
+                  onChange={handleFileChange}
+                />
                 <p className="retreat-pdf-disclaimer">Only PDF files under 1 MB are accepted</p>
-                <div className='retreat-upload-file-container'>
+                <div className="retreat-upload-file-container">
                   <Button
                     label="Upload PDF"
                     isSecondary
                     onClick={handleUpload}
-                    style={{ marginTop: '10px', backgroundColor:'var(--mikado)', padding:'20px 30px 20px 30px', fontSize:'20px', display:'block', borderImage: 'none', boxShadow: 'none', webkitBoxShadow: 'none', mozBoxShadow: 'none', borderRadius: '50px', marginLeft: '0' }}
+                    style={{
+                      marginTop: '10px',
+                      backgroundColor: 'var(--mikado)',
+                      padding: '20px 30px 20px 30px',
+                      fontSize: '20px',
+                      display: 'block',
+                      borderImage: 'none',
+                      boxShadow: 'none',
+                      webkitBoxShadow: 'none',
+                      mozBoxShadow: 'none',
+                      borderRadius: '50px',
+                      marginLeft: '0',
+                    }}
                   />
 
                   {isWaiverUploaded ? (
@@ -369,28 +429,41 @@ const RetreatRegistration = () => {
                       label="View Uploaded Waiver"
                       isSecondary
                       onClick={handleViewWaiver}
-                      style={{ marginBottom: '25px', padding:'0', color:'var(--text-secondary)', backgroundColor:'transparent', display:'block', marginTop:'15px', marginLeft:'20px', borderImage: 'none', boxShadow: 'none', webkitBoxShadow: 'none', mozBoxShadow: 'none',fontSize: '18px', borderRadius: '50px'}}
+                      style={{
+                        marginBottom: '25px',
+                        padding: '0',
+                        color: 'var(--text-secondary)',
+                        backgroundColor: 'transparent',
+                        display: 'block',
+                        marginTop: '15px',
+                        marginLeft: '20px',
+                        borderImage: 'none',
+                        boxShadow: 'none',
+                        webkitBoxShadow: 'none',
+                        mozBoxShadow: 'none',
+                        fontSize: '18px',
+                        borderRadius: '50px',
+                      }}
                     />
                   ) : (
                     <></>
                   )}
                 </div>
-
               </>
             ) : (
-              <p className="retreat-text">Please view the waiver before uploading the signed copy.</p>
+              <p className="retreat-text">
+                Please view the waiver before uploading the signed copy.
+              </p>
             )}
-          
-            
           </div>
         </div>
 
         {isRetreat ? (
-          <h2 className='retreat-h2'>You have already paid for F!rosh Retreat!</h2>
+          <h2 className="retreat-h2">You have already paid for F!rosh Retreat!</h2>
         ) : outOfTickets ? (
-          <h2 className='retreat-h2'>Sorry there are no more tickets available!</h2>
+          <h2 className="retreat-h2">Sorry there are no more tickets available!</h2>
         ) : viewedWaiver ? (
-          <div className='retreat-payment-container'>
+          <div className="retreat-payment-container">
             <Button
               label={'Continue to Payment'}
               isDisabled={!isUploaded || buttonClicked}
@@ -416,14 +489,28 @@ const RetreatRegistration = () => {
                   setSnackbar('Please accept the F!rosh Waiver before proceeding!', true);
                 }
               }}
-              style={{ marginBottom: '25px', padding:'0', color:'var(--text-dynamic)', backgroundColor:'transparent', display:'block', marginTop:'15px', textAlign:'center', fontSize:'30px',  borderImage: 'none', boxShadow: 'none', webkitBoxShadow: 'none', mozBoxShadow: 'none', borderRadius: '50px', marginLeft: '0'}}
+              style={{
+                marginBottom: '25px',
+                padding: '0',
+                color: 'var(--text-dynamic)',
+                backgroundColor: 'transparent',
+                display: 'block',
+                marginTop: '15px',
+                textAlign: 'center',
+                fontSize: '30px',
+                borderImage: 'none',
+                boxShadow: 'none',
+                webkitBoxShadow: 'none',
+                mozBoxShadow: 'none',
+                borderRadius: '50px',
+                marginLeft: '0',
+              }}
             />
-            <img className='retreat-arrow' src='../../src/assets/misc/backarrow.png'></img>
+            <img className="retreat-arrow" src="../../src/assets/misc/backarrow.png"></img>
           </div>
         ) : (
           <></>
         )}
-
       </div>
       {isRetreat ? (
         <ErrorSuccessBox success content="You have already accepted the agreement!" />
