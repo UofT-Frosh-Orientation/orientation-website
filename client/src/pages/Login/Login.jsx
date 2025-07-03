@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
 import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
+import { ButtonText } from '../../components/button/ButtonText/ButtonText';
 
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
@@ -85,14 +86,14 @@ const PageLogin = ({ incorrectEntry }) => {
               >{`Forgot Password?`}</p>
 
               <div className="login-button-container">
-                <ButtonRound
+                <ButtonText
                   label="Create Account"
                   isSecondary
                   onClick={() => {
                     navigate('/sign-up');
                   }}
                 />
-                <ButtonRound label={'Log in'} type="submit" />
+                <ButtonText label={'Log in'} type="submit" />
               </div>
             </form>
           </div>
