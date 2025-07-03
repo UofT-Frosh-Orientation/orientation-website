@@ -15,10 +15,11 @@
   display: flex;
   align-items: center;
   flex-direction: row;
-  background-color: var(--purple);
+  background-color: var(--bg-primary);
   padding: 0% 6%;
   padding-top: 80px;
   padding-bottom: 25px;
+  margin-bottom: 48px;
 
   @include devices(tablet) {
     padding: 4% 5%;
@@ -26,7 +27,7 @@
     justify-content: space-around;
   }
   h1 {
-    color: var(--text-light);
+    color: var(--text-primary);
     font-size: 85px;
     @include devices(tablet) {
       font-size: 65px;
@@ -43,14 +44,14 @@
     }
   }
   p {
-    color: var(--text-light);
+    color: var(--text-primary);
     font-size: 18px;
     @include devices(tablet) {
       font-size: 15px;
     }
   }
   b {
-    color: var(--text-light);
+    color: var(--text-primary);
     font-size: 80px;
     font-family: 'Jersey 20' !important;
     font-weight: normal;

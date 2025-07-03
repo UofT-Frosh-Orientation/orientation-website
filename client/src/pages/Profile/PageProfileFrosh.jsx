@@ -33,6 +33,7 @@ import { ProfilePageResources } from '../../components/profile/ProfilePageResour
 import { getScuntTeams } from '../../state/scuntTeams/saga';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
+import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
 // import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
 
 const PageProfileFrosh = () => {
@@ -74,6 +75,7 @@ const PageProfileFrosh = () => {
           <ProfilePageInstagrams />
           <ProfilePageAnnouncements />
           <ProfilePageSchedule />
+          {/* <ScheduleComponent /> */}
         </div>
         <div className="profile-info-row-right">
           {/* <ProfilePageQRCode /> */}
@@ -204,14 +206,6 @@ const ProfilePageFroshHeader = ({ editButton }) => {
   return (
     <>
       <div className="profile-page-header">
-        <div className="profile-page-header-group">
-          {isRegistered ? (
-            <>
-              <h1>{user?.froshGroupIcon}</h1>
-              <p>{user?.froshGroup}</p>
-            </>
-          ) : null}
-        </div>
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-left">
             <div className="profile-class-circlebg desktop-only">
@@ -254,7 +248,7 @@ const ProfilePageFroshHeader = ({ editButton }) => {
               </p>
             </div>
           </div>
-          <div className="profile-page-frosh-group-image">
+          {/* <div className="profile-page-frosh-group-image">
             {isRegistered ? (
               <img
                 src={user?.froshGroupIcon}
@@ -264,14 +258,22 @@ const ProfilePageFroshHeader = ({ editButton }) => {
             ) : (
               ''
             )}
+          </div> */}
+          <div className="profile-page-header-group">
+            {isRegistered ? (
+              <>
+                <h1>{user?.froshGroupIcon}</h1>
+                <p>{user?.froshGroup}</p>
+              </>
+            ) : null}
           </div>
         </div>
       </div>
 
-      <img
+      {/* <img
         src={darkMode ? WaveReverseFlipDarkMode : WaveReverseFlip}
         className="wave-image home-page-bottom-wave-image"
-      />
+      /> */}
     </>
   );
 };

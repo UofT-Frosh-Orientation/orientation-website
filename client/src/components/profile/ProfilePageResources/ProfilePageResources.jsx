@@ -1,5 +1,6 @@
 import { resources } from '../../../util/resources';
 import { ButtonBubble } from '../../button/ButtonBubble/ButtonBubble';
+import { ButtonRound } from '../../button/ButtonRound/ButtonRound';
 import './ProfilePageResources.scss';
 import PropTypes from 'prop-types';
 

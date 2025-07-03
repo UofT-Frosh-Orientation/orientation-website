@@ -2,6 +2,7 @@ import React from 'react';
 import { getFroshGroupSchedule } from '../../pages/Profile/functions';
 import { Document, Page, Text, View, Svg, Line, Font, StyleSheet } from '@react-pdf/renderer';
 import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
+import { data } from '../../assets/schedule/data';
 
 const styles = StyleSheet.create({
   page: {
@@ -40,7 +41,8 @@ const styles = StyleSheet.create({
 const MakeSchedulePDF = (froshObject) => {
   if (!froshObject) return null;
   const froshGroup = froshObject?.froshGroup;
-  const scheduleData = getFroshGroupSchedule(froshGroup);
+  // const scheduleData = getFroshGroupSchedule(froshGroup);
+  const scheduleData = data;
 
   return (
     <Document>

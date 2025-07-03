@@ -6,11 +6,12 @@ import { ButtonSelector } from '../../buttonSelector/buttonSelector/ButtonSelect
 import { ScheduleComponentAccordion } from '../../schedule/ScheduleHome/ScheduleHome';
 import './ProfilePageSchedule.scss';
 import { froshGroups } from '../../../util/frosh-groups';
+import { data } from '../../../assets/schedule/data';
 
 export const ProfilePageSchedule = () => {
   const { user } = useSelector(userSelector);
   const [froshGroup, setFroshGroup] = useState(user?.froshGroup);
-  const scheduleData = getFroshGroupSchedule(froshGroup);
+  const scheduleData = data; // replace with getFroshGroupSchedule(froshGroup) if you want to use unique group schedules
   const days = getDaysSchedule(scheduleData);
 
   const today = new Date();
