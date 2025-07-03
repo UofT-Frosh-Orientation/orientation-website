@@ -176,12 +176,12 @@ const FroshRetreatFAQ = () => {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
+          alignItems: 'start',
+          justifyContent: 'start',
+          textAlign: 'left',
           color: 'var(--white)',
-          width: '70%',
-          alignSelf: 'center',
+          width: '100%',
+          alignSelf: 'start',
         }}
       >
         {retreatFAQs.map((item, index) => {
