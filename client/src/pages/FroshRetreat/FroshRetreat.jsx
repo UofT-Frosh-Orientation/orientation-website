@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { SnackbarContext } from '../../util/SnackbarProvider';
-import waiverPDF from '../../assets/retreatWaiver/frosh-retreat-2T4-waiver.pdf';
+import waiverPDF from '../../assets/retreatWaiver/frosh-retreat-2T5-waiver.pdf';
 import useAxios from '../../hooks/useAxios';
 import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAccordion/RetreatSingleAccordion.jsx';
 import dragon from '../../assets/mascots/dragon-retreat.svg';
@@ -246,7 +246,7 @@ const RetreatRegistration = () => {
   const [buttonClicked, setButtonClicked] = useState(false);
   const isRegistered = useSelector(registeredSelector);
 
-  const waiverLink = '../../assests/retreatWaiver/frosh-retreat-2T4-waiver.pdf';
+  const waiverLink = '../../assests/retreatWaiver/frosh-retreat-2T5-waiver.pdf';
 
   const { user } = useSelector(userSelector);
   const { setSnackbar } = useContext(SnackbarContext);
