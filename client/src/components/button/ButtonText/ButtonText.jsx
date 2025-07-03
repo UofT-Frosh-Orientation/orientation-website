@@ -8,8 +8,8 @@ const ButtonText = ({ type, label, onClick, isSecondary, isDisabled, style, clas
       type={type}
       style={style}
       onClick={onClick}
-      className={`button-round ${isSecondary ? 'button-round-secondary' : ''} ${
-        isDisabled ? 'button-round-disabled' : ''
+      className={`button-text ${isSecondary ? 'button-text-secondary' : ''} ${
+        isDisabled ? 'button-text-disabled' : ''
       } ${className}`}
     >
       {label}

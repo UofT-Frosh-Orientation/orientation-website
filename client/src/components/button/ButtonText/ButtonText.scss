@@ -1,6 +1,6 @@
 @import '../../../scssStyles/_mixins.scss';
 
-.button-round {
+.button-text {
   background-color: var(--transparent);
   color: var(--text-coloured);
   padding: 10px 10px;
@@ -23,7 +23,7 @@
   }
 }
 
-.button-round-secondary {
+.button-text-secondary {
   background-color: var(--transparent);
   color: var(--text-secondary);
   border: none;
@@ -34,7 +34,7 @@
   }
 }
 
-.button-round-disabled {
+.button-text-disabled {
   opacity: 0.6;
   cursor: url('../../../assets/cursor/cursordisabled.png'), auto; // add disabled curso
   background-color: var(--bg-primary);
