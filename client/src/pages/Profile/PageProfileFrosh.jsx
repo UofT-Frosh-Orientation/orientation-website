@@ -325,12 +325,8 @@ const ProfilePageInstagrams = () => {
   return (
     <a href={instagramLink} className="no-link-style" target={'_blank'} rel="noreferrer">
       <div className="frosh-instagram-container">
-        <img
-          src={InstagramIcon}
-          alt="Instagram"
-          style={{ filter: !darkMode ? 'invert(1)' : 'unset' }}
-        />
-        <div>
+        <img src={InstagramIcon} alt="Instagram" />
+        <div className="instagram-text">
           <p>Go follow your F!rosh group and meet your Leedurs!</p>
           <h2>@{getInstagramFromLink(instagramLink).slice(0, -1)}</h2>
         </div>

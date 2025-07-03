@@ -104,7 +104,20 @@ a.no-link-style {
       object-fit: cover;
     }
 
-    @media (max-width: 1000px) {
+    // Diamond mask on the left side
+    clip-path: polygon(
+      0% 50%,
+      // left middle (diamond tip)
+      15% 0%,
+      // top left
+      100% 0%,
+      // top right
+      100% 100%,
+      // bottom right
+      15% 100% // bottom left
+    );
+
+    @include devices(tablet) {
       display: none;
     }
   }

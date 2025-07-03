@@ -22,16 +22,16 @@
   margin-bottom: 48px;
 
   @include devices(tablet) {
-    padding: 4% 5%;
-    padding-top: 12%;
-    justify-content: space-around;
+    // padding: 4% 5%;
+    // padding-top: 12%;
+    justify-content: space-evenly;
   }
   h1 {
     color: var(--text-primary);
     font-size: 85px;
-    @include devices(tablet) {
-      font-size: 65px;
-    }
+    // @include devices(tablet) {
+    //   font-size: 65px;
+    // }
   }
   h2 {
     color: var(--jam);
@@ -39,16 +39,16 @@
     line-height: 44px;
     font-family: 'Jersey 20';
 
-    @include devices(tablet) {
-      font-size: 40px;
-    }
+    // @include devices(tablet) {
+    //   font-size: 40px;
+    // }
   }
   p {
     color: var(--text-primary);
     font-size: 18px;
-    @include devices(tablet) {
-      font-size: 15px;
-    }
+    // @include devices(tablet) {
+    //   font-size: 15px;
+    // }
   }
   b {
     color: var(--text-primary);
@@ -56,17 +56,17 @@
     font-family: 'Jersey 20' !important;
     font-weight: normal;
     //letter-spacing: 0.2rem;
-    @include devices(tablet) {
-      font-size: 30px;
-    }
+    // @include devices(tablet) {
+    //   font-size: 30px;
+    // }
   }
 
-  @include devices(tablet) {
-    width: 35px;
-    height: 35px;
-    padding: 9px;
-    margin: 5px 12px;
-  }
+  // @include devices(tablet) {
+  //   width: 35px;
+  //   height: 35px;
+  //   padding: 9px;
+  //   margin: 5px 12px;
+  // }
 }
 
 .retreat-ad {
@@ -134,8 +134,9 @@
   align-items: center;
   flex: 1;
   @include devices(tablet) {
-    flex: unset;
-    text-align: right;
+    // flex: unset;
+    padding: 0px 20px;
+    text-align: left;
   }
 }
 
@@ -222,12 +223,15 @@
   align-items: flex-start;
   margin: 0% 6%;
   gap: 40px;
-  @media screen and (max-width: 1375px) {
+  // @media screen and (max-width: 1375px) {
+  //   flex-direction: column !important;
+  //   justify-content: space-between;
+  //   align-items: center;
+  // }
+  @include devices(tablet) {
     flex-direction: column !important;
     justify-content: space-between;
     align-items: center;
-  }
-  @include devices(tablet) {
     margin: 0 6%;
   }
 }
@@ -401,8 +405,8 @@
 .retreat-profile-container {
   flex: 1;
   max-width: 100%;
-  background-color: #935ebf;
-  border-radius: 15px;
+  background-color: var(--jam);
+  border-radius: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -440,17 +444,21 @@
   }
 
   h2 {
-    margin-bottom: 4px;
+    margin: 15px 0px;
     font-size: 28px;
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--mikado);
   }
   p {
-    font-size: 20px;
+    font-size: 18px;
+    margin-bottom: 20px;
   }
   @include devices(tablet) {
     margin-left: 0;
     margin-right: 0;
     h2 {
-      font-size: 20px;
+      font-size: 24px;
     }
     p {
       font-size: 14px;
@@ -474,6 +482,19 @@
   border-top-left-radius: 0px !important;
   width: 30%;
 
+  // Diamond mask on the left side
+  clip-path: polygon(
+    0% 50%,
+    // left middle (diamond tip)
+    15% 0%,
+    // top left
+    100% 0%,
+    // top right
+    100% 100%,
+    // bottom right
+    15% 100% // bottom left
+  );
+
   @media only screen and (max-width: 500px) {
     display: none;
   }
@@ -484,35 +505,26 @@
   // margin-right: 2%;
   flex: 1;
   max-width: 100%;
-  background-color: var(--purple-shades-light);
-  border-radius: 15px;
+  background-color: var(--jam);
+  border-radius: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 10px 15px;
   margin-bottom: 23px;
-  color: var(--text-dynamic);
+  color: var(--text-primary);
+  transition: transform 500ms;
   img {
-    padding-right: 18px;
-    width: 75px;
+    margin: 20px 25px;
+    width: 50px;
     vertical-align: middle;
-    transition: transform 500ms;
   }
   @include devices(tablet) {
     margin-left: 0;
     margin-right: 0;
   }
-  h2 {
-    transition: transform 500ms;
-    transform-origin: left;
-  }
   &:hover {
-    img {
-      transform: scale(1.04);
-    }
-    h2 {
-      transform: scale(1.02);
-    }
+    transform: scale(1.02);
   }
   @include devices(tablet) {
     margin-left: 0;
@@ -526,6 +538,19 @@
   }
 }
 
+.instagram-text {
+  h2 {
+    font-weight: 800;
+    color: var(--mikado);
+    font-size: 28px;
+    margin-top: 10px;
+  }
+  p {
+    font-weight: 400;
+    color: var(--white);
+  }
+}
+
 .profile-info-row-left {
   display: flex;
   flex-direction: column;
@@ -533,7 +558,7 @@
   max-width: 1000px;
   min-width: 0;
 
-  @media (max-width: 1375px) {
+  @include devices(tablet) {
     flex: 1;
     max-width: 100%;
   }
@@ -545,10 +570,6 @@
   flex: 1;
   margin-left: 4%;
   margin-bottom: 50px;
-
-  @media (max-width: 1375px) {
-    margin-left: 0;
-  }
 
   @include devices(tablet) {
     margin-left: 0;
