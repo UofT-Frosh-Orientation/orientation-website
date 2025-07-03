@@ -15,11 +15,11 @@
   display: flex;
   align-items: center;
   flex-direction: row;
-  background-color: var(--bg-primary);
+  background-color: var(--bg-secondary);
   padding: 0% 6%;
   padding-top: 80px;
-  padding-bottom: 25px;
-  margin-bottom: 48px;
+  padding-bottom: 60px;
+  margin-bottom: 36px;
 
   @include devices(tablet) {
     // padding: 4% 5%;
@@ -133,6 +133,7 @@
   flex-direction: row;
   align-items: center;
   flex: 1;
+  padding: 0% 7% 0% 0%;
   @include devices(tablet) {
     // flex: unset;
     padding: 0px 20px;
@@ -228,6 +229,7 @@
   //   justify-content: space-between;
   //   align-items: center;
   // }
+
   @include devices(tablet) {
     flex-direction: column !important;
     justify-content: space-between;
@@ -308,6 +310,16 @@
 
 .scan-region-highlight-svg {
   stroke: var(--light-purple) !important;
+}
+
+.gap-small {
+  height: 30px;
+}
+
+.profile-p-text {
+  color: var(--text-primary);
+  font-size: 16px !important;
+  margin-bottom: 30px !important;
 }
 
 .profile-schedule-background-purple {
@@ -549,13 +561,17 @@
     font-weight: 400;
     color: var(--white);
   }
+
+  @include devices(tablet) {
+    margin: 5% 5%;
+  }
 }
 
 .profile-info-row-left {
   display: flex;
   flex-direction: column;
   flex: 3;
-  max-width: 1000px;
+  max-width: 1200px;
   min-width: 0;
 
   @include devices(tablet) {
@@ -570,6 +586,10 @@
   flex: 1;
   margin-left: 4%;
   margin-bottom: 50px;
+  padding-right: 5%;
+  justify-content: flex-end;
+  align-items: end;
+  text-align: right !important;
 
   @include devices(tablet) {
     margin-left: 0;

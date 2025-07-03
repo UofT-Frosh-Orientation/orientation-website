@@ -64,6 +64,7 @@ export const ProfilePageSchedule = () => {
           }}
         />
         <div className="profile-page-schedule-accordions">
+          <div className="gap-small"></div>
           {scheduleData[Object.keys(scheduleData)[selectedDayIndex]].map((scheduleDay, index) => {
             return (
               <ScheduleComponentAccordion

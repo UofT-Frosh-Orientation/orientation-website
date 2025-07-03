@@ -23,7 +23,7 @@
   }
   @media (max-width: 1374px) {
     h2 {
-      text-align: center;
+      text-align: right;
       margin-bottom: 16px;
     }
   }
@@ -64,12 +64,12 @@
 .resource-link-group {
   display: flex;
   flex-direction: column;
+  text-align: right;
   @media (max-width: 1374px) {
     flex-direction: row;
     align-items: center;
-    text-align: center;
     gap: 20px;
-    justify-content: center;
+    justify-content: end;
     flex-wrap: wrap;
     margin-bottom: 10px;
   }

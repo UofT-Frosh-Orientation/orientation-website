@@ -33,7 +33,7 @@ export const ProfilePageResources = ({ froshObject }) => {
               pdfWindow && pdfWindow.focus();
             }}
             isSecondary
-            style={{ margin: 0, marginTop: '10px' }}
+            style={{ margin: 0, marginTop: '30px' }}
           />
         </>
       ) : null}

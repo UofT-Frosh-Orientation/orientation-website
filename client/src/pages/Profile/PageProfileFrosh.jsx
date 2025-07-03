@@ -6,6 +6,7 @@ import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-fli
 import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnnouncement';
 import { QRNormal } from 'react-qrbtf';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import EditIcon from '../../assets/misc/edit-icon.svg';
 // import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Link } from 'react-router-dom';
@@ -64,7 +65,7 @@ const PageProfileFrosh = () => {
                 {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
               </div>
               <Link key={'/registration'} to={'/registration'} className={'no-link-style'}>
-                <Button label="Register" style={{}} />
+                <ButtonRound label="Register" style={{ marginLeft: '20px' }} />
               </Link>
             </div>
           ) : null}
@@ -77,7 +78,7 @@ const PageProfileFrosh = () => {
           <ProfilePageSchedule />
           {/* <ScheduleComponent /> */}
         </div>
-        <div className="profile-info-row-right">
+        <div className="profile-info-row-right desktop-only">
           {/* <ProfilePageQRCode /> */}
           {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
           {/* {user?.attendingScunt ? <ProfilePageScuntTeam /> : null} */}
@@ -259,7 +260,7 @@ const ProfilePageFroshHeader = ({ editButton }) => {
               ''
             )}
           </div> */}
-          <div className="profile-page-header-group">
+          <div className="profile-page-header-group desktop-only">
             {isRegistered ? (
               <>
                 <h1>{user?.froshGroupIcon}</h1>
@@ -325,7 +326,7 @@ const ProfilePageInstagrams = () => {
   return (
     <a href={instagramLink} className="no-link-style" target={'_blank'} rel="noreferrer">
       <div className="frosh-instagram-container">
-        <img src={InstagramIcon} alt="Instagram" />
+        <img src={InstagramIcon} alt="Instagram" className="desktop-only" />
         <div className="instagram-text">
           <p>Go follow your F!rosh group and meet your Leedurs!</p>
           <h2>@{getInstagramFromLink(instagramLink).slice(0, -1)}</h2>
