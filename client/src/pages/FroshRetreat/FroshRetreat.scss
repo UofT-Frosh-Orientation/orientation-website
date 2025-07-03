@@ -3,6 +3,7 @@
 
 .frosh-retreat-page {
   .frosh-retreat-video {
+    margin: 20px 0px;
     width: 95%;
     max-width: 1000px;
     height: 524px;
@@ -56,12 +57,12 @@
   right: 0;
 }
 
-.retreat-subtitle{
-  color:white;
-  font-size:2.5vw;
+.retreat-subtitle {
+  color: white;
+  font-size: 2.5vw;
 
-  text-align:right;
-  margin-right:6vw;
+  text-align: right;
+  margin-right: 6vw;
 }
 .retreat-subtitle-large {
   font-size: 3vw;
@@ -71,20 +72,26 @@
   margin: 5vw;
 }
 .retreat-header {
-  font-family:'Jersey 20';
-  font-size:64px;
-  font-weight:400;
-  color:var(--text-dynamic);
+  font-family: 'Jersey 20';
+  font-size: 64px;
+  font-weight: 400;
+  color: var(--text-dynamic);
 
-  text-align:left;
+  text-align: left;
 
-  margin-bottom:1vw;
-  margin-top:5vw;
+  margin-bottom: 1vw;
+  margin-top: 4vw;
 }
-.retreat-text{
-  color:var(--text-dynamic);
+.retreat-text {
+  color: var(--text-dynamic);
 
-  font-size:25px;
+  font-size: 22px;
+}
+
+.retreat-bullet-text {
+  color: var(--text-dynamic);
+
+  font-size: 20px;
 }
 
 .retreat-photos-button {
@@ -110,15 +117,15 @@
   flex-wrap: wrap;
 }
 
-.retreat-subheading{
-  color:var(--text-secondary);
+.retreat-subheading {
+  color: var(--text-secondary);
 
-  font-size:27px;
-  margin-top:10px;
+  font-size: 27px;
+  margin-top: 10px;
 }
 
-.retreat-subheading2{
-  font-size:32px;
+.retreat-subheading2 {
+  font-size: 32px;
 }
 
 .frosh-retreat-faq-bullet {
@@ -132,9 +139,20 @@
   text-align: left;
 
   color: var(--text-dynamic);
-  font-size: 30px;
+  font-size: 24px;
+  font-weight: 700;
+  margin-left: 10px;
 }
 
+.retreat-faq-sub {
+  text-align: left;
+
+  color: var(--text-secondary);
+  font-size: 16px;
+  font-weight: 700;
+  // text-transform: uppercase;
+  margin-bottom: 20px;
+}
 
 .retreat-h2 {
   color: var(--text-dynamic);
@@ -142,6 +160,7 @@
 
 .retreat-registration-form {
   margin: auto;
+  margin-top: 48px;
   color: var(--text-dynamic);
   .display-field {
     text-align: left;

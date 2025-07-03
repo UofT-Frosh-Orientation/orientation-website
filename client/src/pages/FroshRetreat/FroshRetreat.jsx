@@ -78,7 +78,7 @@ export const FroshRetreat = () => {
       <div className="retreat-info-container">
         <h3 className="retreat-header">About</h3>
         <p className="retreat-text">
-          The retreat is taking place on August 31st and September 1st, 2024 at Hart House Farm.
+          The retreat is taking place on August 30th and 31st, 2025 at Hart House Farm.
         </p>
 
         <h3 className="retreat-header">Ticket Information</h3>
@@ -92,13 +92,13 @@ export const FroshRetreat = () => {
         <FroshRetreatFAQ />
 
         <h3 className="retreat-header">Past Retreats</h3>
-        <p className="retreat-text">2T5 Leedur Retreat Video</p>
-        {/*Need to add new video*/}
+        <p className="retreat-text">2T4 Leedur Retreat Video</p>
         <iframe
           className="frosh-retreat-video"
-          src="https://drive.google.com/file/d/1_lpjxS90MrYfqsgOosCd1gRf2xd7phoY/view?usp=sharing"
+          src="https://drive.google.com/file/d/1_lpjxS90MrYfqsgOosCd1gRf2xd7phoY/preview"
           title="F!rosh Retreat Info"
-          frameBorder="0"
+          // width="640"
+          // height="480"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe>
@@ -150,8 +150,8 @@ const retreatFAQs = [
   },
   {
     title: 'What do I need to bring?*',
+    sub: '*a more comprehensive list will be sent to attendees at a later date',
     description: [
-      '*(a more comprehensive list will be sent to attendees at a later date)',
       '• Sleeping bags, tents, pillows and blankets to sleep in',
       '• Bathing suits, towels, and comfy clothes to enjoy all the activities retreat has to offer',
       '• Water bottle, personal medications, and any extra snacks you want to bring to stay safe and hydrated during the trip',
@@ -161,7 +161,7 @@ const retreatFAQs = [
   {
     title: 'What time does the bus leave?',
     description: [
-      'The bus leaves from campus at 11:00am on August 31st and returns to campus at 1:00pm on September 1st.',
+      'The bus leaves from campus at 10:00 AM on August 30th and returns to campus at 2:00 PM on August 31st.',
     ],
   },
 ];
@@ -199,9 +199,12 @@ const FroshRetreatFAQ = () => {
                 {Array.isArray(item.description) ? (
                   <>
                     <ul className="frosh-retreat-faq-bullet">
+                      {item.sub !== undefined ? (
+                        <p className={'retreat-faq-sub'}>{item.sub}</p>
+                      ) : null}
                       {item.description.map((listItem, index) => {
                         return (
-                          <li className="retreat-text" key={listItem}>
+                          <li className="retreat-bullet-text" key={listItem}>
                             {listItem}
                           </li>
                         );
@@ -210,7 +213,7 @@ const FroshRetreatFAQ = () => {
                   </>
                 ) : (
                   <>
-                    <p className="retreat-text">{item.description}</p>
+                    <p className="retreat-bullet-text">{item.description}</p>
                   </>
                 )}
               </RetreatSingleAccordion>
