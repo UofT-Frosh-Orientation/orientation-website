@@ -1,8 +1,7 @@
 @import '../../../scssStyles/mixins';
 .button-selector-items {
   display: flex;
-  justify-content: center;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   // flex-wrap: wrap;
   padding: 10px;
   // padding: 10px 40px;
@@ -14,6 +13,24 @@
   // mask-image: radial-gradient(circle,rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.52) 75%, rgba(0, 0, 0, 0) 100%);
   // -webkit-mask-image: linear-gradient(to right, #00000000, black 20%, black 80%, #00000000);
   // --webkit-mask-image: radial-gradient(circle,rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.52) 75%, rgba(0, 0, 0, 0) 100%);
+  @media (max-width: 1000px) {
+    padding-left: 10%;
+  }
+  @media (max-width: 900px) {
+    padding-left: 25%;
+  }
+  @media (max-width: 800px) {
+    padding-left: 30%;
+  }
+  @media (max-width: 767px) {
+    padding-left: 20%;
+  }
+  @media (max-width: 600px) {
+    padding-left: 50%;
+  }
+  @media (max-width: 400px) {
+    padding-left: 100%;
+  }
 }
 
 .button-selector-no-stretch {
