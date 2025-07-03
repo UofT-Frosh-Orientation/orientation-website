@@ -218,9 +218,7 @@ const ProfilePageFroshHeader = ({ editButton }) => {
                 <>
                   {user?.preferredName === '' || !user?.preferredName ? (
                     <>
-                      <b>
-                        {user?.firstName} {user?.lastName}
-                      </b>
+                      <b>{user?.firstName}</b>
                     </>
                   ) : (
                     <b>{user?.preferredName}</b>
