@@ -122,11 +122,11 @@ const PaymentServices = {
 
       if (item === 'Retreat Ticket') {
         userCount = await UserModel.countDocuments({
-          payments: { $elemMatch: { item, expired: false } },
+          payments: { $elemMatch: { item, expired: false, amountDue: { $nin: [10300, 11000] } } },
         });
       } else {
         froshCount = await FroshModel.countDocuments({
-          payments: { $elemMatch: { item, expired: false } },
+          payments: { $elemMatch: { item, expired: false, amountDue: { $nin: [10300, 11000] } } },
         });
       }
 
