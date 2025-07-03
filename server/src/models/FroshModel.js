@@ -36,11 +36,19 @@ const FroshSchema = new mongoose.Schema(
   {
     legalName: {
       type: String,
+      required: false,
+    },
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
       required: true,
     },
     pronouns: {
       type: String,
-      enum: ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'],
+      enum: ['Prefer Not to Say', 'He/Him', 'She/Her', 'They/Them', 'Other'],
       required: true,
     },
     pronounOther: {
@@ -190,6 +198,7 @@ const FroshSchema = new mongoose.Schema(
       // used for F!rosh that paid for retreat
       type: Boolean,
       required: false,
+      default: false,
     },
     signInDate: {
       type: Date,

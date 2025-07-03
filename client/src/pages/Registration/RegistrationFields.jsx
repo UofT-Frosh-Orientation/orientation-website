@@ -14,7 +14,7 @@
 // checking for Aa-Zz characters and 1-50 character length
 const textValidation = (value) => {
   if (value.length >= 1 && value.length <= 50) {
-    if (/^[A-Za-z]*$/.test(value)) {
+    if (/^[A-Za-z ]*$/.test(value)) {
       return true;
     } else {
       return 'Please use Aa-Zz characters';
@@ -388,6 +388,7 @@ export const fields = {
         'No Pork & Pork by-products',
         'No Red meat',
         'Other',
+        'None',
       ],
       isRequiredInput: true,
       noEdit: false,
@@ -522,18 +523,25 @@ export const fields = {
       label: 'Do you give consent to be photographed during F!rosh Week?',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
+      isRequiredInput: true,
       noEdit: true,
       localStorageKey: 'registration-photograph',
     },
-    // bursaryRequested: {
-    //   type: 'radio',
-    //   label: 'Do you require any bursary or financial aid for your Frosh Week ticket?',
-    //   values: ['Yes', 'No'],
-    //   initialSelectedIndex: 0,
-    //   isRequiredInput: false,
-    //   noEdit: false,
-    //   localStorageKey: 'registration-bursary',
-    // },
+    bursaryRequested: {
+      type: 'radio',
+      label: 'Would you like to request a bursary or financial aid for your Frosh Week ticket?',
+      values: ['Yes', 'No'],
+      initialSelectedIndex: 1,
+      isRequiredInput: true,
+      noEdit: true,
+      localStorageKey: 'registration-bursary',
+    },
+    bursaryInfo: {
+      type: 'label',
+      label:
+        'The price of a F!rosh Week ticket is $130 CAD. We will be making bursary decisions after F!rosh Week and will refund the amount to the students after the decisions. Our team will reach out to you for more details regarding the bursary program. Bursaries range from partial to complete settlement of the ticket price.',
+      isSub: true,
+    },
     marketing: {
       type: 'checkbox',
       label: 'How did you hear about F!rosh Week?',

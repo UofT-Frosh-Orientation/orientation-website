@@ -223,6 +223,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                 <RadioButtons
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
+                  isRequired={
+                    field.isRequiredInput !== undefined &&
+                    field.isRequiredInput === true &&
+                    field.label !== undefined
+                      ? true
+                      : false
+                  }
                   disabledIndices={field.disabledIndices}
                   initialSelectedIndex={
                     editFieldsPage === true
@@ -250,6 +257,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                 <Dropdown
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
+                  isRequired={
+                    field.isRequiredInput !== undefined &&
+                    field.isRequiredInput === true &&
+                    field.label !== undefined
+                      ? true
+                      : false
+                  }
                   initialSelectedIndex={
                     editFieldsPage === true
                       ? field.values.findIndex((val) => val === initialValues[key])
@@ -275,6 +289,13 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                 <Checkboxes
                   key={Object.keys(formFields[step])[index]}
                   label={field.label}
+                  isRequired={
+                    field.isRequiredInput !== undefined &&
+                    field.isRequiredInput === true &&
+                    field.label !== undefined
+                      ? true
+                      : false
+                  }
                   disabledIndices={field.disabledIndices}
                   initialSelectedIndices={
                     editFieldsPage === true
@@ -423,7 +444,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                               (user && (user.preferredName === '' || !user.preferredName)
                                 ? user.firstName
                                 : user
-                                ? user.preferredName.toUpperCase()
+                                ? user.preferredName
                                 : '') +
                               '!'}
                           </h1>
@@ -448,7 +469,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   title: 'Payment',
                   component: (
                     <div className="registration-payment-page">
-                      <div className={'full-width-input'}>
+                      {/* <div className={'full-width-input'}>
                         <RadioButtons
                           label="Would you like to request a bursary?"
                           values={['Yes', 'No']}
@@ -468,7 +489,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                         the decisions. Our team will reach out to you for more details regarding the
                         bursary program. Bursaries range from partial to complete settlement of the
                         ticket price.
-                      </p>
+                      </p> */}
                       <h1 className="notice">Notice</h1>
                       <p className="register-terms-of-service">{terms}</p>
                       <b>
