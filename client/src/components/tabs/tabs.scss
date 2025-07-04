@@ -7,6 +7,9 @@
 
 .tabs-button-selector {
   justify-content: center !important;
+  @media (max-width: 1023px) {
+    justify-content: flex-start !important;
+  }
 }
 
 .tabs-button-tab {
