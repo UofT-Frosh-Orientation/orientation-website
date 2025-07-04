@@ -333,6 +333,7 @@ const FAQButtons = ({
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
         maxWidthButton={200}
+        classNameSelector={'faq-button-selector'}
       />
     </div>
   );
