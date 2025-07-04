@@ -66,7 +66,7 @@ describe('ScuntMissionServices', () => {
       revealJudgesAndBribes: true,
       revealTeams: true,
       showDiscordLink: true,
-      discordLink: 'https://discord.gg/mRutbwuCK9',
+      discordLink: 'https://discord.gg/Fnxr7tp34E',
       revealLeaderboard: true,
       revealMissions: true,
       allowJudging: true,

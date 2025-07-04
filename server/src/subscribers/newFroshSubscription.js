@@ -100,7 +100,7 @@ newFroshSubscription.process((job, done) => {
               <p>
                 To stay up to date on all the info you need before you arrive, and to learn more about UofT, make sure to follow our
                 <a href="https://bit.ly/froshig" style="color: #ffc600; text-decoration: underline;">Instagram page</a> and
-                <a href="https://discord.gg/RQrPQMYrHw" style="color: #ffc600; text-decoration: underline;">join our Discord community</a>!
+                <a href="https://discord.gg/Fnxr7tp34E" style="color: #ffc600; text-decoration: underline;">join our Discord community</a>!
               </p>
               <p>
                 If you have any questions or want to learn more, feel free to email us at
@@ -123,7 +123,7 @@ newFroshSubscription.process((job, done) => {
               <a href="https://bit.ly/froshig" class="social-link">
                 <img src="cid:instagrambrands" alt="instagram logo" class="social-icon" />
               </a>
-              <a href="https://discord.gg/RQrPQMYrHw" class="social-link">
+              <a href="https://discord.gg/Fnxr7tp34E" class="social-link">
                 <img src="cid:discordbrands" alt="discord logo" class="social-icon" />
               </a>
             </div>

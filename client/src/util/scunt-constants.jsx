@@ -1,5 +1,5 @@
 export const okayToInviteToScunt = false;
-export const scuntDiscord = 'https://discord.gg/3mbFPvE9j6';
+export const scuntDiscord = 'https://discord.gg/Fnxr7tp34E';
 export const scuntDate = 'August 28, 2024 18:00:00';
 export const aboutScunt = `
   <h2>THE H!UNT</h2>

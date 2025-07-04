@@ -61,7 +61,7 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'How do I register for F!rosh Week?',
       answer:
-        'Register for F!rosh Week at orientation.skule.ca starting July 2nd! Follow us on Instagram @froshweek and join the F!rosh Week 2T5 Discord server. To stay up to date throughout the summer! Important links can also be found at linktr.ee/froshweek. Link to Discord server: https://discord.com/invite/Fnxr7tp34E',
+        'Register for F!rosh Week at orientation.skule.ca starting July 2nd! Follow us on Instagram @froshweek and join the F!rosh Week 2T5 Discord server. To stay up to date throughout the summer! Important links can also be found at linktr.ee/froshweek. Link to Discord server: https://discord.gg/Fnxr7tp34E',
       lastUpdated: '18:10pm, Jun 28, 2025',
       category: 'Registration',
     },
