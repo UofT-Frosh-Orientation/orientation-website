@@ -17,6 +17,7 @@ import InstagramIcon from '../../assets/social/instagram-brands.svg';
 import ScuntIcon from '../../assets/misc/magnifier.png';
 import OlympiksIcon from '../../assets/misc/torch.png';
 import RetreatImg from '../../assets/profile/retreat-image.jpg';
+import RetreatImg2 from '../../assets/profile/retreat-image2.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { announcementsSelector } from '../../state/announcements/announcementsSlice';
@@ -115,14 +116,26 @@ const ProfilePageRetreat = () => {
     <Link to={'/frosh-retreat'} className="no-link-style">
       <div className="retreat-profile-container">
         {isRetreat ? (
-          <div>
-            <h2>Thank you for purchasing a F!rosh Retreat Ticket!</h2>
-            <p>
-              We will reach out with more information soon. Keep an eye on your email! Please bring
-              a signed copy of the waiver to retreat.
-            </p>
+          <div className="retreat-ad">
+            <div className="retreat-ad-sub">
+              <div className="retreat-container-text">
+                <h2>Thank you for purchasing a F!rosh Retreat Ticket!</h2>
+                <p>
+                  We will reach out with more information soon. Keep an eye on your email! Please
+                  bring a signed copy of the waiver to retreat.
+                </p>
+              </div>
+            </div>
+            <img className="retreat-image" src={RetreatImg2} alt="Retreat image" />
           </div>
         ) : (
+          // <div className="retreat-registered">
+          //   <h2>Thank you for purchasing a F!rosh Retreat Ticket!</h2>
+          //   <p>
+          //     We will reach out with more information soon. Keep an eye on your email! Please bring
+          //     a signed copy of the waiver to retreat.
+          //   </p>
+          // </div>
           <div className="retreat-ad">
             <div className="retreat-ad-sub">
               <div className="retreat-container-text">

@@ -7,19 +7,20 @@
 }
 
 .task-task-container {
-  background-color: var(--task-container);
-  box-shadow: var(--shadow);
+  background-color: var(--bg-secondary);
+  // box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
   margin: 10px;
-  padding: 20px 28px;
+  padding: 28px 36px;
   border-radius: 15px;
   color: var(--black);
 }
 
 .profile-p-text {
-  color: var(--text-dynamic);
+  color: var(--text-primary);
   font-size: 20px;
+
   margin-top: 5px;
   margin-bottom: 10px;
   @include devices(tablet) {
@@ -29,7 +30,7 @@
 
 .task-name {
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 800;
   line-height: 1;
   margin-bottom: 3px;
   flex-grow: 2;
@@ -40,7 +41,8 @@
 
 .task-date {
   margin-bottom: 10px;
-  color: var(--task-date);
+  margin-top: 10px;
+  color: var(--text-coloured);
   @include devices(tablet) {
     font-size: 15px;
   }
@@ -48,6 +50,7 @@
 
 .task-description {
   font-size: 18px;
+  margin-bottom: 10px;
   @include devices(tablet) {
     font-size: 15px;
   }

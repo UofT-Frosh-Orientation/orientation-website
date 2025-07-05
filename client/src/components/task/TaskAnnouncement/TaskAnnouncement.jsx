@@ -40,7 +40,7 @@ const TaskAnnouncement = ({ tasks, onDone }) => {
                       <div className="task-name">{task.name}</div>
                       <div className="task-date">{'Created: ' + formattedDate}</div>
                     </div>
-                    <div className="mobile-only">
+                    {/* <div className="mobile-only">
                       <div
                         onClick={() => {
                           onDone(task);
@@ -52,7 +52,7 @@ const TaskAnnouncement = ({ tasks, onDone }) => {
                       >
                         <img src={Check} className={'task-img'} />
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                   {task.description ? (
                     <div className="task-description" style={{ overflowWrap: 'anywhere' }}>
@@ -62,7 +62,7 @@ const TaskAnnouncement = ({ tasks, onDone }) => {
                     <></>
                   )}
                 </div>
-                <div className="desktop-only">
+                {/* <div className="desktop-only">
                   <div
                     onClick={() => {
                       onDone(task);
@@ -71,7 +71,7 @@ const TaskAnnouncement = ({ tasks, onDone }) => {
                   >
                     <img src={Check} className={'task-img'} />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           );
