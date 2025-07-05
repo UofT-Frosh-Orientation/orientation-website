@@ -63,6 +63,15 @@ registrationDataSubsciption.process(async (job, done) => {
     prev.totalUsers++;
     return prev;
   }, defaultObject);
+
+  if (process.env.CLIENT_BASE_URL == 'http://localhost:3000') {
+    await EmailServices.sendSimpleEmail(
+      emailAddresses,
+      `pls work im begging you`,
+      'it worked yippee',
+      'tech@orientation.skule.ca',
+    );
+  }
   await EmailServices.sendSimpleEmail(
     emailAddresses,
     `<div><h1>Frosh Data</h1><ul>${Object.keys(data).reduce((prev, item) => {

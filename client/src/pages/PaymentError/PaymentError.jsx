@@ -33,7 +33,7 @@ const PagePaymentError = ({ link }) => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   if (link === '/frosh-retreat') {
-    console.log('Payment Error: Frosh Retreat');
+    console.log('Payment Error: F!rosh Retreat');
   }
 
   return (

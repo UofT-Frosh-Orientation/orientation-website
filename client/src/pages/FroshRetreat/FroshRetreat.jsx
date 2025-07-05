@@ -374,8 +374,8 @@ const RetreatRegistration = () => {
           <p className="retreat-text">{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${user?.emergencyContactNumber}`}</p>
         </div>
 
-        <h3 className="retreat-header">Frosh Retreat Waiver</h3>
-        <p className="retreat-text">Read and download the Frosh Retreat Waiver</p>
+        <h3 className="retreat-header">F!rosh Retreat Waiver</h3>
+        <p className="retreat-text">Read and download the F!rosh Retreat Waiver</p>
 
         <div className="radio-buttons-retreat">
           <Button
