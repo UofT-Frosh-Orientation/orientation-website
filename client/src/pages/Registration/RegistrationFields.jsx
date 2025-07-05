@@ -495,7 +495,8 @@ export const fields = {
     },
     priceInfo: {
       type: 'label',
-      label: 'The price of a F!rosh Retreat ticket is $110 CAD.',
+      label:
+        'The price of a F!rosh Retreat ticket is $110 CAD. Answering "Yes" to this question will not add the retreat cost to your payment or guarantee you a spot at the retreat. Please see the retreat page linked on your profile for details about the payment process.',
       isSub: true,
     },
     summerLocationQuery: {

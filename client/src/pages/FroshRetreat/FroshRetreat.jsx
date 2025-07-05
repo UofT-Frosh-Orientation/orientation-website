@@ -86,9 +86,14 @@ export const FroshRetreat = () => {
 
         <h3 className="retreat-header">Ticket Information</h3>
         <p className="retreat-text">
-          Tickets to Retreat are $110.00 (they include bus transportation; no tickets without bus
-          transportation). Due to limited spaces, we are selling a limited number of tickets so
-          purchase yours before they sell out!{' '}
+          Tickets to Retreat are $110.00 and they include bus transportation (no tickets without bus
+          transportation). To purchase a ticket and guarantee your spot, you must download, sign and
+          upload the waiver on this page and then complete your payment at the bottom of this page.
+        </p>
+        <br></br>
+        <p className="retreat-text">
+          Due to limited space, we are selling a limited number of tickets so purchase yours before
+          they sell out! There are currently <b>{remainingTickets}</b> tickets left!
         </p>
 
         <h3 className="retreat-header">FAQ</h3>
