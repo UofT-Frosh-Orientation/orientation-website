@@ -4695,7 +4695,7 @@ export const data = {
       'Event Name': 'Nitelife',
       'Event Description':
         'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      'Event Location': 'The Pit',
+      // 'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
@@ -4751,7 +4751,7 @@ export const data = {
       'Event Name': 'Nitelife',
       'Event Description':
         'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      'Event Location': 'The Pit',
+      // 'Event Location': 'The Pit',
       'Start Time': '7:00 PM',
       'End Time': 'Late',
       Color: 'night',
@@ -4802,7 +4802,7 @@ export const data = {
       'Event Name': 'Nitelife',
       'Event Description':
         'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      'Event Location': 'The Pit',
+      // 'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
@@ -4819,7 +4819,7 @@ export const data = {
       'Event Name': 'Nitelife',
       'Event Description':
         'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      'Event Location': 'The Pit',
+      // 'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
