@@ -81,3 +81,7 @@ input[type='checkbox']:disabled::before {
   display: inline-block;
   font-size: 16px;
 }
+
+.text-input-error-message {
+  margin-top: 20px;
+}

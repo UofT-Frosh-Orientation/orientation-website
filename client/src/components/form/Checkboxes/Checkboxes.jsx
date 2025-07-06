@@ -17,6 +17,7 @@ const Checkboxes = ({
   setSelectAll,
   autoFocus,
   isRequired,
+  errorFeedback,
 }) => {
   useEffect(() => {
     if (selectAll) {
@@ -166,6 +167,7 @@ const Checkboxes = ({
             </React.Fragment>
           );
         })}
+        {errorFeedback ? <p className="text-input-error-message">{errorFeedback}</p> : <></>}
       </div>
     </>
   );
@@ -186,6 +188,7 @@ Checkboxes.propTypes = {
   setSelectAll: PropTypes.func,
   autoFocus: PropTypes.bool,
   isRequired: PropTypes.bool,
+  errorFeedback: PropTypes.string,
 };
 
 export { Checkboxes };
