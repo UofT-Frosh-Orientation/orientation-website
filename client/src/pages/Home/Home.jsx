@@ -35,11 +35,14 @@ import GoldMedal from './sponsormedals/gold.png';
 import SilverMedal from './sponsormedals/silver.png';
 import BronzeMedal from './sponsormedals/bronze.png';
 
+import { CountdownHome } from '../../components/countdown/countdown';
+
 const PageHome = () => {
   return (
     <>
       <HomePageHeader />
       <HomePageTimeline />
+      <CountdownHome />
       <HomePageSchedule />
       <PageAbout />
       <HomePageSponsors />
