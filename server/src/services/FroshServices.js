@@ -2,6 +2,10 @@ const FroshModel = require('../models/FroshModel');
 const FroshGroupModel = require('../models/FroshGroupModel');
 const UserModel = require('../models/UserModel');
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
 const FroshServices = {
   /**
    * @description Gets the frosh group for a new frosh.
@@ -17,20 +21,54 @@ const FroshServices = {
     let minScore = 10000;
     let froshGroup = '';
     let froshGroupIcon = '';
+    // let totalReg = 0;
+    let lowest = [];
     for (let i = 0; i < froshGroupList.length; i++) {
-      const score = 0.5 * froshGroupList[i][discipline] + 0.5 * froshGroupList[i][pronouns];
-      if (froshGroupList[i].totalNum < minNumber) {
-        minNumber = froshGroupList[i].totalNum;
-        froshGroup = froshGroupList[i].name;
-        froshGroupIcon = froshGroupList[i].icon;
+      const totalCount = await FroshModel.countDocuments({
+        froshGroup: froshGroupList[i].name,
+        isRegistered: true,
+      });
+      const disciplineCount = await FroshModel.countDocuments({
+        froshGroup: froshGroupList[i].name,
+        discipline,
+        isRegistered: true,
+      });
+      const pronounCount = await FroshModel.countDocuments({
+        froshGroup: froshGroupList[i].name,
+        pronouns,
+        isRegistered: true,
+      });
+      const score = 0.5 * disciplineCount + 0.5 * pronounCount;
+
+      // Output for debugging
+      // console.log("Index:", i);
+      // console.log("totalCount:", totalCount);
+      // console.log("Discipline Count:", disciplineCount);
+      // console.log("Pronoun Count:", pronounCount);
+      // console.log("Score:", score);
+      // totalReg += totalCount;
+
+      if (totalCount < minNumber) {
+        minNumber = totalCount;
         minScore = score;
+        lowest = [];
       }
-      if (froshGroupList[i].totalNum === minNumber && score < minScore) {
-        froshGroup = froshGroupList[i].name;
-        froshGroupIcon = froshGroupList[i].icon;
-        minScore = score;
+      if (totalCount === minNumber) {
+        if (score < minScore) {
+          minScore = score;
+          lowest = [];
+        }
+        if (score === minScore) {
+          lowest.push(i);
+        }
       }
     }
+    // console.log('Total Registered:', totalReg);
+    // console.log('Suitable Groups:', lowest);
+    const groupIndex = lowest[getRandomInt(0, lowest.length)];
+    // console.log('Selected Group Index:', groupIndex);
+    froshGroup = froshGroupList[groupIndex].name;
+    froshGroupIcon = froshGroupList[groupIndex].icon;
     return { froshGroup, froshGroupIcon };
   },
 
