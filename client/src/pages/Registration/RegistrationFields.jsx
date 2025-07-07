@@ -460,7 +460,7 @@ export const fields = {
     shirtSize: {
       type: 'dropdown',
       label: 'T-shirt Size',
-      values: ['S', 'M', 'L', 'XL', '2XL', '3XL'],
+      values: ['S', 'M', 'L', 'XL', '2XL'],
       initialSelectedIndex: 1,
       className: 'half-width-input',
       isRequiredInput: true,
