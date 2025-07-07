@@ -16,8 +16,9 @@ import { getScuntSettings } from './state/scuntSettings/saga';
 import { getUserInfo } from './state/user/saga';
 
 import { LandingPage } from './pages/Initial/LandingPage';
+import { Maintenance } from './pages/Initial/Maintenance/Maintenance';
 
-const readyForFrosh = true;
+const readyForFrosh = false;
 
 export default function App() {
   const dispatch = useDispatch();
@@ -35,7 +36,8 @@ export default function App() {
           </BrowserRouter>
         </SnackbarProvider>
       ) : (
-        <LandingPage />
+        // <LandingPage />
+        <Maintenance />
       )}
     </DarkModeProvider>
   );
