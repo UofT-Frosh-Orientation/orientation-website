@@ -215,7 +215,7 @@ const FroshServices = {
       'Track One (Undeclared)',
     ];
 
-    const validPronouns = ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'];
+    const validPronouns = ['Prefer Not to Say', 'He/Him', 'She/Her', 'They/Them', 'Other'];
     const teams = [];
 
     // Initialize froshGroupList with 0s
@@ -250,14 +250,14 @@ const FroshServices = {
       if (!validPronouns.includes(curFrosh.pronouns)) {
         let pronoun;
         switch (curFrosh.pronouns) {
-          case 'He/Him':
-            pronoun = 'he/him';
+          case 'he/him':
+            pronoun = 'He/Him';
             break;
-          case 'She/Her':
-            pronoun = 'she/her';
+          case 'she/her':
+            pronoun = 'She/Her';
             break;
-          case 'They/Them':
-            pronoun = 'they/them';
+          case 'they/them':
+            pronoun = 'They/Them';
             break;
           case 'Prefer not to say':
             pronoun = 'Prefer Not to Say';

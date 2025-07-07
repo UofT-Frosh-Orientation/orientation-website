@@ -2,7 +2,7 @@ const Queue = require('bull');
 const UserServices = require('../services/UserServices');
 const EmailServices = require('../services/EmailServices');
 
-const pronouns = ['he/him', 'she/her', 'they/them', 'Prefer Not to Say', 'Other'];
+const pronouns = ['He/Him', 'She/Her', 'They/Them', 'Prefer Not to Say', 'Other'];
 const disciplines = [
   'Chemical',
   'Civil',
@@ -21,9 +21,9 @@ const registrationDataSubsciption = new Queue('registrationData', {
 registrationDataSubsciption.process(async (job, done) => {
   const emailAddresses = process.env.REGISTRATION_DATA_EMAIL_ADDRESSES.split(',');
   const defaultObject = {
-    'he/him': 0,
-    'she/her': 0,
-    'they/them': 0,
+    'He/Him': 0,
+    'She/Her': 0,
+    'They/Them': 0,
     'Prefer Not to Say': 0,
     Other: 0,
     Chemical: 0,
