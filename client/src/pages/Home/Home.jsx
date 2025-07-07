@@ -41,8 +41,8 @@ const PageHome = () => {
   return (
     <>
       <HomePageHeader />
-      <HomePageTimeline />
       <CountdownHome />
+      <HomePageTimeline />
       <HomePageSchedule />
       <PageAbout />
       <HomePageSponsors />
