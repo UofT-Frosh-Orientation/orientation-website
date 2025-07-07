@@ -360,7 +360,7 @@ export const fields = {
       placeholder: 'Respiratory Conditions',
       isRequiredInput: false,
       noEdit: false,
-      localStorageKey: 'registration-specificMedicalInfo',
+      localStorageKey: 'registration-specficMedicalInfo',
       className: 'half-width-input',
       validation: textLengthValidation,
     },

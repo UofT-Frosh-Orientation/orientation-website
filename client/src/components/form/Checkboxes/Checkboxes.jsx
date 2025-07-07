@@ -4,6 +4,7 @@ import './Checkboxes.scss';
 
 const Checkboxes = ({
   values,
+  selectedValues,
   initialSelectedIndices,
   onSelected,
   disabledIndices,
@@ -153,7 +154,11 @@ const Checkboxes = ({
                 <input
                   type="checkbox"
                   name={label ?? 'name'}
-                  checked={selectedIndices.includes(index)}
+                  checked={
+                    selectedValues
+                      ? selectedValues.includes(value)
+                      : selectedIndices.includes(index)
+                  }
                   onChange={() => {
                     onClickedCheckbox(value, index);
                   }}
@@ -173,6 +178,7 @@ const Checkboxes = ({
 
 Checkboxes.propTypes = {
   values: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedValues: PropTypes.arrayOf(PropTypes.string),
   initialSelectedIndices: PropTypes.arrayOf(PropTypes.number),
   onSelected: PropTypes.func,
   disabledIndices: PropTypes.arrayOf(PropTypes.number),

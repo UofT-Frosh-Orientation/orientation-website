@@ -3,6 +3,7 @@ import './ProfileEdit.scss';
 import { PageRegistrationForm } from '../Registration/RegistrationForm';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { getUserInfo } from '../../state/user/saga';
 import { updateUserInfo } from '../../state/user/saga';
 import { useNavigate } from 'react-router-dom';
 import { SnackbarContext } from '../../util/SnackbarProvider';
@@ -45,7 +46,7 @@ const PageProfileEdit = () => {
       <Suspense>
         <ProfilePageFroshHeader editButton={false} />
         <div className="edit-form-container">
-            <PageRegistrationForm editFieldsPage={true} initialValues={user} onEditSubmit={submit} />
+          <PageRegistrationForm editFieldsPage={true} initialValues={user} onEditSubmit={submit} />
         </div>
       </Suspense>
     );
