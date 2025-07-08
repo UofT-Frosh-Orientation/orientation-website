@@ -51,6 +51,12 @@
 .task-description {
   font-size: 18px;
   margin-bottom: 10px;
+
+  a {
+    color: var(--text-coloured);
+    text-decoration: none;
+  }
+
   @include devices(tablet) {
     font-size: 15px;
   }
