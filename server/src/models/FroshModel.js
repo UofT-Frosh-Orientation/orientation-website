@@ -80,7 +80,7 @@ const FroshSchema = new mongoose.Schema(
     },
     shirtSize: {
       type: String,
-      enum: ['S', 'M', 'L', 'XL', '2XL', '3XL'],
+      enum: ['S', 'M', 'L', 'XL', '2XL'],
       required: true,
     },
     phoneNumberCountryCode: {
