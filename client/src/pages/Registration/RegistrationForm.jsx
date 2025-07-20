@@ -28,6 +28,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
   const [canRegister, setCanRegister] = useState(true);
   const [checkoutUrl, setCheckoutUrl] = useState('');
   const [errorAfterEdit, setErrorAfterEdit] = useState(false);
+  const [anyError, setAnyError] = useState(false);
 
   const { axios } = useAxios();
 
@@ -46,8 +47,10 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     const isFormValid = validateForm();
     // console.log(isFormValid)
     if (!isFormValid) {
+      setAnyError(true);
       return setCanRegister(true);
     } else {
+      setAnyError(true);
       try {
         // const convertedFroshObject = { ...froshObject };
 
@@ -297,6 +300,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                       : false
                   }
                   disabledIndices={field.disabledIndices}
+                  errorFeedback={field.errorFeedback}
                   initialSelectedIndices={
                     editFieldsPage === true
                       ? field.values.reduce((prev, curr, index) => {
@@ -436,6 +440,11 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   title: 'General',
                   component: (
                     <>
+                      {anyError == true && selectedTab == 0 ? (
+                        <h3 className="registration-error-msg">
+                          Please make sure you have filled out all required fields correctly.
+                        </h3>
+                      ) : null}
                       <div className="registration-first-step-header-container">
                         <img className="registration-icon-logo" src={MainFroshLogo}></img>
                         <div>
@@ -459,7 +468,16 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                 },
                 {
                   title: 'Health & Safety',
-                  component: generateStepComponent(formFields['HealthSafety'], 'HealthSafety'),
+                  component: (
+                    <>
+                      {anyError == true && selectedTab == 1 ? (
+                        <h3 className="registration-error-msg">
+                          Please make sure you have filled out all required fields correctly.
+                        </h3>
+                      ) : null}
+                      {generateStepComponent(formFields['HealthSafety'], 'HealthSafety')}
+                    </>
+                  ),
                 },
                 {
                   title: 'Extra Events',

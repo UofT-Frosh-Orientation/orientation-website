@@ -237,6 +237,7 @@ export const fields = {
       inputTitle: 'Country Code',
       maxLength: 4,
       noEdit: false,
+      errorMessage: 'Please enter an area code',
       validation: (value) => {
         if (/^[+0-9]*$/.test(value)) {
           if (value.length <= 4) {
@@ -305,6 +306,7 @@ export const fields = {
       inputTitle: 'Country Code',
       maxLength: 4,
       noEdit: false,
+      errorMessage: 'Please enter an area code',
       validation: (value) => {
         if (/^[+0-9]*$/.test(value)) {
           if (value.length <= 4) {
@@ -392,6 +394,7 @@ export const fields = {
       ],
       isRequiredInput: true,
       noEdit: false,
+      errorMessage: 'Please choose None if you do not have any allergies or dietary restrictions',
       localStorageKey: 'registration-allergies',
       onChanged: (values, disableField) => {
         if (values.includes('Other')) {

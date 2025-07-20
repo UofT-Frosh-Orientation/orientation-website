@@ -56,7 +56,7 @@ const oldRegistrationFields = {
     pronouns: {
       type: 'dropdown',
       label: 'Pronoun',
-      values: ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'],
+      values: ['Prefer Not to Say', 'He/Him', 'She/Her', 'They/Them', 'Other'],
       initialSelectedIndex: 0,
       className: 'half-width-input',
       onChanged: (value, disableField) => {

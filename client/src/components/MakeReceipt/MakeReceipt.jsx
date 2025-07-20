@@ -54,6 +54,8 @@ const MakeReceipt = (froshObject) => {
     'froshGroupIcon',
     'id',
     'isRegistered',
+    'isReassigned',
+    'isRetreat',
     'isScuntDiscordLoggedIn',
     'scuntPreferredMembers',
     'scuntTeam',
@@ -61,6 +63,9 @@ const MakeReceipt = (froshObject) => {
     'userType',
     'confirmed',
     'froshGroup',
+    'waiver',
+    'confirmedEmail',
+    // 'gotFood',
   ];
   for (const [key, value] of Object.entries(froshObject)) {
     if (irrelevantFields.includes(key)) continue;
