@@ -10,6 +10,9 @@ import troostdark from '../assets/sponsors/troost_white.png';
 import EMMO from '../assets/sponsors/EMMO_green.png';
 import EMMOdark from '../assets/sponsors/EMMO_white.png';
 import Panago from '../assets/sponsors/Panago.png';
+import MeetYou from '../assets/sponsors/meetyou.png';
+
+//import MeetYoudark from '../assets/sponsors/meetyou_dark.jpeg';
 
 export const sponsors = [
   {
@@ -43,5 +46,13 @@ export const sponsors = [
     scale: 0.82,
     rank: 'bronze',
     label: 'Bronze Sponsor: Troost iLead',
+  },
+  {
+    website: 'https://www.meetyoucafe.com/',
+    image: MeetYou,
+    darkimage: MeetYou,
+    scale: 0.82,
+    rank: 'gold',
+    label: 'Gold Sponsor: MeetYou',
   },
 ];

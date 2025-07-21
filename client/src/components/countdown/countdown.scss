@@ -1,0 +1,72 @@
+@import '../../scssStyles/mixins';
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
+
+.countdown-timer-container {
+  color: var(--text-primary);
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  font-family: 'Proxima Nova';
+  font-weight: 800;
+}
+
+.countdown-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+
+  @include devices(mobile) {
+    flex-direction: column;
+  }
+}
+
+.countdown-seg {
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  @include devices(mobile) {
+    margin-bottom: 1.2rem;
+  }
+}
+
+.countdown-label {
+  font-size: 25px;
+  margin-bottom: 1rem;
+}
+
+.countdown-number {
+  font-size: 70px;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.2em;
+}
+
+.digit {
+  background-color: var(--mikado);
+  color: black;
+  border-radius: 15px;
+  //padding:0.38em 0.35em 0.38em 0.35em;
+  width: 1.5em;
+  height: 2em;
+  padding-top: 0.38em;
+
+  @include devices(ipad) {
+    font-size: 60px;
+  }
+
+  @include devices(mobile) {
+    font-size: 65px;
+  }
+}
+
+.divider {
+  font-size: 70px;
+  padding-top: 0.6em;
+  margin: 0 1rem 0 1rem;
+
+  @include devices(mobile) {
+    display: none;
+  }
+}
