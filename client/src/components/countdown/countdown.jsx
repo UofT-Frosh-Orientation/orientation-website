@@ -77,6 +77,21 @@ const CountdownHome = () => {
               ))}
           </div>
         </div>
+        <span className="divider">:</span>
+        <div className="countdown-seg">
+          <span className="countdown-label">SECONDS</span>
+          <div className="countdown-number">
+            {(timeLeft.seconds ?? 0)
+              .toString()
+              .padStart(2, '0')
+              .split('')
+              .map((digit, i) => (
+                <span key={`seconds-${i}`} className="digit">
+                  {digit}
+                </span>
+              ))}
+          </div>
+        </div>
       </div>
     </div>
   );
