@@ -3,8 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const registrationSubscription = require('./subscribers/registrationDataSubscriber');
 const { loggerMiddleware } = require('./util/logger');
-registrationSubscription.add({}, { repeat: { cron: '0 9 * * *' } });
-registrationSubscription.add({});
+registrationSubscription.add({}, { repeat: { cron: '0 12 * * *' } });
+// registrationSubscription.add({}, { repeat: { cron: '* * * * *' } });
 
 const app = express();
 
