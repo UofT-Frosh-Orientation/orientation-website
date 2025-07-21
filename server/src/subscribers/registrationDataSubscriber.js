@@ -21,6 +21,11 @@ const registrationDataSubsciption = new Queue('registrationData', {
 registrationDataSubsciption.process(async (job, done) => {
   const emailAddresses = process.env.REGISTRATION_DATA_EMAIL_ADDRESSES.split(',');
   const defaultObject = {
+    totalUsers: 0,
+    isRegistered: 0,
+    isRetreat: 0,
+    bursaryRequested: 0,
+    scunt: 0,
     'He/Him': 0,
     'She/Her': 0,
     'They/Them': 0,
@@ -34,11 +39,6 @@ registrationDataSubsciption.process(async (job, done) => {
     Mechanical: 0,
     Mineral: 0,
     'Track One (Undeclared)': 0,
-    bursaryRequested: 0,
-    isRegistered: 0,
-    isRetreat: 0,
-    totalUsers: 0,
-    scunt: 0,
   };
   const users = await UserServices.getAllUsers();
   const data = users.reduce((prev, curr) => {
