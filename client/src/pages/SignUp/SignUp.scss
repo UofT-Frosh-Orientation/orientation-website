@@ -22,10 +22,15 @@
 }
 
 .sign-up-title {
-  font-family: 'Proxima Nova';
+  font-family: 'Jersey 20', sans-serif;
   font-weight: 900;
-  font-size: clamp(36px, 5vw, 48px);
+  font-size: clamp(50px, 5vw, 64px);
+  letter-spacing: 1.5px;
   color: var(--text-primary);
+
+  @include devices(tablet) {
+    font-size: 44px;
+  }
 }
 
 .sign-up-sub {
