@@ -21,6 +21,11 @@ const registrationDataSubsciption = new Queue('registrationData', {
 registrationDataSubsciption.process(async (job, done) => {
   const emailAddresses = process.env.REGISTRATION_DATA_EMAIL_ADDRESSES.split(',');
   const defaultObject = {
+    totalUsers: 0,
+    isRegistered: 0,
+    isRetreat: 0,
+    bursaryRequested: 0,
+    scunt: 0,
     'He/Him': 0,
     'She/Her': 0,
     'They/Them': 0,
@@ -34,11 +39,6 @@ registrationDataSubsciption.process(async (job, done) => {
     Mechanical: 0,
     Mineral: 0,
     'Track One (Undeclared)': 0,
-    bursaryRequested: 0,
-    isRegistered: 0,
-    isRetreat: 0,
-    totalUsers: 0,
-    scunt: 0,
   };
   const users = await UserServices.getAllUsers();
   const data = users.reduce((prev, curr) => {
@@ -74,9 +74,24 @@ registrationDataSubsciption.process(async (job, done) => {
   // }
   await EmailServices.sendSimpleEmail(
     emailAddresses,
-    `<div><h1>Frosh Data</h1><ul>${Object.keys(data).reduce((prev, item) => {
-      return prev + `<li>${item}: ${data[item]}</li>`;
-    }, '')}</ul></div>`,
+    `<div>
+    ${
+      process.env.CLIENT_BASE_URL == 'http://localhost:3000'
+        ? '<h1>Frosh Data Localhost (Ignore)</h1>'
+        : '<h1>Frosh Data</h1>'
+    }
+    <h3>Total Users: ${data.totalUsers}</h3>
+    <h3>Total Paid Users: ${data.isRegistered}</h3>
+    <h3>Total Attending Retreat: ${data.isRetreat}</h3>
+    <h3>Pronouns</h3> 
+    <ul>
+      ${pronouns.map((pronoun) => `<li>${pronoun}: ${data[pronoun]}</li>`).join('')}
+    </ul>
+    <h3>Disciplines</h3>
+    <ul>
+      ${disciplines.map((discipline) => `<li>${discipline}: ${data[discipline]}</li>`).join('')}
+    </ul>
+    </div>`,
     `Frosh Data\n${Object.keys(data).reduce((prev, item) => {
       return prev + `\t- ${item}: ${data[item]}\n`;
     }, '')}`,
@@ -85,5 +100,11 @@ registrationDataSubsciption.process(async (job, done) => {
   );
   done();
 });
+
+{
+  /* <ul>${Object.keys(data).reduce((prev, item) => {
+  return prev + `<li>${item}: ${data[item]}</li>`;
+}, '')}</ul> */
+}
 
 module.exports = registrationDataSubsciption;
