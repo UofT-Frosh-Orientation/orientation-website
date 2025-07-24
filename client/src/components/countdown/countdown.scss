@@ -46,6 +46,10 @@
 .countdown-label {
   font-size: clamp(18px, 4vw, 32px);
   margin-bottom: 1rem;
+
+  @include devices(mobile) {
+    margin-bottom: 0.5rem;
+  }
 }
 
 .countdown-number {
@@ -64,6 +68,10 @@
   height: 2em;
   padding-top: 0.5em;
   font-size: clamp(45px, 6vw, 65px);
+
+  @include devices(mobile) {
+    padding-top: 18px;
+  }
 }
 
 .divider {
