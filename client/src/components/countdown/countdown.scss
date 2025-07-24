@@ -7,6 +7,13 @@
   margin-bottom: 1.5rem;
   font-family: 'Proxima Nova';
   font-weight: 800;
+
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
+  overflow: hidden;
 }
 
 .countdown-display {
@@ -14,6 +21,11 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
+
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+  flex-wrap: nowrap;
 
   @include devices(mobile) {
     flex-direction: column;
@@ -32,12 +44,12 @@
 }
 
 .countdown-label {
-  font-size: 25px;
+  font-size: clamp(18px, 4vw, 32px);
   margin-bottom: 1rem;
 }
 
 .countdown-number {
-  font-size: 70px;
+  font-size: clamp(40px, 8vw, 70px);
   display: flex;
   justify-content: space-between;
   gap: 0.2em;
@@ -51,20 +63,13 @@
   width: 1.5em;
   height: 2em;
   padding-top: 0.5em;
-
-  @include devices(ipad) {
-    font-size: 60px;
-  }
-
-  @include devices(mobile) {
-    font-size: 65px;
-  }
+  font-size: clamp(45px, 6vw, 65px);
 }
 
 .divider {
-  font-size: 70px;
-  padding-top: 0.6em;
-  margin: 0 1rem 0 1rem;
+  font-size: clamp(40px, 8vw, 70px);
+  padding-top: 0.8em;
+  margin: 0 clamp(0.3rem, 1vw, 1rem);
 
   @include devices(mobile) {
     display: none;
