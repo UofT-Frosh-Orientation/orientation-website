@@ -61,7 +61,7 @@ const Tabs = ({
                 }}
                 label={
                   <div className="tab-button-label">
-                    <img src={ArrowLeft} style={{ marginRight: '10px' }} />
+                    <img src={ArrowLeft} style={{ marginRight: '5px' }} />
                     Previous
                   </div>
                 }
@@ -83,7 +83,7 @@ const Tabs = ({
                 }}
                 label={
                   <div className="tab-button-label">
-                    Next <img src={ArrowRight} style={{ marginLeft: '10px' }} />
+                    Next <img src={ArrowRight} style={{ marginLeft: '5px' }} />
                   </div>
                 }
                 onClick={() => {
