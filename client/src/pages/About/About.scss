@@ -3,7 +3,7 @@
 
 :root {
   --pixel-border-regular: url('../../assets/buttons/button-pixel-border-regular-light.png');
-  --frame-border: url('../../assets/about/frame.png');
+  --frame-border: url('../../assets/about/frame2.png');
 }
 
 .dark-mode {
@@ -72,11 +72,11 @@
   // border-radius: 10px;
   margin: 13px 50px 13px 0;
   // max-width: 650px;
-  min-width: 400px;
+  // min-width: 400px;
   background-color: var(--mikado);
 
   border-image-source: var(--frame-border);
-  border-image-slice: 60;
+  border-image-slice: 200;
   border-image-width: 450px;
   border-image-outset: 20px;
   border-image-repeat: repeat;
@@ -497,6 +497,7 @@
     font-size: 36px;
     text-align: center;
     justify-content: center;
+    padding: 0px 10px;
   }
 }
 

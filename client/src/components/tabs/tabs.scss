@@ -29,7 +29,9 @@
   margin-top: 10px;
   box-shadow: var(--shadow);
   @include devices(tablet) {
-    margin-top: 0px;
+    padding: 15px;
+    margin-left: 12px;
+    margin-right: 12px;
   }
 }
 
