@@ -39,6 +39,49 @@ import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
 import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
 // import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
+import AlphaIcon from '../../assets/profile/letters/Alpha.svg';
+import BetaIcon from '../../assets/profile/letters/Beta.svg';
+import ChiIcon from '../../assets/profile/letters/Chi.svg';
+import DeltaIcon from '../../assets/profile/letters/Delta.svg';
+import GammaIcon from '../../assets/profile/letters/Gamma.svg';
+import IotaIcon from '../../assets/profile/letters/Iota.svg';
+import KappaIcon from '../../assets/profile/letters/Kappa.svg';
+import LambdaIcon from '../../assets/profile/letters/Lambda.svg';
+import NuIcon from '../../assets/profile/letters/Nu.svg';
+import OmegaIcon from '../../assets/profile/letters/Omega.svg';
+import OmicronIcon from '../../assets/profile/letters/Omicron.svg';
+import PhiIcon from '../../assets/profile/letters/Phi.svg';
+import PiIcon from '../../assets/profile/letters/Pi.svg';
+import PsiIcon from '../../assets/profile/letters/Psi.svg';
+import RhoIcon from '../../assets/profile/letters/Rho.svg';
+import SigmaIcon from '../../assets/profile/letters/Sigma.svg';
+import TauIcon from '../../assets/profile/letters/Tau.svg';
+import ThetaIcon from '../../assets/profile/letters/Theta.svg';
+import UpsilonIcon from '../../assets/profile/letters/Upsilon.svg';
+import ZetaIcon from '../../assets/profile/letters/Zeta.svg';
+
+const froshGroupImages = {
+  Alpha: AlphaIcon,
+  Beta: BetaIcon,
+  Chi: ChiIcon,
+  Delta: DeltaIcon,
+  Gamma: GammaIcon,
+  Iota: IotaIcon,
+  Kappa: KappaIcon,
+  Lambda: LambdaIcon,
+  Nu: NuIcon,
+  Omega: OmegaIcon,
+  Omicron: OmicronIcon,
+  Phi: PhiIcon,
+  Pi: PiIcon,
+  Psi: PsiIcon,
+  Rho: RhoIcon,
+  Sigma: SigmaIcon,
+  Tau: TauIcon,
+  Theta: ThetaIcon,
+  Upsilon: UpsilonIcon,
+  Zeta: ZetaIcon,
+};
 
 const PageProfileFrosh = () => {
   const { user } = useSelector(userSelector);
@@ -212,6 +255,10 @@ const ProfilePageFroshHeader = ({ editButton }) => {
   const lastDigitF = gradYear.toString().slice(-1);
   let froshYear = `${firstDigitF}T${lastDigitF}`;
 
+  const getFroshGroupImage = (letter) => {
+    return froshGroupImages[letter] || null;
+  };
+
   console.log('ProfilePageFroshHeader user:', user);
   console.log('ProfilePageFroshHeader isRegistered:', isRegistered);
 
@@ -260,21 +307,15 @@ const ProfilePageFroshHeader = ({ editButton }) => {
               </p>
             </div>
           </div>
-          {/* <div className="profile-page-frosh-group-image">
-            {isRegistered ? (
-              <img
-                src={user?.froshGroupIcon}
-                alt="Frosh Group"
-                className="frosh-group-image desktop-only"
-              />
-            ) : (
-              ''
-            )}
-          </div> */}
           <div className="profile-page-header-group desktop-only">
             {isRegistered ? (
               <>
-                <h1>{user?.froshGroupIcon}</h1>
+                <img
+                  src={getFroshGroupImage(user?.froshGroup)}
+                  alt={`${user?.froshGroup}`}
+                  className="frosh-group-icon-image"
+                  style={{ width: '110px', height: '110px', objectFit: 'contain' }}
+                />
                 <p>{user?.froshGroup}</p>
               </>
             ) : null}
