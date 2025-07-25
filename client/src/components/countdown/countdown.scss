@@ -44,7 +44,7 @@
 }
 
 .countdown-label {
-  font-size: clamp(18px, 4vw, 32px);
+  font-size: clamp(18px, 4vw, 25px);
   margin-bottom: 1rem;
 
   @include devices(mobile) {
@@ -70,7 +70,7 @@
   font-size: clamp(45px, 6vw, 65px);
 
   @include devices(mobile) {
-    padding-top: 18px;
+    padding-top: 0.4em;
   }
 }
 

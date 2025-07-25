@@ -250,7 +250,6 @@
   color: var(--text-secondary);
   padding-bottom: 5px;
   @include devices(tablet) {
-    margin-left: 1%;
     padding-top: 25px;
     font-size: 24px;
   }
@@ -326,6 +325,10 @@
   color: var(--text-primary);
   font-size: 16px !important;
   margin-bottom: 30px !important;
+
+  @include devices(mobile) {
+    margin-bottom: 10px !important;
+  }
 }
 
 .profile-schedule-background-purple {
@@ -401,6 +404,7 @@
   flex-direction: column;
   align-items: left;
   padding-right: 10px;
+  color: var(--text-dynamic);
 }
 
 @media (max-width: 600px) {
@@ -413,6 +417,15 @@
   .profile-not-registered-text {
     align-items: center;
     padding-right: 0px !important;
+  }
+}
+
+.leedur-not-approved {
+  margin-top: 15px;
+  margin-bottom: 8px;
+  @include devices(mobile) {
+    font-size: 28px;
+    line-height: 30px;
   }
 }
 
