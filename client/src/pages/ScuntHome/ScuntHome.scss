@@ -101,8 +101,9 @@
   justify-content: space-between;
   background-color: var(--purple);
   padding: 0px min(40px, 3.5%);
-  padding-bottom: 30px;
+  padding-bottom: 15px;
   margin-top: 1px;
+  margin-bottom:10px;
   color: var(--white);
   @include devices(tablet) {
     flex-direction: column;
@@ -153,7 +154,7 @@
 
 .back-button {
   position: absolute;
-  top: 16px;
+  top: 40px;
   left: 16px;
   display: inline-block;
   background: none;

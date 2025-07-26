@@ -45,6 +45,7 @@ export const PageScuntHome = () => {
 const BackToProfileButton = () => {
   return (
     <Link to="/profile" className="back-button">
+      {/* <div className=''><p>Back to Profile</p></div> */}
       <div className="circle"></div>
       <img src={arrowLogo} alt="Back" className="back-icon" />
     </Link>
@@ -103,12 +104,14 @@ const ScuntCountdown = () => {
   useEffect(() => {
     if (scuntSettings !== undefined) {
       let settings = scuntSettings;
-      const tempDate = new Date(settings?.scuntDate);
-      // const tempDate = new Date('2024-08-28T18:00:00'); // Hardcoded date??
+      // const tempDate = new Date(settings?.scuntDate);
+      const tempDate = new Date('2025-08-28T18:00:00');
       const tempCountDownDate = new Date(tempDate).getTime();
 
       setTargetDate(tempDate);
       setCountDownDate(tempCountDownDate);
+
+      
     }
   }, [scuntSettings]);
 
@@ -128,6 +131,7 @@ const ScuntCountdown = () => {
     const hours = Math.floor((countDown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
+
 
     return [days, hours, minutes, seconds];
   };
