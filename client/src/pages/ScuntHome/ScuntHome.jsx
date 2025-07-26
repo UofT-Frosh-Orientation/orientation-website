@@ -38,6 +38,7 @@ export const PageScuntHome = () => {
       <ScuntCountdown />
       <ScuntLinks />
       <AboutScunt />
+      {/* <ScuntDiscord /> */}
     </>
   );
 };
