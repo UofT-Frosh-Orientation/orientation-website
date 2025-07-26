@@ -181,3 +181,14 @@
   background-color: #a04fb9; /* Light purple */
   border-radius: 50%;
 }
+
+.frosh-retreat-faq-bullet{
+  position: relative;
+  z-index: 1;
+  padding: 0px 0px 10px 0px;
+
+  text-align: left;
+  font-size: 22px;
+
+  color: var(--text-dynamic);
+}

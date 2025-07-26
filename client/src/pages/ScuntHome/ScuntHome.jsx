@@ -58,7 +58,7 @@ const AboutScunt = () => {
     <>
       <br />
       <br />
-      <img src={darkMode ? WaveDarkMode : Wave} className="wave-image wave-image-footer" />
+      {/* <img src={darkMode ? WaveDarkMode : Wave} className="wave-image wave-image-footer" /> */}
 
       <div className="about-scunt-container">
         <div className="about-scunt-content">
@@ -79,11 +79,11 @@ const AboutScunt = () => {
           </div>
         </div>
       </div>
-      <img
+      {/* <img
         className="header-page-wave-bottom"
         src={darkMode ? waveBottomDarkMode : waveBottom}
         alt="wave"
-      />
+      /> */}
 
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <SkuleHuntFAQ />

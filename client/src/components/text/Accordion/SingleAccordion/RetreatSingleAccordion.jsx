@@ -50,7 +50,7 @@ const RetreatSingleAccordion = ({
     >
       <div className="accord-header">
         {canOpen !== false ? (
-          <div style={{}} className={'retreat-accord-text'}>
+          <div style={{}} className={'retreat-accord-icon'}>
             <img
               src={darkMode ? faAngleDownDark : faAngleDown}
               className={`${rotate}`}
