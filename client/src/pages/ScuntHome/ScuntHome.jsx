@@ -23,6 +23,7 @@ const { axios } = useAxios();
 import scuntLogo from '../../assets/scuntlogo/scunt_color_2t4.svg';
 import arrowLogo from '../../assets/misc/left-arrow-svgrepo-com.svg';
 import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAccordion/RetreatSingleAccordion';
+import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 
 export const PageScuntHome = () => {
   const dispatch = useDispatch();
@@ -46,9 +47,13 @@ export const PageScuntHome = () => {
 const BackToProfileButton = () => {
   return (
     <Link to="/profile" className="back-button">
-      {/* <div className=''><p>Back to Profile</p></div> */}
-      <div className="circle"></div>
-      <img src={arrowLogo} alt="Back" className="back-icon" />
+      
+      {/* <ButtonOutlined className = 'scunt-back-button' label={"Back to Profile"} /> */}
+
+      <div className="circle">
+        <img src={arrowLogo} alt="Back" className="back-icon" />
+      </div>
+      
     </Link>
   );
 };
