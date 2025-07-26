@@ -22,7 +22,7 @@ import { getScuntTeams } from '../../state/scuntTeams/saga';
 const { axios } = useAxios();
 import scuntLogo from '../../assets/scuntlogo/scunt_color_2t4.svg';
 import arrowLogo from '../../assets/misc/left-arrow-svgrepo-com.svg';
-import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
+import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAccordion/RetreatSingleAccordion';
 
 export const PageScuntHome = () => {
   const dispatch = useDispatch();
@@ -208,10 +208,10 @@ const SkuleHuntFAQ = () => {
           const [isOpen, setIsOpen] = useState(false);
           return (
             <React.Fragment key={item.title}>
-              <SingleAccordion
+              <RetreatSingleAccordion
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                header={<div className={'faq-search-result-question-accordion'}>{item.title}</div>}
+                header={<div className={'retreat-faq-question'}>{item.title}</div>}
                 style={{
                   backgroundColor: 'var(--faq-answer-containers)',
                   margin: '10px',
@@ -230,10 +230,10 @@ const SkuleHuntFAQ = () => {
                   </>
                 ) : (
                   <>
-                    <p style={{ margin: 0 }}>{item.description}</p>
+                    <p style={{ margin: 0, width:'100%'}}>{item.description}</p>
                   </>
                 )}
-              </SingleAccordion>
+              </RetreatSingleAccordion>
             </React.Fragment>
           );
         })}

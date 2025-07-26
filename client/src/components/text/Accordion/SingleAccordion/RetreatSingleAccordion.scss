@@ -9,11 +9,14 @@
 .retreat-accordion {
   border-radius: 17px;
   margin-bottom: 10px;
+
+  width:100%;
 }
 
 .retreat-accordion,
 .retreat-accordion * {
   cursor: url('../../../../assets/cursor/pointer.png'), auto !important;
+
 }
 
 // Disable hover effect on touch/mobile devices
