@@ -547,6 +547,7 @@
   margin-bottom: 23px;
   color: var(--text-primary);
   transition: transform 500ms;
+  
   img {
     margin: 20px 25px;
     width: 50px;
@@ -569,6 +570,11 @@
       font-size: 15px;
     }
   }
+}
+
+.frosh-instagram-container,
+.frosh-instagram-container * {
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
 }
 
 .instagram-text {
