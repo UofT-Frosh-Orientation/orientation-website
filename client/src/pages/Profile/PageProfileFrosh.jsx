@@ -314,7 +314,6 @@ const ProfilePageFroshHeader = ({ editButton }) => {
                   src={getFroshGroupImage(user?.froshGroup)}
                   alt={`${user?.froshGroup}`}
                   className="frosh-group-icon-image"
-                  style={{ width: '110px', height: '110px', objectFit: 'contain' }}
                 />
                 <p>{user?.froshGroup}</p>
               </>
