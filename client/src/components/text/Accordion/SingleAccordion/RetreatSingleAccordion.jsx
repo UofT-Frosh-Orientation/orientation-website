@@ -50,7 +50,7 @@ const RetreatSingleAccordion = ({
     >
       <div className="accord-header">
         {canOpen !== false ? (
-          <div style={{}} className={'retreat-accord-text'}>
+          <div style={{}} className={'retreat-accord-icon'}>
             <img
               src={darkMode ? faAngleDownDark : faAngleDown}
               className={`${rotate}`}
@@ -76,7 +76,7 @@ RetreatSingleAccordion.propTypes = {
   children: PropTypes.element.isRequired,
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
-  canOpen: PropTypes.bool.isRequired,
+  canOpen: PropTypes.bool,
   className: PropTypes.string,
   style: PropTypes.object,
   dark: PropTypes.bool,
