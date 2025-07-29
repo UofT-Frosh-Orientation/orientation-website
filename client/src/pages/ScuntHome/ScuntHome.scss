@@ -101,8 +101,9 @@
   justify-content: space-between;
   background-color: var(--purple);
   padding: 0px min(40px, 3.5%);
-  padding-bottom: 30px;
+  padding-bottom: 15px;
   margin-top: 1px;
+  margin-bottom:10px;
   color: var(--white);
   @include devices(tablet) {
     flex-direction: column;
@@ -153,15 +154,15 @@
 
 .back-button {
   position: absolute;
-  top: 16px;
+  top: 40px;
   left: 16px;
   display: inline-block;
   background: none;
 }
 
 .back-icon {
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   fill: purple;
   filter: invert(1) opacity(100%);
 }
@@ -173,11 +174,33 @@
 
 .circle {
   position: absolute;
-  top: -0.5px; /* Adjust as needed */
-  left: 50%;
+  top: 10px; /* Adjust as needed */
+  left: 20px;
   transform: translateX(-52%);
-  width: 22px; /* Adjust size */
-  height: 22px;
+  width: 50px; /* Adjust size */
+  height: 50px;
   background-color: #a04fb9; /* Light purple */
   border-radius: 50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.frosh-retreat-faq-bullet{
+  position: relative;
+  z-index: 1;
+  padding: 0px 0px 10px 0px;
+
+  text-align: left;
+  font-size: 22px;
+
+  color: var(--text-dynamic);
+}
+
+.scunt-button{
+  min-height:80px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }

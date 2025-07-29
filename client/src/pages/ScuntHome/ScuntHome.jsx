@@ -22,7 +22,8 @@ import { getScuntTeams } from '../../state/scuntTeams/saga';
 const { axios } = useAxios();
 import scuntLogo from '../../assets/scuntlogo/scunt_color_2t4.svg';
 import arrowLogo from '../../assets/misc/left-arrow-svgrepo-com.svg';
-import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
+import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAccordion/RetreatSingleAccordion';
+import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 
 export const PageScuntHome = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ export const PageScuntHome = () => {
       <ScuntCountdown />
       <ScuntLinks />
       <AboutScunt />
+      {/* <ScuntDiscord /> */}
     </>
   );
 };
@@ -45,8 +47,13 @@ export const PageScuntHome = () => {
 const BackToProfileButton = () => {
   return (
     <Link to="/profile" className="back-button">
-      <div className="circle"></div>
-      <img src={arrowLogo} alt="Back" className="back-icon" />
+      
+      {/* <ButtonOutlined className = 'scunt-back-button' label={"Back to Profile"} /> */}
+
+      <div className="circle">
+        <img src={arrowLogo} alt="Back" className="back-icon" />
+      </div>
+      
     </Link>
   );
 };
@@ -58,7 +65,7 @@ const AboutScunt = () => {
     <>
       <br />
       <br />
-      <img src={darkMode ? WaveDarkMode : Wave} className="wave-image wave-image-footer" />
+      {/* <img src={darkMode ? WaveDarkMode : Wave} className="wave-image wave-image-footer" /> */}
 
       <div className="about-scunt-container">
         <div className="about-scunt-content">
@@ -79,11 +86,11 @@ const AboutScunt = () => {
           </div>
         </div>
       </div>
-      <img
+      {/* <img
         className="header-page-wave-bottom"
         src={darkMode ? waveBottomDarkMode : waveBottom}
         alt="wave"
-      />
+      /> */}
 
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <SkuleHuntFAQ />
@@ -103,12 +110,14 @@ const ScuntCountdown = () => {
   useEffect(() => {
     if (scuntSettings !== undefined) {
       let settings = scuntSettings;
-      const tempDate = new Date(settings?.scuntDate);
-      // const tempDate = new Date('2024-08-28T18:00:00'); // Hardcoded date??
+      // const tempDate = new Date(settings?.scuntDate);
+      const tempDate = new Date('2025-08-28T18:00:00');
       const tempCountDownDate = new Date(tempDate).getTime();
 
       setTargetDate(tempDate);
       setCountDownDate(tempCountDownDate);
+
+      
     }
   }, [scuntSettings]);
 
@@ -128,6 +137,7 @@ const ScuntCountdown = () => {
     const hours = Math.floor((countDown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
+
 
     return [days, hours, minutes, seconds];
   };
@@ -208,10 +218,10 @@ const SkuleHuntFAQ = () => {
           const [isOpen, setIsOpen] = useState(false);
           return (
             <React.Fragment key={item.title}>
-              <SingleAccordion
+              <RetreatSingleAccordion
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                header={<div className={'faq-search-result-question-accordion'}>{item.title}</div>}
+                header={<div className={'retreat-faq-question'}>{item.title}</div>}
                 style={{
                   backgroundColor: 'var(--faq-answer-containers)',
                   margin: '10px',
@@ -230,10 +240,10 @@ const SkuleHuntFAQ = () => {
                   </>
                 ) : (
                   <>
-                    <p style={{ margin: 0 }}>{item.description}</p>
+                    <p style={{ margin: 0, width:'100%'}}>{item.description}</p>
                   </>
                 )}
-              </SingleAccordion>
+              </RetreatSingleAccordion>
             </React.Fragment>
           );
         })}

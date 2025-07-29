@@ -76,7 +76,7 @@ SingleAccordion.propTypes = {
   children: PropTypes.element.isRequired,
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
-  canOpen: PropTypes.bool.isRequired,
+  canOpen: PropTypes.bool,
   className: PropTypes.string,
   style: PropTypes.object,
   dark: PropTypes.bool,
