@@ -30,10 +30,10 @@ import facultylogo from '../../assets/misc/facultylogo.png';
 import bsologo from '../../assets/misc/bsologo.svg';
 import slideshow1 from '../../assets/homeSlideshow/2T5/back.jpg';
 
-import DiamondMedal from './sponsormedals/diamond.png';
-import GoldMedal from './sponsormedals/gold.png';
-import SilverMedal from './sponsormedals/silver.png';
-import BronzeMedal from './sponsormedals/bronze.png';
+import DiamondMedal from '../../assets/sponsors/sponsormedals/diamond.png';
+import GoldMedal from '../../assets/sponsors/sponsormedals/gold.png';
+import SilverMedal from '../../assets/sponsors/sponsormedals/silver.png';
+import BronzeMedal from '../../assets/sponsors/sponsormedals/bronze.png';
 
 import { CountdownHome } from '../../components/countdown/countdown';
 
