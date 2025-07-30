@@ -257,3 +257,8 @@
   width: 100%;
   text-align: left;
 }
+
+.scunt-accordion-clickable,
+.scunt-accordion-clickable * {
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
+}
