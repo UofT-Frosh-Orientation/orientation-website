@@ -81,13 +81,14 @@ export const FroshRetreat = () => {
       <div className="retreat-info-container">
         <h3 className="retreat-header">About</h3>
         <p className="retreat-text">
-          The retreat is taking place on August 30th and 31st, 2025 at Hart House Farm.
+          The retreat is taking place on August 30th and 31st, 2025 at Hart House Farm. Get ready
+          for a weekend of fun and relaxation with your new peers!
         </p>
 
         <h3 className="retreat-header">Ticket Information</h3>
         <p className="retreat-text">
-          Tickets to Retreat are $110.00 and they include bus transportation (no tickets without bus
-          transportation). To purchase a ticket and guarantee your spot, you must download, sign and
+          The available tickets for Retreat are $100.00 and <b>do not</b> include bus
+          transportation. To purchase a ticket and guarantee your spot, you must download, sign and
           upload the waiver on this page and then complete your payment at the bottom of this page.
         </p>
         <br></br>
@@ -170,6 +171,12 @@ const retreatFAQs = [
     title: 'What time does the bus leave?',
     description: [
       'The bus leaves from campus at 10:00 AM on August 30th and returns to campus at 2:00 PM on August 31st.',
+    ],
+  },
+  {
+    title: 'Does my ticket include transportation?',
+    description: [
+      'If you previously purchased a ticket for $110.00, it does include transportation by bus to and from Hart House Farms. If you purchased a discounted, non-bus ticket for $100.00, it does not include transportation.',
     ],
   },
 ];
