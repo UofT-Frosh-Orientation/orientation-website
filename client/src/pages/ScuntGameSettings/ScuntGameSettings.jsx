@@ -100,7 +100,7 @@ const ScuntGameSettings = () => {
   }, [dispatch]);
 
   const initialSettings = {
-    name: 'Skule™ Hunt 2T4 Settings',
+    name: 'Skule™ Hunt 2T5 Settings',
     amountOfTeams: 10,
     amountOfStarterBribePoints: 2500,
     maxAmountPointsPercent: 1.3,
@@ -170,7 +170,7 @@ const ScuntGameSettings = () => {
           <Button
             label="Update Settings"
             onClick={async () => {
-              let name = 'Skule™ Hunt 2T4 Settings';
+              let name = 'Skule™ Hunt 2T5 Settings';
               let amountOfTeams = newSettings.amountOfTeams;
               let amountOfStarterBribePoints = newSettings.amountOfStarterBribePoints;
               let maxAmountPointsPercent = newSettings.maxAmountPointsPercent;
@@ -209,7 +209,7 @@ const ScuntGameSettings = () => {
             onClick={async () => {
               // setting recommended settings
 
-              let name = 'Skule™ Hunt 2T4 Settings';
+              let name = 'Skule™ Hunt 2T5 Settings';
               let amountOfTeams = initialSettings.amountOfTeams;
               let amountOfStarterBribePoints = initialSettings.amountOfStarterBribePoints;
               let maxAmountPointsPercent = initialSettings.maxAmountPointsPercent;

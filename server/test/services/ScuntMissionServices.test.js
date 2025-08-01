@@ -58,7 +58,7 @@ describe('ScuntMissionServices', () => {
 
   it('.getAllScuntMissions(showHidden, user)\t\t\t\t\t\t\t\t|\tGetting Scunt Missions', async () => {
     const scuntGameSettings = {
-      name: 'Skule™ Hunt 2T4 Settings',
+      name: 'Skule™ Hunt 2T5 Settings',
       amountOfTeams: 10,
       amountOfStarterBribePoints: 10000,
       maxAmountPointsPercent: 1.3,
