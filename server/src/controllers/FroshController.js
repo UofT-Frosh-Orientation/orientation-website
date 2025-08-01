@@ -93,7 +93,18 @@ const FroshController = {
           prev[curr] = 1;
           return prev;
         },
-        { _id: 1 },
+        {
+          _id: 0,
+          userType: 0,
+          firstName: 1,
+          lastName: 1,
+          preferredName: 1,
+          pronouns: 1,
+          email: 1,
+          utorid: 1,
+          froshGroup: 1,
+          shirtSize: 1,
+        },
       );
       const froshGroupFilters = [null];
       const scuntTeamFilters = [null];

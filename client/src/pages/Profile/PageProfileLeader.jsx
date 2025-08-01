@@ -51,6 +51,7 @@ const PageProfileLeader = () => {
               {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
             </div>
           ) : null}
+          <ProfilePageLeaderPermissionDashboardLinks />
           <div style={{ marginTop: '20px' }} />
           <ProfilePageLeaderScuntMessage />
           <div style={{ marginTop: '-20px' }} />
@@ -58,9 +59,7 @@ const PageProfileLeader = () => {
         </div>
 
         <div className="profile-info-row-right">
-          <ProfilePageLeaderPermissionDashboardLinks />
-
-          {/* <ProfilePageQRCode /> */}
+          <ProfilePageQRScanner />
           {qrCodeLeader === true ? (
             <ProfilePageQRScanner scopes={user?.authScopes?.approved} />
           ) : null}

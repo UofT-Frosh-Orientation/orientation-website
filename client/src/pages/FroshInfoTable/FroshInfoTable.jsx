@@ -37,25 +37,25 @@ const PageFroshInfoTable = () => {
         header: convertCamelToLabel(key),
         accessorKey: key,
       })),
-      {
-        header: 'Delete Account',
-        accessorKey: '_id',
-        id: 'delete',
-        cell: (value) => (
-          <Button
-            label={'X'}
-            style={{
-              margin: 0,
-              padding: '10px 25px',
-              backgroundColor: 'var(--red-error)',
-            }}
-            onClick={() => {
-              setSelectedUserID(value.getValue());
-              setShowPopUp(true);
-            }}
-          />
-        ),
-      },
+      // {
+      //   header: 'Delete Account',
+      //   accessorKey: '_id',
+      //   id: 'delete',
+      //   cell: (value) => (
+      //     <Button
+      //       label={'X'}
+      //       style={{
+      //         margin: 0,
+      //         padding: '10px 25px',
+      //         backgroundColor: 'var(--red-error)',
+      //       }}
+      //       onClick={() => {
+      //         setSelectedUserID(value.getValue());
+      //         setShowPopUp(true);
+      //       }}
+      //     />
+      //   ),
+      // },
     ],
     [objectKeys],
   );
