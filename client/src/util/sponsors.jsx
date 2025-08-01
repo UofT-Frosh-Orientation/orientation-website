@@ -16,8 +16,8 @@ import Kailen from '../assets/sponsors/kailens-kreations.png';
 import Kailendark from '../assets/sponsors/kailens-kreationsdark.png';
 import UTSU from '../assets/sponsors/utsu.png';
 import UTSUdark from '../assets/sponsors/utsudark.png';
-
-//import MeetYoudark from '../assets/sponsors/meetyou_dark.jpeg';
+import CityDental from '../assets/sponsors/city-dental.png';
+import CityDentalDark from '../assets/sponsors/city-dentaldark.png';
 
 export const sponsors = [
   {
@@ -27,6 +27,14 @@ export const sponsors = [
     scale: 0.82,
     rank: 'diamond',
     label: 'Diamond Sponsor: EMMO',
+  },
+  {
+    website: 'https://citydentaltoronto.com/',
+    image: CityDental,
+    darkimage: CityDentalDark,
+    scale: 0.82,
+    rank: 'diamond',
+    label: 'Diamond Sponsor: City Dental on Bay',
   },
   {
     website: 'https://www.meetyoucafe.com/',
