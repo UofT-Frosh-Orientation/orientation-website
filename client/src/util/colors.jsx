@@ -42,6 +42,11 @@ export const colors = {
   '--sponsor-gold': ['#FFC600', '#FFC600'],
   '--sponsor-diamond': ['#A0D8EF', '#A0D8EF'],
 
+  // Skunt Colours
+  '--scunt-counter-bg': ['#a04fb9', '#8c60b3'],
+  '--scunt-leaderboard-bar': ['#6f1e88', '#ffcc4a'],
+  '--scunt-back-button': ['#FFC600', '#FED34C'],
+
   // 2T4 + Earlier Colours Start Here -----------------------------------------------------------------------------------
   '--purple': ['#6f1e88', '#613480'],
   '--light-purple': ['#a04fb9', '#8c60b3'],
@@ -197,8 +202,4 @@ export const colors = {
   '--scrollbar-thumb-hover': ['#616161', '#7C508C'],
   '--scrollbar-thumb': ['#7c7c7c', '#966AA3'],
   '--scrollbar-track': ['#d3d3d3fd', '#4E3155FD'],
-
-  '--scunt-counter-bg': ['#a04fb9', '#8c60b3'],
-
-  '--scunt-leaderboard-bar': ['#6f1e88', '#ffcc4a'],
 };

@@ -12,8 +12,12 @@ import EMMOdark from '../assets/sponsors/EMMO_white.png';
 import Panago from '../assets/sponsors/Panago.png';
 import MeetYou from '../assets/sponsors/meetyou.png';
 import MeetYouDark from '../assets/sponsors/meetyoudark.png';
-
-//import MeetYoudark from '../assets/sponsors/meetyou_dark.jpeg';
+import Kailen from '../assets/sponsors/kailens-kreations.png';
+import Kailendark from '../assets/sponsors/kailens-kreationsdark.png';
+import UTSU from '../assets/sponsors/utsu.png';
+import UTSUdark from '../assets/sponsors/utsudark.png';
+import CityDental from '../assets/sponsors/city-dental.png';
+import CityDentalDark from '../assets/sponsors/city-dentaldark.png';
 
 export const sponsors = [
   {
@@ -23,6 +27,22 @@ export const sponsors = [
     scale: 0.82,
     rank: 'diamond',
     label: 'Diamond Sponsor: EMMO',
+  },
+  {
+    website: 'https://citydentaltoronto.com/',
+    image: CityDental,
+    darkimage: CityDentalDark,
+    scale: 0.82,
+    rank: 'diamond',
+    label: 'Diamond Sponsor: City Dental on Bay',
+  },
+  {
+    website: 'https://www.meetyoucafe.com/',
+    image: MeetYou,
+    darkimage: MeetYouDark,
+    scale: 0.82,
+    rank: 'gold',
+    label: 'Gold Sponsor: MeetYou',
   },
   {
     website: 'https://www.peo.on.ca/',
@@ -49,11 +69,19 @@ export const sponsors = [
     label: 'Bronze Sponsor: Troost iLead',
   },
   {
-    website: 'https://www.meetyoucafe.com/',
-    image: MeetYou,
-    darkimage: MeetYouDark,
+    website: 'https://www.instagram.com/kailenskreations/',
+    image: Kailen,
+    darkimage: Kailendark,
     scale: 0.82,
-    rank: 'gold',
-    label: 'Gold Sponsor: MeetYou',
+    rank: 'bronze',
+    label: 'Bronze Sponsor: Kailen’s Kreations',
+  },
+  {
+    website: 'https://www.utsu.ca/',
+    image: UTSU,
+    darkimage: UTSUdark,
+    scale: 0.8,
+    rank: 'bronze',
+    label: 'Bronze Sponsor: UTSU',
   },
 ];

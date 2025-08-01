@@ -5,13 +5,14 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-
+  margin-top: 20px;
   h1 {
     color: var(--white);
     font-size: 50px;
     font-size: 70px;
     @include devices(tablet) {
       font-size: 30px;
+      margin-top: 0px;
     }
   }
   h3 {
@@ -19,13 +20,13 @@
   }
   .scunt-countdown-number {
     margin: 0px 5px;
-    margin-top: 15px;
+    margin-top: 5px;
     padding: 10px 10px;
     border-radius: 15px;
     background-color: var(--scunt-counter-bg);
     min-width: 130px;
     @include devices(tablet) {
-      min-width: 80px;
+      min-width: 90px;
       h3 {
         font-size: 15px;
       }
@@ -75,19 +76,28 @@
   margin: 20px;
 }
 
-.about-scunt-content .text-content {
-  display: block;
+.image-container {
+  text-align: center;
+
+  @media (max-width: 767px) {
+    padding: 25px 10px !important;
+  }
 }
 
-@media (max-width: 768px) {
+.about-scunt-content .text-content {
+  display: block;
+  margin-left: 15px;
+}
+
+@media (max-width: 767px) {
   .about-scunt-content {
     flex-direction: column;
     align-items: flex-start;
   }
 
   .about-scunt-content img {
-    width: 100%; /* Adjust as needed */
-    margin: 10px 0;
+    width: 75% !important;
+    margin: 0 !important;
   }
 }
 
@@ -100,10 +110,9 @@
   flex-direction: row;
   justify-content: space-between;
   background-color: var(--purple);
-  padding: 0px min(40px, 3.5%);
-  padding-bottom: 15px;
+  padding: 16px min(50px, 6.5%);
   margin-top: 1px;
-  margin-bottom:10px;
+  margin-bottom: 36px;
   color: var(--white);
   @include devices(tablet) {
     flex-direction: column;
@@ -116,14 +125,16 @@
     color: var(--white);
   }
   h2 {
-    font-size: 45px;
     color: var(--white);
-    padding-top: 35px;
-    margin-bottom: 5px;
+    padding-top: 20px;
+    margin-bottom: 10px;
+    font-family: 'Jersey 20', sans-serif;
+    font-size: 64px;
+    letter-spacing: 2px;
     @include devices(tablet) {
-      padding-top: 30px;
+      padding-top: 0px;
       margin-bottom: 4px;
-      font-size: 35px;
+      font-size: 44px;
     }
   }
   h3 {
@@ -143,6 +154,9 @@
   justify-content: center;
   padding: 20px 0px;
   flex-wrap: wrap;
+  @include devices(tablet) {
+    padding-bottom: 0px;
+  }
 }
 
 .scunt-check-soon-title {
@@ -153,41 +167,42 @@
 }
 
 .back-button {
-  position: absolute;
-  top: 40px;
-  left: 16px;
-  display: inline-block;
-  background: none;
-}
-
-.back-icon {
-  width: 40px;
-  height: 40px;
-  fill: purple;
-  filter: invert(1) opacity(100%);
-}
-
-.back-button:hover .back-icon,
-.back-button:active .back-icon {
-  filter: invert(1) opacity(50%);
-}
-
-.circle {
-  position: absolute;
-  top: 10px; /* Adjust as needed */
-  left: 20px;
-  transform: translateX(-52%);
-  width: 50px; /* Adjust size */
+  width: 30px;
   height: 50px;
-  background-color: #a04fb9; /* Light purple */
-  border-radius: 50%;
+  position: absolute;
+  top: 60px;
+  left: 30px;
+  object-fit: contain;
+  background: none;
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  &:hover {
+    transform: scale(1.08);
+  }
+
+  @include devices(tablet) {
+    top: 24px;
+    left: 32px;
+  }
+
+  @media screen and (max-width: 525px) {
+    top: 20px;
+    left: 24px;
+    width: 24px;
+    height: 40px;
+  }
+
+  @media screen and (max-width: 480px) {
+    top: 12px;
+    left: 15px;
+  }
 }
 
-.frosh-retreat-faq-bullet{
+.back-button,
+.back-button * {
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
+}
+
+.frosh-retreat-faq-bullet {
   position: relative;
   z-index: 1;
   padding: 0px 0px 10px 0px;
@@ -198,9 +213,53 @@
   color: var(--text-dynamic);
 }
 
-.scunt-button{
-  min-height:80px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.scunt-button {
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scunt-faq-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 70%;
+
+  @include devices(tablet) {
+    width: 80%;
+  }
+}
+
+.scunt-faq-question {
+  color: var(--sc-inverted) !important;
+  font-size: 22px;
+  font-weight: 700;
+  padding: 15px 15px 15px 0;
+  @include devices(tablet) {
+    font-size: 18px;
+    padding: 12px 12px 12px 0;
+  }
+}
+
+.scunt-faq-bullet {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  margin-top: -12px;
+  padding: 0 0 5px !important;
+}
+
+.scunt-accordion-clickable {
+  background-color: var(--faq-answer-containers);
+  margin: 10px;
+  padding: 1px 30px;
+  width: 100%;
+  text-align: left;
+}
+
+.scunt-accordion-clickable,
+.scunt-accordion-clickable * {
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
 }

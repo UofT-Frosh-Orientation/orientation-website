@@ -316,7 +316,7 @@ const HomePageSponsors = () => {
     <div className="home-page-sponsors">
       <div className="home-page-sponsors-header">
         <h2>Our Sponsors</h2>
-        <p>F!rosh Week was brought to you thanks to the generous support of our sponsors.</p>
+        <p>F!rosh Week was brought to you thanks to the generous support of our sponsors!</p>
       </div>
 
       {sponsors.length > 0 && (
