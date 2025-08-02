@@ -113,7 +113,7 @@ export const ProfilePageQRScanner = ({ scopes }) => {
 
   return (
     <div className="profile-page-qr-code-scanner profile-page-side-section">
-      <h2 className="profile-page-manual-entry-header">{`SCANNING FOR ${scannerType.toUpperCase()}`}</h2>
+      <h2 className="profile-page-manual-entry-header">{`Scanning for ${scannerType}`}</h2>
       <QRScannerDisplay
         setScannedData={(userID) => {
           if (userID) {

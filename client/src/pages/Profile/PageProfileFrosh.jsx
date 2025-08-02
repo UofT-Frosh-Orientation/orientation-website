@@ -122,10 +122,9 @@ const PageProfileFrosh = () => {
           <ProfilePageInstagrams />
           <ProfilePageAnnouncements />
           <ProfilePageSchedule />
-          {/* <ScheduleComponent /> */}
         </div>
         <div className="profile-info-row-right">
-          {/* <ProfilePageQRCode /> */}
+          <ProfilePageQRCode />
           {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
           {/* {user?.attendingScunt ? <ProfilePageScuntTeam /> : null} */}
           {/* <ProfilePageFroshScuntTeamsSelection /> */}
@@ -481,7 +480,15 @@ const ProfilePageQRCode = () => {
   }
 
   return (
-    <div className="profile-page-qr-code profile-page-side-section">
+    <div
+      className="profile-page-qr-code profile-page-side-section"
+      style={{
+        border: '2px solid var(--neutral-secondary)',
+        borderRadius: '25px',
+        padding: '16px',
+        boxShadow: '0 5px 5px rgba(0, 0, 0, 0.10)',
+      }}
+    >
       <QRNormal
         value={QRCodeString}
         styles={{ svg: { width: '120%', margin: '-10%' } }}
@@ -492,7 +499,9 @@ const ProfilePageQRCode = () => {
         posColor="#28093A"
         backgroundColor="white"
       />
-      <p style={{ color: 'var(--purple)' }}>Your Sign-in QR Code</p>
+      <p style={{ color: 'var(--monster)', marginTop: '-5px', marginBottom: '20px' }}>
+        Your Sign-in QR Code
+      </p>
     </div>
   );
 };

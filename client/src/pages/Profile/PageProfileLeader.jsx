@@ -59,7 +59,6 @@ const PageProfileLeader = () => {
         </div>
 
         <div className="profile-info-row-right">
-          <ProfilePageQRScanner />
           {qrCodeLeader === true ? (
             <ProfilePageQRScanner scopes={user?.authScopes?.approved} />
           ) : null}

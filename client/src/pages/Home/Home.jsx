@@ -190,7 +190,7 @@ const HomePageTimeline = () => {
   return (
     !(dates === undefined || dates?.length === 0) && (
       <div className="home-page-timeline">
-        <h2 className="home-page-section-header">TIMELINE</h2>
+        <h2 className="home-page-section-header">Timeline</h2>
         <Timeline
           dates={dates}
           onClick={(date) => {
