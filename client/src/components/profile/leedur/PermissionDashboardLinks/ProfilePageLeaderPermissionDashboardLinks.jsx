@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { userSelector } from '../../../../state/user/userSlice';
 import { Button } from '../../../button/Button/Button';
+import { ButtonRound } from '../../../button/ButtonRound/ButtonRound';
 import { DashboardDropdown } from '../../../DashboardDropdown/DashboardDropdown';
 import DataDashboardIcon from '../../../../assets/dashboarddropdown/data-icon.svg';
 import OutreachDashboardIcon from '../../../../assets/dashboarddropdown/outreach-icon.svg';
@@ -165,13 +166,13 @@ export const ProfilePageLeaderPermissionDashboardLinks = () => {
       {approved ? (
         <>
           <div className={'profile-leader-dashboard-permissions-links'}>
-            <Link
+            {/* <Link
               to={'/permission-request'}
               style={{ textDecoration: 'none' }}
               className={'no-link-style'}
             >
-              <Button label="Request Leedur Permissions" style={{ margin: '0' }} />
-            </Link>
+              <ButtonRound label="Request Leedur Permissions" style={{ margin: '0' }} />
+            </Link> */}
           </div>
           <div className={'profile-leader-dashboard-other-links'}>
             {userDropdown.map((dropdown, index) => {

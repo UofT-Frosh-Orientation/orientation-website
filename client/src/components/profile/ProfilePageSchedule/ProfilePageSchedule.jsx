@@ -30,8 +30,13 @@ export const ProfilePageSchedule = () => {
   }
   const [selectedDayIndex, setSelectedDayIndex] = useState(count);
   const [closeAll, setCloseAll] = useState(false);
+  // const buttonList = Object.keys(scheduleData).map((item) => {
+  //   return { name: item, sub: item };
+  // });
   const buttonList = Object.keys(scheduleData).map((item) => {
-    return { name: item };
+    const dayOfWeek = item.split(' ')[0];
+    const date = item.split(' ')[1] + ' ' + item.split(' ')[2];
+    return { name: dayOfWeek, title: dayOfWeek, sub: date };
   });
 
   const froshGroupNames = [];

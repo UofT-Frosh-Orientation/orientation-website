@@ -42,13 +42,13 @@ export const QRScannerDisplay = ({ setScannedData }) => {
 
   return (
     <div
-      style={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
+    // style={{
+    //   width: '100%',
+    //   display: 'flex',
+    //   flexDirection: 'column',
+    //   justifyContent: 'center',
+    //   alignItems: 'center',
+    // }}
     >
       <ButtonOutlined
         label={isScanning ? 'Stop Scanning' : 'Start Scanning'}
@@ -63,6 +63,11 @@ export const QRScannerDisplay = ({ setScannedData }) => {
           } else {
             setIsScanning(true);
           }
+        }}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       />
       <video

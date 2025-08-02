@@ -3,7 +3,8 @@
 .profile-leader-dashboard-links {
   color: var(--text-dynamic);
   display: flex;
-  flex-direction: row;
+  // flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   text-align: center;
@@ -16,11 +17,13 @@
   width: 100%;
 
   .profile-leader-dashboard-permissions-links {
-    width: 30%;
+    // width: 30%;
     // margin-right: auto;
+    margin-bottom: 25px;
     @include devices(tablet) {
       // margin: auto;
       width: 350px;
+      margin-bottom: 0px;
     }
   }
   .profile-leader-dashboard-other-links {

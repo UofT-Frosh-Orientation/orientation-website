@@ -36,8 +36,12 @@
 
   padding: 10px 26px;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   h1 {
-    font-size: 35px;
+    font-size: 28px;
     font-family: 'Jersey 20', sans-serif;
 
     @include devices(tablet) {

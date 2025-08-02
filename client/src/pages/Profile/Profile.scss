@@ -533,6 +533,89 @@
   }
 }
 
+.hunt-ad {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.hunt-ad-sub {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex: 1;
+  align-items: center;
+  width: 100%;
+  padding: 20px 30px;
+}
+
+.hunt-profile-container {
+  flex: 1;
+  max-width: 100%;
+  background-color: var(--jam);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  margin-bottom: 23px;
+  color: white;
+  transition: transform 400ms;
+  position: relative;
+
+  &:hover {
+    transform: scale(1.01);
+  }
+
+  h2 {
+    margin: 15px 0px;
+    margin-bottom: 20px;
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--mikado);
+  }
+  p {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: 400;
+    width: 80%;
+  }
+  @media only screen and (max-width: 1000px) {
+    margin-left: 0;
+    margin-right: 0;
+    h2 {
+      font-size: 24px;
+    }
+    p {
+      font-size: 14px;
+    }
+  }
+}
+
+.hunt-profile-container,
+.hunt-profile-container * {
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
+}
+
+.hunt-container-text {
+  padding-left: 10px;
+}
+
+.hunt-image {
+  object-fit: fit;
+  width: clamp(100px, 15vw, 150px);
+  height: auto;
+  margin: 10px;
+  margin-right: 40px;
+
+  @media only screen and (max-width: 500px) {
+    display: none;
+  }
+}
+
 .frosh-instagram-container {
   // margin-left: 50px;
   // margin-right: 2%;
@@ -547,20 +630,16 @@
   margin-bottom: 23px;
   color: var(--text-primary);
   transition: transform 500ms;
-  
+
   img {
     margin: 20px 25px;
     width: 50px;
     vertical-align: middle;
   }
-  @include devices(tablet) {
-    margin-left: 0;
-    margin-right: 0;
-  }
   &:hover {
     transform: scale(1.02);
   }
-  @include devices(tablet) {
+  @media only screen and (max-width: 1000px) {
     margin-left: 0;
     margin-right: 0;
     h2 {

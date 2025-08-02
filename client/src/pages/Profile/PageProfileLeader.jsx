@@ -3,6 +3,7 @@ import './Profile.scss';
 import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
 import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
 import EditIconDark from '../../assets/misc/edit-icon-dark.svg';
 import EditIcon from '../../assets/misc/edit-icon.svg';
@@ -20,6 +21,7 @@ import { ProfilePageSchedule } from '../../components/profile/ProfilePageSchedul
 import { ProfilePageResources } from '../../components/profile/ProfilePageResources/ProfilePageResources';
 import { changeScuntTeam, getScuntTeams } from '../../state/scuntTeams/saga';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
+import scuntLogo from '../../assets/scuntlogo/SkuleHuntLogo2t5.png';
 // import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
 
 const PageProfileLeader = () => {
@@ -109,11 +111,22 @@ export const ProfilePageLeaderScuntMessage = () => {
 
   return (
     <Link to="/skule-hunt" style={{ background: 'none' }}>
-      <div className="frosh-instagram-container">
+      {/* <div className="frosh-instagram-container">
         <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
         <div>
           <h2>SKULE™ HUNT!</h2>
           <p>Find more information about the Hunt by clicking here!</p>
+        </div>
+      </div> */}
+      <div className="hunt-profile-container">
+        <div className="hunt-ad">
+          <div className="hunt-ad-sub">
+            <img className="hunt-image" src={scuntLogo} alt="Skule Hunt image" />
+            <div className="hunt-container-text">
+              <h2>SKULE™ Hunt</h2>
+              <p>Find more information about the Hunt by clicking here!</p>
+            </div>
+          </div>
         </div>
       </div>
     </Link>
@@ -122,6 +135,7 @@ export const ProfilePageLeaderScuntMessage = () => {
 
 const ProfilePageLeaderHeader = () => {
   const { user } = useSelector(userSelector);
+  const leaderApproved = user?.approved === true;
 
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
@@ -157,18 +171,29 @@ const ProfilePageLeaderHeader = () => {
                     <b>{user?.preferredName}</b>
                   )}
                 </p>
-                <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
+                {/* <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
                   <img
                     src={darkMode ? EditIconDark : EditIcon}
                     alt={'edit'}
                     className={'profile-edit-icon no-link-style'}
                   />
-                </Link>
+                </Link> */}
               </div>
               <p>
                 <u>{user?.email}</u>
               </p>
             </div>
+          </div>
+          <div className="profile-page-header-right">
+            {leaderApproved ? (
+              <Link
+                to={'/permission-request'}
+                style={{ textDecoration: 'none' }}
+                className={'no-link-style'}
+              >
+                <ButtonRound label="Request Perms" style={{ margin: '0' }} />
+              </Link>
+            ) : null}
           </div>
         </div>
       </div>

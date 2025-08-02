@@ -42,8 +42,8 @@ const DashboardDropdown = ({ open, setOpen, items, title, icon }) => {
       <div className={'dashboard-dropdown-links'} key={title} ref={refContainer}>
         <div className={'dashboard-dropdown-title'} onClick={() => setOpen(!open)}>
           <img src={icon} className={'dashboard-dropdown-icon'} />
-          <h3 className={'dashboard-dropdown-text'}>{title.toUpperCase()}</h3>
-          <div className={`dashboard-dropdown-image${open ? ' open' : ''}`}>
+          <h3 className={'dashboard-dropdown-text'}>{title}</h3>
+          <div className={`dashboard-dropdown-image ${open ? ' open' : ''}`}>
             {darkMode ? (
               <img alt={'arrow'} src={ArrowDarkMode} className="dashboard-dropdown-arrow" />
             ) : (
