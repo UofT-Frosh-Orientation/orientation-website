@@ -53,7 +53,7 @@ export const ProfilePageQRScanner = ({ scopes }) => {
     switch (scannerType) {
       case 'registration':
         return (
-          <>
+          <div className="scanner-bg">
             {frosh['signInDate'] !== undefined ? (
               <div style={{ color: 'black' }}>
                 <ErrorSuccessBox
@@ -78,11 +78,11 @@ export const ProfilePageQRScanner = ({ scopes }) => {
                 />
               </div>
             )}
-          </>
+          </div>
         );
       case 'kits':
         return (
-          <>
+          <div className="scanner-bg">
             {frosh['preKit'] ? (
               <div style={{ color: 'black' }}>
                 <ErrorSuccessBox error content={'Pre kit already picked up'} />
@@ -92,11 +92,11 @@ export const ProfilePageQRScanner = ({ scopes }) => {
                 <ErrorSuccessBox success content={'Pre kit picked up!'} />
               </div>
             )}
-          </>
+          </div>
         );
       case 'food':
         return (
-          <>
+          <div className="scanner-bg">
             {frosh['gotFood'] ? (
               <div style={{ color: 'black' }}>
                 <ErrorSuccessBox error content={'Food already picked up'} />
@@ -106,14 +106,14 @@ export const ProfilePageQRScanner = ({ scopes }) => {
                 <ErrorSuccessBox success content={'Food picked up!'} />
               </div>
             )}
-          </>
+          </div>
         );
     }
   };
 
   return (
     <div className="profile-page-qr-code-scanner profile-page-side-section">
-      <h2 className="profile-page-manual-entry-header">{`Scanning for ${scannerType}`}</h2>
+      <h2 className="profile-page-manual-entry-header">{`Scanner for ${scannerType}`}</h2>
       <QRScannerDisplay
         setScannedData={(userID) => {
           if (userID) {

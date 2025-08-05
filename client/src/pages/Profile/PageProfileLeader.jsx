@@ -66,7 +66,7 @@ const PageProfileLeader = () => {
           ) : null}
           {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
           <ProfilePageResources />
-          <ProfilePageScuntTeamSelectionLeader />
+          {/* <ProfilePageScuntTeamSelectionLeader /> */}
         </div>
       </div>
     </>
@@ -151,7 +151,7 @@ const ProfilePageLeaderHeader = () => {
           {/*<h1>ℒ</h1>
           <p>{'(Leedur)'}</p>*/}
         </div>
-        <div className="profile-page-header-info-wrap">
+        <div className="profile-page-header-info-wrap request-perms">
           <div className="profile-page-header-left">
             <div className="profile-class-circlebg desktop-only">
               <div className="profile-page-header-class desktop-only">

@@ -1,11 +1,12 @@
 @import '../../../../scssStyles/mixins';
 
 .profile-leader-dashboard-links {
+  // background-color: var(--jam);
   color: var(--text-dynamic);
   display: flex;
   // flex-direction: row;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: start !important;
   align-items: center;
   text-align: center;
   // margin-left: 35px;
@@ -17,28 +18,24 @@
   width: 100%;
 
   .profile-leader-dashboard-permissions-links {
-    // width: 30%;
-    // margin-right: auto;
     margin-bottom: 25px;
     @include devices(tablet) {
-      // margin: auto;
       width: 350px;
       margin-bottom: 0px;
     }
   }
   .profile-leader-dashboard-other-links {
+    margin-top: 15px;
     display: flex;
     flex-direction: row;
-    margin-left: 2%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-left: 0;
     width: 100%;
-    // margin-bottom: 30px;
     @include devices(tablet) {
       margin-top: 5%;
       margin-left: 0;
-      // margin: auto;
-      // width: 100%;
-      // margin-bottom: 100px;
-      // margin-top: 15px;
     }
   }
 
@@ -47,11 +44,11 @@
     height: 100%;
     width: 16px;
     margin-right: 10px;
-    margin-top: 5px;
+    // margin-top: 2px;
     transition: transform 300ms ease-in-out;
     transform: rotate(0) translateY(2.5px);
     &.open {
-      transform: rotate(180deg) translateY(2.5px);
+      transform: rotate(180deg) translateY(2px);
     }
   }
 }

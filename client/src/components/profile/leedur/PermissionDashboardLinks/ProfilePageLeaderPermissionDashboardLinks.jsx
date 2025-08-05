@@ -165,15 +165,15 @@ export const ProfilePageLeaderPermissionDashboardLinks = () => {
     <div className={'profile-leader-dashboard-links'}>
       {approved ? (
         <>
-          <div className={'profile-leader-dashboard-permissions-links'}>
-            {/* <Link
+          {/* <div className={'profile-leader-dashboard-permissions-links'}>
+            <Link
               to={'/permission-request'}
               style={{ textDecoration: 'none' }}
               className={'no-link-style'}
             >
               <ButtonRound label="Request Leedur Permissions" style={{ margin: '0' }} />
-            </Link> */}
-          </div>
+            </Link>
+          </div> */}
           <div className={'profile-leader-dashboard-other-links'}>
             {userDropdown.map((dropdown, index) => {
               return (
