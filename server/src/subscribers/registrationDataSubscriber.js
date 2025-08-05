@@ -11,6 +11,7 @@ const disciplines = [
   'Industrial',
   'Mechanical',
   'Mineral',
+  'Materials',
   'Track One (Undeclared)',
 ];
 
@@ -38,6 +39,7 @@ registrationDataSubsciption.process(async (job, done) => {
     Industrial: 0,
     Mechanical: 0,
     Mineral: 0,
+    Materials: 0,
     'Track One (Undeclared)': 0,
   };
   const users = await UserServices.getAllUsers();
