@@ -162,6 +162,7 @@ const Checkboxes = ({
                   autoFocus={autoFocus}
                 />
                 {filterLabel ? filterLabel(value.toString()) : value.toString()}
+                {/* {isHighlighted ? <span className="checkbox-highlight">✔</span> : <></>} */}
                 {isHighlighted ? <span className="checkbox-highlight">✔</span> : <></>}
               </label>
             </React.Fragment>
