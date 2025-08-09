@@ -1,4 +1,5 @@
-import Alumni from '../assets/sponsors/Alumni.jpg';
+import Alumni from '../assets/sponsors/AlumniOfficelight.png';
+import AlumniDark from '../assets/sponsors/AlumniOffice.png';
 import OSPE from '../assets/sponsors/OSPE.jpg';
 import PEO from '../assets/sponsors/PEO.png';
 import peodark from '../assets/sponsors/PEO_white.png';
@@ -35,6 +36,14 @@ export const sponsors = [
     scale: 0.82,
     rank: 'diamond',
     label: 'Diamond Sponsor: City Dental on Bay',
+  },
+  {
+    website: 'https://alumni.engineering.utoronto.ca/',
+    image: Alumni,
+    darkimage: AlumniDark,
+    scale: 0.88,
+    rank: 'diamond',
+    label: 'Diamond Sponsor: FASE Alumni',
   },
   {
     website: 'https://www.meetyoucafe.com/',
