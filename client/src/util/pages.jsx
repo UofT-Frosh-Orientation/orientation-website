@@ -250,6 +250,7 @@ export const pages = {
         </AuthorizedPage>
       ),
       path: '/frosh-info-table',
+      includeFooter: true,
     },
     {
       label: 'frosh-redistribution',

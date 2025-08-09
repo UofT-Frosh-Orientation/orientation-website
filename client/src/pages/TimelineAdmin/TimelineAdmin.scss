@@ -26,6 +26,7 @@
 
 .timeline-admin-existing-events-container {
   margin-top: 50px;
+  margin-bottom: 40px;
   padding: 2%;
   width: 70vw;
   background-color: var(--container-bg);
@@ -50,18 +51,23 @@
   color: var(--text-dark-use);
 }
 .timeline-admin-titles {
-  margin: 10px;
+  margin: 80px 10px;
   text-align: center;
-  font-size: 30px;
-  font-weight: bold;
+  font-size: 48px;
+  font-weight: 900;
   color: var(--text-dark-use);
   @include devices(tablet) {
     font-size: 25px;
   }
 }
 
+.timeline-button {
+  margin: 25px 10px 10px 10px;
+}
+
 .timeline-admin-subtitles {
   margin: 7px;
+  margin-top: 20px;
   font-size: 18px;
   color: var(--text-dark-use);
   @include devices(tablet) {

@@ -2,6 +2,7 @@ import { React, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { deleteTimelineEvent, editTimelineEvent, createTimelineEvent } from './functions';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
@@ -14,11 +15,11 @@ const PageTimelineAdmin = () => {
   return (
     <div className={'timeline-admin-page'}>
       <div className={'timeline-admin-create-event-container'}>
-        <h1 className={'timeline-admin-titles'}>CREATE A NEW TIMELINE EVENT!</h1>
+        <h1 className={'timeline-admin-titles'}>Create a New Timeline Event</h1>
         <CreateNewTimelineEvent editMade={editMade} setEditMade={setEditMade} />
       </div>
       <div className={'timeline-admin-existing-events-container'}>
-        <h1 className={'timeline-admin-titles'}>EXISTING EVENTS</h1>
+        <h1 className={'timeline-admin-titles'}>Existing Events</h1>
         <ExistingTimelineEvents editMade={editMade} setEditMade={setEditMade} />
       </div>
     </div>
@@ -182,7 +183,7 @@ const CreateNewTimelineEvent = ({ editMade, setEditMade }) => {
         style={{ textAlign: 'center' }}
         className={formState === 'form' ? '' : 'timeline-admin-hide'}
       >
-        <Button label={'Submit'} onClick={() => handleSubmit()} />
+        <ButtonRound className="timeline-button" label={'Submit'} onClick={() => handleSubmit()} />
       </div>
       <div className={formState === 'loading' ? '' : 'timeline-admin-hide'}>
         <LoadingAnimation size={'60px'} />
@@ -413,7 +414,8 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
         </form>
       </div>
       <span>
-        <Button
+        <ButtonRound
+          className="timeline-button"
           label={editButtonText}
           onClick={() => {
             setIsEdit(!isEdit);
@@ -436,7 +438,8 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
         />
       </span>
       <span className={isEdit ? 'timeline-admin-hide' : ''}>
-        <Button
+        <ButtonRound
+          className="timeline-button"
           label={'Delete'}
           onClick={async () => {
             const result = await deleteTimelineEvent(event._id);
@@ -450,7 +453,8 @@ const TimelineEventWrapper = ({ event, editMade, setEditMade }) => {
         />
       </span>
       <span className={!isEdit ? 'timeline-admin-hide' : ''}>
-        <Button
+        <ButtonRound
+          className="timeline-button"
           label={'Save'}
           onClick={() => {
             handleSubmit(event._id);
