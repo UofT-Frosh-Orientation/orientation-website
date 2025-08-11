@@ -11,6 +11,7 @@ import troostdark from '../assets/sponsors/troost_white.png';
 import EMMO from '../assets/sponsors/EMMO_green.png';
 import EMMOdark from '../assets/sponsors/EMMO_white.png';
 import Panago from '../assets/sponsors/Panago.png';
+import Panagodark from '../assets/sponsors/Panagodark.png';
 import MeetYou from '../assets/sponsors/meetyou.png';
 import MeetYouDark from '../assets/sponsors/meetyoudark.png';
 import Kailen from '../assets/sponsors/kailens-kreations.png';
@@ -52,6 +53,14 @@ export const sponsors = [
     scale: 0.82,
     rank: 'gold',
     label: 'Gold Sponsor: MeetYou',
+  },
+  {
+    website: 'https://www.panago.com/',
+    image: Panago,
+    darkimage: Panagodark,
+    scale: 0.7,
+    rank: 'silver',
+    label: 'Silver Sponsor: Panago Pizza',
   },
   {
     website: 'https://www.peo.on.ca/',
