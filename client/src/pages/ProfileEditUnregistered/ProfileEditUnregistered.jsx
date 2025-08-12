@@ -6,9 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from '../../state/user/saga';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
+import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
@@ -184,10 +185,8 @@ const PageProfileEditUnregistered = () => {
               <div className="navbar-space-top" />
               <div className="profile-edit-container">
                 <img className={`profile-edit-logo`} src={MainFroshLogo}></img>
-                <h1 style={{ color: 'var(--black)' }}>EDIT ACCOUNT INFO</h1>
-                <h3 className="proxima-nova-text" style={{ color: 'var(--black)' }}>
-                  For F!rosh Week 2T5, UofT Engineering
-                </h3>
+                <h1>Edit Account Info</h1>
+                <h3 className="proxima-nova-text">For F!rosh Week 2T5, UofT Engineering</h3>
 
                 {!isLoading ? (
                   <>
@@ -369,7 +368,7 @@ const PageProfileEditUnregistered = () => {
                         localStorageKey="profile-edit-allergiesOther"
                       />
                     </div>
-                    <Button
+                    <ButtonRound
                       label="Confirm Change"
                       onClick={async () => {
                         const anyErrors = checkErrors(true);

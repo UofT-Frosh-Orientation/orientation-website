@@ -5,9 +5,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
-
-import BackgroundColourDark from '../../assets/darkmode/login/background-colour-dark.svg';
-import BackgroundColour from '../../assets/login/background-colour.svg';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
+import { ButtonText } from '../../components/button/ButtonText/ButtonText';
 
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
@@ -18,12 +17,11 @@ import { requestPasswordResetSelector, userSelector } from '../../state/user/use
 import { login, requestPasswordReset } from '../../state/user/saga';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
-import { LazyLoadComponent, LazyLoadImage } from 'react-lazy-load-image-component';
 
 // Messages!
 const popupTitle = 'Reset Password';
 const popupBodyText = `Enter your email address below, and we'll send you an email to reset your password`;
-const emailSuccessMessage = `Success, an email has been sent!`;
+const emailSuccessMessage = `We have sent an email to the address you provided. Please follow the instructions there to reset your password.`;
 const emailErrorMessage = `We didn't recognize that email, please try again!`;
 
 const PageLogin = ({ incorrectEntry }) => {
@@ -62,7 +60,7 @@ const PageLogin = ({ incorrectEntry }) => {
       <div className="login-entire-page">
         <div className="login-bg">
           <div className={`login-container ${loading ? 'login-container-disappear' : ''}`}>
-            <h1 className="login-title">LOGIN</h1>
+            <h1 className="login-title">Login</h1>
             <form onSubmit={handleSubmit}>
               <TextInput
                 inputType={'text'}
@@ -88,15 +86,14 @@ const PageLogin = ({ incorrectEntry }) => {
               >{`Forgot Password?`}</p>
 
               <div className="login-button-container">
-                <ButtonOutlined
-                  label="Create account"
+                <ButtonText
+                  label="Create Account"
                   isSecondary
                   onClick={() => {
                     navigate('/sign-up');
                   }}
                 />
-
-                <Button label={'Log in'} type="submit" />
+                <ButtonText label={'Log in'} type="submit" />
               </div>
             </form>
           </div>
@@ -118,27 +115,7 @@ const PageLogin = ({ incorrectEntry }) => {
         >
           <ForgotPassword trigger={showPopUp} setTrigger={setShowPopUp} />
         </PopupModal>
-
-        <LoginBackgroundImages />
       </div>
-    </>
-  );
-};
-
-const LoginBackgroundImages = () => {
-  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
-
-  return (
-    <>
-      <LazyLoadComponent>
-        <div className="login-bg-images">
-          {!darkMode ? (
-            <img className="bg-colour" src={BackgroundColour} alt="background-colour"></img>
-          ) : (
-            <img className="bg-colour" src={BackgroundColourDark} alt="background-colour"></img>
-          )}
-        </div>
-      </LazyLoadComponent>
     </>
   );
 };
@@ -164,7 +141,7 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
           <TextInput
             inputType={'text'}
             placeholder={'Email'}
-            localStorageKey={'forgot-password-container-email'}
+            // localStorageKey={'forgot-password-container-email'}
             onChange={(value) => {
               setEmailInput(value);
             }}
@@ -185,47 +162,34 @@ const ForgotPassword = ({ trigger, setTrigger }) => {
             </div>
           ) : // if not loading, display the buttons
           passwordResetRequest ? (
-            <Button
+            <ButtonRound
               label={'Close'}
               onClick={() => {
                 setTrigger(false);
+                // setButtonClick(0);
               }}
             />
           ) : (
-            <Button
+            <ButtonRound
               label={'Send'}
               onClick={() => {
                 setButtonClick(buttonClick + 1);
                 dispatch(requestPasswordReset(email));
-                // setButtonClick(buttonClick + 1);
               }}
             />
           )}
         </div>
 
         <div className="password-reset-result-message">
-          {
-            // added buttonclick, so the message doesn't display immediately
-            buttonClick > 0 && !loading ? (
-              passwordResetRequest ? (
-                <ErrorSuccessBox
-                  content={
-                    passwordResetRequest
-                      ? 'We have sent an email to the address you provided. Please follow the instructions there to reset your password.'
-                      : ''
-                  }
-                  success={true}
-                />
-              ) : (
-                <ErrorSuccessBox
-                  content={error ? 'Something went wrong. Please try again later.' : ''}
-                  error={true}
-                />
-              )
+          {buttonClick > 0 ? (
+            passwordResetRequest ? (
+              <ErrorSuccessBox content={emailSuccessMessage} success={true} />
+            ) : error ? (
+              <ErrorSuccessBox content={emailErrorMessage} error={true} />
             ) : (
-              <></>
+              <ErrorSuccessBox content={emailErrorMessage} error={true} />
             )
-          }
+          ) : null}
         </div>
       </div>
     </>

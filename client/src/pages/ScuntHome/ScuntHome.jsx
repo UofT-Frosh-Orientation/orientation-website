@@ -20,9 +20,12 @@ import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { getScuntTeams } from '../../state/scuntTeams/saga';
 // import { ProfilePageScuntTeam } from '../Profile/PageProfileFrosh';
 const { axios } = useAxios();
-import scuntLogo from '../../assets/scuntlogo/scunt_color_2t4.svg';
-import arrowLogo from '../../assets/misc/left-arrow-svgrepo-com.svg';
+import scuntLogo from '../../assets/scuntlogo/SkuleHuntLogo2t5.png';
+import backButtonDark from '../../assets/misc/pixel-backarrow-dark.png';
+import backButton from '../../assets/misc/pixel-backarrow-light.png';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
+import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAccordion/RetreatSingleAccordion';
+import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 
 export const PageScuntHome = () => {
   const dispatch = useDispatch();
@@ -38,15 +41,18 @@ export const PageScuntHome = () => {
       <ScuntCountdown />
       <ScuntLinks />
       <AboutScunt />
+      {/* <ScuntDiscord /> */}
     </>
   );
 };
 
 const BackToProfileButton = () => {
+  const { darkMode } = useContext(DarkModeContext);
   return (
-    <Link to="/profile" className="back-button">
-      <div className="circle"></div>
-      <img src={arrowLogo} alt="Back" className="back-icon" />
+    <Link to="/profile">
+      {/* <ButtonOutlined className = 'scunt-back-button' label={"Back to Profile"} /> */}
+
+      <img src={darkMode ? backButtonDark : backButton} alt="Back" className="back-button" />
     </Link>
   );
 };
@@ -58,32 +64,33 @@ const AboutScunt = () => {
     <>
       <br />
       <br />
-      <img src={darkMode ? WaveDarkMode : Wave} className="wave-image wave-image-footer" />
+      {/* <img src={darkMode ? WaveDarkMode : Wave} className="wave-image wave-image-footer" /> */}
 
       <div className="about-scunt-container">
         <div className="about-scunt-content">
           {/* <div className="about-scunt-token">
             <ProfilePageScuntTeam />
           </div> */}
-
-          <img src={scuntLogo} style={{ width: '300px', margin: '20px' }} />
+          <div className="image-container">
+            <img src={scuntLogo} style={{ width: '300px', margin: '20px' }} />
+          </div>
           <div className="text-content">
             <h2>THE HUNT</h2>
             Come participate in the most iconic event that is part of F!rosh Week: Skule™ Hunt!
             <br />
             <br />
-            Skule™ Hunt takes place the night of <b>Wednesday August 28th from 6PM to 11PM</b>. It
-            is completely free, so hurry and sign up by clicking YES on your registration!
+            Skule™ Hunt takes place on the night of <b>Wednesday, August 27th from 6PM to 11PM</b>.
+            It is completely free, so hurry and sign up by clicking YES on your registration!
             <br />
             <br />
           </div>
         </div>
       </div>
-      <img
+      {/* <img
         className="header-page-wave-bottom"
         src={darkMode ? waveBottomDarkMode : waveBottom}
         alt="wave"
-      />
+      /> */}
 
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <SkuleHuntFAQ />
@@ -103,8 +110,8 @@ const ScuntCountdown = () => {
   useEffect(() => {
     if (scuntSettings !== undefined) {
       let settings = scuntSettings;
-      const tempDate = new Date(settings?.scuntDate);
-      // const tempDate = new Date('2024-08-28T18:00:00'); // Hardcoded date??
+      // const tempDate = new Date(settings?.scuntDate);
+      const tempDate = new Date('2025-08-28T18:00:00');
       const tempCountDownDate = new Date(tempDate).getTime();
 
       setTargetDate(tempDate);
@@ -192,18 +199,7 @@ const scuntFAQs = [
 const SkuleHuntFAQ = () => {
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          color: 'var(--white)',
-          width: '70%',
-          alignSelf: 'center',
-        }}
-      >
+      <div className="scunt-faq-container">
         {scuntFAQs.map((item, index) => {
           const [isOpen, setIsOpen] = useState(false);
           return (
@@ -211,18 +207,13 @@ const SkuleHuntFAQ = () => {
               <SingleAccordion
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                header={<div className={'faq-search-result-question-accordion'}>{item.title}</div>}
-                style={{
-                  backgroundColor: 'var(--faq-answer-containers)',
-                  margin: '10px',
-                  padding: '0px 30px',
-                  width: '100%',
-                  textAlign: 'left',
-                }}
+                header={<div className={'scunt-faq-question'}>{item.title}</div>}
+                className="scunt-accordion-clickable"
+                dark={true}
               >
                 {Array.isArray(item.description) ? (
                   <>
-                    <ul className="frosh-retreat-faq-bullet">
+                    <ul className="scunt-faq-bullet">
                       {item.description.map((listItem, index) => {
                         return <li key={listItem}>{listItem}</li>;
                       })}
@@ -230,7 +221,7 @@ const SkuleHuntFAQ = () => {
                   </>
                 ) : (
                   <>
-                    <p style={{ margin: 0 }}>{item.description}</p>
+                    <p style={{ margin: 0, width: '100%' }}>{item.description}</p>
                   </>
                 )}
               </SingleAccordion>

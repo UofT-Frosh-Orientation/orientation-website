@@ -14,7 +14,7 @@
 // checking for Aa-Zz characters and 1-50 character length
 const textValidation = (value) => {
   if (value.length >= 1 && value.length <= 50) {
-    if (/^[A-Za-z]*$/.test(value)) {
+    if (/^[A-Za-z ]*$/.test(value)) {
       return true;
     } else {
       return 'Please use Aa-Zz characters';
@@ -83,21 +83,56 @@ export const fields = {
     },
   },
   General: {
-    legalName: {
+    // legalName: {
+    //   type: 'text',
+    //   inputType: 'text',
+    //   placeholder: 'John Doe',
+    //   label: 'Legal Name',
+    //   isRequiredInput: true,
+    //   noEdit: true,
+    //   errorMessage: 'Please enter your full name',
+    //   localStorageKey: 'registration-full-name',
+    //   validation: textLengthValidation,
+    // },
+    firstName: {
       type: 'text',
       inputType: 'text',
-      placeholder: 'John Doe',
-      label: 'Legal Name',
+      placeholder: 'John',
+      label: 'First Name',
       isRequiredInput: true,
       noEdit: true,
-      errorMessage: 'Please enter your full name',
-      localStorageKey: 'registration-full-name',
-      validation: textLengthValidation,
+      className: 'half-width-input',
+      errorMessage: 'Please enter your first name',
+      localStorageKey: 'registration-first-name',
+      validation: textValidation,
+    },
+    lastName: {
+      type: 'text',
+      inputType: 'text',
+      placeholder: 'Doe',
+      label: 'Last Name',
+      isRequiredInput: true,
+      noEdit: true,
+      className: 'fill-remaining-width-input',
+      errorMessage: 'Please enter your last name',
+      localStorageKey: 'registration-last-name',
+      validation: textValidation,
+    },
+    preferredName: {
+      type: 'text',
+      inputType: 'text',
+      placeholder: 'John',
+      label: 'Preferred Name',
+      isRequiredInput: true,
+      noEdit: true,
+      errorMessage: 'Please enter your preferred name. This can be the same as your first name.',
+      localStorageKey: 'registration-pref-name',
+      validation: textValidation,
     },
     pronouns: {
       type: 'dropdown',
       label: 'What are your pronouns?',
-      values: ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'],
+      values: ['He/Him', 'She/Her', 'They/Them', 'Other', 'Prefer Not to Say'],
       isRequiredInput: true,
       initialSelectedIndex: 4,
       noEdit: true,
@@ -150,7 +185,7 @@ export const fields = {
       type: 'text',
       inputType: 'text',
       label: 'UtorID',
-      placeholder: 'doejon11',
+      placeholder: 'doejohn25',
       hasRestrictedInput: true,
       isRequiredInput: true,
       noEdit: true,
@@ -158,10 +193,10 @@ export const fields = {
       localStorageKey: 'registration-utorid',
       className: 'half-width-input',
       validation: (value) => {
-        if (value !== undefined && value.toString().length <= 9 && value.toString().length >= 5) {
+        if (value !== undefined && value.toString().length >= 5 && value.toString().length <= 9) {
           return true;
         } else {
-          return 'Your UtorID should be 5-9 characters long';
+          return 'Your UtorID should be between 5 and 9 characters long';
         }
       },
       isUtorID: true,
@@ -171,19 +206,19 @@ export const fields = {
       label: 'Discipline',
       values: [
         'Chemical',
-        'Civil',
-        'Electrical & Computer',
-        'Engineering Science',
         'Industrial',
-        'Materials',
         'Mechanical',
+        'Civil',
         'Mineral',
+        'Electrical & Computer',
+        'Materials',
         'Track One (Undeclared)',
+        'Engineering Science',
       ],
       className: 'half-width-input',
       initialSelectedIndex: 0,
       isRequiredInput: true,
-      noEdit: false,
+      noEdit: true,
       localStorageKey: 'registration-discipline',
     },
     phoneNumberLabel: {
@@ -196,11 +231,13 @@ export const fields = {
       inputType: 'text',
       placeholder: '+1',
       hasRestrictedInput: false,
+      isRequiredInput: true,
       localStorageKey: 'registration-phoneNumberCountryCode',
       className: 'small-width-input',
       inputTitle: 'Country Code',
       maxLength: 4,
       noEdit: false,
+      errorMessage: 'Please enter an area code',
       validation: (value) => {
         if (/^[+0-9]*$/.test(value)) {
           if (value.length <= 4) {
@@ -238,7 +275,7 @@ export const fields = {
       errorMessage: 'Please enter a valid name',
       localStorageKey: 'registration-emergencyContactName',
       className: 'full-width-input',
-      validation: textLengthValidation,
+      validation: textValidation,
     },
     emergencyContactRelationship: {
       type: 'text',
@@ -251,7 +288,7 @@ export const fields = {
       errorMessage: 'Please enter an emergency contact relationship',
       localStorageKey: 'registration-emergencyContactRelationship',
       className: 'half-width-input',
-      validation: textLengthValidation,
+      validation: textValidation,
     },
     emergencyContactNumberLabel: {
       type: 'label',
@@ -263,11 +300,13 @@ export const fields = {
       inputType: 'text',
       placeholder: '+1',
       hasRestrictedInput: false,
+      isRequiredInput: true,
       localStorageKey: 'registration-emergencyContactNumberCountryCode',
       className: 'small-width-input',
       inputTitle: 'Country Code',
       maxLength: 4,
       noEdit: false,
+      errorMessage: 'Please enter an area code',
       validation: (value) => {
         if (/^[+0-9]*$/.test(value)) {
           if (value.length <= 4) {
@@ -351,9 +390,11 @@ export const fields = {
         'No Pork & Pork by-products',
         'No Red meat',
         'Other',
+        'None',
       ],
-      isRequiredInput: false,
+      isRequiredInput: true,
       noEdit: false,
+      errorMessage: 'Please choose None if you do not have any allergies or dietary restrictions',
       localStorageKey: 'registration-allergies',
       onChanged: (values, disableField) => {
         if (values.includes('Other')) {
@@ -390,7 +431,7 @@ export const fields = {
         'I would like to be able to access a quiet space to relax when the activities get overwhelming',
       hasRestrictedInput: true,
       isRequiredInput: false,
-      noEdit: true,
+      noEdit: false,
       localStorageKey: 'registration-accessibility',
       onChanged: (value, disableField) => {
         if (value !== '' && value !== undefined) {
@@ -399,31 +440,40 @@ export const fields = {
           disableField(true, 'accommodation', 'HealthSafety');
         }
       },
+      validation: (value) => {
+        if (value.length > 100) {
+          return 'Please use less than 100 characters';
+        } else {
+          return true;
+        }
+      },
     },
     accommodation: {
       type: 'radio',
       label: 'Would you like us to reach out to you about how we can best accommodate you?',
       values: ['Yes', 'No'],
+      initialSelectedIndex: 1,
       isRequiredInput: false,
       noEdit: false,
       localStorageKey: 'registration-accommodation',
+      isDisabled: true,
     },
   },
   ExtraEvents: {
     shirtSize: {
       type: 'dropdown',
       label: 'T-shirt Size',
-      values: ['S', 'M', 'L', 'XL', '2XL', '3XL'],
+      values: ['S', 'M', 'L', 'XL', '2XL'],
       initialSelectedIndex: 1,
       className: 'half-width-input',
       isRequiredInput: true,
-      noEdit: false,
+      noEdit: true,
       localStorageKey: 'registration-shirtSize',
     },
     attendingScunt: {
       type: 'radio',
       label:
-        'Would you like to participate in SKULE™ HUNT? (It will take place on the evening of Wednesday, August 28th)',
+        'Would you like to participate in SKULE™ Hunt? (It will take place on the evening of Wednesday, August 27th)',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       localStorageKey: 'registration-scunt',
@@ -433,24 +483,29 @@ export const fields = {
     scuntInfo: {
       type: 'label',
       label:
-        "What is SKULE™ HUNT? SKULE™ HUNT is a scavenger hunt around the city of Toronto! Don't miss out on one of the most popular F!rosh Week events! Hunt is an exciting night of challenges for all comfort levels.",
-      isBold: true,
+        "SKULE™ Hunt is a scavenger hunt around the city of Toronto! Don't miss out on one of the most popular F!rosh Week events! It's an exciting night of challenges for all comfort levels.",
+      isSub: true,
     },
     attendingRetreat: {
       type: 'radio',
       label:
-        'Would you like to attend an overnight retreat on August 31st-September 1st at Hart House Farms (at an additional cost)?',
+        'Would you like to attend an overnight retreat on August 30th - 31st at Hart House Farms? (At an additional cost)',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
-      isRequiredInput: false,
-      noEdit: false,
+      isRequiredInput: true,
+      noEdit: true,
       localStorageKey: 'registration-attendingRetreat',
     },
-
+    priceInfo: {
+      type: 'label',
+      label:
+        'The price of a F!rosh Retreat ticket is $110 CAD. Answering "Yes" to this question will not add the retreat cost to your payment or guarantee you a spot at the retreat. Please see the retreat page linked on your profile for details about the payment process.',
+      isSub: true,
+    },
     summerLocationQuery: {
       type: 'radio',
       label:
-        'Will you be based in Toronto or the GTA over the summer?  (or would you be available for events)',
+        'Will you be based in Toronto or the GTA over the summer?  (Or would you be available for events?)',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       isRequiredInput: true,
@@ -463,32 +518,34 @@ export const fields = {
         'If you are not in the GTA (Greater Toronto Area) already, approximately when are you planning to move to Toronto?',
       values: ['Already in Toronto', 'July', 'August', 'September'],
       initialSelectedIndex: 0,
-      isRequiredInput: false,
+      isRequiredInput: true,
       noEdit: false,
       localStorageKey: 'registration-moveToToronto',
     },
     photograph: {
       type: 'radio',
-      label: 'Are you okay with being photographed during F!rosh Week?',
+      label: 'Do you give consent to be photographed during F!rosh Week?',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
+      isRequiredInput: true,
       noEdit: true,
       localStorageKey: 'registration-photograph',
     },
-    priceInfo: {
-      type: 'label',
-      label: 'The price of one F!rosh Week ticket is 130 CAD.',
-      isBold: true,
+    bursaryRequested: {
+      type: 'radio',
+      label: 'Would you like to request a bursary or financial aid for your Frosh Week ticket?',
+      values: ['Yes', 'No'],
+      initialSelectedIndex: 1,
+      isRequiredInput: true,
+      noEdit: true,
+      localStorageKey: 'registration-bursary',
     },
-    // bursaryRequested: {
-    //   type: 'radio',
-    //   label: 'Do you require any bursary or financial aid for your Frosh Week ticket?',
-    //   values: ['Yes', 'No'],
-    //   initialSelectedIndex: 0,
-    //   isRequiredInput: false,
-    //   noEdit: false,
-    //   localStorageKey: 'registration-bursary',
-    // },
+    bursaryInfo: {
+      type: 'label',
+      label:
+        'The price of a F!rosh Week ticket is $130 CAD. We will be making bursary decisions after F!rosh Week and will refund the amount to the students after the decisions. Our team will reach out to you for more details regarding the bursary program. Bursaries range from partial to complete settlement of the ticket price.',
+      isSub: true,
+    },
     marketing: {
       type: 'checkbox',
       label: 'How did you hear about F!rosh Week?',

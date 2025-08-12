@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import './SignUp.scss';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { validateEmail, validatePassword, validatePasswordLength } from './functions';
 import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
@@ -105,8 +106,8 @@ const PageSignUp = () => {
             src={MainFroshLogo}
             onClick={handleLeaderReveal}
           ></img>
-          <h1 style={{ color: 'var(--black)' }}>CREATE AN ACCOUNT</h1>
-          <h3 style={{ color: 'var(--black)' }}>FOR F!ROSH WEEK 2T5, UOFT ENGINEERING</h3>
+          <h1 className="sign-up-title">Create an Account</h1>
+          <h3 className="sign-up-sub">For F!rosh Week 2T5, UofT Engineering</h3>
           <div className="full-width-input">
             <TextInput
               label="Email"
@@ -118,7 +119,7 @@ const PageSignUp = () => {
                 accountObj['email'] = value;
                 checkErrors(false, ['email']);
               }}
-              localStorageKey={'sign-up-email'}
+              // localStorageKey={'sign-up-email'}
             />
           </div>
           <div className="full-width-input">
@@ -159,7 +160,7 @@ const PageSignUp = () => {
                 accountObj['firstName'] = value;
                 checkErrors(false);
               }}
-              localStorageKey={'sign-up-firstName'}
+              // localStorageKey={'sign-up-firstName'}
             />
           </div>
           <div className="half-width-input">
@@ -172,7 +173,7 @@ const PageSignUp = () => {
                 accountObj['lastName'] = value;
                 checkErrors(false);
               }}
-              localStorageKey={'sign-up-lastName'}
+              // localStorageKey={'sign-up-lastName'}
             />
           </div>
           <div className="full-width-input">
@@ -184,7 +185,7 @@ const PageSignUp = () => {
                 accountObj['preferredName'] = value;
                 checkErrors(false);
               }}
-              localStorageKey={'sign-up-preferredName'}
+              // localStorageKey={'sign-up-preferredName'}
             />
           </div>
           {revealLeaderSignup >= 5 ? (
@@ -200,23 +201,12 @@ const PageSignUp = () => {
             <></>
           )}
           <div
-            style={{
-              color: 'var(--text-dynamic)',
-              textAlign: 'center',
-              fontSize: '15px',
-              width: '100%',
-              margin: '20px',
-            }}
-          >
-            <h2>F!rosh 2T4 is over! Check back next year.</h2>
-          </div>
-          <div
             className="sign-up-button"
             onMouseOver={() => {
               checkErrors(true);
             }}
           >
-            <Button
+            <ButtonRound
               label="Create Account"
               style={{ margin: 15 }}
               isDisabled={anyErrors}

@@ -9,10 +9,12 @@ import { useSelector } from 'react-redux';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { SnackbarContext } from '../../util/SnackbarProvider';
-import waiverPDF from '../../assets/retreatWaiver/frosh-retreat-2T4-waiver.pdf';
+import waiverPDF from '../../assets/retreatWaiver/frosh-retreat-2T5-waiver.pdf';
 import useAxios from '../../hooks/useAxios';
-import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
+import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAccordion/RetreatSingleAccordion.jsx';
 import dragon from '../../assets/mascots/dragon-retreat.svg';
+import cardImage from '../../assets/retreatPhotos/cards.jpg';
+import retreatArrow from '../../assets/misc/backarrow.png';
 
 export const FroshRetreat = () => {
   const [remainingTickets, setRemainingTickets] = useState();
@@ -52,56 +54,91 @@ export const FroshRetreat = () => {
   //   }
   // }, [isRegistered]);
 
+  console.log('Retreat tickets remaining: ', remainingTickets);
+
   return (
     <div className="frosh-retreat-page">
-      <Header text={'RETREAT'} underlineDesktop={'260px'} underlineMobile={'185px'}>
+      {/*
         <div className="info-header">
           <h1>REMAINING TICKETS: {remainingTickets}</h1>
-          <h3 style={{ color: 'var(--white)', margin: '20px 0', textAlign: 'center' }}>
-            ESCAPE THE CITY TO THE LOVELY HART HOUSE FARMS FOR A WEEKEND OF WHOLESOME CAMP VIBES!
-          </h3>
-          <p style={{ color: 'var(--white)' }}>
-            The retreat is taking place on August 31st and September 1st, 2024 at Hart House Farm.
-          </p>
-          <p style={{ color: 'var(--white)' }}>
-            Due to limited spaces, we are selling a limited number of tickets so purchase yours
-            before they sell out!{' '}
-          </p>
-          <p style={{ color: 'var(--white)' }}>
-            Tickets to Retreat are $103.00 &#40;they include bus transportation; no tickets without
-            bus transportation&#41;
-          </p>
+        </div>*/}
+      <div className="retreat-title">
+        <div className="retreat-gradient"></div>
+        <img src={cardImage} className="retreat-title-img"></img>
+        <div className="retreat-title-container">
+          <h2 className="retreat-subtitle-large retreat-subtitle">All about</h2>
+          <h1 className="retreat-title-text">
+            F!ROSH
+            <br />
+            RETREAT{' '}
+          </h1>
+
+          <h2 className="retreat-subtitle">August 31st - September 1st</h2>
+          <h2 className="retreat-subtitle">at Hart House Farm</h2>
         </div>
+      </div>
+
+      <div className="retreat-info-container">
+        <h3 className="retreat-header">About</h3>
+        <p className="retreat-text">
+          The retreat is taking place on August 30th and 31st, 2025 at Hart House Farm. Get ready
+          for a weekend of fun and relaxation with your new peers!
+        </p>
+
+        <h3 className="retreat-header">Ticket Information</h3>
+        <p className="retreat-text">
+          The available tickets for Retreat are $100.00 and <b>do not</b> include bus
+          transportation. To purchase a ticket and guarantee your spot, you must download, sign and
+          upload the waiver on this page and then complete your payment at the bottom of this page.
+        </p>
+        <br></br>
+        <p className="retreat-text">
+          Due to limited space, we are selling a limited number of tickets so purchase yours before
+          they sell out! There are currently <b>{remainingTickets}</b> tickets left!
+        </p>
+
+        <h3 className="retreat-header">FAQ</h3>
         <FroshRetreatFAQ />
-      </Header>
-      <div style={{ height: '20px' }} />
-      <h3 style={{ color: 'var(--white)', margin: '20px 0', textAlign: 'center' }}>
-        SEE THIS VIDEO OF LEEDUR RETREAT 2T4 FOR A SENSE OF THE TRIP!
-      </h3>
-      <iframe
-        className="frosh-retreat-video"
-        src="https://drive.google.com/file/d/1_lpjxS90MrYfqsgOosCd1gRf2xd7phoY/view?usp=sharing"
-        title="F!rosh Retreat Info"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
 
-      <p style={{ color: 'var(--text-dynamic)', margin: '10px 0', textAlign: 'center' }}>
-        Interested to see more of retreat? Retreat 2T2 was the perfect camping getaway after the
-        rush of F!rosh Week!{' '}
-        <a
-          href="https://photos.skule.ca/2T2-2T3/Frosh-Week/Events/Retreat"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Check out the photos here!{' '}
-        </a>
-      </p>
+        <h3 className="retreat-header">Past Retreats</h3>
+        <p className="retreat-text">2T4 Leedur Retreat Video</p>
+        <iframe
+          className="frosh-retreat-video"
+          src="https://drive.google.com/file/d/1_lpjxS90MrYfqsgOosCd1gRf2xd7phoY/preview"
+          title="F!rosh Retreat Info"
+          // width="640"
+          // height="480"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
 
-      <div style={{ height: '20px' }} />
-      <h1>REGISTRATION</h1>
-      <RetreatRegistration />
+        <p className="retreat-text">F!rosh Retreat Photos</p>
+        {/*Need to add links to prev year photos*/}
+
+        <div className="retreat-buttons-div">
+          <a
+            className="retreat-photos-button"
+            href="https://photos.skule.ca/2T4-2T5/Frosh-Week-2T4/Frosh-Retreat"
+          >
+            <strong>2T4</strong>
+          </a>
+          <a
+            className="retreat-photos-button"
+            href="https://photos.skule.ca/2T3-2T4/Frosh-week/Frosh-Retreat"
+          >
+            <strong>2T3</strong>
+          </a>
+          <a
+            className="retreat-photos-button"
+            href="https://photos.skule.ca/2T2-2T3/Frosh-Week/Events/Retreat"
+          >
+            <strong>2T2</strong>
+          </a>
+        </div>
+
+        <h3 className="retreat-header">Registration</h3>
+        <RetreatRegistration />
+      </div>
     </div>
   );
 };
@@ -121,8 +158,8 @@ const retreatFAQs = [
     ],
   },
   {
-    title:
-      'What do I need to bring (a more comprehensive list will be sent to attendees at a later date)?',
+    title: 'What do I need to bring?*',
+    sub: '*a more comprehensive list will be sent to attendees at a later date',
     description: [
       '• Sleeping bags, tents, pillows and blankets to sleep in',
       '• Bathing suits, towels, and comfy clothes to enjoy all the activities retreat has to offer',
@@ -133,7 +170,13 @@ const retreatFAQs = [
   {
     title: 'What time does the bus leave?',
     description: [
-      'The bus leaves from campus at 11:00am on August 31st and returns to campus at 1:00pm on September 1st.',
+      'The bus leaves from campus at 10:00 AM on August 30th and returns to campus at 2:00 PM on August 31st.',
+    ],
+  },
+  {
+    title: 'Does my ticket include transportation?',
+    description: [
+      'If you previously purchased a ticket for $110.00, it does include transportation by bus to and from Hart House Farms. If you purchased a discounted, non-bus ticket for $100.00, it does not include transportation.',
     ],
   },
 ];
@@ -145,46 +188,51 @@ const FroshRetreatFAQ = () => {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
+          alignItems: 'start',
+          justifyContent: 'start',
+          textAlign: 'left',
           color: 'var(--white)',
-          width: '70%',
-          alignSelf: 'center',
+          width: '100%',
+          alignSelf: 'start',
         }}
       >
-        <img src={dragon} style={{ width: '350px', margin: '20px' }}></img>
-        <h2 style={{ marginBottom: '20px' }}>FAQS: PREPARE FOR A GOOD TIME DOWN ON THE FARM!</h2>
         {retreatFAQs.map((item, index) => {
           const [isOpen, setIsOpen] = useState(false);
           return (
             <React.Fragment key={item.title}>
-              <SingleAccordion
+              <RetreatSingleAccordion
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                header={<div className={'faq-search-result-question-accordion'}>{item.title}</div>}
+                canOpen={true}
+                header={<div className={'retreat-faq-question'}>{item.title}</div>}
                 style={{
-                  backgroundColor: 'var(--faq-answer-containers)',
-                  margin: '10px',
-                  padding: '0px 30px',
+                  backgroundColor: 'red',
                   width: '100%',
                   textAlign: 'left',
+                  color: 'var(--text-dynamic)',
                 }}
               >
                 {Array.isArray(item.description) ? (
                   <>
                     <ul className="frosh-retreat-faq-bullet">
+                      {item.sub !== undefined ? (
+                        <p className={'retreat-faq-sub'}>{item.sub}</p>
+                      ) : null}
                       {item.description.map((listItem, index) => {
-                        return <li key={listItem}>{listItem}</li>;
+                        return (
+                          <li className="retreat-bullet-text" key={listItem}>
+                            {listItem}
+                          </li>
+                        );
                       })}
                     </ul>
                   </>
                 ) : (
                   <>
-                    <p style={{ margin: 0 }}>{item.description}</p>
+                    <p className="retreat-bullet-text">{item.description}</p>
                   </>
                 )}
-              </SingleAccordion>
+              </RetreatSingleAccordion>
             </React.Fragment>
           );
         })}
@@ -210,13 +258,12 @@ const RetreatRegistration = () => {
   const [buttonClicked, setButtonClicked] = useState(false);
   const isRegistered = useSelector(registeredSelector);
 
-  const waiverLink = '../../assests/retreatWaiver/frosh-retreat-2T4-waiver.pdf';
+  const waiverLink = '../../assests/retreatWaiver/frosh-retreat-2T5-waiver.pdf';
 
   const { user } = useSelector(userSelector);
   const { setSnackbar } = useContext(SnackbarContext);
   const { axios } = useAxios();
   const isRetreat = user?.isRetreat === true;
-  console.log(isRetreat);
   const isWaiverUploaded = user?.waiver?.filename !== undefined;
 
   const [file, setFile] = useState(null);
@@ -281,8 +328,8 @@ const RetreatRegistration = () => {
   };
 
   return (
-    <div style={{ margin: '0 20px' }}>
-      <p style={{ textAlign: 'center' }}>
+    <div style={{}}>
+      <p className="retreat-text">
         In order to register, the following information will be collected from your account. Please
         ensure this information is accurate and up to date. If any information needs to be modified,
         please edit your information{' '}
@@ -290,8 +337,8 @@ const RetreatRegistration = () => {
       </p>
       <div className="retreat-registration-form">
         <div className="display-field">
-          <h3>FULL NAME:</h3>{' '}
-          <p>
+          <h4 className="retreat-subheading">Full Name:</h4>{' '}
+          <p className="retreat-text">
             {user?.firstName +
               ' ' +
               user?.lastName +
@@ -299,112 +346,187 @@ const RetreatRegistration = () => {
           </p>
         </div>
         <div className="display-field">
-          <h3>EMAIL:</h3> <p>{user?.email}</p>
+          <h4 className="retreat-subheading">Email:</h4>{' '}
+          <p className="retreat-text">{user?.email}</p>
         </div>
         <div className="display-field">
-          <h3>PHONE NUMBER:</h3>{' '}
-          <p>
+          <h4 className="retreat-subheading">Phone Number:</h4>{' '}
+          <p className="retreat-text">
             {(!user?.phoneNumberCountryCode ? '' : user?.phoneNumberCountryCode) +
               ' ' +
               user?.phoneNumber}
           </p>
         </div>
         <div className="display-field">
-          <h3>DIETARY RESTRICTIONS:</h3>{' '}
-          <p>
+          <h4 className="retreat-subheading">Dietary Restrictions:</h4>{' '}
+          <p className="retreat-text">
             {!user?.allergies || user?.allergies.length <= 0 ? 'None' : user?.allergies.join(', ')}
           </p>
-          {!user?.allergiesOther ? <p>{user?.allergiesOther}</p> : <></>}
+          {!user?.allergiesOther ? <p className="retreat-text">{user?.allergiesOther}</p> : <></>}
         </div>
         <div className="display-field">
-          <h3>MEDICAL INFO:</h3>{' '}
-          <p>{!user?.medicalInfo || user?.medicalInfo === '' ? 'None' : user?.medicalInfo}</p>
-          <p>
+          <h4 className="retreat-subheading">Medical Info:</h4>{' '}
+          <p className="retreat-text">
+            {!user?.medicalInfo || user?.medicalInfo === '' ? 'None' : user?.medicalInfo}
+          </p>
+          <p className="retreat-text">
             {!user?.specficMedicalInfo || user?.specficMedicalInfo === ''
               ? 'None'
               : user?.specficMedicalInfo}
           </p>
         </div>
         <div className="display-field">
-          <h3>MEDICATION:</h3>{' '}
-          <p>{!user?.medication || user?.medication === '' ? 'None' : user?.medication}</p>
+          <h4 className="retreat-subheading">Medication:</h4>{' '}
+          <p className="retreat-text">
+            {!user?.medication || user?.medication === '' ? 'None' : user?.medication}
+          </p>
         </div>
         <div className="display-field">
-          <h3>EMERGENCY CONTACT:</h3>{' '}
-          <p>{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${user?.emergencyContactNumber}`}</p>
+          <h4 className="retreat-subheading">Emergency Contact:</h4>{' '}
+          <p className="retreat-text">{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${user?.emergencyContactNumber}`}</p>
         </div>
+
+        <h3 className="retreat-header">F!rosh Retreat Waiver</h3>
+        <p className="retreat-text">Read and download the F!rosh Retreat Waiver</p>
+
         <div className="radio-buttons-retreat">
           <Button
-            label="Read and Download the Frosh Retreat Waiver here"
+            label="Download"
             isSecondary
             onClick={() => {
               window.open(waiverPDF, '_blank').focus();
               setViewedWaiver(true);
             }}
-            style={{ marginBottom: '25px' }}
+            style={{
+              marginBottom: '25px',
+              padding: '15px 25px 15px 25px',
+              backgroundColor: '#d9d9d9',
+              borderImage: 'none',
+              boxShadow: 'none',
+              WebkitBoxShadow: 'none',
+              MozBoxShadow: 'none',
+              fontSize: '18px',
+              borderRadius: '50px',
+              marginLeft: '0',
+            }}
           />
 
           <div className="display-field">
-            <h3>UPLOAD SIGNED WAIVER:</h3>
-            <p>Only PDF files under 1 MB are accepted</p>
+            <h5 className="retreat-subheading2">Upload Signed Waiver</h5>
+
             {viewedWaiver ? (
               <>
-                <input type="file" accept=".pdf" onChange={handleFileChange} />
-                <Button
-                  label="Upload PDF"
-                  isSecondary
-                  onClick={handleUpload}
-                  style={{ marginTop: '10px' }}
+                <input
+                  className="retreat-choose-file"
+                  type="file"
+                  accept=".pdf"
+                  onChange={handleFileChange}
                 />
+                <p className="retreat-pdf-disclaimer">Only PDF files under 1 MB are accepted</p>
+                <div className="retreat-upload-file-container">
+                  <Button
+                    label="Upload PDF"
+                    isSecondary
+                    onClick={handleUpload}
+                    style={{
+                      marginTop: '10px',
+                      backgroundColor: 'var(--mikado)',
+                      padding: '20px 30px 20px 30px',
+                      fontSize: '20px',
+                      display: 'block',
+                      borderImage: 'none',
+                      boxShadow: 'none',
+                      WebkitBoxShadow: 'none',
+                      MozBoxShadow: 'none',
+                      borderRadius: '50px',
+                      marginLeft: '0',
+                    }}
+                  />
+
+                  {isWaiverUploaded ? (
+                    <Button
+                      label="View Uploaded Waiver"
+                      isSecondary
+                      onClick={handleViewWaiver}
+                      style={{
+                        marginBottom: '25px',
+                        padding: '0',
+                        color: 'var(--text-secondary)',
+                        backgroundColor: 'transparent',
+                        display: 'block',
+                        marginTop: '15px',
+                        marginLeft: '20px',
+                        borderImage: 'none',
+                        boxShadow: 'none',
+                        WebkitBoxShadow: 'none',
+                        MozBoxShadow: 'none',
+                        fontSize: '18px',
+                        borderRadius: '50px',
+                      }}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </>
             ) : (
-              <p>Please view the waiver before uploading the signed copy.</p>
+              <p className="retreat-text">
+                Please view the waiver before uploading the signed copy.
+              </p>
             )}
           </div>
-
-          {isWaiverUploaded ? (
-            <Button
-              label="View Uploaded Waiver"
-              isSecondary
-              onClick={handleViewWaiver}
-              style={{ marginBottom: '25px' }}
-            />
-          ) : (
-            <></>
-          )}
         </div>
 
         {isRetreat ? (
-          <h2>You have already paid for F!rosh Retreat!</h2>
+          <h2 className="retreat-h2">You have already paid for F!rosh Retreat!</h2>
         ) : outOfTickets ? (
-          <h2>Sorry there are no more tickets available!</h2>
+          <h2 className="retreat-h2">Sorry there are no more tickets available!</h2>
         ) : viewedWaiver ? (
-          <Button
-            label={'Continue to Payment'}
-            isDisabled={!isUploaded || buttonClicked}
-            onClick={() => {
-              if (isUploaded) {
-                setButtonClicked(true);
-                axios
-                  .post('/payment/frosh-retreat-payment')
-                  .then((response) => {
-                    const { url } = response.data;
-                    window.location.href = url;
-                  })
-                  .catch((err) => {
-                    console.error(err);
-                    setSnackbar(
-                      'Something went wrong! Please file a bug report on GitHub if this issue persists',
-                      true,
-                    );
-                    setButtonClicked(false);
-                  });
-                // Redirect the user to the payment for Retreat here!
-              } else {
-                setSnackbar('Please accept the F!rosh Waiver before proceeding!', true);
-              }
-            }}
-          />
+          <div className="retreat-payment-container">
+            <Button
+              label={'Continue to Payment'}
+              isDisabled={!isUploaded || buttonClicked}
+              onClick={() => {
+                if (isUploaded) {
+                  setButtonClicked(true);
+                  axios
+                    .post('/payment/frosh-retreat-payment')
+                    .then((response) => {
+                      const { url } = response.data;
+                      window.location.href = url;
+                    })
+                    .catch((err) => {
+                      console.error(err);
+                      setSnackbar(
+                        'Something went wrong! Please file a bug report on GitHub if this issue persists',
+                        true,
+                      );
+                      setButtonClicked(false);
+                    });
+                  // Redirect the user to the payment for Retreat here!
+                } else {
+                  setSnackbar('Please accept the F!rosh Waiver before proceeding!', true);
+                }
+              }}
+              style={{
+                marginBottom: '25px',
+                padding: '0',
+                color: 'var(--text-dynamic)',
+                backgroundColor: 'transparent',
+                display: 'block',
+                marginTop: '15px',
+                textAlign: 'center',
+                fontSize: '30px',
+                borderImage: 'none',
+                boxShadow: 'none',
+                WebkitBoxShadow: 'none',
+                MozBoxShadow: 'none',
+                borderRadius: '50px',
+                marginLeft: '0',
+              }}
+            />
+            <img className="retreat-arrow" src={retreatArrow}></img>
+          </div>
         ) : (
           <></>
         )}

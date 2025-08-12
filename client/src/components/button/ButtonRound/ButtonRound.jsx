@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ButtonRound.scss';
 
-const ButtonRound = ({ label, onClick, isSecondary, isDisabled, style, className }) => {
+const ButtonRound = ({ type, label, onClick, isSecondary, isDisabled, style, className }) => {
   return (
-    <div
+    <button
+      type={type}
       style={style}
       onClick={onClick}
       className={`button-round ${isSecondary ? 'button-round-secondary' : ''} ${
@@ -12,17 +13,22 @@ const ButtonRound = ({ label, onClick, isSecondary, isDisabled, style, className
       } ${className}`}
     >
       {label}
-    </div>
+    </button>
   );
 };
 
 ButtonRound.propTypes = {
+  type: PropTypes.oneOf(['submit', 'button', 'reset', 'menu']),
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   onClick: PropTypes.func,
   isSecondary: PropTypes.bool,
   isDisabled: PropTypes.bool,
   style: PropTypes.object,
   className: PropTypes.string,
+};
+
+ButtonRound.defaultProps = {
+  type: 'button',
 };
 
 export { ButtonRound };

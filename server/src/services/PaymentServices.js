@@ -122,11 +122,13 @@ const PaymentServices = {
 
       if (item === 'Retreat Ticket') {
         userCount = await UserModel.countDocuments({
-          payments: { $elemMatch: { item, expired: false } },
+          payments: {
+            $elemMatch: { item, expired: false, amountDue: { $nin: [10300, 11000, 10000] } },
+          },
         });
       } else {
         froshCount = await FroshModel.countDocuments({
-          payments: { $elemMatch: { item, expired: false } },
+          payments: { $elemMatch: { item, expired: false, amountDue: { $nin: [11500, 13000] } } },
         });
       }
 
@@ -150,6 +152,7 @@ const PaymentServices = {
         priceId: process.env.STRIPE_TICKET_PRICE_ID,
         relativeUrlSuccess: '/registration-success',
         relativeUrlFailure: '/payment-error',
+        // coupon: process.env.STRIPE_EARLY_BIRD_COUPON_ID,
       },
       retreat: {
         priceId: process.env.STRIPE_RETREAT_PRICE_ID,
@@ -157,8 +160,10 @@ const PaymentServices = {
         relativeUrlFailure: '/payment-error-retreat',
       },
     };
-    // try {
-    return stripe.checkout.sessions.create({
+
+    const coupon = products[type]?.coupon; // undefined or string
+
+    const sessionOptions = {
       customer_email: email,
       submit_type: 'pay',
       expires_at: type === 'retreat' ? Math.floor(Date.now() / 1000 + 30 * 60) : undefined,
@@ -176,7 +181,15 @@ const PaymentServices = {
       cancel_url: `${process.env.CLIENT_BASE_URL}${
         products[type]?.relativeUrlFailure ?? products['orientation'].relativeUrlFailure
       }`,
-    });
+    };
+
+    // Only add discounts if a valid coupon exists
+    if (coupon) {
+      sessionOptions.discounts = [{ coupon }];
+    }
+    // try {
+    return stripe.checkout.sessions.create(sessionOptions);
+
     // } catch (error) {
     //   if (error.raw?.code === 'coupon_expired') {
     //     try {

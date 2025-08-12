@@ -6,11 +6,12 @@ import { ButtonSelector } from '../../buttonSelector/buttonSelector/ButtonSelect
 import { ScheduleComponentAccordion } from '../../schedule/ScheduleHome/ScheduleHome';
 import './ProfilePageSchedule.scss';
 import { froshGroups } from '../../../util/frosh-groups';
+import { data } from '../../../assets/schedule/data';
 
 export const ProfilePageSchedule = () => {
   const { user } = useSelector(userSelector);
   const [froshGroup, setFroshGroup] = useState(user?.froshGroup);
-  const scheduleData = getFroshGroupSchedule(froshGroup);
+  const scheduleData = data; // replace with getFroshGroupSchedule(froshGroup) if you want to use unique group schedules
   const days = getDaysSchedule(scheduleData);
 
   const today = new Date();
@@ -29,8 +30,13 @@ export const ProfilePageSchedule = () => {
   }
   const [selectedDayIndex, setSelectedDayIndex] = useState(count);
   const [closeAll, setCloseAll] = useState(false);
+  // const buttonList = Object.keys(scheduleData).map((item) => {
+  //   return { name: item, sub: item };
+  // });
   const buttonList = Object.keys(scheduleData).map((item) => {
-    return { name: item };
+    const dayOfWeek = item.split(' ')[0];
+    const date = item.split(' ')[1] + ' ' + item.split(' ')[2];
+    return { name: dayOfWeek, title: dayOfWeek, sub: date };
   });
 
   const froshGroupNames = [];
@@ -40,23 +46,13 @@ export const ProfilePageSchedule = () => {
 
   return (
     <div className="profile-page-schedule">
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <h2 className="profile-page-section-header profile-page-section-header-schedule">
-          SCHEDULE
-          <h3 className="profile-page-sesction-header profile-page-section-header-schedule-note">
-            *Once you have arrived to F!rosh Week on Monday and Tuesday you do not need to worry
-            about the schedule as it is your head leedurs’ responsibility to keep track of the
-            schedule of events.
-          </h3>
-        </h2>
-      </div>
+      <h2 className="profile-page-section-header">SCHEDULE</h2>
+      <p className="profile-p-text">
+        *Once you have arrived to F!rosh Week on Monday and Tuesday you do not need to worry about
+        the schedule as it is your head leedurs’ responsibility to keep track of the schedule of
+        events.
+      </p>
+
       <div className="profile-page-schedule-content">
         <ButtonSelector
           buttonList={buttonList}
@@ -73,6 +69,7 @@ export const ProfilePageSchedule = () => {
           }}
         />
         <div className="profile-page-schedule-accordions">
+          <div className="gap-small"></div>
           {scheduleData[Object.keys(scheduleData)[selectedDayIndex]].map((scheduleDay, index) => {
             return (
               <ScheduleComponentAccordion

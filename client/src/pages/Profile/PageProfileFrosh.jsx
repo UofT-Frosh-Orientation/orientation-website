@@ -6,8 +6,9 @@ import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-fli
 import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnnouncement';
 import { QRNormal } from 'react-qrbtf';
 import { Button } from '../../components/button/Button/Button';
-import EditIcon from '../../assets/misc/pen-solid.svg';
-import CampingIcon from '../../assets/misc/camping-tent.png';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
+import EditIconDark from '../../assets/misc/edit-icon-dark.svg';
+import EditIcon from '../../assets/misc/edit-icon.svg';
 // import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Link } from 'react-router-dom';
 import { instagramAccounts } from '../../util/instagramAccounts';
@@ -15,6 +16,8 @@ import InstagramIcon from '../../assets/social/instagram-brands.svg';
 // import NitelifeIcon from '../../assets/misc/nitelife.png';
 import ScuntIcon from '../../assets/misc/magnifier.png';
 import OlympiksIcon from '../../assets/misc/torch.png';
+import RetreatImg from '../../assets/profile/retreat-image.jpg';
+import RetreatImg2 from '../../assets/profile/retreat-image2.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { announcementsSelector } from '../../state/announcements/announcementsSlice';
@@ -34,7 +37,51 @@ import { ProfilePageResources } from '../../components/profile/ProfilePageResour
 import { getScuntTeams } from '../../state/scuntTeams/saga';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
+import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
 // import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
+import AlphaIcon from '../../assets/profile/letters/Alpha.svg';
+import BetaIcon from '../../assets/profile/letters/Beta.svg';
+import ChiIcon from '../../assets/profile/letters/Chi.svg';
+import DeltaIcon from '../../assets/profile/letters/Delta.svg';
+import GammaIcon from '../../assets/profile/letters/Gamma.svg';
+import IotaIcon from '../../assets/profile/letters/Iota.svg';
+import KappaIcon from '../../assets/profile/letters/Kappa.svg';
+import LambdaIcon from '../../assets/profile/letters/Lambda.svg';
+import NuIcon from '../../assets/profile/letters/Nu.svg';
+import OmegaIcon from '../../assets/profile/letters/Omega.svg';
+import OmicronIcon from '../../assets/profile/letters/Omicron.svg';
+import PhiIcon from '../../assets/profile/letters/Phi.svg';
+import PiIcon from '../../assets/profile/letters/Pi.svg';
+import PsiIcon from '../../assets/profile/letters/Psi.svg';
+import RhoIcon from '../../assets/profile/letters/Rho.svg';
+import SigmaIcon from '../../assets/profile/letters/Sigma.svg';
+import TauIcon from '../../assets/profile/letters/Tau.svg';
+import ThetaIcon from '../../assets/profile/letters/Theta.svg';
+import UpsilonIcon from '../../assets/profile/letters/Upsilon.svg';
+import ZetaIcon from '../../assets/profile/letters/Zeta.svg';
+
+const froshGroupImages = {
+  Alpha: AlphaIcon,
+  Beta: BetaIcon,
+  Chi: ChiIcon,
+  Delta: DeltaIcon,
+  Gamma: GammaIcon,
+  Iota: IotaIcon,
+  Kappa: KappaIcon,
+  Lambda: LambdaIcon,
+  Nu: NuIcon,
+  Omega: OmegaIcon,
+  Omicron: OmicronIcon,
+  Phi: PhiIcon,
+  Pi: PiIcon,
+  Psi: PsiIcon,
+  Rho: RhoIcon,
+  Sigma: SigmaIcon,
+  Tau: TauIcon,
+  Theta: ThetaIcon,
+  Upsilon: UpsilonIcon,
+  Zeta: ZetaIcon,
+};
 
 const PageProfileFrosh = () => {
   const { user } = useSelector(userSelector);
@@ -53,19 +100,33 @@ const PageProfileFrosh = () => {
     <>
       <ProfilePageFroshHeader editButton={true} />
       <div className="profile-info-row">
-        <div className="profile-info-row-right">
-          {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null}
+        <div className="profile-info-row-left">
+          {!isRegistered ? (
+            <div className={'profile-not-registered'}>
+              <div className="profile-not-registered-text">
+                <h1>You are not registered</h1>
+                <p className="profile-p-text">
+                  Please complete your registration in order to participate in F!rosh week events
+                </p>
+                {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
+              </div>
+              <Link key={'/registration'} to={'/registration'} className={'no-link-style'}>
+                <ButtonRound label="Register" style={{ marginLeft: '20px' }} />
+              </Link>
+            </div>
+          ) : null}
+          {/* {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null} */}
           <ProfilePageRetreat />
-          {isRegistered ? <ProfilePageFroshOlympiks /> : null}
+          {/* {isRegistered ? <ProfilePageFroshOlympiks /> : null} */}
           {/* <ProfilePageNitelife /> */}
           <ProfilePageInstagrams />
           <ProfilePageAnnouncements />
           <ProfilePageSchedule />
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className="profile-info-row-right">
           <ProfilePageQRCode />
           {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
-          {user?.attendingScunt ? <ProfilePageScuntTeam /> : null}
+          {/* {user?.attendingScunt ? <ProfilePageScuntTeam /> : null} */}
           {/* <ProfilePageFroshScuntTeamsSelection /> */}
           <ProfilePageResources froshObject={isRegistered ? user : null} />
         </div>
@@ -96,65 +157,37 @@ const ProfilePageRetreat = () => {
   return (
     <Link to={'/frosh-retreat'} className="no-link-style">
       <div className="retreat-profile-container">
-        <img src={CampingIcon} alt="Camping" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
         {isRetreat ? (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              flex: 1,
-            }}
-          >
-            <h2>Thank you for purchasing a F!rosh Retreat Ticket!</h2>
-            <p>
-              We will reach out with more information soon. Keep an eye on your email! Please bring
-              a signed copy of the waiver to retreat.
-            </p>
-          </div>
-        ) : (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              flex: 1,
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                flex: 1,
-                alignItems: 'center',
-                width: '100%',
-              }}
-            >
-              <div>
-                <h2>WANT TO PARTICIPATE IN F!ROSH RETREAT?</h2>
+          <div className="retreat-ad">
+            <div className="retreat-ad-sub">
+              <div className="retreat-container-text">
+                <h2>Thank you for purchasing a F!rosh Retreat Ticket!</h2>
                 <p>
-                  There are only a limited number of tickets, so get yours before it&apos;s too
-                  late!{' '}
+                  We will reach out with more information soon. Keep an eye on your email! Please
+                  bring a signed copy of the waiver to retreat.
                 </p>
               </div>
-              <div className="desktop-only">
-                <Button label={'Buy Now!'} isSecondary style={{ margin: 0, marginLeft: '10px' }} />
+            </div>
+            <img className="retreat-image" src={RetreatImg2} alt="Retreat image" />
+          </div>
+        ) : (
+          // <div className="retreat-registered">
+          //   <h2>Thank you for purchasing a F!rosh Retreat Ticket!</h2>
+          //   <p>
+          //     We will reach out with more information soon. Keep an eye on your email! Please bring
+          //     a signed copy of the waiver to retreat.
+          //   </p>
+          // </div>
+          <div className="retreat-ad">
+            <div className="retreat-ad-sub">
+              <div className="retreat-container-text">
+                <h2>Click here to buy your ticket to F!rosh Retreat!</h2>
+                <p>
+                  There are a limited number of tickets, so get yours before it&apos;s too late!{' '}
+                </p>
               </div>
             </div>
-            <div className="mobile-only" style={{ marginTop: '10px', width: '100%' }}>
-              <Button
-                label={'Buy Now!'}
-                isSecondary
-                style={{
-                  margin: '-1px',
-                  marginLeft: '10px',
-                  display: 'flex',
-                  flex: '1 0 auto',
-                  justifyContent: 'center',
-                }}
-              />
-            </div>
+            <img className="retreat-image" src={RetreatImg} alt="Retreat image" />
           </div>
         )}
       </div>
@@ -221,75 +254,77 @@ const ProfilePageFroshHeader = ({ editButton }) => {
   const lastDigitF = gradYear.toString().slice(-1);
   let froshYear = `${firstDigitF}T${lastDigitF}`;
 
+  const getFroshGroupImage = (letter) => {
+    return froshGroupImages[letter] || null;
+  };
+
   console.log('ProfilePageFroshHeader user:', user);
   console.log('ProfilePageFroshHeader isRegistered:', isRegistered);
 
   return (
     <>
       <div className="profile-page-header">
-        <div className="profile-page-header-group">
-          {isRegistered ? (
-            <>
-              <h1>{user?.froshGroupIcon}</h1>
-              <p>{user?.froshGroup}</p>
-            </>
-          ) : null}
-        </div>
         <div className="profile-page-header-info-wrap">
-          <div className="profile-page-header-info">
-            <p className="profile-page-name-title">
-              {user?.preferredName === '' || !user?.preferredName ? (
+          <div className="profile-page-header-left">
+            <div className="profile-class-circlebg desktop-only">
+              <div className="profile-page-header-class desktop-only">
+                <p className="class-of-p">Class of</p>
+                <h2>{froshYear}</h2>
+              </div>
+            </div>
+            <div className="profile-page-header-info">
+              <div className="profile-name-edit-wrapper">
                 <>
-                  <b>{user?.firstName}</b> {user?.lastName}
+                  {user?.preferredName === '' || !user?.preferredName ? (
+                    <>
+                      <b>{user?.firstName}</b>
+                    </>
+                  ) : (
+                    <b>{user?.preferredName}</b>
+                  )}
                 </>
-              ) : (
-                <b>{user?.preferredName}</b>
-              )}
-            </p>
-            {user?.discipline && <p>{`Incoming ${user['discipline']} Engineering student`}</p>}
-            <p>
-              <u>{user?.email}</u>
-            </p>
+                {editButton !== false ? (
+                  // {editButton !== false && isRegistered ? (
+                  <Link
+                    to={isRegistered ? '/profile-edit' : '/profile-edit-unregistered'}
+                    className={'profile-edit-icon-link no-link-style'}
+                  >
+                    <img
+                      src={darkMode ? EditIconDark : EditIcon}
+                      alt={'edit'}
+                      className={'profile-edit-icon no-link-style'}
+                    />
+                  </Link>
+                ) : // <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
+                //   <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
+                // </Link>
+                null}
+              </div>
+              {user?.discipline && <p>{`Incoming ${user['discipline']} Engineering student`}</p>}
+              <p>
+                <u>{user?.email}</u>
+              </p>
+            </div>
           </div>
-          <div className="profile-page-header-class desktop-only">
-            <p>Class of</p>
-            <h2>{froshYear}</h2>
+          <div className="profile-page-header-group desktop-only">
+            {isRegistered ? (
+              <>
+                <img
+                  src={getFroshGroupImage(user?.froshGroup)}
+                  alt={`${user?.froshGroup}`}
+                  className="frosh-group-icon-image"
+                />
+                <p>{user?.froshGroup}</p>
+              </>
+            ) : null}
           </div>
-          {editButton !== false ? (
-            // {editButton !== false && isRegistered ? (
-            <Link
-              to={isRegistered ? '/profile-edit' : '/profile-edit-unregistered'}
-              className={'profile-edit-icon-link no-link-style'}
-            >
-              <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
-            </Link>
-          ) : // <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
-          //   <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
-          // </Link>
-          null}
         </div>
       </div>
 
-      <img
+      {/* <img
         src={darkMode ? WaveReverseFlipDarkMode : WaveReverseFlip}
         className="wave-image home-page-bottom-wave-image"
-      />
-
-      {!isRegistered ? (
-        <div className={'profile-not-registered'}>
-          <h1>You are not registered</h1>
-          <h2>Please complete your registration in order to participate in F!rosh Week events</h2>
-          {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
-          <Link
-            key={'/registration'}
-            to={'/registration'}
-            style={{ textDecoration: 'none' }}
-            className={'no-link-style'}
-          >
-            <Button label="Register" style={{}} />
-          </Link>
-        </div>
-      ) : null}
+      /> */}
     </>
   );
 };
@@ -341,12 +376,8 @@ const ProfilePageInstagrams = () => {
   return (
     <a href={instagramLink} className="no-link-style" target={'_blank'} rel="noreferrer">
       <div className="frosh-instagram-container">
-        <img
-          src={InstagramIcon}
-          alt="Instagram"
-          style={{ filter: !darkMode ? 'invert(1)' : 'unset' }}
-        />
-        <div>
+        <img src={InstagramIcon} alt="Instagram" className="desktop-only" />
+        <div className="instagram-text">
           <p>Go follow your F!rosh group and meet your Leedurs!</p>
           <h2>@{getInstagramFromLink(instagramLink).slice(0, -1)}</h2>
         </div>
@@ -411,12 +442,12 @@ const ProfilePageAnnouncements = () => {
 
   return (
     <div className="profile-page-announcements">
-      <h2 className="profile-page-section-header">TASKS AND ANNOUNCEMENTS</h2>
+      <h2 className="profile-page-section-header">ANNOUNCEMENTS</h2>
       {!user?.canEmail ? (
         <Link
           key={'/resubscribe'}
           to={'/resubscribe'}
-          style={{ textDecoration: 'none' }}
+          // style={{ textDecoration: 'none' }}
           className={'no-link-style'}
         >
           <Button label="Resubscribe To Announcements Emails" />
@@ -449,7 +480,15 @@ const ProfilePageQRCode = () => {
   }
 
   return (
-    <div className="profile-page-qr-code profile-page-side-section">
+    <div
+      className="profile-page-qr-code profile-page-side-section"
+      style={{
+        border: '2px solid var(--neutral-secondary)',
+        borderRadius: '25px',
+        padding: '16px',
+        boxShadow: '0 5px 5px rgba(0, 0, 0, 0.10)',
+      }}
+    >
       <QRNormal
         value={QRCodeString}
         styles={{ svg: { width: '120%', margin: '-10%' } }}
@@ -460,7 +499,9 @@ const ProfilePageQRCode = () => {
         posColor="#28093A"
         backgroundColor="white"
       />
-      <p style={{ color: 'var(--purple)' }}>Your Sign-in QR Code</p>
+      <p style={{ color: 'var(--monster)', marginTop: '-5px', marginBottom: '20px' }}>
+        Your Sign-in QR Code
+      </p>
     </div>
   );
 };

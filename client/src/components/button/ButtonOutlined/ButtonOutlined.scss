@@ -16,78 +16,86 @@
 
 .button-outlined {
   margin: 15px 10px;
-  background-color: var(--button-outlined-bg);
-  color: var(--button-outlined-font);
-  display: inline-block;
-  border-radius: 11.5px;
-  padding: 10px 26px;
-  box-shadow: var(--shadow);
+
+  border-image-source: var(--schedule-dates-pixel-border);
+  background-color: var(--monster);
+  color: var(--lavender);
+  box-shadow: inset -4px -4px var(--button-pressed-highlight),
+    inset 6px 6px var(--button-pressed-shadow);
+  border-radius: 18px;
   text-align: center;
-  font-weight: 600;
   cursor: url('../../../../assets/cursor/cursor.png'), auto; // Apply custom cursor here
   user-select: none;
-  border-image-source: var(--pixel-border-pressed);
   border-image-slice: 30;
   border-image-width: 30px;
   border-image-outset: 1px;
   border-image-repeat: repeat;
-  //box-shadow: inset 4px 4px #00000028, inset -4px -4px #ffffff25;
   position: relative;
+  min-width: 200px;
+  min-height: 100px;
 
-  //BUTTON BORDERS
-  /* removed borders on buttons so there is less cramping on mobile view
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    background-repeat: no-repeat;
-    z-index: 0;
-  }
+  padding: 10px 26px;
 
-  &::before {
-    top: -10px;
-    left: -10px;
-    background-image: var(--top-left-corner-border);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  &::after {
-    bottom: -45px;
-    right: -15px;
-    background-image: var(--bottom-right-corner-border);
+  h1 {
+    font-size: 28px;
+    font-family: 'Jersey 20', sans-serif;
+
+    @include devices(tablet) {
+      font-size: 25px;
+    }
   }
-  
-  //BUTTON BORDERS END
-  */
+  h2 {
+    font-size: 18px;
+
+    @include devices(tablet) {
+      font-size: 16px;
+    }
+  }
 
   @include devices(tablet) {
-    font-size: 16px;
-    padding: 10px 30px;
-    border-width: 3px;
-    margin: 8px 6px;
+    min-width: 150px;
+    min-height: 80px;
+    padding: 5px 5px;
+    margin: 4px 3px;
   }
 }
 
 .button-outlined-secondary {
-  background-color: var(--button-outlined-bg-secondary);
-  color: var(--button-outlined-font);
-  font-weight: unset;
-  box-shadow: 3px 3px 3px #00000038;
-  border-image-source: var(--pixel-border);
+  // background-color: var(--button-outlined-bg-secondary);
+  // color: var(--button-outlined-font);
+  // font-weight: unset;
+  // box-shadow: 3px 3px 3px #00000038;
+  box-shadow: inset 3px 3px var(--button-pressed-highlight), inset -6px -6px #0000007a;
+  color: var(--mikado);
+  background-color: var(--schedule-container);
+  // border-image-source: var(--pixel-border);
+  border-radius: 18px;
+  border-image-source: var(--schedule-dates-pixel-border-selected);
+  border-image-slice: 12;
+  border-image-width: 12px;
+  border-image-outset: 1px;
+  border-image-repeat: repeat;
 
   &:hover {
     border-color: var(--light-purple);
     transform: scale(1.02);
-    cursor: url('../../../assets/cursor/pointer.png'), auto;
   }
 
   &:active {
     transform: translateY(2px);
     //box-shadow: inset 4px 4px #00000038, inset -4px -4px #ffffff44;
-    background-color: var(--button-active-bg);
-    border-image-source: var(--pixel-border-pressed);
+    // background-color: var(--button-active-bg);
+    // border-image-source: var(--pixel-border-pressed);
   }
+}
+
+.button-outlined-secondary,
+.button-outlined-secondary * {
+  cursor: url('../../../assets/cursor/pointer.png'), auto;
 }
 
 .button-outlined-disabled {

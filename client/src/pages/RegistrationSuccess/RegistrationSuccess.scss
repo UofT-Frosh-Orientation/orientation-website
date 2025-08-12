@@ -29,20 +29,21 @@
 
 .registration-success-page-progress-bar {
   width: 100vw;
-  background-color: var(--purple);
+  background-color: var(--text-coloured);
   height: 8px;
   animation: progressbar-move 8000ms forwards 0ms;
   animation-timing-function: linear;
   transform-origin: left;
   position: fixed;
   z-index: 100;
+  margin-top: 35px;
 }
 
-.registration-success-page-progress-bar2 {
-  transform: scaleX(0);
-  animation: progressbar-move 7500ms forwards 8000ms;
-  animation-timing-function: linear;
-}
+// .registration-success-page-progress-bar2 {
+//   transform: scaleX(0);
+//   animation: progressbar-move 7500ms forwards 8000ms;
+//   animation-timing-function: linear;
+// }
 
 .registration-success-wait-msg {
   font-size: 25px;
@@ -74,15 +75,37 @@
 }
 .registration-success-page-step1-1-disappear {
   animation: up-disappear 600ms forwards 7500ms;
+  h1 {
+    font-family: 'Proxima Nova';
+    font-weight: 900;
+    color: var(--text-primary);
+  }
 }
 
 .registration-success-page-step1-2-disappear {
   animation: down-disappear 600ms forwards 7500ms;
+  h2 {
+    color: var(--text-coloured);
+  }
+  p {
+    font-size: 20px;
+    margin-top: 40px;
+    color: var(--text-primary);
+    font-family: 'Proxima Nova';
+    font-weight: 700;
+    // text-transform: uppercase;
+  }
 }
 
 .registration-success-page-step2 {
   transform: scale(0);
   animation: zoom-appear 1000ms forwards 7500ms;
+
+  h1 {
+    font-family: 'Proxima Nova';
+    font-weight: 900;
+    color: var(--text-primary);
+  }
 }
 
 .registration-success-page-step2-disappear {
@@ -101,7 +124,7 @@
   }
   h2 {
     font-size: 30px;
-    margin-top: -20px;
+    margin-top: -40px;
   }
 }
 
@@ -111,7 +134,7 @@
 }
 
 .registration-success-page-step5 {
-  margin-top: 20px;
+  margin-top: 50px;
   transform: scale(0);
   animation: zoom-appear 1000ms forwards 14000ms;
 }
@@ -119,6 +142,11 @@
 .registration-success-page-step6 {
   transform: scale(0);
   animation: zoom-appear 1000ms forwards 15000ms;
+}
+
+.watch-again,
+view-profile {
+  margin-top: 25px;
 }
 
 @keyframes zoom-disappear {
@@ -164,7 +192,7 @@
   stroke-dashoffset: 500;
   animation: dash-stoke 3500ms ease-in-out forwards, fill-end 3500ms ease-in forwards;
   animation-delay: 9500ms;
-  stroke: var(--frosh-group-stroke);
+  stroke: var(--text-coloured);
   stroke-linecap: round;
   font-size: 240px;
   height: 300px;

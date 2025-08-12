@@ -30,15 +30,18 @@ import facultylogo from '../../assets/misc/facultylogo.png';
 import bsologo from '../../assets/misc/bsologo.svg';
 import slideshow1 from '../../assets/homeSlideshow/2T5/back.jpg';
 
-import DiamondMedal from './sponsormedals/diamond.png';
-import GoldMedal from './sponsormedals/gold.png';
-import SilverMedal from './sponsormedals/silver.png';
-import BronzeMedal from './sponsormedals/bronze.png';
+import DiamondMedal from '../../assets/sponsors/sponsormedals/diamond.png';
+import GoldMedal from '../../assets/sponsors/sponsormedals/gold.png';
+import SilverMedal from '../../assets/sponsors/sponsormedals/silver.png';
+import BronzeMedal from '../../assets/sponsors/sponsormedals/bronze.png';
+
+import { CountdownHome } from '../../components/countdown/countdown';
 
 const PageHome = () => {
   return (
     <>
       <HomePageHeader />
+      <CountdownHome />
       <HomePageTimeline />
       <HomePageSchedule />
       <PageAbout />
@@ -64,7 +67,7 @@ const HomePageHeader = () => {
         <h1>Week</h1>
         {/* <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p> */}
         <HomeHeaderButton />
-        <p>Check back soon for registration</p>
+        {/* <p>Check back soon for registration</p> */}
       </div>
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />
@@ -80,7 +83,7 @@ const HomePageHeader = () => {
 
 const HomeHeaderButton = () => {
   const loggedIn = useSelector(loggedInSelector);
-  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(true);
 
   return (
     <>
@@ -187,7 +190,7 @@ const HomePageTimeline = () => {
   return (
     !(dates === undefined || dates?.length === 0) && (
       <div className="home-page-timeline">
-        <h2 className="home-page-section-header">TIMELINE</h2>
+        <h2 className="home-page-section-header">Timeline</h2>
         <Timeline
           dates={dates}
           onClick={(date) => {
@@ -236,7 +239,7 @@ const HomePageSchedule = () => {
   return (
     <div className="home-page-schedule">
       <h2 className="home-page-section-header">Schedule</h2>
-      {loggedIn ? (
+      {/* {loggedIn ? (
         <div className="home-page-schedule-warning">
           *Different F!rosh groups have different schedules. This is the basic schedule. To see your
           individual schedule, visit the{' '}
@@ -247,7 +250,7 @@ const HomePageSchedule = () => {
         </div>
       ) : (
         <></>
-      )}
+      )} */}
       <ScheduleComponent />
     </div>
   );
@@ -306,14 +309,14 @@ const AboutUsSection = () => {
 
 const HomePageSponsors = () => {
   // To create a seamless infinite scroll, duplicate the sponsors list.
-  const loopedSponsors = [...sponsors, ...sponsors];
+  const loopedSponsors = [...sponsors, ...sponsors, ...sponsors];
   const { darkMode } = useContext(DarkModeContext);
 
   return (
     <div className="home-page-sponsors">
       <div className="home-page-sponsors-header">
         <h2>Our Sponsors</h2>
-        <p>F!rosh Week was brought to you thanks to the generous support of our sponsors.</p>
+        <p>F!rosh Week was brought to you thanks to the generous support of our sponsors!</p>
       </div>
 
       {sponsors.length > 0 && (
@@ -326,7 +329,7 @@ const HomePageSponsors = () => {
               const sponsorName = item.label.includes(':') ? item.label.split(': ')[1] : item.label;
               // Get the appropriate medal icon
               const medalIcon = getMedalIcon(item.rank);
-              
+
               return (
                 <div key={`${item.name}-${index}`} className={`sponsor-card ${rankClass}`}>
                   <a
@@ -336,9 +339,9 @@ const HomePageSponsors = () => {
                     className="sponsor-card-link"
                   >
                     {medalIcon && (
-                      <img 
-                        src={medalIcon} 
-                        alt={`${item.rank} sponsor`} 
+                      <img
+                        src={medalIcon}
+                        alt={`${item.rank} sponsor`}
                         className="sponsor-medal-icon"
                       />
                     )}

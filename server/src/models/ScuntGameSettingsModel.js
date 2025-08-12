@@ -5,7 +5,7 @@ const ScuntGameSettingSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    default: 'Skule™ Hunt 2T4 Settings',
+    default: 'Skule™ Hunt 2T5 Settings',
   },
   amountOfTeams: {
     type: Number,
@@ -48,7 +48,7 @@ const ScuntGameSettingSchema = new mongoose.Schema({
   // discordLink: {
   //   type: String,
   //   required: true,
-  //   default: 'https://discord.gg/mRutbwuCK9',
+  //   default: 'https://discord.gg/Fnxr7tp34E',
   // },
   revealLeaderboard: {
     type: Boolean,
@@ -63,12 +63,12 @@ const ScuntGameSettingSchema = new mongoose.Schema({
   allowJudging: {
     type: Boolean,
     required: false,
-    default: false,
+    default: true,
   },
   scuntDate: {
     type: String,
     required: false,
-    default: 'August 28, 2024 18:00:00',
+    default: 'August 27, 2025 18:00:00',
   },
 });
 

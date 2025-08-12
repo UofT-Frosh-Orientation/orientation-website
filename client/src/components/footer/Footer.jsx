@@ -21,7 +21,7 @@ const Footer = () => {
         <img src={Wave} className="wave-image-footer" />
       )} */}
       <div className="footer-container">
-        <div className="sitemap">
+        <div className="sitemap desktop-only">
           <div className="sitemap-text">Site Map</div>
           <div className="sitemap-links">
             {pages.main.map((page, index) => {

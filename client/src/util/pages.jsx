@@ -149,9 +149,9 @@ export const pages = {
       label: 'Registration Success Retreat',
       component: (
         <PagePaymentSuccess
-          title={'Frosh Retreat'}
+          title={'F!rosh Retreat'}
           message={
-            'Thank you for choosing to participate in the Frosh retreat, we will be reaching out to you for next steps and further details!'
+            'Thank you for choosing to participate in the F!rosh retreat, we will be reaching out to you for next steps and further details!'
           }
         />
       ),
@@ -250,6 +250,7 @@ export const pages = {
         </AuthorizedPage>
       ),
       path: '/frosh-info-table',
+      includeFooter: true,
     },
     {
       label: 'frosh-redistribution',

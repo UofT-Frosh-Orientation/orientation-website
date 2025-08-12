@@ -1,17 +1,22 @@
 @import '../../../scssStyles/_mixins.scss';
 
 .button-round {
-  background-color: var(--jam);
-  color: white;
+  background-color: var(--text-coloured);
+  color: var(--text-inverted);
   border-radius: 50px;
   padding: 20px 30px;
   text-align: center;
   font-weight: 800;
   transition: all 300ms ease-in-out;
+  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
 
   &:hover {
     transform: scale(1.05);
     transition: all 300ms ease-in-out;
+  }
+
+  @include devices(tablet) {
+    padding: 15px 28px;
   }
 }
 

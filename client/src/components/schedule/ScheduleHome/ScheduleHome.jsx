@@ -29,8 +29,10 @@ const ScheduleComponent = () => {
   }
   const [selectedDayIndex, setSelectedDayIndex] = useState(count);
   const [closeAll, setCloseAll] = useState(false);
-  const buttonList = Object.keys(data).map((item) => {
-    return { name: item };
+  const buttonList = Object.keys(data).map((item, index) => {
+    const dayOfWeek = item.split(' ')[0];
+    const date = item.split(' ')[1] + ' ' + item.split(' ')[2];
+    return { name: dayOfWeek, title: dayOfWeek, sub: date };
   });
 
   return (
@@ -47,13 +49,15 @@ const ScheduleComponent = () => {
               setSelectedDayIndex(index);
               setCloseAll(!closeAll);
             }}
-            style={{
-              maxWidth: '250px',
-              marginTop: '0px',
-              marginBottom: '10px',
-              padding: '11px 15px',
-              minWidth: '110px',
-            }}
+            style={
+              {
+                // maxWidth: '20px',
+                // marginTop: '0px',
+                // marginBottom: '10px',
+                // padding: '11px 15px',
+                // minWidth: '110px',
+              }
+            }
           />
         </div>
         <div className="schedule-container-dates desktop-only">
@@ -147,13 +151,19 @@ export const ScheduleComponentAccordion = ({ scheduleDay, closeAll }) => {
               ) : (
                 <></>
               )}
+              <h2 className="eventtimemobile">
+                {startTime === ' ' && endTime === ' ' ? '' : `${startTime} - ${endTime}`}
+              </h2>
             </div>
-            <h2>{startTime === ' ' && endTime === ' ' ? '' : `${startTime} - ${endTime}`}</h2>
+            <h2 className="eventtimedesktop">
+              {startTime === ' ' && endTime === ' ' ? '' : `${startTime} - ${endTime}`}
+            </h2>
           </div>
         }
         setIsOpen={setIsOpen}
         isOpen={isOpen}
         canOpen={scheduleDay['Event Description'] !== undefined}
+        dark={scheduleDay['Color'] == 'night' || scheduleDay['Color'] == 'general'}
       >
         <p dangerouslySetInnerHTML={{ __html: scheduleDay['Event Description'] }} />
       </SingleAccordion>

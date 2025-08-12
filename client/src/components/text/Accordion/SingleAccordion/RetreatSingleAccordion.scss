@@ -1,0 +1,60 @@
+@import '../../../../scssStyles/mixins';
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
+
+:root {
+  --accordian-pixel-border: url('../../../../assets/accordion/accordian-pixel-border-black.png');
+  //--profile-accordian-pixel-border: url('../../../../assets/accordion/profile-accordian-pixel-border.png');
+}
+
+.retreat-accordion {
+  border-radius: 17px;
+  margin-bottom: 10px;
+
+  width:100%;
+}
+
+.retreat-accordion,
+.retreat-accordion * {
+  cursor: url('../../../../assets/cursor/pointer.png'), auto !important;
+
+}
+
+// Disable hover effect on touch/mobile devices
+@media (hover: none) and (pointer: coarse) {
+  .accordion.accordion-clickable:hover::after {
+    opacity: 0 !important;
+  }
+}
+
+.retreat-accord-content {
+  position: relative;
+  z-index: 1;
+  // color: var(--text-primary);
+  overflow: hidden;
+  transition: max-height 0.2s ease;
+
+  margin-left: 30px;
+}
+
+.retreat-accord-text {
+  position: relative;
+  z-index: 1;
+  padding: 0px 0px 10px 0px;
+
+  margin-left:5px;
+
+  text-align: left;
+  font-size: 25px;
+
+  color: var(--text-dynamic);
+}
+
+.retreat-accord-icon {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.2s ease;
+  user-select: none;
+
+  margin-right: 5px;
+  padding: 6px 0px 5px 0px;
+}

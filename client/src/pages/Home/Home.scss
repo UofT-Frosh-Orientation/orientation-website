@@ -20,7 +20,8 @@
   // );
   display: flex;
   flex-direction: column;
-  // justify-content: center;
+  justify-items: center;
+  justify-content: center;
   // align-items: center;
   overflow: hidden;
   // margin-top: 20px;
@@ -48,8 +49,12 @@
   // flex-direction: column;
   // justify-content: center;
   // align-items: center;
-  padding: 150px 5% 0px 5%;
+  padding: 0% 5% 0% 5%;
   text-align: right;
+
+  // @include devices(ipad) {
+  //   padding: 40% 5% 0px 5%;
+  // }
 
   h1 {
     font-family: 'Jersey 20';
@@ -57,13 +62,19 @@
     font-size: clamp(120px, 24vh, 180px);
     text-transform: uppercase;
     color: var(--mikado);
-    text-shadow: -5px -5px 0 var(--jam), 5px -5px 0 var(--jam), -5px 5px 0 var(--jam),
-      5px 5px 0 var(--jam);
+    text-shadow: 5px 5px 0 var(--jam), -5px -5px 0 var(--jam), 5px -5px 0 var(--jam),
+      -5px 5px 0 var(--jam), 5px 5px 0 var(--jam);
     // -5px -5px 0 var(--monster),
     //  5px -5px 0 var(--monster),
     // -5px  5px 0 var(--monster),
     //  5px  5px 0 var(--monster);
     line-height: 0.8;
+
+    // @include devices(huge) {
+    //   font-size: 300px;
+    //   text-shadow: 10px 10px 0 var(--jam), -10px -10px 0 var(--jam), 10px -10px 0 var(--jam),
+    //     -10px 10px 0 var(--jam);
+    // }
   }
 
   h2 {
@@ -91,8 +102,9 @@
     padding: 0px 25px;
 
     h1 {
-      font-size: 150px;
+      font-size: 120px;
       text-align: right;
+      margin: 0px 0px 0px 0px;
     }
 
     h2 {
@@ -218,6 +230,11 @@
   background-color: var(--bg-primary);
   padding-bottom: 30px;
 
+  @include devices(tablet) {
+    padding-top: 20px;
+    padding-bottom: 10px;
+  }
+
   .home-page-schedule-warning {
     font-size: 18px;
     font-family: 'Proxima Nova';
@@ -327,6 +344,7 @@
   color: var(--text-primary);
   padding-left: min(40px, 3.5%);
   padding-top: 40px;
+  margin-left: 30px;
   margin-bottom: 20px;
   font-family: 'Proxima Nova', sans-serif;
   font-weight: 900;
@@ -334,6 +352,7 @@
   @include devices(tablet) {
     padding-top: 30px;
     margin-bottom: 10px;
+    margin-left: 20px;
     font-size: 35px;
   }
 }
@@ -396,19 +415,20 @@
   }
   to {
     // Mobile card width (180px + 20px gap) * number of original sponsors
-    transform: translateX(calc(-200px * 7));
+    transform: translateX(calc(-200px * var(--item-count)));
   }
 }
 
 // Apply mobile-specific styles using a media query
 @include devices(tablet) {
   .home-page-sponsors {
-    padding: 60px 20px;
+    padding: 60px 20px 30px 20px;
   }
 
   .sponsors-carousel-track {
     // Adjust the total track width for the smaller cards
-    width: calc(200px * 14);
+    // width: calc(200px * 14);
+    width: calc(200px * var(--item-count));
     // Use the new mobile-specific animation
     animation-name: scroll-mobile;
     // Optionally adjust the animation speed for mobile
@@ -437,16 +457,17 @@
   overflow: hidden;
   position: relative;
   // Add a gradient fade on the left and right edges for a clean look
-  mask-image: linear-gradient(to right, #00000080, black 20%, black 80%, #00000080);
+  mask-image: linear-gradient(to right, #00000000, black 20%, black 80%, #00000000);
   -webkit-mask-image: linear-gradient(to right, #00000000, black 20%, black 80%, #00000000);
 }
 
 .sponsors-carousel-track {
   display: flex;
   gap: 20px;
-  width: calc(270px * 14); // Card width (250px + 20px gap) * total number of cards (original * 2)
+  // width: calc(270px * 14); // Card width (250px + 20px gap) * total number of cards (original * 2)
+  width: calc(270px * var(--item-count));
   padding: 20px 0;
-  animation: scroll 40s linear infinite;
+  animation: scroll 30s linear infinite;
 
   // Pause animation on hover for better user experience
   &:hover {
@@ -466,23 +487,6 @@
 
   &:hover {
     transform: translateY(-8px);
-    &.sponsor-card--diamond {
-      // Change from var(--jam) (purple) to a diamond-like color
-      border-bottom-color: #a0d8ef; // Light blue diamond color
-      // Optional: Add a subtle shine/sparkle with box-shadow
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 
-                  0 8px 15px rgba(160, 216, 239, 0.3),
-                  0 0 5px rgba(255, 255, 255, 0.6);
-    }
-    &.sponsor-card--gold {
-      border-bottom-color: var(--mikado);
-    }
-    &.sponsor-card--silver {
-      border-bottom-color: #c0c0c0;
-    }
-    &.sponsor-card--bronze {
-      border-bottom-color: #cd7f32;
-    }
   }
 
   // This pseudo-element creates the unobtrusive but obvious border glow
@@ -527,6 +531,11 @@
       border-bottom-color: var(--sponsor-bronze);
     }
   }
+}
+
+.sponsor-card,
+.sponsor-card * {
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
 }
 
 // This is the most forceful way to remove the link's underline
@@ -619,7 +628,7 @@
   object-fit: contain;
   z-index: 2;
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
-  
+
   // Add a subtle shine to the medal icons
   &:hover {
     filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2)) brightness(1.1);

@@ -4695,7 +4695,7 @@ export const data = {
       'Event Name': 'Nitelife',
       'Event Description':
         'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      'Event Location': 'The Pit',
+      // 'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
@@ -4751,7 +4751,7 @@ export const data = {
       'Event Name': 'Nitelife',
       'Event Description':
         'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      'Event Location': 'The Pit',
+      // 'Event Location': 'The Pit',
       'Start Time': '7:00 PM',
       'End Time': 'Late',
       Color: 'night',
@@ -4799,10 +4799,18 @@ export const data = {
       Color: 'other',
     },
     {
+      'Event Name': 'Skule™ Alumni Panel',
+      'Event Description': `Power up with Skule™ Alumni Panel! Hear from U of T engineering alumni as they share their F!rosh experiences and pro tips for navigating school, PEY and their current careers. A low energy activity and a great chance to ask questions, gain insight and connect with those who’ve been in your shoes.`,
+      'Start Time': '6:00 PM',
+      'End Time': '7:30 PM',
+      'Event Location': 'GB202',
+      Color: 'general',
+    },
+    {
       'Event Name': 'Nitelife',
       'Event Description':
         'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      'Event Location': 'The Pit',
+      // 'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
@@ -4819,7 +4827,7 @@ export const data = {
       'Event Name': 'Nitelife',
       'Event Description':
         'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      'Event Location': 'The Pit',
+      // 'Event Location': 'The Pit',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',

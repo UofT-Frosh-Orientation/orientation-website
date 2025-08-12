@@ -1,6 +1,6 @@
 export const okayToInviteToScunt = false;
-export const scuntDiscord = 'https://discord.gg/3mbFPvE9j6';
-export const scuntDate = 'August 28, 2024 18:00:00';
+export const scuntDiscord = 'https://discord.gg/Fnxr7tp34E';
+export const scuntDate = 'August 27, 2024 18:00:00';
 export const aboutScunt = `
   <h2>THE H!UNT</h2>
   <h3>WHAT IS SKULE™ HUNT?</h3>
@@ -16,9 +16,9 @@ export const rules = {
       sub: 'To compete in Skule™ Hunt, one must be:',
       items: [
         'Human, or near human (Engineering Science students will be accepted).',
-        'A F!rosh (2T8!).',
+        'A F!rosh (2T9!).',
         'Currently enrolled within the Faculty of Applied Science and Engineering at the University of Toronto.',
-        'Have officially registered for the event via F!rosh Week 2T4.',
+        'Have officially registered for the event via F!rosh Week 2T5.',
       ],
     },
     {
@@ -43,9 +43,9 @@ export const rules = {
       title: 'Event Schedule',
       sub: 'The timing of Skule™ Hunt will be as follows:',
       items: [
-        'The event shall begin on Wednesday, August 28th at 6:00 PM EST. At this time, orientation.skule.ca/skule-hunt will go live with the list. Oh yeah and the judges will rise from their upper year slumber too.',
+        'The event shall begin on Wednesday, August 27th at 6:00 PM EST. At this time, orientation.skule.ca/skule-hunt will go live with the list. Oh yeah and the judges will rise from their upper year slumber too.',
         'The Royal Wedding will occur at approximately 10:00 PM',
-        'The event will end on Wednesday, August 28th at 11:00 PM EST. There will be a 15-minute warning announcement.',
+        'The event will end on Wednesday, August 27th at 11:00 PM EST. There will be a 15-minute warning announcement.',
       ],
     },
     {

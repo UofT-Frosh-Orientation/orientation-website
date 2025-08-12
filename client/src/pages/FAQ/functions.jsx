@@ -47,22 +47,22 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'What should I bring on the first day?',
       answer:
-        'Yourself! A good attitude! And a whole lotta HYPE! But also these: Proof of Registration (more info on what proof is needed when you register!); Sunscreen! #safetyissexy; Comfortable shoes; Health Card (just in case you need it)',
+        'Yourself! A good attitude! And a whole lotta HYPE! But also these: Proof of registration (more info on what proof is needed when you register!), sunscreen (#safetyissexy), comfortable shoes, health card (just in case you need it), and a bathing suit!',
       lastUpdated: '12:21pm, Jun 22, 2024',
       category: 'General',
     },
     {
       question: 'What do I do if I arrive late?',
       answer:
-        'Please try to arrive on time (Toronto transit and traffic can be unpredictable, so we highly recommend a bit of buffer!), but if you arrive late due to unforeseen circumstances, make your way to The Garden (you can ask anyone wearing a F!rosh Week shirt that isn’t yellow) and we can get you to your group from there! \n\n If you know in advance that you will be arriving late, please send us a message at registration@orientation.skule.ca after registering so your leedurs can plan accordingly!',
+        'Please try to arrive on time (Toronto transit and traffic can be unpredictable, so we highly recommend a bit of buffer!), but if you arrive late due to unforeseen circumstances, make your way to the AFK Lounge (you can ask anyone wearing a F!rosh Week shirt that isn’t yellow) and we can get you to your group from there! \n\n If you know in advance that you will be arriving late, please send us a message at registration@orientation.skule.ca after registering so your leedurs can plan accordingly!',
       lastUpdated: '12:21pm, Jun 22, 2024',
       category: 'General',
     },
     {
       question: 'How do I register for F!rosh Week?',
       answer:
-        'Register for F!rosh Week at orientation.skule.ca starting July 5th! Follow us on Instagram @froshweek and join the F!rosh Week 2T5 Discord server. To stay up to date throughout the summer! Important links can also be found at linktr.ee/froshweek. Link to Discord server: https://discord.gg/RQrPQMYrHw',
-      lastUpdated: '12:30pm, Jun 22, 2024',
+        'Register for F!rosh Week at orientation.skule.ca starting July 2nd! Follow us on Instagram @froshweek and join the F!rosh Week 2T5 Discord server. To stay up to date throughout the summer! Important links can also be found at linktr.ee/froshweek. Link to Discord server: https://discord.gg/Fnxr7tp34E',
+      lastUpdated: '18:10pm, Jun 28, 2025',
       category: 'Registration',
     },
     {
@@ -75,8 +75,8 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'When is the deadline to register for F!rosh Week?',
       answer:
-        'No official deadline, but you should sign up before August 26th if you want to participate in all of the activities!',
-      lastUpdated: '13:30pm, Jun 30, 2024',
+        'No official deadline, but you should sign up before August 25th if you want to participate in all of the activities!',
+      lastUpdated: '18:12pm, Jun 28, 2025',
       category: 'Registration',
     },
     /*{

@@ -31,7 +31,7 @@ a.no-link-style {
     z-index: 2;
 
     @media (max-width: 1000px) {
-      padding-bottom: 5%;
+      padding: 30px 30px;
     }
 
     h2 {
@@ -39,6 +39,12 @@ a.no-link-style {
       width: 80%;
       margin-bottom: 0.8rem;
       font-weight: 900;
+
+      @include devices(tablet) {
+        font-size: 36px;
+        // width: 60%;
+        margin-bottom: 25px;
+      }
     }
 
     p {
@@ -50,6 +56,11 @@ a.no-link-style {
       @media (max-width: 1000px) {
         width: 100%;
         margin-bottom: 20px;
+        display: none;
+      }
+
+      @include devices(huge) {
+        font-size: 26px;
       }
     }
 
@@ -93,29 +104,23 @@ a.no-link-style {
       object-fit: cover;
     }
 
-    @media (max-width: 1000px) {
-      width: 0%;
+    // Diamond mask on the left side
+    clip-path: polygon(
+      0% 50%,
+      // left middle (diamond tip)
+      15% 0%,
+      // top left
+      100% 0%,
+      // top right
+      100% 100%,
+      // bottom right
+      15% 100% // bottom left
+    );
+
+    @include devices(tablet) {
+      display: none;
     }
-
-    // @media (max-width: 800px) {
-    //   width: 100%;
-    // }
   }
-
-  // .triangle {
-  //   position: absolute;
-  //   right: 300px; // same as image width
-  //   top: 0;
-  //   bottom: 0;
-  //   width: 80px;
-  //   clip-path: polygon(0 0, 100% 0, 0 100%);
-  //   z-index: 1;
-  //   background-color: inherit;
-
-  //   @media (max-width: 768px) {
-  //     display: none;
-  //   }
-  // }
 }
 
 /* === COLOR UTILITIES === */

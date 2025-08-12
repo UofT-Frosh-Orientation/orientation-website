@@ -14,8 +14,12 @@
 
   @include devices(tablet) {
     flex-direction: column;
-    padding: 0px;
+    margin: 0px 10%;
   }
+}
+
+.mobile-only {
+  margin-bottom: 25px;
 }
 
 .schedule-container-dates {
@@ -27,7 +31,7 @@
 .schedule-container-left {
   display: flex;
   flex-direction: row;
-  margin-left: 20px;
+  margin-left: 30px;
 }
 
 .schedule-container-line {
@@ -106,7 +110,7 @@
   border-image-width: 12px;
   border-image-outset: 1px;
   border-image-repeat: repeat;
-  box-shadow: inset -6px -6px #3d0f58;
+  box-shadow: inset 4px 4px var(--button-pressed-highlight), inset -7px -7px #0000007a;
   background-color: var(--schedule-container);
   color: var(--mikado);
   padding: 0px 30px;
@@ -120,9 +124,11 @@
   h1 {
     font-size: 48px;
     font-family: 'Jersey 20', sans-serif;
+    padding-left: 20px;
   }
   h2 {
     font-size: 20px;
+    padding-left: 20px;
   }
 
   &:active {
@@ -147,7 +153,8 @@
   transform: none !important;
   // box-shadow: inset 8px 8px var(--button-pressed-shadow),
   //   inset -7px -7px var(--button-pressed-shadow) !important;
-  box-shadow: inset -7px -7px var(--button-pressed-shadow) !important;
+  box-shadow: inset -5px -5px var(--button-pressed-highlight),
+    inset 8px 8px var(--button-pressed-shadow) !important;
   box-shadow: none;
 }
 
@@ -169,8 +176,11 @@
     font-size: 24px;
     padding: 15px 5px;
     @include devices(tablet) {
-      font-size: 20px;
-      padding: 10px 0px;
+      // font-size: 20px;
+      // padding: 10px 0px;
+      margin-bottom: 0px !important;
+      padding-bottom: 0px !important;
+      font-weight: 900;
     }
     // color: var(--text-dark);
   }
@@ -180,8 +190,9 @@
     // color: var(--gray-time-label);
     text-align: right;
     @include devices(tablet) {
-      font-size: 15px;
-      padding: 5px 0px;
+      // font-size: 30px;
+      // padding: 5px 0px;
+      font-weight: 700;
     }
   }
   p {
@@ -204,24 +215,61 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+
+  @include devices(tablet) {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
 }
+
+.eventtimedesktop {
+  @include devices(tablet) {
+    display: none;
+  }
+}
+
+.eventtimemobile {
+  @media (min-width: 767px) {
+    display: none;
+  }
+  margin-left: 0px !important;
+  margin-bottom: 10px;
+  padding-top: 5px !important;
+}
+
 .schedule-accordion-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   flex-direction: column;
   user-select: none;
+
+  @include devices(tablet) {
+    align-items: center;
+    justify-content: center;
+  }
 }
 .schedule-accordion-location {
   // color: var(--gray-time-label);
   margin-bottom: 10px;
   font-size: 16px;
+
+  @include devices(tablet) {
+    display: none;
+  }
 }
 .schedule-accordion-header-location-icon {
   width: 14px;
   height: 14px;
   margin-top: 3px;
   margin-right: 3px;
+
+  @include devices(tablet) {
+    visibility: hidden;
+    width: 10px;
+    height: 10px;
+  }
 }
 .schedule-accordion-header-location-container {
   display: flex;

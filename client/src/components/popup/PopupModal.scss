@@ -137,7 +137,8 @@
   margin-bottom: 15px;
   color: var(--text-primary);
   text-align: center;
-  font-size: 30px;
+  font-size: 42px;
+  font-weight: 900;
 
   @include devices(tablet) {
     font-size: 26px;
@@ -148,6 +149,7 @@
   color: var(--text-primary);
   text-align: center;
   font-size: 20px;
+  width: 80%;
   margin-bottom: 10px;
 
   @include devices(tablet) {

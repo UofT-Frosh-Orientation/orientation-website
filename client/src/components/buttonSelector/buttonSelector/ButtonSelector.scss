@@ -1,14 +1,66 @@
 @import '../../../scssStyles/mixins';
 .button-selector-items {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  justify-content: flex-start;
+  // flex-wrap: wrap;
   padding: 10px;
-  row-gap: 10px;
+  // padding: 10px 40px;
+  gap: 10px;
+  // max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: 0px;
+  font-family: 'Proxima Nova', sans-serif;
+  // mask-image: radial-gradient(circle,rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.52) 75%, rgba(0, 0, 0, 0) 100%);
+  // -webkit-mask-image: linear-gradient(to right, #00000000, black 20%, black 80%, #00000000);
+  // --webkit-mask-image: radial-gradient(circle,rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.52) 75%, rgba(0, 0, 0, 0) 100%);
+
+  // @media (max-width: 1000px) {
+  //   padding-left: 10%;
+  // }
+  // @media (max-width: 900px) {
+  //   padding-left: 25%;
+  // }
+  // @media (max-width: 800px) {
+  //   padding-left: 30%;
+  // }
+  // @media (max-width: 767px) {
+  //   padding-left: 20%;
+  // }
+  // @media (max-width: 600px) {
+  //   padding-left: 50%;
+  // }
+  // @media (max-width: 400px) {
+  //   padding-left: 100%;
+  // }
+
+  // The stuff above fixes registration ones but messes up schedule ones, need better fix
 }
 
 .button-selector-no-stretch {
   display: inline-block;
   margin: auto;
   text-align: center;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track (background of the scrollbar) */
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+  // border-radius: 8px;
+}
+
+/* Thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background-color: var(--mikado);
+  // border-radius: 8px;
+  // border: 2px solid #f0f0f0; /* creates padding around the thumb */
+}
+
+/* On hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--palegold);
 }

@@ -77,7 +77,11 @@ input[type='checkbox']:disabled::before {
 }
 
 .checkbox-highlight {
-  color: var(--green-success);
+  color: var(--text-coloured);
   display: inline-block;
   font-size: 16px;
+}
+
+.text-input-error-message {
+  margin-top: 20px;
 }

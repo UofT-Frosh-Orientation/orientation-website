@@ -59,7 +59,7 @@
 }
 .all-accounts-table-header-row {
   box-sizing: border-box;
-  border-bottom: 4px solid var(--page-bg);
+  border-bottom: 2px solid var(--bg-primary);
   vertical-align: bottom;
 }
 
@@ -72,7 +72,7 @@
 }
 
 .all-accounts-row {
-  border-bottom: 2px solid var(--page-bg);
+  border-bottom: 2px dashed var(--bg-primary);
 }
 .all-account-data {
   padding: 8px;
@@ -130,4 +130,8 @@
 .all-account-data,
 .all-account-data-verified {
   vertical-align: top;
+}
+
+.round-button {
+  margin: 0px 10px;
 }

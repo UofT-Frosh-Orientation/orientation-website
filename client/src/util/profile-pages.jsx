@@ -12,6 +12,7 @@ import ProfileIconDarkMode from '../assets/darkmode/profiledropdown/user-solid.s
 import LogoutIconDarkMode from '../assets/darkmode/profiledropdown/arrow-right-from-bracket-solid.svg';
 
 function logoutFunction({ dispatch, navigate }) {
+  localStorage.clear();
   dispatch(logout({ navigate }));
 }
 

@@ -85,15 +85,30 @@ const FroshController = {
 
   async getFilteredFroshInfo(req, res, next) {
     try {
-      if (!req.user?.froshDataFields?.approved?.length) {
+      if (!req.user?.froshDataFields?.approved?.length && !req.user?.authScopes?.approved?.length) {
         return next(new Error('UNAUTHORIZED'));
       }
-      const filter = req.user?.froshDataFields?.approved.reduce(
+      const approvedFields = [
+        ...(req.user?.authScopes?.approved || []),
+        ...(req.user?.froshDataFields?.approved || []),
+      ];
+      const filter = approvedFields.reduce(
         (prev, curr) => {
           prev[curr] = 1;
           return prev;
         },
-        { _id: 1 },
+        {
+          _id: 0,
+          userType: 0,
+          firstName: 1,
+          lastName: 1,
+          preferredName: 1,
+          pronouns: 1,
+          email: 1,
+          utorid: 1,
+          froshGroup: 1,
+          shirtSize: 1,
+        },
       );
       const froshGroupFilters = [null];
       const scuntTeamFilters = [null];

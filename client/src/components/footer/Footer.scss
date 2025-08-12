@@ -115,6 +115,11 @@ ul {
   font-weight: 700;
   padding-bottom: 50px;
   padding-top: 20px;
+  @include devices(tablet) {
+    padding-bottom: 130px;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 }
 
 .footer-message-container {

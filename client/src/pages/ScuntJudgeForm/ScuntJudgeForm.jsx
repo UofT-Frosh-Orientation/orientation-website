@@ -7,6 +7,8 @@ import { userSelector } from '../../state/user/userSlice';
 import ReactSlider from 'react-slider';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonPlain } from '../../components/button/ButtonPlain/ButtonPlain';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
@@ -174,7 +176,7 @@ const ScuntNegativePoints = ({ teams, teamObjs }) => {
             marginBottom: '20px',
           }}
         >
-          <Button
+          <ButtonRound
             label={'Remove Points'}
             onClick={async () => {
               if (
@@ -202,7 +204,7 @@ const ScuntNegativePoints = ({ teams, teamObjs }) => {
           />
         </div>
         <h2 style={{ textAlign: 'center' }}>{assignedTeam?.name}</h2>
-        <h3 style={{ textAlign: 'center' }}>-{assignedPoints} Points</h3>
+        <h3 style={{ textAlign: 'center' }}>Removing {assignedPoints} Points</h3>
       </>
     </div>
   );
@@ -316,7 +318,7 @@ const ScuntBribePoints = ({ teams, teamObjs }) => {
               marginBottom: '20px',
             }}
           >
-            <Button
+            <ButtonRound
               label={'Give Bribe Points'}
               onClick={() => {
                 if (
@@ -439,26 +441,34 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
     getMissionSearchName('');
   };
 
+  // const missionCategories = [
+  //   'Select Category',
+  //   '✨ENCHANTED✨',
+  //   'B O U N D L E S S',
+  //   'But can you do THIS',
+  //   'Getting even STEAMier!',
+  //   'Getting STEAMy (arts and crafts)',
+  //   'Myhal and other nicely designed buildings',
+  //   'Ocomm',
+  //   'Ok Zoomer',
+  //   'Pop CULTured',
+  //   'S-K-U-L-E, Engineering U of T!',
+  //   'Skuligans at Skule Again??',
+  //   'Tales from time immemorial',
+  //   'The Classics',
+  //   'The Royal Wedding',
+  //   'This is some serious gourmet shit!',
+  //   'Turrono-wide items',
+  //   'Walk walk fashion baby',
+  //   'We live in a(n engineering) society',
+  //   'Wholesome 100',
+  // ];
+
   const missionCategories = [
     'Select Category',
-    '✨ENCHANTED✨',
-    'B O U N D L E S S',
-    'But can you do THIS',
-    'Getting even STEAMier!',
-    'Getting STEAMy (arts and crafts)',
-    'Myhal and other nicely designed buildings',
-    'Ocomm',
     'Ok Zoomer',
-    'Pop CULTured',
-    'S-K-U-L-E, Engineering U of T!',
-    'Skuligans at Skule Again??',
-    'Tales from time immemorial',
     'The Classics',
     'The Royal Wedding',
-    'This is some serious gourmet shit!',
-    'Turrono-wide items',
-    'Walk walk fashion baby',
-    'We live in a(n engineering) society',
     'Wholesome 100',
   ];
 
@@ -671,7 +681,7 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
               marginBottom: '20px',
             }}
           >
-            <Button
+            <ButtonRound
               label={'Submit'}
               onClick={async () => {
                 if (assignedTeam === 'Select Team' || !assignedTeam) {

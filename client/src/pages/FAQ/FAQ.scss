@@ -30,6 +30,12 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+
+  @include devices(tablet) {
+    margin-top: 0px;
+    height: 40vh;
+    min-height: 300px;
+  }
 }
 
 .faq-page-header-container {
@@ -42,6 +48,19 @@
 .faq-button-selector-container {
   margin: 0px 5% 0px 5%;
   background-color: var(--bg-primary);
+
+  @media only screen and (max-height: 850px) {
+    margin-top: 20px;
+  }
+}
+
+.faq-button-selector {
+  @media (min-width: 1034px) {
+    justify-content: center !important;
+  }
+  @include devices(tablet) {
+    padding-top: 20px !important;
+  }
 }
 
 .faq-error-text {
@@ -64,7 +83,6 @@
 }
 
 .faq-page-header-text {
-  padding-left: 5%;
   h1 {
     font-size: 90px;
     color: var(--text-primary);
@@ -301,20 +319,24 @@
   font-weight: bold;
   color: var(--sc-inverted) !important;
   @include devices(tablet) {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
 .faq-search-result-question-accordion {
   padding: 20px 20px 20px 0px;
   margin-bottom: 0px;
+
+  @include devices(tablet) {
+    padding: 15px 15px 15px 0px;
+  }
 }
 
 .faq-search-result-answer,
 .faq-search-result-answer-accordion {
   margin-top: 7px;
   border-radius: 12px;
-  color: var(--text-inverted);
+  color: var(--lilac);
   @include devices(tablet) {
     font-size: 16px;
   }
@@ -330,7 +352,7 @@
 .faq-no-results {
   width: 100%;
   text-align: center;
-  color: var(--text-dynamic);
+  color: var(--text-primary);
 }
 
 .pagination-controls {
@@ -355,7 +377,7 @@
 
     &.active {
       background-color: var(--monster);
-      color: var(--text-inverted);
+      color: var(--mikado);
     }
   }
 }

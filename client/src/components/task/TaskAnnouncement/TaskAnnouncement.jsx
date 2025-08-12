@@ -8,7 +8,7 @@ const TaskAnnouncement = ({ tasks, onDone }) => {
   if (!tasks || tasks.length <= 0) {
     return (
       <div className="task-container">
-        <h2 className="nothing-here">THERE IS NOTHING HERE YET!</h2>
+        <p className="profile-p-text">There is nothing here yet</p>
       </div>
     );
   }
@@ -40,7 +40,7 @@ const TaskAnnouncement = ({ tasks, onDone }) => {
                       <div className="task-name">{task.name}</div>
                       <div className="task-date">{'Created: ' + formattedDate}</div>
                     </div>
-                    <div className="mobile-only">
+                    {/* <div className="mobile-only">
                       <div
                         onClick={() => {
                           onDone(task);
@@ -52,17 +52,19 @@ const TaskAnnouncement = ({ tasks, onDone }) => {
                       >
                         <img src={Check} className={'task-img'} />
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                   {task.description ? (
-                    <div className="task-description" style={{ overflowWrap: 'anywhere' }}>
-                      {task.description}
-                    </div>
+                    <div
+                      className="task-description"
+                      style={{ overflowWrap: 'anywhere' }}
+                      dangerouslySetInnerHTML={{ __html: task.description }}
+                    />
                   ) : (
                     <></>
                   )}
                 </div>
-                <div className="desktop-only">
+                {/* <div className="desktop-only">
                   <div
                     onClick={() => {
                       onDone(task);
@@ -71,7 +73,7 @@ const TaskAnnouncement = ({ tasks, onDone }) => {
                   >
                     <img src={Check} className={'task-img'} />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           );

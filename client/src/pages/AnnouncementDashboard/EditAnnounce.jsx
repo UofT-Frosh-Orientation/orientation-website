@@ -78,7 +78,7 @@ const EditAnnounce = () => {
                     className="all-account-data-verified-container"
                     style={{ overflowWrap: 'anywhere' }}
                   >
-                    <div>
+                    <div className="announcement-name-container">
                       {announcement.editMode ? (
                         <TextInput
                           onChange={(value) => {
