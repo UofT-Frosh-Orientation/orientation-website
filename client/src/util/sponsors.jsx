@@ -11,6 +11,8 @@ import troostdark from '../assets/sponsors/troost_white.png';
 import EMMO from '../assets/sponsors/EMMO_green.png';
 import EMMOdark from '../assets/sponsors/EMMO_white.png';
 import Panago from '../assets/sponsors/Panago.png';
+import CRG from '../assets/sponsors/carly_dark.png';
+import CRGdark from '../assets/sponsors/carly_white.png';
 import Panagodark from '../assets/sponsors/Panagodark.png';
 import MeetYou from '../assets/sponsors/meetyou.png';
 import MeetYouDark from '../assets/sponsors/meetyoudark.png';
@@ -29,6 +31,14 @@ export const sponsors = [
     scale: 0.82,
     rank: 'diamond',
     label: 'Diamond Sponsor: EMMO',
+  },
+  {
+    website: 'https://carlyriangroup.com/', // Update this URL if different
+    image: CRG,
+    darkimage: CRGdark,
+    scale: 0.82,
+    rank: 'silver', // Change this to the appropriate tier
+    label: 'Silver Sponsor: Carly Rian Consulting Group',
   },
   {
     website: 'https://citydentaltoronto.com/',
