@@ -4770,8 +4770,8 @@ export const data = {
       'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.</a>',
-      'Start Time': '11:00 AM',
-      'End Time': '5:00 PM',
+      'Start Time': '1:00 PM',
+      'End Time': '4:00 PM',
       Color: 'long',
     },
     {
