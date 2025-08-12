@@ -4649,7 +4649,7 @@ export const data = {
     {
       'Event Name': 'Meet your F!rosh Group',
       'Start Time': '8:00 AM',
-      'Event Location': 'GB Front Steps',
+      'Event Location': 'Myhal',
       'End Time': '9:00 AM',
       Color: 'break',
     },
