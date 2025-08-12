@@ -4692,10 +4692,10 @@ export const data = {
       Color: 'break',
     },
     {
-      'Event Name': 'Nitelife',
+      'Event Name': 'Nitelife - High Score!',
       'Event Description':
         'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      // 'Event Location': 'The Pit',
+      'Event Location': 'MIE Common Room',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
@@ -4740,19 +4740,19 @@ export const data = {
       'End Time': '6:00 PM',
       Color: 'general',
     },
+    // {
+    //   'Event Name': 'Break/Dinner',
+    //   // 'Event Location': 'GB303',
+    //   'Start Time': '6:00 PM',
+    //   'End Time': '7:00 PM',
+    //   Color: 'break',
+    // },
     {
-      'Event Name': 'Break/Dinner',
-      // 'Event Location': 'GB303',
-      'Start Time': '6:00 PM',
-      'End Time': '7:00 PM',
-      Color: 'break',
-    },
-    {
-      'Event Name': 'Nitelife',
+      'Event Name': 'Nitelife - Slides Kombat',
       'Event Description':
         'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      // 'Event Location': 'The Pit',
-      'Start Time': '7:00 PM',
+      'Event Location': 'Myhal 5th Floor',
+      'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
     },
@@ -4807,10 +4807,10 @@ export const data = {
       Color: 'general',
     },
     {
-      'Event Name': 'Nitelife',
+      'Event Name': 'Nitelife - Tote Invaders',
       'Event Description':
         'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      // 'Event Location': 'The Pit',
+      'Event Location': 'Myhal 5th Floor',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
@@ -4824,10 +4824,10 @@ export const data = {
       Color: 'long',
     },
     {
-      'Event Name': 'Nitelife',
+      'Event Name': 'Nitelife - Guitar Hero',
       'Event Description':
         'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      // 'Event Location': 'The Pit',
+      'Event Location': 'Myhal 5th Floor',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
