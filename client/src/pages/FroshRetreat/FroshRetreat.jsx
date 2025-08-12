@@ -179,6 +179,12 @@ const retreatFAQs = [
       'If you previously purchased a ticket for $110.00, it does include transportation by bus to and from Hart House Farms. If you purchased a discounted, non-bus ticket for $100.00, it does not include transportation.',
     ],
   },
+  {
+    title: 'What will sleeping arrangements be like?',
+    description: [
+      'There is bunk space inside the cabins, though not enough for everyone, so we encourage you to bring a tent if you have one. You are free to sleep alone in your tent or share with friends. Definitely bring a blanket or sleeping bag regardless, as that will be needed even if you sleep on the bunk beds!',
+    ],
+  },
 ];
 
 const FroshRetreatFAQ = () => {
