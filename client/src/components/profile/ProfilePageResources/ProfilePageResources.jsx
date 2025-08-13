@@ -10,7 +10,7 @@ export const ProfilePageResources = ({ froshObject }) => {
     <div className="profile-page-resources profile-page-side-section">
       {froshObject ? (
         <>
-          {/* <AppleWallet /> */}
+          <AppleWallet />
           <ButtonBubble
             label={'Download Information PDF'}
             onClick={async () => {
