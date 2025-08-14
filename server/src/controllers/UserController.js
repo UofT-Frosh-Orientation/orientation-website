@@ -5,6 +5,10 @@ const passwordResetSubscription = require('../subscribers/passwordResetSubscript
 const announcementSubscription = require('../subscribers/announcementSubscription');
 const newUserSubscription = require('../subscribers/newUserSubscription');
 
+// const passkit = require('passkit-generator');
+// const path = require('path');
+// const fs = require('fs');
+
 const UserController = {
   /**
    * Signs up a new user.
@@ -423,6 +427,33 @@ const UserController = {
     }
   },
 
+  async uploadWaiver(req, res) {
+    try {
+      const userId = req.params.id; // get user id from request
+      const user = await UserServices.getUserByID(userId); // get user from DB
+
+      if (!user) {
+        console.log('User not found.');
+        return res.status(404).send('User not found.');
+      }
+
+      // if (!user.waiver) {
+      //   console.log('No waiver found for this user.');
+      //   return res.status(404).send('No waiver found for this user.');
+      // }
+
+      // const { filename, data, contentType } = user.waiver;
+
+      // res.setHeader('Content-Disposition', `inline; filename="${filename}"`);
+      // res.setHeader('Content-Type', contentType);
+      // res.send(data);
+    } catch (error) {
+      console.error(error);
+      console.log('Error retrieving file.');
+      res.status(500).send('Error retrieving file.');
+    }
+  },
+
   async viewWaiver(req, res) {
     try {
       const userId = req.params.id; // get user id from request
@@ -448,6 +479,46 @@ const UserController = {
       console.log('Error retrieving file.');
       res.status(500).send('Error retrieving file.');
     }
+  },
+
+  // For generate-pass, fill in properly
+  async generatePass(req, res) {
+    return res.status(200).send('Generate pass func...');
+    // try {
+    //   // 1. Load your pass certificate and key
+    //   const certPath = path.join(__dirname, '../../certs/pass-cert.pem');
+    //   const keyPath = path.join(__dirname, '../../certs/pass-key.pem');
+    //   const wwdrPath = path.join(__dirname, '../../certs/wwdr.pem');
+    //   const password = process.env.PASSKIT_CERT_PASSWORD;
+
+    //   // 2. Create a new pass
+    //   const pass = passkit.createPass({
+    //     model: path.join(__dirname, '../../passModels/generic'), // folder with pass.json and images
+    //     certificates: {
+    //       wwdr: fs.readFileSync(wwdrPath),
+    //       signerCert: fs.readFileSync(certPath),
+    //       signerKey: fs.readFileSync(keyPath),
+    //       signerKeyPassphrase: password,
+    //     },
+    //     overrides: {
+    //       serialNumber: req.user._id.toString(),
+    //       description: 'Frosh Orientation Pass',
+    //       organizationName: 'Skule Orientation',
+    //       // ...other fields as needed
+    //     },
+    //   });
+
+    //   // 3. Add user info to the pass
+    //   pass.primaryFields.add('name', `${req.user.firstName} ${req.user.lastName}`);
+
+    //   // 4. Generate the .pkpass file and send it
+    //   res.setHeader('Content-Type', 'application/vnd.apple.pkpass');
+    //   res.setHeader('Content-Disposition', 'attachment; filename="frosh.pkpass"');
+    //   await pass.pipe(res);
+    // } catch (error) {
+    //   console.error(error);
+    //   res.status(500).send('Error generating pass.');
+    // }
   },
 };
 

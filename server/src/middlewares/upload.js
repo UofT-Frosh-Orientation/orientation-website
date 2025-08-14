@@ -83,35 +83,66 @@ router.post('/upload-waiver', (req, res) => {
   });
 });
 
-router.get('/view-waiver', async (req, res) => {
-  try {
-    if (!req.user) {
-      console.log('User not authenticated.');
-      return res.status(401).send('User not authenticated.');
-    }
+// router.post('/view-waiver', async (req, res) => {
+//   try {
+//     if (!req.user) {
+//       console.log('User not authenticated.');
+//       return res.status(401).send('User not authenticated.');
+//     }
 
-    const userId = req.user._id;
-    const user = await User.findById(userId); // get user from DB
+//     const userId = req.user._id;
+//     const user = await User.findById(userId); // get user from DB
 
-    if (!user) {
-      console.log('User not found.');
-      return res.status(404).send('User not found.');
-    }
+//     if (!user) {
+//       console.log('User not found.');
+//       return res.status(404).send('User not found.');
+//     }
 
-    if (!user.waiver) {
-      console.log('No waiver found for this user.');
-      return res.status(404).send('No waiver found for this user.');
-    }
-    const { filename, data, contentType } = user.waiver;
+//     if (!user.waiver) {
+//       console.log('No waiver found for this user.');
+//       return res.status(404).send('No waiver found for this user.');
+//     }
+//     const { filename, data, contentType } = user.waiver;
 
-    res.setHeader('Content-Disposition', `inline; filename="${filename}"`);
-    res.setHeader('Content-Type', contentType);
-    res.send(data);
-  } catch (error) {
-    console.error(error);
-    console.log('Error retrieving file.');
-    res.status(500).send('Error retrieving file.');
-  }
-});
+//     res.setHeader('Content-Disposition', `inline; filename="${filename}"`);
+//     res.setHeader('Content-Type', contentType);
+//     res.send(data);
+//   } catch (error) {
+//     console.error(error);
+//     console.log('Error retrieving file.');
+//     res.status(500).send('Error retrieving file.');
+//   }
+// });
 
-module.exports = router;
+// Fill this out properly
+// router.post('/generate-pass', async (req, res) => {
+//   try {
+//     if (!req.user) {
+//       console.log('User not authenticated.');
+//       return res.status(401).send('User not authenticated.');
+//     }
+
+//     const userId = req.user._id;
+//     const user = await User.findById(userId); // get user from DB
+
+//     if (!user) {
+//       console.log('User not found.');
+//       return res.status(404).send('User not found.');
+//     }
+
+//     // Change this part
+//     if (!user.waiver) {
+//       console.log('No waiver found for this user.');
+//       return res.status(404).send('No waiver found for this user.');
+//     }
+//     const { filename, data, contentType } = user.waiver;
+
+//     res.setHeader('Content-Disposition', `inline; filename="${filename}"`);
+//     res.setHeader('Content-Type', contentType);
+//     res.send(data);
+//   } catch (error) {
+//     console.error(error);
+//     console.log('Error retrieving file.');
+//     res.status(500).send('Error retrieving file.');
+//   }
+// });
