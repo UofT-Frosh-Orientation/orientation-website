@@ -93,11 +93,7 @@ post {{$dotenv API_BASE_URL}}/frosh/register
 
 ###
 
-post {{$dotenv API_BASE_URL}}/upload-waiver
-
-###
-
-post {{$dotenv API_BASE_URL}}/user/upload-waiver
+post {{$dotenv API_BASE_URL}}/frosh/upload-waiver
 
 ###
 
@@ -106,14 +102,6 @@ get {{$dotenv API_BASE_URL}}/view-waiver
 ###
 
 get {{$dotenv API_BASE_URL}}/user/view-waiver
-
-###
-
-get {{$dotenv API_BASE_URL}}/generate-pass
-
-###
-
-get {{$dotenv API_BASE_URL}}/user/generate-pass
 
 ###
 

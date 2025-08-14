@@ -264,41 +264,4 @@ router.put('/user-exist', checkLoggedIn, checkUserType('frosh'), UserController.
  */
 router.get('/view-waiver/:id', checkLoggedIn, UserController.viewWaiver);
 
-router.post('/upload-waiver/:id', checkLoggedIn, UserController.uploadWaiver);
-
-/**
- * @swagger
- * /user/generate-pass:
- *   get:
- *     summary: Generates a pass for the authenticated user
- *     description: This endpoint generates a pass for the authenticated user. The user must be logged in to access this resource.
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       '200':
- *         description: Successfully retrieved the pass
- *         content:
- *           application/vnd.apple.pkpass:
- *             schema:
- *               type: string
- *               format: binary
- *       '401':
- *         description: User not authenticated
- *         content:
- *           text/plain:
- *             schema:
- *               type: string
- *               example: User not authenticated.
- *       '500':
- *         description: Internal server error
- *         content:
- *           text/plain:
- *             schema:
- *               type: string
- *               example: Error retrieving file.
- *     tags:
- *       - User
- */
-router.get('/generate-pass/:id', checkLoggedIn, UserController.generatePass);
-
 module.exports = router;

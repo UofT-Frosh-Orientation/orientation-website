@@ -7,24 +7,6 @@ import { useEffect } from 'react';
 import examplePass from '../../assets/walletpass/example.pkpass';
 
 const AppleWallet = () => {
-  // const handleGeneratePass = async () => {
-  //   try {
-  //     const { axios } = useAxios();
-  //     const response = await axios.get(
-  //       `/user/generate-pass`,
-  //       // {}, // request body (empty if you don't need to send data)
-  //       // { responseType: 'blob' } // axios config
-  //     );
-
-  //     // const blob = new Blob([response.data], { type: 'application/vnd.apple.pkpass' });
-  //     // const url = window.URL.createObjectURL(blob);
-  //     window.open(url);
-  //   } catch (e) {
-  //     console.error(e);
-  //     setSnackbar('Error viewing pass', true);
-  //   }
-  // };
-
   const downloadPass = () => {
     const link = document.createElement('a');
     link.href = examplePass; // Webpack will replace this with the file's final URL

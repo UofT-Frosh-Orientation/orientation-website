@@ -306,7 +306,7 @@ const RetreatRegistration = () => {
     formData.append('username', user.firstName);
 
     try {
-      const response = await axios.post(`/user/upload-waiver/${user?.id}`, formData, {
+      const response = await axios.post('/frosh/upload-waiver', formData, {
         headers: { 'content-type': 'multipart/form-data' },
       });
       setSnackbar('File uploaded successfully!');
@@ -321,7 +321,7 @@ const RetreatRegistration = () => {
   const handleViewWaiver = async () => {
     try {
       const { axios } = useAxios();
-      const response = await axios.get(`/user/view-waiver/${user?.id}`, {
+      const response = await axios.get(`/frosh/view-waiver/`, {
         responseType: 'blob', //  handling binary data
       });
       const blob = new Blob([response.data], { type: 'application/pdf' });
