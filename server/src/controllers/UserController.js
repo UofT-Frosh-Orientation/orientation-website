@@ -451,7 +451,21 @@ const UserController = {
   },
 
   async generatePass(req, res) {
-    return res.status(200).send('Pass generation will happen here...');
+    try {
+      const userId = req.params.id; // get user id from request
+      const user = await UserServices.getUserByID(userId); // get user from DB
+
+      if (!user) {
+        console.log('User not found.');
+        return res.status(404).send('User not found.');
+      }
+
+      return res.status(200).send(`Pass generation will happen here for ${user.firstName}`);
+    } catch (error) {
+      console.error(error);
+      console.log('Error retrieving file.');
+      res.status(500).send('Error retrieving file.');
+    }
   },
 };
 
