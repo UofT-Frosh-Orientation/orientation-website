@@ -264,4 +264,46 @@ router.put('/user-exist', checkLoggedIn, checkUserType('frosh'), UserController.
  */
 router.get('/view-waiver/:id', checkLoggedIn, UserController.viewWaiver);
 
+/**
+ * @swagger
+ * /user/generate-pass:
+ *   get:
+ *     summary: Retrieves the waiver file for the authenticated user
+ *     description: This endpoint retrieves the waiver file associated with the authenticated user. The user must be logged in to access this resource.
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved the waiver file
+ *         content:
+ *           application/pdf:
+ *             schema:
+ *               type: string
+ *               format: binary
+ *       '401':
+ *         description: User not authenticated
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: User not authenticated.
+ *       '404':
+ *         description: User or waiver file not found
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: User not found or No waiver found for this user.
+ *       '500':
+ *         description: Internal server error
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: Error retrieving file.
+ *     tags:
+ *       - User
+ */
+router.get('/generate-pass/:id', checkLoggedIn, UserController.generatePass);
+
 module.exports = router;

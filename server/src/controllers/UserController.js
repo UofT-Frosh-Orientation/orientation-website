@@ -449,6 +449,10 @@ const UserController = {
       res.status(500).send('Error retrieving file.');
     }
   },
+
+  async generatePass(req, res) {
+    return res.status(200).send('Pass generation will happen here...');
+  },
 };
 
 module.exports = UserController;
