@@ -731,3 +731,22 @@
     margin-top: 10px;
   }
 }
+
+/* If not already defined globally, add helpers */
+.mobile-only { display: none; }
+.desktop-only { display: block; }
+
+@include devices(tablet) {
+  .mobile-only { display: block; }
+  .desktop-only { display: none; }
+}
+
+/* Optional spacing for the mobile QR at top */
+.profile-qr-mobile {
+  padding: 16px 16px 0 16px;
+
+  /* let it look consistent with the side card spacing */
+  .profile-page-qr-code {
+    margin: 0 auto;
+  }
+}
