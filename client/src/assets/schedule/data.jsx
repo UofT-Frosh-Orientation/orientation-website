@@ -4761,7 +4761,7 @@ export const data = {
     {
       'Event Name': 'Consent Seminar',
       'Event Description': `Attend the consent workshop and be entered to win some amazing prizes!`,
-      'Start Time': '9:00 AM',
+      'Start Time': '8:30 AM',
       'End Time': '11:00 AM',
       Color: 'other',
     },
