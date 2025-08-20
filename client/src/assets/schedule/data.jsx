@@ -4707,7 +4707,7 @@ export const data = {
       // 'Event Location': 'Front Campus',
       'Event Description':
         "Learn from some of your amazing new TA's about all the strategies you need to know for success here at UofT Engineering!",
-      'Start Time': '8:00 AM',
+      'Start Time': '8:30 AM',
       'End Time': '10:00 AM',
       Color: 'other',
     },
