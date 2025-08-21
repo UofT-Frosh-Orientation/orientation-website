@@ -80,18 +80,18 @@ export const PageScuntJudgeForm = () => {
   return (
     <div className="scunt-judge-form-page">
       <div className="scunt-judge-form-container">
-        <h1>JUDGE DASHBOARD</h1>
-        <h3>
+        <h1>Judge Dashboard</h1>
+        {/* <h3>
           Hello,{' '}
           {user?.preferredName === '' || !user?.preferredName
             ? user?.firstName
             : user?.preferredName}
-        </h3>
+        </h3> */}
         <ScuntMissionSelection teams={teams} missions={missions} teamObjs={teamObjs} />
         <div className="separator" />
         <ScuntBribePoints teams={teams} teamObjs={teamObjs} />
-        <div className="separator" />
-        <ScuntNegativePoints teams={teams} teamObjs={teamObjs} />
+        {/* <div className="separator" /> */}
+        {/* <ScuntNegativePoints teams={teams} teamObjs={teamObjs} /> */}
       </div>
     </div>
   );
@@ -110,7 +110,7 @@ const ScuntNegativePoints = ({ teams, teamObjs }) => {
   return (
     <div style={{ width: '100%' }}>
       <div style={{ height: '15px' }} />
-      <h2>REMOVE POINTS</h2>
+      <h2>Remove Points</h2>
       <>
         <div
           style={{
@@ -477,6 +477,7 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
   return (
     <>
       <QRScannerDisplay
+        className="qr-scanner-judge"
         setScannedData={(data) => {
           const missionID = data.split('|')[1];
           if (missionID === undefined) {
@@ -499,7 +500,7 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
           setHasQRScanned(true);
         }}
       />
-      <h2>Mission Points</h2>
+      {/* <h2>Mission Points</h2> */}
       <p className="text-input-title">{'Search for a mission'}</p>
 
       <div style={{ width: '100%' }}>

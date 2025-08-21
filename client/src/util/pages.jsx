@@ -318,6 +318,7 @@ export const pages = {
         </AuthorizedPage>
       ),
       path: '/skule-hunt-game-controls',
+      includeFooter: true,
     },
     {
       label: 'Skule™ Hunt Missions Dashboard',

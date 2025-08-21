@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   color: var(--text-dynamic);
+  margin-top: 60px;
 }
 
 .scunt-judge-form-container {
@@ -18,10 +19,12 @@
   max-width: 1000px;
   display: flex;
   flex-wrap: wrap;
+
   h1 {
     text-align: center;
     font-size: 40px;
     width: 100%;
+    font-weight: 900;
   }
   h3 {
     font-size: 17px;

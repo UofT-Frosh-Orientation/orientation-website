@@ -7,7 +7,7 @@ import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
 import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
-
+import ReactSlider from 'react-slider';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getJudges,
@@ -15,7 +15,12 @@ import {
   getScuntSettings,
   setScuntSettings,
 } from '../../state/scuntSettings/saga';
-import { shuffleScuntTeams, setScuntTeams, getScuntTeams } from '../../state/scuntTeams/saga';
+import {
+  shuffleScuntTeams,
+  setScuntTeams,
+  getScuntTeams,
+  subtractPoints,
+} from '../../state/scuntTeams/saga';
 import {
   scuntJudgeSelector,
   scuntSettingsSelector,
@@ -27,6 +32,15 @@ import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 
 import { PopupModal } from '../../components/popup/PopupModal';
 import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
+
+export const getScuntTeamObjFromTeamName = (teamName, teamObjs) => {
+  if (!teamName || !teamObjs) {
+    return {};
+  }
+  return teamObjs.filter((teamObj) => {
+    return teamObj?.name === teamName;
+  })[0];
+};
 
 const scuntSettingsInfo = [
   {
@@ -113,6 +127,18 @@ const ScuntGameSettings = () => {
     revealMissions: true,
     allowJudging: true,
   };
+
+  const { scuntTeams } = useSelector(scuntTeamsSelector);
+
+  const [teams, setTeams] = useState(['Select Team']);
+  const [teamObjs, setTeamObjs] = useState([]);
+
+  useEffect(() => {
+    if (scuntTeams?.length) {
+      setTeamObjs(scuntTeams);
+      setTeams(['Select Team', ...scuntTeams.map((team) => team?.name)]);
+    }
+  }, [scuntTeams]);
 
   return (
     <div className="scunt-game-settings-page">
@@ -255,6 +281,10 @@ const ScuntGameSettings = () => {
         <ShuffleTeamsButton />
         <div className="separator" />
         <br />
+        <ScuntNegativePoints teams={teams} teamObjs={teamObjs} />
+        <br />
+        <br />
+        <br />
       </div>
     </div>
   );
@@ -321,7 +351,7 @@ const RefillJudgeBribePoints = () => {
 
   return (
     <div style={{ margin: '0 5px' }}>
-      <h2>JUDGE STATUS</h2>
+      <h2 className="scunt-subheading">Judge Status</h2>
       <div style={{ height: '8px' }} />
       {judges?.map((judge) => {
         return (
@@ -331,8 +361,8 @@ const RefillJudgeBribePoints = () => {
           </p>
         );
       })}
-      <div style={{ height: '20px' }} />
-      <h2>REFILL BRIBE POINTS</h2>
+      <div style={{ height: '60px' }} />
+      <h2 className="scunt-subheading">Refill Bribe Points</h2>
       <div style={{ height: '5px' }} />
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <Dropdown
@@ -417,7 +447,7 @@ const RenameTeams = () => {
 
   return (
     <div style={{ margin: '0 5px' }}>
-      <h2>RENAME TEAMS</h2>
+      <h2 className="scunt-subheading">Rename Teams</h2>
       <div style={{ height: '5px' }} />
       {teamObjs.map((teamObj, index) => {
         return (
@@ -658,6 +688,124 @@ ScuntGameSettingsTextbox.propTypes = {
   newSettings: PropTypes.object,
   setNewSettings: PropTypes.func,
   initialValue: PropTypes.string,
+};
+
+const ScuntNegativePoints = ({ teams, teamObjs }) => {
+  const maxRemovePoints = 1000;
+  const [assignedPoints, setAssignedPoints] = useState(0);
+  const [assignedTeam, setAssignedTeam] = useState('');
+  const [clearPointsInput, setClearPointsInput] = useState(false);
+
+  const { setSnackbar } = useContext(SnackbarContext);
+
+  const dispatch = useDispatch();
+
+  return (
+    <div style={{ width: '100%' }}>
+      <div style={{ height: '15px' }} />
+      <h2 className="scunt-subheading">Remove Points</h2>
+      <>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            marginLeft: '5px',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div style={{ width: '100%' }}>
+            <Dropdown
+              label={'Team'}
+              initialSelectedIndex={0}
+              values={teams}
+              onSelect={(value) => {
+                setAssignedTeam(getScuntTeamObjFromTeamName(value, teamObjs));
+              }}
+              isDisabled={false}
+            />
+          </div>
+          <div>
+            <TextInput
+              label={'Points'}
+              placeholder={`${assignedPoints}`}
+              onChange={(value) => {
+                if (isNaN(parseInt(value))) {
+                  return;
+                }
+                if (value === '' || value === undefined) {
+                  setAssignedPoints(0);
+                } else if (parseInt(value) >= maxRemovePoints) {
+                  setAssignedPoints(maxRemovePoints);
+                } else {
+                  setAssignedPoints(parseInt(value));
+                }
+              }}
+              setClearText={setClearPointsInput}
+              clearText={clearPointsInput}
+            />
+          </div>
+        </div>
+        <div style={{ height: '10px' }} />
+        <ReactSlider
+          value={assignedPoints}
+          defaultValue={0}
+          max={maxRemovePoints}
+          min={0}
+          className="horizontal-slider"
+          thumbClassName="slider-thumb"
+          trackClassName="slider-track"
+          renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
+          onChange={(value) => {
+            setAssignedPoints(value);
+            setClearPointsInput(true);
+          }}
+        />
+        <div style={{ height: '60px' }} />
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: '20px',
+          }}
+        >
+          <ButtonRound
+            label={'Remove Points'}
+            onClick={async () => {
+              if (
+                assignedTeam === 'Select Team' ||
+                !assignedTeam ||
+                assignedTeam === '' ||
+                Object.keys(assignedTeam).length <= 0
+              ) {
+                setSnackbar('Please select a team!', true);
+                return;
+              }
+              setAssignedPoints(0);
+              //Subtract points here
+
+              dispatch(
+                subtractPoints({
+                  teamNumber: assignedTeam?.number,
+                  points: assignedPoints,
+                  setSnackbar,
+                }),
+              );
+
+              setClearPointsInput(true);
+            }}
+          />
+        </div>
+        <h2 style={{ textAlign: 'center' }}>{assignedTeam?.name}</h2>
+        <h3 style={{ textAlign: 'center' }}>Removing {assignedPoints} Points</h3>
+      </>
+    </div>
+  );
+};
+
+ScuntNegativePoints.propTypes = {
+  teams: PropTypes.array,
+  teamObjs: PropTypes.array,
 };
 
 export { ScuntGameSettings };

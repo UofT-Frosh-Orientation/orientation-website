@@ -1,5 +1,10 @@
 @import '../../scssStyles/mixins';
 
+.separator {
+  margin-top: 50px;
+  // margin-bottom: 20px;
+}
+
 .scunt-game-settings-page {
   width: 100%;
   height: 100%;
@@ -83,4 +88,11 @@
   .mb-sm {
     margin-bottom: 10px;
   }
+}
+
+.scunt-subheading {
+  color: var(--text-primary);
+  font-size: 28px;
+  font-weight: 900;
+  margin-top: 5px;
 }
