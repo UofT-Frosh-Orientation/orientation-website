@@ -8,6 +8,18 @@
   color: var(--text-dynamic);
 }
 
+.separator {
+  margin: 20px 0;
+}
+
+.navbar-space-top {
+  margin-top: 80px;
+
+  @include devices(tablet) {
+    margin-top: 40px;
+  }
+}
+
 .scunt-point-transactions-container {
   background-color: var(--container-bg);
   border-radius: 15px;
@@ -22,6 +34,7 @@
     text-align: center;
     font-size: 40px;
     width: 100%;
+    font-weight: 900;
   }
   h3 {
     font-size: 17px;
@@ -38,11 +51,29 @@
     display: flex;
     flex-direction: column;
     font-size: 21px;
+    margin-top: 25px;
     p {
       font-size: 22px;
       text-align: left;
       width: 100%;
-      margin-bottom: 10px;
     }
   }
+}
+
+.fix-header {
+  font-weight: 900;
+}
+
+.transaction-sub {
+  margin-bottom: 25px;
+  font-weight: 300;
+  font-size: 20px !important;
+  color: var(--text-secondary);
+}
+
+.transaction-main {
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
 }

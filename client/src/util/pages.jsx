@@ -339,6 +339,7 @@ export const pages = {
     {
       label: 'Skule™ Hunt Point Transactions',
       path: '/skule-hunt-transactions',
+      includeFooter: true,
       component: (
         <AuthorizedPage authScopes={['scunt:exec view transactions']}>
           <ScuntTransactions />

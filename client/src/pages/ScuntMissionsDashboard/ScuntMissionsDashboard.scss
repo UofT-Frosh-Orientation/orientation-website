@@ -1,3 +1,5 @@
+@import '../../scssStyles/mixins';
+
 .scunt-create-missions-tab-container {
   display: flex;
   flex-direction: column;
@@ -29,7 +31,7 @@
 .scunt-create-missions-preview {
   width: 100%;
   padding: 25px;
-  background-color: var(--purple-bg);
+  background-color: var(--bg-secondary);
   border-radius: 20px;
   box-shadow: var(--shadow);
 
@@ -69,7 +71,7 @@
 }
 
 .scunt-progress-bar-background {
-  background-color: var(--yellow);
+  background-color: var(--mikado);
 }
 
 .scunt-upload-missions-container {
@@ -90,6 +92,29 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  color: var(--text-primary);
+  background-color: var(--transparent);
+}
+
+.add-margin-left {
+  margin-left: 48px;
+}
+
+.missions-choose-file::file-selector-button {
+  background-color: #d9d9d9;
+
+  border-image: none;
+  border: none;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  padding: 15px 25px 15px 25px;
+  border-radius: 50px;
+
+  margin-top: 30px;
+  margin-bottom: 15px;
+  margin-right: 20px;
 }
 
 .upload-mission-table-header-row {
@@ -109,4 +134,10 @@
 
 .upload-mission-cell {
   padding: 8px;
+}
+
+.add-margin-bottom {
+  @include devices(tablet) {
+    margin-bottom: 80px;
+  }
 }
