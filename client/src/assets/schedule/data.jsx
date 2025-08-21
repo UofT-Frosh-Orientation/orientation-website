@@ -4707,7 +4707,7 @@ export const data = {
       // 'Event Location': 'Front Campus',
       'Event Description':
         "Learn from some of your amazing new TA's about all the strategies you need to know for success here at UofT Engineering!",
-      'Start Time': '8:00 AM',
+      'Start Time': '8:30 AM',
       'End Time': '10:00 AM',
       Color: 'other',
     },
@@ -4761,7 +4761,7 @@ export const data = {
     {
       'Event Name': 'Consent Seminar',
       'Event Description': `Attend the consent workshop and be entered to win some amazing prizes!`,
-      'Start Time': '9:00 AM',
+      'Start Time': '8:30 AM',
       'End Time': '11:00 AM',
       Color: 'other',
     },
