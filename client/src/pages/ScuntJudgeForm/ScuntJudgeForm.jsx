@@ -241,7 +241,7 @@ const ScuntBribePoints = ({ teams, teamObjs }) => {
   return (
     <div style={{ width: '100%' }}>
       <div style={{ height: '15px' }} />
-      <h2>Bribe Points</h2>
+      <h2 style={{ fontWeight: '900', marginBottom: '10px' }}>Bribe Points</h2>
       <h4>Remaining bribe points: {remainingBribePoints}</h4>
       {remainingBribePoints === 0 ? (
         <div style={{ height: '15px' }}></div>
@@ -470,40 +470,47 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
     'The Classics',
     'The Royal Wedding',
     'Wholesome 100',
+    'Pop CULTured',
+    'S-K-U-L-E, Engineering U of T!',
+    'But can you do THIS',
+    'Skuligans at Skule Again??',
+    'Myhal and other nicely designed buildings',
   ];
 
   const [currentCategory, setCurrentCategory] = useState(missionCategories[0]);
 
   return (
     <>
-      <QRScannerDisplay
-        className="qr-scanner-judge"
-        setScannedData={(data) => {
-          const missionID = data.split('|')[1];
-          if (missionID === undefined) {
-            setSnackbar('There was an error with the QR code', true);
-            return;
-          }
-          for (let mission of missions) {
-            if (mission?.number.toString() === missionID.toString()) {
-              setAssignedPoints(mission?.points);
-              setAssignedMission(undefined);
-              setAssignedMission(mission);
+      <div className="qr-scanner-judge">
+        <QRScannerDisplay
+          className="qr-scanner-judge"
+          setScannedData={(data) => {
+            const missionID = data.split('|')[1];
+            if (missionID === undefined) {
+              setSnackbar('There was an error with the QR code', true);
+              return;
             }
-          }
-          const teamNumber = data.split('|')[0];
-          if (teamNumber === undefined) {
-            setSnackbar('There was an error with the QR code', true);
-            return;
-          }
-          setAssignedTeam(getScuntTeamObjFromTeamNumber(teamNumber, teamObjs));
-          setHasQRScanned(true);
-        }}
-      />
+            for (let mission of missions) {
+              if (mission?.number.toString() === missionID.toString()) {
+                setAssignedPoints(mission?.points);
+                setAssignedMission(undefined);
+                setAssignedMission(mission);
+              }
+            }
+            const teamNumber = data.split('|')[0];
+            if (teamNumber === undefined) {
+              setSnackbar('There was an error with the QR code', true);
+              return;
+            }
+            setAssignedTeam(getScuntTeamObjFromTeamNumber(teamNumber, teamObjs));
+            setHasQRScanned(true);
+          }}
+        />
+      </div>
       {/* <h2>Mission Points</h2> */}
       <p className="text-input-title">{'Search for a mission'}</p>
 
-      <div style={{ width: '100%' }}>
+      {/* <div style={{ width: '100%' }}>
         <Dropdown
           initialSelectedIndex={0}
           values={missionCategories}
@@ -512,7 +519,7 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
           }}
           isDisabled={false}
         />
-      </div>
+      </div> */}
 
       <div className="small-width-input">
         <TextInput
