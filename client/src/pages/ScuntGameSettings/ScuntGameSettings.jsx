@@ -5,6 +5,7 @@ import './ScuntGameSettings.scss';
 
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -167,7 +168,8 @@ const ScuntGameSettings = () => {
             flexWrap: 'wrap',
           }}
         >
-          <Button
+          <ButtonRound
+            className="scunt-button-round"
             label="Update Settings"
             onClick={async () => {
               let name = 'Skule™ Hunt 2T5 Settings';
@@ -201,11 +203,11 @@ const ScuntGameSettings = () => {
                 }),
               );
             }}
-          ></Button>
+          ></ButtonRound>
 
-          <Button
+          <ButtonRound
             label="Set Recommended Settings"
-            isSecondary={true}
+            className="scunt-button-round"
             onClick={async () => {
               // setting recommended settings
 
@@ -274,10 +276,17 @@ const ShuffleTeamsButton = () => {
         <div className="registration-edit-popup">
           <h1>Are you sure?</h1>
           <h2>All users will have different teams.</h2>
-          <h2>Team information and points history will be reset.</h2>
+          <h2 className="mb-sm">Team information and points history will be reset.</h2>
           <div className="registration-edit-popup-buttons">
-            <Button label="Cancel" isSecondary onClick={() => setShowPopUp(false)} />
-            <Button
+            <ButtonRound
+              className="scunt-button-round"
+              label="Cancel"
+              onClick={() => {
+                setShowPopUp(false);
+              }}
+            />
+            <ButtonRound
+              className="scunt-button-round"
               label="Shuffle Teams"
               onClick={() => {
                 dispatch(shuffleScuntTeams(setSnackbar));
@@ -287,9 +296,9 @@ const ShuffleTeamsButton = () => {
           </div>
         </div>
       </PopupModal>
-      <Button
+      <ButtonRound
+        className="scunt-button-round"
         label="Shuffle, Reset and Generate Teams"
-        isSecondary={true}
         style={{ width: 'fit-content' }}
         onClick={() => {
           setShowPopUp(true);
@@ -360,7 +369,8 @@ const RefillJudgeBribePoints = () => {
           />
         </div>
       </div>
-      <Button
+      <ButtonRound
+        className="scunt-button-round"
         label={'Add Judge Bribe Points'}
         onClick={async () => {
           if (!assignedBribeRefillPoints) {
@@ -425,7 +435,8 @@ const RenameTeams = () => {
         );
       })}
       <div></div>
-      <Button
+      <ButtonRound
+        className="scunt-button-round"
         label={'Rename Teams'}
         isDisabled={!teamObjs?.length}
         onClick={() => {
@@ -458,7 +469,8 @@ const DeleteMission = () => {
           clearText={clearInput}
         />
       </div>
-      <Button
+      <ButtonRound
+        className="scunt-button-round"
         label={'Delete Mission'}
         onClick={() => {
           if (assignedMissionNumber === -1) {
@@ -509,7 +521,8 @@ const HideRevealMissions = () => {
         />
       </div>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <Button
+        <ButtonRound
+          className="scunt-button-round"
           label={'Hide Missions'}
           onClick={() => {
             if (
@@ -529,7 +542,8 @@ const HideRevealMissions = () => {
             }
           }}
         />
-        <Button
+        <ButtonRound
+          className="scunt-button-round"
           label={'Reveal Missions'}
           onClick={() => {
             if (
@@ -559,9 +573,7 @@ const CurrentScuntGameSettings = () => {
 
   return (
     <div className="current-scunt-game-settings-container">
-      <h3 style={{ color: 'var(--text-dynamic)', textAlign: 'center', marginBottom: '20px' }}>
-        CURRENT SKULE HUNT SETTINGS
-      </h3>
+      <h3 className="current-scunt-header">Current SKULE Hunt Settings</h3>
 
       {scuntSettings ? (
         Object.keys(scuntSettings)?.map((settingKey) => {

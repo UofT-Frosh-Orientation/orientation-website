@@ -34,13 +34,53 @@
 }
 
 .current-scunt-game-settings-container {
+  margin-top: 40px;
   width: 50%;
   padding: 25px;
-  background-color: var(--purple-bg);
+  background-color: var(--container-bg);
   border-radius: 20px;
   box-shadow: var(--shadow);
   margin-bottom: 50px;
   @include devices(tablet) {
     width: 100%;
+  }
+}
+
+.current-scunt-header {
+  color: var(--text-primary);
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.scunt-button-round {
+  margin: 10px;
+}
+
+.registration-edit-popup {
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 900;
+  text-align: center;
+
+  h1 {
+    color: var(--text-primary);
+    font-size: 32px;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    color: var(--text-secondary);
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    margin: 10px 40px;
+  }
+
+  .mb-sm {
+    margin-bottom: 10px;
   }
 }
