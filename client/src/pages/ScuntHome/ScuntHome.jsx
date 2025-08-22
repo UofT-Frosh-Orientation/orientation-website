@@ -37,14 +37,24 @@ export const PageScuntHome = () => {
 
   return (
     <>
+      <ScuntTitle />
       <BackToProfileButton />
-      <ScuntCountdown />
       <ScuntLinks />
+      <ScuntCountdown />
       <AboutScunt />
       {/* <ScuntDiscord /> */}
     </>
   );
 };
+const ScuntTitle = () => {
+  return(
+    <div className = 'scunt-title-container'>
+      <img className = 'scunt-title-image' src='\src\assets\scunt\scunt-photo.jpg'></img>
+      <div className='scunt-title-gradient'></div>
+      <h1 className='scunt-home-title-text'>SKULE<br />HUNT</h1>
+    </div>
+  );
+;}
 
 const BackToProfileButton = () => {
   const { darkMode } = useContext(DarkModeContext);
@@ -62,8 +72,6 @@ const AboutScunt = () => {
 
   return (
     <>
-      <br />
-      <br />
       {/* <img src={darkMode ? WaveDarkMode : Wave} className="wave-image wave-image-footer" /> */}
 
       <div className="about-scunt-container">
