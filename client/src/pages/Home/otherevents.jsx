@@ -10,13 +10,12 @@ export const otherEventsData = [
     image: bso,
     link: 'https://www.instagram.com/uoftbso/',
   },
-  // {
-  //   title: 'Faculty Orientation Events',
-  //   description:
-  //     "Check out the schedule for Faculty Orientation Events happening on August 28th!",
-  //   image: campus,
-  //   link: 'https://undergrad.engineering.utoronto.ca/event/faculty-orientation-events/',
-  // },
+  {
+    title: 'Faculty Orientation Events',
+    description: 'Check out the schedule for Faculty Orientation Events happening on August 28th!',
+    image: campus,
+    link: 'https://undergrad.engineering.utoronto.ca/event/faculty-orientation-events-2/',
+  },
   {
     title: 'Spadina Block Party',
     description:

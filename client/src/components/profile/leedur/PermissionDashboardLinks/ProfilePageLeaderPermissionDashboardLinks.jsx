@@ -114,7 +114,7 @@ export const ProfilePageLeaderPermissionDashboardLinks = () => {
           authScopes: ['scunt:exec view transactions'],
         },
         {
-          label: 'Skule™ Hunt Settings',
+          label: 'Skule™ Hunt Admin Panel',
           anyRegisterScope: false,
           link: '/skule-hunt-game-controls',
           authScopes: ['scunt:exec game controls'],

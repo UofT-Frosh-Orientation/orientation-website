@@ -62,15 +62,19 @@
     color: var(--text-dynamic);
   }
   .table-wrap {
-    // padding: 15px 5%;
-    padding-bottom: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    // margin: 0px 20px;
-    // @include devices(tablet) {
-    //   padding: 15px 1%;
-    // }
+    width: 100%;
+    margin: 0 auto;
+    min-height: 200px;
+  }
+  .empty-container {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   table {
@@ -140,5 +144,12 @@
   .pagination-control,
   .export-button {
     margin: 10px;
+  }
+
+  .empty-state {
+    text-align: center;
+    color: var(--text-dynamic);
+    font-size: 24px;
+    font-weight: 900;
   }
 }

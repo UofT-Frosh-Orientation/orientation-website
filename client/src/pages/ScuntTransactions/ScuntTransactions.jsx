@@ -5,6 +5,7 @@ import useAxios from '../../hooks/useAxios';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import { getScuntTeamObjFromTeamName } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 const { axios } = useAxios();
 import DeleteIcon from '../../assets/misc/circle-xmark-solid.svg';
 import { DarkModeContext } from '../../util/DarkModeProvider';
@@ -48,7 +49,7 @@ export const ScuntTransactions = () => {
       <div className="navbar-space-top"></div>
       <div className="scunt-point-transactions-page">
         <div className="scunt-point-transactions-container">
-          <h1>POINT TRANSACTIONS</h1>
+          <h1>Point Transactions</h1>
           <div className="separator" />
           <p>Transactions of all points that have been distributed to teams</p>
           <p>When displaying all teams, only the latest 50 transactions are shown</p>
@@ -67,7 +68,7 @@ export const ScuntTransactions = () => {
                 alignItems: 'center',
               }}
             >
-              <h2>TEAM:</h2>
+              <h2 className="fix-header">Team:</h2>
               <div style={{ width: '10px' }}></div>
               <Dropdown
                 initialSelectedIndex={0}
@@ -80,7 +81,7 @@ export const ScuntTransactions = () => {
               />
             </div>
             <div>
-              <Button
+              <ButtonRound
                 label={'Refresh'}
                 onClick={() => {
                   setRefresh(true);
@@ -175,7 +176,7 @@ const ScuntTeamTransactions = ({ teamObj, showMostRecentOnly, refresh }) => {
               style={{ display: 'flex', alignItems: 'flex-start' }}
               key={pointTransaction?.transactions?._id}
             >
-              <img
+              {/* <img
                 onClick={() => {
                   deleteTransaction(pointTransaction?.transactions, pointTransaction?.number);
                 }}
@@ -183,17 +184,19 @@ const ScuntTeamTransactions = ({ teamObj, showMostRecentOnly, refresh }) => {
                 style={{
                   width: '25px',
                   height: '25px',
-                  marginRight: '10px',
+                  marginRight: '25px',
                   filter: darkMode ? 'invert(1)' : 'invert(0.5)',
                   cursor: 'pointer',
                 }}
-              />
+              /> */}
               <div>
-                <p>
+                <p className="transaction-main">
                   <b>{(index + 1).toString()}.</b> {pointTransaction?.name}:{' '}
                   {pointTransaction?.transactions?.points} points
                 </p>
-                <p style={{ marginLeft: '25px' }}>{pointTransaction?.transactions?.name}</p>
+                <p style={{ marginLeft: '25px' }} className="transaction-sub">
+                  {pointTransaction?.transactions?.name}
+                </p>
               </div>
             </div>
           );
