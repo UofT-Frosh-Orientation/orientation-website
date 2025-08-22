@@ -26,6 +26,7 @@ import backButton from '../../assets/misc/pixel-backarrow-light.png';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAccordion/RetreatSingleAccordion';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
+import {ScuntTitle} from '../../components/ScuntTitle/ScuntTitle.jsx'
 
 export const PageScuntHome = () => {
   const dispatch = useDispatch();
@@ -46,15 +47,6 @@ export const PageScuntHome = () => {
     </>
   );
 };
-const ScuntTitle = () => {
-  return(
-    <div className = 'scunt-title-container'>
-      <img className = 'scunt-title-image' src='\src\assets\scunt\scunt-photo.jpg'></img>
-      <div className='scunt-title-gradient'></div>
-      <h1 className='scunt-home-title-text'>SKULE<br />HUNT</h1>
-    </div>
-  );
-;}
 
 const BackToProfileButton = () => {
   const { darkMode } = useContext(DarkModeContext);
@@ -240,6 +232,8 @@ const SkuleHuntFAQ = () => {
     </>
   );
 };
+
+
 
 // const ScuntDiscord = () => {
 //   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
