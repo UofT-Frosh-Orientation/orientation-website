@@ -8,6 +8,8 @@ import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { getScuntTeams } from '../../state/scuntTeams/saga';
 const { axios } = useAxios();
+import '../../pages/ScuntHome/ScuntHome.scss';
+
 
 
 export const ScuntTitle = () => {
