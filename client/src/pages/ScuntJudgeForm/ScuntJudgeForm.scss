@@ -6,6 +6,8 @@
   justify-content: center;
   align-items: center;
   color: var(--text-dynamic);
+  margin-top: 60px;
+  margin-bottom: 80px;
 }
 
 .scunt-judge-form-container {
@@ -18,10 +20,12 @@
   max-width: 1000px;
   display: flex;
   flex-wrap: wrap;
+
   h1 {
     text-align: center;
     font-size: 40px;
     width: 100%;
+    font-weight: 900;
   }
   h3 {
     font-size: 17px;
@@ -271,4 +275,9 @@
 .scunt-mission-entry-judging-star {
   width: 15px;
   margin-right: 5px;
+}
+
+.qr-scanner-judge {
+  margin: 0px auto;
+  margin-top: 20px;
 }

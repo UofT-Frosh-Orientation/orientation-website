@@ -266,9 +266,11 @@ const PageFroshInfoTable = () => {
       </p>
       <div className="table-wrap">
         {froshList?.length === 0 ? (
-          <div style={{ margin: '5%', textAlign: 'center' }}>
-            <h2>IT LOOKS A BIT EMPTY HERE...</h2>
-            <h2>PLEASE READ NOTES LISTED ABOVE AND ENSURE YOU HAVE THE CORRECT PERMISSIONS.</h2>
+          <div className="empty-container">
+            <h2 className="empty-state">It looks a bit empty here...</h2>
+            <h2 className="empty-state">
+              Please read the notes listed above and ensure you have the correct permissions.
+            </h2>
             <br />
           </div>
         ) : (

@@ -9,7 +9,7 @@ import { Button } from '../../components/button/Button/Button';
 import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import EditIconDark from '../../assets/misc/edit-icon-dark.svg';
 import EditIcon from '../../assets/misc/edit-icon.svg';
-// import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
+import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Link } from 'react-router-dom';
 import { instagramAccounts } from '../../util/instagramAccounts';
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
@@ -33,7 +33,7 @@ import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSl
 import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
 import { ProfilePageSchedule } from '../../components/profile/ProfilePageSchedule/ProfilePageSchedule';
 import { ProfilePageResources } from '../../components/profile/ProfilePageResources/ProfilePageResources';
-// import { ProfilePageFroshScuntTeamsSelection } from '../../components/profile/scunt/ProfilePageFroshScuntTeamsSelection/ProfilePageFroshScuntTeamsSelection';
+import { ProfilePageFroshScuntTeamsSelection } from '../../components/profile/scunt/ProfilePageFroshScuntTeamsSelection/ProfilePageFroshScuntTeamsSelection';
 import { getScuntTeams } from '../../state/scuntTeams/saga';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
@@ -115,6 +115,15 @@ const PageProfileFrosh = () => {
               </Link>
             </div>
           ) : null}
+
+          <div className="profile-info-top mobile-only">
+            <ProfilePageQRCode />
+            {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
+            {user?.isRegistered ? <ProfilePageMobileTeam /> : null}
+            {user?.attendingScunt ? <ProfilePageScuntTeam /> : null}
+            {/* <ProfilePageFroshScuntTeamsSelection /> */}
+          </div>
+
           {/* {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null} */}
           <ProfilePageRetreat />
           {/* {isRegistered ? <ProfilePageFroshOlympiks /> : null} */}
@@ -122,12 +131,16 @@ const PageProfileFrosh = () => {
           <ProfilePageInstagrams />
           <ProfilePageAnnouncements />
           <ProfilePageSchedule />
+
+          <div className="profile-info-bottom mobile-only">
+            <ProfilePageResources froshObject={isRegistered ? user : null} />
+          </div>
         </div>
-        <div className="profile-info-row-right">
+        <div className="profile-info-row-right desktop-only">
           <ProfilePageQRCode />
           {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
-          {/* {user?.attendingScunt ? <ProfilePageScuntTeam /> : null} */}
-          {/* <ProfilePageFroshScuntTeamsSelection /> */}
+          {user?.attendingScunt ? <ProfilePageScuntTeam /> : null}
+          <ProfilePageFroshScuntTeamsSelection />
           <ProfilePageResources froshObject={isRegistered ? user : null} />
         </div>
       </div>
@@ -535,6 +548,22 @@ export const ProfilePageScuntTeam = () => {
       <h3>YOUR SKULE™ HUNT TEAM:</h3>
       <h2>
         <b>{scuntTeam ? scuntTeam.name : null}</b>
+      </h2>
+    </div>
+  );
+};
+
+export const ProfilePageMobileTeam = () => {
+  const isRegistered = useSelector(registeredSelector);
+  const { user } = useSelector(userSelector);
+
+  if (!isRegistered) return null;
+  return (
+    <div className="profile-page-frosh-group profile-page-side-section">
+      <h3>YOUR F!ROSH GROUP:</h3>
+      <h1>{user?.froshGroup ? user.froshGroupIcon : null}</h1>
+      <h2>
+        <b>{user?.froshGroup ? user.froshGroup : null}</b>
       </h2>
     </div>
   );

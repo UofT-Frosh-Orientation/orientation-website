@@ -18,6 +18,7 @@ import { DarkModeContext } from '../../util/DarkModeProvider';
 
 import './ScuntMissionsDashboard.scss';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 
@@ -168,7 +169,8 @@ const ScuntCreateMissions = () => {
               : null}
           </div>
 
-          <Button
+          <ButtonRound
+            className="scunt-button-round"
             label="Create Mission"
             onClick={() => {
               // TODO: call backend to submit mission
@@ -176,7 +178,6 @@ const ScuntCreateMissions = () => {
 
               handleSubmit();
             }}
-            isSecondary={true}
             style={{ width: 'fit-content' }}
           />
         </div>
@@ -246,14 +247,14 @@ const ScuntAllMissions = () => {
           />
         </div>
         <div style={{ padding: 'auto', marginTop: '15px' }}>
-          <Button
+          <ButtonRound
+            className="scunt-button-round"
             label="Submit"
             onClick={() => {
               handleSubmit();
             }}
-            isSecondary={true}
             style={{ width: 'fit-content' }}
-          ></Button>
+          ></ButtonRound>
         </div>
       </div>
       <div style={{ height: '20px' }} />
@@ -450,18 +451,21 @@ const ScuntUploadMissions = () => {
     <div className="scunt-upload-missions-container">
       <div className="scunt-upload-missions-buttons">
         <input
-          className="button"
+          className="missions-choose-file"
           type={'file'}
           id={'csvFileInput'}
           accept={'.csv'}
           onChange={handleOnChange}
-          style={{
-            margin: '15px 10px',
-            backgroundColor: 'var(--light-purple)',
-            color: 'var(--white)',
-          }}
+          style={
+            {
+              // margin: '15px 10px',
+              // backgroundColor: 'var(--light-purple)',
+              // color: 'var(--white)',
+            }
+          }
         />
-        <Button
+        <ButtonRound
+          className="scunt-button-round add-margin-left"
           label="Preview CSV"
           style={{ width: 'fit-content', flex: '1' }}
           onClick={(e) => {
@@ -470,7 +474,8 @@ const ScuntUploadMissions = () => {
             }
           }}
         />
-        <Button
+        <ButtonRound
+          className="scunt-button-round"
           label="Upload Missions"
           style={{ width: 'fit-content' }}
           onClick={() => {
@@ -530,7 +535,7 @@ const PageScuntMissionsDashboard = () => {
   return (
     <>
       <div className="accounts-approval-page-container">
-        <div className="accounts-approval-tabs-container">
+        <div className="accounts-approval-tabs-container add-margin-bottom">
           <Tabs tabs={tabs} displayButtons={false} />
         </div>
       </div>

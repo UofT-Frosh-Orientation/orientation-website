@@ -726,8 +726,38 @@
 
 .profile-page-scunt-team {
   margin-top: 20px;
-  text-align: center;
+  text-align: right;
+
   h2 {
     margin-top: 10px;
+  }
+  h3 {
+    color: var(--text-secondary);
+  }
+
+  @include devices(tablet) {
+    text-align: center;
+  }
+}
+
+.profile-page-frosh-group {
+  margin-top: 20px;
+  text-align: right;
+
+  h1 {
+    font-size: 64px;
+    font-weight: 900;
+  }
+  h2 {
+    color: var(--text-secondary);
+    font-weight: 300;
+    font-size: 24px;
+  }
+  h3 {
+    color: var(--text-secondary);
+  }
+
+  @include devices(tablet) {
+    text-align: center;
   }
 }
