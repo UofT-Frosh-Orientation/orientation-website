@@ -18,6 +18,7 @@ import ScuntIcon from '../../assets/misc/magnifier.png';
 import OlympiksIcon from '../../assets/misc/torch.png';
 import RetreatImg from '../../assets/profile/retreat-image.jpg';
 import RetreatImg2 from '../../assets/profile/retreat-image2.jpg';
+import ScuntImg from '../../assets/scunt/banner6.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { announcementsSelector } from '../../state/announcements/announcementsSlice';
@@ -126,6 +127,7 @@ const PageProfileFrosh = () => {
 
           {/* {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null} */}
           <ProfilePageRetreat />
+          {/* <ProfilePageScuntMessage /> */}
           {/* {isRegistered ? <ProfilePageFroshOlympiks /> : null} */}
           {/* <ProfilePageNitelife /> */}
           <ProfilePageInstagrams />
@@ -566,6 +568,36 @@ export const ProfilePageMobileTeam = () => {
         <b>{user?.froshGroup ? user.froshGroup : null}</b>
       </h2>
     </div>
+  );
+};
+
+export const ProfilePageScuntMessage = () => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
+  return (
+    <Link to="/skule-hunt" style={{ background: 'none' }}>
+      {/* <div className="frosh-instagram-container">
+        <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
+        <div>
+          <h2>SKULE™ HUNT!</h2>
+          <p>Find more information about the Hunt by clicking here!</p>
+        </div>
+      </div> */}
+      <div className="hunt-profile-container">
+        <div className="hunt-ad">
+          <div className="hunt-ad-sub">
+            <div className="hunt-container-text">
+              <h2>SKULE™ HUNT!</h2>
+              <p>
+                Come participate in the most iconic event that is part of F!rosh Week! Find out more
+                information about the Hunt by clicking here!
+              </p>
+            </div>
+          </div>
+          <img className="hunt-image" src={ScuntImg} alt="Hunt image" />
+        </div>
+      </div>
+    </Link>
   );
 };
 

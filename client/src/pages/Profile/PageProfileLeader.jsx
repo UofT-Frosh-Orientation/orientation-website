@@ -22,6 +22,7 @@ import { ProfilePageResources } from '../../components/profile/ProfilePageResour
 import { changeScuntTeam, getScuntTeams } from '../../state/scuntTeams/saga';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import scuntLogo from '../../assets/scuntlogo/SkuleHuntLogo2t5.png';
+import ScuntImg from '../../assets/scunt/banner7.jpg';
 // import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
 
 const PageProfileLeader = () => {
@@ -121,12 +122,15 @@ export const ProfilePageLeaderScuntMessage = () => {
       <div className="hunt-profile-container">
         <div className="hunt-ad">
           <div className="hunt-ad-sub">
-            <img className="hunt-image" src={scuntLogo} alt="Skule Hunt image" />
             <div className="hunt-container-text">
-              <h2>SKULE™ Hunt</h2>
-              <p>Find more information about the Hunt by clicking here!</p>
+              <h2>SKULE™ HUNT!</h2>
+              <p>
+                Come participate in the most iconic event that is part of F!rosh Week! Find out more
+                information about the Hunt by clicking here!
+              </p>
             </div>
           </div>
+          <img className="hunt-image" src={ScuntImg} alt="Hunt image" />
         </div>
       </div>
     </Link>
