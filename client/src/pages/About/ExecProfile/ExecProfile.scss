@@ -25,6 +25,8 @@
   width: 100%;
   height: auto;
   cursor: url('../../../assets/cursor/pointer.png'), auto !important;
+  object-fit: cover;
+  height: 100%;
 }
 
 .exec-image-hover {

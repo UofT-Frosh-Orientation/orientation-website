@@ -17,8 +17,6 @@ import { requestPasswordResetSelector, userSelector } from '../../state/user/use
 import { login, requestPasswordReset } from '../../state/user/saga';
 import { DarkModeContext } from '../../util/DarkModeProvider';
 import { SnackbarContext } from '../../util/SnackbarProvider';
-import deco1 from '../../assets/login/deco1.png';
-import deco2 from '../../assets/login/deco2.png';
 
 // Messages!
 const popupTitle = 'Reset Password';
@@ -60,51 +58,46 @@ const PageLogin = ({ incorrectEntry }) => {
   return (
     <>
       <div className="login-entire-page">
-        <div className="login-bg" />
-
-        <div className={`login-container ${loading ? 'login-container-disappear' : ''}`}>
-          {/* Corner decorations */}
-          <img src={deco1} alt="" aria-hidden="true" className="login-deco login-deco--tl" />
-          <img src={deco2} alt="" aria-hidden="true" className="login-deco login-deco--br" />
-
-          <h1 className="login-title">Login</h1>
-          <form onSubmit={handleSubmit}>
-            <TextInput
-              inputType={'text'}
-              placeholder={'Email'}
-              autocomplete={'email'}
-              onChange={(value) => {
-                setEmail(value);
-              }}
-              localStorageKey="email-login"
-            />
-            <TextInput
-              inputType={'password'}
-              placeholder={'Password'}
-              autocomplete={'current-password'}
-              onChange={(value) => {
-                setPassword(value);
-              }}
-              onEnterKey={loginButtonPress}
-            />
-            <p
-              className="forgot-message"
-              onClick={() => setShowPopUp(true)}
-            >{`Forgot Password?`}</p>
-
-            <div className="login-button-container">
-              <ButtonText
-                label="Create Account"
-                isSecondary
-                onClick={() => {
-                  navigate('/sign-up');
+        <div className="login-bg">
+          <div className={`login-container ${loading ? 'login-container-disappear' : ''}`}>
+            <h1 className="login-title">Login</h1>
+            <form onSubmit={handleSubmit}>
+              <TextInput
+                inputType={'text'}
+                placeholder={'Email'}
+                autocomplete={'email'}
+                onChange={(value) => {
+                  setEmail(value);
                 }}
+                localStorageKey="email-login"
               />
-              <ButtonText label={'Log in'} type="submit" />
-            </div>
-          </form>
-        </div>
+              <TextInput
+                inputType={'password'}
+                placeholder={'Password'}
+                autocomplete={'current-password'}
+                onChange={(value) => {
+                  setPassword(value);
+                }}
+                onEnterKey={loginButtonPress}
+              />
+              <p
+                className="forgot-message"
+                onClick={() => setShowPopUp(true)}
+              >{`Forgot Password?`}</p>
 
+              <div className="login-button-container">
+                <ButtonText
+                  label="Create Account"
+                  isSecondary
+                  onClick={() => {
+                    navigate('/sign-up');
+                  }}
+                />
+                <ButtonText label={'Log in'} type="submit" />
+              </div>
+            </form>
+          </div>
+        </div>
         <div
           style={{ zIndex: 50 }}
           className={`login-loading ${isLoading === true ? 'login-loading-appear' : ''}`}
