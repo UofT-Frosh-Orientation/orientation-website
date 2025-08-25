@@ -142,7 +142,7 @@ const PageProfileFrosh = () => {
           <ProfilePageQRCode />
           {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
           {user?.attendingScunt ? <ProfilePageScuntTeam /> : null}
-          <ProfilePageFroshScuntTeamsSelection />
+          {/* <ProfilePageFroshScuntTeamsSelection /> */}
           <ProfilePageResources froshObject={isRegistered ? user : null} />
         </div>
       </div>
