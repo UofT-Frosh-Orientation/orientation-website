@@ -11,7 +11,7 @@ const CountdownHome = () => {
     const countdownInterval = setInterval(() => {
       // get current time and end time
       const currentDate = new Date().getTime();
-      const targetDate = new Date('2025-08-26T08:00:00').getTime();
+      const targetDate = new Date('2025-08-25T07:30:00').getTime();
 
       let remainingTime = targetDate - currentDate;
 
