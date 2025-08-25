@@ -65,7 +65,14 @@ const MakeReceipt = (froshObject) => {
     'froshGroup',
     'waiver',
     'confirmedEmail',
-    // 'gotFood',
+    'attendingRetreat',
+    'attendingScunt',
+    'bursaryRequested',
+    'preKit',
+    'gotFood',
+    'registeredOlympiksEvents',
+    'approved',
+    'froshDataFields',
   ];
   for (const [key, value] of Object.entries(froshObject)) {
     if (irrelevantFields.includes(key)) continue;
