@@ -18,10 +18,6 @@ const ScuntJudges = () => {
   const leader = user?.userType === 'leadur';
   const { scuntSettings, loading } = useSelector(scuntSettingsSelector); // returns array
   const [revealJudgesAndBribes, setRevealJudgesAndBribes] = useState(false);
-  // Preview override: add ?preview=1 to URL to force-show judges before official reveal.
-  const preview =
-    typeof window !== 'undefined' &&
-    new URLSearchParams(window.location.search).get('preview') === '1';
 
   const dispatch = useDispatch();
 
@@ -35,7 +31,7 @@ const ScuntJudges = () => {
     }
   }, [scuntSettings]);
 
-  if (revealJudgesAndBribes !== true && !leader && !preview) {
+  if (revealJudgesAndBribes !== true && !leader) {
     return (
       <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
         <ScuntLinks />
