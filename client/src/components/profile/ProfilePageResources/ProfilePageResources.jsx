@@ -1,6 +1,7 @@
 import { resources } from '../../../util/resources';
 import { ButtonBubble } from '../../button/ButtonBubble/ButtonBubble';
 import { ButtonRound } from '../../button/ButtonRound/ButtonRound';
+import { AppleWallet } from '../../walletpass/AppleWallet';
 import './ProfilePageResources.scss';
 import PropTypes from 'prop-types';
 
@@ -9,6 +10,7 @@ export const ProfilePageResources = ({ froshObject }) => {
     <div className="profile-page-resources profile-page-side-section">
       {froshObject ? (
         <>
+          {/* <AppleWallet /> */}
           <ButtonBubble
             label={'Download Information PDF'}
             onClick={async () => {

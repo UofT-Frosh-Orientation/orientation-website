@@ -79,6 +79,13 @@ export async function getQuestions(setSnackbar) {
       lastUpdated: '18:12pm, Jun 28, 2025',
       category: 'Registration',
     },
+    {
+      question: 'Is it possible to get a refund?',
+      answer:
+        'Yes, if you decide you do not want to participate anymore, both the F!rosh Week tickets and F!rosh Retreat tickets are refundable until August 18th at 11:59 PM. After that, we will not be able to issue any refunds.',
+      lastUpdated: '18:12pm, Jun 28, 2025',
+      category: 'Registration',
+    },
     /*{
       question: 'What are in the F!rosh Kits?',
       answer:

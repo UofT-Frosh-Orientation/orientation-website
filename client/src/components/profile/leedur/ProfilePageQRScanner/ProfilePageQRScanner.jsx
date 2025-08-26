@@ -68,7 +68,7 @@ export const ProfilePageQRScanner = ({ scopes }) => {
                 <ErrorSuccessBox success content={'User Signed in!'} />
               </div>
             )}
-            {!frosh['preKit'] && (
+            {/* {!frosh['preKit'] && (
               <div style={{ color: 'black' }}>
                 <ErrorSuccessBox
                   content={'This Frosh needs a pre kit'}
@@ -77,7 +77,7 @@ export const ProfilePageQRScanner = ({ scopes }) => {
                   }}
                 />
               </div>
-            )}
+            )} */}
           </div>
         );
       case 'kits':

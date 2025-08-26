@@ -4648,8 +4648,8 @@ export const data = {
   'Monday August 25': [
     {
       'Event Name': 'Meet your F!rosh Group',
-      'Start Time': '8:00 AM',
-      'Event Location': 'GB Front Steps',
+      'Start Time': '7:30 AM',
+      'Event Location': 'Myhal',
       'End Time': '9:00 AM',
       Color: 'break',
     },
@@ -4692,10 +4692,19 @@ export const data = {
       Color: 'break',
     },
     {
-      'Event Name': 'Nitelife',
+      'Event Name': 'Nitelife - High Score!',
       'Event Description':
         'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      // 'Event Location': 'The Pit',
+      'Event Location': 'MIE Common Room',
+      'Start Time': '6:00 PM',
+      'End Time': 'Late',
+      Color: 'night',
+    },
+    {
+      'Event Name': 'SUDS',
+      'Event Description':
+        "SUDS is UofT Engineering's student run pub serving both alcoholic and non-alcoholic drinks. It runs every night of F!rosh Week. On Monday and Tuesday there will also be a DJ!",
+      'Event Location': 'Myhal Arena',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
@@ -4707,7 +4716,7 @@ export const data = {
       // 'Event Location': 'Front Campus',
       'Event Description':
         "Learn from some of your amazing new TA's about all the strategies you need to know for success here at UofT Engineering!",
-      'Start Time': '8:00 AM',
+      'Start Time': '8:30 AM',
       'End Time': '10:00 AM',
       Color: 'other',
     },
@@ -4740,19 +4749,28 @@ export const data = {
       'End Time': '6:00 PM',
       Color: 'general',
     },
+    // {
+    //   'Event Name': 'Break/Dinner',
+    //   // 'Event Location': 'GB303',
+    //   'Start Time': '6:00 PM',
+    //   'End Time': '7:00 PM',
+    //   Color: 'break',
+    // },
     {
-      'Event Name': 'Break/Dinner',
-      // 'Event Location': 'GB303',
-      'Start Time': '6:00 PM',
-      'End Time': '7:00 PM',
-      Color: 'break',
-    },
-    {
-      'Event Name': 'Nitelife',
+      'Event Name': 'Nitelife - Slides Kombat',
       'Event Description':
         'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      // 'Event Location': 'The Pit',
-      'Start Time': '7:00 PM',
+      'Event Location': 'Myhal 5th Floor',
+      'Start Time': '6:00 PM',
+      'End Time': 'Late',
+      Color: 'night',
+    },
+    {
+      'Event Name': 'SUDS',
+      'Event Description':
+        "SUDS is UofT Engineering's student run pub serving both alcoholic and non-alcoholic drinks. It runs every night of F!rosh Week. On Monday and Tuesday there will also be a DJ!",
+      'Event Location': 'Myhal Arena',
+      'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
     },
@@ -4761,7 +4779,8 @@ export const data = {
     {
       'Event Name': 'Consent Seminar',
       'Event Description': `Attend the consent workshop and be entered to win some amazing prizes!`,
-      'Start Time': '9:00 AM',
+      'Event Location': 'Convocation Hall',
+      'Start Time': '8:30 AM',
       'End Time': '11:00 AM',
       Color: 'other',
     },
@@ -4770,8 +4789,8 @@ export const data = {
       'Event Location': 'Bahen Lobby',
       'Event Description':
         'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.</a>',
-      'Start Time': '11:00 AM',
-      'End Time': '5:00 PM',
+      'Start Time': '1:00 PM',
+      'End Time': '4:00 PM',
       Color: 'long',
     },
     {
@@ -4785,6 +4804,16 @@ export const data = {
       'Event Name': 'Skule™ Hunt',
       'Event Description':
         'The Skule™ twist on a traditional Scavenger Hunt, where students search for unique items and hidden easter eggs, collect powerups and points through side quests all across the city of Toronto to bring your team to the top of the leaderboard. The world is your arcade!',
+      'Event Location': 'Myhal Arena',
+      'Start Time': '6:00 PM',
+      'End Time': 'Late',
+      Color: 'night',
+    },
+    {
+      'Event Name': 'SUDS',
+      'Event Description':
+        "SUDS is UofT Engineering's student run pub serving both alcoholic and non-alcoholic drinks. It runs every night of F!rosh Week.",
+      'Event Location': 'Myhal Arena',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
@@ -4793,7 +4822,8 @@ export const data = {
   'Thursday August 28': [
     {
       'Event Name': 'Faculty Events',
-      'Event Description': `More information on Faculty Events will be added soon!`,
+      'Event Description': `Various events organized by the faculty. More information can be found <a style="color: var(--jam);" href="https://undergrad.engineering.utoronto.ca/event/faculty-orientation-events-2/">here</a>.`,
+      'Event Location': 'Various Locations',
       'Start Time': '9:00 AM',
       'End Time': '5:00 PM',
       Color: 'other',
@@ -4807,10 +4837,19 @@ export const data = {
       Color: 'general',
     },
     {
-      'Event Name': 'Nitelife',
+      'Event Name': 'Nitelife - Tote Invaders',
       'Event Description':
         'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      // 'Event Location': 'The Pit',
+      'Event Location': 'Myhal 5th Floor',
+      'Start Time': '6:00 PM',
+      'End Time': 'Late',
+      Color: 'night',
+    },
+    {
+      'Event Name': 'SUDS',
+      'Event Description':
+        "SUDS is UofT Engineering's student run pub serving both alcoholic and non-alcoholic drinks. It runs every night of F!rosh Week.",
+      'Event Location': 'Myhal Arena',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',
@@ -4824,10 +4863,19 @@ export const data = {
       Color: 'long',
     },
     {
-      'Event Name': 'Nitelife',
+      'Event Name': 'Nitelife - Guitar Hero',
       'Event Description':
         'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      // 'Event Location': 'The Pit',
+      'Event Location': 'Myhal 5th Floor',
+      'Start Time': '6:00 PM',
+      'End Time': 'Late',
+      Color: 'night',
+    },
+    {
+      'Event Name': 'SUDS',
+      'Event Description':
+        "SUDS is UofT Engineering's student run pub serving both alcoholic and non-alcoholic drinks. It runs every night of F!rosh Week.",
+      'Event Location': 'Myhal Arena',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
       Color: 'night',

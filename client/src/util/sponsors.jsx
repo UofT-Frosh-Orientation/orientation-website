@@ -22,6 +22,8 @@ import UTSU from '../assets/sponsors/utsu.png';
 import UTSUdark from '../assets/sponsors/utsudark.png';
 import CityDental from '../assets/sponsors/city-dental.png';
 import CityDentalDark from '../assets/sponsors/city-dentaldark.png';
+import bikeshare from '../assets/sponsors/bikeshare.png';
+import bikesharedark from '../assets/sponsors/bikesharedark.png';
 
 export const sponsors = [
   {
@@ -31,14 +33,6 @@ export const sponsors = [
     scale: 0.82,
     rank: 'diamond',
     label: 'Diamond Sponsor: EMMO',
-  },
-  {
-    website: 'https://carlyriangroup.com/', // Update this URL if different
-    image: CRG,
-    darkimage: CRGdark,
-    scale: 0.82,
-    rank: 'silver', // Change this to the appropriate tier
-    label: 'Silver Sponsor: Carly Rian Consulting Group',
   },
   {
     website: 'https://citydentaltoronto.com/',
@@ -63,6 +57,14 @@ export const sponsors = [
     scale: 0.82,
     rank: 'gold',
     label: 'Gold Sponsor: MeetYou',
+  },
+  {
+    website: 'https://carlyriangroup.com/',
+    image: CRG,
+    darkimage: CRGdark,
+    scale: 0.82,
+    rank: 'silver',
+    label: 'Silver Sponsor: Carly Rian Consulting Group',
   },
   {
     website: 'https://www.panago.com/',
@@ -111,5 +113,13 @@ export const sponsors = [
     scale: 0.8,
     rank: 'bronze',
     label: 'Bronze Sponsor: UTSU',
+  },
+  {
+    website: 'https://bikesharetoronto.com/',
+    image: bikeshare,
+    darkimage: bikesharedark,
+    scale: 0.8,
+    rank: 'bronze',
+    label: 'Bronze Sponsor: Bike Share Toronto',
   },
 ];

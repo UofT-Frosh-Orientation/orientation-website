@@ -1,5 +1,6 @@
 import bso from '../../assets/OtherEvents/bso.jpg';
 import campus from '../../assets/OtherEvents/campus.webp';
+import spadina from '../../assets/OtherEvents/koffler.jpg';
 
 export const otherEventsData = [
   {
@@ -9,11 +10,17 @@ export const otherEventsData = [
     image: bso,
     link: 'https://www.instagram.com/uoftbso/',
   },
-  // {
-  //   title: 'Faculty Orientation Events',
-  //   description:
-  //     "Check out the schedule for Faculty Orientation Events happening on August 28th!",
-  //   image: campus,
-  //   link: 'https://undergrad.engineering.utoronto.ca/event/faculty-orientation-events/',
-  // },
+  {
+    title: 'Faculty Orientation Events',
+    description: 'Check out the schedule for Faculty Orientation Events happening on August 28th!',
+    image: campus,
+    link: 'https://undergrad.engineering.utoronto.ca/event/faculty-orientation-events-2/',
+  },
+  {
+    title: 'Spadina Block Party',
+    description:
+      "Join us for the Multi-Faith Centre Spadina Block Party, a welcoming and inclusive event for all U of T students. Whether you're a first-year, a returning student, or just curious about what the Multi-Faith Centre offers, this event is a chance to meet new people, explore resources, and celebrate our diverse campus community. Connect with student life units and U of T divisions that support well-being, spirituality, and community building.",
+    image: spadina,
+    link: 'https://folio.utoronto.ca/students/events/detail/5645789',
+  },
 ];

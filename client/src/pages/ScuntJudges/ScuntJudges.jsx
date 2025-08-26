@@ -5,6 +5,8 @@ import { Header } from '../../components/text/Header/Header';
 import { scuntJudges, people } from '../../util/scunt-judges';
 import { PopupModal } from '../../components/popup/PopupModal';
 import PropTypes from 'prop-types';
+import {ScuntTitle} from '../../components/ScuntTitle/ScuntTitle.jsx'
+
 
 import './ScuntJudges.scss';
 
@@ -33,21 +35,24 @@ const ScuntJudges = () => {
 
   if (revealJudgesAndBribes !== true && !leader) {
     return (
-      <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
+      <div className='hidden-scunt-judges-container'>
+        <ScuntTitle />
         <ScuntLinks />
         <div className="scunt-check-soon-title">
           <h1 style={{ color: 'var(--text-light)' }}>CHECK BACK SOON!</h1>
         </div>
-      </Header>
+      </div>
     );
   }
 
   return (
     <>
-      <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
+      <div className='scunt-judges-container'>
+        <ScuntTitle />
         <ScuntLinks />
-      </Header>
-      <ScuntJudgesShowWrapper />
+        <ScuntJudgesShowWrapper />
+      </div>
+      
     </>
   );
 };

@@ -7,6 +7,7 @@ import { QRNormal } from 'react-qrbtf';
 import { Link } from 'react-router-dom';
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
+import {ScuntTitle} from '../../components/ScuntTitle/ScuntTitle.jsx'
 
 import { useDispatch, useSelector } from 'react-redux';
 import { loggedInSelector, registeredSelector, userSelector } from '../../state/user/userSlice';
@@ -55,22 +56,28 @@ const PageScuntMissionsList = () => {
   if ((revealMissions !== true && !leader) || !loggedIn) {
     return (
       <>
-        <Header text={'Missions'} underlineDesktop={'300px'} underlineMobile={'210px'}>
+        <div className = 'hidden-scunt-missions-container'>
+          <ScuntTitle />
           <ScuntLinks />
           <div className="scunt-check-soon-title">
             <h1 style={{ color: 'var(--text-light)' }}>CHECK BACK SOON!</h1>
           </div>
-        </Header>
+        </div>
       </>
     );
   }
 
   return (
     <>
+      <div className = 'hidden-scunt-missions-container'>
+          <ScuntTitle />
+          <ScuntLinks />
+          <PageScuntMissionsListShow />
+      </div>
       <Header text={'Missions'} underlineDesktop={'300px'} underlineMobile={'210px'}>
-        <ScuntLinks />
+        
       </Header>
-      <PageScuntMissionsListShow />
+      
     </>
   );
 };

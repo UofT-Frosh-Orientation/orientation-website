@@ -9,6 +9,8 @@
 :root {
   --top-left-corner-border: url('../../assets/profile/coins-left.png');
   --bottom-right-corner-border: url('../../assets/profile/coins-right.png');
+  --scunt-top-corner-border: url('../../assets/profile/scunt-left.png');
+  --scunt-bottom-corner-border: url('../../assets/profile/scunt-right.png');
 }
 
 .profile-page-header {
@@ -567,7 +569,7 @@
 .hunt-profile-container {
   flex: 1;
   max-width: 100%;
-  background-color: var(--jam);
+  background-color: var(--monster);
   border-radius: 20px;
   display: flex;
   flex-direction: row;
@@ -580,23 +582,43 @@
 
   &:hover {
     transform: scale(1.01);
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      z-index: 0;
+    }
+
+    &::before {
+      top: -25px;
+      left: -30px;
+      background-image: var(--scunt-top-corner-border);
+    }
+
+    &::after {
+      bottom: -30px;
+      right: -25px;
+      background-image: var(--scunt-bottom-corner-border);
+    }
   }
 
   h2 {
     margin: 15px 0px;
-    margin-bottom: 20px;
     font-size: 36px;
     font-weight: 900;
     line-height: 1.2;
     color: var(--mikado);
   }
   p {
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 20px;
-    font-weight: 400;
-    width: 80%;
   }
-  @media only screen and (max-width: 1000px) {
+  @include devices(tablet) {
     margin-left: 0;
     margin-right: 0;
     h2 {
@@ -618,11 +640,24 @@
 }
 
 .hunt-image {
-  object-fit: fit;
-  width: clamp(100px, 15vw, 150px);
-  height: auto;
-  margin: 10px;
-  margin-right: 40px;
+  object-fit: cover;
+  border-radius: 15px;
+  border-bottom-left-radius: 0px !important;
+  border-top-left-radius: 0px !important;
+  width: 30%;
+
+  // Diamond mask on the left side
+  clip-path: polygon(
+    0% 50%,
+    // left middle (diamond tip)
+    15% 0%,
+    // top left
+    100% 0%,
+    // top right
+    100% 100%,
+    // bottom right
+    15% 100% // bottom left
+  );
 
   @media only screen and (max-width: 500px) {
     display: none;
@@ -726,9 +761,39 @@
 
 .profile-page-scunt-team {
   margin-top: 20px;
-  text-align: center;
+  text-align: right;
+
   h2 {
     margin-top: 10px;
+  }
+  h3 {
+    color: var(--text-secondary);
+  }
+
+  @include devices(tablet) {
+    text-align: center;
+  }
+}
+
+.profile-page-frosh-group {
+  margin-top: 20px;
+  text-align: right;
+
+  h1 {
+    font-size: 64px;
+    font-weight: 900;
+  }
+  h2 {
+    color: var(--text-secondary);
+    font-weight: 300;
+    font-size: 24px;
+  }
+  h3 {
+    color: var(--text-secondary);
+  }
+
+  @include devices(tablet) {
+    text-align: center;
   }
 }
 

@@ -9,7 +9,7 @@ import { Button } from '../../components/button/Button/Button';
 import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import EditIconDark from '../../assets/misc/edit-icon-dark.svg';
 import EditIcon from '../../assets/misc/edit-icon.svg';
-// import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
+import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Link } from 'react-router-dom';
 import { instagramAccounts } from '../../util/instagramAccounts';
 import InstagramIcon from '../../assets/social/instagram-brands.svg';
@@ -18,6 +18,7 @@ import ScuntIcon from '../../assets/misc/magnifier.png';
 import OlympiksIcon from '../../assets/misc/torch.png';
 import RetreatImg from '../../assets/profile/retreat-image.jpg';
 import RetreatImg2 from '../../assets/profile/retreat-image2.jpg';
+import ScuntImg from '../../assets/scunt/banner6.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { announcementsSelector } from '../../state/announcements/announcementsSlice';
@@ -33,7 +34,7 @@ import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSl
 import { getRemainingTickets } from '../FroshRetreat/FroshRetreat';
 import { ProfilePageSchedule } from '../../components/profile/ProfilePageSchedule/ProfilePageSchedule';
 import { ProfilePageResources } from '../../components/profile/ProfilePageResources/ProfilePageResources';
-// import { ProfilePageFroshScuntTeamsSelection } from '../../components/profile/scunt/ProfilePageFroshScuntTeamsSelection/ProfilePageFroshScuntTeamsSelection';
+import { ProfilePageFroshScuntTeamsSelection } from '../../components/profile/scunt/ProfilePageFroshScuntTeamsSelection/ProfilePageFroshScuntTeamsSelection';
 import { getScuntTeams } from '../../state/scuntTeams/saga';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
@@ -121,17 +122,35 @@ const PageProfileFrosh = () => {
               </Link>
             </div>
           ) : null}
+
+          <div className="profile-info-top mobile-only">
+            <ProfilePageQRCode />
+            {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
+            {user?.isRegistered ? <ProfilePageMobileTeam /> : null}
+            {user?.attendingScunt ? <ProfilePageScuntTeam /> : null}
+            {/* <ProfilePageFroshScuntTeamsSelection /> */}
+          </div>
+
           {/* {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null} */}
           <ProfilePageRetreat />
+
+          {/* <ProfilePageScuntMessage /> */}
+          {/* {isRegistered ? <ProfilePageFroshOlympiks /> : null} */}
+          {/* <ProfilePageNitelife /> */}
           <ProfilePageInstagrams />
           <ProfilePageAnnouncements />
           <ProfilePageSchedule />
-        </div>
-        <div className="profile-info-row-right">
-          {/* Desktop-only QR stays in the right column */}
-          <div className="desktop-only">
-            <ProfilePageQRCode />
+
+          <div className="profile-info-bottom mobile-only">
+            <ProfilePageResources froshObject={isRegistered ? user : null} />
           </div>
+        </div>
+
+        <div className="profile-info-row-right desktop-only">
+          <ProfilePageQRCode />
+          {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
+          {user?.attendingScunt ? <ProfilePageScuntTeam /> : null}
+          {/* <ProfilePageFroshScuntTeamsSelection /> */}
           <ProfilePageResources froshObject={isRegistered ? user : null} />
         </div>
       </div>
@@ -541,6 +560,52 @@ export const ProfilePageScuntTeam = () => {
         <b>{scuntTeam ? scuntTeam.name : null}</b>
       </h2>
     </div>
+  );
+};
+
+export const ProfilePageMobileTeam = () => {
+  const isRegistered = useSelector(registeredSelector);
+  const { user } = useSelector(userSelector);
+
+  if (!isRegistered) return null;
+  return (
+    <div className="profile-page-frosh-group profile-page-side-section">
+      <h3>YOUR F!ROSH GROUP:</h3>
+      <h1>{user?.froshGroup ? user.froshGroupIcon : null}</h1>
+      <h2>
+        <b>{user?.froshGroup ? user.froshGroup : null}</b>
+      </h2>
+    </div>
+  );
+};
+
+export const ProfilePageScuntMessage = () => {
+  const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
+
+  return (
+    <Link to="/skule-hunt" style={{ background: 'none' }}>
+      {/* <div className="frosh-instagram-container">
+        <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
+        <div>
+          <h2>SKULE™ HUNT!</h2>
+          <p>Find more information about the Hunt by clicking here!</p>
+        </div>
+      </div> */}
+      <div className="hunt-profile-container">
+        <div className="hunt-ad">
+          <div className="hunt-ad-sub">
+            <div className="hunt-container-text">
+              <h2>SKULE™ HUNT!</h2>
+              <p>
+                Come participate in the most iconic event that is part of F!rosh Week! Find out more
+                information about the Hunt by clicking here!
+              </p>
+            </div>
+          </div>
+          <img className="hunt-image" src={ScuntImg} alt="Hunt image" />
+        </div>
+      </div>
+    </Link>
   );
 };
 

@@ -15,17 +15,19 @@ import { userSelector } from '../../state/user/userSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import useAxios from '../../hooks/useAxios';
 // import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
-import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
+// import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { getScuntTeams } from '../../state/scuntTeams/saga';
 // import { ProfilePageScuntTeam } from '../Profile/PageProfileFrosh';
 const { axios } = useAxios();
 import scuntLogo from '../../assets/scuntlogo/SkuleHuntLogo2t5.png';
 import backButtonDark from '../../assets/misc/pixel-backarrow-dark.png';
+import bannerimg from '../../assets/scunt/scunt-photo.jpg';
 import backButton from '../../assets/misc/pixel-backarrow-light.png';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
 import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAccordion/RetreatSingleAccordion';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
+import {ScuntTitle} from '../../components/ScuntTitle/ScuntTitle.jsx'
 
 export const PageScuntHome = () => {
   const dispatch = useDispatch();
@@ -37,8 +39,8 @@ export const PageScuntHome = () => {
 
   return (
     <>
+      <ScuntTitle />
       <BackToProfileButton />
-      <ScuntCountdown />
       <ScuntLinks />
       <AboutScunt />
       {/* <ScuntDiscord /> */}
@@ -62,8 +64,6 @@ const AboutScunt = () => {
 
   return (
     <>
-      <br />
-      <br />
       {/* <img src={darkMode ? WaveDarkMode : Wave} className="wave-image wave-image-footer" /> */}
 
       <div className="about-scunt-container">
@@ -98,78 +98,6 @@ const AboutScunt = () => {
 
       <div style={{ height: '30px' }} />
     </>
-  );
-};
-
-const ScuntCountdown = () => {
-  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
-  const [targetDate, setTargetDate] = useState();
-  const [countDownDate, setCountDownDate] = useState();
-  const [countDown, setCountDown] = useState(countDownDate - new Date().getTime());
-
-  useEffect(() => {
-    if (scuntSettings !== undefined) {
-      let settings = scuntSettings;
-      // const tempDate = new Date(settings?.scuntDate);
-      const tempDate = new Date('2025-08-28T18:00:00');
-      const tempCountDownDate = new Date(tempDate).getTime();
-
-      setTargetDate(tempDate);
-      setCountDownDate(tempCountDownDate);
-    }
-  }, [scuntSettings]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCountDown(countDownDate - new Date().getTime());
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [countDownDate]);
-
-  const getDateValues = (countDown) => {
-    if (countDown <= 0) {
-      return [0, 0, 0, 0];
-    }
-    const days = Math.floor(countDown / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((countDown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
-
-    return [days, hours, minutes, seconds];
-  };
-
-  const checkNaN = (value) => {
-    if (isNaN(value)) {
-      return 0;
-    } else {
-      return value;
-    }
-  };
-
-  return (
-    <div className="scunt-countdown-wrap">
-      <div className="scunt-countdown">
-        <div className="scunt-countdown-number">
-          <h1>{checkNaN(getDateValues(countDown)[0])}</h1>
-          <h3>DAYS</h3>
-        </div>
-        <div className="scunt-countdown-number">
-          <h1>{checkNaN(getDateValues(countDown)[1])}</h1>
-          <h3>HOURS</h3>
-        </div>
-        <div className="scunt-countdown-number">
-          <h1>{checkNaN(getDateValues(countDown)[2])}</h1>
-          <h3>MINUTES</h3>
-        </div>
-        <div className="scunt-countdown-number">
-          <h1>{checkNaN(getDateValues(countDown)[3])}</h1>
-          <h3>SECONDS</h3>
-        </div>
-      </div>
-      {/* Only show confetti for the first 100 seconds overtime */}
-      {countDown <= 0 && countDown / 1000 >= -100 ? <Confetti animate={true} /> : <></>}
-    </div>
   );
 };
 
@@ -232,6 +160,8 @@ const SkuleHuntFAQ = () => {
     </>
   );
 };
+
+
 
 // const ScuntDiscord = () => {
 //   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);

@@ -318,6 +318,7 @@ export const pages = {
         </AuthorizedPage>
       ),
       path: '/skule-hunt-game-controls',
+      includeFooter: true,
     },
     {
       label: 'Skule™ Hunt Missions Dashboard',
@@ -338,6 +339,7 @@ export const pages = {
     {
       label: 'Skule™ Hunt Point Transactions',
       path: '/skule-hunt-transactions',
+      includeFooter: true,
       component: (
         <AuthorizedPage authScopes={['scunt:exec view transactions']}>
           <ScuntTransactions />

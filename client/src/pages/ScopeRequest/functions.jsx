@@ -55,7 +55,8 @@ export const getTotalScopes = () => {
       // 'exec delete transaction',
       // 'exec rename scunt teams',
     ],
-    scuntGroupData: [...scuntTeams],
+    // scuntGroupData: [...scuntTeams],
+    scuntGroupData: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => num.toString()),
     froshGroupData: ['all', ...froshGroupData],
     froshData: ['unRegisteredUsers'], // Can see leader accounts, frosh who haven't finished payment
   };
