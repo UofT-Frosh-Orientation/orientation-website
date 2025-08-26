@@ -5,6 +5,8 @@ import './ScuntLeaderboard.scss';
 
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 import { Header } from '../../components/text/Header/Header';
+import {ScuntTitle} from '../../components/ScuntTitle/ScuntTitle.jsx'
+
 
 import firstPlace from '../../assets/scuntleaderboard/first-medal.svg';
 import secondPlace from '../../assets/scuntleaderboard/second-medal.svg';
@@ -68,21 +70,24 @@ const ScuntLeaderboard = () => {
 
   if ((showLeaderboard !== true && !leader) || !loggedIn) {
     return (
-      <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
-        <ScuntLinks />
-        <div className="scunt-check-soon-title">
-          <h1 style={{ color: 'var(--text-light)' }}>CHECK BACK SOON!</h1>
+        <div className='hidden-scunt-leaderboard-container'>
+          <ScuntTitle />
+          <ScuntLinks />
+          <div className="scunt-check-soon-title">
+            <h1 style={{ color: 'var(--text-light)' }}>CHECK BACK SOON!</h1>
+          </div>
         </div>
-      </Header>
+        
     );
   }
 
   return (
     <>
-      <Header text={'Leaderboard'} underlineDesktop={'410px'} underlineMobile={'285px'}>
+      <div className='scunt-leaderboard-container'>
+        <ScuntTitle />
         <ScuntLinks />
-      </Header>
-      <ScuntLeaderboardShow leaderboard={leaderboard} />
+        <ScuntLeaderboardShow leaderboard={leaderboard} />
+      </div>
     </>
   );
 };

@@ -4,13 +4,14 @@ import './ScuntRules.scss';
 import { rules } from '../../util/scunt-constants';
 import { Header } from '../../components/text/Header/Header';
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
+import {ScuntTitle} from '../../components/ScuntTitle/ScuntTitle.jsx'
+
 
 export const PageScuntRules = () => {
   return (
     <div className="scunt-rules-page">
-      <Header text={'Rules'} underlineDesktop={'215px'} underlineMobile={'150px'}>
-        <ScuntLinks />
-      </Header>
+      <ScuntTitle />
+      <ScuntLinks />
       <div className="scunt-rules-container">
         <ol className="scunt-rules-list">
           {rules.start.map((rule, index) => {
