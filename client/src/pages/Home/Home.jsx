@@ -67,7 +67,7 @@ const HomePageHeader = () => {
         <h1>Week</h1>
         {/* <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p> */}
         <HomeHeaderButton />
-        {/* <p>Check back soon for registration</p> */}
+        <p>Registration for F!rosh Week 2T5 is now closed!</p>
       </div>
       <div className="home-page-landing-image-container">
         <HomePageSlideshow />
@@ -83,7 +83,7 @@ const HomePageHeader = () => {
 
 const HomeHeaderButton = () => {
   const loggedIn = useSelector(loggedInSelector);
-  const [isRegistrationOpen, setIsRegistrationOpen] = useState(true);
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
 
   return (
     <>

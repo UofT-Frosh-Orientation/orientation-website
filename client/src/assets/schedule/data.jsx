@@ -4648,7 +4648,7 @@ export const data = {
   'Monday August 25': [
     {
       'Event Name': 'Meet your F!rosh Group',
-      'Start Time': '8:00 AM',
+      'Start Time': '7:30 AM',
       'Event Location': 'Myhal',
       'End Time': '9:00 AM',
       Color: 'break',
