@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 import { Header } from '../../components/text/Header/Header';
-import { ExecProfile } from '../About/ExecProfile/ExecProfile';
-import { scuntJudges } from '../../util/scunt-judges';
+// Replacing ExecProfile overlay interaction with custom modal presentation for judges
+import { scuntJudges, people } from '../../util/scunt-judges';
 import { PopupModal } from '../../components/popup/PopupModal';
-import { Confetti } from '../../components/misc/Confetti/Confetti';
 import PropTypes from 'prop-types';
 import {ScuntTitle} from '../../components/ScuntTitle/ScuntTitle.jsx'
 
@@ -58,183 +57,71 @@ const ScuntJudges = () => {
   );
 };
 
-//shuffle array except for first entry (Tech team)
+// Fisher-Yates shuffle all judges
 function shuffleJudges(arr) {
-  if (arr.length < 2) {
-    return arr;
-  }
-
-  for (let i = arr.length - 1; i > 1; --i) {
-    const j = 1 + Math.floor(Math.random() * i);
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-
   return arr;
 }
 
 const ScuntJudgesShowWrapper = () => {
-  return <ScuntJudgesShow judges={shuffleJudges(scuntJudges)} />;
+  // Enrich base judge list with description & bribes from people[] by loose name match (startsWith)
+  const enriched = scuntJudges.map((j) => {
+    const detail = people.find(
+      (p) =>
+        p.name.toLowerCase() === j.name.toLowerCase() ||
+        p.name.toLowerCase().startsWith(j.name.toLowerCase() + ' ')
+    );
+    if (detail) {
+      return { ...j, description: detail.description, content: detail.content };
+    }
+    return j;
+  });
+  return <ScuntJudgesShow judges={shuffleJudges(enriched)} />;
 };
 
 const ScuntJudgesShow = ({ judges }) => {
-  let clicks = 3; // only show tech team if this number of profiles have been clicked
-  const [totalClicks, setTotalClicks] = useState(0);
+  // simplified: no more secret unlock logic
   const [openPopup, setOpenPopup] = useState(true);
-  const [showTechTeam, setShowTechTeam] = useState(false); // shows tech team image
-  const [showTechTeamPopup, setShowTechTeamPopup] = useState(false); // shows secret judges revealed popup
-  const [profileClicks, setProfileClicks] = useState([{ name: 'test', clicks: 0 }]);
+  const [selectedJudge, setSelectedJudge] = useState(null); // modal content
 
   useEffect(() => {
-    // do this first!
     const popupdata = window.localStorage.getItem('scunt-judges-popup');
-    const showtechteamdata = window.localStorage.getItem('show-tech-team-secret-judge');
-    const scuntprofiledata = window.localStorage.getItem('scunt-judges-profile');
-
-    if (popupdata !== null) {
-      setOpenPopup(JSON.parse(popupdata));
-      setShowTechTeam(JSON.parse(showtechteamdata));
-      setProfileClicks(JSON.parse(scuntprofiledata));
-    }
+    if (popupdata !== null) setOpenPopup(JSON.parse(popupdata));
   }, []);
-
-  useEffect(() => {
-    const data = window.localStorage.getItem('Profile_Clicks_Scunt_Judges');
-    if (data !== null) {
-      setTotalClicks(JSON.parse(data));
-    }
-  }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem('Profile_Clicks_Scunt_Judges', JSON.stringify(totalClicks));
-  }, [totalClicks]);
 
   useEffect(() => {
     window.localStorage.setItem('scunt-judges-popup', JSON.stringify(openPopup));
   }, [openPopup]);
 
-  useEffect(() => {
-    window.localStorage.setItem('show-tech-team-secret-judge', JSON.stringify(showTechTeam));
-  }, [showTechTeam]);
+  // Persist popup dismissal only
 
-  useEffect(() => {
-    window.localStorage.setItem('scunt-judges-profile', JSON.stringify(profileClicks));
-  }, [profileClicks]);
-
-  useEffect(() => {
-    if (totalClicks === clicks) {
-      setShowTechTeam(true);
-
-      if (!showTechTeam) {
-        setShowTechTeamPopup(true);
-        window.scrollTo(0, 0);
-      }
-    }
-
-    setTimeout(() => {
-      // automatically close popup, or users can click bg to close
-      setShowTechTeamPopup(false);
-    }, 10000);
-  }, [totalClicks]);
+  // no-op effects previously for secret judge removed
 
   return (
     <>
       {/* <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
         <ScuntLinks />
       </Header> */}
-      <h2 className="legend-text"> Judges ✏️ , TechTeam 🖥️ , Co-Chairs 🧭 </h2>
+  <h2 className="legend-text"> Judges ✏️ • Co-Chairs 🧭 </h2>
       <div className="scunt-judges-container">
-        {judges.map((judge) => {
-          const [clickProfile, setClickProfile] = useState(false);
-          const [numClicks, setNumClicks] = useState(0);
-
-          useEffect(() => {
-            // getting numclicks from local storage
-            const data = window.localStorage.getItem('scunt-judges-profile');
-            let updateData = JSON.parse(data);
-
-            let index = updateData?.findIndex((i) => i?.name === judge?.name);
-
-            if (index !== -1) {
-              // not in array
-              setNumClicks(updateData[index].clicks);
-            }
-          }, []);
-
-          useEffect(() => {
-            // updating local storage with clicks
-            const data = window.localStorage.getItem('scunt-judges-profile');
-            let updateData = JSON.parse(data);
-
-            let index = updateData?.findIndex((i) => i?.name === judge?.name);
-
-            if (index === -1 || !index) {
-              // not in array
-              let obj = { name: judge.name, clicks: numClicks };
-
-              updateData?.push(obj);
-            } else {
-              updateData[index].clicks = numClicks;
-            }
-
-            window.localStorage.setItem('scunt-judges-profile', JSON.stringify(updateData));
-
-            if (numClicks === 1 && clickProfile) {
-              setTotalClicks(totalClicks + 1);
-            }
-          }, [numClicks]);
-
-          if (judge.name === 'Tech Team') {
-            if (showTechTeam) {
-              return (
-                <div key={judge.name}>
-                  <ExecProfile
-                    image={judge.img}
-                    name={judge.name}
-                    scuntJudge={true}
-                    bribes={judge.content}
-                    description={judge.description}
-                  />
-                </div>
-              );
-            } else {
-              return <div key={judge.name} style={{ display: 'none' }}></div>;
-            }
-          } else {
-            return (
-              <div
-                key={judge.name}
-                onClick={() => {
-                  setClickProfile(!clickProfile);
-                  setNumClicks(numClicks + 1);
-                }}
-              >
-                <ExecProfile
-                  image={judge.img}
-                  name={judge.name}
-                  scuntJudge={true}
-                  bribes={judge.content}
-                  description={judge?.description}
-                />
-              </div>
-            );
-          }
-        })}
+        {judges.map((judge) => (
+          <JudgeCard key={judge.name} judge={judge} onOpen={() => setSelectedJudge(judge)} />
+        ))}
       </div>
-      <>
-        {/* this popup will automatically disapear */}
-        <Confetti animate={showTechTeamPopup} />
-        <PopupModal
-          trigger={showTechTeamPopup}
-          setTrigger={setShowTechTeamPopup}
-          blurBackground={false}
-          exitIcon={false}
-        >
-          <div className="scunt-judges-bribe-message-popup">
-            Secret Judges have been revealed! 🤫
-          </div>
-        </PopupModal>
-      </>{' '}
-      : <></>
+      <PopupModal
+        trigger={!!selectedJudge}
+        setTrigger={(val) => { if (!val) setSelectedJudge(null); }}
+        blurBackground={true}
+        heading={selectedJudge ? selectedJudge.name : undefined}
+      >
+        {selectedJudge && (
+          <JudgeModal judge={selectedJudge} />
+        )}
+      </PopupModal>
+  <></>
       {/* wrapping to prevent seeing popup for a split second upon refresh */}
       {openPopup ? (
         <PopupModal trigger={openPopup} setTrigger={setOpenPopup} blurBackground={false}>
@@ -255,5 +142,46 @@ const ScuntJudgesShow = ({ judges }) => {
 ScuntJudgesShow.propTypes = {
   judges: PropTypes.arrayOf(PropTypes.object),
 };
+
+// Child component for each judge to keep hooks stable & add 16-bit style wrappers
+const JudgeCard = ({ judge, onOpen }) => {
+  const isCoChair = judge.coChair === true || ['Maria', 'Novera'].includes(judge.name);
+  const isTechTeam = judge.name === 'Tech Team';
+  return (
+    <div
+      className={`judge-card ${isCoChair ? 'cochair-card' : ''} ${isTechTeam ? 'tech-team-card' : ''}`}
+      onClick={onOpen}
+    >
+      <div className="judge-card-frame">
+  <img src={judge.img} alt={judge.name + ' photo'} className="judge-photo" data-name={judge.name} />
+        <div className="judge-name-bar">
+          <span>{judge.name}</span>
+        </div>
+        {isCoChair && <span className="cochair-badge">CO-CHAIR</span>}
+      </div>
+    </div>
+  );
+};
+JudgeCard.propTypes = { judge: PropTypes.object, onOpen: PropTypes.func };
+
+// Modal content for a judge
+const JudgeModal = ({ judge }) => {
+  return (
+    <div className="judge-modal-content">
+  {judge.description && <p className="judge-modal-bio">{judge.description}</p>}
+      {Array.isArray(judge.content) && judge.content.length > 0 && (
+        <div className="judge-modal-bribes">
+          <h3>Bribes</h3>
+          <ul className="judge-modal-bribe-list">
+            {judge.content.map((b) => (
+              <li key={b} className="judge-modal-bribe-item">{b}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+JudgeModal.propTypes = { judge: PropTypes.object };
 
 export { ScuntJudges };

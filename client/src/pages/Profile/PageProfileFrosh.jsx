@@ -100,6 +100,12 @@ const PageProfileFrosh = () => {
   return (
     <>
       <ProfilePageFroshHeader editButton={true} />
+
+      {/* Mobile-only QR at top */}
+      <div className="profile-qr-mobile mobile-only">
+        <ProfilePageQRCode />
+      </div>
+
       <div className="profile-info-row">
         <div className="profile-info-row-left">
           {!isRegistered ? (
@@ -127,6 +133,7 @@ const PageProfileFrosh = () => {
 
           {/* {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null} */}
           <ProfilePageRetreat />
+
           {/* <ProfilePageScuntMessage /> */}
           {/* {isRegistered ? <ProfilePageFroshOlympiks /> : null} */}
           {/* <ProfilePageNitelife /> */}
@@ -138,6 +145,7 @@ const PageProfileFrosh = () => {
             <ProfilePageResources froshObject={isRegistered ? user : null} />
           </div>
         </div>
+
         <div className="profile-info-row-right desktop-only">
           <ProfilePageQRCode />
           {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
