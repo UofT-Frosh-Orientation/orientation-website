@@ -12,10 +12,11 @@ import Sahana from '../assets/judges/sahana.jpg';
 import Sam from '../assets/judges/sam_denomme.jpg';
 import Sebastian from '../assets/judges/sebastian_kiernan.jpg';
 import Sophia from '../assets/judges/sophia_hill.png';
-import Tyler from '../assets/judges/tyler_delabarre.png';
+//import Tyler from '../assets/judges/tyler_delabarre.png';
 import Yanni from '../assets/judges/yanni_alevras.jpg';
 import Maria from '../assets/judges/maria.jpg';
 import Novera from '../assets/judges/novera.jpg';
+import Karys from '../assets/judges/karys.png';
 import TechTeam from '../assets/judges/tech.jpg';
 
 // Export simple data array for judges. Extend with extra fields as needed.
@@ -38,7 +39,7 @@ export const scuntJudges = [
   { name: 'Sam', img: Sam },
   { name: 'Sebastian', img: Sebastian },
   { name: 'Sophia', img: Sophia },
-  { name: 'Tyler', img: Tyler },
+  { name: 'Karys', img: Karys },
   { name: 'Yanni', img: Yanni },
   {
     name: 'Tech Team',
@@ -251,22 +252,6 @@ export const people = [
     img: Martin,
   },
   {
-    name: 'Tyler DeLaBarre',
-    description:
-      "Hi y'all! I'm a Mech 2T5, I like running, trains, and building stuff for concrete toboggan.",
-    content: [
-      'Shotgun the least shotgunnable beverage you can think of.',
-      'Create original art of your favorite train.',
-      'Explain concrete toboggan to me (wrong answers only) (bonus if a team member helps).',
-      'Pants beer!',
-      'One Canadian penny.',
-      "An unconventional food combo you think I'll like (≤ $5).",
-      'Design my next tattoo for me.',
-      'Buzz your hair and dye it green so your classmates can touch grass.',
-    ],
-    img: Tyler,
-  },
-  {
     name: 'Sahana',
     description:
       "Hi I'm Sahana <3 (if u wanna know more abt me come complete bribes and we can yap)",
@@ -338,7 +323,7 @@ export const people = [
   {
     name: 'Maria',
     description:
-      'hi :0 my name is Maria and I am one of your co-chairs for skule hunt TM this year. Really excited for you to be attending our event and hope you have the most amazing time. Say hi if you see me around and maybe try out one of my bribes!',
+      'hi :0 my name is Maria and I am one of your co-chairs for Skule™ Hunt this year. Really excited for you to be attending our event and hope you have the most amazing time. Say hi if you see me around and maybe try out one of my bribes!',
     content: [
       'Draw me your best version of Snorlax (the more colour the better).',
       'Write a haiku about your favourite game.',
@@ -356,7 +341,7 @@ export const people = [
   {
     name: 'Novera',
     description:
-      "Hiya gang! I'm Novera and I'm your other co chair for Skule Hunt TM 2T5! Can't wait for some tomfoolery and shenanigans to unfold. You may notice us running around, make sure you stop to say hi! I've been doing this for far too long I can't wait to graduate. Can't wait for the night!! ",
+      "Hiya gang! I'm Novera and I'm your other co chair for Skule™ Hunt 2T5! Can't wait for some tomfoolery and shenanigans to unfold. You may notice us running around, make sure you stop to say hi! I've been doing this for far too long I can't wait to graduate. Can't wait for the night!! ",
     content: [
       'Lobster',
       'convince me to confess to the huzz',
@@ -370,5 +355,21 @@ export const people = [
       'teach me something.',
     ],
     img: Novera,
+  },
+  {
+    name: 'Karys',
+    description:
+      'hi everyone! my name is karys and i’m an engsci bme 2T8. i was a leedur for tau (RAHH) and co-chair for downtown walkaround (DOUBLE RAHH)! skunt is my favourite event behind dtw (minorly biased) and i’m so excited to be a judge!! feel free to ask me about engsci, research, and good places for food and coffee!',
+    content: [
+      'reunite downtown walkaround (bring me keya, nick, and justin)',
+      'collect and bring a token from every frosh group',
+      'last year nestea was ripped away from canadians. it’s been returned to us. return it to me and bring me a can (NOT FUZE)',
+      'bring me costco samples and the 1.50 hot dog with ketchup',
+      'take a photo at my old dorm door, chestnut 2446 (DO NOT DISTURB THE PEOPLE IN THE ROOM)',
+      'located and take a photo with the « secona » sign (hint: it’s in a uoft library)',
+      'procure a bag of nerds gummy clusters but a minister has to deliver them',
+      'find three people who know how to play',
+    ],
+    img: Karys,
   },
 ];
