@@ -101,7 +101,7 @@ export const rules = {
     },
     {
       title: 'The Royal Wedding',
-      sub: 'The Royal Wedding is the wedding to bring Godiva’s Crown and Mr. Blue & Gold together eternally. The list items for the Royal Wedding will only be accepted by the bride and groom, as well as the SubComm Chairs. The wedding items and submissions for these items will be opened starting at 9:00 PM ish. Each group that wants to claim an item must bring the participating F!rosh and the item to the bride and groom, or SubComm chairs. The wedding will take place at 10:00 PM. Only the F!rosh approved beforehand may participate in the wedding. Any F!rosh that interferes during the wedding will be removed from the scene.',
+      sub: 'The Royal Wedding is the wedding to bring Godiva’s Crown and Mr. Blue & Gold together eternally. The list items for the Royal Wedding will only be accepted by the bride and groom, as well as the SubComm Chairs. The wedding items and submissions for these items will be opened starting at 8:00 PM ish. Each group that wants to claim an item must bring the participating F!rosh and the item to the bride and groom, or SubComm chairs. The wedding will take place at 9:00 PM. Only the F!rosh approved beforehand may participate in the wedding. Any F!rosh that interferes during the wedding will be removed from the scene.',
     },
     {
       title: 'Winning',
