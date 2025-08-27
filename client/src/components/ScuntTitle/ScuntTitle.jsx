@@ -12,16 +12,18 @@ import './ScuntTitle.scss';
 
 export const ScuntTitle = () => {
   return (
-    <div className="scunt-title-container">
+    //<div className="scunt-title-container">
+    <>
       <img className="scunt-title-image" src="\src\assets\scunt\scunt-photo.jpg"></img>
       <div className="scunt-title-gradient"></div>
       <h1 className="scunt-home-title-text">
-        SKULE
+        SKULE<span className="trademark">™</span>
         <br />
         HUNT
       </h1>
-      {/* <ScuntCountdown /> */}
-    </div>
+      <ScuntCountdown />
+    </>
+    //</div>
   );
 };
 
@@ -71,8 +73,8 @@ const ScuntCountdown = () => {
   };
 
   return (
-    <div className="scunt-countdown-wrap desktop-only">
-      <div className="scunt-countdown desktop-only">
+    <div className="scunt-countdown-wrap">
+      <div className="scunt-countdown">
         <div className="scunt-countdown-number">
           <h1>{checkNaN(getDateValues(countDown)[0])}</h1>
           <h3>DAYS</h3>
