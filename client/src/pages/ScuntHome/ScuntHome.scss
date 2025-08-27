@@ -83,7 +83,17 @@
 
 .about-scunt-content .text-content {
   display: block;
-  margin-left: 15px;
+  margin-left: 30px;
+
+  h2 {
+    font-size: 150px;
+  }
+
+  p {
+    font-size: 24px;
+    font-weight: 700;
+    margin-left: 5px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -261,4 +271,19 @@
 .scunt-accordion-clickable,
 .scunt-accordion-clickable * {
   cursor: url('../../assets/cursor/pointer.png'), auto !important;
+}
+
+.scunt-block-thing {
+  margin: 48px 48px;
+  margin-left: 48px;
+  h1 {
+    font-size: 48px;
+    font-weight: 900;
+    font-family: 'Jersey 20', sans-serif;
+  }
+  p {
+    margin-top: 24px;
+    font-size: 20px;
+    font-weight: 400;
+  }
 }
