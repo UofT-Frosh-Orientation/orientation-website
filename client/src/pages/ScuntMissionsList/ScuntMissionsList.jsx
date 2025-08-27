@@ -394,7 +394,7 @@ const PageScuntMissionsListShow = () => {
               />
             </div>
           </div>
-          <p>
+          <p style={{ color: 'var(--text-primary)' }}>
             Click a mission to get a QR code judges can scan! Missions with a check mark have
             already been completed by your team.
           </p>
