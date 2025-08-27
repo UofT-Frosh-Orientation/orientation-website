@@ -44,12 +44,12 @@ export const scuntJudges = [
     name: 'Tech Team',
     img: TechTeam,
     description:
-      "Collective guardians of the codebase and purveyors of arcane digital challenges. Pictured are your Webmasters Nusaiba and Alyssa, but our lovely site wouldn't be possible without the help of Ablah, Kevin, Eileen and Sunny as well!",
+      "Collective guardians of the codebase and purveyors of arcane digital challenges. Pictured are your Webmasters Nusaiba and Alyssa, but our lovely site wouldn't be possible without the help of Ablah, Kevin, Eileen and Sunny as well! Also please do come bribe us we promise you will not be disappointed *coughcoughwehaveallthepowercoughcough* haha wind is crazy in here",
     content: [
       'Beat Akinator.',
       'Find someone with the original Angry Birds app.',
       'Make us a Phainon pointer (google it).',
-      "Full combo What's up? Pop! Expert on Project Sekai",
+      "Full combo a song on Project Sekai on Nusaiba's iPad (I need that in-game currency <//3)",
       'Pull on Nusaiba’s gacha account; rarity of the pull scales your points.',
       'Beat Kevin’s Chrome Dino high score (13k).',
       'Connect with Nusaiba on LinkedIn.',
