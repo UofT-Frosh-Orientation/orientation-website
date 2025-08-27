@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { DarkModeContext } from '../../util/DarkModeProvider';
 import PropTypes from 'prop-types';
 import './PopupModal.scss';
 import XMark from '../../assets/misc/xmark-solid-white.svg';
@@ -14,6 +15,7 @@ const PopupModal = ({
   style,
 }) => {
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
+  const { darkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
     if (hasBeenOpened === false && trigger === true) {
@@ -46,6 +48,7 @@ const PopupModal = ({
             }}
             src={XMark}
             alt="close popup"
+            style={{ filter: darkMode ? 'unset' : 'invert(1)' }}
           />
         ) : (
           <></>

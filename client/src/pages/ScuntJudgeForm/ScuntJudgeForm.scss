@@ -48,7 +48,7 @@
   justify-content: center;
   align-items: center;
   margin: 2px 5px;
-  background-color: var(--mission-bg);
+  background-color: var(--bg-secondary);
   color: var(--black);
   border-radius: 8px;
   padding: 5px 15px;
@@ -94,7 +94,14 @@
 }
 
 .scunt-mission-entry-selected {
-  background-color: var(--mission-bg-active);
+  background-color: var(--text-coloured);
+  p {
+    color: var(--text-inverted) !important;
+  }
+  h3 {
+    color: var(--text-inverted) !important;
+  }
+  color: var(--text-inverted) !important;
 }
 
 .slider-thumb {

@@ -8,35 +8,36 @@ import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { getScuntTeams } from '../../state/scuntTeams/saga';
 const { axios } = useAxios();
-import '../../pages/ScuntHome/ScuntHome.scss';
-
-
+import './ScuntTitle.scss';
 
 export const ScuntTitle = () => {
-  return(
-    <div className = 'scunt-title-container'>
-      <img className = 'scunt-title-image' src='\src\assets\scunt\scunt-photo.jpg'></img>
-      <div className='scunt-title-gradient'></div>
-      <h1 className='scunt-home-title-text'>SKULE<br />HUNT</h1>
-      <ScuntCountdown />
+  return (
+    <div className="scunt-title-container">
+      <img className="scunt-title-image" src="\src\assets\scunt\scunt-photo.jpg"></img>
+      <div className="scunt-title-gradient"></div>
+      <h1 className="scunt-home-title-text">
+        SKULE
+        <br />
+        HUNT
+      </h1>
+      {/* <ScuntCountdown /> */}
     </div>
   );
-;}
+};
 
 const ScuntCountdown = () => {
   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
-  const [targetDate, setTargetDate] = useState();
-  const [countDownDate, setCountDownDate] = useState();
+  const [targetDate, setTargetDate] = useState('2025-08-27T18:00:00');
+  const [countDownDate, setCountDownDate] = useState(new Date(targetDate).getTime());
   const [countDown, setCountDown] = useState(countDownDate - new Date().getTime());
 
   useEffect(() => {
     if (scuntSettings !== undefined) {
       let settings = scuntSettings;
-      // const tempDate = new Date(settings?.scuntDate);
-      const tempDate = new Date('2025-08-28T18:00:00');
-      const tempCountDownDate = new Date(tempDate).getTime();
+      // const tempDate = settings?.scuntDate;
+      const tempCountDownDate = new Date(targetDate).getTime();
 
-      setTargetDate(tempDate);
+      // setTargetDate(tempDate);
       setCountDownDate(tempCountDownDate);
     }
   }, [scuntSettings]);
@@ -70,8 +71,8 @@ const ScuntCountdown = () => {
   };
 
   return (
-    <div className="scunt-countdown-wrap">
-      <div className="scunt-countdown">
+    <div className="scunt-countdown-wrap desktop-only">
+      <div className="scunt-countdown desktop-only">
         <div className="scunt-countdown-number">
           <h1>{checkNaN(getDateValues(countDown)[0])}</h1>
           <h3>DAYS</h3>
@@ -90,7 +91,7 @@ const ScuntCountdown = () => {
         </div>
       </div>
       {/* Only show confetti for the first 100 seconds overtime */}
-      {countDown <= 0 && countDown / 1000 >= -100 ? <Confetti animate={true} /> : <></>}
+      {/* {countDown <= 0 && countDown / 1000 >= -100 ? <Confetti animate={true} /> : <></>} */}
     </div>
   );
 };

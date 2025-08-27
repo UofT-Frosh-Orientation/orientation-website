@@ -27,6 +27,7 @@ import { PageAnnounceDash } from '../pages/AnnouncementDashboard/AnnounceDash';
 import { PageUnsubscribe } from '../pages/Unsubscribe/Unsubscribe';
 import { PageResubscribe } from '../pages/Resubscribe/Resubscribe';
 import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
+import { ScuntHSL } from '../pages/ScuntJudges/ScuntHSL';
 import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
 import { FroshRetreat } from '../pages/FroshRetreat/FroshRetreat';
 import { FroshOlympiks } from '../pages/FroshOlympiks/FroshOlympiks';
@@ -275,6 +276,13 @@ export const pages = {
       scuntLabel: 'Judges',
       component: <ScuntJudges />,
       path: '/skule-hunt-judges',
+      includeFooter: true,
+    },
+    {
+      label: 'HSLs',
+      scuntLabel: 'HSLs',
+      component: <ScuntHSL />,
+      path: '/skule-hunt-hsl',
       includeFooter: true,
     },
     {

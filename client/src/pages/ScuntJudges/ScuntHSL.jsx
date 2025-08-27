@@ -14,7 +14,7 @@ import { registeredSelector, userSelector } from '../../state/user/userSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 
-const ScuntJudges = () => {
+const ScuntHSL = () => {
   const { user } = useSelector(userSelector);
   const leader = user?.userType === 'leadur';
   const { scuntSettings, loading } = useSelector(scuntSettingsSelector); // returns array
@@ -106,7 +106,7 @@ const ScuntJudgesShow = ({ judges }) => {
       {/* <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
         <ScuntLinks />
       </Header> */}
-      <h2 className="legend-text"> Judges • Co-Chairs • Tech Team </h2>
+      <h2 className="legend-text"> Head Skule (Hunt) Leaders </h2>
       <div className="scunt-judges-container">
         {judges.map((judge) => (
           <JudgeCard key={judge.name} judge={judge} onOpen={() => setSelectedJudge(judge)} />
@@ -122,20 +122,6 @@ const ScuntJudgesShow = ({ judges }) => {
       >
         {selectedJudge && <JudgeModal judge={selectedJudge} />}
       </PopupModal>
-      <></>
-      {/* wrapping to prevent seeing popup for a split second upon refresh */}
-      {openPopup ? (
-        <PopupModal trigger={openPopup} setTrigger={setOpenPopup} blurBackground={false}>
-          <div className="scunt-judges-bribe-message-popup desktop-only">
-            Click the judges&apos; cards to reveal bribes! 😏
-          </div>
-          <div className="scunt-judges-bribe-message-popup mobile-only">
-            Tap the judges&apos; cards to reveal bribes! 😏
-          </div>
-        </PopupModal>
-      ) : (
-        <></>
-      )}
     </>
   );
 };
@@ -166,7 +152,6 @@ const JudgeCard = ({ judge, onOpen }) => {
           <span>{judge.name}</span>
         </div>
         {isCoChair && <span className="cochair-badge">CO-CHAIR</span>}
-        {/* {isTechTeam && <span className="tech-badge">TECH TEAM</span>} */}
       </div>
     </div>
   );
@@ -178,21 +163,19 @@ const JudgeModal = ({ judge }) => {
   return (
     <div className="judge-modal-content">
       {judge.description && <p className="judge-modal-bio">{judge.description}</p>}
-      {Array.isArray(judge.content) && judge.content.length > 0 && (
+      {/* {Array.isArray(judge.content) && judge.content.length > 0 && (
         <div className="judge-modal-bribes">
           <h3>Bribes</h3>
           <ul className="judge-modal-bribe-list">
             {judge.content.map((b) => (
-              <p key={b} className="judge-modal-bribe-item">
-                {b}
-              </p>
+              <p key={b} className="judge-modal-bribe-item">{b}</p>
             ))}
           </ul>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
 JudgeModal.propTypes = { judge: PropTypes.object };
 
-export { ScuntJudges };
+export { ScuntHSL };

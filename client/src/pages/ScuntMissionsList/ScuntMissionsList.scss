@@ -28,7 +28,8 @@
   flex-direction: column;
   padding: 10px;
   margin: auto;
-  margin-top: 15px;
+  margin-top: 48px;
+  margin-bottom: 80px;
 
   @include devices(tablet) {
     max-width: 90vw;
@@ -41,10 +42,20 @@
   color: var(--text-dynamic);
   text-align: center;
   margin: 0px 10px;
+
+  h2 {
+    font-size: 36px;
+    font-weight: 900;
+    margin-top: 25px;
+  }
 }
 .scunt-missions-header-link {
   margin-bottom: 20px;
   font-size: 18px;
+  a {
+    color: var(--text-coloured);
+    font-weight: 700;
+  }
 }
 .scunt-mission-category-separator {
   h3 {
