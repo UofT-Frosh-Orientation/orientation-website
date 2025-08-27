@@ -150,7 +150,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: space-between;
-  padding: 10px 0px;
+  padding: 10px 10px;
   flex-wrap: wrap;
   @include devices(tablet) {
     padding-bottom: 0px;
