@@ -15,7 +15,7 @@ function renderChunks(deps) {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [pluginRewriteAll(), react()],
-  assetsInclude: ['**/*.pkpass'],
+  assetsInclude: ['**/*.pkpass', '**/*.webp'],
   server: {
     host: true,
     port: 3000,

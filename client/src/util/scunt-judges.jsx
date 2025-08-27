@@ -358,7 +358,16 @@ export const people = [
     description:
       "Hiya gang! I'm Novera and I'm your other co chair for Skule Hunt TM 2T5! Can't wait for some tomfoolery and shenanigans to unfold. You may notice us running around, make sure you stop to say hi! I've been doing this for far too long I can't wait to graduate. Can't wait for the night!! ",
     content: [
-      "Lobster; convince me to confess to the huzz; bring me your mom's validation; show me a niche hobby you have (bonus if I'm convinced to join); find and rate a bouldering problem on campus (be safe); get everyone to Dance Dance Revolution; group pose trend and let me post it on my IG; make me a postcard drawing from your hometown; show me a good rock with mathematical proof; teach me something.",
+      'Lobster',
+      'convince me to confess to the huzz',
+      "bring me your mom's validation",
+      "show me a niche hobby you have (bonus if I'm convinced to join)",
+      'find and rate a bouldering problem on campus (be safe)',
+      'get everyone to Dance Dance Revolution',
+      'group pose trend and let me post it on my IG',
+      'make me a postcard drawing from your hometown',
+      'show me a good rock with mathematical proof',
+      'teach me something.',
     ],
     img: Novera,
   },

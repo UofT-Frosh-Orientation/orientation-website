@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 import { Header } from '../../components/text/Header/Header';
 // Replacing ExecProfile overlay interaction with custom modal presentation for judges
-import { scuntJudges, people } from '../../util/scunt-judges';
+import { scuntJudges, people } from '../../util/scunt-hsl';
 import { PopupModal } from '../../components/popup/PopupModal';
 import PropTypes from 'prop-types';
 import { ScuntTitle } from '../../components/ScuntTitle/ScuntTitle.jsx';

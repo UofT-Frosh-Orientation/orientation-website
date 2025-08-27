@@ -77,7 +77,7 @@ const ScuntLeaderboard = () => {
           <h1
             style={{
               textAlign: 'center',
-              color: 'var(--text-dark-use)',
+              color: 'var(--text-primary)',
               fontWeight: '900',
               padding: '25px 4% 0 4%',
             }}
