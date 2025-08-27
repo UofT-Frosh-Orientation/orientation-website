@@ -9,11 +9,12 @@ import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { getScuntTeams } from '../../state/scuntTeams/saga';
 const { axios } = useAxios();
 import './ScuntTitle.scss';
+import bannerphoto from '../../assets/scunt/scunt-photo.jpg';
 
 export const ScuntTitle = () => {
   return (
     <div className="scunt-title-container">
-      <img className="scunt-title-image" src="\src\assets\scunt\scunt-photo.jpg"></img>
+      <img className="scunt-title-image" src={bannerphoto}></img>
       <div className="scunt-title-gradient"></div>
       <h1 className="scunt-home-title-text">
         SKULE<span className="trademark">™</span>
