@@ -101,10 +101,10 @@ const PageProfileFrosh = () => {
     <>
       <ProfilePageFroshHeader editButton={true} />
 
-      {/* Mobile-only QR at top */}
+      {/* Mobile-only QR at top
       <div className="profile-qr-mobile mobile-only">
         <ProfilePageQRCode />
-      </div>
+      </div> */}
 
       <div className="profile-info-row">
         <div className="profile-info-row-left">
@@ -557,7 +557,9 @@ export const ProfilePageScuntTeam = () => {
     <div className="profile-page-scunt-team profile-page-side-section">
       <h3>YOUR SKULE™ HUNT TEAM:</h3>
       <h2>
-        <b>{scuntTeam ? scuntTeam.name : null}</b>
+        <b>
+          Team {scuntTeam ? scuntTeam.number : null}: {scuntTeam ? scuntTeam.name : null}
+        </b>
       </h2>
     </div>
   );

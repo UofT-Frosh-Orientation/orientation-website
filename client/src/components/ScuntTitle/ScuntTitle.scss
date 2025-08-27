@@ -79,9 +79,9 @@
     padding: 20px;
     border-radius: 15px;
     background-color: var(--mikado);
-    min-width: 130px;
+    // min-width: 130px;
     @media only screen and (max-width: 1000px) {
-      min-width: 90px; //!
+      // min-width: 90px; //!
       padding: 10px; //!
       h3 {
         font-size: 15px !important;
@@ -102,8 +102,8 @@
 .scunt-countdown-wrap {
   margin: 5%;
   margin-left: 4.2vw !important;
-  // display: flex;
-  // flex-direction: column;
+  display: flex;
+  flex-direction: row;
   // align-items: center;
   // justify-content: start;
   // margin-top: 5px;
