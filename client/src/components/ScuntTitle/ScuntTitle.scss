@@ -44,8 +44,8 @@
   top: 22vw;
 
   @media screen and (max-width: 335px) {
-    font-size: 24vw !important;
-    line-height: 18vw !important;
+    font-size: 22vw !important;
+    line-height: 16vw !important;
   }
 }
 
@@ -123,9 +123,8 @@
     margin-top: -220px;
     margin-bottom: 5.5vw;
   }
-  @media screen and (max-width: 335px) {
-    margin-top: 0px;
-    margin-bottom: 0vw;
+  @include devices(tablet) {
+    display: none;
   }
 
   text-align: center;
