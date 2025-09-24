@@ -10,6 +10,16 @@ This repository holds the source code for UofT Engineering's Orientation Website
 split into two "packages". First, there is the frontend package, `client`, and second there is the backend
 package `server`.
 
+## The Frosh 2T5 Web Team
+
+### Webmasters
+
+- [Nusaiba Rakhshan](https://github.com/nrakhshan), [Alyssa Hee](https://github.com/alyssaHee)
+
+### Tech Team!
+
+- [Ablah Gadallah](https://github.com/Ablahgad), [Kevin Peng](https://github.com/pengkev), [Eileen Yang](https://github.com/eileen231)
+
 ## The Frosh 2T4 Web Team
 
 ### Team Leads
