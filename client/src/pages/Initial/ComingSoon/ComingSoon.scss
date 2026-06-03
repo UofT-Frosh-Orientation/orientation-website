@@ -1,0 +1,323 @@
+@import '../../../scssStyles/mixins';
+// NOTE: Intentionally no remote font @import here — a remote CSS @import is
+// render-blocking and was slowing the page load. The hero uses Inter if it's
+// installed locally, otherwise a system sans-serif fallback (see .cs-hero).
+
+/*
+ * Windows 95 "Coming Soon" desktop.
+ * Design: https://www.figma.com/design/vh3XAF8efmGsK25KG3asdS/FinalComingSoonPage?node-id=1-132
+ *
+ * The layout is a fixed 1280x820 "stage" (matching the Figma frame) that is
+ * scaled to fit the viewport via JS (see ComingSoon.jsx). All child elements are
+ * absolutely positioned using the exact Figma coordinates.
+ *
+ * TODO(font): The design uses the "W95FA" pixel font. Drop a W95FA web font file
+ * into client/src/assets and wire it up with an @font-face block below, then it
+ * will take priority over the system fallbacks already listed in --cs-font.
+ *
+ * @font-face {
+ *   font-family: 'W95FA';
+ *   src: url('../../../assets/fonts/W95FA.woff2') format('woff2');
+ *   font-display: swap;
+ * }
+ */
+
+.coming-soon {
+  --cs-face: #c0c0c0;
+  --cs-title: #291254;
+  --cs-desktop: #582c83;
+  --cs-gold: #ffd700;
+  --cs-taskbar-h: 36px;
+  --cs-font: 'W95FA', 'MS Sans Serif', 'Tahoma', 'Segoe UI', sans-serif;
+
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  // Purple sky + the wide cloud panorama scaled to cover (never squished).
+  background-color: var(--cs-desktop);
+  // Soft CSS clouds (low-opacity white blobs) over a purple sky gradient, so
+  // the clouds merge into the background. No image asset needed.
+  // TODO(assets): swap in the real Figma cloud art here if/when it's exported.
+  background-image: radial-gradient(
+      ellipse 22% 14% at 14% 16%,
+      rgba(255, 255, 255, 0.22),
+      transparent 60%
+    ),
+    radial-gradient(ellipse 26% 16% at 80% 12%, rgba(255, 255, 255, 0.18), transparent 62%),
+    radial-gradient(ellipse 24% 15% at 47% 30%, rgba(255, 255, 255, 0.14), transparent 60%),
+    radial-gradient(ellipse 18% 12% at 90% 42%, rgba(255, 255, 255, 0.12), transparent 60%),
+    radial-gradient(ellipse 22% 14% at 24% 58%, rgba(255, 255, 255, 0.1), transparent 60%),
+    radial-gradient(ellipse 20% 13% at 64% 64%, rgba(255, 255, 255, 0.1), transparent 60%),
+    linear-gradient(180deg, #6a3a9c 0%, #582c83 55%, #3d1d62 100%);
+  font-family: var(--cs-font);
+  user-select: none;
+
+  // Holds the scaled stage in the area above the taskbar. Vertical position is
+  // controlled by STAGE_OFFSET_Y (applied as margin-top on the stage itself, so
+  // it can be negative to pull the desktop up past the empty top of the canvas).
+  &__stage-wrap {
+    position: absolute;
+    inset: 0 0 var(--cs-taskbar-h) 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  &__stage {
+    position: relative;
+    flex: 0 0 auto;
+    width: 1280px;
+    height: 790px;
+    transform-origin: top center; // scale from the top so offset is predictable
+  }
+
+  // ---- Taskbar (full viewport width) ----
+  &__taskbar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--cs-taskbar-h);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 4px;
+    font-family: var(--cs-font);
+  }
+
+  .cs-taskbar-spacer {
+    flex: 1 1 auto;
+  }
+
+  .cs-taskbtn {
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 8px;
+    font-size: 14px;
+    line-height: 1;
+    color: #000;
+    white-space: nowrap;
+
+    img {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+    }
+
+    &--start {
+      font-weight: 700;
+    }
+
+    &--active {
+      background: #a6a6a6;
+    }
+  }
+
+  .cs-clock {
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 10px;
+    font-size: 14px;
+    line-height: 1;
+    color: #000;
+    white-space: nowrap;
+  }
+
+  // Read-only value field inside the Properties panel
+  .cs-field {
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    box-sizing: border-box;
+    white-space: nowrap;
+  }
+
+  // Win95 raised bevel (buttons, panels, taskbar)
+  .cs-raised {
+    background: var(--cs-face);
+    box-shadow: inset -1px -1px 0 0 #000, inset 1px 1px 0 0 #fff, inset -2px -2px 0 0 #7f7f7f,
+      inset 2px 2px 0 0 #dfdfdf;
+  }
+
+  // Win95 sunken bevel (input fields, progress trough, status areas)
+  .cs-sunken {
+    box-shadow: inset -1px -1px 0 0 #fff, inset 1px 1px 0 0 #808080;
+  }
+
+  .cs-abs {
+    position: absolute;
+  }
+
+  // ---- Desktop icons ----
+  .cs-desktop-icon {
+    position: absolute;
+    width: 88px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 1.1;
+
+    // Force white labels (overrides global <a> colors) + readable on clouds.
+    &,
+    &:link,
+    &:visited,
+    span {
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.85);
+    }
+
+    img,
+    .cs-emoji {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      font-size: 32px;
+      line-height: 36px;
+      text-shadow: none;
+    }
+  }
+
+  // ---- Window chrome ----
+  .cs-titlebar {
+    background: var(--cs-title);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cs-winbtns {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+  }
+
+  .cs-winbtn {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    line-height: 1;
+    color: #000;
+    background: var(--cs-face);
+    box-shadow: inset -1px -1px 0 0 #000, inset 1px 1px 0 0 #fff, inset -2px -2px 0 0 #7f7f7f,
+      inset 2px 2px 0 0 #dfdfdf;
+  }
+
+  // ---- Buttons ----
+  .cs-button {
+    background: var(--cs-face);
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--cs-font);
+    font-size: 15px;
+    box-shadow: inset -1px -1px 0 0 #000, inset 1px 1px 0 0 #fff, inset -2px -2px 0 0 #7f7f7f,
+      inset 2px 2px 0 0 #dfdfdf;
+
+    &:disabled,
+    &.is-disabled {
+      color: #808080;
+      text-shadow: 1px 1px 0 #fff;
+    }
+  }
+
+  // ---- Progress (segmented) ----
+  .cs-progress {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .cs-progress-block {
+    flex: 0 0 auto;
+    width: 8px;
+    height: 12px;
+    background: var(--cs-desktop);
+  }
+
+  // ---- Hero panel ----
+  .cs-hero {
+    background: var(--cs-title);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    h1 {
+      margin: 0;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      font-weight: 900;
+      color: var(--cs-gold);
+      font-size: 90px;
+      line-height: 1;
+      letter-spacing: -2px;
+    }
+
+    p {
+      margin: 14px 0 0;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      font-weight: 400;
+      color: #c19eff;
+      font-size: 30px;
+      letter-spacing: 2px;
+    }
+  }
+
+  // ---- Photo placeholders inside the Paint windows ----
+  // TODO(assets): replace these with the real F!rosh group photos once exported
+  // from Figma (Figma MCP was rate-limited during the initial build).
+  .cs-photo-placeholder {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-size: 14px;
+    background: repeating-conic-gradient(#f3f3f3 0% 25%, #ffffff 0% 50%) 50% / 20px 20px;
+    border: 1px dashed #b0b0b0;
+  }
+
+  // ---- Logo badge (top-right) ----
+  .cs-logo {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset -1px -1px 0 0 #808080, inset 1px 1px 0 0 #fff;
+
+    img {
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+    }
+  }
+
+  .cs-link {
+    color: inherit;
+    text-decoration: none;
+  }
+}
