@@ -17,8 +17,11 @@ import { getUserInfo } from './state/user/saga';
 
 import { LandingPage } from './pages/Initial/LandingPage';
 import { Maintenance } from './pages/Initial/Maintenance/Maintenance';
+import { ComingSoon } from './pages/Initial/ComingSoon/ComingSoon';
 
-const readyForFrosh = true;
+// Set to false to take over the whole site with the single Coming Soon page
+// (no router, navbar or footer). Flip back to true to restore the full app.
+const readyForFrosh = false;
 
 export default function App() {
   const dispatch = useDispatch();
@@ -37,7 +40,8 @@ export default function App() {
         </SnackbarProvider>
       ) : (
         // <LandingPage />
-        <Maintenance />
+        // <Maintenance />
+        <ComingSoon />
       )}
     </DarkModeProvider>
   );
