@@ -454,10 +454,7 @@ const ComingSoon = () => {
 
       {/* ---- Taskbar (full viewport width, fixed to bottom) ---- */}
       <div className="coming-soon__taskbar cs-raised">
-        <div className="cs-taskbtn cs-raised cs-taskbtn--start">
-          <img src={StartIcon} alt="" />
-          Start
-        </div>
+          <img src={StartIcon} alt=""className="cs-taskbtn--start"/>
         {!isMobile && (
           <>
             <div className="cs-taskbtn cs-sunken cs-taskbtn--active">📁 F!rosh 2T6.exe</div>
