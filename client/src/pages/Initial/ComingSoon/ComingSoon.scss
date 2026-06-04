@@ -57,6 +57,15 @@
   font-family: var(--cs-font);
   user-select: none;
 
+  // The app defines a global `* { font-family: 'Proxima Nova' }` (App.scss),
+  // which sets the font directly on every element and beats our inherited
+  // value. Re-assert inheritance for everything inside the page so the W95 font
+  // actually applies. (Elements with their own explicit font-family — e.g. the
+  // hero — still win via higher specificity.)
+  * {
+    font-family: inherit;
+  }
+
   // Holds the scaled stage in the area above the taskbar. Vertical position is
   // controlled by STAGE_OFFSET_Y (applied as margin-top on the stage itself, so
   // it can be negative to pull the desktop up past the empty top of the canvas).
