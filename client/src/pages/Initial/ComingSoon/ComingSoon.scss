@@ -35,27 +35,39 @@
   --cs-taskbar-h: 36px;
   --cs-font: 'W95FA', 'MS Sans Serif', 'Tahoma', 'Segoe UI', sans-serif;
 
+  // ⬇️ CLOUD OPACITY — experiment here. 0 = no clouds, 1 = full strength.
+  --cs-cloud-opacity: 1;
+
   position: fixed;
   inset: 0;
   overflow: hidden;
-  // Purple sky + the wide cloud panorama scaled to cover (never squished).
+  // Purple sky gradient (the clouds live in &::before below, on their own layer
+  // so their opacity can be tuned with one variable).
   background-color: var(--cs-desktop);
-  // Soft CSS clouds (low-opacity white blobs) over a purple sky gradient, so
-  // the clouds merge into the background. No image asset needed.
-  // TODO(assets): swap in the real Figma cloud art here if/when it's exported.
-  background-image: radial-gradient(
-      ellipse 22% 14% at 14% 16%,
-      rgba(255, 255, 255, 0.22),
-      transparent 60%
-    ),
-    radial-gradient(ellipse 26% 16% at 80% 12%, rgba(255, 255, 255, 0.18), transparent 62%),
-    radial-gradient(ellipse 24% 15% at 47% 30%, rgba(255, 255, 255, 0.14), transparent 60%),
-    radial-gradient(ellipse 18% 12% at 90% 42%, rgba(255, 255, 255, 0.12), transparent 60%),
-    radial-gradient(ellipse 22% 14% at 24% 58%, rgba(255, 255, 255, 0.1), transparent 60%),
-    radial-gradient(ellipse 20% 13% at 64% 64%, rgba(255, 255, 255, 0.1), transparent 60%),
-    linear-gradient(180deg, #6a3a9c 0%, #582c83 55%, #3d1d62 100%);
+  background-image: linear-gradient(180deg, #6a3a9c 0%, #582c83 55%, #3d1d62 100%);
   font-family: var(--cs-font);
   user-select: none;
+
+  // Soft CSS clouds (low-opacity white blobs). The whole layer's opacity is
+  // controlled by --cs-cloud-opacity above. TODO(assets): swap in the real
+  // Figma cloud art here if/when it's exported.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: var(--cs-cloud-opacity);
+    background-image: radial-gradient(
+        ellipse 22% 14% at 14% 16%,
+        rgba(255, 255, 255, 0.45),
+        transparent 60%
+      ),
+      radial-gradient(ellipse 52% 16% at 80% 12%, rgba(255, 255, 255, 0.38), transparent 62%),
+      radial-gradient(ellipse 24% 15% at 47% 30%, rgba(255, 255, 255, 0.3), transparent 60%),
+      radial-gradient(ellipse 18% 12% at 90% 42%, rgba(255, 255, 255, 0.25), transparent 60%),
+      radial-gradient(ellipse 22% 14% at 24% 58%, rgba(255, 255, 255, 0.22), transparent 60%),
+      radial-gradient(ellipse 20% 13% at 64% 64%, rgba(255, 255, 255, 0.22), transparent 60%);
+  }
 
   // The app defines a global `* { font-family: 'Proxima Nova' }` (App.scss),
   // which sets the font directly on every element and beats our inherited
@@ -316,17 +328,14 @@
   // ---- Logo badge (top-right) ----
   .cs-logo {
     position: absolute;
-    border-radius: 50%;
-    background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: inset -1px -1px 0 0 #808080, inset 1px 1px 0 0 #fff;
 
     img {
-      width: 70%;
-      height: 70%;
-      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      object-fit: contain; // transparent logo, no background
     }
   }
 

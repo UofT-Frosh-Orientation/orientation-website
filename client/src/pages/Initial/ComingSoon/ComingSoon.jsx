@@ -11,7 +11,7 @@ import PaintWindow from '../../../assets/intial/Frame.png';
 // Reused project assets
 import DiscordIcon from '../../../assets/social/discord-brands.svg';
 import InstagramIcon from '../../../assets/social/instagram_icon.png';
-import FroshLogo from '../../../assets/logo/main-logo-2T5.png';
+import FroshLogo from '../../../assets/logo/2T6logo_1.png';
 
 // Recycling Bin icon. Save your image to assets/intial/recycling-bin.png, then
 // uncomment this import and the <img> in the Recycling Bin icon below (and
@@ -51,7 +51,7 @@ const LAYOUT = {
   paintWide: { x: 26, y: 456 },
   paintNarrow: { x: 616, y: 487 },
   minesweeper: { x: 1000, y: 416 },
-  logo: { x: 1208, y: 20 },
+  logo: { x: 1100, y: 20 },
 };
 
 // At/below this viewport width, render the dedicated mobile layout instead of
@@ -363,8 +363,9 @@ const ComingSoon = () => {
       {/* Minesweeper */}
       <img src={MinesweeperWindow} alt="Minesweeper" style={at(LAYOUT.minesweeper, 236, 357)} />
 
-      {/* Logo badge */}
-      <div className="cs-logo" style={at(LAYOUT.logo, 100, 100)}>
+      {/* Logo. The two numbers below are its width/height — change them to
+          resize. If it clips off the right edge, lower LAYOUT.logo.x. */}
+      <div className="cs-logo" style={at(LAYOUT.logo, 160, 160)}>
         <img src={FroshLogo} alt="F!rosh Week logo" />
       </div>
     </>
