@@ -13,42 +13,91 @@ import DiscordIcon from '../../../assets/social/discord-brands.svg';
 import InstagramIcon from '../../../assets/social/instagram_icon.png';
 import FroshLogo from '../../../assets/logo/main-logo-2T5.png';
 
-// The desktop is authored on a fixed 1280x790 canvas (the area above the
-// taskbar); everything inside the stage is positioned with the exact Figma
-// coordinates and the whole stage is scaled to fit the viewport. The taskbar
-// lives outside the stage so it can always span the full screen width.
+// Recycling Bin icon. Save your image to assets/intial/recycling-bin.png, then
+// uncomment this import and the <img> in the Recycling Bin icon below (and
+// delete the emoji <span>).
+// import RecyclingBinIcon from '../../../assets/intial/recycling-bin.png';
+
+// F!rosh photos shown inside the two "Paint" windows. Drop the image files into
+// assets/intial (or any folder), uncomment these imports, then replace the
+// matching `cs-photo-placeholder` <div> below with the commented <img> beside it.
+// import PaintPhotoWide from '../../../assets/intial/frosh-photo-wide.jpg';
+// import PaintPhotoNarrow from '../../../assets/intial/frosh-photo-narrow.jpg';
+
+// ===========================================================================
+// CANVAS + LAYOUT
+// ---------------------------------------------------------------------------
+// The desktop is drawn on a fixed STAGE_WIDTH x STAGE_HEIGHT canvas, then the
+// whole canvas is scaled to fit the browser (contain) and centered above the
+// taskbar — so it never crops and the spacing stays balanced at any size.
+//
+// To ARRANGE the desktop, edit the {x, y} values in LAYOUT below. Each entry is
+// the top-left position of that component on the canvas (in canvas pixels, 0,0 =
+// top-left). Windows move as a whole — their insides follow their {x, y}.
+// ===========================================================================
 const STAGE_WIDTH = 1280;
 const STAGE_HEIGHT = 790;
 const TASKBAR_HEIGHT = 36;
 
-// Vertical position of the whole desktop, in screen pixels. Positive pushes it
-// DOWN, negative pulls it UP (past the empty top of the canvas). The canvas has
-// ~60px of empty space above the first elements, so negative values are the way
-// to tighten the top gap. Tweak to taste.
-const STAGE_OFFSET_Y = -30;
+const LAYOUT = {
+  // Desktop icons (left column)
+  iconMyComputer: { x: -90, y: 30 },
+  iconRecyclingBin: { x: -90, y: 120 },
+  iconDiscord: { x: -90, y: 210 },
+  iconInstagram: { x: -90, y: 300 },
+
+  // Windows / badges (each moves as one unit)
+  mainWindow: { x: 210, y: 30 },
+  paintWide: { x: 26, y: 456 },
+  paintNarrow: { x: 616, y: 487 },
+  minesweeper: { x: 1000, y: 416 },
+  logo: { x: 1208, y: 20 },
+};
+
+// At/below this viewport width, render the dedicated mobile layout instead of
+// the scaled desktop.
+const MOBILE_BREAKPOINT = 600;
 
 const formatTime = (date) =>
   date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 
+// Helper: absolute-position style from a LAYOUT entry (+ optional size).
+const at = ({ x, y }, width, height) => ({
+  position: 'absolute',
+  left: x,
+  top: y,
+  ...(width != null ? { width } : {}),
+  ...(height != null ? { height } : {}),
+});
+
 const ComingSoon = () => {
   const [scale, setScale] = useState(1);
   const [time, setTime] = useState(formatTime(new Date()));
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined' ? window.innerWidth <= MOBILE_BREAKPOINT : false,
+  );
   const stageRef = useRef(null);
 
   // Scale the fixed-size stage to fit the viewport (contain — never crops).
   useEffect(() => {
     const updateScale = () => {
-      // Only reserve extra height for a positive (downward) offset.
-      const reserved = TASKBAR_HEIGHT + Math.max(0, STAGE_OFFSET_Y);
       const next = Math.min(
         window.innerWidth / STAGE_WIDTH,
-        (window.innerHeight - reserved) / STAGE_HEIGHT,
+        (window.innerHeight - TASKBAR_HEIGHT) / STAGE_HEIGHT,
       );
       setScale(next);
     };
     updateScale();
     window.addEventListener('resize', updateScale);
     return () => window.removeEventListener('resize', updateScale);
+  }, []);
+
+  // Switch between the desktop and mobile layouts on resize.
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
   }, []);
 
   // Live taskbar clock.
@@ -65,235 +114,342 @@ const ComingSoon = () => {
     </div>
   );
 
-  return (
-    <div className="coming-soon" style={{ '--cs-taskbar-h': `${TASKBAR_HEIGHT}px` }}>
-      {/* ---- Scaled desktop stage (everything above the taskbar) ---- */}
-      <div className="coming-soon__stage-wrap">
+  // ----- Main "F!rosh 2T6.exe" window (positioned as one unit) -----
+  // Children are positioned RELATIVE to the window, so moving LAYOUT.mainWindow
+  // moves everything together.
+  const mainWindow = (
+    <div className="cs-raised" style={at(LAYOUT.mainWindow, 820, 460)}>
+      {/* title bar */}
+      <div
+        className="cs-titlebar"
+        style={{ position: 'absolute', left: 2, top: 2, width: 816, height: 22, padding: '0 4px' }}
+      >
+        <span style={{ color: 'var(--cs-gold)', fontSize: 18 }}>F!rosh 2T6.exe</span>
+        {windowButtons}
+      </div>
+      {/* menu bar */}
+      <div
+        style={{
+          position: 'absolute',
+          left: 2,
+          top: 24,
+          width: 816,
+          height: 18,
+          display: 'flex',
+          alignItems: 'center',
+          color: '#000',
+          fontSize: 15,
+          paddingLeft: 9,
+        }}
+      >
+        <span style={{ whiteSpace: 'pre' }}>
+          File&nbsp;&nbsp;&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;&nbsp;View&nbsp;&nbsp;&nbsp;&nbsp;Help
+        </span>
+      </div>
+
+      {/* Properties panel */}
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: 40,
+          width: 200,
+          height: 420,
+          boxShadow: 'inset -1px -1px 0 0 #fff, inset 1px 1px 0 0 #808080',
+          background: '#c0c0c0',
+        }}
+      />
+      <div style={{ position: 'absolute', left: 12, top: 48, fontSize: 17, color: '#000' }}>
+        Properties
+      </div>
+
+      {/* Name */}
+      <div style={{ position: 'absolute', left: 12, top: 81, fontSize: 14, color: '#212121' }}>
+        Name:
+      </div>
+      <div
+        className="cs-sunken cs-field"
+        style={{ position: 'absolute', left: 82, top: 80, width: 108, height: 16 }}
+      >
+        F!rosh Week 2T6
+      </div>
+
+      {/* Theme */}
+      <div style={{ position: 'absolute', left: 12, top: 113, fontSize: 14, color: '#212121' }}>
+        Theme:
+      </div>
+      <div
+        className="cs-sunken cs-field"
+        style={{ position: 'absolute', left: 82, top: 112, width: 108, height: 16 }}
+      >
+        Retro
+      </div>
+
+      {/* ETA */}
+      <div style={{ position: 'absolute', left: 12, top: 145, fontSize: 14, color: '#212121' }}>
+        ETA:
+      </div>
+      <div
+        className="cs-sunken cs-field"
+        style={{ position: 'absolute', left: 82, top: 144, width: 108, height: 16 }}
+      >
+        31 August 2026
+      </div>
+
+      {/* Progress */}
+      <div style={{ position: 'absolute', left: 11, top: 200, fontSize: 17, color: '#000' }}>
+        Progress:
+      </div>
+      <div
+        className="cs-sunken cs-progress"
+        style={{ position: 'absolute', left: 10, top: 218, width: 182, height: 16 }}
+      >
+        {Array.from({ length: 13 }).map((_, i) => (
+          <span key={i} className="cs-progress-block" />
+        ))}
+      </div>
+      <div
+        style={{
+          position: 'absolute',
+          left: 10,
+          top: 238,
+          fontSize: 17,
+          color: '#212121',
+          lineHeight: 1.15,
+        }}
+      >
+        Extracting Hype...
+        <br />
+        67% complete
+      </div>
+
+      {/* Coming Soon dialog */}
+      <div
+        className="cs-sunken"
+        style={{
+          position: 'absolute',
+          left: 206,
+          top: 48,
+          width: 604,
+          height: 100,
+          background: '#fff',
+        }}
+      />
+      <span
+        role="img"
+        aria-label="warning"
+        style={{ position: 'absolute', left: 224, top: 58, fontSize: 32 }}
+      >
+        ⚠️
+      </span>
+      <div style={{ position: 'absolute', left: 270, top: 54, fontSize: 40, color: '#000' }}>
+        Coming Soon!
+      </div>
+      <div
+        style={{
+          position: 'absolute',
+          left: 270,
+          top: 101,
+          fontSize: 20,
+          color: '#212121',
+          lineHeight: 1.2,
+        }}
+      >
+        The official F!rosh Week 2T6 website is being installed.
+        <br />
+        Bookmark this page and to join us when registration drops.
+      </div>
+      <div
+        className="cs-button"
+        style={{ position: 'absolute', left: 208, top: 158, width: 50, height: 22 }}
+      >
+        OK
+      </div>
+      <div
+        className="cs-button is-disabled"
+        style={{ position: 'absolute', left: 280, top: 158, width: 139, height: 22 }}
+      >
+        Register (locked)
+      </div>
+
+      {/* Hero panel */}
+      <div
+        className="cs-hero"
+        style={{ position: 'absolute', left: 206, top: 192, width: 604, height: 258 }}
+      >
+        <h1>F!ROSH 2T6</h1>
+        <p>U OF T ENGINEERING SKULE™</p>
+      </div>
+    </div>
+  );
+
+  // ----- Desktop layer (icons + windows), all positioned via LAYOUT -----
+  const desktop = (
+    <>
+      {/* Desktop icons */}
+      <div className="cs-desktop-icon" style={at(LAYOUT.iconMyComputer)}>
+        <img src={MyComputerIcon} alt="My Computer" />
+        <span>My Computer</span>
+      </div>
+      <div className="cs-desktop-icon" style={at(LAYOUT.iconRecyclingBin)}>
+        {/* To use an image: uncomment the RecyclingBinIcon import at the top,
+            delete the <span> emoji below, and use:
+            <img src={RecyclingBinIcon} alt="Recycling Bin" /> */}
+        <span className="cs-emoji" role="img" aria-label="Recycling Bin">
+          🗑
+        </span>
+        <span>Recycling Bin</span>
+      </div>
+      <a
+        className="cs-desktop-icon cs-link"
+        href="https://discord.gg/Fnxr7tp34E"
+        target="_blank"
+        rel="noreferrer"
+        style={at(LAYOUT.iconDiscord)}
+      >
+        <img src={DiscordIcon} alt="" />
+        <span>Discord.exe</span>
+      </a>
+      <a
+        className="cs-desktop-icon cs-link"
+        href="https://bit.ly/froshig"
+        target="_blank"
+        rel="noreferrer"
+        style={at(LAYOUT.iconInstagram)}
+      >
+        <img src={InstagramIcon} alt="" />
+        <span>Instagram.exe</span>
+      </a>
+
+      {/* Main window */}
+      {mainWindow}
+
+      {/* Paint window (wide) */}
+      <div style={at(LAYOUT.paintWide, 442, 326)}>
+        <img
+          src={PaintWindowWide}
+          alt="f!rosh - Paint"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+        />
+        {/* Photo slot. To use a real photo: uncomment PaintPhotoWide (top of
+            file) and replace this <div> with:
+            <img src={PaintPhotoWide} alt="" style={{ position:'absolute', left:12, top:30, width:418, height:286, objectFit:'cover' }} /> */}
         <div
-          className="coming-soon__stage"
-          ref={stageRef}
-          style={{ transform: `scale(${scale})`, marginTop: STAGE_OFFSET_Y }}
+          className="cs-photo-placeholder"
+          style={{ position: 'absolute', left: 12, top: 30, width: 418, height: 286 }}
         >
-          {/* ---- Desktop icons ---- */}
-          <div className="cs-desktop-icon" style={{ left: 18, top: 76 }}>
-            <img src={MyComputerIcon} alt="My Computer" />
-            <span>My Computer</span>
-          </div>
-          <div className="cs-desktop-icon" style={{ left: 18, top: 162 }}>
-            <span className="cs-emoji" role="img" aria-label="Recycling Bin">
-              🗑
-            </span>
-            <span>Recycling Bin</span>
-          </div>
-          <a
-            className="cs-desktop-icon cs-link"
-            href="https://discord.gg/Fnxr7tp34E"
-            target="_blank"
-            rel="noreferrer"
-            style={{ left: 18, top: 250 }}
-          >
-            <img src={DiscordIcon} alt="" />
-            <span>Discord.exe</span>
-          </a>
-          <a
-            className="cs-desktop-icon cs-link"
-            href="https://bit.ly/froshig"
-            target="_blank"
-            rel="noreferrer"
-            style={{ left: 18, top: 340 }}
-          >
-            <img src={InstagramIcon} alt="" />
-            <span>Instagram.exe</span>
-          </a>
-
-          {/* ---- Main window: F!rosh 2T6.exe ---- */}
-          {/* window body */}
-          <div
-            className="cs-raised cs-abs"
-            style={{ left: 210, top: 70, width: 820, height: 460 }}
-          />
-          {/* title bar */}
-          <div
-            className="cs-titlebar cs-abs"
-            style={{ left: 212, top: 72, width: 816, height: 22, padding: '0 4px' }}
-          >
-            <span style={{ color: 'var(--cs-gold)', fontSize: 18 }}>F!rosh 2T6.exe</span>
-            {windowButtons}
-          </div>
-          {/* menu bar */}
-          <div
-            className="cs-abs"
-            style={{
-              left: 212,
-              top: 94,
-              width: 816,
-              height: 18,
-              display: 'flex',
-              alignItems: 'center',
-              color: '#000',
-              fontSize: 15,
-              paddingLeft: 9,
-            }}
-          >
-            <span style={{ whiteSpace: 'pre' }}>
-              File&nbsp;&nbsp;&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;&nbsp;View&nbsp;&nbsp;&nbsp;&nbsp;Help
-            </span>
-          </div>
-
-          {/* Properties panel (left) */}
-          <div
-            className="cs-abs"
-            style={{
-              left: 210,
-              top: 110,
-              width: 200,
-              height: 420,
-              boxShadow: 'inset -1px -1px 0 0 #fff, inset 1px 1px 0 0 #808080',
-              background: '#c0c0c0',
-            }}
-          />
-          <div className="cs-abs" style={{ left: 222, top: 118, fontSize: 17, color: '#000' }}>
-            Properties
-          </div>
-
-          {/* Name */}
-          <div className="cs-abs" style={{ left: 222, top: 151, fontSize: 14, color: '#212121' }}>
-            Name:
-          </div>
-          <div
-            className="cs-sunken cs-field cs-abs"
-            style={{ left: 292, top: 150, width: 108, height: 16 }}
-          >
-            F!rosh Week 2T6
-          </div>
-
-          {/* Theme */}
-          <div className="cs-abs" style={{ left: 222, top: 183, fontSize: 14, color: '#212121' }}>
-            Theme:
-          </div>
-          <div
-            className="cs-sunken cs-field cs-abs"
-            style={{ left: 292, top: 182, width: 108, height: 16 }}
-          >
-            Retro
-          </div>
-
-          {/* ETA */}
-          <div className="cs-abs" style={{ left: 222, top: 215, fontSize: 14, color: '#212121' }}>
-            ETA:
-          </div>
-          <div
-            className="cs-sunken cs-field cs-abs"
-            style={{ left: 292, top: 214, width: 108, height: 16 }}
-          >
-            31 August 2026
-          </div>
-
-          {/* Progress */}
-          <div className="cs-abs" style={{ left: 221, top: 270, fontSize: 17, color: '#000' }}>
-            Progress:
-          </div>
-          <div
-            className="cs-sunken cs-progress cs-abs"
-            style={{ left: 220, top: 288, width: 182, height: 16 }}
-          >
-            {Array.from({ length: 13 }).map((_, i) => (
-              <span key={i} className="cs-progress-block" />
-            ))}
-          </div>
-          <div
-            className="cs-abs"
-            style={{ left: 220, top: 308, fontSize: 17, color: '#212121', lineHeight: 1.15 }}
-          >
-            Extracting Hype...
-            <br />
-            67% complete
-          </div>
-
-          {/* Coming Soon dialog (right, top) */}
-          <div
-            className="cs-sunken cs-abs"
-            style={{ left: 416, top: 118, width: 604, height: 100, background: '#fff' }}
-          />
-          <span
-            className="cs-abs"
-            role="img"
-            aria-label="warning"
-            style={{ left: 434, top: 128, fontSize: 32 }}
-          >
-            ⚠️
-          </span>
-          <div className="cs-abs" style={{ left: 480, top: 124, fontSize: 40, color: '#000' }}>
-            Coming Soon!
-          </div>
-          <div
-            className="cs-abs"
-            style={{ left: 480, top: 171, fontSize: 20, color: '#212121', lineHeight: 1.2 }}
-          >
-            The official F!rosh Week 2T6 website is being installed.
-            <br />
-            Bookmark this page and to join us when registration drops.
-          </div>
-          <div className="cs-button cs-abs" style={{ left: 418, top: 228, width: 50, height: 22 }}>
-            OK
-          </div>
-          <div
-            className="cs-button is-disabled cs-abs"
-            style={{ left: 490, top: 228, width: 139, height: 22 }}
-          >
-            Register (locked)
-          </div>
-
-          {/* Hero panel */}
-          <div className="cs-hero cs-abs" style={{ left: 416, top: 262, width: 604, height: 258 }}>
-            <h1>F!ROSH 2T6</h1>
-            <p>U OF T ENGINEERING SKULE™</p>
-          </div>
-
-          {/* ---- Paint window (wide, left) ---- */}
-          <img
-            className="cs-abs"
-            src={PaintWindowWide}
-            alt="f!rosh - Paint"
-            style={{ left: 26, top: 456, width: 442, height: 326 }}
-          />
-          {/* TODO(assets): drop the real F!rosh photo over this canvas */}
-          <div
-            className="cs-photo-placeholder"
-            style={{ left: 38, top: 486, width: 418, height: 286 }}
-          >
-            Add F!rosh photo
-          </div>
-
-          {/* ---- Paint window (narrow, middle) ---- */}
-          <img
-            className="cs-abs"
-            src={PaintWindow}
-            alt="f!rosh - Paint"
-            style={{ left: 616, top: 487, width: 338, height: 292 }}
-          />
-          {/* TODO(assets): drop the real F!rosh photo over this canvas */}
-          <div
-            className="cs-photo-placeholder"
-            style={{ left: 628, top: 515, width: 314, height: 252 }}
-          >
-            Add F!rosh photo
-          </div>
-
-          {/* ---- Minesweeper ---- */}
-          <img
-            className="cs-abs"
-            src={MinesweeperWindow}
-            alt="Minesweeper"
-            style={{ left: 1000, top: 416, width: 236, height: 357 }}
-          />
-
-          {/* ---- Logo badge (top-right) ---- */}
-          <div className="cs-logo" style={{ left: 1108, top: 60, width: 100, height: 100 }}>
-            <img src={FroshLogo} alt="F!rosh Week logo" />
-          </div>
+          Add F!rosh photo
         </div>
       </div>
+
+      {/* Paint window (narrow) */}
+      <div style={at(LAYOUT.paintNarrow, 338, 292)}>
+        <img
+          src={PaintWindow}
+          alt="f!rosh - Paint"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+        />
+        {/* Photo slot. To use a real photo: uncomment PaintPhotoNarrow (top of
+            file) and replace this <div> with:
+            <img src={PaintPhotoNarrow} alt="" style={{ position:'absolute', left:12, top:28, width:314, height:252, objectFit:'cover' }} /> */}
+        <div
+          className="cs-photo-placeholder"
+          style={{ position: 'absolute', left: 12, top: 28, width: 314, height: 252 }}
+        >
+          Add F!rosh photo
+        </div>
+      </div>
+
+      {/* Minesweeper */}
+      <img src={MinesweeperWindow} alt="Minesweeper" style={at(LAYOUT.minesweeper, 236, 357)} />
+
+      {/* Logo badge */}
+      <div className="cs-logo" style={at(LAYOUT.logo, 100, 100)}>
+        <img src={FroshLogo} alt="F!rosh Week logo" />
+      </div>
+    </>
+  );
+
+  return (
+    <div className="coming-soon" style={{ '--cs-taskbar-h': `${TASKBAR_HEIGHT}px` }}>
+      {isMobile ? (
+        /* ---- Mobile layout (stacked + readable) ---- */
+        <div className="coming-soon__mobile">
+          <div className="cs-m-logo">
+            <img src={FroshLogo} alt="F!rosh Week logo" />
+          </div>
+
+          <div className="cs-m-window cs-raised">
+            <div className="cs-m-titlebar cs-titlebar">
+              <span className="cs-m-title">F!rosh 2T6.exe</span>
+              {windowButtons}
+            </div>
+
+            <div className="cs-m-body">
+              <div className="cs-m-hero">
+                <h1>F!ROSH 2T6</h1>
+                <p>U OF T ENGINEERING SKULE™</p>
+              </div>
+
+              <div className="cs-m-heading">
+                <span role="img" aria-label="warning">
+                  ⚠️
+                </span>
+                Coming Soon!
+              </div>
+              <p className="cs-m-text">
+                The official F!rosh Week 2T6 website is being installed. Bookmark this page to join
+                us when registration drops.
+              </p>
+
+              <div className="cs-m-eta">ETA: 31 August 2026</div>
+
+              <div className="cs-m-progress-row">
+                <div className="cs-sunken cs-progress cs-m-progressbar">
+                  {Array.from({ length: 16 }).map((_, i) => (
+                    <span key={i} className="cs-progress-block" />
+                  ))}
+                </div>
+                <span className="cs-m-progresslabel">Extracting Hype... 67% complete</span>
+              </div>
+
+              <div className="cs-m-socials">
+                <a
+                  className="cs-m-social cs-raised"
+                  href="https://discord.gg/Fnxr7tp34E"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={DiscordIcon} alt="" />
+                  Discord
+                </a>
+                <a
+                  className="cs-m-social cs-raised"
+                  href="https://bit.ly/froshig"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={InstagramIcon} alt="" />
+                  Instagram
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="cs-m-credit">Made with 💜 by Parth and Ablah</div>
+        </div>
+      ) : (
+        /* ---- Scaled desktop stage (everything above the taskbar) ---- */
+        <div className="coming-soon__stage-wrap">
+          <div
+            className="coming-soon__stage"
+            ref={stageRef}
+            style={{ transform: `scale(${scale})` }}
+          >
+            {desktop}
+          </div>
+        </div>
+      )}
 
       {/* ---- Taskbar (full viewport width, fixed to bottom) ---- */}
       <div className="coming-soon__taskbar cs-raised">
@@ -301,10 +457,14 @@ const ComingSoon = () => {
           <img src={StartIcon} alt="" />
           Start
         </div>
-        <div className="cs-taskbtn cs-sunken cs-taskbtn--active">📁 F!rosh 2T6.exe</div>
-        <div className="cs-taskbtn cs-raised cs-taskbtn--credit">
-          Made with 💜 by Parth and Ablah
-        </div>
+        {!isMobile && (
+          <>
+            <div className="cs-taskbtn cs-sunken cs-taskbtn--active">📁 F!rosh 2T6.exe</div>
+            <div className="cs-taskbtn cs-raised cs-taskbtn--credit">
+              Made with 💜 by Parth and Ablah
+            </div>
+          </>
+        )}
         <div className="cs-taskbar-spacer" />
         <div className="cs-clock cs-sunken">
           <span role="img" aria-label="sound">

@@ -11,16 +11,21 @@
  * scaled to fit the viewport via JS (see ComingSoon.jsx). All child elements are
  * absolutely positioned using the exact Figma coordinates.
  *
- * TODO(font): The design uses the "W95FA" pixel font. Drop a W95FA web font file
- * into client/src/assets and wire it up with an @font-face block below, then it
- * will take priority over the system fallbacks already listed in --cs-font.
- *
- * @font-face {
- *   font-family: 'W95FA';
- *   src: url('../../../assets/fonts/W95FA.woff2') format('woff2');
- *   font-display: swap;
- * }
+ * FONT: The design uses the "W95FA" pixel font. The @font-face below is already
+ * wired up — you just need to add the font file:
+ *   1. Download W95FA (free): https://fontstruct.com  (search "W95FA"), or any
+ *      W95FA .woff2/.woff/.ttf you have.
+ *   2. Save it to: client/src/assets/fonts/W95FA.woff2
+ *      (create the `fonts` folder; add a .woff too if you have it).
+ *   3. Reload — it takes priority automatically (it's first in --cs-font).
+ * Until the file exists the page just falls back to Tahoma/system fonts; the
+ * missing-file warning at build time is harmless.
  */
+@font-face {
+  font-family: 'W95FA';
+  src: url('../../../assets/fonts/W95FA.woff2') format('woff2');
+  font-display: swap;
+}
 
 .coming-soon {
   --cs-face: #c0c0c0;
@@ -59,7 +64,7 @@
     position: absolute;
     inset: 0 0 var(--cs-taskbar-h) 0;
     display: flex;
-    align-items: flex-start;
+    align-items: center; // center vertically so spacing is balanced at any size
     justify-content: center;
     overflow: hidden;
   }
@@ -69,7 +74,7 @@
     flex: 0 0 auto;
     width: 1280px;
     height: 790px;
-    transform-origin: top center; // scale from the top so offset is predictable
+    transform-origin: center center; // scale from center; stage is centered in wrap
   }
 
   // ---- Taskbar (full viewport width) ----
@@ -267,7 +272,7 @@
 
     h1 {
       margin: 0;
-      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      font-family: var(--cs-font); // retro/W95 font (change here for hero text)
       font-weight: 900;
       color: var(--cs-gold);
       font-size: 90px;
@@ -277,7 +282,7 @@
 
     p {
       margin: 14px 0 0;
-      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      font-family: var(--cs-font); // retro/W95 font (change here for hero text)
       font-weight: 400;
       color: #c19eff;
       font-size: 30px;
@@ -319,5 +324,152 @@
   .cs-link {
     color: inherit;
     text-decoration: none;
+  }
+
+  // ============================================================
+  // Mobile layout (rendered below MOBILE_BREAKPOINT in the JSX)
+  // ============================================================
+  &__mobile {
+    position: absolute;
+    inset: 0 0 var(--cs-taskbar-h) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 20px 16px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+
+  .cs-m-logo {
+    flex: 0 0 auto;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset -1px -1px 0 0 #808080, inset 1px 1px 0 0 #fff;
+
+    img {
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+    }
+  }
+
+  .cs-m-window {
+    width: 100%;
+    max-width: 420px;
+    flex: 0 0 auto;
+  }
+
+  .cs-m-titlebar {
+    height: 26px;
+    padding: 0 6px;
+
+    .cs-m-title {
+      color: var(--cs-gold);
+      font-size: 15px;
+    }
+  }
+
+  .cs-m-body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 14px;
+  }
+
+  .cs-m-hero {
+    background: var(--cs-title);
+    text-align: center;
+    padding: 18px 12px;
+
+    h1 {
+      margin: 0;
+      font-family: var(--cs-font); // retro/W95 font (change here for hero text)
+      font-weight: 900;
+      color: var(--cs-gold);
+      font-size: 44px;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+    p {
+      margin: 10px 0 0;
+      font-family: var(--cs-font); // retro/W95 font (change here for hero text)
+      color: #c19eff;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+  }
+
+  .cs-m-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #000;
+    font-size: 24px;
+  }
+
+  .cs-m-text {
+    margin: 0;
+    color: #212121;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .cs-m-eta {
+    color: #212121;
+    font-size: 14px;
+  }
+
+  .cs-m-progress-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .cs-m-progressbar {
+    width: 100%;
+    height: 18px;
+  }
+
+  .cs-m-progresslabel {
+    color: #212121;
+    font-size: 13px;
+  }
+
+  .cs-m-socials {
+    display: flex;
+    gap: 10px;
+  }
+
+  .cs-m-social {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    color: #000;
+    font-size: 15px;
+    text-decoration: none;
+
+    img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
+  }
+
+  .cs-m-credit {
+    flex: 0 0 auto;
+    color: #fff;
+    font-size: 12px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.85);
   }
 }
