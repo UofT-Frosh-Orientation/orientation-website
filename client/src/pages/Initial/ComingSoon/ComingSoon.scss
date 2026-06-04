@@ -27,6 +27,20 @@
   font-display: swap;
 }
 
+// Hero display font (F!ROSH 2T6 + subtitle). "Gilker" is a custom font — add the
+// file to make it apply:
+//   1. Save it to client/src/assets/fonts/Gilker.woff2 (a .ttf/.otf also works —
+//      just change the url + format() below to match).
+//   2. Reload. Until the file exists the hero falls back to the W95 font.
+@font-face {
+  font-family: 'Gilker';
+  // NOTE: the actual file is named "Gliker.woff2" (a typo, but the url must
+  // match the real filename). Rename the file to Gilker.woff2 and update this if
+  // you want it spelled correctly.
+  src: url('../../../assets/fonts/Gliker.woff2') format('woff2');
+  font-display: swap;
+}
+
 .coming-soon {
   --cs-face: #c0c0c0;
   --cs-title: #291254;
@@ -34,6 +48,8 @@
   --cs-gold: #ffd700;
   --cs-taskbar-h: 36px;
   --cs-font: 'W95FA', 'MS Sans Serif', 'Tahoma', 'Segoe UI', sans-serif;
+  // Hero text font (falls back to the W95 font until Gilker.woff2 is added).
+  --cs-hero-font: 'Gilker', var(--cs-font);
 
   // ⬇️ CLOUD OPACITY — experiment here. 0 = no clouds, 1 = full strength.
   --cs-cloud-opacity: 1;
@@ -293,17 +309,17 @@
 
     h1 {
       margin: 0;
-      font-family: var(--cs-font); // retro/W95 font (change here for hero text)
+      font-family: var(--cs-hero-font);
       font-weight: 900;
       color: var(--cs-gold);
-      font-size: 90px;
+      font-size: 64px; // ← "F!ROSH 2T6" size (desktop). Change to taste.
       line-height: 1;
       letter-spacing: -2px;
     }
 
     p {
       margin: 14px 0 0;
-      font-family: var(--cs-font); // retro/W95 font (change here for hero text)
+      font-family: var(--cs-hero-font);
       font-weight: 400;
       color: #c19eff;
       font-size: 30px;
@@ -408,7 +424,7 @@
 
     h1 {
       margin: 0;
-      font-family: var(--cs-font); // retro/W95 font (change here for hero text)
+      font-family: var(--cs-hero-font);
       font-weight: 900;
       color: var(--cs-gold);
       font-size: 44px;
@@ -418,7 +434,7 @@
 
     p {
       margin: 10px 0 0;
-      font-family: var(--cs-font); // retro/W95 font (change here for hero text)
+      font-family: var(--cs-hero-font);
       color: #c19eff;
       font-size: 13px;
       letter-spacing: 1px;
