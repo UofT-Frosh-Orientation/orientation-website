@@ -70,6 +70,7 @@ const at = ({ x, y }, width, height) => ({
   ...(height != null ? { height } : {}),
 });
 
+
 const ComingSoon = () => {
   const [scale, setScale] = useState(1);
   const [time, setTime] = useState(formatTime(new Date()));
@@ -283,6 +284,36 @@ const ComingSoon = () => {
     </div>
   );
 
+  // Dragging windows functionality
+  const [isDragging, setIsDragging] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const dragStart = useRef({ x: 0, y: 0 });
+
+  const handleMouseDown = (e) => {
+    e.preventDefault(); // prevents any default drag behavior
+    dragStart.current = { x: e.clientX - position.x, y: e.clientY - position.y };
+    setIsDragging(true);
+  };
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!isDragging) return;
+      setPosition({
+        x: e.clientX - dragStart.current.x,
+        y: e.clientY - dragStart.current.y,
+      });
+    };
+
+    const handleMouseUp = () => setIsDragging(false);
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
+
   // ----- Desktop layer (icons + windows), all positioned via LAYOUT -----
   const desktop = (
     <>
@@ -343,7 +374,15 @@ const ComingSoon = () => {
       </div>
 
       {/* Paint window (narrow) */}
-      <div style={at(LAYOUT.paintNarrow, 338, 292)}>
+      <div
+        style={{
+          ...at(LAYOUT.paintNarrow, 338, 292),
+          transform: `translate(${position.x}px, ${position.y}px)`,
+          cursor: isDragging ? 'grabbing' : 'grab',
+          userSelect: 'none',
+        }}
+        onMouseDown={handleMouseDown}
+      >
         <img
           src={PaintWindow}
           alt="f!rosh - Paint"
