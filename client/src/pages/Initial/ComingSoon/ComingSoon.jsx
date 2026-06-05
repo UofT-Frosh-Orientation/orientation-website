@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './ComingSoon.scss';
 
+import { Minesweeper } from './Minesweeper';
+
 // Committed "coming soon" assets (assets/intial)
 import MyComputerIcon from '../../../assets/intial/MyComputer.png';
 import StartIcon from '../../../assets/intial/Start.png';
-import MinesweeperWindow from '../../../assets/intial/minesweeper.png';
 import PaintWindowWide from '../../../assets/intial/Frame_Wide.png';
 import PaintWindow from '../../../assets/intial/Frame.png';
 
@@ -161,11 +162,18 @@ const ComingSoon = () => {
     window.addEventListener('pointerup', onUp);
   };
 
-  // Props for a draggable window: position + z-index + drag handler.
-  const winProps = (key, width, height, baseClass = '') => ({
+  // Frame (position + z-index + class) for a window, WITHOUT a drag handler.
+  // Used directly when only part of the window should drag (e.g. Minesweeper's
+  // title bar), so the body stays interactive.
+  const winFrame = (key, width, height, baseClass = '') => ({
     className: `${baseClass} cs-window${draggingKey === key ? ' cs-window--dragging' : ''}`.trim(),
-    onPointerDown: startDrag(key),
     style: { ...at(winPos[key], width, height), zIndex: winZ[key] },
+  });
+
+  // Props for a whole-window drag handle (the whole window moves on drag).
+  const winProps = (key, width, height, baseClass = '') => ({
+    ...winFrame(key, width, height, `${baseClass} cs-draghandle`.trim()),
+    onPointerDown: startDrag(key),
   });
 
   // ----- Main "F!rosh 2T6.exe" window (positioned as one unit) -----
@@ -416,12 +424,10 @@ const ComingSoon = () => {
         </div>
       </div>
 
-      {/* Minesweeper */}
-      <img
-        {...winProps('minesweeper', 236, 357)}
-        src={MinesweeperWindow}
-        alt="Minesweeper"
-        draggable={false}
+      {/* Minesweeper (playable; drags from its title bar only) */}
+      <Minesweeper
+        frame={winFrame('minesweeper', null, null, 'cs-raised')}
+        onDragStart={startDrag('minesweeper')}
       />
 
       {/* Logo. The two numbers below are its width/height — change them to
@@ -433,7 +439,10 @@ const ComingSoon = () => {
   );
 
   return (
-    <div className="coming-soon" style={{ '--cs-taskbar-h': `${TASKBAR_HEIGHT}px` }}>
+    <div
+      className={`coming-soon${draggingKey ? ' cs-grabbing' : ''}`}
+      style={{ '--cs-taskbar-h': `${TASKBAR_HEIGHT}px` }}
+    >
       {isMobile ? (
         /* ---- Mobile layout (stacked + readable) ---- */
         <div className="coming-soon__mobile">

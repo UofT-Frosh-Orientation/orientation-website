@@ -203,19 +203,22 @@
   }
 
   // ---- Draggable windows ----
-  // `.cs-window *` outranks the app's global `* { cursor }` so the grab cursor
-  // shows over the whole window (and its children), not just the bare element.
-  .cs-window,
-  .cs-window * {
-    cursor: grab;
-  }
-
   .cs-window {
     touch-action: none; // let pointer-drag work without the page scrolling
   }
 
-  .cs-window--dragging,
-  .cs-window--dragging * {
+  // Grab cursor on whatever is a drag handle: the whole image windows, or just
+  // the Minesweeper title bar. `.cs-draghandle *` outranks the app's global
+  // `* { cursor }` so it shows over the handle's children too.
+  .cs-draghandle,
+  .cs-draghandle * {
+    cursor: grab;
+  }
+
+  // While any window is being dragged, show grabbing everywhere for smooth
+  // feedback (beats the global cursor via the doubled-class specificity).
+  &.cs-grabbing,
+  &.cs-grabbing * {
     cursor: grabbing;
   }
 
