@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './ComingSoon.scss';
 
 import { Minesweeper } from './Minesweeper';
+import { useEasterEggs, RecycleBinWindow, NotepadWindow, BlueScreen } from './EasterEggs';
 
 // Committed "coming soon" assets (assets/intial)
 import MyComputerIcon from '../../../assets/intial/MyComputer.png';
@@ -78,6 +79,37 @@ const ComingSoon = () => {
     typeof window !== 'undefined' ? window.innerWidth <= MOBILE_BREAKPOINT : false,
   );
   const stageRef = useRef(null);
+
+  // ----- Easter eggs -----
+  // XYZZY → Minesweeper reveals mines. A counter (not a boolean) so each XYZZY
+  // is a fresh one-shot trigger; the board owns the cheat and clears it on a new
+  // game (otherwise a sticky `true` would re-reveal mines every reset).
+  const [cheatTrigger, setCheatTrigger] = useState(0);
+  const [binOpen, setBinOpen] = useState(false); // Recycle Bin window
+  const [fileOpen, setFileOpen] = useState(false); // "do not touch.txt" notepad
+  const [bsod, setBsod] = useState(false); // Blue Screen of Death
+  const [konami, setKonami] = useState(false); // brief Konami flash
+
+  // Konami payoff: play the sound (drop the file at client/public/konami.mp3)
+  // and flash the desktop. Missing/blocked audio fails silently.
+  const konamiAudio = useRef(null);
+  const fireKonami = () => {
+    setKonami(true);
+    setTimeout(() => setKonami(false), 1200);
+    try {
+      if (!konamiAudio.current) konamiAudio.current = new Audio('/audio.mp3');
+      konamiAudio.current.currentTime = 0;
+      konamiAudio.current.play().catch(() => {});
+    } catch (err) {
+      /* no-op: audio is optional */
+    }
+  };
+
+  useEasterEggs({
+    onKonami: fireKonami,
+    onXyzzy: () => setCheatTrigger((n) => n + 1),
+    onCrash: () => setBsod(true),
+  });
 
   // Scale the fixed-size stage to fit the viewport (contain — never crops).
   useEffect(() => {
@@ -353,7 +385,16 @@ const ComingSoon = () => {
         <img src={MyComputerIcon} alt="My Computer" />
         <span>My Computer</span>
       </div>
-      <div className="cs-desktop-icon" style={at(LAYOUT.iconRecyclingBin)}>
+      {/* Recycling Bin — double-click to open it (hides the "do not touch" egg). */}
+      <div
+        className="cs-desktop-icon cs-icon-button"
+        style={at(LAYOUT.iconRecyclingBin)}
+        onClick={() => setBinOpen(true)}
+        onDoubleClick={() => setBinOpen(true)}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setBinOpen(true)}
+      >
         {/* To use an image: uncomment the RecyclingBinIcon import at the top,
             delete the <span> emoji below, and use:
             <img src={RecyclingBinIcon} alt="Recycling Bin" /> */}
@@ -428,7 +469,23 @@ const ComingSoon = () => {
       <Minesweeper
         frame={winFrame('minesweeper', null, null, 'cs-raised')}
         onDragStart={startDrag('minesweeper')}
+        cheatTrigger={cheatTrigger}
       />
+
+      {/* Easter-egg windows: Recycle Bin → "do not touch.txt" */}
+      {binOpen && (
+        <RecycleBinWindow
+          style={{ position: 'absolute', left: 360, top: 170, width: 340, zIndex: 100 }}
+          onOpenFile={() => setFileOpen(true)}
+          onClose={() => setBinOpen(false)}
+        />
+      )}
+      {fileOpen && (
+        <NotepadWindow
+          style={{ position: 'absolute', left: 470, top: 250, width: 470, zIndex: 110 }}
+          onClose={() => setFileOpen(false)}
+        />
+      )}
 
       {/* Logo. The two numbers below are its width/height — change them to
           resize. If it clips off the right edge, lower LAYOUT.logo.x. */}
@@ -440,7 +497,7 @@ const ComingSoon = () => {
 
   return (
     <div
-      className={`coming-soon${draggingKey ? ' cs-grabbing' : ''}`}
+      className={`coming-soon${draggingKey ? ' cs-grabbing' : ''}${konami ? ' cs-konami' : ''}`}
       style={{ '--cs-taskbar-h': `${TASKBAR_HEIGHT}px` }}
     >
       {isMobile ? (
@@ -515,7 +572,7 @@ const ComingSoon = () => {
           <div
             className="coming-soon__stage"
             ref={stageRef}
-            style={{ transform: `scale(${scale})` }}
+            style={{ transform: `scale(${scale})`, '--cs-scale': scale }}
           >
             {desktop}
           </div>
@@ -541,6 +598,9 @@ const ComingSoon = () => {
           {time}
         </div>
       </div>
+
+      {/* Blue Screen of Death — fires when the decoded secret word is typed. */}
+      {bsod && <BlueScreen onDismiss={() => setBsod(false)} />}
     </div>
   );
 };

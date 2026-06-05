@@ -96,4 +96,22 @@
     background: #ff0000;
     border-color: #c00000;
   }
+
+  // XYZZY cheat: revealed mine locations glow red over the normal raised tile.
+  &.is-cheat {
+    background: #ff5b5b;
+    box-shadow: inset -1px -1px 0 0 #000, inset 1px 1px 0 0 #fff, inset -2px -2px 0 0 #b30000,
+      inset 2px 2px 0 0 #ffb3b3;
+    animation: cs-ms-cheat-pulse 0.9s ease-in-out infinite;
+  }
+}
+
+@keyframes cs-ms-cheat-pulse {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.35);
+  }
 }

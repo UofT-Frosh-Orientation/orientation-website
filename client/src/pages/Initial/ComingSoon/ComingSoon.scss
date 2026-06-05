@@ -223,6 +223,18 @@
   }
 
   // ---- Desktop icons ----
+  .cs-icon-button {
+    cursor: pointer;
+    background: transparent;
+    border: 1px dotted transparent;
+
+    &:hover,
+    &:focus {
+      border-color: rgba(255, 255, 255, 0.5);
+      outline: none;
+    }
+  }
+
   .cs-desktop-icon {
     position: absolute;
     width: 88px;

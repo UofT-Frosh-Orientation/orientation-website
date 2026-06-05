@@ -1,0 +1,178 @@
+// Easter-egg windows (Recycle Bin + Notepad) and the Blue Screen of Death.
+// These render inside `.coming-soon`, so they inherit the --cs-* theme vars and
+// the shared cs-raised / cs-sunken bevel + cs-titlebar / cs-winbtn classes.
+
+.coming-soon {
+  // ---- Shared egg window chrome ----
+  .cs-egg-window {
+    position: absolute;
+    touch-action: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cs-egg-titlebar {
+    height: 22px;
+    padding: 0 4px;
+    font-size: 15px;
+    color: #fff;
+    cursor: grab;
+
+    .cs-winbtn {
+      cursor: pointer;
+    }
+  }
+
+  .cs-egg-menu {
+    padding: 3px 8px;
+    font-size: 13px;
+    color: #000;
+    white-space: pre;
+  }
+
+  // ---- Recycle Bin ----
+  .cs-egg-binbody {
+    flex: 1 1 auto;
+    margin: 0 4px;
+    padding: 10px;
+    background: #fff;
+    min-height: 120px;
+  }
+
+  .cs-egg-fileicon {
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 4px;
+    border: 1px dotted transparent;
+    background: transparent;
+    color: #000;
+    font-size: 12px;
+    text-align: center;
+    line-height: 1.1;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      border-color: #808080;
+      background: #d8d0ff;
+      outline: none;
+    }
+
+    .cs-egg-fileglyph {
+      font-size: 32px;
+      line-height: 1;
+    }
+  }
+
+  .cs-egg-statusbar {
+    margin: 4px;
+    padding: 2px 6px;
+    font-size: 12px;
+    color: #000;
+    background: var(--cs-face);
+  }
+
+  // ---- Notepad ----
+  .cs-egg-notebody {
+    flex: 1 1 auto;
+    margin: 0 4px 4px;
+    padding: 10px 12px;
+    background: #fff;
+    overflow: auto;
+  }
+
+  .cs-egg-notehint {
+    margin: 0 0 12px;
+    color: #808080;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+  }
+
+  .cs-egg-notecipher {
+    margin: 0;
+    color: #000;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    line-height: 1.6;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+  }
+
+  // ---- Konami flash (brief celebratory tilt + hue spin) ----
+  &.cs-konami .coming-soon__stage {
+    animation: cs-konami-spin 1.2s ease-in-out;
+  }
+}
+
+@keyframes cs-konami-spin {
+  0% {
+    filter: hue-rotate(0deg) saturate(1);
+    transform: scale(var(--cs-scale, 1)) rotate(0deg);
+  }
+  50% {
+    filter: hue-rotate(180deg) saturate(2);
+    transform: scale(var(--cs-scale, 1)) rotate(2deg);
+  }
+  100% {
+    filter: hue-rotate(360deg) saturate(1);
+    transform: scale(var(--cs-scale, 1)) rotate(0deg);
+  }
+}
+
+// ---- Blue Screen of Death (full viewport, above everything) ----
+.cs-bsod {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0000aa;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  cursor: pointer;
+  font-family: 'Courier New', 'Lucida Console', monospace;
+  animation: cs-bsod-in 0.08s steps(2) both;
+
+  .cs-bsod-inner {
+    max-width: 760px;
+    font-size: 17px;
+    line-height: 1.55;
+
+    p {
+      margin: 0 0 16px;
+    }
+  }
+
+  .cs-bsod-banner {
+    background: #aaaaaa;
+    color: #0000aa;
+    display: inline-block;
+    padding: 1px 10px;
+    margin: 0 auto 22px;
+    font-weight: 700;
+    letter-spacing: 4px;
+  }
+
+  .cs-bsod-headline {
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+
+  .cs-bsod-press {
+    margin-top: 28px;
+  }
+}
+
+@keyframes cs-bsod-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

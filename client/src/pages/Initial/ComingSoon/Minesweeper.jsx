@@ -83,10 +83,22 @@ const lcd = (n) => {
   return v < 0 ? `-${String(Math.abs(v)).padStart(2, '0')}` : String(v).padStart(3, '0');
 };
 
-export const Minesweeper = ({ frame, onDragStart }) => {
+export const Minesweeper = ({ frame, onDragStart, cheatTrigger }) => {
   const [grid, setGrid] = useState(makeGrid);
   const [status, setStatus] = useState('ready'); // ready | playing | won | lost
   const [time, setTime] = useState(0);
+  // Once mines exist on the board (after first click OR the XYZZY cheat seeds
+  // them), don't re-place them — otherwise the cheat's revealed positions would
+  // shift out from under the player.
+  const [seeded, setSeeded] = useState(false);
+  // XYZZY cheat is owned here so a new game clears it. The parent bumps
+  // `cheatTrigger` (a counter) each time XYZZY fires; we turn the cheat on when
+  // it changes, and off again on reset().
+  const [cheat, setCheat] = useState(false);
+
+  useEffect(() => {
+    if (cheatTrigger > 0) setCheat(true);
+  }, [cheatTrigger]);
 
   // Timer runs while playing.
   useEffect(() => {
@@ -95,18 +107,31 @@ export const Minesweeper = ({ frame, onDragStart }) => {
     return () => clearInterval(id);
   }, [status]);
 
+  // XYZZY cheat: if the board hasn't been seeded yet, drop the mines in now so
+  // there's something to reveal. (Relaxes the first-click-safe guarantee — fair,
+  // since you can now see every mine.)
+  useEffect(() => {
+    if (!cheat || seeded || status === 'won' || status === 'lost') return;
+    const safe = Math.floor(Math.random() * ROWS * COLS);
+    setGrid((g) => placeMines(g, safe));
+    setSeeded(true);
+  }, [cheat, seeded, status]);
+
   const reset = () => {
     setGrid(makeGrid());
     setStatus('ready');
     setTime(0);
+    setSeeded(false);
+    setCheat(false);
   };
 
   const revealCell = (i) => {
     if (status === 'won' || status === 'lost') return;
     if (grid[i].revealed || grid[i].flagged) return;
 
-    // First click: seed the mines around the safe cell.
-    const working = status === 'ready' ? placeMines(grid, i) : grid;
+    // First click: seed the mines around the safe cell (unless already seeded).
+    const working = seeded ? grid : placeMines(grid, i);
+    if (!seeded) setSeeded(true);
 
     if (working[i].mine) {
       const next = working.map((c) => ({ ...c, revealed: c.mine ? true : c.revealed }));
@@ -165,6 +190,12 @@ export const Minesweeper = ({ frame, onDragStart }) => {
             else if (cell.revealed && cell.mine) content = '💣';
             else if (cell.revealed && cell.adj > 0) content = cell.adj;
 
+            // XYZZY cheat: light up unrevealed, unflagged mines so they're obvious.
+            if (cheat && cell.mine && !cell.revealed && !cell.flagged) {
+              classes.push('is-cheat');
+              content = '💣';
+            }
+
             return (
               <div
                 // eslint-disable-next-line react/no-array-index-key
@@ -189,4 +220,10 @@ Minesweeper.propTypes = {
   frame: PropTypes.object.isRequired,
   // Pointer-down handler wired to the title bar to start a drag.
   onDragStart: PropTypes.func.isRequired,
+  // XYZZY easter egg: a counter the parent bumps to (re)activate the reveal.
+  cheatTrigger: PropTypes.number,
+};
+
+Minesweeper.defaultProps = {
+  cheatTrigger: 0,
 };
