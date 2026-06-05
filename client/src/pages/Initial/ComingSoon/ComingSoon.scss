@@ -152,7 +152,7 @@
 
     &--start {
       font-weight: 700;
-      height:26px;
+      height: 26px;
     }
 
     &--active {
@@ -200,6 +200,23 @@
 
   .cs-abs {
     position: absolute;
+  }
+
+  // ---- Draggable windows ----
+  // `.cs-window *` outranks the app's global `* { cursor }` so the grab cursor
+  // shows over the whole window (and its children), not just the bare element.
+  .cs-window,
+  .cs-window * {
+    cursor: grab;
+  }
+
+  .cs-window {
+    touch-action: none; // let pointer-drag work without the page scrolling
+  }
+
+  .cs-window--dragging,
+  .cs-window--dragging * {
+    cursor: grabbing;
   }
 
   // ---- Desktop icons ----

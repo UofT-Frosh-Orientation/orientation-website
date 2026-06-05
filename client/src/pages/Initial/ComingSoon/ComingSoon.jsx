@@ -70,7 +70,6 @@ const at = ({ x, y }, width, height) => ({
   ...(height != null ? { height } : {}),
 });
 
-
 const ComingSoon = () => {
   const [scale, setScale] = useState(1);
   const [time, setTime] = useState(formatTime(new Date()));
@@ -115,11 +114,65 @@ const ComingSoon = () => {
     </div>
   );
 
+  // ----- Draggable windows -----
+  // The 4 windows can be dragged around. They live inside the scaled stage, so
+  // pointer movement (screen px) is divided by the current scale to convert it
+  // to canvas px — otherwise the window drifts away from the cursor.
+  const scaleRef = useRef(scale);
+  scaleRef.current = scale;
+
+  const [winPos, setWinPos] = useState({
+    mainWindow: LAYOUT.mainWindow,
+    paintWide: LAYOUT.paintWide,
+    paintNarrow: LAYOUT.paintNarrow,
+    minesweeper: LAYOUT.minesweeper,
+  });
+  const [winZ, setWinZ] = useState({ mainWindow: 1, paintWide: 2, paintNarrow: 3, minesweeper: 4 });
+  const [draggingKey, setDraggingKey] = useState(null);
+  const zTopRef = useRef(4);
+
+  const startDrag = (key) => (e) => {
+    e.preventDefault();
+    // Bring this window to the front.
+    zTopRef.current += 1;
+    setWinZ((z) => ({ ...z, [key]: zTopRef.current }));
+    setDraggingKey(key);
+
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const orig = winPos[key];
+
+    const onMove = (ev) => {
+      const s = scaleRef.current || 1;
+      setWinPos((p) => ({
+        ...p,
+        [key]: {
+          x: Math.round(orig.x + (ev.clientX - startX) / s),
+          y: Math.round(orig.y + (ev.clientY - startY) / s),
+        },
+      }));
+    };
+    const onUp = () => {
+      setDraggingKey(null);
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+    };
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+  };
+
+  // Props for a draggable window: position + z-index + drag handler.
+  const winProps = (key, width, height, baseClass = '') => ({
+    className: `${baseClass} cs-window${draggingKey === key ? ' cs-window--dragging' : ''}`.trim(),
+    onPointerDown: startDrag(key),
+    style: { ...at(winPos[key], width, height), zIndex: winZ[key] },
+  });
+
   // ----- Main "F!rosh 2T6.exe" window (positioned as one unit) -----
-  // Children are positioned RELATIVE to the window, so moving LAYOUT.mainWindow
-  // moves everything together.
+  // Children are positioned RELATIVE to the window, so moving the window moves
+  // everything together.
   const mainWindow = (
-    <div className="cs-raised" style={at(LAYOUT.mainWindow, 820, 460)}>
+    <div {...winProps('mainWindow', 820, 460, 'cs-raised')}>
       {/* title bar */}
       <div
         className="cs-titlebar"
@@ -284,37 +337,7 @@ const ComingSoon = () => {
     </div>
   );
 
-  // Dragging windows functionality
-  const [isDragging, setIsDragging] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const dragStart = useRef({ x: 0, y: 0 });
-
-  const handleMouseDown = (e) => {
-    e.preventDefault(); // prevents any default drag behavior
-    dragStart.current = { x: e.clientX - position.x, y: e.clientY - position.y };
-    setIsDragging(true);
-  };
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (!isDragging) return;
-      setPosition({
-        x: e.clientX - dragStart.current.x,
-        y: e.clientY - dragStart.current.y,
-      });
-    };
-
-    const handleMouseUp = () => setIsDragging(false);
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [isDragging]);
-
-  // ----- Desktop layer (icons + windows), all positioned via LAYOUT -----
+  // ----- Desktop layer (icons + windows) -----
   const desktop = (
     <>
       {/* Desktop icons */}
@@ -356,10 +379,11 @@ const ComingSoon = () => {
       {mainWindow}
 
       {/* Paint window (wide) */}
-      <div style={at(LAYOUT.paintWide, 442, 326)}>
+      <div {...winProps('paintWide', 442, 326)}>
         <img
           src={PaintWindowWide}
           alt="f!rosh - Paint"
+          draggable={false}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
         />
         {/* Photo slot. To use a real photo: uncomment PaintPhotoWide (top of
@@ -374,18 +398,11 @@ const ComingSoon = () => {
       </div>
 
       {/* Paint window (narrow) */}
-      <div
-        style={{
-          ...at(LAYOUT.paintNarrow, 338, 292),
-          transform: `translate(${position.x}px, ${position.y}px)`,
-          cursor: isDragging ? 'grabbing' : 'grab',
-          userSelect: 'none',
-        }}
-        onMouseDown={handleMouseDown}
-      >
+      <div {...winProps('paintNarrow', 338, 292)}>
         <img
           src={PaintWindow}
           alt="f!rosh - Paint"
+          draggable={false}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
         />
         {/* Photo slot. To use a real photo: uncomment PaintPhotoNarrow (top of
@@ -400,7 +417,12 @@ const ComingSoon = () => {
       </div>
 
       {/* Minesweeper */}
-      <img src={MinesweeperWindow} alt="Minesweeper" style={at(LAYOUT.minesweeper, 236, 357)} />
+      <img
+        {...winProps('minesweeper', 236, 357)}
+        src={MinesweeperWindow}
+        alt="Minesweeper"
+        draggable={false}
+      />
 
       {/* Logo. The two numbers below are its width/height — change them to
           resize. If it clips off the right edge, lower LAYOUT.logo.x. */}
@@ -493,7 +515,7 @@ const ComingSoon = () => {
 
       {/* ---- Taskbar (full viewport width, fixed to bottom) ---- */}
       <div className="coming-soon__taskbar cs-raised">
-          <img src={StartIcon} alt=""className="cs-taskbtn--start"/>
+        <img src={StartIcon} alt="" className="cs-taskbtn--start" />
         {!isMobile && (
           <>
             <div className="cs-taskbtn cs-sunken cs-taskbtn--active">📁 F!rosh 2T6.exe</div>
