@@ -12,7 +12,7 @@ import PaintWindow from '../../../assets/intial/Frame.png';
 
 // Reused project assets
 import DiscordIcon from '../../../assets/social/discord-brands.svg';
-import InstagramIcon from '../../../assets/social/instagram_icon.png';
+import InstagramIcon from '../../../assets/intial/old_insta.png';
 import FroshLogo from '../../../assets/logo/2T6logo_1.png';
 import RecyclingBinIcon from '../../../assets/intial/recycling-bin.png';
 
