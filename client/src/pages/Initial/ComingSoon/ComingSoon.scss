@@ -51,6 +51,12 @@
   // Hero text font (falls back to the W95 font until Gilker.woff2 is added).
   --cs-hero-font: 'Gilker', var(--cs-font);
 
+  // Windows 95 arrow pointer, drawn inline as an SVG (no image file needed).
+  // The trailing `2 2` is the hotspot (the arrow tip); `auto` is the fallback.
+  --cs-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M2 2L2 17L6 13.5L9 20.5L11.5 19.5L8.5 12.8L13.5 12.8Z' fill='%23000' stroke='%23fff' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E")
+      2 2,
+    auto;
+
   // ⬇️ CLOUD OPACITY — experiment here. 0 = no clouds, 1 = full strength.
   --cs-cloud-opacity: 1;
 
@@ -62,6 +68,7 @@
   background-color: var(--cs-desktop);
   background-image: linear-gradient(180deg, #6a3a9c 0%, #582c83 55%, #3d1d62 100%);
   font-family: var(--cs-font);
+  cursor: var(--cs-arrow);
   user-select: none;
 
   // Soft CSS clouds (low-opacity white blobs). The whole layer's opacity is
@@ -92,6 +99,11 @@
   // hero — still win via higher specificity.)
   * {
     font-family: inherit;
+    // Win95 arrow everywhere. The app's global `* { cursor: url(cursor.png) }`
+    // sets a cursor directly on every element, so we must re-assert here (this
+    // `.coming-soon *` outranks it). Drag handles / icon buttons set their own
+    // cursor with higher specificity and still win.
+    cursor: var(--cs-arrow);
   }
 
   // Holds the scaled stage in the area above the taskbar. Vertical position is
@@ -171,6 +183,52 @@
     line-height: 1;
     color: #000;
     white-space: nowrap;
+  }
+
+  // System-tray gamepad: a faint, easily-missed hint toward the Konami code.
+  .cs-tray-egg {
+    position: relative;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
+    cursor: help;
+
+    .cs-tray-egg-icon {
+      font-size: 16px;
+      line-height: 1;
+      opacity: 0.7; // dim so it reads as a quiet tray icon, not a button
+      filter: grayscale(0.3);
+      transition: opacity 0.12s ease, filter 0.12s ease;
+    }
+
+    &:hover .cs-tray-egg-icon {
+      opacity: 1;
+      filter: none;
+    }
+
+    // Retro yellow tooltip, popping up above the taskbar.
+    .cs-tray-egg-tip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      right: 0;
+      white-space: nowrap;
+      background: #ffffe1;
+      color: #000;
+      border: 1px solid #000;
+      padding: 3px 8px;
+      font-size: 13px;
+      letter-spacing: 2px;
+      box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.12s ease;
+    }
+
+    &:hover .cs-tray-egg-tip {
+      opacity: 1;
+    }
   }
 
   // Read-only value field inside the Properties panel

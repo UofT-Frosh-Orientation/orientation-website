@@ -55,7 +55,6 @@
   align-items: center;
   justify-content: center;
   background: var(--cs-face, #c0c0c0);
-  cursor: pointer;
 
   &:active {
     box-shadow: inset 1px 1px 0 0 #7f7f7f, inset -1px -1px 0 0 #fff, inset 2px 2px 0 0 #808080,
@@ -81,15 +80,14 @@
   font-size: 15px;
   font-weight: 700;
   line-height: 1;
-  cursor: pointer;
   user-select: none;
+  // (cursor intentionally left to the page's Win95 arrow)
 
   // Unrevealed cells use the shared .cs-raised bevel (added in the JSX).
 
   &.is-revealed {
     background: var(--cs-face, #c0c0c0);
     border: 1px solid #9a9a9a;
-    cursor: default;
   }
 
   &.is-exploded {

@@ -589,6 +589,14 @@ const ComingSoon = () => {
           </>
         )}
         <div className="cs-taskbar-spacer" />
+        {/* System-tray gamepad — a breadcrumb toward the Konami code. The hover
+            tooltip teases the sequence without giving it all away. */}
+        {!isMobile && (
+          <div className="cs-tray-egg" role="img" aria-label="gamepad">
+            <span className="cs-tray-egg-icon">🎮</span>
+            <span className="cs-tray-egg-tip">↑ ↑ ↓ ↓ … ?</span>
+          </div>
+        )}
         <div className="cs-clock cs-sunken">
           <span role="img" aria-label="sound">
             🔊
