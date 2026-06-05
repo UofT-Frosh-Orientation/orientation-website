@@ -14,17 +14,26 @@ import PaintWindow from '../../../assets/intial/Frame.png';
 import DiscordIcon from '../../../assets/social/discord-brands.svg';
 import InstagramIcon from '../../../assets/social/instagram_icon.png';
 import FroshLogo from '../../../assets/logo/2T6logo_1.png';
+import RecyclingBinIcon from '../../../assets/intial/recycling-bin.png';
 
-// Recycling Bin icon. Save your image to assets/intial/recycling-bin.png, then
-// uncomment this import and the <img> in the Recycling Bin icon below (and
-// delete the emoji <span>).
-// import RecyclingBinIcon from '../../../assets/intial/recycling-bin.png';
+import { PhotoCarousel } from './PhotoCarousel';
 
-// F!rosh photos shown inside the two "Paint" windows. Drop the image files into
-// assets/intial (or any folder), uncomment these imports, then replace the
-// matching `cs-photo-placeholder` <div> below with the commented <img> beside it.
-// import PaintPhotoWide from '../../../assets/intial/frosh-photo-wide.jpg';
-// import PaintPhotoNarrow from '../../../assets/intial/frosh-photo-narrow.jpg';
+// F!rosh photos for the two "Paint" windows. Each frame has its OWN folder so
+// they can show different sets (no duplicates across windows). Every image in a
+// folder is collected automatically — just drop files in, no code changes. See
+// each folder's README.
+const FROSH_PHOTOS_WIDE = Object.values(
+  import.meta.glob('../../../assets/intial/frosh-photos-wide/*.{png,jpg,jpeg,webp,gif}', {
+    eager: true,
+    import: 'default',
+  }),
+);
+const FROSH_PHOTOS_NARROW = Object.values(
+  import.meta.glob('../../../assets/intial/frosh-photos-narrow/*.{png,jpg,jpeg,webp,gif}', {
+    eager: true,
+    import: 'default',
+  }),
+);
 
 // ===========================================================================
 // CANVAS + LAYOUT
@@ -395,12 +404,9 @@ const ComingSoon = () => {
         tabIndex={0}
         onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setBinOpen(true)}
       >
-        {/* To use an image: uncomment the RecyclingBinIcon import at the top,
-            delete the <span> emoji below, and use:
-            <img src={RecyclingBinIcon} alt="Recycling Bin" /> */}
-        <span className="cs-emoji" role="img" aria-label="Recycling Bin">
-          🗑
-        </span>
+        {/* The image has lots of transparent padding, so it gets a bigger box
+            (.cs-recycle-icon) to visually match the other icons. */}
+        <img className="cs-recycle-icon" src={RecyclingBinIcon} alt="Recycling Bin" />
         <span>Recycling Bin</span>
       </div>
       <a
@@ -435,15 +441,11 @@ const ComingSoon = () => {
           draggable={false}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
         />
-        {/* Photo slot. To use a real photo: uncomment PaintPhotoWide (top of
-            file) and replace this <div> with:
-            <img src={PaintPhotoWide} alt="" style={{ position:'absolute', left:12, top:30, width:418, height:286, objectFit:'cover' }} /> */}
-        <div
-          className="cs-photo-placeholder"
+        <PhotoCarousel
+          photos={FROSH_PHOTOS_WIDE}
+          emptyHint="assets/intial/frosh-photos-wide"
           style={{ position: 'absolute', left: 12, top: 30, width: 418, height: 286 }}
-        >
-          Add F!rosh photo
-        </div>
+        />
       </div>
 
       {/* Paint window (narrow) */}
@@ -454,15 +456,11 @@ const ComingSoon = () => {
           draggable={false}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
         />
-        {/* Photo slot. To use a real photo: uncomment PaintPhotoNarrow (top of
-            file) and replace this <div> with:
-            <img src={PaintPhotoNarrow} alt="" style={{ position:'absolute', left:12, top:28, width:314, height:252, objectFit:'cover' }} /> */}
-        <div
-          className="cs-photo-placeholder"
+        <PhotoCarousel
+          photos={FROSH_PHOTOS_NARROW}
+          emptyHint="assets/intial/frosh-photos-narrow"
           style={{ position: 'absolute', left: 12, top: 28, width: 314, height: 252 }}
-        >
-          Add F!rosh photo
-        </div>
+        />
       </div>
 
       {/* Minesweeper (playable; drags from its title bar only) */}

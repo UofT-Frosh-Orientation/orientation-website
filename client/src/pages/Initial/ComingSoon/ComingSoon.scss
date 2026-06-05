@@ -264,6 +264,14 @@
       line-height: 36px;
       text-shadow: none;
     }
+
+    // The recycling-bin PNG has heavy transparent padding, so its box is larger
+    // to make the visible bin match the other ~36px icons. Tweak this number.
+    img.cs-recycle-icon {
+      width: 58px;
+      height: 58px;
+      margin: -11px 0; // soak up the extra box height so labels stay aligned
+    }
   }
 
   // ---- Window chrome ----
