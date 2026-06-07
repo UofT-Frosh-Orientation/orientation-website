@@ -542,7 +542,7 @@ const ComingSoon = () => {
               <div className="cs-m-socials">
                 <a
                   className="cs-m-social cs-raised"
-                  href="https://discord.gg/Fnxr7tp34E"
+                  href="https://discord.gg/yZvTXC47n"
                   target="_blank"
                   rel="noreferrer"
                 >
