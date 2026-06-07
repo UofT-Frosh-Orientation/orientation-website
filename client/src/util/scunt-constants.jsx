@@ -18,7 +18,7 @@ export const rules = {
         'Human, or near human (Engineering Science students will be accepted).',
         'A F!rosh (2T9!).',
         'Currently enrolled within the Faculty of Applied Science and Engineering at the University of Toronto.',
-        'Have officially registered for the event via F!rosh Week 2T5.',
+        'Have officially registered for the event via the F!rosh Week 2T5 website.',
       ],
     },
     {
@@ -71,6 +71,18 @@ export const rules = {
       ],
     },
     {
+      title: 'Banned Items / Restricted Areas',
+      sub: 'The following are strictly off-limits. If any of these rules are broken, there will be major point deductions and your team may even lose all points:',
+      items: [
+        '<strong>Front Campus</strong> - still a “Do Not Enter” zone',
+        '<strong>GB Wood Structure</strong> - you can walk under it, but <strong>no climbing, ever</strong>',
+        '<strong>Other Faculties’ Events</strong> - don’t interrupt or mess with them',
+        '<strong>Ecosystem Trench (outside MedSci)</strong> - completely off-limits',
+        '<strong>Illegal or Harmful Activities</strong> - absolutely not allowed',
+        '<strong>Be smart, make smart choices.</strong> If it feels wrong, it probably is. Always ask a lead if you’re not sure.',
+      ],
+    },
+    {
       title: 'Judging',
       items: [
         'Items must be submitted in person to a judge, starting at 6:00 PM and ending at 11:00 PM as with the rest of the event.',
@@ -89,7 +101,7 @@ export const rules = {
     },
     {
       title: 'The Royal Wedding',
-      sub: 'The Royal Wedding is the wedding to bring Godiva’s Crown and Mr. Blue & Gold together eternally. The list items for the Royal Wedding will only be accepted by the bride and groom, as well as the SubComm Chairs. The wedding items and submissions for these items will be opened starting at 9:00 PM ish. Each group that wants to claim an item must bring the participating F!rosh and the item to the bride and groom, or SubComm chairs. The wedding will take place at 10:00 PM. Only the F!rosh approved beforehand may participate in the wedding. Any F!rosh that interferes during the wedding will be removed from the scene.',
+      sub: 'The Royal Wedding is the wedding to bring Godiva’s Crown and Mr. Blue & Gold together eternally. The list items for the Royal Wedding will only be accepted by the bride and groom, as well as the SubComm Chairs. The wedding items and submissions for these items will be opened starting at 8:00 PM ish. Each group that wants to claim an item must bring the participating F!rosh and the item to the bride and groom, or SubComm chairs. The wedding will take place at 9:00 PM. Only the F!rosh approved beforehand may participate in the wedding. Any F!rosh that interferes during the wedding will be removed from the scene.',
     },
     {
       title: 'Winning',
@@ -101,10 +113,10 @@ export const rules = {
       items: [
         'Any and all disputes will be brought before the Skule™ Hunt Chairs who are infallible - as all decisions are infallible, they are also final.',
         'The Chairs have the reserved right to deduct up to infinity points from any team that leaves a mess in the completion of Hunt Items. Teams should thus clean up their messes to avoid the humiliation and shame that comes with being singled out for leaving a mess.',
-        'The Chairs have the reserved right to deduct up to infinity points from any team found to be in violation of Section 12 rules (Kidnapping) as laid out above or for breaking the law. This is only an option for situations that can be resolved to the satisfaction of all parties.',
+        'The Chairs have the reserved right to deduct up to infinity points from any team found to be in violation of Section 6 rules as laid out above or for breaking the law. This is only an option for situations that can be resolved to the satisfaction of all parties.',
         'The Chairs have the reserved right to disqualify teams or individuals that are found to be in irreparable breach of these rules. Furthermore, it is the Chairs’ responsibilities to bar judges that have proven to be in breach of their expected conduct.',
         'We may decide to have certain “requests” throughout the evening. Do keep in mind that we can give out as many points as we please while the judges have only so many… ',
-        'Our names are Emaan and Melanie. You can probably find out more about us if you try.',
+        'Our names are Maria and Novera. You can probably find out more about us if you try.',
       ],
     },
     {

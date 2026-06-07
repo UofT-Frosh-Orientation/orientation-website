@@ -25,9 +25,10 @@ import backButtonDark from '../../assets/misc/pixel-backarrow-dark.png';
 import bannerimg from '../../assets/scunt/scunt-photo.jpg';
 import backButton from '../../assets/misc/pixel-backarrow-light.png';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
+// import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAccordion/RetreatSingleAccordion.jsx';
 import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAccordion/RetreatSingleAccordion';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
-import {ScuntTitle} from '../../components/ScuntTitle/ScuntTitle.jsx'
+import { ScuntTitle } from '../../components/ScuntTitle/ScuntTitle.jsx';
 
 export const PageScuntHome = () => {
   const dispatch = useDispatch();
@@ -76,15 +77,43 @@ const AboutScunt = () => {
           </div>
           <div className="text-content">
             <h2>THE HUNT</h2>
-            Come participate in the most iconic event that is part of F!rosh Week: Skule™ Hunt!
-            <br />
+            <p>
+              Come participate in the most iconic event that is part of F!rosh Week: Skule™ Hunt!
+            </p>
+            {/* <br />
             <br />
             Skule™ Hunt takes place on the night of <b>Wednesday, August 27th from 6PM to 11PM</b>.
-            It is completely free, so hurry and sign up by clicking YES on your registration!
+            It is completely free, so hurry and sign up by clicking YES on your registration! */}
             <br />
             <br />
           </div>
         </div>
+      </div>
+      <div className="scunt-block-thing">
+        <h1>What is Skule Hunt?</h1>
+        <p>
+          Skule™ Hunt is a long-standing traditional event that is part of Skule&apos;s annual
+          F!rosh Week. Frosh are placed in teams and participate in a city-wide scavenger hunt where
+          the tasks are designed to help them learn about Skule™ history and traditions, all while
+          exploring the city of Toronto. We safely encourage you to step out of your comfort zone
+          for an unforgettable and fun night! It&apos;s the last event of F!rosh Week for a reason,
+          gotta go big before you go home right? Trust us, this is going to be the craziest
+          scavenger hunt of your life so you do NOT want to miss signing up!
+        </p>
+      </div>
+      <div className="scunt-block-thing">
+        <h1>Where?</h1>
+        <p>
+          Myhal Arena, GB Front Steps, and various locations around Toronto! (or all around the
+          world if you want)
+        </p>
+      </div>
+      <div className="scunt-block-thing">
+        <h1>When?</h1>
+        <p>August 27th, 2025 from 6PM to 11PM!</p>
+      </div>
+      <div className="scunt-block-thing">
+        <h1>FAQ</h1>
       </div>
       {/* <img
         className="header-page-wave-bottom"
@@ -102,16 +131,16 @@ const AboutScunt = () => {
 };
 
 const scuntFAQs = [
-  {
-    title: 'What is Skule™ Hunt?',
-    description: [
-      "Skule™ Hunt is a long-standing traditional event that is part of Skule's annual F!rosh Week.",
-      'Frosh are placed in teams and participate in a city-wide scavenger hunt where the tasks are designed to help them learn about Skule™ history and traditions, all while exploring the city of Toronto.',
-      "We safely encourage you to step out of your comfort zone for an unforgettable and fun night! It's the last event of F!rosh Week for a reason, gotta go big before you go home right?",
-      ' ',
-      'Trust us, this is going to be the craziest scavenger hunt of your life so you do NOT want to miss signing up!',
-    ],
-  },
+  // {
+  //   title: 'What is Skule™ Hunt?',
+  //   description: [
+  //     "Skule™ Hunt is a long-standing traditional event that is part of Skule's annual F!rosh Week.",
+  //     'Frosh are placed in teams and participate in a city-wide scavenger hunt where the tasks are designed to help them learn about Skule™ history and traditions, all while exploring the city of Toronto.',
+  //     "We safely encourage you to step out of your comfort zone for an unforgettable and fun night! It's the last event of F!rosh Week for a reason, gotta go big before you go home right?",
+  //     ' ',
+  //     'Trust us, this is going to be the craziest scavenger hunt of your life so you do NOT want to miss signing up!',
+  //   ],
+  // },
   {
     title: 'Am I expected to stay for the entire event?',
     description: [
@@ -160,8 +189,6 @@ const SkuleHuntFAQ = () => {
     </>
   );
 };
-
-
 
 // const ScuntDiscord = () => {
 //   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);

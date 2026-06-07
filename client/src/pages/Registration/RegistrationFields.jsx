@@ -477,7 +477,7 @@ export const fields = {
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       localStorageKey: 'registration-scunt',
-      noEdit: false,
+      noEdit: true, // Edit this to be false for most of registration, will only be true on the Tuesday before scunt
       isRequiredInput: true,
     },
     scuntInfo: {
