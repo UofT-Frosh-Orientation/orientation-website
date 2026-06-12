@@ -1,0 +1,115 @@
+// Minesweeper — themed to match the W95 coming-soon desktop. It renders inside
+// .coming-soon, so it inherits the --cs-* theme variables and the cs-raised /
+// cs-sunken bevel classes.
+
+.cs-ms-titlebar {
+  height: 22px;
+  padding: 0 4px;
+  font-size: 13px;
+  color: #fff;
+}
+
+.cs-ms-menu {
+  padding: 3px 8px;
+  font-size: 13px;
+  color: #000;
+  white-space: pre;
+}
+
+.cs-ms-panel {
+  margin: 0 6px 6px;
+  padding: 6px;
+  background: var(--cs-face, #c0c0c0);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cs-ms-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 7px;
+  background: var(--cs-face, #c0c0c0);
+}
+
+.cs-ms-lcd {
+  min-width: 46px;
+  padding: 2px 4px;
+  background: #000;
+  color: #ff2b2b;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.cs-ms-face {
+  width: 30px;
+  height: 30px;
+  font-size: 17px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cs-face, #c0c0c0);
+
+  &:active {
+    box-shadow: inset 1px 1px 0 0 #7f7f7f, inset -1px -1px 0 0 #fff, inset 2px 2px 0 0 #808080,
+      inset -2px -2px 0 0 #dfdfdf;
+  }
+}
+
+.cs-ms-board {
+  display: grid;
+  grid-template-columns: repeat(9, 24px);
+  grid-template-rows: repeat(9, 24px);
+  padding: 3px;
+  background: var(--cs-face, #c0c0c0);
+}
+
+.cs-ms-cell {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+  // (cursor intentionally left to the page's Win95 arrow)
+
+  // Unrevealed cells use the shared .cs-raised bevel (added in the JSX).
+
+  &.is-revealed {
+    background: var(--cs-face, #c0c0c0);
+    border: 1px solid #9a9a9a;
+  }
+
+  &.is-exploded {
+    background: #ff0000;
+    border-color: #c00000;
+  }
+
+  // XYZZY cheat: revealed mine locations glow red over the normal raised tile.
+  &.is-cheat {
+    background: #ff5b5b;
+    box-shadow: inset -1px -1px 0 0 #000, inset 1px 1px 0 0 #fff, inset -2px -2px 0 0 #b30000,
+      inset 2px 2px 0 0 #ffb3b3;
+    animation: cs-ms-cheat-pulse 0.9s ease-in-out infinite;
+  }
+}
+
+@keyframes cs-ms-cheat-pulse {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.35);
+  }
+}

@@ -1,0 +1,608 @@
+@import '../../../scssStyles/mixins';
+// NOTE: Intentionally no remote font @import here — a remote CSS @import is
+// render-blocking and was slowing the page load. The hero uses Inter if it's
+// installed locally, otherwise a system sans-serif fallback (see .cs-hero).
+
+/*
+ * Windows 95 "Coming Soon" desktop.
+ * Design: https://www.figma.com/design/vh3XAF8efmGsK25KG3asdS/FinalComingSoonPage?node-id=1-132
+ *
+ * The layout is a fixed 1280x820 "stage" (matching the Figma frame) that is
+ * scaled to fit the viewport via JS (see ComingSoon.jsx). All child elements are
+ * absolutely positioned using the exact Figma coordinates.
+ *
+ * FONT: The design uses the "W95FA" pixel font. The @font-face below is already
+ * wired up — you just need to add the font file:
+ *   1. Download W95FA (free): https://fontstruct.com  (search "W95FA"), or any
+ *      W95FA .woff2/.woff/.ttf you have.
+ *   2. Save it to: client/src/assets/fonts/W95FA.woff2
+ *      (create the `fonts` folder; add a .woff too if you have it).
+ *   3. Reload — it takes priority automatically (it's first in --cs-font).
+ * Until the file exists the page just falls back to Tahoma/system fonts; the
+ * missing-file warning at build time is harmless.
+ */
+@font-face {
+  font-family: 'W95FA';
+  src: url('../../../assets/fonts/W95FA.woff2') format('woff2');
+  font-display: swap;
+}
+
+// Hero display font (F!ROSH 2T6 + subtitle). "Gilker" is a custom font — add the
+// file to make it apply:
+//   1. Save it to client/src/assets/fonts/Gilker.woff2 (a .ttf/.otf also works —
+//      just change the url + format() below to match).
+//   2. Reload. Until the file exists the hero falls back to the W95 font.
+@font-face {
+  font-family: 'Gilker';
+  // NOTE: the actual file is named "Gliker.woff2" (a typo, but the url must
+  // match the real filename). Rename the file to Gilker.woff2 and update this if
+  // you want it spelled correctly.
+  src: url('../../../assets/fonts/Gliker.woff2') format('woff2');
+  font-display: swap;
+}
+
+.coming-soon {
+  --cs-face: #c0c0c0;
+  --cs-title: #291254;
+  --cs-desktop: #582c83;
+  --cs-gold: #ffd700;
+  --cs-taskbar-h: 36px;
+  --cs-font: 'W95FA', 'MS Sans Serif', 'Tahoma', 'Segoe UI', sans-serif;
+  // Hero text font (falls back to the W95 font until Gilker.woff2 is added).
+  --cs-hero-font: 'Gilker', var(--cs-font);
+
+  // Windows 95 arrow pointer, drawn inline as an SVG (no image file needed).
+  // The trailing `2 2` is the hotspot (the arrow tip); `auto` is the fallback.
+  --cs-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M2 2L2 17L6 13.5L9 20.5L11.5 19.5L8.5 12.8L13.5 12.8Z' fill='%23000' stroke='%23fff' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E")
+      2 2,
+    auto;
+
+  // ⬇️ CLOUD OPACITY — experiment here. 0 = no clouds, 1 = full strength.
+  --cs-cloud-opacity: 1;
+
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  // Purple sky gradient (the clouds live in &::before below, on their own layer
+  // so their opacity can be tuned with one variable).
+  background-color: var(--cs-desktop);
+  background-image: linear-gradient(180deg, #6a3a9c 0%, #582c83 55%, #3d1d62 100%);
+  font-family: var(--cs-font);
+  cursor: var(--cs-arrow);
+  user-select: none;
+
+  // Soft CSS clouds (low-opacity white blobs). The whole layer's opacity is
+  // controlled by --cs-cloud-opacity above. TODO(assets): swap in the real
+  // Figma cloud art here if/when it's exported.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: var(--cs-cloud-opacity);
+    background-image: radial-gradient(
+        ellipse 22% 14% at 14% 16%,
+        rgba(255, 255, 255, 0.45),
+        transparent 60%
+      ),
+      radial-gradient(ellipse 52% 16% at 80% 12%, rgba(255, 255, 255, 0.38), transparent 62%),
+      radial-gradient(ellipse 24% 15% at 47% 30%, rgba(255, 255, 255, 0.3), transparent 60%),
+      radial-gradient(ellipse 18% 12% at 90% 42%, rgba(255, 255, 255, 0.25), transparent 60%),
+      radial-gradient(ellipse 22% 14% at 24% 58%, rgba(255, 255, 255, 0.22), transparent 60%),
+      radial-gradient(ellipse 20% 13% at 64% 64%, rgba(255, 255, 255, 0.22), transparent 60%);
+  }
+
+  // The app defines a global `* { font-family: 'Proxima Nova' }` (App.scss),
+  // which sets the font directly on every element and beats our inherited
+  // value. Re-assert inheritance for everything inside the page so the W95 font
+  // actually applies. (Elements with their own explicit font-family — e.g. the
+  // hero — still win via higher specificity.)
+  * {
+    font-family: inherit;
+    // Win95 arrow everywhere. The app's global `* { cursor: url(cursor.png) }`
+    // sets a cursor directly on every element, so we must re-assert here (this
+    // `.coming-soon *` outranks it). Drag handles / icon buttons set their own
+    // cursor with higher specificity and still win.
+    cursor: var(--cs-arrow);
+  }
+
+  // Holds the scaled stage in the area above the taskbar. Vertical position is
+  // controlled by STAGE_OFFSET_Y (applied as margin-top on the stage itself, so
+  // it can be negative to pull the desktop up past the empty top of the canvas).
+  &__stage-wrap {
+    position: absolute;
+    inset: 0 0 var(--cs-taskbar-h) 0;
+    display: flex;
+    align-items: center; // center vertically so spacing is balanced at any size
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  &__stage {
+    position: relative;
+    flex: 0 0 auto;
+    width: 1280px;
+    height: 790px;
+    transform-origin: center center; // scale from center; stage is centered in wrap
+  }
+
+  // ---- Taskbar (full viewport width) ----
+  &__taskbar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--cs-taskbar-h);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 4px;
+    font-family: var(--cs-font);
+  }
+
+  .cs-taskbar-spacer {
+    flex: 1 1 auto;
+  }
+
+  .cs-taskbtn {
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 8px;
+    font-size: 14px;
+    line-height: 1;
+    color: #000;
+    white-space: nowrap;
+
+    img {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+    }
+
+    &--start {
+      font-weight: 700;
+      height: 26px;
+    }
+
+    &--active {
+      background: #a6a6a6;
+    }
+  }
+
+  .cs-clock {
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 10px;
+    font-size: 14px;
+    line-height: 1;
+    color: #000;
+    white-space: nowrap;
+  }
+
+  // System-tray gamepad: a faint, easily-missed hint toward the Konami code.
+  .cs-tray-egg {
+    position: relative;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
+    cursor: help;
+
+    .cs-tray-egg-icon {
+      font-size: 16px;
+      line-height: 1;
+      opacity: 0.7; // dim so it reads as a quiet tray icon, not a button
+      filter: grayscale(0.3);
+      transition: opacity 0.12s ease, filter 0.12s ease;
+    }
+
+    &:hover .cs-tray-egg-icon {
+      opacity: 1;
+      filter: none;
+    }
+
+    // Retro yellow tooltip, popping up above the taskbar.
+    .cs-tray-egg-tip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      right: 0;
+      white-space: nowrap;
+      background: #ffffe1;
+      color: #000;
+      border: 1px solid #000;
+      padding: 3px 8px;
+      font-size: 13px;
+      letter-spacing: 2px;
+      box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.12s ease;
+    }
+
+    &:hover .cs-tray-egg-tip {
+      opacity: 1;
+    }
+  }
+
+  // Read-only value field inside the Properties panel
+  .cs-field {
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    box-sizing: border-box;
+    white-space: nowrap;
+  }
+
+  // Win95 raised bevel (buttons, panels, taskbar)
+  .cs-raised {
+    background: var(--cs-face);
+    box-shadow: inset -1px -1px 0 0 #000, inset 1px 1px 0 0 #fff, inset -2px -2px 0 0 #7f7f7f,
+      inset 2px 2px 0 0 #dfdfdf;
+  }
+
+  // Win95 sunken bevel (input fields, progress trough, status areas)
+  .cs-sunken {
+    box-shadow: inset -1px -1px 0 0 #fff, inset 1px 1px 0 0 #808080;
+  }
+
+  .cs-abs {
+    position: absolute;
+  }
+
+  // ---- Draggable windows ----
+  .cs-window {
+    touch-action: none; // let pointer-drag work without the page scrolling
+  }
+
+  // Grab cursor on whatever is a drag handle: the whole image windows, or just
+  // the Minesweeper title bar. `.cs-draghandle *` outranks the app's global
+  // `* { cursor }` so it shows over the handle's children too.
+  .cs-draghandle,
+  .cs-draghandle * {
+    cursor: grab;
+  }
+
+  // While any window is being dragged, show grabbing everywhere for smooth
+  // feedback (beats the global cursor via the doubled-class specificity).
+  &.cs-grabbing,
+  &.cs-grabbing * {
+    cursor: grabbing;
+  }
+
+  // ---- Desktop icons ----
+  .cs-icon-button {
+    cursor: pointer;
+    background: transparent;
+    border: 1px dotted transparent;
+
+    &:hover,
+    &:focus {
+      border-color: rgba(255, 255, 255, 0.5);
+      outline: none;
+    }
+  }
+
+  .cs-desktop-icon {
+    position: absolute;
+    width: 88px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 1.1;
+
+    // Force white labels (overrides global <a> colors) + readable on clouds.
+    &,
+    &:link,
+    &:visited,
+    span {
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.85);
+    }
+
+    img,
+    .cs-emoji {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      font-size: 32px;
+      line-height: 36px;
+      text-shadow: none;
+    }
+
+    // The recycling-bin PNG has heavy transparent padding, so its box is larger
+    // to make the visible bin match the other ~36px icons. Tweak this number.
+    img.cs-recycle-icon {
+      width: 58px;
+      height: 58px;
+      margin: -11px 0; // soak up the extra box height so labels stay aligned
+    }
+  }
+
+  // ---- Window chrome ----
+  .cs-titlebar {
+    background: var(--cs-title);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cs-winbtns {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+  }
+
+  .cs-winbtn {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    line-height: 1;
+    color: #000;
+    background: var(--cs-face);
+    box-shadow: inset -1px -1px 0 0 #000, inset 1px 1px 0 0 #fff, inset -2px -2px 0 0 #7f7f7f,
+      inset 2px 2px 0 0 #dfdfdf;
+  }
+
+  // ---- Buttons ----
+  .cs-button {
+    background: var(--cs-face);
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--cs-font);
+    font-size: 15px;
+    box-shadow: inset -1px -1px 0 0 #000, inset 1px 1px 0 0 #fff, inset -2px -2px 0 0 #7f7f7f,
+      inset 2px 2px 0 0 #dfdfdf;
+
+    &:disabled,
+    &.is-disabled {
+      color: #808080;
+      text-shadow: 1px 1px 0 #fff;
+    }
+  }
+
+  // ---- Progress (segmented) ----
+  .cs-progress {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .cs-progress-block {
+    flex: 0 0 auto;
+    width: 8px;
+    height: 12px;
+    background: var(--cs-desktop);
+  }
+
+  // ---- Hero panel ----
+  .cs-hero {
+    background: var(--cs-title);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    h1 {
+      margin: 0;
+      font-family: var(--cs-hero-font);
+      font-weight: 900;
+      color: var(--cs-gold);
+      font-size: 64px; // ← "F!ROSH 2T6" size (desktop). Change to taste.
+      line-height: 1;
+      letter-spacing: -2px;
+    }
+
+    p {
+      margin: 14px 0 0;
+      font-family: var(--cs-hero-font);
+      font-weight: 400;
+      color: #c19eff;
+      font-size: 30px;
+      letter-spacing: 2px;
+    }
+  }
+
+  // ---- Photo placeholders inside the Paint windows ----
+  // TODO(assets): replace these with the real F!rosh group photos once exported
+  // from Figma (Figma MCP was rate-limited during the initial build).
+  .cs-photo-placeholder {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-size: 14px;
+    background: repeating-conic-gradient(#f3f3f3 0% 25%, #ffffff 0% 50%) 50% / 20px 20px;
+    border: 1px dashed #b0b0b0;
+  }
+
+  // ---- Logo badge (top-right) ----
+  .cs-logo {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; // transparent logo, no background
+    }
+  }
+
+  .cs-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  // ============================================================
+  // Mobile layout (rendered below MOBILE_BREAKPOINT in the JSX)
+  // ============================================================
+  &__mobile {
+    position: absolute;
+    inset: 0 0 var(--cs-taskbar-h) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 20px 16px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+
+  .cs-m-logo {
+    flex: 0 0 auto;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset -1px -1px 0 0 #808080, inset 1px 1px 0 0 #fff;
+
+    img {
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+    }
+  }
+
+  .cs-m-window {
+    width: 100%;
+    max-width: 420px;
+    flex: 0 0 auto;
+  }
+
+  .cs-m-titlebar {
+    height: 26px;
+    padding: 0 6px;
+
+    .cs-m-title {
+      color: var(--cs-gold);
+      font-size: 15px;
+    }
+  }
+
+  .cs-m-body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 14px;
+  }
+
+  .cs-m-hero {
+    background: var(--cs-title);
+    text-align: center;
+    padding: 18px 12px;
+
+    h1 {
+      margin: 0;
+      font-family: var(--cs-hero-font);
+      font-weight: 900;
+      color: var(--cs-gold);
+      font-size: 44px;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+    p {
+      margin: 10px 0 0;
+      font-family: var(--cs-hero-font);
+      color: #c19eff;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+  }
+
+  .cs-m-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #000;
+    font-size: 24px;
+  }
+
+  .cs-m-text {
+    margin: 0;
+    color: #212121;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .cs-m-eta {
+    color: #212121;
+    font-size: 14px;
+  }
+
+  .cs-m-progress-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .cs-m-progressbar {
+    width: 100%;
+    height: 18px;
+  }
+
+  .cs-m-progresslabel {
+    color: #212121;
+    font-size: 13px;
+  }
+
+  .cs-m-socials {
+    display: flex;
+    gap: 10px;
+  }
+
+  .cs-m-social {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    color: #000;
+    font-size: 15px;
+    text-decoration: none;
+
+    img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
+  }
+
+  .cs-m-credit {
+    flex: 0 0 auto;
+    color: #fff;
+    font-size: 12px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.85);
+  }
+}
