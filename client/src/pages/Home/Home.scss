@@ -1,17 +1,30 @@
 @import '../../scssStyles/mixins';
-@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
+
+@font-face {
+  font-family: 'Genty';
+  src: url('../../assets/fonts/GentyDemo-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gliker';
+  src: url('../../assets/fonts/gliker-regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 .home-page-header {
   position: relative;
   height: 100vh;
   min-height: 500px;
   // background: radial-gradient(50% 42.09% at 50% 57.91%, #711f8bbf 43.23%, #3d0f58bf 100%);
-  background: 
-  // linear-gradient(
-  // to left, 
-  // #00000080 40%, 
-  // #00000000 100%, 
-  // );
+  background:
+    // linear-gradient(
+    // to left, 
+    // #00000080 40%, 
+    // #00000000 100%, 
+    // );
     linear-gradient(to left, #2b003866 60%, #2b003800 100%);
   // linear-gradient(
   // to bottom,
@@ -57,24 +70,13 @@
   // }
 
   h1 {
-    font-family: 'Jersey 20';
+    font-family: 'Genty';
     font-weight: 400;
     font-size: clamp(120px, 24vh, 180px);
-    text-transform: uppercase;
     color: var(--mikado);
     text-shadow: 5px 5px 0 var(--jam), -5px -5px 0 var(--jam), 5px -5px 0 var(--jam),
       -5px 5px 0 var(--jam), 5px 5px 0 var(--jam);
-    // -5px -5px 0 var(--monster),
-    //  5px -5px 0 var(--monster),
-    // -5px  5px 0 var(--monster),
-    //  5px  5px 0 var(--monster);
     line-height: 0.8;
-
-    // @include devices(huge) {
-    //   font-size: 300px;
-    //   text-shadow: 10px 10px 0 var(--jam), -10px -10px 0 var(--jam), 10px -10px 0 var(--jam),
-    //     -10px 10px 0 var(--jam);
-    // }
   }
 
   h2 {
@@ -334,6 +336,7 @@
     text-align: center;
   }
 }
+
 .otherevents-info-des {
   font-size: 16px;
   color: var(--text-primary);
@@ -385,6 +388,7 @@
     margin-bottom: 10px;
     font-weight: 900;
   }
+
   p {
     font-size: 18px;
     color: var(--text-primary);
@@ -398,6 +402,7 @@
   from {
     transform: translateX(0);
   }
+
   to {
     // Move the track by the width of the first half of the sponsors
     transform: translateX(
@@ -413,6 +418,7 @@
   from {
     transform: translateX(0);
   }
+
   to {
     // Mobile card width (180px + 20px gap) * number of original sponsors
     transform: translateX(calc(-200px * var(--item-count)));
@@ -521,12 +527,15 @@
     &.sponsor-card--diamond {
       border-bottom-color: var(--sponsor-diamond);
     }
+
     &.sponsor-card--gold {
       border-bottom-color: var(--sponsor-gold);
     }
+
     &.sponsor-card--silver {
       border-bottom-color: var(--sponsor-silver);
     }
+
     &.sponsor-card--bronze {
       border-bottom-color: var(--sponsor-bronze);
     }
@@ -599,15 +608,18 @@
     font-weight: 900;
     // color: var(--text-secondary)
   }
+
   p {
     font-size: 16px;
     padding: 0% 5%;
     line-height: 1.6;
   }
+
   a {
     color: var(--link-dynamic);
     font-weight: 600;
     text-decoration: none;
+
     &:hover {
       text-decoration: underline;
     }
