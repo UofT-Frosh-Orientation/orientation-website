@@ -51,7 +51,9 @@ const PageHome = () => {
 const HomePageHeader = () => {
   return (
     <div className="home-page-header">
-      <div className="header-checker-block" />
+      <div className="header-checker-block">
+        <CountdownHome />
+      </div>
 
       {/* Star: top-right corner, independent */}
       <div className="header-register-star">
@@ -61,9 +63,6 @@ const HomePageHeader = () => {
           Now!
         </span>
       </div>
-
-      {/* Countdown: center of checker area */}
-      <CountdownHome />
 
       <div className="header-text-stack">
         <div className="header-frosh-text">F!rosh</div>
@@ -325,7 +324,7 @@ const AboutUsSection = () => {
                   <path
                     key={`arc-${index}`}
                     id={`labelArc${index}`}
-                    d={describeArc(200, 200, 160 - index * 35, index * 120, index * 120 + 110)}
+                    d={describeArc(200, 200, [150, 120, 90][index], index * 120, index * 120 + 110)}
                     fill="none"
                   />
                 ))}
