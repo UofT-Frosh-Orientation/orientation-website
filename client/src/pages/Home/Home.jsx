@@ -41,7 +41,8 @@ const PageHome = () => {
   return (
     <>
       <HomePageHeader />
-      <CountdownHome />
+      <HomePageAboutBlurb />
+      <HomePageFilmStrip />
       <HomePageTimeline />
       <HomePageSchedule />
       <PageAbout />
@@ -51,32 +52,73 @@ const PageHome = () => {
 };
 
 const HomePageHeader = () => {
-  const { darkMode } = useContext(DarkModeContext);
-
   return (
     <div className="home-page-header">
-      {/* <LazyLoadImage
-        src={MainFroshLogo}
-        className="FroshHardHatWhite-logo"
-        alt="home page frosh logo"
-        effect="blur"
-      ></LazyLoadImage> */}
-      <div className="home-page-header-text">
-        <h2>Welcome to</h2>
-        <h1>F!rosh</h1>
-        <h1>Week</h1>
-        {/* <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p> */}
-        <HomeHeaderButton />
-        <p>Registration for F!rosh Week 2T5 is now closed!</p>
+      <div className="header-checker-block" />
+
+      <div className="header-top-right">
+        <div className="header-register-star">
+          <span>
+            Register
+            <br />
+            Now!
+          </span>
+        </div>
+        <CountdownHome />
       </div>
-      <div className="home-page-landing-image-container">
-        <HomePageSlideshow />
+
+      <div className="header-text-stack">
+        <div className="header-frosh-text">F!rosh</div>
+        <div className="header-week-text">
+          {'WEEK'.split('').map((letter, i) => (
+            <span key={i}>{letter}</span>
+          ))}
+        </div>
       </div>
-      {/* {darkMode ? (
-        <img src={WaveDarkMode} className="wave-image home-page-top-wave-image" alt="wave-img" />
-      ) : (
-        <img src={Wave} className="wave-image home-page-top-wave-image" alt="wave-img" />
-      )} */}
+
+      <span className="home-page-2t6-text">2T6</span>
+    </div>
+  );
+};
+
+const HomePageFilmStrip = () => {
+  const images = getSlideshowImages();
+  const looped = [...images, ...images];
+  return (
+    <div className="film-strip-container">
+      <div className="film-strip-holes" />
+      <div className="film-strip-track">
+        {looped.map((img, i) => (
+          <img key={i} src={img.src} className="film-strip-photo" alt="" />
+        ))}
+      </div>
+      <div className="film-strip-holes" />
+    </div>
+  );
+};
+
+const HomePageAboutBlurb = () => {
+  return (
+    <div className="home-page-about-blurb">
+      <div className="home-page-about-col">
+        <h2>What is F!rosh Week?</h2>
+        <p>
+          F!rosh Week is a week-long orientation where students and faculty welcome over 1000
+          incoming students to the U of T Engineering Community! Central to the experience at
+          Skule™, F!rosh Week consists of engaging and exciting events designed to introduce
+          students to the community, traditions, and spirit of U of T Engineering.
+        </p>
+      </div>
+      <div className="home-page-about-divider" />
+      <div className="home-page-about-col">
+        <h2>What is SKULE™?</h2>
+        <p>
+          Skule™ is the name of the University of Toronto&apos;s engineering community at the St.
+          George campus. It is made up of about 5000 undergraduate students, hundreds of graduate
+          students, and a range of dedicated alumni. It is also home to hundreds of engineering
+          clubs, athletics teams, design teams, and traditions.
+        </p>
+      </div>
     </div>
   );
 };

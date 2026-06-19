@@ -1,19 +1,26 @@
 @import '../../scssStyles/mixins';
-@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
 
 .countdown-timer-container {
-  color: var(--text-primary);
-  margin-top: 3rem;
-  margin-bottom: 1.5rem;
+  position: absolute;
+  top: 18%;
+  right: 2%;
+  transform: rotate(10deg);
+  background-color: var(--mikado);
+  border-radius: 50%;
+  padding: 1.2rem 3rem;
+  z-index: 5;
+  width: fit-content;
   font-family: 'Proxima Nova';
   font-weight: 800;
 
-  width: 100%;
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-
-  overflow: hidden;
+  @include devices(tablet) {
+    position: relative;
+    top: unset;
+    right: unset;
+    transform: none;
+    margin: 20px auto;
+    max-width: 90%;
+  }
 }
 
 .countdown-display {
@@ -21,11 +28,8 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-
-  max-width: 100%;
-  width: 100%;
-  overflow: hidden;
   flex-wrap: nowrap;
+  transform: rotate(-15deg);
 
   @include devices(mobile) {
     flex-direction: column;
@@ -33,51 +37,44 @@
 }
 
 .countdown-seg {
-  padding: 2px;
+  padding: 2px 4px;
   display: flex;
   flex-direction: column;
   text-align: center;
-
-  @include devices(mobile) {
-    margin-bottom: 1.2rem;
-  }
 }
 
 .countdown-label {
-  font-size: clamp(18px, 4vw, 25px);
-  margin-bottom: 1rem;
-
-  @include devices(mobile) {
-    margin-bottom: 0.5rem;
-  }
+  font-size: clamp(9px, 1vw, 13px);
+  margin-bottom: 0.3rem;
+  color: var(--jam);
+  font-weight: 700;
 }
 
 .countdown-number {
-  font-size: clamp(40px, 8vw, 70px);
+  font-size: clamp(24px, 3vw, 46px);
   display: flex;
   justify-content: space-between;
   gap: 0.2em;
 }
 
 .digit {
-  background-color: var(--mikado);
-  color: black;
-  border-radius: 15px;
-  //padding:0.38em 0.35em 0.38em 0.35em;
-  width: 1.5em;
-  height: 2em;
-  padding-top: 0.5em;
-  font-size: clamp(45px, 6vw, 65px);
-
-  @include devices(mobile) {
-    padding-top: 0.4em;
-  }
+  background-color: var(--jam);
+  color: var(--white);
+  border-radius: 8px;
+  width: 1.2em;
+  height: 1.6em;
+  padding-top: 0.3em;
+  font-size: clamp(24px, 3vw, 46px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .divider {
-  font-size: clamp(40px, 8vw, 70px);
-  padding-top: 0.8em;
-  margin: 0 clamp(0.3rem, 1vw, 1rem);
+  font-size: clamp(20px, 2.5vw, 40px);
+  padding-top: 0.6em;
+  margin: 0 0.2rem;
+  color: var(--jam);
 
   @include devices(mobile) {
     display: none;

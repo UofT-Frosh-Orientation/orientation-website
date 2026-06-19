@@ -17,31 +17,150 @@
 .home-page-header {
   position: relative;
   height: 100vh;
-  min-height: 500px;
-  // background: radial-gradient(50% 42.09% at 50% 57.91%, #711f8bbf 43.23%, #3d0f58bf 100%);
-  background:
-    // linear-gradient(
-    // to left, 
-    // #00000080 40%, 
-    // #00000000 100%, 
-    // );
-    linear-gradient(to left, #2b003866 60%, #2b003800 100%);
-  // linear-gradient(
-  // to bottom,
-  // #00000040 0%,
-  // #00000000 20%,
-  // );
+  min-height: 600px;
+  background-color: #3d0f58;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-items: center;
-  justify-content: center;
-  // align-items: center;
-  overflow: hidden;
-  // margin-top: 20px;
+  justify-content: flex-end;
+}
 
-  @include devices(tablet) {
-    justify-content: center;
+// The checkerboard is a centered block, NOT full background
+.header-checker-block {
+  position: absolute;
+  top: 10%;
+  bottom: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 94%;
+  background-image: repeating-conic-gradient(#c8b8e8 0% 25%, #3d0f58 0% 50%);
+  background-size: 160px 160px;
+  background-position: center;
+  z-index: 0;
+  overflow: hidden;
+}
+
+// Top-right container for star + countdown
+.header-top-right {
+  position: absolute;
+  top: 10%;
+  right: 18%;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+// "Register Now!" star shape
+.header-register-star {
+  background-color: #f5c842;
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(20deg);
+  font-family: 'Proxima Nova', sans-serif;
+  font-weight: 900;
+  font-size: 17px;
+  text-align: center;
+  color: var(--jam);
+  line-height: 1.2;
+
+  span {
+    transform: rotate(-20deg);
+    display: block;
+    padding-top: 15px;
   }
+}
+
+// Text stack at bottom
+.header-text-stack {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+// "F!rosh" — cursive, angled, on top of checkers
+.header-frosh-text {
+  font-family: 'Genty';
+  font-weight: 400;
+  font-size: clamp(100px, 16vw, 220px);
+  color: #f0eef8;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  transform: rotate(-5deg);
+  transform-origin: left top;
+  text-shadow: 5px 5px 0px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+  position: relative;
+  left: 1%;
+  top: 18%;
+  z-index: 4;
+  align-self: flex-start;
+}
+
+// "WEEK" — bold, stretched full checker-width
+.header-week-text {
+  font-family: 'Gliker';
+  font-weight: 900;
+  font-size: clamp(120px, 27vw, 300px);
+  color: #f0eef8;
+  line-height: 0.85;
+  padding: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0 3%;
+  width: 99.68%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  z-index: 4;
+  align-self: flex-end;
+  box-sizing: border-box;
+}
+
+// 2T6 bottom right
+.home-page-2t6-text {
+  position: absolute;
+  bottom: 0.005%;
+  right: 2%;
+  z-index: 5;
+  font-family: 'Gliker';
+  font-weight: 900;
+  font-size: clamp(30px, 4vw, 65px);
+  color: #f0eef8;
+  letter-spacing: -2px;
+}
+
+.home-page-header-checkers {
+  display: none;
 }
 
 .FroshHardHatWhite-logo {
@@ -55,90 +174,6 @@
     text-align: center;
     height: 220px;
   }
-}
-
-.home-page-header-text {
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
-  padding: 0% 5% 0% 5%;
-  text-align: right;
-
-  // @include devices(ipad) {
-  //   padding: 40% 5% 0px 5%;
-  // }
-
-  h1 {
-    font-family: 'Genty';
-    font-weight: 400;
-    font-size: clamp(120px, 24vh, 180px);
-    color: var(--mikado);
-    text-shadow: 5px 5px 0 var(--jam), -5px -5px 0 var(--jam), 5px -5px 0 var(--jam),
-      -5px 5px 0 var(--jam), 5px 5px 0 var(--jam);
-    line-height: 0.8;
-  }
-
-  h2 {
-    text-align: right;
-    font-size: max(1vh, 48px);
-    font-weight: 800;
-    color: var(--white);
-    margin-bottom: 20px;
-    // line-height: 0.7;
-    // line-height: 1;
-  }
-
-  p {
-    text-align: right;
-    font-size: 16px;
-    font-weight: 800;
-    margin-bottom: min(2vh, 20px);
-    margin-top: min(3vh, 20px);
-    margin-right: 1%;
-    color: var(--white);
-    line-height: 1.4;
-  }
-
-  @include devices(tablet) {
-    padding: 0px 25px;
-
-    h1 {
-      font-size: 120px;
-      text-align: right;
-      margin: 0px 0px 0px 0px;
-    }
-
-    h2 {
-      font-size: 32px;
-      text-align: right;
-      line-height: 1;
-    }
-
-    p {
-      font-size: 15px;
-      padding: 0px 20px;
-      text-align: right;
-    }
-  }
-}
-
-.home-page-header-register-button {
-  margin-top: 40px;
-  margin-right: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  justify-content: end;
-
-  @include devices(tablet) {
-    // text-align: center;
-    width: unset;
-    height: unset;
-    font-size: unset;
-  }
-
-  font-size: max(1.8vh, 18px);
 }
 
 .home-page-top-wave-image {
@@ -252,6 +287,86 @@
       font-size: 15px;
     }
   }
+}
+
+//BLURB
+.home-page-about-blurb {
+  display: flex;
+  flex-direction: row;
+  padding: 50px 6%;
+  background-color: var(--bg-primary);
+  gap: 40px;
+  align-items: flex-start;
+
+  @include devices(tablet) {
+    flex-direction: column;
+  }
+}
+
+.home-page-about-col {
+  flex: 1;
+
+  h2 {
+    font-family: 'Gliker';
+    font-size: 26px;
+    font-weight: 900;
+    margin-bottom: 14px;
+    color: var(--text-primary);
+  }
+
+  p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-primary);
+    font-family: 'Proxima Nova', sans-serif;
+  }
+}
+
+.home-page-about-divider {
+  width: 2px;
+  background-color: var(--gray);
+  align-self: stretch;
+  flex-shrink: 0;
+
+  @include devices(tablet) {
+    width: 100%;
+    height: 2px;
+  }
+}
+
+//Flim Strip
+.film-strip-container {
+  background-color: #111;
+  padding: 8px 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.film-strip-holes {
+  height: 18px;
+  background: repeating-linear-gradient(
+    to right,
+    #111 0px,
+    #111 10px,
+    white 10px,
+    white 30px,
+    #111 30px,
+    #111 40px
+  );
+}
+
+.film-strip-track {
+  display: flex;
+  gap: 4px;
+  padding: 8px 0;
+  overflow: hidden;
+}
+
+.film-strip-photo {
+  height: 130px;
+  width: 190px;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .otherevents-subsubcontainer {
