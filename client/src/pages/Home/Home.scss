@@ -691,12 +691,13 @@
 
 .please-sponsor-container {
   margin: 60px auto 50px auto;
-  padding: 40px 20px;
+  padding: 60px 20px; // increased padding so text has room inside the blob
   max-width: 600px;
   text-align: center;
   font-family: 'Proxima Nova';
   color: var(--text-primary);
-  position: relative;
+  position: relative; // already there, just confirming it's needed for the absolute checker blob
+  z-index: 1; // ensure text sits above the checker blob
 }
 
 .please-sponsor-heading {
@@ -709,18 +710,40 @@
 }
 
 .please-sponsor-checkers {
+  position: relative;
   width: 100%;
-  height: 24px;
+  height: 220px;
   background-image: repeating-conic-gradient(#c8b8e8 0% 25%, transparent 0% 50%);
-  background-size: 24px 24px;
-  border-radius: 4px;
-  margin: 16px 0;
+  background-size: 28px 28px;
+  border-radius: 12px;
+  margin: 30px 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.please-sponsor-container p {
+.please-sponsor-text {
+  position: relative;
+  z-index: 1; // sits above the oval cutout
   font-size: 16px;
   line-height: 1.6;
-  padding: 0 5%;
+  padding: 0 10%;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.please-sponsor-checkers::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(12deg);
+  width: 70%;
+  height: 95%;
+  background-color: var(--bg-primary);
+  border-radius: 50%;
+  z-index: 0;
 }
 
 .please-sponsor-container a {

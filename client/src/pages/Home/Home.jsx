@@ -454,17 +454,17 @@ const HomePageSponsors = () => {
 const PleaseSponsor = () => {
   return (
     <div className="please-sponsor-container">
-      <div className="please-sponsor-checkers" />
       <h3 className="please-sponsor-heading">
         Become a<br />
         Sponsor!
       </h3>
-      <p>
-        Please contact us at{' '}
-        <a href="mailto:sponsorship@orientation.skule.ca">sponsorship@orientation.skule.ca</a> to
-        learn more about our sponsorship opportunities.
-      </p>
-      <div className="please-sponsor-checkers" />
+      <div className="please-sponsor-checkers">
+        <p className="please-sponsor-text">
+          Please contact us at{' '}
+          <a href="mailto:sponsorship@orientation.skule.ca">sponsorship@orientation.skule.ca</a> to
+          learn more about our sponsorship opportunities.
+        </p>
+      </div>
     </div>
   );
 };
