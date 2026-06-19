@@ -518,6 +518,221 @@
   }
 }
 
+// ── Other Events ──────────────────────────────────────────────────────────────
+
+.other-events-section {
+  background-color: var(--bg-primary);
+  padding: 30px 5% 40px 5%;
+  min-height: auto; // let content size itself
+  position: relative;
+  overflow: hidden;
+}
+
+.other-events-heading {
+  font-family: 'Genty', sans-serif;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 400;
+  color: #f5c842;
+  margin-bottom: -100px; // was 60px
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+.other-events-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+
+  @include devices(tablet) {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+
+// Vinyl
+.vinyl-wrapper {
+  flex: 0 0 auto;
+  width: clamp(550px, 60vw, 800px);
+  margin-left: clamp(-478px, -42vw, -600px); // pushed further left, was -420/-480
+  position: relative;
+  z-index: 2;
+
+  @include devices(tablet) {
+    width: 90vw;
+    margin-left: -35vw;
+  }
+}
+
+.other-events-thumb-wrapper {
+  flex: 0 0 auto;
+  width: 500px;
+  height: 300px; // fixed, not the broken clamp from before
+  margin-left: -84px;
+  border-radius: 0 100px 100px 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+
+  @include devices(tablet) {
+    width: 70vw;
+    height: 50vw;
+    margin-left: 0;
+    margin-top: 0;
+  }
+}
+
+.other-events-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vinyl-disc {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  animation: vinyl-spin 25s linear infinite;
+}
+
+@keyframes vinyl-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.vinyl-disc-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.vinyl-label-svg {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  font-style: italic;
+  fill: #f0eef8;
+  cursor: pointer;
+
+  &.active,
+  &:hover {
+    fill: #f5c842;
+  }
+}
+
+// Right panel
+.other-events-info-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; // vertically centers content within the fixed height
+  gap: 20px;
+  align-items: flex-start;
+  padding-left: 40px;
+  min-height: 320px; // fixed — same for every event, short or long description
+  z-index: 1;
+}
+
+.other-events-info-text {
+  h3 {
+    font-family: 'Proxima Nova', sans-serif;
+    font-size: 32px; // was 22px
+    font-weight: 900;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+  }
+
+  p {
+    font-size: 18px; // was 15px
+    line-height: 1.7;
+    color: var(--text-primary);
+    font-family: 'Proxima Nova', sans-serif;
+    margin-bottom: 20px;
+  }
+}
+
+.other-events-learn-more {
+  display: inline-block;
+  padding: 14px 32px; // was 10px 24px
+  border: 2px solid var(--text-primary);
+  border-radius: 8px;
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: 16px; // was 14px
+  font-weight: 700;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
+  }
+}
+
+// ── Sponsors heading ──────────────────────────────────────────────────────────
+
+.sponsors-heading-genty {
+  font-family: 'Genty', sans-serif;
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 400;
+  color: #f5c842;
+  margin-bottom: 10px;
+}
+
+// ── Become a Sponsor ──────────────────────────────────────────────────────────
+
+.please-sponsor-container {
+  margin: 60px auto 50px auto;
+  padding: 40px 20px;
+  max-width: 600px;
+  text-align: center;
+  font-family: 'Proxima Nova';
+  color: var(--text-primary);
+  position: relative;
+}
+
+.please-sponsor-heading {
+  font-family: 'Genty', sans-serif;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.please-sponsor-checkers {
+  width: 100%;
+  height: 24px;
+  background-image: repeating-conic-gradient(#c8b8e8 0% 25%, transparent 0% 50%);
+  background-size: 24px 24px;
+  border-radius: 4px;
+  margin: 16px 0;
+}
+
+.please-sponsor-container p {
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 0 5%;
+}
+
+.please-sponsor-container a {
+  color: var(--link-dynamic);
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 // Keyframes for the autoscroll animation
 @keyframes scroll {
   from {
@@ -525,10 +740,7 @@
   }
 
   to {
-    // Move the track by the width of the first half of the sponsors
-    transform: translateX(
-      calc(-270px * var(--item-count))
-    ); // Card width (250px + 20px gap) * number of original sponsors
+    transform: translateX(calc(-194px * var(--item-count)));
   }
 }
 
@@ -590,9 +802,8 @@
 
 .sponsors-carousel-track {
   display: flex;
-  gap: 20px;
-  // width: calc(270px * 14); // Card width (250px + 20px gap) * total number of cards (original * 2)
-  width: calc(270px * var(--item-count));
+  gap: 24px;
+  width: calc(194px * var(--item-count));
   padding: 20px 0;
   animation: scroll 30s linear infinite;
 
@@ -602,64 +813,19 @@
   }
 }
 
-.sponsor-card {
-  flex: 0 0 250px; // Prevent cards from squeezing
-  background-color: var(--bg-primary);
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease;
-  position: relative; // Needed for the border glow pseudo-element
-  border: 1px solid #eee; // A very subtle base border
-  padding: 0.5% 0% 0.2% 0%;
-
-  &:hover {
-    transform: translateY(-8px);
-  }
-
-  // This pseudo-element creates the unobtrusive but obvious border glow
-  &::before {
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    right: -3px;
-    bottom: -3px;
-    border-radius: 18px; // Slightly larger than the card's border-radius
-    z-index: -1;
-    transition: opacity 0.3s ease;
-    opacity: 0; // Hidden by default
-  }
-
-  &:hover::before {
-    opacity: 1; // Show the glow on hover
-  }
-}
-
 // --- Clean & Professional Border Styling ---
 
 .sponsor-card {
-  // Add a thick, transparent bottom border by default
-  border-color: transparent;
-  border-bottom: 4px solid transparent;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  flex: 0 0 170px;
+  background: none;
+  box-shadow: none;
+  border: none;
+  position: relative;
+  padding: 0;
+  transition: transform 0.3s ease;
 
-  // On hover, make the border color match the rank
   &:hover {
-    &.sponsor-card--diamond {
-      border-bottom-color: var(--sponsor-diamond);
-    }
-
-    &.sponsor-card--gold {
-      border-bottom-color: var(--sponsor-gold);
-    }
-
-    &.sponsor-card--silver {
-      border-bottom-color: var(--sponsor-silver);
-    }
-
-    &.sponsor-card--bronze {
-      border-bottom-color: var(--sponsor-bronze);
-    }
+    transform: translateY(-6px);
   }
 }
 
@@ -679,12 +845,14 @@
 }
 
 .sponsor-image-wrapper {
-  height: 160px;
-  padding: 20px;
+  height: 70px;
+  width: 140px;
+  margin: 0 auto;
+  padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  // Add overflow: hidden to ensure no image can exceed these boundaries
+  background: none; // flat, no circle bg
   overflow: hidden;
 }
 
@@ -702,49 +870,13 @@
 }
 
 .sponsor-name {
-  padding: 20px;
-  font-size: 15px;
+  padding: 10px 6px 0;
+  font-size: 13px;
   font-weight: 600;
-  margin-top: auto;
+  text-align: center;
+  margin-top: 0;
   color: var(--text-primary);
   line-height: 1.3;
-}
-
-.please-sponsor-container {
-  margin: 60px 20px 50px 20px;
-  padding: 40px;
-  background-color: var(--bg-primary);
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  font-family: 'Proxima Nova';
-  color: var(--text-primary);
-
-  h3 {
-    font-size: 24px;
-    // text-transform: uppercase;
-    margin-bottom: 10px;
-    font-weight: 900;
-    // color: var(--text-secondary)
-  }
-
-  p {
-    font-size: 16px;
-    padding: 0% 5%;
-    line-height: 1.6;
-  }
-
-  a {
-    color: var(--link-dynamic);
-    font-weight: 600;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 }
 
 .sponsor-card {
@@ -754,18 +886,13 @@
 
 .sponsor-medal-icon {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 35px;
-  height: 35px;
+  top: -6px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
   object-fit: contain;
   z-index: 2;
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
-
-  // Add a subtle shine to the medal icons
-  &:hover {
-    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2)) brightness(1.1);
-  }
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
 }
 
 // --- END: Sponsor styles replacement ---
