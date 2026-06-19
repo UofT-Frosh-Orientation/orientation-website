@@ -456,7 +456,7 @@ const PleaseSponsor = () => {
     <div className="please-sponsor-container">
       <h3 className="please-sponsor-heading">
         Become a<br />
-        Sponsor!
+        <span className="sponsor-word-big">Sponsor!</span>
       </h3>
       <div className="please-sponsor-checkers">
         <p className="please-sponsor-text">

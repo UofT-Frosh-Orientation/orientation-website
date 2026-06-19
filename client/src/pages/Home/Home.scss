@@ -14,6 +14,12 @@
   font-style: normal;
 }
 
+html,
+body {
+  background-color: #3d0f58;
+  margin: 0;
+}
+
 .home-page-header {
   position: relative;
   height: 100vh;
@@ -30,7 +36,7 @@
 .header-checker-block {
   position: absolute;
   top: 25%;
-  bottom: 38%;
+  bottom: 37%;
   left: 50%;
   transform: translateX(-50%);
   width: 94%;
@@ -73,8 +79,8 @@
     2% 35%,
     39% 35%
   );
-  width: 210px;
-  height: 210px;
+  width: 240px;
+  height: 240px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -216,7 +222,7 @@
 }
 
 .home-page-timeline {
-  background-color: var(--bg-primary);
+  background-color: #3d0f58;
 
   ::-webkit-scrollbar {
     width: 12px;
@@ -272,7 +278,7 @@
 }
 
 .home-page-schedule {
-  background-color: var(--bg-primary);
+  background-color: #3d0f58;
   padding-bottom: 30px;
 
   @include devices(tablet) {
@@ -302,7 +308,7 @@
   display: flex;
   flex-direction: row;
   padding: 50px 6%;
-  background-color: var(--bg-primary);
+  background-color: #3d0f58;
   gap: 40px;
   align-items: flex-start;
 
@@ -346,8 +352,10 @@
 .film-strip-container {
   background-color: #111;
   padding: 8px 0;
+  margin: 0;
   overflow: hidden;
   width: 100%;
+  display: block; // kill any inline-gap rendering
 }
 
 .film-strip-holes {
@@ -395,7 +403,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  margin: 13px 50px 13px 0;
+  margin: 20px 50px 20px 0;
   max-width: 650px;
 
   flex: 1;
@@ -433,7 +441,7 @@
 
 .otherevents-info {
   // background: rgba(255, 255, 255, 0.25);
-  background-color: var(--bg-primary);
+  background-color: #3d0f58;
   border-radius: 10px;
   box-shadow: var(--shadow);
 
@@ -452,7 +460,7 @@
   font-size: 24px;
   margin-bottom: 10px;
 
-  color: var(--text-primary);
+  //color: #a77ad7;
   text-align: left;
 
   @include devices(tablet) {
@@ -462,7 +470,7 @@
 
 .otherevents-info-des {
   font-size: 16px;
-  color: var(--text-primary);
+  //color: #a77ad7;
 }
 
 .home-page-section-header {
@@ -493,19 +501,19 @@
 }
 
 .home-page-sponsors {
-  padding: 60px 0; // Use vertical padding only
-  background-color: var(--bg-secondary);
+  padding: 0px 0 10px 0;
+  background-color: #3d0f58;
   color: var(--text-primary);
   text-align: center;
 }
 
 .home-page-sponsors-header {
-  margin-bottom: 40px;
-  padding: 0 20px; // Add horizontal padding here
+  margin-bottom: 20px;
+  padding: 0 20px;
   font-family: 'Proxima Nova';
 
   h2 {
-    font-size: 48px;
+    font-size: 64px;
     margin-bottom: 10px;
     font-weight: 900;
   }
@@ -521,9 +529,9 @@
 // ── Other Events ──────────────────────────────────────────────────────────────
 
 .other-events-section {
-  background-color: var(--bg-primary);
-  padding: 30px 5% 40px 5%;
-  min-height: auto; // let content size itself
+  background-color: #3d0f58;
+  padding: 0px 5% 0px 5%;
+  min-height: auto;
   position: relative;
   overflow: hidden;
 }
@@ -633,27 +641,33 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center; // vertically centers content within the fixed height
+  justify-content: center;
   gap: 20px;
-  align-items: flex-start;
+  align-items: center; // was flex-start — centers title, text, and button
   padding-left: 40px;
-  min-height: 320px; // fixed — same for every event, short or long description
+  min-height: 320px;
   z-index: 1;
+  text-align: center;
 }
 
 .other-events-info-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
   h3 {
     font-family: 'Proxima Nova', sans-serif;
-    font-size: 32px; // was 22px
+    font-size: 32px;
     font-weight: 900;
-    color: var(--text-primary);
+    color: #dfcdf3;
     margin-bottom: 14px;
   }
 
   p {
-    font-size: 18px; // was 15px
+    font-size: 18px;
     line-height: 1.7;
-    color: var(--text-primary);
+    color: #a77ad7;
     font-family: 'Proxima Nova', sans-serif;
     margin-bottom: 20px;
   }
@@ -673,7 +687,7 @@
 
   &:hover {
     background-color: var(--text-primary);
-    color: var(--bg-primary);
+    background-color: #3d0f58;
   }
 }
 
@@ -681,42 +695,56 @@
 
 .sponsors-heading-genty {
   font-family: 'Genty', sans-serif;
-  font-size: clamp(40px, 6vw, 64px);
+  font-size: clamp(40px, 6vw, 72px);
   font-weight: 400;
-  color: #f5c842;
+  color: var(--text-primary);
   margin-bottom: 10px;
 }
 
 // ── Become a Sponsor ──────────────────────────────────────────────────────────
 
 .please-sponsor-container {
-  margin: 60px auto 50px auto;
-  padding: 60px 20px; // increased padding so text has room inside the blob
+  margin: 20px auto 10px auto;
+  padding: 0 20px;
   max-width: 600px;
   text-align: center;
   font-family: 'Proxima Nova';
   color: var(--text-primary);
-  position: relative; // already there, just confirming it's needed for the absolute checker blob
-  z-index: 1; // ensure text sits above the checker blob
+  position: relative;
+  background: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .please-sponsor-heading {
-  font-family: 'Genty', sans-serif;
+  font-family: 'Genty', cursive;
   font-size: clamp(32px, 5vw, 52px);
   font-weight: 400;
   color: var(--text-primary);
   line-height: 1.1;
-  margin-bottom: 16px;
+  margin-bottom: -25px; // pulls it down toward the checkers below
+  margin-top: 25px;
+  z-index: 3;
+
+  .sponsor-word-big {
+    display: inline-block;
+    font-family: 'Genty', cursive;
+    font-size: 1.35em;
+    font-weight: 400;
+    transform: rotate(-6deg);
+    margin-top: -10px; // was 6px — closes the gap to "Become a"
+    //z-index: 3;
+  }
 }
 
 .please-sponsor-checkers {
   position: relative;
   width: 100%;
-  height: 220px;
-  background-image: repeating-conic-gradient(#c8b8e8 0% 25%, transparent 0% 50%);
+  height: 180px;
+  background-image: repeating-conic-gradient(#eadfff 0% 25%, transparent 0% 50%);
   background-size: 28px 28px;
   border-radius: 12px;
-  margin: 30px 0;
+  margin: 12px 0 50px 0;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -725,12 +753,15 @@
 
 .please-sponsor-text {
   position: relative;
-  z-index: 1; // sits above the oval cutout
-  font-size: 16px;
-  line-height: 1.6;
-  padding: 0 10%;
+  z-index: 2;
+  font-size: 17px;
+  line-height: 1.5;
+  padding: 0;
+  max-width: 52%; // keeps text within the oval's visible width instead of spilling into the checkers
+  margin: 0 auto;
   text-align: center;
   color: var(--text-primary);
+  word-wrap: break-word;
 }
 
 .please-sponsor-checkers::before {
@@ -741,9 +772,9 @@
   transform: translate(-50%, -50%) rotate(12deg);
   width: 70%;
   height: 95%;
-  background-color: var(--bg-primary);
+  background-color: #3d0f58;
   border-radius: 50%;
-  z-index: 0;
+  z-index: 2;
 }
 
 .please-sponsor-container a {
@@ -868,8 +899,8 @@
 }
 
 .sponsor-image-wrapper {
-  height: 70px;
-  width: 140px;
+  height: 100px;
+  width: 200px;
   margin: 0 auto;
   padding: 4px;
   display: flex;
@@ -894,7 +925,7 @@
 
 .sponsor-name {
   padding: 10px 6px 0;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   text-align: center;
   margin-top: 0;
@@ -905,6 +936,7 @@
 .sponsor-card {
   // existing styles...
   position: relative; // Ensure relative positioning for absolute medal positioning
+  margin-bottom: 40px;
 }
 
 .sponsor-medal-icon {
