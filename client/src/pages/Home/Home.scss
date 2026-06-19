@@ -290,7 +290,7 @@ body {
     font-size: 18px;
     font-family: 'Proxima Nova';
     font-weight: 400;
-    color: var(--text-primary);
+    color: #f0eef8;
     padding-left: min(40px, 3.5%);
     margin-top: -25px;
     margin-bottom: 15px;
@@ -325,13 +325,13 @@ body {
     font-size: 26px;
     font-weight: 900;
     margin-bottom: 14px;
-    color: var(--text-primary);
+    color: #f0eef8;
   }
 
   p {
     font-size: 15px;
     line-height: 1.7;
-    color: var(--text-primary);
+    color: #f0eef8;
     font-family: 'Proxima Nova', sans-serif;
   }
 }
@@ -503,7 +503,7 @@ body {
 .home-page-sponsors {
   padding: 0px 0 10px 0;
   background-color: #3d0f58;
-  color: var(--text-primary);
+  color: #f0eef8;
   text-align: center;
 }
 
@@ -520,13 +520,13 @@ body {
 
   p {
     font-size: 18px;
-    color: var(--text-primary);
+    color: #f0eef8;
     max-width: 800px;
     margin: 0 auto;
   }
 }
 
-// ── Other Events ──────────────────────────────────────────────────────────────
+// Other Events
 
 .other-events-section {
   background-color: #3d0f58;
@@ -643,7 +643,7 @@ body {
   flex-direction: column;
   justify-content: center;
   gap: 20px;
-  align-items: center; // was flex-start — centers title, text, and button
+  align-items: center; // centers title, text, and button
   padding-left: 40px;
   min-height: 320px;
   z-index: 1;
@@ -681,7 +681,7 @@ body {
   font-family: 'Proxima Nova', sans-serif;
   font-size: 16px; // was 14px
   font-weight: 700;
-  color: var(--text-primary);
+  color: #f0eef8;
   text-decoration: none;
   transition: background 0.2s, color 0.2s;
 
@@ -691,17 +691,17 @@ body {
   }
 }
 
-// ── Sponsors heading ──────────────────────────────────────────────────────────
+//Sponsors heading
 
 .sponsors-heading-genty {
   font-family: 'Genty', sans-serif;
   font-size: clamp(40px, 6vw, 72px);
   font-weight: 400;
-  color: var(--text-primary);
+  color: #f0eef8;
   margin-bottom: 10px;
 }
 
-// ── Become a Sponsor ──────────────────────────────────────────────────────────
+//Become a Sponsor
 
 .please-sponsor-container {
   margin: 20px auto 10px auto;
@@ -720,7 +720,7 @@ body {
   font-family: 'Genty', cursive;
   font-size: clamp(32px, 5vw, 52px);
   font-weight: 400;
-  color: var(--text-primary);
+  color: #f0eef8;
   line-height: 1.1;
   margin-bottom: -25px; // pulls it down toward the checkers below
   margin-top: 25px;
@@ -732,7 +732,7 @@ body {
     font-size: 1.35em;
     font-weight: 400;
     transform: rotate(-6deg);
-    margin-top: -10px; // was 6px — closes the gap to "Become a"
+    margin-top: -10px; // closes the gap to "Become a"
     //z-index: 3;
   }
 }
@@ -760,7 +760,7 @@ body {
   max-width: 52%; // keeps text within the oval's visible width instead of spilling into the checkers
   margin: 0 auto;
   text-align: center;
-  color: var(--text-primary);
+  color: #f0eef8;
   word-wrap: break-word;
 }
 
@@ -929,7 +929,7 @@ body {
   font-weight: 600;
   text-align: center;
   margin-top: 0;
-  color: var(--text-primary);
+  color: #f0eef8;
   line-height: 1.3;
 }
 
