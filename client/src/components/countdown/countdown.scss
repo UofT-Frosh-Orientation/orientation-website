@@ -44,14 +44,14 @@
 }
 
 .countdown-label {
-  font-size: clamp(11px, 1.2vw, 18px);
+  font-size: clamp(15px, 1.2vw, 30px);
   margin-bottom: 0.3rem;
   color: var(--jam);
-  font-weight: 900;
+  font-weight: 1000;
   font-family: 'Proxima Nova', sans-serif;
   text-transform: lowercase;
   letter-spacing: 0.05em;
-  text-shadow: 0 0 6px #f5c842, 0 0 12px #f5c842;
+  -webkit-text-stroke: 0.75px #f5c842;
 }
 
 .countdown-number {
@@ -70,6 +70,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 3px solid #f5c842;
 }
 
 .divider {
