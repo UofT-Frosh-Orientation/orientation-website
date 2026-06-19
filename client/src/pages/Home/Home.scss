@@ -18,6 +18,7 @@
   position: relative;
   height: 100vh;
   min-height: 600px;
+  padding-bottom: 3%;
   background-color: #3d0f58;
   overflow: hidden;
   display: flex;
@@ -28,8 +29,8 @@
 // The checkerboard is a centered block, NOT full background
 .header-checker-block {
   position: absolute;
-  top: 10%;
-  bottom: 30%;
+  top: 25%;
+  bottom: 38%;
   left: 50%;
   transform: translateX(-50%);
   width: 94%;
@@ -43,17 +44,22 @@
 // Top-right container for star + countdown
 .header-top-right {
   position: absolute;
-  top: 10%;
-  right: 18%;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-20%);
   z-index: 6;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
 }
 
 // "Register Now!" star shape
 .header-register-star {
+  position: absolute;
+  top: 18%;
+  right: 3%;
+  z-index: 6;
   background-color: #f5c842;
   clip-path: polygon(
     50% 0%,
@@ -67,23 +73,23 @@
     2% 35%,
     39% 35%
   );
-  width: 150px;
-  height: 150px;
+  width: 210px;
+  height: 210px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: rotate(20deg);
+  transform: rotate(15deg);
   font-family: 'Proxima Nova', sans-serif;
   font-weight: 900;
-  font-size: 17px;
+  font-size: 19px;
   text-align: center;
   color: var(--jam);
   line-height: 1.2;
 
   span {
-    transform: rotate(-20deg);
+    transform: rotate(-15deg);
     display: block;
-    padding-top: 15px;
+    padding-top: 12px;
   }
 }
 
@@ -114,13 +120,13 @@
   line-height: 1;
   margin: 0;
   padding: 0;
-  transform: rotate(-5deg);
+  transform: rotate(-7deg);
   transform-origin: left top;
   text-shadow: 5px 5px 0px rgba(0, 0, 0, 0.3);
   white-space: nowrap;
   position: relative;
   left: 1%;
-  top: 18%;
+  top: 15%;
   z-index: 4;
   align-self: flex-start;
 }
@@ -132,24 +138,26 @@
   font-size: clamp(120px, 27vw, 300px);
   color: #f0eef8;
   line-height: 0.85;
-  padding: 0;
-  text-transform: uppercase;
-  white-space: nowrap;
   margin: 0;
   padding: 0 3%;
-  width: 99.68%;
+  text-transform: uppercase;
+  white-space: nowrap;
+  width: 99.75%;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   z-index: 4;
   align-self: flex-end;
   box-sizing: border-box;
+  position: relative;
+  transform: scaleY(0.9);
+  bottom: 7.2%;
 }
 
 // 2T6 bottom right
 .home-page-2t6-text {
   position: absolute;
-  bottom: 0.005%;
+  bottom: 4.5%;
   right: 2%;
   z-index: 5;
   font-family: 'Gliker';
@@ -483,8 +491,6 @@
 .home-page-bottom-wave-image {
   filter: drop-shadow(-10px 10px 8px #23232342);
 }
-
-// --- START: Replace all previous sponsor styles with these ---
 
 .home-page-sponsors {
   padding: 60px 0; // Use vertical padding only

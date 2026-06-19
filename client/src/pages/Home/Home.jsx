@@ -56,16 +56,17 @@ const HomePageHeader = () => {
     <div className="home-page-header">
       <div className="header-checker-block" />
 
-      <div className="header-top-right">
-        <div className="header-register-star">
-          <span>
-            Register
-            <br />
-            Now!
-          </span>
-        </div>
-        <CountdownHome />
+      {/* Star: top-right corner, independent */}
+      <div className="header-register-star">
+        <span>
+          Register
+          <br />
+          Now!
+        </span>
       </div>
+
+      {/* Countdown: center of checker area */}
+      <CountdownHome />
 
       <div className="header-text-stack">
         <div className="header-frosh-text">F!rosh</div>
