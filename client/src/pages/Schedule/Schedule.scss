@@ -1,7 +1,17 @@
+@import '../../scssStyles/mixins.scss';
+
 .schedule-hero {
   position: relative;
   width: 100%;
+
+  // desktop by default
   height: 100vh; // span the entire viewport height
+
+  // mobile adjustments
+  @include devices(tablet) {
+    height: 80vh; // slightly less than full viewport height on mobile
+  }
+
   overflow: hidden;
   background-color: var(--monster);
 }
