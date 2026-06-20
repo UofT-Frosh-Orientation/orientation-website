@@ -17,6 +17,7 @@
   top: 0;
   left: 0;
   width: 100%;
+  height: 100%;
   z-index: 1;
 
   // Changed from grid to standard flex layout since JS assigns pixel heights directly
@@ -26,7 +27,7 @@
 
 .checkerboard {
   width: 100%;
-  // height is now controlled dynamically by JS to guarantee no chopped blocks!
+  // height is now controlled dynamically by JS to guarantee no chopped blocks
 
   background-image: conic-gradient(
     var(--monster) 0.25turn,
@@ -34,7 +35,7 @@
     var(--monster) 0.5turn 0.75turn,
     var(--jam) 0.75turn
   );
-  background-size: 100px 100px;
+  background-size: 100px 100px; // size of checkers is 50 px
 }
 
 .dance-floor {
@@ -44,6 +45,7 @@
   background-color: var(--jam);
 }
 
+// Hero foreground styling
 .hero-foreground {
   position: relative;
   z-index: 2;
@@ -51,4 +53,37 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.schedule-sphere-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Sparkle configurations for layout alignment
+.star {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+
+  &-top-right {
+    width: 100px;
+    height: 100px;
+    top: -100px;
+    right: -100px;
+  }
+  &-bottom-left-medium {
+    width: 80px;
+    height: 80px;
+    bottom: -80px;
+    left: -50px;
+  }
+  &-bottom-left-small {
+    width: 60px;
+    height: 60px;
+    bottom: -90px;
+    left: -100px;
+  }
 }

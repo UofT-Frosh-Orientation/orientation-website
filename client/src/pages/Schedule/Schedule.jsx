@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import './Schedule.scss';
+import RetroStar from '../../assets/schedule/schedule-retro-star.png';
 
 export const PageSchedule = () => {
   const canvasRef = useRef(null);
@@ -25,27 +26,27 @@ export const PageSchedule = () => {
     const squareSize = 50; // Lock the square size strictly to 50px
 
     const renderDanceFloor = () => {
-      // 1. Find out how much total vertical space the hero section has
+      // find how much total vertical space the hero section has
       const heroElement = container.parentElement;
       const totalAvailableHeight = heroElement.clientHeight || heroElement.offsetHeight;
       const width = heroElement.clientWidth || heroElement.offsetWidth;
 
       if (width === 0 || totalAvailableHeight === 0) return;
 
-      // 2. THE MASTER FIX: Calculate how much space is left for the checkerboard,
-      // then round it down so it only contains PERFECT multiples of 50px!
+      // calculate how much space is left for the checkerboard,
+      // then round it down so it only contains perfect multiples of 50px!
       const danceFloorHeight = danceRows * squareSize; // 250px
       const rawCheckerHeight = totalAvailableHeight - danceFloorHeight;
       const perfectCheckerHeight = Math.floor(rawCheckerHeight / squareSize) * squareSize;
 
-      // 3. Snap the container elements to match this pixel-perfect math
+      // snap the container elements to match this pixel-perfect math
       container.style.height = `${perfectCheckerHeight + danceFloorHeight}px`;
       const checkerboardElement = container.querySelector('.checkerboard');
       if (checkerboardElement) {
         checkerboardElement.style.height = `${perfectCheckerHeight}px`;
       }
 
-      // 4. Update the canvas backing resolution
+      // update the canvas backing resolution
       canvas.width = width;
       canvas.height = danceFloorHeight;
 
@@ -104,9 +105,17 @@ export const PageSchedule = () => {
       </div>
 
       <div className="hero-foreground">
-        <div className="schedule-ellipse">
-          <h1>Schedule</h1>
-          <p>September 1 - 4</p>
+        <div className="schedule-sphere-container">
+          {/* Decorative stars */}
+          <img src={RetroStar} className="star star-top-right" alt="decorative star" />
+          <img src={RetroStar} className="star star-bottom-left-medium" alt="decorative star" />
+          <img src={RetroStar} className="star star-bottom-left-small" alt="decorative star" />
+
+          {/* Main content */}
+          <div className="schedule-sphere">
+            <h1 className="schedule-title">Schedule</h1>
+            <p className="schedule-dates">September 1 - 4</p>
+          </div>
         </div>
       </div>
     </section>
