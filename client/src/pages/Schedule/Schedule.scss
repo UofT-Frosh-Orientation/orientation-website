@@ -20,14 +20,21 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  display: grid;
+  // Row 1 (Checkerboard): Dynamic remaining space
+  // Row 2 (Dance Floor): Strictly locked to 500px on desktop
+  grid-template-rows: 1fr 300px;
+  height: 100vh;
+
+  @include devices(tablet) {
+    // Scales down cleanly to 300px on mobile viewports (5 rows of 60px)
+    grid-template-rows: 1fr 150px;
+  }
 }
 
 .checkerboard {
   width: 100%;
-  height: 50%; // purple checkerboad pattern for half the screen
+  height: 100%;
 
   background-image: conic-gradient(
     var(--monster) 0.25turn,
@@ -40,8 +47,46 @@
 }
 
 .dance-floor {
-  height: 50%; // Keeps the bottom dance floor covering the other half of the screen
+  height: 100%; // fills the fixed row slot of 500px in the grid
   width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 50px); // responsive columns for the dance floor
+  grid-template-rows: repeat(5, 50px); // 5 rows for the dance floor
+  overflow: hidden;
+
+  .dance-tile {
+    width: 50px;
+    height: 50px;
+    // Quick-stepping flashing matrix logic
+    animation: mosaicFlow 8s infinite steps(1);
+
+    // Staggered animation delays for each tile to create a flowing effect
+    &:nth-child(8n) {
+      animation-delay: 0s;
+    }
+    &:nth-child(8n + 1) {
+      animation-delay: -1s;
+    }
+    &:nth-child(8n + 2) {
+      animation-delay: -2s;
+    }
+    &:nth-child(8n + 3) {
+      animation-delay: -3s;
+    }
+    &:nth-child(8n + 4) {
+      animation-delay: -4s;
+    }
+    &:nth-child(8n + 5) {
+      animation-delay: -5s;
+    }
+    &:nth-child(8n + 6) {
+      animation-delay: -6s;
+    }
+    &:nth-child(8n + 7) {
+      animation-delay: -7s;
+    }
+  }
 }
 
 .hero-foreground {
@@ -51,4 +96,39 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@keyframes mosaicFlow {
+  0%,
+  12.4% {
+    background-color: var(--jam);
+  }
+  12.5%,
+  24.9% {
+    background-color: var(--mikado);
+  }
+  25%,
+  37.4% {
+    background-color: var(--wisteria);
+  }
+  37.5%,
+  49.9% {
+    background-color: var(--monster);
+  }
+  50%,
+  62.4% {
+    background-color: #ffffff;
+  }
+  62.5%,
+  74.9% {
+    background-color: var(--sandstorm);
+  }
+  75%,
+  87.4% {
+    background-color: var(--lavender);
+  }
+  87.5%,
+  100% {
+    background-color: var(--palegold);
+  }
 }
