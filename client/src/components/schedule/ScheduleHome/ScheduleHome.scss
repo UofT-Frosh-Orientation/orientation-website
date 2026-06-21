@@ -17,13 +17,17 @@
 // -------------------------------------------------------------
 .schedule-tabs-row {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   gap: 16px;
   width: 100%;
-  overflow-x: auto; // Generates auto-scroll rules on tight screens
+  overflow-x: auto; // Generates auto-scroll on tight screens
   padding-bottom: 24px;
   margin-bottom: 24px;
+
+  @include devices(tablet) {
+    justify-content: flex-start;
+  }
 
   // Custom scrollbar behavior
   &::-webkit-scrollbar {
@@ -45,14 +49,14 @@
   border: none;
   cursor: pointer;
   white-space: nowrap;
-  font-family: 'Gliker', sans-serif;
+  font-family: 'Proxima Nova', sans-serif;
   font-weight: 700;
   font-size: 1.1rem;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
   // Default unselected tab state
   background-color: var(--wisteria);
-  color: var(--dusk);
+  color: var(--white);
 
   .tab-day-text {
     font-weight: 800;
@@ -114,7 +118,7 @@
   }
 }
 
-// Left time anchor box width rule boundaries
+// Left time box
 .schedule-time-block {
   width: 200px;
   min-width: 200px;
@@ -146,6 +150,11 @@
 .schedule-content-block {
   flex-grow: 1;
   width: 100%;
+  color: black;
+
+  * {
+    color: inherit;
+  }
 }
 
 // Color assignment token variants tracking your structure matrix definitions
@@ -155,12 +164,6 @@
   border: none;
   overflow: hidden;
   transition: transform 0.2s ease;
-
-  color: var(--dusk);
-
-  * {
-    color: inherit; // Inherit text color from parent card for consistency
-  }
 
   .card-header-inner {
     display: flex;
@@ -175,7 +178,7 @@
     font-weight: 700;
     font-size: 1.25rem;
     margin: 0;
-    color: var(--dusk);
+    color: black;
   }
 
   .event-location-box {
@@ -193,13 +196,17 @@
     font-family: 'Proxima Nova', sans-serif;
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--dusk);
+    color: black;
   }
 
   .event-desc {
     margin: 0;
     font-family: 'Proxima Nova', sans-serif;
+    font-size: 1.1rem;
     line-height: 1.5;
-    color: var(--dusk);
+    font-weight: 500;
+    color: black;
+    padding-left: 16px;
+    padding-bottom: 16px;
   }
 }
