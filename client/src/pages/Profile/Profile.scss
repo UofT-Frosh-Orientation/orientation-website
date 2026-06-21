@@ -6,6 +6,11 @@
   src: url('../../../../client/assets/fonts/proximanova_regular.ttf') format('opentype');
 }
 
+@font-face {
+  font-family: 'Genty';
+  src: url('../../../../client/assets/fonts/genty-regular.ttf') format('opentype');
+}
+
 :root {
   --top-left-corner-border: url('../../assets/profile/coins-left.png');
   --bottom-right-corner-border: url('../../assets/profile/coins-right.png');
@@ -17,7 +22,7 @@
   display: flex;
   align-items: center;
   flex-direction: row;
-  background-color: var(--bg-secondary);
+  background-color: var(--monster);
   padding: 0% 6%;
   padding-top: 80px;
   padding-bottom: 60px;
@@ -27,7 +32,7 @@
     font-size: 85px;
   }
   h2 {
-    color: var(--jam);
+    color: var(--dusk);
     font-size: 60px;
     line-height: 44px;
     font-family: 'Jersey 20';
@@ -164,10 +169,10 @@
 }
 
 .profile-class-circlebg {
-  background: url('../../assets/profile/class-background.svg') center center no-repeat;
+  background: url('../../assets/profile/checkers.png') center center no-repeat;
   background-size: contain;
-  width: 140px; // Adjust to fit your image
-  height: 140px; // Adjust to fit your image
+  width: 489px; // Adjust to fit your image
+  height: 492px; // Adjust to fit your image
   display: flex;
   align-items: center;
   justify-content: center;
@@ -176,8 +181,9 @@
 }
 
 .class-of-p {
-  color: var(--jam) !important;
+  color: var(--dusk) !important;
   margin-bottom: 5px;
+  font-family: 'Genty';
 }
 
 .profile-page-header-info {
@@ -447,7 +453,7 @@
 }
 
 .profile-not-registered h2 {
-  font-family: 'Proxima Nova', sans-serif;
+  font-family: 'Genty', sans-serif;
 }
 
 .retreat-profile-container {
@@ -798,12 +804,20 @@
 }
 
 /* If not already defined globally, add helpers */
-.mobile-only { display: none; }
-.desktop-only { display: block; }
+.mobile-only {
+  display: none;
+}
+.desktop-only {
+  display: block;
+}
 
 @include devices(tablet) {
-  .mobile-only { display: block; }
-  .desktop-only { display: none; }
+  .mobile-only {
+    display: block;
+  }
+  .desktop-only {
+    display: none;
+  }
 }
 
 /* Optional spacing for the mobile QR at top */

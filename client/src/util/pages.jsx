@@ -72,9 +72,9 @@ export const pages = {
     {
       label: 'Profile',
       component: (
-        <AuthorizedPage>
-          <PageProfile />
-        </AuthorizedPage>
+        //         <AuthorizedPage>
+        <PageProfile />
+        //         </AuthorizedPage>
       ),
       path: '/profile',
       includeFooter: true,
@@ -166,18 +166,18 @@ export const pages = {
     {
       label: 'profile-edit',
       component: (
-        <AuthorizedPage>
-          <PageProfileEdit />
-        </AuthorizedPage>
+        //         <AuthorizedPage>
+        <PageProfileEdit />
+        //         </AuthorizedPage>
       ),
       path: '/profile-edit',
     },
     {
       label: 'profile-edit-unregistered',
       component: (
-        <AuthorizedPage>
-          <PageProfileEditUnregistered />
-        </AuthorizedPage>
+        //         <AuthorizedPage>
+        <PageProfileEditUnregistered />
+        //         </AuthorizedPage>
       ),
       path: '/profile-edit-unregistered',
     },

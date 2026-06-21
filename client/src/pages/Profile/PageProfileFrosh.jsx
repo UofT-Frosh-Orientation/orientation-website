@@ -118,7 +118,7 @@ const PageProfileFrosh = () => {
                 {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
               </div>
               <Link key={'/registration'} to={'/registration'} className={'no-link-style'}>
-                <ButtonRound label="Register" style={{ marginLeft: '20px' }} />
+                <ButtonRound label="Register Now!" style={{ marginLeft: '20px' }} />
               </Link>
             </div>
           ) : null}
@@ -132,14 +132,14 @@ const PageProfileFrosh = () => {
           </div>
 
           {/* {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null} */}
-          <ProfilePageRetreat />
+          {/* <ProfilePageRetreat /> */}
 
           {/* <ProfilePageScuntMessage /> */}
           {/* {isRegistered ? <ProfilePageFroshOlympiks /> : null} */}
           {/* <ProfilePageNitelife /> */}
-          <ProfilePageInstagrams />
-          <ProfilePageAnnouncements />
-          <ProfilePageSchedule />
+          {/* <ProfilePageInstagrams /> */}
+          {/* <ProfilePageAnnouncements /> */}
+          {/* <ProfilePageSchedule /> */}
 
           <div className="profile-info-bottom mobile-only">
             <ProfilePageResources froshObject={isRegistered ? user : null} />
@@ -147,6 +147,7 @@ const PageProfileFrosh = () => {
         </div>
 
         <div className="profile-info-row-right desktop-only">
+          <ProfilePageAnnouncements />
           <ProfilePageQRCode />
           {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
           {user?.attendingScunt ? <ProfilePageScuntTeam /> : null}
@@ -177,6 +178,7 @@ const ProfilePageRetreat = () => {
   if (remainingTickets <= 0 && !isRetreat) {
     return null;
   }
+
   return (
     <Link to={'/frosh-retreat'} className="no-link-style">
       <div className="retreat-profile-container">
@@ -473,7 +475,7 @@ const ProfilePageAnnouncements = () => {
           // style={{ textDecoration: 'none' }}
           className={'no-link-style'}
         >
-          <Button label="Resubscribe To Announcements Emails" />
+          {/*<Button label="Resubscribe To Announcements Emails" /> */}
         </Link>
       ) : null}
       <TaskAnnouncement tasks={announcementList} onDone={onDoneTask} />
