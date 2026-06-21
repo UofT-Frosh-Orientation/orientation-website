@@ -105,14 +105,15 @@ export const PageSchedule = () => {
       </div>
 
       <div className="hero-foreground">
-        <div className="schedule-sphere-container">
-          {/* Decorative stars */}
-          <img src={RetroStar} className="star star-top-right" alt="decorative star" />
-          <img src={RetroStar} className="star star-bottom-left-medium" alt="decorative star" />
-          <img src={RetroStar} className="star star-bottom-left-small" alt="decorative star" />
+        {/* Decorative stars */}
+        <img src={RetroStar} className="star star-top-right" alt="decorative star" />
+        <img src={RetroStar} className="star star-bottom-left-medium" alt="decorative star" />
+        <img src={RetroStar} className="star star-bottom-left-small" alt="decorative star" />
 
+        <div className="schedule-badge-container">
+          <div className="schedule-badge" />
           {/* Main content */}
-          <div className="schedule-sphere">
+          <div className="schedule-text-container">
             <h1 className="schedule-title">Schedule</h1>
             <p className="schedule-dates">September 1 - 4</p>
           </div>

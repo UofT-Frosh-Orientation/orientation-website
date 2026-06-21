@@ -49,17 +49,129 @@
 .hero-foreground {
   position: relative;
   z-index: 2;
-  height: 100%;
+  height: calc(100% - 250px); // subtract the height of the dance floor
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include devices(tablet) {
+    height: calc(100% - 250px); // subtract the height of the dance floor
+  }
+}
+
+.schedule-badge-container {
+  position: relative; // relative to hero-foreground for absolute positioning of badge and text
+  width: 700px;
+  height: 400px;
+
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.schedule-sphere-container {
-  position: relative;
+.schedule-badge {
+  // Ellipse badge behind the text with the outline stroke
+  position: absolute;
+
+  // ellipse dimensions and styling
+  width: 700px;
+  height: 250px;
+
+  background: var(--monster);
+  border: 4px solid var(--mikado);
+  border-radius: 50%;
+  z-index: 1;
+
+  // tilting the ellipse
+  transform: rotate(10deg);
+
+  @include devices(tablet) {
+    width: 400px;
+    height: 150px;
+    border: 3px solid var(--mikado);
+  }
+}
+
+.schedule-text-container {
+  position: relative; // relative to scheddule-badge-container
+  z-index: 2; // text is above the badge (ellipse)
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  width: max-content;
+}
+
+.schedule-title,
+.schedule-dates {
+  left: -20px;
+
+  @include devices(tablet) {
+    left: -10px;
+  }
+}
+
+.schedule-title {
+  font-family: 'Genty Demo';
+  font-size: 10rem;
+  margin: 0;
+  top: 40px; // nudges the text down to be more centered within the tilted ellipse
+  line-height: 1;
+  position: relative;
+  display: block;
+  white-space: nowrap;
+
+  color: var(--monster);
+  -webkit-text-stroke: 40px var(--monster);
+
+  &::after {
+    content: 'Schedule';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--white);
+    -webkit-text-stroke: 0;
+    z-index: 1;
+  }
+
+  @include devices(tablet) {
+    font-size: 6rem;
+    top: 15px;
+    -webkit-text-stroke: 25px var(--monster);
+  }
+}
+
+.schedule-dates {
+  font-family: 'Gliker', sans-serif;
+  font-size: 2.75rem;
+  margin: 0;
+  margin-top: -10px;
+  position: relative;
+  display: block;
+
+  align-self: flex-end;
+
+  color: var(--monster);
+  -webkit-text-stroke: 8px var(--monster);
+
+  &::after {
+    content: 'September 1 - 4';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--white);
+    -webkit-text-stroke: 0;
+    z-index: 1;
+  }
+
+  @include devices(tablet) {
+    font-size: 1.5rem;
+    font-weight: 200;
+    -webkit-text-stroke: 4px var(--monster);
+  }
 }
 
 // Sparkle configurations for layout alignment
@@ -85,5 +197,58 @@
     height: 60px;
     bottom: -90px;
     left: -100px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  // Mobile-specific adjustments
+
+  .schedule-badge-container {
+    width: 290px;
+    height: 200px;
+  }
+
+  .schedule-badge {
+    width: 300px;
+    height: 110px;
+    border: 2px solid var(--mikado);
+  }
+
+  .schedule-title,
+  .schedule-dates {
+    left: -5px;
+  }
+
+  .schedule-title {
+    font-size: 4.3rem;
+    top: 10px;
+    -webkit-text-stroke: 16px var(--monster);
+  }
+
+  .schedule-dates {
+    font-size: 1.2rem;
+    margin-top: -4px;
+    -webkit-text-stroke: 3px var(--monster);
+  }
+
+  .star {
+    &-top-right {
+      width: 45px;
+      height: 45px;
+      top: -45px;
+      right: -25px;
+    }
+    &-bottom-left-medium {
+      width: 35px;
+      height: 35px;
+      bottom: -35px;
+      left: -15px;
+    }
+    &-bottom-left-small {
+      width: 25px;
+      height: 25px;
+      bottom: -45px;
+      left: -35px;
+    }
   }
 }
