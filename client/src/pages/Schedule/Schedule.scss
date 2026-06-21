@@ -183,20 +183,41 @@
   &-top-right {
     width: 100px;
     height: 100px;
-    top: -100px;
-    right: -100px;
+    top: -40%;
+    right: -15%;
   }
   &-bottom-left-medium {
     width: 80px;
     height: 80px;
-    bottom: -80px;
-    left: -50px;
+    bottom: -35%;
+    left: -7%;
   }
   &-bottom-left-small {
     width: 60px;
     height: 60px;
-    bottom: -90px;
-    left: -100px;
+    bottom: -40%;
+    left: -15%;
+  }
+
+  @include devices(tablet) {
+    &-top-right {
+      width: 60px;
+      height: 60px;
+      top: -30%;
+      right: -15%;
+    }
+    &-bottom-left-medium {
+      width: 50px;
+      height: 50px;
+      bottom: -25%;
+      left: -7%;
+    }
+    &-bottom-left-small {
+      width: 40px;
+      height: 40px;
+      bottom: -30%;
+      left: -15%;
+    }
   }
 }
 
@@ -233,22 +254,22 @@
 
   .star {
     &-top-right {
-      width: 45px;
-      height: 45px;
-      top: -45px;
-      right: -25px;
+      width: 60px;
+      height: 60px;
+      top: -30%;
+      right: -15%;
     }
     &-bottom-left-medium {
-      width: 35px;
-      height: 35px;
-      bottom: -35px;
-      left: -15px;
+      width: 45px;
+      height: 45px;
+      bottom: -30%;
+      left: -7%;
     }
     &-bottom-left-small {
-      width: 25px;
-      height: 25px;
-      bottom: -45px;
-      left: -35px;
+      width: 30px;
+      height: 30px;
+      bottom: -45%;
+      left: -15%;
     }
   }
 }
