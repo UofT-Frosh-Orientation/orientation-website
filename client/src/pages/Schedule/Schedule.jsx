@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import './Schedule.scss';
 import RetroStar from '../../assets/schedule/schedule-retro-star.png';
+import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
 
 export const PageSchedule = () => {
   const canvasRef = useRef(null);
@@ -98,26 +99,32 @@ export const PageSchedule = () => {
     };
   }, []);
   return (
-    <section className="schedule-hero">
-      <div className="hero-background">
-        <div className="checkerboard" />
-        <canvas ref={canvasRef} className="dance-floor" />
-      </div>
+    <section className="schedule-page">
+      <section className="schedule-hero">
+        <div className="hero-background">
+          <div className="checkerboard" />
+          <canvas ref={canvasRef} className="dance-floor" />
+        </div>
 
-      <div className="hero-foreground">
-        <div className="schedule-badge-container">
-          <div className="schedule-badge">
-            <img src={RetroStar} className="star star-top-right" alt="decorative star" />
-            <img src={RetroStar} className="star star-bottom-left-medium" alt="decorative star" />
-            <img src={RetroStar} className="star star-bottom-left-small" alt="decorative star" />
-            {/* Main content */}
-          </div>
-          <div className="schedule-text-container">
-            <h1 className="schedule-title">Schedule</h1>
-            <p className="schedule-dates">September 1 - 4</p>
+        <div className="hero-foreground">
+          <div className="schedule-badge-container">
+            <div className="schedule-badge">
+              <img src={RetroStar} className="star star-top-right" alt="decorative star" />
+              <img src={RetroStar} className="star star-bottom-left-medium" alt="decorative star" />
+              <img src={RetroStar} className="star star-bottom-left-small" alt="decorative star" />
+              {/* Main content */}
+            </div>
+            <div className="schedule-text-container">
+              <h1 className="schedule-title">Schedule</h1>
+              <p className="schedule-dates">September 1 - 4</p>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      <section className="schedule-content">
+        <ScheduleComponent />
+      </section>
     </section>
   );
 };
