@@ -1,0 +1,30 @@
+Genty Typeface
+----------------------------------------------------------------------------------------------------------------------------------------
+
+ Designer : Ilham Herry
+ Foundry  : Flavor type
+ Contact  : Flavortype@gmail.com
+ Licensed version : https://creativemarket.com/Flavortype/5150494-Genty-Bold-Rounded-Typeface
+----------------------------------------------------------------------------------------------------------------------------------------
+
+PERSONAL USE LICENSE
+For Genty Typeface
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+This license include coverage for PERSONAL USE ONLY.
+1. Commercial used is not allow under license. You are not permitted to
+distribute this typeface to other parties and you are not permitted to
+change the typeface for distribution either free or for monetary gain.
+Webfont embedding and mobile app are not allowed under the terms of this
+license.
+
+2. You may not modify, adapt, translate, reverse engineer, decompile,
+disassemble, or create derivative works based on the free fonts itself.
+That means to edit/modify the font files itself in font editors/soft-
+ware/programs like FontLab Studio, Fontographer, Font Creator, TypeTool,
+BitFonter, Glyphs, FontStruct, RoboFont, etc.
+
+3. You may not resell or redistribute the free fonts itself or any de-
+rivative works based on the free fonts itself without Ephemera Fonts
+Foundry’s prior written consent.
