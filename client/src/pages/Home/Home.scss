@@ -1,5 +1,53 @@
 @import '../../scssStyles/mixins';
 
+:root {
+  --bg-main: #3d0f58;
+  --bg-card: #711f8b;
+  --accent-purple: #a77ad7;
+  --bg-tint: #dfcdf3;
+  --text-primary: #ebebeb;
+  --text-inverted: #3c3c3c;
+
+  --header-text-main: #ebebeb;
+  --digit-bg: #3d0f58;
+  --digit-text: #ebebeb;
+
+  --gold-1: #ffc600;
+  --gold-2: #fed34c;
+  --gold-3: #fbdc70;
+
+  --checker-color-1: #a77ad7;
+  --checker-color-2: #3d0f58;
+  --shadow-color: rgba(0, 0, 0, 0.35);
+
+  --countdown-on-gold: #3d0f58;
+}
+
+html[data-theme='light'],
+body[data-theme='light'] {
+  --bg-main: #ebebeb;
+  --bg-card: #dfcdf3;
+  --accent-purple: #711f8b;
+  --bg-tint: #3d0f58;
+  --text-primary: #3d0f58;
+  --text-inverted: #ebebeb;
+
+  --header-text-main: #3d0f58;
+  --digit-bg: #ebebeb;
+  --digit-text: #3d0f58;
+
+  --gold-1: #ffc600;
+  --gold-2: #fed34c;
+  --gold-3: #fbdc70;
+
+  --checker-color-1: #dfcdf3;
+  --checker-color-2: #ebebeb;
+  --shadow-color: rgba(60, 60, 60, 0.1);
+
+  --countdown-on-gold: #3d0f58;
+}
+
+// --- FONTS ---
 @font-face {
   font-family: 'Genty';
   src: url('../../assets/fonts/GentyDemo-Regular.ttf') format('truetype');
@@ -16,8 +64,10 @@
 
 html,
 body {
-  background-color: #3d0f58;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
   margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .home-page-header {
@@ -25,11 +75,12 @@ body {
   height: 100vh;
   min-height: 600px;
   padding-bottom: 3%;
-  background-color: #3d0f58;
+  background-color: var(--bg-main);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  transition: background-color 0.3s ease;
 }
 
 // The checkerboard is a centered block, NOT full background
@@ -40,7 +91,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: 94%;
-  background-image: repeating-conic-gradient(#c8b8e8 0% 25%, #3d0f58 0% 50%);
+  background-image: repeating-conic-gradient(#dfcdf3 0% 25%, #3d0f58 0% 50%);
   background-size: 160px 160px;
   background-position: center;
   z-index: 0;
@@ -58,6 +109,7 @@ body {
   flex-direction: row;
   align-items: center;
   gap: 16px;
+  background-color: var(--bg-main);
 }
 
 // "Register Now!" star shape
@@ -66,7 +118,7 @@ body {
   top: 18%;
   right: 3%;
   z-index: 6;
-  background-color: #f5c842;
+  background-color: var(--gold-1);
   clip-path: polygon(
     50% 0%,
     61% 35%,
@@ -89,7 +141,7 @@ body {
   font-weight: 900;
   font-size: 19px;
   text-align: center;
-  color: var(--jam);
+  color: #3d0f58;
   line-height: 1.2;
 
   span {
@@ -122,13 +174,13 @@ body {
   font-family: 'Genty';
   font-weight: 400;
   font-size: clamp(100px, 16vw, 220px);
-  color: #f0eef8;
+  color: var(--text-primary);
   line-height: 1;
   margin: 0;
   padding: 0;
   transform: rotate(-7deg);
   transform-origin: left top;
-  text-shadow: 5px 5px 0px rgba(0, 0, 0, 0.3);
+  text-shadow: 5px 5px 0px rgba(0, 0, 0, 0.35);
   white-space: nowrap;
   position: relative;
   left: 1%;
@@ -142,7 +194,7 @@ body {
   font-family: 'Gliker';
   font-weight: 900;
   font-size: clamp(120px, 27vw, 300px);
-  color: #f0eef8;
+  color: var(--text-primary);
   line-height: 0.85;
   margin: 0;
   padding: 0 3%;
@@ -169,7 +221,7 @@ body {
   font-family: 'Gliker';
   font-weight: 900;
   font-size: clamp(30px, 4vw, 65px);
-  color: #f0eef8;
+  color: var(--text-primary);
   letter-spacing: -2px;
 }
 
@@ -222,7 +274,8 @@ body {
 }
 
 .home-page-timeline {
-  background-color: #3d0f58;
+  background-color: var(--bg-main);
+  transition: background-color 0.3s ease;
 
   ::-webkit-scrollbar {
     width: 12px;
@@ -234,7 +287,7 @@ body {
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: var(--gray);
+    background-color: var(--bg-card);
     background: var(--gray);
     border-radius: 3px;
   }
@@ -253,7 +306,7 @@ body {
 }
 
 .home-page-timeline-popup-container {
-  color: var(--white);
+  color: var(--text-primary);
 
   h1 {
     margin-bottom: 10px;
@@ -303,14 +356,22 @@ body {
   }
 }
 
-//BLURB
+// --- ABOUT BLURB ---
 .home-page-about-blurb {
   display: flex;
   flex-direction: row;
   padding: 50px 6%;
-  background-color: #3d0f58;
+  background-color: var(--bg-main);
   gap: 40px;
   align-items: flex-start;
+  transition: background-color 0.3s ease;
+
+  // Force text color here so nothing upstream (global resets,
+  // component-scoped styles, inline styles) can silently override it
+  p,
+  h2 {
+    color: var(--text-primary) !important;
+  }
 
   @include devices(tablet) {
     flex-direction: column;
@@ -319,26 +380,27 @@ body {
 
 .home-page-about-col {
   flex: 1;
+  background-color: var(--bg-main);
 
   h2 {
     font-family: 'Gliker';
     font-size: 26px;
     font-weight: 900;
     margin-bottom: 14px;
-    color: #f0eef8;
+    color: var(--accent-purple) !important; // keep heading on its own accent color
   }
 
   p {
     font-size: 15px;
     line-height: 1.7;
-    color: #f0eef8;
+    color: var(--text-primary);
     font-family: 'Proxima Nova', sans-serif;
   }
 }
 
 .home-page-about-divider {
   width: 2px;
-  background-color: var(--gray);
+  background-color: var(--accent-purple);
   align-self: stretch;
   flex-shrink: 0;
 
@@ -350,24 +412,22 @@ body {
 
 //Flim Strip
 .film-strip-container {
-  background-color: #111;
+  background-color: var(--text-inverted);
   padding: 8px 0;
-  margin: 0;
-  overflow: hidden;
   width: 100%;
-  display: block; // kill any inline-gap rendering
+  display: block;
 }
 
 .film-strip-holes {
   height: 18px;
   background: repeating-linear-gradient(
     to right,
-    #111 0px,
-    #111 10px,
-    white 10px,
-    white 30px,
-    #111 30px,
-    #111 40px
+    var(--text-inverted) 0px,
+    var(--text-inverted) 10px,
+    var(--bg-card) 10px,
+    var(--bg-card) 30px,
+    var(--text-inverted) 30px,
+    var(--text-inverted) 40px
   );
 }
 
@@ -441,15 +501,16 @@ body {
 
 .otherevents-info {
   // background: rgba(255, 255, 255, 0.25);
-  background-color: #3d0f58;
+  background-color: var(--bg-card);
   border-radius: 10px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-color);
 
   display: flex;
   flex-direction: column;
 
   padding: 25px;
   margin: 13px;
+  transition: background-color 0.3s ease;
 
   @include devices(tablet) {
     margin: 0 0 25px 0;
@@ -460,7 +521,7 @@ body {
   font-size: 24px;
   margin-bottom: 10px;
 
-  //color: #a77ad7;
+  color: var(--accent-purple);
   text-align: left;
 
   @include devices(tablet) {
@@ -470,12 +531,12 @@ body {
 
 .otherevents-info-des {
   font-size: 16px;
-  //color: #a77ad7;
+  color: var(--text-primary);
 }
 
 .home-page-section-header {
   font-size: 48px;
-  color: var(--text-primary);
+  color: var(--bg-main);
   padding-left: min(40px, 3.5%);
   padding-top: 40px;
   margin-left: 30px;
@@ -502,9 +563,10 @@ body {
 
 .home-page-sponsors {
   padding: 0px 0 10px 0;
-  background-color: #3d0f58;
-  color: #f0eef8;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
   text-align: center;
+  transition: background-color 0.3s ease;
 }
 
 .home-page-sponsors-header {
@@ -513,14 +575,14 @@ body {
   font-family: 'Proxima Nova';
 
   h2 {
-    font-size: 64px;
+    font-size: 46px;
     margin-bottom: 10px;
     font-weight: 900;
   }
 
   p {
     font-size: 18px;
-    color: #f0eef8;
+    color: var(--text-primary);
     max-width: 800px;
     margin: 0 auto;
   }
@@ -529,19 +591,19 @@ body {
 // Other Events
 
 .other-events-section {
-  background-color: #3d0f58;
+  background-color: var(--bg-main);
   padding: 0px 5% 0px 5%;
-  min-height: auto;
   position: relative;
   overflow: hidden;
+  transition: background-color 0.3s ease;
 }
 
 .other-events-heading {
   font-family: 'Genty', sans-serif;
   font-size: clamp(40px, 6vw, 72px);
   font-weight: 400;
-  color: #f5c842;
-  margin-bottom: -100px; // was 60px
+  color: var(--gold-1);
+  margin-bottom: -100px;
   text-align: center;
   position: relative;
   z-index: 3;
@@ -601,7 +663,6 @@ body {
   position: relative;
   width: 100%;
   padding-bottom: 100%;
-  animation: vinyl-spin 25s linear infinite;
 }
 
 @keyframes vinyl-spin {
@@ -627,12 +688,12 @@ body {
   font-size: 13px;
   font-weight: 700;
   font-style: italic;
-  fill: #f0eef8;
+  fill: var(--text-primary);
   cursor: pointer;
 
   &.active,
   &:hover {
-    fill: #f5c842;
+    fill: var(--gold-1);
   }
 }
 
@@ -643,7 +704,7 @@ body {
   flex-direction: column;
   justify-content: center;
   gap: 20px;
-  align-items: center; // centers title, text, and button
+  align-items: center;
   padding-left: 40px;
   min-height: 320px;
   z-index: 1;
@@ -651,23 +712,17 @@ body {
 }
 
 .other-events-info-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-
   h3 {
     font-family: 'Proxima Nova', sans-serif;
     font-size: 32px;
     font-weight: 900;
-    color: #dfcdf3;
-    margin-bottom: 14px;
+    color: var(--accent-purple);
   }
 
   p {
     font-size: 18px;
     line-height: 1.7;
-    color: #a77ad7;
+    color: var(--text-primary);
     font-family: 'Proxima Nova', sans-serif;
     margin-bottom: 20px;
   }
@@ -675,19 +730,20 @@ body {
 
 .other-events-learn-more {
   display: inline-block;
-  padding: 14px 32px; // was 10px 24px
-  border: 2px solid var(--text-primary);
+  padding: 14px 32px;
+  border: 2px solid var(--accent-purple);
   border-radius: 8px;
   font-family: 'Proxima Nova', sans-serif;
-  font-size: 16px; // was 14px
+  font-size: 16px;
   font-weight: 700;
-  color: #f0eef8;
+  color: var(--text-primary);
   text-decoration: none;
+  background-color: transparent;
   transition: background 0.2s, color 0.2s;
 
   &:hover {
-    background-color: var(--text-primary);
-    background-color: #3d0f58;
+    background-color: var(--accent-purple);
+    color: var(--text-inverted);
   }
 }
 
@@ -697,7 +753,7 @@ body {
   font-family: 'Genty', sans-serif;
   font-size: clamp(40px, 6vw, 72px);
   font-weight: 400;
-  color: #f0eef8;
+  color: var(--text-primary);
   margin-bottom: 10px;
 }
 
@@ -720,7 +776,7 @@ body {
   font-family: 'Genty', cursive;
   font-size: clamp(32px, 5vw, 52px);
   font-weight: 400;
-  color: #f0eef8;
+  color: var(--text-primary);
   line-height: 1.1;
   margin-bottom: -25px; // pulls it down toward the checkers below
   margin-top: 25px;
@@ -741,7 +797,7 @@ body {
   position: relative;
   width: 100%;
   height: 180px;
-  background-image: repeating-conic-gradient(#eadfff 0% 25%, transparent 0% 50%);
+  background-image: repeating-conic-gradient(var(--checker-color-1) 0% 25%, transparent 0% 50%);
   background-size: 28px 28px;
   border-radius: 12px;
   margin: 12px 0 50px 0;
@@ -760,7 +816,7 @@ body {
   max-width: 52%; // keeps text within the oval's visible width instead of spilling into the checkers
   margin: 0 auto;
   text-align: center;
-  color: #f0eef8;
+  color: var(--text-primary);
   word-wrap: break-word;
 }
 
@@ -772,7 +828,7 @@ body {
   transform: translate(-50%, -50%) rotate(12deg);
   width: 70%;
   height: 95%;
-  background-color: #3d0f58;
+  background-color: var(--bg-main);
   border-radius: 50%;
   z-index: 2;
 }
@@ -813,35 +869,172 @@ body {
 }
 
 // Apply mobile-specific styles using a media query
+
 @include devices(tablet) {
+  /* HEADER: normal flow column */
+  .home-page-header {
+    height: auto;
+    min-height: unset;
+    padding: 6% 0 8% 0;
+    overflow: visible;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Checker block: start lower so it clears F!rosh */
+  .header-checker-block {
+    position: relative;
+    top: auto;
+    /* remove the top offset */
+    left: auto;
+    transform: none;
+    width: 92%;
+    margin: 12vw auto 0;
+    /* push it down below F!rosh — adjust this value */
+    height: 77vw;
+    background-size: 32px 32px;
+    overflow: visible;
+  }
+
+  /* Star: moved down a bit */
+  .header-register-star {
+    position: absolute;
+    top: 10%;
+    /* was 4% */
+    right: -2%;
+    width: 110px;
+    height: 110px;
+    font-size: 12px;
+  }
+
+  /* Text stack fills checker block */
+  .header-text-stack {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+  }
+
+  /* F!rosh: sits above the checker block in the flex column */
+  .header-frosh-text {
+    position: relative;
+    /* change from absolute to relative */
+    top: 8%;
+    left: auto;
+    align-self: center;
+    margin-left: 3%;
+    margin-bottom: -8vw;
+    /* overlaps slightly into checkers at the top edge only */
+    transform: rotate(-6deg);
+    transform-origin: left top;
+    font-size: clamp(64px, 17vw, 100px);
+    z-index: 5;
+  }
+
+  /* WEEK: sits right after checker block in normal flow */
+  .header-week-text {
+    position: relative;
+    bottom: auto;
+    margin-bottom: -110%;
+    padding: 0 4%;
+    width: 100%;
+    font-size: clamp(80px, 24vw, 140px);
+  }
+
+  /* 2T6: normal flow below WEEK, no absolute positioning at all */
+  .home-page-2t6-text {
+    position: relative;
+    bottom: -13%;
+    right: auto;
+    align-self: flex-end;
+    margin-top: 8vw;
+    margin-right: 4%;
+    font-size: clamp(20px, 5vw, 40px);
+  }
+
+  /* Countdown: shifted lower inside checker block */
+  .countdown-timer-container {
+    top: 62%;
+    /* was 54% */
+    left: 50%;
+  }
+
+  /* ── OTHER EVENTS ── */
+  .other-events-heading {
+    margin-bottom: -10px;
+  }
+
+  .vinyl-wrapper {
+    width: 80vw;
+    margin: 0 auto;
+  }
+
+  // Push "What is F!rosh Week?" section down
+  .home-page-about-blurb {
+    margin-top: 60px;
+  }
+
+  // Bigger vinyl text on mobile
+  .vinyl-label-svg {
+    font-size: 18px;
+  }
+
+  .other-events-thumb-wrapper {
+    width: 75vw;
+    height: 52vw;
+    margin: -10px auto 0;
+    border-radius: 24px;
+  }
+
+  .other-events-info-panel {
+    padding-left: 0;
+    margin-top: 10px;
+  }
+
+  /* ── SPONSORS ── */
+  .please-sponsor-text {
+    font-size: 13px;
+    max-width: 58%;
+  }
+
+  .please-sponsor-checkers {
+    height: 140px;
+  }
+
+  .please-sponsor-checkers::before {
+    width: 72%;
+    height: 100%;
+  }
+
   .home-page-sponsors {
-    padding: 60px 20px 30px 20px;
+    padding-top: 50px;
   }
 
-  .sponsors-carousel-track {
-    // Adjust the total track width for the smaller cards
-    // width: calc(200px * 14);
-    width: calc(200px * var(--item-count));
-    // Use the new mobile-specific animation
-    animation-name: scroll-mobile;
-    // Optionally adjust the animation speed for mobile
-    animation-duration: 35s;
+  /* ── FILM STRIP ── */
+  .film-strip-photo {
+    height: 70px;
+    width: 100px;
   }
 
-  .sponsor-card {
-    // Make cards smaller and more suitable for mobile screens
-    flex: 0 0 180px;
+  .film-strip-track {
+    gap: 2px;
+    padding: 4px 0;
   }
 
-  .sponsor-image-wrapper {
-    // Adjust the image area height for the smaller card
-    height: 120px;
-  }
-
-  .sponsor-name {
-    // Adjust font size and padding for the smaller card
-    font-size: 14px;
-    padding: 15px;
+  .film-strip-holes {
+    height: 10px;
+    background: repeating-linear-gradient(
+      to right,
+      #111 0px,
+      #111 5px,
+      white 5px,
+      white 15px,
+      #111 15px,
+      #111 20px
+    );
   }
 }
 

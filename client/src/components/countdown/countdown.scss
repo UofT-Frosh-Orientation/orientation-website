@@ -5,22 +5,13 @@
   top: 50%;
   left: 55%;
   transform: translate(-50%, -50%) rotate(12deg);
-  background-color: var(--mikado);
+  background-color: var(--gold-1);
   border-radius: 50%;
   padding: 1.8rem 4rem;
   z-index: 5;
   width: fit-content;
   font-family: 'Proxima Nova';
   font-weight: 800;
-
-  @include devices(tablet) {
-    position: relative;
-    top: unset;
-    left: unset;
-    transform: none;
-    padding: 1rem 2rem;
-    margin: 20px auto;
-  }
 }
 
 .countdown-display {
@@ -30,10 +21,6 @@
   flex-direction: row;
   flex-wrap: nowrap;
   transform: rotate(-15deg);
-
-  @include devices(mobile) {
-    flex-direction: column;
-  }
 }
 
 .countdown-seg {
@@ -46,7 +33,7 @@
 .countdown-label {
   font-size: clamp(15px, 1.2vw, 30px);
   margin-bottom: 0.3rem;
-  color: var(--jam);
+  color: var(--countdown-on-gold); // was commented out / inheriting body text color
   font-weight: 1000;
   font-family: 'Proxima Nova', sans-serif;
   text-transform: lowercase;
@@ -61,8 +48,8 @@
 }
 
 .digit {
-  background-color: var(--jam);
-  color: var(--white);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
   border-radius: 8px;
   width: 1.2em;
   height: 1.6em;
@@ -70,16 +57,54 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3px solid #f5c842;
+  border: 3px solid var(--gold-1);
 }
 
 .divider {
   font-size: clamp(20px, 2.5vw, 40px);
   padding-top: 0.5em;
   margin: 0 0.2rem;
-  color: var(--jam);
+  color: var(--countdown-on-gold); // was var(--bg-main), broke in light mode
+}
 
-  @include devices(mobile) {
+@include devices(tablet) {
+  .countdown-timer-container {
+    position: absolute;
+    transform: translate(-50%, -50%) rotate(15deg);
+    padding: 8vw 10vw;
+    border-radius: 50%;
+  }
+
+  .countdown-display {
+    flex-direction: column;
+    transform: rotate(-12deg);
+    gap: 2px;
+  }
+
+  .countdown-seg {
+    padding: 0;
+  }
+
+  .countdown-label {
+    -webkit-text-stroke: 0;
+    font-weight: 700;
+    font-size: clamp(9px, 3vw, 13px);
+    margin-bottom: 2px;
+  }
+
+  .countdown-number {
+    font-size: clamp(22px, 8vw, 36px);
+    gap: 0.15em;
+  }
+
+  .digit {
+    font-size: clamp(22px, 8vw, 36px);
+    width: 1.1em;
+    height: 1.4em;
+    border-width: 2px;
+  }
+
+  .divider {
     display: none;
   }
 }

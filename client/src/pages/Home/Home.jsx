@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { getSlideshowImages, getTimelineEvents, describeArc } from './functions';
 import './Home.scss';
 import Wave from '../../assets/misc/wave.png';
@@ -35,6 +35,7 @@ import GoldMedal from '../../assets/sponsors/sponsormedals/gold.png';
 import SilverMedal from '../../assets/sponsors/sponsormedals/silver.png';
 import BronzeMedal from '../../assets/sponsors/sponsormedals/bronze.png';
 import { CountdownHome } from '../../components/countdown/countdown';
+
 const PageHome = () => {
   return (
     <>
@@ -71,9 +72,8 @@ const HomePageHeader = () => {
             <span key={i}>{letter}</span>
           ))}
         </div>
+        <span className="home-page-2t6-text">2T6</span>
       </div>
-
-      <span className="home-page-2t6-text">2T6</span>
     </div>
   );
 };
@@ -306,9 +306,61 @@ const PageAbout = () => {
   );
 };
 
+const SPIN_DURATION = 25000; // ms, matches CSS 25s
+const LABEL_START_ANGLES = [0, 120, 240]; // Each arc starts here
+
 const AboutUsSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [rotationDeg, setRotationDeg] = useState(0);
+  const startTimeRef = useRef(null);
+  const rafRef = useRef(null);
   const activeEvent = otherEventsData[activeIndex];
+
+  useEffect(() => {
+    const animate = (timestamp) => {
+      if (!startTimeRef.current) startTimeRef.current = timestamp;
+
+      const elapsed = timestamp - startTimeRef.current;
+      const deg = (elapsed / SPIN_DURATION) * 360; // Clockwise rotation degree
+      setRotationDeg(deg);
+
+      // The right side (3 o'clock) sits at exactly 90 degrees in this coordinate system
+      const ARROW_TARGET_ANGLE = 90;
+
+      // Small tolerance window (in degrees) to ensure requestAnimationFrame catches the alignment
+      const INTERSECTION_TOLERANCE = 3;
+
+      let found = -1;
+
+      LABEL_START_ANGLES.forEach((startAngle, i) => {
+        // The arc spans 110 degrees, so its exact middle is at startAngle + 55
+        const textMidpoint = startAngle + 55;
+
+        // Calculate the current absolute angle of this midpoint as the vinyl spins clockwise
+        const currentMidpointAngle = (textMidpoint + deg) % 360;
+
+        // Calculate the shortest angular distance to the right-side arrow (90°)
+        const diff = Math.min(
+          Math.abs(currentMidpointAngle - ARROW_TARGET_ANGLE),
+          360 - Math.abs(currentMidpointAngle - ARROW_TARGET_ANGLE),
+        );
+
+        // Only switch the panel data when the middle of the title hits the arrow line
+        if (diff < INTERSECTION_TOLERANCE) {
+          found = i;
+        }
+      });
+
+      if (found !== -1) {
+        setActiveIndex(found);
+      }
+
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
 
   return (
     <div className="other-events-section">
@@ -330,54 +382,58 @@ const AboutUsSection = () => {
                 ))}
               </defs>
 
-              {/* the disc background */}
-              <use href="#discCircle" fill="#111" />
-              {/* grooves */}
-              {[150, 120, 90, 60].map((r) => (
-                <circle
-                  key={r}
-                  cx="200"
-                  cy="200"
-                  r={r}
-                  fill="none"
-                  stroke="#555"
-                  strokeOpacity="0.5"
-                  strokeWidth="1"
-                />
-              ))}
+              {/* Spinning disc group */}
+              <g style={{ transformOrigin: '200px 200px', transform: `rotate(${rotationDeg}deg)` }}>
+                <use href="#discCircle" fill="#111" />
+                {[150, 120, 90, 60].map((r) => (
+                  <circle
+                    key={r}
+                    cx="200"
+                    cy="200"
+                    r={r}
+                    fill="none"
+                    stroke="#555"
+                    strokeOpacity="0.5"
+                    strokeWidth="1"
+                  />
+                ))}
+                {otherEventsData.map((event, index) => (
+                  <text
+                    key={index}
+                    className={`vinyl-label-svg ${activeIndex === index ? 'active' : ''}`}
+                    onClick={() => setActiveIndex(index)}
+                  >
+                    <textPath href={`#labelArc${index}`} startOffset="0%">
+                      {event.title}
+                    </textPath>
+                  </text>
+                ))}
+                {/* Yellow center label */}
+                <circle cx="200" cy="200" r="30" fill="#FCC600" stroke="#000000" strokeWidth="1" />
+                <circle cx="200" cy="200" r="4" fill="#ffffff" />
+              </g>
 
-              {otherEventsData.map((event, index) => (
-                <text
-                  key={index}
-                  className={`vinyl-label-svg ${activeIndex === index ? 'active' : ''}`}
-                  onClick={() => setActiveIndex(index)}
-                >
-                  <textPath href={`#labelArc${index}`} startOffset="0%">
-                    {event.title}
-                  </textPath>
-                </text>
-              ))}
-
-              {/* yellow center label */}
-              <circle cx="200" cy="200" r="30" fill="#FCC600" stroke="#000000" strokeWidth="1" />
-              <circle cx="200" cy="200" r="4" fill="#ffffff" />
+              {/* Fixed Arrow Indicator - Explicitly locked on the RIGHT side pointing LEFT */}
+              {/* Tip is at x=365 (inside disc edge), Base is at x=385 (near outer edge) */}
+              <polygon
+                points="365,200 385,190 385,210"
+                fill="#FCC600"
+                stroke="#000"
+                strokeWidth="1"
+              />
             </svg>
-
-            {/* fixed tonearm pointer, does NOT spin */}
           </div>
         </div>
 
-        {/* Right: Info card */}
-        {/* Middle: square thumbnail */}
         <div className="other-events-thumb-wrapper">
           <img src={activeEvent.image} alt={activeEvent.title} className="other-events-thumb-img" />
         </div>
 
-        {/* Right: text + button only */}
         <div className="other-events-info-panel">
           <div className="other-events-info-text">
             <h3>{activeEvent.title}</h3>
             <p>{activeEvent.description}</p>
+
             <a
               href={activeEvent.link}
               target="_blank"
