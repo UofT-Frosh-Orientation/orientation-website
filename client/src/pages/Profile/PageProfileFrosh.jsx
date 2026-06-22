@@ -7,8 +7,8 @@ import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnn
 import { QRNormal } from 'react-qrbtf';
 import { Button } from '../../components/button/Button/Button';
 import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
-import EditIconDark from '../../assets/misc/edit-icon-dark.svg';
-import EditIcon from '../../assets/misc/edit-icon.svg';
+import EditIconDark from '../../assets/profile/edit.png';
+import EditIcon from '../../assets/profile/edit.png';
 import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Link } from 'react-router-dom';
 import { instagramAccounts } from '../../util/instagramAccounts';
@@ -117,8 +117,11 @@ const PageProfileFrosh = () => {
                 </p>
                 {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
               </div>
+
               <Link key={'/registration'} to={'/registration'} className={'no-link-style'}>
-                <ButtonRound label="Register Now!" style={{ marginLeft: '20px' }} />
+                {/* <ButtonRound label="Register Now!" style={{ marginLeft: '20px' }} /> */}
+
+                {/* BUTTON TO BE MODIFIED ^ */}
               </Link>
             </div>
           ) : null}
@@ -291,7 +294,7 @@ const ProfilePageFroshHeader = ({ editButton }) => {
       <div className="profile-page-header">
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-left">
-            <div className="profile-class-circlebg desktop-only">
+            <div className="profile-class-checkers desktop-only">
               <div className="profile-page-header-class desktop-only">
                 <p className="class-of-p">Class of</p>
                 <h2>{froshYear}</h2>

@@ -11,6 +11,11 @@
   src: url('../../../../client/assets/fonts/genty-regular.ttf') format('opentype');
 }
 
+@font-face {
+  font-family: 'Gliker';
+  src: url('../../../../client/assets/fonts/gliker-regular.ttf') format('opentype');
+}
+
 :root {
   --top-left-corner-border: url('../../assets/profile/coins-left.png');
   --bottom-right-corner-border: url('../../assets/profile/coins-right.png');
@@ -33,13 +38,13 @@
   }
   h2 {
     color: var(--dusk);
-    font-size: 60px;
+    font-size: 70px;
     line-height: 44px;
-    font-family: 'Jersey 20';
+    font-family: 'Gliker';
   }
   p {
     color: var(--text-primary);
-    font-size: 18px;
+    font-size: 36px;
   }
   b {
     color: var(--text-primary);
@@ -54,10 +59,10 @@
       font-size: 65px;
     }
     h2 {
-      font-size: 40px;
+      font-size: 50px;
     }
     p {
-      font-size: 15px;
+      font-size: 30px;
     }
     b {
       font-size: 60px;
@@ -169,6 +174,18 @@
 }
 
 .profile-class-circlebg {
+  background: url('../../assets/profile/class-background.svg') center center no-repeat;
+  background-size: contain;
+  width: 140px; // Adjust to fit your image
+  height: 140px; // Adjust to fit your image
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  padding-top: 25px;
+}
+
+.profile-class-checkers {
   background: url('../../assets/profile/checkers.png') center center no-repeat;
   background-size: contain;
   width: 489px; // Adjust to fit your image
@@ -181,9 +198,22 @@
 }
 
 .class-of-p {
+  // p {
+  //   font-size: 182px;
+  //   margin-bottom: 10px;
+  //   text-align: center;
+  // }
   color: var(--dusk) !important;
   margin-bottom: 5px;
-  font-family: 'Genty';
+  display: incline-block; // for transformations
+  transform: rotate(-10deg);
+  font-family: 'Genty' !important;
+  font-size: 60px;
+  // display: flex;
+  // width: 141px;
+  // height: 492px;
+  // top: 167px;
+  // rotation: 9.97;
 }
 
 .profile-page-header-info {
