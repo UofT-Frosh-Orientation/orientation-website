@@ -20,6 +20,8 @@ export const colors = {
   '--dusk': ['#EBEBEB', '#EBEBEB'],
   '--dawn': ['#3C3C3C', '#3C3C3C'],
 
+  '--2T6-page-bg': ['#FFFFFF', '#3D0F58'],
+
   '--lilac': ['#E9DFF5', '#E9DFF5'],
 
   // 2T5 Schedule Colours
