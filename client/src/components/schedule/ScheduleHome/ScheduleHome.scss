@@ -17,17 +17,15 @@
 // -------------------------------------------------------------
 .schedule-tabs-row {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 16px;
   width: 100%;
   overflow-x: auto; // Generates auto-scroll on tight screens
-  padding-bottom: 24px;
+  padding: 4px 24px 24px 24px;
+  margin-top: -4px;
   margin-bottom: 24px;
-
-  @include devices(tablet) {
-    justify-content: flex-start;
-  }
+  box-sizing: border-box;
 
   // Custom scrollbar behavior
   &::-webkit-scrollbar {
@@ -68,8 +66,12 @@
 
   // Active selected tab state
   &.active {
-    background-color: var(--sandstorm); // Yellow active color highlight
+    background-color: var(--mikado); // Yellow active color highlight
     color: var(--monster);
+
+    &:hover {
+      transform: translateY(-2px);
+    }
   }
 
   &:hover:not(.active) {
@@ -101,7 +103,7 @@
   // Odd items (1st, 3rd, 5th...) get the golden Sandstorm fill
   &:nth-child(odd) {
     .schedule-card {
-      background-color: var(--sandstorm) !important;
+      background-color: var(--mikado) !important;
     }
   }
 
@@ -208,5 +210,8 @@
     color: black;
     padding-left: 16px;
     padding-bottom: 16px;
+
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 }

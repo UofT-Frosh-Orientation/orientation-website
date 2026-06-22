@@ -3,17 +3,8 @@
 .schedule-hero {
   position: relative;
   width: 100%;
-  height: 80vh;
   overflow: hidden;
   background-color: var(--2T6-page-bg);
-
-  @include devices(tablet) {
-    height: 70vh;
-  }
-
-  @media only screen and (max-width: 480px) {
-    height: 50vh;
-  }
 }
 
 .hero-background {
@@ -57,17 +48,17 @@
 .hero-foreground {
   position: relative;
   z-index: 2;
-  height: calc(100% - 200px); // subtract the height of the dance floor
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 100px 0;
 
   @include devices(tablet) {
-    height: calc(100% - 200px); // subtract the height of the dance floor
+    padding: 80px 0; // subtract the height of the dance floor
   }
 
   @media only screen and (max-width: 480px) {
-    height: calc(100% - 100px); // subtract the height of the dance floor
+    padding: 60px 0; // subtract the height of the dance floor
   }
 }
 
@@ -79,6 +70,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  top: -75px; // nudges the badge up to be more centered with the dance floor
 }
 
 .schedule-badge {
