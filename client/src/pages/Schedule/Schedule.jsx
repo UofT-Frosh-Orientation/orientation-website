@@ -13,15 +13,23 @@ export const PageSchedule = () => {
     // Find the parent container (.hero-background) to adjust its height dynamically
     const container = canvas.parentElement;
 
-    const colors = [
-      '#711F8B',
-      '#FFC600',
-      '#A77AD7',
-      '#3D0F58',
-      '#FFFFFF',
-      '#FED34C',
-      '#DFCDF3',
-      '#FBDC70',
+    const layerColors = [
+      ['#521570', '#591876', '#AF6A4C', '#B0706E', '#711F8B', '#A073AE', '#894B9C'], // Layer 1
+      ['#493152', '#B098B9', '#8F5AB8', '#6C1D86', '#491367', '#491364', '#C78C2A', '#EAA535'], // Layer 2
+      [
+        '#3D0F5D',
+        '#4B1864',
+        '#4A3C4E',
+        '#74258D',
+        '#E1A41A',
+        '#6F1F89',
+        '#461264',
+        '#C8BACC',
+        '#E5AA17',
+        '#A06ECA',
+        '#9E6BCA',
+      ], // Layer 3
+      ['#3C3C3C', '#A77AD7', '#FCC600', '#3D0F58', '#D9D9D9', '#DFCDF3'], // Layer 4
     ];
 
     const gridconfig = {
@@ -56,6 +64,7 @@ export const PageSchedule = () => {
       const checkerboardElement = container.querySelector('.checkerboard');
       if (checkerboardElement) {
         checkerboardElement.style.height = `${perfectCheckerHeight}px`;
+        checkerboardElement.style.backgroundSize = `${squareSize * 2}px ${squareSize * 2}px`;
       }
 
       // update the canvas backing resolution
@@ -67,8 +76,10 @@ export const PageSchedule = () => {
 
       // Draw the dance tiles
       for (let r = 0; r < danceRows; r++) {
+        const currentRowPalette = layerColors[r];
+
         for (let c = 0; c < columns; c++) {
-          ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+          ctx.fillStyle = currentRowPalette[Math.floor(Math.random() * currentRowPalette.length)];
           ctx.fillRect(c * squareSize, r * squareSize, squareSize + 0.5, squareSize + 0.5);
         }
       }
@@ -95,7 +106,8 @@ export const PageSchedule = () => {
         const randomRow = Math.floor(Math.random() * danceRows);
         const randomCol = Math.floor(Math.random() * columns);
 
-        ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+        const currentRowPalette = layerColors[randomRow];
+        ctx.fillStyle = currentRowPalette[Math.floor(Math.random() * currentRowPalette.length)];
         ctx.fillRect(
           randomCol * squareSize,
           randomRow * squareSize,
