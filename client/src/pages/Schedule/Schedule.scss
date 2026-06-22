@@ -10,6 +10,10 @@
   @include devices(tablet) {
     height: 70vh;
   }
+
+  @media only screen and (max-width: 480px) {
+    height: 50vh;
+  }
 }
 
 .hero-background {
@@ -36,11 +40,15 @@
     var(--jam) 0.75turn
   );
   background-size: 100px 100px; // size of checkers is 50 px
+
+  @media only screen and (max-width: 480px) {
+    background-size: 50px 50px; // size of checkers is 25 px on smaller screens
+  }
 }
 
 .dance-floor {
   width: 100%;
-  height: 250px; // 5 rows * 50px stays securely locked here
+  height: 200px; // 4 rows * 50px stays securely locked here
   display: block;
   background-color: var(--jam);
 }
@@ -49,13 +57,17 @@
 .hero-foreground {
   position: relative;
   z-index: 2;
-  height: calc(100% - 250px); // subtract the height of the dance floor
+  height: calc(100% - 200px); // subtract the height of the dance floor
   display: flex;
   justify-content: center;
   align-items: center;
 
   @include devices(tablet) {
-    height: calc(100% - 250px); // subtract the height of the dance floor
+    height: calc(100% - 200px); // subtract the height of the dance floor
+  }
+
+  @media only screen and (max-width: 480px) {
+    height: calc(100% - 100px); // subtract the height of the dance floor
   }
 }
 
@@ -223,6 +235,10 @@
 
 @media only screen and (max-width: 480px) {
   // Mobile-specific adjustments
+
+  .dance-floor {
+    height: 100px; // 4 rows * 25px for smaller screens
+  }
 
   .schedule-badge-container {
     width: 290px;

@@ -23,8 +23,11 @@ export const PageSchedule = () => {
       '#DFCDF3',
       '#FBDC70',
     ];
-    const danceRows = 5;
-    const squareSize = 50; // Lock the square size strictly to 50px
+
+    const gridconfig = {
+      danceRows: 4,
+      squareSize: 50, // Default square size for larger screens
+    };
 
     const renderDanceFloor = () => {
       // find how much total vertical space the hero section has
@@ -34,9 +37,17 @@ export const PageSchedule = () => {
 
       if (width === 0 || totalAvailableHeight === 0) return;
 
+      if (width <= 480) {
+        gridconfig.squareSize = 25; // Reduce square size for smaller screens
+      } else {
+        gridconfig.squareSize = 50; // Default square size for larger screens
+      }
       // calculate how much space is left for the checkerboard,
       // then round it down so it only contains perfect multiples of 50px!
-      const danceFloorHeight = danceRows * squareSize; // 250px
+
+      const { danceRows, squareSize } = gridconfig;
+
+      const danceFloorHeight = danceRows * squareSize; // 200px on large screens, 100px on small screens
       const rawCheckerHeight = totalAvailableHeight - danceFloorHeight;
       const perfectCheckerHeight = Math.floor(rawCheckerHeight / squareSize) * squareSize;
 
@@ -77,6 +88,7 @@ export const PageSchedule = () => {
       const height = canvas.height;
       if (width === 0 || height === 0) return;
 
+      const { danceRows, squareSize } = gridconfig;
       const columns = Math.ceil(width / squareSize) + 1;
 
       for (let i = 0; i < 3; i++) {
