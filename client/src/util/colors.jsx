@@ -1,4 +1,7 @@
 export const colors = {
+  // 2T6 schedule colours
+  '--2T6-page-bg': ['#FFFFFF', '#3D0F58'],
+
   // 2T5 Redesign Colours Start Here -----------------------------------------------------------------------------------
   '--bg-primary': ['#FFFFFF', '#291742'],
   '--bg-secondary': ['#EBEBEB', '#382159'],
@@ -19,8 +22,6 @@ export const colors = {
   '--palegold': ['#FBDC70', '#FBDC70'],
   '--dusk': ['#EBEBEB', '#EBEBEB'],
   '--dawn': ['#3C3C3C', '#3C3C3C'],
-
-  '--2T6-page-bg': ['#FFFFFF', '#3D0F58'],
 
   '--lilac': ['#E9DFF5', '#E9DFF5'],
 
