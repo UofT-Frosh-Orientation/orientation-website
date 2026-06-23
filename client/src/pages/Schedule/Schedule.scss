@@ -1,0 +1,289 @@
+@import '../../scssStyles/mixins.scss';
+
+.schedule-hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--2T6-page-bg);
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+
+  // Changed from grid to standard flex layout since JS assigns pixel heights directly
+  display: flex;
+  flex-direction: column;
+}
+
+.checkerboard {
+  width: 100%;
+  // height is now controlled dynamically by JS to guarantee no chopped blocks
+
+  background-image: conic-gradient(
+    var(--monster) 0.25turn,
+    var(--jam) 0.25turn 0.5turn,
+    var(--monster) 0.5turn 0.75turn,
+    var(--jam) 0.75turn
+  );
+  background-size: 100px 100px; // size of checkers is 50 px
+
+  @media only screen and (max-width: 480px) {
+    background-size: 50px 50px; // size of checkers is 25 px on smaller screens
+  }
+}
+
+.dance-floor {
+  width: 100%;
+  height: 200px; // 4 rows * 50px stays securely locked here
+  display: block;
+  background-color: var(--jam);
+}
+
+// Hero foreground styling
+.hero-foreground {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 0;
+
+  @include devices(tablet) {
+    padding: 80px 0; // subtract the height of the dance floor
+  }
+
+  @media only screen and (max-width: 480px) {
+    padding: 60px 0; // subtract the height of the dance floor
+  }
+}
+
+.schedule-badge-container {
+  position: relative; // relative to hero-foreground for absolute positioning of badge and text
+  width: 700px;
+  height: 400px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  top: -75px; // nudges the badge up to be more centered with the dance floor
+}
+
+.schedule-badge {
+  // Ellipse badge behind the text with the outline stroke
+  position: absolute;
+
+  // ellipse dimensions and styling
+  width: 700px;
+  height: 250px;
+
+  background: var(--monster);
+  border: 4px solid var(--mikado);
+  border-radius: 50%;
+  z-index: 1;
+
+  // tilting the ellipse
+  transform: rotate(10deg);
+
+  @include devices(tablet) {
+    width: 400px;
+    height: 150px;
+    border: 3px solid var(--mikado);
+  }
+}
+
+.schedule-text-container {
+  position: relative; // relative to scheddule-badge-container
+  z-index: 2; // text is above the badge (ellipse)
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+}
+
+.schedule-title,
+.schedule-dates {
+  left: -20px;
+
+  @include devices(tablet) {
+    left: -10px;
+  }
+}
+
+.schedule-title {
+  font-family: 'Genty Demo';
+  font-size: 10rem;
+  margin: 0;
+  top: 40px; // nudges the text down to be more centered within the tilted ellipse
+  line-height: 1;
+  position: relative;
+  display: block;
+  white-space: nowrap;
+
+  color: var(--monster);
+  -webkit-text-stroke: 40px var(--monster);
+
+  &::after {
+    content: 'Schedule';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--white);
+    -webkit-text-stroke: 0;
+    z-index: 1;
+  }
+
+  @include devices(tablet) {
+    font-size: 6rem;
+    top: 15px;
+    -webkit-text-stroke: 25px var(--monster);
+  }
+}
+
+.schedule-dates {
+  font-family: 'Gliker', sans-serif;
+  font-size: 2.75rem;
+  margin: 0;
+  margin-top: -10px;
+  position: relative;
+  display: block;
+
+  align-self: flex-end;
+
+  color: var(--monster);
+  -webkit-text-stroke: 8px var(--monster);
+
+  &::after {
+    content: 'September 1 - 4';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--white);
+    -webkit-text-stroke: 0;
+    z-index: 1;
+  }
+
+  @include devices(tablet) {
+    font-size: 1.5rem;
+    font-weight: 200;
+    -webkit-text-stroke: 4px var(--monster);
+  }
+}
+
+// Sparkle configurations for layout alignment
+.star {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+
+  &-top-right {
+    width: 100px;
+    height: 100px;
+    top: -40%;
+    right: -15%;
+  }
+  &-bottom-left-medium {
+    width: 80px;
+    height: 80px;
+    bottom: -35%;
+    left: -7%;
+  }
+  &-bottom-left-small {
+    width: 60px;
+    height: 60px;
+    bottom: -40%;
+    left: -15%;
+  }
+
+  @include devices(tablet) {
+    &-top-right {
+      width: 60px;
+      height: 60px;
+      top: -30%;
+      right: -15%;
+    }
+    &-bottom-left-medium {
+      width: 50px;
+      height: 50px;
+      bottom: -25%;
+      left: -7%;
+    }
+    &-bottom-left-small {
+      width: 40px;
+      height: 40px;
+      bottom: -30%;
+      left: -15%;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  // Mobile-specific adjustments
+
+  .dance-floor {
+    height: 100px; // 4 rows * 25px for smaller screens
+  }
+
+  .schedule-badge-container {
+    width: 290px;
+    height: 200px;
+  }
+
+  .schedule-badge {
+    width: 300px;
+    height: 110px;
+    border: 2px solid var(--mikado);
+  }
+
+  .schedule-title,
+  .schedule-dates {
+    left: -5px;
+  }
+
+  .schedule-title {
+    font-size: 4.3rem;
+    top: 10px;
+    -webkit-text-stroke: 16px var(--monster);
+  }
+
+  .schedule-dates {
+    font-size: 1.2rem;
+    margin-top: -4px;
+    -webkit-text-stroke: 3px var(--monster);
+  }
+
+  .star {
+    &-top-right {
+      width: 60px;
+      height: 60px;
+      top: -30%;
+      right: -15%;
+    }
+    &-bottom-left-medium {
+      width: 45px;
+      height: 45px;
+      bottom: -30%;
+      left: -7%;
+    }
+    &-bottom-left-small {
+      width: 30px;
+      height: 30px;
+      bottom: -45%;
+      left: -15%;
+    }
+  }
+}
+
+.schedule-content {
+  width: 100%;
+  max-width: 100%;
+}
