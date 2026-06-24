@@ -9,7 +9,7 @@ import { Button } from '../../components/button/Button/Button';
 import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { Tabs } from '../../components/tabs/tabs';
 import './RegistrationForm.scss';
-import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
+import MainFroshLogo from '../../assets/logo/2T6logo.png';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { Link, useNavigate } from 'react-router-dom';
 import { PopupModal } from '../../components/popup/PopupModal';
@@ -430,104 +430,85 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     return (
       <div>
         <div className="registration-form-flex">
-          <div className="registration-form" style={{ marginBottom: '65px' }}>
-            <Tabs
-              scrollToTopAfterChange={true}
-              selectedTabPassed={selectedTab}
-              go={selectedTabGo}
-              tabs={[
-                {
-                  title: 'General',
-                  component: (
-                    <>
-                      {anyError == true && selectedTab == 0 ? (
-                        <h3 className="registration-error-msg">
-                          Please make sure you have filled out all required fields correctly.
-                        </h3>
-                      ) : null}
-                      <div className="registration-first-step-header-container">
-                        <img className="registration-icon-logo" src={MainFroshLogo}></img>
-                        <div>
-                          <h1 className="registration-first-step-title">
-                            {'Welcome ' +
-                              (user && (user.preferredName === '' || !user.preferredName)
-                                ? user.firstName
-                                : user
-                                ? user.preferredName
-                                : '') +
-                              '!'}
-                          </h1>
-                          <h2 className="registration-first-step-subtitle">
-                            Register here for UofT Engineering&apos;s F!rosh Week 2T5
-                          </h2>
+          <div className="registration-form">
+            <div className="registration-form-card">
+              <Tabs
+                scrollToTopAfterChange={true}
+                selectedTabPassed={selectedTab}
+                go={selectedTabGo}
+                tabs={[
+                  {
+                    title: 'General',
+                    component: (
+                      <>
+                        {anyError == true && selectedTab == 0 ? (
+                          <h3 className="registration-error-msg">
+                            Please make sure you have filled out all required fields correctly.
+                          </h3>
+                        ) : null}
+                        <div className="registration-first-step-header-container">
+                          <img className="registration-icon-logo" src={MainFroshLogo}></img>
+                          <div>
+                            <h1 className="registration-first-step-title">
+                              {'Welcome ' +
+                                (user && (user.preferredName === '' || !user.preferredName)
+                                  ? user.firstName
+                                  : user
+                                  ? user.preferredName
+                                  : '') +
+                                '!'}
+                            </h1>
+                            <h2 className="registration-first-step-subtitle">
+                              Register here for UofT Engineering&apos;s F!rosh Week 2T6
+                            </h2>
+                          </div>
                         </div>
-                      </div>
-                      {generateStepComponent(formFields['General'], 'General')}
-                    </>
-                  ),
-                },
-                {
-                  title: 'Health & Safety',
-                  component: (
-                    <>
-                      {anyError == true && selectedTab == 1 ? (
-                        <h3 className="registration-error-msg">
-                          Please make sure you have filled out all required fields correctly.
-                        </h3>
-                      ) : null}
-                      {generateStepComponent(formFields['HealthSafety'], 'HealthSafety')}
-                    </>
-                  ),
-                },
-                {
-                  title: 'Extra Events',
-                  component: generateStepComponent(formFields['ExtraEvents'], 'ExtraEvents'),
-                },
-                {
-                  title: 'Payment',
-                  component: (
-                    <div className="registration-payment-page">
-                      {/* <div className={'full-width-input'}>
-                        <RadioButtons
-                          label="Would you like to request a bursary?"
-                          values={['Yes', 'No']}
-                          onSelected={(value) => {
-                            froshObject['isBursary'] = value === 'Yes';
-                          }}
-                          initialSelectedIndex={1}
-                          // localStorageKey={'profile-edit-MedicalInfo'}
+                        {generateStepComponent(formFields['General'], 'General')}
+                      </>
+                    ),
+                  },
+                  {
+                    title: 'Health & Safety',
+                    component: (
+                      <>
+                        {anyError == true && selectedTab == 1 ? (
+                          <h3 className="registration-error-msg">
+                            Please make sure you have filled out all required fields correctly.
+                          </h3>
+                        ) : null}
+                        {generateStepComponent(formFields['HealthSafety'], 'HealthSafety')}
+                      </>
+                    ),
+                  },
+                  {
+                    title: 'Extra Events',
+                    component: generateStepComponent(formFields['ExtraEvents'], 'ExtraEvents'),
+                  },
+                  {
+                    title: 'Payment',
+                    component: (
+                      <div className="registration-payment-page">
+                        <h1 className="notice">Notice</h1>
+                        <p className="register-terms-of-service">{terms}</p>
+                        <b>
+                          <p className="register-terms-of-service-below">
+                            By proceeding with your payment, you indicate you accept F!rosh Week
+                            using your submitted information in order to help plan and deliver
+                            Orientation events
+                          </p>
+                        </b>
+                        <ButtonRound
+                          style={{ margin: '0 auto', marginTop: '15px' }}
+                          label={'Pay Now'}
+                          onClick={handleRegister}
+                          isDisabled={!canRegister}
                         />
                       </div>
-                      <p
-                        className="register-terms-of-service text-input-sub"
-                        style={{ marginTop: '20px', marginBottom: '20px' }}
-                      >
-                        The price of a F!rosh Week ticket is $130 CAD. We will be making bursary
-                        decisions after F!rosh Week and will refund the amount to the students after
-                        the decisions. Our team will reach out to you for more details regarding the
-                        bursary program. Bursaries range from partial to complete settlement of the
-                        ticket price.
-                      </p> */}
-                      <h1 className="notice">Notice</h1>
-                      <p className="register-terms-of-service">{terms}</p>
-                      <b>
-                        <p className="register-terms-of-service-below">
-                          By proceeding with your payment, you indicate you accept F!rosh Week using
-                          your submitted information in order to help plan and deliver Orientation
-                          events
-                        </p>
-                      </b>
-                      <ButtonRound
-                        style={{ margin: '0 auto', marginTop: '15px' }}
-                        label={'Pay Now'}
-                        onClick={handleRegister}
-                        isDisabled={!canRegister}
-                      />
-                    </div>
-                  ),
-                },
-              ]}
-            />
+                    ),
+                  },
+                ]}
+              />
+            </div>
           </div>
         </div>
       </div>

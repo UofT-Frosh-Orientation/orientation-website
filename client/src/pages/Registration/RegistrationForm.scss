@@ -118,7 +118,7 @@
 }
 
 .registration-icon-logo {
-  width: 100px;
+  width: 150px;
   margin-right: 20px;
   margin-left: 20px;
   @include devices(mobile) {
@@ -151,14 +151,28 @@
     color: var(--white);
   }
 }
+
 .registration-edit-popup-buttons {
   display: flex;
   flex-direction: row;
   margin-bottom: -10px;
 }
+
 .registration-payment-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.registration-form-card {
+  background: var(--background-secondary);
+  border-radius: 16px;
+  border: 1px solid var(--border-primary);
+  padding: 28px 32px;
+  margin-bottom: 65px;
+
+  @include devices(mobile) {
+    padding: 16px;
+  }
 }
