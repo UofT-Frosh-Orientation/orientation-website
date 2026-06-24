@@ -29,9 +29,9 @@ li {
   position: fixed;
   background-color: var(--navbar-bg);
   width: 100%;
-  height: 50px;
+  height: 80px;
 
-  filter: drop-shadow(0px -2px 5px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25));
 }
 
 .navbar-main,
@@ -39,6 +39,9 @@ li {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
 }
 
 .navbar-container a {
@@ -53,18 +56,20 @@ li {
   align-items: center;
 
   margin-right: 25px;
-  height: 45px;
-  width: 80px;
+  height: 30px;
+  width: 100px;
 
-  border-radius: 5px;
+  @include devices(tablet) {
+    margin-right: 0px;
+  }
 
   &:hover,
   &:active {
-    color: var(--purple);
+    color: var(--neutral-secondary);
     transition: color 200ms;
 
     .navbar-underline {
-      background-color: var(--navbar-underline-desktop);
+      background-color: var(--text-secondary);
       transition: background-color 200ms;
     }
   }
@@ -74,66 +79,92 @@ li {
   }
 }
 
+.navbar-sub-container,
+.navbar-sub-container * {
+  cursor: url('../../assets/cursor/pointer.png'), pointer !important;
+}
+
 .navbar-link {
   position: absolute;
   color: var(--navbar-link);
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 400;
 
   .navbar-underline {
-    color: var(--navbar-underline-desktop);
+    color: var(--text-secondary);
     transition: background-color 200ms;
   }
 }
 
 .navbar-underline {
   align-self: flex-end;
-  width: 80px;
-  height: 3px;
+  width: 50px;
+  height: 2px;
   overflow: hidden;
-  border-radius: 15px;
+  border-radius: 0px;
 }
 
 .underline-page-selected {
   background-color: var(--navbar-underline-highlight);
   align-self: flex-end;
-  width: 80px;
-  height: 3px;
+  width: 50px;
+  height: 0px; // Change this to sm like 2 if you want the current page to be underlined
   overflow: hidden;
-  border-radius: 15px;
+  border-radius: 0px;
   transition: background-color 200ms;
 }
 
 .underline-page-unselected {
   opacity: 0;
-
   transition: background-color 200ms;
 }
 
 .icon-logo {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 
-  margin-left: 15px;
+  margin-left: 40px;
   margin-right: 40px;
+  padding: 4px;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
+
+  // @include devices(tablet) {
+  //   margin-right: 0px;
+  // }
+}
+
+.icon-logo-not-logged {
+  width: 40px;
+  height: 40px;
+
+  margin-left: 40px;
+  margin-right: 40px;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
+
+  @include devices(tablet) {
+    margin-right: 0px;
+  }
 }
 
 .icon-profile {
   background: var(--user-icon-bg);
   border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  line-height: 35px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
 
   margin-left: auto;
-  margin-right: 15px;
+  margin-top: auto;
+  margin-right: 25px;
 
   text-align: center;
   font-weight: bold;
   font-size: 15px;
   color: var(--yellow);
   float: right;
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto;
+
+  transition: all 150ms ease-in-out;
 
   @include devices(tablet) {
     margin-right: 10px;
@@ -141,7 +172,10 @@ li {
 }
 
 .icon-profile-person-container {
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
+  // width: 40px;
+  // height: 40px;
+  margin-right: 15px;
 }
 
 .icon-profile-person {
@@ -151,7 +185,7 @@ li {
   margin-left: auto;
   margin-right: 15px;
   margin-top: 4px;
-  cursor: url('../../../assets/cursor/cursor-2t4.png'), auto; // Apply custom cursor here;
+  cursor: url('../../assets/cursor/pointer.png'), auto; // Apply custom cursor here;
 
   @include devices(tablet) {
     margin-right: 10px;
@@ -224,8 +258,8 @@ li {
 .navbar-logout-button {
   &:hover,
   &:active {
-    transform: scale(0.97);
-    transition: transform 150ms;
+    transform: scale(110%);
+    transition: all 150ms ease-in-out;
   }
 }
 
@@ -233,21 +267,44 @@ li {
 @include devices(mobile) {
   .navbar-container {
     bottom: 0;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    // border-top-left-radius: 10px;
+    // border-top-right-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
     filter: drop-shadow(0px -2px 5px rgba(0, 0, 0, 0.25));
   }
 
   .icon-logo {
-    margin-left: 10px;
-    margin-right: 30px;
+    margin-left: 30px;
+    margin-top: 5px;
+
+    transition: all 150ms ease-in-out;
+
+    &:hover {
+      transform: scale(110%);
+      transition: all 150ms ease-in-out;
+      cursor: url('../../assets/cursor/pointer.png'), auto !important;
+    }
+
+    @include devices(tablet) {
+      margin-right: 0px;
+    }
   }
 
   .navbar-main {
-    width: 150px;
+    width: 200px;
     margin: auto;
-    align-self: center;
+    padding: none;
+    // align-self: center;
     justify-content: space-between;
+    gap: 30px;
+
+    @include devices(tablet) {
+      gap: 0px;
+      width: clamp(150px, 40%, 400px);
+    }
   }
 
   .login {
@@ -258,49 +315,55 @@ li {
   }
 
   .navbar-menu-icon {
-    align-self: center;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
+
+    transition: all 150ms ease-in-out;
+
+    &:hover {
+      transform: scale(110%);
+      transition: all 150ms ease-in-out;
+      cursor: url('../../assets/cursor/pointer.png'), auto !important;
+    }
   }
 
   .navbar-sub-container {
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-center;
     align-items: center;
 
-    margin-right: 5px;
-    margin-left: 5px;
-    width: 40px;
+    width: 30px;
   }
 
-  .navbar-underline {
-    background-color: var(--navbar-underline);
-    bottom: 0;
-    width: 40px;
-    height: 3px;
-  }
+  // .navbar-underline {
+  //   background-color: var(--navbar-underline);
+  //   bottom: 0;
+  //   width: 40px;
+  //   height: 3px;
+  // }
 
-  .underline-page-selected {
-    background-color: var(--navbar-underline-highlight);
-    bottom: 0;
-    width: 40px;
-    height: 3px;
-  }
+  // .underline-page-selected {
+  //   background-color: var(--navbar-underline-highlight);
+  //   bottom: 0;
+  //   width: 40px;
+  //   height: 3px;
+  // }
 
   .navbar-svg-icon {
     display: unset;
-    width: 25px;
-    margin: 3px 0 0 0;
+    width: 30px;
+    margin: 0px 0px;
   }
 
   .icon-profile {
-    margin-right: 10px;
-    margin-left: 30px;
-    font-size: 14px;
+    margin-right: 30px;
+    margin-bottom: 20px;
+    transition: all 150ms ease-in-out;
 
     &:hover {
-      transform: scale(0.97);
-      transition: transform 150ms;
+      transform: scale(110%);
+      transition: all 150ms ease-in-out;
+      cursor: url('../../assets/cursor/pointer.png'), auto !important;
     }
   }
 }

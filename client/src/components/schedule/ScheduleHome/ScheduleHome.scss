@@ -1,17 +1,29 @@
 @import '../../../scssStyles/mixins';
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
+
+:root {
+  --schedule-dates-pixel-border: url('../../../assets/schedule/schedule-dates-pixel-border.png');
+  --schedule-dates-pixel-border-selected: url('../../../assets/schedule/schedule-dates-pixel-border-selected.png');
+}
 
 .schedule-container {
   display: flex;
   padding: 0 20px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
 
   @include devices(tablet) {
     flex-direction: column;
-    padding: 0px;
+    margin: 0px 10%;
   }
 }
 
+.mobile-only {
+  margin-bottom: 25px;
+}
+
 .schedule-container-dates {
-  color: var(--black);
+  // color: var(--black);
   display: flex;
   flex-direction: column;
 }
@@ -19,7 +31,7 @@
 .schedule-container-left {
   display: flex;
   flex-direction: row;
-  margin-left: 20px;
+  margin-left: 30px;
 }
 
 .schedule-container-line {
@@ -91,28 +103,64 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 15px;
+  // Add pixel border
+  border-radius: 18px;
+  border-image-source: var(--schedule-dates-pixel-border-selected);
+  border-image-slice: 12;
+  border-image-width: 12px;
+  border-image-outset: 1px;
+  border-image-repeat: repeat;
+  box-shadow: inset 4px 4px var(--button-pressed-highlight), inset -7px -7px #0000007a;
   background-color: var(--schedule-container);
+  color: var(--mikado);
   padding: 0px 30px;
   margin: 10px;
-  opacity: 0.75;
-  transition: transform 200ms, opacity 500ms;
+
   &:hover {
-    transform: scale(1.03);
-    cursor: url('../../../../assets/cursor/cursor-2t4.png'), auto; // Apply custom cursor here
+    transform: scale(1.02);
+    //box-shadow: 0 0 10px rgb(250, 249, 176);
+    //box-shadow: 0px 0px 5px #ddd1e5, 0px 0px 5px #ddd1e5;
   }
   h1 {
-    font-size: 28px;
+    font-size: 48px;
+    font-family: 'Jersey 20', sans-serif;
+    padding-left: 20px;
   }
   h2 {
     font-size: 20px;
+    padding-left: 20px;
+  }
+
+  &:active {
+    transform: translateY(5px);
+    // box-shadow: inset 5px 5px var(--button-pressed-shadow),
+    //   inset -5px -5px var(--button-pressed-highlight);
+    // background-color: var(--button-active-bg);
   }
 }
 
-.schedule-container-dates-container-selected {
-  opacity: 1;
-  transform: scale(1);
-  box-shadow: 0 0 10px rgb(251, 214, 246);
+.schedule-container-dates-container,
+.schedule-container-dates-container * {
+  cursor: url('../../../../assets/cursor/pointer.png'), auto !important;
+}
+
+.schedule-container-dates-container-selected,
+.schedule-container-dates-container-selected:hover,
+.schedule-container-dates-container-selected:active {
+  border-image-source: var(--schedule-dates-pixel-border);
+  background-color: var(--monster) !important;
+  color: var(--lavender);
+  transform: none !important;
+  // box-shadow: inset 8px 8px var(--button-pressed-shadow),
+  //   inset -7px -7px var(--button-pressed-shadow) !important;
+  box-shadow: inset -5px -5px var(--button-pressed-highlight),
+    inset 8px 8px var(--button-pressed-shadow) !important;
+  box-shadow: none;
+}
+
+.schedule-container-dates-container-selected,
+.schedule-container-dates-container-selected * {
+  cursor: url('../../../../assets/cursor/cursor.png'), auto !important;
 }
 
 .schedule-accordion {
@@ -124,27 +172,31 @@
   }
   margin-left: 15px;
   h1 {
-    color: var(--text-dynamic) !important;
+    // color: var(--text-dynamic) !important;
     font-size: 24px;
     padding: 15px 5px;
     @include devices(tablet) {
-      font-size: 20px;
-      padding: 10px 0px;
+      // font-size: 20px;
+      // padding: 10px 0px;
+      margin-bottom: 0px !important;
+      padding-bottom: 0px !important;
+      font-weight: 900;
     }
-    color: var(--text-dark);
+    // color: var(--text-dark);
   }
   h2 {
     font-size: 18px;
     margin-left: 10px;
-    color: var(--gray-time-label);
+    // color: var(--gray-time-label);
     text-align: right;
     @include devices(tablet) {
-      font-size: 15px;
-      padding: 5px 0px;
+      // font-size: 30px;
+      // padding: 5px 0px;
+      font-weight: 700;
     }
   }
   p {
-    color: var(--text-dynamic) !important;
+    // color: var(--text-dynamic) !important;
     font-size: 18px;
     margin: 10px 5px;
     margin-top: -10px;
@@ -153,7 +205,7 @@
       margin-top: -10px;
       font-size: 15px;
     }
-    color: var(--text-dark);
+    // color: var(--text-dark);
   }
 }
 .schedule-accordion-header-container {
@@ -163,24 +215,61 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+
+  @include devices(tablet) {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
 }
+
+.eventtimedesktop {
+  @include devices(tablet) {
+    display: none;
+  }
+}
+
+.eventtimemobile {
+  @media (min-width: 767px) {
+    display: none;
+  }
+  margin-left: 0px !important;
+  margin-bottom: 10px;
+  padding-top: 5px !important;
+}
+
 .schedule-accordion-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   flex-direction: column;
   user-select: none;
+
+  @include devices(tablet) {
+    align-items: center;
+    justify-content: center;
+  }
 }
 .schedule-accordion-location {
-  color: var(--gray-time-label);
+  // color: var(--gray-time-label);
   margin-bottom: 10px;
   font-size: 16px;
+
+  @include devices(tablet) {
+    display: none;
+  }
 }
 .schedule-accordion-header-location-icon {
   width: 14px;
   height: 14px;
   margin-top: 3px;
   margin-right: 3px;
+
+  @include devices(tablet) {
+    visibility: hidden;
+    width: 10px;
+    height: 10px;
+  }
 }
 .schedule-accordion-header-location-container {
   display: flex;
@@ -196,11 +285,11 @@
 }
 .schedule-background-purple {
   color: var(--text-dynamic);
-  background-color: var(--purple-bg) !important;
+  background-color: var(--purple-bg);
 }
 .schedule-background-yellow {
   color: var(--text-dynamic);
-  background-color: var(--yellow-bg) !important;
+  background-color: var(--yellow-bg);
 }
 .schedule-background-dark-purple {
   color: var(--text-dynamic);
@@ -216,4 +305,39 @@
 }
 .schedule-background-blue {
   background-color: var(--blue-bg);
+}
+.schedule-background-magenta {
+  background-color: var(--magenta-bg);
+}
+
+// New colours
+
+.schedule-background-general {
+  color: var(--sc-inverted);
+  background-color: var(--sc-general);
+}
+
+.schedule-background-long {
+  color: var(--sc-text);
+  background-color: var(--sc-long);
+}
+
+.schedule-background-break {
+  color: var(--sc-text);
+  background-color: var(--sc-break);
+}
+
+.schedule-background-night {
+  color: var(--sc-inverted);
+  background-color: var(--sc-night);
+}
+
+.schedule-background-special {
+  color: var(--sc-text);
+  background-color: var(--sc-special);
+}
+
+.schedule-background-other {
+  color: var(--sc-text);
+  background-color: var(--sc-other);
 }

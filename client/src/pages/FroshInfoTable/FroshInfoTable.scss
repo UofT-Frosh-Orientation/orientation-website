@@ -1,6 +1,10 @@
 @import '../../scssStyles/mixins';
 
 .frosh-info-table {
+  @media screen and (max-width: 1250px) {
+    padding: 0px 20px;
+  }
+
   padding-bottom: 15px;
   .buttons-container {
     display: block;
@@ -8,7 +12,7 @@
     text-align: right;
     @include devices(tablet) {
       display: inline-block;
-      margin: auto;
+      margin: 0;
       text-align: center;
       margin-right: 0px;
     }
@@ -19,6 +23,7 @@
     margin-bottom: 10px;
     color: var(--text-dynamic);
     font-size: 40px;
+    font-weight: 900;
     @include devices(tablet) {
       margin-bottom: 0px;
       text-align: center;
@@ -34,7 +39,7 @@
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 10px;
-    margin-top: 40px;
+    margin-top: 80px;
     @include devices(tablet) {
       justify-content: center;
       align-items: center;
@@ -57,30 +62,40 @@
     color: var(--text-dynamic);
   }
   .table-wrap {
-    padding: 15px 5%;
-    padding-bottom: 0;
-    @include devices(tablet) {
-      padding: 15px 1%;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    min-height: 200px;
+  }
+  .empty-container {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   table {
     border-collapse: collapse;
     width: 100%;
     display: block;
-    max-width: fit-content;
+    // min-width: fit-content;
+    max-width: 1000px;
     overflow-x: auto;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
     color: var(--text-dynamic);
-    @include devices(tablet) {
-      margin: auto;
-    }
+    // @include devices(tablet) {
+    //   margin: auto;
+    // }
     table-layout: fixed;
+    margin-top: 20px;
   }
   th {
     background-color: var(--purple);
     color: var(--white);
-    cursor: pointer;
+    cursor: url('../../assets/cursor/pointer.png') auto !important;
   }
   td {
     word-wrap: break-word;
@@ -104,10 +119,16 @@
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    margin: 0 5%;
+    // margin: 0 5%;
+    margin: auto;
     background-color: var(--purple);
     color: var(--white);
-    border-radius: 0 0 15px 15px;
+    border-radius: 0 0 10px 10px;
+    margin-bottom: 40px;
+    overflow-x: auto;
+    gap: 10px;
+    // padding: 0px 20px;
+    max-width: 1000px;
   }
 
   .pagination-pages,
@@ -118,5 +139,17 @@
     color: var(--white);
     padding: 0.5vh 1vw;
     font-size: 16px;
+  }
+
+  .pagination-control,
+  .export-button {
+    margin: 10px;
+  }
+
+  .empty-state {
+    text-align: center;
+    color: var(--text-dynamic);
+    font-size: 24px;
+    font-weight: 900;
   }
 }

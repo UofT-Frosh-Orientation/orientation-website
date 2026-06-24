@@ -58,15 +58,15 @@ describe('ScuntMissionServices', () => {
 
   it('.getAllScuntMissions(showHidden, user)\t\t\t\t\t\t\t\t|\tGetting Scunt Missions', async () => {
     const scuntGameSettings = {
-      name: 'Scunt 2T3 Settings',
+      name: 'Skule™ Hunt 2T5 Settings',
       amountOfTeams: 10,
       amountOfStarterBribePoints: 10000,
-      maxAmountPointsPercent: 1.5,
+      maxAmountPointsPercent: 1.3,
       minAmountPointsPercent: 0.5,
       revealJudgesAndBribes: true,
       revealTeams: true,
       showDiscordLink: true,
-      discordLink: 'https://discord.gg/mRutbwuCK9',
+      discordLink: 'https://discord.gg/Fnxr7tp34E',
       revealLeaderboard: true,
       revealMissions: true,
       allowJudging: true,

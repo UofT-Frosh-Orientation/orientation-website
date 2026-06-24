@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext, useMemo } from 'react';
 import './FroshInfoTable.scss';
 // import { fields } from '../Registration/RegistrationFields';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
+import { ButtonPlain } from '../../components/button/ButtonPlain/ButtonPlain';
 // import exportFromJSON from 'export-from-json';
 import { useDispatch, useSelector } from 'react-redux';
 import { froshListSelector } from '../../state/frosh/froshSlice';
@@ -37,25 +39,25 @@ const PageFroshInfoTable = () => {
         header: convertCamelToLabel(key),
         accessorKey: key,
       })),
-      {
-        header: 'Delete Account',
-        accessorKey: '_id',
-        id: 'delete',
-        cell: (value) => (
-          <Button
-            label={'X'}
-            style={{
-              margin: 0,
-              padding: '10px 25px',
-              backgroundColor: 'var(--red-error)',
-            }}
-            onClick={() => {
-              setSelectedUserID(value.getValue());
-              setShowPopUp(true);
-            }}
-          />
-        ),
-      },
+      // {
+      //   header: 'Delete Account',
+      //   accessorKey: '_id',
+      //   id: 'delete',
+      //   cell: (value) => (
+      //     <Button
+      //       label={'X'}
+      //       style={{
+      //         margin: 0,
+      //         padding: '10px 25px',
+      //         backgroundColor: 'var(--red-error)',
+      //       }}
+      //       onClick={() => {
+      //         setSelectedUserID(value.getValue());
+      //         setShowPopUp(true);
+      //       }}
+      //     />
+      //   ),
+      // },
     ],
     [objectKeys],
   );
@@ -140,10 +142,10 @@ const PageFroshInfoTable = () => {
   return (
     <div className="frosh-info-table">
       <div className="header">
-        <h1>FROSH DATA</h1>
+        <h1>F!rosh Data</h1>
         <div className="buttons-container">
           {user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') ? (
-            <Button
+            <ButtonRound
               isSecondary
               label={!showAllUsers ? 'Showing Complete Frosh Users' : 'Showing All Users'}
               onClick={() => {
@@ -154,7 +156,8 @@ const PageFroshInfoTable = () => {
             <></>
           )}
           <div style={{ display: 'inline-block' }}>
-            <Button
+            <ButtonRound
+              className="export-button"
               label={
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                   <img
@@ -174,7 +177,8 @@ const PageFroshInfoTable = () => {
                 setSnackbar('Downloading data as shown in the table below as an XML...');
               }}
             />
-            <Button
+            <ButtonRound
+              className="export-button"
               label={
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                   <img
@@ -194,7 +198,8 @@ const PageFroshInfoTable = () => {
                 setSnackbar('Downloading data as shown in the table below as a CSV...');
               }}
             />
-            <Button
+            <ButtonRound
+              className="export-button"
               label={
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                   <img
@@ -219,8 +224,8 @@ const PageFroshInfoTable = () => {
       </div>
       {user?.authScopes?.approved?.includes('froshData:unRegisteredUsers') === false ? (
         <p className="small-print" style={{ marginTop: '-14px', marginBottom: '16px' }}>
-          ⚠️ Warning: Only showing registered Frosh (Paid users). If you want to see all users,
-          please request &quot;froshData:unRegisteredUsers&quot; permission.
+          ⚠️ Warning: Only showing registered F!rosh (Paid users). If you want to see all users,
+          please request the &quot;froshData:unRegisteredUsers&quot; permission.
         </p>
       ) : (
         <></>
@@ -231,7 +236,7 @@ const PageFroshInfoTable = () => {
       }) ? (
         <p className="small-print" style={{ marginTop: '-14px', marginBottom: '16px' }}>
           ⚠️ Warning: You don&apos;t have permission to access any Frosh&apos;s group&apos;s data.
-          If you want to see Frosh data, please request &quot;froshGroupData:FROSHGROUP&quot;
+          If you want to see Frosh data, please request some &quot;froshGroupData:FROSHGROUP&quot;
           permissions.
         </p>
       ) : (
@@ -245,16 +250,11 @@ const PageFroshInfoTable = () => {
         />
       </div>
       <p className="small-print">
-        Note: The search is cASe SeNsItIvE! If you want ALL users, including Leadurs and Frosh who
-        haven&apos;t completed the registration form - make sure it says &quot;Showing All
-        Users&quot; (the default). In &quot;All Users&quot; mode, it is handy to sort by
-        &quot;userType&quot;. &quot;Showing Complete Frosh Users&quot; does not contain users who
-        have only created an account. This info only contains all Frosh users who have created a
-        FULL Frosh account - not everyone has paid in this list either. Paid users have isRegistered
-        set to true. Also, Frosh are able to edit their information. This data is only accurate to
-        the point it was loaded. Keep in mind, any data extracted from this page may be subject to
-        change. If you want to filter, click a table header. To reverse the direction, click it
-        again. To clear filters, click the &apos;#&apos; header.{' '}
+        Note: The search is case sensitive. If you want to sort by attribute, click the table
+        header. To reverse the direction, click it again. You can request more attributes on the
+        request perms page. Keep in mind, any data extracted from this page may be subject to
+        change.F!rosh are able to edit their information. This data is only accurate to the point it
+        was loaded.{' '}
         {noEditFields.length >= 0 ? (
           <>
             The fields that cannot be edited by the frosh currently:{' '}
@@ -266,9 +266,11 @@ const PageFroshInfoTable = () => {
       </p>
       <div className="table-wrap">
         {froshList?.length === 0 ? (
-          <div style={{ margin: '5%', textAlign: 'center' }}>
-            <h2>IT LOOKS A BIT EMPTY HERE...</h2>
-            <h2>PLEASE READ NOTES LISTED ABOVE AND ENSURE YOU HAVE THE CORRECT PERMISSIONS.</h2>
+          <div className="empty-container">
+            <h2 className="empty-state">It looks a bit empty here...</h2>
+            <h2 className="empty-state">
+              Please read the notes listed above and ensure you have the correct permissions.
+            </h2>
             <br />
           </div>
         ) : (
@@ -326,25 +328,25 @@ const PageFroshInfoTable = () => {
       </div>
 
       <div className="pagination-buttons-container">
-        <Button
+        <ButtonRound
           className="pagination-control"
           onClick={() => setPageIndex(0)}
           disabled={!getCanPreviousPage()}
           label={'First Page'}
         />
-        <Button
+        <ButtonRound
           className="pagination-control"
           onClick={() => previousPage()}
           disabled={!getCanPreviousPage()}
           label={'Previous Page'}
         />
-        <Button
+        <ButtonRound
           className="pagination-control"
           onClick={() => nextPage()}
           label={'Next Page'}
           disabled={!getCanNextPage()}
         />
-        <Button
+        <ButtonRound
           className="pagination-control"
           onClick={() => setPageIndex(getPageCount() - 1)}
           disabled={!getCanNextPage()}
@@ -356,7 +358,7 @@ const PageFroshInfoTable = () => {
             {getState().pagination.pageIndex + 1} of {getPageCount()}
           </strong>
         </span>
-        <span>
+        <span style={{ marginLeft: '20px' }}>
           Go to page:{' '}
           <input
             className="pagination-number"
@@ -392,7 +394,7 @@ const PageFroshInfoTable = () => {
         <div className="popup-container">
           <h1 style={{ textAlign: 'center' }}>Permanently delete this account?</h1>
           <div className="popup-button">
-            <Button
+            <ButtonRound
               label={'Delete'}
               style={{ backgroundColor: 'var(--red-error)' }}
               onClick={async () => {

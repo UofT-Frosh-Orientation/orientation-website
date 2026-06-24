@@ -40,7 +40,7 @@
 
 .popup-modal-background-color {
   // displays a purple coloured background
-  background-color: var(--purple);
+  background-color: var(--bg-primary);
 }
 
 .popup-modal-background-blur {
@@ -72,7 +72,7 @@
   overflow-x: hidden;
   overflow-y: scroll;
 
-  background: var(--purple-shades-popup);
+  background: var(--bg-primary);
   box-shadow: var(--shadow);
   border-radius: 16px;
   padding: 50px 50px 50px 50px;
@@ -86,14 +86,15 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--light-purple);
+    // background-color: var(--light-purple);
+    background-color: var(--transparent);
   }
 
   @include devices(tablet) {
     padding: 50px 7% 50px 7%;
     width: 90%;
-    max-height: 70%;
   }
+  max-height: 70%;
 }
 
 .popup-modal-container-show {
@@ -118,7 +119,7 @@
   padding: 15px;
 
   pointer-events: all;
-  cursor: url('../../../assets/cursor/cursor-2t4.png'), auto; // Apply custom cursor here
+  cursor: url('../../../assets/cursor/pointer.png'), auto;
   transition: transform 200ms;
 
   &:hover {
@@ -134,9 +135,10 @@
 
 .popup-modal-heading {
   margin-bottom: 15px;
-  color: var(--white);
+  color: var(--text-primary);
   text-align: center;
-  font-size: 30px;
+  font-size: 42px;
+  font-weight: 900;
 
   @include devices(tablet) {
     font-size: 26px;
@@ -144,9 +146,10 @@
 }
 
 .popup-modal-body-text {
-  color: var(--white);
+  color: var(--text-primary);
   text-align: center;
   font-size: 20px;
+  width: 80%;
   margin-bottom: 10px;
 
   @include devices(tablet) {

@@ -7,7 +7,9 @@ import './AccountsPageNumber.scss';
 import './ApproveDenyCheckbox.scss';
 
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
+import { ButtonPlain } from '../../components/button/ButtonPlain/ButtonPlain';
 import { ApproveDenyCheckbox } from './ApproveDenyCheckbox';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuthRequests, updateAuthRequests } from '../../state/accounts/saga';
@@ -16,10 +18,11 @@ import { SnackbarContext } from '../../util/SnackbarProvider';
 
 const bubbleButtonStyleAuth = {
   fontSize: '14px',
-  borderWidth: '3px',
-  padding: '8px 26px',
-  borderRadius: '10px',
-  margin: '3px',
+  // borderWidth: '3px',
+  padding: '16px 26px',
+  // borderRadius: '10px',
+  margin: '5px',
+  marginBottom: '20px',
 };
 
 const AuthenticationRequests = () => {
@@ -61,9 +64,14 @@ const AuthenticationRequests = () => {
       <div className="all-accounts-buttons">
         {editMode ? (
           <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <Button
+            <ButtonRound
               label="Save"
-              style={{ alignSelf: 'start', marginTop: '0px', marginBottom: '5px' }}
+              style={{
+                alignSelf: 'start',
+                marginTop: '0px',
+                marginBottom: '5px',
+                marginRight: '20px',
+              }}
               onClick={() => {
                 dispatch(
                   updateAuthRequests({
@@ -77,7 +85,7 @@ const AuthenticationRequests = () => {
               }}
             />
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <ButtonOutlined
+              <ButtonRound
                 label="Exit Edit Mode"
                 style={{ marginTop: '0px', borderWidth: '3px', marginBottom: '5px' }}
                 onClick={() => {
@@ -93,7 +101,7 @@ const AuthenticationRequests = () => {
           </div>
         ) : (
           <div className="all-accounts-buttons">
-            <Button
+            <ButtonRound
               label="Enter Edit Mode"
               style={{ marginTop: '0px', borderWidth: '3px', marginBottom: '5px' }}
               onClick={() => {
@@ -184,10 +192,10 @@ const RowComponentAuth = ({
       </td>
       <td className="all-account-data">
         {editMode ? (
-          <ButtonOutlined
+          <ButtonRound
             label={approveAll ? 'Unapproved All Scopes' : 'Approve All Scopes'}
             style={bubbleButtonStyleAuth}
-            isSecondary={true}
+            // isSecondary={true}
             onClick={() => {
               setApproveAll(!approveAll);
               setChangesMade(true);

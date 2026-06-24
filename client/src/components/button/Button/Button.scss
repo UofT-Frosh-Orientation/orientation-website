@@ -1,13 +1,13 @@
 @import '../../../scssStyles/mixins';
 
 :root {
-  --top-left-corner-border: url('../../../../src/assets/buttons/top-left-corner-border.svg');
-  --bottom-right-corner-border: url('../../../../src/assets/buttons/bottom-right-corner-border.svg');
+  --purple-pixel-border: url('../../../assets/buttons/purple-pixel-border-light.png');
+  --yellow-pixel-border: url('../../../assets/buttons/yellow-pixel-border-light.png');
 }
 
 .dark-mode {
-  --top-left-corner-border: url('../../../../src/assets/buttons/top-left-corner-border-dark.svg');
-  --bottom-right-corner-border: url('../../../../src/assets/buttons/bottom-right-corner-border-dark.svg');
+  --purple-pixel-border: url('../../../assets/buttons/purple-pixel-border-dark.png');
+  --yellow-pixel-border: url('../../../assets/buttons/yellow-pixel-border-dark.png');
 }
 
 .button {
@@ -16,50 +16,28 @@
   color: var(--white);
   display: inline-block;
   border-radius: 14px;
+  border-image-source: var(--purple-pixel-border);
+  border-image-slice: 30;
+  border-image-width: 30px;
+  border-image-outset: 1px;
+  border-image-repeat: repeat;
+
   padding: 14px 30px;
-  box-shadow: var(--shadow);
+  box-shadow: 4px 4px 4px #00000038;
   text-align: center;
   font-size: 17px;
   font-weight: 600;
-  cursor: url('../../../../assets/cursor/cursor-2t4.png'), auto;
-  transition: transform 200ms, background-color 200ms;
+  transition: background-color 200ms;
   user-select: none;
   position: relative;
 
-  //BUTTON BORDERS
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    background-repeat: no-repeat;
-    z-index: 0;
-  }
-
-  &::before {
-    top: -10px;
-    left: -10px;
-    background-image: var(--top-left-corner-border);
-  }
-
-  &::after {
-    bottom: -45px;
-    right: -15px;
-    background-image: var(--bottom-right-corner-border);
-  }
-
-  //BUTTON BORDERS END
-
   &:hover {
     transform: scale(1.02);
-    transition: transform 200ms;
   }
 
   &:active,
   &:focus {
     transform: scale(0.97);
-    transition: transform 150ms;
   }
 
   @include devices(tablet) {
@@ -69,9 +47,20 @@
   }
 }
 
+.button,
+.button * {
+  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
+}
+
 .button-secondary {
   background-color: var(--yellow);
   color: var(--text-dark);
+  border-image-source: var(--yellow-pixel-border);
+  border-image-slice: 12;
+  border-image-width: 12px;
+  border-image-outset: 2px;
+  border-image-repeat: repeat;
+  box-shadow: 4px 4px 4px #00000038;
 }
 
 .button-disabled {

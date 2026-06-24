@@ -8,7 +8,7 @@ describe('ScuntGameSettingsServices', () => {
   it('.setGameSettings()\t\t\t|\tSet invalid scunt game settings (SETTINGS_NOT_FOUND)', async () => {
     await assert.rejects(
       ScuntGameSettingsServices.setGameSettings(
-        'Scunt2T3',
+        'SkuleHunt2T4',
         11,
         2500,
         0.3,
@@ -30,7 +30,7 @@ describe('ScuntGameSettingsServices', () => {
 
   it('.initScuntGameSettings()\t\t\t|\tFind settings', async () => {
     settings = await ScuntGameSettingsServices.initScuntGameSettings();
-    assert(settings.name === 'Scunt 2T3 Settings');
+    assert(settings.name === 'Skule™ Hunt 2T5 Settings');
     assert(settings.amountOfTeams === 10);
   });
 
@@ -38,13 +38,13 @@ describe('ScuntGameSettingsServices', () => {
   it('.getGameSettings()\t\t\t|\tGet scunt game settings', async () => {
     settings = await ScuntGameSettingsServices.getGameSettings();
     assert(settings !== null);
-    assert.equal(settings.name, 'Scunt 2T3 Settings');
+    assert.equal(settings.name, 'Skule™ Hunt 2T5 Settings');
     assert.equal(settings.amountOfStarterBribePoints, 10000);
   });
 
   it('.setGameSettings()\t\t\t|\tSet scunt game settings', async () => {
     settings = await ScuntGameSettingsServices.setGameSettings(
-      'Scunt2T3 Settings',
+      'Skule™ Hunt 2T5 Settings',
       11,
       2500,
       0.3,
@@ -56,13 +56,13 @@ describe('ScuntGameSettingsServices', () => {
       true,
       true,
     );
-    assert(settings.name === 'Scunt2T3 Settings');
+    assert(settings.name === 'Skule™ Hunt 2T5 Settings');
     assert(settings.amountOfTeams === 11);
   });
 
   it('.setGameSettings()\t\t\t|\tSet multiple scunt game settings', async () => {
     await ScuntGameSettingsServices.setGameSettings(
-      'Scunt2T3 Settings',
+      'Skule™ Hunt 2T5 Settings',
       11,
       2500,
       0.3,
@@ -75,7 +75,7 @@ describe('ScuntGameSettingsServices', () => {
       true,
     );
     await ScuntGameSettingsServices.setGameSettings(
-      'Scunt2T3 Settings',
+      'Skule™ Hunt 2T5 Settings',
       10,
       2500,
       0.3,
@@ -88,7 +88,7 @@ describe('ScuntGameSettingsServices', () => {
       true,
     );
     await ScuntGameSettingsServices.setGameSettings(
-      'Scunt2T3 Settings',
+      'Skule™ Hunt 2T5 Settings',
       11,
       2500,
       0.3,
@@ -101,7 +101,7 @@ describe('ScuntGameSettingsServices', () => {
       true,
     );
     const testSettings = await ScuntGameSettingsServices.setGameSettings(
-      'Scunt2T3 Settings',
+      'Skule™ Hunt 2T5 Settings',
       11,
       2400,
       0.3,
@@ -115,7 +115,7 @@ describe('ScuntGameSettingsServices', () => {
     );
     assert(testSettings.amountOfStarterBribePoints === 2400);
     await ScuntGameSettingsServices.setGameSettings(
-      'Scunt2T3 Settings',
+      'Skule™ Hunt 2T5 Settings',
       10,
       2500,
       0.3,

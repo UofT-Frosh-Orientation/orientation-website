@@ -1,31 +1,16 @@
 import { resources } from '../../../util/resources';
 import { ButtonBubble } from '../../button/ButtonBubble/ButtonBubble';
+import { ButtonRound } from '../../button/ButtonRound/ButtonRound';
+import { AppleWallet } from '../../walletpass/AppleWallet';
 import './ProfilePageResources.scss';
 import PropTypes from 'prop-types';
 
 export const ProfilePageResources = ({ froshObject }) => {
   return (
     <div className="profile-page-resources profile-page-side-section">
-      <h2>RESOURCES</h2>
-      {resources.map((resource, index) => {
-        return (
-          <a
-            key={index + resource.name}
-            href={resource.link}
-            target="_blank"
-            className="no-link-style"
-            rel="noreferrer"
-          >
-            <ButtonBubble
-              label={resource.name}
-              isSecondary
-              style={{ margin: 0, marginTop: '10px' }}
-            />
-          </a>
-        );
-      })}
       {froshObject ? (
         <>
+          {/* <AppleWallet /> */}
           <ButtonBubble
             label={'Download Information PDF'}
             onClick={async () => {
@@ -50,10 +35,26 @@ export const ProfilePageResources = ({ froshObject }) => {
               pdfWindow && pdfWindow.focus();
             }}
             isSecondary
-            style={{ margin: 0, marginTop: '10px' }}
+            style={{ margin: 0, marginTop: '30px' }}
           />
         </>
       ) : null}
+      <h2 className="desktop-only">RESOURCES</h2>
+      <div className="resource-link-group">
+        {resources.map((resource, index) => {
+          return (
+            <a
+              key={index + resource.name}
+              href={resource.link}
+              target="_blank"
+              rel="noreferrer"
+              className="resource-links desktop-only"
+            >
+              {resource.name}
+            </a>
+          );
+        })}
+      </div>
     </div>
   );
 };

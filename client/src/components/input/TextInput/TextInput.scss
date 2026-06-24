@@ -16,8 +16,8 @@
 
 .text-input {
   font-size: 17px;
-  background-color: var(--textinput-bg);
-  border-radius: 10px;
+  background-color: var(--bg-secondary);
+  border-radius: 25px;
   outline: none;
   border: none;
   transition: background-color 400ms, box-shadow 400ms;
@@ -25,15 +25,15 @@
   margin: 4px;
   width: 100%;
   color: var(--black);
-
+  cursor: url('../../../assets/cursor/textpointer.png'), auto !important;
   &:hover {
-    background-color: var(--textinput-bg);
+    background-color: var(--bg-secondary);
     box-shadow: 0px 0px 6px 1px var(--textinput-shadow-hover);
     transition: background-color 500ms, box-shadow 500ms;
   }
 
   &:focus {
-    background-color: var(--textinput-bg);
+    background-color: var(--bg-secondary);
     box-shadow: 0px 0px 15px -3px var(--textinput-shadow-focus);
     transition: background-color 500ms, box-shadow 500ms;
   }
@@ -91,25 +91,25 @@
 .text-input-disabled {
   opacity: 0.4;
   background-color: var(--disabled);
+  cursor: url('../../../assets/cursor/cursordisabled.png'), auto !important;
 
   &:hover {
     background-color: var(--on-white);
     box-shadow: none;
-    cursor: no-drop;
   }
 }
 
 .text-input-password-eye {
   display: unset;
   transition: transform 0.3s;
-  width: 26px;
-  right: 17px;
-  top: 17px;
+  width: 20px;
+  right: 25px;
+  top: 20px;
   position: absolute;
 
   &:hover {
     transform: scale(1.2);
-    cursor: url('../../../../assets/cursor/cursor-2t4.png'), auto; // Apply custom cursor here
+    cursor: url('../../../../assets/cursor/cursor.png'), auto; // Apply custom cursor here
   }
 }
 

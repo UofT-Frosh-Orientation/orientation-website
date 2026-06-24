@@ -1,35 +1,10 @@
 @import '../../scssStyles/mixins';
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
 
 .frosh-retreat-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  .info-header {
-    text-align: center;
-    margin: 10px 20px;
-    h1 {
-      color: var(--white) !important;
-    }
-    h2 {
-      color: var(--white) !important;
-      text-align: center;
-    }
-  }
-  h1 {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    text-align: center;
-    color: var(--text-dynamic);
-  }
-  p {
-    color: var(--text-dynamic);
-    max-width: 1000px;
-    margin: auto;
-    margin-bottom: 10px;
-  }
-
   .frosh-retreat-video {
+    border-radius: 20px;
+    margin: 20px 0px;
     width: 95%;
     max-width: 1000px;
     height: 524px;
@@ -40,28 +15,209 @@
   }
 }
 
-.retreat-registration-form {
-  text-align: center;
-  margin: auto;
+.retreat-title {
+  width: 100vw;
+  position: relative;
+}
+.retreat-title-img {
+  width: 100%;
+
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+.retreat-gradient {
+  height: 99%;
+  width: 70%;
+  background-image: linear-gradient(to right, rgba(255, 0, 0, 0), rgb(0, 0, 0, 0.8));
+
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.retreat-title-text {
+  margin-right: 6vw;
+  display: block;
+
+  font-family: 'Jersey 20';
+  color: var(--mikado);
+  -webkit-text-stroke-color: var(--jam);
+  -webkit-text-stroke-width: 0.3vw;
+  font-size: 15vw;
+  line-height: 12vw;
+  font-weight: 400;
+
+  text-align: right;
+}
+
+.retreat-title-container {
+  width: 60%;
+  height: 75%;
+
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.retreat-subtitle {
+  color: white;
+  font-size: 2.5vw;
+
+  text-align: right;
+  margin-right: 6vw;
+}
+.retreat-subtitle-large {
+  font-size: 3vw;
+}
+
+.retreat-info-container {
+  margin: 5vw;
+}
+.retreat-header {
+  font-family: 'Jersey 20';
+  font-size: 64px;
+  font-weight: 400;
   color: var(--text-dynamic);
-  .display-field {
-    text-align: center;
-  }
-  .radio-buttons-retreat {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 50px 30px;
-  }
-  .radio-buttons {
-    width: fit-content;
-    margin: auto;
-  }
+
+  text-align: left;
+
+  margin-bottom: 1vw;
+  margin-top: 4vw;
+}
+.retreat-text {
+  color: var(--text-dynamic);
+
+  font-size: 22px;
+}
+
+.retreat-bullet-text {
+  color: var(--text-dynamic);
+
+  font-size: 20px;
+}
+
+.retreat-photos-button {
+  background-color: var(--mikado);
+  text-decoration: none;
+  color: black;
+
+  font-size: 22px;
+
+  padding: 15px 40px 15px 40px;
+  border-radius: 50px;
+
+  margin-right: 10px;
+  margin-top: 10px;
+
+  display: block;
+}
+
+.retreat-buttons-div {
+  margin-bottom: 70px;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.retreat-subheading {
+  color: var(--text-secondary);
+
+  font-size: 27px;
+  margin-top: 10px;
+}
+
+.retreat-subheading2 {
+  font-size: 32px;
 }
 
 .frosh-retreat-faq-bullet {
   list-style-type: disc !important;
   color: var(--text-dynamic);
   text-decoration: none !important;
+
+  text-align: left;
+}
+.retreat-faq-question {
+  text-align: left;
+
+  color: var(--text-dynamic);
+  font-size: 24px;
+  font-weight: 700;
+  margin-left: 10px;
+}
+
+.retreat-faq-sub {
+  text-align: left;
+
+  color: var(--text-secondary);
+  font-size: 16px;
+  font-weight: 700;
+  // text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.retreat-h2 {
+  color: var(--text-dynamic);
+}
+
+.retreat-registration-form {
+  margin: auto;
+  margin-top: 48px;
+  color: var(--text-dynamic);
+  .display-field {
+    text-align: left;
+  }
+  .radio-buttons-retreat {
+    margin: 0;
+  }
+  .radio-buttons {
+    width: fit-content;
+    margin: auto;
+  }
+}
+.retreat-choose-file::file-selector-button {
+  background-color: #d9d9d9;
+
+  border-image: none;
+  border: none;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  padding: 15px 25px 15px 25px;
+  border-radius: 50px;
+
+  margin-top: 30px;
+  margin-bottom: 15px;
+  margin-right: 20px;
+}
+
+.retreat-pdf-disclaimer {
+  font-size: 20px;
+  color: var(--text-secondary);
+
+  margin-top: 15px;
+}
+.retreat-upload-file-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin-top: 15px;
+}
+
+.retreat-arrow {
+  width: 30px;
+  height: 30px;
+
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+
+  display: block;
+
+  position: relative;
+  top: 17px;
+}
+
+.retreat-payment-container {
+  display: flex;
+  justify-content: center;
 }

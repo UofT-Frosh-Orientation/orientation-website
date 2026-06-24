@@ -6,9 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from '../../state/user/saga';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import MainFroshLogo from '../../assets/logo/frosh-main-logo-with-bg.svg';
+import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
@@ -84,7 +85,6 @@ const PageProfileEditUnregistered = () => {
     }));
     console.log(`Field ${fieldName} changed to ${value}`);
 
-
     if (fieldName === 'medicalInfo') {
       const disable = value !== 'Yes';
       handleDisableField(disable, 'specificMedicalInfo');
@@ -106,7 +106,9 @@ const PageProfileEditUnregistered = () => {
 
   const submitForm = (newInfo) => {
     setIsLoading(true);
-    dispatch(updateUserInfo({ setSnackbar, setIsLoading, newInfo, accountObj, navigate, isRegistered }));
+    dispatch(
+      updateUserInfo({ setSnackbar, setIsLoading, newInfo, accountObj, navigate, isRegistered }),
+    );
   };
 
   const checkErrors = (sendFeedback = true, feedbackToSend = []) => {
@@ -139,7 +141,10 @@ const PageProfileEditUnregistered = () => {
       errorsCopy['emergencyContactRelationship'] = 'Please try to use 50 characters or less';
       anyErrorsNow = true;
     }
-    if (accountObj['emergencyContactNumber'] === undefined || accountObj['emergencyContactNumber'] === '') {
+    if (
+      accountObj['emergencyContactNumber'] === undefined ||
+      accountObj['emergencyContactNumber'] === ''
+    ) {
       errorsCopy['emergencyContactNumber'] = 'Please enter a phone number';
       anyErrorsNow = true;
     }
@@ -180,8 +185,8 @@ const PageProfileEditUnregistered = () => {
               <div className="navbar-space-top" />
               <div className="profile-edit-container">
                 <img className={`profile-edit-logo`} src={MainFroshLogo}></img>
-                <h1 style={{ color: 'var(--black)' }}>EDIT ACCOUNT INFO</h1>
-                <h3 className="proxima-nova-text" style={{ color: 'var(--black)' }}>For F!rosh Week 2T4, UofT Engineering</h3>
+                <h1>Edit Account Info</h1>
+                <h3 className="proxima-nova-text">For F!rosh Week 2T5, UofT Engineering</h3>
 
                 {!isLoading ? (
                   <>
@@ -224,9 +229,9 @@ const PageProfileEditUnregistered = () => {
                       />
                     </div>
                     <div className="text-input-container" style={{ width: '100%' }}>
-                        <div className="text-input-title-container">
-                          <p className="text-input-title">Phone Number</p>
-                        </div>
+                      <div className="text-input-title-container">
+                        <p className="text-input-title">Phone Number</p>
+                      </div>
                     </div>
                     <div className="profile-edit-input small-width-input">
                       <TextInput
@@ -275,9 +280,9 @@ const PageProfileEditUnregistered = () => {
                       />
                     </div>
                     <div className="text-input-container" style={{ width: '100%' }}>
-                        <div className="text-input-title-container">
-                          <p className="text-input-title">Emergency Contact Phone Number</p>
-                        </div>
+                      <div className="text-input-title-container">
+                        <p className="text-input-title">Emergency Contact Phone Number</p>
+                      </div>
                     </div>
                     <div className="profile-edit-input small-width-input">
                       <TextInput
@@ -302,16 +307,17 @@ const PageProfileEditUnregistered = () => {
                       />
                     </div>
                     <div className="profile-edit-input">
-                    <RadioButtons
-                      label="Medical Conditions"
-                      values={['Yes', 'No']}
-                      onSelected={handleMedicalInfoChange}
-                      initialSelectedIndex={1}
-                      localStorageKey={'profile-edit-MedicalInfo'}                    />
+                      <RadioButtons
+                        label="Medical Conditions"
+                        values={['Yes', 'No']}
+                        onSelected={handleMedicalInfoChange}
+                        initialSelectedIndex={1}
+                        localStorageKey={'profile-edit-MedicalInfo'}
+                      />
                     </div>
                     <div className="profile-edit-input">
                       <TextInput
-                        label = "Specific Medical Conditions"
+                        label="Specific Medical Conditions"
                         placeholder={'Respiratory Conditions'}
                         errorFeedback={errors['specficMedicalInfo']}
                         onChange={(value) => {
@@ -323,7 +329,7 @@ const PageProfileEditUnregistered = () => {
                     </div>
                     <div className="profile-edit-input">
                       <TextInput
-                        label = "Medication (e.g. Epi-Pen, inhaler, ...)"
+                        label="Medication (e.g. Epi-Pen, inhaler, ...)"
                         placeholder={'Carries 2 Inhalers'}
                         errorFeedback={errors['medication']}
                         onChange={(value) => {
@@ -352,7 +358,7 @@ const PageProfileEditUnregistered = () => {
                     </div>
                     <div className="profile-edit-input">
                       <TextInput
-                        label = "If you have any other restrictions not listed above, please list them here."
+                        label="If you have any other restrictions not listed above, please list them here."
                         placeholder={'Allergic to Berries'}
                         errorFeedback={errors['allergiesOther']}
                         onChange={(value) => {
@@ -362,7 +368,7 @@ const PageProfileEditUnregistered = () => {
                         localStorageKey="profile-edit-allergiesOther"
                       />
                     </div>
-                    <Button
+                    <ButtonRound
                       label="Confirm Change"
                       onClick={async () => {
                         const anyErrors = checkErrors(true);

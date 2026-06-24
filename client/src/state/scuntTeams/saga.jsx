@@ -181,6 +181,7 @@ export function* submitBribePointsSaga({ payload: { teamNumber, points, setSnack
     });
     yield put(addPointsSuccess(result.data.scuntTeams));
     yield put(updateUserInfoSuccess(result.data.user));
+    setSnackbar && setSnackbar('Bribe points added successfully!', false);
   } catch (error) {
     yield put(addPointsFailure(error.response?.data?.errorMessage));
     yield put(updateUserInfoFailure(error.response?.data?.errorMessage));

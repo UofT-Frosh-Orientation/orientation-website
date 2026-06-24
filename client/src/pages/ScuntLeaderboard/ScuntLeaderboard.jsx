@@ -5,11 +5,13 @@ import './ScuntLeaderboard.scss';
 
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 import { Header } from '../../components/text/Header/Header';
+import { ScuntTitle } from '../../components/ScuntTitle/ScuntTitle.jsx';
 
-import firstPlace from '../../assets/scuntleaderboard/first-medal.svg';
-import secondPlace from '../../assets/scuntleaderboard/second-medal.svg';
-import thirdPlace from '../../assets/scuntleaderboard/third-medal.svg';
+import firstPlace from '../../assets/sponsors/sponsormedals/gold.png';
+import secondPlace from '../../assets/sponsors/sponsormedals/silver.png';
+import thirdPlace from '../../assets/sponsors/sponsormedals/bronze.png';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 
 import { useSelector } from 'react-redux';
 import { loggedInSelector, userSelector } from '../../state/user/userSlice';
@@ -68,21 +70,32 @@ const ScuntLeaderboard = () => {
 
   if ((showLeaderboard !== true && !leader) || !loggedIn) {
     return (
-      <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
+      <div className="hidden-scunt-leaderboard-container">
+        <ScuntTitle />
         <ScuntLinks />
         <div className="scunt-check-soon-title">
-          <h1 style={{ color: 'var(--text-light)' }}>CHECK BACK SOON!</h1>
+          <h1
+            style={{
+              textAlign: 'center',
+              color: 'var(--text-primary)',
+              fontWeight: '900',
+              padding: '25px 4% 0 4%',
+            }}
+          >
+            Check back soon!
+          </h1>
         </div>
-      </Header>
+      </div>
     );
   }
 
   return (
     <>
-      <Header text={'Leaderboard'} underlineDesktop={'410px'} underlineMobile={'285px'}>
+      <div className="scunt-leaderboard-container">
+        <ScuntTitle />
         <ScuntLinks />
-      </Header>
-      <ScuntLeaderboardShow leaderboard={leaderboard} />
+        <ScuntLeaderboardShow leaderboard={leaderboard} />
+      </div>
     </>
   );
 };
@@ -125,8 +138,15 @@ const ScuntLeaderboardShow = ({ leaderboard }) => {
 
   return (
     <>
-      <h2 style={{ textAlign: 'center', color: 'var(--text-dark-use)', padding: '25px 4% 0 4%' }}>
-        LEADERBOARD UPDATES IN REAL TIME!
+      <h2
+        style={{
+          textAlign: 'center',
+          color: 'var(--text-dark-use)',
+          fontWeight: '900',
+          padding: '25px 4% 0 4%',
+        }}
+      >
+        Leaderboard updates in real time!
       </h2>
 
       <FullScreen handle={handle}>
@@ -135,7 +155,11 @@ const ScuntLeaderboardShow = ({ leaderboard }) => {
 
       <div className="display-only-desktop">
         <div className="scunt-leaderboard">
-          <Button style={buttonStyle} label="View Fullscreen" onClick={handle.enter} />
+          <ButtonRound
+            style={{ marginTop: '25px' }}
+            label="View Fullscreen"
+            onClick={handle.enter}
+          />
         </div>
         <ScuntLeaderboardDesktop arr={computedLeaderboard} />
       </div>

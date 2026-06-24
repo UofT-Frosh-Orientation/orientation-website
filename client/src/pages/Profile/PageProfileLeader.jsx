@@ -3,8 +3,10 @@ import './Profile.scss';
 import WaveReverseFlip from '../../assets/misc/wave-reverse-flip.png';
 import WaveReverseFlipDarkMode from '../../assets/darkmode/misc/wave-reverse-flip.png';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
-import EditIcon from '../../assets/misc/pen-solid.svg';
+import EditIconDark from '../../assets/misc/edit-icon-dark.svg';
+import EditIcon from '../../assets/misc/edit-icon.svg';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { userSelector } from '../../state/user/userSlice';
@@ -19,10 +21,13 @@ import { ProfilePageSchedule } from '../../components/profile/ProfilePageSchedul
 import { ProfilePageResources } from '../../components/profile/ProfilePageResources/ProfilePageResources';
 import { changeScuntTeam, getScuntTeams } from '../../state/scuntTeams/saga';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
+import scuntLogo from '../../assets/scuntlogo/SkuleHuntLogo2t5.png';
+import ScuntImg from '../../assets/scunt/banner7.jpg';
 // import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
 
 const PageProfileLeader = () => {
   const { user } = useSelector(userSelector);
+  const leaderApproved = user?.approved === true;
   const qrCodeLeader =
     user?.authScopes?.approved.includes('scanner:registration') ||
     user?.authScopes?.approved.includes('scanner:kits') ||
@@ -39,21 +44,30 @@ const PageProfileLeader = () => {
     <>
       <ProfilePageLeaderHeader />
       <div className="profile-info-row">
-        <div className="profile-info-row-right">
+        <div className="profile-info-row-left">
+          {leaderApproved === false ? (
+            <div className="profile-not-registered-text">
+              <h1 className="leedur-not-approved">Your Leedur account is not approved!</h1>
+              <p className="profile-p-text">
+                Please contact VCM or Webmasters to get your account approved.
+              </p>
+              {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
+            </div>
+          ) : null}
           <ProfilePageLeaderPermissionDashboardLinks />
           <div style={{ marginTop: '20px' }} />
           <ProfilePageLeaderScuntMessage />
           <div style={{ marginTop: '-20px' }} />
           <ProfilePageSchedule />
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {/* <ProfilePageQRCode /> */}
+
+        <div className="profile-info-row-right">
           {qrCodeLeader === true ? (
             <ProfilePageQRScanner scopes={user?.authScopes?.approved} />
           ) : null}
           {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
           <ProfilePageResources />
-          <ProfilePageScuntTeamSelectionLeader />
+          {/* <ProfilePageScuntTeamSelectionLeader /> */}
         </div>
       </div>
     </>
@@ -97,12 +111,26 @@ export const ProfilePageLeaderScuntMessage = () => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   return (
-    <Link to="/skule-hunt">
-      <div className="frosh-instagram-container">
+    <Link to="/skule-hunt" style={{ background: 'none' }}>
+      {/* <div className="frosh-instagram-container">
         <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
         <div>
           <h2>SKULE™ HUNT!</h2>
           <p>Find more information about the Hunt by clicking here!</p>
+        </div>
+      </div> */}
+      <div className="hunt-profile-container">
+        <div className="hunt-ad">
+          <div className="hunt-ad-sub">
+            <div className="hunt-container-text">
+              <h2>SKULE™ HUNT!</h2>
+              <p>
+                Come participate in the most iconic event that is part of F!rosh Week! Find out more
+                information about the Hunt by clicking here!
+              </p>
+            </div>
+          </div>
+          <img className="hunt-image" src={ScuntImg} alt="Hunt image" />
         </div>
       </div>
     </Link>
@@ -112,6 +140,7 @@ export const ProfilePageLeaderScuntMessage = () => {
 const ProfilePageLeaderHeader = () => {
   const { user } = useSelector(userSelector);
   const leaderApproved = user?.approved === true;
+
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
   const currentYear = new Date().getFullYear();
@@ -123,42 +152,55 @@ const ProfilePageLeaderHeader = () => {
     <>
       <div className="profile-page-header">
         <div className="profile-page-header-group">
-          <h1>ℒ</h1>
-          <p>{'(Leedur)'}</p>
+          {/*<h1>ℒ</h1>
+          <p>{'(Leedur)'}</p>*/}
         </div>
-        <div className="profile-page-header-info-wrap">
-          <div className="profile-page-header-info">
-            <p className="profile-page-name-title">
-              {user?.preferredName === '' || !user?.preferredName ? (
-                <>
-                  <b>{user?.firstName}</b> {user?.lastName}
-                </>
-              ) : (
-                <b>{user?.preferredName}</b>
-              )}
-            </p>
-            <p>
-              <u>{user?.email}</u>
-            </p>
+        <div className="profile-page-header-info-wrap request-perms">
+          <div className="profile-page-header-left">
+            <div className="profile-class-circlebg desktop-only">
+              <div className="profile-page-header-class desktop-only">
+                <p className="class-of-p">F!rosh</p>
+                <h2>{leedurYear}</h2>
+              </div>
+            </div>
+
+            <div className="profile-page-header-info">
+              <div className="profile-name-edit-wrapper">
+                <p className="profile-page-name-title">
+                  {user?.preferredName === '' || !user?.preferredName ? (
+                    <>
+                      <b>{user?.firstName}</b>
+                    </>
+                  ) : (
+                    <b>{user?.preferredName}</b>
+                  )}
+                </p>
+                {/* <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
+                  <img
+                    src={darkMode ? EditIconDark : EditIcon}
+                    alt={'edit'}
+                    className={'profile-edit-icon no-link-style'}
+                  />
+                </Link> */}
+              </div>
+              <p>
+                <u>{user?.email}</u>
+              </p>
+            </div>
           </div>
-          <div className="profile-page-header-class desktop-only">
-            <h2>{leedurYear}</h2>
+          <div className="profile-page-header-right">
+            {leaderApproved ? (
+              <Link
+                to={'/permission-request'}
+                style={{ textDecoration: 'none' }}
+                className={'no-link-style'}
+              >
+                <ButtonRound label="Request Perms" style={{ margin: '0' }} />
+              </Link>
+            ) : null}
           </div>
-          <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
-            <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
-          </Link>
         </div>
       </div>
-      <img
-        src={darkMode ? WaveReverseFlipDarkMode : WaveReverseFlip}
-        className="wave-image home-page-bottom-wave-image"
-      />
-      {leaderApproved === false ? (
-        <div className={'profile-not-registered'}>
-          <h1>YOUR LEEDUR ACCOUNT IS NOT APPROVED!</h1>
-          <h2>Please contact VCM or Webmasters to get your account approved.</h2>
-        </div>
-      ) : null}
     </>
   );
 };

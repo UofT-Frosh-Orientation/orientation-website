@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Coral+Pixels&family=Micro+5&family=Pixelify+Sans:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Tiny5&family=VT323&display=swap');
+
+// body,
+// html {
+//   overflow: hidden;
+// }
+
+.bg {
+  background-color: #101627;
+  overflow: hidden;
+  height: 100%;
+  top: 0px;
+}
+
+.spline-viewer {
+  position: fixed;
+  z-index: 0;
+  background-color: #101627;
+  overflow: hidden;
+}

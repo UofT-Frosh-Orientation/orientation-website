@@ -15,14 +15,20 @@ import { userSelector } from '../../state/user/userSlice';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
 import useAxios from '../../hooks/useAxios';
 // import { ProfilePageScuntToken } from '../../components/profile/scunt/ProfilePageScuntToken/ProfilePageScuntToken';
-import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
+// import { scuntTeamsSelector } from '../../state/scuntTeams/scuntTeamsSlice';
 import { getScuntSettings } from '../../state/scuntSettings/saga';
 import { getScuntTeams } from '../../state/scuntTeams/saga';
 // import { ProfilePageScuntTeam } from '../Profile/PageProfileFrosh';
 const { axios } = useAxios();
-import scuntLogo from '../../assets/scuntlogo/scunt_color_2t4.svg';
-import arrowLogo from '../../assets/misc/left-arrow-svgrepo-com.svg';
+import scuntLogo from '../../assets/scuntlogo/SkuleHuntLogo2t5.png';
+import backButtonDark from '../../assets/misc/pixel-backarrow-dark.png';
+import bannerimg from '../../assets/scunt/scunt-photo.jpg';
+import backButton from '../../assets/misc/pixel-backarrow-light.png';
 import { SingleAccordion } from '../../components/text/Accordion/SingleAccordion/SingleAccordion';
+// import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAccordion/RetreatSingleAccordion.jsx';
+import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAccordion/RetreatSingleAccordion';
+import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
+import { ScuntTitle } from '../../components/ScuntTitle/ScuntTitle.jsx';
 
 export const PageScuntHome = () => {
   const dispatch = useDispatch();
@@ -34,19 +40,22 @@ export const PageScuntHome = () => {
 
   return (
     <>
+      <ScuntTitle />
       <BackToProfileButton />
-      <ScuntCountdown />
       <ScuntLinks />
       <AboutScunt />
+      {/* <ScuntDiscord /> */}
     </>
   );
 };
 
 const BackToProfileButton = () => {
+  const { darkMode } = useContext(DarkModeContext);
   return (
-    <Link to="/profile" className="back-button">
-      <div className="circle"></div>
-      <img src={arrowLogo} alt="Back" className="back-icon" />
+    <Link to="/profile">
+      {/* <ButtonOutlined className = 'scunt-back-button' label={"Back to Profile"} /> */}
+
+      <img src={darkMode ? backButtonDark : backButton} alt="Back" className="back-button" />
     </Link>
   );
 };
@@ -56,34 +65,61 @@ const AboutScunt = () => {
 
   return (
     <>
-      <br />
-      <br />
-      <img src={darkMode ? WaveDarkMode : Wave} className="wave-image wave-image-footer" />
+      {/* <img src={darkMode ? WaveDarkMode : Wave} className="wave-image wave-image-footer" /> */}
 
       <div className="about-scunt-container">
         <div className="about-scunt-content">
           {/* <div className="about-scunt-token">
             <ProfilePageScuntTeam />
           </div> */}
-
-          <img src={scuntLogo} style={{ width: '300px', margin: '20px' }} />
+          <div className="image-container">
+            <img src={scuntLogo} style={{ width: '300px', margin: '20px' }} />
+          </div>
           <div className="text-content">
             <h2>THE HUNT</h2>
-            Come participate in the most iconic event that is part of Frosh Week: Skule™ Hunt!
+            <p>
+              Come participate in the most iconic event that is part of F!rosh Week: Skule™ Hunt!
+            </p>
+            {/* <br />
             <br />
-            <br />
-            Skule™ Hunt takes place the night of <b>Wednesday August 28th from 6PM to 11PM</b>. It
-            is completely free, so hurry and sign up by clicking YES on your registration!
+            Skule™ Hunt takes place on the night of <b>Wednesday, August 27th from 6PM to 11PM</b>.
+            It is completely free, so hurry and sign up by clicking YES on your registration! */}
             <br />
             <br />
           </div>
         </div>
       </div>
-      <img
+      <div className="scunt-block-thing">
+        <h1>What is Skule Hunt?</h1>
+        <p>
+          Skule™ Hunt is a long-standing traditional event that is part of Skule&apos;s annual
+          F!rosh Week. Frosh are placed in teams and participate in a city-wide scavenger hunt where
+          the tasks are designed to help them learn about Skule™ history and traditions, all while
+          exploring the city of Toronto. We safely encourage you to step out of your comfort zone
+          for an unforgettable and fun night! It&apos;s the last event of F!rosh Week for a reason,
+          gotta go big before you go home right? Trust us, this is going to be the craziest
+          scavenger hunt of your life so you do NOT want to miss signing up!
+        </p>
+      </div>
+      <div className="scunt-block-thing">
+        <h1>Where?</h1>
+        <p>
+          Myhal Arena, GB Front Steps, and various locations around Toronto! (or all around the
+          world if you want)
+        </p>
+      </div>
+      <div className="scunt-block-thing">
+        <h1>When?</h1>
+        <p>August 27th, 2025 from 6PM to 11PM!</p>
+      </div>
+      <div className="scunt-block-thing">
+        <h1>FAQ</h1>
+      </div>
+      {/* <img
         className="header-page-wave-bottom"
         src={darkMode ? waveBottomDarkMode : waveBottom}
         alt="wave"
-      />
+      /> */}
 
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <SkuleHuntFAQ />
@@ -94,89 +130,17 @@ const AboutScunt = () => {
   );
 };
 
-const ScuntCountdown = () => {
-  const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
-  const [targetDate, setTargetDate] = useState();
-  const [countDownDate, setCountDownDate] = useState();
-  const [countDown, setCountDown] = useState(countDownDate - new Date().getTime());
-
-  useEffect(() => {
-    if (scuntSettings !== undefined) {
-      let settings = scuntSettings;
-      //const tempDate = new Date(settings?.scuntDate);
-      const tempDate = new Date('2024-08-28T18:00:00'); // Hardcoded date??
-      const tempCountDownDate = new Date(tempDate).getTime();
-
-      setTargetDate(tempDate);
-      setCountDownDate(tempCountDownDate);
-    }
-  }, [scuntSettings]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCountDown(countDownDate - new Date().getTime());
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [countDownDate]);
-
-  const getDateValues = (countDown) => {
-    if (countDown <= 0) {
-      return [0, 0, 0, 0];
-    }
-    const days = Math.floor(countDown / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((countDown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
-
-    return [days, hours, minutes, seconds];
-  };
-
-  const checkNaN = (value) => {
-    if (isNaN(value)) {
-      return 0;
-    } else {
-      return value;
-    }
-  };
-
-  return (
-    <div className="scunt-countdown-wrap">
-      <div className="scunt-countdown">
-        <div className="scunt-countdown-number">
-          <h1>{checkNaN(getDateValues(countDown)[0])}</h1>
-          <h3>DAYS</h3>
-        </div>
-        <div className="scunt-countdown-number">
-          <h1>{checkNaN(getDateValues(countDown)[1])}</h1>
-          <h3>HOURS</h3>
-        </div>
-        <div className="scunt-countdown-number">
-          <h1>{checkNaN(getDateValues(countDown)[2])}</h1>
-          <h3>MINUTES</h3>
-        </div>
-        <div className="scunt-countdown-number">
-          <h1>{checkNaN(getDateValues(countDown)[3])}</h1>
-          <h3>SECONDS</h3>
-        </div>
-      </div>
-      {/* Only show confetti for the first 100 seconds overtime */}
-      {countDown <= 0 && countDown / 1000 >= -100 ? <Confetti animate={true} /> : <></>}
-    </div>
-  );
-};
-
 const scuntFAQs = [
-  {
-    title: 'What is Skule™ Hunt?',
-    description: [
-      "Skule™ Hunt is a long-standing traditional event that is part of Skule's annual Frosh Week.",
-      'Frosh are placed in teams and participate in a city-wide scavenger hunt where the tasks are designed to help them learn about Skule™ history and traditions, all while exploring the city of Toronto.',
-      "We safely encourage you to step out of your comfort zone for an unforgettable and fun night! It's the last event of Frosh Week for a reason, gotta go big before you go home right?",
-      ' ',
-      'Trust us, this is going to be the craziest scavenger hunt of your life so you do NOT want to miss signing up!',
-    ],
-  },
+  // {
+  //   title: 'What is Skule™ Hunt?',
+  //   description: [
+  //     "Skule™ Hunt is a long-standing traditional event that is part of Skule's annual F!rosh Week.",
+  //     'Frosh are placed in teams and participate in a city-wide scavenger hunt where the tasks are designed to help them learn about Skule™ history and traditions, all while exploring the city of Toronto.',
+  //     "We safely encourage you to step out of your comfort zone for an unforgettable and fun night! It's the last event of F!rosh Week for a reason, gotta go big before you go home right?",
+  //     ' ',
+  //     'Trust us, this is going to be the craziest scavenger hunt of your life so you do NOT want to miss signing up!',
+  //   ],
+  // },
   {
     title: 'Am I expected to stay for the entire event?',
     description: [
@@ -192,18 +156,7 @@ const scuntFAQs = [
 const SkuleHuntFAQ = () => {
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          color: 'var(--white)',
-          width: '70%',
-          alignSelf: 'center',
-        }}
-      >
+      <div className="scunt-faq-container">
         {scuntFAQs.map((item, index) => {
           const [isOpen, setIsOpen] = useState(false);
           return (
@@ -211,18 +164,13 @@ const SkuleHuntFAQ = () => {
               <SingleAccordion
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                header={<div className={'faq-search-result-question-accordion'}>{item.title}</div>}
-                style={{
-                  backgroundColor: 'var(--faq-answer-containers)',
-                  margin: '10px',
-                  padding: '0px 30px',
-                  width: '100%',
-                  textAlign: 'left',
-                }}
+                header={<div className={'scunt-faq-question'}>{item.title}</div>}
+                className="scunt-accordion-clickable"
+                dark={true}
               >
                 {Array.isArray(item.description) ? (
                   <>
-                    <ul className="frosh-retreat-faq-bullet">
+                    <ul className="scunt-faq-bullet">
                       {item.description.map((listItem, index) => {
                         return <li key={listItem}>{listItem}</li>;
                       })}
@@ -230,7 +178,7 @@ const SkuleHuntFAQ = () => {
                   </>
                 ) : (
                   <>
-                    <p style={{ margin: 0 }}>{item.description}</p>
+                    <p style={{ margin: 0, width: '100%' }}>{item.description}</p>
                   </>
                 )}
               </SingleAccordion>

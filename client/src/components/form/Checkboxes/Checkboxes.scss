@@ -25,7 +25,7 @@ input[type='checkbox'] {
   appearance: none;
   background-color: var(--form-background);
   margin: 0;
-  cursor: pointer;
+  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
   transition: transform 220ms;
 }
 
@@ -77,7 +77,11 @@ input[type='checkbox']:disabled::before {
 }
 
 .checkbox-highlight {
-  color: var(--green-success);
+  color: var(--text-coloured);
   display: inline-block;
   font-size: 16px;
+}
+
+.text-input-error-message {
+  margin-top: 20px;
 }

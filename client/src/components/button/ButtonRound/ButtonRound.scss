@@ -1,0 +1,36 @@
+@import '../../../scssStyles/_mixins.scss';
+
+.button-round {
+  background-color: var(--text-coloured);
+  color: var(--text-inverted);
+  border-radius: 50px;
+  padding: 20px 30px;
+  text-align: center;
+  font-weight: 800;
+  transition: all 300ms ease-in-out;
+  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
+
+  &:hover {
+    transform: scale(1.05);
+    transition: all 300ms ease-in-out;
+  }
+
+  @include devices(tablet) {
+    padding: 15px 28px;
+  }
+}
+
+.button-round-secondary {
+  background-color: var(--transparent);
+  background-color: var(--vignette);
+  color: white;
+  border: 2px solid white;
+}
+
+.button-round-disabled {
+  opacity: 0.6;
+  cursor: url('../../../assets/cursor/cursordisabled.png'), auto; // add disabled curso
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  border: 2px solid var(--button-outlined-disabled-border);
+}

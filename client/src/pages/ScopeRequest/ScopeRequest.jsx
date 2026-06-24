@@ -3,6 +3,8 @@ import './ScopeRequest.scss';
 import { getTotalRegistrationScopes, getTotalScopes } from './functions';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
+import { ButtonPlain } from '../../components/button/ButtonPlain/ButtonPlain';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestAuthScopes } from '../../state/user/saga';
@@ -24,22 +26,16 @@ export const PageScopeRequest = () => {
   const { user } = useSelector(userSelector);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+    <div className="scope-request-container">
       <div className="scope-request-page">
-        <h1>LEEDUR PERMISSIONS REQUEST</h1>
-        <h2>GENERAL PERMISSIONS</h2>
-        <Button
+        <h1>Leedur Permissions Request</h1>
+        <h2>General Permissions</h2>
+        <ButtonRound
           onClick={() => {
             setSelectAllGeneralScopes(true);
           }}
           label={'Select All'}
+          className="button-round"
         />
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {Object.keys(totalScopes).map((scope) => {
@@ -64,7 +60,7 @@ export const PageScopeRequest = () => {
               console.error(e.toString());
             }
             return (
-              <div key={scope} style={{ paddingRight: '25px' }}>
+              <div key={scope} style={{ paddingRight: '48px', paddingBottom: '24px' }}>
                 <Checkboxes
                   name={scope}
                   highlightValues={highlightFields}
@@ -86,12 +82,13 @@ export const PageScopeRequest = () => {
           })}
         </div>
         <br />
-        <h2>FROSH REGISTRATION INFORMATION</h2>
-        <Button
+        <h2>F!rosh Registration Information</h2>
+        <ButtonRound
           onClick={() => {
             setSelectAllRegistrationScopes(true);
           }}
           label={'Select All'}
+          className="button-round"
         />
         <Checkboxes
           highlightValues={user.froshDataFields.approved}
@@ -106,7 +103,7 @@ export const PageScopeRequest = () => {
           }}
         />
       </div>
-      <Button
+      <ButtonRound
         onClick={() => {
           const froshDataFields = Object.keys(requestScopes.froshDataFields).filter(
             (k) => requestScopes.froshDataFields[k],
@@ -118,7 +115,7 @@ export const PageScopeRequest = () => {
           dispatch(requestAuthScopes({ froshDataFields, authScopes, setSnackbar }));
         }}
         label={'Submit'}
-        isSecondary
+        className="submit-button"
       />
     </div>
   );

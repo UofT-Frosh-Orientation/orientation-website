@@ -5,6 +5,7 @@ import SweatDrop from '../../assets/paymenterror/sweat-drop.svg';
 import Spotlight from '../../assets/paymenterror/spotlight.svg';
 import QuestionMark from '../../assets/paymenterror/qmark.svg';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import InstagramIconWhite from '../../assets/social/instagram-brands.svg';
@@ -31,6 +32,10 @@ const PaymentErrorGraphic = () => {
 const PagePaymentError = ({ link }) => {
   const { darkMode, setDarkModeStatus } = useContext(DarkModeContext);
 
+  if (link === '/frosh-retreat') {
+    console.log('Payment Error: F!rosh Retreat');
+  }
+
   return (
     <>
       <div className="payment-error-page">
@@ -44,17 +49,17 @@ const PagePaymentError = ({ link }) => {
             </p>
 
             <Link to={link} className="no-link-style">
-              <Button label={'Back to Payment'} onClick={() => {}} />
+              <ButtonRound label={'Back to Payment'} onClick={() => {}} />
             </Link>
 
             <p className="payment-error-text-container-body">
               Tried multiple times and payment is still failing?
               <br></br>Send a message to our Instagram or email us about your issue!
             </p>
-            <div className="no-link-style">
+            <div className="no-link-style social-icons">
               <a
                 href="https://www.instagram.com/froshweek/"
-                className="no-link-style"
+                className="no-link-style shrink"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -65,8 +70,8 @@ const PagePaymentError = ({ link }) => {
                 )}
               </a>
               <a
-                href="mailto:marketing@orientation.skule.ca"
-                className="no-link-style"
+                href="mailto:tech@orientation.skule.ca"
+                className="no-link-style shrink"
                 target="_blank"
                 rel="noreferrer"
               >

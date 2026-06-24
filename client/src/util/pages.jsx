@@ -27,8 +27,10 @@ import { PageAnnounceDash } from '../pages/AnnouncementDashboard/AnnounceDash';
 import { PageUnsubscribe } from '../pages/Unsubscribe/Unsubscribe';
 import { PageResubscribe } from '../pages/Resubscribe/Resubscribe';
 import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
+import { ScuntHSL } from '../pages/ScuntJudges/ScuntHSL';
 import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
 import { FroshRetreat } from '../pages/FroshRetreat/FroshRetreat';
+import { FroshOlympiks } from '../pages/FroshOlympiks/FroshOlympiks';
 import { PagePaymentSuccess } from '../pages/PagePaymentSuccess/PagePaymentSuccess';
 import { ScuntGameSettings } from '../pages/ScuntGameSettings/ScuntGameSettings';
 import { PageScuntMissionsDashboard } from '../pages/ScuntMissionsDashboard/ScuntMissionsDashboard';
@@ -148,9 +150,9 @@ export const pages = {
       label: 'Registration Success Retreat',
       component: (
         <PagePaymentSuccess
-          title={'Frosh Retreat'}
+          title={'F!rosh Retreat'}
           message={
-            'Thank you for choosing to participate in the Frosh retreat, we will be reaching out to you for next steps and further details!'
+            'Thank you for choosing to participate in the F!rosh retreat, we will be reaching out to you for next steps and further details!'
           }
         />
       ),
@@ -200,6 +202,16 @@ export const pages = {
       includeFooter: true,
     },
     {
+      label: 'frosh-olympiks',
+      component: (
+        <AuthorizedPage>
+          <FroshOlympiks />
+        </AuthorizedPage>
+      ),
+      path: '/frosh-olympiks',
+      includeFooter: true,
+    },
+    {
       label: 'approve-accounts',
       component: (
         <AuthorizedPage leaderOnly>
@@ -239,6 +251,7 @@ export const pages = {
         </AuthorizedPage>
       ),
       path: '/frosh-info-table',
+      includeFooter: true,
     },
     {
       label: 'frosh-redistribution',
@@ -263,6 +276,13 @@ export const pages = {
       scuntLabel: 'Judges',
       component: <ScuntJudges />,
       path: '/skule-hunt-judges',
+      includeFooter: true,
+    },
+    {
+      label: 'HSLs',
+      scuntLabel: 'HSLs',
+      component: <ScuntHSL />,
+      path: '/skule-hunt-hsl',
       includeFooter: true,
     },
     {
@@ -306,6 +326,7 @@ export const pages = {
         </AuthorizedPage>
       ),
       path: '/skule-hunt-game-controls',
+      includeFooter: true,
     },
     {
       label: 'Skule™ Hunt Missions Dashboard',
@@ -326,6 +347,7 @@ export const pages = {
     {
       label: 'Skule™ Hunt Point Transactions',
       path: '/skule-hunt-transactions',
+      includeFooter: true,
       component: (
         <AuthorizedPage authScopes={['scunt:exec view transactions']}>
           <ScuntTransactions />

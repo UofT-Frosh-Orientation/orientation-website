@@ -1,6 +1,7 @@
 import QrScanner from 'qr-scanner';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { ButtonOutlined } from '../button/ButtonOutlined/ButtonOutlined';
+import { ButtonPlain } from '../button/ButtonPlain/ButtonPlain';
 import PropTypes from 'prop-types';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 
@@ -42,15 +43,15 @@ export const QRScannerDisplay = ({ setScannedData }) => {
 
   return (
     <div
-      style={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
+    // style={{
+    //   width: '100%',
+    //   display: 'flex',
+    //   flexDirection: 'column',
+    //   justifyContent: 'center',
+    //   alignItems: 'center',
+    // }}
     >
-      <ButtonOutlined
+      <ButtonPlain
         label={isScanning ? 'Stop Scanning' : 'Start Scanning'}
         onClick={() => {
           if (isScanning) {
@@ -63,6 +64,11 @@ export const QRScannerDisplay = ({ setScannedData }) => {
           } else {
             setIsScanning(true);
           }
+        }}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       />
       <video

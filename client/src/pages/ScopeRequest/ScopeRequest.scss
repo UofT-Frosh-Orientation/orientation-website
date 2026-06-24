@@ -1,20 +1,46 @@
 @import '../../scssStyles/mixins';
 
+.scope-request-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .scope-request-page {
   max-width: 900px;
   width: 100%;
   padding: min(50px, 5%) min(50px, 5%);
   h1 {
-    margin-bottom: 15px;
+    margin-bottom: 36px;
     color: var(--text-dynamic);
+    font-family: 'Proxima Nova', sans-serif;
+    font-weight: 900;
+    margin-top: 40px;
+    font-size: 36px;
+    text-align: center;
   }
   h2 {
-    margin-bottom: 5px;
-    color: var(--text-dynamic);
+    margin-bottom: 24px;
+    margin-top: 24px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    font-family: 'Proxima Nova', sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+  }
+
+  .button-round {
+    margin-bottom: 24px;
   }
 }
 
 .scope-request-current-permissions {
   color: var(--text-dynamic) !important;
   margin: 20px 0;
+}
+
+.submit-button {
+  margin-bottom: 60px;
+  margin-top: 20px;
 }

@@ -11,12 +11,33 @@
   justify-content: center;
   align-items: center;
   transition: transform 700ms, opacity 700ms;
+  margin-top: 20px;
+  background-color: var(--bg-primary);
 }
 .sign-up-logo {
   width: 140px;
   height: 140px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   transition: transform 500ms;
+}
+
+.sign-up-title {
+  font-family: 'Jersey 20', sans-serif;
+  font-weight: 900;
+  font-size: clamp(50px, 5vw, 64px);
+  letter-spacing: 1.5px;
+  color: var(--text-primary);
+
+  @include devices(tablet) {
+    font-size: 44px;
+  }
+}
+
+.sign-up-sub {
+  font-family: 'Proxima Nova';
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-primary);
 }
 
 .sign-up-logo-expand {
@@ -24,11 +45,11 @@
 }
 
 .sign-up-container {
-  background-color: var(--container-bg);
+  background-color: var(--bg-primary);
   border-radius: 15px;
   padding: 40px min(150px, 5%);
   margin: 50px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--bg-secondary) 0px 8px 24px;
   width: 95vw;
   max-width: 1000px;
   display: flex;
@@ -36,11 +57,12 @@
   justify-content: center;
   h1 {
     text-align: center;
-    font-size: 40px;
+    // font-size: 40px;
+    margin-bottom: 10px;
     width: 100%;
   }
   h3 {
-    font-size: 17px;
+    // font-size: 17px;
     text-align: center;
     margin-bottom: 15px;
     width: 100%;
@@ -158,4 +180,30 @@
 
 .proxima-nova-text {
   font-family: 'Proxima Nova', sans-serif;
+}
+
+h1.proxima-nova-text {
+  font-weight: 900;
+  font-size: 48px;
+  width: 90%;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 40px;
+}
+
+h2.proxima-nova-text {
+  font-weight: 700;
+  font-size: 30px;
+  width: 80%;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 40px;
+}
+
+h3.proxima-nova-text {
+  font-weight: 400;
+  font-size: 20px;
+  width: 60%;
+  text-align: center;
+  margin: auto;
 }

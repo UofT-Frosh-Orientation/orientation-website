@@ -1,0 +1,300 @@
+//loading fonts
+@import url('https://fonts.googleapis.com/css2?family=Griffy&family=Marhey:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Love+Ya+Like+A+Sister&display=swap');
+
+//BACKGROUND IMAGE
+.ac-background {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+  background-image: url('/workspaces/orientation-website/client/src/pages/Initial/AsmitaLanding/images/AsmitaLandingBackDrop.png');
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+
+  padding: 20px;
+}
+
+//TITLE PAGE CONTENT
+.ac-main {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  margin: 0 auto;
+  padding-top: 3%;
+}
+
+.ac-main-text {
+  //font qualities
+  font-family: 'Griffy', system-ui;
+  font-size: 6em;
+  font-style: bold;
+  color: #f3d384;
+  text-shadow: 0px 7px 10px rgb(78, 40, 78);
+
+  //spacing issues
+  line-height: 0.75;
+  letter-spacing: 0.1em;
+  margin-bottom: 0%;
+  margin-top: 8%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+//EMPTY LINE SPACER
+hr.ac-empty {
+  top: 10px;
+  width: 851px;
+  height: 0px;
+  border: 0px solid var(--yellow);
+  border-radius: 100px;
+  margin-bottom: 24px;
+}
+
+//SUB CONTENT
+.ac-subheading {
+  //font qualities
+  font-family: 'Love Ya Like A Sister', cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.5em;
+  color: var(--purple-shades-dark);
+  text-shadow: 0px 7px 10px rgb(225, 225, 225);
+
+  //spacing issues
+  margin-top: 2%;
+  margin-left: 18%;
+  margin-right: 18%;
+  letter-spacing: 0.05em;
+}
+
+//INSTAGRAM LINKS
+.ac-insta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 100px 0;
+  max-width: 851px;
+  margin: 0 auto;
+  padding-top: 70px;
+}
+
+.ac-insta-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin: 0 auto;
+  max-width: 851px;
+
+  @media (min-width: 900px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+//BUTTON STUFF
+.ac-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 420px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  border-radius: 100px;
+  background: var(--white);
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  text-align: center;
+  cursor: url('../../../../assets/cursor/pointer.png'), auto !important;
+  transition: 0.3s;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.ac-button:hover {
+  background: #f3d384;
+  color: var(--purple-shades-dark);
+  transition: 0.3s;
+}
+
+.ac-button-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.ac-button-text {
+  color: var(--purple-shades-dark);
+  margin-left: 7px;
+}
+
+//CREDITS
+.ac-credits {
+  text-shadow: 0px 7px 10px rgb(225, 225, 225);
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2%;
+}
+
+.ac-credits-text {
+  font-style: bold;
+  color: #ffffff;
+  text-shadow: 0px 7px 10px rgb(189, 174, 189);
+  text-align: center;
+  font-size: 1em;
+  font-style: normal;
+  letter-spacing: 0.1em;
+}
+
+a:hover,
+a:visited,
+a:link,
+a:active {
+  text-decoration: none !important;
+}
+
+/***************** MOBILE VIEW *******************/
+
+@media screen and (max-width: 428px) {
+  /*	CSS for screens that are 428 pixels or less 
+		i.e. the largest screen width is an iphone 13 pro max thing
+	*/
+
+  .ac-main {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    max-width: 274px;
+    margin: 0 auto;
+
+    text-align: center;
+    padding-top: 60%;
+  }
+
+  .ac-main-text {
+    font-family: 'Griffy', system-ui;
+    font-style: bold;
+    font-size: 3.5em;
+    font-style: bold;
+    color: #f3d384;
+    text-shadow: 0px 7px 10px rgb(78, 40, 78);
+
+    line-height: 1;
+    letter-spacing: 0.1em;
+    margin-bottom: 0%;
+    margin-top: 3%;
+    margin-left: 0%;
+    margin-right: 0%;
+  }
+
+  hr.line {
+    width: 274px;
+    border: 0px solid var(--yellow);
+    border-radius: 100px;
+    margin-bottom: 10px;
+  }
+
+  .ac-subheading {
+    font-size: 12px;
+    max-width: 274px;
+    letter-spacing: 0.03em;
+
+    font-family: 'Love Ya Like A Sister', cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1em;
+    color: var(--purple-shades-dark);
+    text-shadow: 0px 7px 10px rgb(225, 225, 225);
+
+    margin-top: 3%;
+    margin-left: 0%;
+    margin-right: 0%;
+    margin-bottom: 12%;
+    letter-spacing: 0.05em;
+  }
+
+  .ac-insta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 100px 0;
+
+    max-width: 274px;
+    margin: 0 auto;
+
+    padding-top: 0%;
+  }
+
+  .ac-info-text {
+    font-size: 12px;
+    max-width: 274px;
+    letter-spacing: 0.03em;
+    padding-top: 0;
+    padding-left: 10%;
+    text-align: left;
+    display: inline-block;
+  }
+
+  .ac-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 35px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    border-radius: 100px;
+    background: var(--white);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    text-align: center;
+    cursor: url('../../../../assets/cursor/pointer.png'), auto !important;
+    transition: 0.3s;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .ac-button-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .ac-button-text {
+    color: var(--purple-shades-dark);
+    margin-left: 7px;
+  }
+
+  .ac-button-container {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-credits-text {
+    font-style: bold;
+    color: #ffffff;
+    text-shadow: 0px 7px 10px rgb(189, 174, 189);
+    text-align: center;
+    font-size: 0.7em;
+    font-style: normal;
+    letter-spacing: 0.1em;
+  }
+}
+
+a:hover,
+a:visited,
+a:link,
+a:active {
+  text-decoration: none !important;
+}

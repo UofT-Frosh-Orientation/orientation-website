@@ -7,7 +7,7 @@ const assert = require('assert');
 describe('FroshServices', () => {
   it('.getNewFroshGroup(discipline, pronouns, froshGroupList)\t|\tGetting a new Frosh Group (PREMADE LIST)', async () => {
     const discipline = 'Electrical & Computer';
-    const pronouns = 'she/her';
+    const pronouns = 'She/Her';
     const alphaGroup = await FroshGroupModel.create({ name: 'alpha', icon: 'α' });
     const betaGroup = await FroshGroupModel.create({ name: 'beta', icon: 'β' });
     const froshGroupList = [alphaGroup, betaGroup];
@@ -21,7 +21,7 @@ describe('FroshServices', () => {
 
   it('.getNewFroshGroup(discipline, pronouns, froshGroupList)\t|\tGetting a new Frosh Group (PREMADE LIST)', async () => {
     const discipline = 'Electrical & Computer';
-    const pronouns = 'she/her';
+    const pronouns = 'She/Her';
     const [group1] = await FroshGroupModel.find({});
 
     group1['Electrical & Computer'] = 100;
@@ -34,7 +34,7 @@ describe('FroshServices', () => {
 
   it('.getNewFroshGroup(discipline, pronouns, froshGroupList)\t|\tGetting a new Frosh Group (Using .find() FroshGroupModel)', async () => {
     const discipline = 'Electrical & Computer';
-    const pronouns = 'she/her';
+    const pronouns = 'She/Her';
     const { froshGroup, froshGroupIcon } = await FroshServices.getNewFroshGroup(
       discipline,
       pronouns,
@@ -93,7 +93,7 @@ describe('FroshServices', () => {
     });
     const newInfo = {
       legalName: 'test',
-      pronouns: 'she/her',
+      pronouns: 'She/Her',
       birthDate: '01-01-1900',
       utorid: 'test',
       discipline: 'Electrical & Computer',

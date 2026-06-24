@@ -2,6 +2,10 @@ const FroshModel = require('../models/FroshModel');
 const FroshGroupModel = require('../models/FroshGroupModel');
 const UserModel = require('../models/UserModel');
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
 const FroshServices = {
   /**
    * @description Gets the frosh group for a new frosh.
@@ -17,20 +21,54 @@ const FroshServices = {
     let minScore = 10000;
     let froshGroup = '';
     let froshGroupIcon = '';
+    // let totalReg = 0;
+    let lowest = [];
     for (let i = 0; i < froshGroupList.length; i++) {
-      const score = 0.5 * froshGroupList[i][discipline] + 0.5 * froshGroupList[i][pronouns];
-      if (froshGroupList[i].totalNum < minNumber) {
-        minNumber = froshGroupList[i].totalNum;
-        froshGroup = froshGroupList[i].name;
-        froshGroupIcon = froshGroupList[i].icon;
+      const totalCount = await FroshModel.countDocuments({
+        froshGroup: froshGroupList[i].name,
+        isRegistered: true,
+      });
+      const disciplineCount = await FroshModel.countDocuments({
+        froshGroup: froshGroupList[i].name,
+        discipline,
+        isRegistered: true,
+      });
+      const pronounCount = await FroshModel.countDocuments({
+        froshGroup: froshGroupList[i].name,
+        pronouns,
+        isRegistered: true,
+      });
+      const score = 0.5 * disciplineCount + 0.5 * pronounCount;
+
+      // Output for debugging
+      // console.log("Index:", i);
+      // console.log("totalCount:", totalCount);
+      // console.log("Discipline Count:", disciplineCount);
+      // console.log("Pronoun Count:", pronounCount);
+      // console.log("Score:", score);
+      // totalReg += totalCount;
+
+      if (totalCount < minNumber) {
+        minNumber = totalCount;
         minScore = score;
+        lowest = [];
       }
-      if (froshGroupList[i].totalNum === minNumber && score < minScore) {
-        froshGroup = froshGroupList[i].name;
-        froshGroupIcon = froshGroupList[i].icon;
-        minScore = score;
+      if (totalCount === minNumber) {
+        if (score < minScore) {
+          minScore = score;
+          lowest = [];
+        }
+        if (score === minScore) {
+          lowest.push(i);
+        }
       }
     }
+    // console.log('Total Registered:', totalReg);
+    // console.log('Suitable Groups:', lowest);
+    const groupIndex = lowest[getRandomInt(0, lowest.length)];
+    // console.log('Selected Group Index:', groupIndex);
+    froshGroup = froshGroupList[groupIndex].name;
+    froshGroupIcon = froshGroupList[groupIndex].icon;
     return { froshGroup, froshGroupIcon };
   },
 
@@ -72,7 +110,7 @@ const FroshServices = {
     //           {
     //             item: 'Retreat Ticket',
     //             paymentIntent: paymentIntent.toString(),
-    //             amountDue: 10300,
+    //             amountDue: 11000,
     //           },
     //         ],
     //       },
@@ -94,7 +132,7 @@ const FroshServices = {
           {
             item: 'Retreat Ticket',
             paymentIntent: paymentIntent.toString(),
-            amountDue: 10300,
+            amountDue: 11000,
           },
         ],
       },
@@ -215,7 +253,7 @@ const FroshServices = {
       'Track One (Undeclared)',
     ];
 
-    const validPronouns = ['Prefer Not to Say', 'he/him', 'she/her', 'they/them', 'Other'];
+    const validPronouns = ['Prefer Not to Say', 'He/Him', 'She/Her', 'They/Them', 'Other'];
     const teams = [];
 
     // Initialize froshGroupList with 0s
@@ -250,14 +288,14 @@ const FroshServices = {
       if (!validPronouns.includes(curFrosh.pronouns)) {
         let pronoun;
         switch (curFrosh.pronouns) {
-          case 'He/Him':
-            pronoun = 'he/him';
+          case 'he/him':
+            pronoun = 'He/Him';
             break;
-          case 'She/Her':
-            pronoun = 'she/her';
+          case 'she/her':
+            pronoun = 'She/Her';
             break;
-          case 'They/Them':
-            pronoun = 'they/them';
+          case 'they/them':
+            pronoun = 'They/Them';
             break;
           case 'Prefer not to say':
             pronoun = 'Prefer Not to Say';

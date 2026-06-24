@@ -49,7 +49,7 @@ const PaymentController = {
   async froshRetreatTicketCount(req, res, next) {
     try {
       const count = await PaymentServices.getNonExpiredPaymentsCountForItem('Retreat Ticket');
-      console.log(`retreat tickets being purchased : ${count}`);
+      console.log(`retreat tickets purchased : ${count}`);
       const remaining = process.env.RETREAT_MAX_TICKETS - count;
       res.status(200).send({ count: remaining < 0 ? 0 : remaining });
     } catch (e) {

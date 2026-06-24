@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
 import './CreateAnnounce.scss';
 
@@ -20,11 +21,11 @@ const CreateAnnounce = () => {
 
   return (
     <div className="announcement-creator">
-      <h3>SEND AN ANNOUNCEMENT</h3>
+      <h3>Send an Announcement</h3>
       <div className="full-width-input">
         <TextInput
           label="Announcement Name"
-          placeholder={'Announcement #1'}
+          placeholder={'Maintenance Tomorrow'}
           onChange={(value) => {
             announcementData['name'] = value;
           }}
@@ -35,7 +36,7 @@ const CreateAnnounce = () => {
       <div className="full-width-input">
         <TextInput
           label="Description"
-          placeholder={'Description'}
+          placeholder={'The website will be down for maintenance tomorrow from...'}
           onChange={(value) => {
             announcementData['description'] = value;
           }}
@@ -57,7 +58,7 @@ const CreateAnnounce = () => {
       )}
 
       <div className="send-announcement-button">
-        <Button
+        <ButtonRound
           label="Send Announcement"
           style={{ margin: 0 }}
           onClick={async () => {

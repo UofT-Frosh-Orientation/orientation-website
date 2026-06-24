@@ -1,15 +1,41 @@
 @import '../../scssStyles/mixins';
 
+:root {
+  --faq-pixel-border: url('../../assets/faq/faq-pixel-border-light.png');
+}
+
+.dark-mode {
+  --faq-pixel-border: url('../../assets/faq/faq-pixel-border-dark.png');
+}
+
+.bg-primary {
+  background-color: var(--bg-primary);
+}
+
+.fill {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 1px;
+  color: var(--bg-primary);
+}
+
 .faq-page-header {
   position: relative;
   max-height: 700px;
   height: 50vh;
   min-height: 400px;
-  background-color: var(--purple);
+  background-color: var(--bg-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+
+  @include devices(tablet) {
+    margin-top: 0px;
+    height: 40vh;
+    min-height: 300px;
+  }
 }
 
 .faq-page-header-container {
@@ -21,12 +47,26 @@
 
 .faq-button-selector-container {
   margin: 0px 5% 0px 5%;
+  background-color: var(--bg-primary);
+
+  @media only screen and (max-height: 850px) {
+    margin-top: 20px;
+  }
+}
+
+.faq-button-selector {
+  @media (min-width: 1034px) {
+    justify-content: center !important;
+  }
+  @include devices(tablet) {
+    padding-top: 20px !important;
+  }
 }
 
 .faq-error-text {
   margin: 10px 20px;
   text-align: center;
-  color: var(--text-dynamic) !important;
+  color: var(--text-primary) !important;
 }
 
 .faq-hide-button-selector {
@@ -43,19 +83,22 @@
 }
 
 .faq-page-header-text {
-  padding-left: 5%;
   h1 {
     font-size: 90px;
-    color: var(--text-light);
+    color: var(--text-primary);
+    font-weight: 800;
+    margin-bottom: 20px;
+    margin-top: 80px;
   }
   h2 {
     font-size: 50px;
-    color: var(--text-light);
+    color: var(--text-primary);
     line-height: 0.7;
   }
   p {
     font-size: 25px;
-    color: var(--text-light);
+    color: var(--text-primary);
+    font-weight: 700;
   }
 }
 
@@ -63,7 +106,12 @@
   margin-top: 50px;
   display: grid;
   grid-template-columns: 50px auto 50px;
-  box-shadow: var(--shadow);
+  //box-shadow: var(--shadow);
+  // border-image-source: var(--faq-pixel-border);
+  border-image-slice: 30;
+  border-image-width: 30px;
+  border-image-outset: 1px;
+  border-image-repeat: repeat;
 }
 
 .searchIcon {
@@ -90,6 +138,7 @@
   height: 18px;
   //opacity: 0.6;
   transition: 200ms opacity;
+  cursor: url('../../assets/cursor/pointer.png'), auto;
 }
 
 .deleteIcon {
@@ -103,9 +152,11 @@
   border-radius: 0px 15px 15px 0px;
 }
 
-.deleteIcon:hover {
-  cursor: pointer;
+.deleteIcon:hover * {
+  cursor: url('../../assets/cursor/pointer.png'), auto;
+}
 
+.deleteIcon:hover {
   img {
     opacity: 1;
     transition: 200ms opacity;
@@ -139,13 +190,14 @@
 
 .faq-search-input-container {
   background-color: var(--faq-searchbar-bg) !important;
+  cursor: url('../../assets/cursor/textpointer.png'), auto !important;
 }
 
 .faq-data-result {
   width: calc(100% + 100px);
   margin-left: -50px;
   height: 200px;
-  background-color: white;
+  background-color: var(--bg-primary);
   box-shadow: var(--shadow) 0px 15px 15px;
   overflow: hidden;
   overflow-y: auto;
@@ -163,7 +215,7 @@
   height: 50px;
   display: flex;
   align-items: center;
-  color: var(--text-dynamic);
+  color: var(--text-primary);
 }
 
 .faq-data-item p {
@@ -176,11 +228,11 @@
 }
 
 .faq-data-item:hover {
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
 }
 
 .faq-data-result div:hover {
-  background-color: var(--purple-shades-light);
+  background-color: var(--bg-primary);
   transition: background-color 200ms, border-color 200ms;
 }
 
@@ -207,18 +259,23 @@
 
 .faq-accordion-container {
   margin: 25px 0% 50px 0%;
+  background-color: var(--bg-primary);
 }
 
 .faq-accordion-wrapper {
   margin: 15px 10% 20px 10%;
+
+  .accordion-clickable {
+    background-color: var(--faq-answer-containers);
+  }
 }
 
 .faq-accordion-wrapper:hover {
-  cursor: pointer;
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
 }
 
 .faq-all-search-results {
-  color: var(--text-dynamic);
+  color: var(--text-primary);
   margin-top: -30px;
   margin-bottom: 20px;
 }
@@ -252,7 +309,7 @@
   padding: 20px 30px 20px 30px;
   background-color: var(--faq-answer-containers);
   border-radius: 15px;
-  color: var(--text-dynamic) !important;
+  color: var(--sc-inverted) !important;
 }
 
 .faq-search-result-question,
@@ -260,22 +317,26 @@
   margin-bottom: 7px;
   font-size: 22px;
   font-weight: bold;
-  color: var(--text-dynamic) !important;
+  color: var(--sc-inverted) !important;
   @include devices(tablet) {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
 .faq-search-result-question-accordion {
   padding: 20px 20px 20px 0px;
   margin-bottom: 0px;
+
+  @include devices(tablet) {
+    padding: 15px 15px 15px 0px;
+  }
 }
 
 .faq-search-result-answer,
 .faq-search-result-answer-accordion {
   margin-top: 7px;
   border-radius: 12px;
-  color: var(--text-dynamic);
+  color: var(--lilac);
   @include devices(tablet) {
     font-size: 16px;
   }
@@ -291,32 +352,32 @@
 .faq-no-results {
   width: 100%;
   text-align: center;
-  color: var(--text-dynamic);
+  color: var(--text-primary);
 }
 
 .pagination-controls {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 50px;
 
   button {
     margin: 0 5px;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
-    background-color: var(--purple);
-    color: white;
-    cursor: pointer;
+    background-color: var(--neutral-secondary);
+    color: var(--text-primary);
+    cursor: url('../../assets/cursor/pointer.png'), auto;
     transition: background-color 0.3s, color 0.3s;
 
     &:hover {
-      background-color: var(--light-purple);
-      color: var(--purple-shades-dark);
+      background-color: var(--neutral-secondary);
+      color: var(--text-primary);
     }
 
     &.active {
-      background-color: var(--purple-shades-dark);
-      color: white;
+      background-color: var(--monster);
+      color: var(--mikado);
     }
   }
 }

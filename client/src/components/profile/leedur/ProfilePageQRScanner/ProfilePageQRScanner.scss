@@ -12,8 +12,8 @@
 
 .profile-page-side-section {
   max-width: 350px;
-  background-color: var(--container-bg);
-  box-shadow: var(--shadow);
+  //background-color: var(--container-bg);
+  //box-shadow: var(--shadow);
   border-radius: 25px;
   display: flex;
   justify-content: center;
@@ -28,7 +28,7 @@
 }
 
 .profile-page-scanned-data {
-  background-color: var(--purple-shades-light);
+  background-color: var(--bg-secondary);
   transition: background-color 450ms;
   padding: 15px 20px;
   border-radius: 10px;
@@ -47,8 +47,14 @@
 }
 
 .profile-page-manual-entry-header {
-  font-size: 25px;
+  font-size: 100%;
   margin-top: 25px;
+  text-align: center;
+  font-weight: 900;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  width: 80%;
 }
 
 .manual-sign-in-frosh-search-result-container {
@@ -63,7 +69,7 @@
 }
 
 .manual-sign-in-frosh-search-result {
-  background-color: var(--purple-shades-light);
+  background-color: var(--bg-secondary);
   width: 100%;
   margin: 5px 0px !important;
 }

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import './RegistrationSuccess.scss';
 import { Confetti } from '../../components/misc/Confetti/Confetti';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { Link, useLocation } from 'react-router-dom';
 import useAxios from '../../hooks/useAxios';
@@ -56,21 +57,22 @@ const PageRegistrationSuccess = () => {
             <div className="registration-success-page-container">
               <div className="registration-success-page-step1">
                 <div className="registration-success-page-step1-1-disappear">
-                  <h1 style={{ color: 'var(--black)' }}>THANK YOU FOR REGISTERING</h1>
+                  <h1>Thank you for registering</h1>
                 </div>
                 <div className="registration-success-page-step1-2-disappear">
-                  <h2 style={{ color: 'var(--black)' }}>FOR F!ROSH WEEK 2T4</h2>
+                  <h2>for F!rosh Week 2T5</h2>
                   <p style={{ color: 'var(--black)' }} className="registration-success-wait-msg">
-                    {`${user.preferredName === '' || !user.preferredName
+                    {`Drumroll for your F!rosh group ${
+                      user.preferredName === '' || !user.preferredName
                         ? user.firstName
                         : user.preferredName
-                      }, your F!rosh group is`}
+                    }...`}
                   </p>
                 </div>
               </div>
               <div className="registration-success-page-step2-disappear">
                 <div className="registration-success-page-step2">
-                  <h1 style={{ color: 'var(--black)' }}>WELCOME TO...</h1>
+                  <h1>Welcome to...</h1>
                 </div>
               </div>
               <div className="registration-success-page-step3">
@@ -80,11 +82,11 @@ const PageRegistrationSuccess = () => {
                   </text>
                 </svg>
                 <div className="registration-success-page-step4">
-                  <h2 style={{ color: 'var(--black)' }}>{user.froshGroup.toUpperCase() + '!'}</h2>
+                  <h2 style={{ color: 'var(--black)' }}>{user.froshGroup.toUpperCase()}</h2>
                 </div>
                 <div className="registration-success-page-step5">
                   <Link to={'/profile'} className="no-link-style">
-                    <Button label="VIEW MY F!ROSH PROFILE" />
+                    <ButtonRound label="View my F!rosh profile" className="view-profile" />
                   </Link>
                 </div>
                 <div className="registration-success-page-step6">
@@ -97,7 +99,7 @@ const PageRegistrationSuccess = () => {
                     to={'/registration-success'}
                     className="no-link-style"
                   >
-                    <ButtonOutlined label="Watch Again" isSecondary />
+                    <ButtonRound label="Watch Again" isSecondary className="watch-again" />
                   </Link>
                 </div>
               </div>

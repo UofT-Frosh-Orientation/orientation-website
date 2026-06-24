@@ -11,6 +11,7 @@ const RadioButtons = ({
   isDisabled,
   localStorageKey,
   autoFocus,
+  isRequired,
 }) => {
   useEffect(() => {
     if (localStorageKey !== undefined) {
@@ -40,7 +41,18 @@ const RadioButtons = ({
 
   return (
     <div className={`${isDisabled ? 'radio-input-disabled-container' : ''}`}>
-      {label !== undefined ? <p className="radio-input-title">{label}</p> : <></>}
+      {label !== undefined ? (
+        <p className="radio-input-title">
+          {label}
+          {isRequired !== undefined && isRequired === true && label !== undefined ? (
+            <p className="text-input-required-star">*</p>
+          ) : (
+            <></>
+          )}
+        </p>
+      ) : (
+        <></>
+      )}
       <div
         style={{
           display: 'flex',
@@ -93,6 +105,7 @@ RadioButtons.propTypes = {
   isDisabled: PropTypes.bool,
   localStorageKey: PropTypes.string,
   autoFocus: PropTypes.bool,
+  isRequired: PropTypes.bool,
 };
 
 export { RadioButtons };

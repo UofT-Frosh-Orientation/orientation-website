@@ -16,6 +16,8 @@ const Checkboxes = ({
   selectAll,
   setSelectAll,
   autoFocus,
+  isRequired,
+  errorFeedback,
 }) => {
   useEffect(() => {
     if (selectAll) {
@@ -120,7 +122,18 @@ const Checkboxes = ({
 
   return (
     <>
-      {label !== undefined ? <p className="checkbox-input-title">{label}</p> : <></>}
+      {label !== undefined ? (
+        <p className="checkbox-input-title">
+          {label}
+          {isRequired !== undefined && isRequired === true && label !== undefined ? (
+            <p className="text-input-required-star">*</p>
+          ) : (
+            <></>
+          )}
+        </p>
+      ) : (
+        <></>
+      )}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
         {values.map((value, index) => {
           let isDisabled = false;
@@ -149,11 +162,13 @@ const Checkboxes = ({
                   autoFocus={autoFocus}
                 />
                 {filterLabel ? filterLabel(value.toString()) : value.toString()}
+                {/* {isHighlighted ? <span className="checkbox-highlight">✔</span> : <></>} */}
                 {isHighlighted ? <span className="checkbox-highlight">✔</span> : <></>}
               </label>
             </React.Fragment>
           );
         })}
+        {errorFeedback ? <p className="text-input-error-message">{errorFeedback}</p> : <></>}
       </div>
     </>
   );
@@ -173,6 +188,8 @@ Checkboxes.propTypes = {
   selectAll: PropTypes.bool,
   setSelectAll: PropTypes.func,
   autoFocus: PropTypes.bool,
+  isRequired: PropTypes.bool,
+  errorFeedback: PropTypes.string,
 };
 
 export { Checkboxes };

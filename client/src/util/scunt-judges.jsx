@@ -1,307 +1,375 @@
-import erika from '../assets/judges/erika.jpg';
-import celin from '../assets/judges/celin.jpg';
-import ben from '../assets/judges/ben.jpg';
-import Kaija from '../assets/judges/kaija.jpeg';
-import alexi from '../assets/judges/alexi.jpg';
-import karen from '../assets/judges/karen.jpg';
-import nat from '../assets/judges/nat.jpg';
-import khalil from '../assets/judges/khalil.jpg';
-import tanya from '../assets/judges/tanya.jpg';
-import luka from '../assets/judges/luka.jpg';
-import novera from '../assets/judges/novera.jpg';
-import jeremy from '../assets/judges/jeremy.jpg';
-import rimjot from '../assets/judges/rimjot.jpg';
-import katie from '../assets/judges/katie.jpg';
-import emaan from '../assets/judges/emaan.jpg';
-import amelie from '../assets/judges/amelie.jpg';
-import tech from '../assets/judges/tech.png';
-import tyler from '../assets/judges/tyler.png';
-import will from '../assets/judges/will.jpg';
+import Athavan from '../assets/judges/athavan_balakumar.jpg';
+import Azmi from '../assets/judges/azmi_rahim.jpg';
+import Evelyn from '../assets/judges/evelyn_fallah.jpg';
+import Hannah from '../assets/judges/hannah_lila.jpg';
+import Isobel from '../assets/judges/isobel_arseneau.jpg';
+import Julian from '../assets/judges/julian_papasodaro.jpg';
+import Lauren from '../assets/judges/lauren_altomare.png';
+import Martin from '../assets/judges/martin_gutierrez_ramirez.jpg';
+import Melanie from '../assets/judges/melanie_ye.jpg';
+import Mila from '../assets/judges/mila_markovski.jpg';
+import Sahana from '../assets/judges/sahana.jpg';
+import Sam from '../assets/judges/sam_denomme.jpg';
+import Sebastian from '../assets/judges/sebastian_kiernan.jpg';
+import Sophia from '../assets/judges/sophia_hill.png';
+//import Tyler from '../assets/judges/tyler_delabarre.png';
+import Yanni from '../assets/judges/yanni_alevras.jpg';
+import Maria from '../assets/judges/maria.jpg';
+import Novera from '../assets/judges/novera.jpg';
+import Karys from '../assets/judges/karys.png';
+import TechTeam from '../assets/judges/tech.jpg';
 
+// Export simple data array for judges. Extend with extra fields as needed.
 export const scuntJudges = [
+  // Co-Chairs (landscape assets) - flagged for special styling
+  { name: 'Maria', img: Maria, coChair: true },
+  { name: 'Novera', img: Novera, coChair: true },
+  // Other Judges
+  { name: 'Athavan', img: Athavan },
+  { name: 'Azmi', img: Azmi },
+  { name: 'Evelyn', img: Evelyn },
+  { name: 'Hannah', img: Hannah },
+  { name: 'Isobel', img: Isobel },
+  { name: 'Julian', img: Julian },
+  { name: 'Lauren', img: Lauren },
+  { name: 'Martin', img: Martin },
+  { name: 'Melanie', img: Melanie },
+  { name: 'Mila', img: Mila },
+  { name: 'Sahana', img: Sahana },
+  { name: 'Sam', img: Sam },
+  { name: 'Sebastian', img: Sebastian },
+  { name: 'Sophia', img: Sophia },
+  { name: 'Karys', img: Karys },
+  { name: 'Yanni', img: Yanni },
   {
     name: 'Tech Team',
-    description: 'Wink wink we made the website... we have unlimited bribe points...',
+    img: TechTeam,
+    description:
+      "Collective guardians of the codebase and purveyors of arcane digital challenges. Pictured are your Webmasters Nusaiba and Alyssa, but our lovely site wouldn't be possible without the help of Ablah, Kevin, Eileen and Sunny as well! Also please do come bribe us we promise you will not be disappointed *coughcoughwehaveallthepowercoughcough* haha wind is crazy in here",
     content: [
-      'Follow each of us on insta',
-      'Star the website repo on GitHub',
-      'Fix a bug on the website',
-      'Coding takes energy. Energy comes from food. We like food. Enough said...',
-      'Draw a nice pic of our team',
-      'Appreciate the work we have given to Frosh week',
-      'Have a nice convo with us :)',
+      'Beat Akinator.',
+      'Find someone with the original Angry Birds app.',
+      'Make us a Phainon pointer (google it).',
+      "Full combo a song on Project Sekai on Nusaiba's iPad (I need that in-game currency <//3)",
+      'Pull on Nusaiba’s gacha account; rarity of the pull scales your points.',
+      'Beat Kevin’s Chrome Dino high score (13k).',
+      'Connect with Nusaiba on LinkedIn.',
     ],
-    img: tech,
+  },
+];
+
+// Consumers (e.g., `ScuntJudgesShowWrapper`) can now import { scuntJudges }.
+
+export const people = [
+  {
+    name: 'Mila Markovski',
+    description:
+      "Hello!! I'm an EngSci 2T5 +PEY +1 and one of your judges this year!! I am in the BioMedical Systems speciality; my main interest is in neuroscience, so I love all things relating to the brain. I'm also a huge nerd — whether it is comics, sci-fi, movies, video games, or fantasy, I'm interested and I probably know a thing or two. Fun fact about me: I've sprained my ankles a cumulative 13 times and I have 3 extra bones in my feet, so while I was formerly known to click my heels around campus, I no longer will.",
+    content: [
+      'WHOLESOME fanart of your two favourite spirit heads',
+      'A bouquet of beautiful flowers, that you have *created*',
+      'A rendition of your favourite Shakespearean speech/soliloquy/sonnet as Ariana Grande',
+      'Using only Toikes, create an outfit worthy of Milan Fashion Week',
+      'Fanfiction of any two Star Trek characters (bonus points if it is over 500 words)',
+      'Have one of the Suds manager teach you how to tap a keg (requires video proof and explanation)',
+      "Convince the Toike EIC to give you a monthly column for the year. It must have a coherent theme - advice columns don't count",
+      'Steal a toboggan.',
+      'Give me 42 cents in any European or Asian currency. The more obscure the better.',
+    ],
+    img: Mila,
   },
   {
-    name: 'Erika',
+    name: 'Julian Papasodaro',
     description:
-      "Waddup homies, I'm Erika (MECH 2T3 + PEY)! You can find me somewhere in the Pit- my home (15 mins) away from home <3. My favorite pasttimes include looking at pictures of otters holding hands, excessive crying, and curling up in balls until I become dirt.",
+      "Hey there! I'm Julian, an EngSci 2T5 (Robotics) that enjoys playing soccer and going to the gym with friends",
     content: [
-      'A dog to pet (bonus points if it is a very very long dog, or in a hotdog costume)',
-      'A smooch on the cheek from Mario Baker  (bonus points for his hand in marriage)',
-      'Make me a playlist',
-      'An essay on why alcohol is bad and should NEVER be permitted at any and all university events, especially in the Pit (bonus points for funniness)',
-      'Food of any sort',
-      'Convince someone to get their jacket weened',
+      'Tell me the rigorous definition of a limit, but *artistically*.',
+      'Show me a video of a team member(s) completing the crossbar challenge.',
+      'Build me a house using an entire deck of cards with calculations to support the design.',
+      'Use Python to draw the CN Tower.',
+      'Deliver an engineering-related pickup line on the TTC.',
+      'Create a new element on the periodic table that represents the Skule community (include discovery history and current uses).',
+      'Submit a feedback form to the TTC where you discuss (from an engineering perspective) five things that can be improved (in detail).',
+      'Skuleify the lyrics of “Wish You Were Here” by Pink Floyd.',
     ],
-    img: erika,
+    img: Julian,
   },
   {
-    name: 'Celin',
+    name: 'Athavan Balakumar',
     description:
-      'Heyo everyone, I"m Celin (Mech 2T5) and I commute all the way from Aurora (so sad). My toxic trait is that I make commuting my entire identity. I also love defying gravity temporarily, jumping, cats, and Skule.',
+      "Hi I'm Athavan! I'm an electrical eng 2T7. In my free time I hoop, listen to music, and hang out with friends. I'm also an HL for Tau #tauontop",
     content: [
-      'Come up with a new engineering dance to an anime song and perform it',
-      'Make/bring me an exotic meal under 10 dollars',
-      'As many Ultimate F!rosh as you can find (past or present) doing an epic jump sequence (Bonus points for   amount of UFs and creativity of jump sequence)',
-      'A picture of your team with an old ttc streetcar',
-      'The funniest patch you can find',
-      "Mr Blue and Gold's hardhat",
+      "I'm a firm believer in the power of friendship, so make a friend in every frosh group (bonus if there’s someone from every discipline).",
+      'I love nice cars: take a photo of a car worth > $150,000 CAD (photo must be after Skule Hunt starts).',
+      'Bring me someone with the same birthday as me (need proof) (bonus if they’re also an ‘05).',
+      'Teach me a pick up line in another language.',
+      'Because I’m going into my third year, get me a referral to a big tech company for my PEY.',
+      "I'm a big back: bring me a unique snack/bev under $5 that you like.",
+      'Come up with a pitch + prototype for IEEE Tech Team’s fall project (bonus if an IEEE exec from 2026 or 2025 approves).',
+      'Perform 30 seconds of an unreleased Drake and/or PARTYNEXTDOOR verse.',
+      'Draw a fire poster of Shai Gilgeous-Alexander worthy of my wall.',
+      'Bring me an orchestral instrument and teach me how to play it.',
     ],
-    img: celin,
+    img: Athavan,
   },
   {
-    name: 'Ben',
+    name: 'Sam Denomme',
     description:
-      'Hello hello I"m Ben (EngSci 2T4 + PEY)! I come from a distant rural community (KW) but I basically live in the Pit full time. I"m a big fan of truthful and accurate newspapers, as well as leafy greens! I can drive a tractor and I have (accidentally) tipped one (1) cow.',
+      'I am a Civ 2T5+1+PEY, captain of Concrete Toboggan, past Skule Patrol Chair, Suds Server Bnad Keener and overall Skuligan. I enjoy musc, gaming, and building cool things, and when I’m not doing any of those things I am certainly up to no good.',
     content: [
-      'A DIY musical instrument',
-      'One head of lettuce to share',
-      'A drawing of me',
-      'A better chair',
-      'A cool rock',
-      'A cool bug',
-      'Blackout poetry with the Toike',
-      'Something tasty',
-      'A little kiss on the forehead from a SUDS manager',
+      'Get a Skule Patroller to give me the thickest cup of Banana Koolaide.',
+      'Bring me a cool piece of concrete.',
+      'Have you and your four closest friends reenact the “Welcome to the Black Parade” music video.',
+      'Write a fanfic about me and your favourite Skule Trinity head.',
+      'Have the band serenade me.',
+      'Give me a really cool Pokémon card.',
+      'Beat me in a Pokémon Showdown Gen 9 Doubles battle.',
+      'Make it purple.',
     ],
-    img: ben,
+    img: Sam,
   },
   {
-    name: 'Kaija',
+    name: 'Sophia Hill',
     description:
-      'I"m Kaija and I am an EngSci (unfortunate ik) 2T5! I enjoy many normal hobbies like crocheting, singing and baking and I also enjoy even normaler hobbies like being in the pit for long periods of time, accidentally overcommitting and recreational screaming. Oh and I am from Alberta (yeehaw!) (feel free to use this against me) Uh I have bribes too, I promise',
+      "Howdy! I'm Sophia (ECE 2T5 +?) and I'm super excited to be a Skule Hunt Judge this year! You may have also seen me around as Toike Oike Editor In Chief (you should totally check out the Toike!) or one of the Head Patrollers in Skule Patrol this year. You can also usually find me at BnG builds, Bnad crashings, checking out pretty buildings on campus, Skule Patrolling, or yapping about my fandoms and cats (Marmalade, Snow, and Milya).",
     content: [
-      "Perform your favourite song for me and then explain to me why it's your favourite. (bonus points if I add it to my playlist!)",
-      'Have the Lady Godiva Memorial Bnad serenade me',
-      'Something I can add to my covvies (patches are good but creativity is encouraged!)',
-      'Find a scunt chair (past or present) and do something nice for them (provide me with proof!)',
-      'Teach me to wink with my left eye (points for effort because I am a lost cause)',
-      'Make me cool new earrings',
-      'Any number of bees',
+      'Find me someone with the same birthday as (or within a week of) my cats (April 13, 2007).',
+      'Do a dramatic reading of your favourite Toike article.',
+      'Bring me the delicious beverage from Skule Patrol (and try some yourself — need evidence).',
+      'Leave kudos on a Toike AO3 fic.',
+      'Make me a friendship bracelet.',
+      'Make a donation of up to $5 to the Canadian Cancer Society: https://cancer.ca/en/?form=ca-general.',
+      'Follow @thetoikeoike on Instagram.',
+      'Sing “All Too Well (10 Minute Version) (Taylor’s Version) (From The Vault)” in full.',
+      'Apply to be a Toike F!rosh exec (please).',
+      'Find a sticker from a Skule entity stuck in an unconventional place.',
     ],
-    img: Kaija,
+    img: Sophia,
   },
   {
-    name: 'Alexi',
+    name: 'Evelyn Fallah',
     description:
-      "Hello nerds!! I'm Alexi and an NΨ2T3 + PEY. Yes, the back pain has started along with fourth year, but it's fine!! I game sometimes, but my aim is so bad it actually takes skill to be as bad as me. If you can teach me to get better you'll have a special place in my heart.",
+      'Hi, I’m Evelyn and I’m an EngSci ECE 2T7 (going into third year in EngSci in the ECE option). I’m a huge nerd about Skule lore, history, and culture. I regularly attend ****, can be found guarding Ye Olde Mighty Skule Cannon, or helping out with a build. Name a page on Skulepedia and I’ve probably read it. I love traditions in Skule and hope my bribe list helps you get curious about some of them :). In addition to that, I do academic advocacy as the EngSci 3rd year class rep and an Undergrad Assessment Committee student rep. I have also been involved in a variety of clubs like University of Toronto Aerospace Team SAE (VTOL plane), Toike Oike, University of Toronto Engineering Student Consulting Association, and Skule Choir. The past two summers, I did a 4-month CO-OP and summer research in Singapore through the Engineering Science Research Opportunities Program. Feel free to ask me about any of this stuff if you see me around.',
     content: [
-      "do 30 push-ups. If you do even one push-up with me on your back I'll give you bonus points.",
-      "Explain to me why when a ship transports something it's cargo but when a car transports something it's a shipment",
-      "Show that 9 = 10. Bonus points if you're an engineer about it",
-      'Tell me why',
-      'Make me laugh with your best dad joke',
-      'Guess the longest distance I have ever driven in one stretch (including gas and bathroom breaks)',
-      "Beat me in a fair eating contest using a meal of your choice. I'll even pay you back if you win (I can't eat forever so this is a one time deal)",
+      'Beat me at JSTRIS.',
+      'Bring me a signed love letter to me from Ass (with proof they signed it).',
+      'Deliver me a non-yellow U of T Engineering hard hat (points scale with rarity).',
+      'Perform Godiva’s Hymn (at least one verse).',
+      'Pitch your personal Skule Trinity.',
+      'Give me the location of an engineering mascot (other than ours).',
+      'Identify (photo) a concrete declaration of love from EngSci.',
+      'Convince Ava (Gold Chair) that Welch’s Fruit Snacks are better than Mott’s Fruitsations.',
+      'Take a group photo (≥7 people) with the CN Tower (bonus if it’s dark and the lights are off).',
+      'Give me a sword.',
     ],
-    img: alexi,
+    img: Evelyn,
   },
   {
-    name: 'Karen',
+    name: 'Sebastian Kiernan',
     description:
-      "Hello! My friends call me Karen and the Dean calls me trouble. I'm a ECE1T9+???, and I'm here for both a long time and also a good time. My hobbies include irrigation systems, wittowy hitting the gwiddy durwing fwosh week, and arson.",
+      "HI FROSH I'm Sebastian, I'm a TrackOne -> Mech 2T7 (+PEY I hope), and I like to do a few things around here. I'm currently a Blue & Gold Committee co-chair, Engineering Society board representative, class rep, and occasional member of a couple design teams. I'm also a co-chair for running Frosh Games so if you enjoy those PLEASE tell me all about it!! When I'm not overcommitting myself at Skule, I also enjoy trying to do more things than I have free time for - art, playing the trumpet, climbing, going outside (please touch grass y'all), D&D, blah blah blah you get the picture. Basically I have WAY too many interests and I'm always looking for more so you can yap at me about pretty much anything! Anyhoodle yeah see you at the hunt, I promise I'll only be a little judgier than I have to :)",
     content: [
-      'An original erotic fanfiction between Sudsman and the LGMBeaver',
-      "Sing for me, with guitar accompaniment, the 'Stuart Little's Not A Mouse' song by Jordan Keyes",
-      'Food (must be tasty)',
-      'Wear a full body denim joutfit, with minimum 5 different pieces',
-      'A bottle of pickle ranch',
-      'A John Denver CD',
-      'patch???',
-      "Stella Gregorski's University Degree (folded)",
+      'Beat me in a thumb war.',
+      'Cool bug (alive and safely contained).',
+      'Draft a motion for the next EngSoc board meeting.',
+      'Leave a nice note on the Blue & Gold door.',
+      'Something from the old Pit.',
+      "Your finest doohickey/gizmo/etc. (I won't take it — I just wanna see).",
+      'A REALLY good Minecraft seed (bonus if you show me in-game).',
+      'A fun or obscure idea for a B&G movie night.',
+      'Draw your best crayon masterpiece.',
+      'A space industry job.',
+      'Teach me Tagalog.',
     ],
-    img: karen,
+    img: Sebastian,
   },
   {
-    name: 'Nat',
+    name: 'Melanie Ye',
     description:
-      'Hey party people! I"m Nat an MSE 2T4 + PEY (yes we are the material gorls). I don"t condone stealing from small local businesses, but big box corporations are free game (for legal reasons this is a joke). Ask me about my go-to vintage stores or about the time that I got lost in the city sewer system and I"d be happy to tell you!',
+      "Hi everyone! I'm Melanie a MECH 2T7 going into Mechatronics (I actually don't know shit about circuits) and Bioengineering (haven't even taken gr12 bio). I was one of the Skule Hunt chair last year so I'm really excited to be back again for this event! I love getting involved around SKULE so you can find me as part of Hi-Skule, EngSoc's social media coordinator, Lady Godiva Memorial Band blah blah blah. In my free time I love playing logic puzzles and trying to catch up on sleep anywhere. I look forward to judging everyone!",
     content: [
-      'Bring me an ultrasound of a farm animal',
-      'Give a glam makeover to an engineering building',
-      'A drag performer (bonus points if they perform)',
-      'Make a creative disguise',
-      'Some container of candy corn (bonus points if there is exactly 69 pieces inside)',
-      "Print and post my propaganda up around campus (bonus points if it's somewhere unexpected)",
-      'A live bird (bonus points if it can talk)',
-      'Something that I would find meaningful',
+      'Cook a meal/snack entirely out of a microwave and let me critique it Gordon Ramsay–style (yes, like my fake frosh bacon-in-microwave prank).',
+      'Pour your heart and soul out in a Just Dance — bonus if you sing along.',
+      'Convince me to love onions and bell peppers without making me eat them.',
+      'Find me a new online puzzle website to obsess over.',
+      'Decorate my green hard hat in honour of my EngSoc SMC position (KEEP IT SFW).',
+      'Give me a lecture with the tone of a disappointed parent.',
+      'Find pictures of me on https://photos.skule.ca/.',
+      'Show me the best keychain/pin/patch/sticker.',
+      'Reveal a super secret family recipe to me.',
+      'Find a frosh Doctor Who fan and have them out-fan me.',
     ],
-    img: nat,
+    img: Melanie,
   },
   {
-    name: 'Khalil',
-    description:
-      "Hi everyone! My name's Khalil and I'm an EngSci 2T3 in the ECE option. I love computers (obviously) and have built one from part I found in the trash, live music, and video games. I just finished my PEY at intel (ik im old) and I'm also in UTAT space!",
+    name: 'Yanni Alevras',
+    description: 'A tiny so cool and fragile ece 2T6 who is hungry, allergy filled, and tired',
     content: [
-      'A Colins era CIV102 notebook',
-      "Mr B&G pants (Not the ones they're wearing please), or Lady Godiva horse",
-      'Patches from another university (More points the further the uni is, or the weirder the patch is)',
-      'A dog!!',
-      'The smallest USB (storage-wise) you can find',
-      'Old Comics',
-      'Justify your favourite bubble tea',
-      'Ikea Plushies',
+      'Harvey’s onion rings.',
+      'Compliment me in my own language (figure it out).',
+      'Beat the Ender Dragon in front of me.',
+      'Guess my favourite Pokémon.',
+      'Tell me three fun facts about myself.',
+      'Beat me in Mario Kart.',
+      'Call Lisa.',
+      'Bring me Alyssa or LC.',
+      'Paint me like one of your French ladies.',
+      'Sing me a song I love.',
     ],
-    img: khalil,
+    img: Yanni,
   },
   {
-    name: 'Tanya',
+    name: 'Isobel Arseneau',
     description:
-      'Howdy! Im Tanya and an ECE 2T5, I am a fan of traveling to different countries, reading fanfics and wasting all my money on food!',
+      'Hi, my name is Izzy! I am an EngSci 2T5 + PEY in the Biomedical Engineering option and I use She/Her pronouns. I am an HL for Beta this year!! A little about me… I love musical theatre, ice cream, and dance! I am a founder and the Educational Director for the Engineering Drama Society (EDS), I was on cast for Skule Nite (the Engineering Musical) for 3 years and was choreographer last year. Last year I was in Trinity College Dramatic Society’s production of Heathers and I will be performing in EDS’s production of Spring Awakening this fall. I’ve been on the Human Powered Vehicle design team for 3 years, I was Equity Director for EngSci club, and I am a SUDS server. Message me if you wanna come to a dance class or be in the musical I’m writing (@isobelarseneau).',
     content: [
-      'bring me a live animal (extra points if its a farm animal)',
-      "a photo of a campus study spot I haven't been to",
-      'make me a cool tattoo design',
-      "sing 'ole' MacDonald had a farm' in front of a mcdonalds",
-      'make me a paper crown',
-      'perform an animal-sound off with another scunt group (oink/bark/sheep sounds at other groups)',
-      'sign one of the scunt-co-chairs body part in permeant marker',
+      'Pitch the Engineering Drama Society’s next production (pick a show and convince me why; bonus if you find a Toronto venue and a student to direct/choreograph/music-direct).',
+      'Bring or make me a friendship bracelet.',
+      'Perform a dance from a Broadway show (bonus if it’s from Heathers, A Chorus Line, or Chicago).',
+      'Write me a theme song for a TV show about your life (30–60 seconds).',
+      'Sing me a song from a musical (I will have karaoke tracks).',
+      'Bring me ice cream (preferably chocolate).',
+      'Build me a model of an animal or plant cell.',
+      'Reenact a Skule Nite sketch I was in.',
+      'Convince three people to buy tickets to Spring Awakening (show proof).',
+      'Bring me anything Star related.',
+      'Bonus (very challenging): Bring me Lincoln Macdonald.',
     ],
-    img: tanya,
+    img: Isobel,
   },
   {
-    name: 'Luka',
-    description:
-      'Hi All! I am Luka and I am a Eng Sci BME 2T3 + PEY. I am into every sport possible so I may or may not have a soft spot for sports related bribes .  Other than that, I love to travel, make bad jokes, and watch sitcoms. I am also involved with UT BIOME so come talk to me if you want to learn more about biomedical design teams! ',
+    name: 'Martin Gutierrez Ramirez',
+    description: 'Just an average joe, who loves a cup of joe',
     content: [
-      'Paint/Draw a portrait of me (needs to pass my approval) 🖼️',
-      'Bring me anything purple not from your frosh kit 💜',
-      'Perform the final scene of Jack and Rose in the Titanic (extra for singing “My Heart Will Go On” by Celine Dion) 🚢',
-      'Bring me a hard copy of Stewart Calculus 📕',
-      'Food is the way to my heart ❤️',
-      'Wear some Toronto Maple Leafs gear 🍁',
-      'Bring me some dog toys (bonus points if you wear a dog collar and leash while doing it)',
+      'Coffee with Chris.',
+      'Sing and dance your heart out for me (bonus if you come up with both yourself).',
+      'Badr.',
+      'Feed me (bonus if you get a Spirit Head to feed me).',
+      'Practice your standup routine on me.',
+      'Cool rock.',
+      'Monster.',
     ],
-    img: luka,
+    img: Martin,
+  },
+  {
+    name: 'Sahana',
+    description:
+      "Hi I'm Sahana <3 (if u wanna know more abt me come complete bribes and we can yap)",
+    content: [
+      'Choreograph a dance routine to your fav song and perform it as a group (≥2 people).',
+      'Find three people in your group who aren’t from here and say hi to me in their languages (bonus if they sing me a song).',
+      'Make a poster of cute dogs and cats from the streets of Toronto for me.',
+      'Make a random dog on the street do a trick and record it for me.',
+      'Love letter from a minister (preferably ASS MINISTER 🤭).',
+      'Hug from a Skunt Co-Chair.',
+      'Create and perform a funny skit representing your discipline (bonus if multiple disciplines).',
+      'Get me a vegan sweet treat (≤ $5).',
+    ],
+    img: Sahana,
+  },
+  {
+    name: 'Azmi Rahim',
+    description:
+      "Hey Frosh! My name is Azmi (she/her) and I'm one of your Skule Hunt judges this year! I'm a Mech 2T5 + PEY going into my final year🤩 I like the 2016 Honda Civic, Kdot, and fries. I'll order fries with anything there is nothing that fries doesn't taste good with. I'm also your Skule External Relations Director this year! If you wanna go to some cool conferences (i.e. grown up field trips🤩) you should totally go drop a follow @skule.external (shameless plug). Can't wait to meet you all!",
+    content: [
+      'Follow Skule External on Instagram: @skule.external.',
+      'Like Skule External’s posts on Instagram (X points each).',
+      'Comment on Skule External’s posts (Y points each).',
+      "Repost Skule External's latest Instagram post and encourage people to follow.",
+      'Sign up for the Skule External mailing list.',
+      'Rap 30 seconds of *Euphoria* by Kdot.',
+      'Get me a can/bottle of Diet Coke 🤩.',
+      'Write a rap about why I’m the coolest judge and perform it.',
+      'Record a video telling Frosh/Skule students why they should attend conferences (only if you’re okay with being posted on Skule External Instagram).',
+      'One photo of your beautiful face for the website.',
+    ],
+    img: Azmi,
+  },
+  {
+    name: 'Hannah Lila',
+    description:
+      'hey everyone, i’m hannah! i’m an ece 2t5 + pey (going into fourth year) and i’m super excited to be a professional hater this year (skule hunt judge). yap with me about art, chess, cats, good music, matcha, and more (im what your local performative male is trying to be) and you might be able to score some extra points ;)',
+    content: [
+      'Find all my signatures on the frosh merch (bonus if you find any unsigned pieces).',
+      'Draw your best rendition of a cat in a flower field.',
+      'Tell me about your most diabolical situationship.',
+      'Follow my art account on Instagram — no hints (prove your private investigator skills).',
+      'Make me a friendship bracelet or bag charm.',
+      'Get Mario Baker to send me their cookie recipe.',
+      'Beat me in a bullet game of chess.',
+      'Put me on to your best perfume #notastinkyece (bonus if I can smell it).',
+      'Design ECE-themed merch and send it to ECE Club (graphic design is my passion).',
+    ],
+    img: Hannah,
+  },
+  {
+    name: 'Lauren Altomare',
+    description:
+      'Hello hello! I’m Lauren, an EngSci 2T6 in the biomedical systems engineering option! I love anything biology, especially when you throw a little tech and entrepreneurship in the mix. At Skule, I frequent various corners of the extracurricular landscape, ranging from WISE, to iGEM, UTBIOME and Skule Nite. Outside of skule, I do rather enjoy being outdoors (i.e. cycling, running, hiking, etc.) and creative stuff (i.e. piano, writing, film). Looking forward to seeing you all purple :)',
+    content: [
+      'Write and perform a comedy sketch with your newfound f!rosh friends (bonus if a Skule Nite member makes a cameo) (NO AI).',
+      'A purple Japanese sweet potato / jicama / parsnip / beet / butternut squash.',
+      'Invent a new engineering discipline and give me your 1‑minute elevator pitch (bonus if you acquire faculty support).',
+      'Get five strangers on campus to sing Godiva’s Hymn with at least two-part harmony.',
+      'Name three uses for a toaster in engineering. Demonstrate one.',
+      'Find a rock from every U of T college (label with sticky notes).',
+      'Create a Skule-themed tarot card deck and do a three-card reading for me.',
+      'Collect seven different types of safety equipment from campus (goggles, gloves, etc.).',
+      'Playlist of seven songs that describe the emotional arc of Frosh Week (bonus for cover art).',
+      'Draw a technical diagram of a non-engineering thing (e.g., “internal mechanics of an all-nighter”).',
+    ],
+    img: Lauren,
+  },
+  {
+    name: 'Maria',
+    description:
+      'hi :0 my name is Maria and I am one of your co-chairs for Skule™ Hunt this year. Really excited for you to be attending our event and hope you have the most amazing time. Say hi if you see me around and maybe try out one of my bribes!',
+    content: [
+      'Draw me your best version of Snorlax (the more colour the better).',
+      'Write a haiku about your favourite game.',
+      'Show me your Pokémon collection in real life and I will rate it.',
+      'Dress up as your favourite game character (bonus for creativity).',
+      'Beat me in a game of ping-pong (first to 11) (bring rackets and ball).',
+      'Make us friendship bracelets.',
+      'Redesign the Skule Hunt logo and make a sample T-shirt with the logo.',
+      'Bring me the rock from *Everything Everywhere All at Once*.',
+      'Give me π on a napkin.',
+      'Find someone who went to my high school (with consent and proof).',
+    ],
+    img: Maria,
   },
   {
     name: 'Novera',
     description:
-      "Hiya frens, I'm Novera, an Engsci (fiziks) 2T5. If I'm not taking photos around Skule or being overcommitted to Engsoc and Design Teams, then you'll probably find me eeping through 9 am lectures, being a competitive vroom vroom gamer grill, or religiously organizing my monthly Spotify playlists.",
+      "Hiya gang! I'm Novera and I'm your other co chair for Skule™ Hunt 2T5! Can't wait for some tomfoolery and shenanigans to unfold. You may notice us running around, make sure you stop to say hi! I've been doing this for far too long I can't wait to graduate. Can't wait for the night!! ",
     content: [
-      'A cat to pet and give cuddles to',
-      'Signed and addressed love letter to me from anyone in Engsoc VP team (Past or Present)',
-      '3D CAD design me something cool',
-      "Live karaoke performance with backup dancers (Bonus points if you've got the fit or its one of my favourite artists)",
-      'Let me talk to ur mum on the phone',
-      'Print out your favorite picture of me holding a camera on photos.skule.ca and sign it',
-      'Make me a DIY friendship bracelet',
-      'Get me a list of people that would actually date Emaan and let me filter through it (Potentials must be upper year only)',
+      'Lobster',
+      'convince me to confess to the huzz',
+      "bring me your mom's validation",
+      "show me a niche hobby you have (bonus if I'm convinced to join)",
+      'find and rate a bouldering problem on campus (be safe)',
+      'get everyone to Dance Dance Revolution',
+      'group pose trend and let me post it on my IG',
+      'make me a postcard drawing from your hometown',
+      'show me a good rock with mathematical proof',
+      'teach me something.',
     ],
-    img: novera,
+    img: Novera,
   },
   {
-    name: 'Jeremy',
+    name: 'Karys',
     description:
-      "Hi peeps, my name is Jeremy and I am a mech 2T3+PEY from the the good ol' USA  (Seattle). If I am not busy trying to figure out how to do skule, I can usually be found on the volleyball court or at some UTAT event. Below is the list of bribes I have.",
+      'hi everyone! my name is karys and i’m an engsci bme 2T8. i was a leedur for tau (RAHH) and co-chair for downtown walkaround (DOUBLE RAHH)! skunt is my favourite event behind dtw (minorly biased) and i’m so excited to be a judge!! feel free to ask me about engsci, research, and good places for food and coffee!',
     content: [
-      'The best, leveled up, instant ramen (quality over quantity)',
-      'Complete my sad patch collection (bonus points if it is old and relates to one I already have)',
-      'The OG, better version of the CN Tower',
-      'Come up with a nickname/pun using my name that I have not heard already',
-      'Something from my favorite basketball player (hint: we have something in common)',
-      'Teach me how to properly do a volleyball dolphin dive (bonus points if it is with a volleyball)',
-      'A list of UTAT Executive directors past and present and the years they served',
+      'reunite downtown walkaround (bring me keya, nick, and justin)',
+      'collect and bring a token from every frosh group',
+      'last year nestea was ripped away from canadians. it’s been returned to us. return it to me and bring me a can (NOT FUZE)',
+      'bring me costco samples and the 1.50 hot dog with ketchup',
+      'take a photo at my old dorm door, chestnut 2446 (DO NOT DISTURB THE PEOPLE IN THE ROOM)',
+      'located and take a photo with the « secona » sign (hint: it’s in a uoft library)',
+      'procure a bag of nerds gummy clusters but a minister has to deliver them',
+      'find three people who know how to play',
     ],
-    img: jeremy,
-  },
-  {
-    name: 'Rimjot',
-    description:
-      "Howdy y'all! My name's Rimjot and I'm a CHEM 2T5. You'll likely spot me around a library trying to study for something or at an event with free food (we love free food)! But otherwise I really enjoy listening to music (Spotify increasing its monthly fee made me cry) and walking weirdly fast until I realize I'm walking super fast and then slowing down because suddenly I'm tired.",
-    content: [
-      "Make me something containing flowers (bonus points if you're able to incorporate my favourite colour) (no I'm not telling you what my favourite colour is)",
-      "A patch to add to my collection pls (bonus points if it's not a UofT patch)",
-      'Make me a little playlist',
-      "A picture of something that you'd find on a farm that's actually in a big city (bonus points if it's not located in a store)",
-      'Find my favourite study spot',
-      'Tell a Scunt Chair I said hi in an unconventional way (pls provide proof)',
-    ],
-    img: rimjot,
-  },
-  {
-    name: 'Katie',
-    description:
-      "Heyyy I'm Katie. I'm an EngSci 2T5 in the Biomedical Systems Engineering option. I am literally from a town that used to be called Farmersville so Frosh this year is my thing. I can also totally be bought so please bribe me.",
-    content: [
-      'Sing Taylor Swift (bonus if you do All Too Well 10 minute version)',
-      'Figure out my favourite night-before-a-midterm food and get it for me',
-      "Draw me a picture that would look good in my apartment (I'm in desperate need of artwork)",
-      'Find me a patch you think would look fire on my overalls',
-      'Get me a book you think I need to read',
-      'DIY me something to add to my outfit',
-      'Write me a poem and perform it (more drama, more points)',
-    ],
-    img: katie,
-  },
-  {
-    name: 'Emaan',
-    description:
-      "Heyo cuties, I'm Emaan, an EngSci 2T5, choosing to go into the Energy Systems option after pouring my heart and soul into making it everybody else's problem because my indecisive ass has issues. For entertainment purposes, you can probably find my face stuck behind a phone documenting your life for the sole reason of subscribing you to FarmersOnly because I believe everybody deserves love! I'm a dramatic piece of shit, but also a pathological people pleaser so you can probably beg me for points but here's some potential bribes since I'm assuming (unlike me) you probably want to keep your dignity intact:",
-    content: [
-      'guess articles I wrote in the Toike (bonus points if you can get me to actually admit it)',
-      "get me a customized Iced Capp from Tims to try (note: no whipped cream, no alcohol, no FOOD in it pls i'll cry and you'll get negative points, and make sure it's under $5)",
-      'get Mario to design me personalized converse',
-      'for educational purposes, DM me a detailed explanation of what a red flag is (pls I need to know)',
-      'get/make me fake flowers',
-      "love letters from people in the F!rosh Week 2T3 Marketing team (bonus points if it's from Novera)",
-      'make me cool rings! (bonus points if you can get my ring size right)',
-      "make a tiktok/take a bereal with me because I'm into clout",
-    ],
-    img: emaan,
-  },
-  {
-    name: 'Amélie',
-    description:
-      'Hi hi I"m Amélie I"m a Mech 2T4 + PEY. l have two cats back home in Chicago named Saffron and Edward Geraldson the 3rd and I like launching things into the sky and zooming down hills',
-    content: [
-      'Build me a model of a rocket-propelled toboggan',
-      'Put together a frosh kit for me with things around the pit',
-      'Perform a mashup of the English, American, and Canadian National anthem',
-      'Handstand',
-      'Design a patch for me and explain the reasoning behind your design',
-      "Bring me the picture of my girlfriend in the varsity (I'll tell you the edition for a cookie)",
-      'Haiku on why I should not go into work tomorrow',
-    ],
-    img: amelie,
-  },
-  {
-    name: 'Tyler',
-    description: 'Hello fellow kids, I enjoy CFCs and tobogganing down hills on concrete.',
-    content: [
-      'An unusual but delicious food combination',
-      'Convince the bnad to crash me and join them',
-      'Artwork of a cool train',
-      'Show me your fursona',
-      'Bring me all of my roommates',
-      'Find the city bylaw that allows me to sue my landlord for not having running water',
-    ],
-    img: tyler,
-  },
-  {
-    name: 'Will',
-    description:
-      'Hay there! My name is Will I’m a chem 2T5 I’m one of the scunt co-chairs and I L O V E love animal facts',
-    content: [
-      'Get sturdy for me',
-      'Get something new banded from the SUDS, the pit or Skule Hunt’ that wasn’t banned before',
-      'Make fan art of me and Tyler',
-      'Best performance of“Jamaica there trapped down in…”',
-      'Bring me a grocery store cake, I’ll pay you back',
-      'Decorate my hat',
-    ],
-    img: will,
+    img: Karys,
   },
 ];

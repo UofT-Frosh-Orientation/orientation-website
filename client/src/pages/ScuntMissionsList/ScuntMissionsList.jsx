@@ -7,6 +7,7 @@ import { QRNormal } from 'react-qrbtf';
 import { Link } from 'react-router-dom';
 import { ScuntLinks } from '../../components/ScuntLinks/ScuntLinks';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
+import { ScuntTitle } from '../../components/ScuntTitle/ScuntTitle.jsx';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { loggedInSelector, registeredSelector, userSelector } from '../../state/user/userSlice';
@@ -21,6 +22,7 @@ import { scuntTeamTransactionsSelector } from '../../state/scuntTeams/scuntTeams
 import { getScuntTeamTransactions } from '../../state/scuntTeams/saga';
 import { PopupModal } from '../../components/popup/PopupModal';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 
 function getMissionCategories(missions) {
   let currentCategory = '';
@@ -55,22 +57,36 @@ const PageScuntMissionsList = () => {
   if ((revealMissions !== true && !leader) || !loggedIn) {
     return (
       <>
-        <Header text={'Missions'} underlineDesktop={'300px'} underlineMobile={'210px'}>
+        <div className="hidden-scunt-missions-container">
+          <ScuntTitle />
           <ScuntLinks />
           <div className="scunt-check-soon-title">
-            <h1 style={{ color: 'var(--text-light)' }}>CHECK BACK SOON!</h1>
+            <h1
+              style={{
+                textAlign: 'center',
+                color: 'var(--text-primary)',
+                fontWeight: '900',
+                padding: '25px 4% 0 4%',
+              }}
+            >
+              Check back soon!
+            </h1>
           </div>
-        </Header>
+        </div>
       </>
     );
   }
 
   return (
     <>
-      <Header text={'Missions'} underlineDesktop={'300px'} underlineMobile={'210px'}>
+      <div className="hidden-scunt-missions-container">
+        <ScuntTitle />
         <ScuntLinks />
-      </Header>
-      <PageScuntMissionsListShow />
+        <PageScuntMissionsListShow />
+      </div>
+      {/* <Header text={'Missions'} underlineDesktop={'300px'} underlineMobile={'210px'}>
+        
+      </Header> */}
     </>
   );
 };
@@ -83,15 +99,14 @@ const ReportMission = () => {
       <PopupModal trigger={click} setTrigger={setClick} exitIcon={true} blurBackground={false}>
         <ReportMissionPopup></ReportMissionPopup>
       </PopupModal>
-      <Button
-        style={{ boxShadow: '5px 5px 20px #13131362' }}
+      <ButtonRound
+        style={{ marginTop: '15px', marginBottom: '25px' }}
         class_options=""
         label={<div className="scunt-report-popup-button">Report Mission</div>}
-        isSecondary
         onClick={() => {
           setClick(true);
         }}
-      ></Button>
+      ></ButtonRound>
     </>
   );
 };
@@ -145,8 +160,8 @@ const ReportMissionPopup = () => {
 
   return (
     <div className="scunt-report-popup-container">
-      <h1>Report Mission</h1>
-      <p style={{ marginBottom: '20px' }}>
+      <h1 style={{ fontWeight: '900' }}>Report Mission</h1>
+      <p style={{ marginBottom: '10px', marginTop: '15px' }}>
         Your report will be shared with F!rosh Execs, we aim to review reports within 30 minutes.
       </p>
 
@@ -178,9 +193,9 @@ const ReportMissionPopup = () => {
       </div>
 
       <div style={{ textAlign: 'center' }}>
-        <Button label={'Submit'} onClick={handleSubmit}>
+        <ButtonRound label={'Submit'} onClick={handleSubmit} style={{ marginTop: '25px' }}>
           Submit
-        </Button>
+        </ButtonRound>
       </div>
     </div>
   );
@@ -299,17 +314,19 @@ const PageScuntMissionsListShow = () => {
   return (
     <div>
       <div className="scunt-missions-header">
-        <h2>WANT ANOTHER WAY TO EARN POINTS?</h2>
+        <h2>Want another way to earn points?</h2>
         <div className="scunt-missions-header-link">
-          <Link to={'/skule-hunt-judges'}>Don&apos;t forget to bribe the judges!</Link>
+          <Link to={'/skule-hunt-judges'}>
+            Don&apos;t forget you can get bonus points from the judges!
+          </Link>
         </div>
         <div className="scunt-missions-judging-station-info">
-          <img
+          {/* <img
             src={greenCheck}
             className="judging-station-info-star"
             alt="judging station indication"
-          />
-          <p>These indicate completed missions!</p>
+          /> */}
+          {/* <p>Click a mission to get a QR code judges can scan!</p> */}
         </div>
         <ReportMission></ReportMission>
       </div>
@@ -377,6 +394,10 @@ const PageScuntMissionsListShow = () => {
               />
             </div>
           </div>
+          <p style={{ color: 'var(--text-primary)' }}>
+            Click a mission to get a QR code judges can scan! Missions with a check mark have
+            already been completed by your team.
+          </p>
           <div style={{ height: '15px' }} />
           {mission !== undefined ? (
             <div

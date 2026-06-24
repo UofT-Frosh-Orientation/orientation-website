@@ -1,18 +1,378 @@
 @import '../../scssStyles/mixins';
 
+/*
+  Restyled to follow ScuntHome aesthetics:
+  - Use site variables (colors, shadows, radii)
+  - Simpler flat backgrounds (no neon/pixel effects)
+  - Consistent spacing + typography hierarchy similar to about-scunt-container & FAQ
+*/
+
 .scunt-judges-container {
   display: grid;
-  //width: 90vw;
-  grid-template-columns: repeat(auto-fit, 450px);
-  align-items: center;
-  justify-items: center;
-  justify-content: center;
-  margin: 25px 0;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  padding: 24px min(50px, 6.5%) 48px;
+  margin: 18px 0 40px;
+  // background-color: var(--purple);
+  // border-radius: 16px;
+  // box-shadow: var(--shadow);
 }
 
 .scunt-judges-bribe-message-popup {
   text-align: center;
-  color: var(--white);
+  color: var(--text-primary);
   margin-top: 5px;
   font-size: 17px;
+  font-weight: 600;
+}
+
+.scunt-judges-profile {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the container while maintaining aspect ratio */
+  object-position: center; /* Center the image within the container */
+}
+
+.legend-text {
+  color: var(--text-primary);
+  text-align: center;
+  margin: 10px auto 4px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-family: 'Jersey 20', sans-serif;
+}
+
+// Pixel-style adjustments for exec profile overlays when used as judges
+.exec-container .exec-profile-description,
+.exec-container .nonexec-profile-description {
+  font-family: 'Press Start 2P', 'LittleWitches', 'Inter', sans-serif;
+  line-height: 1.35;
+  font-size: 0.68rem;
+}
+
+.scunt-bribes-text {
+  font-family: 'Press Start 2P', 'LittleWitches', 'Inter', sans-serif;
+  letter-spacing: 0.07em;
+  font-size: 0.75rem;
+  color: #5cffd6;
+  text-shadow: 0 0 6px #5cffd6, 0 0 10px rgba(92, 255, 214, 0.5);
+}
+
+.scunt-bribe-list-item {
+  position: relative;
+  list-style: none;
+  padding-left: 14px;
+  margin-bottom: 6px;
+}
+
+.scunt-bribe-list-item::before {
+  content: '▹';
+  color: #ff46c3;
+  position: absolute;
+  left: 0;
+  text-shadow: 0 0 6px #ff46c3;
+}
+
+/* Judge card (simplified) */
+.judge-card {
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--bg-primary);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transition: transform 180ms ease, box-shadow 200ms ease;
+  height: 400px; /* unify card height */
+  border: 1px solid var(--bg-secondary, transparent);
+}
+.judge-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 26px -6px rgba(0, 0, 0, 0.4);
+}
+
+.judge-card:active {
+  transform: translateY(-2px);
+}
+
+.judge-card-frame {
+  position: relative;
+  flex: 1 1 auto;
+  background: var(--bg-secondary, var(--bg-primary));
+  display: flex;
+  overflow: hidden;
+}
+
+/* Image */
+.judge-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.cochair-card .judge-photo {
+  object-position: top center;
+}
+/* All judge images (including tech team) now forced to cover the entire frame. */
+
+/* Optional per-judge positional tweaks */
+.judge-photo[data-name='Maria'] {
+  object-position: 50% 30%;
+}
+.judge-photo[data-name='Novera'] {
+  object-position: 50% 40%;
+}
+.judge-photo[data-name='Lauren'] {
+  object-position: 50% 25%;
+}
+.judge-photo[data-name='Julian'] {
+  object-position: 50% 20%;
+}
+.judge-photo[data-name='Melanie'] {
+  object-position: 100% 0%;
+}
+
+.pixel-shadow {
+  display: none;
+}
+
+/* Variant subtle outlines */
+.cochair-card .judge-card-frame {
+  outline: 2px solid var(--text-coloured, var(--text-primary));
+}
+.tech-team-card .judge-card-frame {
+  outline: 2px solid var(--sc-inverted, var(--text-primary));
+}
+
+/* Badges */
+.cochair-badge,
+.tech-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: var(--purple-shades-light, var(--purple));
+  color: var(--text-primary);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--bg-secondary);
+}
+.cochair-badge {
+  background: var(--purple-shades-light-light, var(--purple));
+}
+.tech-badge {
+  background: var(--faq-answer-containers, var(--bg-secondary));
+}
+
+/* Remove decorative overlay */
+.judge-card-frame::after {
+  display: none;
+}
+
+/* Name bar */
+.judge-name-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 14px 10px 18px;
+  text-align: center;
+}
+
+.judge-name-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.55) 50%,
+    rgba(0, 0, 0, 0.82) 100%
+  );
+}
+
+.judge-name-bar span {
+  position: relative;
+  display: inline-block;
+  padding: 6px 14px 8px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.58);
+  backdrop-filter: blur(4px);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--pure-white, #ffffff);
+  font-family: 'Jersey 20', sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* Dark mode: lighter pill w/ primary (light) text variable already tuned for dark bg elsewhere */
+.dark-mode .judge-name-bar span {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  text-shadow: none;
+}
+
+/* Modal content simplified (inherit PopupModal container look) */
+.judge-modal-content {
+  max-width: 800px;
+  padding: 8px 4px 12px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  font-family: inherit;
+}
+
+.judge-modal-bio {
+  margin: 0 0 18px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+.judge-modal-bribes h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: 'Jersey 20', sans-serif;
+  letter-spacing: 1px;
+}
+.judge-modal-bribe-list {
+  list-style: none !important;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: none !important;
+}
+.judge-modal-bribe-item {
+  font-size: 14px;
+  line-height: 1.4;
+  background: var(--faq-answer-containers);
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: var(--text-primary);
+  position: relative;
+  text-decoration: none !important;
+}
+// .judge-modal-bribe-item:before {
+//   content: '•';
+//   position: absolute;
+//   left: 8px;
+//   top: 10px;
+//   font-size: 18px;
+//   color: var(--text-primary);
+// }
+// .judge-modal-bribe-item {
+//   padding-left: 24px;
+// }
+
+.judge-modal-bribe-item:hover {
+  background: var(--bg-secondary, rgba(0, 0, 0, 0.1));
+  text-decoration: none;
+}
+
+/* Light/Dark specific background tuning for readability (neutral surfaces) */
+.judge-modal-bribe-item {
+  background: var(--bg-tertiary, var(--bg-secondary, rgba(0, 0, 0, 0.04)));
+}
+
+.dark-mode .judge-modal-bribe-item {
+  background: rgba(255, 255, 255, 0.08);
+}
+/* Flatten anchor styling inside bribes (remove global gradient underline effect) */
+.judge-modal-bribe-item a {
+  background: none !important;
+  text-decoration: none !important;
+}
+
+/* Ensure no underline or border accents appear in bribe text (override any global link/list styles) */
+.judge-modal-bribe-item,
+.judge-modal-bribe-item a,
+.judge-modal-bribe-item * {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+/* Force remove any residual gradient underline backgrounds */
+.judge-modal-bribe-item *,
+.judge-modal-bribe-item a * {
+  background-image: none !important;
+}
+/* Highest specificity pass */
+.judge-modal-bribe-list > li.judge-modal-bribe-item,
+.judge-modal-bribe-list > li.judge-modal-bribe-item * {
+  text-decoration: none !important;
+  background-image: none !important;
+  border-bottom: none !important;
+}
+
+/* Tyler image adjustment: PNG has transparent padding; crop lower portion */
+.judge-photo[data-name='Tyler'],
+.judge-photo[data-name='Tyler DeLaBarre'] {
+  object-fit: cover;
+  object-position: 50% 85%;
+  background: var(--bg-primary);
+}
+/* If still a visible gap, uncomment scale:
+ .judge-photo[data-name='Tyler DeLaBarre'] { transform: scale(1.08); transform-origin:center; } */
+
+/* Remove underlines & ensure link colors use theme variables */
+.judge-modal-content a,
+.scunt-judges-container a {
+  color: var(--text-link-for-dark, var(--text-coloured));
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+.dark-mode .judge-modal-content a,
+.dark-mode .scunt-judges-container a {
+  color: var(--text-link-for-dark, var(--text-coloured));
+}
+
+.judge-modal-content a:hover,
+.scunt-judges-container a:hover {
+  border-color: currentColor;
+}
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
+  .scunt-judges-container {
+    padding: 28px 24px 40px;
+    gap: 22px;
+  }
+  .judge-card {
+    max-width: 100%;
+    height: 380px;
+  }
+  .judge-name-bar span {
+    font-size: 15px;
+  }
+  .judge-modal-bio {
+    font-size: 14px;
+  }
+  .judge-modal-bribe-item {
+    font-size: 13px;
+  }
+}
+
+/* Legacy / overlay styles removed as card overlay replaced by modal */
+
+/* Aspect ratio fallback removed – fixed heights applied */
+
+/* Removed retro scanline animation */
+
+@media (max-width: 600px) {
+  .legend-text {
+    font-size: 16px;
+  }
 }

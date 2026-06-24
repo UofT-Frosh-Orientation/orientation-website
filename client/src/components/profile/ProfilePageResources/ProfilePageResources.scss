@@ -1,38 +1,99 @@
 @import '../../../scssStyles/mixins';
 
+:root {
+  --resource-link: var(--jam);
+}
+
+.dark-mode {
+  --resource-link: var(--yellow-light);
+}
+
 .profile-page-resources {
   margin-top: 20px;
   flex-wrap: wrap;
   overflow: hidden;
-  flex: 0;
-  flex-shrink: 1;
-  padding: 25px 30px !important;
+  flex: 1;
+  padding: 10px;
+  padding-top: 2px;
   h2 {
-    color: var(--text-dynamic);
-    font-size: 32px;
+    color: var(--text-secondary);
+    font-size: 24px;
+    margin-top: 40px;
+    margin-bottom: 8px;
+  }
+  @media (max-width: 1374px) {
+    h2 {
+      text-align: right;
+      margin-bottom: 16px;
+    }
   }
   @include devices(tablet) {
     max-width: 90vw;
     width: 90vw;
+    margin-top: 20px;
+    text-align: center;
+
     h2 {
       font-size: 26px;
+      margin-bottom: 8px;
     }
   }
 }
 
 .profile-page-side-section {
   max-width: 350px;
-  background-color: var(--container-bg);
-  box-shadow: var(--shadow);
   border-radius: 25px;
+  background-color: var(--resource-container-bg);
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 15px;
+
+  @media (max-width: 1374px) {
+    max-width: 100%;
+  }
+
   @include devices(tablet) {
     max-width: 90vw;
     width: 90vw;
-    margin-top: 20px;
+
+    align-items: center;
+    //flex-direction: row;
   }
   color: var(--text-dynamic);
+}
+
+.resource-link-group {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  @media (max-width: 1374px) {
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    justify-content: end;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  @include devices(tablet) {
+    flex-direction: column;
+    gap: 0px;
+    margin-bottom: 10px;
+  }
+}
+
+.resource-links {
+  font-size: 16px;
+  margin: 10px 0px;
+  background: none;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  color: var(--resource-link);
+
+  @media (max-width: 1374px) {
+    margin: 0;
+  }
+  @include devices(tablet) {
+    margin: 10px 0px;
+  }
 }

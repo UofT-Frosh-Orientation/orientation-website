@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './tabs.scss';
 import PropTypes from 'prop-types';
 import { Button } from '../button/Button/Button';
+import { ButtonRound } from '../button/ButtonRound/ButtonRound';
 import { ButtonSelector } from '../buttonSelector/buttonSelector/ButtonSelector';
 import ArrowRight from '../../assets/steps/arrow-right-solid.svg';
 import ArrowLeft from '../../assets/steps/arrow-left-solid.svg';
@@ -51,11 +52,16 @@ const Tabs = ({
         {displayButtons ? (
           <div className="tabs-buttons">
             {selectedTab !== 0 ? (
-              <Button
-                style={{ marginLeft: '-5px' }}
+              <ButtonRound
+                style={{
+                  marginTop: '30px',
+                  marginBottom: '30px',
+                  marginRight: '20px',
+                  marginLeft: '20px',
+                }}
                 label={
                   <div className="tab-button-label">
-                    <img src={ArrowLeft} style={{ marginRight: '10px', marginLeft: '-7px' }} />
+                    <img src={ArrowLeft} style={{ marginRight: '5px' }} />
                     Previous
                   </div>
                 }
@@ -68,12 +74,16 @@ const Tabs = ({
               <div />
             )}
             {selectedTab !== tabs.length - 1 ? (
-              <Button
-                style={{ marginRight: '-5px' }}
+              <ButtonRound
+                style={{
+                  marginTop: '30px',
+                  marginBottom: '30px',
+                  marginRight: '20px',
+                  marginLeft: '20px',
+                }}
                 label={
                   <div className="tab-button-label">
-                    Next{' '}
-                    <img src={ArrowRight} style={{ marginLeft: '10px', marginRight: '-7px' }} />
+                    Next <img src={ArrowRight} style={{ marginLeft: '5px' }} />
                   </div>
                 }
                 onClick={() => {

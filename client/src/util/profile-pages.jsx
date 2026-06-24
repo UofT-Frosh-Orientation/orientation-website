@@ -12,6 +12,7 @@ import ProfileIconDarkMode from '../assets/darkmode/profiledropdown/user-solid.s
 import LogoutIconDarkMode from '../assets/darkmode/profiledropdown/arrow-right-from-bracket-solid.svg';
 
 function logoutFunction({ dispatch, navigate }) {
+  localStorage.clear();
   dispatch(logout({ navigate }));
 }
 
@@ -57,5 +58,13 @@ export const profilePages = {
       iconDark: LogoutIconDarkMode,
       function: logoutFunction,
     },
+  ],
+  notReady: [
+    // {
+    //   label: 'Check Back Soon for Registration',
+    //   icon: LoginIcon,
+    //   iconDark: LoginIconDarkMode,
+    //   path: '',
+    // },
   ],
 };

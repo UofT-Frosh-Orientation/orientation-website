@@ -7,6 +7,8 @@ import { userSelector } from '../../state/user/userSlice';
 import ReactSlider from 'react-slider';
 import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonPlain } from '../../components/button/ButtonPlain/ButtonPlain';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { QRScannerDisplay } from '../../components/QRScannerDisplay/QRScannerDisplay';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { scuntSettingsSelector } from '../../state/scuntSettings/scuntSettingsSlice';
@@ -78,18 +80,18 @@ export const PageScuntJudgeForm = () => {
   return (
     <div className="scunt-judge-form-page">
       <div className="scunt-judge-form-container">
-        <h1>JUDGE DASHBOARD</h1>
-        <h3>
+        <h1>Judge Dashboard</h1>
+        {/* <h3>
           Hello,{' '}
           {user?.preferredName === '' || !user?.preferredName
             ? user?.firstName
             : user?.preferredName}
-        </h3>
+        </h3> */}
         <ScuntMissionSelection teams={teams} missions={missions} teamObjs={teamObjs} />
         <div className="separator" />
         <ScuntBribePoints teams={teams} teamObjs={teamObjs} />
-        <div className="separator" />
-        <ScuntNegativePoints teams={teams} teamObjs={teamObjs} />
+        {/* <div className="separator" /> */}
+        {/* <ScuntNegativePoints teams={teams} teamObjs={teamObjs} /> */}
       </div>
     </div>
   );
@@ -108,7 +110,7 @@ const ScuntNegativePoints = ({ teams, teamObjs }) => {
   return (
     <div style={{ width: '100%' }}>
       <div style={{ height: '15px' }} />
-      <h2>REMOVE POINTS</h2>
+      <h2>Remove Points</h2>
       <>
         <div
           style={{
@@ -174,7 +176,7 @@ const ScuntNegativePoints = ({ teams, teamObjs }) => {
             marginBottom: '20px',
           }}
         >
-          <Button
+          <ButtonRound
             label={'Remove Points'}
             onClick={async () => {
               if (
@@ -202,7 +204,7 @@ const ScuntNegativePoints = ({ teams, teamObjs }) => {
           />
         </div>
         <h2 style={{ textAlign: 'center' }}>{assignedTeam?.name}</h2>
-        <h3 style={{ textAlign: 'center' }}>-{assignedPoints} Points</h3>
+        <h3 style={{ textAlign: 'center' }}>Removing {assignedPoints} Points</h3>
       </>
     </div>
   );
@@ -239,7 +241,7 @@ const ScuntBribePoints = ({ teams, teamObjs }) => {
   return (
     <div style={{ width: '100%' }}>
       <div style={{ height: '15px' }} />
-      <h2>Bribe Points</h2>
+      <h2 style={{ fontWeight: '900', marginBottom: '10px' }}>Bribe Points</h2>
       <h4>Remaining bribe points: {remainingBribePoints}</h4>
       {remainingBribePoints === 0 ? (
         <div style={{ height: '15px' }}></div>
@@ -316,7 +318,7 @@ const ScuntBribePoints = ({ teams, teamObjs }) => {
               marginBottom: '20px',
             }}
           >
-            <Button
+            <ButtonRound
               label={'Give Bribe Points'}
               onClick={() => {
                 if (
@@ -409,7 +411,7 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
     }
   }, [missionStatus]);
 
-  const getMissionSearchName = (searchName) => {
+  const getMissionSearchName = (searchName, category) => {
     if (searchName === '') {
       setSearchedMissions([]);
       return;
@@ -417,7 +419,11 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
     const output = [];
     for (let mission of missions) {
       if (mission?.name?.toLowerCase().includes(searchName.toLowerCase())) {
-        output.push(mission);
+        if (currentCategory == 'Select Category') {
+          output.push(mission);
+        } else {
+          if (mission?.category == currentCategory) output.push(mission);
+        }
       }
     }
     setSearchedMissions(output);
@@ -435,33 +441,86 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
     getMissionSearchName('');
   };
 
+  // const missionCategories = [
+  //   'Select Category',
+  //   '✨ENCHANTED✨',
+  //   'B O U N D L E S S',
+  //   'But can you do THIS',
+  //   'Getting even STEAMier!',
+  //   'Getting STEAMy (arts and crafts)',
+  //   'Myhal and other nicely designed buildings',
+  //   'Ocomm',
+  //   'Ok Zoomer',
+  //   'Pop CULTured',
+  //   'S-K-U-L-E, Engineering U of T!',
+  //   'Skuligans at Skule Again??',
+  //   'Tales from time immemorial',
+  //   'The Classics',
+  //   'The Royal Wedding',
+  //   'This is some serious gourmet shit!',
+  //   'Turrono-wide items',
+  //   'Walk walk fashion baby',
+  //   'We live in a(n engineering) society',
+  //   'Wholesome 100',
+  // ];
+
+  const missionCategories = [
+    'Select Category',
+    'Ok Zoomer',
+    'The Classics',
+    'The Royal Wedding',
+    'Wholesome 100',
+    'Pop CULTured',
+    'S-K-U-L-E, Engineering U of T!',
+    'But can you do THIS',
+    'Skuligans at Skule Again??',
+    'Myhal and other nicely designed buildings',
+  ];
+
+  const [currentCategory, setCurrentCategory] = useState(missionCategories[0]);
+
   return (
     <>
-      <QRScannerDisplay
-        setScannedData={(data) => {
-          const missionID = data.split('|')[1];
-          if (missionID === undefined) {
-            setSnackbar('There was an error with the QR code', true);
-            return;
-          }
-          for (let mission of missions) {
-            if (mission?.number.toString() === missionID.toString()) {
-              setAssignedPoints(mission?.points);
-              setAssignedMission(undefined);
-              setAssignedMission(mission);
+      <div className="qr-scanner-judge">
+        <QRScannerDisplay
+          className="qr-scanner-judge"
+          setScannedData={(data) => {
+            const missionID = data.split('|')[1];
+            if (missionID === undefined) {
+              setSnackbar('There was an error with the QR code', true);
+              return;
             }
-          }
-          const teamNumber = data.split('|')[0];
-          if (teamNumber === undefined) {
-            setSnackbar('There was an error with the QR code', true);
-            return;
-          }
-          setAssignedTeam(getScuntTeamObjFromTeamNumber(teamNumber, teamObjs));
-          setHasQRScanned(true);
-        }}
-      />
-      <h2>Mission Points</h2>
+            for (let mission of missions) {
+              if (mission?.number.toString() === missionID.toString()) {
+                setAssignedPoints(mission?.points);
+                setAssignedMission(undefined);
+                setAssignedMission(mission);
+              }
+            }
+            const teamNumber = data.split('|')[0];
+            if (teamNumber === undefined) {
+              setSnackbar('There was an error with the QR code', true);
+              return;
+            }
+            setAssignedTeam(getScuntTeamObjFromTeamNumber(teamNumber, teamObjs));
+            setHasQRScanned(true);
+          }}
+        />
+      </div>
+      {/* <h2>Mission Points</h2> */}
       <p className="text-input-title">{'Search for a mission'}</p>
+
+      {/* <div style={{ width: '100%' }}>
+        <Dropdown
+          initialSelectedIndex={0}
+          values={missionCategories}
+          onSelect={(value) => {
+            setCurrentCategory(value);
+          }}
+          isDisabled={false}
+        />
+      </div> */}
+
       <div className="small-width-input">
         <TextInput
           clearText={clearText}
@@ -480,6 +539,7 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
           }}
         />
       </div>
+
       <div className="fill-remaining-width-input">
         <TextInput
           clearText={clearText}
@@ -489,7 +549,7 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
           onChange={(value) => {
             if (hasQRScanned === true) setHasQRScanned(false);
             setAssignedMission(undefined);
-            getMissionSearchName(value);
+            getMissionSearchName(value, currentCategory);
           }}
           onEnterKey={(value) => {
             if (hasQRScanned === true) setHasQRScanned(false);
@@ -629,7 +689,7 @@ const ScuntMissionSelection = ({ missions, teams, teamObjs }) => {
               marginBottom: '20px',
             }}
           >
-            <Button
+            <ButtonRound
               label={'Submit'}
               onClick={async () => {
                 if (assignedTeam === 'Select Team' || !assignedTeam) {

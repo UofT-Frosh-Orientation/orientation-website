@@ -8,6 +8,7 @@ import './ApproveDenyCheckbox.scss';
 
 import { ButtonOutlined } from '../../components/button/ButtonOutlined/ButtonOutlined';
 import { Button } from '../../components/button/Button/Button';
+import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { ApproveDenyCheckbox } from './ApproveDenyCheckbox';
 
 import ArrowRight from '../../assets/steps/arrow-right-solid-purple.svg';
@@ -83,7 +84,8 @@ const AllAccountsTable = ({ numResultsDisplayed }) => {
         />
       ) : (
         <div className="all-accounts-buttons">
-          <Button
+          <ButtonRound
+            className="round-button"
             label="Enter Edit Mode"
             style={{ marginTop: '0px' }}
             onClick={() => {
@@ -343,12 +345,13 @@ const AllAccountsEditButton = ({
   return (
     <div className="all-accounts-buttons">
       <div className="all-accounts-approve-ver-button">
-        <ButtonOutlined
+        <ButtonRound
+          className="round-button"
           label={
-            !isApproveVerified ? 'Approved Verified Accounts' : 'Unapprove All Verified Accounts'
+            !isApproveVerified ? 'Approve Verified Accounts' : 'Unapprove All Verified Accounts'
           }
           style={bubbleButtonStyle}
-          isSecondary={true}
+          // isSecondary={true}
           onClick={() => {
             setIsApproveVerified(!isApproveVerified);
             setChangesMade(true);
@@ -360,7 +363,8 @@ const AllAccountsEditButton = ({
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <Button
+        <ButtonRound
+          className="round-button"
           label="Save"
           style={{ alignSelf: 'start', marginTop: '0px', marginBottom: '5px' }}
           onClick={() => {
@@ -370,7 +374,8 @@ const AllAccountsEditButton = ({
           }}
         />
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <ButtonOutlined
+          <ButtonRound
+            className="round-button"
             label="Exit Edit Mode"
             style={{ marginTop: '0px', borderWidth: '3px', marginBottom: '5px' }}
             onClick={() => {

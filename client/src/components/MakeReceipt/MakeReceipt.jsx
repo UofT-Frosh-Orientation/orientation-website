@@ -54,6 +54,8 @@ const MakeReceipt = (froshObject) => {
     'froshGroupIcon',
     'id',
     'isRegistered',
+    'isReassigned',
+    'isRetreat',
     'isScuntDiscordLoggedIn',
     'scuntPreferredMembers',
     'scuntTeam',
@@ -61,6 +63,16 @@ const MakeReceipt = (froshObject) => {
     'userType',
     'confirmed',
     'froshGroup',
+    'waiver',
+    'confirmedEmail',
+    'attendingRetreat',
+    'attendingScunt',
+    'bursaryRequested',
+    'preKit',
+    'gotFood',
+    'registeredOlympiksEvents',
+    'approved',
+    'froshDataFields',
   ];
   for (const [key, value] of Object.entries(froshObject)) {
     if (irrelevantFields.includes(key)) continue;
@@ -98,8 +110,8 @@ const MakeReceipt = (froshObject) => {
             Your Unique QRCode
           </Text>
         </View> */}
-        <View style={{ padding: '0 10px' }}>
-          <Text style={{ fontSize: 16, padding: '20px 0' }} key={currKey++}>
+        <View style={{ padding: '20px 20px' }}>
+          <Text style={{ fontSize: 14, padding: '20px 0px' }} key={currKey++}>
             Please check all of your information to ensure it is correct. If you need to make any
             changes, please email us at{' '}
             <Link src={'mailto:tech@orientation.skule.ca'}>tech@orientation.skule.ca</Link> or reach
