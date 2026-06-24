@@ -61,6 +61,13 @@ import ThetaIcon from '../../assets/profile/letters/Theta.svg';
 import UpsilonIcon from '../../assets/profile/letters/Upsilon.svg';
 import ZetaIcon from '../../assets/profile/letters/Zeta.svg';
 
+// 2T6 assets
+
+import ProfileCardFront from '../../assets/profile/profile-card-front.png';
+import ProfileCardBack from '../../assets/profile/profile-card-back.png';
+import FroshLogo from '../../assets/logo/main-logo-2T6.png';
+import ProfilePicture from '../../assets/profile/test-portrait2.png';
+
 const froshGroupImages = {
   Alpha: AlphaIcon,
   Beta: BetaIcon,
@@ -105,35 +112,38 @@ const PageProfileFrosh = () => {
       <div className="profile-qr-mobile mobile-only">
         <ProfilePageQRCode />
       </div> */}
+      <div className="profile-page-header">
+        <div className="profile-page-header-info-wrap">
+          <div className="profile-page-header-left">
+            <div className="profile-info-row-left">
+              {!isRegistered ? (
+                <div className={'profile-not-registered'}>
+                  <div className="profile-not-registered-text">
+                    <h1>You are not registered</h1>
+                    <p className="profile-p-text">
+                      Please complete your registration in order to participate in F!rosh week
+                      events
+                    </p>
+                    {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
+                  </div>
 
-      <div className="profile-info-row">
-        <div className="profile-info-row-left">
-          {!isRegistered ? (
-            <div className={'profile-not-registered'}>
-              <div className="profile-not-registered-text">
-                <h1>You are not registered</h1>
-                <p className="profile-p-text">
-                  Please complete your registration in order to participate in F!rosh week events
-                </p>
-                {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
+                  <Link key={'/registration'} to={'/registration'} className={'no-link-style'}>
+                    {/* <ButtonRound label="Register Now!" style={{ marginLeft: '20px' }} /> */}
+
+                    {/* BUTTON TO BE MODIFIED ^ */}
+                  </Link>
+                </div>
+              ) : null}
+
+              <div className="profile-info-top mobile-only">
+                <ProfilePageQRCode />
+                {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
+                {user?.isRegistered ? <ProfilePageMobileTeam /> : null}
+                {user?.attendingScunt ? <ProfilePageScuntTeam /> : null}
+                {/* <ProfilePageFroshScuntTeamsSelection /> */}
               </div>
-
-              <Link key={'/registration'} to={'/registration'} className={'no-link-style'}>
-                {/* <ButtonRound label="Register Now!" style={{ marginLeft: '20px' }} /> */}
-
-                {/* BUTTON TO BE MODIFIED ^ */}
-              </Link>
             </div>
-          ) : null}
-
-          <div className="profile-info-top mobile-only">
-            <ProfilePageQRCode />
-            {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
-            {user?.isRegistered ? <ProfilePageMobileTeam /> : null}
-            {user?.attendingScunt ? <ProfilePageScuntTeam /> : null}
-            {/* <ProfilePageFroshScuntTeamsSelection /> */}
           </div>
-
           {/* {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null} */}
           {/* <ProfilePageRetreat /> */}
 
@@ -280,6 +290,8 @@ const ProfilePageFroshHeader = ({ editButton }) => {
   const gradYear = currentYear + 4;
   const firstDigitF = gradYear.toString().slice(-2, -1);
   const lastDigitF = gradYear.toString().slice(-1);
+  const [isFlipped, setIsFlipped] = useState(false);
+
   let froshYear = `${firstDigitF}T${lastDigitF}`;
 
   const getFroshGroupImage = (letter) => {
@@ -295,6 +307,32 @@ const ProfilePageFroshHeader = ({ editButton }) => {
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-left">
             <div className="profile-class-checkers desktop-only">
+              <div
+                className={`profile-card ${isFlipped ? 'flipped' : ''}`}
+                onClick={() => setIsFlipped(!isFlipped)}
+              >
+                <div className="profile-card-inner">
+                  <div className="profile-card-front">
+                    <img src={ProfileCardFront} alt="Profile Card Front" />
+                    <img src={ProfilePicture} alt="Profile" className="profile-card-picture" />
+                    <img src={FroshLogo} alt="Profile" className="profile-card-logo" />
+                    <div className="profile-card-front-name">
+                      <h3>{user?.preferredName || user?.firstName}NameTest</h3>
+                    </div>
+                    <div className="profile-card-front-left">
+                      <h3>{user?.discipline}DisciplineTest</h3>
+                    </div>
+                  </div>
+
+                  <div className="profile-card-back">
+                    <img src={ProfileCardBack} alt="Profile Card Back" />
+                    <div className="profile-card-back-content">
+                      <h3> SocialsTest </h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div className="profile-page-header-class desktop-only">
                 <p className="class-of-p">Class of</p>
                 <h2>{froshYear}</h2>

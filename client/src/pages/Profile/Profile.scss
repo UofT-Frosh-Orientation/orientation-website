@@ -38,18 +38,31 @@
   }
   h2 {
     color: var(--dusk);
-    font-size: 70px;
-    line-height: 44px;
+    font-size: 60px;
+    line-height: 34px;
     font-family: 'Gliker';
+    letter-spacing: 0.1rem;
+
+    margin-top: 0px; // move froshyear text
+    margin-right: 280px; // move froshyear text
   }
+  h3 {
+    color: var(--dawn);
+    font-size: 20px;
+    line-height: 34px;
+    font-family: 'Gliker';
+    letter-spacing: 0.1rem;
+  }
+
   p {
     color: var(--text-primary);
     font-size: 36px;
+    font-family: 'Gliker';
   }
   b {
     color: var(--text-primary);
     font-size: 80px;
-    font-family: 'Jersey 20' !important;
+    font-family: 'Proxima Nova' !important;
     font-weight: normal;
     //letter-spacing: 0.2rem;
   }
@@ -197,6 +210,139 @@
   padding-top: 25px;
 }
 
+// 2T6 ATTEMPT START
+
+.profile-card {
+  width: 312px;
+  height: 434px;
+  perspective: 1000px;
+  cursor: pointer;
+  position: absolute;
+  z-index: 10;
+
+  margin-top: 130px; // move down
+  margin-left: 20px; // move right
+}
+
+.profile-card-picture {
+  position: absolute;
+
+  top: 20px;
+  left: 2px;
+
+  width: 98%;
+  height: auto;
+  z-index: -1;
+
+  object-fit: cover;
+}
+
+.profile-card-logo {
+  position: absolute;
+  top: 326px;
+  left: 214px;
+
+  width: 20%;
+  height: auto;
+  object-fit: contain;
+}
+
+.profile-card,
+.profile-card * {
+  cursor: url('../../assets/cursor/pointer.png'), pointer;
+}
+
+.profile-card-inner {
+  position: relative;
+  // width: 100%;
+  // height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.profile-card.flipped .profile-card-inner {
+  transform: rotateY(180deg);
+}
+
+.profile-card-front,
+.profile-card-back {
+  position: absolute;
+  // width: 100%;
+  // height: 100%;
+  backface-visibility: hidden;
+
+  img {
+    // width: 100%;
+    // height: 100%;
+    object-fit: contain;
+  }
+}
+
+// .profile-card-front > img.card-background,
+// .profile-card-back > img.card-background {
+//   width: 100%;
+//   height: 100%;
+//   object-fit: contain;
+// }
+
+.profile-card-back {
+  transform: rotateY(180deg);
+}
+
+.profile-card-front-name {
+  position: absolute;
+  top: 242px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 80%;
+  text-align: center;
+  h3 {
+    font-size: 18px;
+    margin: 0;
+    margin-top: 95px;
+    margin-right: 90px;
+  }
+}
+
+.profile-card-front-left {
+  position: absolute;
+  top: 340px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 80%;
+  text-align: center;
+
+  h3 {
+    font-size: 20px;
+    margin-top: -90px;
+    transform: rotate(-90deg);
+    margin-right: 300px;
+  }
+}
+
+.profile-card-back-content {
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 80%;
+  text-align: center;
+
+  h3 {
+    margin-bottom: 20px;
+  }
+
+  p {
+    margin: 8px 0;
+    font-size: 18px;
+  }
+}
+
+// 2T6 ATTEMPT FINISH
+
 .class-of-p {
   // p {
   //   font-size: 182px;
@@ -209,6 +355,10 @@
   transform: rotate(-10deg);
   font-family: 'Genty' !important;
   font-size: 60px;
+
+  margin-top: 0px; // move down
+  margin-right: 280px; // move left
+
   // display: flex;
   // width: 141px;
   // height: 492px;
