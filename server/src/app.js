@@ -17,6 +17,7 @@ const corsOptions = {
     process.env.API_BASE_URL,
     'https://checkout.stripe.com',
     'https://www.beta.orientation.skule.ca',
+    'https://beta.orientation.skule.ca',
   ],
     methods: ['GET', 'POST', 'DELETE' ,'HEAD','PUT','PATCH'],
     optionsSuccessStatus: 200 //
