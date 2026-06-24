@@ -21,7 +21,7 @@ import { ComingSoon } from './pages/Initial/ComingSoon/ComingSoon';
 
 // Set to false to take over the whole site with the single Coming Soon page
 // (no router, navbar or footer). Flip back to true to restore the full app.
-const readyForFrosh = false;
+const readyForFrosh = true;
 
 export default function App() {
   const dispatch = useDispatch();
