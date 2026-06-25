@@ -1,98 +1,260 @@
 @import '../../scssStyles/mixins';
-@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
+
+@font-face {
+  font-family: 'Genty';
+  src: url('../../assets/fonts/GentyDemo-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gliker';
+  src: url('../../assets/fonts/gliker-regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 .frosh-retreat-page {
   .frosh-retreat-video {
-    border-radius: 20px;
-    margin: 20px 0px;
-    width: 95%;
+    border-radius: 35px;
+    margin: 20px 10vw -45%;
+    transform: translateY(-50vw);
+    width: 56vw;
     max-width: 1000px;
     height: 524px;
+
     @include devices(tablet) {
-      height: 50vh;
+      height: 40vw;
       min-height: 200px;
     }
   }
 }
 
-.retreat-title {
-  width: 100vw;
-  position: relative;
-}
-.retreat-title-img {
-  width: 100%;
+// Need to fine tune resize behavior!
+.film-strip-container {
+  background-color: #111;
+  padding: 8px 0;
 
-  margin-bottom: 0px;
-  padding-bottom: 0px;
+  width: 100%;
+  height: 20vw;
 }
-.retreat-gradient {
-  height: 99%;
-  width: 70%;
-  background-image: linear-gradient(to right, rgba(255, 0, 0, 0), rgb(0, 0, 0, 0.8));
+
+.film-strip-holes {
+  height: 10%;
+  background: repeating-linear-gradient(
+    to right,
+    #111 0%,
+    #111 1%,
+    var(--bg-primary) 1%,
+    var(--bg-primary) 3%,
+    #111 3%,
+    #111 4%
+  );
+}
+
+.film-strip-track {
+  display: flex;
+  gap: 4px;
+  padding: 8px 0;
+}
+
+.film-strip-photo {
+  width: 19.8%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.retreat-banner {
+  position: relative;
+  height: 100%;
+  min-height: 58vw;
+  // background-color: #3d0f58;
+  // overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  z-index: -1;
+}
+
+.retreat-banner-checkers {
+  position: fixed;
+  top: 0%;
+  left: 50%;
+  transform: rotate(21deg) translateX(-50%);
+  width: 200%;
+  height: 53vw;
+  background-image: repeating-conic-gradient(var(--mikado) 0% 25%, rgba(0, 0, 0, 0) 0% 50%);
+  background-size: 8.9vw 8.9vw;
+  background-position: center;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.retreat-banner-checkers-shadow {
+  transform: rotate(21deg) translateX(-49.7%) translateY(1%);
+  background-image: repeating-conic-gradient(var(--jam) 0% 25%, rgba(0, 0, 0, 0) 0% 50%);
+  z-index: -1;
+}
+
+.retreat-banner-star {
+  margin-top: -22.5%;
+  margin-left: 6%;
+  width: 21%;
+  aspect-ratio: 1;
+  background: #f8ca00;
+  clip-path: polygon(50% 0, 79% 90%, 2% 35%, 98% 35%, 21% 90%);
+  transform: rotate(-21deg);
+  position: relative;
+  margin-bottom: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Gliker';
+  font-weight: 900;
+  font-size: 100%;
+  text-align: center;
+  color: var(--jam);
+  line-height: 1.2;
+}
+
+.retreat-banner-text {
+  padding-top: 10%;
+  color: var(--dusk);
+  display: block;
+  width: 100%;
+  height: 100%;
 
   position: absolute;
-  top: 0;
-  right: 0;
+  text-align: left;
 }
-.retreat-title-text {
-  margin-right: 6vw;
-  display: block;
 
-  font-family: 'Jersey 20';
-  color: var(--mikado);
-  -webkit-text-stroke-color: var(--jam);
-  -webkit-text-stroke-width: 0.3vw;
-  font-size: 15vw;
+.retreat-banner-title {
+  -webkit-text-stroke-color: var(--monster);
+  -webkit-text-stroke-width: 1.5vw;
+  paint-order: stroke fill;
+  font-size: 9vw;
   line-height: 12vw;
   font-weight: 400;
 
-  text-align: right;
+  text-align: left;
 }
 
-.retreat-title-container {
-  width: 60%;
-  height: 75%;
-
-  position: absolute;
-  bottom: 0;
-  right: 0;
+.retreat-banner-title-frosh {
+  font-family: 'Genty';
+  margin-left: 3%;
 }
 
-.retreat-subtitle {
+.retreat-banner-title-retreat {
+  font-family: 'Gliker';
+  margin-left: 29%;
+}
+
+.retreat-banner-subtitle {
+  font-family: 'Gliker';
+  -webkit-text-stroke-color: var(--monster);
+  -webkit-text-stroke-width: 1vw;
+  paint-order: stroke fill;
   color: white;
   font-size: 2.5vw;
-
-  text-align: right;
-  margin-right: 6vw;
-}
-.retreat-subtitle-large {
-  font-size: 3vw;
+  margin-top: 3%;
+  margin-left: 29%;
+  font-size: 2.9vw;
 }
 
 .retreat-info-container {
   margin: 5vw;
+  -webkit-text-stroke-color: var(--bg-primary);
+  -webkit-text-stroke-width: 1.5vw;
+  paint-order: stroke fill;
 }
-.retreat-header {
-  font-family: 'Jersey 20';
-  font-size: 64px;
-  font-weight: 400;
-  color: var(--text-dynamic);
 
-  text-align: left;
+.retreat-header {
+  font-family: 'Genty';
+  font-size: 42px;
+  font-weight: 400;
+  -webkit-text-stroke-color: var(--jam);
+  color: var(--text-coloured);
+
+  text-align: center;
 
   margin-bottom: 1vw;
   margin-top: 4vw;
 }
-.retreat-text {
-  color: var(--text-dynamic);
 
+.retreat-text {
+  color: var(--text-primary);
   font-size: 22px;
 }
 
 .retreat-bullet-text {
-  color: var(--text-dynamic);
+  color: var(--text-primary);
 
   font-size: 20px;
+}
+
+.retreat-album {
+  position: relative;
+  width: 68px;
+  height: 95px;
+  border-radius: 0 10px 10px 0;
+
+  /* Main card */
+  background: #711f8b;
+
+  /* SVG shadows */
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25), 0 4px 4px rgba(0, 0, 0, 0.25),
+    inset 4px 0 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Gold strip on left */
+.retreat-album::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 13px;
+  bottom: 8px;
+  width: 3px;
+
+  background: #fed34c;
+
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Dashed border */
+.retreat-album::after {
+  content: '';
+  position: absolute;
+  inset: 19px 6px 13px 13px;
+
+  border: 1px dashed #fed34c;
+  pointer-events: none;
+  border-radius: 2px 10px 10px 2px;
+}
+
+.retreat-album-bookmark {
+  position: absolute;
+  top: 4.7px;
+  right: 17px;
+
+  width: 14px;
+  height: 8.3px;
+
+  background: linear-gradient(to bottom, #fbdc70 0%, #958342 100%);
+}
+
+/* top folded section */
+.retreat-album-bookmark::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+
+  width: 14px;
+  height: 4.7px;
+
+  background: #fbdc70;
+
+  clip-path: polygon(0 100%, 0 0, 50% 100%, 100% 0, 100% 100%);
 }
 
 .retreat-photos-button {
@@ -136,6 +298,7 @@
 
   text-align: left;
 }
+
 .retreat-faq-question {
   text-align: left;
 
@@ -163,17 +326,21 @@
   margin: auto;
   margin-top: 48px;
   color: var(--text-dynamic);
+
   .display-field {
     text-align: left;
   }
+
   .radio-buttons-retreat {
     margin: 0;
   }
+
   .radio-buttons {
     width: fit-content;
     margin: auto;
   }
 }
+
 .retreat-choose-file::file-selector-button {
   background-color: #d9d9d9;
 
@@ -197,6 +364,7 @@
 
   margin-top: 15px;
 }
+
 .retreat-upload-file-container {
   display: flex;
   flex-wrap: wrap;

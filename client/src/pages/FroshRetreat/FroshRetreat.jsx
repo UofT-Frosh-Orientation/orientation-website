@@ -9,12 +9,28 @@ import { useSelector } from 'react-redux';
 import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { SnackbarContext } from '../../util/SnackbarProvider';
+import { getSlideshowImages, getTimelineEvents } from '../Home/functions'; // Change slideshow to relevant images
 import waiverPDF from '../../assets/retreatWaiver/frosh-retreat-2T5-waiver.pdf';
 import useAxios from '../../hooks/useAxios';
 import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAccordion/RetreatSingleAccordion.jsx';
-import dragon from '../../assets/mascots/dragon-retreat.svg';
-import cardImage from '../../assets/retreatPhotos/cards.jpg';
 import retreatArrow from '../../assets/misc/backarrow.png';
+import TV from '../../assets/retreatTV/retroTV.svg';
+
+const RetreatFilmStrip = () => {
+  const images = getSlideshowImages();
+  const looped = [...images, ...images];
+  return (
+    <div className="film-strip-container">
+      <div className="film-strip-holes" />
+      <div className="film-strip-track">
+        {looped.map((img, i) => (
+          <img key={i} src={img.src} className="film-strip-photo" alt="" />
+        ))}
+      </div>
+      <div className="film-strip-holes" />
+    </div>
+  );
+};
 
 export const FroshRetreat = () => {
   const [remainingTickets, setRemainingTickets] = useState();
@@ -62,26 +78,33 @@ export const FroshRetreat = () => {
         <div className="info-header">
           <h1>REMAINING TICKETS: {remainingTickets}</h1>
         </div>*/}
-      <div className="retreat-title">
-        <div className="retreat-gradient"></div>
-        <img src={cardImage} className="retreat-title-img"></img>
-        <div className="retreat-title-container">
-          <h2 className="retreat-subtitle-large retreat-subtitle">All about</h2>
-          <h1 className="retreat-title-text">
-            F!ROSH
-            <br />
-            RETREAT{' '}
-          </h1>
+      <div className="retreat-banner">
+        <div className="retreat-banner-checkers" />
+        <div className="retreat-banner-checkers retreat-banner-checkers-shadow" />
+        <div className="retreat-banner-text">
+          <div className="retreat-banner-title">
+            <h1 className="retreat-banner-title-frosh">F!rosh</h1>
 
-          <h2 className="retreat-subtitle">August 31st - September 1st</h2>
-          <h2 className="retreat-subtitle">at Hart House Farm</h2>
+            <h1 className="retreat-banner-title-retreat">Retreat</h1>
+          </div>
+          <h2 className="retreat-banner-subtitle">at Hart House Farm Sep 6 - Sep 7</h2>
+          <svg viewBox="0 0 100 100" className="retreat-banner-star">
+            <path
+              d="M50 0 L79 90 L2 35 L98 35 L21 90 Z"
+              fill="var(--mikado)"
+              stroke="var(--mikado)"
+              strokeWidth="4"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <RetreatFilmStrip />
         </div>
       </div>
 
       <div className="retreat-info-container">
         <h3 className="retreat-header">About</h3>
         <p className="retreat-text">
-          The retreat is taking place on August 30th and 31st, 2025 at Hart House Farm. Get ready
+          The retreat is taking place on September 6th and 7th, 2026 at Hart House Farm. Get ready
           for a weekend of fun and relaxation with your new peers!
         </p>
 
@@ -101,19 +124,30 @@ export const FroshRetreat = () => {
         <FroshRetreatFAQ />
 
         <h3 className="retreat-header">Past Retreats</h3>
-        <p className="retreat-text">2T4 Leedur Retreat Video</p>
-        <iframe
-          className="frosh-retreat-video"
-          src="https://drive.google.com/file/d/1_lpjxS90MrYfqsgOosCd1gRf2xd7phoY/preview"
-          title="F!rosh Retreat Info"
-          // width="640"
-          // height="480"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
+        <div>
+          <img src={TV}></img>
+          <iframe
+            className="frosh-retreat-video"
+            src="https://drive.google.com/file/d/1_lpjxS90MrYfqsgOosCd1gRf2xd7phoY/preview"
+            title="F!rosh Retreat Info"
+            // width="640"
+            // height="480"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
 
         <p className="retreat-text">F!rosh Retreat Photos</p>
         {/*Need to add links to prev year photos*/}
+        <div className="retreat-album">
+          <div className="retreat-album-bookmark">
+            {/* <a
+              href="https://photos.skule.ca/2T4-2T5/Frosh-Week-2T4/Frosh-Retreat"
+            >
+              <strong>2T4</strong>
+            </a> */}
+          </div>
+        </div>
 
         <div className="retreat-buttons-div">
           <a
@@ -170,7 +204,7 @@ const retreatFAQs = [
   {
     title: 'What time does the bus leave?',
     description: [
-      'The bus leaves from campus at 10:00 AM on August 30th and returns to campus at 2:00 PM on August 31st.',
+      'The bus leaves from campus at 10:00 AM on September 6th and returns to campus at 2:00 PM on September 7th.',
     ],
   },
   {
@@ -259,6 +293,23 @@ export async function getRemainingTickets(setSnackbar) {
 }
 
 const RetreatRegistration = () => {
+  const accountObj = {
+    firstName: user.firstName || '',
+    lastName: user.lastName || '',
+    preferredName: user.preferredName || '',
+    phoneNumber: user.phoneNumber || '',
+    phoneNumberCountryCode: user.phoneNumberCountryCode || '',
+    emergencyContactName: user.emergencyContactName || '',
+    emergencyContactRelationship: user.emergencyContactRelationship || '',
+    emergencyContactCountryCode: user.emergencyContactCountryCode || '',
+    emergencyContactNumber: user.emergencyContactNumber || '',
+    email: user.email || '',
+    allergies: user.allergies || [],
+    allergiesOther: user.allergiesOther || '',
+    medicalInfo: user.medicalInfo || '',
+    specficMedicalInfo: user.specficMedicalInfo || '',
+    medication: user.medication || '',
+  };
   const [viewedWaiver, setViewedWaiver] = useState(false);
   const [waiverValue, setWaiverValue] = useState();
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -345,51 +396,77 @@ const RetreatRegistration = () => {
         <div className="display-field">
           <h4 className="retreat-subheading">Full Name:</h4>{' '}
           <p className="retreat-text">
-            {user?.firstName +
+            {/* {user?.firstName +
               ' ' +
               user?.lastName +
-              (user?.preferredName ? ' (' + user?.preferredName + ')' : '')}
+              (user?.preferredName ? ' (' + user?.preferredName + ')' : '')} */}
+            {accountObj?.firstName +
+              ' ' +
+              accountObj?.lastName +
+              (accountObj?.preferredName ? ' (' + accountObj?.preferredName + ')' : '')}
           </p>
         </div>
         <div className="display-field">
           <h4 className="retreat-subheading">Email:</h4>{' '}
-          <p className="retreat-text">{user?.email}</p>
+          {/* <p className="retreat-text">{user?.email}</p> */}
+          <p className="retreat-text">{accountObj?.email}</p>
         </div>
         <div className="display-field">
           <h4 className="retreat-subheading">Phone Number:</h4>{' '}
           <p className="retreat-text">
-            {(!user?.phoneNumberCountryCode ? '' : user?.phoneNumberCountryCode) +
+            {/* {(!user?.phoneNumberCountryCode ? '' : user?.phoneNumberCountryCode) +
               ' ' +
-              user?.phoneNumber}
+              user?.phoneNumber} */}
+            {(!accountObj?.phoneNumberCountryCode ? '' : accountObj?.phoneNumberCountryCode) +
+              ' ' +
+              accountObj?.phoneNumber}
           </p>
         </div>
         <div className="display-field">
           <h4 className="retreat-subheading">Dietary Restrictions:</h4>{' '}
           <p className="retreat-text">
-            {!user?.allergies || user?.allergies.length <= 0 ? 'None' : user?.allergies.join(', ')}
+            {/* {!user?.allergies || user?.allergies.length <= 0 ? 'None' : user?.allergies.join(', ')} */}
+            {!accountObj?.allergies || accountObj?.allergies.length <= 0
+              ? 'None'
+              : accountObj?.allergies.join(', ')}
           </p>
-          {!user?.allergiesOther ? <p className="retreat-text">{user?.allergiesOther}</p> : <></>}
+          {/* {!user?.allergiesOther ? <p className="retreat-text">{user?.allergiesOther}</p> : <></>} */}
+          {!accountObj?.allergiesOther ? (
+            <p className="retreat-text">{accountObj?.allergiesOther}</p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="display-field">
           <h4 className="retreat-subheading">Medical Info:</h4>{' '}
           <p className="retreat-text">
-            {!user?.medicalInfo || user?.medicalInfo === '' ? 'None' : user?.medicalInfo}
+            {/* {!user?.medicalInfo || user?.medicalInfo === '' ? 'None' : user?.medicalInfo} */}
+            {!accountObj?.medicalInfo || accountObj?.medicalInfo === ''
+              ? 'None'
+              : accountObj?.medicalInfo}
           </p>
           <p className="retreat-text">
-            {!user?.specficMedicalInfo || user?.specficMedicalInfo === ''
+            {/* {!user?.specficMedicalInfo || user?.specficMedicalInfo === ''
               ? 'None'
-              : user?.specficMedicalInfo}
+              : user?.specficMedicalInfo} */}
+            {!accountObj?.specficMedicalInfo || accountObj?.specficMedicalInfo === ''
+              ? 'None'
+              : accountObj?.specficMedicalInfo}
           </p>
         </div>
         <div className="display-field">
           <h4 className="retreat-subheading">Medication:</h4>{' '}
           <p className="retreat-text">
-            {!user?.medication || user?.medication === '' ? 'None' : user?.medication}
+            {/* {!user?.medication || user?.medication === '' ? 'None' : user?.medication} */}
+            {!accountObj?.medication || accountObj?.medication === ''
+              ? 'None'
+              : accountObj?.medication}
           </p>
         </div>
         <div className="display-field">
           <h4 className="retreat-subheading">Emergency Contact:</h4>{' '}
-          <p className="retreat-text">{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${user?.emergencyContactNumber}`}</p>
+          {/* <p className="retreat-text">{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${user?.emergencyContactNumber}`}</p> */}
+          <p className="retreat-text">{`${accountObj?.emergencyContactName} - ${accountObj?.emergencyContactRelationship}: ${accountObj?.emergencyContactNumber}`}</p>
         </div>
 
         <h3 className="retreat-header">F!rosh Retreat Waiver</h3>
