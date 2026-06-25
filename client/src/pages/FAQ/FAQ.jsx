@@ -99,7 +99,7 @@ const PageFAQ = () => {
   );
 
   return (
-    <div className="bg-primary">
+    <div className="bg-primary" data-theme={darkMode ? 'dark' : 'light'}>
       <div>
         <FAQPageHeader
           questions={unsortedQuestions}

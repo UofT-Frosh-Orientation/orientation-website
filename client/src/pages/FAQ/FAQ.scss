@@ -1,17 +1,32 @@
 @import '../../scssStyles/mixins';
 
+// DEFAULT: Dark Mode Context
 :root {
-  --faq-bg-dark: #3d0f58; // Adjusted to match Figma's deep purple background
-  --faq-checker-purple: #460f64;
-  --mikado: #ffd300; // Figma Yellow
-  --text-white: #ffffff;
-  --checker-dark: #3d0f58;
-  --checker-light: #711f8b;
+  --faq-bg: #3d0f58;
+  --faq-checker: #711f8b;
+  --faq-text: #ffffff;
+  --faq-text-muted: rgba(255, 255, 255, 0.7);
+  --faq-accent: #ffc600; // Bold Gold
+  --faq-accent-hover: #fed34c; // Medium Gold
+  --faq-panel-bg: transparent;
+  --faq-search-placeholder: rgba(255, 198, 0, 0.4);
+}
+
+// LIGHT MODE OVERRIDES: Automatically maps when data-theme="light" is applied
+[data-theme='light'] {
+  --faq-bg: #ebebeb; // Light Gray
+  --faq-checker: #dfcdf3; // Soft Lavender
+  --faq-text: #3c3c3c; // Dark Charcoal Gray
+  --faq-text-muted: #711f8b; // Purple for sub-labels or descriptions
+  --faq-accent: #a77ad7; // Vibrant Blue for borders and interactive focal points
+  --faq-accent-hover: #ffc600; // Gold accent accents on select highlights
+  --faq-panel-bg: #ebebeb; // Crisp White for the card backgrounds so they lift off the gray
+  --faq-search-placeholder: #a77ad7;
 }
 
 // Outer page body wrapper context
 .bg-primary {
-  background-color: var(--faq-bg-dark) !important;
+  background-color: var(--faq-bg) !important;
   position: relative;
   width: 100%;
   min-height: 100vh;
@@ -30,17 +45,17 @@
     height: 200vh; // <-- changed from 125% to 125vh
     background-image: linear-gradient(
         45deg,
-        var(--checker-light) 25%,
+        var(--faq-checker) 25%,
         transparent 25%,
         transparent 75%,
-        var(--checker-light) 75%
+        var(--faq-checker) 75%
       ),
       linear-gradient(
         45deg,
-        var(--checker-light) 25%,
+        var(--faq-checker) 25%,
         transparent 25%,
         transparent 75%,
-        var(--checker-light) 75%
+        var(--faq-checker) 75%
       );
     background-size: 100px 100px;
     background-position: 0 0, 50px 50px;
@@ -69,17 +84,17 @@
     height: 150vh; // <-- changed from 150% to 150vh
     background-image: linear-gradient(
         45deg,
-        var(--checker-light) 25%,
+        var(--faq-checker) 25%,
         transparent 25%,
         transparent 75%,
-        var(--checker-light) 75%
+        var(--faq-checker) 75%
       ),
       linear-gradient(
         45deg,
-        var(--checker-light) 25%,
+        var(--faq-checker) 25%,
         transparent 25%,
         transparent 75%,
-        var(--checker-light) 75%
+        var(--faq-checker) 75%
       );
     background-size: 100px 100px;
     background-position: 0 0, 50px 50px;
@@ -124,7 +139,7 @@
   h1 {
     font-size: 120px;
     font-family: 'Gliker', Impact, sans-serif; // Swap with your exact Figma display font
-    color: var(--mikado);
+    color: var(--faq-accent);
     font-weight: 900;
     margin: 0 0 10px 0;
     text-transform: uppercase;
@@ -132,8 +147,7 @@
     letter-spacing: 5px;
 
     // The solid Neobrutalist block shadow from Figma
-    text-shadow: 3px 3px 3px #1e052d, 6px 6px 6px #1e052d, 9px 9px 6px #1e052d,
-      12px 12px 0px #1e052d;
+    text-shadow: 3px 3px 0px var(--faq-bg); // Keeps text readable against the checkers
 
     @include devices(tablet) {
       font-size: 54px; // Shrinks the giant FAQ title so it doesn't blow out mobile
@@ -153,12 +167,12 @@
   margin: 0 auto; // Centered horizontally
   display: grid;
   grid-template-columns: 60px auto 60px;
-  border: 4px solid var(--mikado);
+  border: 4px solid var(--faq-accent);
   border-radius: 20px;
   overflow: hidden;
   position: relative;
   z-index: 10;
-  background-color: var(--faq-bg-dark);
+  background-color: var(--faq-panel-bg);
 }
 
 .faq-page-header-searchbar {
@@ -169,7 +183,7 @@
 .faq-search-input-container {
   background-color: transparent !important;
   border: none !important;
-  color: var(--text-white) !important;
+  color: var(--faq-text) !important;
   font-family: 'Gliker', Impact, sans-serif;
   font-size: 18px;
   height: 54px;
@@ -181,7 +195,7 @@
   }
 
   &::placeholder {
-    color: rgba(255, 211, 0, 0.4);
+    color: var(--faq-search-placeholder);
   }
 
   @include devices(tablet) {
@@ -279,7 +293,7 @@
     top: -5vh; // ALWAYS touches the top bar/start of the info panel
     bottom: -6vh; // DYNAMICALLY adjusts perfectly with the end of the panel
     width: 4px;
-    background-color: var(--mikado);
+    background-color: var(--faq-accent); // Timeline tracker line
 
     @include devices(tablet) {
       display: block !important; // BRINGS THE LINE BACK ON MOBILE
@@ -316,7 +330,7 @@
       font-size: 22px !important;
       font-weight: 900 !important;
       text-transform: uppercase;
-      color: var(--mikado) !important;
+      color: var(--faq-accent) !important;
       letter-spacing: 1px;
       margin: 0;
       text-align: left;
@@ -344,7 +358,7 @@
     justify-content: center;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--mikado);
+    color: var(--faq-accent); // Star icons
     font-size: 24px;
     z-index: 10;
     transition: transform 0.2s ease; // Smooth visual scaling on focus/hover transformations
@@ -376,12 +390,12 @@
 
   // ACTIVE state: button-outlined WITHOUT the -secondary class
   &:not(.button-outlined-secondary) {
-    background-color: var(--mikado) !important;
+    background-color: var(--faq-accent) !important;
     border-radius: 20px !important;
     padding: 8px 20px !important;
 
     .text-container h1 {
-      color: var(--faq-bg-dark) !important;
+      color: var(--faq-bg) !important; // Inverts text color inside active button block
     }
   }
 
@@ -395,8 +409,8 @@
 .faq-accordion-container {
   flex: 1; // Automatically claims all remaining horizontal width
   width: 100%;
-  background-color: transparent !important;
-  border: 4px solid var(--mikado);
+  background-color: var(--faq-panel-bg) !important;
+  border: 4px solid var(--faq-accent);
   border-radius: 20px;
   padding: 20px 40px; // Slightly reduced vertical padding inside the container
   margin-top: 7vh;
@@ -414,8 +428,8 @@
 .faq-display-questions-container {
   flex: 1;
   width: 100%;
-  background-color: transparent !important;
-  border: 4px solid var(--mikado); // Ensures the golden container box stays visible on search!
+  background-color: var(--faq-panel-bg) !important;
+  border: 4px solid var(--faq-accent);
   border-radius: 20px;
   padding: 20px 40px;
   margin-top: 40px;
@@ -467,8 +481,8 @@
 
   // Matches main question sizing exactly
   .faq-search-result-question {
-    color: var(--mikado) !important;
-    font-family: 'Arial Black', Impact, sans-serif;
+    color: var(--faq-accent) !important;
+    font-family: 'Gliker', Impact, sans-serif;
     font-size: 22px;
     font-weight: 900;
     letter-spacing: 0.5px;
@@ -482,7 +496,7 @@
 
   // Matches main answer sizing exactly
   .faq-search-result-answer {
-    color: var(--text-white) !important;
+    color: var(--faq-text) !important;
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 16px;
     line-height: 1.6;
@@ -519,8 +533,8 @@
 }
 
 .faq-search-result-question-accordion {
-  color: var(--mikado) !important;
-  font-family: 'Arial Black', Impact, sans-serif;
+  color: var(--faq-accent) !important;
+  font-family: 'Gliker', Impact, sans-serif;
   font-size: 22px; // Bumped up slightly to look bold and less squished
   font-weight: 900;
   letter-spacing: 0.5px;
@@ -532,7 +546,7 @@
 }
 
 .faq-search-result-answer-accordion {
-  color: var(--text-white) !important;
+  color: var(--faq-text) !important;
   font-family: system-ui, -apple-system, sans-serif;
   font-size: 16px;
   padding: 5px 0 20px 0;
