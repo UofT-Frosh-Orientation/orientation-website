@@ -293,23 +293,6 @@ export async function getRemainingTickets(setSnackbar) {
 }
 
 const RetreatRegistration = () => {
-  const accountObj = {
-    firstName: user.firstName || '',
-    lastName: user.lastName || '',
-    preferredName: user.preferredName || '',
-    phoneNumber: user.phoneNumber || '',
-    phoneNumberCountryCode: user.phoneNumberCountryCode || '',
-    emergencyContactName: user.emergencyContactName || '',
-    emergencyContactRelationship: user.emergencyContactRelationship || '',
-    emergencyContactCountryCode: user.emergencyContactCountryCode || '',
-    emergencyContactNumber: user.emergencyContactNumber || '',
-    email: user.email || '',
-    allergies: user.allergies || [],
-    allergiesOther: user.allergiesOther || '',
-    medicalInfo: user.medicalInfo || '',
-    specficMedicalInfo: user.specficMedicalInfo || '',
-    medication: user.medication || '',
-  };
   const [viewedWaiver, setViewedWaiver] = useState(false);
   const [waiverValue, setWaiverValue] = useState();
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -396,77 +379,77 @@ const RetreatRegistration = () => {
         <div className="display-field">
           <h4 className="retreat-subheading">Full Name:</h4>{' '}
           <p className="retreat-text">
-            {/* {user?.firstName +
+            {user?.firstName +
               ' ' +
               user?.lastName +
-              (user?.preferredName ? ' (' + user?.preferredName + ')' : '')} */}
-            {accountObj?.firstName +
+              (user?.preferredName ? ' (' + user?.preferredName + ')' : '')}
+            {/* {accountObj?.firstName +
               ' ' +
               accountObj?.lastName +
-              (accountObj?.preferredName ? ' (' + accountObj?.preferredName + ')' : '')}
+              (accountObj?.preferredName ? ' (' + accountObj?.preferredName + ')' : '')} */}
           </p>
         </div>
         <div className="display-field">
           <h4 className="retreat-subheading">Email:</h4>{' '}
-          {/* <p className="retreat-text">{user?.email}</p> */}
-          <p className="retreat-text">{accountObj?.email}</p>
+          <p className="retreat-text">{user?.email}</p>
+          {/* <p className="retreat-text">{accountObj?.email}</p> */}
         </div>
         <div className="display-field">
           <h4 className="retreat-subheading">Phone Number:</h4>{' '}
           <p className="retreat-text">
-            {/* {(!user?.phoneNumberCountryCode ? '' : user?.phoneNumberCountryCode) +
+            {(!user?.phoneNumberCountryCode ? '' : user?.phoneNumberCountryCode) +
               ' ' +
-              user?.phoneNumber} */}
-            {(!accountObj?.phoneNumberCountryCode ? '' : accountObj?.phoneNumberCountryCode) +
+              user?.phoneNumber}
+            {/* {(!accountObj?.phoneNumberCountryCode ? '' : accountObj?.phoneNumberCountryCode) +
               ' ' +
-              accountObj?.phoneNumber}
+              accountObj?.phoneNumber} */}
           </p>
         </div>
         <div className="display-field">
           <h4 className="retreat-subheading">Dietary Restrictions:</h4>{' '}
           <p className="retreat-text">
-            {/* {!user?.allergies || user?.allergies.length <= 0 ? 'None' : user?.allergies.join(', ')} */}
-            {!accountObj?.allergies || accountObj?.allergies.length <= 0
+            {!user?.allergies || user?.allergies.length <= 0 ? 'None' : user?.allergies.join(', ')}
+            {/* {!accountObj?.allergies || accountObj?.allergies.length <= 0
               ? 'None'
-              : accountObj?.allergies.join(', ')}
+              : accountObj?.allergies.join(', ')} */}
           </p>
-          {/* {!user?.allergiesOther ? <p className="retreat-text">{user?.allergiesOther}</p> : <></>} */}
-          {!accountObj?.allergiesOther ? (
+          {!user?.allergiesOther ? <p className="retreat-text">{user?.allergiesOther}</p> : <></>}
+          {/* {!accountObj?.allergiesOther ? (
             <p className="retreat-text">{accountObj?.allergiesOther}</p>
           ) : (
             <></>
-          )}
+          )} */}
         </div>
         <div className="display-field">
           <h4 className="retreat-subheading">Medical Info:</h4>{' '}
           <p className="retreat-text">
-            {/* {!user?.medicalInfo || user?.medicalInfo === '' ? 'None' : user?.medicalInfo} */}
-            {!accountObj?.medicalInfo || accountObj?.medicalInfo === ''
+            {!user?.medicalInfo || user?.medicalInfo === '' ? 'None' : user?.medicalInfo}
+            {/* {!accountObj?.medicalInfo || accountObj?.medicalInfo === ''
               ? 'None'
-              : accountObj?.medicalInfo}
+              : accountObj?.medicalInfo} */}
           </p>
           <p className="retreat-text">
-            {/* {!user?.specficMedicalInfo || user?.specficMedicalInfo === ''
+            {!user?.specficMedicalInfo || user?.specficMedicalInfo === ''
               ? 'None'
-              : user?.specficMedicalInfo} */}
-            {!accountObj?.specficMedicalInfo || accountObj?.specficMedicalInfo === ''
+              : user?.specficMedicalInfo}
+            {/* {!accountObj?.specficMedicalInfo || accountObj?.specficMedicalInfo === ''
               ? 'None'
-              : accountObj?.specficMedicalInfo}
+              : accountObj?.specficMedicalInfo} */}
           </p>
         </div>
         <div className="display-field">
           <h4 className="retreat-subheading">Medication:</h4>{' '}
           <p className="retreat-text">
-            {/* {!user?.medication || user?.medication === '' ? 'None' : user?.medication} */}
-            {!accountObj?.medication || accountObj?.medication === ''
+            {!user?.medication || user?.medication === '' ? 'None' : user?.medication}
+            {/* {!accountObj?.medication || accountObj?.medication === ''
               ? 'None'
-              : accountObj?.medication}
+              : accountObj?.medication} */}
           </p>
         </div>
         <div className="display-field">
           <h4 className="retreat-subheading">Emergency Contact:</h4>{' '}
-          {/* <p className="retreat-text">{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${user?.emergencyContactNumber}`}</p> */}
-          <p className="retreat-text">{`${accountObj?.emergencyContactName} - ${accountObj?.emergencyContactRelationship}: ${accountObj?.emergencyContactNumber}`}</p>
+          <p className="retreat-text">{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${user?.emergencyContactNumber}`}</p>
+          {/* <p className="retreat-text">{`${accountObj?.emergencyContactName} - ${accountObj?.emergencyContactRelationship}: ${accountObj?.emergencyContactNumber}`}</p> */}
         </div>
 
         <h3 className="retreat-header">F!rosh Retreat Waiver</h3>
