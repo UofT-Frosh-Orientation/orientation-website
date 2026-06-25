@@ -122,7 +122,7 @@ const HomePageAboutBlurb = () => {
 
 const HomeHeaderButton = () => {
   const loggedIn = useSelector(loggedInSelector);
-  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(true);
 
   return (
     <>

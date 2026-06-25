@@ -1,0 +1,49 @@
+// Auto-crossfading photo carousel shown inside the "Paint" window canvases.
+
+.cs-carousel {
+  position: absolute;
+  overflow: hidden;
+
+  &__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // fill the canvas, cropping as needed
+    display: block;
+  }
+
+  // Outgoing photo sits underneath, fully visible, until the new one finishes
+  // fading in over it — so there's never a blank frame.
+  &__img--under {
+    z-index: 1;
+  }
+
+  // Incoming photo fades in on top.
+  &__img--top {
+    z-index: 2;
+    animation: cs-carousel-fade 0.8s ease forwards;
+  }
+
+  // Shown when this frame's photo folder is empty.
+  &--empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #888;
+    font-size: 12px;
+    line-height: 1.4;
+    background: repeating-conic-gradient(#f3f3f3 0% 25%, #ffffff 0% 50%) 50% / 20px 20px;
+  }
+}
+
+@keyframes cs-carousel-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
