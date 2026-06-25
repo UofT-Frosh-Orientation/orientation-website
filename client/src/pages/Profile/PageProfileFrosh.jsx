@@ -9,6 +9,7 @@ import { Button } from '../../components/button/Button/Button';
 import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import EditIconDark from '../../assets/profile/edit.png';
 import EditIcon from '../../assets/profile/edit.png';
+import PrintIcon from '../../assets/profile/print.png';
 import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Link } from 'react-router-dom';
 import { instagramAccounts } from '../../util/instagramAccounts';
@@ -338,6 +339,8 @@ const ProfilePageFroshHeader = ({ editButton }) => {
                 <h2>{froshYear}</h2>
               </div>
             </div>
+
+            <div className="profile-class-star desktop-only"></div>
             <div className="profile-page-header-info">
               <div className="profile-name-edit-wrapper">
                 <>
@@ -366,6 +369,8 @@ const ProfilePageFroshHeader = ({ editButton }) => {
                 // </Link>
                 null}
               </div>
+              <img src={PrintIcon} alt={'print'} className="profile-print-icon" />
+
               {user?.discipline && <p>{`Incoming ${user['discipline']} Engineering student`}</p>}
               <p>
                 <u>{user?.email}</u>

@@ -30,10 +30,10 @@
   background-color: var(--monster);
   padding: 0% 6%;
   padding-top: 80px;
-  padding-bottom: 60px;
-  margin-bottom: 36px;
+  padding-bottom: 500px;
+  margin-bottom: 0px;
   h1 {
-    color: var(--text-primary);
+    color: var(--dusk);
     font-size: 85px;
   }
   h2 {
@@ -55,12 +55,12 @@
   }
 
   p {
-    color: var(--text-primary);
+    color: var(--dusk);
     font-size: 36px;
     font-family: 'Gliker';
   }
   b {
-    color: var(--text-primary);
+    color: var(--dusk);
     font-size: 80px;
     font-family: 'Proxima Nova' !important;
     font-weight: normal;
@@ -130,6 +130,10 @@
 }
 
 .profile-edit-icon {
+  position: absolute;
+  left: 120px;
+  top: 680px;
+
   width: 56px;
   height: auto;
   padding: 10px;
@@ -142,6 +146,14 @@
   @include devices(tablet) {
     width: 48px;
   }
+}
+
+//PLACEHOLDER PRINT
+
+.profile-print-icon {
+  position: absolute;
+  left: 400px;
+  top: 688px;
 }
 
 .profile-page-header-group {
@@ -210,7 +222,21 @@
   padding-top: 25px;
 }
 
-// 2T6 ATTEMPT START
+.profile-class-star {
+  background: url('../../assets/profile/star.png') center center no-repeat;
+  position: absolute; //ontop of checkers not seperate from them
+  width: 489px; // Adjust to fit your image
+  height: 550px; // Adjust to fit your image
+  display: flex;
+  // align-items: center;
+  // justify-content: center;
+
+  margin-top: -15px; // move down
+  margin-left: 250px; // move right
+  z-index: 0;
+}
+
+// 2T6 PROFILE CARD ATTEMPT START
 
 .profile-card {
   width: 312px;
@@ -257,7 +283,7 @@
   // width: 100%;
   // height: 100%;
   transition: transform 0.6s;
-  transform-style: preserve-3d;
+  transform-style: preserve-3d; //These allow for the flipping on click
 }
 
 .profile-card.flipped .profile-card-inner {
@@ -277,13 +303,6 @@
     object-fit: contain;
   }
 }
-
-// .profile-card-front > img.card-background,
-// .profile-card-back > img.card-background {
-//   width: 100%;
-//   height: 100%;
-//   object-fit: contain;
-// }
 
 .profile-card-back {
   transform: rotateY(180deg);
@@ -341,7 +360,7 @@
   }
 }
 
-// 2T6 ATTEMPT FINISH
+// 2T6 PROFILE CARD ATTEMPT FINISH
 
 .class-of-p {
   // p {
@@ -398,6 +417,7 @@
 .profile-page-announcements {
   flex: 1;
   max-width: 100%;
+  align-items: right;
   @include devices(tablet) {
     margin-left: 0;
     margin-right: 0;
