@@ -84,27 +84,19 @@ const PageFAQ = () => {
   }, []);
 
   useEffect(() => {
-    // Reset current page to 1 when category (activeIndex) changes
     setCurrentPage(1);
   }, [activeIndex]);
 
-  // Calculate total pages
   const totalPages = Math.ceil((allQuestions[activeIndex]?.length || 0) / itemsPerPage);
 
-  // Handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-  // Get current page questions
   const currentQuestions = allQuestions[activeIndex]?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage,
   );
-
-  console.log('Current Page:', currentPage);
-  console.log('Total Pages:', totalPages);
-  console.log('Current Questions:', currentQuestions);
 
   return (
     <div className="bg-primary">
@@ -122,34 +114,28 @@ const PageFAQ = () => {
           setActiveIndex={setActiveIndex}
           questionCategories={questionCategories}
         />
-        {/* {darkMode ? (
-          <img src={WaveDarkMode} className={'faq-wave-image faq-page-top-wave-image'} />
-        ) : (
-          <img src={Wave} className={'faq-wave-image faq-page-top-wave-image'} />
-        )} */}
         {errorLoading ? <h1 className="faq-error-text">There was an error loading FAQs</h1> : <></>}
+
         {loading ? (
           <LoadingAnimation size={'55px'} />
         ) : (
-          <div
-            className={`faq-button-selector-container ${
-              isSearch ? 'faq-hide-button-selector' : 'faq-show-button-selector'
-            }`}
-          >
-            <FAQButtons
-              activeIndex={activeIndex}
-              setActiveIndex={setActiveIndex}
-              setIsSearch={setIsSearch}
-              setIsMultiSearch={setIsMultiSearch}
-              setSearchQuery={setSearchQuery}
-              questionCategories={questionCategories}
-            />
-          </div>
-        )}
-        {loading ? (
-          <></>
-        ) : (
-          <>
+          /* Wrap sidebar and accordions together inside the flex row container */
+          <div className="faq-content-row">
+            <div
+              className={`faq-button-selector-container ${
+                isSearch ? 'faq-hide-button-selector' : 'faq-show-button-selector'
+              }`}
+            >
+              <FAQButtons
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+                setIsSearch={setIsSearch}
+                setIsMultiSearch={setIsMultiSearch}
+                setSearchQuery={setSearchQuery}
+                questionCategories={questionCategories}
+              />
+            </div>
+
             <div
               className={`faq-accordion-container ${
                 isSearch ? 'faq-hide-accordion' : 'faq-show-accordion'
@@ -160,12 +146,17 @@ const PageFAQ = () => {
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
               />
-              {/* <PaginationControls
-                currentPage={currentPage}
-                totalPages={totalPages}
-                handlePageChange={handlePageChange}
-              /> */}
+
+              {/* Added missing pagination controls underneath the accordion list */}
+              {totalPages > 1 && (
+                <PaginationControls
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  handlePageChange={handlePageChange}
+                />
+              )}
             </div>
+
             <div
               className={`faq-display-questions-container ${
                 isSearch ? 'faq-show-accordion' : 'faq-hide-accordion'
@@ -187,7 +178,7 @@ const PageFAQ = () => {
                 <h1>No results</h1>
               </div>
             </div>
-          </>
+          </div>
         )}
       </div>
       <div className="fill bg-primary">filler</div>
@@ -305,12 +296,12 @@ FAQPageHeader.propTypes = {
   setIsSearch: PropTypes.func.isRequired,
   searchQuery: PropTypes.string.isRequired,
   setSearchQuery: PropTypes.func.isRequired,
-  selectedSearchResult: PropTypes.number.isRequired,
-  setSelectedSearchResult: PropTypes.bool.isRequired,
+  selectedSearchResult: PropTypes.bool.isRequired, // Changed from number to bool
+  setSelectedSearchResult: PropTypes.func.isRequired, // Changed from bool to func
   setSelectedQuestions: PropTypes.func.isRequired,
   setIsMultiSearch: PropTypes.func.isRequired,
   setIsNoMatch: PropTypes.func.isRequired,
-  setActiveIndex: PropTypes.number.isRequired,
+  setActiveIndex: PropTypes.func.isRequired, // Changed from number to func
   questionCategories: PropTypes.array.isRequired,
 };
 
@@ -334,6 +325,7 @@ const FAQButtons = ({
         setActiveIndex={setActiveIndex}
         maxWidthButton={200}
         classNameSelector={'faq-button-selector'}
+        classNameButton={'faq-button-selector-btn'}
       />
     </div>
   );
@@ -367,12 +359,28 @@ const FAQAccordionWrapper = ({ scheduleData, openStatus, activeIndex }) => {
   useEffect(() => {
     setIsOpen(false);
   }, [activeIndex]);
+
   return (
     <SingleAccordion
       isOpen={isOpen}
       setIsOpen={setIsOpen}
-      header={<div className={'faq-search-result-question-accordion'}>{scheduleData.question}</div>}
-      style={{ backgroundColor: 'var(--faq-answer-containers)', padding: '0px 30px 0px 30px' }}
+      header={
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
+            alignItems: 'center',
+          }}
+        >
+          <div className={'faq-search-result-question-accordion'}>{scheduleData.question}</div>
+          {/* Plus / Minus sign swap match */}
+          <span style={{ color: 'var(--mikado)', fontSize: '24px', fontWeight: 'bold' }}>
+            {isOpen ? '−' : '+'}
+          </span>
+        </div>
+      }
+      style={{ backgroundColor: 'transparent' }}
       className="accordion-clickable"
       dark={true}
     >
@@ -440,11 +448,11 @@ FAQSearchBar.propTypes = {
   questions: PropTypes.array.isRequired,
   selectedSearchResult: PropTypes.bool.isRequired,
   setSelectedSearchResult: PropTypes.func.isRequired,
-  setIsNoMatch: PropTypes.bool.isRequired,
+  setIsNoMatch: PropTypes.func.isRequired, // Changed from bool to func
   setSelectedQuestions: PropTypes.func.isRequired,
 };
 
-const FAQDisplayAllSearchQuestion = ({ selectedQuestions, questions }) => {
+const FAQDisplayAllSearchQuestion = ({ selectedQuestions }) => {
   const allSearchQuestions = selectedQuestions.map((question, index) => (
     <div key={index} className={'faq-search-result-container'}>
       <div className={'faq-search-result-question'}>{question.question}</div>
@@ -456,7 +464,6 @@ const FAQDisplayAllSearchQuestion = ({ selectedQuestions, questions }) => {
 
 FAQDisplayAllSearchQuestion.propTypes = {
   selectedQuestions: PropTypes.array.isRequired,
-  questions: PropTypes.array.isRequired,
 };
 
 const PaginationControls = ({ currentPage, totalPages, handlePageChange }) => (
