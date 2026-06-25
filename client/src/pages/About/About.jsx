@@ -189,7 +189,7 @@ const AboutUsExecCarousel = () => {
                   <p className="exec-carousel-card-role-label">{currentExec.role.toUpperCase()}</p>
                   <p className="exec-carousel-card-discipline-label">{currentExec.discipline}</p>
                 </div>
-                <p className="exec-carousel-card-prompt">[Click to flip for bio]</p>
+                <p className="exec-carousel-card-prompt">Click to flip for bio</p>
               </div>
 
               {/* BACK */}

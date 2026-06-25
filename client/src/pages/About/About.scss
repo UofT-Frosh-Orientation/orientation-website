@@ -1098,7 +1098,6 @@
   }
 }
 
-// Left card — shows back face of previous exec
 .exec-carousel-side-card-left {
   box-shadow: 3px 3px 14px rgba(0, 0, 0, 0.3);
 }
@@ -1117,12 +1116,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12px 12px 0 32px;
+  justify-content: center;
+  padding: 0;
   position: relative;
+  overflow: hidden;
+  gap: 12px;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 28px;
+    background-image: repeating-conic-gradient(var(--monster) 0% 25%, var(--palegold) 0% 50%);
+    background-size: 28px 28px;
+    flex-shrink: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 
   .exec-carousel-card-image {
-    margin-top: 80px;
-    margin-left: 25px;
+    width: 95%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-top: 5px;
+    box-shadow: 0 0 0 4px #3a1f6e, 0 6px 16px rgba(0, 0, 0, 0.25);
   }
 }
 
@@ -1190,13 +1210,15 @@
 }
 
 .exec-carousel-card-back-name {
-  color: #fff;
-  font-family: 'Proxima Nova', 'Gliker', sans-serif;
-  font-size: 20px;
+  color: var(--white);
+  font-family: 'Genty', sans-serif;
+  font-size: 22px;
   font-weight: 800;
   text-align: center;
   margin: 0;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+  margin-top: 2px;
+  text-shadow: 2px 2px 0px #3a1f6e;
+  letter-spacing: 1px;
 }
 
 // Track clips the sliding center card
@@ -1244,56 +1266,65 @@
 }
 
 .exec-carousel-card-front {
-  background: linear-gradient(145deg, var(--palegold) 0%, var(--sandstorm) 100%);
+  background: var(--palegold);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 20px 20px 90px 20px;
-  gap: 30px;
+  justify-content: flex-start;
+  padding: 0;
+  gap: 0;
   position: relative;
   overflow: hidden;
   height: 100%;
   box-sizing: border-box;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(58, 31, 110, 0.2);
-    box-shadow: 0 0 0 5px rgba(58, 31, 110, 0.08), calc(100% + 8px) 0 0 rgba(58, 31, 110, 0.15),
-      0 calc(100% + 8px) 0 rgba(58, 31, 110, 0.15);
-  }
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    width: 28px;
-    height: 28px;
-    border-top: 3px solid rgba(58, 31, 110, 0.25);
-    border-right: 3px solid rgba(58, 31, 110, 0.25);
-    border-radius: 0 6px 0 0;
-  }
+  position: absolute;
+  inset: 0;
+}
+
+.exec-carousel-card-front::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 36px;
+  background-image: repeating-conic-gradient(var(--monster) 0% 25%, var(--palegold) 0% 50%);
+  background-size: 36px 36px;
+  flex-shrink: 0;
+}
+
+.exec-carousel-card-back::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 43px;
+  left: 0;
+  width: 100%;
+  height: 36px;
+  background-image: repeating-conic-gradient(var(--monster) 0% 25%, var(--palegold) 0% 50%);
+  background-size: 36px 36px;
+  z-index: 4;
+  pointer-events: none;
 }
 
 // Constrain the image so it doesn't blow out the card
 .exec-carousel-card-image {
-  width: 78%;
+  width: 95%;
   max-width: none;
   height: auto;
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: 50%;
-  flex-shrink: 0; // prevent flex from stretching it
-  margin-top: 18px;
-  margin-left: 50px;
-  box-shadow: 0 0 0 4px #f0c830, 0 0 0 7px rgba(58, 31, 110, 0.25), 0 6px 16px rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
+  margin-top: 15px;
+  align-items: center;
+  margin-left: 15px;
+  margin-top: 50px;
+  box-shadow: 0 0 0 6px var(--monster), 0 6px 16px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 1;
 }
 
 .exec-carousel-card-image-small {
@@ -1303,28 +1334,35 @@
 }
 
 .exec-carousel-card-front-info {
-  text-align: center;
-  padding: 0 16px;
-  flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  z-index: 3;
 }
 
 .exec-carousel-card-role-label {
   font-family: 'Proxima Nova', 'Gliker', sans-serif;
-  font-size: 25px;
+  font-size: 18px;
   font-weight: 900;
   letter-spacing: 3px;
-  color: rgba(58, 31, 110, 0.5);
+  color: var(--monster);
   text-transform: uppercase;
+  position: absolute;
+  top: 28px;
+  width: 100%;
+  text-align: center;
+  z-index: 3;
 }
 
 .exec-carousel-card-discipline-label {
   font-family: 'Proxima Nova', 'Gliiker', sans-serif;
   font-size: 30px;
   font-weight: 700;
-  color: #3a1f6e;
+  color: var(--monster);
+  display: none;
 }
 
 .exec-carousel-card-back {
@@ -1344,7 +1382,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px 20px 0 20px;
+  padding: 24px 20px 90px 20px;
   gap: 12px;
   box-sizing: border-box;
   position: relative;
@@ -1378,7 +1416,11 @@
   object-fit: cover;
   border-radius: 50%;
   flex-shrink: 0;
-  box-shadow: 0 0 0 4px #f0c830, 0 0 0 7px rgba(58, 31, 110, 0.25), 0 6px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 0 4px var(--mikado), 0 0 0 7px rgba(58, 31, 110, 0.25),
+    0 6px 16px rgba(0, 0, 0, 0.25);
+
+  margin: 0 auto;
+  display: block;
 }
 
 .exec-carousel-card-back-bio {
@@ -1390,7 +1432,7 @@
   font-size: 22px;
   font-weight: 500;
   line-height: 1.6;
-  padding: 4px 12px 8px 12px;
+  padding: 4px 12px 24px 12px;
   text-align: center;
   min-height: 0;
 
@@ -1412,29 +1454,44 @@
 
 .exec-carousel-card-prompt {
   font-family: 'Proxima Nova', 'Gliker', sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 900;
-  letter-spacing: 3px;
-  color: var(--text-dark);
-  border-color: rgba(58, 31, 110, 0.4);
+  letter-spacing: 2px;
+  color: var(--monster);
   text-transform: uppercase;
+  position: absolute;
+  bottom: 75px;
+  left: 295px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(58, 31, 110, 0.3);
 }
 
 .exec-carousel-name-band {
   width: 100%;
-  background: linear-gradient(135deg, var(--monster) 0%, var(--jam) 60%, var(--wisteria) 100%);
-  padding: 14px;
-  border-radius: 0 0 18px 18px;
+  background: var(--light-purple);
+  padding: 1px 14px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  margin-top: auto;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  border-top: 4px solid #3a1f6e;
+  border-bottom: 4px solid #3a1f6e;
+  // box-shadow: 0 -3px 0 #f5d64a, 0 3px 0 #f5d64a;
 
   &::before {
     content: '✦';
-    color: #f5d64a;
+    color: var(--palegold);
     font-size: 11px;
     opacity: 0.8;
   }
@@ -1497,7 +1554,7 @@
     background: rgba(58, 31, 110, 0.6);
     transform: translateY(-50%) scale(1.05);
     svg path {
-      fill: #f5d64a;
+      fill: var(--palegold);
     }
   }
 
