@@ -165,3 +165,12 @@
     }
   }
 }
+
+.isRequired {
+  color: var(--red-error);
+  display: inline-block;
+  font-size: 13px;
+  margin-bottom: -10px;
+  font-weight: 800;
+  padding-left: 2px;
+}

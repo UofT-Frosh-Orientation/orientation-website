@@ -20,6 +20,7 @@ const TextInput = ({
   isDisabled,
   inputArgs,
   initialValue,
+  value,
   hasRestrictedInput,
   inputType,
   inputTitle,
@@ -54,7 +55,7 @@ const TextInput = ({
     }
   }, []);
 
-  const [value, setValue] = useState(
+  const [internalValue, setInternalValue] = useState(
     localStorageKey
       ? localStorage.getItem(localStorageKey)
         ? localStorage.getItem(localStorageKey)
@@ -68,57 +69,68 @@ const TextInput = ({
 
   useEffect(() => {
     if (clearText) {
-      setValue('');
+      setInternalValue('');
       setClearText(false);
     }
   }, [clearText]);
 
   useEffect(() => {
-    setValue(oldValue);
+    if (isDisabled) {
+      setInternalValue('');
+    }
+  }, [isDisabled]);
+
+  useEffect(() => {
+    setInternalValue(oldValue);
   }, [cancelEdit]);
 
   const [type, setType] = useState(inputType ? inputType : 'text');
 
   const onInputChange = (event) => {
-    let value = event.target.value;
+    let newValue = event.target.value;
     if (hasRestrictedInput) {
-      value = value.replace(/[^\w\n!@#$%^&*()\-+={}[\]:";'<>,./?~`\\ ]+/g, '');
+      newValue = newValue.replace(/[^\w\n!@#$%^&*()\-+={}[\]:";'<>,./?~`\\ ]+/g, '');
     }
     if (isPhoneNumber) {
-      value = value.replace(/\D/g, '');
-      // let cleaned = ('' + value).replace(/\D/g, '');
+      newValue = newValue.replace(/\D/g, '');
+      // let cleaned = ('' + newValue).replace(/\D/g, '');
       // let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
       // if (match) {
-      //   value = '(' + match[1] + ') ' + match[2] + '-' + match[3];
+      //   newValue = '(' + match[1] + ') ' + match[2] + '-' + match[3];
       // }
-      let size = value.length;
+      let size = newValue.length;
       if (size < 4 && size > 0) {
-        value = '(' + value;
+        newValue = '(' + newValue;
       } else if (size < 7) {
-        value = '(' + value.substring(0, 3) + ') ' + value.substring(3, 6);
+        newValue = '(' + newValue.substring(0, 3) + ') ' + newValue.substring(3, 6);
       } else if (size <= 10) {
-        value =
-          '(' + value.substring(0, 3) + ') ' + value.substring(3, 6) + '-' + value.substring(6, 10);
+        newValue =
+          '(' +
+          newValue.substring(0, 3) +
+          ') ' +
+          newValue.substring(3, 6) +
+          '-' +
+          newValue.substring(6, 10);
       }
     }
     if (isInstagram) {
-      if (value !== '' && !value.includes('@')) {
-        value = '@' + value;
+      if (newValue !== '' && !newValue.includes('@')) {
+        newValue = '@' + newValue;
       }
     }
     if (isUtorID) {
-      value = value.replace(' ', '').toLowerCase();
+      newValue = newValue.replace(' ', '').toLowerCase();
     }
     if (maxLength) {
-      if (value !== undefined && maxLength < value.length) {
-        value = value.substring(0, value.length - 1);
+      if (newValue !== undefined && maxLength < newValue.length) {
+        newValue = newValue.substring(0, newValue.length - 1);
       }
     }
 
-    onChange ? onChange(value) : 0;
-    setValue(value);
+    onChange ? onChange(newValue) : 0;
+    if (value === undefined) setInternalValue(newValue);
     if (localStorageKey) {
-      localStorage.setItem(localStorageKey, value);
+      localStorage.setItem(localStorageKey, newValue);
     }
   };
 
@@ -152,7 +164,7 @@ const TextInput = ({
             required={isRequiredInput}
             disabled={isDisabled}
             onKeyDown={onKeyDown}
-            value={value ?? ''}
+            value={value ?? internalValue ?? ''}
             placeholder={placeholder}
             type={type}
             autoComplete={autocomplete}
@@ -172,7 +184,7 @@ const TextInput = ({
             required={isRequiredInput}
             disabled={isDisabled}
             onKeyDown={onKeyDown}
-            value={value ?? ''}
+            value={value ?? internalValue ?? ''}
             placeholder={placeholder}
             type={type}
             autoComplete={autocomplete}
@@ -225,6 +237,7 @@ TextInput.propTypes = {
   isDisabled: PropTypes.bool,
   inputArgs: PropTypes.object,
   initialValue: PropTypes.string,
+  value: PropTypes.string,
   hasRestrictedInput: PropTypes.bool,
   inputType: PropTypes.oneOf(['text', 'textArea', 'password', 'date']),
   inputTitle: PropTypes.string,
