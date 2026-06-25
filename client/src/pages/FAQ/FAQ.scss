@@ -571,3 +571,99 @@
 .fill {
   display: none;
 }
+
+// --- ADD QUESTION FEATURE UI STYLES ---
+.faq-add-trigger-btn {
+  background-color: var(--faq-accent) !important;
+  color: var(--faq-bg) !important;
+  font-family: 'Gliker', Impact, sans-serif;
+  text-transform: uppercase;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+}
+
+.faq-add-trigger-container {
+  position: relative;
+  z-index: 10;
+}
+
+.faq-add-form-panel {
+  max-width: 1000px;
+  margin: 15px auto 30px auto;
+  width: calc(100% - 40px);
+  background-color: var(--faq-panel-bg);
+  border: 3px solid var(--faq-accent);
+  border-radius: 20px;
+  padding: 25px;
+  box-sizing: border-box;
+
+  position: relative;
+  z-index: 10; // Lifts it clean above the background layers
+
+  @include devices(tablet) {
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  h3 {
+    color: var(--faq-accent);
+    font-family: 'Gliker', Impact, sans-serif;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+
+    label {
+      color: var(--faq-text);
+      font-family: 'Gliker', Impact, sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input,
+    textarea {
+      background-color: rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 211, 0, 0.2);
+      border-radius: 10px;
+      padding: 12px;
+      color: var(--faq-text);
+      font-size: 14px;
+      font-family: system-ui, sans-serif;
+
+      &:focus {
+        outline: none;
+        border-color: var(--faq-accent);
+      }
+    }
+  }
+
+  .faq-submit-btn {
+    background-color: var(--faq-accent);
+    color: var(--faq-bg);
+    font-family: 'Gliker', Impact, sans-serif;
+    text-transform: uppercase;
+    border: none;
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+}
