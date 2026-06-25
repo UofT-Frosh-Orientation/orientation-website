@@ -1,49 +1,42 @@
 @import '../../scssStyles/mixins';
 
 :root {
-  --bg-main: #3d0f58;
-  --bg-card: #711f8b;
-  --accent-purple: #a77ad7;
-  --bg-tint: #dfcdf3;
-  --text-primary: #ebebeb;
-  --text-inverted: #3c3c3c;
-
-  --header-text-main: #ebebeb;
-  --digit-bg: #3d0f58;
-  --digit-text: #ebebeb;
-
-  --gold-1: #ffc600;
-  --gold-2: #fed34c;
-  --gold-3: #fbdc70;
-
-  --checker-color-1: #a77ad7;
-  --checker-color-2: #3d0f58;
-  --shadow-color: rgba(0, 0, 0, 0.35);
-
-  --countdown-on-gold: #3d0f58;
-}
-
-html[data-theme='light'],
-body[data-theme='light'] {
+  // these are now the LIGHT mode defaults
   --bg-main: #ebebeb;
   --bg-card: #dfcdf3;
   --accent-purple: #711f8b;
   --bg-tint: #3d0f58;
-  --text-primary: #3d0f58;
+  --text-main: #3d0f58;
   --text-inverted: #ebebeb;
-
   --header-text-main: #3d0f58;
   --digit-bg: #ebebeb;
   --digit-text: #3d0f58;
-
   --gold-1: #ffc600;
   --gold-2: #fed34c;
   --gold-3: #fbdc70;
-
   --checker-color-1: #dfcdf3;
   --checker-color-2: #ebebeb;
   --shadow-color: rgba(60, 60, 60, 0.1);
+  --countdown-on-gold: #3d0f58;
+}
 
+body.dark-mode {
+  // these override into DARK mode
+  --bg-main: #3d0f58;
+  --bg-card: #711f8b;
+  --accent-purple: #a77ad7;
+  --bg-tint: #dfcdf3;
+  --text-main: #ebebeb;
+  --text-inverted: #3c3c3c;
+  --header-text-main: #ebebeb;
+  --digit-bg: #3d0f58;
+  --digit-text: #ebebeb;
+  --gold-1: #ffc600;
+  --gold-2: #fed34c;
+  --gold-3: #fbdc70;
+  --checker-color-1: #a77ad7;
+  --checker-color-2: #3d0f58;
+  --shadow-color: rgba(0, 0, 0, 0.35);
   --countdown-on-gold: #3d0f58;
 }
 
@@ -65,7 +58,7 @@ body[data-theme='light'] {
 html,
 body {
   background-color: var(--bg-main);
-  color: var(--text-primary);
+  color: var(--text-main);
   margin: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -91,7 +84,10 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: 94%;
-  background-image: repeating-conic-gradient(#dfcdf3 0% 25%, #3d0f58 0% 50%);
+  background-image: repeating-conic-gradient(
+    var(--checker-color-1) 0% 25%,
+    var(--checker-color-2) 0% 50%
+  );
   background-size: 160px 160px;
   background-position: center;
   z-index: 0;
@@ -174,7 +170,7 @@ body {
   font-family: 'Genty';
   font-weight: 400;
   font-size: clamp(100px, 16vw, 220px);
-  color: var(--text-primary);
+  color: var(--text-main);
   line-height: 1;
   margin: 0;
   padding: 0;
@@ -194,7 +190,7 @@ body {
   font-family: 'Gliker';
   font-weight: 900;
   font-size: clamp(120px, 27vw, 300px);
-  color: var(--text-primary);
+  color: var(--text-main);
   line-height: 0.85;
   margin: 0;
   padding: 0 3%;
@@ -221,7 +217,7 @@ body {
   font-family: 'Gliker';
   font-weight: 900;
   font-size: clamp(30px, 4vw, 65px);
-  color: var(--text-primary);
+  color: var(--text-main);
   letter-spacing: -2px;
 }
 
@@ -306,7 +302,7 @@ body {
 }
 
 .home-page-timeline-popup-container {
-  color: var(--text-primary);
+  color: var(--text-main);
 
   h1 {
     margin-bottom: 10px;
@@ -370,7 +366,7 @@ body {
   // component-scoped styles, inline styles) can silently override it
   p,
   h2 {
-    color: var(--text-primary) !important;
+    color: var(--text-main) !important;
   }
 
   @include devices(tablet) {
@@ -393,7 +389,7 @@ body {
   p {
     font-size: 15px;
     line-height: 1.7;
-    color: var(--text-primary);
+    color: var(--text-main);
     font-family: 'Proxima Nova', sans-serif;
   }
 }
@@ -531,7 +527,7 @@ body {
 
 .otherevents-info-des {
   font-size: 16px;
-  color: var(--text-primary);
+  color: var(--text-main);
 }
 
 .home-page-section-header {
@@ -564,7 +560,7 @@ body {
 .home-page-sponsors {
   padding: 0px 0 10px 0;
   background-color: var(--bg-main);
-  color: var(--text-primary);
+  color: var(--text-main);
   text-align: center;
   transition: background-color 0.3s ease;
 }
@@ -582,7 +578,7 @@ body {
 
   p {
     font-size: 18px;
-    color: var(--text-primary);
+    color: var(--text-main);
     max-width: 800px;
     margin: 0 auto;
   }
@@ -688,7 +684,7 @@ body {
   font-size: 13px;
   font-weight: 700;
   font-style: italic;
-  fill: var(--text-primary);
+  fill: #ebebeb;
   cursor: pointer;
 
   &.active,
@@ -722,7 +718,7 @@ body {
   p {
     font-size: 18px;
     line-height: 1.7;
-    color: var(--text-primary);
+    color: var(--text-main);
     font-family: 'Proxima Nova', sans-serif;
     margin-bottom: 20px;
   }
@@ -736,7 +732,7 @@ body {
   font-family: 'Proxima Nova', sans-serif;
   font-size: 16px;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--text-main);
   text-decoration: none;
   background-color: transparent;
   transition: background 0.2s, color 0.2s;
@@ -753,7 +749,7 @@ body {
   font-family: 'Genty', sans-serif;
   font-size: clamp(40px, 6vw, 72px);
   font-weight: 400;
-  color: var(--text-primary);
+  color: var(--text-main);
   margin-bottom: 10px;
 }
 
@@ -765,7 +761,7 @@ body {
   max-width: 600px;
   text-align: center;
   font-family: 'Proxima Nova';
-  color: var(--text-primary);
+  color: var(--text-main);
   position: relative;
   background: none;
   display: flex;
@@ -776,7 +772,7 @@ body {
   font-family: 'Genty', cursive;
   font-size: clamp(32px, 5vw, 52px);
   font-weight: 400;
-  color: var(--text-primary);
+  color: var(--text-main);
   line-height: 1.1;
   margin-bottom: -25px; // pulls it down toward the checkers below
   margin-top: 25px;
@@ -816,7 +812,7 @@ body {
   max-width: 52%; // keeps text within the oval's visible width instead of spilling into the checkers
   margin: 0 auto;
   text-align: center;
-  color: var(--text-primary);
+  color: var(--text-main);
   word-wrap: break-word;
 }
 
