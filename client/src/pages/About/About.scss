@@ -17,6 +17,8 @@
   align-items: center;
   margin-top: 0px;
 
+  background-color:var(--page-bg);
+
   @include devices(tablet) {
     margin-top: 20px;
   }
