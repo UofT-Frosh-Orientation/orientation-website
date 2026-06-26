@@ -55,11 +55,11 @@
   background-color: var(--page-bg);
   display: flex;
   flex-direction: column;
-  padding: 50px;
+  padding: 0px;
   width: 100vw;
 
   @include devices(tablet) {
-    padding: 20px;
+    padding: 0px;
     align-items: right;
     justify-content: center;
   }

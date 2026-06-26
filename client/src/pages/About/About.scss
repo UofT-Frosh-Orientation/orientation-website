@@ -15,7 +15,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 0px;
 
   @include devices(tablet) {
     margin-top: 20px;
@@ -43,6 +43,7 @@
 
   @include devices(tablet) {
     margin-top: 25px;
+    margin-left:-20px;
     font-size: 40px;
   }
 }
@@ -871,32 +872,38 @@
   .script-font {
     font-family: 'Genty', sans-serif; // F!rosh part
     color: var(--text-primary);
-    font-size: clamp(200px, 12vw, 320px);
+    font-size: 200px;
     display: block;
     transform: rotate(-8deg);
     transform-origin: left bottom;
-    -webkit-text-stroke: 1px var(--page-bg);
+    text-shadow:-9px 10px 0 var(--page-bg), -5px -12px 0 var(--page-bg);
   }
   .block-font {
     font-family: 'Gliker', sans-serif; // WEEK? part
     color: var(--text-primary);
-    font-size: clamp(160px, 12vw, 250px);
+    font-size:200px;
     display: block;
-    margin-top: -200px;
+    position:absolute;
+    top:55%;
+    z-index:-1;
     -webkit-text-stroke: 2px var(--page-bg);
   }
 
   @media (max-width: 768px) {
     .script-font {
-      font-size: clamp(80px, 18vw, 140px);
+      font-size: 25vw;
       transform: rotate(-8deg);
+      text-shadow:-9px 10px 0 var(--page-bg), -5px -12px 0 var(--page-bg), 4px -5px 0 var(--page-bg, 5px -1px 0 var(--page-bg));
     }
 
     .block-font {
-      font-size: clamp(80px, 18vw, 140px);
+      font-size: 25vw;
 
-      margin-top: -90px;
-      -webkit-text-stroke: 1px var(--page-bg);
+      position:absolute;
+      top:60%;
+      z-index:-1;
+
+      -webkit-text-stroke: 2px var(--page-bg);
     }
   }
 }
@@ -999,6 +1006,9 @@
   position: relative;
   text-align: center;
   line-height: 1.1;
+  @include devices(tablet) {
+    width:100%;
+  }
 }
 
 .exec-carousel-title {
@@ -1007,11 +1017,12 @@
   color: var(--text-primary);
   white-space: nowrap;
   transform: rotate(-8deg);
-  -webkit-text-stroke: 0.5px var(--page-bg);
+
+  text-shadow:-8px 9px 0 var(--purple-shades-original);
   display: block;
 
   @include devices(tablet) {
-    font-size: 60px;
+    font-size: 20vw;
   }
 }
 
