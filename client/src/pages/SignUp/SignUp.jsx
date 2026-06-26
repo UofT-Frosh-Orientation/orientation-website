@@ -107,7 +107,7 @@ const PageSignUp = () => {
             onClick={handleLeaderReveal}
           ></img>
           <h1 className="sign-up-title">Create an Account</h1>
-          <h3 className="sign-up-sub">For F!rosh Week 2T5, UofT Engineering</h3>
+          <h3 className="sign-up-sub">For F!rosh Week 2T6, UofT Engineering</h3>
           <div className="full-width-input">
             <TextInput
               label="Email"
