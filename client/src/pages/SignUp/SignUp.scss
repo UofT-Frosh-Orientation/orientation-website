@@ -22,7 +22,7 @@
 }
 
 .sign-up-title {
-  font-family: 'Jersey 20', sans-serif;
+  font-family: 'Gliker', sans-serif;
   font-weight: 900;
   font-size: clamp(50px, 5vw, 64px);
   letter-spacing: 1.5px;
@@ -46,6 +46,7 @@
 
 .sign-up-container {
   background-color: var(--bg-primary);
+  font-family: 'Proxima Nova', sans-serif;
   border-radius: 15px;
   padding: 40px min(150px, 5%);
   margin: 50px;

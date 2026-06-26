@@ -4,7 +4,7 @@ import './SignUp.scss';
 import { Button } from '../../components/button/Button/Button';
 import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { validateEmail, validatePassword, validatePasswordLength } from './functions';
-import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
+import MainFroshLogo from '../../assets/logo/2T6logo.png';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
