@@ -93,14 +93,14 @@ newFroshSubscription.process((job, done) => {
                 <a href="http://orientation.skule.ca" style="color: #ffc600; text-decoration: underline;">orientation.skule.ca</a>.
               </p>
               <p>
-                If you do not see the banner, make sure you complete your payment to secure your spot at F!rosh Week 2T5! If you have not yet paid,
+                If you do not see the banner, make sure you complete your payment to secure your spot at F!rosh Week 2T6! If you have not yet paid,
                 the register button will be at the top of your profile page. If you are having trouble finding this button, please let us know at
                 <a href="mailto:tech@orientation.skule.ca" style="color: #ffc600; text-decoration: underline;">tech@orientation.skule.ca</a>.
               </p>
               <p>
                 To stay up to date on all the info you need before you arrive, and to learn more about UofT, make sure to follow our
                 <a href="https://bit.ly/froshig" style="color: #ffc600; text-decoration: underline;">Instagram page</a> and
-                <a href="https://discord.gg/Fnxr7tp34E" style="color: #ffc600; text-decoration: underline;">join our Discord community</a>!
+                <a href="https://discord.gg/yZvTXC47n" style="color: #ffc600; text-decoration: underline;">join our Discord community</a>!
               </p>
               <p>
                 If you have any questions or want to learn more, feel free to email us at
