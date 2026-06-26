@@ -136,19 +136,12 @@ const AskQuestionButton = () => {
       </PopupModal>
       <div className={'faq-fab'}>
         <Button
-          style={{ boxShadow: '5px 5px 20px #13131362' }}
-          class_options="faq-fab-button"
           label={
             <div className={'faq-fab-container'}>
-              <img
-                className={'faq-fab-icon'}
-                src={QuestionMark}
-                alt="Question Button"
-                height={30}
-              />
-              <div className="desktop-only">
-                {/* Add text in this element below for ask question button */}
-                <span className={'faq-fab-content'}></span>
+              <div className={'faq-fab-cd'}>
+                <div className={'faq-fab-cd-disc'} />
+                <img className={'faq-fab-cd-label'} src={QuestionMark} alt="?" />
+                <div className={'faq-fab-cd-hole'} />
               </div>
             </div>
           }

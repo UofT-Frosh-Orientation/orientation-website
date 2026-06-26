@@ -77,7 +77,7 @@ export const colors = {
   '--text-light': ['#f3f3f3', '#f3f3f3'],
   '--text-dynamic': ['#20002e', '#f3f3f3'],
   '--text-muted': ['#696969', '#696969'],
-  '--page-bg': ['#FFFFFF', '#291742'],
+  '--page-bg': ['#FFFFFF', '#3D0F58'],
   '--purple-transparent': ['#7b33a8d6', '#793DA1B8'],
   '--purple-transparent-more': ['#7b33a830', '#79409F58'],
   '--transparent': ['#00000000', '#00000000'],

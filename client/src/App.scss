@@ -22,6 +22,21 @@
 }
 
 @font-face {
+  font-family: 'Gliker';
+  src: url('./assets/fonts/gliker-regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Genty';
+  src: url('./assets/fonts/GentyDemo-Regular.otf') format('opentype'),
+    url('./assets/fonts/GentyDemo-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Proxima Nova';
   src: url('../assets/fonts/proximanova_light.otf') format('opentype');
   font-weight: 300;
