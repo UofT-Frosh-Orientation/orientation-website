@@ -942,9 +942,9 @@ body {
   /* Same centered absolute band as desktop; smaller squares for phone width */
   .header-checker-block {
     top: 0%;
-    bottom: 65%;
-    width: 94%;
-    background-size: 48px 48px;
+    bottom: 68%;
+    width: 100%;
+    background-size: 112px 112px;
   }
 
   /* F!rosh — overlaps the TOP edge of the band (base keeps flex-start + rotate) */
@@ -955,7 +955,7 @@ body {
 
   /* WEEK — raised so its tall glyphs overlap the BOTTOM of the band */
   .header-week-text {
-    font-size: clamp(58px, 21vw, 160px);
+    font-size: clamp(66px, 25vw, 160px);
     bottom: 65%;
   }
 
@@ -975,11 +975,8 @@ body {
     font-size: clamp(11px, 3.4vw, 17px);
   }
 
-  /* Countdown — centered in the band (kept horizontal, sizes in countdown.scss) */
-  .countdown-timer-container {
-    top: 47%;
-    left: 50%;
-  }
+  /* Countdown position (top/left) is set in countdown.scss's own mobile block —
+     its base `top` loads after this file and would override anything set here. */
 
   /* ── OTHER EVENTS ── */
   .other-events-heading {
@@ -1013,7 +1010,7 @@ body {
     margin-top: 10px;
   }
 
-  /* ── SPONSORS ── */
+  /* ── SPONSORS ── (tightened vertical spacing for phone) */
   .please-sponsor-text {
     font-size: 13px;
     max-width: 58%;
@@ -1021,6 +1018,7 @@ body {
 
   .please-sponsor-checkers {
     height: 140px;
+    margin: 10px 0 16px 0; // was 12px 0 50px 0 — closes the gap under "Become a Sponsor"
   }
 
   .please-sponsor-checkers::before {
@@ -1028,11 +1026,37 @@ body {
     height: 100%;
   }
 
+  // The blank band right under the film reel was this section's top padding
   .home-page-sponsors {
-    padding-top: 50px;
+    padding-top: 0px;
+    margin-top: -100px;
+  }
+
+  // Tighten the carousel's own padding + the per-card bottom margin (base is 40px)
+  .sponsors-carousel-track {
+    padding: 8px 0; // was 20px 0
+  }
+
+  .sponsor-card {
+    margin-bottom: 12px; // was 40px
+  }
+
+  // Pull "Become a Sponsor" up closer to the carousel
+  .please-sponsor-container {
+    margin: 0px auto 0px auto;
+    margin-top: -55px;
   }
 
   /* ── FILM STRIP ── */
+  // The hero stays 100vh, but its content now lives in the top ~40% (you pulled
+  // F!rosh/WEEK/2T6/countdown/star up), leaving the bottom empty. Pull the film
+  // strip — and everything after it — up so it sits right under the 2T6.
+  // KNOB: make this MORE negative to move the film up (closer to 2T6), less
+  // negative to move it down. Retune if you move the hero words again.
+  .film-strip-container {
+    margin-top: -60vh;
+  }
+
   .film-strip-photo {
     height: clamp(110px, 28vw, 170px); // enlarged for mobile, still scales down
     width: clamp(160px, 40vw, 250px);

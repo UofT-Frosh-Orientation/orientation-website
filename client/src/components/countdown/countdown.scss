@@ -71,6 +71,11 @@
 @include devices(tablet) {
   .countdown-timer-container {
     position: absolute;
+    // KNOB: moves the gold oval + countdown together on phones. Set here (not in
+    // Home.scss) because this file's base `top: 50%` loads later and would win.
+    // Higher % = lower on screen.
+    top: 58%;
+    left: 50%;
     transform: translate(-50%, -50%) rotate(15deg);
     padding: 4vw 6vw; // tighter so the horizontal row fits the phone-width band
     border-radius: 50%;
@@ -88,9 +93,11 @@
   }
 
   .countdown-label {
-    -webkit-text-stroke: 0;
+    // Yellow outline (like desktop) so the labels stay legible where they sit
+    // over the purple checkers instead of the gold oval
+    -webkit-text-stroke: 0.67px #f5c842;
     font-weight: 700;
-    font-size: clamp(10px, 2.6vw, 18px);
+    font-size: clamp(20px, 2.6vw, 18px);
     margin-bottom: 2px;
   }
 
