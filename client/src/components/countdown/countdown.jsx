@@ -11,7 +11,7 @@ const CountdownHome = () => {
     const countdownInterval = setInterval(() => {
       // get current time and end time
       const currentDate = new Date().getTime();
-      const targetDate = new Date('2025-08-25T07:30:00').getTime();
+      const targetDate = new Date('2026-08-31T07:30:00').getTime();
 
       let remainingTime = targetDate - currentDate;
 
@@ -24,7 +24,6 @@ const CountdownHome = () => {
         days: Math.floor(remainingTime / (1000 * 60 * 60 * 24)),
         hours: Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
         minutes: Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60)),
-        seconds: Math.floor((remainingTime % (1000 * 60)) / 1000),
       });
     }, 1000);
     return () => clearInterval(countdownInterval);
@@ -72,21 +71,6 @@ const CountdownHome = () => {
               .split('')
               .map((digit, i) => (
                 <span key={`minutes-${i}`} className="digit">
-                  {digit}
-                </span>
-              ))}
-          </div>
-        </div>
-        <span className="divider">:</span>
-        <div className="countdown-seg">
-          <span className="countdown-label">SECONDS</span>
-          <div className="countdown-number">
-            {(timeLeft.seconds ?? 0)
-              .toString()
-              .padStart(2, '0')
-              .split('')
-              .map((digit, i) => (
-                <span key={`seconds-${i}`} className="digit">
                   {digit}
                 </span>
               ))}

@@ -1,34 +1,241 @@
 @import '../../scssStyles/mixins';
-@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
+
+:root {
+  // these are now the LIGHT mode defaults
+  --bg-main: #ebebeb;
+  --bg-card: #dfcdf3;
+  --accent-purple: #711f8b;
+  --bg-tint: #3d0f58;
+  --text-main: #3d0f58;
+  --text-inverted: #ebebeb;
+  --header-text-main: #3d0f58;
+  --digit-bg: #ebebeb;
+  --digit-text: #3d0f58;
+  --gold-1: #ffc600;
+  --gold-2: #fed34c;
+  --gold-3: #fbdc70;
+  --checker-color-1: #dfcdf3;
+  --checker-color-2: #ebebeb;
+  --shadow-color: rgba(60, 60, 60, 0.1);
+  --countdown-on-gold: #3d0f58;
+}
+
+body.dark-mode {
+  // these override into DARK mode
+  --bg-main: #3d0f58;
+  --bg-card: #711f8b;
+  --accent-purple: #a77ad7;
+  --bg-tint: #dfcdf3;
+  --text-main: #ebebeb;
+  --text-inverted: #3c3c3c;
+  --header-text-main: #ebebeb;
+  --digit-bg: #3d0f58;
+  --digit-text: #ebebeb;
+  --gold-1: #ffc600;
+  --gold-2: #fed34c;
+  --gold-3: #fbdc70;
+  --checker-color-1: #a77ad7;
+  --checker-color-2: #3d0f58;
+  --shadow-color: rgba(0, 0, 0, 0.35);
+  --countdown-on-gold: #3d0f58;
+}
+
+// --- FONTS ---
+@font-face {
+  font-family: 'Genty';
+  src: url('../../assets/fonts/GentyDemo-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gliker';
+  src: url('../../assets/fonts/gliker-regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html,
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
 .home-page-header {
   position: relative;
   height: 100vh;
-  min-height: 500px;
-  // background: radial-gradient(50% 42.09% at 50% 57.91%, #711f8bbf 43.23%, #3d0f58bf 100%);
-  background: 
-  // linear-gradient(
-  // to left, 
-  // #00000080 40%, 
-  // #00000000 100%, 
-  // );
-    linear-gradient(to left, #2b003866 60%, #2b003800 100%);
-  // linear-gradient(
-  // to bottom,
-  // #00000040 0%,
-  // #00000000 20%,
-  // );
+  min-height: 600px;
+  padding-bottom: 3%;
+  background-color: var(--bg-main);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-items: center;
-  justify-content: center;
-  // align-items: center;
-  overflow: hidden;
-  // margin-top: 20px;
+  justify-content: flex-end;
+  transition: background-color 0.3s ease;
+}
 
-  @include devices(tablet) {
-    justify-content: center;
+// The checkerboard is a centered block, NOT full background
+.header-checker-block {
+  position: absolute;
+  top: 15%;
+  bottom: 22%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  background-image: repeating-conic-gradient(
+    var(--checker-color-1) 0% 25%,
+    var(--checker-color-2) 0% 50%
+  );
+  // checker squares scale with the viewport (≈10vw, was a fixed 160px) so the
+  // pattern grows on large screens instead of looking tiny/dense
+  background-size: clamp(110px, 10vw, 220px) clamp(110px, 10vw, 220px);
+  background-position: center;
+  z-index: 0;
+  overflow: hidden;
+}
+
+// Top-right container for star + countdown
+.header-top-right {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-20%);
+  z-index: 6;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  background-color: var(--bg-main);
+}
+
+// "Register Now!" star shape
+.header-register-star {
+  position: absolute;
+  top: 18%;
+  right: 3%;
+  z-index: 6;
+  background-color: var(--gold-1);
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+  width: clamp(150px, 15vw, 380px);
+  height: clamp(150px, 15vw, 380px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(15deg);
+  font-family: 'Proxima Nova', sans-serif;
+  font-weight: 900;
+  font-size: clamp(14px, 1.2vw, 30px);
+  text-align: center;
+  color: #3d0f58;
+  line-height: 1.2;
+
+  span {
+    transform: rotate(-15deg);
+    display: block;
+    padding-top: clamp(8px, 0.8vw, 18px);
   }
+}
+
+// Text stack at bottom
+.header-text-stack {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+// "F!rosh" — cursive, angled, on top of checkers
+.header-frosh-text {
+  font-family: 'Genty';
+  font-weight: 400;
+  font-size: clamp(100px, 16vw, 360px); // cap raised to keep pace with WEEK
+  color: var(--text-main);
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  transform: rotate(-7deg);
+  transform-origin: left top;
+  text-shadow: 5px 5px 0px rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
+  position: relative;
+  left: 1%;
+  top: 15%;
+  z-index: 4;
+  align-self: flex-start;
+}
+
+// "WEEK" — bold, stretched full checker-width
+.header-week-text {
+  font-family: 'Gliker';
+  font-weight: 900;
+  // Letters scale with viewport up to a cap; the container width is capped to
+  // the same point so the word locks to a clean max size on big screens instead
+  // of stretching forever (which is what made the letter gaps balloon).
+  font-size: clamp(120px, 24vw, 480px); // dialed down slightly (was 27vw / 550px)
+  color: var(--text-main);
+  line-height: 0.85;
+  margin: 0;
+  padding: 0 3%;
+  text-transform: uppercase;
+  white-space: nowrap;
+  width: min(99.75%, 2000px); // tracks the new cap (480 / 0.24)
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  z-index: 4;
+  align-self: center;
+  box-sizing: border-box;
+  position: relative;
+  transform: scaleY(0.9);
+  bottom: 7%; // raised to leave a clear band below the word for "2T6"
+
+  // Letters are per-letter <span>s; the global `* { font-family }` in App.scss
+  // hits them directly and blocks inheritance, so re-assert it here.
+  span {
+    font-family: inherit;
+  }
+}
+
+// 2T6 bottom right — sits in the band below WEEK so it reads distinctly.
+// `right` tracks WEEK's right edge: 2% while WEEK is near-full-width, then
+// locks to WEEK's capped (~2037px) right edge on large screens.
+.home-page-2t6-text {
+  position: absolute;
+  bottom: 2%;
+  right: max(2%, calc(50% - 1000px));
+  z-index: 5;
+  font-family: 'Gliker';
+  font-weight: 900;
+  font-size: clamp(30px, 4vw, 250px); // cap raised to keep pace with WEEK
+  color: var(--text-main);
+  letter-spacing: -2px;
+}
+
+.home-page-header-checkers {
+  display: none;
 }
 
 .FroshHardHatWhite-logo {
@@ -42,101 +249,6 @@
     text-align: center;
     height: 220px;
   }
-}
-
-.home-page-header-text {
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
-  padding: 0% 5% 0% 5%;
-  text-align: right;
-
-  // @include devices(ipad) {
-  //   padding: 40% 5% 0px 5%;
-  // }
-
-  h1 {
-    font-family: 'Jersey 20';
-    font-weight: 400;
-    font-size: clamp(120px, 24vh, 180px);
-    text-transform: uppercase;
-    color: var(--mikado);
-    text-shadow: 5px 5px 0 var(--jam), -5px -5px 0 var(--jam), 5px -5px 0 var(--jam),
-      -5px 5px 0 var(--jam), 5px 5px 0 var(--jam);
-    // -5px -5px 0 var(--monster),
-    //  5px -5px 0 var(--monster),
-    // -5px  5px 0 var(--monster),
-    //  5px  5px 0 var(--monster);
-    line-height: 0.8;
-
-    // @include devices(huge) {
-    //   font-size: 300px;
-    //   text-shadow: 10px 10px 0 var(--jam), -10px -10px 0 var(--jam), 10px -10px 0 var(--jam),
-    //     -10px 10px 0 var(--jam);
-    // }
-  }
-
-  h2 {
-    text-align: right;
-    font-size: max(1vh, 48px);
-    font-weight: 800;
-    color: var(--white);
-    margin-bottom: 20px;
-    // line-height: 0.7;
-    // line-height: 1;
-  }
-
-  p {
-    text-align: right;
-    font-size: 16px;
-    font-weight: 800;
-    margin-bottom: min(2vh, 20px);
-    margin-top: min(3vh, 20px);
-    margin-right: 1%;
-    color: var(--white);
-    line-height: 1.4;
-  }
-
-  @include devices(tablet) {
-    padding: 0px 25px;
-
-    h1 {
-      font-size: 120px;
-      text-align: right;
-      margin: 0px 0px 0px 0px;
-    }
-
-    h2 {
-      font-size: 32px;
-      text-align: right;
-      line-height: 1;
-    }
-
-    p {
-      font-size: 15px;
-      padding: 0px 20px;
-      text-align: right;
-    }
-  }
-}
-
-.home-page-header-register-button {
-  margin-top: 40px;
-  margin-right: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  justify-content: end;
-
-  @include devices(tablet) {
-    // text-align: center;
-    width: unset;
-    height: unset;
-    font-size: unset;
-  }
-
-  font-size: max(1.8vh, 18px);
 }
 
 .home-page-top-wave-image {
@@ -171,7 +283,8 @@
 }
 
 .home-page-timeline {
-  background-color: var(--bg-primary);
+  background-color: var(--bg-main);
+  transition: background-color 0.3s ease;
 
   ::-webkit-scrollbar {
     width: 12px;
@@ -183,7 +296,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: var(--gray);
+    background-color: var(--bg-card);
     background: var(--gray);
     border-radius: 3px;
   }
@@ -202,7 +315,7 @@
 }
 
 .home-page-timeline-popup-container {
-  color: var(--white);
+  color: var(--text-main);
 
   h1 {
     margin-bottom: 10px;
@@ -227,7 +340,7 @@
 }
 
 .home-page-schedule {
-  background-color: var(--bg-primary);
+  background-color: #3d0f58;
   padding-bottom: 30px;
 
   @include devices(tablet) {
@@ -236,10 +349,10 @@
   }
 
   .home-page-schedule-warning {
-    font-size: 18px;
+    font-size: clamp(14px, 1.1vw, 26px);
     font-family: 'Proxima Nova';
     font-weight: 400;
-    color: var(--text-primary);
+    color: #f0eef8;
     padding-left: min(40px, 3.5%);
     margin-top: -25px;
     margin-bottom: 15px;
@@ -250,6 +363,141 @@
       font-size: 15px;
     }
   }
+}
+
+// --- ABOUT BLURB ---
+.home-page-about-blurb {
+  display: flex;
+  flex-direction: row;
+  padding: 50px 6%;
+  background-color: var(--bg-main);
+  gap: 40px;
+  align-items: flex-start;
+  transition: background-color 0.3s ease;
+
+  // Force text color here so nothing upstream (global resets,
+  // component-scoped styles, inline styles) can silently override it
+  p,
+  h2 {
+    color: var(--text-main) !important;
+  }
+
+  @include devices(tablet) {
+    flex-direction: column;
+  }
+}
+
+.home-page-about-col {
+  flex: 1;
+  background-color: var(--bg-main);
+
+  h2 {
+    font-family: 'Gliker';
+    font-size: clamp(22px, 1.7vw, 38px);
+    font-weight: 900;
+    margin-bottom: 14px;
+    color: var(--accent-purple) !important; // keep heading on its own accent color
+  }
+
+  p {
+    font-size: clamp(14px, 1vw, 21px);
+    line-height: 1.7;
+    color: var(--text-main);
+    font-family: 'Proxima Nova', sans-serif;
+  }
+}
+
+.home-page-about-divider {
+  width: 2px;
+  background-color: var(--accent-purple);
+  align-self: stretch;
+  flex-shrink: 0;
+
+  @include devices(tablet) {
+    width: 100%;
+    height: 2px;
+  }
+}
+
+//Flim Strip
+.film-strip-container {
+  background-color: var(--text-inverted);
+  padding: clamp(8px, 1vw, 16px) 0;
+  width: 100%;
+  display: block;
+  overflow: hidden; // viewport that clips the scrolling track
+}
+
+// The old separate sprocket-hole strips are hidden: the perforations are now
+// drawn ON the moving track (below) so they scroll at the EXACT same speed as
+// the photos at every screen size, instead of needing a hand-tuned duration.
+.film-strip-holes {
+  display: none;
+}
+
+// Continuous marquee. The track holds two identical copies of the photos
+// (see `looped` in Home.jsx), so translating by -50% scrolls exactly one copy
+// and loops seamlessly. Each photo carries its own right margin (instead of a
+// flex `gap`) so the spacing is uniform across the loop seam.
+.film-strip-track {
+  position: relative; // anchors the perforation strips
+  display: flex;
+  align-items: center;
+  // vertical padding leaves room for the perforation strips at top & bottom
+  padding: clamp(22px, 2.6vw, 44px) 0;
+  width: max-content;
+  animation: film-scroll 40s linear infinite; // bump duration to slow it down
+}
+
+// Perforations drawn on the track itself → they share the track's transform and
+// therefore move in perfect lockstep with the photos, no separate animation.
+.film-strip-track::before,
+.film-strip-track::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: clamp(18px, 2vw, 34px);
+  background: repeating-linear-gradient(
+    to right,
+    var(--text-inverted) 0px,
+    var(--text-inverted) 10px,
+    var(--bg-card) 10px,
+    var(--bg-card) 30px,
+    var(--text-inverted) 30px,
+    var(--text-inverted) 40px
+  );
+}
+
+.film-strip-track::before {
+  top: 0;
+}
+
+.film-strip-track::after {
+  bottom: 0;
+}
+
+// Hovering the strip pauses the whole thing (photos + perforations move as one)
+.film-strip-container:hover .film-strip-track {
+  animation-play-state: paused;
+}
+
+@keyframes film-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.film-strip-photo {
+  height: clamp(150px, 13vw, 300px); // enlarged
+  width: clamp(220px, 19vw, 440px); // enlarged, keeps ~3:2 aspect
+  object-fit: cover;
+  flex-shrink: 0;
+  margin-right: clamp(4px, 0.6vw, 10px);
 }
 
 .otherevents-subsubcontainer {
@@ -270,7 +518,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  margin: 13px 50px 13px 0;
+  margin: 20px 50px 20px 0;
   max-width: 650px;
 
   flex: 1;
@@ -308,15 +556,16 @@
 
 .otherevents-info {
   // background: rgba(255, 255, 255, 0.25);
-  background-color: var(--bg-primary);
+  background-color: var(--bg-card);
   border-radius: 10px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-color);
 
   display: flex;
   flex-direction: column;
 
   padding: 25px;
   margin: 13px;
+  transition: background-color 0.3s ease;
 
   @include devices(tablet) {
     margin: 0 0 25px 0;
@@ -324,24 +573,25 @@
 }
 
 .otherevents-info-title {
-  font-size: 24px;
+  font-size: clamp(18px, 1.6vw, 32px);
   margin-bottom: 10px;
 
-  color: var(--text-primary);
+  color: var(--accent-purple);
   text-align: left;
 
   @include devices(tablet) {
     text-align: center;
   }
 }
+
 .otherevents-info-des {
-  font-size: 16px;
-  color: var(--text-primary);
+  font-size: clamp(14px, 1vw, 21px);
+  color: var(--text-main);
 }
 
 .home-page-section-header {
-  font-size: 48px;
-  color: var(--text-primary);
+  font-size: clamp(34px, 3.2vw, 68px);
+  color: var(--bg-main);
   padding-left: min(40px, 3.5%);
   padding-top: 40px;
   margin-left: 30px;
@@ -366,30 +616,285 @@
   filter: drop-shadow(-10px 10px 8px #23232342);
 }
 
-// --- START: Replace all previous sponsor styles with these ---
-
 .home-page-sponsors {
-  padding: 60px 0; // Use vertical padding only
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
+  padding: 0px 0 10px 0;
+  background-color: var(--bg-main);
+  color: var(--text-main);
   text-align: center;
+  transition: background-color 0.3s ease;
 }
 
 .home-page-sponsors-header {
-  margin-bottom: 40px;
-  padding: 0 20px; // Add horizontal padding here
+  margin-bottom: 20px;
+  padding: 0 20px;
   font-family: 'Proxima Nova';
 
   h2 {
-    font-size: 48px;
+    font-size: clamp(30px, 3vw, 62px);
     margin-bottom: 10px;
     font-weight: 900;
   }
+
   p {
-    font-size: 18px;
-    color: var(--text-primary);
+    font-size: clamp(15px, 1.2vw, 26px);
+    color: var(--text-main);
     max-width: 800px;
     margin: 0 auto;
+  }
+}
+
+// Other Events
+
+.other-events-section {
+  background-color: var(--bg-main);
+  padding: 0px 5% 0px 5%;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+.other-events-heading {
+  font-family: 'Genty', sans-serif;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 400;
+  color: var(--gold-1);
+  margin-bottom: -100px;
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+.other-events-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+
+  @include devices(tablet) {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+
+// Vinyl
+.vinyl-wrapper {
+  flex: 0 0 auto;
+  width: clamp(550px, 60vw, 800px);
+  margin-left: clamp(-478px, -42vw, -600px); // pushed further left, was -420/-480
+  position: relative;
+  z-index: 2;
+
+  @include devices(tablet) {
+    width: 90vw;
+    margin-left: -35vw;
+  }
+}
+
+.other-events-thumb-wrapper {
+  flex: 0 0 auto;
+  width: 500px;
+  height: 300px; // fixed, not the broken clamp from before
+  margin-left: -84px;
+  border-radius: 0 100px 100px 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+
+  @include devices(tablet) {
+    width: 70vw;
+    height: 50vw;
+    margin-left: 0;
+    margin-top: 0;
+  }
+}
+
+.other-events-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vinyl-disc {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+}
+
+@keyframes vinyl-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.vinyl-disc-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.vinyl-label-svg {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: clamp(12px, 1vw, 18px);
+  font-weight: 700;
+  font-style: italic;
+  fill: #ebebeb;
+  cursor: pointer;
+
+  &.active,
+  &:hover {
+    fill: var(--gold-1);
+  }
+}
+
+// Right panel
+.other-events-info-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  padding-left: 40px;
+  min-height: 320px;
+  z-index: 1;
+  text-align: center;
+}
+
+.other-events-info-text {
+  h3 {
+    font-family: 'Proxima Nova', sans-serif;
+    font-size: clamp(24px, 2.2vw, 46px);
+    font-weight: 900;
+    color: var(--accent-purple);
+  }
+
+  p {
+    font-size: clamp(15px, 1.2vw, 26px);
+    line-height: 1.7;
+    color: var(--text-main);
+    font-family: 'Proxima Nova', sans-serif;
+    margin-bottom: 20px;
+  }
+}
+
+.other-events-learn-more {
+  display: inline-block;
+  padding: 14px 32px;
+  border: 2px solid var(--accent-purple);
+  border-radius: 8px;
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: clamp(14px, 1vw, 22px);
+  font-weight: 700;
+  color: var(--text-main);
+  text-decoration: none;
+  background-color: transparent;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background-color: var(--accent-purple);
+    color: var(--text-inverted);
+  }
+}
+
+//Sponsors heading
+
+.sponsors-heading-genty {
+  font-family: 'Genty', sans-serif;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 400;
+  color: var(--text-main);
+  margin-bottom: 10px;
+}
+
+//Become a Sponsor
+
+.please-sponsor-container {
+  margin: 20px auto 10px auto;
+  padding: 0 20px;
+  max-width: 600px;
+  text-align: center;
+  font-family: 'Proxima Nova';
+  color: var(--text-main);
+  position: relative;
+  background: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.please-sponsor-heading {
+  font-family: 'Genty', cursive;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 400;
+  color: var(--text-main);
+  line-height: 1.1;
+  margin-bottom: -25px; // pulls it down toward the checkers below
+  margin-top: 25px;
+  z-index: 3;
+
+  .sponsor-word-big {
+    display: inline-block;
+    font-family: 'Genty', cursive;
+    font-size: 1.35em;
+    font-weight: 400;
+    transform: rotate(-6deg);
+    margin-top: -10px; // closes the gap to "Become a"
+    //z-index: 3;
+  }
+}
+
+.please-sponsor-checkers {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  background-image: repeating-conic-gradient(var(--checker-color-1) 0% 25%, transparent 0% 50%);
+  background-size: 28px 28px;
+  border-radius: 12px;
+  margin: 12px 0 50px 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.please-sponsor-text {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(14px, 1.1vw, 24px);
+  line-height: 1.5;
+  padding: 0;
+  max-width: 52%; // keeps text within the oval's visible width instead of spilling into the checkers
+  margin: 0 auto;
+  text-align: center;
+  color: var(--text-main);
+  word-wrap: break-word;
+}
+
+.please-sponsor-checkers::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(12deg);
+  width: 70%;
+  height: 95%;
+  background-color: var(--bg-main);
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.please-sponsor-container a {
+  color: var(--link-dynamic);
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
   }
 }
 
@@ -398,11 +903,9 @@
   from {
     transform: translateX(0);
   }
+
   to {
-    // Move the track by the width of the first half of the sponsors
-    transform: translateX(
-      calc(-270px * var(--item-count))
-    ); // Card width (250px + 20px gap) * number of original sponsors
+    transform: translateX(calc(-194px * var(--item-count)));
   }
 }
 
@@ -413,6 +916,7 @@
   from {
     transform: translateX(0);
   }
+
   to {
     // Mobile card width (180px + 20px gap) * number of original sponsors
     transform: translateX(calc(-200px * var(--item-count)));
@@ -420,35 +924,148 @@
 }
 
 // Apply mobile-specific styles using a media query
+
 @include devices(tablet) {
-  .home-page-sponsors {
-    padding: 60px 20px 30px 20px;
+  /* ── HERO ──
+     Phones MIRROR the desktop overlapping hero: same absolute composition
+     (checker band centered, F!rosh/WEEK/2T6 layered over it via .header-text-stack),
+     just with smaller fonts and a band + word positions retuned for a tall
+     portrait screen. We intentionally do NOT rebuild it as a stacked column.
+     The overlap works because the words' positions are pushed INTO the band:
+     F!rosh's top sits over the band's top edge, WEEK's tall glyphs reach up into
+     the band's bottom edge. Tune `top`/`bottom` here together with the band. */
+
+  .home-page-header {
+    min-height: 560px; // keep base height: 100vh
   }
 
+  /* Same centered absolute band as desktop; smaller squares for phone width */
+  .header-checker-block {
+    top: 0%;
+    bottom: 68%;
+    width: 100%;
+    background-size: 112px 112px;
+  }
+
+  /* F!rosh — overlaps the TOP edge of the band (base keeps flex-start + rotate) */
+  .header-frosh-text {
+    font-size: clamp(70px, 22vw, 150px);
+    top: 4%;
+  }
+
+  /* WEEK — raised so its tall glyphs overlap the BOTTOM of the band */
+  .header-week-text {
+    font-size: clamp(66px, 25vw, 160px);
+    bottom: 65%;
+  }
+
+  /* 2T6 — corner just under WEEK */
+  .home-page-2t6-text {
+    font-size: clamp(26px, 9vw, 80px);
+    right: 5%;
+    bottom: 60%;
+  }
+
+  /* Register star — smaller, top-right corner */
+  .header-register-star {
+    top: 0%;
+    right: 2%;
+    width: clamp(86px, 26vw, 150px);
+    height: clamp(86px, 26vw, 150px);
+    font-size: clamp(11px, 3.4vw, 17px);
+  }
+
+  /* Countdown position (top/left) is set in countdown.scss's own mobile block —
+     its base `top` loads after this file and would override anything set here. */
+
+  /* ── OTHER EVENTS ── */
+  .other-events-heading {
+    margin-bottom: -10px;
+  }
+
+  .vinyl-wrapper {
+    width: 80vw;
+    margin: 0 auto;
+  }
+
+  // Push "What is F!rosh Week?" section down
+  .home-page-about-blurb {
+    margin-top: 60px;
+  }
+
+  // Bigger vinyl text on mobile
+  .vinyl-label-svg {
+    font-size: 18px;
+  }
+
+  .other-events-thumb-wrapper {
+    width: 75vw;
+    height: 52vw;
+    margin: -10px auto 0;
+    border-radius: 24px;
+  }
+
+  .other-events-info-panel {
+    padding-left: 0;
+    margin-top: 10px;
+  }
+
+  /* ── SPONSORS ── (tightened vertical spacing for phone) */
+  .please-sponsor-text {
+    font-size: 13px;
+    max-width: 58%;
+  }
+
+  .please-sponsor-checkers {
+    height: 140px;
+    margin: 10px 0 16px 0; // was 12px 0 50px 0 — closes the gap under "Become a Sponsor"
+  }
+
+  .please-sponsor-checkers::before {
+    width: 72%;
+    height: 100%;
+  }
+
+  // The blank band right under the film reel was this section's top padding
+  .home-page-sponsors {
+    padding-top: 0px;
+    margin-top: -100px;
+  }
+
+  // Tighten the carousel's own padding + the per-card bottom margin (base is 40px)
   .sponsors-carousel-track {
-    // Adjust the total track width for the smaller cards
-    // width: calc(200px * 14);
-    width: calc(200px * var(--item-count));
-    // Use the new mobile-specific animation
-    animation-name: scroll-mobile;
-    // Optionally adjust the animation speed for mobile
-    animation-duration: 35s;
+    padding: 8px 0; // was 20px 0
   }
 
   .sponsor-card {
-    // Make cards smaller and more suitable for mobile screens
-    flex: 0 0 180px;
+    margin-bottom: 12px; // was 40px
   }
 
-  .sponsor-image-wrapper {
-    // Adjust the image area height for the smaller card
-    height: 120px;
+  // Pull "Become a Sponsor" up closer to the carousel
+  .please-sponsor-container {
+    margin: 0px auto 0px auto;
+    margin-top: -55px;
   }
 
-  .sponsor-name {
-    // Adjust font size and padding for the smaller card
-    font-size: 14px;
-    padding: 15px;
+  /* ── FILM STRIP ── */
+  // The hero stays 100vh, but its content now lives in the top ~40% (you pulled
+  // F!rosh/WEEK/2T6/countdown/star up), leaving the bottom empty. Pull the film
+  // strip — and everything after it — up so it sits right under the 2T6.
+  // KNOB: make this MORE negative to move the film up (closer to 2T6), less
+  // negative to move it down. Retune if you move the hero words again.
+  .film-strip-container {
+    margin-top: -60vh;
+  }
+
+  .film-strip-photo {
+    height: clamp(110px, 28vw, 170px); // enlarged for mobile, still scales down
+    width: clamp(160px, 40vw, 250px);
+    margin-right: 3px; // tighter spacing than desktop (replaces old flex gap)
+  }
+
+  // padding still needs to clear the perforation strips drawn on the track
+  .film-strip-track {
+    padding: 22px 0;
   }
 }
 
@@ -463,11 +1080,10 @@
 
 .sponsors-carousel-track {
   display: flex;
-  gap: 20px;
-  // width: calc(270px * 14); // Card width (250px + 20px gap) * total number of cards (original * 2)
-  width: calc(270px * var(--item-count));
+  gap: 24px;
+  width: calc(194px * var(--item-count));
   padding: 20px 0;
-  animation: scroll 30s linear infinite;
+  animation: scroll 60s linear infinite; // slowed down (was 30s)
 
   // Pause animation on hover for better user experience
   &:hover {
@@ -475,61 +1091,19 @@
   }
 }
 
-.sponsor-card {
-  flex: 0 0 250px; // Prevent cards from squeezing
-  background-color: var(--bg-primary);
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease;
-  position: relative; // Needed for the border glow pseudo-element
-  border: 1px solid #eee; // A very subtle base border
-  padding: 0.5% 0% 0.2% 0%;
-
-  &:hover {
-    transform: translateY(-8px);
-  }
-
-  // This pseudo-element creates the unobtrusive but obvious border glow
-  &::before {
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    right: -3px;
-    bottom: -3px;
-    border-radius: 18px; // Slightly larger than the card's border-radius
-    z-index: -1;
-    transition: opacity 0.3s ease;
-    opacity: 0; // Hidden by default
-  }
-
-  &:hover::before {
-    opacity: 1; // Show the glow on hover
-  }
-}
-
 // --- Clean & Professional Border Styling ---
 
 .sponsor-card {
-  // Add a thick, transparent bottom border by default
-  border-color: transparent;
-  border-bottom: 4px solid transparent;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  flex: 0 0 170px;
+  background: none;
+  box-shadow: none;
+  border: none;
+  position: relative;
+  padding: 0;
+  transition: transform 0.3s ease;
 
-  // On hover, make the border color match the rank
   &:hover {
-    &.sponsor-card--diamond {
-      border-bottom-color: var(--sponsor-diamond);
-    }
-    &.sponsor-card--gold {
-      border-bottom-color: var(--sponsor-gold);
-    }
-    &.sponsor-card--silver {
-      border-bottom-color: var(--sponsor-silver);
-    }
-    &.sponsor-card--bronze {
-      border-bottom-color: var(--sponsor-bronze);
-    }
+    transform: translateY(-6px);
   }
 }
 
@@ -549,12 +1123,14 @@
 }
 
 .sponsor-image-wrapper {
-  height: 160px;
-  padding: 20px;
+  height: 100px;
+  width: 200px;
+  margin: 0 auto;
+  padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  // Add overflow: hidden to ensure no image can exceed these boundaries
+  background: none; // flat, no circle bg
   overflow: hidden;
 }
 
@@ -572,67 +1148,30 @@
 }
 
 .sponsor-name {
-  padding: 20px;
-  font-size: 15px;
+  padding: 10px 6px 0;
+  font-size: clamp(13px, 1vw, 20px);
   font-weight: 600;
-  margin-top: auto;
-  color: var(--text-primary);
+  text-align: center;
+  margin-top: 0;
+  color: #f0eef8;
   line-height: 1.3;
-}
-
-.please-sponsor-container {
-  margin: 60px 20px 50px 20px;
-  padding: 40px;
-  background-color: var(--bg-primary);
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  font-family: 'Proxima Nova';
-  color: var(--text-primary);
-
-  h3 {
-    font-size: 24px;
-    // text-transform: uppercase;
-    margin-bottom: 10px;
-    font-weight: 900;
-    // color: var(--text-secondary)
-  }
-  p {
-    font-size: 16px;
-    padding: 0% 5%;
-    line-height: 1.6;
-  }
-  a {
-    color: var(--link-dynamic);
-    font-weight: 600;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 }
 
 .sponsor-card {
   // existing styles...
   position: relative; // Ensure relative positioning for absolute medal positioning
+  margin-bottom: 40px;
 }
 
 .sponsor-medal-icon {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 35px;
-  height: 35px;
+  top: -6px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
   object-fit: contain;
   z-index: 2;
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
-
-  // Add a subtle shine to the medal icons
-  &:hover {
-    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2)) brightness(1.1);
-  }
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
 }
 
 // --- END: Sponsor styles replacement ---

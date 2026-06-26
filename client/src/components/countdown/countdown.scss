@@ -1,19 +1,18 @@
 @import '../../scssStyles/mixins';
-@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
 
 .countdown-timer-container {
-  color: var(--text-primary);
-  margin-top: 3rem;
-  margin-bottom: 1.5rem;
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -50%) rotate(12deg);
+  background-color: var(--gold-1);
+  border-radius: 50%;
+  // padding scales with the viewport so the circle grows along with the digits
+  padding: clamp(1.4rem, 1.8vw, 3rem) clamp(3rem, 4vw, 6.5rem);
+  z-index: 5;
+  width: fit-content;
   font-family: 'Proxima Nova';
   font-weight: 800;
-
-  width: 100%;
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-
-  overflow: hidden;
 }
 
 .countdown-display {
@@ -21,65 +20,101 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-
-  max-width: 100%;
-  width: 100%;
-  overflow: hidden;
   flex-wrap: nowrap;
-
-  @include devices(mobile) {
-    flex-direction: column;
-  }
+  transform: rotate(-15deg);
 }
 
 .countdown-seg {
-  padding: 2px;
+  padding: 2px 8px;
   display: flex;
   flex-direction: column;
   text-align: center;
-
-  @include devices(mobile) {
-    margin-bottom: 1.2rem;
-  }
 }
 
 .countdown-label {
-  font-size: clamp(18px, 4vw, 25px);
-  margin-bottom: 1rem;
-
-  @include devices(mobile) {
-    margin-bottom: 0.5rem;
-  }
+  font-size: clamp(20px, 1.8vw, 50px); // enlarged "days / hours / minutes" labels
+  margin-bottom: 0.3rem;
+  color: var(--countdown-on-gold); // was commented out / inheriting body text color
+  font-weight: 1000;
+  font-family: 'Proxima Nova', sans-serif;
+  text-transform: lowercase;
+  letter-spacing: 0.05em;
+  -webkit-text-stroke: 0.75px #f5c842;
 }
 
 .countdown-number {
-  font-size: clamp(40px, 8vw, 70px);
+  font-size: clamp(40px, 6vw, 130px);
   display: flex;
-  justify-content: space-between;
   gap: 0.2em;
 }
 
 .digit {
-  background-color: var(--mikado);
-  color: black;
-  border-radius: 15px;
-  //padding:0.38em 0.35em 0.38em 0.35em;
-  width: 1.5em;
-  height: 2em;
-  padding-top: 0.5em;
-  font-size: clamp(45px, 6vw, 65px);
-
-  @include devices(mobile) {
-    padding-top: 0.4em;
-  }
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  border-radius: 8px;
+  width: 1.2em;
+  height: 1.6em;
+  font-size: clamp(40px, 6vw, 120px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--gold-1);
 }
 
 .divider {
-  font-size: clamp(40px, 8vw, 70px);
-  padding-top: 0.8em;
-  margin: 0 clamp(0.3rem, 1vw, 1rem);
+  font-size: clamp(20px, 2.5vw, 60px);
+  padding-top: 0.5em;
+  margin: 0 0.2rem;
+  color: var(--countdown-on-gold); // was var(--bg-main), broke in light mode
+}
 
-  @include devices(mobile) {
-    display: none;
+@include devices(tablet) {
+  .countdown-timer-container {
+    position: absolute;
+    // KNOB: moves the gold oval + countdown together on phones. Set here (not in
+    // Home.scss) because this file's base `top: 50%` loads later and would win.
+    // Higher % = lower on screen.
+    top: 58%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(15deg);
+    padding: 4vw 6vw; // tighter so the horizontal row fits the phone-width band
+    border-radius: 50%;
+  }
+
+  // Stay HORIZONTAL on phones (was column, which read as a weird vertical stack)
+  .countdown-display {
+    flex-direction: row;
+    transform: rotate(-15deg);
+    gap: 1.5vw;
+  }
+
+  .countdown-seg {
+    padding: 0 0.5vw;
+  }
+
+  .countdown-label {
+    // Yellow outline (like desktop) so the labels stay legible where they sit
+    // over the purple checkers instead of the gold oval
+    -webkit-text-stroke: 0.67px #f5c842;
+    font-weight: 700;
+    font-size: clamp(20px, 2.6vw, 18px);
+    margin-bottom: 2px;
+  }
+
+  .countdown-number {
+    font-size: clamp(20px, 6.5vw, 40px);
+    gap: 0.12em;
+  }
+
+  .digit {
+    font-size: clamp(20px, 6.5vw, 40px);
+    width: 1.1em;
+    height: 1.4em;
+    border-width: 2px;
+  }
+
+  .divider {
+    display: flex;
+    font-size: clamp(16px, 5vw, 30px);
   }
 }
