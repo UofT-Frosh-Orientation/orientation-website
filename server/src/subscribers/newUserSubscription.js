@@ -86,7 +86,7 @@ newUserSubscription.process((job, done) => {
             <img class="frosh-logo-main" src="cid:froshmainlogooutline" alt="frosh logo" />
             <div class="text-container">
               <p>
-                Congratulations and thank you for creating an account for F!rosh Week 2T5!
+                Congratulations and thank you for creating an account for F!rosh Week 2T6!
               </p>
               <p>
                 We're so excited to have you join!

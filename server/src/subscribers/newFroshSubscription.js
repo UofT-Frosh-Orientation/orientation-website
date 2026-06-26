@@ -83,7 +83,7 @@ newFroshSubscription.process((job, done) => {
             <div class="text-container">
               <p>Hi ${job.data.preferredName ? job.data.preferredName : job.data.firstName},</p>
               <p>
-                Thank you for inputting your information on your F!rosh Week 2T5 account.
+                Thank you for inputting your information on your F!rosh Week 2T6 account.
               </p>
               <p>
                 This email is <b>not</b> a confirmation that your registration is complete.
