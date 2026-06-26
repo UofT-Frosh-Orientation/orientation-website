@@ -24,6 +24,7 @@ const ExecProfile = ({
   cochairs,
   scuntJudge,
   bribes,
+  style,
 }) => {
   // initialize to false, don't show description
   const [showDescription, setShowDescription] = useState(false);
@@ -39,7 +40,10 @@ const ExecProfile = ({
     <div
       className={`exec-container ${subcom ? 'subcom-container' : ''}`}
       onClick={() => setShowDescription(!showDescription)}
+      style={style}
     >
+      <span className="vertical-card-role-label">{role.toUpperCase()}</span>
+
       <div className="exec-image-hover">
         <LazyLoadImage className="exec-image" alt={name} effect="blur" src={image}></LazyLoadImage>
       </div>
@@ -216,6 +220,8 @@ ExecProfile.propTypes = {
 
   scuntJudge: PropTypes.bool, // true if a judge
   bribes: PropTypes.array, // all bribes
+
+  style: PropTypes.object, // for the fan effect
 };
 
 ExecProfileTitle.propTypes = {

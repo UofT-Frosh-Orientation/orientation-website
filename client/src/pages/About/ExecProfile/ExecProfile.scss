@@ -1,22 +1,52 @@
 @import '../../../scssStyles/mixins';
 
-.exec-container {
+// Append directly to the bottom of ExecProfile.scss
+
+.execs-deck-wrapper {
   position: relative;
-  background: var(--purple);
-  width: min(40vw, 400px);
-  height: min(40vw, 400px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 
-  border-radius: 10px;
-  margin: min(1vw, 30px);
-  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 95vw;
+  height: 38vw;
+  margin: 5vh auto 150px auto;
+  overflow: visible;
 
-  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
+  @include devices(tablet) {
+    max-width: 80vw;
+    margin: 5vh auto 100px auto;
+  }
+
+  @media only screen and (max-width: 480px) {
+    height: 55vw;
+    max-width: 90vw;
+    margin: 5vh auto 50px auto;
+  }
+}
+
+.exec-container {
+  position: absolute !important;
+  bottom: 0;
+  margin: 0 !important;
+
+  // Card Size & Retro Yellow Card Background Colors
+  width: 18vw !important;
+  height: 25.5vw !important;
+  background: var(--palegold) !important;
+  border: 0.4vw solid var(--palegold) !important;
+  outline: 2px solid #000000;
+  border-radius: 1vw !important;
+  box-shadow: 0 0.8vw 2vw rgba(0, 0, 0, 0.4) !important;
+
   overflow: hidden;
+  transition: transform 0.3s ease, z-index 0.3s ease;
 
-  @include devices(mobile) {
-    margin: 10px;
-    width: 85vw;
-    height: 85vw;
+  @media only screen and (max-width: 480px) {
+    width: 27vw !important;
+    height: 38vw !important;
+    border-width: 2vw !important;
   }
 }
 
@@ -30,15 +60,30 @@
 }
 
 .exec-image-hover {
-  transition: transform 200ms;
+  width: 84% !important;
+  height: 75% !important;
+  margin: 6% auto 4% auto !important;
+  border: 2px solid #000000 !important;
+  border-radius: 4px;
+  background: #00bcd4;
+}
 
-  &:hover {
-    transform: scale(1.02);
-    transition: transform 200ms;
-  }
-  &:active {
-    transform: scale(0.97);
-    transition: transform 150ms;
+.vertical-card-role-label {
+  position: absolute;
+  left: 3px;
+  top: 12px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 10px;
+  font-weight: 900;
+  color: #000000;
+  letter-spacing: 0.5px;
+  font-family: sans-serif;
+
+  @include devices(mobile) {
+    font-size: 7px;
+    left: 1px;
+    top: 8px;
   }
 }
 
