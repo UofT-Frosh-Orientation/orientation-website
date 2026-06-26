@@ -7,7 +7,8 @@
   transform: translate(-50%, -50%) rotate(12deg);
   background-color: var(--gold-1);
   border-radius: 50%;
-  padding: 1.8rem 4rem;
+  // padding scales with the viewport so the circle grows along with the digits
+  padding: clamp(1.4rem, 1.8vw, 3rem) clamp(3rem, 4vw, 6.5rem);
   z-index: 5;
   width: fit-content;
   font-family: 'Proxima Nova';
@@ -31,7 +32,7 @@
 }
 
 .countdown-label {
-  font-size: clamp(15px, 1.2vw, 30px);
+  font-size: clamp(20px, 1.8vw, 50px); // enlarged "days / hours / minutes" labels
   margin-bottom: 0.3rem;
   color: var(--countdown-on-gold); // was commented out / inheriting body text color
   font-weight: 1000;
@@ -42,7 +43,7 @@
 }
 
 .countdown-number {
-  font-size: clamp(40px, 6vw, 88px);
+  font-size: clamp(40px, 6vw, 130px);
   display: flex;
   gap: 0.2em;
 }
@@ -53,7 +54,7 @@
   border-radius: 8px;
   width: 1.2em;
   height: 1.6em;
-  font-size: clamp(40px, 6vw, 80px);
+  font-size: clamp(40px, 6vw, 120px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,7 +62,7 @@
 }
 
 .divider {
-  font-size: clamp(20px, 2.5vw, 40px);
+  font-size: clamp(20px, 2.5vw, 60px);
   padding-top: 0.5em;
   margin: 0 0.2rem;
   color: var(--countdown-on-gold); // was var(--bg-main), broke in light mode
@@ -71,40 +72,42 @@
   .countdown-timer-container {
     position: absolute;
     transform: translate(-50%, -50%) rotate(15deg);
-    padding: 8vw 10vw;
+    padding: 4vw 6vw; // tighter so the horizontal row fits the phone-width band
     border-radius: 50%;
   }
 
+  // Stay HORIZONTAL on phones (was column, which read as a weird vertical stack)
   .countdown-display {
-    flex-direction: column;
-    transform: rotate(-12deg);
-    gap: 2px;
+    flex-direction: row;
+    transform: rotate(-15deg);
+    gap: 1.5vw;
   }
 
   .countdown-seg {
-    padding: 0;
+    padding: 0 0.5vw;
   }
 
   .countdown-label {
     -webkit-text-stroke: 0;
     font-weight: 700;
-    font-size: clamp(9px, 3vw, 13px);
+    font-size: clamp(10px, 2.6vw, 18px);
     margin-bottom: 2px;
   }
 
   .countdown-number {
-    font-size: clamp(22px, 8vw, 36px);
-    gap: 0.15em;
+    font-size: clamp(20px, 6.5vw, 40px);
+    gap: 0.12em;
   }
 
   .digit {
-    font-size: clamp(22px, 8vw, 36px);
+    font-size: clamp(20px, 6.5vw, 40px);
     width: 1.1em;
     height: 1.4em;
     border-width: 2px;
   }
 
   .divider {
-    display: none;
+    display: flex;
+    font-size: clamp(16px, 5vw, 30px);
   }
 }

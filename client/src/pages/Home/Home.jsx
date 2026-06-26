@@ -40,10 +40,12 @@ const PageHome = () => {
   return (
     <>
       <HomePageHeader />
-      <HomePageAboutBlurb />
+      {/* "What is F!rosh Week? / What is SKULE?" blurb hidden per request */}
+      {/* <HomePageAboutBlurb /> */}
       <HomePageFilmStrip />
       <HomePageTimeline />
-      <PageAbout />
+      {/* Other Events section (heading + spinning vinyl + thumbnail + info panel) hidden per request */}
+      {/* <PageAbout /> */}
       <HomePageSponsors />
     </>
   );

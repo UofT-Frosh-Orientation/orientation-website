@@ -79,16 +79,18 @@ body {
 // The checkerboard is a centered block, NOT full background
 .header-checker-block {
   position: absolute;
-  top: 25%;
-  bottom: 37%;
+  top: 15%;
+  bottom: 22%;
   left: 50%;
   transform: translateX(-50%);
-  width: 94%;
+  width: 100%;
   background-image: repeating-conic-gradient(
     var(--checker-color-1) 0% 25%,
     var(--checker-color-2) 0% 50%
   );
-  background-size: 160px 160px;
+  // checker squares scale with the viewport (≈10vw, was a fixed 160px) so the
+  // pattern grows on large screens instead of looking tiny/dense
+  background-size: clamp(110px, 10vw, 220px) clamp(110px, 10vw, 220px);
   background-position: center;
   z-index: 0;
   overflow: hidden;
@@ -127,15 +129,15 @@ body {
     2% 35%,
     39% 35%
   );
-  width: 240px;
-  height: 240px;
+  width: clamp(150px, 15vw, 380px);
+  height: clamp(150px, 15vw, 380px);
   display: flex;
   align-items: center;
   justify-content: center;
   transform: rotate(15deg);
   font-family: 'Proxima Nova', sans-serif;
   font-weight: 900;
-  font-size: 19px;
+  font-size: clamp(14px, 1.2vw, 30px);
   text-align: center;
   color: #3d0f58;
   line-height: 1.2;
@@ -143,7 +145,7 @@ body {
   span {
     transform: rotate(-15deg);
     display: block;
-    padding-top: 12px;
+    padding-top: clamp(8px, 0.8vw, 18px);
   }
 }
 
@@ -169,7 +171,7 @@ body {
 .header-frosh-text {
   font-family: 'Genty';
   font-weight: 400;
-  font-size: clamp(100px, 16vw, 220px);
+  font-size: clamp(100px, 16vw, 360px); // cap raised to keep pace with WEEK
   color: var(--text-main);
   line-height: 1;
   margin: 0;
@@ -189,34 +191,45 @@ body {
 .header-week-text {
   font-family: 'Gliker';
   font-weight: 900;
-  font-size: clamp(120px, 27vw, 300px);
+  // Letters scale with viewport up to a cap; the container width is capped to
+  // the same point so the word locks to a clean max size on big screens instead
+  // of stretching forever (which is what made the letter gaps balloon).
+  font-size: clamp(120px, 24vw, 480px); // dialed down slightly (was 27vw / 550px)
   color: var(--text-main);
   line-height: 0.85;
   margin: 0;
   padding: 0 3%;
   text-transform: uppercase;
   white-space: nowrap;
-  width: 99.75%;
+  width: min(99.75%, 2000px); // tracks the new cap (480 / 0.24)
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   z-index: 4;
-  align-self: flex-end;
+  align-self: center;
   box-sizing: border-box;
   position: relative;
   transform: scaleY(0.9);
-  bottom: 7.2%;
+  bottom: 7%; // raised to leave a clear band below the word for "2T6"
+
+  // Letters are per-letter <span>s; the global `* { font-family }` in App.scss
+  // hits them directly and blocks inheritance, so re-assert it here.
+  span {
+    font-family: inherit;
+  }
 }
 
-// 2T6 bottom right
+// 2T6 bottom right — sits in the band below WEEK so it reads distinctly.
+// `right` tracks WEEK's right edge: 2% while WEEK is near-full-width, then
+// locks to WEEK's capped (~2037px) right edge on large screens.
 .home-page-2t6-text {
   position: absolute;
-  bottom: 4.5%;
-  right: 2%;
+  bottom: 2%;
+  right: max(2%, calc(50% - 1000px));
   z-index: 5;
   font-family: 'Gliker';
   font-weight: 900;
-  font-size: clamp(30px, 4vw, 65px);
+  font-size: clamp(30px, 4vw, 250px); // cap raised to keep pace with WEEK
   color: var(--text-main);
   letter-spacing: -2px;
 }
@@ -336,7 +349,7 @@ body {
   }
 
   .home-page-schedule-warning {
-    font-size: 18px;
+    font-size: clamp(14px, 1.1vw, 26px);
     font-family: 'Proxima Nova';
     font-weight: 400;
     color: #f0eef8;
@@ -380,14 +393,14 @@ body {
 
   h2 {
     font-family: 'Gliker';
-    font-size: 26px;
+    font-size: clamp(22px, 1.7vw, 38px);
     font-weight: 900;
     margin-bottom: 14px;
     color: var(--accent-purple) !important; // keep heading on its own accent color
   }
 
   p {
-    font-size: 15px;
+    font-size: clamp(14px, 1vw, 21px);
     line-height: 1.7;
     color: var(--text-main);
     font-family: 'Proxima Nova', sans-serif;
@@ -409,13 +422,42 @@ body {
 //Flim Strip
 .film-strip-container {
   background-color: var(--text-inverted);
-  padding: 8px 0;
+  padding: clamp(8px, 1vw, 16px) 0;
   width: 100%;
   display: block;
+  overflow: hidden; // viewport that clips the scrolling track
 }
 
+// The old separate sprocket-hole strips are hidden: the perforations are now
+// drawn ON the moving track (below) so they scroll at the EXACT same speed as
+// the photos at every screen size, instead of needing a hand-tuned duration.
 .film-strip-holes {
-  height: 18px;
+  display: none;
+}
+
+// Continuous marquee. The track holds two identical copies of the photos
+// (see `looped` in Home.jsx), so translating by -50% scrolls exactly one copy
+// and loops seamlessly. Each photo carries its own right margin (instead of a
+// flex `gap`) so the spacing is uniform across the loop seam.
+.film-strip-track {
+  position: relative; // anchors the perforation strips
+  display: flex;
+  align-items: center;
+  // vertical padding leaves room for the perforation strips at top & bottom
+  padding: clamp(22px, 2.6vw, 44px) 0;
+  width: max-content;
+  animation: film-scroll 40s linear infinite; // bump duration to slow it down
+}
+
+// Perforations drawn on the track itself → they share the track's transform and
+// therefore move in perfect lockstep with the photos, no separate animation.
+.film-strip-track::before,
+.film-strip-track::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: clamp(18px, 2vw, 34px);
   background: repeating-linear-gradient(
     to right,
     var(--text-inverted) 0px,
@@ -427,18 +469,35 @@ body {
   );
 }
 
-.film-strip-track {
-  display: flex;
-  gap: 4px;
-  padding: 8px 0;
-  overflow: hidden;
+.film-strip-track::before {
+  top: 0;
+}
+
+.film-strip-track::after {
+  bottom: 0;
+}
+
+// Hovering the strip pauses the whole thing (photos + perforations move as one)
+.film-strip-container:hover .film-strip-track {
+  animation-play-state: paused;
+}
+
+@keyframes film-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .film-strip-photo {
-  height: 130px;
-  width: 190px;
+  height: clamp(150px, 13vw, 300px); // enlarged
+  width: clamp(220px, 19vw, 440px); // enlarged, keeps ~3:2 aspect
   object-fit: cover;
   flex-shrink: 0;
+  margin-right: clamp(4px, 0.6vw, 10px);
 }
 
 .otherevents-subsubcontainer {
@@ -514,7 +573,7 @@ body {
 }
 
 .otherevents-info-title {
-  font-size: 24px;
+  font-size: clamp(18px, 1.6vw, 32px);
   margin-bottom: 10px;
 
   color: var(--accent-purple);
@@ -526,12 +585,12 @@ body {
 }
 
 .otherevents-info-des {
-  font-size: 16px;
+  font-size: clamp(14px, 1vw, 21px);
   color: var(--text-main);
 }
 
 .home-page-section-header {
-  font-size: 48px;
+  font-size: clamp(34px, 3.2vw, 68px);
   color: var(--bg-main);
   padding-left: min(40px, 3.5%);
   padding-top: 40px;
@@ -571,13 +630,13 @@ body {
   font-family: 'Proxima Nova';
 
   h2 {
-    font-size: 46px;
+    font-size: clamp(30px, 3vw, 62px);
     margin-bottom: 10px;
     font-weight: 900;
   }
 
   p {
-    font-size: 18px;
+    font-size: clamp(15px, 1.2vw, 26px);
     color: var(--text-main);
     max-width: 800px;
     margin: 0 auto;
@@ -681,7 +740,7 @@ body {
 
 .vinyl-label-svg {
   font-family: 'Proxima Nova', sans-serif;
-  font-size: 13px;
+  font-size: clamp(12px, 1vw, 18px);
   font-weight: 700;
   font-style: italic;
   fill: #ebebeb;
@@ -710,13 +769,13 @@ body {
 .other-events-info-text {
   h3 {
     font-family: 'Proxima Nova', sans-serif;
-    font-size: 32px;
+    font-size: clamp(24px, 2.2vw, 46px);
     font-weight: 900;
     color: var(--accent-purple);
   }
 
   p {
-    font-size: 18px;
+    font-size: clamp(15px, 1.2vw, 26px);
     line-height: 1.7;
     color: var(--text-main);
     font-family: 'Proxima Nova', sans-serif;
@@ -730,7 +789,7 @@ body {
   border: 2px solid var(--accent-purple);
   border-radius: 8px;
   font-family: 'Proxima Nova', sans-serif;
-  font-size: 16px;
+  font-size: clamp(14px, 1vw, 22px);
   font-weight: 700;
   color: var(--text-main);
   text-decoration: none;
@@ -806,7 +865,7 @@ body {
 .please-sponsor-text {
   position: relative;
   z-index: 2;
-  font-size: 17px;
+  font-size: clamp(14px, 1.1vw, 24px);
   line-height: 1.5;
   padding: 0;
   max-width: 52%; // keeps text within the oval's visible width instead of spilling into the checkers
@@ -867,94 +926,58 @@ body {
 // Apply mobile-specific styles using a media query
 
 @include devices(tablet) {
-  /* HEADER: normal flow column */
+  /* ── HERO ──
+     Phones MIRROR the desktop overlapping hero: same absolute composition
+     (checker band centered, F!rosh/WEEK/2T6 layered over it via .header-text-stack),
+     just with smaller fonts and a band + word positions retuned for a tall
+     portrait screen. We intentionally do NOT rebuild it as a stacked column.
+     The overlap works because the words' positions are pushed INTO the band:
+     F!rosh's top sits over the band's top edge, WEEK's tall glyphs reach up into
+     the band's bottom edge. Tune `top`/`bottom` here together with the band. */
+
   .home-page-header {
-    height: auto;
-    min-height: unset;
-    padding: 6% 0 8% 0;
-    overflow: visible;
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    min-height: 560px; // keep base height: 100vh
   }
 
-  /* Checker block: start lower so it clears F!rosh */
+  /* Same centered absolute band as desktop; smaller squares for phone width */
   .header-checker-block {
-    position: relative;
-    top: auto;
-    /* remove the top offset */
-    left: auto;
-    transform: none;
-    width: 92%;
-    margin: 12vw auto 0;
-    /* push it down below F!rosh — adjust this value */
-    height: 77vw;
-    background-size: 32px 32px;
-    overflow: visible;
+    top: 0%;
+    bottom: 65%;
+    width: 94%;
+    background-size: 48px 48px;
   }
 
-  /* Star: moved down a bit */
-  .header-register-star {
-    position: absolute;
-    top: 10%;
-    /* was 4% */
-    right: -2%;
-    width: 110px;
-    height: 110px;
-    font-size: 12px;
-  }
-
-  /* Text stack fills checker block */
-  .header-text-stack {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 4;
-  }
-
-  /* F!rosh: sits above the checker block in the flex column */
+  /* F!rosh — overlaps the TOP edge of the band (base keeps flex-start + rotate) */
   .header-frosh-text {
-    position: relative;
-    /* change from absolute to relative */
-    top: 8%;
-    left: auto;
-    align-self: center;
-    margin-left: 3%;
-    margin-bottom: -8vw;
-    /* overlaps slightly into checkers at the top edge only */
-    transform: rotate(-6deg);
-    transform-origin: left top;
-    font-size: clamp(64px, 17vw, 100px);
-    z-index: 5;
+    font-size: clamp(70px, 22vw, 150px);
+    top: 4%;
   }
 
-  /* WEEK: sits right after checker block in normal flow */
+  /* WEEK — raised so its tall glyphs overlap the BOTTOM of the band */
   .header-week-text {
-    position: relative;
-    bottom: auto;
-    margin-bottom: -110%;
-    padding: 0 4%;
-    width: 100%;
-    font-size: clamp(80px, 24vw, 140px);
+    font-size: clamp(58px, 21vw, 160px);
+    bottom: 65%;
   }
 
-  /* 2T6: normal flow below WEEK, no absolute positioning at all */
+  /* 2T6 — corner just under WEEK */
   .home-page-2t6-text {
-    position: relative;
-    bottom: -13%;
-    right: auto;
-    align-self: flex-end;
-    margin-top: 8vw;
-    margin-right: 4%;
-    font-size: clamp(20px, 5vw, 40px);
+    font-size: clamp(26px, 9vw, 80px);
+    right: 5%;
+    bottom: 60%;
   }
 
-  /* Countdown: shifted lower inside checker block */
+  /* Register star — smaller, top-right corner */
+  .header-register-star {
+    top: 0%;
+    right: 2%;
+    width: clamp(86px, 26vw, 150px);
+    height: clamp(86px, 26vw, 150px);
+    font-size: clamp(11px, 3.4vw, 17px);
+  }
+
+  /* Countdown — centered in the band (kept horizontal, sizes in countdown.scss) */
   .countdown-timer-container {
-    top: 62%;
-    /* was 54% */
+    top: 47%;
     left: 50%;
   }
 
@@ -1011,26 +1034,14 @@ body {
 
   /* ── FILM STRIP ── */
   .film-strip-photo {
-    height: 70px;
-    width: 100px;
+    height: clamp(110px, 28vw, 170px); // enlarged for mobile, still scales down
+    width: clamp(160px, 40vw, 250px);
+    margin-right: 3px; // tighter spacing than desktop (replaces old flex gap)
   }
 
+  // padding still needs to clear the perforation strips drawn on the track
   .film-strip-track {
-    gap: 2px;
-    padding: 4px 0;
-  }
-
-  .film-strip-holes {
-    height: 10px;
-    background: repeating-linear-gradient(
-      to right,
-      #111 0px,
-      #111 5px,
-      white 5px,
-      white 15px,
-      #111 15px,
-      #111 20px
-    );
+    padding: 22px 0;
   }
 }
 
@@ -1048,7 +1059,7 @@ body {
   gap: 24px;
   width: calc(194px * var(--item-count));
   padding: 20px 0;
-  animation: scroll 30s linear infinite;
+  animation: scroll 60s linear infinite; // slowed down (was 30s)
 
   // Pause animation on hover for better user experience
   &:hover {
@@ -1114,7 +1125,7 @@ body {
 
 .sponsor-name {
   padding: 10px 6px 0;
-  font-size: 15px;
+  font-size: clamp(13px, 1vw, 20px);
   font-weight: 600;
   text-align: center;
   margin-top: 0;
