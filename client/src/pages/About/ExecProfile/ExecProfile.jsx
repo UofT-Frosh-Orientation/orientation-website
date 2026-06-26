@@ -25,48 +25,65 @@ const ExecProfile = ({
   scuntJudge,
   bribes,
   style,
+  isActiveCard,
+  isCardFlipped,
+  onCardSelect,
 }) => {
-  // initialize to false, don't show description
-  const [showDescription, setShowDescription] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (showDescription) setShowDescription(!showDescription); // stop showing description
-    }, EXEC_TIMEOUT);
-    return () => clearTimeout(timer);
-  }, [showDescription]);
-
   return (
     <div
-      className={`exec-container ${subcom ? 'subcom-container' : ''}`}
-      onClick={() => setShowDescription(!showDescription)}
+      className={`exec-container ${isActiveCard ? 'active-fg' : ''} ${
+        isCardFlipped ? 'flipped-3d' : ''
+      }`}
       style={style}
+      onClick={onCardSelect}
     >
-      <span className="vertical-card-role-label">{role.toUpperCase()}</span>
+      <div className="card-inner-3d-flipper">
+        {/* ================= CARD FRONT ================= */}
+        <div className="card-template card-face-front">
+          {/* Vertical role text placed inside the yellow border area */}
+          <span className="vertical-card-role-label">{role.toUpperCase()}</span>
 
-      <div className="exec-image-hover">
-        <LazyLoadImage className="exec-image" alt={name} effect="blur" src={image}></LazyLoadImage>
-      </div>
-      {/* <img src={image} className="exec-image"></img> */}
-      <div
-        className={` ${
-          showDescription ? 'exec-profile-description-show' : 'exec-profile-description-hide'
-        }`}
-      >
-        {exec ? (
-          <ExecProfileDescription
-            name={name}
-            role={role}
-            discipline={discipline}
-            roleDescription={roleDescription}
-          />
-        ) : subcom ? (
-          <SubcomProfileDescription name={name} description={roleDescription} cochairs={cochairs} />
-        ) : scuntJudge ? (
-          <ScuntJudgeDescription name={name} bribes={bribes} description={description} />
-        ) : (
-          <NonexecProfileDescription name={name} discipline={discipline} quote={quote} />
-        )}
+          {/* Main layout image panel */}
+          <div className="card-template__panel">
+            <LazyLoadImage className="exec-image" alt={name} effect="blur" src={image} />
+          </div>
+
+          {/* Footer Band with Name */}
+          <div className="card-template__footer">
+            <h3 className="exec-profile-card-footer-name script-font">{name}</h3>
+          </div>
+
+          {/* Centered Seal */}
+          <div className="card-template__seal"></div>
+        </div>
+
+        {/* ================= CARD BACK ================= */}
+        <div className="card-template card-face-back">
+          <div className="card-template__panel back-bio-panel">
+            {isActiveCard && isCardFlipped && (
+              <div className="bio-forced-visible">
+                {exec ? (
+                  <ExecProfileDescription
+                    name={name}
+                    role={role}
+                    discipline={discipline}
+                    roleDescription={roleDescription}
+                  />
+                ) : subcom ? (
+                  <SubcomProfileDescription
+                    name={name}
+                    description={roleDescription}
+                    cochairs={cochairs}
+                  />
+                ) : scuntJudge ? (
+                  <ScuntJudgeDescription name={name} bribes={bribes} description={description} />
+                ) : (
+                  <NonexecProfileDescription name={name} discipline={discipline} quote={quote} />
+                )}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -222,6 +239,9 @@ ExecProfile.propTypes = {
   bribes: PropTypes.array, // all bribes
 
   style: PropTypes.object, // for the fan effect
+  isActiveCard: PropTypes.bool,
+  isCardFlipped: PropTypes.bool,
+  onCardSelect: PropTypes.func,
 };
 
 ExecProfileTitle.propTypes = {

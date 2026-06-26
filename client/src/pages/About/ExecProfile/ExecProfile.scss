@@ -11,7 +11,7 @@
   width: 100%;
   max-width: 95vw;
   height: 38vw;
-  margin: 5vh auto 150px auto;
+  margin: 0px auto 150px auto;
   overflow: visible;
 
   @include devices(tablet) {
@@ -24,6 +24,12 @@
     max-width: 90vw;
     margin: 5vh auto 50px auto;
   }
+
+  // Dim background items when a card is selected
+  &.has-active-card .exec-container:not(.active-fg) {
+    opacity: 0.4;
+    filter: brightness(0.6) grayscale(15%);
+  }
 }
 
 .exec-container {
@@ -31,60 +37,166 @@
   bottom: 0;
   margin: 0 !important;
 
-  // Card Size & Retro Yellow Card Background Colors
+  // Base dimensions mapped out by viewport scale configurations
   width: 18vw !important;
-  height: 25.5vw !important;
-  background: var(--palegold) !important;
-  border: 0.4vw solid var(--palegold) !important;
-  outline: 2px solid #000000;
-  border-radius: 1vw !important;
-  box-shadow: 0 0.8vw 2vw rgba(0, 0, 0, 0.4) !important;
+  height: 26vw !important;
+  overflow: visible !important; // Essential for 3D card perspectives
 
-  overflow: hidden;
-  transition: transform 0.3s ease, z-index 0.3s ease;
+  perspective: 1200px;
+  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), z-index 0.4s;
 
   @media only screen and (max-width: 480px) {
     width: 27vw !important;
-    height: 38vw !important;
-    border-width: 2vw !important;
+    height: 39vw !important;
+  }
+
+  // Handle the active flip trigger
+  &.flipped-3d .card-inner-3d-flipper {
+    transform: rotateY(180deg);
   }
 }
 
-.exec-image {
-  display: block;
+.card-inner-3d-flipper {
+  position: relative;
   width: 100%;
-  height: auto;
-  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
-  object-fit: cover;
   height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Global Card Template properties ported over into fluid dimensions
+.card-template {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fbdc70;
+  border-radius: 8px;
+  border: 2px solid #3d0f58;
+  overflow: hidden;
+  box-shadow: 0 0.8vw 2vw rgba(0, 0, 0, 0.4);
+  backface-visibility: hidden; // Hides the side facing away from view
+
+  &.card-face-front {
+    z-index: 2;
+    transform: rotateY(0deg);
+  }
+
+  &.card-face-back {
+    transform: rotateY(180deg); // Starts turned around on the flip side
+  }
+}
+
+.card-template__panel {
+  position: absolute;
+  left: 6%;
+  top: 3.4%;
+  width: 88%;
+  height: 70%;
+  background: #d9d9d9;
+  border: 2px solid #3d0f58;
+  border-radius: 8px;
+  overflow: hidden;
+
+  &.back-bio-panel {
+    height: 91.4%; // Allow bio panel to use the full size of the card back
+    overflow-y: auto;
+    background: var(--purple);
+    padding: 8%;
+
+    // Reset styles inside the embed block to fit nicely inside the card
+    .exec-profile-description,
+    .nonexec-profile-description-container {
+      position: relative;
+      background: transparent;
+      padding: 0;
+      width: 100%;
+      height: auto;
+      opacity: 1;
+    }
+    .exec-profile-name {
+      font-size: 1.6vw;
+      @media only screen and (max-width: 480px) {
+        font-size: 2.8vw;
+      }
+    }
+    .exec-profile-position {
+      font-size: 1.1vw;
+      @media only screen and (max-width: 480px) {
+        font-size: 2vw;
+      }
+    }
+  }
+}
+
+.card-template__footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 76.6%;
+  height: 10.6%;
+  background: #a77ad7;
+  border-top: 2px solid #3d0f58;
+  border-bottom: 2px solid #3d0f58;
+  display: flex;
+  align-items: center;
+  padding-left: 6%;
+}
+
+.exec-profile-card-footer-name {
+  margin: 0;
+  color: #000000;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1vw;
+  @media only screen and (max-width: 480px) {
+    font-size: 1.6vw;
+  }
+}
+
+.card-template__footer::before,
+.card-template__footer::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #3d0f58;
+}
+.card-template__footer::before {
+  top: 12.7%;
+}
+.card-template__footer::after {
+  bottom: 15.3%;
+}
+
+.card-template__seal {
+  position: absolute;
+  width: 22%;
+  aspect-ratio: 1;
+  left: 72%;
+  top: 71%;
+  border-radius: 50%;
+  background: #d9d9d9;
+  border: 2px solid #3d0f58;
+  z-index: 2;
 }
 
 .exec-image-hover {
-  width: 84% !important;
-  height: 75% !important;
-  margin: 6% auto 4% auto !important;
-  border: 2px solid #000000 !important;
-  border-radius: 4px;
-  background: #00bcd4;
+  width: 100%;
+  height: 100%;
 }
 
-.vertical-card-role-label {
-  position: absolute;
-  left: 3px;
-  top: 12px;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 10px;
-  font-weight: 900;
-  color: #000000;
-  letter-spacing: 0.5px;
-  font-family: sans-serif;
-
-  @include devices(mobile) {
-    font-size: 7px;
-    left: 1px;
-    top: 8px;
-  }
+// Background shade overlay click target
+.deck-backdrop-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 95;
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .wave-profile {
@@ -281,4 +393,187 @@
 .exec-profile-scunt-judges-description {
   margin-bottom: 12px;
   text-align: left;
+}
+
+// Force visibility adjustments to contain your old description classes
+.bio-forced-visible {
+  width: 100%;
+  height: 100%;
+  color: #ffffff;
+
+  // Strips away old absolute positions that are breaking out of the card panel
+  .exec-profile-description,
+  .nonexec-profile-description-container {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    background: transparent !important;
+    opacity: 1 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  .exec-profile-name {
+    font-size: 1.4vw;
+    color: #ffffff;
+    @media only screen and (max-width: 480px) {
+      font-size: 2.6vw;
+    }
+  }
+  .exec-profile-position {
+    font-size: 1vw;
+    @media only screen and (max-width: 480px) {
+      font-size: 1.8vw;
+    }
+  }
+}
+
+// Reset the panel layout to allow clean text scrolling inside the back side
+.card-template__panel.back-bio-panel {
+  background: var(--palegold) !important;
+  border-color: var(--monster) !important;
+  padding: 5% !important;
+  overflow: hidden !important;
+  height: 91.4% !important;
+}
+
+// Append to the bottom of ExecProfile.scss
+
+.card-template {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--palegold);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid var(--monster);
+  backface-visibility: hidden;
+
+  &.card-face-front {
+    z-index: 2;
+    transform: rotateY(0deg);
+  }
+
+  &.card-face-back {
+    transform: rotateY(180deg);
+  }
+}
+
+/* Inner panel - configured exactly to expand below the footer band */
+.card-template__panel {
+  position: absolute;
+  left: 18.7%;
+  top: 3.4%;
+  width: 76.2%;
+  height: 91.4%; // Deep expansion down to the bottom area
+  background: var(--jam) !important; // Cyan backdrop fill color
+  border: 2px solid var(--monster);
+  border-radius: 19px;
+  overflow: hidden;
+  z-index: 1;
+
+  .exec-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: transparent !important; // Strips out clashing backgrounds
+  }
+
+  &.back-bio-panel {
+    left: 5%;
+    width: 90%;
+    background: var(--purple) !important;
+    padding: 5%;
+    overflow-y: auto;
+  }
+}
+
+/* Purple footer band overlay layer */
+.card-template__footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 76.6%;
+  height: 12%;
+  background: var(--wisteria);
+  border-top: 2px solid var(--monster);
+  border-bottom: 2px solid var(--monster);
+  z-index: 2; // Places it over the panel container
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+.exec-profile-card-footer-name {
+  margin: 0;
+  color: var(--monster);
+  font-family: 'Genty', sans-serif;
+  text-align: left;
+  font-weight: 200;
+  font-size: 1.2rem;
+
+  @media only screen and (max-width: 480px) {
+    font-size: 1.6vw;
+  }
+}
+
+.card-template__footer::before,
+.card-template__footer::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--monster);
+}
+.card-template__footer::before {
+  top: 12.7%;
+}
+.card-template__footer::after {
+  bottom: 15.3%;
+}
+
+/* Circular badge - perfectly centered vertically on the footer band */
+.card-template__seal {
+  position: absolute;
+  width: 26.7%;
+  aspect-ratio: 1;
+  left: 66%;
+
+  // 💡 VERTICAL CENTERING LOGIC:
+  // Footer top is 76.6%, footer height is 10.6%. Center point is 76.6 + (10.6 / 2) = 81.9%
+  // Moving back up by half of its own width (26.7 / 2 = 13.35%) targets the true center offset.
+  top: 73%;
+
+  border-radius: 50%;
+  background: var(--dusk);
+  border: 3px solid var(--monster);
+  z-index: 3;
+}
+
+/* Vertical text positioned nicely inside the yellow margin space */
+.vertical-card-role-label {
+  position: absolute;
+  left: 3.5%;
+  top: 6%;
+  width: 12%;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: var(--monster);
+  letter-spacing: 0.5px;
+  font-family: 'Gliker', sans-serif;
+  z-index: 2;
+  text-align: right;
+
+  @media only screen and (max-width: 480px) {
+    font-size: 1.3vw;
+  }
 }

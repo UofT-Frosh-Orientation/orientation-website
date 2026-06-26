@@ -74,6 +74,9 @@ const AboutUsExecCardDeck = () => {
   // Track state of window width to swap fanning rules dynamically
   const [isMobile, setIsMobile] = useState(false);
 
+  const [activeIndex, setActiveIndex] = useState(null);
+  const [isFlipped, setIsFlipped] = useState(false);
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -83,6 +86,22 @@ const AboutUsExecCardDeck = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const handleCardClick = (index) => {
+    if (activeIndex === index) {
+      // Second click on the active foreground card triggers the flip toggle
+      setIsFlipped(!isFlipped);
+    } else {
+      // Clicking a new card pulls it into the foreground and resets its flip state
+      setActiveIndex(index);
+      setIsFlipped(false);
+    }
+  };
+
+  const closeDeckZoom = () => {
+    setActiveIndex(null);
+    setIsFlipped(false);
+  };
 
   return (
     <div className="exec-carousel-section">
