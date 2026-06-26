@@ -12,6 +12,7 @@
 
   justify-content: center;
   align-items: center;
+  background-color: var(--bg-main);
 }
 
 .login-container {
@@ -19,6 +20,7 @@
   transition: transform 400ms, opacity 400ms;
   width: 50vw;
   z-index: 9;
+  background-color: var(--bg-primary);
   box-shadow: var(--bg-secondary) 0px 8px 24px;
   border-radius: 15px;
   padding: 40px min(150px, 5%);
