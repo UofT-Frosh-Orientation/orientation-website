@@ -10,7 +10,7 @@ import { RadioButtons } from '../../components/form/RadioButtons/RadioButtons';
 import { ErrorSuccessBox } from '../../components/containers/ErrorSuccessBox/ErrorSuccessBox';
 import { SnackbarContext } from '../../util/SnackbarProvider';
 import { getSlideshowImages, getTimelineEvents } from '../Home/functions'; // Change slideshow to relevant images
-import waiverPDF from '../../assets/retreatWaiver/frosh-retreat-2T5-waiver.pdf';
+import waiverPDF from '../../assets/retreatWaiver/frosh-retreat-2T6-waiver.pdf';
 import useAxios from '../../hooks/useAxios';
 import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAccordion/RetreatSingleAccordion.jsx';
 import retreatArrow from '../../assets/misc/backarrow.png';
@@ -88,7 +88,7 @@ export const FroshRetreat = () => {
 
             <h1 className="retreat-banner-title-retreat">Retreat</h1>
           </div>
-          <h2 className="retreat-banner-subtitle">at Hart House Farm Sep 6 - Sep 7</h2>
+          <h2 className="retreat-banner-subtitle">at Hart House Farm Sep 5 - Sep 6</h2>
           <img className="retreat-banner-star" src={star}></img>
           <div className="retreat-banner-star-text">Register below!</div>
         </div>
@@ -98,7 +98,7 @@ export const FroshRetreat = () => {
       <div className="retreat-info">
         <h3 className="retreat-header">About</h3>
         <p className="retreat-text">
-          The retreat is taking place on September 6th and 7th, 2026 at Hart House Farm. Get ready
+          The retreat is taking place on September 5th and 6th, 2026 at Hart House Farm. Get ready
           for a weekend of fun and relaxation with your new peers!
         </p>
 
@@ -188,7 +188,7 @@ const retreatFAQs = [
   {
     title: 'What time does the bus leave?',
     description: [
-      'The bus leaves from campus at 10:00 AM on September 6th and returns to campus at 2:00 PM on September 7th.',
+      'The bus leaves from campus at 10:00 AM on September 5th and returns to campus at 2:00 PM on September 6th.',
     ],
   },
   {
