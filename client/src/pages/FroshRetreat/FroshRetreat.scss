@@ -23,13 +23,13 @@
     width: 54vw;
     aspect-ratio: 381 / 273;
     position: relative;
-    top:15px;
+    top: 15px;
 
     @include devices(tablet) {
       // height: 40vw;
       // min-height: 200px;
-      border-radius:15px;
-      top:-10px;
+      border-radius: 15px;
+      top: -10px;
     }
   }
 }
@@ -41,58 +41,64 @@
 
 .retreat-video-frame {
   z-index: 1;
-  width:100%;
+  width: 100%;
 }
 
 // Need to fine tune resize behavior!
-.film-strip-container {
-  --photo-height: clamp(100px, 15vw, 130px);
+// Scoped to the retreat page so these generic .film-strip-* class names don't
+// leak onto the Home page (which has its own .film-strip-* styles). Without the
+// scope, .film-strip-container's `margin-top: 47%` and the undefined
+// `--film-height` on .film-strip-photo broke the Home film reel.
+.frosh-retreat-page {
+  .film-strip-container {
+    --photo-height: clamp(100px, 15vw, 130px);
 
-  --hole-height: calc(var(--photo-height) * 0.14);
-  --strip-padding: calc(var(--photo-height) * 0.06);
-  --gap: calc(var(--photo-height) * 0.03);
+    --hole-height: calc(var(--photo-height) * 0.14);
+    --strip-padding: calc(var(--photo-height) * 0.06);
+    --gap: calc(var(--photo-height) * 0.03);
 
-  background-color: black;
-  width: 100%;
-  display: block;
-  padding: var(--strip-padding) 0;
-  margin-top: 47%;
-  z-index: 2;
-  overflow: clip;
-  @include devices(tablet){
-    margin-top:56%;
+    background-color: black;
+    width: 100%;
+    display: block;
+    padding: var(--strip-padding) 0;
+    margin-top: 47%;
+    z-index: 2;
+    overflow: clip;
+    @include devices(tablet) {
+      margin-top: 56%;
+    }
   }
-}
 
-.film-strip-holes {
-  height: var(--hole-height);
+  .film-strip-holes {
+    height: var(--hole-height);
 
-  background: repeating-linear-gradient(
-    to right,
-    black 0,
-    black calc(var(--hole-height) * 0.55),
-    var(--bg-primary) calc(var(--hole-height) * 0.55),
-    var(--bg-primary) calc(var(--hole-height) * 1.65),
-    black calc(var(--hole-height) * 1.65),
-    black calc(var(--hole-height) * 2.2)
-  );
-}
+    background: repeating-linear-gradient(
+      to right,
+      black 0,
+      black calc(var(--hole-height) * 0.55),
+      var(--bg-primary) calc(var(--hole-height) * 0.55),
+      var(--bg-primary) calc(var(--hole-height) * 1.65),
+      black calc(var(--hole-height) * 1.65),
+      black calc(var(--hole-height) * 2.2)
+    );
+  }
 
-.film-strip-track {
-  display: flex;
-  gap: var(--gap);
-  padding: var(--strip-padding) 0;
-}
+  .film-strip-track {
+    display: flex;
+    gap: var(--gap);
+    padding: var(--strip-padding) 0;
+  }
 
-.film-strip-photo {
-  height: var(--film-height);
-  aspect-ratio: 190 / 130;
-  /* preserves original ratio */
-  width: auto;
+  .film-strip-photo {
+    height: var(--film-height);
+    aspect-ratio: 190 / 130;
+    /* preserves original ratio */
+    width: auto;
 
-  object-fit: cover;
-  flex-shrink: 0;
-}
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+} // end .frosh-retreat-page scope
 
 .retreat-banner {
   --film-height: clamp(70px, 12vw, 130px);
@@ -103,9 +109,9 @@
   flex-direction: column;
   justify-content: flex-end;
   z-index: -1;
-  overflow:hidden;
-  @include devices(tablet){
-    min-height:36.5vh;
+  overflow: hidden;
+  @include devices(tablet) {
+    min-height: 36.5vh;
   }
 }
 
@@ -121,7 +127,7 @@
   background-position: center;
   z-index: 0;
   overflow: clip;
-  @include devices(tablet){
+  @include devices(tablet) {
     background-size: 10.6vw 10.6vw;
   }
 }
@@ -137,9 +143,9 @@
   margin-left: 2%;
   width: 20%;
   display: flex;
-  @include devices(tablet){
-    width:25%;
-    margin-left:1%;
+  @include devices(tablet) {
+    width: 25%;
+    margin-left: 1%;
   }
   // transform: rotate(-42deg);
 }
@@ -157,10 +163,10 @@
   font-size: 2.5vw;
   color: var(--jam);
   line-height: 1;
-  @include devices(tablet){
-    font-size:3.5vw;
-    margin-top:-17.5%;
-    margin-left:6.7%;
+  @include devices(tablet) {
+    font-size: 3.5vw;
+    margin-top: -17.5%;
+    margin-left: 6.7%;
   }
 }
 
@@ -189,16 +195,16 @@
 .retreat-banner-title-frosh {
   font-family: 'Genty';
   margin-left: 3%;
-  margin-bottom:0.2em;
-  @include devices(tablet){
-    font-size:2.2em;
+  margin-bottom: 0.2em;
+  @include devices(tablet) {
+    font-size: 2.2em;
   }
 }
 
 .retreat-banner-title-retreat {
   font-family: 'Gliker';
   margin-left: 27%;
-  font-size:1.9em;
+  font-size: 1.9em;
 }
 
 .retreat-banner-subtitle {
@@ -208,8 +214,8 @@
   margin-top: 3%;
   margin-left: 27%;
   font-size: 2.9vw;
-  @include devices(tablet){
-    font-size:4vw;
+  @include devices(tablet) {
+    font-size: 4vw;
   }
 }
 
@@ -233,8 +239,8 @@
   color: var(--text-primary);
   font-size: 22px;
 }
-.retreat-left-column-text{
-  margin-bottom:clamp(10px, 2vw, 30px);
+.retreat-left-column-text {
+  margin-bottom: clamp(10px, 2vw, 30px);
 }
 
 .retreat-bullet-text {
@@ -370,22 +376,22 @@
 .retreat-registration {
   display: flex;
   flex-direction: row;
-  flex-wrap:wrap;
-  justify-content:center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .retreat-registration-left-column {
-  min-width:360px;
-  width:40%;
-  padding-left:5%;
-  @include devices(tablet){
-    padding-left:0%;
+  min-width: 360px;
+  width: 40%;
+  padding-left: 5%;
+  @include devices(tablet) {
+    padding-left: 0%;
   }
 }
 
 .retreat-registration-right-column {
-  min-width:360px;
-  width:40%;
+  min-width: 360px;
+  width: 40%;
   margin: 0% 4%;
 }
 
@@ -488,7 +494,7 @@
   /* Control size here */
   width: min(100%, 642px);
   aspect-ratio: 642 / 929;
-  max-width:900px;
+  max-width: 900px;
 
   background: #fbdc70;
   border-radius: 0.8%;
@@ -510,7 +516,7 @@
   border: 2px solid #3d0f58;
   border-radius: 19px;
   font-size: min(2vw, 30px);
-  @include devices(tablet){
+  @include devices(tablet) {
     font-size: 20px;
   }
 }
