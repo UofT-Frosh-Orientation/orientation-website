@@ -231,6 +231,7 @@ a:hover {
 
 .content-container {
   margin-top: 45px;
+  background-color:var(--page-bg);
   @include devices(tablet) {
     margin-top: 0px;
   }
