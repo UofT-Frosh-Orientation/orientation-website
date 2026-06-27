@@ -77,7 +77,7 @@ const AboutUsExecCardDeck = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 480);
     };
 
     handleResize(); // Run on mount
@@ -133,15 +133,14 @@ const AboutUsExecCardDeck = () => {
           const diff = index - midPoint;
           const absDiff = Math.abs(diff);
 
-          const rotateAngle = isMobile ? diff * 8 : diff * 3;
-          const translateX = isMobile ? diff * 3.8 : diff * 6.5;
-          const translateY = isMobile ? absDiff * 0.5 : absDiff * 0.15;
+          const rotateAngle = isMobile ? diff * 5 : diff * 3;
+          const translateX = isMobile ? diff * 7.5 : diff * 6.5;
+          const translateY = isMobile ? absDiff * 0.25 : absDiff * 0.15;
 
           const isActive = activeIndex !== null && Number(activeIndex) === Number(index);
           const cardFlipped = isActive && isFlipped;
 
           const fanStyle = {
-            // 💡 CRITICAL FIX: Pass the loop's index directly to CSS variables
             '--index': index,
             zIndex: isActive ? 999 : 10 + index,
             transform: isActive

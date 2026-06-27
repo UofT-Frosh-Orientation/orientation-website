@@ -109,16 +109,9 @@ const ExecProfileDescription = ({ name, role, discipline, roleDescription }) => 
         <h3 className="exec-profile-name">{name}</h3>
       </div>
 
-      <p className="exec-profile-description-dis">
-        <span style={{ fontWeight: 'bold' }}>DISCIPLINE: </span>
-        {discipline}
-      </p>
+      <p className="exec-profile-description-discipline">{discipline}</p>
 
-      <p className="exec-profile-description-role">
-        <span style={{ fontWeight: 'bold' }}> FUN FACTS: </span>
-        <br></br>
-        {roleDescription}
-      </p>
+      <p className="exec-profile-description-role">{roleDescription}</p>
     </div>
   );
 };

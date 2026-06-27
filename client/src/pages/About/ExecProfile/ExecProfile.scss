@@ -13,17 +13,13 @@
   overflow: visible;
 
   @include devices(tablet) {
-    max-width: 80vw;
-    margin: 5vh auto 100px auto;
+    height: 40vw;
   }
 
   @media only screen and (max-width: 480px) {
     height: 55vw;
-    max-width: 90vw;
-    margin: 5vh auto 50px auto;
   }
 
-  // --- 💡 THE CARDS SHIFT EFFECT ENGINE ---
   &.has-active-card {
     .exec-container:not(.active-fg) {
       // Compares individual card index with parent container's active-index property
@@ -60,10 +56,10 @@
     opacity: 1 !important;
     filter: none !important;
 
-    transform: rotate(0deg) translateX(0) translateY(-6vw) scale(1.4) !important;
+    transform: rotate(0deg) translateX(0) translateY(0) scale(1.4) !important;
 
     @media only screen and (max-width: 480px) {
-      transform: rotate(0deg) translateX(0) translateY(-10vw) scale(1.5) !important;
+      transform: rotate(0deg) translateX(0) translateY(0) scale(2.8) !important;
     }
   }
 
@@ -73,9 +69,14 @@
     }
   }
 
-  @media only screen and (max-width: 480px) {
+  @include devices(tablet) {
     width: 27vw !important;
     height: 39vw !important;
+  }
+
+  @media only screen and (max-width: 480px) {
+    width: 35vw !important;
+    height: 50vw !important;
   }
 }
 
@@ -95,7 +96,7 @@
   width: 100%;
   height: 100%;
   background: var(--palegold);
-  border-radius: 8px;
+  border-radius: 6px;
   border: 2px solid var(--monster);
   overflow: hidden;
   box-shadow: 0 0.8vw 2vw rgba(0, 0, 0, 0.4);
@@ -113,20 +114,32 @@
 
 .card-template__panel {
   position: absolute;
-  left: 6%;
+  left: 18.7%;
   top: 3.4%;
-  width: 88%;
-  height: 70%;
-  background: #d9d9d9;
+  width: 76.2%;
+  height: 91.4%; // Deep expansion down to the bottom area
+  background: var(--jam) !important;
   border: 2px solid var(--monster);
-  border-radius: 8px;
+  border-radius: 19px;
   overflow: hidden;
+  z-index: 1;
+
+  .exec-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: transparent !important; // Strips out clashing backgrounds
+  }
 
   &.back-bio-panel {
     height: 91.4%; // Allow bio panel to use the full size of the card back
-    overflow-y: auto;
-    //background: var(--purple);
-    padding: 8%;
+    left: 5%;
+    width: 90%;
+    background: var(--jam) !important;
+    border-color: var(--monster) !important;
+    padding: 5%;
+    overflow: visible;
 
     // Reset styles inside the embed block to fit nicely inside the card
     .exec-profile-description,
@@ -140,43 +153,66 @@
     }
     .exec-profile-name {
       font-family: 'Gliker', sans-serif;
-      font-size: 1.6vw;
+      font-size: 1.5vw;
+      font-weight: 300;
+
+      @include devices(tablet) {
+        font-size: 2.3vw;
+      }
+
       @media only screen and (max-width: 480px) {
         font-size: 2.8vw;
+        font-weight: 100;
       }
     }
     .exec-profile-position {
-      font-family: 'Proxima Nova', sans-serif;
-      font-size: 1.1vw;
+      font-family: 'Gliker', sans-serif;
+      font-size: 1.5vw;
+
+      @include devices(tablet) {
+        font-size: 2.3vw;
+      }
+
       @media only screen and (max-width: 480px) {
-        font-size: 2vw;
+        font-size: 2.8vw;
       }
     }
   }
 }
 
 .card-template__footer {
+  //purple band
   position: absolute;
   left: 0;
   right: 0;
   top: 76.6%;
-  height: 10.6%;
-  background: #a77ad7;
-  border-top: 2px solid #3d0f58;
-  border-bottom: 2px solid #3d0f58;
+  height: 12%;
+  background: var(--wisteria);
+  border-top: 2px solid var(--monster);
+  border-bottom: 2px solid var(--monster);
+  z-index: 2; // Places it over the panel container
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
   padding-left: 6%;
 }
 
+// name of exec in the purple band
 .exec-profile-card-footer-name {
   margin: 0;
-  color: #000000;
-  font-family: sans-serif;
-  font-weight: bold;
-  font-size: 1vw;
+  color: var(--monster);
+  font-family: 'Genty', sans-serif;
+  text-align: left;
+  font-weight: 150;
+  font-size: 1.5vw;
+
+  @include devices(tablet) {
+    font-size: 2w;
+  }
+
   @media only screen and (max-width: 480px) {
-    font-size: 1.6vw;
+    font-size: 2.5vw;
   }
 }
 
@@ -186,7 +222,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  border-top: 1px solid #3d0f58;
+  border-top: 1px solid var(--monster);
 }
 .card-template__footer::before {
   top: 12.7%;
@@ -197,14 +233,39 @@
 
 .card-template__seal {
   position: absolute;
-  width: 22%;
+  width: 26.7%;
   aspect-ratio: 1;
-  left: 72%;
-  top: 71%;
+  left: 66%;
+  top: 73%;
   border-radius: 50%;
-  background: #d9d9d9;
-  border: 2px solid #3d0f58;
+  background: var(--dusk);
+  border: 2px solid var(--monster);
+  z-index: 3;
+}
+
+/* Exec Role: Vertical text inside the yellow margin space */
+.vertical-card-role-label {
+  position: absolute;
+  left: 3.5%;
+  top: 6%;
+  width: 12%;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 2vw;
+  font-weight: 900;
+  color: var(--monster);
+  letter-spacing: 0.5px;
+  font-family: 'Gliker', sans-serif;
   z-index: 2;
+  text-align: right;
+
+  @include devices(tablet) {
+    font-size: 2.7vw;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 3vw;
+  }
 }
 
 .exec-image-hover {
@@ -237,6 +298,7 @@
   margin-bottom: 20px;
 }
 
+/*
 .exec-profile-position {
   color: var(--yellow);
   font-size: 22px;
@@ -247,7 +309,12 @@
   @include devices(tablet) {
     font-size: 16px;
   }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 14px;
+  }
 }
+
 
 .exec-profile-name {
   text-align: left;
@@ -260,24 +327,25 @@
     font-size: 22px;
   }
 }
+*/
 
 // On Click
 .exec-profile-description {
   position: absolute;
-  background: var(--purple);
-  opacity: 0.95;
-
+  background: var(--jam);
   width: 100%;
   height: 100%;
   top: 0;
-  padding: 5%;
   overflow-y: scroll;
   overflow-x: hidden;
 
-  color: var(--white);
-  font-size: 16px;
-  font-weight: 300;
-  //text-align: justify;
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-y !important;
+
+  color: var(--dusk);
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: 4vw;
+  //font-weight: 150;
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -286,11 +354,26 @@
     background: var(--transparent);
   }
   &::-webkit-scrollbar-thumb {
-    background: var(--light-purple);
+    background: var(--lavender);
   }
 
   @include devices(tablet) {
-    font-size: 14px;
+    font-size: 2vw;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 0.2vw;
+  }
+}
+
+.exec-profile-description-discipline,
+.exec-profile-description-role {
+  color: var(--white);
+  margin-bottom: 4px;
+
+  @media only screen and (max-width: 480px) {
+    font-size: 8px;
+    line-height: 1.15;
   }
 }
 
@@ -323,7 +406,7 @@
     background: var(--transparent);
   }
   &::-webkit-scrollbar-thumb {
-    background: var(--light-purple);
+    background: var(--lavender);
   }
 
   @include devices(tablet) {
@@ -347,15 +430,6 @@
   justify-self: center;
 }
 
-.exec-profile-description-dis,
-.exec-profile-description-role {
-  color: var(--white);
-}
-
-.exec-profile-description-dis,
-.exec-profile-description-role {
-  margin-bottom: 25px;
-}
 .nonexec-dicipline {
   margin-bottom: 10px;
 }
@@ -368,7 +442,6 @@
   opacity: 0;
   transition: opacity 200ms;
   user-select: none;
-  pointer-events: none;
 }
 
 .cochairs-list {
@@ -423,7 +496,7 @@
 .bio-forced-visible {
   width: 100%;
   height: 100%;
-  color: #ffffff;
+  overflow: visible !important;
 
   // Strips away old absolute positions that are breaking out of the card panel
   .exec-profile-description,
@@ -436,168 +509,25 @@
     padding: 0 !important;
     background: transparent !important;
     opacity: 1 !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
   }
 
   .exec-profile-name {
     font-size: 1.4vw;
-    color: #ffffff;
+    color: var(--dusk);
+
+    @include devices(tablet) {
+      font-size: 1.5vw;
+    }
+
     @media only screen and (max-width: 480px) {
-      font-size: 2.6vw;
+      font-size: 2vw;
     }
   }
+
   .exec-profile-position {
     font-size: 1vw;
     @media only screen and (max-width: 480px) {
       font-size: 1.8vw;
     }
-  }
-}
-
-// Reset the panel layout to allow clean text scrolling inside the back side
-.card-template__panel.back-bio-panel {
-  background: var(--palegold) !important;
-  border-color: var(--monster) !important;
-  padding: 5% !important;
-  overflow: hidden !important;
-  height: 91.4% !important;
-}
-
-// Append to the bottom of ExecProfile.scss
-
-.card-template {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--palegold);
-  border-radius: 6px;
-  overflow: hidden;
-  border: 2px solid var(--monster);
-  backface-visibility: hidden;
-
-  &.card-face-front {
-    z-index: 2;
-    transform: rotateY(0deg);
-  }
-
-  &.card-face-back {
-    transform: rotateY(180deg);
-  }
-}
-
-/* Inner panel - configured exactly to expand below the footer band */
-.card-template__panel {
-  position: absolute;
-  left: 18.7%;
-  top: 3.4%;
-  width: 76.2%;
-  height: 91.4%; // Deep expansion down to the bottom area
-  background: var(--jam) !important; // Cyan backdrop fill color
-  border: 2px solid var(--monster);
-  border-radius: 19px;
-  overflow: hidden;
-  z-index: 1;
-
-  .exec-image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    background: transparent !important; // Strips out clashing backgrounds
-  }
-
-  &.back-bio-panel {
-    left: 5%;
-    width: 90%;
-    background: var(--purple) !important;
-    padding: 5%;
-    overflow-y: auto;
-  }
-}
-
-/* Purple footer band overlay layer */
-.card-template__footer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 76.6%;
-  height: 12%;
-  background: var(--wisteria);
-  border-top: 2px solid var(--monster);
-  border-bottom: 2px solid var(--monster);
-  z-index: 2; // Places it over the panel container
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  box-sizing: border-box;
-}
-
-.exec-profile-card-footer-name {
-  margin: 0;
-  color: var(--monster);
-  font-family: 'Genty', sans-serif;
-  text-align: left;
-  font-weight: 200;
-  font-size: 1.2rem;
-
-  @media only screen and (max-width: 480px) {
-    font-size: 1.6vw;
-  }
-}
-
-.card-template__footer::before,
-.card-template__footer::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  border-top: 1px solid var(--monster);
-}
-.card-template__footer::before {
-  top: 12.7%;
-}
-.card-template__footer::after {
-  bottom: 15.3%;
-}
-
-/* Circular badge - perfectly centered vertically on the footer band */
-.card-template__seal {
-  position: absolute;
-  width: 26.7%;
-  aspect-ratio: 1;
-  left: 66%;
-
-  // 💡 VERTICAL CENTERING LOGIC:
-  // Footer top is 76.6%, footer height is 10.6%. Center point is 76.6 + (10.6 / 2) = 81.9%
-  // Moving back up by half of its own width (26.7 / 2 = 13.35%) targets the true center offset.
-  top: 73%;
-
-  border-radius: 50%;
-  background: var(--dusk);
-  border: 3px solid var(--monster);
-  z-index: 3;
-}
-
-/* Vertical text positioned nicely inside the yellow margin space */
-.vertical-card-role-label {
-  position: absolute;
-  left: 3.5%;
-  top: 6%;
-  width: 12%;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 1.7rem;
-  font-weight: 900;
-  color: var(--monster);
-  letter-spacing: 0.5px;
-  font-family: 'Gliker', sans-serif;
-  z-index: 2;
-  text-align: right;
-
-  @media only screen and (max-width: 480px) {
-    font-size: 1.3vw;
   }
 }
