@@ -20,13 +20,16 @@
     border: none;
     margin-bottom: -45%;
     transform: translateX(11.5vw) translateY(-130%);
-    width: 53vw;
+    width: 54vw;
     aspect-ratio: 381 / 273;
     position: relative;
+    top:15px;
 
     @include devices(tablet) {
       // height: 40vw;
       // min-height: 200px;
+      border-radius:15px;
+      top:-10px;
     }
   }
 }
@@ -38,6 +41,7 @@
 
 .retreat-video-frame {
   z-index: 1;
+  width:100%;
 }
 
 // Need to fine tune resize behavior!
@@ -52,9 +56,12 @@
   width: 100%;
   display: block;
   padding: var(--strip-padding) 0;
-  margin-top: 45%;
+  margin-top: 47%;
   z-index: 2;
   overflow: clip;
+  @include devices(tablet){
+    margin-top:56%;
+  }
 }
 
 .film-strip-holes {
@@ -96,6 +103,10 @@
   flex-direction: column;
   justify-content: flex-end;
   z-index: -1;
+  overflow:hidden;
+  @include devices(tablet){
+    min-height:36.5vh;
+  }
 }
 
 .retreat-banner-checkers {
@@ -110,6 +121,9 @@
   background-position: center;
   z-index: 0;
   overflow: clip;
+  @include devices(tablet){
+    background-size: 10.6vw 10.6vw;
+  }
 }
 
 .retreat-banner-checkers-shadow {
@@ -119,16 +133,20 @@
 }
 
 .retreat-banner-star {
-  margin-top: -22%;
-  margin-left: 6%;
+  margin-top: -20%;
+  margin-left: 2%;
   width: 20%;
   display: flex;
+  @include devices(tablet){
+    width:25%;
+    margin-left:1%;
+  }
   // transform: rotate(-42deg);
 }
 
 .retreat-banner-star-text {
-  margin-top: -13.5%;
-  margin-left: 9.4%;
+  margin-top: -13%;
+  margin-left: 5%;
   width: 15%;
   text-align: center;
 
@@ -139,6 +157,11 @@
   font-size: 2.5vw;
   color: var(--jam);
   line-height: 1;
+  @include devices(tablet){
+    font-size:3.5vw;
+    margin-top:-17.5%;
+    margin-left:6.7%;
+  }
 }
 
 .retreat-banner-text {
@@ -167,11 +190,14 @@
   font-family: 'Genty';
   margin-left: 3%;
   margin-bottom:0.2em;
+  @include devices(tablet){
+    font-size:2.2em;
+  }
 }
 
 .retreat-banner-title-retreat {
   font-family: 'Gliker';
-  margin-left: 29%;
+  margin-left: 27%;
   font-size:1.9em;
 }
 
@@ -180,8 +206,11 @@
   -webkit-text-stroke-width: 1vw;
   font-size: 2.5vw;
   margin-top: 3%;
-  margin-left: 29%;
+  margin-left: 27%;
   font-size: 2.9vw;
+  @include devices(tablet){
+    font-size:4vw;
+  }
 }
 
 .retreat-info {
@@ -203,6 +232,9 @@
 .retreat-text {
   color: var(--text-primary);
   font-size: 22px;
+}
+.retreat-left-column-text{
+  margin-bottom:clamp(10px, 2vw, 30px);
 }
 
 .retreat-bullet-text {
@@ -338,15 +370,23 @@
 .retreat-registration {
   display: flex;
   flex-direction: row;
+  flex-wrap:wrap;
+  justify-content:center;
 }
 
 .retreat-registration-left-column {
-  width: 52%;
-  padding-right: 5%;
+  min-width:360px;
+  width:40%;
+  padding-left:5%;
+  @include devices(tablet){
+    padding-left:0%;
+  }
 }
 
 .retreat-registration-right-column {
-  width: 52%;
+  min-width:360px;
+  width:40%;
+  margin: 0% 4%;
 }
 
 .retreat-registration-subheading {
@@ -448,6 +488,7 @@
   /* Control size here */
   width: min(100%, 642px);
   aspect-ratio: 642 / 929;
+  max-width:900px;
 
   background: #fbdc70;
   border-radius: 0.8%;
@@ -468,7 +509,10 @@
   background: #d9d9d9;
   border: 2px solid #3d0f58;
   border-radius: 19px;
-  font-size: 2.3vw;
+  font-size: min(2vw, 30px);
+  @include devices(tablet){
+    font-size: 20px;
+  }
 }
 
 /* Purple footer */
