@@ -4,7 +4,7 @@ import './CountdownLanding.scss';
 import { DarkModeContext } from '../../../util/DarkModeProvider';
 
 // Import existing assets from the project
-import MainFroshLogo from '../../../assets/logo/main-logo-2T5.png';
+import MainFroshLogo from '../../../assets/logo/2T6logo.png';
 import Wave from '../../../assets/misc/wave.png';
 import WaveDarkMode from '../../../assets/darkmode/misc/wave.png';
 
@@ -63,7 +63,7 @@ const CountdownLanding = () => {
         />
 
         <h2 className="countdown-subtitle">COMING AUGUST 25TH</h2>
-        <h1 className="countdown-title">F!ROSH WEEK 2T5</h1>
+        <h1 className="countdown-title">F!ROSH WEEK 2T6</h1>
 
         {/* Secondary time display */}
         {/* <div className="time-remaining">

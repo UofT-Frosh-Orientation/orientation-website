@@ -34,7 +34,7 @@ export const execInfo = {
       image: vcLeadership1,
       description: `Sad to report that once again, my brain went 💨 and I asked ChatGPT for help. *Update... it was useless.*
   ⏩ Real quick fact recap: reading 📚, fashion 👗, martial arts 🥊, yapping, 💛yncn 🐧, and 🎤💃 everything creative 🎞️🎬🖋️
-  Side note: cancel your plans last week of August—you’re coming to F!rosh Week 2T5.`,
+  Side note: cancel your plans last week of August—you’re coming to F!rosh Week 2T6.`,
     },
     {
       name: 'Sebastian Dot',

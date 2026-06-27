@@ -47,7 +47,7 @@ const AsmitaLanding = () => {
           </div>
 
           <div className="ac-credits">
-            <h2 className="ac-credits-text">Made with 💜 by the F!rosh Week 2T5 Tech Team</h2>
+            <h2 className="ac-credits-text">Made with 💜 by the F!rosh Week 2T6 Tech Team</h2>
           </div>
         </div>
       </div>

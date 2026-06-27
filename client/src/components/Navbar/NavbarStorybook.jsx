@@ -9,7 +9,7 @@ import MessageIconPurple from '../../assets/navbar/message-solid-purple.svg';
 import HomeIconGrey from '../../assets/navbar/house-solid-grey.svg';
 import AboutIconGrey from '../../assets/navbar/circle-info-solid-grey.svg';
 import MessageIconGrey from '../../assets/navbar/message-solid-grey.svg';
-import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
+import MainFroshLogo from '../../assets/logo/2T6logo.png';
 
 const pages = {
   main: [

@@ -4,7 +4,7 @@ import './Maintenance.scss';
 import { DarkModeContext } from '../../../util/DarkModeProvider';
 
 // Import existing assets from the project
-import MainFroshLogo from '../../../assets/logo/main-logo-2T5.png';
+import MainFroshLogo from '../../../assets/logo/2T6logo.png';
 import Wave from '../../../assets/misc/wave.png';
 import WaveDarkMode from '../../../assets/darkmode/misc/wave.png';
 
