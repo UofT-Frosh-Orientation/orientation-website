@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './AskQuestionButton.scss';
 import { ErrorSuccessBox } from '../../containers/ErrorSuccessBox/ErrorSuccessBox';
@@ -12,6 +13,7 @@ import { userSelector } from '../../../state/user/userSlice';
 import { useSelector } from 'react-redux';
 import { SnackbarContext } from '../../../util/SnackbarProvider';
 
+// eslint-disable-next-line no-unused-vars
 const FAQAskQuestion = () => {
   const { user } = useSelector(userSelector);
 
@@ -111,7 +113,8 @@ const FAQAskQuestion = () => {
 };
 
 const AskQuestionButton = () => {
-  const [showPopUp, setShowPopUp] = useState(false);
+  // Ask-a-question popup functionality commented out; the CD now links to the FAQ page instead.
+  // const [showPopUp, setShowPopUp] = useState(false);
   const { user } = useSelector(userSelector);
 
   const leader = user?.userType === 'leadur';
@@ -122,7 +125,7 @@ const AskQuestionButton = () => {
   }
   return (
     <>
-      <PopupModal
+      {/* <PopupModal
         trigger={showPopUp}
         setTrigger={setShowPopUp}
         blurBackground={false}
@@ -133,8 +136,8 @@ const AskQuestionButton = () => {
             <FAQAskQuestion />
           </div>
         </div>
-      </PopupModal>
-      <div className={'faq-fab'}>
+      </PopupModal> */}
+      <Link to={'/faq'} className={'faq-fab'}>
         <Button
           label={
             <div className={'faq-fab-container'}>
@@ -146,11 +149,11 @@ const AskQuestionButton = () => {
             </div>
           }
           isSecondary
-          onClick={() => {
-            setShowPopUp(true);
-          }}
+          // onClick={() => {
+          //   setShowPopUp(true);
+          // }}
         />
-      </div>
+      </Link>
     </>
   );
 };
