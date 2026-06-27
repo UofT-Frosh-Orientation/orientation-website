@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState, useEffect, useRef } from 'react';
 import './About.scss';
 
 import { aboutUsInfo } from '../../util/about/aboutus';
@@ -68,12 +68,16 @@ const AboutUsTextSection = () => {
 };
 
 const AboutUsExecCardDeck = () => {
-  const allExecs = [...execInfo.ocs, ...execInfo.vcs];
+  const allExecs = [...execInfo.vcs, ...execInfo.ocs];
   const totalCards = allExecs.length;
 
   const [isMobile, setIsMobile] = useState(false);
   const [activeIndex, setActiveIndex] = useState(null);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [hoverIndex, setHoverIndex] = useState(null);
+  const [hasEntered, setHasEntered] = useState(false);
+  const [entranceDone, setEntranceDone] = useState(false);
+  const deckRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -84,6 +88,33 @@ const AboutUsExecCardDeck = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Deal the cards into the fan once the deck scrolls into view.
+  useEffect(() => {
+    const node = deckRef.current;
+    if (!node) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasEntered(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  // Drop the staggered entrance delay after the deal-in finishes so that later
+  // hover/flip interactions stay snappy instead of lagging by the stagger time.
+  useEffect(() => {
+    if (!hasEntered) return undefined;
+    const timeout = setTimeout(() => setEntranceDone(true), totalCards * 180 + 800);
+    return () => clearTimeout(timeout);
+  }, [hasEntered, totalCards]);
 
   const handleCardClick = (index) => {
     if (activeIndex === index) {
@@ -130,7 +161,10 @@ const AboutUsExecCardDeck = () => {
 
       {/* Card Stacking Container */}
       <div
-        className={`execs-deck-wrapper ${activeIndex !== null ? 'has-active-card' : ''}`}
+        ref={deckRef}
+        className={`execs-deck-wrapper ${activeIndex !== null ? 'has-active-card' : ''} ${
+          hasEntered ? 'is-dealt' : ''
+        }`}
         style={{
           '--active-index': activeIndex !== null ? Number(activeIndex) : -1,
         }}
@@ -141,18 +175,40 @@ const AboutUsExecCardDeck = () => {
           const absDiff = Math.abs(diff);
 
           const rotateAngle = isMobile ? diff * 5 : diff * 3;
-          const translateX = isMobile ? diff * 7.5 : diff * 6.5;
+          let translateX = isMobile ? diff * 7.5 : diff * 6.5;
           const translateY = isMobile ? absDiff * 0.25 : absDiff * 0.15;
 
           const isActive = activeIndex !== null && Number(activeIndex) === Number(index);
           const cardFlipped = isActive && isFlipped;
 
+          // Fan reacts to hover (desktop, deck view only): the hovered card lifts
+          // while its neighbours slide outward to make room for it.
+          const deckHovered = hoverIndex !== null && activeIndex === null && !isMobile;
+          const isHovered = deckHovered && hoverIndex === index;
+          if (deckHovered && !isHovered) {
+            translateX += Math.sign(index - hoverIndex) * 3.2;
+          }
+
+          let transform;
+          if (!hasEntered) {
+            // Pre-entrance: collapsed low + centred, ready to be dealt out.
+            transform = 'rotate(0deg) translateX(0) translateY(18vw) scale(0.6)';
+          } else if (isActive) {
+            transform = `rotate(0deg) translateX(0) translateY(-6vw) scale(${
+              isMobile ? 1.5 : 1.4
+            })`;
+          } else if (isHovered) {
+            transform = `rotate(0deg) translateX(${translateX}vw) translateY(-2.5vw) scale(1.12)`;
+          } else {
+            transform = `rotate(${rotateAngle}deg) translateX(${translateX}vw) translateY(${translateY}vw)`;
+          }
+
           const fanStyle = {
             '--index': index,
-            zIndex: isActive ? 999 : 10 + index,
-            transform: isActive
-              ? `rotate(0deg) translateX(0) translateY(-6vw) scale(${isMobile ? 1.5 : 1.4})`
-              : `rotate(${rotateAngle}deg) translateX(${translateX}vw) translateY(${translateY}vw)`,
+            zIndex: isActive ? 999 : isHovered ? 600 : 10 + index,
+            transform,
+            opacity: hasEntered ? 1 : 0,
+            transitionDelay: entranceDone ? '0ms' : `${index * 180}ms`,
           };
 
           return (
@@ -168,6 +224,8 @@ const AboutUsExecCardDeck = () => {
               isActiveCard={isActive}
               isCardFlipped={cardFlipped}
               onCardSelect={() => handleCardClick(index)}
+              onCardHover={() => setHoverIndex(index)}
+              onCardLeave={() => setHoverIndex((current) => (current === index ? null : current))}
             />
           );
         })}

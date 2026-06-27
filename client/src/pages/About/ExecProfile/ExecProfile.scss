@@ -49,7 +49,7 @@
 
   // Transition everything smoothly so cards part away fluidly like a curtain
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.2, 1), left 0.5s cubic-bezier(0.25, 1, 0.2, 1),
-    z-index 0.4s ease;
+    opacity 0.5s ease, z-index 0.4s ease;
 
   &.active-fg {
     z-index: 25 !important;
@@ -80,12 +80,66 @@
   }
 }
 
+// Pointer-tilt parallax layer: tilts toward the cursor, composed beneath the flip.
+.card-tilt-layer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.25s ease;
+}
+
 .card-inner-3d-flipper {
   position: relative;
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Holographic foil sheen: a moving glare + rainbow band blended over the card.
+.card-holo {
+  position: absolute;
+  inset: 0;
+  z-index: 4; // above panel, footer and seal
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: var(--holo-opacity, 0);
+  transition: opacity 0.3s ease;
+  mix-blend-mode: color-dodge;
+  background-image: radial-gradient(
+      circle at var(--mx, 50%) var(--my, 50%),
+      rgba(255, 255, 255, 0.55),
+      rgba(255, 255, 255, 0) 45%
+    ),
+    repeating-linear-gradient(
+      115deg,
+      rgba(255, 0, 132, 0.22) 0%,
+      rgba(255, 235, 0, 0.22) 12%,
+      rgba(0, 255, 170, 0.22) 24%,
+      rgba(0, 170, 255, 0.22) 36%,
+      rgba(180, 0, 255, 0.22) 48%,
+      rgba(255, 0, 132, 0.22) 60%
+    );
+  background-size: 180% 180%, 280% 280%;
+  background-position: var(--mx, 50%) var(--my, 50%), var(--mx, 50%) var(--my, 50%);
+}
+
+// On the zoomed-in active card, keep the foil alive with a slow auto-sweep
+// (needed on touch devices where there is no pointer to drive the glare).
+.exec-container.active-fg .card-holo {
+  opacity: 0.75;
+  animation: holoSweep 3.5s linear infinite;
+}
+
+@keyframes holoSweep {
+  0% {
+    background-position: 0% 50%, 0% 50%;
+  }
+  100% {
+    background-position: 180% 50%, 280% 50%;
+  }
 }
 
 // Global Card Template properties ported over into fluid dimensions
@@ -158,7 +212,7 @@
     background: var(--jam) !important;
     border-color: var(--monster) !important;
     padding: 5%;
-    overflow: visible;
+    overflow: hidden; // Clip the bio to the rounded card so it scrolls inside instead of spilling out
 
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
@@ -365,11 +419,13 @@
   width: 100%;
   height: 100%;
   top: 0;
-  overflow-y: scroll;
+  min-height: 0; // Lets the flex/3d-transformed parent give this a real scroll height on mobile
+  overflow-y: auto;
   overflow-x: hidden;
 
   -webkit-overflow-scrolling: touch !important;
   touch-action: pan-y !important;
+  overscroll-behavior: contain; // Keeps the swipe inside the card instead of scrolling the page
 
   color: var(--dusk);
   font-family: 'Proxima Nova', sans-serif;
@@ -392,8 +448,8 @@
   }
 
   @media only screen and (max-width: 480px) {
-    font-size: 7px;
-    line-height: 1.3;
+    font-size: 11px;
+    line-height: 1.4;
   }
 }
 
@@ -408,8 +464,8 @@
   }
 
   @media only screen and (max-width: 480px) {
-    font-size: 7px;
-    line-height: 1.3;
+    font-size: 11px;
+    line-height: 1.4;
   }
 }
 
@@ -565,5 +621,115 @@
     @media only screen and (max-width: 480px) {
       font-size: 1.8vw;
     }
+  }
+}
+
+// ===== Flat, scrollable bio overlay (mobile-safe scrolling) =====
+// Sits outside the 3D flip subtree so touch scrolling works on iOS Safari.
+// Footprint matches .back-bio-panel so it lines up over the flipped card.
+.bio-scroll-overlay {
+  position: absolute;
+  left: 5%;
+  top: 3.4%;
+  width: 90%;
+  height: 91.4%;
+  z-index: 50;
+  box-sizing: border-box;
+  padding: 5%;
+
+  background: var(--jam);
+  border: 2px solid var(--monster);
+  border-radius: 19px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+
+  opacity: 0;
+  animation: bioFadeIn 0.3s ease 0.35s forwards; // reveal once the flip lands
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--transparent);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--lavender);
+  }
+
+  // Let the content define its own height so THIS element is the scroll area.
+  .bio-forced-visible {
+    height: auto;
+    overflow: visible !important;
+  }
+
+  .exec-profile-description,
+  .nonexec-profile-description-container {
+    position: relative !important;
+    height: auto !important;
+    overflow: visible !important;
+    background: transparent !important;
+  }
+}
+
+@keyframes bioFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+// ===== Sparkle burst on flip =====
+.flip-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.flip-sparkle {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  font-size: 1.6vw;
+  color: var(--yellow);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.85);
+  animation: sparkleBurst 0.75s ease-out forwards;
+
+  @media only screen and (max-width: 480px) {
+    font-size: 3vw;
+  }
+}
+
+@keyframes sparkleBurst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.1) rotate(160deg);
+  }
+}
+
+// Respect users who prefer reduced motion: drop the auto-sweep and burst.
+@media (prefers-reduced-motion: reduce) {
+  .exec-container.active-fg .card-holo {
+    animation: none;
+  }
+  .flip-sparkle {
+    animation: none;
+    opacity: 0;
+  }
+  .bio-scroll-overlay {
+    animation: none;
+    opacity: 1;
   }
 }
