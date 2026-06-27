@@ -9,11 +9,18 @@
   @include devices(tablet) {
     user-select: none;
   }
-  cursor: url('../assets/cursor/cursor.png'), auto;
+  // Retro Windows 95 arrow pointer site-wide (the same one used on the Coming
+  // Soon page). Drawn inline as an SVG — no image file needed. The trailing
+  // `2 2` is the hotspot (the arrow tip); `auto` is the fallback.
+  cursor: var(--win95-arrow);
 }
 
 :root {
   --dark-mode: true;
+
+  --win95-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'%3E%3Cpath d='M2 2L2 17L6 13.5L9 20.5L11.5 19.5L8.5 12.8L13.5 12.8Z' fill='%23000' stroke='%23fff' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E")
+      3 3,
+    auto;
 }
 
 @font-face {
@@ -231,7 +238,7 @@ a:hover {
 
 .content-container {
   margin-top: 45px;
-  background-color:var(--page-bg);
+  background-color: var(--page-bg);
   @include devices(tablet) {
     margin-top: 0px;
   }
