@@ -485,8 +485,8 @@ const FAQAccordionWrapper = ({ scheduleData, openStatus, activeIndex }) => {
           }}
         >
           <div className={'faq-search-result-question-accordion'}>{scheduleData.question}</div>
-          {/* Plus / Minus sign swap match */}
-          <span style={{ color: 'var(--mikado)', fontSize: '24px', fontWeight: 'bold' }}>
+          {/* Plus / Minus sign swap match — --faq-accent is gold in dark mode, dark purple in light */}
+          <span style={{ color: 'var(--faq-accent)', fontSize: '24px', fontWeight: 'bold' }}>
             {isOpen ? '−' : '+'}
           </span>
         </div>
