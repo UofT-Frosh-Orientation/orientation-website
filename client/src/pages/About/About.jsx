@@ -121,6 +121,13 @@ const AboutUsExecCardDeck = () => {
         <div className="exec-carousel-checker-strip" />
       </div>
 
+      <div className="card-deck-instructions">
+        <p className="card-deck-instructions-text">
+          Click on a card to view the executive&apos;s profile. Click again to flip the card over
+          for more information.
+        </p>
+      </div>
+
       {/* Card Stacking Container */}
       <div
         className={`execs-deck-wrapper ${activeIndex !== null ? 'has-active-card' : ''}`}
