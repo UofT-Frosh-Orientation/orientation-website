@@ -52,20 +52,28 @@ const PageHome = () => {
 };
 
 const HomePageHeader = () => {
+  const loggedIn = useSelector(loggedInSelector);
   return (
     <div className="home-page-header">
       <div className="header-checker-block">
         <CountdownHome />
       </div>
 
-      {/* Star: top-right corner, independent */}
-      <div className="header-register-star">
+      {/* Star: top-right corner, independent — links to registration.
+          NOTE: don't add `no-link-style` here — the global `a.no-link-style`
+          rule uses `all: unset`, which would wipe the star's positioning,
+          clip-path and background. The class below already sets the text color. */}
+      <Link
+        to={loggedIn ? '/profile' : '/sign-up'}
+        className="header-register-star"
+        style={{ textDecoration: 'none' }}
+      >
         <span>
           Register
           <br />
           Now!
         </span>
-      </div>
+      </Link>
 
       <div className="header-text-stack">
         <div className="header-frosh-text">F!rosh</div>
