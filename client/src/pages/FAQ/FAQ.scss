@@ -34,84 +34,100 @@
   flex-direction: column;
   overflow: hidden;
   box-sizing: border-box;
+}
 
-  // --- BACKGROUND CHECKER BOARDS ---
-  &::before {
-    content: '';
-    position: absolute;
-    top: -88vh; // <-- changed from -53% to -53vh
-    left: 10vh; // width-based %, fine to keep — width doesn't change between categories
-    width: 39%;
-    height: 200vh; // <-- changed from 125% to 125vh
-    background-image: linear-gradient(
-        45deg,
-        var(--faq-checker) 25%,
-        transparent 25%,
-        transparent 75%,
-        var(--faq-checker) 75%
-      ),
-      linear-gradient(
-        45deg,
-        var(--faq-checker) 25%,
-        transparent 25%,
-        transparent 75%,
-        var(--faq-checker) 75%
-      );
-    background-size: 100px 100px;
-    background-position: 0 0, 50px 50px;
-    transform: rotate(70deg);
-    z-index: 1;
-    pointer-events: none;
+// --- YOUR GROUPED CONTAINER ---
+.checker-group {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1440px;
+  height: 100%;
+  min-height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  transform-origin: top center;
+  transition: transform 0.2s ease;
 
-    @include devices(tablet) {
-      width: 46%;
-      height: 125vh;
-      transform: rotate(70deg);
-      background-size: 100px 100px;
-      background-position: 0 0, 50px 50px;
-
-      top: -415px;
-      left: 11vh; // Locks your horizontal position to the height axis so it never drifts
-    }
+  // --- THE MASTER DIAL (Desktop Only Zoom scaling) ---
+  @media screen and (min-width: 1800px) {
+    transform: translateX(-50%) scale(1.25);
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: -24vh; // <-- changed from -23% to -23vh
-    right: -38vh;
-    width: 35%;
-    height: 150vh; // <-- changed from 150% to 150vh
-    background-image: linear-gradient(
-        45deg,
-        var(--faq-checker) 25%,
-        transparent 25%,
-        transparent 75%,
-        var(--faq-checker) 75%
-      ),
-      linear-gradient(
-        45deg,
-        var(--faq-checker) 25%,
-        transparent 25%,
-        transparent 75%,
-        var(--faq-checker) 75%
-      );
-    background-size: 100px 100px;
-    background-position: 0 0, 50px 50px;
+  @media screen and (min-width: 2400px) {
+    transform: translateX(-50%) scale(1.5);
+  }
+}
+
+// Common structural base styles for the checkers
+.checker-left,
+.checker-right {
+  position: absolute;
+  pointer-events: none;
+  background-image: linear-gradient(
+      45deg,
+      var(--faq-checker) 25%,
+      transparent 25%,
+      transparent 75%,
+      var(--faq-checker) 75%
+    ),
+    linear-gradient(
+      45deg,
+      var(--faq-checker) 25%,
+      transparent 25%,
+      transparent 75%,
+      var(--faq-checker) 75%
+    );
+  background-size: 100px 100px;
+  background-position: 0 0, 50px 50px;
+}
+
+// --- DESKTOP SPECIFIC CONFIGURATION ---
+@media (min-width: 769px) {
+  .checker-left {
+    top: -1628px;
+    left: -1412px;
+    width: 1000px;
+    height: 4000px;
+    transform: rotate(70deg);
+  }
+
+  .checker-right {
+    top: -1400px;
+    right: -2900px;
+    width: 3000px;
+    height: 4000px;
     transform: rotate(-20deg);
-    z-index: 1;
-    pointer-events: none;
+  }
+}
 
-    @include devices(tablet) {
-      width: 47%;
-      height: 150vh;
-      transform: rotate(-20deg);
-      background-size: 100px 100px;
-      background-position: 0 0, 50px 50px;
+// --- MOBILE SPECIFIC CONFIGURATION ---
+@include devices(tablet) {
+  .checker-group {
+    width: 390px; // Lock to a standard mobile width (iPhone baseline)
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
-      top: -62px;
-      right: -28vh; // Locks your horizontal position to the height axis so it never drifts
-    }
+  .checker-left {
+    top: -400px;
+    left: -120px;
+    width: 240px;
+    height: 1000px;
+    transform: rotate(70deg);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
+  }
+
+  .checker-right {
+    top: -50px;
+    right: -500px;
+    width: 400px;
+    height: 1200px;
+    transform: rotate(-20deg);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
   }
 }
 
@@ -119,8 +135,7 @@
 .faq-page-header {
   position: relative;
   z-index: 5;
-  padding: 60px 10% 0px 10%;
-  width: 100%;
+  padding: 60px 20px 0px 20px; // Changed from 10% to 20px to lock structural margins  width: 100%;
   box-sizing: border-box;
 
   @include devices(tablet) {
@@ -228,11 +243,12 @@
   position: relative;
   z-index: 5;
   box-sizing: border-box;
+  padding: 0 20px;
 
   @include devices(tablet) {
     flex-direction: column;
-    gap: 40px;
-    padding: 0 5%;
+    gap: 20px;
+    padding: 0 20px;
   }
 }
 
@@ -283,6 +299,7 @@
     flex-wrap: wrap;
     gap: 15px;
     height: auto;
+    padding-left: 24px;
   }
 
   // Visual Timeline Line Tracker
@@ -290,14 +307,14 @@
     content: '';
     position: absolute;
     left: 20px;
-    top: -5vh; // ALWAYS touches the top bar/start of the info panel
-    bottom: -6vh; // DYNAMICALLY adjusts perfectly with the end of the panel
+    top: -40px; // ALWAYS touches the top bar/start of the info panel
+    bottom: -40px; // DYNAMICALLY adjusts perfectly with the end of the panel
     width: 4px;
     background-color: var(--faq-accent); // Timeline tracker line
 
     @include devices(tablet) {
       display: block !important; // BRINGS THE LINE BACK ON MOBILE
-      left: 12px; // Positions it perfectly under the mobile stars axis
+      left: 11.5px; // Positions it perfectly under the mobile stars axis
       top: -5px;
       bottom: -20px;
     }
@@ -413,7 +430,7 @@
   border: 4px solid var(--faq-accent);
   border-radius: 20px;
   padding: 20px 40px; // Slightly reduced vertical padding inside the container
-  margin-top: 7vh;
+  margin-top: 40px;
   box-sizing: border-box;
   z-index: 6;
 
@@ -585,9 +602,14 @@
   font-size: 14px;
   letter-spacing: 0.5px;
   transition: transform 0.2s ease;
+  margin-left: 16px;
 
   &:hover {
     transform: scale(1.03);
+  }
+
+  @include devices(tablet) {
+    margin-left: 10px;
   }
 }
 

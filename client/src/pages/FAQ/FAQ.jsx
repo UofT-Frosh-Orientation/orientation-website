@@ -139,6 +139,11 @@ const PageFAQ = () => {
 
   return (
     <div className="bg-primary" data-theme={darkMode ? 'dark' : 'light'}>
+      <div className="checker-group">
+        <div className="checker-left" />
+        <div className="checker-right" />
+      </div>
+
       <div>
         <FAQPageHeader
           questions={unsortedQuestions}
