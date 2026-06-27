@@ -140,7 +140,7 @@ export const PageSchedule = () => {
             </div>
             <div className="schedule-text-container">
               <h1 className="schedule-title">Schedule</h1>
-              <p className="schedule-dates">September 1 - 4</p>
+              <p className="schedule-dates">August 31 - September 4</p>
             </div>
           </div>
         </div>

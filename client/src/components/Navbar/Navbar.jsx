@@ -5,16 +5,20 @@ import './Navbar.scss';
 import HomeIconPurple from '../../assets/navbar/house-solid-purple.svg';
 import AboutIconPurple from '../../assets/navbar/circle-info-solid-purple.svg';
 import MessageIconPurple from '../../assets/navbar/message-solid-purple.svg';
+import ScheduleIconPurple from '../../assets/navbar/calendar-solid-purple.svg';
 import HomeIconGrey from '../../assets/navbar/house-solid-grey.svg';
 import AboutIconGrey from '../../assets/navbar/circle-info-solid-grey.svg';
 import MessageIconGrey from '../../assets/navbar/message-solid-grey.svg';
+import ScheduleIconGrey from '../../assets/navbar/calendar-solid-grey.svg';
 
 import HomeIconHighlightDarkMode from '../../assets/darkmode/navbar/house-solid-purple.svg';
 import AboutIconHighlightDarkMode from '../../assets/darkmode/navbar/circle-info-solid-purple.svg';
 import MessageIconHighlightDarkMode from '../../assets/darkmode/navbar/message-solid-purple.svg';
+import ScheduleIconHighlightDarkMode from '../../assets/darkmode/navbar/calendar-solid-purple.svg';
 import HomeIconDefaultDarkMode from '../../assets/darkmode/navbar/house-solid-grey.svg';
 import AboutIconDefaultDarkMode from '../../assets/darkmode/navbar/circle-info-solid-grey.svg';
 import MessageIconDefaultDarkMode from '../../assets/darkmode/navbar/message-solid-grey.svg';
+import ScheduleIconDefaultDarkMode from '../../assets/darkmode/navbar/calendar-solid-grey.svg';
 
 import ProfileIcon from '../../assets/navbar/circle-user-solid-purple.svg';
 import ProfileIconDarkMode from '../../assets/darkmode/navbar/circle-user-solid-purple.svg';
@@ -232,6 +236,8 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                           alt={
                             page.label === 'Home'
                               ? 'Home'
+                              : page.label === 'Schedule'
+                              ? 'Schedule'
                               : page.label === 'About'
                               ? 'About'
                               : page.label === 'FAQ'
@@ -242,6 +248,8 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                             pathname === page.path
                               ? page.label === 'Home'
                                 ? HomeIconPurple
+                                : page.label === 'Schedule'
+                                ? ScheduleIconPurple
                                 : page.label === 'About'
                                 ? AboutIconPurple
                                 : page.label === 'FAQ'
@@ -249,6 +257,8 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                                 : {}
                               : page.label === 'Home'
                               ? HomeIconGrey
+                              : page.label === 'Schedule'
+                              ? ScheduleIconGrey
                               : page.label === 'About'
                               ? AboutIconGrey
                               : page.label === 'FAQ'
@@ -262,6 +272,8 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                           alt={
                             page.label === 'Home'
                               ? 'Home'
+                              : page.label === 'Schedule'
+                              ? 'Schedule'
                               : page.label === 'About'
                               ? 'About'
                               : page.label === 'FAQ'
@@ -272,6 +284,8 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                             pathname === page.path
                               ? page.label === 'Home'
                                 ? HomeIconHighlightDarkMode
+                                : page.label === 'Schedule'
+                                ? ScheduleIconHighlightDarkMode
                                 : page.label === 'About'
                                 ? AboutIconHighlightDarkMode
                                 : page.label === 'FAQ'
@@ -279,6 +293,8 @@ const NavbarMobile = ({ isLoggedIn, froshInitials, isRegistered }) => {
                                 : {}
                               : page.label === 'Home'
                               ? HomeIconDefaultDarkMode
+                              : page.label === 'Schedule'
+                              ? ScheduleIconDefaultDarkMode
                               : page.label === 'About'
                               ? AboutIconDefaultDarkMode
                               : page.label === 'FAQ'
