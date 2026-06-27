@@ -51,10 +51,6 @@ const PageFAQ = () => {
   const [loading, setLoading] = useState(true);
   const [errorLoading, setErrorLoading] = useState(false);
   const { setSnackbar } = useContext(SnackbarContext);
-  const [isAdding, setIsAdding] = useState(false); // Controls form panel visibility
-  const [newQuestion, setNewQuestion] = useState('');
-  const [newAnswer, setNewAnswer] = useState('');
-  const [newCategory, setNewCategory] = useState('');
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -122,41 +118,6 @@ const PageFAQ = () => {
     currentPage * itemsPerPage,
   );
 
-  const handleAddQuestionSubmit = async (e) => {
-    e.preventDefault();
-    if (!newQuestion || !newAnswer || !newCategory) {
-      setSnackbar('Please fill out all fields');
-      return;
-    }
-
-    // 1. Structure the new item payload
-    const freshQuestion = {
-      question: newQuestion,
-      answer: newAnswer,
-      category: newCategory.trim().toUpperCase(), // Keeping categories uniform
-    };
-
-    try {
-      // 2. OPTIONAL: If you have an API route to save to a database, uncomment this:
-      // await saveQuestionToBackend(freshQuestion, setSnackbar);
-
-      // 3. Update local states so it shows up in the UI immediately without a page reload
-      setUnsortedQuestions((prev) => [...prev, { ...freshQuestion, id: prev.length }]);
-
-      // Re-trigger your existing loadQuestions pipeline to safely regenerate category mappings and pages
-      await loadQuestions();
-
-      // 4. Reset form fields and close the view
-      setNewQuestion('');
-      setNewAnswer('');
-      setNewCategory('');
-      setIsAdding(false);
-      setSnackbar('Question added successfully!');
-    } catch (err) {
-      setSnackbar('Failed to add the question');
-    }
-  };
-
   return (
     <div className="bg-primary" data-theme={darkMode ? 'dark' : 'light'}>
       <div>
@@ -173,57 +134,6 @@ const PageFAQ = () => {
           setActiveIndex={setActiveIndex}
           questionCategories={questionCategories}
         />
-
-        {/* --- ADD NEW QUESTION PANEL TRIGGER --- */}
-        <div
-          className="faq-add-trigger-container"
-          style={{ maxWidth: '1000px', margin: '15px auto', padding: '0 20px' }}
-        >
-          {' '}
-          <button className="faq-add-trigger-btn" onClick={() => setIsAdding(!isAdding)}>
-            {isAdding ? '✕ Close Form' : '＋ Add New Question'}
-          </button>
-        </div>
-
-        {isAdding && (
-          <form onSubmit={handleAddQuestionSubmit} className="faq-add-form-panel">
-            <h3>Create a New FAQ Entry</h3>
-
-            <div className="form-group">
-              <label>Category</label>
-              <input
-                type="text"
-                placeholder="e.g. REGISTRATION, GENERAL"
-                value={newCategory}
-                onChange={(e) => setNewCategory(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Question</label>
-              <input
-                type="text"
-                placeholder="What is the question?"
-                value={newQuestion}
-                onChange={(e) => setNewQuestion(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Answer Text</label>
-              <textarea
-                placeholder="Provide the detailed answer here..."
-                value={newAnswer}
-                onChange={(e) => setNewAnswer(e.target.value)}
-                rows={4}
-              />
-            </div>
-
-            <button type="submit" className="faq-submit-btn">
-              Publish Question
-            </button>
-          </form>
-        )}
 
         {errorLoading ? <h1 className="faq-error-text">There was an error loading FAQs</h1> : <></>}
 
