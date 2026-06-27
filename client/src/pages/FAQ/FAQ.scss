@@ -559,6 +559,17 @@
   }
 }
 
+.faq-answer-link {
+  color: var(--mikado, #ffc600);
+  font-weight: 600;
+  text-decoration: underline;
+  word-break: break-word;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
 // Utility hides
 .faq-hide-button-selector,
 .faq-hide-accordion {

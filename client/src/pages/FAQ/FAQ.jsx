@@ -15,6 +15,26 @@ import { SnackbarContext } from '../../util/SnackbarProvider';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 // import Dragon from '../../assets/faq/dragon.svg';
 
+// Renders an answer string, turning any URLs into clickable links while
+// preserving the surrounding text (and its line breaks via white-space: pre-wrap).
+const renderAnswer = (answer) => {
+  if (!answer) return answer;
+  return answer.split(/(https?:\/\/[^\s]+)/g).map((part, index) => {
+    if (/^https?:\/\//.test(part)) {
+      const [, url, trailing] = part.match(/^(.*?)([.,!?)]*)$/);
+      return (
+        <React.Fragment key={index}>
+          <a href={url} target="_blank" rel="noreferrer" className="faq-answer-link">
+            {url}
+          </a>
+          {trailing}
+        </React.Fragment>
+      );
+    }
+    return part;
+  });
+};
+
 const PageFAQ = () => {
   const { darkMode } = useContext(DarkModeContext);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -475,7 +495,9 @@ const FAQAccordionWrapper = ({ scheduleData, openStatus, activeIndex }) => {
       className="accordion-clickable"
       dark={true}
     >
-      <div className={'faq-search-result-answer-accordion'}>{scheduleData.answer}</div>
+      <div className={'faq-search-result-answer-accordion'}>
+        {renderAnswer(scheduleData.answer)}
+      </div>
     </SingleAccordion>
   );
 };
@@ -547,7 +569,7 @@ const FAQDisplayAllSearchQuestion = ({ selectedQuestions }) => {
   const allSearchQuestions = selectedQuestions.map((question, index) => (
     <div key={index} className={'faq-search-result-container'}>
       <div className={'faq-search-result-question'}>{question.question}</div>
-      <div className={'faq-search-result-answer'}>{question.answer}</div>
+      <div className={'faq-search-result-answer'}>{renderAnswer(question.answer)}</div>
     </div>
   ));
   return <div>{allSearchQuestions}</div>;

@@ -1,5 +1,6 @@
 export const okayToInviteToScunt = false;
-export const scuntDiscord = 'https://discord.gg/Fnxr7tp34E';
+// TODO: Add the Skule™ Hunt Discord invite here — it's a separate server from the main F!rosh Discord
+export const scuntDiscord = '';
 export const scuntDate = 'August 27, 2024 18:00:00';
 export const aboutScunt = `
   <h2>THE H!UNT</h2>

@@ -119,7 +119,7 @@ newUserSubscription.process((job, done) => {
               <a href="https://bit.ly/froshig" class="social-link">
                 <img src="cid:instagrambrands" alt="instagram logo" class="social-icon" />
               </a>
-              <a href="https://discord.gg/Fnxr7tp34E" class="social-link">
+              <a href="https://discord.gg/yZvTXC47n" class="social-link">
                 <img src="cid:discordbrands" alt="discord logo" class="social-icon" />
               </a>
             </div>

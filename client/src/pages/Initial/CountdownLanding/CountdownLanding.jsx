@@ -119,7 +119,7 @@ const CountdownLanding = () => {
           <p>
             Join our Discord:
             <a
-              href="https://discord.gg/Fnxr7tp34E"
+              href="https://discord.gg/yZvTXC47n"
               target="_blank"
               rel="noreferrer"
               className="countdown-link"
