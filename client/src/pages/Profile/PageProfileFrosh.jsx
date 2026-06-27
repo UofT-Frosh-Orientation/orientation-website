@@ -98,7 +98,7 @@ const PageProfileFrosh = () => {
   }, [dispatch, user]);
 
   return (
-    <>
+    <div className="profile-page-wrapper">
       <ProfilePageFroshHeader editButton={true} />
 
       {/* Mobile-only QR at top
@@ -155,7 +155,7 @@ const PageProfileFrosh = () => {
           <ProfilePageResources froshObject={isRegistered ? user : null} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

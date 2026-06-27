@@ -41,7 +41,7 @@ const PageProfileLeader = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <div className="profile-page-wrapper">
       <ProfilePageLeaderHeader />
       <div className="profile-info-row">
         <div className="profile-info-row-left">
@@ -71,7 +71,7 @@ const PageProfileLeader = () => {
           {/* <ProfilePageScuntTeamSelectionLeader /> */}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
