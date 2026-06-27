@@ -104,9 +104,10 @@ export const FroshRetreat = () => {
 
         <h3 className="retreat-header">Ticket Information</h3>
         <p className="retreat-text">
-          The available tickets for Retreat are $110.00 and include bus transportation. To purchase
-          a ticket and guarantee your spot, you must download, sign and upload the waiver on this
-          page and then complete your payment at the bottom of this page.
+          The available tickets for Retreat are $110.00 (includes bus transportation to and from
+          Hart House Farm) or $100.00 (without transportation). To purchase a ticket and guarantee
+          your spot, you must download, sign, and upload the waiver on this page and then complete
+          your payment at the bottom of this page.
         </p>
         <br></br>
         <p className="retreat-text">
@@ -357,8 +358,8 @@ const RetreatRegistration = () => {
       <div className="retreat-registration-left-column">
         <h3 className="retreat-registration-subheading">F!rosh Retreat Profile</h3>
         <p className="retreat-text retreat-left-column-text">
-          In order to register, the displayed information will be collected from your account.
-          Please ensure this information is accurate and up to date. If any information needs to be
+          In order to register, the following information will be collected from your account.
+          Please ensure this information is accurate and up-to-date. If any information needs to be
           modified, please edit your information{' '}
           <Link to={isRegistered ? '/profile-edit' : '/profile-edit-unregistered'}>here</Link>.
         </p>
