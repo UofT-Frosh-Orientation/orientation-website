@@ -1028,10 +1028,18 @@ body {
     height: 100%;
   }
 
-  // The blank band right under the film reel was this section's top padding
+  // Sit the sponsors section just under the film reel. The old `margin-top: -100px`
+  // pulled it up so far that the "Our Sponsors" heading + blurb hid behind the
+  // film strip; a small top padding keeps them visible without a big blank band.
+  // position/z-index: the film strip's `margin-top: -60vh` pulls this section up
+  // into the hero's 100vh box. The hero is position:relative, so it would paint
+  // its purple background OVER this section's heading (a static, in-flow sibling).
+  // Giving the section its own stacking context lifts it above the hero.
   .home-page-sponsors {
-    padding-top: 0px;
-    margin-top: -100px;
+    padding-top: 20px;
+    margin-top: 0;
+    position: relative;
+    z-index: 1;
   }
 
   // Tighten the carousel's own padding + the per-card bottom margin (base is 40px)
