@@ -617,7 +617,9 @@ body {
 }
 
 .home-page-sponsors {
-  padding: 0px 0 10px 0;
+  // 45px top matches the gap between the sponsors carousel and "Become a
+  // Sponsor!" (.please-sponsor-container 20px + .please-sponsor-heading 25px).
+  padding: 45px 0 10px 0;
   background-color: var(--bg-main);
   color: var(--text-main);
   text-align: center;
