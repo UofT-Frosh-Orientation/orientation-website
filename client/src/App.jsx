@@ -26,7 +26,7 @@ const readyForFrosh = true;
 export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    // dispatch(getUserInfo()); // TEMP: disabled for frontend-only local testing — REVERT before commit
+    dispatch(getUserInfo());
     dispatch(getScuntSettings());
   }, []);
 

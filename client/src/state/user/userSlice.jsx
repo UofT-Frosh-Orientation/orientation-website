@@ -4,9 +4,9 @@ import { createSelector } from 'reselect';
 export const initialState = {
   loading: false,
   error: null,
-  user: {},
+  user: undefined,
   signedUp: undefined,
-  loggedIn: true,
+  loggedIn: undefined,
   resetPasswordSucceeded: false,
   passwordResetRequest: false,
 };

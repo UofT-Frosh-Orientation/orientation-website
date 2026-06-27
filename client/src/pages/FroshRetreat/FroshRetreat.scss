@@ -19,21 +19,18 @@
   color: var(--text-primary);
 
   .retreat-video-player {
-    border-radius: 35px;
+    // Sits BEHIND the TV frame, filling the transparent screen hole. Percentages
+    // are relative to the .retreat-video container (the TV image) so the video
+    // tracks the frame at any size. Sized slightly larger than the screen
+    // rectangle in retroTV.svg so the video's square corners tuck under the
+    // rounded bezel instead of leaving gaps.
+    position: absolute;
+    top: 20.3%;
+    left: 10.7%;
+    width: 62.7%;
+    height: 71.7%;
     border: none;
-    margin-bottom: -45%;
-    transform: translateX(11.5vw) translateY(-130%);
-    width: 54vw;
-    aspect-ratio: 381 / 273;
-    position: relative;
-    top: 15px;
-
-    @include devices(tablet) {
-      // height: 40vw;
-      // min-height: 200px;
-      border-radius: 15px;
-      top: -10px;
-    }
+    z-index: 1;
   }
 }
 
@@ -43,8 +40,11 @@
 }
 
 .retreat-video-frame {
-  z-index: 1;
+  display: block;
   width: 100%;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
 }
 
 // Need to fine tune resize behavior!
