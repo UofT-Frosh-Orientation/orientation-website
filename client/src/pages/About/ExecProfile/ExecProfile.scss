@@ -59,7 +59,7 @@
     transform: rotate(0deg) translateX(0) translateY(0) scale(1.4) !important;
 
     @media only screen and (max-width: 480px) {
-      transform: rotate(0deg) translateX(0) translateY(0) scale(2.8) !important;
+      transform: rotate(0deg) translateX(0) translateY(0) scale(2) !important;
     }
   }
 
@@ -102,6 +102,11 @@
   box-shadow: 0 0.8vw 2vw rgba(0, 0, 0, 0.4);
   backface-visibility: hidden; // Hides the side facing away from view
 
+  -webkit-backface-visibility: hidden;
+
+  transform: rotateX(0deg) rotateY(0deg);
+  transform-style: flat;
+
   &.card-face-front {
     z-index: 2;
     transform: rotateY(0deg);
@@ -109,6 +114,20 @@
 
   &.card-face-back {
     transform: rotateY(180deg); // Starts turned around on the flip side
+    .bio-forced-visible,
+    .exec-profile-description,
+    .nonexec-profile-description-container,
+    p,
+    h3,
+    span {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-perspective: none;
+      perspective: none;
+
+      // Forces the font smoothing system to recalculate pixel scaling
+      -webkit-font-smoothing: subpixel-antialiased !important;
+    }
   }
 }
 
@@ -140,6 +159,9 @@
     border-color: var(--monster) !important;
     padding: 5%;
     overflow: visible;
+
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
 
     // Reset styles inside the embed block to fit nicely inside the card
     .exec-profile-description,
@@ -178,6 +200,13 @@
       }
     }
   }
+}
+
+.exec-profile-description,
+.nonexec-profile-description-container,
+.exec-profile-card-footer-name {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: subpixel-antialiased !important;
 }
 
 .card-template__footer {
@@ -358,11 +387,13 @@
   }
 
   @include devices(tablet) {
-    font-size: 2vw;
+    font-size: 20px;
+    line-height: 1.15;
   }
 
   @media only screen and (max-width: 480px) {
-    font-size: 0.2vw;
+    font-size: 7px;
+    line-height: 1.3;
   }
 }
 
@@ -371,9 +402,14 @@
   color: var(--white);
   margin-bottom: 4px;
 
-  @media only screen and (max-width: 480px) {
-    font-size: 8px;
+  @include devices(tablet) {
+    font-size: 20px;
     line-height: 1.15;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 7px;
+    line-height: 1.3;
   }
 }
 
