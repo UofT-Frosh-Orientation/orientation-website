@@ -71,9 +71,7 @@ const AboutUsExecCardDeck = () => {
   const allExecs = [...execInfo.ocs, ...execInfo.vcs];
   const totalCards = allExecs.length;
 
-  // Track state of window width to swap fanning rules dynamically
   const [isMobile, setIsMobile] = useState(false);
-
   const [activeIndex, setActiveIndex] = useState(null);
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -89,10 +87,17 @@ const AboutUsExecCardDeck = () => {
 
   const handleCardClick = (index) => {
     if (activeIndex === index) {
-      // Second click on the active foreground card triggers the flip toggle
-      setIsFlipped(!isFlipped);
+      if (isFlipped) {
+        // 💡 NEW LOGIC: If the card is already active AND flipped,
+        // clicking it again returns it to the default unselected deck view!
+        setActiveIndex(null);
+        setIsFlipped(false);
+      } else {
+        // First click on an already active card flips it over
+        setIsFlipped(true);
+      }
     } else {
-      // Clicking a new card pulls it into the foreground and resets its flip state
+      // Clicking an unselected card pulls it to the center foreground in front view
       setActiveIndex(index);
       setIsFlipped(false);
     }
@@ -117,22 +122,31 @@ const AboutUsExecCardDeck = () => {
       </div>
 
       {/* Card Stacking Container */}
-      <div className="execs-deck-wrapper">
+      <div
+        className={`execs-deck-wrapper ${activeIndex !== null ? 'has-active-card' : ''}`}
+        style={{
+          '--active-index': activeIndex !== null ? Number(activeIndex) : -1,
+        }}
+      >
         {allExecs.map((person, index) => {
           const midPoint = (totalCards - 1) / 2;
           const diff = index - midPoint;
           const absDiff = Math.abs(diff);
 
-          // 💡 DYNAMIC MULTIPLIERS FOR DESKTOP VS MOBILE
-          // Desktop: wide horizontal spread (6.5vw), gentle angle (3deg), flatter curve (0.1vw)
-          // Mobile: matches tight curved look from image_f4fc0e.jpg
           const rotateAngle = isMobile ? diff * 8 : diff * 3;
           const translateX = isMobile ? diff * 3.8 : diff * 6.5;
           const translateY = isMobile ? absDiff * 0.5 : absDiff * 0.15;
 
+          const isActive = activeIndex !== null && Number(activeIndex) === Number(index);
+          const cardFlipped = isActive && isFlipped;
+
           const fanStyle = {
-            zIndex: 10 + index,
-            transform: `rotate(${rotateAngle}deg) translateX(${translateX}vw) translateY(${translateY}vw)`,
+            // 💡 CRITICAL FIX: Pass the loop's index directly to CSS variables
+            '--index': index,
+            zIndex: isActive ? 999 : 10 + index,
+            transform: isActive
+              ? `rotate(0deg) translateX(0) translateY(-6vw) scale(${isMobile ? 1.5 : 1.4})`
+              : `rotate(${rotateAngle}deg) translateX(${translateX}vw) translateY(${translateY}vw)`,
           };
 
           return (
@@ -145,10 +159,15 @@ const AboutUsExecCardDeck = () => {
               discipline={person.discipline}
               roleDescription={person.description || person.roleDescription}
               exec={true}
+              isActiveCard={isActive}
+              isCardFlipped={cardFlipped}
+              onCardSelect={() => handleCardClick(index)}
             />
           );
         })}
       </div>
+
+      {activeIndex !== null && <div className="deck-backdrop-overlay" onClick={closeDeckZoom} />}
 
       <div className="exec-carousel-checker-strip exec-carousel-checker-strip-full" />
     </div>
