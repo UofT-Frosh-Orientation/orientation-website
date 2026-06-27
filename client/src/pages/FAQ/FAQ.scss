@@ -12,15 +12,17 @@
   --faq-search-placeholder: rgba(255, 198, 0, 0.4);
 }
 
-// LIGHT MODE OVERRIDES: Automatically maps when data-theme="light" is applied
+// LIGHT MODE OVERRIDES: Automatically maps when data-theme="light" is applied.
+// Tuned to match the Home page's light mode (dark-purple text + rich-purple
+// accent on a light-gray bg) instead of the washed-out light-purple it had.
 [data-theme='light'] {
-  --faq-bg: #ebebeb; // Light Gray
-  --faq-checker: #dfcdf3; // Soft Lavender
-  --faq-text: #3c3c3c; // Dark Charcoal Gray
+  --faq-bg: #ebebeb; // Light Gray — matches Home --bg-main
+  --faq-checker: #dfcdf3; // Soft Lavender — matches Home --bg-card
+  --faq-text: #3d0f58; // Dark purple body text — matches Home --text-main
   --faq-text-muted: #711f8b; // Purple for sub-labels or descriptions
-  --faq-accent: #a77ad7; // Vibrant Blue for borders and interactive focal points
+  --faq-accent: #711f8b; // Rich purple for titles/borders — matches Home --accent-purple
   --faq-accent-hover: #ffc600; // Gold accent accents on select highlights
-  --faq-panel-bg: #ebebeb; // Crisp White for the card backgrounds so they lift off the gray
+  --faq-panel-bg: #ebebeb; // Card background so it sits on the gray
   --faq-search-placeholder: #a77ad7;
 }
 
@@ -512,6 +514,11 @@
 // Stripping out all the individual box styling from the current build
 .faq-accordion-wrapper {
   margin: 0;
+
+  // Hide the built-in angle/arrow icon so only the plus/minus indicator shows
+  .accord-header > .accord-text {
+    display: none;
+  }
 
   // Target your inner accordion clickable headers
   .accordion-clickable {
