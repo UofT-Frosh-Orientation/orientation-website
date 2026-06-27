@@ -83,7 +83,7 @@ newUserSubscription.process((job, done) => {
           <header></header>
           <div class="space-bar"></div>
           <div class="content">
-            <img class="frosh-logo-main" src="cid:froshmainlogooutline" alt="frosh logo" />
+            <img class="frosh-logo-main" src="cid:2T6logo" alt="frosh logo" />
             <div class="text-container">
               <p>
                 Congratulations and thank you for creating an account for F!rosh Week 2T6!
@@ -141,7 +141,7 @@ newUserSubscription.process((job, done) => {
         },
         {
           type: 'static',
-          filePath: 'frosh-main-logo-outline.png',
+          filePath: '2T6logo.png',
           contentDisposition: 'inline',
         },
         { type: 'static', filePath: 'frosh-hard-hat-white.png', contentDisposition: 'inline' },

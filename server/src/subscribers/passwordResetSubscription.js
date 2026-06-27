@@ -83,7 +83,7 @@ passwordResetSubscription.process(async (job, done) => {
           <header></header>
           <div class="space-bar"></div>
           <div class="content">
-            <img class="frosh-logo-main" src="cid:froshmainlogooutline" alt="frosh logo" />
+            <img class="frosh-logo-main" src="cid:2T6logo" alt="frosh logo" />
             <div class="text-container">
               <p>
                 Please access the following URL to proceed with changing your password.
@@ -134,7 +134,7 @@ passwordResetSubscription.process(async (job, done) => {
         },
         {
           type: 'static',
-          filePath: 'frosh-main-logo-outline.png',
+          filePath: '2T6logo.png',
           contentDisposition: 'inline',
         },
         { type: 'static', filePath: 'frosh-hard-hat-white.png', contentDisposition: 'inline' },
