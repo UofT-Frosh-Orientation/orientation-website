@@ -139,7 +139,8 @@ const PageProfileFrosh = () => {
           {/* <ProfilePageNitelife /> */}
           <ProfilePageInstagrams />
           <ProfilePageAnnouncements />
-          <ProfilePageSchedule />
+          {/* Hidden until we have personalized per-group schedules */}
+          {/* <ProfilePageSchedule /> */}
 
           <div className="profile-info-bottom mobile-only">
             <ProfilePageResources froshObject={isRegistered ? user : null} />

@@ -58,7 +58,8 @@ const PageProfileLeader = () => {
           <div style={{ marginTop: '20px' }} />
           <ProfilePageLeaderScuntMessage />
           <div style={{ marginTop: '-20px' }} />
-          <ProfilePageSchedule />
+          {/* Hidden until we have personalized per-group schedules */}
+          {/* <ProfilePageSchedule /> */}
         </div>
 
         <div className="profile-info-row-right">
