@@ -15,6 +15,9 @@
 }
 
 .frosh-retreat-page {
+  background-color: var(--page-bg);
+  color: var(--text-primary);
+
   .retreat-video-player {
     border-radius: 35px;
     border: none;
@@ -108,7 +111,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  z-index: -1;
+  z-index: 0;
   overflow: hidden;
   @include devices(tablet) {
     min-height: 36.5vh;

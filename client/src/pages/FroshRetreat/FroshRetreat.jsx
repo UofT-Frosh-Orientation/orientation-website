@@ -215,7 +215,7 @@ const FroshRetreatFAQ = () => {
           alignItems: 'start',
           justifyContent: 'start',
           textAlign: 'left',
-          color: 'var(--white)',
+          color: 'var(--text-primary)',
           width: '100%',
           alignSelf: 'start',
         }}
