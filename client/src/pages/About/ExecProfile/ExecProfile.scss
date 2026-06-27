@@ -1,45 +1,370 @@
 @import '../../../scssStyles/mixins';
 
-.exec-container {
+.execs-deck-wrapper {
   position: relative;
-  background: var(--purple);
-  width: min(40vw, 400px);
-  height: min(40vw, 400px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 
-  border-radius: 10px;
-  margin: min(1vw, 30px);
-  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 100vw;
+  height: 30vw;
+  margin: 0px auto 150px auto;
+  overflow: visible;
 
-  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
-  overflow: hidden;
+  @include devices(tablet) {
+    height: 40vw;
+  }
 
-  @include devices(mobile) {
-    margin: 10px;
-    width: 85vw;
-    height: 85vw;
+  @media only screen and (max-width: 480px) {
+    height: 55vw;
+  }
+
+  &.has-active-card {
+    .exec-container:not(.active-fg) {
+      // Compares individual card index with parent container's active-index property
+      // Left cards return -1, right cards return 1
+      --direction: clamp(-1, calc(var(--index) - var(--active-index)), 1);
+
+      left: translateX(calc(var(--direction) * 22vw)) !important;
+
+      @media only screen and (max-width: 480px) {
+        left: translateX(calc(var(--direction) * 32vw)) !important;
+      }
+    }
   }
 }
 
-.exec-image {
-  display: block;
+.exec-container {
+  position: absolute !important;
+  bottom: 0;
+  margin: 0 !important;
+
+  width: 20vw !important;
+  height: 28vw !important;
+  overflow: visible !important;
+
+  perspective: 1200px;
+  cursor: pointer, auto !important;
+
+  // Transition everything smoothly so cards part away fluidly like a curtain
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.2, 1), left 0.5s cubic-bezier(0.25, 1, 0.2, 1),
+    opacity 0.5s ease, z-index 0.4s ease;
+
+  &.active-fg {
+    z-index: 25 !important;
+    opacity: 1 !important;
+    filter: none !important;
+
+    transform: rotate(0deg) translateX(0) translateY(0) scale(1.4) !important;
+
+    @media only screen and (max-width: 480px) {
+      transform: rotate(0deg) translateX(0) translateY(0) scale(2) !important;
+    }
+  }
+
+  &.flipped-3d {
+    .card-inner-3d-flipper {
+      transform: rotateY(180deg) !important;
+    }
+  }
+
+  @include devices(tablet) {
+    width: 27vw !important;
+    height: 39vw !important;
+  }
+
+  @media only screen and (max-width: 480px) {
+    width: 35vw !important;
+    height: 50vw !important;
+  }
+}
+
+// Pointer-tilt parallax layer: tilts toward the cursor, composed beneath the flip.
+.card-tilt-layer {
+  position: relative;
   width: 100%;
-  height: auto;
-  cursor: url('../../../assets/cursor/pointer.png'), auto !important;
-  object-fit: cover;
   height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.25s ease;
+}
+
+.card-inner-3d-flipper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Holographic foil sheen: a moving glare + rainbow band blended over the card.
+.card-holo {
+  position: absolute;
+  inset: 0;
+  z-index: 4; // above panel, footer and seal
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: var(--holo-opacity, 0);
+  transition: opacity 0.3s ease;
+  mix-blend-mode: color-dodge;
+  background-image: radial-gradient(
+      circle at var(--mx, 50%) var(--my, 50%),
+      rgba(255, 255, 255, 0.55),
+      rgba(255, 255, 255, 0) 45%
+    ),
+    repeating-linear-gradient(
+      115deg,
+      rgba(255, 0, 132, 0.22) 0%,
+      rgba(255, 235, 0, 0.22) 12%,
+      rgba(0, 255, 170, 0.22) 24%,
+      rgba(0, 170, 255, 0.22) 36%,
+      rgba(180, 0, 255, 0.22) 48%,
+      rgba(255, 0, 132, 0.22) 60%
+    );
+  background-size: 180% 180%, 280% 280%;
+  background-position: var(--mx, 50%) var(--my, 50%), var(--mx, 50%) var(--my, 50%);
+}
+
+// On the zoomed-in active card, keep the foil alive with a slow auto-sweep
+// (needed on touch devices where there is no pointer to drive the glare).
+.exec-container.active-fg .card-holo {
+  opacity: 0.75;
+  animation: holoSweep 3.5s linear infinite;
+}
+
+@keyframes holoSweep {
+  0% {
+    background-position: 0% 50%, 0% 50%;
+  }
+  100% {
+    background-position: 180% 50%, 280% 50%;
+  }
+}
+
+// Global Card Template properties ported over into fluid dimensions
+.card-template {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--palegold);
+  border-radius: 6px;
+  border: 2px solid var(--monster);
+  overflow: hidden;
+  box-shadow: 0 0.8vw 2vw rgba(0, 0, 0, 0.4);
+  backface-visibility: hidden; // Hides the side facing away from view
+
+  -webkit-backface-visibility: hidden;
+
+  transform: rotateX(0deg) rotateY(0deg);
+  transform-style: flat;
+
+  &.card-face-front {
+    z-index: 2;
+    transform: rotateY(0deg);
+  }
+
+  &.card-face-back {
+    transform: rotateY(180deg); // Starts turned around on the flip side
+    .bio-forced-visible,
+    .exec-profile-description,
+    .nonexec-profile-description-container,
+    p,
+    h3,
+    span {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-perspective: none;
+      perspective: none;
+
+      // Forces the font smoothing system to recalculate pixel scaling
+      -webkit-font-smoothing: subpixel-antialiased !important;
+    }
+  }
+}
+
+.card-template__panel {
+  position: absolute;
+  left: 18.7%;
+  top: 3.4%;
+  width: 76.2%;
+  height: 91.4%; // Deep expansion down to the bottom area
+  background: var(--jam) !important;
+  border: 2px solid var(--monster);
+  border-radius: 19px;
+  overflow: hidden;
+  z-index: 1;
+
+  .exec-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: transparent !important; // Strips out clashing backgrounds
+  }
+
+  &.back-bio-panel {
+    height: 91.4%; // Allow bio panel to use the full size of the card back
+    left: 5%;
+    width: 90%;
+    background: var(--jam) !important;
+    border-color: var(--monster) !important;
+    padding: 5%;
+    overflow: hidden; // Clip the bio to the rounded card so it scrolls inside instead of spilling out
+
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+
+    // Reset styles inside the embed block to fit nicely inside the card
+    .exec-profile-description,
+    .nonexec-profile-description-container {
+      position: relative;
+      background: transparent;
+      padding: 0;
+      width: 100%;
+      height: auto;
+      opacity: 1;
+    }
+    .exec-profile-name {
+      font-family: 'Gliker', sans-serif;
+      font-size: 1.5vw;
+      font-weight: 300;
+
+      @include devices(tablet) {
+        font-size: 2.3vw;
+      }
+
+      @media only screen and (max-width: 480px) {
+        font-size: 2.8vw;
+        font-weight: 100;
+      }
+    }
+    .exec-profile-position {
+      font-family: 'Gliker', sans-serif;
+      font-size: 1.5vw;
+
+      @include devices(tablet) {
+        font-size: 2.3vw;
+      }
+
+      @media only screen and (max-width: 480px) {
+        font-size: 2.8vw;
+      }
+    }
+  }
+}
+
+.exec-profile-description,
+.nonexec-profile-description-container,
+.exec-profile-card-footer-name {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: subpixel-antialiased !important;
+}
+
+.card-template__footer {
+  //purple band
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 76.6%;
+  height: 12%;
+  background: var(--wisteria);
+  border-top: 2px solid var(--monster);
+  border-bottom: 2px solid var(--monster);
+  z-index: 2; // Places it over the panel container
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  padding-left: 6%;
+}
+
+// name of exec in the purple band
+.exec-profile-card-footer-name {
+  margin: 0;
+  color: var(--monster);
+  font-family: 'Genty', sans-serif;
+  text-align: left;
+  font-weight: 150;
+  font-size: 1.5vw;
+
+  @include devices(tablet) {
+    font-size: 2w;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 2.5vw;
+  }
+}
+
+.card-template__footer::before,
+.card-template__footer::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--monster);
+}
+.card-template__footer::before {
+  top: 12.7%;
+}
+.card-template__footer::after {
+  bottom: 15.3%;
+}
+
+.card-template__seal {
+  position: absolute;
+  width: 26.7%;
+  aspect-ratio: 1;
+  left: 66%;
+  top: 73%;
+  border-radius: 50%;
+  background: var(--dusk);
+  border: 2px solid var(--monster);
+  z-index: 3;
+}
+
+/* Exec Role: Vertical text inside the yellow margin space */
+.vertical-card-role-label {
+  position: absolute;
+  left: 3.5%;
+  top: 6%;
+  width: 12%;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 2vw;
+  font-weight: 900;
+  color: var(--monster);
+  letter-spacing: 0.5px;
+  font-family: 'Gliker', sans-serif;
+  z-index: 2;
+  text-align: right;
+
+  @include devices(tablet) {
+    font-size: 2.7vw;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 3vw;
+  }
 }
 
 .exec-image-hover {
-  transition: transform 200ms;
+  width: 100%;
+  height: 100%;
+}
 
-  &:hover {
-    transform: scale(1.02);
-    transition: transform 200ms;
-  }
-  &:active {
-    transform: scale(0.97);
-    transition: transform 150ms;
-  }
+// Background shade overlay click target
+.deck-backdrop-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 24;
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .wave-profile {
@@ -56,6 +381,7 @@
   margin-bottom: 20px;
 }
 
+/*
 .exec-profile-position {
   color: var(--yellow);
   font-size: 22px;
@@ -66,7 +392,12 @@
   @include devices(tablet) {
     font-size: 16px;
   }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 14px;
+  }
 }
+
 
 .exec-profile-name {
   text-align: left;
@@ -79,24 +410,27 @@
     font-size: 22px;
   }
 }
+*/
 
 // On Click
 .exec-profile-description {
   position: absolute;
-  background: var(--purple);
-  opacity: 0.95;
-
+  background: var(--jam);
   width: 100%;
   height: 100%;
   top: 0;
-  padding: 5%;
-  overflow-y: scroll;
+  min-height: 0; // Lets the flex/3d-transformed parent give this a real scroll height on mobile
+  overflow-y: auto;
   overflow-x: hidden;
 
-  color: var(--white);
-  font-size: 16px;
-  font-weight: 300;
-  //text-align: justify;
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-y !important;
+  overscroll-behavior: contain; // Keeps the swipe inside the card instead of scrolling the page
+
+  color: var(--dusk);
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: 4vw;
+  //font-weight: 150;
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -105,11 +439,33 @@
     background: var(--transparent);
   }
   &::-webkit-scrollbar-thumb {
-    background: var(--light-purple);
+    background: var(--lavender);
   }
 
   @include devices(tablet) {
-    font-size: 14px;
+    font-size: 20px;
+    line-height: 1.15;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+}
+
+.exec-profile-description-discipline,
+.exec-profile-description-role {
+  color: var(--white);
+  margin-bottom: 4px;
+
+  @include devices(tablet) {
+    font-size: 20px;
+    line-height: 1.15;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 11px;
+    line-height: 1.4;
   }
 }
 
@@ -142,7 +498,7 @@
     background: var(--transparent);
   }
   &::-webkit-scrollbar-thumb {
-    background: var(--light-purple);
+    background: var(--lavender);
   }
 
   @include devices(tablet) {
@@ -166,15 +522,6 @@
   justify-self: center;
 }
 
-.exec-profile-description-dis,
-.exec-profile-description-role {
-  color: var(--white);
-}
-
-.exec-profile-description-dis,
-.exec-profile-description-role {
-  margin-bottom: 25px;
-}
 .nonexec-dicipline {
   margin-bottom: 10px;
 }
@@ -187,7 +534,6 @@
   opacity: 0;
   transition: opacity 200ms;
   user-select: none;
-  pointer-events: none;
 }
 
 .cochairs-list {
@@ -236,4 +582,154 @@
 .exec-profile-scunt-judges-description {
   margin-bottom: 12px;
   text-align: left;
+}
+
+// Force visibility adjustments to contain your old description classes
+.bio-forced-visible {
+  width: 100%;
+  height: 100%;
+  overflow: visible !important;
+
+  // Strips away old absolute positions that are breaking out of the card panel
+  .exec-profile-description,
+  .nonexec-profile-description-container {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    background: transparent !important;
+    opacity: 1 !important;
+  }
+
+  .exec-profile-name {
+    font-size: 1.4vw;
+    color: var(--dusk);
+
+    @include devices(tablet) {
+      font-size: 1.5vw;
+    }
+
+    @media only screen and (max-width: 480px) {
+      font-size: 2vw;
+    }
+  }
+
+  .exec-profile-position {
+    font-size: 1vw;
+    @media only screen and (max-width: 480px) {
+      font-size: 1.8vw;
+    }
+  }
+}
+
+// ===== Flat, scrollable bio overlay (mobile-safe scrolling) =====
+// Sits outside the 3D flip subtree so touch scrolling works on iOS Safari.
+// Footprint matches .back-bio-panel so it lines up over the flipped card.
+.bio-scroll-overlay {
+  position: absolute;
+  left: 5%;
+  top: 3.4%;
+  width: 90%;
+  height: 91.4%;
+  z-index: 50;
+  box-sizing: border-box;
+  padding: 5%;
+
+  background: var(--jam);
+  border: 2px solid var(--monster);
+  border-radius: 19px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+
+  opacity: 0;
+  animation: bioFadeIn 0.3s ease 0.35s forwards; // reveal once the flip lands
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--transparent);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--lavender);
+  }
+
+  // Let the content define its own height so THIS element is the scroll area.
+  .bio-forced-visible {
+    height: auto;
+    overflow: visible !important;
+  }
+
+  .exec-profile-description,
+  .nonexec-profile-description-container {
+    position: relative !important;
+    height: auto !important;
+    overflow: visible !important;
+    background: transparent !important;
+  }
+}
+
+@keyframes bioFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+// ===== Sparkle burst on flip =====
+.flip-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.flip-sparkle {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  font-size: 1.6vw;
+  color: var(--yellow);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.85);
+  animation: sparkleBurst 0.75s ease-out forwards;
+
+  @media only screen and (max-width: 480px) {
+    font-size: 3vw;
+  }
+}
+
+@keyframes sparkleBurst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.1) rotate(160deg);
+  }
+}
+
+// Respect users who prefer reduced motion: drop the auto-sweep and burst.
+@media (prefers-reduced-motion: reduce) {
+  .exec-container.active-fg .card-holo {
+    animation: none;
+  }
+  .flip-sparkle {
+    animation: none;
+    opacity: 0;
+  }
+  .bio-scroll-overlay {
+    animation: none;
+    opacity: 1;
+  }
 }

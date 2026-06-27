@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect, useRef } from 'react';
 import './About.scss';
 
 import { aboutUsInfo } from '../../util/about/aboutus';
@@ -8,6 +8,7 @@ import newAboutLogo from '../../assets/about/F! Purple.png';
 import { Header } from '../../components/text/Header/Header';
 
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { ExecProfile } from './ExecProfile/ExecProfile';
 
 const PageAbout = () => {
   return (
@@ -15,7 +16,7 @@ const PageAbout = () => {
       <div className="aboutus-page-components">
         <AboutUsSection className="header-section-top" />
         <AboutUsTextSection />
-        <AboutUsExecCarousel />
+        <AboutUsExecCardDeck />
       </div>
     </>
   );
@@ -66,54 +67,76 @@ const AboutUsTextSection = () => {
   );
 };
 
-const AboutUsExecCarousel = () => {
-  const allExecs = [...execInfo.ocs, ...execInfo.vcs];
-  const [currentIndex, setCurrentIndex] = useState(0);
+const AboutUsExecCardDeck = () => {
+  const allExecs = [...execInfo.vcs, ...execInfo.ocs];
+  const totalCards = allExecs.length;
+
+  const [isMobile, setIsMobile] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(null);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [sliding, setSliding] = useState(false);
-  const [animClass, setAnimClass] = useState(''); // Handles dynamic slide states
-  const [displayIndex, setDisplayIndex] = useState(0);
+  const [hoverIndex, setHoverIndex] = useState(null);
+  const [hasEntered, setHasEntered] = useState(false);
+  const [entranceDone, setEntranceDone] = useState(false);
+  const deckRef = useRef(null);
 
-  const currentExec = allExecs[displayIndex];
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 480);
+    };
 
-  // ➡️ Smooth Next Transition
-  const handleNext = () => {
-    if (sliding) return;
-    setSliding(true);
-    setIsFlipped(false);
-    setAnimClass('slide-next-exit');
+    handleResize(); // Run on mount
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-    setTimeout(() => {
-      const next = (currentIndex + 1) % allExecs.length;
-      setCurrentIndex(next);
-      setDisplayIndex(next);
-      setAnimClass('slide-next-enter');
+  // Deal the cards into the fan once the deck scrolls into view.
+  useEffect(() => {
+    const node = deckRef.current;
+    if (!node) return undefined;
 
-      setTimeout(() => {
-        setAnimClass('');
-        setSliding(false);
-      }, 350);
-    }, 350);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasEntered(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  // Drop the staggered entrance delay after the deal-in finishes so that later
+  // hover/flip interactions stay snappy instead of lagging by the stagger time.
+  useEffect(() => {
+    if (!hasEntered) return undefined;
+    const timeout = setTimeout(() => setEntranceDone(true), totalCards * 180 + 800);
+    return () => clearTimeout(timeout);
+  }, [hasEntered, totalCards]);
+
+  const handleCardClick = (index) => {
+    if (activeIndex === index) {
+      if (isFlipped) {
+        // 💡 NEW LOGIC: If the card is already active AND flipped,
+        // clicking it again returns it to the default unselected deck view!
+        setActiveIndex(null);
+        setIsFlipped(false);
+      } else {
+        // First click on an already active card flips it over
+        setIsFlipped(true);
+      }
+    } else {
+      // Clicking an unselected card pulls it to the center foreground in front view
+      setActiveIndex(index);
+      setIsFlipped(false);
+    }
   };
 
-  // ⬅️ Smooth Prev Transition
-  const handlePrev = () => {
-    if (sliding) return;
-    setSliding(true);
+  const closeDeckZoom = () => {
+    setActiveIndex(null);
     setIsFlipped(false);
-    setAnimClass('slide-prev-exit');
-
-    setTimeout(() => {
-      const prev = (currentIndex - 1 + allExecs.length) % allExecs.length;
-      setCurrentIndex(prev);
-      setDisplayIndex(prev);
-      setAnimClass('slide-prev-enter');
-
-      setTimeout(() => {
-        setAnimClass('');
-        setSliding(false);
-      }, 350);
-    }, 350);
   };
 
   return (
@@ -129,125 +152,86 @@ const AboutUsExecCarousel = () => {
         <div className="exec-carousel-checker-strip" />
       </div>
 
-      <div className="exec-carousel-stage">
-        {/* Left Arrow */}
-        <button
-          className="exec-carousel-arrow exec-carousel-arrow-left"
-          onClick={handlePrev}
-          disabled={sliding}
-          aria-label="Previous"
-        >
-          <svg viewBox="0 0 24 24" width="32" height="32">
-            <path d="M16 19l-8-7 8-7" fill="#aaa" />
-          </svg>
-        </button>
-
-        {/* Left Card Peek */}
-        <div className="exec-carousel-side-card exec-carousel-side-card-left">
-          <div className="exec-carousel-side-card-inner is-flipped-static">
-            <div className="exec-carousel-side-back">
-              <p className="exec-carousel-card-back-role">
-                {allExecs[
-                  (currentIndex - 1 + allExecs.length) % allExecs.length
-                ].role.toUpperCase()}
-              </p>
-              <LazyLoadImage
-                className="exec-carousel-card-image"
-                alt={allExecs[(currentIndex - 1 + allExecs.length) % allExecs.length].name}
-                effect="opacity"
-                src={allExecs[(currentIndex - 1 + allExecs.length) % allExecs.length].image}
-              />
-              <div className="exec-carousel-name-band">
-                <h3 className="exec-carousel-card-back-name script-font">
-                  {allExecs[(currentIndex - 1 + allExecs.length) % allExecs.length].name}
-                </h3>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Center Card Track */}
-        <div className="exec-carousel-track">
-          <div
-            key={displayIndex}
-            className={`exec-carousel-card ${isFlipped ? 'is-flipped' : ''} ${animClass}`}
-            onClick={() => !sliding && setIsFlipped((f) => !f)}
-          >
-            <div className="exec-carousel-card-inner">
-              {/* FRONT */}
-              <div className="exec-carousel-card-front">
-                <LazyLoadImage
-                  className="exec-carousel-card-image"
-                  alt={currentExec.name}
-                  effect="opacity"
-                  src={currentExec.image}
-                />
-                <div className="exec-carousel-name-band">
-                  <h3 className="exec-carousel-card-back-name script-font">{currentExec.name}</h3>
-                </div>
-                <div className="exec-carousel-card-front-info">
-                  <p className="exec-carousel-card-role-label">{currentExec.role.toUpperCase()}</p>
-                  <p className="exec-carousel-card-discipline-label">{currentExec.discipline}</p>
-                </div>
-                <p className="exec-carousel-card-prompt">Click to flip for bio</p>
-              </div>
-
-              {/* BACK */}
-              <div className="exec-carousel-card-back">
-                <div className="exec-carousel-card-back-content">
-                  <p className="exec-carousel-card-back-role">{currentExec.role.toUpperCase()}</p>
-                  <LazyLoadImage
-                    className="exec-carousel-card-image exec-carousel-card-image-small"
-                    alt={currentExec.name}
-                    effect="opacity"
-                    src={currentExec.image}
-                  />
-                  <div className="exec-carousel-card-back-bio">
-                    <p>{currentExec.description}</p>
-                  </div>
-                  <div className="exec-carousel-name-band">
-                    <h3 className="exec-carousel-card-back-name script-font">{currentExec.name}</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Card Peek */}
-        <div className="exec-carousel-side-card exec-carousel-side-card-right">
-          <div className="exec-carousel-side-card-inner">
-            <div className="exec-carousel-side-back">
-              <p className="exec-carousel-card-back-role">
-                {allExecs[(currentIndex + 1) % allExecs.length].role.toUpperCase()}
-              </p>
-              <LazyLoadImage
-                className="exec-carousel-card-image"
-                alt={allExecs[(currentIndex + 1) % allExecs.length].name}
-                effect="opacity"
-                src={allExecs[(currentIndex + 1) % allExecs.length].image}
-              />
-              <div className="exec-carousel-name-band">
-                <h3 className="exec-carousel-card-back-name script-font">
-                  {allExecs[(currentIndex + 1) % allExecs.length].name}
-                </h3>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Arrow */}
-        <button
-          className="exec-carousel-arrow exec-carousel-arrow-right"
-          onClick={handleNext}
-          disabled={sliding}
-          aria-label="Next"
-        >
-          <svg viewBox="0 0 24 24" width="32" height="32">
-            <path d="M8 5l8 7-8 7" fill="#aaa" />
-          </svg>
-        </button>
+      <div className="card-deck-instructions">
+        <p className="card-deck-instructions-text">
+          Click on a card to view the executive&apos;s profile. Click again to flip the card over
+          for more information.
+        </p>
       </div>
+
+      {/* Card Stacking Container */}
+      <div
+        ref={deckRef}
+        className={`execs-deck-wrapper ${activeIndex !== null ? 'has-active-card' : ''} ${
+          hasEntered ? 'is-dealt' : ''
+        }`}
+        style={{
+          '--active-index': activeIndex !== null ? Number(activeIndex) : -1,
+        }}
+      >
+        {allExecs.map((person, index) => {
+          const midPoint = (totalCards - 1) / 2;
+          const diff = index - midPoint;
+          const absDiff = Math.abs(diff);
+
+          const rotateAngle = isMobile ? diff * 5 : diff * 3;
+          let translateX = isMobile ? diff * 7.5 : diff * 6.5;
+          const translateY = isMobile ? absDiff * 0.25 : absDiff * 0.15;
+
+          const isActive = activeIndex !== null && Number(activeIndex) === Number(index);
+          const cardFlipped = isActive && isFlipped;
+
+          // Fan reacts to hover (desktop, deck view only): the hovered card lifts
+          // while its neighbours slide outward to make room for it.
+          const deckHovered = hoverIndex !== null && activeIndex === null && !isMobile;
+          const isHovered = deckHovered && hoverIndex === index;
+          if (deckHovered && !isHovered) {
+            translateX += Math.sign(index - hoverIndex) * 3.2;
+          }
+
+          let transform;
+          if (!hasEntered) {
+            // Pre-entrance: collapsed low + centred, ready to be dealt out.
+            transform = 'rotate(0deg) translateX(0) translateY(18vw) scale(0.6)';
+          } else if (isActive) {
+            transform = `rotate(0deg) translateX(0) translateY(-6vw) scale(${
+              isMobile ? 1.5 : 1.4
+            })`;
+          } else if (isHovered) {
+            transform = `rotate(0deg) translateX(${translateX}vw) translateY(-2.5vw) scale(1.12)`;
+          } else {
+            transform = `rotate(${rotateAngle}deg) translateX(${translateX}vw) translateY(${translateY}vw)`;
+          }
+
+          const fanStyle = {
+            '--index': index,
+            zIndex: isActive ? 999 : isHovered ? 600 : 10 + index,
+            transform,
+            opacity: hasEntered ? 1 : 0,
+            transitionDelay: entranceDone ? '0ms' : `${index * 180}ms`,
+          };
+
+          return (
+            <ExecProfile
+              key={person.name + index}
+              style={fanStyle}
+              image={person.image}
+              name={person.name}
+              role={person.role}
+              discipline={person.discipline}
+              roleDescription={person.description || person.roleDescription}
+              exec={true}
+              isActiveCard={isActive}
+              isCardFlipped={cardFlipped}
+              onCardSelect={() => handleCardClick(index)}
+              onCardHover={() => setHoverIndex(index)}
+              onCardLeave={() => setHoverIndex((current) => (current === index ? null : current))}
+            />
+          );
+        })}
+      </div>
+
+      {activeIndex !== null && <div className="deck-backdrop-overlay" onClick={closeDeckZoom} />}
 
       <div className="exec-carousel-checker-strip exec-carousel-checker-strip-full" />
     </div>
