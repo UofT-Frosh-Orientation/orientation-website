@@ -1100,8 +1100,11 @@ body {
 .sponsors-carousel-track {
   display: flex;
   gap: 24px;
-  width: calc(194px * var(--item-count));
+  width: max-content;
   padding: 20px 0;
+  // --item-count is the ORIGINAL sponsor count, so the track shifts by exactly
+  // one copy's width before looping. Since the track holds 3 copies, copy #2
+  // lands precisely where copy #1 began, making the reset seamless (infinite).
   animation: scroll 60s linear infinite; // slowed down (was 30s)
 
   // Pause animation on hover for better user experience
