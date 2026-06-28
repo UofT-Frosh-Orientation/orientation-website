@@ -154,8 +154,8 @@ const PageProfileFrosh = () => {
           <div className="profile-info-bottom mobile-only">
             <ProfilePageResources froshObject={isRegistered ? user : null} />
           </div>
+          <ProfilePageQRCode />
           <div className="profile-info-row-right desktop-only">
-            <ProfilePageQRCode />
             {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
             {user?.attendingScunt ? <ProfilePageScuntTeam /> : null}
             {/* <ProfilePageFroshScuntTeamsSelection /> */}
