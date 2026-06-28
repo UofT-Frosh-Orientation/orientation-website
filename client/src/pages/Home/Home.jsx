@@ -46,8 +46,7 @@ const PageHome = () => {
       <HomePageTimeline />
       {/* Other Events section (heading + spinning vinyl + thumbnail + info panel) hidden per request */}
       {/* <PageAbout /> */}
-      {/* Sponsors section hidden per request */}
-      {/* <HomePageSponsors /> */}
+      <HomePageSponsors />
     </>
   );
 };

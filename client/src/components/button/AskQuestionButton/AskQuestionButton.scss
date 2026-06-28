@@ -102,7 +102,8 @@
   bottom: 8px;
   right: 10px;
   position: fixed;
-  z-index: 10;
+  z-index: 1000000000;
+  background:none;
   @include devices(tablet) {
     bottom: 85px;
     left: 10px;

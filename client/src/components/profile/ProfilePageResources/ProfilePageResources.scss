@@ -9,7 +9,7 @@
 }
 
 .profile-page-resources {
-  margin-top: 20px;
+  // margin-top: 20px;
   flex-wrap: wrap;
   overflow: hidden;
   flex: 1;
@@ -18,7 +18,7 @@
   h2 {
     color: var(--text-secondary);
     font-size: 24px;
-    margin-top: 40px;
+    margin-top: 20px;
     margin-bottom: 8px;
   }
   @media (max-width: 1374px) {
@@ -43,7 +43,7 @@
 .profile-page-side-section {
   max-width: 350px;
   border-radius: 25px;
-  background-color: var(--resource-container-bg);
+  background-color: var(--monster);
   display: flex;
   justify-content: center;
   flex-direction: column;

@@ -98,7 +98,7 @@ const PageProfileFrosh = () => {
   }, [dispatch, user]);
 
   return (
-    <div className="profile-page-wrapper">
+    <>
       <ProfilePageFroshHeader editButton={true} />
 
       {/* Mobile-only QR at top
@@ -139,7 +139,6 @@ const PageProfileFrosh = () => {
           {/* <ProfilePageNitelife /> */}
           <ProfilePageInstagrams />
           <ProfilePageAnnouncements />
-          {/* Hidden until we have personalized per-group schedules */}
           {/* <ProfilePageSchedule /> */}
 
           <div className="profile-info-bottom mobile-only">
@@ -155,7 +154,7 @@ const PageProfileFrosh = () => {
           <ProfilePageResources froshObject={isRegistered ? user : null} />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -333,11 +332,12 @@ const ProfilePageFroshHeader = ({ editButton }) => {
           <div className="profile-page-header-group desktop-only">
             {isRegistered ? (
               <>
-                <img
+                {/* <img
                   src={getFroshGroupImage(user?.froshGroup)}
                   alt={`${user?.froshGroup}`}
                   className="frosh-group-icon-image"
-                />
+                /> */}
+                <h1>{user?.froshGroup ? user.froshGroupIcon : null}</h1>
                 <p>{user?.froshGroup}</p>
               </>
             ) : null}

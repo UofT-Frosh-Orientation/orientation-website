@@ -16,6 +16,7 @@ import { RetreatSingleAccordion } from '../../components/text/Accordion/SingleAc
 import retreatArrow from '../../assets/misc/backarrow.png';
 import TV from '../../assets/retreat/retroTV.svg';
 import star from '../../assets/retreat/star.svg';
+import retreatVideo from '../../assets/retreat/frosh-retreat.mp4';
 
 const RetreatFilmStrip = () => {
   const images = getSlideshowImages();
@@ -144,15 +145,14 @@ export const FroshRetreat = () => {
         </div>
         <div className="retreat-video">
           <img className="retreat-video-frame" src={TV}></img>
-          <iframe
+          <video
             className="retreat-video-player"
-            src="https://drive.google.com/file/d/1_lpjxS90MrYfqsgOosCd1gRf2xd7phoY/preview"
+            src={retreatVideo}
             title="F!rosh Retreat Info"
-            // width="640"
-            // height="480"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+            controls
+            playsInline
+            preload="metadata"
+          ></video>
         </div>
 
         <h3 className="retreat-header">Registration</h3>
@@ -363,76 +363,70 @@ const RetreatRegistration = () => {
           modified, please edit your information{' '}
           <Link to={isRegistered ? '/profile-edit' : '/profile-edit-unregistered'}>here</Link>.
         </p>
-        <div className="card-template">
-          <div className="card-template__panel">
-            <div className="retreat-registration-form">
-              <div className="display-field">
-                <h4 className="retreat-registration-form-header">Full Name:</h4>{' '}
-                <p className="retreat-registration-form-text" style={{ color: 'black' }}>
-                  {user?.firstName +
-                    ' ' +
-                    user?.lastName +
-                    (user?.preferredName ? ' (' + user?.preferredName + ')' : '')}
-                </p>
-              </div>
-              <div className="display-field">
-                <h4 className="retreat-registration-form-header">Email:</h4>{' '}
-                <p className="retreat-registration-form-text" style={{ color: 'black' }}>
-                  {user?.email}
-                </p>
-              </div>
-              <div className="display-field">
-                <h4 className="retreat-registration-form-header">Phone Number:</h4>{' '}
-                <p className="retreat-registration-form-text" style={{ color: 'black' }}>
-                  {(!user?.phoneNumberCountryCode ? '' : user?.phoneNumberCountryCode) +
-                    ' ' +
-                    user?.phoneNumber}
-                </p>
-              </div>
-              <div className="display-field">
-                <h4 className="retreat-registration-form-header">Dietary Restrictions:</h4>{' '}
-                <p className="retreat-registration-form-text" style={{ color: 'black' }}>
-                  {!user?.allergies || user?.allergies.length <= 0
-                    ? 'None'
-                    : user?.allergies.join(', ')}
-                </p>
-                {!user?.allergiesOther ? (
-                  <p className="retreat-registration-form-text" style={{ color: 'black' }}>
-                    {user?.allergiesOther}
-                  </p>
-                ) : (
-                  <></>
-                )}
-              </div>
-              <div className="display-field">
-                <h4 className="retreat-registration-form-header">Medical Info:</h4>{' '}
-                <p className="retreat-registration-form-text" style={{ color: 'black' }}>
-                  {!user?.medicalInfo || user?.medicalInfo === '' ? 'None' : user?.medicalInfo}
-                </p>
-                <p className="retreat-registration-form-text" style={{ color: 'black' }}>
-                  {!user?.specficMedicalInfo || user?.specficMedicalInfo === ''
-                    ? 'None'
-                    : user?.specficMedicalInfo}
-                </p>
-              </div>
-              <div className="display-field">
-                <h4 className="retreat-registration-form-header">Medication:</h4>{' '}
-                <p className="retreat-registration-form-text" style={{ color: 'black' }}>
-                  {!user?.medication || user?.medication === '' ? 'None' : user?.medication}
-                </p>
-              </div>
-              <div className="display-field">
-                <h4 className="retreat-registration-form-header">Emergency Contact:</h4>{' '}
-                <p
-                  className="retreat-registration-form-text"
-                  style={{ color: 'black' }}
-                >{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${user?.emergencyContactNumber}`}</p>
-              </div>
-            </div>
+        {/* Card visuals temporarily disabled — showing the info plainly for now.
+        <div className="retreat-card-template">
+          <div className="retreat-card-template__panel"> */}
+        <div className="retreat-registration-form">
+          <div className="display-field">
+            <h4 className="retreat-registration-form-header">Full Name:</h4>{' '}
+            <p className="retreat-registration-form-text">
+              {user?.firstName +
+                ' ' +
+                user?.lastName +
+                (user?.preferredName ? ' (' + user?.preferredName + ')' : '')}
+            </p>
           </div>
-          <div className="card-template__footer"></div>
-          <div className="card-template__seal"></div>
+          <div className="display-field">
+            <h4 className="retreat-registration-form-header">Email:</h4>{' '}
+            <p className="retreat-registration-form-text">{user?.email}</p>
+          </div>
+          <div className="display-field">
+            <h4 className="retreat-registration-form-header">Phone Number:</h4>{' '}
+            <p className="retreat-registration-form-text">
+              {(!user?.phoneNumberCountryCode ? '' : user?.phoneNumberCountryCode) +
+                ' ' +
+                user?.phoneNumber}
+            </p>
+          </div>
+          <div className="display-field">
+            <h4 className="retreat-registration-form-header">Dietary Restrictions:</h4>{' '}
+            <p className="retreat-registration-form-text">
+              {!user?.allergies || user?.allergies.length <= 0
+                ? 'None'
+                : user?.allergies.join(', ')}
+            </p>
+            {!user?.allergiesOther ? (
+              <p className="retreat-registration-form-text">{user?.allergiesOther}</p>
+            ) : (
+              <></>
+            )}
+          </div>
+          <div className="display-field">
+            <h4 className="retreat-registration-form-header">Medical Info:</h4>{' '}
+            <p className="retreat-registration-form-text">
+              {!user?.medicalInfo || user?.medicalInfo === '' ? 'None' : user?.medicalInfo}
+            </p>
+            <p className="retreat-registration-form-text">
+              {!user?.specficMedicalInfo || user?.specficMedicalInfo === ''
+                ? 'None'
+                : user?.specficMedicalInfo}
+            </p>
+          </div>
+          <div className="display-field">
+            <h4 className="retreat-registration-form-header">Medication:</h4>{' '}
+            <p className="retreat-registration-form-text">
+              {!user?.medication || user?.medication === '' ? 'None' : user?.medication}
+            </p>
+          </div>
+          <div className="display-field">
+            <h4 className="retreat-registration-form-header">Emergency Contact:</h4>{' '}
+            <p className="retreat-registration-form-text">{`${user?.emergencyContactName} - ${user?.emergencyContactRelationship}: ${user?.emergencyContactNumber}`}</p>
+          </div>
         </div>
+        {/* </div>
+          <div className="retreat-card-template__footer"></div>
+          <div className="retreat-card-template__seal"></div>
+        </div> */}
       </div>
       <div className="retreat-registration-right-column">
         <h3 className="retreat-registration-subheading">F!rosh Retreat Waiver</h3>

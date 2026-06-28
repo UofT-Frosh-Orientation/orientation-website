@@ -428,7 +428,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
     );
   } else {
     return (
-      <div>
+      <div className="registration-page-wrapper">
         <div className="registration-form-flex">
           <div className="registration-form">
             <div className="registration-form-card">

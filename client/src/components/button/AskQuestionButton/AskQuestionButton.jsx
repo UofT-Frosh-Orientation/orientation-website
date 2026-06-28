@@ -123,6 +123,9 @@ const AskQuestionButton = () => {
     // don't show FAQ button if leadur or if not logged in
     return <></>;
   }
+  // Spinning CD FAQ button hidden on both desktop and mobile.
+  return <></>;
+  // eslint-disable-next-line no-unreachable
   return (
     <>
       {/* <PopupModal
