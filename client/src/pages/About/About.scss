@@ -29,7 +29,11 @@ body:not(.dark-mode) .aboutus-page-components {
 
   background-color: var(--page-bg);
 
-  overflow-x: hidden;
+  // Use `clip` rather than `hidden`: `overflow-x: hidden` forces the computed
+  // `overflow-y` to `auto`, turning this container into its own scroll context
+  // and producing a second vertical scrollbar alongside the page's. `clip`
+  // hides horizontal overflow without establishing a scroll container.
+  overflow-x: clip;
   position: relative;
 
   @include devices(tablet) {
@@ -1055,6 +1059,13 @@ body:not(.dark-mode) .aboutus-page-components {
 
   text-shadow: -8px 9px 0 var(--purple-shades-original);
   display: block;
+
+  // LIGHT MODE: both the text and the offset shadow are dark purple, so the
+  // layered duplicate muddies the letters and "The Executives" becomes hard to
+  // read. Drop the layering shadow in light mode; dark mode keeps it.
+  body:not(.dark-mode) & {
+    text-shadow: none;
+  }
 
   @include devices(tablet) {
     font-size: 12vw;

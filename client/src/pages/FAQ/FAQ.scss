@@ -36,84 +36,94 @@
   flex-direction: column;
   overflow: hidden;
   box-sizing: border-box;
+}
 
-  // --- BACKGROUND CHECKER BOARDS ---
-  &::before {
-    content: '';
-    position: absolute;
-    top: -88vh; // <-- changed from -53% to -53vh
-    left: 10vh; // width-based %, fine to keep — width doesn't change between categories
-    width: 39%;
-    height: 200vh; // <-- changed from 125% to 125vh
-    background-image: linear-gradient(
-        45deg,
-        var(--faq-checker) 25%,
-        transparent 25%,
-        transparent 75%,
-        var(--faq-checker) 75%
-      ),
-      linear-gradient(
-        45deg,
-        var(--faq-checker) 25%,
-        transparent 25%,
-        transparent 75%,
-        var(--faq-checker) 75%
-      );
-    background-size: 100px 100px;
-    background-position: 0 0, 50px 50px;
+// --- YOUR GROUPED CONTAINER ---
+// Full-viewport positioning context. Children are sized/placed in `vw` so the
+// whole checker composition scales proportionally and looks identical at any
+// screen width (no hardcoded pixels = no shifting overlap seams).
+.checker-group {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 104vw;
+  height: 100%;
+  min-height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+// Common structural base styles for the checkers
+.checker-left,
+.checker-right {
+  position: absolute;
+  pointer-events: none;
+  background-image: linear-gradient(
+      45deg,
+      var(--faq-checker) 25%,
+      transparent 25%,
+      transparent 75%,
+      var(--faq-checker) 75%
+    ),
+    linear-gradient(
+      45deg,
+      var(--faq-checker) 25%,
+      transparent 25%,
+      transparent 75%,
+      var(--faq-checker) 75%
+    );
+  // Tile size relative to the 1440px design canvas (100px ÷ 1440 × 100vw)
+  background-size: 6.94vw 6.94vw;
+  background-position: 0 0, 3.47vw 3.47vw;
+}
+
+// --- DESKTOP SPECIFIC CONFIGURATION ---
+// All values converted from the original px against the 1440px design width.
+@media (min-width: 769px) {
+  .checker-left {
+    top: -113.06vw;
+    left: -98.06vw;
+    width: 69.44vw;
+    height: 277.78vw;
     transform: rotate(70deg);
-    z-index: 1;
-    pointer-events: none;
-
-    @include devices(tablet) {
-      width: 46%;
-      height: 125vh;
-      transform: rotate(70deg);
-      background-size: 100px 100px;
-      background-position: 0 0, 50px 50px;
-
-      top: -415px;
-      left: 11vh; // Locks your horizontal position to the height axis so it never drifts
-    }
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: -24vh; // <-- changed from -23% to -23vh
-    right: -38vh;
-    width: 35%;
-    height: 150vh; // <-- changed from 150% to 150vh
-    background-image: linear-gradient(
-        45deg,
-        var(--faq-checker) 25%,
-        transparent 25%,
-        transparent 75%,
-        var(--faq-checker) 75%
-      ),
-      linear-gradient(
-        45deg,
-        var(--faq-checker) 25%,
-        transparent 25%,
-        transparent 75%,
-        var(--faq-checker) 75%
-      );
-    background-size: 100px 100px;
-    background-position: 0 0, 50px 50px;
+  .checker-right {
+    top: -97.22vw;
+    right: -201.39vw;
+    width: 208.33vw;
+    height: 277.78vw;
     transform: rotate(-20deg);
-    z-index: 1;
-    pointer-events: none;
+  }
+}
 
-    @include devices(tablet) {
-      width: 47%;
-      height: 150vh;
-      transform: rotate(-20deg);
-      background-size: 100px 100px;
-      background-position: 0 0, 50px 50px;
+// --- MOBILE SPECIFIC CONFIGURATION ---
+// All values converted from the original px against the 390px iPhone baseline,
+// so the pattern scales proportionally across every phone width.
+@include devices(tablet) {
+  .checker-group {
+    width: 100vw;
+    left: 0;
+  }
 
-      top: -62px;
-      right: -28vh; // Locks your horizontal position to the height axis so it never drifts
-    }
+  .checker-left {
+    top: -102.56vw;
+    left: -30.77vw;
+    width: 61.54vw;
+    height: 256.41vw;
+    transform: rotate(70deg);
+    background-size: 15.38vw 15.38vw;
+    background-position: 0 0, 7.69vw 7.69vw;
+  }
+
+  .checker-right {
+    top: -12.82vw;
+    right: -128.21vw;
+    width: 102.56vw;
+    height: 307.69vw;
+    transform: rotate(-20deg);
+    background-size: 15.38vw 15.38vw;
+    background-position: 0 0, 7.69vw 7.69vw;
   }
 }
 
@@ -121,8 +131,7 @@
 .faq-page-header {
   position: relative;
   z-index: 5;
-  padding: 60px 10% 0px 10%;
-  width: 100%;
+  padding: 60px 20px 0px 20px; // Changed from 10% to 20px to lock structural margins  width: 100%;
   box-sizing: border-box;
 
   @include devices(tablet) {
@@ -230,11 +239,12 @@
   position: relative;
   z-index: 5;
   box-sizing: border-box;
+  padding: 0 20px;
 
   @include devices(tablet) {
     flex-direction: column;
-    gap: 40px;
-    padding: 0 5%;
+    gap: 20px;
+    padding: 0 20px;
   }
 }
 
@@ -285,6 +295,7 @@
     flex-wrap: wrap;
     gap: 15px;
     height: auto;
+    padding-left: 24px;
   }
 
   // Visual Timeline Line Tracker
@@ -292,14 +303,14 @@
     content: '';
     position: absolute;
     left: 20px;
-    top: -5vh; // ALWAYS touches the top bar/start of the info panel
-    bottom: -6vh; // DYNAMICALLY adjusts perfectly with the end of the panel
+    top: -40px; // ALWAYS touches the top bar/start of the info panel
+    bottom: -40px; // DYNAMICALLY adjusts perfectly with the end of the panel
     width: 4px;
     background-color: var(--faq-accent); // Timeline tracker line
 
     @include devices(tablet) {
       display: block !important; // BRINGS THE LINE BACK ON MOBILE
-      left: 12px; // Positions it perfectly under the mobile stars axis
+      left: 11.5px; // Positions it perfectly under the mobile stars axis
       top: -5px;
       bottom: -20px;
     }
@@ -415,7 +426,7 @@
   border: 4px solid var(--faq-accent);
   border-radius: 20px;
   padding: 20px 40px; // Slightly reduced vertical padding inside the container
-  margin-top: 7vh;
+  margin-top: 40px;
   box-sizing: border-box;
   z-index: 6;
 

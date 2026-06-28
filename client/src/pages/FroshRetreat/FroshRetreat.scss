@@ -388,6 +388,8 @@
   width: 40%;
   padding-left: 5%;
   @include devices(tablet) {
+    min-width: 0;
+    width: 100%;
     padding-left: 0%;
   }
 }
@@ -396,6 +398,11 @@
   min-width: 360px;
   width: 40%;
   margin: 0% 4%;
+  @include devices(tablet) {
+    min-width: 0;
+    width: 100%;
+    margin: 0;
+  }
 }
 
 .retreat-registration-subheading {
