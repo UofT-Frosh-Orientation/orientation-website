@@ -94,13 +94,17 @@ body.dark-mode .profile-page-wrapper {
     b {
       font-size: 60px;
     }
-    justify-content: space-evenly;
+    // justify-content: space-evenly;
+    padding-top:130px;
+    margin-bottom:200px;
+    width:100%;
   }
 }
 .profile-info-col{
   margin-top:80px;
   z-index:1000;
   padding-right:20px;
+  padding-left:20px;
 }
 .profile-info-col-row{
   display:flex;
@@ -242,6 +246,11 @@ body.dark-mode .profile-page-wrapper {
   justify-content: center;
   padding: 15px;
   padding-top: 25px;
+  @include devices(tablet){
+    width:0px;
+    height:0px;
+    background:none;
+  }
 }
 
 .profile-class-star {
@@ -256,7 +265,6 @@ body.dark-mode .profile-page-wrapper {
   margin-top: -15px; // move down
   margin-left: 250px; // move right
   z-index: 0;
-  overflow:clip;
 }
 
 // 2T6 PROFILE CARD ATTEMPT START
@@ -270,7 +278,10 @@ body.dark-mode .profile-page-wrapper {
   z-index: 10;
 
   margin-top: 130px; // move down
-  margin-left: 20px; // move right
+  margin-left:15px; // move right
+  @include devices(tablet){
+    margin-left: auto;
+  }
 }
 
 .profile-card-picture {
@@ -436,6 +447,9 @@ body.dark-mode .profile-page-wrapper {
   flex-direction: column;
   align-items: center;
   text-align: center;
+
+  position:relative;
+  top:-220px;
 }
 
 .profile-page-announcements {
@@ -1024,6 +1038,9 @@ body.dark-mode .profile-page-wrapper {
 }
 .desktop-only {
   display: block;
+  @include devices(tablet){
+    display:none;
+  }
 }
 
 @include devices(tablet) {

@@ -300,7 +300,7 @@ const ProfilePageFroshHeader = ({ editButton }) => {
       <div className="profile-page-header">
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-left">
-            <div className="profile-class-checkers desktop-only">
+            <div className="profile-class-checkers">
               <div
                 className={`profile-card ${isFlipped ? 'flipped' : ''}`}
                 onClick={() => setIsFlipped(!isFlipped)}
