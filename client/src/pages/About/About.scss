@@ -29,7 +29,11 @@ body:not(.dark-mode) .aboutus-page-components {
 
   background-color: var(--page-bg);
 
-  overflow-x: hidden;
+  // Use `clip` rather than `hidden`: `overflow-x: hidden` forces the computed
+  // `overflow-y` to `auto`, turning this container into its own scroll context
+  // and producing a second vertical scrollbar alongside the page's. `clip`
+  // hides horizontal overflow without establishing a scroll container.
+  overflow-x: clip;
   position: relative;
 
   @include devices(tablet) {
