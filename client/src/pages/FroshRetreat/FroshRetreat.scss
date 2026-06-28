@@ -17,6 +17,10 @@
 .frosh-retreat-page {
   background-color: var(--page-bg);
   color: var(--text-primary);
+  // Containing the page bottom edge stops the last child's margin-bottom from
+  // collapsing out of the page, which previously exposed the white <body> as a
+  // gap above the footer.
+  overflow: hidden;
 
   .retreat-video-player {
     // Sits BEHIND the TV frame, filling the transparent screen hole. Percentages
@@ -31,12 +35,31 @@
     height: 71.7%;
     border: none;
     z-index: 1;
+    // Fill the squarish TV screen (slight crop is fine behind the bezel).
+    object-fit: cover;
+    background: #000;
+
+    // On mobile the squarish TV screen makes the 16:9 video too small to watch,
+    // so we drop the TV frame (below) and let the video fill a normal 16:9 box.
+    // `contain` here guarantees the whole frame is visible — nothing cropped.
+    @include devices(tablet) {
+      position: static;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
   }
 }
 
 .retreat-video {
   display: block;
   position: relative;
+  max-width: 700px;
+  margin-inline: auto;
+  @include devices(tablet) {
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+  }
 }
 
 .retreat-video-frame {
@@ -45,6 +68,10 @@
   position: relative;
   z-index: 2;
   pointer-events: none;
+  // Hidden on mobile — the plain 16:9 player replaces the retro TV graphic.
+  @include devices(tablet) {
+    display: none;
+  }
 }
 
 // Need to fine tune resize behavior!
@@ -411,7 +438,8 @@
   color: var(--text-primary);
 
   font-size: 27px;
-  margin-top: 6vw;
+  margin-top: 32px;
+  margin-bottom: 12px;
 }
 
 .retreat-registration-subheading2 {
@@ -424,11 +452,12 @@
 }
 
 .retreat-registration-form {
-  margin-left: 5%;
-  margin-top: 5%;
+  margin-top: 8px;
 
   .display-field {
     text-align: left;
+    // Consistent gap between each labelled field.
+    margin-bottom: 18px;
   }
 
   .radio-buttons-retreat {
@@ -445,10 +474,16 @@
   font-family: 'Gliker';
   color: var(--wisteria);
   font-weight: 200;
+  font-size: 20px;
+  // Small, even gap between each label and its value.
+  margin-bottom: 4px;
 }
 
 .retreat-registration-form-text {
-  color: black;
+  // Was hardcoded black for the light card panel; now the info sits directly on
+  // the page background, so use the theme text colour (readable in light + dark).
+  color: var(--text-primary);
+  font-size: 18px;
 }
 
 .retreat-choose-file::file-selector-button {
