@@ -473,7 +473,7 @@ export const fields = {
     attendingScunt: {
       type: 'radio',
       label:
-        'Would you like to participate in SKULE™ Hunt? (It will take place on the evening of Wednesday, August 27th)',
+        'Would you like to participate in SKULE™ Hunt? (It will take place on the evening of Wednesday, September 2nd)',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       localStorageKey: 'registration-scunt',
@@ -489,7 +489,7 @@ export const fields = {
     attendingRetreat: {
       type: 'radio',
       label:
-        'Would you like to attend an overnight retreat on August 30th - 31st at Hart House Farms? (At an additional cost)',
+        'Would you like to attend an overnight retreat on September 5th-6th at Hart House Farms? (At an additional cost)',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       isRequiredInput: true,
@@ -543,7 +543,7 @@ export const fields = {
     bursaryInfo: {
       type: 'label',
       label:
-        'The price of a F!rosh Week ticket is $130 CAD. We will be making bursary decisions after F!rosh Week and will refund the amount to the students after the decisions. Our team will reach out to you for more details regarding the bursary program. Bursaries range from partial to complete settlement of the ticket price.',
+        'The price of a F!rosh Week ticket is $135 CAD. We will be making bursary decisions after F!rosh Week and will refund the amount to the students after the decisions. Our team will reach out to you for more details regarding the bursary program. Bursaries range from partial to complete settlement of the ticket price.',
       isSub: true,
     },
     marketing: {
