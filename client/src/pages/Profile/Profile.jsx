@@ -14,7 +14,11 @@ const PageProfile = () => {
   const { user } = useSelector(userSelector);
   const leader = user?.userType === 'leadur';
 
-  return <Suspense>{leader === true ? <PageProfileLeader /> : <PageProfileFrosh />}</Suspense>;
+  return (
+    <div className="profile-page-background">
+      <Suspense>{leader === true ? <PageProfileLeader /> : <PageProfileFrosh />}</Suspense>
+    </div>
+  );
 };
 
 export { PageProfile };

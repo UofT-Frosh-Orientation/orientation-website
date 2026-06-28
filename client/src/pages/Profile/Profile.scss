@@ -23,11 +23,16 @@
   --scunt-bottom-corner-border: url('../../assets/profile/scunt-right.png');
 }
 
+.profile-page-background {
+  background-color: var(--bg-main);
+  min-height: 100vh;
+}
+
 .profile-page-header {
   display: flex;
   align-items: center;
   flex-direction: row;
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-main);
   padding: 0% 6%;
   padding-top: 80px;
   padding-bottom: 60px;
@@ -150,7 +155,7 @@
     // flex: unset;
     padding: 0px 20px;
     text-align: left;
-    justify-content:center;
+    justify-content: center;
   }
 }
 
@@ -809,12 +814,20 @@
 }
 
 /* If not already defined globally, add helpers */
-.mobile-only { display: none; }
-.desktop-only { display: block; }
+.mobile-only {
+  display: none;
+}
+.desktop-only {
+  display: block;
+}
 
 @include devices(tablet) {
-  .mobile-only { display: block; }
-  .desktop-only { display: none; }
+  .mobile-only {
+    display: block;
+  }
+  .desktop-only {
+    display: none;
+  }
 }
 
 /* Optional spacing for the mobile QR at top */
