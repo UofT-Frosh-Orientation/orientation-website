@@ -88,7 +88,7 @@ const ProfilePageScuntTeamSelectionLeader = () => {
   return (
     <div className="profile-page-side-section" style={{ marginTop: '20px', textAlign: 'center' }}>
       <div style={{ height: '10px' }} />
-      <h2>Scunt Team</h2>
+      <h2>Skule Hunt Team</h2>
 
       <RadioButtons
         initialSelectedIndex={user?.scuntTeam - 1}
@@ -99,7 +99,7 @@ const ProfilePageScuntTeamSelectionLeader = () => {
         }}
       />
       <Button
-        label={'Change Scunt Team'}
+        label={'Change Skule Hunt Team'}
         onClick={() => {
           dispatch(changeScuntTeam({ setSnackbar, teamNumber }));
         }}
@@ -114,7 +114,7 @@ export const ProfilePageLeaderScuntMessage = () => {
   return (
     <Link to="/skule-hunt" style={{ background: 'none' }}>
       {/* <div className="frosh-instagram-container">
-        <img src={ScuntIcon} alt="Scunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
+        <img src={ScuntIcon} alt="Skule Hunt" style={{ filter: darkMode ? 'invert(1)' : 'unset' }} />
         <div>
           <h2>SKULE™ HUNT!</h2>
           <p>Find more information about the Hunt by clicking here!</p>

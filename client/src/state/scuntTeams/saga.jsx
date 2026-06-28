@@ -71,7 +71,7 @@ export function* setGameTeamsSaga({ payload: { scuntTeams, setSnackbar } }) {
     const result = yield call(axios.put, '/scunt-teams/rename-teams', {
       teamObjs: scuntTeams,
     });
-    setSnackbar('Scunt Teams Updated!');
+    setSnackbar('Skule Hunt Teams Updated!');
     console.log(result);
     yield put(setScuntTeamsSuccess(result.data.scuntTeams));
   } catch (error) {
