@@ -7,9 +7,8 @@ import { TaskAnnouncement } from '../../components/task/TaskAnnouncement/TaskAnn
 import { QRNormal } from 'react-qrbtf';
 import { Button } from '../../components/button/Button/Button';
 import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
-import EditIconDark from '../../assets/profile/edit.png';
-import EditIcon from '../../assets/profile/edit.png';
-import PrintIcon from '../../assets/profile/print.png';
+import EditIconDark from '../../assets/misc/edit-icon-dark.svg';
+import EditIcon from '../../assets/misc/edit-icon.svg';
 import { getScuntTeamObjFromTeamNumber } from '../ScuntJudgeForm/ScuntJudgeForm';
 import { Link } from 'react-router-dom';
 import { instagramAccounts } from '../../util/instagramAccounts';
@@ -62,13 +61,6 @@ import ThetaIcon from '../../assets/profile/letters/Theta.svg';
 import UpsilonIcon from '../../assets/profile/letters/Upsilon.svg';
 import ZetaIcon from '../../assets/profile/letters/Zeta.svg';
 
-// 2T6 assets
-
-import ProfileCardFront from '../../assets/profile/profile-card-front.png';
-import ProfileCardBack from '../../assets/profile/profile-card-back.png';
-import FroshLogo from '../../assets/logo/2T6logo.png';
-import ProfilePicture from '../../assets/profile/test-portrait2.png';
-
 const froshGroupImages = {
   Alpha: AlphaIcon,
   Beta: BetaIcon,
@@ -106,14 +98,15 @@ const PageProfileFrosh = () => {
   }, [dispatch, user]);
 
   return (
-    <div className="profile-page-wrapper">
+    <>
       <ProfilePageFroshHeader editButton={true} />
 
       {/* Mobile-only QR at top
       <div className="profile-qr-mobile mobile-only">
         <ProfilePageQRCode />
       </div> */}
-      <div className="profile-info-col">
+
+      <div className="profile-info-row">
         <div className="profile-info-row-left">
           {!isRegistered ? (
             <div className={'profile-not-registered'}>
@@ -145,27 +138,23 @@ const PageProfileFrosh = () => {
           {/* {isRegistered ? <ProfilePageFroshOlympiks /> : null} */}
           {/* <ProfilePageNitelife /> */}
           <ProfilePageInstagrams />
-        </div>
-        <div className="profile-info-col-row">
           <ProfilePageAnnouncements />
-          {/* Hidden until we have personalized per-group schedules */}
           {/* <ProfilePageSchedule /> */}
 
           <div className="profile-info-bottom mobile-only">
             <ProfilePageResources froshObject={isRegistered ? user : null} />
           </div>
-          <div className="desktop-only">
+        </div>
+
+        <div className="profile-info-row-right desktop-only">
           <ProfilePageQRCode />
-          </div>
-          <div className="profile-info-row-right desktop-only">
-            {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
-            {user?.attendingScunt ? <ProfilePageScuntTeam /> : null}
-            {/* <ProfilePageFroshScuntTeamsSelection /> */}
-            <ProfilePageResources froshObject={isRegistered ? user : null} />
-          </div>
+          {/* <ProfilePageScuntToken scuntTeamObjs={scuntTeamObjs} scuntTeams={scuntTeams} /> not doing discord */}
+          {user?.attendingScunt ? <ProfilePageScuntTeam /> : null}
+          {/* <ProfilePageFroshScuntTeamsSelection /> */}
+          <ProfilePageResources froshObject={isRegistered ? user : null} />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -286,8 +275,6 @@ const ProfilePageFroshHeader = ({ editButton }) => {
   const gradYear = currentYear + 4;
   const firstDigitF = gradYear.toString().slice(-2, -1);
   const lastDigitF = gradYear.toString().slice(-1);
-  const [isFlipped, setIsFlipped] = useState(false);
-
   let froshYear = `${firstDigitF}T${lastDigitF}`;
 
   const getFroshGroupImage = (letter) => {
@@ -302,70 +289,55 @@ const ProfilePageFroshHeader = ({ editButton }) => {
       <div className="profile-page-header">
         <div className="profile-page-header-info-wrap">
           <div className="profile-page-header-left">
-            <div className="profile-class-checkers">
-              <div
-                className={`profile-card ${isFlipped ? 'flipped' : ''}`}
-                onClick={() => setIsFlipped(!isFlipped)}
-              >
-                <div className="profile-card-inner">
-                  <div className="profile-card-front">
-                    <img src={ProfileCardFront} alt="Profile Card Front" />
-                    <img src={ProfilePicture} alt="Profile" className="profile-card-picture" />
-                    <img src={FroshLogo} alt="Profile" className="profile-card-logo" />
-                    <div className="profile-card-front-name">
-                      <h3>{user?.preferredName || user?.firstName}</h3>
-                    </div>
-                    <div className="profile-card-front-left">
-                      <h3>{user?.discipline}</h3>
-                    </div>
-                  </div>
-
-                  <div className="profile-card-back">
-                    <img src={ProfileCardBack} alt="Profile Card Back" />
-                    <div className="profile-card-back-content">
-                      <h3> {user?.email} </h3>
-                    </div>
-                  </div>
-                </div>
-                <div className="profile-page-header-info">
-                  <div className="profile-name-edit-wrapper">
-                    {editButton !== false ? (
-                      // {editButton !== false && isRegistered ? (
-                      <Link
-                        to={isRegistered ? '/profile-edit' : '/profile-edit-unregistered'}
-                        className={'profile-edit-icon-link no-link-style'}
-                      >
-                        <img
-                          src={darkMode ? EditIconDark : EditIcon}
-                          alt={'edit'}
-                          className={'profile-edit-icon no-link-style'}
-                        />
-                      </Link>
-                    ) : // <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
-                    //   <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
-                    // </Link>
-                    null}
-                  </div>
-                  <img src={PrintIcon} alt={'print'} className="profile-print-icon" />
-                </div>
-              </div>
-
+            <div className="profile-class-circlebg desktop-only">
               <div className="profile-page-header-class desktop-only">
                 <p className="class-of-p">Class of</p>
                 <h2>{froshYear}</h2>
               </div>
             </div>
-
-            <div className="profile-class-star desktop-only"></div>
+            <div className="profile-page-header-info">
+              <div className="profile-name-edit-wrapper">
+                <>
+                  {user?.preferredName === '' || !user?.preferredName ? (
+                    <>
+                      <b>{user?.firstName}</b>
+                    </>
+                  ) : (
+                    <b>{user?.preferredName}</b>
+                  )}
+                </>
+                {editButton !== false ? (
+                  // {editButton !== false && isRegistered ? (
+                  <Link
+                    to={isRegistered ? '/profile-edit' : '/profile-edit-unregistered'}
+                    className={'profile-edit-icon-link no-link-style'}
+                  >
+                    <img
+                      src={darkMode ? EditIconDark : EditIcon}
+                      alt={'edit'}
+                      className={'profile-edit-icon no-link-style'}
+                    />
+                  </Link>
+                ) : // <Link to={'/profile-edit'} className={'profile-edit-icon-link no-link-style'}>
+                //   <img src={EditIcon} alt={'edit'} className={'profile-edit-icon'} />
+                // </Link>
+                null}
+              </div>
+              {user?.discipline && <p>{`Incoming ${user['discipline']} Engineering student`}</p>}
+              <p>
+                <u>{user?.email}</u>
+              </p>
+            </div>
           </div>
           <div className="profile-page-header-group desktop-only">
             {isRegistered ? (
               <>
-                <img
+                {/* <img
                   src={getFroshGroupImage(user?.froshGroup)}
                   alt={`${user?.froshGroup}`}
                   className="frosh-group-icon-image"
-                />
+                /> */}
+                <h1>{user?.froshGroup ? user.froshGroupIcon : null}</h1>
                 <p>{user?.froshGroup}</p>
               </>
             ) : null}

@@ -23,60 +23,33 @@
   --scunt-bottom-corner-border: url('../../assets/profile/scunt-right.png');
 }
 
-// Full-page background so the profile matches the home page (purple in dark
-// mode, light gray in light mode) instead of falling through to a white body.
-.profile-page-wrapper {
-  min-height: 100vh;
-  background-color: #ebebeb; // light mode (matches home --bg-main)
-  
-  display:flex;
-  align-items:flex-start;
-  flex-wrap:wrap;
-}
-
-body.dark-mode .profile-page-wrapper {
-  background-color: #3d0f58; // dark mode purple (matches home --bg-main)
-}
-
 .profile-page-header {
-  flex:1;
   display: flex;
   align-items: center;
-  flex-direction: column;
-  background-color: var(--monster);
+  flex-direction: row;
+  background-color: var(--bg-secondary);
+  padding: 0% 6%;
   padding-top: 80px;
-  margin-bottom: 100px;
+  padding-bottom: 60px;
+  margin-bottom: 36px;
   h1 {
-    color: var(--dusk);
+    color: var(--text-primary);
     font-size: 85px;
   }
   h2 {
-    color: var(--dusk);
+    color: var(--jam);
     font-size: 60px;
-    line-height: 34px;
+    line-height: 44px;
     font-family: 'Gliker';
-    letter-spacing: 0.1rem;
-
-    margin-top: 0px; // move froshyear text
-    margin-right: 280px; // move froshyear text
   }
-  h3 {
-    color: var(--dawn);
-    font-size: 20px;
-    line-height: 34px;
-    font-family: 'Gliker';
-    letter-spacing: 0.1rem;
-  }
-
   p {
-    color: var(--dusk);
-    font-size: 36px;
-    font-family: 'Gliker';
+    color: var(--text-primary);
+    font-size: 18px;
   }
   b {
-    color: var(--dusk);
+    color: var(--text-primary);
     font-size: 80px;
-    font-family: 'Proxima Nova' !important;
+    font-family: 'Gliker' !important;
     font-weight: normal;
     //letter-spacing: 0.2rem;
   }
@@ -86,30 +59,16 @@ body.dark-mode .profile-page-wrapper {
       font-size: 65px;
     }
     h2 {
-      font-size: 50px;
+      font-size: 40px;
     }
     p {
-      font-size: 30px;
+      font-size: 15px;
     }
     b {
       font-size: 60px;
     }
-    // justify-content: space-evenly;
-    padding-top:130px;
-    margin-bottom:200px;
-    width:100%;
+    justify-content: space-evenly;
   }
-}
-.profile-info-col{
-  margin-top:80px;
-  z-index:1000;
-  padding-right:20px;
-  padding-left:20px;
-}
-.profile-info-col-row{
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
 }
 
 .retreat-ad {
@@ -158,10 +117,6 @@ body.dark-mode .profile-page-wrapper {
 }
 
 .profile-edit-icon {
-  position: absolute;
-  left: 0px;
-  top: 433px;
-
   width: 56px;
   height: auto;
   padding: 10px;
@@ -174,12 +129,6 @@ body.dark-mode .profile-page-wrapper {
   @include devices(tablet) {
     width: 48px;
   }
-}
-
-.profile-print-icon {
-  position: absolute;
-  left: 270px;
-  top: 440px;
 }
 
 .profile-page-header-group {
@@ -201,6 +150,7 @@ body.dark-mode .profile-page-wrapper {
     // flex: unset;
     padding: 0px 20px;
     text-align: left;
+    justify-content:center;
   }
 }
 
@@ -236,188 +186,9 @@ body.dark-mode .profile-page-wrapper {
   padding-top: 25px;
 }
 
-.profile-class-checkers {
-  background: url('../../assets/profile/checkers.png') center center no-repeat;
-  background-size: contain;
-  width: 489px; // Adjust to fit your image
-  height: 492px; // Adjust to fit your image
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-  padding-top: 25px;
-  @include devices(tablet){
-    width:0px;
-    height:0px;
-    background:none;
-  }
-}
-
-.profile-class-star {
-  background: url('../../assets/profile/star.png') center center no-repeat;
-  position: absolute; //ontop of checkers not seperate from them
-  width: 489px; // Adjust to fit your image
-  height: 550px; // Adjust to fit your image
-  display: flex;
-  // align-items: center;
-  // justify-content: center;
-
-  margin-top: -15px; // move down
-  margin-left: 250px; // move right
-  z-index: 0;
-}
-
-// 2T6 PROFILE CARD ATTEMPT START
-
-.profile-card {
-  width: 312px;
-  height: 434px;
-  perspective: 1000px;
-  cursor: pointer;
-  position: absolute;
-  z-index: 10;
-
-  margin-top: 130px; // move down
-  margin-left:15px; // move right
-  @include devices(tablet){
-    margin-left: auto;
-  }
-}
-
-.profile-card-picture {
-  position: absolute;
-
-  top: 20px;
-  left: 2px;
-
-  width: 98%;
-  height: auto;
-  z-index: -1;
-
-  object-fit: cover;
-}
-
-.profile-card-logo {
-  position: absolute;
-  top: 326px;
-  left: 214px;
-
-  width: 20%;
-  height: auto;
-  object-fit: contain;
-}
-
-.profile-card,
-.profile-card * {
-  cursor: url('../../assets/cursor/pointer.png'), pointer;
-}
-
-.profile-card-inner {
-  position: relative;
-  // width: 100%;
-  // height: 100%;
-  transition: transform 0.6s;
-  transform-style: preserve-3d; //These allow for the flipping on click
-}
-
-.profile-card.flipped .profile-card-inner {
-  transform: rotateY(180deg);
-}
-
-.profile-card-front,
-.profile-card-back {
-  position: absolute;
-  // width: 100%;
-  // height: 100%;
-  backface-visibility: hidden;
-
-  img {
-    // width: 100%;
-    // height: 100%;
-    object-fit: contain;
-  }
-}
-
-.profile-card-back {
-  transform: rotateY(180deg);
-}
-
-.profile-card-front-name {
-  position: absolute;
-  top: 242px;
-  left: 50%;
-  transform: translateX(-50%);
-
-  width: 80%;
-  text-align: center;
-  h3 {
-    font-size: 18px;
-    margin: 0;
-    margin-top: 95px;
-    margin-right: 90px;
-  }
-}
-
-.profile-card-front-left {
-  position: absolute;
-  top: 340px;
-  left: 50%;
-  transform: translateX(-50%);
-
-  width: 80%;
-  text-align: center;
-
-  h3 {
-    font-size: 20px;
-    margin-top: -70px;
-    transform: rotate(-90deg);
-    margin-right: 300px;
-    white-space:nowrap;
-  }
-}
-
-.profile-card-back-content {
-  position: absolute;
-  top: 120px;
-  left: 50%;
-  transform: translateX(-50%);
-
-  width: 80%;
-  text-align: center;
-
-  h3 {
-    margin-bottom: 20px;
-  }
-
-  p {
-    margin: 8px 0;
-    font-size: 18px;
-  }
-}
-
-// 2T6 PROFILE CARD ATTEMPT FINISH
-
 .class-of-p {
-  // p {
-  //   font-size: 182px;
-  //   margin-bottom: 10px;
-  //   text-align: center;
-  // }
-  color: var(--dusk) !important;
+  color: var(--jam) !important;
   margin-bottom: 5px;
-  display: incline-block; // for transformations
-  transform: rotate(-10deg);
-  font-family: 'Genty' !important;
-  font-size: 60px;
-
-  margin-top: 0px; // move down
-  margin-right: 280px; // move left
-
-  // display: flex;
-  // width: 141px;
-  // height: 492px;
-  // top: 167px;
-  // rotation: 9.97;
 }
 
 .profile-page-header-info {
@@ -426,12 +197,12 @@ body.dark-mode .profile-page-wrapper {
     margin-bottom: 3px;
     font-size: 18px;
     @include devices(tablet) {
-      font-size: 11px;
+      font-size: 20px;
     }
   }
   u {
     @include devices(tablet) {
-      font-size: 16px;
+      font-size: 24px;
     }
   }
 }
@@ -447,9 +218,6 @@ body.dark-mode .profile-page-wrapper {
   flex-direction: column;
   align-items: center;
   text-align: center;
-
-  position:relative;
-  top:-220px;
 }
 
 .profile-page-announcements {
@@ -476,14 +244,10 @@ body.dark-mode .profile-page-wrapper {
 .profile-page-qr-code {
   background-color: white !important;
   align-items: center;
-  margin-right:150px;
   p {
     font-size: 18px;
     margin-bottom: 10px;
     text-align: center;
-  }
-  @include devices(tablet){
-    margin-right:0;
   }
 }
 
@@ -660,6 +424,7 @@ body.dark-mode .profile-page-wrapper {
   margin-bottom: 25px;
   margin-top: 15px;
   text-align: left;
+  max-width: 100%;
 }
 
 .profile-not-registered-text {
@@ -698,6 +463,7 @@ body.dark-mode .profile-page-wrapper {
 
 .retreat-profile-container {
   flex: 1;
+  max-width: 100%;
   background-color: var(--jam);
   border-radius: 20px;
   display: flex;
@@ -968,7 +734,6 @@ body.dark-mode .profile-page-wrapper {
 
 .profile-info-row-left {
   display: flex;
-  flex:1;
   flex-direction: column;
   flex: 3;
   max-width: 1200px;
@@ -981,7 +746,14 @@ body.dark-mode .profile-page-wrapper {
 }
 
 .profile-info-row-right {
-  position:relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-left: 4%;
+  margin-bottom: 50px;
+  padding-right: 5%;
+  justify-content: flex-end;
+  align-items: end;
   text-align: right !important;
 
   @include devices(tablet) {
@@ -1037,23 +809,12 @@ body.dark-mode .profile-page-wrapper {
 }
 
 /* If not already defined globally, add helpers */
-.mobile-only {
-  display: none;
-}
-.desktop-only {
-  display: block;
-  @include devices(tablet){
-    display:none;
-  }
-}
+.mobile-only { display: none; }
+.desktop-only { display: block; }
 
 @include devices(tablet) {
-  .mobile-only {
-    display: block;
-  }
-  .desktop-only {
-    display: none;
-  }
+  .mobile-only { display: block; }
+  .desktop-only { display: none; }
 }
 
 /* Optional spacing for the mobile QR at top */
