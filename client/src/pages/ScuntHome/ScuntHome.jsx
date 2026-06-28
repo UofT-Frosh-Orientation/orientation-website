@@ -110,7 +110,7 @@ const AboutScunt = () => {
       </div>
       <div className="scunt-block-thing">
         <h1>When?</h1>
-        <p>August 27th, 2025 from 6PM to 11PM!</p>
+        <p>September 2nd, 2026 from 6PM to 11PM!</p>
       </div>
       <div className="scunt-block-thing">
         <h1>FAQ</h1>

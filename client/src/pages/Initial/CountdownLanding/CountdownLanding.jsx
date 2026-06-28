@@ -15,7 +15,7 @@ const CountdownLanding = () => {
 
   useEffect(() => {
     // Set your target date and start date for progress calculation
-    const targetDate = new Date('2025-08-26T07:30:00').getTime();
+    const targetDate = new Date('2026-08-31T08:00:00').getTime();
     const startDate = new Date('2025-03-30T07:30:00').getTime();
 
     const timer = setInterval(() => {
@@ -62,7 +62,7 @@ const CountdownLanding = () => {
           effect="blur"
         />
 
-        <h2 className="countdown-subtitle">COMING AUGUST 25TH</h2>
+        <h2 className="countdown-subtitle">COMING AUGUST 31ST</h2>
         <h1 className="countdown-title">F!ROSH WEEK 2T6</h1>
 
         {/* Secondary time display */}
