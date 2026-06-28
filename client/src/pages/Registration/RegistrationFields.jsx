@@ -480,7 +480,7 @@ export const fields = {
       noEdit: true, // Edit this to be false for most of registration, will only be true on the Tuesday before scunt
       isRequiredInput: true,
     },
-    scuntInfo: {
+    skuleHuntInfo: {
       type: 'label',
       label:
         "SKULE™ Hunt is a scavenger hunt around the city of Toronto! Don't miss out on one of the most popular F!rosh Week events! It's an exciting night of challenges for all comfort levels.",

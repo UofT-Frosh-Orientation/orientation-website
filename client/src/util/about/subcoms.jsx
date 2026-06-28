@@ -267,7 +267,7 @@ export const subComs = {
       ],
     },
     {
-      subcom: 'Havenger Scunt',
+      subcom: 'Skule Hunt',
       description: 'our subcom does this!',
       img: Scunt,
       coChair: [

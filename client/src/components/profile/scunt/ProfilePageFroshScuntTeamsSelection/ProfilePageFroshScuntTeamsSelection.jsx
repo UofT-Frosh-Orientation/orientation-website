@@ -25,7 +25,7 @@ export const ProfilePageFroshScuntTeamsSelection = () => {
 
   return (
     <div className="profile-page-scunt-token profile-page-side-section">
-      <h2>Scunt Teammates</h2>
+      <h2>Skule Hunt Teammates</h2>
       <p style={{ fontSize: '12px' }}>
         Enter the emails (precisely) of other people (up to 3) you want to team with. Otherwise you
         will be put in a random team. Your requested team members must do the same. You do not need
