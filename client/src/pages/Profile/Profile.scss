@@ -482,6 +482,9 @@ body.dark-mode .profile-page-wrapper {
     margin-bottom: 10px;
     text-align: center;
   }
+  @include devices(tablet){
+    margin-right:0;
+  }
 }
 
 .profile-info-row {
