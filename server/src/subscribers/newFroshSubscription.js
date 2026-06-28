@@ -99,7 +99,7 @@ newFroshSubscription.process((job, done) => {
               </p>
               <p>
                 To stay up to date on all the info you need before you arrive, and to learn more about UofT, make sure to follow our
-                <a href="https://bit.ly/froshig" style="color: #ffc600; text-decoration: underline;">Instagram page</a> and
+                <a href="https://www.instagram.com/froshweek/" style="color: #ffc600; text-decoration: underline;">Instagram page</a> and
                 <a href="https://discord.gg/yZvTXC47n" style="color: #ffc600; text-decoration: underline;">join our Discord community</a>!
               </p>
               <p>
@@ -120,7 +120,7 @@ newFroshSubscription.process((job, done) => {
               alt="University of Toronto Engineering Society Logo"
             />
             <div class="socials-container">
-              <a href="https://bit.ly/froshig" class="social-link">
+              <a href="https://www.instagram.com/froshweek/" class="social-link">
                 <img src="cid:instagrambrands" alt="instagram logo" class="social-icon" />
               </a>
               <a href="https://discord.gg/yZvTXC47n" class="social-link">

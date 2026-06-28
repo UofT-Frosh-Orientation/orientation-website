@@ -421,7 +421,7 @@ const ComingSoon = () => {
       </a>
       <a
         className="cs-desktop-icon cs-link"
-        href="https://bit.ly/froshig"
+        href="https://www.instagram.com/froshweek/"
         target="_blank"
         rel="noreferrer"
         style={at(LAYOUT.iconInstagram)}
@@ -551,7 +551,7 @@ const ComingSoon = () => {
                 </a>
                 <a
                   className="cs-m-social cs-raised"
-                  href="https://bit.ly/froshig"
+                  href="https://www.instagram.com/froshweek/"
                   target="_blank"
                   rel="noreferrer"
                 >

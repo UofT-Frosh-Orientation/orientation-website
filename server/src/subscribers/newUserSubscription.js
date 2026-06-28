@@ -96,7 +96,7 @@ newUserSubscription.process((job, done) => {
               </p>
               <ul>
                 <li>Fill out your registration information and pay your registration fee at <a href="${siteLink}" style="color: #ffc600; text-decoration: underline;">orientation.skule.ca</a></li>
-                <li>Follow us on instagram <a href="https://bit.ly/froshig" style="color: #ffc600; text-decoration: underline;">@froshweek</a></li>
+                <li>Follow us on instagram <a href="https://www.instagram.com/froshweek/" style="color: #ffc600; text-decoration: underline;">@froshweek</a></li>
               </ul>
               <p>
                 If you have any questions or want to learn more, feel free to email us at
@@ -116,7 +116,7 @@ newUserSubscription.process((job, done) => {
               alt="University of Toronto Engineering Society Logo"
             />
             <div class="socials-container">
-              <a href="https://bit.ly/froshig" class="social-link">
+              <a href="https://www.instagram.com/froshweek/" class="social-link">
                 <img src="cid:instagrambrands" alt="instagram logo" class="social-icon" />
               </a>
               <a href="https://discord.gg/yZvTXC47n" class="social-link">

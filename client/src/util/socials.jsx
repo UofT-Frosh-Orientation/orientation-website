@@ -12,7 +12,7 @@ import EmailIcon from '../assets/social/mail-white.svg';
 export const socials = [
   {
     label: 'Instagram',
-    link: 'https://bit.ly/froshig',
+    link: 'https://www.instagram.com/froshweek/',
     icon: InstagramIcon,
   },
   {
