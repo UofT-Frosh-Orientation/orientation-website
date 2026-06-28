@@ -28,7 +28,7 @@ export const ScuntTitle = () => {
 
 const ScuntCountdown = () => {
   const { scuntSettings, loading } = useSelector(scuntSettingsSelector);
-  const [targetDate, setTargetDate] = useState('2025-08-27T18:00:00');
+  const [targetDate, setTargetDate] = useState('2026-09-02T18:00:00');
   const [countDownDate, setCountDownDate] = useState(new Date(targetDate).getTime());
   const [countDown, setCountDown] = useState(countDownDate - new Date().getTime());
 
