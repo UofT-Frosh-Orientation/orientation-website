@@ -69,7 +69,7 @@ const HomePageHeader = () => {
         className="header-register-star"
         style={{ textDecoration: 'none' }}
       >
-        <span>
+        <span style={{ transform: 'rotate(-23deg)', display: 'block', marginLeft: '12px' }}>
           Register
           <br />
           Now!
