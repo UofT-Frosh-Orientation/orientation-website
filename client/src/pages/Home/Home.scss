@@ -116,19 +116,12 @@ body {
   top: 18%;
   right: 3%;
   z-index: 6;
-  background-color: var(--gold-1);
-  clip-path: polygon(
-    50% 0%,
-    61% 35%,
-    98% 35%,
-    68% 57%,
-    79% 91%,
-    50% 70%,
-    21% 91%,
-    32% 57%,
-    2% 35%,
-    39% 35%
-  );
+  // Use the same wavy star graphic as the retreat banner so the two stars match.
+  // (Replaces the old clean clip-path polygon + flat gold fill.)
+  background-image: url('../../assets/retreat/star.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   width: clamp(150px, 15vw, 380px);
   height: clamp(150px, 15vw, 380px);
   display: flex;
@@ -137,15 +130,31 @@ body {
   transform: rotate(15deg);
   font-family: 'Proxima Nova', sans-serif;
   font-weight: 900;
-  font-size: clamp(14px, 1.2vw, 30px);
+  font-size: clamp(20px, 2vw, 44px);
   text-align: center;
   color: #3d0f58;
-  line-height: 1.2;
+  line-height: 1.15;
+  // This star is a clickable link (the retreat one is decorative), so give it a
+  // hover lift to make it read as a button.
+  transition: transform 200ms ease, filter 200ms ease;
+
+  &:hover {
+    // The global `a:hover` rule (underline-slide animation) sets
+    // `background-size: 0% 2px, 100% 2px`, which would collapse our star image
+    // to nothing on hover. Re-assert `contain` so the star stays visible.
+    background-size: contain;
+    transform: rotate(15deg) scale(1.08);
+    filter: drop-shadow(0 6px 10px rgba(58, 15, 88, 0.45));
+  }
 
   span {
     transform: rotate(-15deg);
     display: block;
-    padding-top: clamp(8px, 0.8vw, 18px);
+    // The global `* { cursor: win95-arrow }` rule sets the arrow directly on
+    // this span, overriding the pointer cursor the `<a>` parent gets. Re-assert
+    // the pointer here so hovering the text (which fills most of the star) shows
+    // the hand, making it read as a button.
+    cursor: url('../../assets/cursor/pointer.png'), pointer !important;
   }
 }
 
@@ -974,7 +983,7 @@ body {
     right: 2%;
     width: clamp(86px, 26vw, 150px);
     height: clamp(86px, 26vw, 150px);
-    font-size: clamp(11px, 3.4vw, 17px);
+    font-size: clamp(14px, 4.6vw, 24px);
   }
 
   /* Countdown position (top/left) is set in countdown.scss's own mobile block —
