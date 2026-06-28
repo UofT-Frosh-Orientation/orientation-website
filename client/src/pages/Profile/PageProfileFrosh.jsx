@@ -391,22 +391,33 @@ const ProfilePageInstagrams = () => {
   const { darkMode } = useContext(DarkModeContext);
 
   const getInstagramFromLink = (link) => {
-    if (link === undefined) return '';
+    if (!link) return '';
     return link.replace('https://www.instagram.com', '').replace('/', '');
   };
 
   const instagramLink = instagramAccounts[user?.froshGroup];
   if (!isRegistered) return null;
-  return (
-    <a href={instagramLink} className="no-link-style" target={'_blank'} rel="noreferrer">
-      <div className="frosh-instagram-container">
-        <img src={InstagramIcon} alt="Instagram" className="desktop-only" />
-        <div className="instagram-text">
-          <p>Go follow your F!rosh group and meet your Leedurs!</p>
+
+  const instagramContent = (
+    <div className="frosh-instagram-container">
+      <img src={InstagramIcon} alt="Instagram" className="desktop-only" />
+      <div className="instagram-text">
+        <p>Go follow your F!rosh group and meet your Leedurs!</p>
+        {instagramLink ? (
           <h2>@{getInstagramFromLink(instagramLink).slice(0, -1)}</h2>
-        </div>
+        ) : (
+          <h2>Coming Soon!</h2>
+        )}
       </div>
+    </div>
+  );
+
+  return instagramLink ? (
+    <a href={instagramLink} className="no-link-style" target={'_blank'} rel="noreferrer">
+      {instagramContent}
     </a>
+  ) : (
+    <div>{instagramContent}</div>
   );
 };
 
