@@ -37,27 +37,18 @@
 }
 
 // --- YOUR GROUPED CONTAINER ---
+// Full-viewport positioning context. Children are sized/placed in `vw` so the
+// whole checker composition scales proportionally and looks identical at any
+// screen width (no hardcoded pixels = no shifting overlap seams).
 .checker-group {
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1440px;
+  left: 0;
+  width: 104vw;
   height: 100%;
   min-height: 100vh;
   pointer-events: none;
   z-index: 0;
-  transform-origin: top center;
-  transition: transform 0.2s ease;
-
-  // --- THE MASTER DIAL (Desktop Only Zoom scaling) ---
-  @media screen and (min-width: 1800px) {
-    transform: translateX(-50%) scale(1.25);
-  }
-
-  @media screen and (min-width: 2400px) {
-    transform: translateX(-50%) scale(1.5);
-  }
 }
 
 // Common structural base styles for the checkers
@@ -79,55 +70,58 @@
       transparent 75%,
       var(--faq-checker) 75%
     );
-  background-size: 100px 100px;
-  background-position: 0 0, 50px 50px;
+  // Tile size relative to the 1440px design canvas (100px ÷ 1440 × 100vw)
+  background-size: 6.94vw 6.94vw;
+  background-position: 0 0, 3.47vw 3.47vw;
 }
 
 // --- DESKTOP SPECIFIC CONFIGURATION ---
+// All values converted from the original px against the 1440px design width.
 @media (min-width: 769px) {
   .checker-left {
-    top: -1628px;
-    left: -1412px;
-    width: 1000px;
-    height: 4000px;
+    top: -113.06vw;
+    left: -98.06vw;
+    width: 69.44vw;
+    height: 277.78vw;
     transform: rotate(70deg);
   }
 
   .checker-right {
-    top: -1400px;
-    right: -2900px;
-    width: 3000px;
-    height: 4000px;
+    top: -97.22vw;
+    right: -201.39vw;
+    width: 208.33vw;
+    height: 277.78vw;
     transform: rotate(-20deg);
   }
 }
 
 // --- MOBILE SPECIFIC CONFIGURATION ---
+// All values converted from the original px against the 390px iPhone baseline,
+// so the pattern scales proportionally across every phone width.
 @include devices(tablet) {
   .checker-group {
-    width: 390px; // Lock to a standard mobile width (iPhone baseline)
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100vw;
+    left: 0;
   }
 
   .checker-left {
-    top: -400px;
-    left: -120px;
-    width: 240px;
-    height: 1000px;
+    top: -102.56vw;
+    left: -30.77vw;
+    width: 61.54vw;
+    height: 256.41vw;
     transform: rotate(70deg);
-    background-size: 60px 60px;
-    background-position: 0 0, 30px 30px;
+    background-size: 15.38vw 15.38vw;
+    background-position: 0 0, 7.69vw 7.69vw;
   }
 
   .checker-right {
-    top: -50px;
-    right: -500px;
-    width: 400px;
-    height: 1200px;
+    top: -12.82vw;
+    right: -128.21vw;
+    width: 102.56vw;
+    height: 307.69vw;
     transform: rotate(-20deg);
-    background-size: 60px 60px;
-    background-position: 0 0, 30px 30px;
+    background-size: 15.38vw 15.38vw;
+    background-position: 0 0, 7.69vw 7.69vw;
   }
 }
 
