@@ -497,13 +497,13 @@
     &::before {
       top: -25px;
       left: -30px;
-      background-image: var(--top-left-corner-border);
+      background-image: url('../../assets/profile/retreat-vinyl.png');
     }
 
     &::after {
       bottom: -30px;
       right: -25px;
-      background-image: var(--bottom-right-corner-border);
+      background-image: url('../../assets/profile/retreat-vinyl.png');
     }
   }
 
