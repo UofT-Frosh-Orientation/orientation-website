@@ -1056,6 +1056,13 @@ body:not(.dark-mode) .aboutus-page-components {
   text-shadow: -8px 9px 0 var(--purple-shades-original);
   display: block;
 
+  // LIGHT MODE: both the text and the offset shadow are dark purple, so the
+  // layered duplicate muddies the letters and "The Executives" becomes hard to
+  // read. Drop the layering shadow in light mode; dark mode keeps it.
+  body:not(.dark-mode) & {
+    text-shadow: none;
+  }
+
   @include devices(tablet) {
     font-size: 12vw;
   }
