@@ -498,7 +498,7 @@
   top: 17px;
 }
 
-.card-template {
+.retreat-card-template {
   position: relative;
 
   /* Control size here */
@@ -513,7 +513,7 @@
 }
 
 /* Inner panel */
-.card-template__panel {
+.retreat-card-template__panel {
   position: absolute;
 
   left: 18.7%;
@@ -522,7 +522,7 @@
   width: 76.2%;
   height: 91.4%;
 
-  background: #d9d9d9;
+  background: var(--jam);
   border: 2px solid #3d0f58;
   border-radius: 19px;
   font-size: min(2vw, 30px);
@@ -532,7 +532,7 @@
 }
 
 /* Purple footer */
-.card-template__footer {
+.retreat-card-template__footer {
   position: absolute;
 
   left: 0;
@@ -547,8 +547,8 @@
 }
 
 /* Inner footer lines */
-.card-template__footer::before,
-.card-template__footer::after {
+.retreat-card-template__footer::before,
+.retreat-card-template__footer::after {
   content: '';
   position: absolute;
   left: 0;
@@ -556,16 +556,16 @@
   border-top: 1px solid #3d0f58;
 }
 
-.card-template__footer::before {
+.retreat-card-template__footer::before {
   top: 12.7%;
 }
 
-.card-template__footer::after {
+.retreat-card-template__footer::after {
   bottom: 15.3%;
 }
 
 /* Circular badge */
-.card-template__seal {
+.retreat-card-template__seal {
   position: absolute;
 
   width: 26.7%;

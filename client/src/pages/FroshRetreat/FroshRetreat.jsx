@@ -363,8 +363,8 @@ const RetreatRegistration = () => {
           modified, please edit your information{' '}
           <Link to={isRegistered ? '/profile-edit' : '/profile-edit-unregistered'}>here</Link>.
         </p>
-        <div className="card-template">
-          <div className="card-template__panel">
+        <div className="retreat-card-template">
+          <div className="retreat-card-template__panel">
             <div className="retreat-registration-form">
               <div className="display-field">
                 <h4 className="retreat-registration-form-header">Full Name:</h4>{' '}
@@ -430,8 +430,8 @@ const RetreatRegistration = () => {
               </div>
             </div>
           </div>
-          <div className="card-template__footer"></div>
-          <div className="card-template__seal"></div>
+          <div className="retreat-card-template__footer"></div>
+          <div className="retreat-card-template__seal"></div>
         </div>
       </div>
       <div className="retreat-registration-right-column">
