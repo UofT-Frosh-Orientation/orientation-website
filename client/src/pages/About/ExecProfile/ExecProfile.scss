@@ -314,18 +314,6 @@
   bottom: 15.3%;
 }
 
-.card-template__seal {
-  position: absolute;
-  width: 26.7%;
-  aspect-ratio: 1;
-  left: 66%;
-  top: 73%;
-  border-radius: 50%;
-  background: var(--dusk);
-  border: 2px solid var(--monster);
-  z-index: 3;
-}
-
 /* Exec Role: Vertical text inside the yellow margin space */
 .vertical-card-role-label {
   position: absolute;
@@ -604,22 +592,40 @@
   }
 
   .exec-profile-name {
-    font-size: 1.4vw;
+    font-size: 1.3vw;
     color: var(--dusk);
 
     @include devices(tablet) {
-      font-size: 1.5vw;
+      font-size: 2.3vw;
     }
 
     @media only screen and (max-width: 480px) {
-      font-size: 2vw;
+      font-size: 3vw;
     }
   }
 
   .exec-profile-position {
-    font-size: 1vw;
-    @media only screen and (max-width: 480px) {
+    font-size: 0.95vw;
+
+    @include devices(tablet) {
       font-size: 1.8vw;
+    }
+
+    @media only screen and (max-width: 480px) {
+      font-size: 2.4vw;
+    }
+  }
+
+  .exec-profile-description-discipline,
+  .exec-profile-description-role {
+    font-size: 1vw;
+
+    @include devices(tablet) {
+      font-size: 1.9vw;
+    }
+
+    @media only screen and (max-width: 480px) {
+      font-size: 2.5vw;
     }
   }
 }

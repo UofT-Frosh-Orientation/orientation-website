@@ -94,9 +94,6 @@ const ExecProfile = ({
               <h3 className="exec-profile-card-footer-name script-font">{name}</h3>
             </div>
 
-            {/* Centered Seal */}
-            <div className="card-template__seal"></div>
-
             {/* Holographic foil sheen overlay */}
             <div className="card-holo" aria-hidden="true"></div>
           </div>
