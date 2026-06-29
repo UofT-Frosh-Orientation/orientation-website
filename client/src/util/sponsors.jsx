@@ -24,7 +24,8 @@ import CityDental from '../assets/sponsors/city-dental.png';
 import CityDentalDark from '../assets/sponsors/city-dentaldark.png';
 import bikeshare from '../assets/sponsors/bikeshare.png';
 import bikesharedark from '../assets/sponsors/bikesharedark.png';
-import cosmicPizza from '../assets/sponsors/cosmicpizza.png'
+import cosmicPizza from '../assets/sponsors/cosmicpizza.png';
+import cosmicPizzaWhite from '../assets/sponsors/Cosmic_White.png';
 
 export const sponsors = [
   {
@@ -70,8 +71,8 @@ export const sponsors = [
   {
     website: 'https://collegestreet.cosmicpizza.ca/',
     image: cosmicPizza,
-    darkimage: cosmicPizza,
-    scale:0.8,
+    darkimage: cosmicPizzaWhite,
+    scale: 0.8,
     rank: 'gold',
     label: 'Gold Sponsor: Cosmic Pizza',
   },
