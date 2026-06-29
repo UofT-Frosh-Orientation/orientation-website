@@ -214,7 +214,7 @@ const PaymentServices = {
         priceId: process.env.STRIPE_TICKET_PRICE_ID,
         relativeUrlSuccess: '/registration-success',
         relativeUrlFailure: '/payment-error',
-        // coupon: process.env.STRIPE_EARLY_BIRD_COUPON_ID,
+        coupon: process.env.STRIPE_EARLY_BIRD_COUPON_ID,
       },
       retreat: {
         priceId: process.env.STRIPE_RETREAT_PRICE_ID,
