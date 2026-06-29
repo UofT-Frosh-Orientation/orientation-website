@@ -217,9 +217,6 @@ const PaymentServices = {
       ];
     }
 
-    console.log("Retreat price:", process.env.STRIPE_RETREAT_PRICE_ID);
-    console.log("Transportation price:", process.env.STRIPE_RETREAT_TRANSPORTATION_PRICE_ID);
-
     // try {
     return stripe.checkout.sessions.create(sessionOptions);
 
