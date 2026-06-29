@@ -157,7 +157,52 @@ const PaymentServices = {
       throw new Error('UNABLE_TO_GET_COUNT_OF_PAYMENTS', { cause: error });
     }
   },
+  async getTransportationCount() {
+    try {
+      const froshCount = await FroshModel.countDocuments({
+        retreatTransportation: true,
+      });
 
+      const userCount = await UserModel.countDocuments({
+        retreatTransportation: true,
+      });
+
+      return froshCount + userCount;
+    } catch (error) {
+      throw new Error('UNABLE_TO_GET_TRANSPORTATION_COUNT', {
+        cause: error,
+      });
+    }
+  },
+
+  async getTransportationAvailability() {
+    try {
+      const transportationCount = await this.getTransportationCount();
+      const maxTransportation = Number(
+        process.env.MAX_TRANSPORTATION ?? process.env.RETREAT_MAX_TICKETS,
+      );
+
+      if (!Number.isFinite(maxTransportation)) {
+        return {
+          count: transportationCount,
+          max: null,
+          available: true,
+          soldOut: false,
+        };
+      }
+
+      return {
+        count: transportationCount,
+        max: maxTransportation,
+        available: transportationCount < maxTransportation,
+        soldOut: transportationCount >= maxTransportation,
+      };
+    } catch (error) {
+      throw new Error('UNABLE_TO_GET_TRANSPORTATION_AVAILABILITY', {
+        cause: error,
+      });
+    }
+  },
   /**
    * @description Creates a checkout session for a user to pay with.
    * @param {String} email
@@ -208,13 +253,21 @@ const PaymentServices = {
     }
 
     if (type === 'retreat') {
-      sessionOptions.optional_items = [
-        {
-          price: process.env.STRIPE_RETREAT_TRANSPORTATION_PRICE_ID,
-          quantity: 1,
-          adjustable_quantity: { enabled: false },
-        },
-      ];
+      const transportationAvailability = await this.getTransportationAvailability();
+
+      if (transportationAvailability.available) {
+        sessionOptions.optional_items = [
+          {
+            price: process.env.STRIPE_RETREAT_TRANSPORTATION_PRICE_ID,
+            quantity: 1,
+            adjustable_quantity: {
+              enabled: false,
+            },
+          },
+        ];
+      } else {
+        console.log('Transportation is sold out.');
+      }
     }
 
     // try {

@@ -36,6 +36,7 @@ const RetreatFilmStrip = () => {
 
 export const FroshRetreat = () => {
   const [remainingTickets, setRemainingTickets] = useState();
+  const [transportationSoldOut, setTransportationSoldOut] = useState(false);
   const { setSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
   const isRegistered = useSelector(registeredSelector);
@@ -59,7 +60,9 @@ export const FroshRetreat = () => {
   };
 
   const remainingTicketsSetter = async () => {
-    setRemainingTickets(await getRemainingTickets(setSnackbar));
+    const status = await getRetreatTicketStatus(setSnackbar);
+    setRemainingTickets(status?.count ?? 0);
+    setTransportationSoldOut(Boolean(status?.transportationSoldOut));
   };
 
   useEffect(() => {
@@ -115,6 +118,12 @@ export const FroshRetreat = () => {
           Due to limited space, we are selling a limited number of tickets so purchase yours before
           they sell out! There are currently <b>{remainingTickets}</b> tickets left!
         </p>
+        {transportationSoldOut ? (
+          <ErrorSuccessBox
+            error
+            content="The transportation add-on is currently sold out. You can still purchase a retreat ticket without transportation."
+          />
+        ) : null}
 
         <h3 className="retreat-header">FAQ</h3>
         <FroshRetreatFAQ />
@@ -266,15 +275,21 @@ const FroshRetreatFAQ = () => {
   );
 };
 
-export async function getRemainingTickets(setSnackbar) {
+export async function getRetreatTicketStatus(setSnackbar) {
   try {
     const { axios } = useAxios();
     const response = await axios.get('/payment/frosh-retreat-remaining-tickets');
 
-    return response.data.count;
+    return response.data;
   } catch (e) {
     setSnackbar(e.toString(), true);
+    return null;
   }
+}
+
+export async function getRemainingTickets(setSnackbar) {
+  const status = await getRetreatTicketStatus(setSnackbar);
+  return status?.count ?? 0;
 }
 
 const RetreatRegistration = () => {
