@@ -1,7 +1,9 @@
 @import '../../../scssStyles/mixins';
 
 :root {
-  --resource-link: var(--jam);
+  // The resources panel background is always dark purple (--monster),
+  // so the link text must stay light in both modes for readability.
+  --resource-link: var(--lavender);
 }
 
 .dark-mode {
@@ -16,7 +18,8 @@
   padding: 10px;
   padding-top: 2px;
   h2 {
-    color: var(--text-secondary);
+    // Panel background is always dark purple, so use a light heading colour.
+    color: var(--lavender);
     font-size: 24px;
     margin-top: 20px;
     margin-bottom: 8px;
