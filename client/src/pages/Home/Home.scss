@@ -1142,10 +1142,14 @@ body {
 .sponsor-card-link:active {
   text-decoration: none !important;
   color: inherit !important;
+  background: none !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .sponsor-image-wrapper {
-  height: auto;
+  height: 100px;
   width: 200px;
   margin: 0 auto;
   padding: 4px;
