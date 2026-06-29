@@ -247,7 +247,9 @@ const PaymentServices = {
 
     // Only add discounts if a valid coupon exists
     if (coupon) {
-      sessionOptions.discounts = [{ coupon }];
+      if (coupon.max_redemptions && coupon.times_redeemed >= coupon.max_redemptions){
+        sessionOptions.discounts = [{ coupon }];
+      }
     }
 
     if (type === 'retreat') {
