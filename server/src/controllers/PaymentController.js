@@ -55,8 +55,10 @@ const PaymentController = {
       const remaining = retreatTicketLimit - count;
       res.status(200).send({
         count: remaining < 0 ? 0 : remaining,
-        transportationSoldOut: transportationAvailability.soldOut,
-        transportationAvailable: transportationAvailability.available,
+        transportationSoldOut: Boolean(transportationAvailability?.soldOut),
+        transportationAvailable: Boolean(transportationAvailability?.available),
+        soldOut: Boolean(transportationAvailability?.soldOut),
+        available: Boolean(transportationAvailability?.available),
       });
     } catch (e) {
       req.log.error({ msg: 'Unable to get frosh retreat ticket count', e });

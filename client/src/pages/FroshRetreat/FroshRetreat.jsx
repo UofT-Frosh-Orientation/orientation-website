@@ -61,8 +61,9 @@ export const FroshRetreat = () => {
 
   const remainingTicketsSetter = async () => {
     const status = await getRetreatTicketStatus(setSnackbar);
+    const soldOut = status?.transportationSoldOut ?? status?.soldOut ?? false;
     setRemainingTickets(status?.count ?? 0);
-    setTransportationSoldOut(Boolean(status?.transportationSoldOut));
+    setTransportationSoldOut(Boolean(soldOut));
   };
 
   useEffect(() => {
@@ -117,12 +118,23 @@ export const FroshRetreat = () => {
         <p className="retreat-text">
           Due to limited space, we are selling a limited number of tickets so purchase yours before
           they sell out! There are currently <b>{remainingTickets}</b> tickets left!
+
+          transportation is sold out: {transportationSoldOut}
         </p>
         {transportationSoldOut ? (
-          <ErrorSuccessBox
-            error
-            content="The transportation add-on is currently sold out. You can still purchase a retreat ticket without transportation."
-          />
+          <div
+            style={{
+              marginTop: '12px',
+              padding: '12px 16px',
+              border: '1px solid #d32f2f',
+              borderRadius: '8px',
+              backgroundColor: '#fff3f3',
+              color: '#8b0000',
+            }}
+          >
+            <strong>Transportation is currently sold out.</strong> You can still purchase a retreat
+            ticket without transportation.
+          </div>
         ) : null}
 
         <h3 className="retreat-header">FAQ</h3>
