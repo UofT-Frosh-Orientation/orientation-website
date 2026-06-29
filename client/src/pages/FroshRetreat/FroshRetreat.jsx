@@ -159,7 +159,7 @@ export const FroshRetreat = () => {
         </div>
 
         <h3 className="retreat-header">Registration</h3>
-        <RetreatRegistration />
+        <RetreatRegistration transportationSoldOut={transportationSoldOut} />
       </div>
     </div>
   );
@@ -286,7 +286,7 @@ export async function getRemainingTickets(setSnackbar) {
   return status?.count ?? 0;
 }
 
-const RetreatRegistration = () => {
+const RetreatRegistration = ({ transportationSoldOut }) => {
   const [viewedWaiver, setViewedWaiver] = useState(false);
   const [waiverValue, setWaiverValue] = useState();
   const [buttonClicked, setButtonClicked] = useState(false);
