@@ -223,7 +223,7 @@ const PaymentServices = {
       },
     };
 
-    const coupon = products[type]?.coupon; // undefined or string
+    const couponId = products[type]?.coupon; // undefined or string
 
     const sessionOptions = {
       customer_email: email,
@@ -245,10 +245,19 @@ const PaymentServices = {
       }`,
     };
 
-    // Only add discounts if a valid coupon exists
-    if (coupon) {
-      if (coupon.max_redemptions && coupon.times_redeemed >= coupon.max_redemptions){
-        sessionOptions.discounts = [{ coupon }];
+    // Only add the coupon when it still has available redemptions.
+    if (typeof couponId === 'string' && couponId.trim()) {
+      try {
+        const couponDetails = await stripe.coupons.retrieve(couponId);
+        if (
+          !couponDetails?.deleted &&
+          (!couponDetails.max_redemptions ||
+            couponDetails.times_redeemed < couponDetails.max_redemptions)
+        ) {
+          sessionOptions.discounts = [{ coupon: couponId }];
+        }
+      } catch (error) {
+        console.error('Unable to retrieve coupon details', error);
       }
     }
 
