@@ -86,7 +86,7 @@ export const PasswordReset = () => {
   }, [loading, resetPasswordSucceeded]);
 
   return (
-    <div>
+    <div className="password-reset-page-background">
       <div
         className={`password-reset-page ${!isForm ? 'password-reset-page-disappear' : ''}`}
         style={{ display: resetPasswordSucceeded ? 'none' : '' }}
