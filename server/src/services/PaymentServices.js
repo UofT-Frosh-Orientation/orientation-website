@@ -48,6 +48,25 @@ const PaymentServices = {
       }
     }
 
+    let wantsTransportation = false;
+    try {
+      const sessions = await stripe.checkout.sessions.list({
+        payment_intent: paymentId,
+        limit: 1,
+      });
+
+      if (sessions.data.length > 0) {
+        const session = sessions.data[0];
+        const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
+        
+        wantsTransportation = lineItems.data.some(
+          (item) => item.price.id === process.env.STRIPE_RETREAT_TRANSPORTATION_PRICE_ID,
+        );
+      }
+    } catch (stripeError) {
+      console.error('Failed to look up line items from Stripe:', stripeError);
+    }
+
     //if found in FroshModel
     if (frosh) {
       console.log(`found in frosh model`);
@@ -78,7 +97,7 @@ const PaymentServices = {
         );
       } else if (frosh.payments[idx].item === 'Retreat Ticket') {
         console.log(`frosh payment type is retreat ticket`);
-        frosh.set({ isRetreat: true });
+        frosh.set({ isRetreat: true, retreatTransportation: wantsTransportation });
         await frosh.save({ validateModifiedOnly: true }).catch((error) => {
           throw new Error('UNABLE_TO_UPDATE_FROSH', { cause: error });
         });
@@ -97,7 +116,7 @@ const PaymentServices = {
 
       if (user.payments[idx].item === 'Retreat Ticket') {
         console.log(`frosh payment type is retreat ticket`);
-        user.set({ isRetreat: true });
+        user.set({ isRetreat: true, retreatTransportation: wantsTransportation});
         await user.save({ validateModifiedOnly: true }).catch((error) => {
           throw new Error('UNABLE_TO_UPDATE_USER', { cause: error });
         });
@@ -187,6 +206,17 @@ const PaymentServices = {
     if (coupon) {
       sessionOptions.discounts = [{ coupon }];
     }
+
+    if (type === 'retreat') {
+      sessionOptions.optional_items = [
+        {
+          price: process.env.STRIPE_RETREAT_TRANSPORTATION_PRICE_ID,
+          quantity: 1,
+          adjustable_quantity: { enabled: false },
+        },
+      ];
+    }
+
     // try {
     return stripe.checkout.sessions.create(sessionOptions);
 
