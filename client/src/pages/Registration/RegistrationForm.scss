@@ -176,6 +176,26 @@ body.dark-mode .registration-page-wrapper {
   align-items: center;
 }
 
+.registration-edit-actions {
+  width: 100%;
+  margin-bottom: 55px;
+
+  // Clear the fixed bottom navbar (80px tall) on mobile so the buttons aren't cut off
+  @include devices(mobile) {
+    margin-bottom: 110px;
+  }
+}
+
+.registration-edit-actions-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+}
+
 .registration-form-card {
   background: var(--background-secondary);
   border-radius: 16px;
