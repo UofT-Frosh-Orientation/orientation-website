@@ -121,7 +121,9 @@ const PageProfileFrosh = () => {
                 <ButtonRound label="Register" style={{ marginLeft: '20px' }} />
               </Link>
             </div>
-          ) : null}
+          ) : (
+            <ProfilePageRetreat />
+          )}
 
           <div className="profile-info-top mobile-only">
             <ProfilePageQRCode />
@@ -132,7 +134,6 @@ const PageProfileFrosh = () => {
           </div>
 
           {/* {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null} */}
-          <ProfilePageRetreat />
 
           {/* <ProfilePageScuntMessage /> */}
           {/* {isRegistered ? <ProfilePageFroshOlympiks /> : null} */}
