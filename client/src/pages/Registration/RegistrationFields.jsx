@@ -491,15 +491,15 @@ export const fields = {
       label:
         'Would you like to attend an overnight retreat on September 5th-6th at Hart House Farms? (At an additional cost)',
       values: ['Yes', 'No'],
-      initialSelectedIndex: 0,
+      initialSelectedIndex: 1,
       isRequiredInput: true,
       noEdit: true,
       localStorageKey: 'registration-attendingRetreat',
       onChanged: (values, disableField) => {
-        if (values.includes('Other')) {
-          disableField(false, 'transportation', 'ExtraEvents');
+        if (values.includes('Yes')) {
+          disableField(false, 'retreatTransportation', 'ExtraEvents');
         } else {
-          disableField(true, 'transportation', 'ExtraEvents');
+          disableField(true, 'retreatTransportation', 'ExtraEvents');
         }
       }
     },
@@ -510,10 +510,10 @@ export const fields = {
       isSub: true,
     },
     retreatTransportation: {
-      type:'radio',
-      label: 
-        'Do you require transportation to the F!rosh retreat?',
-      initialSelectedIndex: 0,
+      type: 'radio',
+      label: 'Do you require transportation to the F!rosh retreat?',
+      values: ['Yes', 'No'],
+      initialSelectedIndex: 1,
       isRequiredInput: true,
       noEdit: false,
       localStorageKey: 'registration-retreatTransportation',
