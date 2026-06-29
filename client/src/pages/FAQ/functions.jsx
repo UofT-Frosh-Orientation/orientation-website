@@ -20,21 +20,21 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'What is F!rosh Week?',
       answer:
-        "F!rosh Week is the first week of the Fall semester where incoming first year students are introduced to the SKULE community. Students will join F!rosh groups with other incoming first years and upper year leedurs to learn more about UofT's engineering traditions and culture. For more information check out the About Page. ",
+        'F!rosh Week happens the week before the beginning of classes in the Fall semester. During this week, incoming first-year students are introduced to the Skule™ community. Students will join F!rosh groups with other incoming first years and upper year leedurs to learn more about U of T Engineering’s traditions and culture. For more information, check out the About Page.',
       lastUpdated: '2:00 pm',
       category: 'General',
     },
     {
       question: 'What is the best place to get information about F!rosh Week?',
       answer:
-        "There's a ton of ways we'll be sending you information this summer as we get closer to F!rosh Week. This site is one of the best starting places where you can check out these FAQs, find the F!rosh Week schedule, read about our team and more! The next best place is on social media! Go follow us on Instagram and TikTok (both @froshweek) to stay up to date on everything F!rosh Week this summer! Lastly, but maybe most importantly, check your email! All throughout the summer we'll be sending important updates and information to the email that you've signed up with on this site so make sure you're checking that inbox.",
+        "There's a ton of ways we'll be sending you information this summer as we get closer to F!rosh Week:\n• F!rosh Website: This site is one of the best starting places where you can check out these FAQs, find the F!rosh Week schedule, read about our team, and more!\n• Social Media: The next best place is on social media! Go follow us on Instagram and TikTok (both @froshweek) to stay up to date on everything F!rosh Week this summer!\n    • Our Discord server: Join our Discord server https://discord.gg/yZvTXC47n to chat with fellow first-years and your upper-year Leedurs\n• Your email: Lastly, but maybe most importantly, check your email! All throughout the summer we'll be sending important updates and information to the email that you've signed up with on this site so make sure you're checking that inbox.",
       lastUpdated: '2:00 pm',
       category: 'General',
     },
     {
       question: 'Who is part of F!rosh Week?',
       answer:
-        'All engineering students are part of F!rosh Week! The incoming first years will be participating in the activities and current engineering students are helping run and organize the event. ',
+        'All engineering students are part of F!rosh Week! Incoming first-years will be participating in the various activities while upper-year students help run and organize the event. ',
       lastUpdated: '2:00 pm',
       category: 'General',
     },
@@ -47,78 +47,70 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'What should I bring on the first day?',
       answer:
-        'Yourself! A good attitude! And a whole lotta HYPE! But also these: Proof of registration (more info on what proof is needed when you register!), sunscreen (#safetyissexy), comfortable shoes, health card (just in case you need it), and a bathing suit!',
+        'Definitely bring:\n    • Yourself!\n    • A good attitude!\n    • And a whole lotta HYPE!\nBut also these:\n    • Proof of registration (more info on what proof is needed when you register!)\n    • Sunscreen (#safetyissexy)\n    • Comfortable shoes.\n    • Health card (just in case you need it).\n    • A bathing suit.',
       lastUpdated: '12:21pm, Jun 22, 2024',
       category: 'General',
     },
     {
       question: 'What do I do if I arrive late?',
       answer:
-        'Please try to arrive on time (Toronto transit and traffic can be unpredictable, so we highly recommend a bit of buffer!), but if you arrive late due to unforeseen circumstances, make your way to the AFK Lounge (you can ask anyone wearing a F!rosh Week shirt that isn’t yellow) and we can get you to your group from there! \n\n If you know in advance that you will be arriving late, please send us a message at registration@orientation.skule.ca after registering so your leedurs can plan accordingly!',
+        'Please try to arrive on time. Toronto transit and traffic can be unpredictable, so we highly recommend adding a bit of a buffer to your travels! If you arrive late due to unforeseen circumstances, make your way to the Drive-In (you can ask anyone wearing a F!rosh Week shirt that isn’t yellow about this) and we can get you to your group from there! If you know in advance that you will be arriving late, please send us a message at registration@orientation.skule.ca after registering so your Leedurs can plan accordingly!',
       lastUpdated: '12:21pm, Jun 22, 2024',
       category: 'General',
     },
     {
       question: 'How do I register for F!rosh Week?',
       answer:
-        'Register for F!rosh Week at orientation.skule.ca starting July 2nd! Follow us on Instagram @froshweek and join the F!rosh Week 2T5 Discord server. To stay up to date throughout the summer! Important links can also be found at linktr.ee/froshweek. Link to Discord server: https://discord.gg/Fnxr7tp34E',
+        'Register for F!rosh Week at orientation.skule.ca starting June 29th! Follow us on Instagram @froshweek and join the F!rosh Week 2T6 Discord server https://discord.gg/yZvTXC47n to stay up-to-date throughout the summer! Important links can also be found at our Linktree linktr.ee/froshweek. ',
       lastUpdated: '18:10pm, Jun 28, 2025',
       category: 'Registration',
     },
     {
       question: 'What do I get by registering?',
       answer:
-        'Access to all F!rosh Week events! Your very own F!rosh Kit, full of skule-themed items! Memories that will last a lifetime <3',
+        '• Access to all F!rosh Week events!\n• Your very own F!rosh Kit, full of Skule™-themed items!\n• Memories that will last a lifetime <3',
       lastUpdated: '12:30pm, Jun 22, 2024',
       category: 'Registration',
     },
     {
       question: 'When is the deadline to register for F!rosh Week?',
       answer:
-        'No official deadline, but you should sign up before August 25th if you want to participate in all of the activities!',
+        'There is no official deadline to register for F!rosh Week, but you should sign up before August 31st if you want to participate in all of the activities!',
       lastUpdated: '18:12pm, Jun 28, 2025',
       category: 'Registration',
     },
     {
       question: 'Is it possible to get a refund?',
       answer:
-        'Yes, if you decide you do not want to participate anymore, both the F!rosh Week tickets and F!rosh Retreat tickets are refundable until August 18th at 11:59 PM. After that, we will not be able to issue any refunds.',
+        'Yes, if you decide you do not want to participate anymore, both the F!rosh Week tickets and F!rosh Retreat tickets are refundable until August 17th/24th at 11:59 PM. After that, we will not be able to issue any refunds.',
       lastUpdated: '18:12pm, Jun 28, 2025',
       category: 'Registration',
     },
-    /*{
-      question: 'What are in the F!rosh Kits?',
-      answer:
-        "Lots of fun items to make your F!rosh Week memorable! It includes a yellow hard hat, F!rosh Shirt, a water bottle to keep you hydrated and many more suprises! Just not a pet dino because they didn't fit in the box :(",
-      lastUpdated: '2:00 pm',
-      category: 'F!rosh Kits',
-    },*/ //old frosh kits answer before 2T4
     {
       question: 'What comes in the F!rosh Kits?',
       answer:
-        'A dashing yellow hardhat!; SkuleTM bag to hold all of your super awesome new merch; Water bottle to keep you hydrated #hydrationissexy :) ; Not one, but TWO snazzy t-shirts; So. much. F!rosh. Swag.',
-
+        '• A dashing yellow hardhat!\n• A Skule™ bag to hold all of your super awesome new merch.\n• A water bottle to keep you hydrated #hydrationissexy :)\n• Not one, but TWO snazzy t-shirts.\n• So. Much. F!rosh. Swag.',
       lastUpdated: '12:30pm, Jun 22, 2024',
       category: 'F!rosh Kits',
     },
     {
-      question: 'When and How are we getting the F!rosh kits?',
+      question: 'When and how are we getting the F!rosh kits?',
       answer:
-        'You will get your MEGAkit (pre-kit + F!rosh kit) the day of F!rosh during registration.',
+        'You will get your MEGA kit (a pre-kit and the F!rosh kit) on the day of F!rosh during registration.',
       lastUpdated: '3:00 am, Aug 23, 2024',
       category: 'F!rosh Kits',
     },
     {
       question: 'Can we choose our F!rosh groups or people to be with us?',
       answer:
-        'Unfortunately, no the groups are designed to be randomized and mixed across disciplines and other factions which gives you the amazing opportunity to meet a wide range of incoming First Years and make some new friends!',
+        'Unfortunately, you cannot choose your F!rosh group. The groups are designed to be randomized and mixed across disciplines and other factors to give you the amazing opportunity to meet a wide range of incoming first-years and make new friends!',
       lastUpdated: '2:00 pm',
       category: 'F!rosh Group',
     },
     {
-      question: 'Will there be events prior to F!rosh Week with our F!rosh Groups',
+      question: 'Will there be events prior to F!rosh Week with our F!rosh Groups?',
       answer:
-        "There is no prior events for F!rosh groups in particular but you can get involved in outreach meet-ups that'll be happening all summer! Check out our Instagram (@froshweek) for more information or the Home Page of the website.",
+        'There are no prior events for F!rosh groups specifically, but you can join us in outreach meet-ups that will be happening all summer! Check out our Instagram (@froshweek) for more information',
       lastUpdated: '2:00 pm',
       category: 'F!rosh Group',
     },

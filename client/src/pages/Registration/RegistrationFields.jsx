@@ -473,14 +473,14 @@ export const fields = {
     attendingScunt: {
       type: 'radio',
       label:
-        'Would you like to participate in SKULE™ Hunt? (It will take place on the evening of Wednesday, August 27th)',
+        'Would you like to participate in SKULE™ Hunt? (It will take place on the evening of Wednesday, September 2nd)',
       values: ['Yes', 'No'],
       initialSelectedIndex: 0,
       localStorageKey: 'registration-scunt',
       noEdit: true, // Edit this to be false for most of registration, will only be true on the Tuesday before scunt
       isRequiredInput: true,
     },
-    scuntInfo: {
+    skuleHuntInfo: {
       type: 'label',
       label:
         "SKULE™ Hunt is a scavenger hunt around the city of Toronto! Don't miss out on one of the most popular F!rosh Week events! It's an exciting night of challenges for all comfort levels.",
@@ -489,9 +489,9 @@ export const fields = {
     attendingRetreat: {
       type: 'radio',
       label:
-        'Would you like to attend an overnight retreat on August 30th - 31st at Hart House Farms? (At an additional cost)',
+        'Would you like to attend an overnight retreat on September 5th-6th at Hart House Farms? (At an additional cost)',
       values: ['Yes', 'No'],
-      initialSelectedIndex: 0,
+      initialSelectedIndex: 1,
       isRequiredInput: true,
       noEdit: true,
       localStorageKey: 'registration-attendingRetreat',
@@ -499,7 +499,7 @@ export const fields = {
     priceInfo: {
       type: 'label',
       label:
-        'The price of a F!rosh Retreat ticket is $110 CAD. Answering "Yes" to this question will not add the retreat cost to your payment or guarantee you a spot at the retreat. Please see the retreat page linked on your profile for details about the payment process.',
+        'The price of a F!rosh Retreat ticket is $110 CAD with transportation and $100 without transportation. Answering "Yes" to this question will not add the retreat cost to your payment or guarantee you a spot at the retreat. Please see the retreat page linked on your profile for details about the payment process.',
       isSub: true,
     },
     summerLocationQuery: {
@@ -543,7 +543,7 @@ export const fields = {
     bursaryInfo: {
       type: 'label',
       label:
-        'The price of a F!rosh Week ticket is $130 CAD. We will be making bursary decisions after F!rosh Week and will refund the amount to the students after the decisions. Our team will reach out to you for more details regarding the bursary program. Bursaries range from partial to complete settlement of the ticket price.',
+        'The price of a F!rosh Week ticket is $135 CAD. We will be making bursary decisions after F!rosh Week and will refund the amount to the students after the decisions. Our team will reach out to you for more details regarding the bursary program. Bursaries range from partial to complete settlement of the ticket price.',
       isSub: true,
     },
     marketing: {

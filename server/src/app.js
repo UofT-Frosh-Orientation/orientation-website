@@ -16,12 +16,16 @@ const corsOptions = {
     process.env.CLIENT_BASE_URL,
     process.env.API_BASE_URL,
     'https://checkout.stripe.com',
-    'https://orientation.skule.ca',
-    'https://www.orientation.skule.ca',
+    'https://www.beta.orientation.skule.ca',
+    'https://beta.orientation.skule.ca',
   ],
+    methods: ['GET', 'POST', 'DELETE' ,'HEAD','PUT','PATCH'],
+    optionsSuccessStatus: 200 //
 };
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // handle preflight requests for all routes
+
 
 app.use('/payment/stripe-callback', bodyParser.raw({ type: '*/*' }));
 app.use(bodyParser.json({ limit: '50mb' }));

@@ -102,7 +102,8 @@
   bottom: 8px;
   right: 10px;
   position: fixed;
-  z-index: 10;
+  z-index: 1000000000;
+  background:none;
   @include devices(tablet) {
     bottom: 85px;
     left: 10px;
@@ -131,4 +132,83 @@
   // @include devices(tablet) {
   margin-right: 0px;
   // }
+}
+
+.faq-fab-cd-disc {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #c0c0c0 0deg 30deg,
+    #a8a8d0 30deg 60deg,
+    #c8c8e8 60deg 90deg,
+    #b0b0cc 90deg 120deg,
+    #d0d0f0 120deg 150deg,
+    #b8b8e0 150deg 180deg,
+    #c0c0c0 180deg 210deg,
+    #a8a8d0 210deg 240deg,
+    #c8c8e8 240deg 270deg,
+    #b0b0cc 270deg 300deg,
+    #d0d0f0 300deg 330deg,
+    #b8b8e0 330deg 360deg
+  );
+  position: absolute;
+  transition: transform 0.1s linear;
+}
+
+.faq-fab-cd-hole {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #3a3a5c;
+  position: absolute;
+  z-index: 2;
+  border: 3px solid #2a2a4a;
+}
+
+.faq-fab-cd-label {
+  position: absolute;
+  z-index: 3;
+  width: 25px;
+  height: 25px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  filter: brightness(0) invert(1);
+  pointer-events: none;
+}
+
+.faq-fab-cd {
+  width: 68px;
+  height: 68px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.faq-fab:hover .faq-fab-cd-disc {
+  animation: cd-spin 1.2s linear infinite;
+}
+
+@keyframes cd-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.faq-fab .button {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-image: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  min-width: unset !important;
+  min-height: unset !important;
 }

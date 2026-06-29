@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { getSlideshowImages, getTimelineEvents } from './functions';
+import React, { useState, useEffect, useContext, useRef } from 'react';
+import { getSlideshowImages, getTimelineEvents, describeArc } from './functions';
 import './Home.scss';
 import Wave from '../../assets/misc/wave.png';
 import WaveReverse from '../../assets/misc/wave-reverse.png';
@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 import { Timeline } from '../../components/timeline/Timeline/Timeline';
 import { ImageCarousel } from '../../components/ImageCarousel/ImageCarousel';
-import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
+import MainFroshLogo from '../../assets/logo/2T6logo.png';
 import 'react-slideshow-image/dist/styles.css';
 import { Slide } from 'react-slideshow-image';
 import { ScheduleComponent } from '../../components/schedule/ScheduleHome/ScheduleHome';
@@ -34,49 +34,98 @@ import DiamondMedal from '../../assets/sponsors/sponsormedals/diamond.png';
 import GoldMedal from '../../assets/sponsors/sponsormedals/gold.png';
 import SilverMedal from '../../assets/sponsors/sponsormedals/silver.png';
 import BronzeMedal from '../../assets/sponsors/sponsormedals/bronze.png';
-
 import { CountdownHome } from '../../components/countdown/countdown';
 
 const PageHome = () => {
   return (
     <>
       <HomePageHeader />
-      <CountdownHome />
+      {/* "What is F!rosh Week? / What is SKULE?" blurb hidden per request */}
+      {/* <HomePageAboutBlurb /> */}
+      <HomePageFilmStrip />
       <HomePageTimeline />
-      <HomePageSchedule />
-      <PageAbout />
+      {/* Other Events section (heading + spinning vinyl + thumbnail + info panel) hidden per request */}
+      {/* <PageAbout /> */}
       <HomePageSponsors />
     </>
   );
 };
 
 const HomePageHeader = () => {
-  const { darkMode } = useContext(DarkModeContext);
-
+  const loggedIn = useSelector(loggedInSelector);
   return (
     <div className="home-page-header">
-      {/* <LazyLoadImage
-        src={MainFroshLogo}
-        className="FroshHardHatWhite-logo"
-        alt="home page frosh logo"
-        effect="blur"
-      ></LazyLoadImage> */}
-      <div className="home-page-header-text">
-        <h2>Welcome to</h2>
-        <h1>F!rosh</h1>
-        <h1>Week</h1>
-        {/* <p>Organized by the University of Toronto Engineering Society Orientation Commitee</p> */}
-        <HomeHeaderButton />
-        <p>Registration for F!rosh Week 2T5 is now closed!</p>
+      <div className="header-checker-block">
+        <CountdownHome />
       </div>
-      <div className="home-page-landing-image-container">
-        <HomePageSlideshow />
+
+      {/* Star: top-right corner, independent — links to registration.
+          NOTE: don't add `no-link-style` here — the global `a.no-link-style`
+          rule uses `all: unset`, which would wipe the star's positioning,
+          clip-path and background. The class below already sets the text color. */}
+      <Link
+        to={loggedIn ? '/profile' : '/sign-up'}
+        className="header-register-star"
+        style={{ textDecoration: 'none' }}
+      >
+        <span style={{ transform: 'rotate(-23deg)', display: 'block', marginLeft: '12px' }}>
+          Register
+          <br />
+          Now!
+        </span>
+      </Link>
+
+      <div className="header-text-stack">
+        <div className="header-frosh-text">F!rosh</div>
+        <div className="header-week-text">
+          {'WEEK'.split('').map((letter, i) => (
+            <span key={i}>{letter}</span>
+          ))}
+        </div>
+        <span className="home-page-2t6-text">2T6</span>
       </div>
-      {/* {darkMode ? (
-        <img src={WaveDarkMode} className="wave-image home-page-top-wave-image" alt="wave-img" />
-      ) : (
-        <img src={Wave} className="wave-image home-page-top-wave-image" alt="wave-img" />
-      )} */}
+    </div>
+  );
+};
+
+const HomePageFilmStrip = () => {
+  const images = getSlideshowImages();
+  const looped = [...images, ...images];
+  return (
+    <div className="film-strip-container">
+      <div className="film-strip-holes" />
+      <div className="film-strip-track">
+        {looped.map((img, i) => (
+          <img key={i} src={img.src} className="film-strip-photo" alt="" />
+        ))}
+      </div>
+      <div className="film-strip-holes" />
+    </div>
+  );
+};
+
+const HomePageAboutBlurb = () => {
+  return (
+    <div className="home-page-about-blurb">
+      <div className="home-page-about-col">
+        <h2>What is F!rosh Week?</h2>
+        <p>
+          F!rosh Week is a week-long orientation where students and faculty welcome over 1000
+          incoming students to the U of T Engineering Community! Central to the experience at
+          Skule™, F!rosh Week consists of engaging and exciting events designed to introduce
+          students to the community, traditions, and spirit of U of T Engineering.
+        </p>
+      </div>
+      <div className="home-page-about-divider" />
+      <div className="home-page-about-col">
+        <h2>What is SKULE™?</h2>
+        <p>
+          Skule™ is the name of the University of Toronto&apos;s engineering community at the St.
+          George campus. It is made up of about 5000 undergraduate students, hundreds of graduate
+          students, and a range of dedicated alumni. It is also home to hundreds of engineering
+          clubs, athletics teams, design teams, and traditions.
+        </p>
+      </div>
     </div>
   );
 };
@@ -267,69 +316,168 @@ const PageAbout = () => {
   );
 };
 
+const SPIN_DURATION = 25000; // ms, matches CSS 25s
+const LABEL_START_ANGLES = [0, 120, 240]; // Each arc starts here
+
 const AboutUsSection = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [rotationDeg, setRotationDeg] = useState(0);
+  const startTimeRef = useRef(null);
+  const rafRef = useRef(null);
+  const activeEvent = otherEventsData[activeIndex];
+
+  useEffect(() => {
+    const animate = (timestamp) => {
+      if (!startTimeRef.current) startTimeRef.current = timestamp;
+
+      const elapsed = timestamp - startTimeRef.current;
+      const deg = (elapsed / SPIN_DURATION) * 360; // Clockwise rotation degree
+      setRotationDeg(deg);
+
+      // The right side (3 o'clock) sits at exactly 90 degrees in this coordinate system
+      const ARROW_TARGET_ANGLE = 90;
+
+      // Small tolerance window (in degrees) to ensure requestAnimationFrame catches the alignment
+      const INTERSECTION_TOLERANCE = 3;
+
+      let found = -1;
+
+      LABEL_START_ANGLES.forEach((startAngle, i) => {
+        // The arc spans 110 degrees, so its exact middle is at startAngle + 55
+        const textMidpoint = startAngle + 55;
+
+        // Calculate the current absolute angle of this midpoint as the vinyl spins clockwise
+        const currentMidpointAngle = (textMidpoint + deg) % 360;
+
+        // Calculate the shortest angular distance to the right-side arrow (90°)
+        const diff = Math.min(
+          Math.abs(currentMidpointAngle - ARROW_TARGET_ANGLE),
+          360 - Math.abs(currentMidpointAngle - ARROW_TARGET_ANGLE),
+        );
+
+        // Only switch the panel data when the middle of the title hits the arrow line
+        if (diff < INTERSECTION_TOLERANCE) {
+          found = i;
+        }
+      });
+
+      if (found !== -1) {
+        setActiveIndex(found);
+      }
+
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
+
   return (
-    <Header text="Other Events">
-      <>
-        {otherEventsData.map((info, index) => {
-          return (
-            <EventCard
-              key={index}
-              title={info.title}
-              content={info.description}
-              photoUrl={info.image}
-              bgColorClass={index == 1 ? 'bg-purple' : 'bg-yellow'}
-              textColorClass={index == 1 ? 'text-white' : 'text-black'}
-              link={info.link}
-            />
-            // <div className="otherevents-subsubcontainer" key={info.title}>
-            //   <div className="otherevents-image-container">
-            //     <LazyLoadImage
-            //       className="otherevents-image"
-            //       src={index === 0 ? bsologo : facultylogo}
-            //       alt={info.title}
-            //     ></LazyLoadImage>
-            //   </div>
-            //   <div className="otherevents-info-container" key={info.title}>
-            //     <div className="otherevents-info">
-            //       <h2 className="otherevents-info-title">{info.title}</h2>
-            //       <p
-            //         className="otherevents-info-des"
-            //         dangerouslySetInnerHTML={{ __html: info.description }}
-            //       ></p>
-            //     </div>
-            //   </div>
-            // </div>
-          );
-        })}
-      </>
-    </Header>
+    <div className="other-events-section">
+      <h2 className="other-events-heading">Other Events</h2>
+      <div className="other-events-layout">
+        {/* Left: Vinyl */}
+        <div className="vinyl-wrapper">
+          <div className="vinyl-disc">
+            <svg className="vinyl-disc-svg" viewBox="0 0 400 400">
+              <defs>
+                <circle id="discCircle" cx="200" cy="200" r="180" />
+                {otherEventsData.map((event, index) => (
+                  <path
+                    key={`arc-${index}`}
+                    id={`labelArc${index}`}
+                    d={describeArc(200, 200, [150, 120, 90][index], index * 120, index * 120 + 110)}
+                    fill="none"
+                  />
+                ))}
+              </defs>
+
+              {/* Spinning disc group */}
+              <g style={{ transformOrigin: '200px 200px', transform: `rotate(${rotationDeg}deg)` }}>
+                <use href="#discCircle" fill="#111" />
+                {[150, 120, 90, 60].map((r) => (
+                  <circle
+                    key={r}
+                    cx="200"
+                    cy="200"
+                    r={r}
+                    fill="none"
+                    stroke="#555"
+                    strokeOpacity="0.5"
+                    strokeWidth="1"
+                  />
+                ))}
+                {otherEventsData.map((event, index) => (
+                  <text
+                    key={index}
+                    className={`vinyl-label-svg ${activeIndex === index ? 'active' : ''}`}
+                    onClick={() => setActiveIndex(index)}
+                  >
+                    <textPath href={`#labelArc${index}`} startOffset="0%">
+                      {event.title}
+                    </textPath>
+                  </text>
+                ))}
+                {/* Yellow center label */}
+                <circle cx="200" cy="200" r="30" fill="#FCC600" stroke="#000000" strokeWidth="1" />
+                <circle cx="200" cy="200" r="4" fill="#ffffff" />
+              </g>
+
+              {/* Fixed Arrow Indicator - Explicitly locked on the RIGHT side pointing LEFT */}
+              {/* Tip is at x=365 (inside disc edge), Base is at x=385 (near outer edge) */}
+              <polygon
+                points="365,200 385,190 385,210"
+                fill="#FCC600"
+                stroke="#000"
+                strokeWidth="1"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <div className="other-events-thumb-wrapper">
+          <img src={activeEvent.image} alt={activeEvent.title} className="other-events-thumb-img" />
+        </div>
+
+        <div className="other-events-info-panel">
+          <div className="other-events-info-text">
+            <h3>{activeEvent.title}</h3>
+            <p>{activeEvent.description}</p>
+
+            <a
+              href={activeEvent.link}
+              target="_blank"
+              rel="noreferrer"
+              className="other-events-learn-more"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
 const HomePageSponsors = () => {
-  // To create a seamless infinite scroll, duplicate the sponsors list.
   const loopedSponsors = [...sponsors, ...sponsors, ...sponsors];
   const { darkMode } = useContext(DarkModeContext);
 
   return (
     <div className="home-page-sponsors">
       <div className="home-page-sponsors-header">
-        <h2>Our Sponsors</h2>
+        <h2 className="sponsors-heading-genty">Our Sponsors</h2>
         <p>F!rosh Week was brought to you thanks to the generous support of our sponsors!</p>
       </div>
 
       {sponsors.length > 0 && (
         <div className="sponsors-carousel-container" style={{ '--item-count': sponsors.length }}>
+          {' '}
           <div className="sponsors-carousel-track">
             {loopedSponsors.map((item, index) => {
-              // Add a class based on the sponsor's rank for styling
               const rankClass = item.rank ? `sponsor-card--${item.rank.toLowerCase()}` : '';
-              // Extract only the sponsor's name from the label
               const sponsorName = item.label.includes(':') ? item.label.split(': ')[1] : item.label;
-              // Get the appropriate medal icon
               const medalIcon = getMedalIcon(item.rank);
-
               return (
                 <div key={`${item.name}-${index}`} className={`sponsor-card ${rankClass}`}>
                   <a
@@ -346,21 +494,12 @@ const HomePageSponsors = () => {
                       />
                     )}
                     <div className="sponsor-image-wrapper">
-                      {darkMode ? (
-                        <LazyLoadImage
-                          alt={item.name}
-                          effect="blur"
-                          src={item.darkimage}
-                          className="sponsor-image"
-                        />
-                      ) : (
-                        <LazyLoadImage
-                          alt={item.name}
-                          effect="blur"
-                          src={item.image}
-                          className="sponsor-image"
-                        />
-                      )}
+                      <LazyLoadImage
+                        alt={item.name}
+                        effect="blur"
+                        src={darkMode ? item.darkimage : item.image}
+                        className="sponsor-image"
+                      />
                     </div>
                     <p className="sponsor-name">{sponsorName}</p>
                   </a>
@@ -378,12 +517,17 @@ const HomePageSponsors = () => {
 const PleaseSponsor = () => {
   return (
     <div className="please-sponsor-container">
-      <h3>Become a Sponsor</h3>
-      <p>
-        Please contact us at{' '}
-        <a href="mailto:sponsorship@orientation.skule.ca">sponsorship@orientation.skule.ca</a> to
-        learn more about our sponsorship opportunities.
-      </p>
+      <h3 className="please-sponsor-heading">
+        Become a<br />
+        <span className="sponsor-word-big">Sponsor!</span>
+      </h3>
+      <div className="please-sponsor-checkers">
+        <p className="please-sponsor-text">
+          Please contact us at{' '}
+          <a href="mailto:sponsorship@orientation.skule.ca">sponsorship@orientation.skule.ca</a> to
+          learn more about our sponsorship opportunities.
+        </p>
+      </div>
     </div>
   );
 };

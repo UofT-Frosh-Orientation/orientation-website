@@ -49,9 +49,17 @@ const PaymentController = {
   async froshRetreatTicketCount(req, res, next) {
     try {
       const count = await PaymentServices.getNonExpiredPaymentsCountForItem('Retreat Ticket');
+      const transportationAvailability = await PaymentServices.getTransportationAvailability();
       console.log(`retreat tickets purchased : ${count}`);
-      const remaining = process.env.RETREAT_MAX_TICKETS - count;
-      res.status(200).send({ count: remaining < 0 ? 0 : remaining });
+      const retreatTicketLimit = Number(process.env.RETREAT_MAX_TICKETS);
+      const remaining = retreatTicketLimit - count;
+      res.status(200).send({
+        count: remaining < 0 ? 0 : remaining,
+        transportationSoldOut: Boolean(transportationAvailability?.soldOut),
+        transportationAvailable: Boolean(transportationAvailability?.available),
+        soldOut: Boolean(transportationAvailability?.soldOut),
+        available: Boolean(transportationAvailability?.available),
+      });
     } catch (e) {
       req.log.error({ msg: 'Unable to get frosh retreat ticket count', e });
       next(e);
@@ -62,7 +70,8 @@ const PaymentController = {
     try {
       const user = req.user;
       const count = await PaymentServices.getNonExpiredPaymentsCountForItem('Retreat Ticket');
-      if (count < process.env.RETREAT_MAX_TICKETS) {
+      const retreatTicketLimit = Number(process.env.RETREAT_MAX_TICKETS);
+      if (count < retreatTicketLimit) {
         const { url, payment_intent } = await PaymentServices.createCheckoutSession(
           user.email,
           'retreat',

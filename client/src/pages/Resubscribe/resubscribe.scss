@@ -1,7 +1,9 @@
 @import '../../scssStyles/mixins';
 
 .resubscribe-page {
-  margin-top: 5vh;
+  background-color: var(--bg-main);
+  min-height: 100vh;
+  padding-top: 5vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

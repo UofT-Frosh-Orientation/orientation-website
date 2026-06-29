@@ -26,6 +26,7 @@ import { PageTimelineAdmin } from '../pages/TimelineAdmin/TimelineAdmin';
 import { PageAnnounceDash } from '../pages/AnnouncementDashboard/AnnounceDash';
 import { PageUnsubscribe } from '../pages/Unsubscribe/Unsubscribe';
 import { PageResubscribe } from '../pages/Resubscribe/Resubscribe';
+import { PageSchedule } from '../pages/Schedule/Schedule';
 import { ScuntJudges } from '../pages/ScuntJudges/ScuntJudges';
 import { ScuntHSL } from '../pages/ScuntJudges/ScuntHSL';
 import { ScuntLeaderboard } from '../pages/ScuntLeaderboard/ScuntLeaderboard';
@@ -47,6 +48,12 @@ export const pages = {
       label: 'Home',
       component: <PageHome />,
       path: '/',
+      includeFooter: true,
+    },
+    {
+      label: 'Schedule',
+      component: <PageSchedule />,
+      path: '/schedule',
       includeFooter: true,
     },
     {

@@ -1,383 +1,604 @@
 @import '../../scssStyles/mixins';
 
+// DEFAULT: Dark Mode Context
 :root {
-  --faq-pixel-border: url('../../assets/faq/faq-pixel-border-light.png');
+  --faq-bg: #3d0f58;
+  --faq-checker: #711f8b;
+  --faq-text: #ffffff;
+  --faq-text-muted: rgba(255, 255, 255, 0.7);
+  --faq-accent: #ffc600; // Bold Gold
+  --faq-accent-hover: #fed34c; // Medium Gold
+  --faq-panel-bg: transparent;
+  --faq-search-placeholder: rgba(255, 198, 0, 0.4);
 }
 
-.dark-mode {
-  --faq-pixel-border: url('../../assets/faq/faq-pixel-border-dark.png');
+// LIGHT MODE OVERRIDES: Automatically maps when data-theme="light" is applied.
+// Tuned to match the Home page's light mode (dark-purple text + rich-purple
+// accent on a light-gray bg) instead of the washed-out light-purple it had.
+[data-theme='light'] {
+  --faq-bg: #ebebeb; // Light Gray — matches Home --bg-main
+  --faq-checker: #dfcdf3; // Soft Lavender — matches Home --bg-card
+  --faq-text: #3d0f58; // Dark purple body text — matches Home --text-main
+  --faq-text-muted: #711f8b; // Purple for sub-labels or descriptions
+  --faq-accent: #711f8b; // Rich purple for titles/borders — matches Home --accent-purple
+  --faq-accent-hover: #ffc600; // Gold accent accents on select highlights
+  --faq-panel-bg: #ebebeb; // Card background so it sits on the gray
+  --faq-search-placeholder: #a77ad7;
 }
 
+// Outer page body wrapper context
 .bg-primary {
-  background-color: var(--bg-primary);
-}
-
-.fill {
+  background-color: var(--faq-bg) !important;
+  position: relative;
   width: 100%;
-  height: 100%;
-  text-align: center;
-  font-size: 1px;
-  color: var(--bg-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
+// --- YOUR GROUPED CONTAINER ---
+// Full-viewport positioning context. Children are sized/placed in `vw` so the
+// whole checker composition scales proportionally and looks identical at any
+// screen width (no hardcoded pixels = no shifting overlap seams).
+.checker-group {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 104vw;
+  height: 100%;
+  min-height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+// Common structural base styles for the checkers
+.checker-left,
+.checker-right {
+  position: absolute;
+  pointer-events: none;
+  background-image: linear-gradient(
+      45deg,
+      var(--faq-checker) 25%,
+      transparent 25%,
+      transparent 75%,
+      var(--faq-checker) 75%
+    ),
+    linear-gradient(
+      45deg,
+      var(--faq-checker) 25%,
+      transparent 25%,
+      transparent 75%,
+      var(--faq-checker) 75%
+    );
+  // Tile size relative to the 1440px design canvas (100px ÷ 1440 × 100vw)
+  background-size: 6.94vw 6.94vw;
+  background-position: 0 0, 3.47vw 3.47vw;
+}
+
+// --- DESKTOP SPECIFIC CONFIGURATION ---
+// All values converted from the original px against the 1440px design width.
+@media (min-width: 769px) {
+  .checker-left {
+    top: -115.2vw;
+    left: -98.6vw;
+    width: 69.44vw;
+    height: 277.78vw;
+    transform: rotate(70deg);
+  }
+
+  .checker-right {
+    top: -97.22vw;
+    right: -201.39vw;
+    width: 208.33vw;
+    height: 277.78vw;
+    transform: rotate(-20deg);
+  }
+}
+
+// --- MOBILE SPECIFIC CONFIGURATION ---
+// All values converted from the original px against the 390px iPhone baseline,
+// so the pattern scales proportionally across every phone width.
+@include devices(tablet) {
+  .checker-group {
+    width: 100vw;
+    left: 0;
+  }
+
+  .checker-left {
+    top: -103.3vw;
+    left: -29.5vw;
+    width: 61.54vw;
+    height: 256.41vw;
+    transform: rotate(70deg);
+    background-size: 15.38vw 15.38vw;
+    background-position: 0 0, 7.69vw 7.69vw;
+  }
+
+  .checker-right {
+    top: -12.82vw;
+    right: -128.21vw;
+    width: 102.56vw;
+    height: 307.69vw;
+    transform: rotate(-20deg);
+    background-size: 15.38vw 15.38vw;
+    background-position: 0 0, 7.69vw 7.69vw;
+  }
+}
+
+// --- HEADER SECTIONS ---
 .faq-page-header {
   position: relative;
-  max-height: 700px;
-  height: 50vh;
-  min-height: 400px;
-  background-color: var(--bg-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  z-index: 5;
+  padding: 60px 20px 0px 20px; // Changed from 10% to 20px to lock structural margins  width: 100%;
+  box-sizing: border-box;
 
   @include devices(tablet) {
-    margin-top: 0px;
-    height: 40vh;
-    min-height: 300px;
+    padding: 40px 5% 0 5%;
   }
 }
 
 .faq-page-header-container {
-  width: 80%;
-  @include devices(tablet) {
-    width: 90%;
-  }
-}
-
-.faq-button-selector-container {
-  margin: 0px 5% 0px 5%;
-  background-color: var(--bg-primary);
-
-  @media only screen and (max-height: 850px) {
-    margin-top: 20px;
-  }
-}
-
-.faq-button-selector {
-  @media (min-width: 1034px) {
-    justify-content: center !important;
-  }
-  @include devices(tablet) {
-    padding-top: 20px !important;
-  }
-}
-
-.faq-error-text {
-  margin: 10px 20px;
-  text-align: center;
-  color: var(--text-primary) !important;
-}
-
-.faq-hide-button-selector {
-  display: none;
-}
-
-.faq-show-button-selector {
-  display: block;
-}
-
-.faq-display-questions-container {
-  margin: 50px 10% 100px 10%;
-  width: 80%;
+  max-width: 1000px; // Tightened to match the Figma proportion
+  margin: 0 auto;
+  position: relative;
+  z-index: 6;
 }
 
 .faq-page-header-text {
   h1 {
-    font-size: 90px;
-    color: var(--text-primary);
-    font-weight: 800;
-    margin-bottom: 20px;
-    margin-top: 80px;
+    font-size: 120px;
+    font-family: 'Gliker', Impact, sans-serif; // Swap with your exact Figma display font
+    color: var(--faq-accent);
+    font-weight: 900;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    display: inline-block;
+    letter-spacing: 5px;
+
+    // The solid Neobrutalist block shadow from Figma
+    text-shadow: 3px 3px 0px var(--faq-bg); // Keeps text readable against the checkers
+
+    @include devices(tablet) {
+      font-size: 54px; // Shrinks the giant FAQ title so it doesn't blow out mobile
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 0px #1e052d, 4px 4px 0px #1e052d;
+    }
   }
-  h2 {
-    font-size: 50px;
-    color: var(--text-primary);
-    line-height: 0.7;
-  }
+
   p {
-    font-size: 25px;
-    color: var(--text-primary);
-    font-weight: 700;
+    display: none; // Hidden because it doesn't appear in the Figma target design
   }
 }
 
+// --- CONNECTED SEARCH BAR FRAME ---
 .faq-page-header-search {
-  margin-top: 50px;
+  max-width: 1000px; // Set this back to your exact Figma width
+  margin: 0 auto; // Centered horizontally
   display: grid;
-  grid-template-columns: 50px auto 50px;
-  //box-shadow: var(--shadow);
-  // border-image-source: var(--faq-pixel-border);
-  border-image-slice: 30;
-  border-image-width: 30px;
-  border-image-outset: 1px;
-  border-image-repeat: repeat;
-}
-
-.searchIcon {
-  height: 50px;
-  width: 50px;
-  color: var(--gray);
-  background-color: var(--faq-searchbar-bg);
-  display: grid;
-  place-items: center;
-  padding-left: 10px;
-  border-radius: 15px 0px 0px 15px;
-}
-
-.dragon-design {
-  margin: auto;
-  margin-top: -190px;
-  right: 5vw;
-  width: 300px;
-  position: absolute;
-  z-index: 1;
-}
-
-.searchIcon img {
-  height: 18px;
-  //opacity: 0.6;
-  transition: 200ms opacity;
-  cursor: url('../../assets/cursor/pointer.png'), auto;
-}
-
-.deleteIcon {
-  height: 50px;
-  width: 50px;
-  color: var(--gray);
-  background-color: var(--faq-searchbar-bg);
-  display: grid;
-  place-items: center;
-  padding-right: 10px;
-  border-radius: 0px 15px 15px 0px;
-}
-
-.deleteIcon:hover * {
-  cursor: url('../../assets/cursor/pointer.png'), auto;
-}
-
-.deleteIcon:hover {
-  img {
-    opacity: 1;
-    transition: 200ms opacity;
-  }
-}
-
-.deleteIcon img {
-  height: 25px;
-  opacity: 0.6;
-  transition: 200ms opacity;
+  grid-template-columns: 60px auto 60px;
+  border: 4px solid var(--faq-accent);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+  background-color: var(--faq-panel-bg);
 }
 
 .faq-page-header-searchbar {
-  background-color: var(--faq-searchbar-bg);
-  border: 0;
-  border-radius: 0px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  font-size: 18px;
-  height: 50px;
   width: 100%;
-}
-
-.faq-search input:focus {
-  outline: none;
-}
-
-.faq-search-input {
-  margin-top: 2px;
+  height: 100%;
 }
 
 .faq-search-input-container {
-  background-color: var(--faq-searchbar-bg) !important;
-  cursor: url('../../assets/cursor/textpointer.png'), auto !important;
-}
-
-.faq-data-result {
-  width: calc(100% + 100px);
-  margin-left: -50px;
-  height: 200px;
-  background-color: var(--bg-primary);
-  box-shadow: var(--shadow) 0px 15px 15px;
-  overflow: hidden;
-  overflow-y: auto;
-  position: relative;
-  z-index: 2;
-  border-radius: 0px 0px 15px 15px;
-}
-
-.faq-data-result::-webkit-scrollbar {
-  display: none;
-}
-
-.faq-data-result .faq-data-item {
-  width: 100%;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  color: var(--text-primary);
-}
-
-.faq-data-item p {
-  margin-left: 10px;
-}
-
-.faq-data-result div {
-  text-decoration: none;
-  transition: background-color 200ms, border-color 200ms;
-}
-
-.faq-data-item:hover {
-  cursor: url('../../assets/cursor/pointer.png'), auto !important;
-}
-
-.faq-data-result div:hover {
-  background-color: var(--bg-primary);
-  transition: background-color 200ms, border-color 200ms;
-}
-
-.faq-search-result-wrapper {
-  padding-left: 30px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.faq-wave-image {
-  width: 100vw;
-  height: min(10vh, 80px);
-  object-fit: fill;
-  @include devices(tablet) {
-    height: min(10vh, 40px);
-  }
-}
-
-.faq-page-top-wave-image {
-  filter: drop-shadow(-10px 10px 8px #23232342);
-}
-
-.faq-accordion-container {
-  margin: 25px 0% 50px 0%;
-  background-color: var(--bg-primary);
-}
-
-.faq-accordion-wrapper {
-  margin: 15px 10% 20px 10%;
-
-  .accordion-clickable {
-    background-color: var(--faq-answer-containers);
-  }
-}
-
-.faq-accordion-wrapper:hover {
-  cursor: url('../../assets/cursor/pointer.png'), auto !important;
-}
-
-.faq-all-search-results {
-  color: var(--text-primary);
-  margin-top: -30px;
-  margin-bottom: 20px;
-}
-
-.faq-show-accordion {
-  display: block;
-}
-
-.faq-hide-accordion {
-  display: none;
-}
-
-.faq-search input {
-  background-color: white;
-  border: 0;
-  border-radius: 2px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
+  background-color: transparent !important;
+  border: none !important;
+  color: var(--faq-text) !important;
+  font-family: 'Gliker', Impact, sans-serif;
   font-size: 18px;
-  padding: 15px;
-  height: 45px;
+  height: 54px;
   width: 100%;
+  padding: 0 10px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: var(--faq-search-placeholder);
+  }
+
+  @include devices(tablet) {
+    font-size: 14px; // Makes the placeholder text smaller
+    height: 42px; // Shrinks the search bar height on mobile
+  }
 }
 
-.faq-search-results-hide {
-  display: none;
+.searchIcon,
+.deleteIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent !important;
+
+  img {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+// --- TWO-COLUMN WORKSPACE WRAPPER ---
+.faq-content-row {
+  display: flex;
+  align-items: stretch; // Syncs heights so the left-side line matches the right-side box
+  gap: 30px; // Figma gap spacing
+  margin: 0px auto 80px auto; // Kept margin-top 0 so it slams flat under the search bar  padding: 0; // Stripped padding so boundaries snap perfectly to the search bar edge above
+  width: 100%;
+  max-width: 1000px; // MATCHES SEARCH BAR MAX-WIDTH EXACTLY
+  position: relative;
+  z-index: 5;
+  box-sizing: border-box;
+  padding: 0 20px;
+
+  @include devices(tablet) {
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 20px;
+  }
+}
+
+// --- TIMELINE CONNECTING LINE SYSTEM ---
+.faq-button-selector-container {
+  flex: 0 0 280px; // Tightened space for sidebar text
+  width: 280px;
+  z-index: 6;
+  position: relative;
+  overflow: visible !important;
+  display: flex;
+  margin-top: 40px; // Matches info panel start exactly
+
+  .button-selector-items {
+    overflow: visible !important;
+    overflow-x: visible !important;
+    padding-left: 50px !important;
+    flex-direction: column !important;
+    width: 100%;
+    height: 100%;
+
+    @include devices(tablet) {
+      padding-left: 35px !important; // Pulls text closer to the timeline on mobile
+    }
+  }
+
+  @include devices(tablet) {
+    flex: none;
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+.faq-button-selector {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start; // Changed from space-between to allow stable custom spacing
+  gap: 35px; // Keeps items evenly spaced downward
+  position: relative;
+  padding-left: 0;
+  padding-top: 0;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: visible !important;
+
+  @include devices(tablet) {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 15px;
+    height: auto;
+    padding-left: 24px;
+  }
+
+  // Visual Timeline Line Tracker
+  &::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: -40px; // ALWAYS touches the top bar/start of the info panel
+    bottom: -40px; // DYNAMICALLY adjusts perfectly with the end of the panel
+    width: 4px;
+    background-color: var(--faq-accent); // Timeline tracker line
+
+    @include devices(tablet) {
+      display: block !important; // BRINGS THE LINE BACK ON MOBILE
+      left: 11.5px; // Positions it perfectly under the mobile stars axis
+      top: -5px;
+      bottom: -20px;
+    }
+  }
+}
+
+.faq-button-selector-btn {
+  // Strip all the pixel-border/shadow/sizing gunk from ButtonOutlined.scss
+  background-color: transparent !important;
+  background-image: none !important;
+  border-image-source: none !important;
+  border-image-slice: 0 !important;
+  border-image-width: 0 !important;
+  border-image-outset: 0 !important;
+  border-style: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  min-width: unset !important;
+  min-height: unset !important;
+  margin: 0 !important;
+  padding: 8px 15px !important;
+  width: 240px !important;
+  position: relative;
+  cursor: pointer;
+  justify-content: flex-start !important;
+
+  .text-container {
+    h1 {
+      font-family: 'Gliker', Impact, sans-serif !important;
+      font-size: 22px !important;
+      font-weight: 900 !important;
+      text-transform: uppercase;
+      color: var(--faq-accent) !important;
+      letter-spacing: 1px;
+      margin: 0;
+      text-align: left;
+
+      @include devices(tablet) {
+        font-size: 16px !important; // Shrinks category text names on mobile
+      }
+    }
+
+    h2 {
+      display: none; // hide "sub" text — Figma doesn't show a subtitle line
+    }
+  }
+
+  // The star — now targets a real, existing element, so it WILL render
+  &::before {
+    content: '★';
+    position: absolute;
+    left: -42px !important; // button sits at x=50 (from .button-selector-items padding-left:50px)
+    // so this places the star box's LEFT edge at x = 50-42 = 8
+    width: 28px; // star box is 28px wide -> its CENTER lands at x = 8+14 = 22
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--faq-accent); // Star icons
+    font-size: 24px;
+    z-index: 10;
+    transition: transform 0.2s ease; // Smooth visual scaling on focus/hover transformations
+
+    @include devices(tablet) {
+      left: -32px !important; // Repositions the stars horizontally to sit exactly on the line
+      font-size: 18px; // Makes the stars slightly smaller for mobile
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &:hover::before {
+    transform: translateY(-50%) scale(1.5); // Safely grows the star without shifting its horizontal positioning axis
+    //align-items: center;
+    //justify-content: center;
+    //left: -40px !important;
+  }
+
+  &:hover {
+    .text-container h1 {
+      //opacity: 0.8; // Dimming it slightly on hover makes it feel instantly interactive!
+      // Or you could do: color: var(--text-white) !important; if you want it to flash white!
+      transform: scale(
+        1.1
+      ); // Safely grows the star without shifting its horizontal positioning axis
+    }
+  }
+
+  // ACTIVE state: button-outlined WITHOUT the -secondary class
+  &:not(.button-outlined-secondary) {
+    background-color: var(--faq-accent) !important;
+    border-radius: 20px !important;
+    padding: 8px 20px !important;
+
+    .text-container h1 {
+      color: var(--faq-bg) !important; // Inverts text color inside active button block
+    }
+  }
+
+  // INACTIVE state: has the -secondary class
+  &.button-outlined-secondary {
+    background-color: transparent !important;
+  }
+}
+
+// --- UNIFIED UNIBODY ACCORDION BLOCK FRAME ---
+.faq-accordion-container {
+  flex: 1; // Automatically claims all remaining horizontal width
+  width: 100%;
+  background-color: var(--faq-panel-bg) !important;
+  border: 4px solid var(--faq-accent);
+  border-radius: 20px;
+  padding: 20px 40px; // Slightly reduced vertical padding inside the container
+  margin-top: 40px;
+  box-sizing: border-box;
+  z-index: 6;
+
+  @include devices(tablet) {
+    padding: 12px 16px !important; // Drastically cuts down inner padding so text has room to breathe
+    margin-top: 15px !important; // Pulls it up closer to the category buttons
+    border-width: 4px !important; // Thins out the yellow border so it looks clean, not chunky
+    border-radius: 12px !important; // Gives it a tighter, cleaner corner radius for mobile
+  }
+}
+
+.faq-display-questions-container {
+  flex: 1;
+  width: 100%;
+  background-color: var(--faq-panel-bg) !important;
+  border: 4px solid var(--faq-accent);
+  border-radius: 20px;
+  padding: 20px 40px;
+  margin-top: 40px;
+  box-sizing: border-box;
+  z-index: 6;
+
+  @include devices(tablet) {
+    padding: 12px 16px !important; // Matches the exact same tight padding as the container above
+    margin-top: 10px !important; // Pulls the search result box up cleanly on mobile
+    border-width: 2px !important; // Thins out the border for search mode
+    border-radius: 12px !important; // Matches the corner radius
+  }
+
+  // Formatting for the "Search results..." heading block
+  .faq-all-search-results {
+    color: var(--text-white) !important;
+    font-family: 'Arial Black', Impact, sans-serif !important;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255, 211, 0, 0.2);
+
+    @include devices(tablet) {
+      margin-bottom: 10px;
+    }
+  }
+
+  // Formatting for "No Results" notice box layout
+  .faq-no-results h1 {
+    color: var(--mikado) !important;
+    font-family: 'Arial Black', Impact, sans-serif !important;
+    font-size: 22px;
+    font-weight: 900;
+    text-align: center;
+    padding: 40px 0;
+  }
 }
 
 .faq-search-result-container {
-  margin: 15px 10px 0px 10px;
-  padding: 20px 30px 20px 30px;
-  background-color: var(--faq-answer-containers);
-  border-radius: 15px;
-  color: var(--sc-inverted) !important;
-}
+  padding: 12px 0px;
+  border-bottom: 1px solid rgba(255, 211, 0, 0.1); // Clean line break between multiple results
 
-.faq-search-result-question,
-.faq-search-result-question-accordion {
-  margin-bottom: 7px;
-  font-size: 22px;
-  font-weight: bold;
-  color: var(--sc-inverted) !important;
-  @include devices(tablet) {
-    font-size: 18px;
+  &:last-child {
+    border-bottom: none; // Disables trail line on the final search entry
   }
-}
 
-.faq-search-result-question-accordion {
-  padding: 20px 20px 20px 0px;
-  margin-bottom: 0px;
+  // Matches main question sizing exactly
+  .faq-search-result-question {
+    color: var(--faq-accent) !important;
+    font-family: 'Gliker', Impact, sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+    margin-bottom: 8px;
 
-  @include devices(tablet) {
-    padding: 15px 15px 15px 0px;
+    @include devices(tablet) {
+      font-size: 16px;
+    }
   }
-}
 
-.faq-search-result-answer,
-.faq-search-result-answer-accordion {
-  margin-top: 7px;
-  border-radius: 12px;
-  color: var(--lilac);
-  @include devices(tablet) {
+  // Matches main answer sizing exactly
+  .faq-search-result-answer {
+    color: var(--faq-text) !important;
+    font-family: system-ui, -apple-system, sans-serif;
     font-size: 16px;
+    line-height: 1.6;
+    padding: 5px 0 10px 0;
+    white-space: pre-wrap;
+
+    @include devices(tablet) {
+      font-size: 13px;
+    }
+  }
+}
+
+// Stripping out all the individual box styling from the current build
+.faq-accordion-wrapper {
+  margin: 0;
+
+  // Hide the built-in angle/arrow icon so only the plus/minus indicator shows
+  .accord-header > .accord-text {
+    display: none;
+  }
+
+  // Target your inner accordion clickable headers
+  .accordion-clickable {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 12px 0px !important;
+
+    @include devices(tablet) {
+      padding: 5px 0px !important; // Shrinks vertical spacing between questions on mobile
+    }
+  }
+
+  div,
+  button {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.faq-search-result-question-accordion {
+  color: var(--faq-accent) !important;
+  font-family: 'Gliker', Impact, sans-serif;
+  font-size: 22px; // Bumped up slightly to look bold and less squished
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  line-height: 1.3; // Ensures multiple lines stack cleanly instead of squeezing
+
+  @include devices(tablet) {
+    font-size: 16px; // Shrinks accordion question title text on mobile
   }
 }
 
 .faq-search-result-answer-accordion {
-  padding: 0px 0px;
-  margin-left: 2px;
-  margin-top: -10px;
-  padding-bottom: 5px;
-}
+  color: var(--faq-text) !important;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  padding: 5px 0 20px 0;
+  line-height: 1.6;
+  white-space: pre-wrap;
 
-.faq-no-results {
-  width: 100%;
-  text-align: center;
-  color: var(--text-primary);
-}
-
-.pagination-controls {
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
-
-  button {
-    margin: 0 5px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--neutral-secondary);
-    color: var(--text-primary);
-    cursor: url('../../assets/cursor/pointer.png'), auto;
-    transition: background-color 0.3s, color 0.3s;
-
-    &:hover {
-      background-color: var(--neutral-secondary);
-      color: var(--text-primary);
-    }
-
-    &.active {
-      background-color: var(--monster);
-      color: var(--mikado);
-    }
+  @include devices(tablet) {
+    font-size: 13px; // Shrinks open answer text body on mobile
   }
+}
+
+.faq-answer-link {
+  color: var(--mikado, #ffc600);
+  font-weight: 600;
+  text-decoration: underline;
+  word-break: break-word;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+// Utility hides
+.faq-hide-button-selector,
+.faq-hide-accordion {
+  display: none !important;
+}
+
+.faq-show-button-selector,
+.faq-show-accordion {
+  display: block !important;
+}
+
+.fill {
+  display: none;
 }

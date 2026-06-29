@@ -1,28 +1,28 @@
 @import '../../../../scssStyles/mixins';
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&family=Jersey+25&display=swap');
 
-:root {
-  --accordian-pixel-border: url('../../../../assets/accordion/accordian-pixel-border-black.png');
-  //--profile-accordian-pixel-border: url('../../../../assets/accordion/profile-accordian-pixel-border.png');
-}
+//:root {
+//  --accordian-pixel-border: url('../../../../assets/accordion/accordian-pixel-border-black.png');
+//--profile-accordian-pixel-border: url('../../../../assets/accordion/profile-accordian-pixel-border.png');
+//}
 
 .accordion {
   padding: 0px 20px 0px 20px;
   //background-color: var(--purple-shades-light);
-  border-radius: 17px;
+  //border-radius: 17px;
   // color: var(--text-dark);
-  border-image-source: var(--accordian-pixel-border);
-  border-image-slice: 12;
-  border-image-width: 12px;
-  border-image-outset: 1px;
-  border-image-repeat: repeat;
+  //border-image-source: var(--accordian-pixel-border);
+  //border-image-slice: 12;
+  //border-image-width: 12px;
+  //border-image-outset: 1px;
+  //border-image-repeat: repeat;
   // box-shadow: 2px 3px 5px #512c6b, 0px 0px 5px #0000004d;
-  box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.3);
+  //box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.3);
+  //-webkit-box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.3);
+  //-moz-box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.3);
   cursor: url('../../../../assets/cursor/cursor.png'), auto;
-  
-  margin-bottom:10px;
+
+  //margin-bottom:10px;
 }
 
 //.profile-page-schedule-accordion {

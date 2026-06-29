@@ -1,5 +1,16 @@
 @import '../../scssStyles/mixins.scss';
 
+// Full-page background so registration matches the home page (light gray in
+// light mode, purple in dark mode) instead of falling through to a white body.
+.registration-page-wrapper {
+  min-height: 100vh;
+  background-color: #ebebeb; // light mode (matches home --bg-main)
+}
+
+body.dark-mode .registration-page-wrapper {
+  background-color: #3d0f58; // dark mode purple (matches home --bg-main)
+}
+
 .registration-form-flex {
   display: flex;
   justify-content: center;
@@ -118,7 +129,7 @@
 }
 
 .registration-icon-logo {
-  width: 100px;
+  width: 150px;
   margin-right: 20px;
   margin-left: 20px;
   @include devices(mobile) {
@@ -151,14 +162,48 @@
     color: var(--white);
   }
 }
+
 .registration-edit-popup-buttons {
   display: flex;
   flex-direction: row;
   margin-bottom: -10px;
 }
+
 .registration-payment-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.registration-edit-actions {
+  width: 100%;
+  margin-bottom: 55px;
+
+  // Clear the fixed bottom navbar (80px tall) on mobile so the buttons aren't cut off
+  @include devices(mobile) {
+    margin-bottom: 110px;
+  }
+}
+
+.registration-edit-actions-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+}
+
+.registration-form-card {
+  background: var(--background-secondary);
+  border-radius: 16px;
+  border: 1px solid var(--border-primary);
+  padding: 28px 32px;
+  margin-bottom: 65px;
+
+  @include devices(mobile) {
+    padding: 16px;
+  }
 }

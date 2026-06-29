@@ -4,7 +4,7 @@ import './SignUp.scss';
 import { Button } from '../../components/button/Button/Button';
 import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { validateEmail, validatePassword, validatePasswordLength } from './functions';
-import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
+import MainFroshLogo from '../../assets/logo/2T6logo.png';
 import LoadingAnimation from '../../components/misc/LoadingAnimation/LoadingAnimation';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -107,7 +107,7 @@ const PageSignUp = () => {
             onClick={handleLeaderReveal}
           ></img>
           <h1 className="sign-up-title">Create an Account</h1>
-          <h3 className="sign-up-sub">For F!rosh Week 2T5, UofT Engineering</h3>
+          <h3 className="sign-up-sub">For F!rosh Week 2T6, UofT Engineering</h3>
           <div className="full-width-input">
             <TextInput
               label="Email"

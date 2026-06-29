@@ -4645,262 +4645,182 @@ export const dataZeta = {
 
 // for home page
 export const data = {
-  'Monday August 25': [
+  'MONDAY AUGUST 31': [
     {
-      'Event Name': 'Meet your F!rosh Group',
-      'Start Time': '7:30 AM',
-      'Event Location': 'Myhal',
+      'Event Name': 'Check in & meet your F!rosh group',
+      // TODO: add description
+      'Start Time': '8:00 AM',
       'End Time': '9:00 AM',
-      Color: 'break',
+      Color: 'purple',
     },
     {
       'Event Name': 'Matriculation',
-      'Event Location': 'Convocation Hall',
       'Event Description':
-        'F!rosh Week Level 1, your introduction to all things Skule™. The Frosh, faculty, and upper years all gather in Convocation Hall for the Frosh’s teaser trailer at the community and all of the traditions, culture and opportunities offered at UofT Engineering.',
+        'Our kickoff to F!rosh Week and introduction to all things Skule™. We all gather in Convocation Hall to meet the wonderful UofT Engineering community!',
       'Start Time': '9:00 AM',
       'End Time': '11:00 AM',
-      Color: 'long',
+      Color: 'yellow',
     },
     {
       'Event Name': 'Lunch',
+      // TODO: add description
       'Start Time': '11:00 AM',
       'End Time': '12:00 PM',
-      Color: 'break',
+      Color: 'green',
     },
     {
-      'Event Name': 'F!rosh Games + D!ye Station',
+      'Event Name': 'D!ye/F!rosh Games',
       'Event Description':
-        '<b>F!rosh Games:</b> A series of fun, physical challenges that allows students to let loose, compete against other F!rosh groups and get to know each other in a dynamic fashion. These competitions can range from an obstacle course to a classic sport with an engineering twist.<br /><b>D!ye:</b> A 40+ year tradition where F!rosh and Leedurs dye their bodies purple. This player cosmetic represents great significance in the traditions of engineering schools across Canada, as it honours the engineers that came before us.',
+        'D!ye: When I say purple, you say purple! Purple! PURPLE! D!ye is a 40+ year tradition where F!rosh and Leedurs dye their bodies (or any part thereof) purple. The color purple has a long-standing history across Engineering schools in Canada, and allows us to honour the engineers that came before us. <br /> F!rosh Games: Compete against other F!rosh Groups in the craziest competitions imaginable!',
       'Start Time': '12:00 PM',
       'End Time': '3:00 PM',
-      Color: 'long',
+      Color: 'yellow',
     },
     {
       'Event Name': 'Downtown Walkaround',
       'Event Description':
-        'A tour of downtown Toronto where thousands of students display their Skule™ spirit by parading and emoting from the St. George campus to Nathan Phillips Square.',
+        'Join us for a lovely tour of Toronto’s downtown with 1000 of your newest friends and classmates',
       'Start Time': '3:00 PM',
       'End Time': '5:00 PM',
-      Color: 'long',
+      Color: 'purple',
     },
     {
       'Event Name': 'Break/Dinner',
-      // 'Event Location': 'GB303',
+      // TODO: add description
       'Start Time': '5:00 PM',
       'End Time': '6:00 PM',
-      Color: 'break',
+      Color: 'green',
     },
     {
-      'Event Name': 'Nitelife - High Score!',
-      'Event Description':
-        'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
-      'Event Location': 'MIE Common Room',
+      'Event Name': 'Nitelife - NeonNight: Glow BIG or GoHome',
+      'Event Description': 'Slime making and Board Games!!',
+      'Event Location': 'Chem Common room, WB238',
       'Start Time': '6:00 PM',
-      'End Time': 'Late',
-      Color: 'night',
-    },
-    {
-      'Event Name': 'SUDS',
-      'Event Description':
-        "SUDS is UofT Engineering's student run pub serving both alcoholic and non-alcoholic drinks. It runs every night of F!rosh Week. On Monday and Tuesday there will also be a DJ!",
-      'Event Location': 'Myhal Arena',
-      'Start Time': '6:00 PM',
-      'End Time': 'Late',
-      Color: 'night',
+      'End Time': '9:00 PM',
+
+      Color: 'dark-purple',
     },
   ],
-  'Tuesday August 26': [
+  'TUESDAY SEPTEMBER 1': [
     {
       'Event Name': 'Academic Success Seminar',
-      // 'Event Location': 'Front Campus',
       'Event Description':
-        "Learn from some of your amazing new TA's about all the strategies you need to know for success here at UofT Engineering!",
-      'Start Time': '8:30 AM',
+        'Learn about the strategies you need to know to succeed here at U of T Engineering from some of your amazing new TAs (teaching assistants)!',
+      'Start Time': '8:00 AM',
       'End Time': '10:00 AM',
-      Color: 'other',
+      Color: 'gray',
     },
     {
-      'Event Name': 'Campus Tours + Build Battle',
+      'Event Name': 'Campus Tours/Build Battle',
       'Event Description':
-        '<b>Campus Tour:</b> F!rosh Leedurs guide Frosh through a tour of campus to find the best places to study, socialize and share stories about their time across campus. Take your minimap into the real world and find those secret levels. <br /><b>Build Battle:</b> First we mine, now you CRAFT! Put your skills to the test with a *POWER DRILL* *WOOD* *MARKERS* and whatever scraps your inventory picked up to create an epic build!',
+        'Campus Tours: Join your F!rosh Leedurs as they lead you through a tour of campus to find all the best places to study, eat, work on projects, or even nap! <br /> Build Battle: Your first of many design challenges at UofT Engineering, except it’s probably the one of the coolest ones you’ll do! Work with your F!rosh Group to tackle your piece of the puzzle for this year’s unique design challenge, coming together to build something truly amazing as a 3T0 class!',
       'Start Time': '10:00 AM',
       'End Time': '12:00 PM',
-      Color: 'long',
+      Color: 'yellow',
     },
     {
       'Event Name': 'Lunch',
+      // TODO: add description
       'Start Time': '12:00 PM',
       'End Time': '1:00 PM',
-      Color: 'break',
+      Color: 'green',
     },
     {
-      'Event Name': 'Campus Tours + Build Battle',
+      'Event Name': 'Campus Tours/Build Battle',
       'Event Description':
-        '<b>Campus Tour:</b> F!rosh Leedurs guide Frosh through a tour of campus to find the best places to study, socialize and share stories about their time across campus. Take your minimap into the real world and find those secret levels. <br /><b>Build Battle:</b> First we mine, now you CRAFT! Put your skills to the test with a *POWER DRILL* *WOOD* *MARKERS* and whatever scraps your inventory picked up to create an epic build!',
+        "Campus Tours: Join your F!rosh Leedurs as they lead you through a tour of campus to find all the best places to study, eat, work on projects, or even nap! <br /> Build Battle: Your first of many design challenges at UofT Engineering, except it's probably the one of the coolest ones you’ll do! Work with your F!rosh Group to tackle your piece of the puzzle for this year's unique design challenge, coming together to build something truly amazing as a 3T0 class!",
       'Start Time': '1:00 PM',
       'End Time': '5:00 PM',
-      Color: 'long',
+      Color: 'yellow',
     },
     {
-      'Event Name': 'Cheer-Off!',
-      'Event Description': 'The Final Boss: AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH',
+      'Event Name': 'Cheer Off',
+      // TODO: add description
       'Start Time': '5:00 PM',
       'End Time': '6:00 PM',
-      Color: 'general',
+      Color: 'yellow',
     },
-    // {
-    //   'Event Name': 'Break/Dinner',
-    //   // 'Event Location': 'GB303',
-    //   'Start Time': '6:00 PM',
-    //   'End Time': '7:00 PM',
-    //   Color: 'break',
-    // },
     {
-      'Event Name': 'Nitelife - Slides Kombat',
-      'Event Description':
-        'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
+      'Event Name': 'Break/Dinner',
+      // TODO: add description
+      'Start Time': '6:00 PM',
+      'End Time': '7:00 PM',
+      Color: 'green',
+    },
+    {
+      'Event Name': 'Nitelife - Theater Theatrics: HollywoodHideout',
+      // TODO: add description (and location if applicable)
+      'Event Description': 'Hide and Seek Game + Movie Night!!',
       'Event Location': 'Myhal 5th Floor',
-      'Start Time': '6:00 PM',
+      'Start Time': '7:00 PM',
       'End Time': 'Late',
-      Color: 'night',
-    },
-    {
-      'Event Name': 'SUDS',
-      'Event Description':
-        "SUDS is UofT Engineering's student run pub serving both alcoholic and non-alcoholic drinks. It runs every night of F!rosh Week. On Monday and Tuesday there will also be a DJ!",
-      'Event Location': 'Myhal Arena',
-      'Start Time': '6:00 PM',
-      'End Time': 'Late',
-      Color: 'night',
+      Color: 'dark-purple',
     },
   ],
-  'Wednesday August 27': [
-    {
-      'Event Name': 'Consent Seminar',
-      'Event Description': `Attend the consent workshop and be entered to win some amazing prizes!`,
-      'Event Location': 'Convocation Hall',
-      'Start Time': '8:30 AM',
-      'End Time': '11:00 AM',
-      Color: 'other',
-    },
+  'WEDNESDAY SEPTEMBER 2': [
     {
       'Event Name': 'Clubs Fair',
       'Event Location': 'Bahen Lobby',
       'Event Description':
-        'Interested in joining a club, intramural sport or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.</a>',
-      'Start Time': '1:00 PM',
-      'End Time': '4:00 PM',
-      Color: 'long',
+        'Interested in joining a club, intramural sport, or getting involved with the Engineering Society (EngSoc)? Attend the Engineering Clubs Fair to learn more about the 100+ ways you can get involved.',
+      'Start Time': '11:00 AM',
+      'End Time': '2:00 PM',
+      Color: 'yellow',
+    },
+    {
+      'Event Name': 'Consent Seminar',
+      // TODO: add description
+      'Start Time': '2:00 PM',
+      'End Time': '5:00 PM',
+      Color: 'gray',
     },
     {
       'Event Name': 'Break/Dinner',
-      // 'Event Location': 'GB303',
+      // TODO: add description
       'Start Time': '5:00 PM',
       'End Time': '6:00 PM',
-      Color: 'break',
+      Color: 'green',
     },
     {
       'Event Name': 'Skule™ Hunt',
       'Event Description':
-        'The Skule™ twist on a traditional Scavenger Hunt, where students search for unique items and hidden easter eggs, collect powerups and points through side quests all across the city of Toronto to bring your team to the top of the leaderboard. The world is your arcade!',
-      'Event Location': 'Myhal Arena',
+        'The longest items list you’ve ever seen. Join us for a full-fledged scavenger hunt all over the city of Toronto!',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
-      Color: 'night',
-    },
-    {
-      'Event Name': 'SUDS',
-      'Event Description':
-        "SUDS is UofT Engineering's student run pub serving both alcoholic and non-alcoholic drinks. It runs every night of F!rosh Week.",
-      'Event Location': 'Myhal Arena',
-      'Start Time': '6:00 PM',
-      'End Time': 'Late',
-      Color: 'night',
+      Color: 'dark-purple',
     },
   ],
-  'Thursday August 28': [
+  'THURSDAY SEPTEMBER 3': [
     {
       'Event Name': 'Faculty Events',
-      'Event Description': `Various events organized by the faculty. More information can be found <a style="color: var(--jam);" href="https://undergrad.engineering.utoronto.ca/event/faculty-orientation-events-2/">here</a>.`,
-      'Event Location': 'Various Locations',
       'Start Time': '9:00 AM',
       'End Time': '5:00 PM',
-      Color: 'other',
+      Color: 'gray',
     },
     {
-      'Event Name': 'Skule™ Alumni Panel',
-      'Event Description': `Power up with Skule™ Alumni Panel! Hear from U of T engineering alumni as they share their F!rosh experiences and pro tips for navigating school, PEY and their current careers. A low energy activity and a great chance to ask questions, gain insight and connect with those who’ve been in your shoes.`,
-      'Start Time': '6:00 PM',
-      'End Time': '7:30 PM',
-      'Event Location': 'GB202',
-      Color: 'general',
-    },
-    {
-      'Event Name': 'Nitelife - Tote Invaders',
-      'Event Description':
-        'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
+      'Event Name': 'Nitelife - Disco Fever: Sing it and string it',
+      'Event Description': 'Karaoke & Keychain making',
       'Event Location': 'Myhal 5th Floor',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
-      Color: 'night',
-    },
-    {
-      'Event Name': 'SUDS',
-      'Event Description':
-        "SUDS is UofT Engineering's student run pub serving both alcoholic and non-alcoholic drinks. It runs every night of F!rosh Week.",
-      'Event Location': 'Myhal Arena',
-      'Start Time': '6:00 PM',
-      'End Time': 'Late',
-      Color: 'night',
+      Color: 'dark-purple',
     },
   ],
-  'Friday August 29': [
+  'FRIDAY SEPTEMBER 4': [
     {
       'Event Name': 'F!rosh Olympiks',
+      // TODO: add description
       'Start Time': '10:00 AM',
       'End Time': '5:00 PM',
-      Color: 'long',
+      Color: 'yellow',
     },
     {
-      'Event Name': 'Nitelife - Guitar Hero',
-      'Event Description':
-        'F!rosh Week goes dark mode with various games and activities run in the evening hours to continue the fun, offering Frosh more experiences to connect. Activities are high and low energy.',
+      'Event Name': 'Nitelife - Boho Bash: TOTEally Trivial',
+      'Event Description': 'Tote bag painting & Trivia night!',
       'Event Location': 'Myhal 5th Floor',
       'Start Time': '6:00 PM',
       'End Time': 'Late',
-      Color: 'night',
-    },
-    {
-      'Event Name': 'SUDS',
-      'Event Description':
-        "SUDS is UofT Engineering's student run pub serving both alcoholic and non-alcoholic drinks. It runs every night of F!rosh Week.",
-      'Event Location': 'Myhal Arena',
-      'Start Time': '6:00 PM',
-      'End Time': 'Late',
-      Color: 'night',
-    },
-  ],
-  'Saturday August 30': [
-    {
-      'Event Name': 'F!rosh Retreat',
-      'Event Location': 'Hart House Farm',
-      'Event Description':
-        'F!rosh can join Leedurs for a weekend camping trip to touch grass that caps off F!rosh Week, full of swimming, campfires, games, and other fun activities to connect F!rosh.',
-      'Start Time': '10:00 AM',
-      'End Time': 'Late',
-      Color: 'long',
-    },
-  ],
-  'Sunday August 31': [
-    {
-      'Event Name': 'F!rosh Retreat',
-      'Event Location': 'Hart House Farm',
-      'Event Description':
-        'F!rosh can join Leedurs for a weekend camping trip to touch grass that caps off F!rosh Week, full of swimming, campfires, games, and other fun activities to connect F!rosh.',
-      'Start Time': 'Early',
-      'End Time': '2:00 PM',
-      Color: 'long',
+      Color: 'dark-purple',
     },
   ],
 };

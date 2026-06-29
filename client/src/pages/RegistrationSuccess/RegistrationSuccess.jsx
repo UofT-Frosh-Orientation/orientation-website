@@ -60,7 +60,7 @@ const PageRegistrationSuccess = () => {
                   <h1>Thank you for registering</h1>
                 </div>
                 <div className="registration-success-page-step1-2-disappear">
-                  <h2>for F!rosh Week 2T5</h2>
+                  <h2>for F!rosh Week 2T6</h2>
                   <p style={{ color: 'var(--black)' }} className="registration-success-wait-msg">
                     {`Drumroll for your F!rosh group ${
                       user.preferredName === '' || !user.preferredName

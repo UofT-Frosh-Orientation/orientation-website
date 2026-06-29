@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './AskQuestionButton.scss';
 import { ErrorSuccessBox } from '../../containers/ErrorSuccessBox/ErrorSuccessBox';
@@ -12,6 +13,7 @@ import { userSelector } from '../../../state/user/userSlice';
 import { useSelector } from 'react-redux';
 import { SnackbarContext } from '../../../util/SnackbarProvider';
 
+// eslint-disable-next-line no-unused-vars
 const FAQAskQuestion = () => {
   const { user } = useSelector(userSelector);
 
@@ -111,7 +113,8 @@ const FAQAskQuestion = () => {
 };
 
 const AskQuestionButton = () => {
-  const [showPopUp, setShowPopUp] = useState(false);
+  // Ask-a-question popup functionality commented out; the CD now links to the FAQ page instead.
+  // const [showPopUp, setShowPopUp] = useState(false);
   const { user } = useSelector(userSelector);
 
   const leader = user?.userType === 'leadur';
@@ -120,9 +123,12 @@ const AskQuestionButton = () => {
     // don't show FAQ button if leadur or if not logged in
     return <></>;
   }
+  // Spinning CD FAQ button hidden on both desktop and mobile.
+  return <></>;
+  // eslint-disable-next-line no-unreachable
   return (
     <>
-      <PopupModal
+      {/* <PopupModal
         trigger={showPopUp}
         setTrigger={setShowPopUp}
         blurBackground={false}
@@ -133,31 +139,24 @@ const AskQuestionButton = () => {
             <FAQAskQuestion />
           </div>
         </div>
-      </PopupModal>
-      <div className={'faq-fab'}>
+      </PopupModal> */}
+      <Link to={'/faq'} className={'faq-fab'}>
         <Button
-          style={{ boxShadow: '5px 5px 20px #13131362' }}
-          class_options="faq-fab-button"
           label={
             <div className={'faq-fab-container'}>
-              <img
-                className={'faq-fab-icon'}
-                src={QuestionMark}
-                alt="Question Button"
-                height={30}
-              />
-              <div className="desktop-only">
-                {/* Add text in this element below for ask question button */}
-                <span className={'faq-fab-content'}></span>
+              <div className={'faq-fab-cd'}>
+                <div className={'faq-fab-cd-disc'} />
+                <img className={'faq-fab-cd-label'} src={QuestionMark} alt="?" />
+                <div className={'faq-fab-cd-hole'} />
               </div>
             </div>
           }
           isSecondary
-          onClick={() => {
-            setShowPopUp(true);
-          }}
+          // onClick={() => {
+          //   setShowPopUp(true);
+          // }}
         />
-      </div>
+      </Link>
     </>
   );
 };

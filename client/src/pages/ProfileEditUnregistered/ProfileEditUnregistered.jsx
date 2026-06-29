@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from '../../state/user/saga';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import MainFroshLogo from '../../assets/logo/main-logo-2T5.png';
+import MainFroshLogo from '../../assets/logo/2T6logo.png';
 import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
 import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
@@ -175,7 +175,7 @@ const PageProfileEditUnregistered = () => {
     <>
       {!isRegistered && (
         <>
-          <div>
+          <div className="profile-edit-page-background">
             <div
               className={`profile-edit-page ${
                 pageState !== 'form' ? 'profile-edit-page-disappear' : ''
@@ -186,7 +186,7 @@ const PageProfileEditUnregistered = () => {
               <div className="profile-edit-container">
                 <img className={`profile-edit-logo`} src={MainFroshLogo}></img>
                 <h1>Edit Account Info</h1>
-                <h3 className="proxima-nova-text">For F!rosh Week 2T5, UofT Engineering</h3>
+                <h3 className="proxima-nova-text">For F!rosh Week 2T6, UofT Engineering</h3>
 
                 {!isLoading ? (
                   <>

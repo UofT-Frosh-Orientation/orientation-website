@@ -411,7 +411,7 @@ const ComingSoon = () => {
       </div>
       <a
         className="cs-desktop-icon cs-link"
-        href="https://discord.gg/Fnxr7tp34E"
+        href="https://discord.gg/yZvTXC47n"
         target="_blank"
         rel="noreferrer"
         style={at(LAYOUT.iconDiscord)}
@@ -542,7 +542,7 @@ const ComingSoon = () => {
               <div className="cs-m-socials">
                 <a
                   className="cs-m-social cs-raised"
-                  href="https://discord.gg/Fnxr7tp34E"
+                  href="https://discord.gg/yZvTXC47n"
                   target="_blank"
                   rel="noreferrer"
                 >

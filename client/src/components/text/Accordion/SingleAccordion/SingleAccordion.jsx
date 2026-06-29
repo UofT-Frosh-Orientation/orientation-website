@@ -53,7 +53,8 @@ const SingleAccordion = ({
         {canOpen !== false ? (
           <div style={{ marginLeft: 'auto' }} className={'accord-text'}>
             <img
-              src={dark ? faAngleDownDark : faAngleDown}
+              src={faAngleDown}
+              //src={dark ? faAngleDownDark : faAngleDown}
               className={`${rotate}`}
               // style={{ filter: darkMode ? 'invert(1)' : 'unset' }}
               alt="Accordion Button"

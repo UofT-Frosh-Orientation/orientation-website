@@ -48,7 +48,7 @@ const ScuntGameSettingSchema = new mongoose.Schema({
   // discordLink: {
   //   type: String,
   //   required: true,
-  //   default: 'https://discord.gg/Fnxr7tp34E',
+  //   default: 'https://discord.gg/yZvTXC47n',
   // },
   revealLeaderboard: {
     type: Boolean,

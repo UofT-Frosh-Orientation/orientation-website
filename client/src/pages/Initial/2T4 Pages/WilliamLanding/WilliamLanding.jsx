@@ -79,7 +79,7 @@ const WilliamLanding = () => {
           </div>
         </div>
         <div className="jw-footer-section">
-          <h2 className="jw-footer-text">Made with 💜 by the F!rosh Week 2T5 Tech Team</h2>
+          <h2 className="jw-footer-text">Made with 💜 by the F!rosh Week 2T6 Tech Team</h2>
         </div>
       </div>
     </div>
