@@ -502,6 +502,11 @@ const HomePageSponsors = () => {
                         effect="blur"
                         src={darkMode ? item.darkimage : item.image}
                         className="sponsor-image"
+                        style={
+                          item.label.includes('Cosmic Pizza')
+                            ? { filter: darkMode ? 'brightness(0) invert(1)' : 'none' }
+                            : {}
+                        }
                       />
                     </div>
                     <p className="sponsor-name">{sponsorName}</p>
