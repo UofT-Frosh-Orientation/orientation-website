@@ -12,6 +12,7 @@
   }
 }
 
+/*
 .tabs-button-tab {
   border-radius: 12px;
   margin-top: 0px !important;
@@ -20,6 +21,7 @@
     border-radius: 11px !important;
   }
 }
+  */
 
 .tabs-content {
   background-color: var(--container-bg);
@@ -66,4 +68,150 @@
       height: 15px;
     }
   }
+}
+
+.tabs-button-tab {
+  position: relative;
+  overflow: visible;
+  border-image: none !important;
+  box-shadow: none !important;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 150px 150px;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  &:hover .tabs-button-inner {
+    animation: glitch 1.2s infinite;
+  }
+
+  @include devices(tablet) {
+    border-radius: 11px !important;
+    min-width: 130px !important;
+    min-height: 70px !important;
+  }
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: none;
+    transform: translate(0);
+  }
+  10% {
+    text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff;
+    transform: translate(-2px, 0);
+  }
+  15% {
+    text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
+    transform: translate(2px, 0);
+  }
+  20% {
+    text-shadow: none;
+    transform: translate(0);
+  }
+  100% {
+    text-shadow: none;
+    transform: translate(0);
+  }
+}
+
+.tabs-antenna-left::before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--mikado);
+  border-radius: 50%;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tabs-antenna-right::before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--mikado);
+  border-radius: 50%;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tabs-antenna-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 20px;
+  margin-bottom: -20px;
+  margin-left: 0px;
+}
+/*
+.tabs-antenna-wrapper {
+  flex: 1;
+  height: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  opacity: 0;
+}
+*/
+.tabs-antenna-active {
+  opacity: 1;
+}
+
+.tabs-antenna-left {
+  position: absolute;
+  width: 4px;
+  height: 38px;
+  background: var(--mikado);
+  border-radius: 2px;
+  transform-origin: bottom center;
+  transform: rotate(-25deg);
+  bottom: 0; /* Pushes it exactly above the top edge */
+  left: -12px; /* Adjusted for the new 0-width center alignment */
+}
+
+.tabs-antenna-right {
+  position: absolute;
+  width: 4px;
+  height: 38px;
+  background: var(--mikado);
+  border-radius: 2px;
+  transform-origin: bottom center;
+  transform: rotate(25deg);
+  bottom: 0; /* Pushes it exactly above the top edge */
+  left: 8px; /* Adjusted for the new 0-width center alignment */
+}
+
+.tabs-button-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.tabs-antenna-wrapper {
+  position: absolute;
+  top: 0; /* Changed from -40px */
+  left: 50%; /* Center it horizontally */
+  transform: translateX(-50%);
+  width: 0; /* Prevents affecting flex width */
+  height: 0; /* Prevents affecting flex height */
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
 }

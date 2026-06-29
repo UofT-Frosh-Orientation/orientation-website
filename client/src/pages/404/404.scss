@@ -1,10 +1,45 @@
 @import '../../scssStyles/mixins';
 
-.error-background {
-  margin-top: 100px;
-  width: 100vw;
-  height: auto;
-  @include devices(tablet) {
-    margin-top: 20px;
+.error-404 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  box-sizing: border-box;
+
+  .error-404-logo {
+    width: 440px;
+    max-width: 85vw;
+    height: auto;
+    margin-bottom: 32px;
+
+    @include devices(tablet) {
+      width: 300px;
+      max-width: 75vw;
+      margin-bottom: 24px;
+    }
+  }
+
+  .error-404-title {
+    font-size: 72px;
+    font-weight: 700;
+    margin: 0 0 12px;
+
+    @include devices(tablet) {
+      font-size: 44px;
+    }
+  }
+
+  .error-404-subtitle {
+    font-size: 28px;
+    margin: 0;
+    opacity: 0.7;
+
+    @include devices(tablet) {
+      font-size: 20px;
+    }
   }
 }

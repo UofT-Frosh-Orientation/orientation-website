@@ -24,7 +24,8 @@ export const ProfilePageResources = ({ froshObject }) => {
             isSecondary
             style={{ margin: 0, marginTop: '10px' }}
           />
-          <ButtonBubble
+          {/* Schedule PDF download hidden per request */}
+          {/* <ButtonBubble
             label={'Download Schedule PDF'}
             onClick={async () => {
               const ReactPDF = await import('@react-pdf/renderer');
@@ -36,7 +37,7 @@ export const ProfilePageResources = ({ froshObject }) => {
             }}
             isSecondary
             style={{ margin: 0, marginTop: '30px' }}
-          />
+          /> */}
         </>
       ) : null}
       <h2 className="desktop-only">RESOURCES</h2>

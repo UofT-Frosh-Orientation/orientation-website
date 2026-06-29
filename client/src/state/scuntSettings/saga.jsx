@@ -67,7 +67,7 @@ export function* setGameSettingsSaga({
       revealMissions,
       allowJudging,
     });
-    setSnackbar('Scunt Settings Updated!');
+    setSnackbar('Skule Hunt Settings Updated!');
     yield put(setScuntSettingsSuccess(result.data.settings));
   } catch (error) {
     console.error(error);

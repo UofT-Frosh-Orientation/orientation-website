@@ -74,7 +74,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="tech-team">Made with 💜 by the F!rosh Week 2T5 Tech Team</div>
+      <div className="tech-team">Made with 💜 by the F!rosh Week 2T6 Tech Team</div>
     </>
   );
 };

@@ -83,10 +83,10 @@ newUserSubscription.process((job, done) => {
           <header></header>
           <div class="space-bar"></div>
           <div class="content">
-            <img class="frosh-logo-main" src="cid:froshmainlogooutline" alt="frosh logo" />
+            <img class="frosh-logo-main" src="cid:2T6logo" alt="frosh logo" />
             <div class="text-container">
               <p>
-                Congratulations and thank you for creating an account for F!rosh Week 2T5!
+                Congratulations and thank you for creating an account for F!rosh Week 2T6!
               </p>
               <p>
                 We're so excited to have you join!
@@ -119,14 +119,11 @@ newUserSubscription.process((job, done) => {
               <a href="https://bit.ly/froshig" class="social-link">
                 <img src="cid:instagrambrands" alt="instagram logo" class="social-icon" />
               </a>
-              <a href="https://discord.gg/Fnxr7tp34E" class="social-link">
-                <img src="cid:discordbrands" alt="discord logo" class="social-icon" />
-              </a>
             </div>
             <img
               class="frosh-logo"
-              src="cid:froshhardhatwhite"
-              alt="F!rosh Week Hardhat Logo"
+              src="cid:2T6logo"
+              alt="F!rosh Week 2T6 Logo"
             />
           </footer>
         </body>
@@ -141,12 +138,10 @@ newUserSubscription.process((job, done) => {
         },
         {
           type: 'static',
-          filePath: 'frosh-main-logo-outline.png',
+          filePath: '2T6logo.png',
           contentDisposition: 'inline',
         },
-        { type: 'static', filePath: 'frosh-hard-hat-white.png', contentDisposition: 'inline' },
         // { type: 'static', filePath: 'whatsapp.png', contentDisposition: 'inline' },
-        { type: 'static', filePath: 'discord-brands.png', contentDisposition: 'inline' },
         // { type: 'non-static', content: job.data.file, contentDisposition: 'attachment' },
         { type: 'static', filePath: 'instagram-brands.png', contentDisposition: 'inline' },
       ],

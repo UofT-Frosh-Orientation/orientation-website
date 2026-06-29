@@ -6,10 +6,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import './ExecProfile.scss';
 
 import wave from '../../../assets/about/wave-about.svg';
-import { useState, useEffect } from 'react';
-
-// Set 5s to read the post before closing automatically, configure as needed
-const EXEC_TIMEOUT = 25000;
+import { useRef } from 'react';
 
 const ExecProfile = ({
   image,
@@ -24,46 +21,142 @@ const ExecProfile = ({
   cochairs,
   scuntJudge,
   bribes,
+  style,
+  isActiveCard,
+  isCardFlipped,
+  onCardSelect,
+  onCardHover,
+  onCardLeave,
 }) => {
-  // initialize to false, don't show description
-  const [showDescription, setShowDescription] = useState(false);
+  const containerRef = useRef(null);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (showDescription) setShowDescription(!showDescription); // stop showing description
-    }, EXEC_TIMEOUT);
-    return () => clearTimeout(timer);
-  }, [showDescription]);
+  // Pointer-tilt parallax + holographic glare: map the cursor position over the
+  // card into tilt angles (--rx/--ry) and a moving highlight centre (--mx/--my).
+  const handlePointerMove = (e) => {
+    const el = containerRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width; // 0 (left) → 1 (right)
+    const py = (e.clientY - rect.top) / rect.height; // 0 (top) → 1 (bottom)
+
+    el.style.setProperty('--rx', `${(0.5 - py) * 16}deg`);
+    el.style.setProperty('--ry', `${(px - 0.5) * 16}deg`);
+    el.style.setProperty('--mx', `${px * 100}%`);
+    el.style.setProperty('--my', `${py * 100}%`);
+    el.style.setProperty('--holo-opacity', '0.9');
+  };
+
+  const resetTilt = () => {
+    const el = containerRef.current;
+    if (!el) return;
+    el.style.setProperty('--rx', '0deg');
+    el.style.setProperty('--ry', '0deg');
+    el.style.setProperty('--holo-opacity', '0');
+  };
+
+  const handleMouseEnter = () => {
+    if (onCardHover) onCardHover();
+  };
+
+  const handleMouseLeave = () => {
+    resetTilt();
+    if (onCardLeave) onCardLeave();
+  };
 
   return (
     <div
-      className={`exec-container ${subcom ? 'subcom-container' : ''}`}
-      onClick={() => setShowDescription(!showDescription)}
+      ref={containerRef}
+      className={`exec-container ${isActiveCard ? 'active-fg' : ''} ${
+        isCardFlipped ? 'flipped-3d' : ''
+      }`}
+      style={style}
+      onClick={onCardSelect}
+      onMouseMove={handlePointerMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      <div className="exec-image-hover">
-        <LazyLoadImage className="exec-image" alt={name} effect="blur" src={image}></LazyLoadImage>
+      {/* Tilt layer sits between the fan/scale transform and the flip so pointer
+          tilt composes cleanly with the existing 180° card flip. */}
+      <div className="card-tilt-layer">
+        <div className="card-inner-3d-flipper">
+          {/* ================= CARD FRONT ================= */}
+          <div className="card-template card-face-front">
+            {/* Vertical role text placed inside the yellow border area */}
+            <span className="vertical-card-role-label">{role.toUpperCase()}</span>
+
+            {/* Main layout image panel */}
+            <div className="card-template__panel">
+              <LazyLoadImage className="exec-image" alt={name} effect="blur" src={image} />
+            </div>
+
+            {/* Footer Band with Name */}
+            <div className="card-template__footer">
+              <h3 className="exec-profile-card-footer-name script-font">{name}</h3>
+            </div>
+
+            {/* Holographic foil sheen overlay */}
+            <div className="card-holo" aria-hidden="true"></div>
+          </div>
+
+          {/* ================= CARD BACK ================= */}
+          {/* Back face is just the blank card panel; the readable bio is rendered
+              in the flat overlay below so it can scroll on touch devices. */}
+          <div className="card-template card-face-back">
+            <div className="card-template__panel back-bio-panel"></div>
+          </div>
+        </div>
       </div>
-      {/* <img src={image} className="exec-image"></img> */}
-      <div
-        className={` ${
-          showDescription ? 'exec-profile-description-show' : 'exec-profile-description-hide'
-        }`}
-      >
-        {exec ? (
-          <ExecProfileDescription
-            name={name}
-            role={role}
-            discipline={discipline}
-            roleDescription={roleDescription}
-          />
-        ) : subcom ? (
-          <SubcomProfileDescription name={name} description={roleDescription} cochairs={cochairs} />
-        ) : scuntJudge ? (
-          <ScuntJudgeDescription name={name} bribes={bribes} description={description} />
-        ) : (
-          <NonexecProfileDescription name={name} discipline={discipline} quote={quote} />
-        )}
-      </div>
+
+      {/* Bio lives in a flat overlay OUTSIDE the 3D-transformed flip subtree:
+          iOS Safari cannot reliably touch-scroll content nested inside a rotated,
+          backface-hidden element, so we render and scroll it here instead. */}
+      {isActiveCard && isCardFlipped && (
+        <div className="bio-scroll-overlay">
+          <div className="bio-forced-visible">
+            {exec ? (
+              <ExecProfileDescription
+                name={name}
+                role={role}
+                discipline={discipline}
+                roleDescription={roleDescription}
+              />
+            ) : subcom ? (
+              <SubcomProfileDescription
+                name={name}
+                description={roleDescription}
+                cochairs={cochairs}
+              />
+            ) : scuntJudge ? (
+              <ScuntJudgeDescription name={name} bribes={bribes} description={description} />
+            ) : (
+              <NonexecProfileDescription name={name} discipline={discipline} quote={quote} />
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Sparkle burst that plays once each time a card flips to its bio */}
+      {isActiveCard && isCardFlipped && (
+        <div className="flip-sparkles" aria-hidden="true">
+          {Array.from({ length: 12 }).map((_, i) => {
+            const angle = (i / 12) * Math.PI * 2;
+            const dist = 70 + (i % 3) * 25;
+            return (
+              <span
+                key={i}
+                className="flip-sparkle"
+                style={{
+                  '--tx': `${Math.cos(angle) * dist}px`,
+                  '--ty': `${Math.sin(angle) * dist}px`,
+                  animationDelay: `${i * 0.025}s`,
+                }}
+              >
+                ✦
+              </span>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };
@@ -88,16 +181,9 @@ const ExecProfileDescription = ({ name, role, discipline, roleDescription }) => 
         <h3 className="exec-profile-name">{name}</h3>
       </div>
 
-      <p className="exec-profile-description-dis">
-        <span style={{ fontWeight: 'bold' }}>DISCIPLINE: </span>
-        {discipline}
-      </p>
+      <p className="exec-profile-description-discipline">{discipline}</p>
 
-      <p className="exec-profile-description-role">
-        <span style={{ fontWeight: 'bold' }}> FUN FACTS: </span>
-        <br></br>
-        {roleDescription}
-      </p>
+      <p className="exec-profile-description-role">{roleDescription}</p>
     </div>
   );
 };
@@ -216,6 +302,13 @@ ExecProfile.propTypes = {
 
   scuntJudge: PropTypes.bool, // true if a judge
   bribes: PropTypes.array, // all bribes
+
+  style: PropTypes.object, // for the fan effect
+  isActiveCard: PropTypes.bool,
+  isCardFlipped: PropTypes.bool,
+  onCardSelect: PropTypes.func,
+  onCardHover: PropTypes.func,
+  onCardLeave: PropTypes.func,
 };
 
 ExecProfileTitle.propTypes = {

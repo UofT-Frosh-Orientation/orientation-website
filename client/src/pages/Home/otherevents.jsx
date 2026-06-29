@@ -12,7 +12,8 @@ export const otherEventsData = [
   },
   {
     title: 'Faculty Orientation Events',
-    description: 'Check out the schedule for Faculty Orientation Events happening on August 28th!',
+    description:
+      'Check out the schedule for Faculty Orientation Events happening on Thursday, September 3rd!',
     image: campus,
     link: 'https://undergrad.engineering.utoronto.ca/event/faculty-orientation-events-2/',
   },

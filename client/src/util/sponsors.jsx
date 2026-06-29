@@ -24,24 +24,10 @@ import CityDental from '../assets/sponsors/city-dental.png';
 import CityDentalDark from '../assets/sponsors/city-dentaldark.png';
 import bikeshare from '../assets/sponsors/bikeshare.png';
 import bikesharedark from '../assets/sponsors/bikesharedark.png';
+import cosmicPizza from '../assets/sponsors/cosmicpizza.png';
+import cosmicPizzaWhite from '../assets/sponsors/Cosmic_White.png';
 
 export const sponsors = [
-  {
-    website: 'https://emmo.ca/',
-    image: EMMO,
-    darkimage: EMMOdark,
-    scale: 0.82,
-    rank: 'diamond',
-    label: 'Diamond Sponsor: EMMO',
-  },
-  {
-    website: 'https://citydentaltoronto.com/',
-    image: CityDental,
-    darkimage: CityDentalDark,
-    scale: 0.82,
-    rank: 'diamond',
-    label: 'Diamond Sponsor: City Dental on Bay',
-  },
   {
     website: 'https://alumni.engineering.utoronto.ca/',
     image: Alumni,
@@ -49,30 +35,6 @@ export const sponsors = [
     scale: 0.88,
     rank: 'diamond',
     label: 'Diamond Sponsor: FASE Alumni',
-  },
-  {
-    website: 'https://www.meetyoucafe.com/',
-    image: MeetYou,
-    darkimage: MeetYouDark,
-    scale: 0.82,
-    rank: 'gold',
-    label: 'Gold Sponsor: MeetYou',
-  },
-  {
-    website: 'https://carlyriangroup.com/',
-    image: CRG,
-    darkimage: CRGdark,
-    scale: 0.82,
-    rank: 'silver',
-    label: 'Silver Sponsor: Carly Rian Consulting Group',
-  },
-  {
-    website: 'https://www.panago.com/',
-    image: Panago,
-    darkimage: Panagodark,
-    scale: 0.7,
-    rank: 'silver',
-    label: 'Silver Sponsor: Panago Pizza',
   },
   {
     website: 'https://www.peo.on.ca/',
@@ -87,8 +49,8 @@ export const sponsors = [
     image: Nani,
     darkimage: nanidark,
     scale: 0.82,
-    rank: 'bronze',
-    label: 'Bronze sponsor: Nani’s Gelato',
+    rank: 'diamond',
+    label: 'Diamond sponsor: Nani’s Gelato',
   },
   {
     website: 'https://ilead.engineering.utoronto.ca/',
@@ -99,14 +61,6 @@ export const sponsors = [
     label: 'Bronze Sponsor: Troost iLead',
   },
   {
-    website: 'https://www.instagram.com/kailenskreations/',
-    image: Kailen,
-    darkimage: Kailendark,
-    scale: 0.82,
-    rank: 'bronze',
-    label: 'Bronze Sponsor: Kailen’s Kreations',
-  },
-  {
     website: 'https://www.utsu.ca/',
     image: UTSU,
     darkimage: UTSUdark,
@@ -115,11 +69,11 @@ export const sponsors = [
     label: 'Bronze Sponsor: UTSU',
   },
   {
-    website: 'https://bikesharetoronto.com/',
-    image: bikeshare,
-    darkimage: bikesharedark,
+    website: 'https://collegestreet.cosmicpizza.ca/',
+    image: cosmicPizza,
+    darkimage: cosmicPizzaWhite,
     scale: 0.8,
-    rank: 'bronze',
-    label: 'Bronze Sponsor: Bike Share Toronto',
+    rank: 'gold',
+    label: 'Gold Sponsor: Cosmic Pizza',
   },
 ];

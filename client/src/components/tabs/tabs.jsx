@@ -33,7 +33,20 @@ const Tabs = ({
           classNameSelector={'tabs-button-selector'}
           maxWidthButton={maxWidthTab}
           classNameButton={'tabs-button-tab'}
-          buttonList={tabTitles}
+          buttonList={tabTitles.map((tab, index) => ({
+            ...tab,
+            name: (
+              <>
+                {selectedTab === index && (
+                  <div className="tabs-antenna-wrapper">
+                    <div className="tabs-antenna-left" />
+                    <div className="tabs-antenna-right" />
+                  </div>
+                )}
+                <div className="tabs-button-inner">{tab.name}</div>
+              </>
+            ),
+          }))}
           setActiveIndex={setSelectedTab}
           activeIndex={selectedTab}
         />

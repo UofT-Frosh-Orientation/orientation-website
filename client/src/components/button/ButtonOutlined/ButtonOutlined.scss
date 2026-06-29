@@ -15,7 +15,7 @@
 }
 
 .button-outlined {
-  margin: 15px 10px;
+  margin: 15px 5px;
 
   border-image-source: var(--schedule-dates-pixel-border);
   background-color: var(--monster);
@@ -41,8 +41,8 @@
   align-items: center;
 
   h1 {
-    font-size: 28px;
-    font-family: 'Jersey 20', sans-serif;
+    font-size: 25px;
+    font-family: 'Proxima Nova', sans-serif;
 
     @include devices(tablet) {
       font-size: 25px;

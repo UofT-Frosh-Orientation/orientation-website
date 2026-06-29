@@ -4,7 +4,7 @@ import './Maintenance.scss';
 import { DarkModeContext } from '../../../util/DarkModeProvider';
 
 // Import existing assets from the project
-import MainFroshLogo from '../../../assets/logo/main-logo-2T5.png';
+import MainFroshLogo from '../../../assets/logo/2T6logo.png';
 import Wave from '../../../assets/misc/wave.png';
 import WaveDarkMode from '../../../assets/darkmode/misc/wave.png';
 
@@ -15,7 +15,7 @@ const Maintenance = () => {
 
   useEffect(() => {
     // Set your target date and start date for progress calculation
-    const targetDate = new Date('2025-08-26T07:30:00').getTime();
+    const targetDate = new Date('2026-08-31T08:00:00').getTime();
     const startDate = new Date('2025-03-30T07:30:00').getTime();
 
     const timer = setInterval(() => {
@@ -119,7 +119,7 @@ const Maintenance = () => {
           <p>
             Join our Discord:
             <a
-              href="https://discord.gg/Fnxr7tp34E"
+              href="https://discord.gg/yZvTXC47n"
               target="_blank"
               rel="noreferrer"
               className="countdown-link"

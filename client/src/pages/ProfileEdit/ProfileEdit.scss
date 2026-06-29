@@ -5,3 +5,9 @@
     margin-top: 0px;
   }
 }
+
+// Ensure the edit page background matches the profile page theme
+.profile-page-background {
+  background-color: var(--bg-main);
+  min-height: 100vh;
+}

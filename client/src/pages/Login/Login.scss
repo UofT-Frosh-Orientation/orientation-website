@@ -12,6 +12,7 @@
 
   justify-content: center;
   align-items: center;
+  background-color: var(--bg-main);
 }
 
 .login-container {
@@ -19,10 +20,12 @@
   transition: transform 400ms, opacity 400ms;
   width: 50vw;
   z-index: 9;
+  background-color: var(--bg-primary);
   box-shadow: var(--bg-secondary) 0px 8px 24px;
   border-radius: 15px;
   padding: 40px min(150px, 5%);
   margin: 50px;
+  font-family: 'Proxima Nova', sans-serif;
 }
 
 .login-title {
@@ -31,7 +34,7 @@
   font-size: clamp(50px, 5vw, 64px);
   font-weight: 900;
   letter-spacing: 1.5px;
-  font-family: 'Jersey 20', sans-serif;
+  font-family: 'Gliker', sans-serif;
   padding: 5%;
   // text-shadow: 0px 7px 10px rgba(0, 0, 0, 0.25);
 }

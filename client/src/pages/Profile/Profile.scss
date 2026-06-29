@@ -6,6 +6,16 @@
   src: url('../../../../client/assets/fonts/proximanova_regular.ttf') format('opentype');
 }
 
+@font-face {
+  font-family: 'Genty';
+  src: url('../../../../client/assets/fonts/genty-regular.ttf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gliker';
+  src: url('../../../../client/assets/fonts/gliker-regular.ttf') format('opentype');
+}
+
 :root {
   --top-left-corner-border: url('../../assets/profile/coins-left.png');
   --bottom-right-corner-border: url('../../assets/profile/coins-right.png');
@@ -13,11 +23,16 @@
   --scunt-bottom-corner-border: url('../../assets/profile/scunt-right.png');
 }
 
+.profile-page-background {
+  background-color: var(--bg-main);
+  min-height: 100vh;
+}
+
 .profile-page-header {
   display: flex;
   align-items: center;
   flex-direction: row;
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-main);
   padding: 0% 6%;
   padding-top: 80px;
   padding-bottom: 60px;
@@ -30,7 +45,7 @@
     color: var(--jam);
     font-size: 60px;
     line-height: 44px;
-    font-family: 'Jersey 20';
+    font-family: 'Gliker';
   }
   p {
     color: var(--text-primary);
@@ -39,7 +54,7 @@
   b {
     color: var(--text-primary);
     font-size: 80px;
-    font-family: 'Jersey 20' !important;
+    font-family: 'Gliker' !important;
     font-weight: normal;
     //letter-spacing: 0.2rem;
   }
@@ -140,6 +155,7 @@
     // flex: unset;
     padding: 0px 20px;
     text-align: left;
+    justify-content: center;
   }
 }
 
@@ -186,12 +202,12 @@
     margin-bottom: 3px;
     font-size: 18px;
     @include devices(tablet) {
-      font-size: 11px;
+      font-size: 20px;
     }
   }
   u {
     @include devices(tablet) {
-      font-size: 16px;
+      font-size: 24px;
     }
   }
 }
@@ -481,13 +497,13 @@
     &::before {
       top: -25px;
       left: -30px;
-      background-image: var(--top-left-corner-border);
+      background-image: url('../../assets/profile/retreat-vinyl.png');
     }
 
     &::after {
       bottom: -30px;
       right: -25px;
-      background-image: var(--bottom-right-corner-border);
+      background-image: url('../../assets/profile/retreat-vinyl.png');
     }
   }
 
@@ -798,12 +814,20 @@
 }
 
 /* If not already defined globally, add helpers */
-.mobile-only { display: none; }
-.desktop-only { display: block; }
+.mobile-only {
+  display: none;
+}
+.desktop-only {
+  display: block;
+}
 
 @include devices(tablet) {
-  .mobile-only { display: block; }
-  .desktop-only { display: none; }
+  .mobile-only {
+    display: block;
+  }
+  .desktop-only {
+    display: none;
+  }
 }
 
 /* Optional spacing for the mobile QR at top */

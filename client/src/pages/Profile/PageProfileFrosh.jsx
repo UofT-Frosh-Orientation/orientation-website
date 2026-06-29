@@ -121,7 +121,9 @@ const PageProfileFrosh = () => {
                 <ButtonRound label="Register" style={{ marginLeft: '20px' }} />
               </Link>
             </div>
-          ) : null}
+          ) : (
+            <ProfilePageRetreat />
+          )}
 
           <div className="profile-info-top mobile-only">
             <ProfilePageQRCode />
@@ -132,14 +134,13 @@ const PageProfileFrosh = () => {
           </div>
 
           {/* {user?.attendingScunt === true ? <ProfilePageFroshScuntMessage /> : null} */}
-          <ProfilePageRetreat />
 
           {/* <ProfilePageScuntMessage /> */}
           {/* {isRegistered ? <ProfilePageFroshOlympiks /> : null} */}
           {/* <ProfilePageNitelife /> */}
           <ProfilePageInstagrams />
           <ProfilePageAnnouncements />
-          <ProfilePageSchedule />
+          {/* <ProfilePageSchedule /> */}
 
           <div className="profile-info-bottom mobile-only">
             <ProfilePageResources froshObject={isRegistered ? user : null} />
@@ -332,11 +333,12 @@ const ProfilePageFroshHeader = ({ editButton }) => {
           <div className="profile-page-header-group desktop-only">
             {isRegistered ? (
               <>
-                <img
+                {/* <img
                   src={getFroshGroupImage(user?.froshGroup)}
                   alt={`${user?.froshGroup}`}
                   className="frosh-group-icon-image"
-                />
+                /> */}
+                <h1>{user?.froshGroup ? user.froshGroupIcon : null}</h1>
                 <p>{user?.froshGroup}</p>
               </>
             ) : null}
@@ -390,22 +392,33 @@ const ProfilePageInstagrams = () => {
   const { darkMode } = useContext(DarkModeContext);
 
   const getInstagramFromLink = (link) => {
-    if (link === undefined) return '';
+    if (!link) return '';
     return link.replace('https://www.instagram.com', '').replace('/', '');
   };
 
   const instagramLink = instagramAccounts[user?.froshGroup];
   if (!isRegistered) return null;
-  return (
-    <a href={instagramLink} className="no-link-style" target={'_blank'} rel="noreferrer">
-      <div className="frosh-instagram-container">
-        <img src={InstagramIcon} alt="Instagram" className="desktop-only" />
-        <div className="instagram-text">
-          <p>Go follow your F!rosh group and meet your Leedurs!</p>
+
+  const instagramContent = (
+    <div className="frosh-instagram-container">
+      <img src={InstagramIcon} alt="Instagram" className="desktop-only" />
+      <div className="instagram-text">
+        <p>Go follow your F!rosh group and meet your Leedurs!</p>
+        {instagramLink ? (
           <h2>@{getInstagramFromLink(instagramLink).slice(0, -1)}</h2>
-        </div>
+        ) : (
+          <h2>Coming Soon!</h2>
+        )}
       </div>
+    </div>
+  );
+
+  return instagramLink ? (
+    <a href={instagramLink} className="no-link-style" target={'_blank'} rel="noreferrer">
+      {instagramContent}
     </a>
+  ) : (
+    <div>{instagramContent}</div>
   );
 };
 

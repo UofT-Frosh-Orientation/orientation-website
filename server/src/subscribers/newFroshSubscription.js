@@ -79,11 +79,11 @@ newFroshSubscription.process((job, done) => {
           <header></header>
           <div class="space-bar"></div>
           <div class="content">
-            <img class="frosh-logo-main" src="cid:froshmainlogooutline" alt="frosh logo" />
+            <img class="frosh-logo-main" src="cid:2T6logo" alt="frosh logo" />
             <div class="text-container">
               <p>Hi ${job.data.preferredName ? job.data.preferredName : job.data.firstName},</p>
               <p>
-                Thank you for inputting your information on your F!rosh Week 2T5 account.
+                Thank you for inputting your information on your F!rosh Week 2T6 account.
               </p>
               <p>
                 This email is <b>not</b> a confirmation that your registration is complete.
@@ -93,14 +93,14 @@ newFroshSubscription.process((job, done) => {
                 <a href="http://orientation.skule.ca" style="color: #ffc600; text-decoration: underline;">orientation.skule.ca</a>.
               </p>
               <p>
-                If you do not see the banner, make sure you complete your payment to secure your spot at F!rosh Week 2T5! If you have not yet paid,
+                If you do not see the banner, make sure you complete your payment to secure your spot at F!rosh Week 2T6! If you have not yet paid,
                 the register button will be at the top of your profile page. If you are having trouble finding this button, please let us know at
                 <a href="mailto:tech@orientation.skule.ca" style="color: #ffc600; text-decoration: underline;">tech@orientation.skule.ca</a>.
               </p>
               <p>
                 To stay up to date on all the info you need before you arrive, and to learn more about UofT, make sure to follow our
                 <a href="https://bit.ly/froshig" style="color: #ffc600; text-decoration: underline;">Instagram page</a> and
-                <a href="https://discord.gg/Fnxr7tp34E" style="color: #ffc600; text-decoration: underline;">join our Discord community</a>!
+                <a href="https://discord.gg/yZvTXC47n" style="color: #ffc600; text-decoration: underline;">join our Discord community</a>!
               </p>
               <p>
                 If you have any questions or want to learn more, feel free to email us at
@@ -123,14 +123,11 @@ newFroshSubscription.process((job, done) => {
               <a href="https://bit.ly/froshig" class="social-link">
                 <img src="cid:instagrambrands" alt="instagram logo" class="social-icon" />
               </a>
-              <a href="https://discord.gg/Fnxr7tp34E" class="social-link">
-                <img src="cid:discordbrands" alt="discord logo" class="social-icon" />
-              </a>
             </div>
             <img
               class="frosh-logo"
-              src="cid:froshhardhatwhite"
-              alt="F!rosh Week Hardhat Logo"
+              src="cid:2T6logo"
+              alt="F!rosh Week 2T6 Logo"
             />
           </footer>
         </body>
@@ -145,12 +142,10 @@ newFroshSubscription.process((job, done) => {
         },
         {
           type: 'static',
-          filePath: 'frosh-main-logo-outline.png',
+          filePath: '2T6logo.png',
           contentDisposition: 'inline',
         },
-        { type: 'static', filePath: 'frosh-hard-hat-white.png', contentDisposition: 'inline' },
         // { type: 'static', filePath: 'whatsapp.png', contentDisposition: 'inline' },
-        { type: 'static', filePath: 'discord-brands.png', contentDisposition: 'inline' },
         { type: 'non-static', content: job.data.file, contentDisposition: 'attachment' },
         { type: 'static', filePath: 'instagram-brands.png', contentDisposition: 'inline' },
       ],
