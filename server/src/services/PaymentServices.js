@@ -178,9 +178,7 @@ const PaymentServices = {
   async getTransportationAvailability() {
     try {
       const transportationCount = await this.getTransportationCount();
-      const maxTransportation = Number(
-        process.env.MAX_TRANSPORTATION ?? process.env.RETREAT_MAX_TICKETS,
-      );
+      const maxTransportation = Number(process.env.RETREAT_TRANSPORTATION_MAX);
 
       if (!Number.isFinite(maxTransportation)) {
         return {

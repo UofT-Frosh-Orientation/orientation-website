@@ -51,7 +51,8 @@ const PaymentController = {
       const count = await PaymentServices.getNonExpiredPaymentsCountForItem('Retreat Ticket');
       const transportationAvailability = await PaymentServices.getTransportationAvailability();
       console.log(`retreat tickets purchased : ${count}`);
-      const remaining = process.env.RETREAT_MAX_TICKETS - count;
+      const retreatTicketLimit = Number(process.env.RETREAT_MAX_TICKETS);
+      const remaining = retreatTicketLimit - count;
       res.status(200).send({
         count: remaining < 0 ? 0 : remaining,
         transportationSoldOut: transportationAvailability.soldOut,
@@ -67,7 +68,8 @@ const PaymentController = {
     try {
       const user = req.user;
       const count = await PaymentServices.getNonExpiredPaymentsCountForItem('Retreat Ticket');
-      if (count < process.env.RETREAT_MAX_TICKETS) {
+      const retreatTicketLimit = Number(process.env.RETREAT_MAX_TICKETS);
+      if (count < retreatTicketLimit) {
         const { url, payment_intent } = await PaymentServices.createCheckoutSession(
           user.email,
           'retreat',
