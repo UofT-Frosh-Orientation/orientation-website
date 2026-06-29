@@ -471,10 +471,7 @@ const HomePageSponsors = () => {
       </div>
 
       {sponsors.length > 0 && (
-        <div
-          className="sponsors-carousel-container"
-          style={{ '--item-count': loopedSponsors.length }}
-        >
+        <div className="sponsors-carousel-container" style={{ '--item-count': sponsors.length }}>
           {' '}
           <div className="sponsors-carousel-track">
             {loopedSponsors.map((item, index) => {
