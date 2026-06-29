@@ -10,71 +10,65 @@ import vcRelations from '../../assets/about/execs/vcr.png';
 export const execInfo = {
   ocs: [
     {
-      name: 'Simona Tenche',
+      name: 'Lesley Ha Tchong',
       role: 'Orientation Chair',
-      discipline: 'MSE 2T6 + PEY',
+      discipline: 'CHEM 2T7 + PEY',
       image: oc,
-      description: `i’m an mse 2t6 (previously engsci) and i love all things space and sustainability! i love reading, theatre, baking, and anything to do with cats, matcha, coffee, and cheese. you might recognize me from being hhc manager last year, working at engstores, or helping out with every event on the planet, but this year im so excited to be your oc!
-
-    `,
+      description: `HIHI!! I’m a CHEM 2T7 + PEY and my height is 5’7.9. I’m originally from Niagara Falls, so I’m a big fan of the water! I own 100+ copies of my grade 11 & 12 photo and I love love love to cook (Yes chef). I love F!rosh Week so so super duper much! You can catch me on campus with the Robotics association or at any event because I love fun! I’m incredibly excited and thankful to be your OC! 
+      `,
     },
   ],
   vcs: [
     {
-      name: 'Justin Fang',
+      name: 'Ryan Hammer',
       role: 'VC Finance',
-      discipline: 'ECE 2T7',
+      discipline: 'INDY 2T8',
       image: vcFinance,
-      description: `Some quick fun facts about me: I transferred from civil engineering to computer engineering based on 1 course (APS106), I like to listen to a lot of music (250k mins/year) and I love playing hockey! In my spare time, I like to play video games (league, val) or run events. Broo y’all should come to F!rosh Week because I heard the merch this year is chefs kiss. Also find me during F!rosh Week for a surprise (more merch?) You’ll have to sign up for F!rosh Week and find out!`,
+      description: `I’m an Indy 2T8, and I LOVE music! I’ve been playing the piano and organ for a few years now. I’m also a HUGE fan of MJ and ABBA! I’ve been a part of F!rosh every year since joining UofT, and I’m really looking forward to this year as your VCF! IDK why Peter Leong is copying me…..
+      `,
     },
     {
-      name: 'Bhoovi R. Handa',
-      role: 'VC Leadership',
-      discipline: 'Indy 2T6 + PEY',
-      image: vcLeadership1,
-      description: `Sad to report that once again, my brain went 💨 and I asked ChatGPT for help. *Update... it was useless.*
-  ⏩ Real quick fact recap: reading 📚, fashion 👗, martial arts 🥊, yapping, 💛yncn 🐧, and 🎤💃 everything creative 🎞️🎬🖋️
-  Side note: cancel your plans last week of August—you’re coming to F!rosh Week 2T6.`,
-    },
-    {
-      name: 'Sebastian Dot',
-      role: 'VC Leadership',
-      discipline: 'Chem 2T6 + PEY',
-      image: vcLeadership2,
-      description: `From scrutinizing nutrition labels (it’s bulking season) to jumping out of airplanes at 10,000 ft, you can catch me doing just about anything. I’m a massive admirer of Chopin (I taught myself piano just to play his pieces) and a hypercompetitive person. I’m passionate about men’s traditional fashion, and I dabble in astrophotography, boxing, cycling, and paintball. Chances are you’ve seen me around, so feel free to say hi to talk about Chem Eng, research, music—or challenge me to a game of Speed or Slapjack!
-  P.S. I BETTER see you this F!rosh Week—it’s gonna be the best one to date!`,
-    },
-    {
-      name: 'Carl Ancheta',
+      name: 'Riann Po',
       role: 'VC Marketing',
-      discipline: 'EngSci (Machine Intelligence) 2T5 + PEY',
+      discipline: 'EngSci Aero 2T6 + PEY',
       image: vcMarketing,
-      description: `When I’m not working (or not studying during the Skule™ year), you’ll catch me with a camera 📸 or doing graphic design (peep: Skulebook, Skule™ Agenda, Frosh Handbook, F!rosh photo, etc). I also love to bake (latest recipe: macarons!), am a dad to a growing army of succulents, and my favourite colour is teal (or any word/🔷hex code🟩 variation of it). I play video games when I can find the time (it’s not *just* a theme for me).
-  Bonus fun fact: this is my FIFTH F!rosh Week—I’ve collected many shirt colours in my time.`,
+      description: `I’m an EngSci Aero 2T6 + PEY, which means I’m entering my final year of Skule™! I was born and raised in the Philippines, and I absolutely love baking, reading, and playing the violin. F!rosh Week has always held a special place in my heart; I can’t wait to meet you all as this year’s VCM!
+      `,
     },
     {
-      name: 'Jenn Xu',
+      name: 'Martin Ramirez Gutierrez',
       role: 'VC Relations',
-      discipline: 'Chem 2T6 + PEY',
+      discipline: 'Chem 2T6 + 1 + PEY',
+      image: vcLeadership2,
+      description: `I’m a Chem Eng 2T6+1+PEY (I’m on my co-op right now). I’m from Mississauga and have commuted ≈1.5 hours all 4 years of SKULE so far (where my commuters at??) I love photography and have done it semi-professionally since high school!! I’m so excited to be your VCR this year for F!ROSH WEEK!`,
+    },
+    {
+      name: 'Leila Agil',
+      role: 'VC Events',
+      discipline: 'Civ 2T7 + 1 + PEY',
+      image: vcMarketing,
+      description: `I’m a Civ 2T7 + 1 + PEY (the +1 means I’m taking an extra year!). I could talk all day about sustainability and the environment, and I love reading (especially SciFi), baking, and music! I think Cannons and ethics are pretty great, and I’m so very purple hyped to be one of your VCEs this year!!`,
+    },
+    {
+      name: 'Carlota Ferrer',
+      role: 'VC Events',
+      discipline: 'Mech 2T8 + PEY',
       image: vcRelations,
-      description: `I rotate between doing 3 things: 1. Rot 2. Graphics 3. More graphics. Big fan of being whimsical, jovial, and keeping myself so busy I can’t spiral. In all seriousness, I love singing, writing, watching anime, art history, and doing Eng research.
-  Let’s go Chem Eng!`,
+      description: `I’m a Mech 2T8 + PEY and I LOVE talking about that one time I walked 100K steps in 1 day. I was born in Barcelona, Spain and I love love going on walks to the harbor to avoid studying, lattes & music! Oh and also painting. Hoping you catch me on campus attending lectures + studying this year, and I am so excited to be one of your VCEs this year and run around all purple again !!! <3`,
     },
     {
-      name: 'Lesley Ha Tchong',
-      role: 'VC Events',
-      discipline: 'Chem 2T7 + PEY',
+      name: 'Rhea Contractor',
+      role: 'VC Leadership',
+      discipline: 'EngSci Aero 2T7 + PEY',
       image: vcEvents1,
-      description: `I’m from Niagara Falls, which might explain my love for the water! I can’t take care of plants (my orchid died in one week), I can type 100 words per minute, I enjoy dabbling in robotics, I love the smell of garages and rosemary, and if I wasn’t in engineering, I’d be a chef. #yeschef
-  Can’t wait for you to experience some amazing Frosh events this year!`,
+      description: `I’m an EngSci Aero 2T7 + PEY. You can catch me working at engstores, serving at ****, or studying in the common room! Some of my favourite things include planes, reading, cooking, and drinking a good cup of coffee. I’m superrr hyped to be one of your VCLs this year <3`,
     },
     {
-      name: 'Nicholas Saldanha',
-      role: 'VC Events',
-      discipline: 'MSE 2T5 + 1 + PEY',
+      name: 'Peter Leong',
+      role: 'VC Leadership',
+      discipline: 'EngSci ECE 2T8',
       image: vcEvents2,
-      description: `Some fun facts about me: I’ve (technically) completed the F!rosh Week trifecta—subcom co-chair (DTW 2T2, 2T4; CT 2T3), HL (Lambda 2T4), and exec (VCE 2T5)! Outside of F!rosh, I’m a diehard baseball and Blue Jays fan. I also enjoy nature, camping, chatting with my buddies, and playing competitive video games.
-  Looking forward to facilitating some of your events this F!rosh Week 😁`,
+      description: `I’m an EngSci ECE 2T8, and I LOVE music! I’ve been playing the piano and organ for a few years now. I’m also a HUGE fan of MJ and ABBA! I’ve been a part of F!rosh every year since joining UofT, and I’m really looking forward to this year as one of your VCLs!`,
     },
   ],
 };
