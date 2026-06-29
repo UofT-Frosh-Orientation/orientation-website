@@ -495,12 +495,28 @@ export const fields = {
       isRequiredInput: true,
       noEdit: true,
       localStorageKey: 'registration-attendingRetreat',
+      onChanged: (values, disableField) => {
+        if (values.includes('Other')) {
+          disableField(false, 'transportation', 'ExtraEvents');
+        } else {
+          disableField(true, 'transportation', 'ExtraEvents');
+        }
+      }
     },
     priceInfo: {
       type: 'label',
       label:
-        'The price of a F!rosh Retreat ticket is $110 CAD. Answering "Yes" to this question will not add the retreat cost to your payment or guarantee you a spot at the retreat. Please see the retreat page linked on your profile for details about the payment process.',
+        'The price of a F!rosh Retreat ticket is $110 CAD with transportation and $100 without transportation. Answering "Yes" to this question will not add the retreat cost to your payment or guarantee you a spot at the retreat. Please see the retreat page linked on your profile for details about the payment process.',
       isSub: true,
+    },
+    retreatTransportation: {
+      type:'radio',
+      label: 
+        'Do you require transportation to the F!rosh retreat?',
+      initialSelectedIndex: 0,
+      isRequiredInput: true,
+      noEdit: false,
+      localStorageKey: 'registration-retreatTransportation',
     },
     summerLocationQuery: {
       type: 'radio',
