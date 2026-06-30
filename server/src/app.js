@@ -18,6 +18,10 @@ const corsOptions = {
     'https://checkout.stripe.com',
     'https://www.beta.orientation.skule.ca',
     'https://beta.orientation.skule.ca',
+    'https://orientation.skule.ca',
+    'https://www.orientation.skule.ca',
+    'https://api.orientation.skule.ca',
+    'https://ww.api.orientation.skule.ca',
   ],
     methods: ['GET', 'POST', 'DELETE' ,'HEAD','PUT','PATCH'],
     optionsSuccessStatus: 200 //
