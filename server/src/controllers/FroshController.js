@@ -151,6 +151,15 @@ const FroshController = {
   async searchFrosh(req, res, next) {
     const { searchTerm, fields } = req.body;
     try {
+      // searchTerm must be a plain string. Rejecting objects prevents a caller from
+      // injecting Mongo query operators (e.g. { $ne: null }) that would match every
+      // document and turn this search into a full-table dump.
+      if (typeof searchTerm !== 'string') {
+        return res.status(400).send({ message: 'Invalid search term' });
+      }
+      if (!Array.isArray(fields)) {
+        return res.status(400).send({ message: 'Invalid search fields' });
+      }
       if (!req.user?.froshDataFields?.approved?.length) {
         return next(new Error('UNAUTHORIZED'));
       }

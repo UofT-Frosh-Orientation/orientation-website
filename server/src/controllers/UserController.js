@@ -5,6 +5,30 @@ const passwordResetSubscription = require('../subscribers/passwordResetSubscript
 const announcementSubscription = require('../subscribers/announcementSubscription');
 const newUserSubscription = require('../subscribers/newUserSubscription');
 
+/**
+ * Fields a user is permitted to change on their own account via /user/update-info.
+ * Anything not in this list (authScopes, froshDataFields, approved, confirmedEmail,
+ * email, hashedPassword, payments, userType, ...) is ignored to prevent privilege
+ * escalation / mass assignment.
+ */
+const SELF_EDITABLE_FIELDS = [
+  'firstName',
+  'lastName',
+  'preferredName',
+  'phoneNumber',
+  'phoneNumberCountryCode',
+  'emergencyContactName',
+  'emergencyContactRelationship',
+  'emergencyContactCountryCode',
+  'emergencyContactNumber',
+  'medicalInfo',
+  'specficMedicalInfo',
+  'medication',
+  'allergies',
+  'allergiesOther',
+  'scuntPreferredMembers',
+];
+
 const UserController = {
   /**
    * Signs up a new user.
@@ -410,7 +434,17 @@ const UserController = {
    */
   async updateInfo(req, res, next) {
     const userId = req.user.id;
-    const updateInfo = req.body;
+    const body = req.body || {};
+
+    // Only allow a fixed allow-list of self-editable fields. This prevents a user
+    // from mass-assigning privileged fields (authScopes, approved, froshDataFields,
+    // confirmedEmail, email, payments, ...) onto their own account.
+    const updateInfo = {};
+    for (const field of SELF_EDITABLE_FIELDS) {
+      if (Object.prototype.hasOwnProperty.call(body, field)) {
+        updateInfo[field] = body[field];
+      }
+    }
 
     try {
       const user = await UserServices.updateUserInfo(userId, updateInfo);
@@ -426,6 +460,15 @@ const UserController = {
   async viewWaiver(req, res) {
     try {
       const userId = req.params.id; // get user id from request
+
+      // Only the owner, or a user with account-read privileges, may view a waiver.
+      const requesterScopes = req.user?.authScopes?.approved || [];
+      const canReadOthers =
+        requesterScopes.includes('admin:all') || requesterScopes.includes('accounts:read');
+      if (req.user.id !== userId && !canReadOthers) {
+        return res.status(403).send('You are not authorized to view this waiver.');
+      }
+
       const user = await UserServices.getUserByID(userId); // get user from DB
 
       if (!user) {
