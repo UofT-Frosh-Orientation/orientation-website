@@ -97,14 +97,30 @@ const loadMongo = async (app) => {
   await mongoose.connect(mongoURI);
   // mongoose.set('debug', true); // uncomment this if you have issues with mongo and want to debug
   console.log('Connected to mongo!');
+
+  const sessionStore = MongoStore.create({
+    client: mongoose.connection.getClient(),
+    crypto: { secret: process.env.SESSION_SECRET },
+  });
+
+  sessionStore.on('error', (err) => {
+    console.error('Session store error:', err);
+  });
+
   app.use(
     session({
       resave: false,
       saveUninitialized: true,
       secret: process.env.USER_SESSION_SECRET,
-      store: new MongoStore({ mongoUrl: mongoURI, crypto: { secret: process.env.SESSION_SECRET } }),
+      store: sessionStore,
+      cookie: {
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+      },
     }),
   );
+
   await FroshServices.initFroshGroups(froshGroups);
   await ScuntGameSettingsServices.initScuntGameSettings();
 };
