@@ -119,7 +119,7 @@ const Maintenance = () => {
           <p>
             Join our Discord:
             <a
-              href="https://discord.gg/yZvTXC47n"
+              href="https://discord.gg/C39WHaN3G"
               target="_blank"
               rel="noreferrer"
               className="countdown-link"

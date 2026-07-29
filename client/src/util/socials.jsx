@@ -17,7 +17,7 @@ export const socials = [
   },
   {
     label: 'Discord',
-    link: 'https://discord.gg/yZvTXC47n',
+    link: 'https://discord.gg/C39WHaN3G',
     icon: DiscordIcon,
   },
   {
