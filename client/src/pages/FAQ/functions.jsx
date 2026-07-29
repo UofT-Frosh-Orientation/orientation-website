@@ -75,8 +75,8 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'When is the deadline to register for F!rosh Week?',
       answer:
-        'There is no official deadline to register for F!rosh Week, but you should sign up before August 31st if you want to participate in all of the activities!',
-      lastUpdated: '18:12pm, Jun 28, 2025',
+        'The last day to register for F!rosh week is August 30. The last day to register for F!rosh Retreat is September 4 (12 PM)',
+      lastUpdated: '14:17pm, Jul 29, 2026',
       category: 'Registration',
     },
     {
