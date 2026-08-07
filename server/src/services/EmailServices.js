@@ -122,20 +122,30 @@ const EmailServices = {
   },
 
   /**
-   * Send bulk personalized template emails
-   * @param {Object[]} bulkEmailEntries an array containing arrays of email addresses
+   * Send bulk personalized template emails.
+   * Each entry produces one message addressed to exactly one recipient, so
+   * recipients are never exposed to each other and the template can be
+   * rendered per person. SES allows at most 50 entries per call.
+   * @param {{email: String, templateData: Object}[]} bulkEmailEntries one entry per recipient
    * @param {String} templateName name of template used
-   * @param {Object} defaultTemplateData defult data to be filled in the template
+   * @param {Object} defaultTemplateData values used for any tag an entry does not supply
    * @param {String} fromAddress the email adress the email is being sent from
    * @returns {Promise} promise
    */
   async sendBulkTemplateEmail(bulkEmailEntries, templateName, defaultTemplateData, fromAddress) {
     const params = {
-      BulkEmailEntries: bulkEmailEntries.map((entry) => {
+      BulkEmailEntries: bulkEmailEntries.map(({ email, templateData }) => {
         return {
           Destination: {
-            ToAddresses: [...entry],
+            ToAddresses: [email],
           },
+          ...(templateData && {
+            ReplacementEmailContent: {
+              ReplacementTemplate: {
+                ReplacementTemplateData: JSON.stringify(templateData),
+              },
+            },
+          }),
         };
       }),
       DefaultContent: {
