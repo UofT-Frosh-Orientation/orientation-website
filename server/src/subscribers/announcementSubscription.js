@@ -55,19 +55,21 @@ announcementSubscription.process(async (job, done) => {
   }
 
   try {
-    const users = await UserServices.getAllUsers();
+    // Older announcements queued before audiences existed carry no value.
+    const audience = job.data.audience || 'all';
+    const users = await UserServices.getEmailRecipients(audience);
 
     // One entry per recipient: SES renders a personalized copy for each and no
     // one appears in anyone else's To header.
     const recipients = users
-      .filter((user) => user.canEmail === true && user.email)
+      .filter((user) => user.email)
       .map((user) => ({
         email: user.email,
         templateData: { firstName: user.preferredName || user.firstName || 'F!rosh' },
       }));
 
     if (recipients.length === 0) {
-      console.log('Announcement email: no subscribed recipients, nothing to send');
+      console.log(`Announcement email: no recipients for audience "${audience}", nothing to send`);
       done();
       return;
     }
@@ -86,8 +88,8 @@ announcementSubscription.process(async (job, done) => {
     }
 
     console.log(
-      `Announcement email: ${recipients.length} recipients in ${batches.length} batches ` +
-        `at ~${TARGET_SEND_RATE}/sec`,
+      `Announcement email: audience "${audience}", ${recipients.length} recipients in ` +
+        `${batches.length} batches at ~${TARGET_SEND_RATE}/sec`,
     );
 
     let succeeded = 0;

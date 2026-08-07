@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
 const UserModel = require('../models/UserModel');
+const FroshModel = require('../models/FroshModel');
+const LeadurModel = require('../models/LeadurModel');
 const emailConfirmationSubscription = require('../subscribers/emailConfirmationSubscription');
 
 function createScuntToken() {
@@ -228,6 +230,34 @@ const UserServices = {
         throw new Error('UNABLE_TO_GET_USERS', { cause: error });
       },
     );
+  },
+
+  /**
+   * @description Gets the users an announcement email should go to. Only the
+   * fields needed to address and personalize the email are loaded, and every
+   * audience honours canEmail so unsubscribes are never overridden. An empty
+   * result is valid, so unlike getAllUsers this does not throw on no matches.
+   * @param {String} audience one of the AnnouncementModel audience values
+   * @returns {User[]}
+   */
+  async getEmailRecipients(audience = 'all') {
+    const fields = 'email firstName preferredName';
+    const canEmail = { canEmail: true };
+
+    switch (audience) {
+      case 'all':
+        return UserModel.find(canEmail).select(fields);
+      case 'frosh':
+        return FroshModel.find(canEmail).select(fields);
+      case 'unregisteredFrosh':
+        return FroshModel.find({ ...canEmail, isRegistered: false }).select(fields);
+      case 'registeredFrosh':
+        return FroshModel.find({ ...canEmail, isRegistered: true }).select(fields);
+      case 'leadurs':
+        return LeadurModel.find(canEmail).select(fields);
+      default:
+        throw new Error('UNKNOWN_EMAIL_AUDIENCE');
+    }
   },
 
   /**

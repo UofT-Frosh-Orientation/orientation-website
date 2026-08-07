@@ -3,6 +3,7 @@ import { TextInput } from '../../components/input/TextInput/TextInput';
 import { Button } from '../../components/button/Button/Button';
 import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 import { Checkboxes } from '../../components/form/Checkboxes/Checkboxes';
+import { Dropdown } from '../../components/form/Dropdown/Dropdown';
 import './CreateAnnounce.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +11,16 @@ import { getAnnouncements, createAnnouncements } from '../../state/announcements
 import { userSelector } from '../../state/user/userSlice';
 
 import { SnackbarContext } from '../../util/SnackbarProvider';
+
+// Labels shown in the dropdown mapped to the audience values the server accepts.
+// Must stay in sync with the audience enum on AnnouncementModel.
+const AUDIENCE_OPTIONS = {
+  Everyone: 'all',
+  'All F!rosh': 'frosh',
+  'F!rosh - Not Yet Registered': 'unregisteredFrosh',
+  'F!rosh - Registered': 'registeredFrosh',
+  Leedurs: 'leadurs',
+};
 
 const CreateAnnounce = () => {
   const [announcementData, setAnnouncementData] = useState({});
@@ -50,6 +61,13 @@ const CreateAnnounce = () => {
             values={['Also Send As Email']}
             onSelected={(value, index, state, selectedIndices) => {
               announcementData['sendAsEmail'] = state;
+            }}
+          />
+          <Dropdown
+            label="Email Audience"
+            values={Object.keys(AUDIENCE_OPTIONS)}
+            onSelect={(label) => {
+              announcementData['audience'] = AUDIENCE_OPTIONS[label];
             }}
           />
         </div>
