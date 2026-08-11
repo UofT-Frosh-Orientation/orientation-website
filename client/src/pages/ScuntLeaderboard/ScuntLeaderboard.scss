@@ -1,3 +1,10 @@
+@import '../../scssStyles/mixins';
+
+@font-face {
+  font-family: 'Gliker';
+  src: url('../../assets/fonts/gliker-regular.ttf') format('truetype');
+}
+
 .scunt-leaderboard {
   display: flex;
   flex-direction: column;
@@ -109,13 +116,6 @@
   color: var(--text-dark-use);
   //width: 200px;
   //justify-content: start;
-}
-
-.leaderboard-team-name {
-  //margin-right: 10px;
-}
-.leaderboard-team-group {
-  //padding-top: 2px;
 }
 
 .leaderboard-page-mobile {
@@ -310,4 +310,173 @@
     transition: background-position 500ms ease-out;
     background-position: -100% 100%;
   }
+}
+
+// --- NEW LEADERBOARD DESIGN ---
+
+.scunt-leaderboard-container {
+  background-color: var(--page-bg);
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+
+.leaderboard-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 32px auto 24px auto;
+  padding: 0 5%;
+}
+
+.leaderboard-heading-pill {
+  background-color: rgba(80, 80, 110, 0.5); // transparent gray
+  color: var(--text-primary);
+  font-family: 'Gliker', sans-serif;
+  font-size: clamp(30px, 3vw, 60px); // bigger
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 16px 48px;
+  border-radius: 12px;
+  text-align: center;
+  width: 70%; // span more of the page
+}
+
+body.dark-mode .leaderboard-heading-pill {
+  background-color: rgba(180, 180, 210, 0.2); // dark mode - lighter
+}
+
+// CD discs using pure CSS
+.leaderboard-cd-group {
+  position: relative;
+  width: 80px;
+  height: 60px;
+}
+
+.leaderboard-cd {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50%, #ddd 18%, #aaa 20%, #ccc 40%, #bbb 60%, #ddd 100%);
+  border: 2px solid #999;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #aaa;
+  }
+}
+
+.leaderboard-cd--2 {
+  top: 8px;
+  left: 25px;
+}
+
+.leaderboard-cd--3 {
+  top: 16px;
+  left: 50px;
+}
+
+.leaderboard-cd--4 {
+  top: 40px;
+  left: 15px;
+}
+
+// New row design
+.leaderboard-new-container {
+  width: 90%; // ← wider, was 70%
+  margin: 0 auto 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  @include devices(tablet) {
+    width: 95%;
+  }
+}
+
+.leaderboard-fullscreen-btn-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+
+  button {
+    background-color: var(--mikado) !important;
+    color: var(--monster) !important;
+    border-color: var(--mikado) !important;
+  }
+}
+
+.leaderboard-new-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 18px 28px; // ← taller
+  border-radius: 50px; // ← fully rounded/pill shape
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: clamp(18px, 1.8vw, 26px); // ← bigger text
+  color: var(--white);
+  gap: 16px;
+}
+
+.leaderboard-new-row--odd {
+  background-color: var(--light-purple);
+}
+
+.leaderboard-new-row--even {
+  background-color: var(--purple);
+}
+
+.leaderboard-new-row--first {
+  .leaderboard-new-rank,
+  .leaderboard-new-name,
+  .leaderboard-new-points {
+    color: var(--mikado);
+    font-weight: 900;
+    font-family: 'Proxima Nova', sans-serif;
+  }
+}
+
+.leaderboard-new-rank {
+  width: 40px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.leaderboard-new-name {
+  flex: 1;
+  text-align: center;
+}
+
+.leaderboard-new-points {
+  width: 100px;
+  text-align: right;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.leaderboard-yellow-strip {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 8px 0;
+  background-color: var(--jam);
+  gap: 6px;
+  padding: 8px 6px;
+  box-sizing: border-box;
+}
+
+.leaderboard-yellow-box {
+  flex: 1;
+  height: 40px;
+  background-color: var(--mikado);
+  border-radius: 4px;
 }
