@@ -534,7 +534,14 @@ const tabs = [
 const PageScuntMissionsDashboard = () => {
   return (
     <>
-      <div className="accounts-approval-page-container">
+      <div
+        className="accounts-approval-page-container"
+        style={{
+          minHeight: '100vh',
+          backgroundColor: 'var(--page-bg)',
+          height: 'auto',
+        }}
+      >
         <div className="accounts-approval-tabs-container add-margin-bottom">
           <Tabs tabs={tabs} displayButtons={false} />
         </div>
