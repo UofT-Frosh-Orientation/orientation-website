@@ -36,6 +36,7 @@ const RetreatFilmStrip = () => {
 
 export const FroshRetreat = () => {
   const [remainingTickets, setRemainingTickets] = useState();
+  const [transportationSoldOut, setTransportationSoldOut] = useState(false);
   const { setSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
   const isRegistered = useSelector(registeredSelector);
@@ -59,7 +60,10 @@ export const FroshRetreat = () => {
   };
 
   const remainingTicketsSetter = async () => {
-    setRemainingTickets(await getRemainingTickets(setSnackbar));
+    const status = await getRetreatTicketStatus(setSnackbar);
+    const soldOut = status?.transportationSoldOut ?? status?.soldOut ?? false;
+    setRemainingTickets(status?.count ?? 0);
+    setTransportationSoldOut(Boolean(soldOut));
   };
 
   useEffect(() => {
@@ -115,7 +119,6 @@ export const FroshRetreat = () => {
           Due to limited space, we are selling a limited number of tickets so purchase yours before
           they sell out! There are currently <b>{remainingTickets}</b> tickets left!
         </p>
-
         <h3 className="retreat-header">FAQ</h3>
         <FroshRetreatFAQ />
 
@@ -156,7 +159,7 @@ export const FroshRetreat = () => {
         </div>
 
         <h3 className="retreat-header">Registration</h3>
-        <RetreatRegistration />
+        <RetreatRegistration transportationSoldOut={transportationSoldOut} />
       </div>
     </div>
   );
@@ -266,18 +269,24 @@ const FroshRetreatFAQ = () => {
   );
 };
 
-export async function getRemainingTickets(setSnackbar) {
+export async function getRetreatTicketStatus(setSnackbar) {
   try {
     const { axios } = useAxios();
     const response = await axios.get('/payment/frosh-retreat-remaining-tickets');
 
-    return response.data.count;
+    return response.data;
   } catch (e) {
     setSnackbar(e.toString(), true);
+    return null;
   }
 }
 
-const RetreatRegistration = () => {
+export async function getRemainingTickets(setSnackbar) {
+  const status = await getRetreatTicketStatus(setSnackbar);
+  return status?.count ?? 0;
+}
+
+const RetreatRegistration = ({ transportationSoldOut }) => {
   const [viewedWaiver, setViewedWaiver] = useState(false);
   const [waiverValue, setWaiverValue] = useState();
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -539,6 +548,15 @@ const RetreatRegistration = () => {
           <h2 className="retreat-h2">Sorry there are no more tickets available!</h2>
         ) : viewedWaiver ? (
           <div className="retreat-payment-container">
+            {transportationSoldOut ? (
+              <div>
+                <h2 className="retreat-h2">
+                  <strong>Transportation is currently sold out.</strong> You can still purchase a
+                  retreat ticket without transportation.
+                </h2>
+              </div>
+            ) : null}
+
             <Button
               label={'Continue to Payment'}
               isDisabled={!isUploaded || buttonClicked}
@@ -599,4 +617,9 @@ const RetreatRegistration = () => {
       </div>
     </div>
   );
+};
+
+/* Can't commit, need to add this code so that it know that transportationSoldOut is a valid bool that RetreatRegistration needs to receive */
+RetreatRegistration.propTypes = {
+  transportationSoldOut: PropTypes.bool,
 };

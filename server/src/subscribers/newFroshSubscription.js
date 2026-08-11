@@ -123,14 +123,11 @@ newFroshSubscription.process((job, done) => {
               <a href="https://www.instagram.com/froshweek/" class="social-link">
                 <img src="cid:instagrambrands" alt="instagram logo" class="social-icon" />
               </a>
-              <a href="https://discord.gg/yZvTXC47n" class="social-link">
-                <img src="cid:discordbrands" alt="discord logo" class="social-icon" />
-              </a>
             </div>
             <img
               class="frosh-logo"
-              src="cid:froshhardhatwhite"
-              alt="F!rosh Week Hardhat Logo"
+              src="cid:2T6logo"
+              alt="F!rosh Week 2T6 Logo"
             />
           </footer>
         </body>
@@ -148,9 +145,7 @@ newFroshSubscription.process((job, done) => {
           filePath: '2T6logo.png',
           contentDisposition: 'inline',
         },
-        { type: 'static', filePath: 'frosh-hard-hat-white.png', contentDisposition: 'inline' },
         // { type: 'static', filePath: 'whatsapp.png', contentDisposition: 'inline' },
-        { type: 'static', filePath: 'discord-brands.png', contentDisposition: 'inline' },
         { type: 'non-static', content: job.data.file, contentDisposition: 'attachment' },
         { type: 'static', filePath: 'instagram-brands.png', contentDisposition: 'inline' },
       ],

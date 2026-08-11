@@ -47,7 +47,7 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'What should I bring on the first day?',
       answer:
-        'Definitely bring:\n• Yourself!\n• A good attitude!\n    • And a whole lotta HYPE!\nBut also these:\n    • Proof of registration (more info on what proof is needed when you register!)\n• Sunscreen (#safetyissexy)\n• Comfortable shoes.\n• Health card (just in case you need it).\n• A bathing suit.',
+        'Definitely bring:\n    • Yourself!\n    • A good attitude!\n    • And a whole lotta HYPE!\nBut also these:\n    • Proof of registration (more info on what proof is needed when you register!)\n    • Sunscreen (#safetyissexy)\n    • Comfortable shoes.\n    • Health card (just in case you need it).\n    • A bathing suit.',
       lastUpdated: '12:21pm, Jun 22, 2024',
       category: 'General',
     },

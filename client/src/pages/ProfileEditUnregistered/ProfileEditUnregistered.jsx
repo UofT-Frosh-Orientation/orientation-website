@@ -175,7 +175,7 @@ const PageProfileEditUnregistered = () => {
     <>
       {!isRegistered && (
         <>
-          <div>
+          <div className="profile-edit-page-background">
             <div
               className={`profile-edit-page ${
                 pageState !== 'form' ? 'profile-edit-page-disappear' : ''

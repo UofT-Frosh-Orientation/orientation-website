@@ -148,6 +148,10 @@ const FroshSchema = new mongoose.Schema(
       type: Boolean, // true is attending retreat, false is not attending
       required: true,
     },
+    retreatTransportation: {
+      type: Boolean, // true requires transportation, false does not
+      required: false,
+    },
     summerLocationQuery: {
       type: Boolean,
       required: true,

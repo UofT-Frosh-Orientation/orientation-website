@@ -491,7 +491,7 @@ export const fields = {
       label:
         'Would you like to attend an overnight retreat on September 5th-6th at Hart House Farms? (At an additional cost)',
       values: ['Yes', 'No'],
-      initialSelectedIndex: 0,
+      initialSelectedIndex: 1,
       isRequiredInput: true,
       noEdit: true,
       localStorageKey: 'registration-attendingRetreat',
@@ -499,7 +499,7 @@ export const fields = {
     priceInfo: {
       type: 'label',
       label:
-        'The price of a F!rosh Retreat ticket is $110 CAD. Answering "Yes" to this question will not add the retreat cost to your payment or guarantee you a spot at the retreat. Please see the retreat page linked on your profile for details about the payment process.',
+        'The price of a F!rosh Retreat ticket is $110 CAD with transportation and $100 without transportation. Answering "Yes" to this question will not add the retreat cost to your payment or guarantee you a spot at the retreat. Please see the retreat page linked on your profile for details about the payment process.',
       isSub: true,
     },
     summerLocationQuery: {

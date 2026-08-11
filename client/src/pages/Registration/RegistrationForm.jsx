@@ -122,9 +122,14 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
 
   useEffect(() => {
     for (let step of steps) {
-      Object.keys(formFields[step]).map((key, index) => {
-        // The form components will run onChange at mount if given a default value (so it will already be populated, we don't want to overwrite this value)
-        if (froshObject[key] === undefined) return (froshObject[key] = undefined);
+      Object.keys(formFields[step]).map((key) => {
+        if (editFieldsPage && initialValues && initialValues[key] !== undefined) {
+          // Pre-populate all fields from initialValues so noEdit fields pass validation even when hidden
+          froshObject[key] = initialValues[key];
+        } else if (froshObject[key] === undefined) {
+          // The form components will run onChange at mount if given a default value (so it will already be populated, we don't want to overwrite this value)
+          froshObject[key] = undefined;
+        }
       });
     }
   }, []);
@@ -304,7 +309,7 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
                   initialSelectedIndices={
                     editFieldsPage === true
                       ? field.values.reduce((prev, curr, index) => {
-                          if (initialValues[key].includes(curr)) {
+                          if (initialValues[key]?.includes(curr)) {
                             prev.push(index);
                           }
                           return prev;
@@ -384,20 +389,19 @@ const PageRegistrationForm = ({ editFieldsPage, initialValues, onEditSubmit }) =
 
         <div className="registration-form-flex">
           <div className="registration-form">
-            {Object.keys(fields).map((fieldsKey, index) => {
+            {Object.keys(fields).map((fieldsKey) => {
+              if (fieldsKey !== 'EditFieldsOnly') {
+                const editableFields = Object.fromEntries(
+                  Object.entries(formFields[fieldsKey]).filter(([, f]) => f.noEdit !== true),
+                );
+                if (Object.keys(editableFields).length === 0) return null;
+                return generateStepComponent(editableFields, fieldsKey);
+              }
               return generateStepComponent(formFields[fieldsKey], fieldsKey);
             })}
           </div>
-          <div style={{ marginBottom: '55px' }}>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
+          <div className="registration-edit-actions">
+            <div className="registration-edit-actions-buttons">
               {/* TODO: SHow popup to ask if they would like to discard all changes when editing fields */}
               <ButtonRound
                 label={'Discard changes'}

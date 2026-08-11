@@ -430,8 +430,11 @@ body {
 
 //Flim Strip
 .film-strip-container {
-  background-color: var(--text-inverted);
-  padding: clamp(8px, 1vw, 16px) 0;
+  background-color: #000; // black film stock
+  // No vertical padding here: the black borders are produced entirely by the
+  // track's symmetric top/bottom padding (below). Adding container padding on
+  // top of that stacked extra black above the holes, making the strip lopsided.
+  padding: 0;
   width: 100%;
   display: block;
   overflow: hidden; // viewport that clips the scrolling track
@@ -466,16 +469,17 @@ body {
   position: absolute;
   left: 0;
   width: 100%;
-  height: clamp(18px, 2vw, 34px);
-  background: repeating-linear-gradient(
-    to right,
-    var(--text-inverted) 0px,
-    var(--text-inverted) 10px,
-    var(--bg-card) 10px,
-    var(--bg-card) 30px,
-    var(--text-inverted) 30px,
-    var(--text-inverted) 40px
-  );
+  // Band fills the full track padding so the holes, centered within it, get
+  // equal black above and below (and an equal gap down to the photos).
+  height: clamp(22px, 2.6vw, 44px);
+  background-color: #000; // black film stock
+  // Small, rounded white sprocket holes drawn as a repeating SVG tile and
+  // vertically centred. background-size fixes the hole size (16x14, rx 3) and
+  // pitch (28px) regardless of the band height, keeping the margins even.
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Crect x='6' width='16' height='14' rx='3' fill='%23ffffff'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: center;
+  background-size: 28px 14px;
 }
 
 .film-strip-track::before {
@@ -1142,6 +1146,10 @@ body {
 .sponsor-card-link:active {
   text-decoration: none !important;
   color: inherit !important;
+  background: none !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .sponsor-image-wrapper {
@@ -1158,13 +1166,13 @@ body {
 
 .sponsor-image {
   max-width: 100%;
-  max-height: 100%;
+  max-height: 90px;
   object-fit: contain;
 
   // Explicitly target the <img> tag inside the lazy-load wrapper
   img {
     max-width: 100%;
-    max-height: 100%;
+    max-height: 100px;
     object-fit: contain;
   }
 }
@@ -1175,7 +1183,7 @@ body {
   font-weight: 600;
   text-align: center;
   margin-top: 0;
-  color: #f0eef8;
+  color: var(--text-main);
   line-height: 1.3;
 }
 

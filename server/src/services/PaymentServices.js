@@ -48,6 +48,25 @@ const PaymentServices = {
       }
     }
 
+    let wantsTransportation = false;
+    try {
+      const sessions = await stripe.checkout.sessions.list({
+        payment_intent: paymentId,
+        limit: 1,
+      });
+
+      if (sessions.data.length > 0) {
+        const session = sessions.data[0];
+        const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
+
+        wantsTransportation = lineItems.data.some(
+          (item) => item.price.id === process.env.STRIPE_RETREAT_TRANSPORTATION_PRICE_ID,
+        );
+      }
+    } catch (stripeError) {
+      console.error('Failed to look up line items from Stripe:', stripeError);
+    }
+
     //if found in FroshModel
     if (frosh) {
       console.log(`found in frosh model`);
@@ -78,7 +97,7 @@ const PaymentServices = {
         );
       } else if (frosh.payments[idx].item === 'Retreat Ticket') {
         console.log(`frosh payment type is retreat ticket`);
-        frosh.set({ isRetreat: true });
+        frosh.set({ isRetreat: true, retreatTransportation: wantsTransportation });
         await frosh.save({ validateModifiedOnly: true }).catch((error) => {
           throw new Error('UNABLE_TO_UPDATE_FROSH', { cause: error });
         });
@@ -97,7 +116,7 @@ const PaymentServices = {
 
       if (user.payments[idx].item === 'Retreat Ticket') {
         console.log(`frosh payment type is retreat ticket`);
-        user.set({ isRetreat: true });
+        user.set({ isRetreat: true, retreatTransportation: wantsTransportation });
         await user.save({ validateModifiedOnly: true }).catch((error) => {
           throw new Error('UNABLE_TO_UPDATE_USER', { cause: error });
         });
@@ -138,7 +157,50 @@ const PaymentServices = {
       throw new Error('UNABLE_TO_GET_COUNT_OF_PAYMENTS', { cause: error });
     }
   },
+  async getTransportationCount() {
+    try {
+      const froshCount = await FroshModel.countDocuments({
+        retreatTransportation: true,
+      });
 
+      const userCount = await UserModel.countDocuments({
+        retreatTransportation: true,
+      });
+
+      return froshCount + userCount;
+    } catch (error) {
+      throw new Error('UNABLE_TO_GET_TRANSPORTATION_COUNT', {
+        cause: error,
+      });
+    }
+  },
+
+  async getTransportationAvailability() {
+    try {
+      const transportationCount = await this.getTransportationCount();
+      const maxTransportation = Number(process.env.RETREAT_TRANSPORTATION_MAX);
+
+      if (!Number.isFinite(maxTransportation)) {
+        return {
+          count: transportationCount,
+          max: null,
+          available: true,
+          soldOut: false,
+        };
+      }
+
+      return {
+        count: transportationCount,
+        max: maxTransportation,
+        available: transportationCount < maxTransportation,
+        soldOut: transportationCount >= maxTransportation,
+      };
+    } catch (error) {
+      throw new Error('UNABLE_TO_GET_TRANSPORTATION_AVAILABILITY', {
+        cause: error,
+      });
+    }
+  },
   /**
    * @description Creates a checkout session for a user to pay with.
    * @param {String} email
@@ -152,7 +214,7 @@ const PaymentServices = {
         priceId: process.env.STRIPE_TICKET_PRICE_ID,
         relativeUrlSuccess: '/registration-success',
         relativeUrlFailure: '/payment-error',
-        // coupon: process.env.STRIPE_EARLY_BIRD_COUPON_ID,
+        coupon: process.env.STRIPE_EARLY_BIRD_COUPON_ID,
       },
       retreat: {
         priceId: process.env.STRIPE_RETREAT_PRICE_ID,
@@ -161,7 +223,7 @@ const PaymentServices = {
       },
     };
 
-    const coupon = products[type]?.coupon; // undefined or string
+    const couponId = products[type]?.coupon; // undefined or string
 
     const sessionOptions = {
       customer_email: email,
@@ -183,10 +245,40 @@ const PaymentServices = {
       }`,
     };
 
-    // Only add discounts if a valid coupon exists
-    if (coupon) {
-      sessionOptions.discounts = [{ coupon }];
+    // Only add the coupon when it still has available redemptions.
+    if (typeof couponId === 'string' && couponId.trim()) {
+      try {
+        const couponDetails = await stripe.coupons.retrieve(couponId);
+        if (
+          !couponDetails?.deleted &&
+          (!couponDetails.max_redemptions ||
+            couponDetails.times_redeemed < couponDetails.max_redemptions)
+        ) {
+          sessionOptions.discounts = [{ coupon: couponId }];
+        }
+      } catch (error) {
+        console.error('Unable to retrieve coupon details', error);
+      }
     }
+
+    if (type === 'retreat') {
+      const transportationAvailability = await this.getTransportationAvailability();
+
+      if (transportationAvailability.available) {
+        sessionOptions.optional_items = [
+          {
+            price: process.env.STRIPE_RETREAT_TRANSPORTATION_PRICE_ID,
+            quantity: 1,
+            adjustable_quantity: {
+              enabled: false,
+            },
+          },
+        ];
+      } else {
+        console.log('Transportation is sold out.');
+      }
+    }
+
     // try {
     return stripe.checkout.sessions.create(sessionOptions);
 
