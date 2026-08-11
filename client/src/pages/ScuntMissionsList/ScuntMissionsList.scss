@@ -12,7 +12,7 @@
 }
 
 .hidden-scunt-missions-container {
-  background-color: #3f0f58;
+  background-color: var(--scunt-missions-page-bg);
   min-height: 100vh;
 }
 
@@ -24,7 +24,7 @@
 
 .scunt-mission-qr-code {
   max-width: 350px;
-  background-color: #ebebeb;
+  background-color: var(--dusk);
   box-shadow: var(--shadow);
   border-radius: 25px;
   display: flex;
@@ -44,7 +44,7 @@
 }
 
 .scunt-missions-header {
-  color: #ebebeb;
+  color: var(--scunt-missions-text);
   text-align: center;
   margin: 30px auto 10px;
   display: flex;
@@ -71,10 +71,10 @@
     display: block;
     flex: 1 1 auto;
     height: 64px;
-    background-image: linear-gradient(45deg, #ebebeb 25%, transparent 25%),
-      linear-gradient(-45deg, #ebebeb 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, #ebebeb 75%),
-      linear-gradient(-45deg, transparent 75%, #ebebeb 75%);
+    background-image: linear-gradient(45deg, var(--scunt-missions-checker) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--scunt-missions-checker) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--scunt-missions-checker) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--scunt-missions-checker) 75%);
     background-size: 64px 64px;
     background-position: 0 0, 0 32px, 32px -32px, -32px 0px;
     flex-shrink: 0;
@@ -88,7 +88,7 @@
     font-size: 32px;
     font-weight: 900;
     margin: 0;
-    color: #ebebeb;
+    color: var(--scunt-missions-text);
     white-space: nowrap;
   }
 }
@@ -100,7 +100,7 @@
   width: 100%;
 
   a {
-    color: #fbdc70;
+    color: var(--scunt-missions-hyperlink);
     /* Bright yellow */
     font-weight: 700;
     text-decoration: underline;
@@ -112,7 +112,7 @@
     margin: 20px 2% 8px;
     font-size: 18px;
     font-weight: 800;
-    color: #ebebeb;
+    color: var(--scunt-missions-text);
   }
 }
 
@@ -130,8 +130,8 @@
   .filter-pill {
     background-color: #3f0f58;
     /* Dark background interior */
-    color: #ebebeb;
-    border: 2px solid #fed34c;
+    color: var(--scunt-missions-input-text);
+    border: 2px solid var(--scunt-missions-input-border);
     border-radius: 25px;
     padding: 8px 18px;
     height: 44px;
@@ -142,7 +142,8 @@
     box-shadow: none;
 
     &::placeholder {
-      color: #ebebeb;
+      color: var(--scunt-missions-input-text);
+      //opacity: 0.65;
     }
   }
 
@@ -164,14 +165,14 @@
 
   .dropdown-selected,
   .dropdown-selected-disabled {
-    background-color: #3f0f58;
-    border: 2px solid #fed34c;
+    background-color: var(--scunt-missions-input-bg);
+    border: 2px solid var(--scunt-missions-input-border);
     border-radius: 25px;
     height: 44px;
     min-height: 44px;
     max-height: 44px;
     box-sizing: border-box;
-    color: #ebebeb;
+    color: var(--scunt-missions-input-text);
     padding: 0 16px;
     gap: 8px;
     margin: 0;
@@ -198,8 +199,8 @@
 
       &::after {
         content: '\2605';
-        color: #a77ad7;
-        -webkit-text-stroke: 1.2px #fed34c;
+        color: var(--scunt-missions-star);
+        -webkit-text-stroke: 1.2px var(--scunt-missions-input-border);
         font-size: 18px;
         line-height: 1;
         display: inline-block;
@@ -209,7 +210,7 @@
   }
 
   .dropdown-selected-label {
-    color: #ebebeb;
+    color: var(--scunt-missions-input-text);
     font-weight: 700;
     font-size: 15px;
     margin: 0;
@@ -217,21 +218,21 @@
   }
 
   .dropdown-list-container {
-    background-color: #3f0f58;
-    border: 2px solid #fed34c;
-    color: #ebebeb;
+    background-color: var(--scunt-missions-input-bg);
+    border: 2px solid var(--scunt-missions-input-border);
+    color: var(--scunt-missions-input-text);
     min-width: 100%;
     width: max-content;
   }
 
   .dropdown-item {
-    color: #ebebeb;
+    color: var(--scunt-missions-input-text);
     align-items: center;
     justify-content: center;
 
     &:hover,
     &:focus {
-      background-color: #711f8b;
+      background-color: var(--scunt-missions-dropdown-hover);
     }
   }
 
@@ -249,9 +250,9 @@
   }
 
   input {
-    background-color: #3f0f58;
-    color: #ebebeb;
-    border: 2px solid #fed34c;
+    background-color: var(--scunt-missions-input-bg);
+    color: var(--scunt-missions-input-text);
+    border: 2px solid var(--scunt-missions-input-border);
     border-radius: 25px;
     padding: 8px 18px;
     height: 44px;
@@ -263,7 +264,8 @@
     margin: 0;
 
     &::placeholder {
-      color: #ebebeb;
+      color: var(--scunt-missions-input-text);
+      //opacity: 0.65;
     }
   }
 }
@@ -288,14 +290,14 @@
 .scunt-mission-status {
   font-size: 14px;
   margin: 12px 20px 24px;
-  color: #ebebeb;
+  color: var(--scunt-missions-text);
   text-align: center;
   font-weight: 500;
   opacity: 0.9;
 }
 
 .scunt-report-mission-btn {
-  background-color: #711f8b !important;
+  background-color: var(--scunt-missions-report-btn-bg) !important;
   border: none !important;
   box-shadow: none !important;
 }
@@ -307,7 +309,7 @@
   font-size: 22px;
   font-family: 'Gliker', sans-serif;
   background: none;
-  color: #fbdc70;
+  color: var(--scunt-missions-report-btn-text);
   font-weight: 800;
   padding: 6px 14px;
   cursor: pointer;
