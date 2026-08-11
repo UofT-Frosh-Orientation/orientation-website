@@ -100,9 +100,9 @@ const ReportMission = () => {
         <ReportMissionPopup></ReportMissionPopup>
       </PopupModal>
       <ButtonRound
-        style={{ marginTop: '15px', marginBottom: '25px' }}
+        style={{ marginTop: '0px', marginBottom: '25px' }}
         className="scunt-report-mission-btn"
-        label={<div className="scunt-report-popup-button">Report Mission</div>}
+        label={<div className="scunt-report-popup-button">REPORT MISSION</div>}
         onClick={() => {
           setClick(true);
         }}
@@ -341,6 +341,8 @@ const PageScuntMissionsListShow = () => {
               justifyContent: 'center',
               alignItems: 'center',
               flexWrap: 'wrap',
+              gap: '12px',
+              margin: '15px 0px',
             }}
           >
             <div className="small-width-input">
@@ -362,7 +364,7 @@ const PageScuntMissionsListShow = () => {
               <TextInput
                 clearText={clearText}
                 setClearText={setClearText}
-                placeholder={'Search by name'}
+                placeholder={'Search by Name'}
                 errorFeedback={''}
                 onChange={(value) => {
                   setMission(undefined);
