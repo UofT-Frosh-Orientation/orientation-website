@@ -11,6 +11,11 @@
   }
 }
 
+.hidden-scunt-missions-container {
+  background-color: #3d0f58;
+  min-height: 100vh;
+}
+
 .scunt-mission-list-max-width {
   max-width: 900px;
   width: min(900px, 95%);
@@ -19,7 +24,7 @@
 
 .scunt-mission-qr-code {
   max-width: 350px;
-  background-color: var(--white);
+  background-color: #ebebeb;
   box-shadow: var(--shadow);
   border-radius: 25px;
   display: flex;
@@ -39,39 +44,134 @@
 }
 
 .scunt-missions-header {
-  color: var(--text-dynamic);
+  color: #ebebeb;
   text-align: center;
-  margin: 0px 10px;
+  margin: 30px auto 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  max-width: none;
+  padding: 0 4%;
+}
+
+.scunt-missions-header-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+
+  /* Visible light checkers on dark background */
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    flex: 1 1 auto;
+    height: 64px;
+    background-image: linear-gradient(45deg, #ebebeb 25%, transparent 25%),
+      linear-gradient(-45deg, #ebebeb 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #ebebeb 75%),
+      linear-gradient(-45deg, transparent 75%, #ebebeb 75%);
+    background-size: 32px 32px;
+    background-position: 0 0, 0 16px, 16px -16px, -16px 0px;
+    flex-shrink: 0;
+
+    @include devices(tablet) {
+      display: none;
+    }
+  }
 
   h2 {
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 900;
-    margin-top: 25px;
+    margin: 0;
+    color: #ebebeb;
+    white-space: nowrap;
   }
 }
+
 .scunt-missions-header-link {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   font-size: 18px;
+  text-align: center;
+  width: 100%;
+
   a {
-    color: var(--text-coloured);
+    color: #fbdc70;
+    /* Bright yellow */
     font-weight: 700;
+    text-decoration: underline;
   }
 }
+
 .scunt-mission-category-separator {
   h3 {
-    margin: 0px 2%;
-    margin-top: 15px;
-    margin-bottom: 3px;
+    margin: 20px 2% 8px;
     font-size: 18px;
-    color: var(--text-dynamic);
+    font-weight: 800;
+    color: #ebebeb;
   }
 }
 
 .scunt-missions-filters {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 25px;
+  margin-bottom: 15px;
+
+  /* Target all inputs, selects, and filter elements */
+  input,
+  select,
+  button,
+  .filter-pill {
+    background-color: #3f0f58;
+    /* Dark background interior */
+    color: #ebebeb;
+    border: 2px solid #fed34c;
+    border-radius: 25px;
+    padding: 8px 18px;
+    height: 44px;
+    box-sizing: border-box;
+    font-size: 15px;
+    font-weight: 700;
+    outline: none;
+    box-shadow: none;
+
+    &::placeholder {
+      color: #ebebeb;
+    }
+  }
+
   @include devices(tablet) {
     width: 100%;
+    flex-wrap: wrap;
     justify-content: center;
+  }
+}
+
+.small-width-input,
+.fill-remaining-width-input {
+  input {
+    background-color: #3d0f5b;
+    color: #ebebeb;
+    border: 2px solid #fed34c;
+    border-radius: 25px;
+    padding: 8px 18px;
+    height: 44px;
+    box-sizing: border-box;
+    font-size: 15px;
+    font-weight: 700;
+    outline: none;
+    box-shadow: none;
+
+    &::placeholder {
+      color: #ebebeb;
+    }
   }
 }
 
@@ -93,17 +193,30 @@
 }
 
 .scunt-mission-status {
-  font-size: 18px;
-  margin: 5px 20px;
-  color: var(--text-dynamic);
+  font-size: 14px;
+  margin: 12px 20px 24px;
+  color: #ebebeb;
+  text-align: center;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.scunt-report-mission-btn {
+  background-color: #711f8b !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .scunt-report-popup-button {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  font-size: 16px;
+  font-size: 22px;
+  background: none;
+  color: #fbdc70;
+  font-weight: 800;
+  padding: 14px 40px;
+  cursor: pointer;
 }
 
 .scunt-report-popup-container {

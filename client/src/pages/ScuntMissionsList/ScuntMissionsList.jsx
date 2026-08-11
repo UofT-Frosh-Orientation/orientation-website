@@ -101,7 +101,7 @@ const ReportMission = () => {
       </PopupModal>
       <ButtonRound
         style={{ marginTop: '15px', marginBottom: '25px' }}
-        class_options=""
+        className="scunt-report-mission-btn"
         label={<div className="scunt-report-popup-button">Report Mission</div>}
         onClick={() => {
           setClick(true);
@@ -314,7 +314,9 @@ const PageScuntMissionsListShow = () => {
   return (
     <div>
       <div className="scunt-missions-header">
-        <h2>Want another way to earn points?</h2>
+        <div className="scunt-missions-header-title-row">
+          <h2>Want another way to earn points?</h2>
+        </div>
         <div className="scunt-missions-header-link">
           <Link to={'/skule-hunt-judges'}>
             Don&apos;t forget you can get bonus points from the judges!
