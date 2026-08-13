@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loggedInSelector, userSelector } from '../state/user/userSlice';
 import { getUserInfo } from '../state/user/saga';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const AuthorizedPage = ({ children, authScopes = [], leaderOnly }) => {
@@ -10,6 +10,7 @@ const AuthorizedPage = ({ children, authScopes = [], leaderOnly }) => {
   const { user } = useSelector(userSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (!loggedIn) {
@@ -32,6 +33,14 @@ const AuthorizedPage = ({ children, authScopes = [], leaderOnly }) => {
       }
     }
   }, [user]);
+
+  useEffect(() => {
+    if (loggedIn && !(user?.isRegistered || user?.approved)) {
+      if (location.pathname === '/frosh-retreat') {
+        navigate('/');
+      }
+    }
+  }, [loggedIn, user, location.pathname, navigate]);
 
   return <>{loggedIn && children}</>;
 };
