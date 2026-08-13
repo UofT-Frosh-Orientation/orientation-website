@@ -27,7 +27,7 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'What is the best place to get information about F!rosh Week?',
       answer:
-        "There's a ton of ways we'll be sending you information this summer as we get closer to F!rosh Week:\n• F!rosh Website: This site is one of the best starting places where you can check out these FAQs, find the F!rosh Week schedule, read about our team, and more!\n• Social Media: The next best place is on social media! Go follow us on Instagram and TikTok (both @froshweek) to stay up to date on everything F!rosh Week this summer!\n    • Our Discord server: Join our Discord server https://discord.gg/yZvTXC47n to chat with fellow first-years and your upper-year Leedurs\n• Your email: Lastly, but maybe most importantly, check your email! All throughout the summer we'll be sending important updates and information to the email that you've signed up with on this site so make sure you're checking that inbox.",
+        "There's a ton of ways we'll be sending you information this summer as we get closer to F!rosh Week:\n• F!rosh Website: This site is one of the best starting places where you can check out these FAQs, find the F!rosh Week schedule, read about our team, and more!\n• Social Media: The next best place is on social media! Go follow us on Instagram and TikTok (both @froshweek) to stay up to date on everything F!rosh Week this summer!\n    • Our Discord server: Join our Discord server https://discord.gg/C39WHaN3G to chat with fellow first-years and your upper-year Leedurs\n• Your email: Lastly, but maybe most importantly, check your email! All throughout the summer we'll be sending important updates and information to the email that you've signed up with on this site so make sure you're checking that inbox.",
       lastUpdated: '2:00 pm',
       category: 'General',
     },
@@ -61,7 +61,7 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'How do I register for F!rosh Week?',
       answer:
-        'Register for F!rosh Week at orientation.skule.ca starting June 29th! Follow us on Instagram @froshweek and join the F!rosh Week 2T6 Discord server https://discord.gg/yZvTXC47n to stay up-to-date throughout the summer! Important links can also be found at our Linktree linktr.ee/froshweek. ',
+        'Register for F!rosh Week at orientation.skule.ca starting June 29th! Follow us on Instagram @froshweek and join the F!rosh Week 2T6 Discord server https://discord.gg/C39WHaN3G to stay up-to-date throughout the summer! Important links can also be found at our Linktree linktr.ee/froshweek. ',
       lastUpdated: '18:10pm, Jun 28, 2025',
       category: 'Registration',
     },
@@ -75,8 +75,8 @@ export async function getQuestions(setSnackbar) {
     {
       question: 'When is the deadline to register for F!rosh Week?',
       answer:
-        'There is no official deadline to register for F!rosh Week, but you should sign up before August 31st if you want to participate in all of the activities!',
-      lastUpdated: '18:12pm, Jun 28, 2025',
+        'The last day to register for F!rosh week is August 30. The last day to register for F!rosh Retreat is September 4 (12 PM)',
+      lastUpdated: '14:17pm, Jul 29, 2026',
       category: 'Registration',
     },
     {
