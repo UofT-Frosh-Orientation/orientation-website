@@ -69,6 +69,8 @@ const ScuntCreateMissions = () => {
   const { setSnackbar } = useContext(SnackbarContext); // use Snackbar to send messages --> successfull hidden/deleted, etc.
   const [newMission, setNewMission] = useState(initialMission);
 
+  const dispatch = useDispatch();
+
   let keys = Object.keys(newMission);
 
   // get the number of missions... i.e. getMissions -> get the length of the array -> add one = number
@@ -90,11 +92,24 @@ const ScuntCreateMissions = () => {
   const handleSubmit = async () => {
     const result = await submitMission(newMission);
 
+    // Check if the mission number is empty, null, or undefined -> fail mission creation
+    if (newMission.number === '' || newMission.number === null || newMission.number === undefined) {
+      setSnackbar('Error: Please provide a mission number!', true);
+      return;
+    }
+
+    // Check if the mission name is empty -> fail mission creation
+    if (newMission.name === '') {
+      setSnackbar('Error: Please provide a mission name!', true);
+      return;
+    }
+
     if (result.result) {
       // display a snack bar
       // setSubmit to true
       // reset newMissions to empty obj
       setSnackbar(result.message, false);
+      dispatch(getScuntMissions({ showHidden: true, setSnackbar }));
       //setNewMission(initialMission);
     } else {
       // display error message13
@@ -210,6 +225,7 @@ const ScuntAllMissions = () => {
       setSnackbar('Please input valid range', true);
     } else {
       await setVisibility(setSnackbar, fromMission, toMission, visibilty);
+      dispatch(getScuntMissions({ showHidden: true, setSnackbar }));
     }
   };
   const hiddenMissionCell = { backgroundColor: 'var(--purple-shades-light-light)' };
@@ -305,6 +321,7 @@ const ScuntAllMissions = () => {
                         mission?.number,
                         !mission?.isHidden,
                       );
+                      dispatch(getScuntMissions({ showHidden: true, setSnackbar }));
                     }}
                     style={{ marginRight: 'auto', marginLeft: 'auto', width: 'fit-content' }}
                   >
@@ -344,6 +361,7 @@ const ScuntAllMissions = () => {
                   <div
                     onClick={async () => {
                       await deleteMission(setSnackbar, mission.number);
+                      dispatch(getScuntMissions({ showHidden: true, setSnackbar }));
                     }}
                     className={'approve-deny-checkbox approve-red-cross'}
                     style={{ marginRight: 'auto', marginLeft: 'auto' }}
