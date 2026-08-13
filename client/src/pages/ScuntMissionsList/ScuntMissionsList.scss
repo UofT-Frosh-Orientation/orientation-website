@@ -14,6 +14,8 @@
 .hidden-scunt-missions-container {
   background-color: var(--scunt-missions-page-bg);
   min-height: 100vh;
+  overflow: auto;
+  max-width: fit-content;
 }
 
 .scunt-mission-list-max-width {
@@ -61,8 +63,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 26px;
+  gap: clamp(8px, 3vw, 26px);
   width: 100%;
+  flex-wrap: wrap;
 
   /* Visible light checkers on dark background */
   &::before,
@@ -85,11 +88,12 @@
   }
 
   h2 {
-    font-size: 32px;
+    font-size: clamp(18px, 5vw, 32px);
     font-weight: 900;
     margin: 0;
     color: var(--scunt-missions-text);
-    white-space: nowrap;
+    white-space: normal;
+    line-height: 1.2;
   }
 }
 
@@ -122,6 +126,8 @@
   justify-content: center;
   gap: 12px;
   margin: 0;
+  flex-wrap: wrap;
+  padding: 0 10px;
 
   /* Target all inputs, selects, and filter elements */
   input,
@@ -133,13 +139,15 @@
     color: var(--scunt-missions-input-text);
     border: 2px solid var(--scunt-missions-input-border);
     border-radius: 25px;
-    padding: 8px 18px;
+    padding: 8px clamp(10px, 3vw, 18px);
     height: 44px;
     box-sizing: border-box;
-    font-size: 15px;
+    font-size: clamp(13px, 3.2vw, 15px);
     font-weight: 700;
     outline: none;
     box-shadow: none;
+    min-width: 0;
+    flex: 1 1 auto;
 
     &::placeholder {
       color: var(--scunt-missions-input-text);
@@ -154,6 +162,7 @@
     position: relative;
     display: inline-block;
     vertical-align: middle;
+    flex-shrink: 0;
   }
 
   .dropdown-container:first-of-type {
@@ -173,11 +182,21 @@
     max-height: 44px;
     box-sizing: border-box;
     color: var(--scunt-missions-input-text);
-    padding: 0 16px;
+    padding: 0 clamp(15px, 3vw, 16px);
     gap: 8px;
     margin: 0;
     line-height: 40px;
     cursor: pointer;
+    max-width: none;
+    width: max-content !important;
+    flex-shrink: 0;
+    overflow: visible;
+
+    * {
+      text-overflow: clip !important;
+      white-space: nowrap !important;
+      max-width: none !important;
+    }
 
     &:hover .dropdown-image::after {
       transform: scale(1.25);
@@ -212,23 +231,42 @@
   .dropdown-selected-label {
     color: var(--scunt-missions-input-text);
     font-weight: 700;
-    font-size: 15px;
+    font-size: clamp(12px, 3vw, 15px);
     margin: 0;
-    white-space: nowrap;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    max-width: none !important;
   }
 
   .dropdown-list-container {
     background-color: var(--scunt-missions-input-bg);
     border: 2px solid var(--scunt-missions-input-border);
     color: var(--scunt-missions-input-text);
-    min-width: 100%;
-    width: max-content;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .dropdown-container:last-of-type {
+    .dropdown-list-container {
+      width: clamp(100px, 30vw, 200px);
+    }
   }
 
   .dropdown-item {
     color: var(--scunt-missions-input-text);
-    align-items: center;
-    justify-content: center;
+    display: block;
+    width: 100%;
+    text-align: left;
+    white-space: normal !important;
+    word-break: break-word !important;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    font-size: clamp(14px, 3vw, 16px);
 
     &:hover,
     &:focus {
@@ -247,6 +285,8 @@
 .fill-remaining-width-input {
   .text-input-container {
     margin-top: 0;
+    min-width: 0;
+    flex: 1 1 200px;
   }
 
   input {
@@ -254,14 +294,16 @@
     color: var(--scunt-missions-input-text);
     border: 2px solid var(--scunt-missions-input-border);
     border-radius: 25px;
-    padding: 8px 18px;
+    padding: 8px clamp(10px, 3vw, 18px);
     height: 44px;
     box-sizing: border-box;
-    font-size: 15px;
+    font-size: clamp(13px, 3.2vw, 15px);
     font-weight: 700;
     outline: none;
     box-shadow: none;
     margin: 0;
+    width: 100%;
+    max-width: 100%;
 
     &::placeholder {
       color: var(--scunt-missions-input-text);
@@ -306,13 +348,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: clamp(16px, 4vw, 22px);
   font-family: 'Gliker', sans-serif;
   background: none;
   color: var(--scunt-missions-report-btn-text);
   font-weight: 800;
-  padding: 6px 14px;
+  padding: 6px clamp(10px, 3vw, 14px);
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .scunt-report-popup-container {
