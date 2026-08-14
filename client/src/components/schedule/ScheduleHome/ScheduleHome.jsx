@@ -39,6 +39,7 @@ const ScheduleComponent = () => {
           const parts = day.split(' ');
           const dayOfWeekShort = parts[0].substring(0, 3).toUpperCase();
           const dateString = `${parts[1] ? parts[1].toUpperCase() : ''} ${parts[2] || ''}`;
+          const isFroshDay = dayOfWeekShort === 'MON' || dayOfWeekShort === 'TUE';
 
           return (
             <button
@@ -49,10 +50,19 @@ const ScheduleComponent = () => {
                 setCloseAll(!closeAll);
               }}
             >
-              {' '}
-              {/* button for ${day} */}
-              <span className="tab-day-text">{dayOfWeekShort}</span>
-              <span className="tab-date-text">{dateString}</span>
+              <p className="schedule-component-day-tab">
+                {/* button for ${day} */}
+                {/* Conditionally render the top row text for Mon and Tue */}
+                {isFroshDay && (
+                  <span className="schedule-component-tab-prefix-text">
+                    F!rosh
+                    <br />
+                  </span>
+                )}
+                <span className="tab-day-text">{dayOfWeekShort} </span>
+
+                <span className="tab-date-text">{dateString}</span>
+              </p>
             </button>
           );
         })}
