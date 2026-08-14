@@ -85,6 +85,20 @@
   }
 }
 
+.schedule-component-tab-prefix-text {
+  display: block; // Allows text-align to work on a span and forces a new line
+  text-align: center; // Centers "F!rosh"
+  font-size: 0.75rem; // Makes it slightly smaller
+  line-height: 0.8; // Compresses the height so the button doesn't stretch
+  margin-bottom: 4px; // Adds a tiny gap between "F!rosh" and the date
+
+  // Target the <br /> inside the span to hide it,
+  // since display: block already breaks the line for us!
+  br {
+    display: none;
+  }
+}
+
 // -------------------------------------------------------------
 // TIMELINE EVENTS ROWS LIST STYLING
 // -------------------------------------------------------------
