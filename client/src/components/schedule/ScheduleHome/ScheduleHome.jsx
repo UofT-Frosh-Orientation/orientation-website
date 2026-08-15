@@ -7,6 +7,7 @@ import { homebase_data } from '../../../assets/schedule/homebase-schedule-data';
 import location from '../../../assets/misc/loc.svg';
 import locationdark from '../../../assets/misc/locdark.svg';
 import { DarkModeContext } from '../../../util/DarkModeProvider';
+import vintageCar from '../../../assets/schedule/vintage-car.png';
 
 function getDaysSchedule() {
   return Object.keys(data);
@@ -125,9 +126,14 @@ const ScheduleComponent = () => {
           })}
 
           {/* The Banner Text and car image*/}
+          <img
+            src={vintageCar}
+            className="schedule-component-homebase-banner-car"
+            alt="purple vintage car"
+          />
+
           <div className="schedule-component-homebase-banner-text-container">
             <span className="schedule-component-homebase-banner-text">Chill at Drive-In</span>
-            {/* Add your <img src={carImage} /> right here later! */}
           </div>
         </div>
       </div>
