@@ -1,3 +1,6 @@
+import React, { Suspense, lazy } from 'react';
+import { SkeletonLoading } from './components/misc/SkeletonLoading/SkeletonLoading';
+
 import { BrowserRouter, useLocation, Route, Routes } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import ScrollToTop from './components/misc/ScrollToTop/ScrollToTop';
@@ -47,11 +50,37 @@ export default function App() {
   );
 }
 
+// Define delay helper
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+// Lazy import pages with delay for testing skeleton
+const PageHome = lazy(() =>
+  delay(2000).then(() => import('./pages/Home/Home').then(m => ({ default: m.PageHome })))
+);
+
+const PageAbout = lazy(() =>
+  delay(2000).then(() => import('./pages/About/About').then(m => ({ default: m.PageAbout })))
+);
+
+const PageFAQ = lazy(() =>
+  delay(2000).then(() => import('./pages/FAQ/FAQ').then(m => ({ default: m.PageFAQ })))
+);
+
+// Mapping paths to lazy components for easy lookup
+const lazyPagesMap = {
+  '/': PageHome,
+  '/about': PageAbout,
+  '/faq': PageFAQ,
+};
+
 const TransitionRoutes = () => {
   const location = useLocation();
   const loggedIn = useSelector(loggedInSelector);
   const registered = useSelector(registeredSelector);
   const initials = useSelector(initialsSelector);
+
+  // List of route paths where skeleton loading effect will be shown
+  const showSkeletonPages = ['/', '/about', '/faq'];
 
   return (
     <TransitionGroup>
@@ -66,17 +95,27 @@ const TransitionRoutes = () => {
             ...pages.scunt,
             ...pages.scuntHidden,
           ].map((page) => {
+            // List of paths to show skeleton for
+            const showSkeletonPages = ['/', '/about', '/faq'];
+            //const PageComponent = page.component;
+            const LazyComponent = showSkeletonPages.includes(page.path.toLowerCase())
+              ? lazyPagesMap[page.path.toLowerCase()]
+              : null;
+
             return (
               <Route
                 path={page.path}
                 key={page.path}
                 element={
-                  <div
-                    className="content-container"
-                    style={{ position: 'absolute', right: 0, left: 0, bottom: 0, top: 0 }}
-                  >
-                    <div style={{ minHeight: '100vh' }}>{page.component}</div>
-                    {page.includeFooter ? <Footer /> : <></>}
+                  <div className="content-container" style={{ position: 'absolute', right: 0, left: 0, bottom: 0, top: 0 }}>
+                    {showSkeletonPages.includes(page.path.toLowerCase()) && LazyComponent ? (
+                      <Suspense fallback={<SkeletonLoading />}>
+                        <LazyComponent />
+                      </Suspense>
+                    ) : (
+                      <>{page.component}</>  // Render static component as-is
+                    )}
+                    {page.includeFooter ? <Footer /> : null}
                   </div>
                 }
               />
