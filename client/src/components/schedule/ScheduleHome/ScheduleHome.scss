@@ -141,6 +141,8 @@
       var(--dusk) 0.75turn
     );
     background-size: 20px 20px;
+
+    animation: revealCheckerboard 4s cubic-bezier(0.25, 1, 0.5, 1) forwards; // Animates the background reveal
   }
 
   gap: 16px; // Space between buttons where the pattern shows through
@@ -152,29 +154,18 @@
   }
 }
 
-.schedule-component-homebase-banner-car {
-  position: absolute;
-  right: -100px; // Hangs slightly off the right edge
-  top: 50%;
-  transform: translateY(-50%); // Perfectly vertically centers it
-  height: 150%;
-  z-index: 3; // Ensures it sits above the banner and text
-  pointer-events: none; // Stops the image from blocking clicks
-
-  @include devices(tablet) {
-    height: 120%; // Scales it down a bit on smaller screens
-    right: -10px;
-  }
-}
-
 .schedule-component-homebase-banner-text-container {
   display: flex;
   justify-content: center; // Centers text in the remaining space on the right
   align-items: center;
   position: absolute; // Allows the text to float above the checkerboard background
   padding-right: 32px; // Keeps text from hitting the far right edge
-  left: 45%;
+  left: 50%;
   pointer-events: none;
+  transform: translate(-50%, -50%);
+
+  opacity: 0;
+  animation: textFadeIn 0.8s ease-out 0.8s forwards;
 
   .schedule-component-homebase-banner-text {
     font-family: 'Gliker', sans-serif;
@@ -196,6 +187,62 @@
       -webkit-text-stroke: 0;
       z-index: 1;
     }
+  }
+}
+
+.schedule-component-homebase-banner-car {
+  position: absolute;
+  // right: -100px; // Hangs slightly off the right edge
+  top: 50%;
+  left: 100%;
+  transform: translate(-100%, -50%);
+  margin-left: 20px; // Recreates the 20px overhang on the right
+
+  height: 150%;
+  z-index: 3; // Ensures it sits above the banner and text
+  pointer-events: none; // Stops the image from blocking clicks
+
+  animation: driveInCar 4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+
+  @include devices(tablet) {
+    height: 120%; // Scales it down a bit on smaller screens
+    right: -10px;
+  }
+}
+
+// -------------------------------------------------------------
+// DRIVE-IN ANIMATION KEYFRAMES
+// -------------------------------------------------------------
+
+// 1. Draws the background by animating a clipping mask
+@keyframes revealCheckerboard {
+  0% {
+    clip-path: inset(0 100% 0 0); // 100% chopped off from the right edge
+  }
+  100% {
+    clip-path: inset(0 0 0 0); // Fully revealed
+  }
+}
+
+// 2. Drives the car from the far left offscreen to the far right
+@keyframes driveInCar {
+  0% {
+    left: 0; // Starts at the far left edge of the banner
+  }
+  100% {
+    left: 100%; // Ends at the far right edge of the banner
+  }
+}
+
+// 3. Fades the text in gently
+@keyframes textFadeIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -40%); // Starts slightly lower
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%); // Rises to perfect center
   }
 }
 
