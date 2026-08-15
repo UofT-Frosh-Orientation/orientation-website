@@ -15,6 +15,15 @@
 // -------------------------------------------------------------
 // HORIZONTAL NAVIGATION TABS STYLING
 // -------------------------------------------------------------
+.schedule-navigation-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; // Space between the two rows
+  margin: 0 auto 32px auto; // Centers the whole block horizontally
+  width: fit-content; // Hugs the width of the top row buttons
+  max-width: 100%; // Prevents overflowing on small screens
+}
+
 .schedule-component-tabs-row {
   display: flex;
   justify-content: flex-start;
@@ -22,9 +31,8 @@
   gap: 16px;
   width: 100%;
   overflow-x: auto; // Generates auto-scroll on tight screens
-  padding: 4px 24px 24px 24px;
-  margin-top: -4px;
-  margin-bottom: 24px;
+  padding: 0px 0px 24px 0px;
+  margin-top: -20px;
   box-sizing: border-box;
 
   // Custom scrollbar behavior
@@ -61,7 +69,7 @@
   }
   .schedule-component-tab-date-text {
     opacity: 0.85;
-    font-size: 0.95rem;
+    font-size: 0.97rem;
   }
 
   // Active selected tab state
@@ -105,56 +113,48 @@
   }
 }
 
-.schedule-component-homebase-wrapper {
+// -------------------------------------------------------------
+// DRIVE-IN COMBINED ROW & BANNER
+// -------------------------------------------------------------
+.schedule-component-homebase-banner-row {
   display: flex;
+  align-items: center;
   width: 100%;
-  gap: 16px;
-  align-items: center;
-  overflow-x: auto; // Move scrolling up to the wrapper
-  padding-bottom: 8px;
-
-  &::-webkit-scrollbar {
-    height: 6px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
-  }
-
-  // Remove scrollbar from the inner row since the wrapper handles it
-  .homebase-row {
-    width: auto;
-    overflow-x: visible;
-    padding-bottom: 0;
-  }
-}
-
-.schedule-componenet-homebase-checkerboard-banner {
-  flex-grow: 1;
-  min-width: 200px;
-  height: 54px; // Match button height
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 54px; // Matches the exact height of the buttons
+  border-radius: 100px; // Gives the entire row rounded pill edges
+  overflow: hidden; // Ensures the background doesn't bleed outside the curve
   position: relative;
-  border-radius: 100px; // Match button curve slightly
-  overflow: hidden;
 
+  // The checkerboard pattern applied to the entire row behind the buttons
   background-image: conic-gradient(
     var(--monster) 0.25turn,
-    var(--white) 0.25turn 0.5turn,
+    var(--dusk) 0.25turn 0.5turn,
     var(--monster) 0.5turn 0.75turn,
-    var(--white) 0.75turn
+    var(--dusk) 0.75turn
   );
   background-size: 20px 20px;
 
-  .banner-text {
+  gap: 16px; // Space between buttons where the pattern shows through
+  margin-bottom: 32px; // Space before the accordion
+}
+
+.schedule-component-homebase-banner-text-container {
+  display: flex;
+  justify-content: center; // Centers text in the remaining space on the right
+  align-items: center;
+  position: absolute; // Allows the text to float above the checkerboard background
+  padding-right: 32px; // Keeps text from hitting the far right edge
+  left: 45%;
+  pointer-events: none;
+
+  .schedule-component-homebase-banner-text {
     font-family: 'Gliker', sans-serif;
-    color: var(--white);
-    font-size: 1.25rem;
-    -webkit-text-stroke: 4px var(--monster);
+    color: var(--wisteria);
+    font-size: 1.8rem;
+    -webkit-text-stroke: 10px var(--monster);
     position: relative;
     z-index: 2;
+    white-space: nowrap; // Prevents text from wrapping to the next line
 
     &::after {
       content: 'Chill at Drive-In';
@@ -163,14 +163,10 @@
       top: 0;
       width: 100%;
       height: 100%;
-      color: var(--white);
+      color: var(--wisteria);
       -webkit-text-stroke: 0;
       z-index: 1;
     }
-  }
-
-  @include devices(tablet) {
-    height: 50px;
   }
 }
 

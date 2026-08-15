@@ -73,35 +73,36 @@ const ScheduleComponent = () => {
     <div className="schedule-section-container">
       {/*HORIZONTAL TABS ROW for navigation */}
 
-      {/* ROW 1: Frosh Schedule Tabs Row */}
-      <div className="schedule-component-tabs-row frosh-row">
-        {Object.keys(data).map((day, index) => {
-          // Splitting 'Monday Sept 1' -> 'MON' & 'SEPT 1'
-          const parts = day.split(' ');
-          const dayOfWeekShort = parts[0].substring(0, 3).toUpperCase();
-          const dateString = `${parts[1] ? parts[1].toUpperCase() : ''} ${parts[2] || ''}`;
-          const needFroshTag = dayOfWeekShort === 'MON' || dayOfWeekShort === 'TUE';
+      <div className="schedule-navigation-container">
+        {/* ROW 1: Frosh Schedule Tabs Row */}
+        <div className="schedule-component-tabs-row frosh-row">
+          {Object.keys(data).map((day, index) => {
+            // Splitting 'Monday Sept 1' -> 'MON' & 'SEPT 1'
+            const parts = day.split(' ');
+            const dayOfWeekShort = parts[0].substring(0, 3).toUpperCase();
+            const dateString = `${parts[1]} ${parts[2] || ''}`;
+            const needFroshTag = dayOfWeekShort === 'MON' || dayOfWeekShort === 'TUE';
 
-          return (
-            <TabButton
-              key={`frosh-${index}`}
-              isActive={activeTrack === 'frosh' && selectedDayIndex === index}
-              onClick={() => {
-                setSelectedDayIndex(index);
-                setActiveTrack('frosh');
-                setCloseAll(!closeAll);
-              }}
-              prefixText={needFroshTag ? 'F!rosh' : null}
-              dayOfWeekShort={dayOfWeekShort}
-              dateString={dateString}
-            />
-          );
-        })}
-      </div>
+            return (
+              <TabButton
+                key={`frosh-${index}`}
+                isActive={activeTrack === 'frosh' && selectedDayIndex === index}
+                onClick={() => {
+                  setSelectedDayIndex(index);
+                  setActiveTrack('frosh');
+                  setCloseAll(!closeAll);
+                }}
+                prefixText={needFroshTag ? 'F!rosh' : null}
+                dayOfWeekShort={dayOfWeekShort}
+                dateString={dateString}
+              />
+            );
+          })}
+        </div>
 
-      <div className="schedule-componenet-homebase-wrapper">
         {/* ROW 2: Homebase Schedule Tabs Row */}
-        <div className="schedule-component-tabs-row homebase-row">
+        <div className="schedule-component-homebase-banner-row">
+          {/* The Drive-in Schedule Buttons */}
           {Object.keys(homebase_data).map((day, index) => {
             const parts = day.split(' ');
             const dayOfWeekShort = parts[0].substring(0, 3).toUpperCase();
@@ -116,17 +117,18 @@ const ScheduleComponent = () => {
                   setActiveTrack('homebase');
                   setCloseAll(!closeAll);
                 }}
-                prefixText="Drive-in"
+                prefixText="Drive-In"
                 dayOfWeekShort={dayOfWeekShort}
                 dateString={dateString}
               />
             );
           })}
-        </div>
 
-        {/* Checkerboard Pattern for Row 2 */}
-        <div className="schedule-componenet-homebase-checkerboard-banner">
-          {/* Add your checkerboard pattern elements here */}
+          {/* The Banner Text and car image*/}
+          <div className="schedule-component-homebase-banner-text-container">
+            <span className="schedule-component-homebase-banner-text">Chill at Drive-In</span>
+            {/* Add your <img src={carImage} /> right here later! */}
+          </div>
         </div>
       </div>
 
