@@ -1,4 +1,4 @@
-export const data = {
+export const homebase_data = {
   'MONDAY AUGUST 31': [
     {
       'Event Name': 'Temporary Drive in Schedule',

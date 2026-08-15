@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { SingleAccordion } from '../../text/Accordion/SingleAccordion/SingleAccordion';
 import './ScheduleHome.scss';
 import { data } from '../../../assets/schedule/data';
+import { homebase_data } from '../../../assets/schedule/homebase-schedule-data';
 import location from '../../../assets/misc/loc.svg';
 import locationdark from '../../../assets/misc/locdark.svg';
 import { DarkModeContext } from '../../../util/DarkModeProvider';
@@ -11,11 +12,43 @@ function getDaysSchedule() {
   return Object.keys(data);
 }
 
+// Format months
+const formatMonth = (monthStr) => {
+  if (!monthStr) return '';
+  const upper = monthStr.toUpperCase();
+  return upper.startsWith('SEPT') ? 'SEPT' : upper.substring(0, 3);
+};
+
+// Format navigation tabs
+const TabButton = ({ isActive, onClick, prefixText, dayOfWeekShort, dateString }) => (
+  <button className={`schedule-component-tab-button ${isActive ? 'active' : ''}`} onClick={onClick}>
+    <p className="schedule-component-day-tab">
+      {prefixText && (
+        <span className="schedule-component-tab-prefix-text">
+          {prefixText}
+          <br />
+        </span>
+      )}
+      <span className="schedule-component-tab-day-text">{dayOfWeekShort} </span>
+      <span className="schedule-component-tab-date-text">{dateString}</span>
+    </p>
+  </button>
+);
+
+TabButton.propTypes = {
+  isActive: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+  prefixText: PropTypes.string, // Not required since it can be null
+  dayOfWeekShort: PropTypes.string.isRequired,
+  dateString: PropTypes.string.isRequired,
+};
+
 const ScheduleComponent = () => {
   const today = new Date();
   const options = { weekday: 'long', month: 'long', day: 'numeric' };
   const todayString = today.toLocaleDateString('en-US', options).replace(',', '');
 
+  // Find the index of today in the schedule data
   let count = 0;
   for (let day of getDaysSchedule()) {
     if (day === todayString) {
@@ -28,51 +61,81 @@ const ScheduleComponent = () => {
   }
 
   const [selectedDayIndex, setSelectedDayIndex] = useState(count);
+  const [activeTrack, setActiveTrack] = useState('frosh'); // Tracks 'frosh' or 'homebase'
   const [closeAll, setCloseAll] = useState(false);
+
+  // Determine which data to use based on the active track
+  const activeDataset = activeTrack === 'frosh' ? data : homebase_data;
+  const activeDayKey = Object.keys(activeDataset)[selectedDayIndex];
+  const timelineData = activeDataset[activeDayKey];
 
   return (
     <div className="schedule-section-container">
-      {/*HORIZONTAL TABS ROW */}
-      <div className="schedule-tabs-row">
+      {/*HORIZONTAL TABS ROW for navigation */}
+
+      {/* ROW 1: Frosh Schedule Tabs Row */}
+      <div className="schedule-component-tabs-row frosh-row">
         {Object.keys(data).map((day, index) => {
           // Splitting 'Monday Sept 1' -> 'MON' & 'SEPT 1'
           const parts = day.split(' ');
           const dayOfWeekShort = parts[0].substring(0, 3).toUpperCase();
           const dateString = `${parts[1] ? parts[1].toUpperCase() : ''} ${parts[2] || ''}`;
-          const isFroshDay = dayOfWeekShort === 'MON' || dayOfWeekShort === 'TUE';
+          const needFroshTag = dayOfWeekShort === 'MON' || dayOfWeekShort === 'TUE';
 
           return (
-            <button
-              key={index}
-              className={`schedule-tab-button ${selectedDayIndex === index ? 'active' : ''}`}
+            <TabButton
+              key={`frosh-${index}`}
+              isActive={activeTrack === 'frosh' && selectedDayIndex === index}
               onClick={() => {
                 setSelectedDayIndex(index);
+                setActiveTrack('frosh');
                 setCloseAll(!closeAll);
               }}
-            >
-              <p className="schedule-component-day-tab">
-                {/* button for ${day} */}
-                {/* Conditionally render the top row text for Mon and Tue */}
-                {isFroshDay && (
-                  <span className="schedule-component-tab-prefix-text">
-                    F!rosh
-                    <br />
-                  </span>
-                )}
-                <span className="tab-day-text">{dayOfWeekShort} </span>
-
-                <span className="tab-date-text">{dateString}</span>
-              </p>
-            </button>
+              prefixText={needFroshTag ? 'F!rosh' : null}
+              dayOfWeekShort={dayOfWeekShort}
+              dateString={dateString}
+            />
           );
         })}
       </div>
 
+      <div className="schedule-componenet-homebase-wrapper">
+        {/* ROW 2: Homebase Schedule Tabs Row */}
+        <div className="schedule-component-tabs-row homebase-row">
+          {Object.keys(homebase_data).map((day, index) => {
+            const parts = day.split(' ');
+            const dayOfWeekShort = parts[0].substring(0, 3).toUpperCase();
+            const dateString = `${formatMonth(parts[1])} ${parts[2] || ''}`;
+
+            return (
+              <TabButton
+                key={`homebase-${index}`}
+                isActive={activeTrack === 'homebase' && selectedDayIndex === index}
+                onClick={() => {
+                  setSelectedDayIndex(index);
+                  setActiveTrack('homebase');
+                  setCloseAll(!closeAll);
+                }}
+                prefixText="Drive-in"
+                dayOfWeekShort={dayOfWeekShort}
+                dateString={dateString}
+              />
+            );
+          })}
+        </div>
+
+        {/* Checkerboard Pattern for Row 2 */}
+        <div className="schedule-componenet-homebase-checkerboard-banner">
+          {/* Add your checkerboard pattern elements here */}
+        </div>
+      </div>
+
       {/* TIMELINE BLOCKS STACK */}
       <div className="schedule-timeline-stack">
-        {data[Object.keys(data)[selectedDayIndex]].map((scheduleDay, index) => (
-          <ScheduleComponentAccordion key={index} scheduleDay={scheduleDay} closeAll={closeAll} />
-        ))}
+        {timelineData &&
+          timelineData.map((scheduleDay, index) => (
+            <ScheduleComponentAccordion key={index} scheduleDay={scheduleDay} closeAll={closeAll} />
+          ))}
       </div>
     </div>
   );
