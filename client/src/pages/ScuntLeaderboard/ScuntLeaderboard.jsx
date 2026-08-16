@@ -197,26 +197,70 @@ const ScuntLeaderboardFullScreen = ({ arr }) => {
 const ScuntLeaderboardDesktop = ({ arr, handle }) => {
   arr?.sort((a, b) => b.computedPoints - a.computedPoints);
 
+  const top3 = arr?.slice(0, 3);
+  const rest = arr?.slice(3);
+
   return (
     <div className="leaderboard-new-container">
       <div className="leaderboard-fullscreen-btn-row">
         <ButtonRound label="View Fullscreen" onClick={handle.enter} />
       </div>
-      {arr?.map((item, index) => {
-        const rank = index + 1;
-        return (
-          <div
-            key={item.name + item.number}
-            className={`leaderboard-new-row ${rank === 1 ? 'leaderboard-new-row--first' : ''} ${
-              index % 2 === 0 ? 'leaderboard-new-row--odd' : 'leaderboard-new-row--even'
-            }`}
-          >
-            <span className="leaderboard-new-rank">{rank}.</span>
-            <span className="leaderboard-new-name">{item.name}</span>
-            <span className="leaderboard-new-points">{item.computedPoints} pts</span>
+
+      {/* Podium - 2nd, 1st, 3rd */}
+      <div className="leaderboard-podium">
+        <div className="leaderboard-podium-card leaderboard-podium-card--second">
+          <div className="leaderboard-podium-medal">🥈</div>
+          <div className="leaderboard-podium-name">{top3?.[1]?.name}</div>
+          <div className="leaderboard-podium-pts" style={{ color: '#C0C0C0' }}>
+            {top3?.[1]?.computedPoints} pts
           </div>
-        );
-      })}
+          <div className="leaderboard-podium-rank leaderboard-podium-rank--second">2nd</div>
+        </div>
+        <div className="leaderboard-podium-card leaderboard-podium-card--first">
+          <div className="leaderboard-podium-medal" style={{ fontSize: '36px' }}>
+            🥇
+          </div>
+          <div
+            className="leaderboard-podium-name"
+            style={{ color: 'var(--mikado)', fontWeight: 900 }}
+          >
+            {top3?.[0]?.name}
+          </div>
+          <div className="leaderboard-podium-pts" style={{ color: 'var(--mikado)' }}>
+            {top3?.[0]?.computedPoints} pts
+          </div>
+          <div className="leaderboard-podium-rank leaderboard-podium-rank--first">1st</div>
+        </div>
+        <div className="leaderboard-podium-card leaderboard-podium-card--third">
+          <div className="leaderboard-podium-medal">🥉</div>
+          <div className="leaderboard-podium-name">{top3?.[2]?.name}</div>
+          <div className="leaderboard-podium-pts" style={{ color: '#CD7F32' }}>
+            {top3?.[2]?.computedPoints} pts
+          </div>
+          <div className="leaderboard-podium-rank leaderboard-podium-rank--third">3rd</div>
+        </div>
+      </div>
+
+      {/* Divider */}
+      <div className="leaderboard-divider" />
+
+      {/* Ranks 4+ grid */}
+      <div className="leaderboard-lower-grid">
+        {rest?.map((item, index) => {
+          const rank = index + 4;
+          return (
+            <div
+              key={item.name + item.number}
+              className={`leaderboard-lower-cell ${
+                index % 2 === 0 ? 'leaderboard-new-row--odd' : 'leaderboard-new-row--even'
+              }`}
+            >
+              <span className="leaderboard-lower-rank">{rank}.</span>
+              <span className="leaderboard-lower-name">{item.name}</span>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
@@ -239,6 +283,7 @@ const ScuntLeaderboardMobile = ({ arr }) => {
               points={item.computedPoints}
               img={firstPlace}
               barwidth={item.width}
+              showPoints={true}
             />
           );
         } else if (rank === 2) {
@@ -251,6 +296,7 @@ const ScuntLeaderboardMobile = ({ arr }) => {
               points={item.computedPoints}
               img={secondPlace}
               barwidth={item.width}
+              showPoints={true}
             />
           );
         } else if (rank === 3) {
@@ -262,6 +308,7 @@ const ScuntLeaderboardMobile = ({ arr }) => {
               points={item.computedPoints}
               img={thirdPlace}
               barwidth={item.width}
+              showPoints={true}
             />
           );
         } else {
@@ -273,6 +320,7 @@ const ScuntLeaderboardMobile = ({ arr }) => {
               number={item.number}
               points={item.computedPoints}
               barwidth={item.width}
+              showPoints={false}
             />
           );
         }
@@ -320,6 +368,7 @@ const ScuntLeaderboardBarVertical = ({ name, number, points, barwidth }) => {
             color: 'var(--payment-error-text)',
             marginBottom: '20px',
             textAlign: 'center',
+            fontSize: '24px',
           }}
         >
           {points}pts
@@ -333,7 +382,7 @@ const ScuntLeaderboardBarVertical = ({ name, number, points, barwidth }) => {
 };
 
 // for mobile
-const ScuntLeaderboardBubble = ({ name, number, points, rank, img, barwidth }) => {
+const ScuntLeaderboardBubble = ({ name, number, points, rank, img, barwidth, showPoints }) => {
   return (
     <div className="scunt-leaderboard-bubble-outer">
       <div className="scunt-leaderboard-bubble-outer-hover">
@@ -358,9 +407,9 @@ const ScuntLeaderboardBubble = ({ name, number, points, rank, img, barwidth }) =
               <h3 style={{ fontSize: '16px' }}>{name}</h3>
             </div>
           </div>
-          {/* <div className='scunt-leaderboard-bubble-points'> */}
-          <h3 style={{ color: 'var(--white)', marginLeft: '5px' }}>{points + ' pts'}</h3>
-          {/* </div> */}
+          {showPoints && (
+            <h3 style={{ color: 'var(--white)', marginLeft: '5px' }}>{points + ' pts'}</h3>
+          )}
         </div>
       </div>
     </div>
@@ -394,6 +443,7 @@ ScuntLeaderboardBubble.propTypes = {
   rank: PropTypes.number,
   img: PropTypes.any,
   barwidth: PropTypes.string,
+  showPoints: PropTypes.bool,
   // key: PropTypes.string,
 };
 
@@ -413,6 +463,7 @@ ScuntLeaderboardFullScreen.propTypes = {
 
 ScuntLeaderboardMobile.propTypes = {
   arr: PropTypes.array,
+  showPoints: PropTypes.bool,
 };
 
 export { ScuntLeaderboard };
