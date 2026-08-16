@@ -31,8 +31,9 @@
   gap: 16px;
   width: 100%;
   overflow-x: auto; // Generates auto-scroll on tight screens
-  padding: 0px 0px 24px 0px;
-  margin-top: -20px;
+  //padding: 0px 0px 24px 0px;
+  padding: 4px 0px 24px 0px;
+  margin-top: -22px;
   box-sizing: border-box;
 
   // Custom scrollbar behavior
@@ -57,7 +58,7 @@
   white-space: nowrap;
   font-family: 'Proxima Nova', sans-serif;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
   // Default unselected tab state
@@ -102,15 +103,9 @@
 .schedule-component-tab-prefix-text {
   display: block; // Allows text-align to work on a span and forces a new line
   text-align: center; // Centers "F!rosh"
-  font-size: 0.75rem; // Makes it slightly smaller
+  font-size: 0.9rem; // Makes it slightly smaller
   line-height: 0.8; // Compresses the height so the button doesn't stretch
   margin-bottom: 4px; // Adds a tiny gap between "F!rosh" and the date
-
-  // Target the <br /> inside the span to hide it,
-  // since display: block already breaks the line for us!
-  br {
-    display: none;
-  }
 }
 
 // -------------------------------------------------------------
@@ -128,7 +123,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
+    right: 100px;
     bottom: 0;
     border-radius: 100px;
     overflow: hidden;
@@ -141,8 +136,7 @@
       var(--dusk) 0.75turn
     );
     background-size: 20px 20px;
-
-    animation: revealCheckerboard 4s cubic-bezier(0.25, 1, 0.5, 1) forwards; // Animates the background reveal
+    clip-path: inset(0 100% 0 0);
   }
 
   gap: 16px; // Space between buttons where the pattern shows through
@@ -152,6 +146,20 @@
     position: relative; // Ensures the buttons and text sit above the background
     z-index: 1;
   }
+
+  &.animate-in {
+    &::before {
+      animation: revealCheckerboard 4s cubic-bezier(0.15, 1, 0.5, 1) forwards;
+    }
+
+    .schedule-component-homebase-banner-car {
+      animation: driveInCar 4s cubic-bezier(0.15, 1, 0.5, 1) forwards;
+    }
+
+    .schedule-component-homebase-banner-text-container {
+      animation: textFadeIn 0.8s ease-out 0.8s forwards;
+    }
+  }
 }
 
 .schedule-component-homebase-banner-text-container {
@@ -160,12 +168,11 @@
   align-items: center;
   position: absolute; // Allows the text to float above the checkerboard background
   padding-right: 32px; // Keeps text from hitting the far right edge
-  left: 50%;
+  left: 57%;
+  top: 50%;
   pointer-events: none;
-  transform: translate(-50%, -50%);
 
   opacity: 0;
-  animation: textFadeIn 0.8s ease-out 0.8s forwards;
 
   .schedule-component-homebase-banner-text {
     font-family: 'Gliker', sans-serif;
@@ -201,8 +208,6 @@
   height: 150%;
   z-index: 3; // Ensures it sits above the banner and text
   pointer-events: none; // Stops the image from blocking clicks
-
-  animation: driveInCar 4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 
   @include devices(tablet) {
     height: 120%; // Scales it down a bit on smaller screens
