@@ -14,6 +14,7 @@ import { PageRegistrationSuccess } from '../pages/RegistrationSuccess/Registrati
 import { PageSignUp } from '../pages/SignUp/SignUp';
 import { PageAccountsApproval } from '../pages/AccountsApproval/AccountsApproval';
 import AuthorizedPage from './AuthorizedPage';
+import { AdminPage } from './AdminPage';
 import { PasswordReset } from '../pages/PasswordReset/PasswordReset';
 import { PageFroshInfoTable } from '../pages/FroshInfoTable/FroshInfoTable';
 import { PageFroshRedistribution } from '../pages/FroshRedistribution/FroshRedistribution';
@@ -113,11 +114,13 @@ export const pages = {
     {
       label: 'Announcements Dashboard',
       component: (
-        <AuthorizedPage
-          authScopes={['announcements:delete', 'announcements:create', 'announcements:edit']}
-        >
-          <PageAnnounceDash />
-        </AuthorizedPage>
+        <AdminPage>
+          <AuthorizedPage
+            authScopes={['announcements:delete', 'announcements:create', 'announcements:edit']}
+          >
+            <PageAnnounceDash />
+          </AuthorizedPage>
+        </AdminPage>
       ),
       path: '/announcement-dashboard',
       includeFooter: true,
@@ -125,9 +128,11 @@ export const pages = {
     {
       label: 'Request Permissions',
       component: (
-        <AuthorizedPage leaderOnly>
-          <PageScopeRequest />
-        </AuthorizedPage>
+        <AdminPage>
+          <AuthorizedPage leaderOnly>
+            <PageScopeRequest />
+          </AuthorizedPage>
+        </AdminPage>
       ),
       path: '/permission-request',
       includeFooter: true,
@@ -221,9 +226,11 @@ export const pages = {
     {
       label: 'approve-accounts',
       component: (
-        <AuthorizedPage leaderOnly>
-          <PageAccountsApproval />
-        </AuthorizedPage>
+        <AdminPage>
+          <AuthorizedPage leaderOnly>
+            <PageAccountsApproval />
+          </AuthorizedPage>
+        </AdminPage>
       ),
       path: '/approve-accounts',
     },
@@ -235,27 +242,33 @@ export const pages = {
     {
       label: 'FAQAdmin',
       component: (
-        <AuthorizedPage authScopes={['faq:edit']}>
-          <PageFAQLeaders />
-        </AuthorizedPage>
+        <AdminPage>
+          <AuthorizedPage authScopes={['faq:edit']}>
+            <PageFAQLeaders />
+          </AuthorizedPage>
+        </AdminPage>
       ),
       path: '/faq-admin',
     },
     {
       label: 'TimelineAdmin',
       component: (
-        <AuthorizedPage authScopes={['timeline:create', 'timeline:edit', 'timeline:delete']}>
-          <PageTimelineAdmin />
-        </AuthorizedPage>
+        <AdminPage>
+          <AuthorizedPage authScopes={['timeline:create', 'timeline:edit', 'timeline:delete']}>
+            <PageTimelineAdmin />
+          </AuthorizedPage>
+        </AdminPage>
       ),
       path: '/timeline-admin',
     },
     {
       label: 'frosh-info-table',
       component: (
-        <AuthorizedPage leaderOnly>
-          <PageFroshInfoTable />
-        </AuthorizedPage>
+        <AdminPage>
+          <AuthorizedPage leaderOnly>
+            <PageFroshInfoTable />
+          </AuthorizedPage>
+        </AdminPage>
       ),
       path: '/frosh-info-table',
       includeFooter: true,
@@ -263,9 +276,11 @@ export const pages = {
     {
       label: 'frosh-redistribution',
       component: (
-        <AuthorizedPage leaderOnly>
-          <PageFroshRedistribution />
-        </AuthorizedPage>
+        <AdminPage>
+          <AuthorizedPage leaderOnly>
+            <PageFroshRedistribution />
+          </AuthorizedPage>
+        </AdminPage>
       ),
       path: '/frosh-redistribution',
     },
@@ -318,9 +333,11 @@ export const pages = {
     {
       label: 'Skule™ Hunt Judge Form',
       component: (
-        <AuthorizedPage leaderOnly>
-          <PageScuntJudgeForm />
-        </AuthorizedPage>
+        <AdminPage>
+          <AuthorizedPage leaderOnly>
+            <PageScuntJudgeForm />
+          </AuthorizedPage>
+        </AdminPage>
       ),
       path: '/skule-hunt-judge-form',
       includeFooter: true,
@@ -328,9 +345,11 @@ export const pages = {
     {
       label: 'start-skule-hunt',
       component: (
-        <AuthorizedPage authScopes={['scunt:exec game controls']}>
-          <ScuntGameSettings />
-        </AuthorizedPage>
+        <AdminPage>
+          <AuthorizedPage authScopes={['scunt:exec game controls']}>
+            <ScuntGameSettings />
+          </AuthorizedPage>
+        </AdminPage>
       ),
       path: '/skule-hunt-game-controls',
       includeFooter: true,
@@ -338,16 +357,18 @@ export const pages = {
     {
       label: 'Skule™ Hunt Missions Dashboard',
       component: (
-        <AuthorizedPage
-          authScopes={[
-            'scunt:exec show missions',
-            'scunt:exec hide missions',
-            'scunt:exec create missions',
-            'scunt:exec delete missions',
-          ]}
-        >
-          <PageScuntMissionsDashboard />
-        </AuthorizedPage>
+        <AdminPage>
+          <AuthorizedPage
+            authScopes={[
+              'scunt:exec show missions',
+              'scunt:exec hide missions',
+              'scunt:exec create missions',
+              'scunt:exec delete missions',
+            ]}
+          >
+            <PageScuntMissionsDashboard />
+          </AuthorizedPage>
+        </AdminPage>
       ),
       path: '/skule-hunt-missions-dashboard',
     },
@@ -356,9 +377,11 @@ export const pages = {
       path: '/skule-hunt-transactions',
       includeFooter: true,
       component: (
-        <AuthorizedPage authScopes={['scunt:exec view transactions']}>
-          <ScuntTransactions />
-        </AuthorizedPage>
+        <AdminPage>
+          <AuthorizedPage authScopes={['scunt:exec view transactions']}>
+            <ScuntTransactions />
+          </AuthorizedPage>
+        </AdminPage>
       ),
     },
   ],

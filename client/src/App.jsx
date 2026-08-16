@@ -73,7 +73,10 @@ const TransitionRoutes = () => {
                 element={
                   <div
                     className="content-container"
-                    style={{ position: 'absolute', right: 0, left: 0, bottom: 0, top: 0 }}
+                    // No `bottom` on purpose: pinning both edges locked this box to
+                    // the viewport height, so on any page taller than the screen the
+                    // background stopped at the fold and left a blank strip below.
+                    style={{ position: 'absolute', right: 0, left: 0, top: 0 }}
                   >
                     <div style={{ minHeight: '100vh' }}>{page.component}</div>
                     {page.includeFooter ? <Footer /> : <></>}

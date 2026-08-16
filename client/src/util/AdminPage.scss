@@ -1,0 +1,12 @@
+// Shared shell for every admin/leedur dashboard - see AdminPage.jsx.
+.admin-page-background {
+  // --page-bg is pinned to the dark-mode purple by AdminPage's palette.
+  background-color: var(--page-bg);
+  color: var(--text-dynamic);
+  min-height: 100vh;
+
+  // `flow-root` establishes a block formatting context, so a trailing margin on the
+  // last child cannot collapse out of the page and expose the canvas as a gap.
+  // Used instead of `overflow: hidden` so dropdowns and popups are not clipped.
+  display: flow-root;
+}

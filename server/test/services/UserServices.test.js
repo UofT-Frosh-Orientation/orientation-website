@@ -355,40 +355,66 @@ describe('UserServices', () => {
     assert.equal(result.modifiedCount, 1);
   });
 
-  it('.updateAuthScopes(userAuthScopes) invalid id', async () => {
-    await assert.rejects(
-      UserServices.updateAuthScopes([
-        {
-          id: testUser1.id,
-          auth: [
-            {
-              approve: true,
-              isFroshData: true,
-              authreq: 'test',
-            },
-            {
-              approve: true,
-              isFroshData: false,
-              authreq: 'test',
-            },
-            {
-              approve: false,
-              isFroshData: true,
-              authreq: 'test1',
-            },
-            {
-              approve: false,
-              isFroshData: false,
-              authreq: 'test2',
-            },
-          ],
-        },
-      ]),
+  it('.updateAuthScopes(userAuthScopes) unchanged scopes are not an error', async () => {
+    // Saving the same scopes a second time modifies no documents. That is a no-op,
+    // not a missing user, so it must still resolve.
+    const result = await UserServices.updateAuthScopes([
       {
-        name: 'Error',
-        message: 'USERS_NOT_FOUND',
+        id: testUser1.id,
+        auth: [
+          {
+            approve: true,
+            isFroshData: true,
+            authreq: 'test',
+          },
+          {
+            approve: true,
+            isFroshData: false,
+            authreq: 'test',
+          },
+          {
+            approve: false,
+            isFroshData: true,
+            authreq: 'test1',
+          },
+          {
+            approve: false,
+            isFroshData: false,
+            authreq: 'test2',
+          },
+        ],
       },
-    );
+    ]);
+    assert.equal(result.matchedCount, 1);
+    assert.equal(result.modifiedCount, 0);
+  });
+
+  it('.updateAuthScopes(userAuthScopes) keeps an approved scope out of requested', async () => {
+    // A leedur who re-requests a scope they already hold sends both copies.
+    await UserServices.updateAuthScopes([
+      {
+        id: testUser1.id,
+        auth: [
+          { approve: true, isFroshData: false, authreq: 'accounts:read' },
+          { approve: false, isFroshData: false, authreq: 'accounts:read' },
+        ],
+      },
+    ]);
+    const user = await UserServices.getUserByID(testUser1.id);
+    assert.deepEqual(user.authScopes.approved, ['accounts:read']);
+    assert.deepEqual(user.authScopes.requested, []);
+  });
+
+  it('.updateAuthScopes(userAuthScopes) invalid id', async () => {
+    await assert.rejects(UserServices.updateAuthScopes([{ id: 'not-an-object-id', auth: [] }]), {
+      name: 'Error',
+      message: 'USERS_NOT_FOUND',
+    });
+  });
+
+  it('.updateAuthScopes(userAuthScopes) nothing to update', async () => {
+    const result = await UserServices.updateAuthScopes([]);
+    assert.equal(result.matchedCount, 0);
   });
 
   it('.getScuntJudgeUsers() no users', async () => {
