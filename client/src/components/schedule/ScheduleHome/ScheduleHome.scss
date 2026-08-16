@@ -22,6 +22,11 @@
   margin: 0 auto 32px auto; // Centers the whole block horizontally
   width: fit-content; // Hugs the width of the top row buttons
   max-width: 100%; // Prevents overflowing on small screens
+
+  @media only screen and (max-width: 480px) {
+    width: 100%;
+    margin: 0 0 32px 0;
+  }
 }
 
 .schedule-component-tabs-row {
@@ -31,8 +36,7 @@
   gap: 16px;
   width: 100%;
   overflow-x: auto; // Generates auto-scroll on tight screens
-  //padding: 0px 0px 24px 0px;
-  padding: 4px 0px 24px 0px;
+  padding: 0px 0px 8px 0px;
   margin-top: -22px;
   box-sizing: border-box;
 
@@ -121,6 +125,7 @@
   &::before {
     content: '';
     position: absolute;
+    height: 54px;
     top: 0;
     left: 0;
     right: 100px;
@@ -137,10 +142,17 @@
     );
     background-size: 20px 20px;
     clip-path: inset(0 100% 0 0);
+
+    @include devices(tablet) {
+      right: 50px;
+    }
+
+    @media only screen and (max-width: 480px) {
+      right: 0px;
+    }
   }
 
   gap: 16px; // Space between buttons where the pattern shows through
-  //margin-bottom: 5px; // Space before the accordion
 
   > * {
     position: relative; // Ensures the buttons and text sit above the background
@@ -158,6 +170,22 @@
 
     .schedule-component-homebase-banner-text-container {
       animation: textFadeIn 0.8s ease-out 0.8s forwards;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    justify-content: flex-start; // Centers the buttons in the row
+    overflow-x: auto; // Enables scrolling if buttons overflow the screen width
+    padding-bottom: 8px;
+
+    // Custom scrollbar styling to match the top row
+    &::-webkit-scrollbar {
+      height: 6px;
+      margin-top: 15px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
     }
   }
 }
@@ -194,12 +222,19 @@
       -webkit-text-stroke: 0;
       z-index: 1;
     }
+
+    @include devices(tablet) {
+      font-size: 1.5rem;
+    }
+
+    @media only screen and (max-width: 480px) {
+      display: none !important;
+    }
   }
 }
 
 .schedule-component-homebase-banner-car {
   position: absolute;
-  // right: -100px; // Hangs slightly off the right edge
   top: 50%;
   left: 100%;
   transform: translate(-100%, -50%);
@@ -210,8 +245,11 @@
   pointer-events: none; // Stops the image from blocking clicks
 
   @include devices(tablet) {
-    height: 120%; // Scales it down a bit on smaller screens
-    right: -10px;
+    height: 120%;
+  }
+
+  @media only screen and (max-width: 480px) {
+    display: none !important;
   }
 }
 
