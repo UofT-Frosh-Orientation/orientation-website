@@ -43,9 +43,9 @@
 
   background-image: conic-gradient(
     var(--monster) 0.25turn,
-    var(--wisteria) 0.25turn 0.5turn,
+    var(--jam) 0.25turn 0.5turn,
     var(--monster) 0.5turn 0.75turn,
-    var(--wisteria) 0.75turn
+    var(--jam) 0.75turn
   );
   background-size: 100px 100px; // size of checkers is 50 px
 
@@ -109,7 +109,7 @@ body:not(.dark-mode) .checkerboard {
   height: 250px;
 
   background: var(--monster);
-  border: 4px solid var(--wisteria);
+  border: 4px solid var(--jam);
   border-radius: 50%;
   z-index: 1;
 
@@ -119,12 +119,17 @@ body:not(.dark-mode) .checkerboard {
   @include devices(tablet) {
     width: 400px;
     height: 150px;
-    border: 3px solid var(--wisteria);
+    border: 3px solid var(--jam);
   }
 }
 
 body:not(.dark-mode) .schedule-badge {
   background: var(--dusk);
+  border: 4px solid var(--wisteria);
+
+  @include devices(tablet) {
+    border: 3px solid var(--wisteria);
+  }
 }
 
 .schedule-text-container {
@@ -303,6 +308,10 @@ body:not(.dark-mode) .schedule-dates {
   .schedule-badge {
     width: 300px;
     height: 110px;
+    border: 2px solid var(--jam);
+  }
+
+  body:not(.dark-mode) .schedule-badge {
     border: 2px solid var(--wisteria);
   }
 

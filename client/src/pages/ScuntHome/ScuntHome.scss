@@ -60,9 +60,11 @@
   width: 100%;
   display: flex;
   align-items: center;
+
   h4 {
     font-size: 22px;
   }
+
   a {
     color: var(--text-link-for-dark);
   }
@@ -85,9 +87,9 @@
   display: block;
   margin-left: 30px;
 
-  h2 {
-    font-size: 150px;
-  }
+  // h2 {
+  //   font-size: 150px;
+  // }
 
   p {
     font-size: 24px;
@@ -112,6 +114,7 @@
   padding: 20px;
   float: right;
 }
+
 .about-scunt-container {
   display: flex;
   flex-direction: row;
@@ -121,34 +124,40 @@
   margin-top: 20px;
   margin-bottom: 36px;
   color: var(--white);
+
   @include devices(tablet) {
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
+
   p {
     margin-bottom: 10px;
     font-size: 16x;
     color: var(--white);
   }
+
   h2 {
     color: var(--white);
     padding-top: 20px;
     margin-bottom: 10px;
-    font-family: 'Jersey 20', sans-serif;
-    font-size: 64px;
+    font-family: 'Gliker', sans-serif;
+    font-size: 120px;
     letter-spacing: 2px;
+
     @include devices(tablet) {
       padding-top: 0px;
       margin-bottom: 4px;
       font-size: 44px;
     }
   }
+
   h3 {
     font-size: 28px;
     color: var(--white);
     padding-top: 5px;
     margin-bottom: 5px;
+
     @include devices(tablet) {
       margin-bottom: 6px;
       font-size: 22px;
@@ -162,6 +171,7 @@
   align-items: space-between;
   padding: 10px 10px;
   flex-wrap: wrap;
+
   @include devices(tablet) {
     padding-bottom: 0px;
   }
@@ -222,7 +232,7 @@
 }
 
 .scunt-button {
-  min-height: 60px;
+  min-height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -246,6 +256,7 @@
   font-size: 22px;
   font-weight: 700;
   padding: 15px 15px 15px 0;
+
   @include devices(tablet) {
     font-size: 18px;
     padding: 12px 12px 12px 0;
@@ -276,14 +287,61 @@
 .scunt-block-thing {
   margin: 48px 48px;
   margin-left: 48px;
+
   h1 {
     font-size: 48px;
     font-weight: 900;
-    font-family: 'Jersey 20', sans-serif;
+    font-family: 'Gliker', sans-serif;
   }
+
   p {
     margin-top: 24px;
     font-size: 20px;
     font-weight: 400;
+  }
+}
+
+.skule-hunt-accordion-container {
+  flex: 1; // Automatically claims all remaining horizontal width
+  width: 100%;
+  background-color: var(--bg-rules) !important;
+  border: 4px solid var(--rules-accent);
+  border-radius: 20px;
+  padding: 20px 40px; // Slightly reduced vertical padding inside the container
+  margin-top: 40px;
+  box-sizing: border-box;
+  z-index: 6;
+
+  @include devices(tablet) {
+    padding: 12px 16px !important; // Drastically cuts down inner padding so text has room to breathe
+    margin-top: 15px !important; // Pulls it up closer to the category buttons
+    border-width: 4px !important; // Thins out the yellow border so it looks clean, not chunky
+    border-radius: 12px !important; // Gives it a tighter, cleaner corner radius for mobile
+  }
+}
+
+.skule-hunt-search-result-question-accordion {
+  color: var(--rules-accent) !important;
+  font-family: 'Gliker', Impact, sans-serif;
+  font-size: 22px; // Bumped up slightly to look bold and less squished
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  line-height: 1.3; // Ensures multiple lines stack cleanly instead of squeezing
+
+  @include devices(tablet) {
+    font-size: 16px; // Shrinks accordion question title text on mobile
+  }
+}
+
+.skule-hunt-search-result-answer-accordion {
+  color: var(--rules-accent) !important;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  padding: 5px 0 20px 0;
+  line-height: 1.6;
+  white-space: pre-wrap;
+
+  @include devices(tablet) {
+    font-size: 13px; // Shrinks open answer text body on mobile
   }
 }
