@@ -67,6 +67,23 @@ ul {
   color: var(--mikado);
 }
 
+.footer-emails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.footer-email-line {
+  margin: 0;
+  font-size: 14px;
+}
+
+.footer-email-link {
+  color: var(--mikado);
+  text-decoration: underline;
+}
+
 .socials {
   display: flex;
   flex-direction: row;

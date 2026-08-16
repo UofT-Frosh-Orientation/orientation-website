@@ -60,6 +60,20 @@ const Footer = () => {
           </a> */}
 
           <div className="sitemap-text">Contact Us</div>
+          <div className="footer-emails">
+            <p className="footer-email-line">
+              General inquiries:{' '}
+              <a className="footer-email-link" href="mailto:chair@orientation.skule.ca">
+                chair@orientation.skule.ca
+              </a>
+            </p>
+            <p className="footer-email-line">
+              Website issues:{' '}
+              <a className="footer-email-link" href="mailto:tech@orientation.skule.ca">
+                tech@orientation.skule.ca
+              </a>
+            </p>
+          </div>
           <div className="footer-bug-message">Please report any bugs on our GitHub repository</div>
           <div className="socials">
             <div className="icons">
