@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { SingleAccordion } from '../../text/Accordion/SingleAccordion/SingleAccordion';
 import './ScheduleHome.scss';
@@ -24,12 +24,7 @@ const formatMonth = (monthStr) => {
 const TabButton = ({ isActive, onClick, prefixText, dayOfWeekShort, dateString }) => (
   <button className={`schedule-component-tab-button ${isActive ? 'active' : ''}`} onClick={onClick}>
     <p className="schedule-component-day-tab">
-      {prefixText && (
-        <span className="schedule-component-tab-prefix-text">
-          {prefixText}
-          <br />
-        </span>
-      )}
+      {prefixText && <span className="schedule-component-tab-prefix-text">{prefixText}</span>}
       <span className="schedule-component-tab-day-text">{dayOfWeekShort} </span>
       <span className="schedule-component-tab-date-text">{dateString}</span>
     </p>
@@ -70,6 +65,39 @@ const ScheduleComponent = () => {
   const activeDayKey = Object.keys(activeDataset)[selectedDayIndex];
   const timelineData = activeDataset[activeDayKey];
 
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const bannerRef = useRef(null);
+
+  useEffect(() => {
+    // IntersectionObserver watches for visibility of banner
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // isIntersecting is true the moment it enters the visible screen
+        // (even if it's already on screen when the page first loads!)
+        if (entry.isIntersecting) {
+          setHasAnimated(true);
+          observer.disconnect(); // Disconnect so the animation only runs once
+        }
+      },
+      {
+        root: null, // Defaults to the browser viewport
+        rootMargin: '0px',
+        threshold: 0.1, // Triggers the exact moment 10% of the banner is visible
+      },
+    );
+
+    if (bannerRef.current) {
+      observer.observe(bannerRef.current);
+    }
+
+    return () => {
+      if (bannerRef.current) {
+        observer.unobserve(bannerRef.current);
+      }
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div className="schedule-section-container">
       {/*HORIZONTAL TABS ROW for navigation */}
@@ -81,7 +109,7 @@ const ScheduleComponent = () => {
             // Splitting 'Monday Sept 1' -> 'MON' & 'SEPT 1'
             const parts = day.split(' ');
             const dayOfWeekShort = parts[0].substring(0, 3).toUpperCase();
-            const dateString = `${parts[1]} ${parts[2] || ''}`;
+            const dateString = `${formatMonth(parts[1])} ${parts[2] || ''}`;
             const needFroshTag = dayOfWeekShort === 'MON' || dayOfWeekShort === 'TUE';
 
             return (
@@ -102,7 +130,10 @@ const ScheduleComponent = () => {
         </div>
 
         {/* ROW 2: Homebase Schedule Tabs Row */}
-        <div className="schedule-component-homebase-banner-row">
+        <div
+          ref={bannerRef}
+          className={`schedule-component-homebase-banner-row ${hasAnimated ? 'animate-in' : ''}`}
+        >
           {/* The Drive-in Schedule Buttons */}
           {Object.keys(homebase_data).map((day, index) => {
             const parts = day.split(' ');
