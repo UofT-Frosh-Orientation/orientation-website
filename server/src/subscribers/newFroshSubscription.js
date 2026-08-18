@@ -120,7 +120,7 @@ newFroshSubscription.process((job, done) => {
               alt="University of Toronto Engineering Society Logo"
             />
             <div class="socials-container">
-              <a href="https://bit.ly/froshig" class="social-link">
+              <a href="https://www.instagram.com/froshweek/" class="social-link">
                 <img src="cid:instagrambrands" alt="instagram logo" class="social-icon" />
               </a>
             </div>

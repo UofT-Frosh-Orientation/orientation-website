@@ -108,7 +108,7 @@ const CountdownLanding = () => {
           <p>
             Follow us for updates:
             <a
-              href="https://bit.ly/froshig"
+              href="https://www.instagram.com/froshweek/"
               target="_blank"
               rel="noreferrer"
               className="countdown-link"

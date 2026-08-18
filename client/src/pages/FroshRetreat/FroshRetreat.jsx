@@ -550,8 +550,10 @@ const RetreatRegistration = ({ transportationSoldOut }) => {
           <div className="retreat-payment-container">
             {transportationSoldOut ? (
               <div>
-                <h2 className="retreat-h2"><strong>Transportation is currently sold out.</strong> You can still purchase a retreat
-                ticket without transportation.</h2>
+                <h2 className="retreat-h2">
+                  <strong>Transportation is currently sold out.</strong> You can still purchase a
+                  retreat ticket without transportation.
+                </h2>
               </div>
             ) : null}
 
@@ -615,4 +617,9 @@ const RetreatRegistration = ({ transportationSoldOut }) => {
       </div>
     </div>
   );
+};
+
+/* Can't commit, need to add this code so that it know that transportationSoldOut is a valid bool that RetreatRegistration needs to receive */
+RetreatRegistration.propTypes = {
+  transportationSoldOut: PropTypes.bool,
 };

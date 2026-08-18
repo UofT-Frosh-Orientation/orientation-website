@@ -58,7 +58,7 @@ const PaymentServices = {
       if (sessions.data.length > 0) {
         const session = sessions.data[0];
         const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
-        
+
         wantsTransportation = lineItems.data.some(
           (item) => item.price.id === process.env.STRIPE_RETREAT_TRANSPORTATION_PRICE_ID,
         );
@@ -116,7 +116,7 @@ const PaymentServices = {
 
       if (user.payments[idx].item === 'Retreat Ticket') {
         console.log(`frosh payment type is retreat ticket`);
-        user.set({ isRetreat: true, retreatTransportation: wantsTransportation});
+        user.set({ isRetreat: true, retreatTransportation: wantsTransportation });
         await user.save({ validateModifiedOnly: true }).catch((error) => {
           throw new Error('UNABLE_TO_UPDATE_USER', { cause: error });
         });

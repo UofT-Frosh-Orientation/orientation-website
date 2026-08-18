@@ -11,7 +11,7 @@ import GitHubIcon from '../assets/social/github-white.svg';
 export const socials = [
   {
     label: 'Instagram',
-    link: 'https://bit.ly/froshig',
+    link: 'https://www.instagram.com/froshweek/',
     icon: InstagramIcon,
   },
   {
