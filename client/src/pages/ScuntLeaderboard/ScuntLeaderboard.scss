@@ -125,7 +125,7 @@
 
   //width: 100%;
   height: fit-content;
-  padding: 5%;
+  padding: 0% 5%;
   //background-color: var(--container-bg);
   //margin: 3%;
   border-radius: 15px;
@@ -337,13 +337,16 @@
   background-color: rgba(80, 80, 110, 0.5); // transparent gray
   color: var(--text-primary);
   font-family: 'Gliker', sans-serif;
-  font-size: clamp(30px, 3vw, 60px); // bigger
+  font-size: 35px; // bigger
   font-weight: 700;
   letter-spacing: 0.05em;
-  padding: 16px 48px;
+  padding: 10px;
   border-radius: 12px;
   text-align: center;
   width: 70%; // span more of the page
+  @include devices(tablet){
+    font-size: 25px;
+  }
 }
 
 body.dark-mode .leaderboard-heading-pill {

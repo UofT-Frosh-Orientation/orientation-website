@@ -27,18 +27,7 @@ const ScuntLeaderboard = () => {
   const { scuntSettings } = useSelector(scuntSettingsSelector);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const socket = io(`${import.meta.env.VITE_API_BASE_URL}/leaderboard`, { autoConnect: false });
-  const [leaderboard, setLeaderboard] = useState([
-    { name: 'Discipline 1', number: 1, points: 500 },
-    { name: 'Discipline 2', number: 2, points: 350 },
-    { name: 'Discipline 3', number: 3, points: 200 },
-    { name: 'Discipline 4', number: 4, points: 150 },
-    { name: 'Discipline 5', number: 5, points: 100 },
-    { name: 'Discipline 6', number: 6, points: 80 },
-    { name: 'Discipline 7', number: 7, points: 60 },
-    { name: 'Discipline 8', number: 8, points: 40 },
-    { name: 'Discipline 9', number: 9, points: 20 },
-  ]);
-  // const [leaderboard, setLeaderboard] = useState([]); -> revert when we set the page public
+  const [leaderboard, setLeaderboard] = useState([]);
 
   useEffect(() => {
     socket.connect();
@@ -78,8 +67,7 @@ const ScuntLeaderboard = () => {
       setShowLeaderboard(scuntSettings?.revealLeaderboard);
     }
   }, [scuntSettings]);
-
-  /* -> uncomment when we set page to public
+  
   if ((showLeaderboard !== true && !leader) || !loggedIn) {
     return (
       <div className="hidden-scunt-leaderboard-container">
@@ -100,7 +88,6 @@ const ScuntLeaderboard = () => {
       </div>
     );
   }
-  */
 
   return (
     <>

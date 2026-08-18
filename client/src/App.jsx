@@ -73,7 +73,7 @@ const TransitionRoutes = () => {
                 element={
                   <div
                     className="content-container"
-                    style={{ position: 'absolute', right: 0, left: 0, bottom: 0, top: 0 }}
+                    style={{ position: 'absolute', right: 0, left: 0, top: 0, height: 'auto', width: '100vw' }}
                   >
                     <div style={{ minHeight: '100vh' }}>{page.component}</div>
                     {page.includeFooter ? <Footer /> : <></>}
