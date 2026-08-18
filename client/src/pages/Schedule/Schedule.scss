@@ -54,6 +54,15 @@
   }
 }
 
+body:not(.dark-mode) .checkerboard {
+  background-image: conic-gradient(
+    var(--dusk) 0.25turn,
+    var(--wisteria) 0.25turn 0.5turn,
+    var(--dusk) 0.5turn 0.75turn,
+    var(--wisteria) 0.75turn
+  );
+}
+
 .dance-floor {
   width: 100%;
   height: 200px; // 4 rows * 50px stays securely locked here
@@ -100,7 +109,7 @@
   height: 250px;
 
   background: var(--monster);
-  border: 4px solid var(--mikado);
+  border: 4px solid var(--jam);
   border-radius: 50%;
   z-index: 1;
 
@@ -110,7 +119,16 @@
   @include devices(tablet) {
     width: 400px;
     height: 150px;
-    border: 3px solid var(--mikado);
+    border: 3px solid var(--jam);
+  }
+}
+
+body:not(.dark-mode) .schedule-badge {
+  background: var(--dusk);
+  border: 4px solid var(--wisteria);
+
+  @include devices(tablet) {
+    border: 3px solid var(--wisteria);
   }
 }
 
@@ -129,6 +147,34 @@
 
   @include devices(tablet) {
     left: -10px;
+  }
+}
+
+body:not(.dark-mode) .schedule-title {
+  color: var(--monster);
+  -webkit-text-stroke: 40px var(--dusk);
+
+  &::after {
+    color: var(--monster);
+    -webkit-text-stroke: 0;
+  }
+
+  @include devices(tablet) {
+    -webkit-text-stroke: 25px var(--dusk);
+  }
+}
+
+body:not(.dark-mode) .schedule-dates {
+  color: var(--monster);
+  -webkit-text-stroke: 8px var(--dusk);
+
+  &::after {
+    color: var(--monster);
+    -webkit-text-stroke: 0;
+  }
+
+  @include devices(tablet) {
+    -webkit-text-stroke: 4px var(--dusk);
   }
 }
 
@@ -208,12 +254,14 @@
     top: -40%;
     right: -15%;
   }
+
   &-bottom-left-medium {
     width: 80px;
     height: 80px;
     bottom: -35%;
     left: -7%;
   }
+
   &-bottom-left-small {
     width: 60px;
     height: 60px;
@@ -228,12 +276,14 @@
       top: -30%;
       right: -15%;
     }
+
     &-bottom-left-medium {
       width: 50px;
       height: 50px;
       bottom: -25%;
       left: -7%;
     }
+
     &-bottom-left-small {
       width: 40px;
       height: 40px;
@@ -258,7 +308,11 @@
   .schedule-badge {
     width: 300px;
     height: 110px;
-    border: 2px solid var(--mikado);
+    border: 2px solid var(--jam);
+  }
+
+  body:not(.dark-mode) .schedule-badge {
+    border: 2px solid var(--wisteria);
   }
 
   .schedule-title,
@@ -285,12 +339,14 @@
       top: -30%;
       right: -15%;
     }
+
     &-bottom-left-medium {
       width: 45px;
       height: 45px;
       bottom: -30%;
       left: -7%;
     }
+
     &-bottom-left-small {
       width: 30px;
       height: 30px;

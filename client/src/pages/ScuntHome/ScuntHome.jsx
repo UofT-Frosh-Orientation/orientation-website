@@ -39,13 +39,13 @@ export const PageScuntHome = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <div className="scunt-page-wrapper">
       <ScuntTitle />
-      <BackToProfileButton />
+      {/* <BackToProfileButton /> */}
       <ScuntLinks />
       <AboutScunt />
       {/* <ScuntDiscord /> */}
-    </>
+    </div>
   );
 };
 
@@ -67,11 +67,8 @@ const AboutScunt = () => {
     <>
       {/* <img src={darkMode ? WaveDarkMode : Wave} className="wave-image wave-image-footer" /> */}
 
-      <div className="about-scunt-container">
+      {/* <div className="about-scunt-container">
         <div className="about-scunt-content">
-          {/* <div className="about-scunt-token">
-            <ProfilePageScuntTeam />
-          </div> */}
           <div className="image-container">
             <img src={scuntLogo} style={{ width: '300px', margin: '20px' }} />
           </div>
@@ -80,19 +77,15 @@ const AboutScunt = () => {
             <p>
               Come participate in the most iconic event that is part of F!rosh Week: Skule™ Hunt!
             </p>
-            {/* <br />
-            <br />
-            Skule™ Hunt takes place on the night of <b>Wednesday, August 27th from 6PM to 11PM</b>.
-            It is completely free, so hurry and sign up by clicking YES on your registration! */}
             <br />
             <br />
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="scunt-block-thing">
-        <h1>What is Skule Hunt?</h1>
+        <h1>What is Skule™ Hunt?</h1>
         <p>
-          Skule™ Hunt is a long-standing traditional event that is part of Skule&apos;s annual
+          Skule™ Hunt is a long-standing traditional event that is part of Skule™&apos;s annual
           F!rosh Week. Frosh are placed in teams and participate in a city-wide scavenger hunt where
           the tasks are designed to help them learn about Skule™ history and traditions, all while
           exploring the city of Toronto. We safely encourage you to step out of your comfort zone
@@ -114,16 +107,16 @@ const AboutScunt = () => {
       </div>
       <div className="scunt-block-thing">
         <h1>FAQ</h1>
+
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <SkuleHuntFAQ />
+        </div>
       </div>
       {/* <img
         className="header-page-wave-bottom"
         src={darkMode ? waveBottomDarkMode : waveBottom}
         alt="wave"
       /> */}
-
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <SkuleHuntFAQ />
-      </div>
 
       <div style={{ height: '30px' }} />
     </>
@@ -156,7 +149,7 @@ const scuntFAQs = [
 const SkuleHuntFAQ = () => {
   return (
     <>
-      <div className="scunt-faq-container">
+      <div className="skule-hunt-accordion-container">
         {scuntFAQs.map((item, index) => {
           const [isOpen, setIsOpen] = useState(false);
           return (
@@ -164,23 +157,31 @@ const SkuleHuntFAQ = () => {
               <SingleAccordion
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                header={<div className={'scunt-faq-question'}>{item.title}</div>}
-                className="scunt-accordion-clickable"
+                header={
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      width: '100%',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <div className={'skule-hunt-search-result-question-accordion'}>
+                      {item.title}
+                    </div>
+                    {/* Plus / Minus sign swap match — --faq-accent is gold in dark mode, dark purple in light */}
+                    {/* <span style={{ color: 'var(--monster)', fontSize: '24px', fontWeight: 'bold' }}>
+                      {isOpen ? '−' : '+'}
+                    </span> */}
+                  </div>
+                }
+                style={{ backgroundColor: 'transparent' }}
+                className="accordion-clickable"
                 dark={true}
               >
-                {Array.isArray(item.description) ? (
-                  <>
-                    <ul className="scunt-faq-bullet">
-                      {item.description.map((listItem, index) => {
-                        return <li key={listItem}>{listItem}</li>;
-                      })}
-                    </ul>
-                  </>
-                ) : (
-                  <>
-                    <p style={{ margin: 0, width: '100%' }}>{item.description}</p>
-                  </>
-                )}
+                <div className={'skule-hunt-search-result-answer-accordion'}>
+                  {item.description}
+                </div>
               </SingleAccordion>
             </React.Fragment>
           );
