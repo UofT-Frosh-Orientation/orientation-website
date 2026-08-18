@@ -56,7 +56,7 @@ a.no-link-style {
       @media (max-width: 1000px) {
         width: 100%;
         margin-bottom: 20px;
-        display: none;
+        // display: none;
       }
 
       @include devices(huge) {
@@ -105,17 +105,17 @@ a.no-link-style {
     }
 
     // Diamond mask on the left side
-    clip-path: polygon(
-      0% 50%,
-      // left middle (diamond tip)
-      15% 0%,
-      // top left
-      100% 0%,
-      // top right
-      100% 100%,
-      // bottom right
-      15% 100% // bottom left
-    );
+    // clip-path: polygon(
+    //   0% 50%,
+    //   // left middle (diamond tip)
+    //   15% 0%,
+    //   // top left
+    //   100% 0%,
+    //   // top right
+    //   100% 100%,
+    //   // bottom right
+    //   15% 100% // bottom left
+    // );
 
     @include devices(tablet) {
       display: none;

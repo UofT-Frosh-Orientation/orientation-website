@@ -45,7 +45,7 @@ const PageHome = () => {
       <HomePageFilmStrip />
       <HomePageTimeline />
       {/* Other Events section (heading + spinning vinyl + thumbnail + info panel) hidden per request */}
-      {/* <PageAbout /> */}
+      <PageAbout />
       <HomePageSponsors />
     </>
   );
@@ -324,7 +324,10 @@ const AboutUsSection = () => {
   const [rotationDeg, setRotationDeg] = useState(0);
   const startTimeRef = useRef(null);
   const rafRef = useRef(null);
-  const activeEvent = otherEventsData[activeIndex];
+  // Change back if want to return rotation through different events
+  // const activeEvent = otherEventsData[activeIndex];
+  const activeEvent = otherEventsData[0];
+
 
   useEffect(() => {
     const animate = (timestamp) => {
@@ -377,7 +380,7 @@ const AboutUsSection = () => {
       <h2 className="other-events-heading">Other Events</h2>
       <div className="other-events-layout">
         {/* Left: Vinyl */}
-        <div className="vinyl-wrapper">
+        <div className="vinyl-wrapper desktop-only">
           <div className="vinyl-disc">
             <svg className="vinyl-disc-svg" viewBox="0 0 400 400">
               <defs>
@@ -393,7 +396,8 @@ const AboutUsSection = () => {
               </defs>
 
               {/* Spinning disc group */}
-              <g style={{ transformOrigin: '200px 200px', transform: `rotate(${rotationDeg}deg)` }}>
+              {/* <g style={{ transformOrigin: '200px 200px', transform: `rotate(${rotationDeg}deg)` }}> */}
+              <g>
                 <use href="#discCircle" fill="#111" />
                 {[150, 120, 90, 60].map((r) => (
                   <circle
@@ -414,7 +418,7 @@ const AboutUsSection = () => {
                     onClick={() => setActiveIndex(index)}
                   >
                     <textPath href={`#labelArc${index}`} startOffset="0%">
-                      {event.title}
+                      {/* {event.title} */}
                     </textPath>
                   </text>
                 ))}
@@ -434,26 +438,33 @@ const AboutUsSection = () => {
             </svg>
           </div>
         </div>
+        
+        <div className="event-card bg-purple text-black">
+          <div className='card-content'>
+            <div className="text-section">
+              <div className="other-events-info-text">
+                <h3>{activeEvent.title}</h3>
+                <p>{activeEvent.description}</p>
 
-        <div className="other-events-thumb-wrapper">
-          <img src={activeEvent.image} alt={activeEvent.title} className="other-events-thumb-img" />
-        </div>
+                <a
+                  href={activeEvent.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="other-events-learn-more"
+                >
+                  Learn More
+                </a>
+              </div>
+            </div>
 
-        <div className="other-events-info-panel">
-          <div className="other-events-info-text">
-            <h3>{activeEvent.title}</h3>
-            <p>{activeEvent.description}</p>
-
-            <a
-              href={activeEvent.link}
-              target="_blank"
-              rel="noreferrer"
-              className="other-events-learn-more"
-            >
-              Learn More
-            </a>
+            <div className="image-section">
+              <img src={activeEvent.image} alt={activeEvent.title} className="other-events-thumb-img" />
+            </div>
           </div>
+
         </div>
+
+
       </div>
     </div>
   );

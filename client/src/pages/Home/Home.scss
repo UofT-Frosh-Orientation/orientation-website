@@ -707,10 +707,11 @@ body {
 
 .other-events-thumb-wrapper {
   flex: 0 0 auto;
-  width: 500px;
-  height: 300px; // fixed, not the broken clamp from before
-  margin-left: -84px;
-  border-radius: 0 100px 100px 0;
+  display:flex;
+  // width: 500px;
+  // height: 300px; // fixed, not the broken clamp from before
+  // margin-left: -84px;
+  // border-radius: 0 100px 100px 0;
   overflow: hidden;
   position: relative;
   z-index: 1;
@@ -724,9 +725,25 @@ body {
 }
 
 .other-events-thumb-img {
-  width: 100%;
-  height: 100%;
+  width: 50%;
   object-fit: cover;
+
+  @include devices(tablet){
+    width:80%;
+  }
+}
+
+.other-events-container {
+  border-radius: 10px;
+  background-color:var(--bg-card);
+
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  flex-wrap:wrap;
+
+  width:80%;
+  height:500px;
 }
 
 .vinyl-disc {
@@ -779,6 +796,7 @@ body {
   min-height: 320px;
   z-index: 1;
   text-align: center;
+  max-width:40%;
 }
 
 .other-events-info-text {
@@ -786,7 +804,7 @@ body {
     font-family: 'Proxima Nova', sans-serif;
     font-size: clamp(24px, 2.2vw, 46px);
     font-weight: 900;
-    color: var(--accent-purple);
+    color: var(--text-main);
   }
 
   p {
