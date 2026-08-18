@@ -12,8 +12,8 @@
 body.dark-mode {
   --bg-rules: #a77ad7;
   --rules-accent: #711f8b;
-  --rules-title: #711f8b;
-  --rules-title-stroke: transparent;
+  --rules-title: #FFFFFF;
+  --rules-title-stroke: #3d0f58;
 }
 
 .scunt-page-wrapper {
@@ -129,12 +129,29 @@ ol.scunt-rules-list-inner {
   transform: rotate(-8deg);
 
   display: block;
-  -webkit-text-stroke-color: var(--rules-title-stroke);
-  -webkit-text-stroke-width: 0.2vw;
+
+  text-shadow: 
+     1px  1px 2px var(--rules-title-stroke),
+    -1px -1px 2px var(--rules-title-stroke),
+     1px -1px 2px var(--rules-title-stroke),
+    -1px  1px 2px var(--rules-title-stroke),
+     0px  3px 2px var(--rules-title-stroke),
+     0px -3px 2px var(--rules-title-stroke),
+     3px  0px 2px var(--rules-title-stroke),
+    -3px  0px 2px var(--rules-title-stroke);
 
   @include devices(tablet) {
-    -webkit-text-stroke: 1px var(--rules-title-stroke);
-    font-size: 12vw;
+    text-shadow: 
+      1px  1px 2px var(--rules-title-stroke),
+      -1px -1px 2px var(--rules-title-stroke),
+      1px -1px 2px var(--rules-title-stroke),
+      -1px  1px 2px var(--rules-title-stroke),
+      0px  2px 2px var(--rules-title-stroke),
+      0px -2px 2px var(--rules-title-stroke),
+      2px  0px 2px var(--rules-title-stroke),
+      -2px  0px 2px var(--rules-title-stroke);
+
+    font-size: 50px;
   }
 }
 

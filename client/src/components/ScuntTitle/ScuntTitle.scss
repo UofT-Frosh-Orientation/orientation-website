@@ -125,3 +125,45 @@ body {
     font-family: inherit;
   }
 }
+
+
+// Mobile styling
+
+@include devices(tablet) {
+  /* ── HERO ──
+     Phones MIRROR the desktop overlapping hero: same absolute composition
+     (checker band centered, F!rosh/WEEK/2T6 layered over it via .header-text-stack),
+     just with smaller fonts and a band + word positions retuned for a tall
+     portrait screen. We intentionally do NOT rebuild it as a stacked column.
+     The overlap works because the words' positions are pushed INTO the band:
+     F!rosh's top sits over the band's top edge, WEEK's tall glyphs reach up into
+     the band's bottom edge. Tune `top`/`bottom` here together with the band. */
+
+  .skule-hunt-home-page-header {
+    height:30%; // keep base height: 100vh
+  }
+
+  /* Same centered absolute band as desktop; smaller squares for phone width */
+  .skule-hunt-header-checker-block {
+    top: 0%;
+    // bottom: 30%;
+    width: 100%;
+    background-size: 112px 112px;
+  }
+
+  .skule-hunt-header-text-stack{
+    top:10%;
+  }
+
+  /* F!rosh — overlaps the TOP edge of the band (base keeps flex-start + rotate) */
+  .header-skule-text {
+    font-size: clamp(70px, 22vw, 150px);
+    top: 4%;
+  }
+
+  /* WEEK — raised so its tall glyphs overlap the BOTTOM of the band */
+  .header-hunt-text {
+    font-size: clamp(66px, 25vw, 160px);
+    // bottom: 30%;
+  }
+}
