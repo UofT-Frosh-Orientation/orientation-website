@@ -125,7 +125,6 @@
   &::before {
     content: '';
     position: absolute;
-    height: 54px;
     top: 0;
     left: 0;
     right: 100px;
@@ -149,6 +148,7 @@
 
     @media only screen and (max-width: 480px) {
       right: 0px;
+      height: 54px;
     }
   }
 
@@ -223,19 +223,40 @@
       z-index: 1;
     }
 
+    white-space: normal;
+    text-align: center;
+    line-height: 1.1; // Keeps the two lines snug together
+
+    @media only screen and (max-width: 850px) {
+      max-width: 150px; // Forces "Chill at" and "Drive-In" onto two lines
+      font-size: 1.5rem; // Shrinks it just a tiny bit so it fits perfectly
+    }
+
     @include devices(tablet) {
-      font-size: 1.5rem;
+      max-width: 120px;
+      font-size: 1.3rem;
+      left: 16%;
+    }
+
+    @media only screen and (max-width: 650px) {
+      max-width: 100px;
+      font-size: 1.1rem;
+      left: 30%;
     }
 
     @media only screen and (max-width: 480px) {
       display: none !important;
     }
   }
+
+  @media only screen and (max-width: 650px) {
+    padding-right: 0px;
+  }
 }
 
 .schedule-component-homebase-banner-car {
   position: absolute;
-  top: 50%;
+  top: 49%;
   left: 100%;
   transform: translate(-100%, -50%);
   margin-left: 20px; // Recreates the 20px overhang on the right
@@ -246,6 +267,12 @@
 
   @include devices(tablet) {
     height: 120%;
+    top: 59%;
+  }
+
+  @media only screen and (max-width: 650px) {
+    height: 100%;
+    top: 65%;
   }
 
   @media only screen and (max-width: 480px) {
