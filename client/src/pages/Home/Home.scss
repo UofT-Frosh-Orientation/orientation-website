@@ -1259,3 +1259,46 @@ body {
 }
 
 // --- END: Sponsor styles replacement ---
+
+.frosh-week-trailer {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+
+  margin-top:20px;
+}
+
+.frosh-week-trailer-header {
+  font-family: 'Genty', sans-serif;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 400;
+  color: var(--gold-1);
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+.video-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  box-sizing: border-box;
+  margin-bottom: 60px;
+}
+
+.video-container iframe {
+  display: block;
+  width: min(80%, 900px);
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  object-fit: contain;
+
+  border:none;
+
+  @include devices(tablet) {
+    width: 100%;
+  }
+}
