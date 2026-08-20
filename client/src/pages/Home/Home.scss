@@ -691,6 +691,42 @@ body {
   }
 }
 
+.other-events-mobile-cards {
+  display: none;
+}
+
+@include devices(tablet) {
+  .other-events-desktop-card {
+    display: none;
+  }
+
+  .other-events-mobile-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+
+    .event-card {
+      width: 100%;
+      margin: 0;
+    }
+
+    .event-card .text-section {
+      padding: 30px;
+    }
+
+    .event-card .text-section p {
+      width: 100%;
+    }
+
+    .event-card .image-section {
+      display: block;
+      width: 100%;
+      height: 180px;
+    }
+  }
+}
+
 // Vinyl
 .vinyl-wrapper {
   flex: 0 0 auto;
