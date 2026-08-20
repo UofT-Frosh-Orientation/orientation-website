@@ -1,6 +1,10 @@
 export const colors = {
   // 2T6 schedule colours
   '--2T6-page-bg': ['#FFFFFF', '#3D0F58'],
+  '--2T6-schedule-homebase-checker-white': ['#FFFFFF', '#EBEBEB'],
+  '--2T6-schedule-homebase-checker-purple': ['#A77AD7', '#3D0F58'],
+  '--2T6-schedule-homebase-banner-text': ['#FFFFFF', '#A77AD7'],
+  '--2T6-schedule-homebase-banner-text-outline': ['#A77AD7', '#3D0F58'],
 
   // 2T5 Redesign Colours Start Here -----------------------------------------------------------------------------------
   '--bg-primary': ['#FFFFFF', '#291742'],
