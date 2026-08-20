@@ -1,5 +1,5 @@
 import bso from '../../assets/OtherEvents/bso.jpg';
-import campus from '../../assets/OtherEvents/campus.webp';
+import campus from '../../assets/OtherEvents/campus.jpg';
 import spadina from '../../assets/OtherEvents/koffler.jpg';
 import bipoc from '../../assets/OtherEvents/bipoc.jpg'
 
@@ -10,7 +10,7 @@ export const otherEventsData = [
       'Join us for fun, food, music, and student organizations and university services centring BIPOC students! New or returning students from all colleges are welcome! ',
     image: bipoc,
     link: 'https://www.instagram.com/lifeatnew/',
-  }
+  },
   // ,
   // {
   //   title: 'Black Student Orientation',
@@ -19,13 +19,13 @@ export const otherEventsData = [
   //   image: bso,
   //   link: 'https://www.instagram.com/uoftbso/',
   // },
-  // {
-  //   title: 'Faculty Orientation Events',
-  //   description:
-  //     'Check out the schedule for Faculty Orientation Events happening on Thursday, September 3rd!',
-  //   image: campus,
-  //   link: 'https://undergrad.engineering.utoronto.ca/event/faculty-orientation-events-2/',
-  // },
+  {
+    title: 'Faculty Orientation Events',
+    description:
+      'Check out the schedule for Faculty Orientation Events happening on Thursday, September 3rd!',
+    image: campus,
+    link: 'https://undergrad.engineering.utoronto.ca/event/2026-faculty-orientation-events/',
+  },
   // {
   //   title: 'Spadina Block Party',
   //   description:
