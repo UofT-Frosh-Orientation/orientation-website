@@ -3,7 +3,7 @@ export const homebase_data = {
     {
       'Event Name': 'Ongoing Events',
       'Event Description':
-        "Board games, bracelet/jewelry making, photobooth, F!rosh shirt decorating, music DJ'd by F!rosh, origami, colouring, printed puzzles, crosswords, snacks",
+        "Board games, bracelet/jewelry making, photobooth, music DJ'd by F!rosh, origami, colouring, printed puzzles, crosswords, snacks",
       'Start Time': '9:00 AM',
       'End Time': '6:00 PM',
       Color: 'purple',
