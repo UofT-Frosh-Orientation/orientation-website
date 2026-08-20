@@ -35,7 +35,6 @@ import GoldMedal from '../../assets/sponsors/sponsormedals/gold.png';
 import SilverMedal from '../../assets/sponsors/sponsormedals/silver.png';
 import BronzeMedal from '../../assets/sponsors/sponsormedals/bronze.png';
 import { CountdownHome } from '../../components/countdown/countdown';
-import trailerVideo from '../../assets/trailer/Frosh_Week_Trailer.mp4'; // Import local file
 
 export default function FroshWeekTrailer() {
   return (
