@@ -144,11 +144,19 @@
     clip-path: inset(0 100% 0 0);
 
     @include devices(tablet) {
-      right: 50px;
+      right: 0px;
+      height:70px;
+
+      margin-top:-10px;
+
+      border-radius:0;
     }
 
     @media only screen and (max-width: 480px) {
-      right: 0px;
+      border-radius:0px;
+
+      height:80px;
+      overflow-x:visible;
     }
   }
 
@@ -175,7 +183,7 @@
 
   @media only screen and (max-width: 480px) {
     justify-content: flex-start; // Centers the buttons in the row
-    overflow-x: auto; // Enables scrolling if buttons overflow the screen width
+    // overflow-x: auto; // Enables scrolling if buttons overflow the screen width
     padding-bottom: 8px;
 
     // Custom scrollbar styling to match the top row
@@ -204,7 +212,7 @@
 
   .schedule-component-homebase-banner-text {
     font-family: 'Gliker', sans-serif;
-    color: var(--wisteria);
+    color:var(--wisteria);
     font-size: 1.8rem;
     -webkit-text-stroke: 10px var(--monster);
     position: relative;

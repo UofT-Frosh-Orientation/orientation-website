@@ -110,7 +110,8 @@ const ScheduleComponent = () => {
             const parts = day.split(' ');
             const dayOfWeekShort = parts[0].substring(0, 3).toUpperCase();
             const dateString = `${formatMonth(parts[1])} ${parts[2] || ''}`;
-            const needFroshTag = dayOfWeekShort === 'MON' || dayOfWeekShort === 'TUE';
+            // const needFroshTag = dayOfWeekShort === 'MON' || dayOfWeekShort === 'TUE';
+            const needFroshTag = false;
 
             return (
               <TabButton
@@ -159,12 +160,12 @@ const ScheduleComponent = () => {
           {/* The Banner Text and car image*/}
           <img
             src={vintageCar}
-            className="schedule-component-homebase-banner-car"
+            className="schedule-component-homebase-banner-car desktop-only"
             alt="purple vintage car"
           />
 
           <div className="schedule-component-homebase-banner-text-container">
-            <span className="schedule-component-homebase-banner-text">Chill at Drive-In</span>
+            <span className="schedule-component-homebase-banner-text desktop-only">Chill at Drive-In</span>
           </div>
         </div>
       </div>
