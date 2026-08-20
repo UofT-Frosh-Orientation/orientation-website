@@ -35,6 +35,19 @@ import GoldMedal from '../../assets/sponsors/sponsormedals/gold.png';
 import SilverMedal from '../../assets/sponsors/sponsormedals/silver.png';
 import BronzeMedal from '../../assets/sponsors/sponsormedals/bronze.png';
 import { CountdownHome } from '../../components/countdown/countdown';
+import trailerVideo from '../../assets/trailer/Frosh_Week_Trailer.mp4'; // Import local file
+
+export default function FroshWeekTrailer() {
+  return (
+    <div className="frosh-week-trailer">
+      <h2 className="frosh-week-trailer-header">F!rosh Week Trailer</h2>
+      <div className="video-container">
+          <iframe src="https://drive.google.com/file/d/1-W7ZcKv414SVGA2oYEI1RVSQSu89OyUd/preview" width="80%"></iframe>
+      </div>
+    </div>
+
+  );
+}
 
 const PageHome = () => {
   return (
@@ -43,6 +56,7 @@ const PageHome = () => {
       {/* "What is F!rosh Week? / What is SKULE?" blurb hidden per request */}
       {/* <HomePageAboutBlurb /> */}
       <HomePageFilmStrip />
+      <FroshWeekTrailer />
       <HomePageTimeline />
       {/* Other Events section (heading + spinning vinyl + thumbnail + info panel) hidden per request */}
       <PageAbout />
