@@ -163,11 +163,9 @@ const PaymentServices = {
         retreatTransportation: true,
       });
 
-      const userCount = await UserModel.countDocuments({
-        retreatTransportation: true,
-      });
+      console.log('Frosh transportation count:', froshCount); 
 
-      return froshCount + userCount;
+      return froshCount;
     } catch (error) {
       throw new Error('UNABLE_TO_GET_TRANSPORTATION_COUNT', {
         cause: error,
