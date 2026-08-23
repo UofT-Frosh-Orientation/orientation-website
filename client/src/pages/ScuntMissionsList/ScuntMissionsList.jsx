@@ -61,16 +61,7 @@ const PageScuntMissionsList = () => {
           <ScuntTitle />
           <ScuntLinks />
           <div className="scunt-check-soon-title">
-            <h1
-              style={{
-                textAlign: 'center',
-                color: 'var(--text-primary)',
-                fontWeight: '900',
-                padding: '25px 4% 0 4%',
-              }}
-            >
-              Check back soon!
-            </h1>
+            <h1 style={{ fontFamily: 'Gliker' }}>Check back soon!</h1>
           </div>
         </div>
       </>
