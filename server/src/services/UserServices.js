@@ -429,6 +429,15 @@ const UserServices = {
    * @returns {String[]}
    */
   async updateAuthScopes(userAuthScopes) {
+    // bulkWrite() rejects on an empty operation list, so nothing to do is not an error.
+    if (!Array.isArray(userAuthScopes) || userAuthScopes.length === 0) {
+      return { matchedCount: 0, modifiedCount: 0 };
+    }
+    if (userAuthScopes.some((user) => !mongoose.Types.ObjectId.isValid(user?.id))) {
+      // Otherwise the ObjectId cast below throws a raw CastError as a 500.
+      throw new Error('USERS_NOT_FOUND');
+    }
+
     return UserModel.collection
       .bulkWrite(
         userAuthScopes.map((user) => {
@@ -437,7 +446,7 @@ const UserServices = {
             authScopesDenied,
             froshDataFieldsApproved,
             froshDataFieldsDenied,
-          } = user.auth.reduce(
+          } = (user.auth || []).reduce(
             (prev, curr) => {
               if (curr.approve) {
                 if (curr.isFroshData) {
@@ -461,15 +470,25 @@ const UserServices = {
               froshDataFieldsDenied: [],
             },
           );
+          // A scope can appear twice for the same user - once because it is already
+          // approved and once because they requested it again. Approval always wins,
+          // otherwise the stale duplicate would push a just-granted scope straight
+          // back into `requested`.
+          const approvedScopes = new Set(authScopesApproved);
+          const approvedFroshData = new Set(froshDataFieldsApproved);
           return {
             updateOne: {
               filter: { _id: { $eq: new mongoose.Types.ObjectId(user.id) } },
               update: {
                 $set: {
-                  'authScopes.approved': [...new Set(authScopesApproved)],
-                  'froshDataFields.approved': [...new Set(froshDataFieldsApproved)],
-                  'authScopes.requested': [...new Set(authScopesDenied)],
-                  'froshDataFields.requested': [...new Set(froshDataFieldsDenied)],
+                  'authScopes.approved': [...approvedScopes],
+                  'froshDataFields.approved': [...approvedFroshData],
+                  'authScopes.requested': [
+                    ...new Set(authScopesDenied.filter((s) => !approvedScopes.has(s))),
+                  ],
+                  'froshDataFields.requested': [
+                    ...new Set(froshDataFieldsDenied.filter((s) => !approvedFroshData.has(s))),
+                  ],
                 },
               },
             },
@@ -478,7 +497,10 @@ const UserServices = {
       )
       .then(
         (results) => {
-          if (results.modifiedCount !== userAuthScopes.length) throw new Error('USERS_NOT_FOUND');
+          // Check `matchedCount`, not `modifiedCount`: re-saving a user whose scopes
+          // are already in the requested state modifies nothing, which is a no-op and
+          // not a missing user. Comparing modifiedCount made every repeat save fail.
+          if (results.matchedCount !== userAuthScopes.length) throw new Error('USERS_NOT_FOUND');
           return results;
         },
         (error) => {

@@ -101,6 +101,13 @@ export async function getQuestions(setSnackbar) {
       category: 'F!rosh Kits',
     },
     {
+      question: 'What are the t-shirt sizes?',
+      answer:
+        'The t-shirt size chart can be found here: https://drive.google.com/file/d/1YkoouelWNOxYASXRlHZcmt0zHSpLOvAB/view?usp=sharing',
+      lastUpdated: '4:26 pm, Aug 16, 2026',
+      category: 'F!rosh Kits',
+    },
+    {
       question: 'Can we choose our F!rosh groups or people to be with us?',
       answer:
         'Unfortunately, you cannot choose your F!rosh group. The groups are designed to be randomized and mixed across disciplines and other factors to give you the amazing opportunity to meet a wide range of incoming first-years and make new friends!',

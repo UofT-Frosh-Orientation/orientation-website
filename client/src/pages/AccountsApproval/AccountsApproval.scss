@@ -1,7 +1,8 @@
 @import '../../scssStyles/mixins';
 
 .accounts-approval-page-container {
-  position: absolute;
+  // Deliberately in normal flow: absolute positioning gave the page zero height, so
+  // a table taller than the screen spilled past the page background.
   display: flex;
   justify-content: center;
   align-items: center;

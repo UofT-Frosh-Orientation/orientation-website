@@ -133,6 +133,9 @@ export const ProfilePageQRScanner = ({ scopes }) => {
       {frosh && (
         <div className={`profile-page-scanned-data ${error && 'profile-page-scanned-data-error'}`}>
           <div>
+            {frosh?.photograph === false && (
+              <div className="scanned-no-photography">No Photography</div>
+            )}
             <h3>Scanned User Info</h3>
             <div style={{ height: '7px' }} />
             <div>
@@ -154,6 +157,7 @@ export const ProfilePageQRScanner = ({ scopes }) => {
                   'preKit',
                   'isRegistered',
                   'gotFood',
+                  'photograph',
                 ].includes(key) && (
                   <div key={key}>
                     <b>{capitalizeFirstLetter(key) + ': '}</b>

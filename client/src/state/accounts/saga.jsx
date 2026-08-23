@@ -51,11 +51,14 @@ export function* getAuthRequestsSaga() {
             email,
             firstName,
             lastName,
-            authScopes: { requested: requestedAuth = [], approved: approvedAuth = [] },
+            // Only leedurs carry `froshDataFields`, and a user can come back with no
+            // `authScopes` at all. Without these defaults a single such account threw
+            // and wiped out the whole permissions table.
+            authScopes: { requested: requestedAuth = [], approved: approvedAuth = [] } = {},
             froshDataFields: {
               requested: requestedFroshData = [],
               approved: approvedFroshData = [],
-            },
+            } = {},
           }) => ({
             id,
             email,
@@ -133,9 +136,12 @@ export function* updateAuthRequestsSaga({ payload: { setSnackbar, userAuthScopes
   const { axios } = useAxios();
   try {
     yield put(updateAccountsAuthStart());
-    const result = yield call(axios.put, '/user/auth-scopes', { userAuthScopes });
+    yield call(axios.put, '/user/auth-scopes', { userAuthScopes });
     setSnackbar('Success!');
     yield put(updateAccountsAuthSuccess());
+    // Re-read the scopes so the table shows what was actually saved instead of the
+    // local edits, which previously made a successful save look like it did nothing.
+    yield call(getAuthRequestsSaga);
   } catch (e) {
     setSnackbar(
       e.response?.data?.message

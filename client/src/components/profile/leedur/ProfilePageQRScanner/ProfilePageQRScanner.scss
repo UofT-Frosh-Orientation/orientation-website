@@ -46,6 +46,21 @@
   animation: pulse 350ms forwards;
 }
 
+.scanned-no-photography {
+  background-color: var(--red-error);
+  color: var(--white);
+  border-radius: 10px;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+  animation: pulse 350ms forwards;
+}
+
 .profile-page-manual-entry-header {
   font-size: 100%;
   margin-top: 25px;

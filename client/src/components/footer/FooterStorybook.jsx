@@ -38,6 +38,24 @@ const FooterStorybook = () => {
         </div>
       </div>
 
+      <div className="sitemap">
+        <div className="sitemap-text">Contact Us</div>
+        <div className="footer-emails">
+          <p className="footer-email-line">
+            General inquiries:{' '}
+            <a className="footer-email-link" href="mailto:chair@orientation.skule.ca">
+              chair@orientation.skule.ca
+            </a>
+          </p>
+          <p className="footer-email-line">
+            Website issues:{' '}
+            <a className="footer-email-link" href="mailto:tech@orientation.skule.ca">
+              tech@orientation.skule.ca
+            </a>
+          </p>
+        </div>
+      </div>
+
       <div className="socials">
         <div className="icons">
           {socials.map((social) => {
