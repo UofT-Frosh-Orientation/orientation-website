@@ -691,6 +691,42 @@ body {
   }
 }
 
+.other-events-mobile-cards {
+  display: none;
+}
+
+@include devices(tablet) {
+  .other-events-desktop-card {
+    display: none;
+  }
+
+  .other-events-mobile-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+
+    .event-card {
+      width: 100%;
+      margin: 0;
+    }
+
+    .event-card .text-section {
+      padding: 30px;
+    }
+
+    .event-card .text-section p {
+      width: 100%;
+    }
+
+    .event-card .image-section {
+      display: block;
+      width: 100%;
+      height: 180px;
+    }
+  }
+}
+
 // Vinyl
 .vinyl-wrapper {
   flex: 0 0 auto;
@@ -707,10 +743,11 @@ body {
 
 .other-events-thumb-wrapper {
   flex: 0 0 auto;
-  width: 500px;
-  height: 300px; // fixed, not the broken clamp from before
-  margin-left: -84px;
-  border-radius: 0 100px 100px 0;
+  display: flex;
+  // width: 500px;
+  // height: 300px; // fixed, not the broken clamp from before
+  // margin-left: -84px;
+  // border-radius: 0 100px 100px 0;
   overflow: hidden;
   position: relative;
   z-index: 1;
@@ -724,9 +761,25 @@ body {
 }
 
 .other-events-thumb-img {
-  width: 100%;
-  height: 100%;
+  width: 50%;
   object-fit: cover;
+
+  @include devices(tablet) {
+    width: 80%;
+  }
+}
+
+.other-events-container {
+  border-radius: 10px;
+  background-color: var(--bg-card);
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+
+  width: 80%;
+  height: 500px;
 }
 
 .vinyl-disc {
@@ -779,6 +832,7 @@ body {
   min-height: 320px;
   z-index: 1;
   text-align: center;
+  max-width: 40%;
 }
 
 .other-events-info-text {
@@ -786,7 +840,7 @@ body {
     font-family: 'Proxima Nova', sans-serif;
     font-size: clamp(24px, 2.2vw, 46px);
     font-weight: 900;
-    color: var(--accent-purple);
+    color: var(--text-main);
   }
 
   p {
@@ -1205,3 +1259,55 @@ body {
 }
 
 // --- END: Sponsor styles replacement ---
+
+.frosh-week-trailer {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  background-color: var(--bg-main);
+
+  padding-top: 20px;
+}
+
+.frosh-week-trailer-header {
+  font-family: 'Genty', sans-serif;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 400;
+  color: var(--gold-1);
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+body:not(.dark-mode) .frosh-week-trailer-header {
+  color: var(--text-main);
+}
+
+body:not(.dark-mode) .other-events-heading {
+  color: var(--text-main);
+}
+
+.video-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  box-sizing: border-box;
+  padding-bottom: 60px;
+}
+
+.video-container iframe {
+  display: block;
+  width: min(80%, 900px);
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  object-fit: contain;
+
+  border: none;
+
+  @include devices(tablet) {
+    width: 100%;
+  }
+}

@@ -1,0 +1,91 @@
+@import '../../../scssStyles/_mixins.scss';
+
+.button-skule-hunt {
+  margin: 15px 10px;
+
+  background-color: var(--mikado);
+  color: var(--jam);
+
+  border-radius: 10px;
+  text-align: center;
+  cursor: url('../../../../assets/cursor/pointer.png'), auto;
+
+  padding: 0px 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 300ms ease-in-out;
+  text-transform: uppercase;
+
+  h1 {
+    font-size: 24px;
+    font-family: 'Proxima Nova', sans-serif;
+    font-weight: 800;
+  }
+
+  h2 {
+    font-size: 18px;
+
+    @include devices(tablet) {
+      font-size: 16px;
+    }
+  }
+
+  //   @include devices(tablet) {
+  //     min-width: 150px;
+  //     min-height: 80px;
+  //     padding: 25px 32px;
+  //     margin: 4px 3px;
+  //   }
+
+  // Active selected tab state
+  &.active {
+    background-color: var(--mikado); // Yellow active color highlight
+    color: var(--monster);
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  &:hover:not(.active) {
+    background-color: var(--wisteria);
+    transform: translateY(-2px);
+  }
+
+  // &:hover {
+  //   transform: scale(1.05);
+  //   transition: all 300ms ease-in-out;
+  // }
+}
+
+body:not(.dark-mode) .button-skule-hunt {
+  background-color: var(--monster);
+  color: var(--lavender);
+}
+
+.button-skule-hunt-secondary {
+  background-color: var(--jam);
+  color: var(--mikado);
+}
+
+body:not(.dark-mode) .button-skule-hunt-secondary {
+  color: var(--monster);
+  background-color: var(--lavender);
+}
+
+.button-skule-hunt-disabled {
+  opacity: 0.6;
+  cursor: unset;
+  color: var(--text-secondary);
+  background-color: var(--bg-secondary);
+
+  &:hover {
+    transform: scale(1);
+  }
+
+  &:active {
+    transform: scale(1);
+  }
+}

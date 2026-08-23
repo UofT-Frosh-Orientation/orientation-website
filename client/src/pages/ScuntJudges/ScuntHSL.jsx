@@ -38,7 +38,7 @@ const ScuntHSL = () => {
         <ScuntTitle />
         <ScuntLinks />
         <div className="scunt-check-soon-title">
-          <h1 style={{ color: 'var(--text-light)' }}>Check back soon!</h1>
+          <h1 style={{ fontFamily: 'Gliker' }}>Check back soon!</h1>
         </div>
       </div>
     );

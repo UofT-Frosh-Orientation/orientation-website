@@ -1,141 +1,169 @@
 @import '../../scssStyles/mixins';
 
-.scunt-title-container {
-  width: 100vw;
+html,
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.skule-hunt-countdown-timer-container {
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -50%) rotate(12deg);
+  background-color: var(--gold-1);
+  border-radius: 50%;
+  // padding scales with the viewport so the circle grows along with the digits
+  padding: clamp(1.4rem, 1.8vw, 3rem) clamp(3rem, 4vw, 6.5rem);
+  z-index: 5;
+  width: 62%;
+  font-family: 'Proxima Nova';
+  font-weight: 800;
+}
+
+.skule-hunt-home-page-header {
   position: relative;
-
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-.scunt-title-gradient {
-  height: 66.616vw;
-  width: 100%;
-  background-image: linear-gradient(to left, rgba(255, 0, 0, 0), rgb(0, 0, 0, 0.8));
-
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.scunt-title-image {
-  width: 100vw;
-  height: 66.616vw;
-
-  margin-bottom: 0;
-  transform: scaleX(-1);
-}
-
-.scunt-home-title-text {
-  margin-left: 4.5vw;
-  display: block;
-
-  font-family: 'Jersey 20';
-  color: var(--mikado);
-  -webkit-text-stroke-color: var(--jam);
-  -webkit-text-stroke-width: 0.3vw;
-  font-size: 18vw;
-  line-height: 13vw;
-  font-weight: 400;
-
-  text-align: left;
-
-  position: absolute;
-  top: 22vw;
-
-  @media screen and (max-width: 335px) {
-    font-size: 22vw !important;
-    line-height: 16vw !important;
-  }
-}
-
-.trademark {
-  font-size: 0.35em;
-  font-family: 'Jersey 20';
-  vertical-align: 1.35em;
-  line-height: 0;
-}
-
-.scunt-countdown {
+  height: 100vh;
+  min-height: 600px;
+  padding-bottom: 3%;
+  background-color: var(--bg-main);
+  overflow: hidden;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: start;
-  text-align: center;
-  margin-left: 4.2vw;
+  flex-direction: column;
+  justify-content: flex-end;
+  transition: background-color 0.3s ease;
+}
 
+// The checkerboard is a centered block, NOT full background
+.skule-hunt-header-checker-block {
+  position: absolute;
+  top: 15%;
+  bottom: 22%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  background-image: repeating-conic-gradient(
+    var(--checker-color-1) 0% 25%,
+    var(--checker-color-2) 0% 50%
+  );
+  // checker squares scale with the viewport (≈10vw, was a fixed 160px) so the
+  // pattern grows on large screens instead of looking tiny/dense
+  background-size: clamp(110px, 10vw, 220px) clamp(110px, 10vw, 220px);
+  background-position: center;
+  z-index: 0;
+  overflow: hidden;
+}
+
+// Text stack at bottom
+.skule-hunt-header-text-stack {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+// "F!rosh" — cursive, angled, on top of checkers
+.header-skule-text {
+  font-family: 'Genty';
+  font-weight: 400;
+  font-size: clamp(100px, 16vw, 360px); // cap raised to keep pace with WEEK
+  color: var(--text-main);
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  transform: rotate(-7deg);
+  transform-origin: left top;
+  text-shadow: 5px 5px 0px rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
   position: relative;
+  left: 1%;
+  top: 15%;
+  z-index: 4;
+  align-self: flex-start;
+}
 
-  h1 {
-    color: var(--bg-primary);
-    font-size: 70px;
-    @media only screen and (max-width: 1000px) {
-      font-size: 50px !important;
-      margin-top: 0px;
-    }
-    @media only screen and (max-width: 700px) {
-      font-size: 20px !important;
-    }
-  }
-  h3 {
-    color: var(--bg-primary);
-  }
-  .scunt-countdown-number {
-    margin: 0px 10px;
-    margin-top: 5px;
-    padding: 20px;
-    border-radius: 15px;
-    background-color: var(--mikado);
-    min-width: 130px;
-    @media only screen and (max-width: 1000px) {
-      min-width: 90px; //!
-      padding: 10px; //!
-      h3 {
-        font-size: 15px !important;
-      }
-    }
-    @media only screen and (max-width: 700px) {
-      margin: 10px 5px; //!
-      min-width: 60px;
-      padding: 10px 5px; //!
-      h3 {
-        font-size: 10px !important;
-        padding: 0px 10px; //!
-      }
-    }
+// "WEEK" — bold, stretched full checker-width
+.header-hunt-text {
+  font-family: 'Gliker';
+  font-weight: 900;
+  // Letters scale with viewport up to a cap; the container width is capped to
+  // the same point so the word locks to a clean max size on big screens instead
+  // of stretching forever (which is what made the letter gaps balloon).
+  font-size: clamp(120px, 24vw, 480px); // dialed down slightly (was 27vw / 550px)
+  color: var(--text-main);
+  line-height: 0.85;
+  margin: 0;
+  padding: 0 3%;
+  text-transform: uppercase;
+  white-space: nowrap;
+  width: min(99.75%, 2000px); // tracks the new cap (480 / 0.24)
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  z-index: 4;
+  align-self: center;
+  box-sizing: border-box;
+  position: relative;
+  transform: scaleY(0.9);
+  bottom: 7%; // raised to leave a clear band below the word for "2T6"
+
+  // Letters are per-letter <span>s; the global `* { font-family }` in App.scss
+  // hits them directly and blocks inheritance, so re-assert it here.
+  span {
+    font-family: inherit;
   }
 }
 
-.scunt-countdown-wrap {
-  align-items: start;
-  justify-content: start;
-  margin-top: -80px;
-  margin-bottom: 1vw;
 
-  @media screen and (min-width: 701px) {
-    margin-top: -150px;
-    margin-bottom: 6vw;
-  }
-  @media screen and (min-width: 1001px) {
-    margin-top: -180px;
-    margin-bottom: 2.5vw;
-  }
-  @media screen and (min-width: 1321px) {
-    margin-top: -220px;
-    margin-bottom: 5.5vw;
-  }
-  @include devices(tablet) {
-    display: none;
+// Mobile styling
+
+@include devices(tablet) {
+  /* ── HERO ──
+     Phones MIRROR the desktop overlapping hero: same absolute composition
+     (checker band centered, F!rosh/WEEK/2T6 layered over it via .header-text-stack),
+     just with smaller fonts and a band + word positions retuned for a tall
+     portrait screen. We intentionally do NOT rebuild it as a stacked column.
+     The overlap works because the words' positions are pushed INTO the band:
+     F!rosh's top sits over the band's top edge, WEEK's tall glyphs reach up into
+     the band's bottom edge. Tune `top`/`bottom` here together with the band. */
+
+  .skule-hunt-home-page-header {
+    height:30%; // keep base height: 100vh
   }
 
-  text-align: center;
-  color: var(--text-dark);
-  h2 {
-    margin-top: 10px;
-    font-size: 20px;
+  /* Same centered absolute band as desktop; smaller squares for phone width */
+  .skule-hunt-header-checker-block {
+    top: 0%;
+    // bottom: 30%;
+    width: 100%;
+    background-size: 112px 112px;
   }
-}
 
-.scunt-countdown-offset {
-  width: 4.2vw;
+  .skule-hunt-header-text-stack{
+    top:10%;
+  }
+
+  /* F!rosh — overlaps the TOP edge of the band (base keeps flex-start + rotate) */
+  .header-skule-text {
+    font-size: clamp(70px, 22vw, 150px);
+    top: 4%;
+  }
+
+  /* WEEK — raised so its tall glyphs overlap the BOTTOM of the band */
+  .header-hunt-text {
+    font-size: clamp(66px, 25vw, 160px);
+    // bottom: 30%;
+  }
 }

@@ -1,21 +1,50 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { SingleAccordion } from '../../text/Accordion/SingleAccordion/SingleAccordion';
 import './ScheduleHome.scss';
 import { data } from '../../../assets/schedule/data';
+import { homebase_data } from '../../../assets/schedule/homebase-schedule-data';
 import location from '../../../assets/misc/loc.svg';
 import locationdark from '../../../assets/misc/locdark.svg';
 import { DarkModeContext } from '../../../util/DarkModeProvider';
+import vintageCar from '../../../assets/schedule/vintage-car.png';
 
 function getDaysSchedule() {
   return Object.keys(data);
 }
+
+// Format months
+const formatMonth = (monthStr) => {
+  if (!monthStr) return '';
+  const upper = monthStr.toUpperCase();
+  return upper.startsWith('SEPT') ? 'SEPT' : upper.substring(0, 3);
+};
+
+// Format navigation tabs
+const TabButton = ({ isActive, onClick, prefixText, dayOfWeekShort, dateString }) => (
+  <button className={`schedule-component-tab-button ${isActive ? 'active' : ''}`} onClick={onClick}>
+    <p className="schedule-component-day-tab">
+      {prefixText && <span className="schedule-component-tab-prefix-text">{prefixText}</span>}
+      <span className="schedule-component-tab-day-text">{dayOfWeekShort} </span>
+      <span className="schedule-component-tab-date-text">{dateString}</span>
+    </p>
+  </button>
+);
+
+TabButton.propTypes = {
+  isActive: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+  prefixText: PropTypes.string, // Not required since it can be null
+  dayOfWeekShort: PropTypes.string.isRequired,
+  dateString: PropTypes.string.isRequired,
+};
 
 const ScheduleComponent = () => {
   const today = new Date();
   const options = { weekday: 'long', month: 'long', day: 'numeric' };
   const todayString = today.toLocaleDateString('en-US', options).replace(',', '');
 
+  // Find the index of today in the schedule data
   let count = 0;
   for (let day of getDaysSchedule()) {
     if (day === todayString) {
@@ -28,41 +57,125 @@ const ScheduleComponent = () => {
   }
 
   const [selectedDayIndex, setSelectedDayIndex] = useState(count);
+  const [activeTrack, setActiveTrack] = useState('frosh'); // Tracks 'frosh' or 'homebase'
   const [closeAll, setCloseAll] = useState(false);
+
+  // Determine which data to use based on the active track
+  const activeDataset = activeTrack === 'frosh' ? data : homebase_data;
+  const activeDayKey = Object.keys(activeDataset)[selectedDayIndex];
+  const timelineData = activeDataset[activeDayKey];
+
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const bannerRef = useRef(null);
+
+  useEffect(() => {
+    // IntersectionObserver watches for visibility of banner
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // isIntersecting is true the moment it enters the visible screen
+        // (even if it's already on screen when the page first loads!)
+        if (entry.isIntersecting) {
+          setHasAnimated(true);
+          observer.disconnect(); // Disconnect so the animation only runs once
+        }
+      },
+      {
+        root: null, // Defaults to the browser viewport
+        rootMargin: '0px',
+        threshold: 0.1, // Triggers the exact moment 10% of the banner is visible
+      },
+    );
+
+    if (bannerRef.current) {
+      observer.observe(bannerRef.current);
+    }
+
+    return () => {
+      if (bannerRef.current) {
+        observer.unobserve(bannerRef.current);
+      }
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <div className="schedule-section-container">
-      {/*HORIZONTAL TABS ROW */}
-      <div className="schedule-tabs-row">
-        {Object.keys(data).map((day, index) => {
-          // Splitting 'Monday Sept 1' -> 'MON' & 'SEPT 1'
-          const parts = day.split(' ');
-          const dayOfWeekShort = parts[0].substring(0, 3).toUpperCase();
-          const dateString = `${parts[1] ? parts[1].toUpperCase() : ''} ${parts[2] || ''}`;
+      {/*HORIZONTAL TABS ROW for navigation */}
 
-          return (
-            <button
-              key={index}
-              className={`schedule-tab-button ${selectedDayIndex === index ? 'active' : ''}`}
-              onClick={() => {
-                setSelectedDayIndex(index);
-                setCloseAll(!closeAll);
-              }}
-            >
-              {' '}
-              {/* button for ${day} */}
-              <span className="tab-day-text">{dayOfWeekShort}</span>
-              <span className="tab-date-text">{dateString}</span>
-            </button>
-          );
-        })}
+      <div className="schedule-navigation-container">
+        {/* ROW 1: Frosh Schedule Tabs Row */}
+        <div className="schedule-component-tabs-row frosh-row">
+          {Object.keys(data).map((day, index) => {
+            // Splitting 'Monday Sept 1' -> 'MON' & 'SEPT 1'
+            const parts = day.split(' ');
+            const dayOfWeekShort = parts[0].substring(0, 3).toUpperCase();
+            const dateString = `${formatMonth(parts[1])} ${parts[2] || ''}`;
+            // const needFroshTag = dayOfWeekShort === 'MON' || dayOfWeekShort === 'TUE';
+            const needFroshTag = false;
+
+            return (
+              <TabButton
+                key={`frosh-${index}`}
+                isActive={activeTrack === 'frosh' && selectedDayIndex === index}
+                onClick={() => {
+                  setSelectedDayIndex(index);
+                  setActiveTrack('frosh');
+                  setCloseAll(!closeAll);
+                }}
+                prefixText={needFroshTag ? 'F!rosh' : null}
+                dayOfWeekShort={dayOfWeekShort}
+                dateString={dateString}
+              />
+            );
+          })}
+        </div>
+
+        {/* ROW 2: Homebase Schedule Tabs Row */}
+        <div
+          ref={bannerRef}
+          className={`schedule-component-homebase-banner-row ${hasAnimated ? 'animate-in' : ''}`}
+        >
+          {/* The Drive-in Schedule Buttons */}
+          {Object.keys(homebase_data).map((day, index) => {
+            const parts = day.split(' ');
+            const dayOfWeekShort = parts[0].substring(0, 3).toUpperCase();
+            const dateString = `${formatMonth(parts[1])} ${parts[2] || ''}`;
+
+            return (
+              <TabButton
+                key={`homebase-${index}`}
+                isActive={activeTrack === 'homebase' && selectedDayIndex === index}
+                onClick={() => {
+                  setSelectedDayIndex(index);
+                  setActiveTrack('homebase');
+                  setCloseAll(!closeAll);
+                }}
+                prefixText="Drive-In"
+                dayOfWeekShort={dayOfWeekShort}
+                dateString={dateString}
+              />
+            );
+          })}
+
+          {/* The Banner Text and car image*/}
+          <img
+            src={vintageCar}
+            className="schedule-component-homebase-banner-car desktop-only"
+            alt="purple vintage car"
+          />
+
+          <div className="schedule-component-homebase-banner-text-container">
+            <span className="schedule-component-homebase-banner-text desktop-only">Chill at Drive-In</span>
+          </div>
+        </div>
       </div>
 
       {/* TIMELINE BLOCKS STACK */}
       <div className="schedule-timeline-stack">
-        {data[Object.keys(data)[selectedDayIndex]].map((scheduleDay, index) => (
-          <ScheduleComponentAccordion key={index} scheduleDay={scheduleDay} closeAll={closeAll} />
-        ))}
+        {timelineData &&
+          timelineData.map((scheduleDay, index) => (
+            <ScheduleComponentAccordion key={index} scheduleDay={scheduleDay} closeAll={closeAll} />
+          ))}
       </div>
     </div>
   );

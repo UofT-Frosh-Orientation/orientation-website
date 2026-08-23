@@ -36,6 +36,18 @@ import SilverMedal from '../../assets/sponsors/sponsormedals/silver.png';
 import BronzeMedal from '../../assets/sponsors/sponsormedals/bronze.png';
 import { CountdownHome } from '../../components/countdown/countdown';
 
+export default function FroshWeekTrailer() {
+  return (
+    <div className="frosh-week-trailer">
+      <h2 className="frosh-week-trailer-header">F!rosh Week Trailer</h2>
+      <div className="video-container">
+          <iframe src="https://drive.google.com/file/d/1-W7ZcKv414SVGA2oYEI1RVSQSu89OyUd/preview" width="80%"></iframe>
+      </div>
+    </div>
+
+  );
+}
+
 const PageHome = () => {
   return (
     <>
@@ -43,9 +55,10 @@ const PageHome = () => {
       {/* "What is F!rosh Week? / What is SKULE?" blurb hidden per request */}
       {/* <HomePageAboutBlurb /> */}
       <HomePageFilmStrip />
+      <FroshWeekTrailer />
       <HomePageTimeline />
       {/* Other Events section (heading + spinning vinyl + thumbnail + info panel) hidden per request */}
-      {/* <PageAbout /> */}
+      <PageAbout />
       <HomePageSponsors />
     </>
   );
@@ -316,15 +329,20 @@ const PageAbout = () => {
   );
 };
 
-const SPIN_DURATION = 25000; // ms, matches CSS 25s
-const LABEL_START_ANGLES = [0, 120, 240]; // Each arc starts here
+const SPIN_DURATION = 15000; // ms, matches CSS 25s
+const EVENT_ANGLE = 360 / otherEventsData.length;
+const LABEL_ARC_SPAN = EVENT_ANGLE - 10;
+const LABEL_START_ANGLES = otherEventsData.map((_, index) => index * EVENT_ANGLE);
 
 const AboutUsSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [rotationDeg, setRotationDeg] = useState(0);
   const startTimeRef = useRef(null);
   const rafRef = useRef(null);
+  // Change back if want to return rotation through different events
   const activeEvent = otherEventsData[activeIndex];
+  // const activeEvent = otherEventsData[0];
+
 
   useEffect(() => {
     const animate = (timestamp) => {
@@ -343,8 +361,7 @@ const AboutUsSection = () => {
       let found = -1;
 
       LABEL_START_ANGLES.forEach((startAngle, i) => {
-        // The arc spans 110 degrees, so its exact middle is at startAngle + 55
-        const textMidpoint = startAngle + 55;
+        const textMidpoint = startAngle + LABEL_ARC_SPAN / 2;
 
         // Calculate the current absolute angle of this midpoint as the vinyl spins clockwise
         const currentMidpointAngle = (textMidpoint + deg) % 360;
@@ -377,7 +394,7 @@ const AboutUsSection = () => {
       <h2 className="other-events-heading">Other Events</h2>
       <div className="other-events-layout">
         {/* Left: Vinyl */}
-        <div className="vinyl-wrapper">
+        <div className="vinyl-wrapper desktop-only">
           <div className="vinyl-disc">
             <svg className="vinyl-disc-svg" viewBox="0 0 400 400">
               <defs>
@@ -386,7 +403,13 @@ const AboutUsSection = () => {
                   <path
                     key={`arc-${index}`}
                     id={`labelArc${index}`}
-                    d={describeArc(200, 200, [150, 120, 90][index], index * 120, index * 120 + 110)}
+                    d={describeArc(
+                      200,
+                      200,
+                      150,
+                      index * EVENT_ANGLE,
+                      index * EVENT_ANGLE + LABEL_ARC_SPAN,
+                    )}
                     fill="none"
                   />
                 ))}
@@ -413,7 +436,11 @@ const AboutUsSection = () => {
                     className={`vinyl-label-svg ${activeIndex === index ? 'active' : ''}`}
                     onClick={() => setActiveIndex(index)}
                   >
-                    <textPath href={`#labelArc${index}`} startOffset="0%">
+                    <textPath
+                      href={`#labelArc${index}`}
+                      startOffset="50%"
+                      textAnchor="middle"
+                    >
                       {event.title}
                     </textPath>
                   </text>
@@ -434,25 +461,38 @@ const AboutUsSection = () => {
             </svg>
           </div>
         </div>
+        
+        <OtherEventCard event={activeEvent} className="other-events-desktop-card" />
 
-        <div className="other-events-thumb-wrapper">
-          <img src={activeEvent.image} alt={activeEvent.title} className="other-events-thumb-img" />
+        <div className="other-events-mobile-cards">
+          {otherEventsData.map((event) => (
+            <OtherEventCard key={event.title} event={event} />
+          ))}
         </div>
 
-        <div className="other-events-info-panel">
-          <div className="other-events-info-text">
-            <h3>{activeEvent.title}</h3>
-            <p>{activeEvent.description}</p>
 
-            <a
-              href={activeEvent.link}
-              target="_blank"
-              rel="noreferrer"
-              className="other-events-learn-more"
-            >
+      </div>
+    </div>
+  );
+};
+
+const OtherEventCard = ({ event, className = '' }) => {
+  return (
+    <div className={`event-card bg-purple text-black ${className}`}>
+      <div className="card-content">
+        <div className="text-section">
+          <div className="other-events-info-text">
+            <h3>{event.title}</h3>
+            <p>{event.description}</p>
+
+            <a href={event.link} target="_blank" rel="noreferrer" className="other-events-learn-more">
               Learn More
             </a>
           </div>
+        </div>
+
+        <div className="image-section">
+          <img src={event.image} alt={event.title} className="other-events-thumb-img" />
         </div>
       </div>
     </div>
@@ -499,6 +539,11 @@ const HomePageSponsors = () => {
                         effect="blur"
                         src={darkMode ? item.darkimage : item.image}
                         className="sponsor-image"
+                        style={
+                          item.label.includes('Cosmic Pizza')
+                            ? { filter: darkMode ? 'brightness(0) invert(1)' : 'none' }
+                            : {}
+                        }
                       />
                     </div>
                     <p className="sponsor-name">{sponsorName}</p>

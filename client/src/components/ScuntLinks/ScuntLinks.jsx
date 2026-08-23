@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { pages } from '../../util/pages';
-import { ButtonOutlined } from '../button/ButtonOutlined/ButtonOutlined';
+import { ButtonSkuleHunt } from '../button/ButtonSkuleHunt/ButtonSkuleHunt';
 
 export const ScuntLinks = () => {
   const { pathname } = useLocation();
@@ -10,7 +10,11 @@ export const ScuntLinks = () => {
       {pages.scunt.map((page) => {
         return (
           <Link key={page.path} to={page.path} className="no-link-style">
-            <ButtonOutlined className = 'scunt-button' isSecondary={pathname !== page.path} label={page.scuntLabel} />
+            <ButtonSkuleHunt
+              className="scunt-button"
+              isSecondary={pathname !== page.path}
+              label={page.scuntLabel}
+            />
           </Link>
         );
       })}
