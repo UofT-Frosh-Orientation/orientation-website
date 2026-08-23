@@ -18,6 +18,7 @@
   font-weight: bold;
   color: var(--white);
   z-index: 10;
+
   @include devices(tablet) {
     flex-direction: column;
     align-items: center;
@@ -61,6 +62,7 @@ ul {
   padding-bottom: 15px;
   padding-top: 15px;
 }
+
 .sitemap-text {
   margin-bottom: 10px;
   text-transform: uppercase;
@@ -72,6 +74,11 @@ ul {
   flex-direction: column;
   gap: 4px;
   margin-top: 8px;
+  text-align: end;
+
+  @include devices(tablet) {
+    text-align: center;
+  }
 }
 
 .footer-email-line {
@@ -107,11 +114,13 @@ ul {
   margin-right: 10px;
 
   transition: transform 200ms;
+
   &:hover {
     transform: scale(1.1);
     transition: transform 200ms;
     cursor: url('../../assets/cursor/pointer.png'), auto !important;
   }
+
   &:active {
     transform: scale(0.97);
     transition: transform 150ms;
@@ -132,6 +141,7 @@ ul {
   font-weight: 700;
   padding-bottom: 50px;
   padding-top: 20px;
+
   @include devices(tablet) {
     padding-bottom: 130px;
     padding-right: 10px;
@@ -145,11 +155,13 @@ ul {
   justify-content: center;
   align-items: flex-end;
   margin-top: 1.5%;
+
   @include devices(tablet) {
     align-items: center;
     justify-content: center;
   }
 }
+
 .footer-bug {
   margin-left: 10px;
   margin-right: -5px;
@@ -160,18 +172,23 @@ ul {
   0% {
     transform: rotate(-5deg);
   }
+
   15% {
     transform: rotate(-5deg);
   }
+
   30% {
     transform: rotate(0);
   }
+
   45% {
     transform: rotate(5deg);
   }
+
   60% {
     transform: rotate(0);
   }
+
   100% {
     transform: rotate(0);
   }
@@ -207,6 +224,7 @@ ul {
   text-align: right;
   transition: color 200ms;
   margin-bottom: -3px;
+
   @include devices(tablet) {
     text-align: center;
   }
@@ -234,6 +252,7 @@ ul {
     padding-top: 0px;
     padding-bottom: 0px;
   }
+
   .sitemap-text {
     padding-top: 35px;
     padding-bottom: 0px;
@@ -243,11 +262,13 @@ ul {
     display: flex;
     flex-direction: column;
   }
+
   .icons {
     justify-content: center;
     margin-bottom: 40px;
     align-self: center;
   }
+
   .footer-message {
     align-self: center;
     font-size: 12px;

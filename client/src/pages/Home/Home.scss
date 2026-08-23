@@ -743,7 +743,7 @@ body {
 
 .other-events-thumb-wrapper {
   flex: 0 0 auto;
-  display:flex;
+  display: flex;
   // width: 500px;
   // height: 300px; // fixed, not the broken clamp from before
   // margin-left: -84px;
@@ -764,22 +764,22 @@ body {
   width: 50%;
   object-fit: cover;
 
-  @include devices(tablet){
-    width:80%;
+  @include devices(tablet) {
+    width: 80%;
   }
 }
 
 .other-events-container {
   border-radius: 10px;
-  background-color:var(--bg-card);
+  background-color: var(--bg-card);
 
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  flex-wrap:wrap;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 
-  width:80%;
-  height:500px;
+  width: 80%;
+  height: 500px;
 }
 
 .vinyl-disc {
@@ -832,7 +832,7 @@ body {
   min-height: 320px;
   z-index: 1;
   text-align: center;
-  max-width:40%;
+  max-width: 40%;
 }
 
 .other-events-info-text {
@@ -1264,8 +1264,9 @@ body {
   position: relative;
   z-index: 1;
   overflow: visible;
+  background-color: var(--bg-main);
 
-  margin-top:20px;
+  padding-top: 20px;
 }
 
 .frosh-week-trailer-header {
@@ -1278,6 +1279,14 @@ body {
   z-index: 3;
 }
 
+body:not(.dark-mode) .frosh-week-trailer-header {
+  color: var(--text-main);
+}
+
+body:not(.dark-mode) .other-events-heading {
+  color: var(--text-main);
+}
+
 .video-container {
   width: 100%;
   display: flex;
@@ -1285,7 +1294,7 @@ body {
   justify-content: center;
   padding: 0 16px;
   box-sizing: border-box;
-  margin-bottom: 60px;
+  padding-bottom: 60px;
 }
 
 .video-container iframe {
@@ -1296,7 +1305,7 @@ body {
   height: auto;
   object-fit: contain;
 
-  border:none;
+  border: none;
 
   @include devices(tablet) {
     width: 100%;
