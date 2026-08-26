@@ -453,3 +453,17 @@
     overflow-wrap: break-word;
   }
 }
+
+.schedule-event-link {
+  text-decoration: none;
+  color: var(--text-link);
+  cursor: url("/assets/cursor/pointer.png"), auto !important;
+  transition: text-decoration-color 250ms;
+  background: linear-gradient(to left, var(--dawn), var(--dawn));
+  background-size: 100% 2px, 0 2px;
+  background-position: 0% 100%, 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 400ms;
+
+  color:inherit;
+}

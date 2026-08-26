@@ -8,6 +8,7 @@ import location from '../../../assets/misc/loc.svg';
 import locationdark from '../../../assets/misc/locdark.svg';
 import { DarkModeContext } from '../../../util/DarkModeProvider';
 import vintageCar from '../../../assets/schedule/vintage-car.png';
+import { otherEventsData } from '../../../pages/Home/otherevents.jsx';
 
 function getDaysSchedule() {
   return Object.keys(data);
@@ -215,7 +216,8 @@ export const ScheduleComponentAccordion = ({ scheduleDay, closeAll }) => {
           className={`schedule-card card-color-${scheduleDay['Color'] || 'general'}`}
           header={
             <div className="card-header-inner">
-              <h2 className="event-name">{scheduleDay['Event Name']}</h2>
+              <EventHeaders scheduleDay={scheduleDay} />
+
               {scheduleDay['Event Location'] && (
                 <div className="event-location-box">
                   <img src={location} className="location-icon" alt="location pin" />
@@ -238,6 +240,16 @@ export const ScheduleComponentAccordion = ({ scheduleDay, closeAll }) => {
     </div>
   );
 };
+
+function EventHeaders({ scheduleDay }) {
+  const facultyEvent = otherEventsData.find((event) => event.title === 'Faculty Orientation Events');
+
+  if (scheduleDay['Event Name'] === "Faculty Events") {
+    return <h2 className="event-name"><a className="schedule-event-link" href={facultyEvent?.link}>{scheduleDay['Event Name']}</a></h2>;
+  } else {
+    return <h2 className="event-name">{scheduleDay['Event Name']}</h2>;
+  }
+}
 
 ScheduleComponentAccordion.propTypes = {
   scheduleDay: PropTypes.object,

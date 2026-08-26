@@ -4794,7 +4794,7 @@ export const data = {
     {
       'Event Name': 'Faculty Events',
       'Start Time': '9:00 AM',
-      'End Time': '5:00 PM',
+      'End Time': '3:00 PM',
       Color: 'gray',
     },
     {
