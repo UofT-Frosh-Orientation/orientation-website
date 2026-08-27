@@ -13,6 +13,7 @@ import Selena from '../assets/2t6/judges/Selena.jpg';
 import Shashank from '../assets/2t6/judges/Shashank.webp';
 import Tom from '../assets/2t6/judges/Tom.jpeg';
 import Tristan from '../assets/2t6/judges/Tristan.jpg';
+import Nick from '../assets/2t6/judges/Nick.jpg';
 import FroshLogo from '../assets/logo/2T6logo.png';
 
 // Export simple data array for judges. Extend with extra fields as needed.
@@ -20,7 +21,7 @@ import FroshLogo from '../assets/logo/2T6logo.png';
 export const scuntJudges = [
   { name: 'Luke', img: Luke },
   { name: 'Athavan', img: Athavan },
-  { name: 'Nick', img: FroshLogo, placeholder: true },
+  { name: 'Nick', img: Nick },
   { name: 'Julia', img: Julia },
   { name: 'Mahi', img: Mahi },
   { name: 'Katy', img: Katy },
