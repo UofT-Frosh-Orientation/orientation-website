@@ -136,3 +136,113 @@
 .round-button {
   margin: 0px 10px;
 }
+
+/// STATUS BADGES — shared by both tabs
+.all-accounts-summary {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-self: flex-start;
+  padding: 0 10px 12px 10px;
+}
+
+.account-status-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  border: 2px solid transparent;
+}
+
+.account-status-approved {
+  background-color: var(--green-success);
+  color: var(--text-dark);
+}
+
+.account-status-pending {
+  background-color: var(--transparent);
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+
+// An account the admin has ticked but not saved yet.
+.account-status-will-approve {
+  background-color: var(--transparent);
+  border-color: var(--green-success);
+  color: var(--green-success);
+}
+
+/// ALL ACCOUNTS TAB
+.all-accounts-row-approved {
+  // Approved accounts stay visible for reference but recede behind the pending ones.
+  opacity: 0.65;
+}
+
+.all-account-data-status {
+  padding: 8px;
+  text-align: center;
+  vertical-align: top;
+}
+
+.all-account-data-subtext {
+  font-size: 12px;
+  color: var(--purple-shades-muted);
+}
+
+/// AUTH SCOPES TAB — collapsible rows
+.auth-account-row {
+  cursor: url('../../assets/cursor/pointer.png'), auto !important;
+
+  &:hover {
+    background-color: var(--purple-transparent-more);
+  }
+}
+
+.auth-account-row-open {
+  background-color: var(--purple-transparent-more);
+  border-bottom: none;
+}
+
+.auth-scope-summary {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 0;
+}
+
+// Drawn in CSS rather than shipping an icon so it follows the row's text colour.
+.auth-scope-chevron {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-right: 8px;
+  vertical-align: middle;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid currentColor;
+  transform: rotate(-90deg);
+  transition: transform 150ms ease-in-out;
+}
+
+.auth-scope-chevron-open {
+  transform: rotate(0deg);
+}
+
+.auth-scopes-detail-row {
+  border-bottom: 2px dashed var(--bg-primary);
+  background-color: var(--purple-transparent-more);
+}
+
+.auth-scopes-detail {
+  padding: 0 8px 12px 26px;
+}
+
+.auth-scopes-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 24px;
+}

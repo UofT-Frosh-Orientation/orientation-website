@@ -339,9 +339,12 @@ const UserController = {
         }
         return prev;
       }, []);
-      const { modifiedCount } = await UserServices.approveAccountsByIds(approvedIds);
+      // `matchedCount`, not `modifiedCount`: accounts that are already approved get
+      // resubmitted with every save and modify nothing, which is a no-op rather than
+      // a failure. approveAccountsByIds() already throws if an id matched nothing.
+      const { matchedCount } = await UserServices.approveAccountsByIds(approvedIds);
       //TODO: send email when accounts are rejected
-      if (modifiedCount < approvedIds.length) {
+      if (matchedCount < approvedIds.length) {
         res.status(400).send({ message: 'Not all users were successfully updated.' });
       } else {
         res.status(200).send({ message: 'Successfully approved users!' });

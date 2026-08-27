@@ -22,13 +22,19 @@ export function* getAccountsSaga() {
     const response = yield call(axios.get, '/user/unapproved-users');
     yield put(
       getAccountsSuccess(
-        response.data?.unapprovedUsers?.map(({ id, email }) => ({
-          id,
-          email,
-          valid: false,
-          approved: false,
-          deny: false,
-        })),
+        // The route returns every leedur account, approved or not - `approved` and
+        // `confirmedEmail` were previously hardcoded to false here, so every row
+        // rendered as an unverified, pending account no matter its real state.
+        response.data?.unapprovedUsers?.map(
+          ({ id, email, firstName, lastName, approved = false, confirmedEmail = false }) => ({
+            id,
+            email,
+            name: [firstName, lastName].filter(Boolean).join(' '),
+            valid: confirmedEmail,
+            approved,
+            deny: !approved,
+          }),
+        ),
       ),
     );
   } catch (e) {
@@ -114,9 +120,11 @@ export function* updateAccountsSaga({ payload: { setSnackbar, accounts } }) {
   const { axios } = useAxios();
   try {
     yield put(updateAccountsAuthStart());
-    const response = yield call(axios.put, '/user/account-statuses', { accounts });
+    yield call(axios.put, '/user/account-statuses', { accounts });
     setSnackbar('Success!');
     yield put(updateAccountsAuthSuccess());
+    // Re-read the accounts so newly approved ones move into the approved group.
+    yield call(getAccountsSaga);
   } catch (e) {
     setSnackbar(
       e.response?.data?.message
