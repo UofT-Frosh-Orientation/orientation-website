@@ -120,21 +120,12 @@
 }
 /* All judge images (including tech team) now forced to cover the entire frame. */
 
-/* Optional per-judge positional tweaks */
-.judge-photo[data-name='Maria'] {
-  object-position: 50% 30%;
-}
-.judge-photo[data-name='Novera'] {
-  object-position: 50% 40%;
-}
-.judge-photo[data-name='Lauren'] {
-  object-position: 50% 25%;
-}
-.judge-photo[data-name='Julian'] {
-  object-position: 50% 20%;
-}
-.judge-photo[data-name='Melanie'] {
-  object-position: 100% 0%;
+/* Placeholder cards (no photo submitted): show the F!rosh logo uncropped */
+.judge-photo-placeholder {
+  object-fit: contain;
+  object-position: center 40%;
+  padding: 18% 18% 26%;
+  background: var(--bg-secondary, var(--bg-primary));
 }
 
 .pixel-shadow {
@@ -315,16 +306,6 @@
   background-image: none !important;
   border-bottom: none !important;
 }
-
-/* Tyler image adjustment: PNG has transparent padding; crop lower portion */
-.judge-photo[data-name='Tyler'],
-.judge-photo[data-name='Tyler DeLaBarre'] {
-  object-fit: cover;
-  object-position: 50% 85%;
-  background: var(--bg-primary);
-}
-/* If still a visible gap, uncomment scale:
- .judge-photo[data-name='Tyler DeLaBarre'] { transform: scale(1.08); transform-origin:center; } */
 
 /* Remove underlines & ensure link colors use theme variables */
 .judge-modal-content a,

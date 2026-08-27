@@ -45,7 +45,8 @@ export const rules = {
       sub: 'The timing of Skule™ Hunt will be as follows:',
       items: [
         'The event shall begin on Wednesday, September 2nd at 6:00 PM EST. At this time, orientation.skule.ca/skule-hunt will go live with the list. Oh yeah and the judges will rise from their upper year slumber too.',
-        'The Royal Wedding will occur at approximately 10:00 PM',
+        'The Royal Wedding will occur at approximately 9:00 PM',
+        'The Royal Wedding list items are released at 8:00 PM EST',
         'The event will end on Wednesday, September 2nd at 11:00 PM EST. There will be a 15-minute warning announcement.',
       ],
     },
@@ -76,7 +77,6 @@ export const rules = {
       sub: 'The following are strictly off-limits. If any of these rules are broken, there will be major point deductions and your team may even lose all points:',
       items: [
         '<strong>Front Campus</strong> - still a “Do Not Enter” zone',
-        '<strong>GB Wood Structure</strong> - you can walk under it, but <strong>no climbing, ever</strong>',
         '<strong>Other Faculties’ Events</strong> - don’t interrupt or mess with them',
         '<strong>Ecosystem Trench (outside MedSci)</strong> - completely off-limits',
         '<strong>Illegal or Harmful Activities</strong> - absolutely not allowed',
@@ -87,10 +87,10 @@ export const rules = {
       title: 'Judging',
       items: [
         'Items must be submitted in person to a judge, starting at 6:00 PM and ending at 11:00 PM as with the rest of the event.',
-        'There will be sixteen (16) total judges for Skule™ Hunt.<ol><li>Occasionally, members of the F!rosh Week Executive Team may stand in as judges, during busy periods. </li></ol>',
-        'There will be two (2) Judging Stations, one in the Pit and another on the steps of Galbraith Building. Each station will have eight (8) judges.<ol><li>Partway through the evening, the judges will swap stations.</li></ol>',
-        'A maximum of three (3) items may be submitted to a single judge by one person at once. This is required both to keep traffic flowing and to eliminate biases from particular judges. <ol><li>If there is a line, the submitter must return to the back of the line upon completion of the three items. </li><li>If there is no line, the submitter must move to a different judge to submit more items. </li><li>Judges and Base Leedurs are entitled to further limit the number of items judged at once if needed, to decrease wait times. </li></ol>',
-        'There will be Skule™ Patrollers at each station to promote safety and control traffic at each station. <ol><li>The Patrollers must be obeyed, if they get sad points will be deducted.</li></ol>',
+        'There will be sixteen (16) total judges for Skule™ Hunt.',
+        'There will be two (2) Judging Stations, one in the Myhal Arena/Lobby and another on the steps of Galbraith Building. Each station will have eight (8) judges.<ol><li>Partway through the evening, the judges will swap stations.</li></ol>',
+        'A maximum of three (3) items may be submitted to a single judge by one person at once. This is required both to keep traffic flowing and to eliminate biases from particular judges. <ol><li>If there is a line, the submitter must return to the back of the line upon completion of the three items. </li><li>If there is no line, the submitter must move to a different judge to submit more items. </li><li>Judges are entitled to further limit the number of items judged at once if needed, to decrease wait times. </li></ol>',
+        'There will be Skule™ Patrollers/UTEFR at each station to promote safety and control traffic at each station. <ol><li>The Patrollers must be obeyed, if they get sad points will be deducted.</li></ol>',
         'The actual number of points awarded per item will be roughly based on how creative/impressive the judge thinks the item is.<ol><li>Items can be resubmitted to potentially obtain more points. The higher of the multiple submissions will be the one counted.</li><li>If you go particularly above and beyond expectations, there is a slim possibility to earn slightly above the maximum number of points for a given item.</li></ol>',
       ],
     },
@@ -102,7 +102,7 @@ export const rules = {
     },
     {
       title: 'The Royal Wedding',
-      sub: 'The Royal Wedding is the wedding to bring Godiva’s Crown and Mr. Blue & Gold together eternally. The list items for the Royal Wedding will only be accepted by the bride and groom, as well as the SubComm Chairs. The wedding items and submissions for these items will be opened starting at 8:00 PM ish. Each group that wants to claim an item must bring the participating F!rosh and the item to the bride and groom, or SubComm chairs. The wedding will take place at 9:00 PM. Only the F!rosh approved beforehand may participate in the wedding. Any F!rosh that interferes during the wedding will be removed from the scene.',
+      sub: 'The Royal Wedding is the wedding to bring Godiva’s Crown and Mr. Blue & Gold together eternally. The list items for the Royal Wedding will only be accepted by the bride, groom and Ultimate F!rosh, as well as the SubComm Chairs. The wedding items and submissions for these items will be opened starting at 8:00 PM ish. Each group that wants to claim an item must bring the participating F!rosh and the item to the bride and groom, or SubComm chairs. The wedding will take place at 9:00 PM. Only the F!rosh approved beforehand may participate in the wedding. Any F!rosh that interferes during the wedding will be removed from the scene.',
     },
     {
       title: 'Winning',
@@ -117,7 +117,7 @@ export const rules = {
         'The Chairs have the reserved right to deduct up to infinity points from any team found to be in violation of Section 6 rules as laid out above or for breaking the law. This is only an option for situations that can be resolved to the satisfaction of all parties.',
         'The Chairs have the reserved right to disqualify teams or individuals that are found to be in irreparable breach of these rules. Furthermore, it is the Chairs’ responsibilities to bar judges that have proven to be in breach of their expected conduct.',
         'We may decide to have certain “requests” throughout the evening. Do keep in mind that we can give out as many points as we please while the judges have only so many… ',
-        'Our names are Maria and Novera. You can probably find out more about us if you try.',
+        'Our names are Evelyn and Karys. You can probably find out more about us if you try.',
       ],
     },
     {

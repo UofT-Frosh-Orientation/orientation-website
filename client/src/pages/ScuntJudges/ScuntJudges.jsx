@@ -106,7 +106,7 @@ const ScuntJudgesShow = ({ judges }) => {
       {/* <Header text={'Judges'} underlineDesktop={'265px'} underlineMobile={'180px'}>
         <ScuntLinks />
       </Header> */}
-      <h2 className="legend-text"> Judges • Co-Chairs • Tech Team </h2>
+      <h2 className="legend-text"> Judges </h2>
       <div className="scunt-judges-container">
         {judges.map((judge) => (
           <JudgeCard key={judge.name} judge={judge} onOpen={() => setSelectedJudge(judge)} />
@@ -127,10 +127,10 @@ const ScuntJudgesShow = ({ judges }) => {
       {openPopup ? (
         <PopupModal trigger={openPopup} setTrigger={setOpenPopup} blurBackground={false}>
           <div className="scunt-judges-bribe-message-popup desktop-only">
-            Click the judges&apos; cards to reveal bribes! 😏
+            Click the judges&apos; cards to get to know them! 😏
           </div>
           <div className="scunt-judges-bribe-message-popup mobile-only">
-            Tap the judges&apos; cards to reveal bribes! 😏
+            Tap the judges&apos; cards to get to know them! 😏
           </div>
         </PopupModal>
       ) : (
@@ -146,7 +146,7 @@ ScuntJudgesShow.propTypes = {
 
 // Child component for each judge to keep hooks stable & add 16-bit style wrappers
 const JudgeCard = ({ judge, onOpen }) => {
-  const isCoChair = judge.coChair === true || ['Maria', 'Novera'].includes(judge.name);
+  const isCoChair = judge.coChair === true;
   const isTechTeam = judge.name === 'Tech Team';
   return (
     <div
@@ -159,7 +159,7 @@ const JudgeCard = ({ judge, onOpen }) => {
         <img
           src={judge.img}
           alt={judge.name + ' photo'}
-          className="judge-photo"
+          className={`judge-photo ${judge.placeholder ? 'judge-photo-placeholder' : ''}`}
           data-name={judge.name}
         />
         <div className="judge-name-bar">
@@ -177,7 +177,7 @@ JudgeCard.propTypes = { judge: PropTypes.object, onOpen: PropTypes.func };
 const JudgeModal = ({ judge }) => {
   return (
     <div className="judge-modal-content">
-      {judge.description && <p className="judge-modal-bio">{judge.description}</p>}
+      <p className="judge-modal-bio">{judge.description || 'Bio coming soon!'}</p>
       {Array.isArray(judge.content) && judge.content.length > 0 && (
         <div className="judge-modal-bribes">
           <h3>Bribes</h3>

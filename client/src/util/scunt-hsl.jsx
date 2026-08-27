@@ -1,187 +1,167 @@
-import Alex from '../assets/hsl/alex.jpeg';
-import Ashton from '../assets/hsl/ashton.jpeg';
-import Chilan from '../assets/hsl/chilan.webp';
-import Daisy from '../assets/hsl/daisy.jpeg';
-import Daniel from '../assets/hsl/daniel.webp';
-import Gabe from '../assets/hsl/gabe.jpg';
-import James from '../assets/hsl/james.jpg';
-import Jason from '../assets/hsl/jason.jpg';
-import Katy from '../assets/hsl/katy.jpeg';
-import Keting from '../assets/hsl/keting.jpg';
-import Lana from '../assets/hsl/lana.webp';
-import Nafew from '../assets/hsl/nafew.jpeg';
-import Nicholas from '../assets/hsl/nicholas.webp';
-import Nick from '../assets/hsl/nick.jpeg';
-import Niol from '../assets/hsl/niol.jpeg';
-import Noor from '../assets/hsl/noor.jpg';
-import Oliver from '../assets/hsl/oliver.jpg';
-import Oscar from '../assets/hsl/oscar.webp';
-import Rashid from '../assets/hsl/rashid.webp';
-import Valentina from '../assets/hsl/valentina.jpg';
+import Auva from '../assets/2t6/hsl/Auva.jpeg';
+import Ayan from '../assets/2t6/hsl/Ayan.webp';
+import Char from '../assets/2t6/hsl/Char.jpeg';
+import Cheryl from '../assets/2t6/hsl/Cheryl.jpg';
+import Devanshi from '../assets/2t6/hsl/Devanshi.jpeg';
+import Ethan from '../assets/2t6/hsl/Ethan.jpeg';
+import Francesca from '../assets/2t6/hsl/Francesca.jpg';
+import Hermela from '../assets/2t6/hsl/Hermela.jpeg';
+import Jack from '../assets/2t6/hsl/Jack.jpg';
+import Jim from '../assets/2t6/hsl/Jim.jpg';
+import Johnny from '../assets/2t6/hsl/Johnny.jpeg';
+import Ketevan from '../assets/2t6/hsl/Ketevan.jpeg';
+import Matthew from '../assets/2t6/hsl/Matthew.jpg';
+import James from '../assets/2t6/hsl/Mingshi_James.png';
+import Rohan from '../assets/2t6/hsl/Rohan.png';
+import Sara from '../assets/2t6/hsl/Sara.jpg';
+import Victoria from '../assets/2t6/hsl/Victoria.png';
+import FroshLogo from '../assets/logo/2T6logo.png';
 
-// Export simple data array for judges. Extend with extra fields as needed.
+// Export simple data array for HSLs. Ordered so co-HSL pairs sit next to each other.
+// `placeholder: true` marks HSLs whose photo/bio we don't have yet - they show the F!rosh logo.
 export const scuntJudges = [
-  // Other Judges
-  { name: 'Alex', img: Alex },
-  { name: 'Ashton', img: Ashton },
-  { name: 'Chi Lan', img: Chilan },
-  { name: 'Daisy', img: Daisy },
-  { name: 'Daniel', img: Daniel },
-  { name: 'Gabe', img: Gabe },
+  { name: 'Hermela', img: Hermela },
+  { name: 'Jim', img: Jim },
+  { name: 'Sara', img: Sara },
+  { name: 'Antoan', img: FroshLogo, placeholder: true },
+  { name: 'Auva', img: Auva },
+  { name: 'Rohan', img: Rohan },
+  { name: 'Ketevan', img: Ketevan },
+  { name: 'Ayan', img: Ayan },
+  { name: 'Cheryl', img: Cheryl },
   { name: 'James', img: James },
-  { name: 'Jason', img: Jason },
-  { name: 'Katy', img: Katy },
-  { name: 'Keting', img: Keting },
-  { name: 'Lana', img: Lana },
-  { name: 'Nafew', img: Nafew },
-  { name: 'Nicholas', img: Nicholas },
-  { name: 'Nick', img: Nick },
-  { name: 'Niol', img: Niol },
-  { name: 'Noor', img: Noor },
-  { name: 'Oliver', img: Oliver },
-  { name: 'Oscar', img: Oscar },
-  { name: 'Rashid', img: Rashid },
-  { name: 'Valentina', img: Valentina },
+  { name: 'Johnny', img: Johnny },
+  { name: 'Char', img: Char },
+  { name: 'Devanshi', img: Devanshi },
+  { name: 'Ethan', img: Ethan },
+  { name: 'Francesca', img: Francesca },
+  { name: 'Katie', img: FroshLogo, placeholder: true },
+  { name: 'Jack', img: Jack },
+  { name: 'Matthew', img: Matthew },
+  { name: 'Ines', img: FroshLogo, placeholder: true },
+  { name: 'Victoria', img: Victoria },
 ];
 
 // Consumers (e.g., `ScuntJudgesShowWrapper`) can now import { scuntJudges }.
 
 export const people = [
   {
-    name: 'Alex',
+    name: 'Auva Bargriz',
     description:
-      "Hey Hey Hey! Let's blast off together and get a lot of challenges! I'm an EngSci 2T8, Skule(TM) Kup director, TBOG mechanical Co-Lead, UTAT fan, Skule Nite enthusiast and Assistant Stage Manager for the Engineering Drama Society! May we reach the stratosphere with our activities!",
+      'Hihi!! My name is Auva (pronounced like avocados) I’m an Indy (best one) 2T9 + PEY and I’m an HSL for F!rosh week and one of the Kappa HLs!! Fun fact about me: Connor McDavid went to my high school!🤩😮 I’m so excited to meet everyone and spread the purple love 💜💜',
     content: [],
-    img: Alex,
+    img: Auva,
   },
   {
-    name: 'Ashton Raghunandan',
+    name: 'James Jiang',
     description:
-      "hi frosh. i'm ashton, chem 2t7 + PEY 😮‍💨. i enjoy caffeine and sleep and occasionally being awake. i intend to keep my skule hunt win streak and with me you should be excited to start yours. looking forward to hunting with you guys c:",
-    content: [],
-    img: Ashton,
-  },
-  {
-    name: 'Chi Lan Tran',
-    description:
-      "Hey there, I'm Chi Lan and I'm an EngSci 2T8 + PEY! I, too, adore cats, music, and taking pictures with my camera. I also love ice cream, hiking and camping, and sports (particularly swimming). Skule Hunt was my favourite activity during Frosh and I met/bonded with most of my friend group there. I'm super excited to join you guys on your Skunt quests and take home many memories and hopefully a prize. I, too, hope you guys have as much fun at Skule Hunt as I did (if not more).",
-    content: [],
-    img: Chilan,
-  },
-  {
-    name: 'Daisy',
-    description:
-      "Hi! I'm Daisy (ChemE 2T7 + PEY). I love baking sourdough, painting, and touching grass.",
-    content: [],
-    img: Daisy,
-  },
-  {
-    name: 'Daniel Yu',
-    description:
-      "Heyo what's good, I'm Daniel (ECE 2T5 + PEY)! CompEng by degree, F!rosh wrangler by fate, and currently entering my ✨unc era✨. I'll roast you lovingly while debugging your life decisions, and I walk that line between “let's wing it” and “I made a backup plan for the backup plan.” If being deeply unhinged but logistically responsible was a personality type, that's me. I'll gas you up, boss you around, then make you take a water break because hydration is sexy. An unc with a vision, an unc on a mission, so if you're in my group, get ready for a podium position! Unc out. 🧢🧃🗺️💥",
-    content: [],
-    img: Daniel,
-  },
-  {
-    name: 'Gabe Raposo',
-    description:
-      "Hello hello hello everyone, my name is Gabe, I'm an Indy 2T7 + PEY, and I'm super happy to be your HSL! You may have seen/see me as the Beta HL or Indy Club Vice-Chair, but I also am a huge Skule Hunt fan (especially when I win :D) so let's do this!",
-    content: [],
-    img: Gabe,
-  },
-  {
-    name: 'James Huynh',
-    description:
-      "Wassup y'all, I'm here to eat some drywall, We ain't playin' no games, With your co-hsl, James! I'm James Huynh, an ECE 2T8, and one of YOUR co-HSLs for team 3! SUPER HYPE for Skule Hunt this year, looking forward to leading y'all!!!! I remember my Skule Hunt, drinking mayonnaise, running backwards across campus, and getting carried across the Bahen crossing! Hopefully this year, we'll get up to some (safe & sexy) antics, and have a whole lotta fun!!!! As for myself…. I'm YOUR 2T5-2T6 Systems Administrator! Perhaps there'll be some tasks related to that… Also, if you're looking for a pokemon match, a yo-yo, or an ethernet cable, maybe reach out to me!",
+      "Hey I'm James, a ECE 2T8 + PEY. A nerdy guy into chess, gaming, classical music, and underwater robotics. I'm a lead at UTUX, ask me about it if you want to know more! Excited to meet yall amid the chaos at Skule Hunt!!!",
     content: [],
     img: James,
   },
   {
-    name: 'Jason',
+    name: 'Matthew Doan',
     description:
-      "Hi! My name is Jason and I'm one of your HSLs for Skule Hunt! Im a Mech 2T7. My favourite things to do are to go to Haidilao, listen to the greatest artist of all time, The Weeknd, and destroy/get destroyed at Mario Party on the Switch. LETS GET THIS DOUBLE U",
+      "Hi I'm Matthew. I'm a Mech 2T6, just finishing PEY and excited to suffer multiple debilitating diseases! I spent multiple days agonizing on whether to submit my last name or just first name on this form.",
     content: [],
-    img: Jason,
+    img: Matthew,
   },
   {
-    name: 'Katy Mezei',
+    name: 'Ethan Li',
     description:
-      "hello 2t9s!! my name is katy and i'm a chem 2t7 + pey. i love music, fashion, cooking, and writing and i also love skule hunt and destroying other teams. in addition to winning (which we definitely will), i'm looking forward to skule hunting with all of you (it's a lot of fun i promise) <3",
+      'Hey everyone! My name’s Ethan, and I’ll be one of your Skule Hunt HSLs this year! I’m an EngSci 2T9 + PEY and in my free time, I like staying active and playing volleyball, as well as occasionally climbing and playing pickleball. I also enjoy baking, trying out random recipes I see on my reels, and playing Pokémon! If you’re looking for advice or have questions about clubs, design teams, school events, or even the best food nearby, feel free to reach out to me!',
     content: [],
-    img: Katy,
+    img: Ethan,
   },
   {
-    name: 'Keting Trinh',
+    name: 'Victoria Mu',
     description:
-      "What's up chat, Team 3 is where it's at. Other f!rosh we'll be defeating With your co-hsl, Keting! My name is Keting Trinh, I'm a Mech 2T8, but most importantly, I'm YOUR co-HSL. As a F!rosh, skule hunt had me scurrying all over campus, licking rocks, and asking fourth years fresh off PEY for money. Thanks to The Hunt, I became well endowed with the ways of Skule culture and how YOU TOO, as an engineer, can find joy in the midst of exams to come. MORE ABOUT ME! I'm also YOUR 2T5–2T6 Commuter Student Director! If you ever want to know more about getting around Toronto on the TTC, the Go train, or even a unicycle, let me know! Please, I want to talk more about my unicycle ( •̀ ω •́ )✧",
+      "Well hello there! I'm an ECE2T8 + PEY from Vancouver who loves playing tennis, the piano, and watching movies. If you do ever catch me around campus, I'll probably be engrossed in my favorite pastime: EATING. I will never turn down an offer for food, but more importantly I'm BEYOND excited to be one of your Skule Hunt Co-HSL's this year :)",
     content: [],
-    img: Keting,
+    img: Victoria,
   },
   {
-    name: 'Lana',
+    name: 'Rohan Garg',
     description:
-      "Hi! I'm Lana and I'm a ChemE 2T8 + PEY. I'm one of Team 7's HSLs and Skule Hunt is my favourite Frosh Week Event. LET'S FINISH 'EM!!!!",
+      "HELLO 3T0s!!! My name is Rohan, and I am SO EXCITED to be one of your Head Skule Hunt Leedurs this year!!! I'm an Indy 2T8+PEY, which mean's I'm entering my third year of Industrial Engineering! I'm a commuter student #GoTrain4Life, so if you ever have any questions about getting around Toronto / the GTA I'm your guy. Lastly, I am the new Vice Chair of UofT's Industrial Engineering Club (Indy Club)! See you all at Skule Hunt!",
     content: [],
-    img: Lana,
+    img: Rohan,
   },
   {
-    name: 'Nafew Islam',
+    name: 'Cheryl Chen',
     description:
-      "Heyyy y'all, I'm Nafew (He/Him), I'm a Mech 2T6 + PEY, and I'm a co-HSL for Team 8 (CHICKEN JOCKEY) and I'm also just a regular guy helping out with F!rosh Week wherever they can. Anyways some basic stuff about me: I'm from Toronto (lived here my whole life as a Bengali-Canadian), I weight lift, I play the guitar, sing, mess around with FL studio, and all sorts of other music stuff, and other stuff in general (too many to name). Anyways, very excited to see how F!rosh Week turns out this year, and I hope you Frosh have a wonderful time, LET'S GET HYPE YO ‼️‼️",
+      "I'm Cheryl and I'm an ECE 2T8 + PEY! I love listening to music and going on long walks around Toronto (or any city I happen to be in!). F!rosh Week is always one of the highlights of my school year, and I'm so so excited to be an HSL this year for Skule Hunt!!",
     content: [],
-    img: Nafew,
+    img: Cheryl,
   },
   {
-    name: 'Nicholas',
+    name: 'Sara Shahzad',
     description:
-      "Salutations skuligans! I'm Nicholas, an EngSci 2T8 + PEY. You'll need to remind me of your name >21 times but I will recognize your face and say hi. Also I carried my Skule Hunt team to second place last year. Imagine what we could accomplish when I don't leave early this year...",
+      "Hiii! I'm Sara and I'm an ECE 2T9 + PEY. I originally started in Mechanical engineering but switched to Electrical engineering after first year. Skule Hunt was my favourite part of my Frosh Week experience, and I'm super excited to be part of it again this year as an upper year! In my free time, I really enjoy watching TV shows, playing games (mainly Roblox lowkey), listening to music, and hanging out with friends.",
     content: [],
-    img: Nicholas,
+    img: Sara,
   },
   {
-    name: 'Nick Oré',
+    name: 'Ayan',
     description:
-      "Good afternoon fellas, I'm Nick Oré, MIN 2T8 + PEY (Yes, I'm a MIN and my last name is ORE), Co-HSL from Team 8. I was born and raised in Lima, Peru (it's in South Amercia btw), which is a great country as long as you don't get robbed. Some stuff I do during my free time is good around in Ableton Live, play and watch soccer (aka screaming at the TV random people's names), and go on random walks in the highway. If you're on TEAM 8 you're automatically a great person and I hope you've had a great F!rosh week so far and hope you enjoy first year as well, it's truly a unique experience that comes once and once only. LET'S GET THIS **** GOING‼️‼️",
+      'Ayan is a 3rd year ECE student interested in mixed signal ASIC design, photonic computing, VLSI, custom compilers, and high-performance computing architectures. One of their favorite pastimes is engaging in numerous STUdeNT projectS outdoors, indoors, and behind you related to both their areas of interest and beyond.',
     content: [],
-    img: Nick,
+    img: Ayan,
   },
   {
-    name: 'Niol',
+    name: 'Devanshi Makkar',
     description:
-      "Hi! I'm Niol (ChemE 2T7 + PEY). I like watching and playing soccer and learning bioinformatics",
+      'Hi! I’m Devanshi - an EngSci 2T9+PEY and I’m one of the HSLs for this year! Skule Hunt was one of my favourite events at F!roshweek (HYPE HYPE HYPE) and I’m so happy to be on the other side this time :)',
     content: [],
-    img: Niol,
+    img: Devanshi,
   },
   {
-    name: 'Noor Khalil',
-    description: 'Currently on a creative mode side quest',
-    img: Noor,
-  },
-  {
-    name: 'Oliver',
+    name: 'Char',
     description:
-      "Hello frosh! My name is Oliver and I'm one of the HSLs for team 5. Im a Civ2T7 and I like going to the gym and playing sports. You will find me at Harthouse lifting or getting slimed at pickup basketball. Looking forward to night full of foolishness!!",
+      'EngSci 2T9. From Edmonton, Alberta. I like sharks and crocheting stuff. HYPE FOR SKULE HUNT!!!! (he/they)',
     content: [],
-    img: Oliver,
+    img: Char,
   },
   {
-    name: 'Oscar Sun',
+    name: 'Ketevan Gallagher',
     description:
-      "Hello everyone, Oscar (EngSci ECE 2T7 + PEY) here! ✨ The magical foresight given to me by the stars allows me to see into the future 🔮. I love astrology and base my life decisions on it (blame my pisces moon). I romanticize summer nights, catch vibes like texan cowboys or y2k teens. I write really good haiku and occupy my mindspace by putting eng kids into Hunger Games or Love Island simulations for fun 💘🏹. Anyone who wanna couple up with me, your bed will be real warm. If you want that Skule Hunt championship, better join team 9 Mario Karted—'cause babe it's in the stars ✨🚗💨 #amayapapaya #chocolatestrawberry #ultraviolence #davidcorenswetphotoshoot #dejavu",
+      'Ketevan Gallagher is a 3d year ECE student. They are the senior president of Skule Billiards club and the semantic mapping lead for aUToronto. In their free time, they enjoy listening to rock music and decorating their coveralls.',
     content: [],
-    img: Oscar,
+    img: Ketevan,
   },
   {
-    name: 'Rashid Mahmood',
+    name: 'Johnny',
     description:
-      "Hi! I'm Rashid, an ECE 2T8 + PEY. I love cats, listening to music, taking pictures with my camera, and all things aesthetic — in no particular order. I, too, love ice cream, and sports (mainly football). I love hanging out with my friends, exploring new places, and going on side quests. Skule Hunt was hands-down my favorite event of Frosh Week, and I hope you'll have just as much fun as I did!",
+      'Hi all! I’m a Chem 2T9 and I’m excited to be an HSL this year! Skule Hunt was probably one of the highlights of F!rosh week for me and now I’m excited to be apart of it as an HSL!',
     content: [],
-    img: Rashid,
+    img: Johnny,
   },
   {
-    name: 'Valentina',
-    description: 'Mech 2T7 Pit Rat. Blue Sky is cool! [placeholder]',
+    name: 'Hermela Abiy',
+    description:
+      'HEYY EVERYONE i’m Hermela (T1 -> Chem 2T9 + PEY) and i’m gonna be an HSL for Skule Hunt 2T6! a little about me: i’m originally from alberta, i’m a hardcore theatre nerd and i’m a FIRST TIME HL THIS FROSH WEEK!! i’m so excited to meet all of you and be the greatest group at skule hunt! 😈',
     content: [],
-    img: Valentina,
+    img: Hermela,
+  },
+  {
+    name: 'Francesca Mangano',
+    description:
+      "Hi hi hi! My name is Francesca (Indy 2T8 + PEY) and I will be one of your Skule Hunt HSLs this year! You may have also seen me earlier this week as I am one of the co-chairs for F!rosh Games and was the Campus Tours DL for Omicron this year. On top of F!rosh week, I am the Director for UTEK this year and am a part of organizing a few other conferences such as OEC '28 and CALE '27. On a more fun note though, I have 2 rabbits and walked line 2 earlier this year. Excited to meet everyone!!!!",
+    content: [],
+    img: Francesca,
+  },
+  {
+    name: 'Jack Klein',
+    description:
+      "I'm Jack, a Mech 2T7+1 and my pronouns are He/Him and I'm one of your Skule Hunt HSLs this year! I'm super into running, Ultimate Frisbee, and I'm very involved with EngSoc. Fun fact about me is that I'm on the UofT Varisty Chess team (yes we have one). If you need anything throughout the night or just want to yap I'm happy to talk.",
+    content: [],
+    img: Jack,
+  },
+  {
+    name: 'Jim Xu',
+    description:
+      "I'm Jim, a TrackOne Mech 2T7 + PEY and I am one of your HSLs this year! At Skule, I am involved with student government (Engineering Society), academic advocacy (upcoming curriculum and assessment policy changes), F!rosh Week Campus Tours Co-Chair, Co-programming director for Undergraduate Engineering Research Day 2026, Impact Director for Engineers Without Borders, (social change/impact club for engineers), and work part-time as a campus tour guide! In my free time, I enjoy reading, exploring big cities, photography, and recently started trying my hand at baking cheesecakes (wish me luck)! Looking forward to meeting and snatching victory this year!",
+    content: [],
+    img: Jim,
   },
 ];
