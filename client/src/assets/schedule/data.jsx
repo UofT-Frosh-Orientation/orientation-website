@@ -4706,8 +4706,8 @@ export const data = {
       'Event Name': 'Academic Success Seminar',
       'Event Description':
         'Learn about the strategies you need to know to succeed here at U of T Engineering from some of your amazing new TAs (teaching assistants)!',
-      'Start Time': '8:00 AM',
-      'End Time': '10:00 AM',
+      'Start Time': '9:00 AM',
+      'End Time': '10:30 AM',
       Color: 'gray',
     },
     {
