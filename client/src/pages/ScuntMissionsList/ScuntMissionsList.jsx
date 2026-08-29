@@ -100,9 +100,9 @@ const ReportMission = () => {
         <ReportMissionPopup></ReportMissionPopup>
       </PopupModal>
       <ButtonRound
-        style={{ marginTop: '15px', marginBottom: '25px' }}
-        class_options=""
-        label={<div className="scunt-report-popup-button">Report Mission</div>}
+        style={{ marginTop: '0px', marginBottom: '25px' }}
+        className="scunt-report-mission-btn"
+        label={<div className="scunt-report-popup-button">REPORT MISSION</div>}
         onClick={() => {
           setClick(true);
         }}
@@ -314,7 +314,9 @@ const PageScuntMissionsListShow = () => {
   return (
     <div>
       <div className="scunt-missions-header">
-        <h2>Want another way to earn points?</h2>
+        <div className="scunt-missions-header-title-row">
+          <h2>Want another way to earn points?</h2>
+        </div>
         <div className="scunt-missions-header-link">
           <Link to={'/skule-hunt-judges'}>
             Don&apos;t forget you can get bonus points from the judges!
@@ -339,6 +341,8 @@ const PageScuntMissionsListShow = () => {
               justifyContent: 'center',
               alignItems: 'center',
               flexWrap: 'wrap',
+              gap: '12px',
+              margin: '15px 0px',
             }}
           >
             <div className="small-width-input">
@@ -360,7 +364,7 @@ const PageScuntMissionsListShow = () => {
               <TextInput
                 clearText={clearText}
                 setClearText={setClearText}
-                placeholder={'Search by name'}
+                placeholder={'Search by Name'}
                 errorFeedback={''}
                 onChange={(value) => {
                   setMission(undefined);
@@ -394,7 +398,7 @@ const PageScuntMissionsListShow = () => {
               />
             </div>
           </div>
-          <p style={{ color: 'var(--text-primary)' }}>
+          <p style={{ color: 'var(--scunt-missions-text)' }}>
             Click a mission to get a QR code judges can scan! Missions with a check mark have
             already been completed by your team.
           </p>

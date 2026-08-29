@@ -223,7 +223,7 @@ const UserServices = {
   async getAllUsers() {
     return UserModel.find({}).then(
       (users) => {
-        if (!users.length) throw new Error('USERS_NOT_FOUND');
+        if (!users.length) return []; //CHANGED!!!!!!
         return users;
       },
       (error) => {

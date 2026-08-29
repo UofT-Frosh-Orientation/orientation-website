@@ -175,11 +175,27 @@ export const colors = {
 
   //registration success
   '--frosh-group-stroke': ['#6f1e88', '#8c60b3'],
-
-  //scunt missions
-  '--mission-bg': ['#F8F1FF', '#543570'],
-  '--mission-bg-hover': ['#E3D4F1', '#835FA3'],
-  '--mission-bg-active': ['#CAA9FF', '#704894'],
+  /*
+    //scunt missions
+    '--mission-bg': ['#F8F1FF', '#543570'],
+    '--mission-bg-hover': ['#E3D4F1', '#835FA3'],
+    '--mission-bg-active': ['#CAA9FF', '#704894'],
+  */
+  //scunt missions - NEW for 2026
+  '--mission-bg': ['#dfcdf3', '#3F0F58'],
+  '--mission-bg-hover': ['#dfcdf3', '#711F8B'],
+  '--mission-bg-active': ['#dfcdf3', '#711F8B'],
+  '--scunt-missions-page-bg': ['#EBEBEB', '#3F0F58'],
+  '--scunt-missions-text': ['#3D0F58', '#EBEBEB'],
+  '--scunt-missions-checker': ['#3D0F58', '#EBEBEB'],
+  '--scunt-missions-input-bg': ['#EBEBEB', '#3F0F58'],
+  '--scunt-missions-input-border': ['#3D0F58', '#FED34C'],
+  '--scunt-missions-input-text': ['#3D0F58', '#dfcdf3'],
+  '--scunt-missions-dropdown-hover': ['#DFCDF3', '#711F8B'],
+  '--scunt-missions-star': ['#FBDC70', '#A77AD7'],
+  '--scunt-missions-report-btn-bg': ['#FED34C', '#711F8B'],
+  '--scunt-missions-report-btn-text': ['#711F8B', '#FBDC70'],
+  '--scunt-missions-hyperlink': ['#ffc600', '#FBDC70'],
 
   //sponsor popup
   '--sponsor-container': ['#ffffff', '#8c60b3'],
