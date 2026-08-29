@@ -54,7 +54,7 @@ export function getDaysSchedule(scheduleData) {
   return days;
 }
 
-export function getFroshGroupSchedule() {
+export function getFroshGroupSchedule(froshGroup) {
   if (froshGroup === 'Alpha') {
     return dataAlpha;
   } else if (froshGroup === 'Beta') {
