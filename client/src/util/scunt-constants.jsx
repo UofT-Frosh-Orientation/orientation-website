@@ -74,13 +74,12 @@ export const rules = {
     },
     {
       title: 'Banned Items / Restricted Areas',
-      sub: 'The following are strictly off-limits. If any of these rules are broken, there will be major point deductions and your team may even lose all points:',
+      sub: 'The following are strictly off-limits. Be smart, make smart choices. If it feels wrong, it probably is. Always ask a lead if you’re not sure. If any of these rules are broken, there will be major point deductions and your team may even lose all points:',
       items: [
         '<strong>Front Campus</strong> - still a “Do Not Enter” zone',
         '<strong>Other Faculties’ Events</strong> - don’t interrupt or mess with them',
         '<strong>Ecosystem Trench (outside MedSci)</strong> - completely off-limits',
         '<strong>Illegal or Harmful Activities</strong> - absolutely not allowed',
-        '<strong>Be smart, make smart choices.</strong> If it feels wrong, it probably is. Always ask a lead if you’re not sure.',
       ],
     },
     {
