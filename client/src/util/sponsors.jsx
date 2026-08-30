@@ -26,6 +26,8 @@ import bikeshare from '../assets/sponsors/bikeshare.png';
 import bikesharedark from '../assets/sponsors/bikesharedark.png';
 import cosmicPizza from '../assets/sponsors/cosmicpizza.png';
 import cosmicPizzaWhite from '../assets/sponsors/Cosmic_White.png';
+import cobsBread from '../assets/sponsors/cobs_bread.png'
+import ROMlogo from '../assets/sponsors/ROM.png'
 
 export const sponsors = [
   {
@@ -35,6 +37,22 @@ export const sponsors = [
     scale: 0.88,
     rank: 'diamond',
     label: 'Diamond Sponsor: FASE Alumni',
+  },
+  {
+    website: 'https://www.rom.on.ca/',
+    image: ROMlogo,
+    darkimage: ROMlogo,
+    scale: 0.88,
+    rank: 'bronze',
+    label: 'Bronze Sponsor: Royal Ontario Museum',
+  },
+  {
+    website: 'https://www.cobsbread.com/',
+    image: cobsBread,
+    darkimage: cobsBread,
+    scale: 0.88,
+    rank: 'silver',
+    label: 'Silver Sponsor: COBS Bread',
   },
   {
     website: 'https://www.peo.on.ca/',
