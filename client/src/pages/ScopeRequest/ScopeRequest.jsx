@@ -15,6 +15,11 @@ export function convertCamelToLabel(text) {
   return result.charAt(0).toUpperCase() + result.slice(1);
 }
 
+// Display only - the scope keys sent to the server still use "scunt"
+export function convertScopeToLabel(text) {
+  return convertCamelToLabel(text).replace(/Scunt/g, 'Skule Hunt');
+}
+
 export const PageScopeRequest = () => {
   const [selectAllRegistrationScopes, setSelectAllRegistrationScopes] = useState(false);
   const [selectAllGeneralScopes, setSelectAllGeneralScopes] = useState(false);
@@ -65,11 +70,11 @@ export const PageScopeRequest = () => {
                   name={scope}
                   highlightValues={highlightFields}
                   disabledValues={disabledFields}
-                  label={convertCamelToLabel(scope)}
+                  label={convertScopeToLabel(scope)}
                   initialSelectedIndices={[]}
                   selectAll={selectAllGeneralScopes}
                   setSelectAll={setSelectAllGeneralScopes}
-                  filterLabel={convertCamelToLabel}
+                  filterLabel={convertScopeToLabel}
                   values={totalScopes[scope]}
                   onSelected={(label, index, value, allIndices) => {
                     const out = [];
@@ -96,7 +101,7 @@ export const PageScopeRequest = () => {
           initialSelectedIndices={[]}
           selectAll={selectAllRegistrationScopes}
           setSelectAll={setSelectAllRegistrationScopes}
-          filterLabel={convertCamelToLabel}
+          filterLabel={convertScopeToLabel}
           values={totalRegistrationScopes}
           onSelected={(label, index, value) => {
             requestScopes.froshDataFields[label] = value;

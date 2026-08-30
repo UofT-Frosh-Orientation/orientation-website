@@ -68,7 +68,7 @@ export const rules = {
         '<strong>***The item must be on the list.***</strong>',
         'Read the room. Don’t perform an item that makes anyone in the general public uncomfortable.',
         '<strong>***The item must be on the list.***</strong>',
-        'Media consent must be acquired from strangers prior to all videos/photos which involve them. Additionally, do NOT share media involving strangers on social media unless they have explicitly consented to such. Do not heckle or harass anybody - ask for their consent for the item beforehand, and ask for their consent when filming as well. Be very mindful very demure, do not do anything that would make anyone uncomfortable.',
+        'Media consent must be acquired from strangers prior to all videos/photos which involve them. Additionally, do NOT share media involving strangers on social media unless they have explicitly consented to such. Do not heckle or harass anybody - no item should require speaking with strangers. Do not do anything that would make anyone uncomfortable!',
         'Alright fine, if you clear it with a particular judge beforehand, you may perform something not on the list to THAT JUDGE IN PARTICULAR as “Bring a Reward In Beneficial to Expert” for bonus points. But again ONLY if you clear it beforehand, otherwise <b>***The item must be on the list.***</b>',
       ],
     },
