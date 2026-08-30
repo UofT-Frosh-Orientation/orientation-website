@@ -18,6 +18,8 @@
   --checker-color-2: #ebebeb;
   --shadow-color: rgba(60, 60, 60, 0.1);
   --countdown-on-gold: #3d0f58;
+  --text-other-events: #ebebeb;
+  --other-events-outline: #ebebeb;
 }
 
 body.dark-mode {
@@ -840,13 +842,13 @@ body {
     font-family: 'Proxima Nova', sans-serif;
     font-size: clamp(24px, 2.2vw, 46px);
     font-weight: 900;
-    color: var(--text-main);
+    color: var(--text-other-events);
   }
 
   p {
     font-size: clamp(15px, 1.2vw, 26px);
     line-height: 1.7;
-    color: var(--text-main);
+    color: var(--text-other-events);
     font-family: 'Proxima Nova', sans-serif;
     margin-bottom: 20px;
   }
@@ -855,12 +857,12 @@ body {
 .other-events-learn-more {
   display: inline-block;
   padding: 14px 32px;
-  border: 2px solid var(--accent-purple);
+  border: 2px solid var(--other-events-outline);
   border-radius: 8px;
   font-family: 'Proxima Nova', sans-serif;
   font-size: clamp(14px, 1vw, 22px);
   font-weight: 700;
-  color: var(--text-main);
+  color: var(--text-other-events);
   text-decoration: none;
   background-color: transparent;
   transition: background 0.2s, color 0.2s;
