@@ -11,7 +11,8 @@ import { data } from '../../../assets/schedule/data';
 export const ProfilePageSchedule = () => {
   const { user } = useSelector(userSelector);
   const [froshGroup, setFroshGroup] = useState(user?.froshGroup);
-  const scheduleData = data; // replace with getFroshGroupSchedule(froshGroup) if you want to use unique group schedules
+  // const scheduleData = data; // replace with getFroshGroupSchedule(froshGroup) if you want to use unique group schedules
+  const scheduleData = getFroshGroupSchedule(froshGroup);
   const days = getDaysSchedule(scheduleData);
 
   const today = new Date();
