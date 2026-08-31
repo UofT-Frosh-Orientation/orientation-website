@@ -124,21 +124,21 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: clamp(170px, 17vw, 380px);
-  height: clamp(170px, 17vw, 380px);
+  width: clamp(150px, 15vw, 380px);
+  height: clamp(150px, 15vw, 380px);
   display: flex;
   align-items: center;
   justify-content: center;
   transform: rotate(15deg);
   font-family: 'Proxima Nova', sans-serif;
   font-weight: 900;
-  font-size: clamp(15px, 1.5vw, 30px);
+  font-size: clamp(20px, 2vw, 44px);
   text-align: center;
   color: #3d0f58;
   line-height: 1.15;
   // This star is a clickable link (the retreat one is decorative), so give it a
   // hover lift to make it read as a button.
-  // transition: transform 200ms ease, filter 200ms ease;
+  transition: transform 200ms ease, filter 200ms ease;
 
   &:hover {
     // The global `a:hover` rule (underline-slide animation) sets
@@ -1041,9 +1041,9 @@ body {
   .header-register-star {
     top: 0.8%;
     right: 2%;
-    width: clamp(100px, 28vw, 190px);
-    height: clamp(100px, 28vw, 190px);
-    font-size: clamp(14px, 4.6vw, 20px);
+    width: clamp(86px, 26vw, 150px);
+    height: clamp(86px, 26vw, 150px);
+    font-size: clamp(14px, 4.6vw, 24px);
   }
 
   /* Countdown position (top/left) is set in countdown.scss's own mobile block —
