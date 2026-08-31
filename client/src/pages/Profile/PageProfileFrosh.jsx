@@ -111,16 +111,15 @@ const PageProfileFrosh = () => {
           {!isRegistered ? (
             <div className={'profile-not-registered'}>
               <div className="profile-not-registered-text">
-                {/* <h1>You are not registered</h1> */}
-                <h1>Registration has closed!</h1>
-                {/* <p className="profile-p-text">
+                <h1>You are not registered</h1>
+                <p className="profile-p-text">
                   Please complete your registration in order to participate in F!rosh week events
-                </p> */}
+                </p>
                 {/* <h2>REGISTRATION OPENS SOON. STAY TUNED!</h2> */}
               </div>
-              {/* <Link key={'/registration'} to={'/registration'} className={'no-link-style'}>
+              <Link key={'/registration'} to={'/registration'} className={'no-link-style'}>
                 <ButtonRound label="Register" style={{ marginLeft: '20px' }} />
-              </Link> */}
+              </Link>
             </div>
           ) : (
             <ProfilePageRetreat />
