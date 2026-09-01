@@ -1270,6 +1270,16 @@ body {
   margin-top:20px;
 }
 
+.trailers-flex-container {
+  display:flex;
+  flex-wrap:wrap;
+
+  align-items:center;
+  justify-content:center;
+
+  width:100%;
+}
+
 .frosh-week-trailer-header {
   font-family: 'Genty', sans-serif;
   font-size: clamp(40px, 6vw, 72px);
@@ -1281,7 +1291,7 @@ body {
 }
 
 .video-container {
-  width: 100%;
+  // width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1292,7 +1302,8 @@ body {
 
 .video-container iframe {
   display: block;
-  width: min(80%, 900px);
+  // width: min(80%, 600px);
+  width:700px;
   max-width: 100%;
   aspect-ratio: 16 / 9;
   height: auto;
