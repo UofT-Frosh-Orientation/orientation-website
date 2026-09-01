@@ -40,8 +40,13 @@ export default function FroshWeekTrailer() {
   return (
     <div className="frosh-week-trailer">
       <h2 className="frosh-week-trailer-header">F!rosh Week Trailer</h2>
-      <div className="video-container">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/W8aXFYvd4CQ?si=8d6_dZG-bM7oTTnV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <div className="trailers-flex-container">
+        <div className="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/K51775SjNWc?si=t3YwUyZWVfvgxRFy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div className="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/W8aXFYvd4CQ?si=8d6_dZG-bM7oTTnV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
       </div>
     </div>
 
