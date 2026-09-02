@@ -9,6 +9,7 @@ const scuntRouter = require('../routes/scuntRoutes');
 const scuntMissionRouter = require('../routes/scuntMissionRoutes');
 const scuntTeamRouter = require('../routes/scuntTeamRoutes');
 const scuntGameSettingsRouter = require('../routes/scuntGameSettingsRoutes');
+const easterEggRouter = require('../routes/easterEggRoutes');
 const uploadRouter = require('../middlewares/upload');
 const { viewWaiver } = require('../controllers/UserController');
 
@@ -24,6 +25,7 @@ const routerLoader = (app) => {
   app.use('/scunt-teams', scuntTeamRouter);
   app.use('/skule-hunt-game-controls', scuntGameSettingsRouter);
   app.use('/scunt', scuntRouter);
+  app.use('/easter-egg', easterEggRouter);
   app.use('/upload-waiver', userRouter);
   app.use('/view-waiver', userRouter);
   app.get('/user/view-waiver/:id', viewWaiver);

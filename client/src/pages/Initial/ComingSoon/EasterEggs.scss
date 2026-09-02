@@ -37,6 +37,11 @@
     padding: 10px;
     background: #fff;
     min-height: 120px;
+    // Icons sit side by side, wrapping like a real W95 folder view.
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 8px;
   }
 
   .cs-egg-fileicon {

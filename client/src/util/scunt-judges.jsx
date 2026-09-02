@@ -158,6 +158,10 @@ export const people = [
     name: 'Tech Team',
     description:
       "Collective guardians of the codebase and purveyors of arcane digital challenges. Pictured are your Webmasters Ablah and Parth, but our lovely site wouldn't be possible without the help of Linden, Jiya, Sumedhaa, Harshita and Ryan as well! Also please do come bribe us we promise you will not be disappointed coughcoughwehaveallthepowercoughcough haha must be the wind",
+    // Skule™ Hunt easter egg: rendered in the judge modal as invisible text that
+    // only shows up when highlighted. Step 2 of the trail (step 1 is the nudge
+    // in the "Where?" section of /skule-hunt).
+    hiddenNote: 'check the coming soon page',
     content: [],
     img: Webmasters,
   },

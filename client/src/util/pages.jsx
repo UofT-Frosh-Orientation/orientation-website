@@ -38,6 +38,8 @@ import { ScuntGameSettings } from '../pages/ScuntGameSettings/ScuntGameSettings'
 import { PageScuntMissionsDashboard } from '../pages/ScuntMissionsDashboard/ScuntMissionsDashboard';
 import { ScuntTransactions } from '../pages/ScuntTransactions/ScuntTransactions';
 import { PageEmailConfirmed } from '../pages/EmailConfirmed/EmailConfirmed';
+import { ComingSoon } from '../pages/Initial/ComingSoon/ComingSoon';
+import { PageChief } from '../pages/Chief/Chief';
 
 export const pages = {
   404: {
@@ -111,6 +113,22 @@ export const pages = {
     },
   ],
   hidden: [
+    // ---- Skule™ Hunt easter-egg trail (unlinked on purpose) ----
+    // /skule-hunt "Where?" → Tech Team judge bio (hidden text) → here →
+    // Recycle Bin → hunt.txt cipher → the commit message
+    // "Who holds Ye Olde Mighty Skule Cannon?" → /chief.
+    {
+      label: 'coming-soon',
+      component: <ComingSoon routed />,
+      path: '/coming-soon',
+      includeFooter: false,
+    },
+    {
+      label: 'chief',
+      component: <PageChief />,
+      path: '/chief',
+      includeFooter: false,
+    },
     {
       label: 'Announcements Dashboard',
       component: (

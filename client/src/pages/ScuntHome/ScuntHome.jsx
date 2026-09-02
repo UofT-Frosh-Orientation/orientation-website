@@ -98,7 +98,7 @@ const AboutScunt = () => {
         <h1>Where?</h1>
         <p>
           Myhal Arena, GB Front Steps, and various locations around Toronto! (or all around the
-          world if you want)
+          world if you want) ... and on this website too :)
         </p>
       </div>
       <div className="scunt-block-thing">

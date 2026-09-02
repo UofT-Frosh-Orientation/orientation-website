@@ -63,6 +63,12 @@
   position: fixed;
   inset: 0;
   overflow: hidden;
+
+  // Rendered as a route (/coming-soon) rather than as the site takeover: sit
+  // above the navbar (z-index 90) so the desktop really is full-screen.
+  &.coming-soon--routed {
+    z-index: 500;
+  }
   // Purple sky gradient (the clouds live in &::before below, on their own layer
   // so their opacity can be tuned with one variable).
   background-color: var(--cs-desktop);

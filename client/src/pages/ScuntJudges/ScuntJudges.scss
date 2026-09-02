@@ -229,6 +229,24 @@
   line-height: 1.5;
   color: var(--text-primary);
 }
+
+/* Skule™ Hunt easter egg: text that blends into the modal background and only
+   becomes readable once it is highlighted. `transparent` (rather than a literal
+   white) keeps it hidden in BOTH light and dark mode; the ::selection rules
+   repaint it while selected. */
+.judge-modal-hidden-note {
+  color: transparent;
+  user-select: text;
+
+  &::selection {
+    color: #ffffff;
+    background: #582c83;
+  }
+  &::-moz-selection {
+    color: #ffffff;
+    background: #582c83;
+  }
+}
 .judge-modal-bribes h3 {
   margin: 0 0 10px;
   font-size: 18px;

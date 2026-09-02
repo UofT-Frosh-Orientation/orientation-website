@@ -12,6 +12,10 @@ import './EasterEggs.scss';
 //                     this hook just fires the trigger).
 //   3. THE FILE     — open the Recycling Bin → open "do not touch.txt" → decode
 //                     the Caesar cipher → type the secret word → Blue Screen.
+//   4. THE HUNT     — open the Recycling Bin → open "hunt.txt" (the notepad
+//                     icon) → decode the Caesar cipher → it points at the GitHub
+//                     commit messages, where the question "Who holds Ye Olde
+//                     Mighty Skule Cannon?" leads to /chief.
 //
 // The keyboard wiring is in `useEasterEggs`; the windows are the components
 // below. Counts/analytics are intentionally NOT wired up yet.
@@ -91,7 +95,7 @@ export const useEasterEggs = ({ onKonami, onXyzzy, onCrash }) => {
 // ---------------------------------------------------------------------------
 // Recycling Bin window — lists the single forbidden file.
 // ---------------------------------------------------------------------------
-export const RecycleBinWindow = ({ style, onOpenFile, onClose, onFocus }) => (
+export const RecycleBinWindow = ({ style, onOpenFile, onOpenHuntFile, onClose, onFocus }) => (
   <div className="cs-window cs-raised cs-egg-window" style={style} onPointerDown={onFocus}>
     <div className="cs-titlebar cs-egg-titlebar">
       <span>Recycle Bin</span>
@@ -118,14 +122,27 @@ export const RecycleBinWindow = ({ style, onOpenFile, onClose, onFocus }) => (
         </span>
         <span>do not touch.txt</span>
       </button>
+      {/* Skule™ Hunt trail — the notepad icon holds the next clue. */}
+      <button
+        type="button"
+        className="cs-egg-fileicon"
+        onDoubleClick={onOpenHuntFile}
+        onClick={onOpenHuntFile}
+      >
+        <span className="cs-egg-fileglyph" role="img" aria-label="notepad">
+          📝
+        </span>
+        <span>hunt.txt</span>
+      </button>
     </div>
-    <div className="cs-egg-statusbar cs-sunken">1 object</div>
+    <div className="cs-egg-statusbar cs-sunken">2 objects</div>
   </div>
 );
 
 RecycleBinWindow.propTypes = {
   style: PropTypes.object.isRequired,
   onOpenFile: PropTypes.func.isRequired,
+  onOpenHuntFile: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   onFocus: PropTypes.func,
 };
@@ -174,6 +191,53 @@ NotepadWindow.propTypes = {
 };
 
 NotepadWindow.defaultProps = { onFocus: undefined };
+
+// ---------------------------------------------------------------------------
+// "hunt.txt" Notepad window — the Skule™ Hunt trail's next step.
+// Decoded (shift back 3): "Well spotted. Now go read the github commit messages.
+//                          One of them asks a question -- its answer, in
+//                          lowercase, is the new page. Go to our url slash that
+//                          answer. -- shift three, et tu?"
+// The commit in question is "Who holds Ye Olde Mighty Skule Cannon?" → /chief.
+// ---------------------------------------------------------------------------
+const HUNT_CIPHER_TEXT =
+  'Zhoo vsrwwhg. Qrz jr uhdg wkh jlwkxe frpplw phvvdjhv. ' +
+  'Rqh ri wkhp dvnv d txhvwlrq -- lwv dqvzhu, lq orzhufdvh, lv wkh qhz sdjh. ' +
+  'Jr wr rxu xuo vodvk wkdw dqvzhu. -- vkliw wkuhh, hw wx?';
+
+export const HuntNotepadWindow = ({ style, onClose, onFocus }) => (
+  <div
+    className="cs-window cs-raised cs-egg-window cs-egg-notepad"
+    style={style}
+    onPointerDown={onFocus}
+  >
+    <div className="cs-titlebar cs-egg-titlebar">
+      <span>hunt.txt - Notepad</span>
+      <div className="cs-winbtns">
+        <div className="cs-winbtn">_</div>
+        <div className="cs-winbtn">▢</div>
+        <div className="cs-winbtn" onClick={onClose} role="button" aria-label="close">
+          ✕
+        </div>
+      </div>
+    </div>
+    <div className="cs-egg-menu">
+      File&nbsp;&nbsp;&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;&nbsp;Search&nbsp;&nbsp;&nbsp;&nbsp;Help
+    </div>
+    <div className="cs-egg-notebody cs-sunken">
+      <p className="cs-egg-notehint">; encrypted with the oldest trick in the book</p>
+      <p className="cs-egg-notecipher">{HUNT_CIPHER_TEXT}</p>
+    </div>
+  </div>
+);
+
+HuntNotepadWindow.propTypes = {
+  style: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onFocus: PropTypes.func,
+};
+
+HuntNotepadWindow.defaultProps = { onFocus: undefined };
 
 // ---------------------------------------------------------------------------
 // Blue Screen of Death — full-viewport overlay. Dismiss with any key / click.
