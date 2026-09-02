@@ -15,7 +15,9 @@ import James from '../assets/2t6/hsl/Mingshi_James.png';
 import Rohan from '../assets/2t6/hsl/Rohan.png';
 import Sara from '../assets/2t6/hsl/Sara.jpg';
 import Victoria from '../assets/2t6/hsl/Victoria.png';
-import FroshLogo from '../assets/logo/2T6logo.png';
+import Antoan from '../assets/2t6/hsl/Antoan.jpg';
+import Katie from '../assets/2t6/hsl/katie.jpg';
+import Ines from '../assets/2t6/hsl/Ines.jpeg';
 
 // Export simple data array for HSLs. Ordered so co-HSL pairs sit next to each other.
 // `placeholder: true` marks HSLs whose photo/bio we don't have yet - they show the F!rosh logo.
@@ -23,7 +25,7 @@ export const scuntJudges = [
   { name: 'Hermela', img: Hermela },
   { name: 'Jim', img: Jim },
   { name: 'Sara', img: Sara },
-  { name: 'Antoan', img: FroshLogo, placeholder: true },
+  { name: 'Antoan', img: Antoan },
   { name: 'Auva', img: Auva },
   { name: 'Rohan', img: Rohan },
   { name: 'Ketevan', img: Ketevan },
@@ -35,10 +37,10 @@ export const scuntJudges = [
   { name: 'Devanshi', img: Devanshi },
   { name: 'Ethan', img: Ethan },
   { name: 'Francesca', img: Francesca },
-  { name: 'Katie', img: FroshLogo, placeholder: true },
+  { name: 'Katie', img: Katie },
   { name: 'Jack', img: Jack },
   { name: 'Matthew', img: Matthew },
-  { name: 'Ines', img: FroshLogo, placeholder: true },
+  { name: 'Ines', img: Ines },
   { name: 'Victoria', img: Victoria },
 ];
 
@@ -163,5 +165,26 @@ export const people = [
       "I'm Jim, a TrackOne Mech 2T7 + PEY and I am one of your HSLs this year! At Skule, I am involved with student government (Engineering Society), academic advocacy (upcoming curriculum and assessment policy changes), F!rosh Week Campus Tours Co-Chair, Co-programming director for Undergraduate Engineering Research Day 2026, Impact Director for Engineers Without Borders, (social change/impact club for engineers), and work part-time as a campus tour guide! In my free time, I enjoy reading, exploring big cities, photography, and recently started trying my hand at baking cheesecakes (wish me luck)! Looking forward to meeting and snatching victory this year!",
     content: [],
     img: Jim,
+  },
+  {
+    name: 'Antoan Venev',
+    description:
+      "Hello chat I'm Antoan. I love skule hunt because its where you hunt skule and and we need to catch it. I love music and mountains and football (real football) and yeah. If you need me like, walk around campus past midnight and im probably somewhere in gb basement. Anyways byeeeeeee.",
+    content: [],
+    img: Antoan,
+  },
+  {
+    name: 'Katie Buchel',
+    description:
+      'Hey gang, my name is Katie Buchel (MSE 2T9) and I’m am SO excited to be one of your HSLs 💥‼️ I love frozen smile cookies(/desserts in general) and hiking. My heart belongs to Canva Pro <3',
+    content: [],
+    img: Katie,
+  },
+  {
+    name: 'Ines El Amri',
+    description:
+      'Hey everyone ! Indy 2T9 here 🧘‍♀️. I am super happy to be an HSL this year. Two things you should know about me : I have a watermelon candy obsession and I am probably way too excited for Skule Hunt.',
+    content: [],
+    img: Ines,
   },
 ];

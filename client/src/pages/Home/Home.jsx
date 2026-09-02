@@ -82,14 +82,14 @@ const HomePageHeader = () => {
           rule uses `all: unset`, which would wipe the star's positioning,
           clip-path and background. The class below already sets the text color. */}
       <Link
-        to={loggedIn ? '/profile' : '/sign-up'}
+        to={'/'}
         className="header-register-star"
         style={{ textDecoration: 'none' }}
       >
         <span style={{ transform: 'rotate(-23deg)', display: 'block', marginLeft: '12px' }}>
-          Register
+          Registration
           <br />
-          Now!
+          Closed!
         </span>
       </Link>
 
@@ -150,7 +150,7 @@ const HomePageAboutBlurb = () => {
 
 const HomeHeaderButton = () => {
   const loggedIn = useSelector(loggedInSelector);
-  const [isRegistrationOpen, setIsRegistrationOpen] = useState(true);
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
 
   return (
     <>

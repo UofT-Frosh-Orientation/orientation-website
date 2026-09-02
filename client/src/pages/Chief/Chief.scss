@@ -1,0 +1,208 @@
+/*
+ * /chief — the payoff page at the end of the Skule™ Hunt easter-egg trail.
+ *
+ * Styled to match the W95 "Coming Soon" desktop the trail passes through, so it
+ * reads as the same secret. Deliberately self-contained (its own palette rather
+ * than the site's light/dark theme vars) so it looks identical in both modes.
+ */
+.chief-page {
+  --chief-face: #c0c0c0;
+  --chief-title: #291254;
+  --chief-desktop: #582c83;
+  --chief-font: 'W95FA', 'MS Sans Serif', 'Tahoma', 'Segoe UI', sans-serif;
+
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background-color: var(--chief-desktop);
+  background-image: linear-gradient(180deg, #6a3a9c 0%, #582c83 55%, #3d1d62 100%);
+  font-family: var(--chief-font);
+}
+
+.chief-window {
+  width: 100%;
+  max-width: 560px;
+  background: var(--chief-face);
+  padding: 3px;
+  box-shadow: inset -1px -1px 0 0 #0a0a0a, inset 1px 1px 0 0 #fff, inset -2px -2px 0 0 #808080,
+    inset 2px 2px 0 0 #dfdfdf;
+}
+
+.chief-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 24px;
+  padding: 0 4px;
+  background: var(--chief-title);
+  color: #ffd700;
+  font-size: 17px;
+}
+
+.chief-winbtns {
+  display: flex;
+  gap: 2px;
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 16px;
+    background: var(--chief-face);
+    color: #000;
+    font-size: 11px;
+    box-shadow: inset -1px -1px 0 0 #0a0a0a, inset 1px 1px 0 0 #fff;
+  }
+}
+
+.chief-body {
+  padding: 20px 22px 24px;
+  color: #000;
+  text-align: center;
+}
+
+.chief-logo {
+  width: 84px;
+  height: auto;
+  margin: 0 auto 12px;
+  display: block;
+}
+
+.chief-heading {
+  margin: 0 0 10px;
+  font-size: 30px;
+  line-height: 1.1;
+  color: #000;
+}
+
+.chief-text {
+  margin: 0 0 20px;
+  font-size: 17px;
+  line-height: 1.35;
+  color: #212121;
+}
+
+// The post-submit payoff is the only thing left on screen, so it gets to be big.
+.chief-text--payoff {
+  margin: 8px 0 4px;
+  font-size: 22px;
+  line-height: 1.4;
+  color: #000;
+}
+
+.chief-form {
+  text-align: left;
+}
+
+.chief-label {
+  display: block;
+  margin: 0 0 6px;
+  font-size: 17px;
+  color: #000;
+
+  // Every label after the first needs breathing room from the field above it.
+  &:not(:first-child) {
+    margin-top: 14px;
+  }
+}
+
+// Scoped under .chief-page on purpose: App.scss has a global
+// `input[type='text'] { color: var(--black) }`, and --black is WHITE in dark
+// mode — which rendered these fields white-on-white. `.chief-page .chief-input`
+// (0,2,0) outweighs that (0,1,1), so the ink stays black on the W95 white.
+.chief-page {
+  .chief-input,
+  .chief-textarea {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    background: #fff;
+    color: #000;
+    border: none;
+    outline: none;
+    font-family: var(--chief-font);
+    font-size: 16px;
+    line-height: 1.4;
+    box-shadow: inset -1px -1px 0 0 #fff, inset 1px 1px 0 0 #808080, inset -2px -2px 0 0 #dfdfdf,
+      inset 2px 2px 0 0 #0a0a0a;
+
+    &::placeholder {
+      color: #767676;
+    }
+
+    &:focus {
+      outline: 1px dotted #000;
+      outline-offset: 2px;
+    }
+  }
+
+  .chief-textarea {
+    resize: vertical;
+  }
+}
+
+.chief-counter {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #4a4a4a;
+  text-align: right;
+}
+
+.chief-error {
+  margin: 10px 0 0;
+  font-size: 15px;
+  color: #8b0000;
+}
+
+.chief-note {
+  margin: 14px 0 0;
+  font-size: 14px;
+  line-height: 1.35;
+  color: #4a4a4a;
+  text-align: center;
+}
+
+.chief-submit {
+  display: block;
+  margin: 16px auto 0;
+  min-width: 110px;
+  padding: 6px 18px;
+  background: var(--chief-face);
+  color: #000;
+  border: none;
+  cursor: pointer;
+  font-family: var(--chief-font);
+  font-size: 17px;
+  box-shadow: inset -1px -1px 0 0 #0a0a0a, inset 1px 1px 0 0 #fff, inset -2px -2px 0 0 #808080,
+    inset 2px 2px 0 0 #dfdfdf;
+
+  &:active:not(:disabled) {
+    box-shadow: inset 1px 1px 0 0 #0a0a0a, inset -1px -1px 0 0 #fff, inset 2px 2px 0 0 #808080,
+      inset -2px -2px 0 0 #dfdfdf;
+  }
+
+  &:disabled {
+    color: #808080;
+    text-shadow: 1px 1px 0 #fff;
+    cursor: default;
+  }
+}
+
+// The signed-out "Sign in" call to action is a router <Link>, so it needs the
+// anchor bits a <button> doesn't: no underline, and sized to its own text.
+.chief-submit--link {
+  width: fit-content;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    color: #000;
+    text-decoration: none;
+  }
+}

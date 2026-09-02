@@ -76,7 +76,12 @@ const ScuntJudgesShowWrapper = () => {
         p.name.toLowerCase().startsWith(j.name.toLowerCase() + ' '),
     );
     if (detail) {
-      return { ...j, description: detail.description, content: detail.content };
+      return {
+        ...j,
+        description: detail.description,
+        content: detail.content,
+        hiddenNote: detail.hiddenNote,
+      };
     }
     return j;
   });
@@ -177,7 +182,11 @@ JudgeCard.propTypes = { judge: PropTypes.object, onOpen: PropTypes.func };
 const JudgeModal = ({ judge }) => {
   return (
     <div className="judge-modal-content">
-      <p className="judge-modal-bio">{judge.description || 'Bio coming soon!'}</p>
+      <p className="judge-modal-bio">
+        {judge.description || 'Bio coming soon!'}
+        {/* Skule™ Hunt easter egg: invisible until you highlight it. */}
+        {judge.hiddenNote && <span className="judge-modal-hidden-note"> {judge.hiddenNote}</span>}
+      </p>
       {Array.isArray(judge.content) && judge.content.length > 0 && (
         <div className="judge-modal-bribes">
           <h3>Bribes</h3>

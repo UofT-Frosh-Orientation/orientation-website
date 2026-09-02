@@ -37,6 +37,11 @@
     padding: 10px;
     background: #fff;
     min-height: 120px;
+    // Icons sit side by side, wrapping like a real W95 folder view.
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 8px;
   }
 
   .cs-egg-fileicon {
@@ -76,12 +81,18 @@
   }
 
   // ---- Notepad ----
+  // `.coming-soon` turns selection off desktop-wide so dragging windows doesn't
+  // smear text. The notepad bodies opt back in: hunters need to be able to
+  // select and copy the cipher out to decode it.
   .cs-egg-notebody {
     flex: 1 1 auto;
     margin: 0 4px 4px;
     padding: 10px 12px;
     background: #fff;
     overflow: auto;
+    user-select: text;
+    -webkit-user-select: text;
+    cursor: text;
   }
 
   .cs-egg-notehint {
