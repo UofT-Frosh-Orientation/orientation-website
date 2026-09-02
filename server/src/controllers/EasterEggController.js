@@ -1,8 +1,12 @@
+const EmailValidator = require('email-validator');
 const EasterEggServices = require('../services/EasterEggServices');
 
 // Identifier for the "describe your funniest F!rosh memory" prompt on /chief.
 const FROSH_MEMORY_PROMPT = 'frosh-memory';
 const MAX_RESPONSE_LENGTH = 2000;
+const MAX_NAME_LENGTH = 100;
+const MAX_EMAIL_LENGTH = 254;
+const MAX_TEAM_LENGTH = 50;
 
 // The submit endpoint is deliberately public (the whole point of the easter egg
 // is that anyone who solves the trail can answer, logged in or not), so it gets
@@ -35,16 +39,38 @@ const isRateLimited = (ip) => {
 const EasterEggController = {
   /**
    * Records a funniest-F!rosh-memory submission from the hidden /chief page.
+   * Name / email / team are self-reported so points can be awarded by hand.
    */
   async submitFroshMemory(req, res, next) {
-    const { memory } = req.body;
+    const { name, email, scuntTeam, memory } = req.body;
 
+    const asText = (value, max) =>
+      typeof value === 'string' && value.trim().length > 0 && value.trim().length <= max
+        ? value.trim()
+        : null;
+
+    const cleanName = asText(name, MAX_NAME_LENGTH);
+    if (!cleanName) {
+      return res.status(400).send({ message: 'Please tell us your name!' });
+    }
+
+    const cleanEmail = asText(email, MAX_EMAIL_LENGTH);
+    if (!cleanEmail || !EmailValidator.validate(cleanEmail)) {
+      return res.status(400).send({ message: 'Please enter a valid email!' });
+    }
+
+    // Kept as free text (not a number) so nobody is blocked mid-hunt by typing
+    // something like "Team 7" — a human reads these when awarding points.
+    const cleanTeam = asText(scuntTeam, MAX_TEAM_LENGTH);
+    if (!cleanTeam) {
+      return res.status(400).send({ message: 'Please enter your Skule Hunt team number!' });
+    }
+
+    const cleanMemory = asText(memory, MAX_RESPONSE_LENGTH);
     if (typeof memory !== 'string' || memory.trim().length === 0) {
       return res.status(400).send({ message: 'Please write something first!' });
     }
-
-    const response = memory.trim();
-    if (response.length > MAX_RESPONSE_LENGTH) {
+    if (!cleanMemory) {
       return res
         .status(400)
         .send({ message: `Keep it under ${MAX_RESPONSE_LENGTH} characters please!` });
@@ -55,7 +81,13 @@ const EasterEggController = {
     }
 
     try {
-      await EasterEggServices.create(FROSH_MEMORY_PROMPT, response);
+      await EasterEggServices.create(
+        FROSH_MEMORY_PROMPT,
+        cleanName,
+        cleanEmail,
+        cleanTeam,
+        cleanMemory,
+      );
       return res.status(200).send({ message: 'Submission received!' });
     } catch (e) {
       req.log.error({ msg: 'Unable to save easter egg submission', e });

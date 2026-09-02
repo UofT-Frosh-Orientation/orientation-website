@@ -88,25 +88,39 @@
   color: #212121;
 }
 
+// The post-submit payoff is the only thing left on screen, so it gets to be big.
+.chief-text--payoff {
+  margin: 8px 0 4px;
+  font-size: 22px;
+  line-height: 1.4;
+  color: #000;
+}
+
 .chief-form {
   text-align: left;
 }
 
 .chief-label {
   display: block;
-  margin-bottom: 6px;
+  margin: 0 0 6px;
   font-size: 17px;
   color: #000;
+
+  // Every label after the first needs breathing room from the field above it.
+  &:not(:first-child) {
+    margin-top: 14px;
+  }
 }
 
+.chief-input,
 .chief-textarea {
+  display: block;
   width: 100%;
   padding: 8px;
   background: #fff;
   color: #000;
   border: none;
   outline: none;
-  resize: vertical;
   font-family: var(--chief-font);
   font-size: 16px;
   line-height: 1.4;
@@ -117,6 +131,10 @@
     outline: 1px dotted #000;
     outline-offset: 2px;
   }
+}
+
+.chief-textarea {
+  resize: vertical;
 }
 
 .chief-counter {

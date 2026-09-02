@@ -18,13 +18,19 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               scuntTeam:
+ *                 type: string
  *               memory:
  *                 type: string
  *     responses:
  *       '200':
  *         description: Submission received
  *       '400':
- *         description: Empty or oversized submission
+ *         description: Missing, invalid or oversized fields
  *       '429':
  *         description: Too many submissions from this IP
  */

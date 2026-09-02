@@ -194,16 +194,10 @@ NotepadWindow.defaultProps = { onFocus: undefined };
 
 // ---------------------------------------------------------------------------
 // "hunt.txt" Notepad window — the Skule™ Hunt trail's next step.
-// Decoded (shift back 3): "Well spotted. Now go read the github commit messages.
-//                          One of them asks a question -- its answer, in
-//                          lowercase, is the new page. Go to our url slash that
-//                          answer. -- shift three, et tu?"
+// Decoded (shift back 3): "Check the github commits for the new url"
 // The commit in question is "Who holds Ye Olde Mighty Skule Cannon?" → /chief.
 // ---------------------------------------------------------------------------
-const HUNT_CIPHER_TEXT =
-  'Zhoo vsrwwhg. Qrz jr uhdg wkh jlwkxe frpplw phvvdjhv. ' +
-  'Rqh ri wkhp dvnv d txhvwlrq -- lwv dqvzhu, lq orzhufdvh, lv wkh qhz sdjh. ' +
-  'Jr wr rxu xuo vodvk wkdw dqvzhu. -- vkliw wkuhh, hw wx?';
+const HUNT_CIPHER_TEXT = 'Fkhfn wkh jlwkxe frpplwv iru wkh qhz xuo';
 
 export const HuntNotepadWindow = ({ style, onClose, onFocus }) => (
   <div
@@ -224,8 +218,9 @@ export const HuntNotepadWindow = ({ style, onClose, onFocus }) => (
     <div className="cs-egg-menu">
       File&nbsp;&nbsp;&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;&nbsp;Search&nbsp;&nbsp;&nbsp;&nbsp;Help
     </div>
+    {/* No hint line here — the cipher is the whole file. The "shift three, et
+        tu?" nudge lives next door in "do not touch.txt". */}
     <div className="cs-egg-notebody cs-sunken">
-      <p className="cs-egg-notehint">; encrypted with the oldest trick in the book</p>
       <p className="cs-egg-notecipher">{HUNT_CIPHER_TEXT}</p>
     </div>
   </div>

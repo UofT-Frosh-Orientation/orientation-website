@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import './Chief.scss';
 
 import useAxios from '../../hooks/useAxios';
+import { userSelector } from '../../state/user/userSlice';
 import FroshLogo from '../../assets/logo/2T6logo_1.png';
 
 const { axios } = useAxios();
@@ -15,12 +17,33 @@ const { axios } = useAxios();
 const MAX_LENGTH = 2000;
 
 const PageChief = () => {
+  // Anyone who solved the trail can submit, logged in or not — but if there IS
+  // a session we prefill from it so the details we award points against are
+  // less likely to be typo'd.
+  const { user } = useSelector(userSelector);
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [scuntTeam, setScuntTeam] = useState('');
   const [memory, setMemory] = useState('');
   const [status, setStatus] = useState('idle'); // idle | sending | done | error
   const [error, setError] = useState('');
 
-  const trimmed = memory.trim();
-  const canSubmit = trimmed.length > 0 && status !== 'sending';
+  useEffect(() => {
+    if (!user) return;
+    const fullName = [user.firstName, user.lastName].filter(Boolean).join(' ');
+    if (fullName) setName((prev) => prev || fullName);
+    if (user.email) setEmail((prev) => prev || user.email);
+    if (user.scuntTeam) setScuntTeam((prev) => prev || String(user.scuntTeam));
+  }, [user]);
+
+  const canSubmit =
+    name.trim() &&
+    email.trim() &&
+    scuntTeam.trim() &&
+    memory.trim() &&
+    status !== 'sending' &&
+    status !== 'done';
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +52,12 @@ const PageChief = () => {
     setStatus('sending');
     setError('');
     try {
-      await axios.post('/easter-egg/frosh-memory', { memory: trimmed });
+      await axios.post('/easter-egg/frosh-memory', {
+        name: name.trim(),
+        email: email.trim(),
+        scuntTeam: scuntTeam.trim(),
+        memory: memory.trim(),
+      });
       setStatus('done');
     } catch (err) {
       setStatus('error');
@@ -56,13 +84,10 @@ const PageChief = () => {
           <img className="chief-logo" src={FroshLogo} alt="F!rosh Week logo" />
 
           {status === 'done' ? (
-            <>
-              <h1 className="chief-heading">Transmission received.</h1>
-              <p className="chief-text">
-                You found the cannon, you found the page, and now we have your story. Nicely hunted.
-                Go tell a judge you made it all the way here. 🏆
-              </p>
-            </>
+            <p className="chief-text chief-text--payoff">
+              You completed this easter egg. Good Job Frosh! May the engineering gods bless your
+              midterms - Parth &amp; Ablah
+            </p>
           ) : (
             <>
               <h1 className="chief-heading">You found it.</h1>
@@ -72,6 +97,48 @@ const PageChief = () => {
               </p>
 
               <form className="chief-form" onSubmit={onSubmit}>
+                <label className="chief-label" htmlFor="chief-name">
+                  Name
+                </label>
+                <input
+                  id="chief-name"
+                  className="chief-input"
+                  type="text"
+                  value={name}
+                  maxLength={100}
+                  autoComplete="name"
+                  placeholder="Your name"
+                  onChange={(e) => setName(e.target.value)}
+                />
+
+                <label className="chief-label" htmlFor="chief-email">
+                  Email
+                </label>
+                <input
+                  id="chief-email"
+                  className="chief-input"
+                  type="email"
+                  value={email}
+                  maxLength={254}
+                  autoComplete="email"
+                  placeholder="you@mail.utoronto.ca"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+
+                <label className="chief-label" htmlFor="chief-team">
+                  Skule™ Hunt team number
+                </label>
+                <input
+                  id="chief-team"
+                  className="chief-input"
+                  type="text"
+                  inputMode="numeric"
+                  value={scuntTeam}
+                  maxLength={50}
+                  placeholder="e.g. 7"
+                  onChange={(e) => setScuntTeam(e.target.value)}
+                />
+
                 <label className="chief-label" htmlFor="chief-memory">
                   Describe your funniest F!rosh memory
                 </label>
