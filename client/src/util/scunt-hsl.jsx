@@ -16,6 +16,8 @@ import Rohan from '../assets/2t6/hsl/Rohan.png';
 import Sara from '../assets/2t6/hsl/Sara.jpg';
 import Victoria from '../assets/2t6/hsl/Victoria.png';
 import FroshLogo from '../assets/logo/2T6logo.png';
+import Antoan from '../assets/2t6/hsl/Antoan.jpg';
+import katie from '../assets/2t6/hsl/katie.jpg';
 
 // Export simple data array for HSLs. Ordered so co-HSL pairs sit next to each other.
 // `placeholder: true` marks HSLs whose photo/bio we don't have yet - they show the F!rosh logo.
@@ -23,7 +25,7 @@ export const scuntJudges = [
   { name: 'Hermela', img: Hermela },
   { name: 'Jim', img: Jim },
   { name: 'Sara', img: Sara },
-  { name: 'Antoan', img: FroshLogo, placeholder: true },
+  { name: 'Antoan', img: Antoan },
   { name: 'Auva', img: Auva },
   { name: 'Rohan', img: Rohan },
   { name: 'Ketevan', img: Ketevan },
@@ -35,7 +37,7 @@ export const scuntJudges = [
   { name: 'Devanshi', img: Devanshi },
   { name: 'Ethan', img: Ethan },
   { name: 'Francesca', img: Francesca },
-  { name: 'Katie', img: FroshLogo, placeholder: true },
+  { name: 'Katie', img: katie },
   { name: 'Jack', img: Jack },
   { name: 'Matthew', img: Matthew },
   { name: 'Ines', img: FroshLogo, placeholder: true },
