@@ -565,6 +565,23 @@ export const ProfilePageScuntTeam = () => {
     }
   }, [scuntTeams]);
 
+  const scuntTeamLinks = [
+    'https://discord.gg/sCCBAxvne',
+    'https://discord.gg/vyjMHSmYT',
+    'https://discord.gg/75PGyZ32X',
+    'https://discord.gg/GwBnxkC4s',
+    'https://discord.gg/nSwBpAJyb',
+    'https://discord.gg/VZGERCSbn',
+    'https://discord.gg/JcZXq96KD',
+    'https://discord.gg/FE5GDx3aW',
+    'https://discord.gg/TUGVAbQTF',
+    'https://discord.gg/whvwKFyVq',
+  ];
+
+  const teamLink = scuntTeam?.number
+    ? scuntTeamLinks[scuntTeam.number - 1]
+    : null;
+
   if (!isRegistered || !scuntSettings || !scuntSettings?.revealTeams) return null;
   return (
     <div className="profile-page-scunt-team profile-page-side-section">
@@ -574,7 +591,12 @@ export const ProfilePageScuntTeam = () => {
           Team {scuntTeam ? scuntTeam.number : null}: {scuntTeam ? scuntTeam.name : null}
         </b>
       </h2>
-    </div>
+      {teamLink && (
+        <a href={teamLink} className="scunt-discord-link" target="_blank" rel="noreferrer">
+          Join your team on Discord
+        </a>
+      )}
+      </div>
   );
 };
 
