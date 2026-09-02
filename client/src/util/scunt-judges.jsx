@@ -14,6 +14,7 @@ import Shashank from '../assets/2t6/judges/Shashank.webp';
 import Tom from '../assets/2t6/judges/Tom.jpeg';
 import Tristan from '../assets/2t6/judges/Tristan.jpg';
 import Nick from '../assets/2t6/judges/Nick.jpg';
+import Webmasters from '../assets/2t6/judges/Webmasters.jpg';
 import FroshLogo from '../assets/logo/2T6logo.png';
 
 // Export simple data array for judges. Extend with extra fields as needed.
@@ -35,6 +36,7 @@ export const scuntJudges = [
   { name: 'Shashank', img: Shashank },
   { name: 'Tristan', img: Tristan },
   { name: 'Tom', img: Tom },
+  { name: 'Tech Team', img: Webmasters },
 ];
 
 // Consumers (e.g., `ScuntJudgesShowWrapper`) can now import { scuntJudges }.
@@ -151,5 +153,12 @@ export const people = [
       'Tom is a lover of music and theatre, electronics and power systems, and skateboarding! You may have seen him running Matriculation on day 1 of Frosh week. For Skule Hunt, he isn’t just interested in WHAT you can bring him… but the STORY that you can tell with your bribes and challenges. Get hunting!',
     content: [],
     img: Tom,
+  },
+  {
+    name: 'Tech Team',
+    description:
+      "Collective guardians of the codebase and purveyors of arcane digital challenges. Pictured are your Webmasters Ablah and Parth, but our lovely site wouldn't be possible without the help of Linden, Jiya, Sumedhaa, Harshita and Ryan as well! Also please do come bribe us we promise you will not be disappointed coughcoughwehaveallthepowercoughcough haha must be the wind",
+    content: [],
+    img: Webmasters,
   },
 ];
