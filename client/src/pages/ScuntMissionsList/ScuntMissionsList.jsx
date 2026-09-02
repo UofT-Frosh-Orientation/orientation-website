@@ -24,14 +24,18 @@ import { PopupModal } from '../../components/popup/PopupModal';
 import { Button } from '../../components/button/Button/Button';
 import { ButtonRound } from '../../components/button/ButtonRound/ButtonRound';
 
+// Categories come from a user-uploaded CSV, so stray whitespace is common and would
+// otherwise make "RETRO" and "RETRO " read as two different categories.
+const normalizeCategory = (category) => (category ?? '').trim();
+
 function getMissionCategories(missions) {
-  let currentCategory = '';
-  let output = ['All Categories'];
+  const seen = new Set();
+  const output = ['All Categories'];
   for (let mission of missions) {
-    if (mission?.category !== currentCategory) {
-      output.push(mission.category);
-    }
-    currentCategory = mission?.category;
+    const category = normalizeCategory(mission?.category);
+    if (!category || seen.has(category)) continue;
+    seen.add(category);
+    output.push(category);
   }
   return output;
 }
@@ -270,7 +274,7 @@ const PageScuntMissionsListShow = () => {
     const output = [];
     for (let mission of sortedMissions) {
       if (selectedCategory !== 'All Categories') {
-        if (mission?.category !== selectedCategory) {
+        if (normalizeCategory(mission?.category) !== normalizeCategory(selectedCategory)) {
           continue;
         }
       }
