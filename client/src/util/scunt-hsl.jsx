@@ -15,10 +15,9 @@ import James from '../assets/2t6/hsl/Mingshi_James.png';
 import Rohan from '../assets/2t6/hsl/Rohan.png';
 import Sara from '../assets/2t6/hsl/Sara.jpg';
 import Victoria from '../assets/2t6/hsl/Victoria.png';
-import FroshLogo from '../assets/logo/2T6logo.png';
 import Antoan from '../assets/2t6/hsl/Antoan.jpg';
 import Katie from '../assets/2t6/hsl/katie.jpg';
-import Ines from '../assets/2t6/hsl/Ines.jpg';
+import Ines from '../assets/2t6/hsl/Ines.jpeg';
 
 // Export simple data array for HSLs. Ordered so co-HSL pairs sit next to each other.
 // `placeholder: true` marks HSLs whose photo/bio we don't have yet - they show the F!rosh logo.
@@ -41,9 +40,8 @@ export const scuntJudges = [
   { name: 'Katie', img: Katie },
   { name: 'Jack', img: Jack },
   { name: 'Matthew', img: Matthew },
-  { name: 'Ines', img: FroshLogo, placeholder: true },
-  { name: 'Victoria', img: Victoria },
   { name: 'Ines', img: Ines },
+  { name: 'Victoria', img: Victoria },
 ];
 
 // Consumers (e.g., `ScuntJudgesShowWrapper`) can now import { scuntJudges }.
