@@ -112,29 +112,39 @@
   }
 }
 
-.chief-input,
-.chief-textarea {
-  display: block;
-  width: 100%;
-  padding: 8px;
-  background: #fff;
-  color: #000;
-  border: none;
-  outline: none;
-  font-family: var(--chief-font);
-  font-size: 16px;
-  line-height: 1.4;
-  box-shadow: inset -1px -1px 0 0 #fff, inset 1px 1px 0 0 #808080, inset -2px -2px 0 0 #dfdfdf,
-    inset 2px 2px 0 0 #0a0a0a;
+// Scoped under .chief-page on purpose: App.scss has a global
+// `input[type='text'] { color: var(--black) }`, and --black is WHITE in dark
+// mode — which rendered these fields white-on-white. `.chief-page .chief-input`
+// (0,2,0) outweighs that (0,1,1), so the ink stays black on the W95 white.
+.chief-page {
+  .chief-input,
+  .chief-textarea {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    background: #fff;
+    color: #000;
+    border: none;
+    outline: none;
+    font-family: var(--chief-font);
+    font-size: 16px;
+    line-height: 1.4;
+    box-shadow: inset -1px -1px 0 0 #fff, inset 1px 1px 0 0 #808080, inset -2px -2px 0 0 #dfdfdf,
+      inset 2px 2px 0 0 #0a0a0a;
 
-  &:focus {
-    outline: 1px dotted #000;
-    outline-offset: 2px;
+    &::placeholder {
+      color: #767676;
+    }
+
+    &:focus {
+      outline: 1px dotted #000;
+      outline-offset: 2px;
+    }
   }
-}
 
-.chief-textarea {
-  resize: vertical;
+  .chief-textarea {
+    resize: vertical;
+  }
 }
 
 .chief-counter {
@@ -148,6 +158,14 @@
   margin: 10px 0 0;
   font-size: 15px;
   color: #8b0000;
+}
+
+.chief-note {
+  margin: 14px 0 0;
+  font-size: 14px;
+  line-height: 1.35;
+  color: #4a4a4a;
+  text-align: center;
 }
 
 .chief-submit {
@@ -173,5 +191,18 @@
     color: #808080;
     text-shadow: 1px 1px 0 #fff;
     cursor: default;
+  }
+}
+
+// The signed-out "Sign in" call to action is a router <Link>, so it needs the
+// anchor bits a <button> doesn't: no underline, and sized to its own text.
+.chief-submit--link {
+  width: fit-content;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    color: #000;
+    text-decoration: none;
   }
 }

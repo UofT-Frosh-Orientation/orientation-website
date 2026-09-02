@@ -4,11 +4,12 @@ const mongoose = require('mongoose');
  * Submissions from the hidden Skule™ Hunt easter-egg trail (see
  * `client/src/pages/Chief/Chief.jsx`).
  *
- * The trail is open to anyone who solves it, logged in or not, so the hunter's
- * identity is self-reported: name, email and team number are typed into the
- * form (prefilled from the session when there is one) purely so points can be
- * awarded manually afterwards. Nothing here is authenticated — treat it as a
- * claim to be checked against the team list, not as proof of identity.
+ * Hunters must be signed in to submit, so name / email / team are copied off
+ * the session's user document rather than typed — they are here so points can
+ * be awarded by hand without a second lookup, and they are a snapshot of the
+ * profile at submit time (a later team reassignment will not update them).
+ *
+ * One submission per user per prompt, enforced by the unique index below.
  */
 const EasterEggSubmissionSchema = new mongoose.Schema(
   {
@@ -17,10 +18,15 @@ const EasterEggSubmissionSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
     name: {
       type: String,
       required: true,
-      maxLength: 100,
+      maxLength: 200,
     },
     email: {
       type: String,
@@ -29,7 +35,8 @@ const EasterEggSubmissionSchema = new mongoose.Schema(
     },
     scuntTeam: {
       type: String,
-      required: true,
+      required: false,
+      default: '',
       maxLength: 50,
     },
     response: {
@@ -40,6 +47,10 @@ const EasterEggSubmissionSchema = new mongoose.Schema(
   },
   { strict: true, timestamps: true },
 );
+
+// Makes "one submission each" a database guarantee rather than a check that two
+// simultaneous requests could both slip past.
+EasterEggSubmissionSchema.index({ prompt: 1, userId: 1 }, { unique: true });
 
 const EasterEggSubmissionModel = mongoose.model('EasterEggSubmission', EasterEggSubmissionSchema);
 

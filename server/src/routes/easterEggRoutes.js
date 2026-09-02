@@ -11,6 +11,9 @@ const router = express.Router();
  * /easter-egg/frosh-memory:
  *   post:
  *     summary: Records a submission from the hidden Skule Hunt easter-egg trail
+ *     description: >
+ *       One submission per user. Name, email and team are taken from the signed
+ *       in user, not the request body.
  *     requestBody:
  *       required: true
  *       content:
@@ -18,23 +21,32 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               name:
- *                 type: string
- *               email:
- *                 type: string
- *               scuntTeam:
- *                 type: string
  *               memory:
  *                 type: string
  *     responses:
  *       '200':
  *         description: Submission received
  *       '400':
- *         description: Missing, invalid or oversized fields
- *       '429':
- *         description: Too many submissions from this IP
+ *         description: Empty or oversized submission
+ *       '403':
+ *         $ref: '#components/responses/NotLoggedIn'
+ *       '409':
+ *         description: This user has already submitted
  */
-router.post('/frosh-memory', EasterEggController.submitFroshMemory);
+router.post('/frosh-memory', checkLoggedIn, EasterEggController.submitFroshMemory);
+
+/**
+ * @swagger
+ * /easter-egg/frosh-memory/status:
+ *   get:
+ *     summary: Whether the signed in user has already submitted
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved the submission status
+ *       '403':
+ *         $ref: '#components/responses/NotLoggedIn'
+ */
+router.get('/frosh-memory/status', checkLoggedIn, EasterEggController.getFroshMemoryStatus);
 
 /**
  * @swagger

@@ -5,13 +5,15 @@ import './EasterEggs.scss';
 // ===========================================================================
 // EASTER EGGS for the W95 "Coming Soon" desktop.
 //
-// Three hidden things live here:
+// Four hidden things live here:
 //   1. KONAMI CODE  — ↑ ↑ ↓ ↓ ← → ← → B A  → plays a sound + flashes the desktop.
 //   2. XYZZY        — type "XYZZY" then press SHIFT+ENTER → Minesweeper reveals
 //                     every mine (handled in Minesweeper.jsx via a `cheat` prop;
 //                     this hook just fires the trigger).
-//   3. THE FILE     — open the Recycling Bin → open "do not touch.txt" → decode
-//                     the Caesar cipher → type the secret word → Blue Screen.
+//   3. CRASH        — type "CRASH" anywhere → Blue Screen. Unhinted: the note
+//                     that used to give it away ("do not touch.txt") was pulled
+//                     from the Recycling Bin so the Skule™ Hunt trail below is
+//                     the only thing in there.
 //   4. THE HUNT     — open the Recycling Bin → open "hunt.txt" (the notepad
 //                     icon) → decode the Caesar cipher → it points at the GitHub
 //                     commit messages, where the question "Who holds Ye Olde
@@ -95,7 +97,7 @@ export const useEasterEggs = ({ onKonami, onXyzzy, onCrash }) => {
 // ---------------------------------------------------------------------------
 // Recycling Bin window — lists the single forbidden file.
 // ---------------------------------------------------------------------------
-export const RecycleBinWindow = ({ style, onOpenFile, onOpenHuntFile, onClose, onFocus }) => (
+export const RecycleBinWindow = ({ style, onOpenHuntFile, onClose, onFocus }) => (
   <div className="cs-window cs-raised cs-egg-window" style={style} onPointerDown={onFocus}>
     <div className="cs-titlebar cs-egg-titlebar">
       <span>Recycle Bin</span>
@@ -110,19 +112,9 @@ export const RecycleBinWindow = ({ style, onOpenFile, onOpenHuntFile, onClose, o
     <div className="cs-egg-menu">
       File&nbsp;&nbsp;&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;&nbsp;View&nbsp;&nbsp;&nbsp;&nbsp;Help
     </div>
+    {/* Skule™ Hunt trail — the notepad icon holds the next clue, and it is the
+        only thing in the bin so there is nothing to get lost in. */}
     <div className="cs-egg-binbody cs-sunken">
-      <button
-        type="button"
-        className="cs-egg-fileicon"
-        onDoubleClick={onOpenFile}
-        onClick={onOpenFile}
-      >
-        <span className="cs-egg-fileglyph" role="img" aria-label="text file">
-          📄
-        </span>
-        <span>do not touch.txt</span>
-      </button>
-      {/* Skule™ Hunt trail — the notepad icon holds the next clue. */}
       <button
         type="button"
         className="cs-egg-fileicon"
@@ -135,13 +127,12 @@ export const RecycleBinWindow = ({ style, onOpenFile, onOpenHuntFile, onClose, o
         <span>hunt.txt</span>
       </button>
     </div>
-    <div className="cs-egg-statusbar cs-sunken">2 objects</div>
+    <div className="cs-egg-statusbar cs-sunken">1 object</div>
   </div>
 );
 
 RecycleBinWindow.propTypes = {
   style: PropTypes.object.isRequired,
-  onOpenFile: PropTypes.func.isRequired,
   onOpenHuntFile: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   onFocus: PropTypes.func,
@@ -150,50 +141,8 @@ RecycleBinWindow.propTypes = {
 RecycleBinWindow.defaultProps = { onFocus: undefined };
 
 // ---------------------------------------------------------------------------
-// Notepad window — shows the Caesar-ciphered note.
-// Decoded (shift back 3): "You were warned. The word that wakes it is: CRASH.
-//                          Type it if you dare. -- C. (shift three, et tu?)"
-// ---------------------------------------------------------------------------
-const CIPHER_TEXT =
-  'Brx zhuh zduqhg. Wkh zrug wkdw zdnhv lw lv: FUDVK. ' +
-  'Wbsh lw li brx gduh. -- F. (vkliw wkuhh, hw wx?)';
-
-export const NotepadWindow = ({ style, onClose, onFocus }) => (
-  <div
-    className="cs-window cs-raised cs-egg-window cs-egg-notepad"
-    style={style}
-    onPointerDown={onFocus}
-  >
-    <div className="cs-titlebar cs-egg-titlebar">
-      <span>do not touch.txt - Notepad</span>
-      <div className="cs-winbtns">
-        <div className="cs-winbtn">_</div>
-        <div className="cs-winbtn">▢</div>
-        <div className="cs-winbtn" onClick={onClose} role="button" aria-label="close">
-          ✕
-        </div>
-      </div>
-    </div>
-    <div className="cs-egg-menu">
-      File&nbsp;&nbsp;&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;&nbsp;Search&nbsp;&nbsp;&nbsp;&nbsp;Help
-    </div>
-    <div className="cs-egg-notebody cs-sunken">
-      <p className="cs-egg-notehint">; encrypted with the oldest trick in the book</p>
-      <p className="cs-egg-notecipher">{CIPHER_TEXT}</p>
-    </div>
-  </div>
-);
-
-NotepadWindow.propTypes = {
-  style: PropTypes.object.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onFocus: PropTypes.func,
-};
-
-NotepadWindow.defaultProps = { onFocus: undefined };
-
-// ---------------------------------------------------------------------------
-// "hunt.txt" Notepad window — the Skule™ Hunt trail's next step.
+// "hunt.txt" Notepad window — the Skule™ Hunt trail's next step and the only
+// file in the Recycling Bin.
 // Decoded (shift back 3): "Check the github commits for the new url"
 // The commit in question is "Who holds Ye Olde Mighty Skule Cannon?" → /chief.
 // ---------------------------------------------------------------------------

@@ -3,13 +3,7 @@ import PropTypes from 'prop-types';
 import './ComingSoon.scss';
 
 import { Minesweeper } from './Minesweeper';
-import {
-  useEasterEggs,
-  RecycleBinWindow,
-  NotepadWindow,
-  HuntNotepadWindow,
-  BlueScreen,
-} from './EasterEggs';
+import { useEasterEggs, RecycleBinWindow, HuntNotepadWindow, BlueScreen } from './EasterEggs';
 
 // Committed "coming soon" assets (assets/intial)
 import MyComputerIcon from '../../../assets/intial/MyComputer.png';
@@ -105,7 +99,6 @@ const ComingSoon = ({ routed = false }) => {
   // game (otherwise a sticky `true` would re-reveal mines every reset).
   const [cheatTrigger, setCheatTrigger] = useState(0);
   const [binOpen, setBinOpen] = useState(false); // Recycle Bin window
-  const [fileOpen, setFileOpen] = useState(false); // "do not touch.txt" notepad
   const [huntFileOpen, setHuntFileOpen] = useState(false); // "hunt.txt" notepad
   const [bsod, setBsod] = useState(false); // Blue Screen of Death
   const [konami, setKonami] = useState(false); // brief Konami flash
@@ -405,7 +398,7 @@ const ComingSoon = ({ routed = false }) => {
         <img src={MyComputerIcon} alt="My Computer" />
         <span>My Computer</span>
       </div>
-      {/* Recycling Bin — double-click to open it (hides the "do not touch" egg). */}
+      {/* Recycling Bin — double-click to open it (holds the Skule™ Hunt clue). */}
       <div
         className="cs-desktop-icon cs-icon-button"
         style={at(LAYOUT.iconRecyclingBin)}
@@ -481,19 +474,12 @@ const ComingSoon = ({ routed = false }) => {
         cheatTrigger={cheatTrigger}
       />
 
-      {/* Easter-egg windows: Recycle Bin → "do not touch.txt" / "hunt.txt" */}
+      {/* Easter-egg windows: Recycle Bin → "hunt.txt" */}
       {binOpen && (
         <RecycleBinWindow
           style={{ position: 'absolute', left: 360, top: 170, width: 340, zIndex: 100 }}
-          onOpenFile={() => setFileOpen(true)}
           onOpenHuntFile={() => setHuntFileOpen(true)}
           onClose={() => setBinOpen(false)}
-        />
-      )}
-      {fileOpen && (
-        <NotepadWindow
-          style={{ position: 'absolute', left: 470, top: 250, width: 470, zIndex: 110 }}
-          onClose={() => setFileOpen(false)}
         />
       )}
       {huntFileOpen && (
