@@ -162,7 +162,18 @@ export const people = [
     // only shows up when highlighted. Step 2 of the trail (step 1 is the nudge
     // in the "Where?" section of /skule-hunt).
     hiddenNote: 'check the coming soon page',
-    content: [],
+    content: [
+      "1. Get us a referral to a big tech company (bonus points if it's BME or AI/ML)",
+      '2. Create a CAD of Robarts',
+      '3. Beat the Wikipedia game in 2 mins (https://www.thewikigame.com/)',
+      '4. Tell me your most diabolical high school drama',
+      "5. Beat the F!rosh website's easter egg",
+      '6. Explain a technical/engineering concept in brainrot terms',
+      "7. Solve today's leetcode daily in front of us",
+      '8. Learn and perform a breakdance move',
+      '9. Find a picture of either of us on https://photos.skule.ca',
+      '10. Email a Prof/faculty member (professionally) telling them how excited you are for their class/ or excited about U of T eng AND GET A REPLY (points only if they reply)',
+    ],
     img: Webmasters,
   },
 ];
