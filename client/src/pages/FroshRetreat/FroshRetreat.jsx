@@ -557,7 +557,7 @@ const RetreatRegistration = ({ transportationSoldOut }) => {
               </div>
             ) : null}
 
-            <Button
+            {/* <Button
               label={'Continue to Payment'}
               isDisabled={!isUploaded || buttonClicked}
               onClick={() => {
@@ -582,6 +582,25 @@ const RetreatRegistration = ({ transportationSoldOut }) => {
                   setSnackbar('Please accept the F!rosh Waiver before proceeding!', true);
                 }
               }}
+              style={{
+                marginBottom: '25px',
+                padding: '0',
+                color: 'var(--text-dynamic)',
+                backgroundColor: 'transparent',
+                display: 'block',
+                marginTop: '15px',
+                textAlign: 'center',
+                fontSize: '30px',
+                borderImage: 'none',
+                boxShadow: 'none',
+                WebkitBoxShadow: 'none',
+                MozBoxShadow: 'none',
+                borderRadius: '50px',
+                marginLeft: '0',
+              }}
+            /> */}
+            <Button
+              label={'Retreat Registration Closed!'}
               style={{
                 marginBottom: '25px',
                 padding: '0',
